@@ -2847,10 +2847,9 @@ void handle_object_edit()
 	return;
 }
 
-// [SL:KB] - Patch: Inventory-AttachmentEdit - Checked: 2010-08-25 (Catznip-2.2.0a) | Added: Catznip-2.1.2a
-void handle_attachment_edit(const LLUUID& idItem)
+// [SL:KB] - Patch: Inventory/AttachmentEdit - Checked: 2010-08-25 (Catznip-2.1.2a) | Added: Catznip-2.1.2a
+void handle_attachment_edit(const LLInventoryItem* pItem)
 {
-	const LLInventoryItem* pItem = gInventory.getItem(idItem);
 	if ( (!isAgentAvatarValid()) || (!pItem) )
 		return;
 
@@ -2864,6 +2863,7 @@ void handle_attachment_edit(const LLUUID& idItem)
 	handle_object_edit();
 }
 // [/SL:KB]
+
 
 void handle_object_inspect()
 {
