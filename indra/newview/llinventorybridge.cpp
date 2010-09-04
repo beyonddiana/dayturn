@@ -172,7 +172,7 @@ public:
 	}
 };
 
-// [SL:KB] - Patch: Inventory/AttachmentEdit - Checked: 2010-08-25 (Catznip-2.1.2a) | Added: Catznip-2.1.2a
+// [SL:KB] - Patch: Inventory-AttachmentEdit - Checked: 2010-08-25 (Catznip-2.1.2a) | Added: Catznip-2.1.2a
 // Defined in llviewermenu.cpp
 void handle_attachment_edit(const LLInventoryItem* pItem);
 // [/SL:KB]
@@ -5434,7 +5434,7 @@ void LLObjectBridge::performAction(LLInventoryModel* model, std::string action)
 		}
 		gFocusMgr.setKeyboardFocus(NULL);
 	}
-// [SL:KB] - Patch: Inventory/AttachmentEdit - Checked: 2010-08-25 (Catznip-2.1.2a) | Added: Catznip-2.1.2a
+// [SL:KB] - Patch: Inventory-AttachmentEdit - Checked: 2010-08-25 (Catznip-2.1.2a) | Added: Catznip-2.1.2a
 	else if ("edit" == action)
 	{
 		const LLInventoryItem* pItem = gInventory.getItem(mUUID);
