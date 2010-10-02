@@ -5429,7 +5429,7 @@ void LLObjectBridge::performAction(LLInventoryModel* model, std::string action)
 		}
 		gFocusMgr.setKeyboardFocus(NULL);
 	}
-// [SL:KB] - Patch: Inventory-AttachmentEdit - Checked: 2010-08-25 (Catznip-2.1.2a) | Added: Catznip-2.1.2a
+// [SL:KB] - Patch: Inventory-AttachmentEdit - Checked: 2010-08-25 (Catznip-2.2.0a) | Added: Catznip-2.1.2a
 	else if ("edit" == action)
 	{
 		handle_attachment_edit(mUUID);
