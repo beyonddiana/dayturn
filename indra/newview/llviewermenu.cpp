@@ -2847,7 +2847,7 @@ void handle_object_edit()
 	return;
 }
 
-// [SL:KB] - Patch: Inventory-AttachmentEdit - Checked: 2010-08-25 (Catznip-2.2.0a) | Added: Catznip-2.1.2a
+// [SL:KB] - Patch: Inventory-AttachmentEdit - Checked: 2010-08-25 (Catznip-2.6.0a) | Added: Catznip-2.1.2a
 void handle_attachment_edit(const LLUUID& idItem)
 {
 	const LLInventoryItem* pItem = gInventory.getItem(idItem);
@@ -2862,6 +2862,26 @@ void handle_attachment_edit(const LLUUID& idItem)
 	LLSelectMgr::getInstance()->selectObjectAndFamily(pAttachObj);
 
 	handle_object_edit();
+}
+
+void handle_item_edit(const LLUUID& idItem)
+{
+	const LLInventoryItem* pItem = gInventory.getItem(idItem);
+	if (!pItem)
+		return;
+
+	switch (pItem->getType())
+	{
+		case LLAssetType::AT_BODYPART:
+		case LLAssetType::AT_CLOTHING:
+			LLAgentWearables::editWearable(idItem);
+			break;
+		case LLAssetType::AT_OBJECT:
+			handle_attachment_edit(idItem);
+			break;
+		default:
+			break;
+	}
 }
 // [/SL:KB]
 
