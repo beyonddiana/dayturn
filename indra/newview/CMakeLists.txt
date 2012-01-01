@@ -1661,6 +1661,8 @@ set_source_files_properties(${viewer_XUI_FILES}
 
 list(APPEND viewer_SOURCE_FILES ${viewer_XUI_FILES})
 
+execute_process(COMMAND ${PYTHON_EXECUTABLE} ${SCRIPTS_DIR}/join_settings.py settings)
+
 set(viewer_APPSETTINGS_FILES
     app_settings/anim.ini
     app_settings/cmd_line.xml
@@ -2236,10 +2238,6 @@ if (DARWIN)
   endif (PACKAGE)
 endif (DARWIN)
 
-add_custom_target(JoinSettings ALL
-                  COMMAND ${PYTHON_EXECUTABLE} ${SCRIPTS_DIR}/join_settings.py settings
-                  COMMENT "Generating settings.xml"
-                  )
 
 if (INSTALL)
   include(${CMAKE_CURRENT_SOURCE_DIR}/ViewerInstall.cmake)
