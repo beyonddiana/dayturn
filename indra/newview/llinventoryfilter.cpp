@@ -66,6 +66,7 @@ LLInventoryFilter::LLInventoryFilter(const Params& p)
 :	mName(p.name),
 	mFilterModified(FILTER_NONE),
 	mEmptyLookupMessage("InventoryNoMatchingItems"),
+	mFilterSubStringTarget(SUBST_TARGET_NAME),	// ## Zi: Extended Inventory Search
     mFilterOps(p.filter_ops),
 	mFilterSubString(p.substring),
 	mCurrentGeneration(0),
@@ -75,6 +76,46 @@ LLInventoryFilter::LLInventoryFilter(const Params& p)
 	// copy mFilterOps into mDefaultFilterOps
 	markDefault();
 }
+// ## Zi: Extended Inventory Search
+void LLInventoryFilter::setFilterSubStringTarget(const std::string& targetName)
+{
+	if(targetName=="name")
+		mFilterSubStringTarget=SUBST_TARGET_NAME;
+	else if(targetName=="creator")
+		mFilterSubStringTarget=SUBST_TARGET_CREATOR;
+	else if(targetName=="description")
+		mFilterSubStringTarget=SUBST_TARGET_DESCRIPTION;
+	else if(targetName=="uuid")
+		mFilterSubStringTarget=SUBST_TARGET_UUID;
+	else if(targetName=="all")
+		mFilterSubStringTarget=SUBST_TARGET_ALL;
+	else
+		llwarns << "Unknown sub string target: " << targetName << llendl;
+}
+
+LLInventoryFilter::EFilterSubstringTarget LLInventoryFilter::getFilterSubStringTarget() const
+{
+	return mFilterSubStringTarget;
+}
+
+// returns one of the searchable strings, depending on the currently selected search type
+const std::string& LLInventoryFilter::getSearchableTarget(const LLFolderViewItem* item) const
+{
+	if(mFilterSubStringTarget==SUBST_TARGET_NAME)
+		return item->getSearchableLabel();
+	else if(mFilterSubStringTarget==SUBST_TARGET_CREATOR)
+		return item->getSearchableCreator();
+	else if(mFilterSubStringTarget==SUBST_TARGET_DESCRIPTION)
+		return item->getSearchableDescription();
+	else if(mFilterSubStringTarget==SUBST_TARGET_UUID)
+		return item->getSearchableUUID();
+	else if(mFilterSubStringTarget==SUBST_TARGET_ALL)
+		return item->getSearchableAll();
+
+	llwarns << "Unknown search substring target: " << mFilterSubStringTarget << llendl;
+	return item->getSearchableLabel();
+}
+// ## Zi: Extended Inventory Search
 
 bool LLInventoryFilter::check(const LLFolderViewModelItem* item) 
 {

@@ -70,6 +70,17 @@ public:
 		SO_FOLDERS_BY_NAME = 0x1 << 1,		// Force folder sort by name
 		SO_SYSTEM_FOLDERS_TO_TOP = 0x1 << 2	// Force system folders to be on top
 	};
+	// ## Zi: Extended Inventory Search
+	enum EFilterSubstringTarget
+	{
+		SUBST_TARGET_NAME = 0,			// Classic search for item name
+		SUBST_TARGET_CREATOR,			// Search for creator name
+		SUBST_TARGET_DESCRIPTION,		// Search for item description
+		SUBST_TARGET_UUID,				// Search for asset UUID
+		SUBST_TARGET_ALL					// Search in all fields at the same time
+	};
+	// ## Zi: Extended Inventory Search
+
 
 	struct FilterOps
 	{
@@ -148,6 +159,12 @@ public:
 	LLInventoryFilter(const Params& p = Params());
 	LLInventoryFilter(const LLInventoryFilter& other) { *this = other; }
 	virtual ~LLInventoryFilter() {}
+
+	// ## Zi: Extended Inventory Search
+	void setFilterSubStringTarget(const std::string& targetName);
+	EFilterSubstringTarget getFilterSubStringTarget() const;
+	const std::string& getSearchableTarget(const LLFolderViewItem* item) const;
+	// ## Zi: Extended Inventory Search
 
 	// +-------------------------------------------------------------------+
 	// + Parameters
