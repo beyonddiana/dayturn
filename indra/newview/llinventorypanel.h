@@ -180,6 +180,7 @@ public:
 	void setHoursAgo(U32 hours);
 	BOOL getSinceLogoff();
 	void setFilterLinks(U64 filter_links);
+	U64 getFilterLinks();		// ## Zi: Filter Links Menu
 
 	void setShowFolderState(LLInventoryFilter::EFolderShow show);
 	LLInventoryFilter::EFolderShow getShowFolderState();
