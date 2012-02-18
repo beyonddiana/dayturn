@@ -275,6 +275,9 @@ void LLInventoryPanel::initFromParams(const LLInventoryPanel::Params& params)
 	// keep track of the clipboard state so that we avoid filtering too much
 	mClipboardState = LLClipboard::instance().getGeneration();
 	
+	// <FS:Ansariel> Optional hiding of empty system folders
+	gSavedSettings.getControl("DebugHideEmptySystemFolders")->getSignal()->connect(boost::bind(&LLInventoryPanel::updateHideEmptySystemFolders, this, _2));
+
 	// Initialize base class params.
 	LLPanel::initFromParams(mParams);
 }
@@ -1160,6 +1163,22 @@ BOOL LLInventoryPanel::getSinceLogoff()
 {
 	return getFilter().isSinceLogoff();
 }
+
+// <FS:Ansariel> Optional hiding of empty system folders
+void LLInventoryPanel::updateHideEmptySystemFolders(const LLSD &data)
+{
+	LLInventoryFilter& filter = getFilter();
+	if (data.asBoolean())
+	{
+		filter.setFilterEmptySystemFolders();
+	}
+	else
+	{
+		filter.removeFilterEmptySystemFolders();
+	}
+	filter.setModified(LLInventoryFilter::FILTER_RESTART);
+}
+// </FS:Ansariel> Optional hiding of empty system folders
 
 // DEBUG ONLY
 // static 

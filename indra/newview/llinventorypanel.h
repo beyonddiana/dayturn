@@ -194,6 +194,10 @@ public:
 	void doCreate(const LLSD& userdata);
 	bool beginIMSession();
 	bool attachObject(const LLSD& userdata);
+
+	// <FS:Ansariel> Optional hiding of empty system folders
+	void updateHideEmptySystemFolders(const LLSD &data);
+
 	static void idle(void* user_data);
 
 	// DEBUG ONLY:
