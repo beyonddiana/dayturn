@@ -197,7 +197,8 @@ public:
 
 	// <FS:Ansariel> Optional hiding of empty system folders
 	void updateHideEmptySystemFolders(const LLSD &data);
-
+	// <FS:Ansariel> Optional hiding of Inbox folder
+	void updateShowInboxFolder(const LLSD &data);
 	static void idle(void* user_data);
 
 	// DEBUG ONLY:

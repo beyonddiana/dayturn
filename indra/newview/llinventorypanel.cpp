@@ -264,6 +264,14 @@ void LLInventoryPanel::initFromParams(const LLInventoryPanel::Params& params)
 
 	// hide inbox
 	getFilter().setFilterCategoryTypes(getFilter().getFilterCategoryTypes() & ~(1ULL << LLFolderType::FT_INBOX));
+	// <FS:Ansariel> Optional hiding of Received Items folder aka Inbox
+	//getFilter()->setFilterCategoryTypes(getFilter()->getFilterCategoryTypes() & ~(1ULL << LLFolderType::FT_INBOX));
+	if (!gSavedSettings.getBOOL("FSShowInboxFolder"))
+	{
+		getFilter().setFilterCategoryTypes(getFilter().getFilterCategoryTypes() & ~(1ULL << LLFolderType::FT_INBOX));
+	}
+	gSavedSettings.getControl("FSShowInboxFolder")->getSignal()->connect(boost::bind(&LLInventoryPanel::updateShowInboxFolder, this, _2));
+	// </FS:Ansariel> Optional hiding of Received Items folder aka Inbox
 	getFilter().setFilterCategoryTypes(getFilter().getFilterCategoryTypes() & ~(1ULL << LLFolderType::FT_OUTBOX));
 
 	// set the filter for the empty folder if the debug setting is on
@@ -1179,6 +1187,22 @@ void LLInventoryPanel::updateHideEmptySystemFolders(const LLSD &data)
 	filter.setModified(LLInventoryFilter::FILTER_RESTART);
 }
 // </FS:Ansariel> Optional hiding of empty system folders
+
+// <FS:Ansariel> Optional hiding of Inbox folder
+void LLInventoryPanel::updateShowInboxFolder(const LLSD &data)
+{
+	LLInventoryFilter& filter = getFilter();
+	if (data.asBoolean())
+	{
+		filter.setFilterCategoryTypes(filter.getFilterCategoryTypes() | (1ULL << LLFolderType::FT_INBOX));
+	}
+	else
+	{
+		filter.setFilterCategoryTypes(filter.getFilterCategoryTypes() & ~(1ULL << LLFolderType::FT_INBOX));
+	}
+	filter.setModified(LLInventoryFilter::FILTER_RESTART);
+}
+// </FS:Ansariel> Optional hiding of Inbox folder
 
 // DEBUG ONLY
 // static 
