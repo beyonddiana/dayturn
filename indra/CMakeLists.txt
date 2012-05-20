@@ -72,6 +72,9 @@ add_subdirectory(${VIEWER_PREFIX}test)
 # viewer media plugins
 add_subdirectory(${LIBS_OPEN_PREFIX}media_plugins)
 
+# teapot
+add_subdirectory(${LIBS_OPEN_PREFIX}teapot)
+
   # llplugin testbed code (is this the right way to include it?)
   if (LL_TESTS AND NOT LINUX)
     add_subdirectory(${VIEWER_PREFIX}test_apps/llplugintest)
