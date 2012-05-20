@@ -17458,7 +17458,17 @@
     <key>Value</key>
     <integer>125</integer>
   </map>
-
+		<key>HideBalanceInSnapshots</key>
+		<map>
+			<key>Comment</key>
+			<string>Hide your monetary balance in snapshots</string>
+			<key>Persist</key>
+			<integer>1</integer>
+			<key>Type</key>
+			<string>Boolean</string>
+			<key>Value</key>
+			<integer>0</integer>
+		</map>
       <key>EveryoneCopy</key>
       <map>
         <key>Comment</key>

@@ -74,6 +74,9 @@ public:
 	void setVisibleForMouselook(bool visible);
 		// some elements should hide in mouselook
 
+
+	void hideBalance(bool hide);
+
 	// ACCESSORS
 	S32			getBalance() const;
 	S32			getHealth() const;
