@@ -439,6 +439,11 @@ void LLStatusBar::setHealth(S32 health)
 	mHealth = health;
 }
 
+void LLStatusBar::hideBalance(bool hide)
+{
+	mBoxBalance->setVisible(!hide);
+}
+
 S32 LLStatusBar::getBalance() const
 {
 	return mBalance;

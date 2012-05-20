@@ -368,6 +368,14 @@
          width="180"
          name="hud_check" />
         <check_box
+         control_name="HideBalanceInSnapshots"
+         label="Hide L$ balance"
+         layout="topleft"
+         top_pad="10"
+         left="30"
+         width="180"
+         name="hide_balance_check" />
+        <check_box		
          label="Freeze frame (fullscreen)"
          layout="topleft"
          left="10"

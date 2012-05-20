@@ -4482,6 +4482,11 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 		LLPipeline::sShowHUDAttachments = FALSE;
 	}
 
+	if(show_ui && gSavedSettings.getBOOL("HideBalanceInSnapshots"))
+	{
+		gStatusBar->hideBalance(true);
+	}
+
 	// if not showing ui, use full window to render world view
 	updateWorldViewRect(!show_ui);
 
@@ -4575,10 +4580,12 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 	}
 	else
 	{
+		gStatusBar->hideBalance(false);
 		return FALSE ;
 	}
 	if (raw->isBufferInvalid())
 	{
+		gStatusBar->hideBalance(false);
 		return FALSE ;
 	}
 
@@ -4753,7 +4760,7 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 	{
 		send_agent_resume();
 	}
-	
+	gStatusBar->hideBalance(false);	
 	return ret;
 }
 
