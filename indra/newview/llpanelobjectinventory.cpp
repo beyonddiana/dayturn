@@ -66,6 +66,7 @@
 #include "llviewerregion.h"
 #include "llviewerobjectlist.h"
 #include "llviewermessage.h"
+#include "tea.h"
 // [RLVa:KB] - Checked: 2011-05-22 (RLVa-1.3.1a)
 #include "rlvhandler.h"
 #include "rlvlocks.h"
@@ -730,7 +731,7 @@ void LLTaskInvFVBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 		else
 		{
 			std::ostringstream info;
-			info << LLTrans::getString("BuyforL$") << price;
+			info << Tea::wrapCurrency(LLTrans::getString("BuyforL$")) << price;
 			label.assign(info.str());
 		}
 
@@ -1068,7 +1069,7 @@ void LLTaskSoundBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 		else
 		{
 			std::ostringstream info;
-			info <<  LLTrans::getString("BuyforL$") << price;
+			info <<  Tea::wrapCurrency(LLTrans::getString("BuyforL$")) << price;
 			label.assign(info.str());
 		}
 
@@ -1440,7 +1441,7 @@ void LLTaskMeshBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 		else
 		{
 			std::ostringstream info;
-			info <<  LLTrans::getString("BuyforL$") << price;
+			info <<  Tea::wrapCurrency(LLTrans::getString("BuyforL$")) << price;
 			label.assign(info.str());
 		}
 

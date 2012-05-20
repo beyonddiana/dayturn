@@ -30,6 +30,7 @@
 #include "llfasttimer.h"
 #include "llsd.h"
 #include "lltrans.h"
+#include "tea.h"
 
 LLTrace::BlockTimerStatHandle FTM_UI_STRING("UI String");
 
@@ -128,7 +129,7 @@ void LLUIString::updateResult() const
 		mWResult.clear();
 		return;
 	}
-	mResult = mOrig;
+	mResult = Tea::wrapCurrency(mOrig);
 	
 	// get the default args + local args
 	LLStringUtil::format_map_t combined_args = LLTrans::getDefaultArgs();

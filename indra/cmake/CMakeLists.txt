@@ -94,6 +94,7 @@ set(cmake_SOURCE_FILES
     Python.cmake
     QuickTimePlugin.cmake
     TemplateCheck.cmake
+    Teapot.cmake
     Tut.cmake
     UI.cmake
     UnixInstall.cmake

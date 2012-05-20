@@ -202,6 +202,8 @@
 #include "llstartuplistener.h"
 #include "lltoolbarview.h"
 
+#include "tea.h"
+
 #if LL_WINDOWS
 #include "lldxhardware.h"
 #endif
@@ -3659,22 +3661,36 @@ bool process_login_success_response(U32 &first_sim_size_x, U32 &first_sim_size_y
 							  << gMaxAgentGroups << LL_ENDL;
 	}
 
+	std::string currency = "L$";
+	if(response.has("currency"))
+	{
+		currency = response["currency"].asString();
+		LL_DEBUGS("OS_SETTINGS") << "currency " << currency << llendl;
+	}
+	else if (LLGridManager::getInstance()->isInOpenSim())
+	{
+		currency = "T$";
+		LL_DEBUGS("OS_SETTINGS") << "no currency in login response" << llendl;
+	}
+	Tea::setCurrency(currency);
+
+
 	if(response.has("profile-server-url"))
 	{
-		LL_DEBUGS("OS_SETTINGS") << "profile-server-url" << response["profile-server-url"] << llendl;
+		LL_DEBUGS("OS_SETTINGS") << "profile-server-url " << response["profile-server-url"] << llendl;
 	}
 	else if (LLGridManager::getInstance()->isInOpenSim())
 	{
 		LL_DEBUGS("OS_SETTINGS") << "no profile-server-url in login response" << llendl;	
 	}
 
-	if(response.has("web-profile-url"))
+	if(response.has("search"))
 	{
-		LL_DEBUGS("OS_SETTINGS") << "web-profile-url" << response["web-profile-url"] << llendl;
+		LL_DEBUGS("OS_SETTINGS") << "search " << response["search"] << llendl;
 	}
 	else if (LLGridManager::getInstance()->isInOpenSim())
 	{
-		LL_DEBUGS("OS_SETTINGS") << "no web-profile-url in login response" << llendl;
+		LL_DEBUGS("OS_SETTINGS") << "no search url in login response" << llendl;
 	}
 
 	

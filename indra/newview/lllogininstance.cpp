@@ -587,8 +587,10 @@ void LLLoginInstance::constructAuthParams(LLPointer<LLCredential> user_credentia
 	//TODO: make this more flexible
 	if (LLGridManager::getInstance()->isInOpenSim())
 	{
+		requested_options.append("currency");
 		requested_options.append("max_groups");
 		requested_options.append("profile-server-url");
+		requested_options.append("search");
 		requested_options.append("web-profile-url");
 	}
 

@@ -37,6 +37,7 @@ include(Linking)
 include(NDOF)
 include(NVAPI)
 include(GooglePerfTools)
+include(Teapot)
 include(TemplateCheck)
 include(UI)
 include(UnixInstall)
@@ -89,6 +90,7 @@ include_directories(
     ${LSCRIPT_INCLUDE_DIRS}
     ${LSCRIPT_INCLUDE_DIRS}/lscript_compile
     ${LLLOGIN_INCLUDE_DIRS}
+    ${TEAPOT_INCLUDE_DIRS}
     ${UPDATER_INCLUDE_DIRS}
     ${LIBS_PREBUILT_DIR}/include/collada
     ${LIBS_PREBUILD_DIR}/include/hunspell
