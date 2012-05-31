@@ -63,7 +63,7 @@
   left="80"
   name="heading2"
   width="270"
-  top_pad="5">
+  top_pad="3">
     Automatic position for:
   </text>
   <check_box
@@ -76,7 +76,7 @@
      name="edit_camera_movement"
      tool_tip="Use automatic camera positioning when entering and exiting edit mode"
      width="280"
-     top_pad="5" />
+     top_pad="3" />
   <check_box
    control_name="AppearanceCameraMovement"
    follows="left|top"
@@ -85,8 +85,18 @@
    layout="topleft"
    name="appearance_camera_movement"
    tool_tip="Use automatic camera positioning while in edit mode"
-   width="242" />
-  <icon
+   width="242"
+   top_pad="3"/>
+  <check_box
+   control_name="ResetViewTurnsAvatar"
+   follows="left|top"
+   height="16"
+   label="Turn avatar towards camera direction on reset view"
+   layout="topleft"
+   name="resetviewturnsavatar"
+   tool_tip="This option keeps the camera direction and turns the avatar when Reset View is selected (hit ESC key)."
+   width="350"/> 
+ <icon
 	 follows="left|top"
 	 height="18"
 	 image_name="Keyboard"
