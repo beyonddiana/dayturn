@@ -5641,7 +5641,9 @@ void process_sound_trigger(LLMessageSystem *msg, void **)
 		return;
 	}
 
-	gAudiop->triggerSound(sound_id, owner_id, gain, LLAudioEngine::AUDIO_TYPE_SFX, pos_global);
+  // NaCl - Sound Explorer
+	gAudiop->triggerSound(sound_id, owner_id, gain, LLAudioEngine::AUDIO_TYPE_SFX, pos_global, object_id);
+  // NaC
 }
 
 void process_preload_sound(LLMessageSystem *msg, void **user_data)
