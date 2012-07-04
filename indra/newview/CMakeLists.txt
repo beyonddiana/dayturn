@@ -1382,6 +1382,7 @@ set(viewer_HEADER_FILES
     VertexCache.h
     viewerinfo.h
     VorbisFramework.h
+	NACLfloaterexploresounds.h
     )
 
 source_group("CMake Rules" FILES ViewerInstall.cmake)
