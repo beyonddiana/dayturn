@@ -210,11 +210,11 @@ Hover your mouse over the options for more help.
          halign="left"
          height="23"
          increment="1"
-         label_width="15"
+         label_width="17"
          label="L$"
          layout="topleft"
          max_val="99999"
-         left="30"
+         left="33"
          name="spin_enrollment_fee"
          tool_tip="New members must pay this fee to join the group when Enrollment Fee is checked."
          width="170" />
