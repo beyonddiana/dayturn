@@ -324,10 +324,10 @@
 你的 L$ 不夠加入這群組。
 	</notification>
 	<notification name="CreateGroupCost">
-		創立這個群組費用為 L$100。
+		創立這個群組費用為 L$[COST]。
 群組需有至少兩位成員，否則將永久被刪除。
 請在 48 小時內邀請成員加入。
-		<usetemplate canceltext="取消" name="okcancelbuttons" notext="取消" yestext="花費 L$100 建立群組"/>
+		<usetemplate canceltext="取消" name="okcancelbuttons" notext="取消" yestext="花費 L$[COST] 建立群組"/>
 	</notification>
 	<notification name="LandBuyPass">
 		花費 L$[COST]，可進入「[PARCEL_NAME]」土地，停留 [TIME] 小時。  購買通行權？
