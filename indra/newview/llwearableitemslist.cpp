@@ -37,7 +37,7 @@
 #include "llinventoryicon.h"
 #include "lltransutil.h"
 #include "llviewerattachmenu.h"
-// [SL:KB] - Patch: Inventory-AttachmentActions - Checked: 2010-09-04 (Catznip-3.3.0)
+// [SL:KB] - Patch: Inventory-AttachmentActions - Checked: 2010-09-04 (Catznip-2.1)
 #include "llviewermenu.h"
 // [/SL:KB]
 #include "llvoavatarself.h"
@@ -800,7 +800,7 @@ LLContextMenu* LLWearableItemsList::ContextMenu::createMenu()
 	registrar.add("Wearable.Wear", boost::bind(wear_multiple, ids, true));
 	registrar.add("Wearable.Add", boost::bind(wear_multiple, ids, false));
 //	registrar.add("Wearable.Edit", boost::bind(handleMultiple, LLAgentWearables::editWearable, ids));
-// [SL:KB] - Patch: Inventory-AttachmentActions - Checked: 2010-09-04 (Catznip-3.3.0)
+// [SL:KB] - Patch: Inventory-AttachmentActions - Checked: 2010-09-04 (Catznip-2.1)
 	registrar.add("Wearable.Edit", boost::bind(handle_item_edit, selected_id));
 // [/SL:KB]
 	registrar.add("Wearable.CreateNew", boost::bind(createNewWearable, selected_id));
@@ -815,7 +815,7 @@ LLContextMenu* LLWearableItemsList::ContextMenu::createMenu()
 	// Register handlers for body parts.
 
 	// Register handlers for attachments.
-// [SL:KB] - Patch: Inventory-AttachmentActions - Checked: 2012-05-05 (Catznip-3.3.0)
+// [SL:KB] - Patch: Inventory-AttachmentActions - Checked: 2012-05-05 (Catznip-3.3)
 	registrar.add("Attachment.Touch", boost::bind(handle_attachment_touch, selected_id));
 // [/SL:KB]
 	registrar.add("Attachment.Profile", boost::bind(show_item_profile, selected_id));
@@ -875,9 +875,8 @@ void LLWearableItemsList::ContextMenu::updateItemsVisibility(LLContextMenu* menu
 		const bool is_link = item->getIsLinkType();
 		const bool is_worn = get_is_item_worn(id);
 //		const bool is_editable = gAgentWearables.isWearableModifiable(id);
-// [SL:KB] - Patch: Inventory-AttachmentActions - Checked: 2010-09-04 (Catznip-3.3.0)
-		const bool is_editable = 
-			(item->isWearableType()) ? gAgentWearables.isWearableModifiable(id) : (LLAssetType::AT_OBJECT == item->getType());
+// [SL:KB] - Patch: Inventory-AttachmentActions - Checked: 2010-09-04 (Catznip-2.1)
+		const bool is_editable = enable_item_edit(id);
 // [/SL:KB]
 		const bool is_already_worn = gAgentWearables.selfHasWearable(wearable_type);
 		if (is_worn)
@@ -942,7 +941,7 @@ void LLWearableItemsList::ContextMenu::updateItemsVisibility(LLContextMenu* menu
 // [/RLVa:KB]
 	//visible only when one item selected and this item is worn
 //	setMenuItemVisible(menu, "edit",				!standalone && mask & (MASK_CLOTHING|MASK_BODYPART) && n_worn == n_items && n_worn == 1);
-// [SL:KB] - Patch: Inventory-AttachmentActions - Checked: 2010-09-04 (Catznip-3.3.0)
+// [SL:KB] - Patch: Inventory-AttachmentActions - Checked: 2012-05-05 (Catznip-3.3)
 	setMenuItemVisible(menu, "touch",				mask == MASK_ATTACHMENT && n_worn == n_items);
 	setMenuItemEnabled(menu, "touch",				n_worn == 1 && enable_attachment_touch(mUUIDs.front()));
 	setMenuItemVisible(menu, "edit",				!standalone && mask & (MASK_CLOTHING|MASK_BODYPART|MASK_ATTACHMENT) && n_worn == n_items && n_worn == 1);
