@@ -57,6 +57,10 @@ public:
 
 		Optional<LLTextBox::Params> label_text;
 		Optional<LLButton::Params> check_button;
+        
+        // <FS:Ansariel> on_check callback parameter
+        Optional<EnableCallbackParam> on_check;
+        // </FS:Ansariel>
 
 		Ignored					radio_style;
 
@@ -108,6 +112,18 @@ public:
 
 	virtual BOOL		isDirty()	const;		// Returns TRUE if the user has modified this control.
 	virtual void		resetDirty();			// Clear dirty state
+
+    // <FS:Ansariel> on_check callback parameter
+    
+    virtual void        draw();
+    boost::signals2::connection setCheckCallback( const enable_signal_t::slot_type& cb )
+    {
+        return mCheckSignal.connect(cb);
+    }
+    
+private:
+    enable_signal_t mCheckSignal;
+    // </FS:Ansariel>
 
 protected:
 	virtual std::string _getSearchText() const
