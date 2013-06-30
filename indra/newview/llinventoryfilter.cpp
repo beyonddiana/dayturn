@@ -69,7 +69,7 @@ LLInventoryFilter::LLInventoryFilter(const Params& p)
 	mFilterModified(FILTER_NONE),
 	mEmptyLookupMessage("InventoryNoMatchingItems"),
 	mFilterSubStringTarget(SUBST_TARGET_NAME),	// ## Zi: Extended Inventory Search
-    mFilterOps(p.filter_ops),
+	mFilterOps(p.filter_ops),
 	mFilterSubString(p.substring),
 	mCurrentGeneration(0),
 	mFirstRequiredGeneration(0),
