@@ -1245,17 +1245,17 @@ BOOL LLPanelMainInventory::isFilterLinksChecked(const LLSD& userdata)
 	const std::string command_name = userdata.asString();
 	if (command_name == "show_links")
 	{
-		return (getActivePanel()->getFilter()->getFilterLinks()==LLInventoryFilter::FILTERLINK_INCLUDE_LINKS);
+		return (getActivePanel()->getFilter().getFilterLinks() == LLInventoryFilter::FILTERLINK_INCLUDE_LINKS);
 	}
 
 	if (command_name == "only_links")
 	{
-		return (getActivePanel()->getFilter()->getFilterLinks()==LLInventoryFilter::FILTERLINK_ONLY_LINKS);
+		return (getActivePanel()->getFilter().getFilterLinks() == LLInventoryFilter::FILTERLINK_ONLY_LINKS);
 	}
 
 	if (command_name == "hide_links")
 	{
-		return (getActivePanel()->getFilter()->getFilterLinks()==LLInventoryFilter::FILTERLINK_EXCLUDE_LINKS);
+		return (getActivePanel()->getFilter().getFilterLinks() == LLInventoryFilter::FILTERLINK_EXCLUDE_LINKS);
 	}
 
 	return FALSE;
