@@ -45,6 +45,7 @@ class LLMenuGL;
 class LLCallingCardObserver;
 class LLViewerJointAttachment;
 class LLFolderView;
+class FSFolderViewModelItem;
 
 typedef std::vector<std::string> menuentry_vec_t;
 
@@ -184,6 +185,13 @@ protected:
 
 	void purgeItem(LLInventoryModel *model, const LLUUID &uuid);
 	virtual void buildDisplayName() const {}
+	// <FS:ND> Reintegrate search by uuid/creator/descripting from Zi Ree after CHUI Merge
+public:
+	virtual std::string getSearchableCreator( void ) const;
+	virtual std::string getSearchableDescription( void ) const;
+	virtual std::string getSearchableUUID( void ) const;
+	virtual std::string getSearchableAll( void ) const;
+	// </FS:ND>
 };
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -678,5 +686,6 @@ BOOL move_inv_category_world_to_agent(const LLUUID& object_id,
 void hide_context_entries(LLMenuGL& menu, 
 						  const menuentry_vec_t &entries_to_show, 
 						  const menuentry_vec_t &disabled_entries);
+
 
 #endif // LL_LLINVENTORYBRIDGE_H

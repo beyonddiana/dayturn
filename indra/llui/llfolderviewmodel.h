@@ -27,7 +27,21 @@
 
 #include "llfontgl.h"	// just for StyleFlags enum
 #include "llfolderview.h"
-
+// <FS:ND> Reintegrate search by uuid/creator/descripting from Zi Ree after CHUI Merge
+// Interface to query extended object attributes,
+class FSFolderViewModelItem
+{
+public:
+	virtual std::string getSearchableCreator( void ) const
+	{ return ""; }
+	virtual std::string getSearchableDescription( void ) const
+	{ return ""; }
+	virtual std::string getSearchableUUID( void ) const
+	{ return ""; }
+	virtual std::string getSearchableAll( void ) const
+	{ return ""; }
+};
+// </FS:ND>
 // These are grouping of inventory types.
 // Order matters when sorting system folders to the top.
 enum EInventorySortGroup
@@ -128,7 +142,7 @@ public:
 
 // This is an abstract base class that users of the folderview classes
 // would use to bridge the folder view with the underlying data
-class LLFolderViewModelItem : public LLRefCount
+class LLFolderViewModelItem : public LLRefCount, public FSFolderViewModelItem
 {
 public:
 	LLFolderViewModelItem() { }
@@ -353,9 +367,94 @@ protected:
 	void setFolderViewItem(LLFolderViewItem* folder_view_item) { mFolderViewItem = folder_view_item;}
 	LLFolderViewItem*		mFolderViewItem;
 };
+#if 0
+// This is an abstract base class that users of the folderview classes
+// would use to bridge the folder view with the underlying data
+class LLFolderViewModelItem : public LLRefCount, public FSFolderViewModelItem
+{
+public:
+	LLFolderViewModelItem() { }
+	virtual ~LLFolderViewModelItem() { }
 
+	virtual void update() {}	//called when drawing
+	virtual const std::string& getName() const = 0;
+	virtual const std::string& getDisplayName() const = 0;
+	virtual const std::string& getSearchableName() const = 0;
 
+	virtual LLPointer<LLUIImage> getIcon() const = 0;
+	virtual LLPointer<LLUIImage> getIconOpen() const { return getIcon(); }
+	virtual LLPointer<LLUIImage> getIconOverlay() const { return NULL; }
 
+	virtual LLFontGL::StyleFlags getLabelStyle() const = 0;
+	virtual std::string getLabelSuffix() const = 0;
+
+	virtual void openItem( void ) = 0;
+	virtual void closeItem( void ) = 0;
+	virtual void selectItem(void) = 0;
+
+	virtual BOOL isItemRenameable() const = 0;
+	virtual BOOL renameItem(const std::string& new_name) = 0;
+
+	virtual BOOL isItemMovable( void ) const = 0;		// Can be moved to another folder
+	virtual void move( LLFolderViewModelItem* parent_listener ) = 0;
+
+	virtual BOOL isItemRemovable( void ) const = 0;		// Can be destroyed
+	virtual BOOL removeItem() = 0;
+	virtual void removeBatch(std::vector<LLFolderViewModelItem*>& batch) = 0;
+
+	virtual BOOL isItemCopyable() const = 0;
+	virtual BOOL copyToClipboard() const = 0;
+	virtual BOOL cutToClipboard() const = 0;
+
+	virtual BOOL isClipboardPasteable() const = 0;
+	virtual void pasteFromClipboard() = 0;
+	virtual void pasteLinkFromClipboard() = 0;
+
+	virtual void buildContextMenu(LLMenuGL& menu, U32 flags) = 0;
+	
+	virtual bool potentiallyVisible() = 0; // is the item definitely visible or we haven't made up our minds yet?
+
+	virtual bool filter( LLFolderViewFilter& filter) = 0;
+	virtual bool passedFilter(S32 filter_generation = -1) = 0;
+	virtual bool descendantsPassedFilter(S32 filter_generation = -1) = 0;
+	virtual void setPassedFilter(bool passed, S32 filter_generation, std::string::size_type string_offset = std::string::npos, std::string::size_type string_size = 0) = 0;
+	virtual void setPassedFolderFilter(bool passed, S32 filter_generation) = 0;
+	virtual void dirtyFilter() = 0;
+	virtual bool hasFilterStringMatch() = 0;
+	virtual std::string::size_type getFilterStringOffset() = 0;
+	virtual std::string::size_type getFilterStringSize() = 0;
+
+	virtual S32	getLastFilterGeneration() const = 0;
+
+	virtual bool hasChildren() const = 0;
+	virtual void addChild(LLFolderViewModelItem* child) = 0;
+	virtual void removeChild(LLFolderViewModelItem* child) = 0;
+
+	// This method will be called to determine if a drop can be
+	// performed, and will set drop to TRUE if a drop is
+	// requested. Returns TRUE if a drop is possible/happened,
+	// otherwise FALSE.
+	virtual BOOL dragOrDrop(MASK mask, BOOL drop,
+							EDragAndDropType cargo_type,
+							void* cargo_data,
+							std::string& tooltip_msg) = 0;
+
+	virtual void requestSort() = 0;
+	virtual S32 getSortVersion() = 0;
+	virtual void setSortVersion(S32 version) = 0;
+	virtual void setParent(LLFolderViewModelItem* parent) = 0;
+	virtual bool hasParent() = 0;
+
+	// <FS:Ansariel> Special for protected items
+	virtual bool isProtected() const { return false; }
+
+protected:
+
+	friend class LLFolderViewItem;
+	virtual void setFolderViewItem(LLFolderViewItem* folder_view_item) = 0;
+
+};
+#endif
 class LLFolderViewModelCommon : public LLFolderViewModelInterface
 {
 public:
@@ -388,6 +487,8 @@ class LLFolderViewModel : public LLFolderViewModelCommon
 public:
 	LLFolderViewModel(){}
 	virtual ~LLFolderViewModel() {}
+
+
 
 	typedef SORT_TYPE		SortType;
 	typedef ITEM_TYPE		ItemType;

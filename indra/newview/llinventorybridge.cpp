@@ -6673,4 +6673,64 @@ LLInvFVBridge* LLRecentInventoryBridgeBuilder::createBridge(
 	return new_listener;
 }
 
+// <FS:ND> Reintegrate search by uuid/creator/descripting from Zi Ree after CHUI Merge
+std::string LLInvFVBridge::getSearchableCreator( void ) const
+{
+	LLInventoryItem *pItem( dynamic_cast< LLInventoryItem* >( getInventoryObject() ) );
+
+	std::string strCreator;
+	if(pItem)
+	{
+		if( gCacheName->getFullName( pItem->getCreatorUUID(), strCreator ) )
+			LLStringUtil::toUpper( strCreator );
+	}
+
+	return strCreator;
+}
+
+std::string LLInvFVBridge::getSearchableDescription( void ) const
+{
+	LLInventoryItem *pItem( dynamic_cast< LLInventoryItem* >( getInventoryObject() ) );
+
+	std::string strDescr;
+
+	if(pItem)
+	{
+		if(!pItem->getDescription().empty() )
+		{
+			strDescr =  pItem->getDescription();
+			LLStringUtil::toUpper( strDescr );
+		}
+	}
+
+	return strDescr;
+}
+
+std::string LLInvFVBridge::getSearchableUUID( void ) const
+{
+	LLInventoryItem *pItem( dynamic_cast< LLInventoryItem* >( getInventoryObject() ) );
+
+	std::string strUUID;
+	if(pItem)
+	{
+		if(!pItem->getAssetUUID().isNull())
+		{
+			strUUID = pItem->getAssetUUID().asString();
+			LLStringUtil::toUpper( strUUID );
+		}
+
+	}
+	return strUUID;
+
+}
+
+std::string LLInvFVBridge::getSearchableAll( void ) const
+{
+	return getSearchableName() + "+" +
+		getSearchableCreator() + "+" + 
+		getSearchableDescription() + "+" +
+		getSearchableUUID();
+}
+// </FS:ND>
+
 // EOF

@@ -37,6 +37,15 @@ class LLFolderViewModelItemInventory
 	:	public LLFolderViewModelItemCommon
 {
 public:
+	virtual std::string getSearchableCreator( void ) const
+	{ return ""; }
+	virtual std::string getSearchableDescription( void ) const
+	{ return ""; }
+	virtual std::string getSearchableUUID( void ) const
+	{ return ""; }
+	virtual std::string getSearchableAll( void ) const
+	{ return ""; }
+
 	LLFolderViewModelItemInventory(class LLFolderViewModelInventory& root_view_model);
 	virtual const LLUUID& getUUID() const = 0;
 	virtual time_t getCreationDate() const = 0;	// UTC seconds
