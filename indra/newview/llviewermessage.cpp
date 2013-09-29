@@ -4113,7 +4113,7 @@ void process_teleport_finish(LLMessageSystem* msg, void**)
 	// <FS:CR> FIRE-5118 - Lightshare support
 	if(gSimulatorType != "SecondLife")
 	{
-		FSLightshare::getInstance()->processLightshareRefresh();
+		FSLightshare::getInstance()->processLightshareReset();
 	}
 	// </FS:CR>
 
