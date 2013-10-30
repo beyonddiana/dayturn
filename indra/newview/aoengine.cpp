@@ -795,9 +795,8 @@ void AOEngine::purgeFolder(const LLUUID& uuid) const
 	gInventory.notifyObservers();
 
 	// purge it
-	gInventory.purgeObject(uuid);
+	gInventory.onDescendentsPurgedFromServer(uuid);
 	gInventory.notifyObservers();
-
 	// protect it
 	gSavedPerAccountSettings.setBOOL("ProtectAOFolders",wasProtected);
 }
