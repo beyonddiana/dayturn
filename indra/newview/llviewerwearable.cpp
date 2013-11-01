@@ -267,7 +267,7 @@ void LLViewerWearable::setParamsToDefaults()
 	{
 		if( (((LLViewerVisualParam*)param)->getWearableType() == mType ) && (param->isTweakable() ) )
 		{
-			setVisualParamWeight(param->getID(),param->getDefaultWeight());
+			setVisualParamWeight(param->getID(),param->getDefaultWeight(), FALSE);
 		}
 	}
 }
@@ -323,6 +323,16 @@ void LLViewerWearable::writeToAvatar(LLAvatarAppearance *avatarp)
 
 	if (!viewer_avatar->isValid()) return;
 
+#if 0
+	// FIXME DRANO - kludgy way to avoid overwriting avatar state from wearables.
+	// Ideally would avoid calling this func in the first place.
+	if (viewer_avatar->isUsingServerBakes() &&
+		!viewer_avatar->isUsingLocalAppearance())
+	{
+		return;
+	}
+#endif
+
 	ESex old_sex = avatarp->getSex();
 
 	LLWearable::writeToAvatar(avatarp);
@@ -352,14 +362,19 @@ void LLViewerWearable::writeToAvatar(LLAvatarAppearance *avatarp)
 	ESex new_sex = avatarp->getSex();
 	if( old_sex != new_sex )
 	{
-		viewer_avatar->updateSexDependentLayerSets();
+		viewer_avatar->updateSexDependentLayerSets( FALSE );
 	}	
+	
+//	if( upload_bake )
+//	{
+//		gAgent.sendAgentSetAppearance();
+//	}
 }
 
 
 // Updates the user's avatar's appearance, replacing this wearables' parameters and textures with default values.
 // static 
-void LLViewerWearable::removeFromAvatar( LLWearableType::EType type)
+void LLViewerWearable::removeFromAvatar( LLWearableType::EType type, BOOL upload_bake )
 {
 	if (!isAgentAvatarValid()) return;
 
@@ -378,7 +393,7 @@ void LLViewerWearable::removeFromAvatar( LLWearableType::EType type)
 		if( (((LLViewerVisualParam*)param)->getWearableType() == type) && (param->isTweakable() ) )
 		{
 			S32 param_id = param->getID();
-			gAgentAvatarp->setVisualParamWeight( param_id, param->getDefaultWeight());
+			gAgentAvatarp->setVisualParamWeight( param_id, param->getDefaultWeight(), upload_bake );
 		}
 	}
 
@@ -388,7 +403,12 @@ void LLViewerWearable::removeFromAvatar( LLWearableType::EType type)
 	}
 
 	gAgentAvatarp->updateVisualParams();
-	gAgentAvatarp->wearableUpdated(type);
+	gAgentAvatarp->wearableUpdated(type, FALSE);
+
+//	if( upload_bake )
+//	{
+//		gAgent.sendAgentSetAppearance();
+//	}
 }
 
 // Does not copy mAssetID.
@@ -461,6 +481,13 @@ void LLViewerWearable::setItemID(const LLUUID& item_id)
 
 void LLViewerWearable::revertValues()
 {
+#if 0
+	// DRANO avoid overwrite when not in local appearance
+	if (isAgentAvatarValid() && gAgentAvatarp->isUsingServerBakes() && !gAgentAvatarp->isUsingLocalAppearance())
+	{
+		return;
+	}
+#endif
 	LLWearable::revertValues();
 
 
@@ -496,6 +523,13 @@ void LLViewerWearable::refreshName()
 	{
 		mName = item->getName();
 	}
+}
+
+// virtual
+void LLViewerWearable::addToBakedTextureHash(LLMD5& hash) const
+{
+	LLUUID asset_id = getAssetID();
+	hash.update((const unsigned char*)asset_id.mData, UUID_BYTES);
 }
 
 struct LLWearableSaveData

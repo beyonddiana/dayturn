@@ -4128,7 +4128,7 @@ bool LLAppearanceMgr::moveWearable(LLViewerInventoryItem* item, bool closer_to_b
 	bool result = false;
 	if (result = gAgentWearables.moveWearable(item, closer_to_body))
 	{
-		gAgentAvatarp->wearableUpdated(item->getWearableType());
+		gAgentAvatarp->wearableUpdated(item->getWearableType(), FALSE);
 	}
 
 	setOutfitDirty(true);
@@ -4536,7 +4536,7 @@ public:
 			LLAppearanceMgr::getInstance()->wearInventoryCategory(category, true, false);
 
 			// *TODOw: This may not be necessary if initial outfit is chosen already -- josh
-			gAgent.setOutfitChosen(TRUE);
+			gAgent.setGenderChosen(TRUE);
 		}
 
 		// release avatar picker keyboard focus

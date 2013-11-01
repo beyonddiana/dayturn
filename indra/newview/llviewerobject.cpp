@@ -56,7 +56,6 @@
 #include "llaudiosourcevo.h"
 #include "llagent.h"
 #include "llagentcamera.h"
-#include "llagentwearables.h"
 #include "llbbox.h"
 #include "llbox.h"
 #include "llcylinder.h"
@@ -157,7 +156,6 @@ LLViewerObject *LLViewerObject::createObject(const LLUUID &id, const LLPCode pco
 			{
 				gAgentAvatarp = new LLVOAvatarSelf(id, pcode, regionp);
 				gAgentAvatarp->initInstance();
-				gAgentWearables.setAvatarObject(gAgentAvatarp);
 			}
 			else 
 			{

@@ -183,7 +183,7 @@ BOOL LLTexLayerParamAlpha::getMultiplyBlend() const
 	return ((LLTexLayerParamAlphaInfo *)getInfo())->mMultiplyBlend; 	
 }
 
-void LLTexLayerParamAlpha::setWeight(F32 weight)
+void LLTexLayerParamAlpha::setWeight(F32 weight, BOOL upload_bake)
 {
 	if (mIsAnimating || mTexLayer == NULL)
 	{
@@ -207,29 +207,29 @@ void LLTexLayerParamAlpha::setWeight(F32 weight)
 	}
 }
 
-void LLTexLayerParamAlpha::setAnimationTarget(F32 target_value)
+void LLTexLayerParamAlpha::setAnimationTarget(F32 target_value, BOOL upload_bake)
 { 
 	// do not animate dummy parameters
 	if (mIsDummy)
 	{
-		setWeight(target_value);
+		setWeight(target_value, upload_bake);
 		return;
 	}
 
 	mTargetWeight = target_value; 
-	setWeight(target_value); 
+	setWeight(target_value, upload_bake); 
 	mIsAnimating = TRUE;
 	if (mNext)
 	{
-		mNext->setAnimationTarget(target_value);
+		mNext->setAnimationTarget(target_value, upload_bake);
 	}
 }
 
-void LLTexLayerParamAlpha::animate(F32 delta)
+void LLTexLayerParamAlpha::animate(F32 delta, BOOL upload_bake)
 {
 	if (mNext)
 	{
-		mNext->animate(delta);
+		mNext->animate(delta, upload_bake);
 	}
 }
 
@@ -476,8 +476,7 @@ LLColor4 LLTexLayerParamColor::getNetColor() const
 	}
 }
 
-
-void LLTexLayerParamColor::setWeight(F32 weight)
+void LLTexLayerParamColor::setWeight(F32 weight, BOOL upload_bake)
 {
 	if (mIsAnimating)
 	{
@@ -514,23 +513,23 @@ void LLTexLayerParamColor::setWeight(F32 weight)
 	}
 }
 
-void LLTexLayerParamColor::setAnimationTarget(F32 target_value)
+void LLTexLayerParamColor::setAnimationTarget(F32 target_value, BOOL upload_bake)
 { 
 	// set value first then set interpolating flag to ignore further updates
 	mTargetWeight = target_value; 
-	setWeight(target_value);
+	setWeight(target_value, upload_bake);
 	mIsAnimating = TRUE;
 	if (mNext)
 	{
-		mNext->setAnimationTarget(target_value);
+		mNext->setAnimationTarget(target_value, upload_bake);
 	}
 }
 
-void LLTexLayerParamColor::animate(F32 delta)
+void LLTexLayerParamColor::animate(F32 delta, BOOL upload_bake)
 {
 	if (mNext)
 	{
-		mNext->animate(delta);
+		mNext->animate(delta, upload_bake);
 	}
 }
 
