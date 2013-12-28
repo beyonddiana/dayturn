@@ -201,7 +201,7 @@ void LLTexLayerParamAlpha::setWeight(F32 weight, BOOL upload_bake)
 		if ((mAvatarAppearance->getSex() & getSex()) &&
 			(mAvatarAppearance->isSelf() && !mIsDummy)) // only trigger a baked texture update if we're changing a wearable's visual param.
 		{
-			mAvatarAppearance->invalidateComposite(mTexLayer->getTexLayerSet());
+			mAvatarAppearance->invalidateComposite(mTexLayer->getTexLayerSet(), upload_bake);
 			mTexLayer->invalidateMorphMasks();
 		}
 	}
@@ -502,10 +502,10 @@ void LLTexLayerParamColor::setWeight(F32 weight, BOOL upload_bake)
 
 		if ((mAvatarAppearance->getSex() & getSex()) && (mAvatarAppearance->isSelf() && !mIsDummy)) // only trigger a baked texture update if we're changing a wearable's visual param.
 		{
-			onGlobalColorChanged();
+			onGlobalColorChanged(upload_bake);
 			if (mTexLayer)
 			{
-				mAvatarAppearance->invalidateComposite(mTexLayer->getTexLayerSet());
+				mAvatarAppearance->invalidateComposite(mTexLayer->getTexLayerSet(), upload_bake);
 			}
 		}
 
