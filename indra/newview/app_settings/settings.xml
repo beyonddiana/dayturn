@@ -4721,6 +4721,17 @@
       <key>Value</key>
       <integer>255</integer>
     </map>
+    <key>ForceInitialCOFDelay</key>
+    <map>
+      <key>Comment</key>
+      <string>Number of seconds to delay initial processing of COF contents</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>F32</string>
+      <key>Value</key>
+      <integer>0.0</integer>
+    </map>
     <key>ForceShowGrid</key>
     <map>
       <key>Comment</key>
@@ -4742,6 +4753,17 @@
       <string>Boolean</string>
       <key>Value</key>
       <integer>0</integer>
+    </map>
+    <key>ForceMissingType</key>
+    <map>
+      <key>Comment</key>
+      <string>Force this wearable type to be missing from COF</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>U32</string>
+      <key>Value</key>
+      <integer>255</integer>
     </map>
     <key>FreezeTime</key>
     <map>
@@ -7239,6 +7261,17 @@
       <string>S32</string>
       <key>Value</key>
       <integer>305</integer>
+    </map>
+    <key>NotificationCanEmbedInIM</key>
+    <map>
+      <key>Comment</key>
+      <string>Controls notification panel embedding in IMs (0 = default, 1 = focused, 2 = never)</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>S32</string>
+      <key>Value</key>
+      <integer>0</integer>
     </map>
     <key>NotificationConferenceIMOptions</key>
     <map>
@@ -11498,7 +11531,7 @@
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
-      <integer>1</integer>
+      <boolean>1</boolean>
     </map>
     <key>NearbyListShowIcons</key>
     <map>

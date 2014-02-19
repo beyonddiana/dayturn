@@ -35,6 +35,9 @@
 #include "llviewernetwork.h"
 #include "llfiltersd2xmlrpc.h"
 #include "curl/curl.h"
+// [RLVa:KB] - Checked: 2010-04-05 (RLVa-1.2.0d)
+#include "rlvhandler.h"
+// [/RLVa:KB]
 #include <boost/algorithm/string.hpp>
 #include "llworld.h"
 const char* LLSLURL::HOP_SCHEME		 = "hop";
@@ -548,8 +551,14 @@ std::string LLSLURL::getSLURLString() const
 				std::string ret = LLGridManager::getInstance()->getSLURLBase(mGrid);
 				ret.append(LLURI::escape(mRegion));
 				ret.append(llformat("/%d/%d/%d",x,y,z));
-				LL_DEBUGS("SLURL") << "Location: " << ret << LL_ENDL;
-				return ret;
+
+//				return LLGridManager::getInstance()->getSLURLBase(mGrid) + 
+//				LLURI::escape(mRegion) + llformat("/%d/%d/%d",x,y,z); 
+// [RLVa:KB] - Checked: 2010-04-05 (RLVa-1.2.0d) | Added: RLVa-1.2.0d
+				return LLGridManager::getInstance()->getSLURLBase(mGrid) +
+					( ((!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC)) || (!RlvUtil::isNearbyRegion(mRegion)))
+						? (LLURI::escape(mRegion) + llformat("/%d/%d/%d",x,y,z)) : RlvStrings::getString(RLV_STRING_HIDDEN_REGION) );
+// [/RLVa:KB]
 			}
 
 		case APP:
