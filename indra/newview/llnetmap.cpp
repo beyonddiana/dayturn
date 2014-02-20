@@ -459,7 +459,6 @@ void LLNetMap::draw()
 			}
 
 			pos_map = globalPosToView(positions[i]);
-			bool show_as_friend = (LLAvatarTracker::instance().getBuddyInfo(uuid) != NULL);
 			LLColor4 color = show_as_friend ? map_avatar_friend_color : map_avatar_color;
 
 			unknown_relative_z = false;

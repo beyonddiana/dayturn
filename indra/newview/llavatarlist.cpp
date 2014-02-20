@@ -284,9 +284,8 @@ void LLAvatarList::refresh()
 		const LLUUID& buddy_id = *it;
 		LLAvatarName av_name;
 		have_names &= LLAvatarNameCache::get(buddy_id, &av_name);
-		std::string display_name = getNameToDisplay(av_name);
 
-		if (!have_filter || findInsensitive(display_name, mNameFilter))
+		if (!have_filter || findInsensitive(av_name.getDisplayName(), mNameFilter))
 		{
 			if (nadded >= ADD_LIMIT)
 			{
@@ -304,6 +303,7 @@ void LLAvatarList::refresh()
 				}
 				else
 				{
+					std::string display_name = av_name.getDisplayName();
 					addNewItem(buddy_id, 
 						display_name.empty() ? waiting_str : display_name, 
 						LLAvatarTracker::instance().isBuddyOnline(buddy_id));
@@ -333,7 +333,7 @@ void LLAvatarList::refresh()
 			const LLUUID& buddy_id = it->asUUID();
 			LLAvatarName av_name;
 			have_names &= LLAvatarNameCache::get(buddy_id, &av_name);
-			if (!findInsensitive(getNameToDisplay(av_name), mNameFilter))
+			if (!findInsensitive(av_name.getDisplayName(), mNameFilter))
 			{
 				removeItemByUUID(buddy_id);
 				modified = true;
@@ -406,7 +406,7 @@ bool LLAvatarList::filterHasMatches()
 		// If name has not been loaded yet we consider it as a match.
 		// When the name will be loaded the filter will be applied again(in refresh()).
 
-		if (have_name && !findInsensitive(getNameToDisplay(av_name), mNameFilter))
+		if (have_name && !findInsensitive(av_name.getDisplayName(), mNameFilter))
 		{
 			continue;
 		}
@@ -593,32 +593,6 @@ void LLAvatarList::onItemDoubleClicked(LLUICtrl* ctrl, S32 x, S32 y, MASK mask)
 	if ( (!mRlvCheckShowNames) || (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) )
 		mItemDoubleClickSignal(ctrl, x, y, mask);
 // [/RLVa:KB]
-
-// static
-std::string LLAvatarList::getNameToDisplay(const LLAvatarName &av_name)
-{
-	static LLCachedControl<bool> use_display_name(gSavedSettings, "UseDisplayNames", true);
-	static LLCachedControl<bool> use_complete_name(gSavedSettings, "UseCompleteNameInLists", false);
-
-	std::string display_name;
-
-	if (use_display_name && use_complete_name) {
-		//
-		//	we want to see complete names
-		//	"Display Name (login.name)"
-		//
-		display_name = av_name.getCompleteName();
-	}
-	else {
-		//
-		//	getDisplayName() will check UseDisplayNames
-		//	and return either a display name or a
-		//	login name
-		//
-		display_name = av_name.getDisplayName();
-	}
-
-	return display_name;
 }
 
 bool LLAvatarItemComparator::compare(const LLPanel* item1, const LLPanel* item2) const

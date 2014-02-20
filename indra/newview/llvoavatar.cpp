@@ -693,6 +693,7 @@ const LLUUID LLVOAvatar::sStepSounds[LL_MCODE_END] =
 };
 
 S32 LLVOAvatar::sRenderName = RENDER_NAME_ALWAYS;
+BOOL LLVOAvatar::sRenderGroupTitles = TRUE;
 S32 LLVOAvatar::sNumVisibleChatBubbles = 0;
 BOOL LLVOAvatar::sDebugInvisible = FALSE;
 BOOL LLVOAvatar::sShowAttachmentPoints = FALSE;
@@ -745,6 +746,7 @@ LLVOAvatar::LLVOAvatar(const LLUUID& id,
 	mNameAppearance(false),
 	mNameFriend(false),
 	mNameAlpha(0.f),
+ 	mRenderGroupTitles(sRenderGroupTitles),
 	mAvatarBirthdateRequest(NULL),
 	mAvatarBirthdate(0.0f),
 	mNameCloud(false),
@@ -2744,7 +2746,7 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 // [/RLVa]
 //	if (sRenderGroupTitles != mRenderGroupTitles)
 	{
-		mRenderGroupTitles = render_group_titles;
+		mRenderGroupTitles = sRenderGroupTitles;
 		new_name = TRUE;
 	}
 
@@ -2790,7 +2792,7 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 		mNameText->setVertAlignment(LLHUDNameTag::ALIGN_VERT_TOP);
 		mNameText->setVisibleOffScreen(TRUE);
 		mNameText->setMaxLines(11);
-					mNameText->setFadeDistance(LLWorld::getInstance()->getSayDistance(), 5.f);
+		mNameText->setFadeDistance(LLWorld::getInstance()->getSayDistance(), 5.f);
 		sNumVisibleChatBubbles++;
 		new_name = TRUE;
     }
@@ -2891,11 +2893,6 @@ void LLVOAvatar::idleUpdateNameTagText(BOOL new_name)
 			addNameTagLine(line, name_tag_color, LLFontGL::NORMAL,
 				LLFontGL::getFontSansSerifSmall());
 		}
-
-		static LLCachedControl<S32> avatar_name_tag_mode(gSavedSettings, "AvatarNameTagMode", 1);
-		static LLCachedControl<bool> name_tag_show_group_titles(gSavedSettings, "NameTagShowGroupTitles", true);
-
-		if (name_tag_show_group_titles && avatar_name_tag_mode
 //		if (sRenderGroupTitles
 // [RLVa:KB] - Checked: 2010-10-31 (RLVa-1.2.2a) | Modified: RLVa-1.2.2a
 		if (sRenderGroupTitles && !fRlvShowNames
@@ -3092,7 +3089,7 @@ void LLVOAvatar::idleUpdateNameTagText(BOOL new_name)
 	{
 		// ...not using chat bubbles, just names
 		mNameText->setTextAlignment(LLHUDNameTag::ALIGN_TEXT_CENTER);
-				mNameText->setFadeDistance(LLWorld::getInstance()->getSayDistance(), 5.f);
+		mNameText->setFadeDistance(LLWorld::getInstance()->getSayDistance(), 5.f);
 		mNameText->setVisibleOffScreen(FALSE);
 	}
 }
