@@ -708,6 +708,15 @@ set(viewer_SOURCE_FILES
     viewerinfo.cpp
     streamtitledisplay.cpp
     astraopenregionsettings.cpp
+    rlvactions.cpp
+    rlvhandler.cpp
+    rlvhelper.cpp
+    rlvcommon.cpp
+    rlvlocks.cpp
+    rlvinventory.cpp
+    rlvextensions.cpp
+    rlvfloaters.cpp
+    rlvui.cpp
     )
 
 set(VIEWER_BINARY_NAME "kokua-bin" CACHE STRING
@@ -1311,6 +1320,16 @@ set(viewer_HEADER_FILES
     pieslice.h
     pipeline.h
     streamtitledisplay.h
+    rlvactions.h
+    rlvdefines.h
+    rlvhandler.h
+    rlvhelper.h
+    rlvcommon.h
+    rlvlocks.h
+    rlvinventory.h
+    rlvextensions.h
+    rlvfloaters.h
+    rlvui.h
     VertexCache.h
     viewerinfo.h
     VorbisFramework.h
@@ -1704,7 +1723,7 @@ if (WINDOWS)
         # *TODO -reenable this once we get server usage sorted out
         LINK_FLAGS "/debug /NODEFAULTLIB:LIBCMT /SUBSYSTEM:WINDOWS ${TCMALLOC_LINK_FLAGS} /LARGEADDRESSAWARE"
         LINK_FLAGS_DEBUG "/NODEFAULTLIB:\"LIBCMT;LIBCMTD;MSVCRT\" /INCREMENTAL:NO /LARGEADDRESSAWARE"
-        LINK_FLAGS_RELEASE "/FORCE:MULTIPLE /MAP\"secondlife-bin.MAP\" /OPT:REF /LARGEADDRESSAWARE"
+        LINK_FLAGS_RELEASE "/MAP\"secondlife-bin.MAP\" /OPT:REF /LARGEADDRESSAWARE"
         )
     if(USE_PRECOMPILED_HEADERS)
         set_target_properties(

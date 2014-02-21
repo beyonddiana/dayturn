@@ -63,9 +63,9 @@ public:
     bool mTryToConnectToFbc;
 
 // [RLVa:KB] - Checked: 2010-04-05 (RLVa-1.2.0d) | Added: RLVa-1.2.0d
-	// Externalized to FSRadar
-	//LLAvatarList* getNearbyList() { return mNearbyList; }
+	LLAvatarList* getNearbyList() { return mNearbyList; }
 // [/RLVa:KB]
+
 
 	// <FS:Ansariel> Firestorm radar
 	void updateNearby(const std::vector<LLSD>& entries, const LLSD& stats);

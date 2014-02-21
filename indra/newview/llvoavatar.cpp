@@ -96,6 +96,9 @@
 #include "llanimstatelabels.h"
 #include "lltrans.h"
 #include "llappearancemgr.h"
+// [RLVa:KB] - Checked: 2010-04-01 (RLVa-1.2.0c)
+#include "rlvhandler.h"
+// [/RLVa:KB]
 
 #include "llgesturemgr.h" //needed to trigger the voice gesticulations
 #include "llvoiceclient.h"
@@ -690,6 +693,7 @@ const LLUUID LLVOAvatar::sStepSounds[LL_MCODE_END] =
 };
 
 S32 LLVOAvatar::sRenderName = RENDER_NAME_ALWAYS;
+BOOL LLVOAvatar::sRenderGroupTitles = TRUE;
 S32 LLVOAvatar::sNumVisibleChatBubbles = 0;
 BOOL LLVOAvatar::sDebugInvisible = FALSE;
 BOOL LLVOAvatar::sShowAttachmentPoints = FALSE;
@@ -742,6 +746,7 @@ LLVOAvatar::LLVOAvatar(const LLUUID& id,
 	mNameAppearance(false),
 	mNameFriend(false),
 	mNameAlpha(0.f),
+ 	mRenderGroupTitles(sRenderGroupTitles),
 	mAvatarBirthdateRequest(NULL),
 	mAvatarBirthdate(0.0f),
 	mNameCloud(false),
@@ -2683,6 +2688,9 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 	static LLCachedControl<F32> FADE_DURATION(gSavedSettings, "RenderNameFadeDuration", 1.0f);
 	static LLCachedControl<bool> USE_CHAT_BUBBLES(gSavedSettings, "UseChatBubbles", false);
 	static LLCachedControl<bool> NAME_SHOW_SELF(gSavedSettings, "RenderNameShowSelf", true);
+// [RLVa:KB] - Checked: 2010-04-04 (RLVa-1.2.2a) | Added: RLVa-0.2.0b
+	bool fRlvShowNames = gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES);
+// [/RLVa:KB]
 	static LLCachedControl<S32> AVATAR_NAME_TAG_MODE(gSavedSettings, "AvatarNameTagMode", 1);
 	static LLCachedControl<bool> NAME_TAG_SHOW_GROUP_TITLES(gSavedSettings, "NameTagShowGroupTitles", true);
 
@@ -2691,9 +2699,12 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 	BOOL visible_avatar = isVisible() || mNeedsAnimUpdate;
 	BOOL visible_chat = USE_CHAT_BUBBLES && (mChats.size() || mTyping);
 	BOOL render_name =	visible_chat ||
-		(visible_avatar &&
-		 ((AVATAR_NAME_TAG_MODE == RENDER_NAME_ALWAYS) ||
-		  (AVATAR_NAME_TAG_MODE == RENDER_NAME_FADE && time_visible < NAME_SHOW_TIME)));
+		                (visible_avatar &&
+// [RLVa:KB] - Checked: 2010-04-04 (RLVa-1.2.2a) | Added: RLVa-1.0.0h
+						( (!fRlvShowNames) || (RlvSettings::getShowNameTags()) ) &&
+// [/RLVa:KB]
+		                ((sRenderName == RENDER_NAME_ALWAYS) ||
+		                 (sRenderName == RENDER_NAME_FADE && time_visible < NAME_SHOW_TIME)));
 	// If it's your own avatar, don't draw in mouselook, and don't
 	// draw if we're specifically hiding our own name.
 	if (isSelf())
@@ -2722,9 +2733,20 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 		new_name = TRUE;
 	}
 
-	if (render_group_titles != mRenderGroupTitles)
+// [RLVa:KB] - Checked: 2010-04-04 (RLVa-1.2.2a) | Added: RLVa-0.2.0b
+	if (fRlvShowNames)
 	{
-		mRenderGroupTitles = render_group_titles;
+		if (mRenderGroupTitles)
+		{
+			mRenderGroupTitles = FALSE;
+			new_name = TRUE;
+		}
+	}
+	else if (sRenderGroupTitles != mRenderGroupTitles)
+// [/RLVa]
+//	if (sRenderGroupTitles != mRenderGroupTitles)
+	{
+		mRenderGroupTitles = sRenderGroupTitles;
 		new_name = TRUE;
 	}
 
@@ -2770,7 +2792,7 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 		mNameText->setVertAlignment(LLHUDNameTag::ALIGN_VERT_TOP);
 		mNameText->setVisibleOffScreen(TRUE);
 		mNameText->setMaxLines(11);
-					mNameText->setFadeDistance(LLWorld::getInstance()->getSayDistance(), 5.f);
+		mNameText->setFadeDistance(LLWorld::getInstance()->getSayDistance(), 5.f);
 		sNumVisibleChatBubbles++;
 		new_name = TRUE;
     }
@@ -2789,6 +2811,9 @@ void LLVOAvatar::idleUpdateNameTagText(BOOL new_name)
 	// Avatars must have a first and last name
 	if (!firstname || !lastname) return;
 
+// [RLVa:KB] - Checked: 2010-10-31 (RLVa-1.2.2a) | Added: RLVa-1.2.2a
+	bool fRlvShowNames = gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES);
+// [/RLVa:KB]
 	bool is_away = mSignaledAnimations.find(ANIM_AGENT_AWAY)  != mSignaledAnimations.end();
 	bool is_do_not_disturb = mSignaledAnimations.find(ANIM_AGENT_DO_NOT_DISTURB) != mSignaledAnimations.end();
 	bool is_appearance = mSignaledAnimations.find(ANIM_AGENT_CUSTOMIZE) != mSignaledAnimations.end();
@@ -2801,7 +2826,10 @@ void LLVOAvatar::idleUpdateNameTagText(BOOL new_name)
 	{
 		is_muted = LLMuteList::getInstance()->isMuted(getID());
 	}
-	bool is_friend = LLAvatarTracker::instance().isBuddy(getID());
+//	bool is_friend = LLAvatarTracker::instance().isBuddy(getID());
+// [RLVa:KB] - Checked: 2010-10-31 (RLVa-1.2.2a) | Added: RLVa-1.2.2a
+	bool is_friend = (!fRlvShowNames) && (LLAvatarTracker::instance().isBuddy(getID()));
+// [/RLVa:KB]
 	bool is_cloud = getIsCloud();
 
 	if (is_appearance != mNameAppearance)
@@ -2865,11 +2893,10 @@ void LLVOAvatar::idleUpdateNameTagText(BOOL new_name)
 			addNameTagLine(line, name_tag_color, LLFontGL::NORMAL,
 				LLFontGL::getFontSansSerifSmall());
 		}
-
-		static LLCachedControl<S32> avatar_name_tag_mode(gSavedSettings, "AvatarNameTagMode", 1);
-		static LLCachedControl<bool> name_tag_show_group_titles(gSavedSettings, "NameTagShowGroupTitles", true);
-
-		if (name_tag_show_group_titles && avatar_name_tag_mode
+//		if (sRenderGroupTitles
+// [RLVa:KB] - Checked: 2010-10-31 (RLVa-1.2.2a) | Modified: RLVa-1.2.2a
+		if (sRenderGroupTitles && !fRlvShowNames
+// [/RLVa:KB]
 			&& title && title->getString() && title->getString()[0] != '\0')
 		{
 			std::string title_str = title->getString();
@@ -2893,29 +2920,42 @@ void LLVOAvatar::idleUpdateNameTagText(BOOL new_name)
 				clearNameTag();
 			}
 
-			have_name = !av_name.getDisplayName().empty();
-
-			// Might be blank if name not available yet, that's OK
-			if (show_display_names)
+// [RLVa:KB] - Checked: 2010-10-31 (RLVa-1.2.2a) | Modified: RLVa-1.2.2a
+			if ( (!fRlvShowNames) || (isSelf()) )
 			{
-				addNameTagLine(av_name.getDisplayName(), name_tag_color, LLFontGL::NORMAL,
-					LLFontGL::getFontSansSerif());
-			}
-			// Suppress SLID display if display name matches exactly (ugh)
-			if (show_usernames && !av_name.isDisplayNameDefault())
-			{
-				// *HACK: Desaturate the color
-				LLColor4 username_color = name_tag_color * 0.83f;
-				addNameTagLine(av_name.getUserName(), username_color, LLFontGL::NORMAL,
+// [/RLVa:KB]
+				// Might be blank if name not available yet, that's OK
+				if (show_display_names)
+				{
+					addNameTagLine(av_name.getDisplayName(), name_tag_color, LLFontGL::NORMAL,
+						LLFontGL::getFontSansSerif());
+				}
+				// Suppress SLID display if display name matches exactly (ugh)
+				if (show_usernames && !av_name.isDisplayNameDefault())
+				{
+					// *HACK: Desaturate the color
+					LLColor4 username_color = name_tag_color * 0.83f;
+					addNameTagLine(av_name.getUserName(), username_color, LLFontGL::NORMAL,
 					LLFontGL::getFontSansSerifSmall());
+				}
+// [RLVa:KB] - Checked: 2010-10-31 (RLVa-1.2.2a) | Modified: RLVa-1.2.2a
 			}
+			else
+			{
+				addNameTagLine(RlvStrings::getAnonym(av_name), name_tag_color, LLFontGL::NORMAL, LLFontGL::getFontSansSerif());
+			}
+// [/RLVa:KB]
 		}
 		else
 		{
 			const LLFontGL* font = LLFontGL::getFontSansSerif();
 			std::string full_name = LLCacheName::buildFullName( firstname->getString(), lastname->getString() );
-			have_name = !full_name.empty();
-
+// [RLVa:KB] - Checked: 2010-10-31 (RLVa-1.2.2a) | Modified: RLVa-1.2.2a
+			if ( (fRlvShowNames) && (!isSelf()) )
+			{
+				full_name = RlvStrings::getAnonym(full_name);
+			}
+// [/RLVa:KB]
 			addNameTagLine(full_name, name_tag_color, LLFontGL::NORMAL, font);
 		}
 
@@ -3049,7 +3089,7 @@ void LLVOAvatar::idleUpdateNameTagText(BOOL new_name)
 	{
 		// ...not using chat bubbles, just names
 		mNameText->setTextAlignment(LLHUDNameTag::ALIGN_TEXT_CENTER);
-				mNameText->setFadeDistance(LLWorld::getInstance()->getSayDistance(), 5.f);
+		mNameText->setFadeDistance(LLWorld::getInstance()->getSayDistance(), 5.f);
 		mNameText->setVisibleOffScreen(FALSE);
 	}
 }
@@ -6043,6 +6083,13 @@ void LLVOAvatar::sitDown(BOOL bSitting)
 	{
 		// Update Movement Controls according to own Sitting mode
 		LLFloaterMove::setSittingMode(bSitting);
+
+// [RLVa:KB] - Checked: 2010-08-29 (RLVa-1.2.1c) | Modified: RLVa-1.2.1c
+		if (rlv_handler_t::isEnabled())
+		{
+			gRlvHandler.onSitOrStand(bSitting);
+		}
+// [/RLVa:KB]
 	}
 }
 
@@ -6573,7 +6620,11 @@ BOOL LLVOAvatar::processFullyLoadedChange(bool loading)
 
 BOOL LLVOAvatar::isFullyLoaded() const
 {
-	return (mRenderUnloadedAvatar || mFullyLoaded);
+//	return (mRenderUnloadedAvatar || mFullyLoaded);
+// [SL:KB] - Patch: Appearance-SyncAttach | Checked: 2010-09-22 (Catznip-2.2)
+	// Changes to LLAppearanceMgr::updateAppearanceFromCOF() expect this function to actually return mFullyLoaded for gAgentAvatarp
+	return (mRenderUnloadedAvatar && !isSelf()) ||(mFullyLoaded);
+// [/SL:KB]
 }
 
 bool LLVOAvatar::isTooComplex() const

@@ -59,6 +59,10 @@
 #include "llviewerregion.h"
 #include "llviewerwindow.h"
 #include "llworld.h"
+// [RLVa:KB] - Checked: 2011-05-22 (RLVa-1.3.1a)
+#include "rlvhandler.h"
+#include "rlvlocks.h"
+// [/RLVa:KB]
 
 //
 // Imported globals
@@ -119,23 +123,25 @@ void LLPanelContents::getState(LLViewerObject *objectp )
 					       && ( objectp->permYouOwner() || ( !group_id.isNull() && gAgent.isInGroup(group_id) )));  // solves SL-23488
 	BOOL all_volume = LLSelectMgr::getInstance()->selectionAllPCode( LL_PCODE_VOLUME );
 
-
-	// Edit/reset script buttons - ok if object is editable and there's an unambiguous destination for the object.
-	// <FS:PP> FIRE-3219: Reset Scripts button in Build floater
-	//	getChildView("button new script")->setEnabled(
-	//		editable &&
-	//		all_volume &&
-	//		((LLSelectMgr::getInstance()->getSelection()->getRootObjectCount() == 1)
-	//			|| (LLSelectMgr::getInstance()->getSelection()->getObjectCount() == 1)));
-	bool objectIsOK = FALSE;
-	if( editable && all_volume && ( (LLSelectMgr::getInstance()->getSelection()->getRootObjectCount() == 1) || (LLSelectMgr::getInstance()->getSelection()->getObjectCount() == 1) ) )
+// [RLVa:KB] - Checked: 2010-04-01 (RLVa-1.2.0c) | Modified: RLVa-1.0.5a
+	if ( (rlv_handler_t::isEnabled()) && (editable) )
 	{
-		objectIsOK = TRUE;
-	}
+		// Don't allow creation of new scripts if it's non-detachable
+		if (objectp->isAttachment())
+			editable = !gRlvAttachmentLocks.isLockedAttachment(objectp->getRootEdit());
 
-	getChildView("button new script")->setEnabled(objectIsOK);
-	getChildView("button reset scripts")->setEnabled(objectIsOK);
-	// </FS:PP>
+		// Don't allow creation of new scripts if we're @unsit=n or @sittp=n restricted and we're sitting on the selection
+		if ( (editable) && ((gRlvHandler.hasBehaviour(RLV_BHVR_UNSIT)) || (gRlvHandler.hasBehaviour(RLV_BHVR_SITTP))) )
+		{
+			// Only check the first (non-)root object because nothing else would result in enabling the button (see below)
+			LLViewerObject* pObj = LLSelectMgr::getInstance()->getSelection()->getFirstRootObject(TRUE);
+
+			editable = 
+				(pObj) && (isAgentAvatarValid()) && ((!gAgentAvatarp->isSitting()) || (gAgentAvatarp->getRoot() != pObj->getRootEdit()));
+		}
+	}
+// [/RLVa:KB]
+
 
 	getChildView("button permissions")->setEnabled(!objectp->isPermanentEnforced());
 	mPanelInventoryObject->setEnabled(!objectp->isPermanentEnforced());
@@ -166,6 +172,21 @@ void LLPanelContents::onClickNewScript(void *userdata)
 	LLViewerObject* object = LLSelectMgr::getInstance()->getSelection()->getFirstRootObject(children_ok);
 	if(object)
 	{
+// [RLVa:KB] - Checked: 2010-03-31 (RLVa-1.2.0c) | Modified: RLVa-1.0.5a
+		if (rlv_handler_t::isEnabled())	// Fallback code [see LLPanelContents::getState()]
+		{
+			if (gRlvAttachmentLocks.isLockedAttachment(object->getRootEdit()))
+			{
+				return;					// Disallow creating new scripts in a locked attachment
+			}
+			else if ( (gRlvHandler.hasBehaviour(RLV_BHVR_UNSIT)) || (gRlvHandler.hasBehaviour(RLV_BHVR_SITTP)) )
+			{
+				if ( (isAgentAvatarValid()) && (gAgentAvatarp->isSitting()) && (gAgentAvatarp->getRoot() == object->getRootEdit()) )
+					return;				// .. or in a linkset the avie is sitting on under @unsit=n/@sittp=n
+			}
+		}
+// [/RLVa:KB]
+
 		LLPermissions perm;
 		perm.init(gAgent.getID(), gAgent.getID(), LLUUID::null, LLUUID::null);
 		perm.initMasks(

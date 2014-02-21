@@ -80,8 +80,8 @@ class LLViewerParcelMgr : public LLSingleton<LLViewerParcelMgr>
 public:
 	typedef boost::function<void (const LLVector3d&, const bool& local)> teleport_finished_callback_t;
 	typedef boost::signals2::signal<void (const LLVector3d&, const bool&)> teleport_finished_signal_t;
-	typedef boost::function<void()> teleport_failed_callback_t;
-	typedef boost::signals2::signal<void()> teleport_failed_signal_t;
+	typedef boost::function<void()> parcel_changed_callback_t;
+	typedef boost::signals2::signal<void()> parcel_changed_signal_t;
 
 	LLViewerParcelMgr();
 	~LLViewerParcelMgr();
@@ -290,8 +290,9 @@ public:
 	// the agent is banned or not in the allowed group
 	BOOL isCollisionBanned();
 
+	boost::signals2::connection addAgentParcelChangedCallback(parcel_changed_callback_t cb);
 	boost::signals2::connection setTeleportFinishedCallback(teleport_finished_callback_t cb);
-	boost::signals2::connection setTeleportFailedCallback(teleport_failed_callback_t cb);
+	boost::signals2::connection setTeleportFailedCallback(parcel_changed_callback_t cb);
 	void onTeleportFinished(bool local, const LLVector3d& new_pos);
 	void onTeleportFailed();
 
@@ -344,7 +345,8 @@ private:
 
 	BOOL						mTeleportInProgress;
 	teleport_finished_signal_t	mTeleportFinishedSignal;
-	teleport_failed_signal_t	mTeleportFailedSignal;
+	parcel_changed_signal_t		mTeleportFailedSignal;
+	parcel_changed_signal_t		mAgentParcelChangedSignal;
 
 	// Array of pieces of parcel edges to potentially draw
 	// Has (parcels_per_edge + 1) * (parcels_per_edge + 1) elements so

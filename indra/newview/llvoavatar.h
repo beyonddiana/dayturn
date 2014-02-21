@@ -273,6 +273,7 @@ public:
 	//--------------------------------------------------------------------
 public:
 	static S32		sRenderName;
+	static BOOL		sRenderGroupTitles;
 	static U32		sMaxVisible; //(affected by control "RenderAvatarMaxVisible")
 	static F32		sRenderDistance; //distance at which avatars will render.
 	static BOOL		sShowAnimationDebug; // show animation debug info
@@ -907,7 +908,7 @@ private:
 	bool			mNameFriend;
 	bool			mNameCloud;
 	F32				mNameAlpha;
-	bool      		mRenderGroupTitles;
+	BOOL      		mRenderGroupTitles;
 
 	FetchAvatarBirthdate	*mAvatarBirthdateRequest;
 	LLDate			mAvatarBirthdate;
