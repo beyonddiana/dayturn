@@ -122,6 +122,7 @@ void LLPanelContents::getState(LLViewerObject *objectp )
 					|| (objectp->permModify() && !objectp->isPermanentEnforced()
 					       && ( objectp->permYouOwner() || ( !group_id.isNull() && gAgent.isInGroup(group_id) )));  // solves SL-23488
 	BOOL all_volume = LLSelectMgr::getInstance()->selectionAllPCode( LL_PCODE_VOLUME );
+    if ( all_volume ) {} //empty if to fake out llvmgcc warning as error
 
 // [RLVa:KB] - Checked: 2010-04-01 (RLVa-1.2.0c) | Modified: RLVa-1.0.5a
 	if ( (rlv_handler_t::isEnabled()) && (editable) )
