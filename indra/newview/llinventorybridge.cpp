@@ -5438,11 +5438,12 @@ void LLObjectBridge::performAction(LLInventoryModel* model, std::string action)
 	{
 		handle_attachment_edit(mUUID);
 	}
-// [/SL:KB]
+	else if ("wear_add" == action)
 	{
 		LLAppearanceMgr::instance().wearItemOnAvatar(mUUID, true, false); // Don't replace if adding.
 	}
 	// <FS:Ansariel> Touch worn objects
+// [/SL:KB]
 	else if ("touch" == action)
 	{
 		handle_attachment_touch(mUUID);

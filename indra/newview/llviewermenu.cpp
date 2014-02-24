@@ -2903,31 +2903,6 @@ bool enable_item_edit(const LLUUID& idItem)
 	return false;
 }
 
-void handle_attachment_touch(const LLUUID& idItem)
-{
-	const LLInventoryItem* pItem = gInventory.getItem(idItem);
-	if ( (pItem) && (isAgentAvatarValid()) && (enable_attachment_touch(idItem)) )
-	{
-		LLViewerObject* pAttachObj = gAgentAvatarp->getWornAttachment(pItem->getLinkedUUID());
-		if (pAttachObj)
-		{
-			LLSelectMgr::getInstance()->deselectAll();
-			LLObjectSelectionHandle hSel = LLSelectMgr::getInstance()->selectObjectAndFamily(pAttachObj);
-			struct SetTransient : public LLSelectedNodeFunctor
-			{
-				bool apply(LLSelectNode* node)
-				{
-					node->setTransient(TRUE);
-					return true;
-				}
-			} f;
-			hSel->applyToNodes(&f);
-
-			handle_object_touch();
-		}
-	}
-}
-
 bool enable_attachment_touch(const LLUUID& idItem)
 {
 	const LLInventoryItem* pItem = gInventory.getItem(idItem);
