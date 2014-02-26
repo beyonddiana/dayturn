@@ -28,12 +28,14 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+
 #include "llviewerprecompiledheaders.h"
 
 #include "streamtitledisplay.h"
 #include "llagent.h"
 #include "llaudioengine.h"
 #include "llnotificationsutil.h"
+#include "llnotificationmanager.h"
 #include "llstreamingaudio.h"
 #include "llviewercontrol.h"
 #include "lltrans.h"
@@ -47,7 +49,73 @@ BOOL StreamTitleDisplay::tick()
 	checkMetadata();
 	return FALSE;
 }
+#if LL_LINUX
+void StreamTitleDisplay::checkMetadata()
+{
+bool ShowStreamConverted =  true; //temporary make work hack
 
+	static LLCachedControl<U32> ShowStreamMetadata(gSavedSettings, "ShowStreamMetadata", 2);
+	static LLCachedControl<bool> ShowStreamName(gSavedSettings, "ShowStreamName", true);
+	static LLCachedControl<bool> StreamMetadataAnnounceToChat(gSavedSettings, "StreamMetadataAnnounceToChat", false);
+
+if (ShowStreamMetadata >= 1)
+{
+  ShowStreamConverted =  true;
+}
+else
+{
+  ShowStreamConverted =  false;
+}
+	if(!gAudiop)
+		return;
+	if(gAudiop->getStreamingAudioImpl()->hasNewMetadata() && (ShowStreamConverted || StreamMetadataAnnounceToChat))
+	{
+		LLStreamingAudioInterface *stream = gAudiop->getStreamingAudioImpl();
+
+		if (!stream) {
+			return;
+		}
+
+		LLChat chat;
+		std::string title = stream->getCurrentTitle();
+		std::string artist = stream->getCurrentArtist();
+		chat.mText = artist;
+
+		if (!title.empty()) {
+			if (!chat.mText.empty()) {
+				chat.mText += " - ";
+			}
+			chat.mText += title;
+		}
+
+		if (!chat.mText.empty()) {
+			if (StreamMetadataAnnounceToChat) {
+				sendStreamTitleToChat(chat.mText);
+			}
+
+			if (ShowStreamConverted) {
+				chat.mSourceType = CHAT_SOURCE_AUDIO_STREAM;
+				chat.mFromID = AUDIO_STREAM_FROM;
+				chat.mFromName = LLTrans::getString("Audio Stream");
+				chat.mText = "<nolink>" + chat.mText + "</nolink>";
+
+				if (ShowStreamName) {
+					std::string stream_name = stream->getCurrentStreamName();
+
+					if (!stream_name.empty()) {
+						chat.mFromName += " - " + stream_name;
+					}
+				}
+
+				LLSD args;
+				args["type"] = LLNotificationsUI::NT_NEARBYCHAT;
+				LLNotificationsUI::LLNotificationManager::instance().onChat(chat, args);
+			}
+		}
+	}
+}
+
+#else //WINDOWS AND DARWIN AND OTHERS
 void StreamTitleDisplay::checkMetadata()
 {
 	static LLCachedControl<U32> ShowStreamMetadata(gSavedSettings, "ShowStreamMetadata", 2);
@@ -95,6 +163,7 @@ void StreamTitleDisplay::checkMetadata()
 		}
 	}
 }
+#endif
 
 void StreamTitleDisplay::sendStreamTitleToChat(const std::string& title)
 {

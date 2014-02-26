@@ -289,7 +289,7 @@ public:
 			LLViewerMedia::hasParcelAudio() &&
 			LLViewerMedia::isParcelAudioPlaying()
 		) {
-#if 0 //TODO: make this code work again //#ifndef LL_WINDOWS
+#if LL_LINUX //TODO: make this code work again 
 			LLStreamingAudioInterface *stream = gAudiop->getStreamingAudioImpl();
 
 			if (stream) {
@@ -314,7 +314,7 @@ public:
 					clipboard = stream->getURL();
 				}
 			}
-#endif //LL_WINDOWS
+#endif //LL_LINUX
 		}
 
 		LLView::getWindow()->copyTextToClipboard(utf8str_to_wstring(clipboard));

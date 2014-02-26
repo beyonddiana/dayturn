@@ -50,6 +50,11 @@ class LLStreamingAudioInterface
 	virtual bool getNewMetadata(LLSD& metadata) { return false; }
 	virtual std::string getCurrentStreamName() { return ""; }
 	virtual std::string getCurrentStreamLocation() { return ""; }
+#ifdef LL_LINUX
+	virtual bool hasNewMetadata() { return false; }
+	virtual std::string getCurrentArtist() { return ""; }
+	virtual std::string getCurrentTitle() { return ""; }
+#endif
 };
 
 #endif // LL_STREAMINGAUDIO_H
