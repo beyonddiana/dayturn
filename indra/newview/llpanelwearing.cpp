@@ -50,26 +50,6 @@ static void edit_outfit()
 {
 	LLFloaterSidePanelContainer::showPanel("appearance", LLSD().with("type", "edit_outfit"));
 }
-
-static void edit_item(const LLUUID& idItem)
-{
-	const LLViewerInventoryItem* pItem = gInventory.getItem(idItem);
-	if (!pItem)
-		return;
-
-	switch (pItem->getType())
-	{
-		case LLAssetType::AT_BODYPART:
-		case LLAssetType::AT_CLOTHING:
-			LLAgentWearables::editWearable(idItem);
-			break;
-		case LLAssetType::AT_OBJECT:
-			handle_attachment_edit(idItem);
-			break;
-		default:
-			break;
-	}
-}
 // [/SL:KB]
 
 //////////////////////////////////////////////////////////////////////////
