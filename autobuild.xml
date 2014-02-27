@@ -400,9 +400,9 @@
             <key>archive</key>
             <map>
                 <key>hash</key>
-                <string>f7d9b6a9c624364389b71209881f39de</string>
+              <string>f7d9b6a9c624364389b71209881f39de</string>
                 <key>url</key>
-                <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/3p-curl/rev/280289/arch/Darwin/installer/curl-7.24.0-darwin-20130826.tar.bz2</string>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/3p-curl/rev/280289/arch/Darwin/installer/curl-7.24.0-darwin-20130826.tar.bz2</string>
             </map>
             <key>name</key>
             <string>darwin</string>
@@ -412,9 +412,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>2bc0a98c25f29ca0c2ff0695427f9ad3</string>
+              <string>58b7bf45383c1b1bc24afb303b1519c8</string>
               <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-curl/downloads/curl-7.24.0-linux-20140110.tar.bz2</string>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/3p-curl/rev/280289/arch/Linux/installer/curl-7.24.0-linux-20130826.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux</string>
@@ -436,9 +436,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>afcad0bb9d65d7e1efe13f5be2dfcbb9</string>
+              <string>8d9ccb0277a26bfe3f346c3c49ce4b58</string>
               <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-curl/downloads/curl-7.24.0-windows-20140108.tar.bz2</string>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/3p-curl/rev/280289/arch/CYGWIN/installer/curl-7.24.0-windows-20130826.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
