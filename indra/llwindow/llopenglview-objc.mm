@@ -94,6 +94,7 @@ attributedStringInfo getSegments(NSAttributedString *str)
 // Force a high quality update after live resizing
 - (void) viewDidEndLiveResize
 {
+	//This is not doing anything right now. For the moment, windowResized method is kept allow OS X Full Screen before 10.7
     NSSize size = [self frame].size;
     callResize(size.width, size.height);
 }
@@ -125,9 +126,9 @@ attributedStringInfo getSegments(NSAttributedString *str)
 }
 
 - (void)windowResized:(NSNotification *)notification;
-{
-	//NSSize size = [self frame].size;
-	//callResize(size.width, size.height);
+
+	NSSize size = [self frame].size;
+	callResize(size.width, size.height);
 }
 
 - (void)dealloc
