@@ -135,6 +135,9 @@ LLViewerParcelMgr::LLViewerParcelMgr()
 	mHoverParcel = new LLParcel();
 	mCollisionParcel = new LLParcel();
 
+	F32 region_size = 8192.f; //aurora max region size, 8192
+	mParcelsPerEdge = S32(	region_size / PARCEL_GRID_STEP_METERS );
+
 	mCollisionBitmap = new U8[getCollisionBitmapSize()];
 	if (mCollisionBitmap) {
 		memset(mCollisionBitmap, 0, getCollisionBitmapSize());
@@ -146,8 +149,6 @@ LLViewerParcelMgr::LLViewerParcelMgr()
 	mBlockedImage = LLViewerTextureManager::getFetchedTextureFromFile("world/NoEntryLines.png");
 	mPassImage = LLViewerTextureManager::getFetchedTextureFromFile("world/NoEntryPassLines.png");
 
-	F32 region_size = 8192.f; //aurora max region size, 8192
-	mParcelsPerEdge = S32(	region_size / PARCEL_GRID_STEP_METERS );
 	mHighlightSegments = new U8[(mParcelsPerEdge+1)*(mParcelsPerEdge+1)];
 	resetSegments(mHighlightSegments);
 
@@ -157,10 +158,8 @@ LLViewerParcelMgr::LLViewerParcelMgr()
 	sPackedOverlay = new U8[overlay_size];
 
 	mAgentParcelOverlay = new U8[mParcelsPerEdge * mParcelsPerEdge];
-	S32 i;
-	for (i = 0; i < mParcelsPerEdge * mParcelsPerEdge; i++)
-	{
-		mAgentParcelOverlay[i] = 0;
+	if (mAgentParcelOverlay) {
+		memset(mAgentParcelOverlay, 0, mParcelsPerEdge * mParcelsPerEdge);
 	}
 
 	mParcelsPerEdge = S32(	REGION_WIDTH_METERS / PARCEL_GRID_STEP_METERS );
