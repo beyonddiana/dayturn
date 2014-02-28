@@ -651,12 +651,6 @@ void LLHUDEffectLookAt::update()
 			}
 		}
 	}
-
-	static LLUICachedControl<bool> show_lookat("ShowLookAt", false);
-	if (show_lookat)
-	{
-		((LLVOAvatar*)(LLViewerObject*)mSourceObject)->addDebugText((*mAttentions)[mTargetType].mName);
-	}
 }
 
 /**
