@@ -262,7 +262,7 @@ void LLPreviewTexture::saveAs()
 
 	LLFilePicker& file_picker = LLFilePicker::instance();
 	const LLInventoryItem* item = getItem() ;
-	if( !file_picker.getSaveFile( LLFilePicker::FFSAVE_TGAPNG, item ? LLDir::getScrubbedFileName(item->getName()) : LLStringUtil::null) )
+	if (!file_picker.getSaveFile( LLFilePicker::FFSAVE_TGAPNG, item ? (LLDir::getScrubbedFileName(item->getName()) + ".png") : LLStringUtil::null))
 	{
 		// User canceled or we failed to acquire save file.
 		return;
