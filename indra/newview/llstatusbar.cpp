@@ -121,6 +121,7 @@ LLStatusBar::LLStatusBar(const LLRect& rect)
 	mFPSPanel(NULL),
 	mBtnVolume(NULL),
 	mBoxBalance(NULL),
+	mInMouselookMode(false),
 	mBalance(0),
 	mHealth(100),
 	mSquareMetersCredit(0),
@@ -170,6 +171,7 @@ BOOL LLStatusBar::postBuild()
 	gMenuBarView->setRightMouseDownCallback(boost::bind(&show_navbar_context_menu, _1, _2, _3));
 
 	mTextTime = getChild<LLTextBox>("TimeText" );
+	mPurchasePanel = getChild<LLLayoutPanel>("purchase_panel");
 	
 	//
 	//	only show the Buy and Shop buttons in Second Life
@@ -179,7 +181,7 @@ BOOL LLStatusBar::postBuild()
 		getChild<LLUICtrl>("goShop")->setCommitCallback(boost::bind(&LLWeb::loadURLExternal, gSavedSettings.getString("MarketplaceURL")));
 	}
 	else {
-		getChild<LLUICtrl>("purchase_panel")->setVisible(FALSE);
+		mPurchasePanel->setVisible(FALSE);
 	}
 
 	mBoxBalance = getChild<LLTextBox>("balance");
@@ -239,6 +241,14 @@ BOOL LLStatusBar::postBuild()
 // Per-frame updates of visibility
 void LLStatusBar::refresh()
 {
+	if (mInMouselookMode) {
+		//
+		//	if we are in mouselook mode then there's no
+		//	need to update the status bar at all
+		//
+		return;
+	}
+
 	static LLCachedControl<bool> net_stats_visible(gSavedSettings, "ShowNetStats", true);
 	static LLCachedControl<bool> fps_stats_visible(gSavedSettings, "ShowFPSStats", true);
 	static LLCachedControl<bool> show_draw_distance(gSavedSettings, "ShowDDSlider", false);
@@ -321,14 +331,16 @@ void LLStatusBar::setVisibleForMouselook(bool visible)
 	static LLCachedControl<bool> fps_stats_visible(gSavedSettings, "ShowFPSStats", true);
 	static LLCachedControl<bool> show_draw_distance(gSavedSettings, "ShowDDSlider", true);
 
+	mInMouselookMode = !visible;
+
 	mTextTime->setVisible(visible);
-	getChild<LLUICtrl>("balance_bg")->setVisible(visible);
 	mBoxBalance->setVisible(visible);
+	mPurchasePanel->setVisible(visible && LLGridManager::getInstance()->isInSecondLife());
 	mBtnVolume->setVisible(visible);
 	mMediaToggle->setVisible(visible);
-	mDrawDistancePanel->setVisible(show_draw_distance);
-	mStatisticsPanel->setVisible(net_stats_visible);
-	mFPSPanel->setVisible(fps_stats_visible);
+	mDrawDistancePanel->setVisible(visible && show_draw_distance);
+	mStatisticsPanel->setVisible(visible && net_stats_visible);
+	mFPSPanel->setVisible(visible && fps_stats_visible);
 	setBackgroundVisible(visible);
 }
 

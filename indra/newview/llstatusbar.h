@@ -102,6 +102,7 @@ private:
 	LLTextBox	*mTextTime;
 	LLTextBox	*mFPSText;
 
+	LLLayoutPanel	*mPurchasePanel;
 	LLLayoutPanel	*mDrawDistancePanel;
 	LLLayoutPanel	*mStatisticsPanel;
 	LLLayoutPanel	*mFPSPanel;
@@ -116,6 +117,7 @@ private:
 	LLFrameTimer	mFPSUpdateTimer;
 	LLFrameTimer	mClockUpdateTimer;
 
+	bool				mInMouselookMode;
 	S32				mBalance;
 	S32				mHealth;
 	S32				mSquareMetersCredit;
