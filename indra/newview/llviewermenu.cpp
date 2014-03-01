@@ -3822,6 +3822,27 @@ class LLSelfSitDown : public view_listener_t
         }
     };
 
+class LLSelfToggleSitStand : public view_listener_t
+{
+	bool handleEvent(const LLSD& userdata)
+	{
+		if (isAgentAvatarValid() && !gAgent.getFlying()) {
+			if (gAgentAvatarp->isSitting()) {
+				gAgent.standUp();
+			}
+			else {
+				gAgent.sitDown();
+			}
+			return true;
+		}
+		return false;
+	}
+};
+bool enable_sitstand_self()
+{
+    return isAgentAvatarValid() && !gAgent.getFlying();
+}
+
 bool enable_sitdown_self()
 {
 // [RLVa:KB] - Checked: 2010-08-28 (RLVa-1.2.1a) | Added: RLVa-1.2.1a
@@ -9649,7 +9670,9 @@ void initialize_menus()
 	view_listener_t::addMenu(new LLSelfStandUp(), "Self.StandUp");
 	enable.add("Self.EnableStandUp", boost::bind(&enable_standup_self));
 	view_listener_t::addMenu(new LLSelfSitDown(), "Self.SitDown");
+	view_listener_t::addMenu(new LLSelfToggleSitStand(), "Self.ToggleSitStand");
 	enable.add("Self.EnableSitDown", boost::bind(&enable_sitdown_self));
+	enable.add("Self.EnableSitStand", boost::bind(&enable_sitstand_self));
 	view_listener_t::addMenu(new LLSelfRemoveAllAttachments(), "Self.RemoveAllAttachments");
 
 	view_listener_t::addMenu(new LLSelfEnableRemoveAllAttachments(), "Self.EnableRemoveAllAttachments");
