@@ -59,7 +59,7 @@ function homedir_install()
     fi
 
     install_to_prefix "$HOME/.kokua-install"
-    $HOME/.secondlife-install/etc/refresh_desktop_app_entry.sh
+    $HOME/.kokua-install/etc/refresh_desktop_app_entry.sh
 }
 
 function root_install()
