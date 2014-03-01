@@ -7,17 +7,17 @@
  legacy_header_height="18"
  bg_alpha_image_overlay="LtGray_50"
  chrome="true"
- can_dock="true"
+ can_dock="false"
  can_minimize="true"
- can_close="false"
+ can_close="true"
  follows="bottom"
- height="83"
+ height="110"
  layout="topleft"
  name="move_floater"
  help_topic="move_floater"
  save_rect="true"
- save_visibility="true"
- save_dock_state="true"
+ save_visibility="false"
+ save_dock_state="false"
  width="133">
     <string
      name="walk_forward_tooltip">
@@ -97,7 +97,7 @@
     </string>
     <panel
      border="false"
-     height="60"
+     height="85"
      layout="topleft"
      left="2"
      name="panel_modes"
