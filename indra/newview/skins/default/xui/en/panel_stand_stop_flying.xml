@@ -1,37 +1,32 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <!-- Width and height of this panel should be synchronized with "panel_modes" in the floater_moveview.xml-->
 <panel
- bg_alpha_image_overlay="LtGray_50"
  height="25"
  layout="topleft"
  name="panel_stand_stop_flying"
  mouse_opaque="false"
  visible="true"
- width="20">
+ width="133">
     <button
      follows="left|bottom"
-     height="18"
-     label=""
+     height="19"
+     label="Stand up"
      layout="topleft"
-     left="2"
+     left="10"
      name="stand_btn"
-     image_overlay="Move_Walk_Off"
-     image_selected="PushButton_Selected_Press"
-     tool_tip="Click here to stand up."
-     top="5"
+     tool_tip="Click here to stand up"
+     top="2"
      visible="false"
-     width="18" />
+     width="113" />
     <button
      follows="left|bottom"
-     height="18"
-     label=""
+     height="19"
+     label="Stop Flying"
      layout="topleft"
-     left="2"
+     left="10"
      name="stop_fly_btn"
-     image_overlay="Move_Fly_Off"
-     image_selected="PushButton_Selected_Press"
      tool_tip="Stop flying (press [Home] or F)"
-     top="5"
+     top="2"
      visible="false"
-     width="18" />
+     width="113" />
 </panel>
