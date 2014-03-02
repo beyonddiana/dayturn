@@ -126,7 +126,7 @@ attributedStringInfo getSegments(NSAttributedString *str)
 }
 
 - (void)windowResized:(NSNotification *)notification;
-
+{
 	NSSize size = [self frame].size;
 	callResize(size.width, size.height);
 }
