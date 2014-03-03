@@ -1571,17 +1571,22 @@ void process_enable_simulator(LLMessageSystem *msg, void **user_data)
 	LLHost sim(ip_u32, port);
 
 	U32 region_size_x = 256;
-	msg->getU32Fast(_PREHASH_SimulatorInfo, _PREHASH_RegionSizeX, region_size_x);
 
 	U32 region_size_y = 256;
-	msg->getU32Fast(_PREHASH_SimulatorInfo, _PREHASH_RegionSizeY, region_size_y);
 
-	if (region_size_y == 0 || region_size_x == 0)
+#ifdef OPENSIM
+	if (LLGridManager::getInstance()->isInOpenSim())
 	{
-		region_size_x = 256;
-		region_size_y = 256;
-	}
-	// Viewer trusts the simulator.
+		msg->getU32Fast(_PREHASH_SimulatorInfo, _PREHASH_RegionSizeX, region_size_x);
+		msg->getU32Fast(_PREHASH_SimulatorInfo, _PREHASH_RegionSizeY, region_size_y);
+		if (region_size_y == 0 || region_size_x == 0)
+		{
+			region_size_x = 256;
+			region_size_y = 256;
+		}
+ 	}
+#endif
+ 	// Viewer trusts the simulator.
 	msg->enableCircuit(sim, TRUE);
 	LLWorld::getInstance()->addRegion(handle, sim, region_size_x, region_size_y);
 

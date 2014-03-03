@@ -51,6 +51,7 @@
 #include "llvfs.h"
 #include "llxfermanager.h"
 #include "mean_collision_data.h"
+#include "llviewernetwork.h"
 
 #include "llagent.h"
 #include "llagentcamera.h"
@@ -4697,19 +4698,22 @@ void process_crossed_region(LLMessageSystem* msg, void**)
 	
 	std::string seedCap;
 	msg->getStringFast(_PREHASH_RegionData, _PREHASH_SeedCapability, seedCap);
-
-		U32 region_size_x = 256;
-	msg->getU32(_PREHASH_RegionData, _PREHASH_RegionSizeX, region_size_x);
-
+	U32 region_size_x = 256;
 	U32 region_size_y = 256;
-	msg->getU32(_PREHASH_RegionData, _PREHASH_RegionSizeY, region_size_y);
 
-	//and a little hack for Second Life compatibility	
-	if (region_size_y == 0 || region_size_x == 0)
+#ifdef OPENSIM
+	if (LLGridManager::getInstance()->isInOpenSim())
 	{
-		region_size_x = 256;
-		region_size_y = 256;
+		msg->getU32(_PREHASH_RegionData, _PREHASH_RegionSizeX, region_size_x);
+		msg->getU32(_PREHASH_RegionData, _PREHASH_RegionSizeY, region_size_y);
+		//and a little hack for Second Life compatibility	
+		if (region_size_y == 0 || region_size_x == 0)
+		{
+			region_size_x = 256;
+			region_size_y = 256;
+		}
 	}
+#endif
 
 	send_complete_agent_movement(sim_host);
 
