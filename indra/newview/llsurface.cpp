@@ -1291,7 +1291,7 @@ BOOL LLSurface::generateWaterTexture(const F32 x, const F32 y,
 	LLPointer<LLImageRaw> raw = new LLImageRaw(tex_width, tex_height, tex_comps);
 	U8 *rawp = raw->getData();
 
-	F32 scale = LLWorld::getInstance()->getRegionWidthInMeters() * getMetersPerGrid() / (F32)tex_width;
+	F32 scale = getRegion()->getWidth() * getMetersPerGrid() / (F32)tex_width;
 	F32 scale_inv = 1.f / scale;
 
 	S32 x_begin, y_begin, x_end, y_end;
