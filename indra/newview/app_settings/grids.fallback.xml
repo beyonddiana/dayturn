@@ -218,39 +218,7 @@
         <key>slurl_base</key>
             <string>hop://craft-world.org:8002/</string>
         </map>
-    <key>go.virtyou.com</key>
-        <map>
-        <key>LastModified</key>
-            <date>2012-07-06T13:37:13.37Z</date>
-        <key>gatekeeper</key>
-            <string>virtyou.com:11002</string>
-        <key>gridname</key>
-            <string>virtyou MainGrid</string>
-        <key>gridnick</key>
-            <string>virtyou</string>
-        <key>help</key>
-            <string>http://virtyou.com/q/howto/</string>
-        <key>login_identifier_types</key>
-            <array>
-                <string>agent</string>
-                <string>account</string>
-            </array>
-        <key>loginpage</key>
-            <string>http://virtyou.com/welcome/</string>
-        <key>loginuri</key>
-            <array>
-                <string>http://go.virtyou.com</string>
-            </array>
-        <key>name</key>
-            <string>go.virtyou.com</string>
-        <key>password</key>
-            <string>http://virtyou.com/user/forgotten.html</string>
-        <key>register</key>
-            <string>http://virtyou.com/user/</string>
-        <key>slurl_base</key>
-            <string>hop://go.virtyou.com/</string>
-        </map>
-    <key>grid.3rdrockgrid.com:8002</key>
+     <key>grid.3rdrockgrid.com:8002</key>
         <map>
         <key>LastModified</key>
             <date>2012-03-31T13:37:13.37Z</date>
@@ -630,41 +598,7 @@
         <key>slurl_base</key>
             <string>hop://login.virtualhighway.us:8002/</string>
         </map>
-    <key>reactiongrid.com:8008</key>
-        <map>
-        <key>LastModified</key>
-            <date>2012-03-31T13:37:13.37Z</date>
-        <key>about</key>
-            <string>http://reactiongrid.com/Default.aspx</string>
-        <key>gridname</key>
-            <string>ReactionGrid</string>
-        <key>gridnick</key>
-            <string>ReactionGrid</string>
-        <key>help</key>
-            <string>http://reactiongrid.com/Support.aspx</string>
-        <key>helperuri</key>
-            <string>http://reactiongrid.com:9000/</string>
-        <key>login_identifier_types</key>
-            <array>
-                <string>agent</string>
-                <string>account</string>
-            </array>
-        <key>loginpage</key>
-            <string>http://gsquared.info/portal</string>
-        <key>loginuri</key>
-            <array>
-                <string>http://reactiongrid.com:8008/</string>
-            </array>
-        <key>name</key>
-            <string>reactiongrid.com:8008</string>
-        <key>password</key>
-            <string>http://www.reactiongrid.com/Support/PasswordReset.aspx</string>
-        <key>register</key>
-            <string>http://reactiongrid.com/Register.aspx</string>
-        <key>slurl_base</key>
-            <string>hop://reactiongrid.com:8008/</string>
-        </map>
-    <key>grid.spellscape.co.uk</key>
+     <key>grid.spellscape.co.uk</key>
         <map>
         <key>LastModified</key>
             <date>2014-01-10T14:37:17.45Z</date>
