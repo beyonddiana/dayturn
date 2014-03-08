@@ -3,5 +3,5 @@
 CFBundleName = "Kokua";
 
 CFBundleShortVersionString = "Kokua version %%VERSION%%";
-CFBundleGetInfoString = "Kokua version %%VERSION%%, Copyright 2004 Linden Research, Inc.";
+CFBundleGetInfoString = "Kokua version %%VERSION%%, Copyright 2014 Nicky Perian, Kokua.";
 
