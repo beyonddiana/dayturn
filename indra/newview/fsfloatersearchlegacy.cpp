@@ -1163,6 +1163,20 @@ void FSFloaterSearchLegacy::processSearchPeopleReply(LLMessageSystem* msg, void*
 	
 	BOOL found_one = FALSE;
 	S32 num_new_rows = msg->getNumberOfBlocksFast(_PREHASH_QueryReplies);
+
+	if (!num_new_rows) {
+		LLStringUtil::format_map_t map;
+		map["[TEXT]"] = self->getChild<LLUICtrl>("search_terms")->getValue().asString();
+
+		search_results->setEnabled(FALSE);
+		search_results->setCommentText(self->getString("not_found", map));
+		self->mResultsReceived = 0;
+		self->showResultsCount();
+		self->setLoadingProgress(FALSE);
+
+		return;
+	}
+
 	self->mResultsReceived += num_new_rows;
 	num_new_rows = self->showNextButton(num_new_rows);
 	self->showResultsCount();
@@ -1181,6 +1195,7 @@ void FSFloaterSearchLegacy::processSearchPeopleReply(LLMessageSystem* msg, void*
 			search_results->setCommentText(self->getString("not_found", map));
 			self->mResultsReceived = 0;
 			self->showResultsCount();
+			self->setLoadingProgress(FALSE);
 		}
 		else {
 			lldebugs << "Got: " << first_name << " " << last_name << " AgentID: " << agent_id << llendl;
@@ -1295,6 +1310,20 @@ void FSFloaterSearchLegacy::processSearchGroupsReply(LLMessageSystem* msg, void*
 	
 	BOOL found_one = FALSE;
 	S32 num_new_rows = msg->getNumberOfBlocksFast(_PREHASH_QueryReplies);
+
+	if (!num_new_rows) {
+		LLStringUtil::format_map_t map;
+		map["[TEXT]"] = self->getChild<LLUICtrl>("search_terms")->getValue().asString();
+
+		search_results->setEnabled(FALSE);
+		search_results->setCommentText(self->getString("not_found", map));
+		self->mResultsReceived = 0;
+		self->showResultsCount();
+		self->setLoadingProgress(FALSE);
+
+		return;
+	}
+
 	self->mResultsReceived += num_new_rows;
 	num_new_rows = self->showNextButton(num_new_rows);
 	self->showResultsCount();
@@ -1313,6 +1342,7 @@ void FSFloaterSearchLegacy::processSearchGroupsReply(LLMessageSystem* msg, void*
 			search_results->setCommentText(self->getString("not_found", map));
 			self->mResultsReceived = 0;
 			self->showResultsCount();
+			self->setLoadingProgress(FALSE);
 		}
 		else {
 			lldebugs << "Got: " << group_name << " GroupID: " << group_id << llendl;
@@ -1426,7 +1456,21 @@ void FSFloaterSearchLegacy::processSearchPlacesReply(LLMessageSystem* msg, void*
 	}
 	
 	BOOL found_one = FALSE;
-	S32 num_new_rows = msg->getNumberOfBlocks("QueryReplies");
+	S32 num_new_rows = msg->getNumberOfBlocksFast(_PREHASH_QueryReplies);
+
+	if (!num_new_rows) {
+		LLStringUtil::format_map_t map;
+		map["[TEXT]"] = self->getChild<LLUICtrl>("search_terms")->getValue().asString();
+
+		search_results->setEnabled(FALSE);
+		search_results->setCommentText(self->getString("not_found", map));
+		self->mResultsReceived = 0;
+		self->showResultsCount();
+		self->setLoadingProgress(FALSE);
+
+		return;
+	}
+
 	self->mResultsReceived += num_new_rows;
 	num_new_rows = self->showNextButton(num_new_rows);
 	self->showResultsCount();
@@ -1445,6 +1489,7 @@ void FSFloaterSearchLegacy::processSearchPlacesReply(LLMessageSystem* msg, void*
 			search_results->setCommentText(self->getString("not_found", map));
 			self->mResultsReceived = 0;
 			self->showResultsCount();
+			self->setLoadingProgress(FALSE);
 		}
 		else {
 			lldebugs << "Got: " << name << " ParcelID: " << parcel_id << llendl;
@@ -1537,7 +1582,21 @@ void FSFloaterSearchLegacy::processSearchLandReply(LLMessageSystem* msg, void**)
 	
 	S32 for_sale = 0;
 	BOOL found_one = FALSE;
-	S32 num_new_rows = msg->getNumberOfBlocks("QueryReplies");
+	S32 num_new_rows = msg->getNumberOfBlocksFast(_PREHASH_QueryReplies);
+
+	if (!num_new_rows) {
+		LLStringUtil::format_map_t map;
+		map["[TEXT]"] = self->getChild<LLUICtrl>("search_terms")->getValue().asString();
+
+		search_results->setEnabled(FALSE);
+		search_results->setCommentText(self->getString("not_found", map));
+		self->mResultsReceived = 0;
+		self->showResultsCount();
+		self->setLoadingProgress(FALSE);
+
+		return;
+	}
+
 	self->mResultsReceived += num_new_rows;
 	num_new_rows = self->showNextButton(num_new_rows);
 	self->showResultsCount();
@@ -1728,7 +1787,21 @@ void FSFloaterSearchLegacy::processSearchClassifiedsReply(LLMessageSystem* msg, 
 	}
 	
 	BOOL found_one = FALSE;
-	S32 num_new_rows = msg->getNumberOfBlocks("QueryReplies");
+	S32 num_new_rows = msg->getNumberOfBlocksFast(_PREHASH_QueryReplies);
+
+	if (!num_new_rows) {
+		LLStringUtil::format_map_t map;
+		map["[TEXT]"] = self->getChild<LLUICtrl>("search_terms")->getValue().asString();
+
+		search_results->setEnabled(FALSE);
+		search_results->setCommentText(self->getString("not_found", map));
+		self->mResultsReceived = 0;
+		self->showResultsCount();
+		self->setLoadingProgress(FALSE);
+
+		return;
+	}
+
 	self->mResultsReceived += num_new_rows;
 	num_new_rows = self->showNextButton(num_new_rows);
 	self->showResultsCount();
@@ -1747,6 +1820,7 @@ void FSFloaterSearchLegacy::processSearchClassifiedsReply(LLMessageSystem* msg, 
 			search_results->setCommentText(self->getString("not_found", map));
 			self->mResultsReceived = 0;
 			self->showResultsCount();
+			self->setLoadingProgress(FALSE);
 		}
 		else {
 			lldebugs << "Got: " << name << " ClassifiedID: " << classified_id << llendl;
