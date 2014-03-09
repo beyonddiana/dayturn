@@ -624,10 +624,22 @@ void LLView::deleteAllChildren()
 	// clear out the control ordering
 	mCtrlOrder.clear();
 
-	while (!mChildList.empty())
-	{
-		LLView* viewp = mChildList.front();
-		delete viewp; // will remove the child from mChildList
+	LLView::child_list_iter_t iter = mChildList.begin();
+	LLView::child_list_iter_t iter_end = mChildList.end();
+
+	//
+	//	remove non-screen-channels from mChildList
+	//
+	while (iter != iter_end) {
+		LLView *view = (*iter);
+
+		if (view && !view->isScreenChannel()) {
+			delete view;
+			iter = mChildList.begin();
+		}
+		else {
+			mChildList.erase(iter++);
+		}
 	}
 }
 
