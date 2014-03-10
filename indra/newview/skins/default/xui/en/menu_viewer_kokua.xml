@@ -391,6 +391,17 @@
             <menu_item_call.on_click
              function="World.Chat" />
         </menu_item_call-->
+	<menu_item_check
+         label="Conversations..."
+         name="Conversations"
+         shortcut="control|T">
+            <menu_item_check.on_check
+             function="Floater.IsOpen"
+             parameter="im_container" />
+            <menu_item_check.on_click
+             function="Floater.ToggleOrBringToFront"
+             parameter="im_container" />
+	</menu_item_check>
         <menu_item_check
          label="Nearby Chat"
          name="Nearby Chat"
@@ -715,7 +726,8 @@
    tear_off="true">
     <menu_item_call
      label="Landmark This Place"
-     name="Create Landmark Here">
+     name="Create Landmark Here"
+	 shortcut="control|shift|D">
       <menu_item_call.on_click
        function="World.CreateLandmark" />
       <menu_item_call.on_enable
