@@ -1118,9 +1118,9 @@ LLUrlEntrySLLabel::LLUrlEntrySLLabel()
 
 std::string LLUrlEntrySLLabel::getLabel(const std::string &url, const LLUrlLabelCallback &cb)
 {
-	std::string ret = getLabelFromWikiLink(url);
-	LL_DEBUGS("UrlEntry") << "url " << ret << LL_ENDL;
-	return ret;
+	std::string label = getLabelFromWikiLink(url);
+	return (!LLUrlRegistry::instance().hasUrl(label)) ? label : getUrl(url);
+
 }
 
 std::string LLUrlEntrySLLabel::getUrl(const std::string &string) const

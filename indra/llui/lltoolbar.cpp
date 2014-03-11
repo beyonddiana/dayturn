@@ -254,14 +254,15 @@ void LLToolBar::initFromParams(const LLToolBar::Params& p)
 	center_panel_p.auto_resize = false;
 	center_panel_p.user_resize = false;
 	center_panel_p.mouse_opaque = false;
-	LLLayoutPanel* center_panel = LLUICtrlFactory::create<LLLayoutPanel>(center_panel_p);
-	mCenteringStack->addChild(center_panel);
+	mCenterPanel = LLUICtrlFactory::create<LLCenterLayoutPanel>(center_panel_p);
+	mCenteringStack->addChild(mCenterPanel);
 
 	LLPanel::Params button_panel_p(p.button_panel);
-	button_panel_p.rect = center_panel->getLocalRect();
-		button_panel_p.follows.flags = FOLLOWS_BOTTOM|FOLLOWS_LEFT;
+	button_panel_p.rect = mCenterPanel->getLocalRect();
+	button_panel_p.follows.flags = FOLLOWS_BOTTOM|FOLLOWS_LEFT;
 	mButtonPanel = LLUICtrlFactory::create<LLPanel>(button_panel_p);
-	center_panel->addChild(mButtonPanel);
+	mCenterPanel->setButtonPanel(mButtonPanel);
+	mCenterPanel->addChild(mButtonPanel);
 	
 	// <FS:Zi> Add alignment options to toolbars
 	// mCenteringStack->addChild(LLUICtrlFactory::create<LLLayoutPanel>(border_panel_p));

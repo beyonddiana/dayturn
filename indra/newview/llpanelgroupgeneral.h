@@ -62,8 +62,6 @@ public:
 	virtual void setGroupID(const LLUUID& id);
 
 	virtual void setupCtrls	(LLPanel* parent);
-
-	void onNameCache(const LLUUID& update_id, LLGroupMemberData* member, const LLAvatarName& av_name);
 private:
 	void	reset();
 
@@ -75,19 +73,13 @@ private:
 	static void onCommitEnrollment(LLUICtrl* ctrl, void* data);
 	static void onClickInfo(void* userdata);
 	static void onReceiveNotices(LLUICtrl* ctrl, void* data);
-	static void openProfile(void* data);
 	static void onCopyGroupUUID(void *data);
-
-	S32	 sortMembersList(S32,const LLScrollListItem*,const LLScrollListItem*);
-	void addMember(LLGroupMemberData* member);
 
     static bool joinDlgCB(const LLSD& notification, const LLSD& response);
 
-	void updateMembers();
 	void updateChanged();
 	bool confirmMatureApply(const LLSD& notification, const LLSD& response);
 
-	BOOL			mPendingMemberUpdate;
 	BOOL			mChanged;
 	BOOL			mFirstUse;
 	std::string		mIncompleteMemberDataStr;
@@ -100,8 +92,6 @@ private:
 	LLLineEditor		*mGroupUUIDText;
 	LLButton		*mBtnGroupUUIDCopy;
 
-	LLNameListCtrl	*mListVisibleMembers;
-
 	// Options (include any updates in updateChanged)
 	LLCheckBoxCtrl	*mCtrlShowInGroupList;
 	LLCheckBoxCtrl	*mCtrlOpenEnrollment;
@@ -112,9 +102,6 @@ private:
 	LLTextBox       *mActiveTitleLabel;
 	LLComboBox		*mComboActiveTitle;
 	LLComboBox		*mComboMature;
-
-	LLGroupMgrGroupData::member_list_t::iterator mMemberProgress;
-	boost::signals2::connection mAvatarNameCacheConnection;
 };
 
 #endif
