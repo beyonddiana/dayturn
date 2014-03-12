@@ -1536,3 +1536,15 @@ S32 LLToolBarButton::getInitialWidth() const
 {
 	return mInitialWidth;
 }
+void LLToolBar::LLCenterLayoutPanel::handleReshape(const LLRect& rect, bool by_user)
+{
+	LLLayoutPanel::handleReshape(rect, by_user);
+
+	if (!mReshapeCallback.empty())
+	{
+		LLRect r;
+		localRectToOtherView(mButtonPanel->getRect(), &r, gFloaterView);
+		r.stretch(FLOATER_MIN_VISIBLE_PIXELS);
+		mReshapeCallback(mLocationId, r);
+	}
+}

@@ -40,6 +40,19 @@ class LLUICtrlFactory;
 class LLToolBarView : public LLUICtrl
 {
 public:
+	typedef enum
+	{
+		TOOLBAR_NONE = 0,
+		TOOLBAR_LEFT,
+		TOOLBAR_RIGHT,
+		TOOLBAR_BOTTOM,
+
+		TOOLBAR_COUNT,
+
+		TOOLBAR_FIRST = TOOLBAR_LEFT,
+		TOOLBAR_LAST = TOOLBAR_BOTTOM,
+	} EToolBarLocation;
+
 	// Xui structure of the toolbar panel
 	struct Params : public LLInitParam::Block<Params, LLUICtrl::Params> {};
 
@@ -73,9 +86,9 @@ public:
 	virtual void draw();
 
 	// Toolbar view interface with the rest of the world
-	// Checks if the commandId is being used somewhere in one of the toolbars, returns LLToolBarEnums::EToolBarLocation
+	// Checks if the commandId is being used somewhere in one of the toolbars, returns EToolBarLocation
 	S32 hasCommand(const LLCommandId& commandId) const;
-	S32 addCommand(const LLCommandId& commandId, LLToolBarEnums::EToolBarLocation toolbar, int rank = LLToolBar::RANK_NONE);
+	S32 addCommand(const LLCommandId& commandId, EToolBarLocation toolbar, int rank = LLToolBar::RANK_NONE);
 	S32 removeCommand(const LLCommandId& commandId, int& rank);	// Sets the rank the removed command was at, RANK_NONE if not found
 	S32 enableCommand(const LLCommandId& commandId, bool enabled);
 	S32 stopCommandInProgress(const LLCommandId& commandId);
@@ -98,7 +111,7 @@ public:
 	static void resetDragTool(LLToolBarButton* toolbarButton);
 	LLInventoryObject* getDragItem();
 	LLView* getBottomToolbar() { return mBottomToolbarPanel; }
-	LLToolBar* getToolbar(LLToolBarEnums::EToolBarLocation toolbar) { return mToolbars[toolbar]; }
+	LLToolBar* getToolbar(EToolBarLocation toolbar) { return mToolbars[toolbar]; }
 	bool isModified() const;
 	
 protected:
@@ -116,7 +129,7 @@ private:
 	static void onToolBarButtonRemoved(LLView* button);
 
 	// Pointers to the toolbars handled by the toolbar view
-	LLToolBar*  mToolbars[LLToolBarEnums::TOOLBAR_COUNT];
+	LLToolBar*  mToolbars[TOOLBAR_COUNT];
 	bool		mToolbarsLoaded;
 	
 	bool				mDragStarted;

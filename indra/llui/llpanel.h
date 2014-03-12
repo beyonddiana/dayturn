@@ -344,5 +344,32 @@ template<typename T>
 	LLRegisterPanelClass::instance().addPanelClass(tag,&LLRegisterPanelClass::defaultPanelClassBuilder<T>);
 }
 
+// local static instance for registering a particular panel class
+template<typename T>
+class LLRegisterPanelClassWrapper
+:	public LLRegisterPanelClass
+{
+public:
+	// reigister with either the provided builder, or the generic templated builder
+	LLRegisterPanelClassWrapper(const std::string& tag);
+// [SL:KB] - Patch: UI-Base | Checked: 2010-12-01 (Catznip-3.0.0a) | Added: Catznip-2.4.0g
+	LLRegisterPanelClassWrapper(const std::string& tag, LLPanelClassCreatorFunc func);
+// [/SL:KB]
+};
+
+
+template<typename T>
+LLRegisterPanelClassWrapper<T>::LLRegisterPanelClassWrapper(const std::string& tag) 
+{
+	LLRegisterPanelClass::instance().addPanelClass(tag,&LLRegisterPanelClass::defaultPanelClassBuilder<T>);
+}
+
+// [SL:KB] - Patch: UI-Base | Checked: 2010-12-01 (Catznip-3.0.0a) | Added: Catznip-2.4.0g
+template<typename T>
+LLRegisterPanelClassWrapper<T>::LLRegisterPanelClassWrapper(const std::string& tag, LLPanelClassCreatorFunc func) 
+{
+	LLRegisterPanelClass::instance().addPanelClass(tag, func);
+}
+// [/SL:KB]
 
 #endif

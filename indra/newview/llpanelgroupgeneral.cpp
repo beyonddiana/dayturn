@@ -78,12 +78,12 @@ LLPanelGroupGeneral::LLPanelGroupGeneral()
 	mCtrlReceiveNotices(NULL),
 	mCtrlListGroup(NULL),
 	mActiveTitleLabel(NULL),
-	mComboActiveTitle(NULL)
+	mComboActiveTitle(NULL),
 	mGroupUUIDText(NULL),
-	mBtnGroupUUIDCopy(NULL),
-{
+	mBtnGroupUUIDCopy(NULL)
 
-}
+{
+};
 
 LLPanelGroupGeneral::~LLPanelGroupGeneral()
 {
