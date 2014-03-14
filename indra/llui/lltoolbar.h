@@ -237,8 +237,11 @@ public:
 		Mandatory<LLToolBarEnums::SideType>		side;
 
 		Optional<LLToolBarButton::Params>		button_icon,
+												// <FS:Zi> Add text only button
+												// button_icon_and_text,
 												button_icon_and_text,
-												button_text_only;
+												button;
+												// </FS:Zi>
 
 		Optional<bool>							read_only,
 												wrap;

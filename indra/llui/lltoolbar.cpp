@@ -102,7 +102,6 @@ LLToolBar::Params::Params()
 	side("side", SIDE_TOP),
 	button_icon("button_icon"),
 	button_icon_and_text("button_icon_and_text"),
-	button_text_only("button_text_only"),
 	read_only("read_only", false),
 	wrap("wrap", true),
 	pad_left("pad_left"),
@@ -142,16 +141,16 @@ LLToolBar::LLToolBar(const LLToolBar::Params& p)
 	mButtonLeaveSignal(NULL),
 	mButtonRemoveSignal(NULL),
 	mDragAndDropTarget(false),
-	// <FS:Zi> add layout style and alignment initialisation
-	//mCaretIcon(NULL)
 	mCaretIcon(NULL),
-	mLayoutStyle(p.layout_style),
-	mAlignment(p.alignment)
+	// <FS:Zi> add layout style and alignment initialisation
+	//mCenterPanel(NULL)
+	mCenterPanel(NULL)
+//	mLayoutStyle(p.layout_style),
+//	mAlignment(p.alignment)
 	// </FS:Zi>
 {
 	mButtonParams[LLToolBarEnums::BTNTYPE_ICONS_WITH_TEXT] = p.button_icon_and_text;
 	mButtonParams[LLToolBarEnums::BTNTYPE_ICONS_ONLY] = p.button_icon;
-	mButtonParams[LLToolBarEnums::BTNTYPE_TEXT_ONLY] = p.button_text_only;
 }
 
 LLToolBar::~LLToolBar()
@@ -1421,6 +1420,18 @@ const std::string LLToolBarButton::getToolTip() const
 	return tooltip;
 }
 
+void LLToolBar::LLCenterLayoutPanel::handleReshape(const LLRect& rect, bool by_user)
+{
+	LLLayoutPanel::handleReshape(rect, by_user);
+
+	if (!mReshapeCallback.empty())
+	{
+		LLRect r;
+		localRectToOtherView(mButtonPanel->getRect(), &r, gFloaterView);
+		r.stretch(FLOATER_MIN_VISIBLE_PIXELS);
+		mReshapeCallback(mLocationId, r);
+	}
+}
 // <FS:Zi> Returns the current alignment for saving in XML settings
 LLToolBarEnums::Alignment LLToolBar::getAlignment() const
 {
@@ -1536,15 +1547,4 @@ S32 LLToolBarButton::getInitialWidth() const
 {
 	return mInitialWidth;
 }
-void LLToolBar::LLCenterLayoutPanel::handleReshape(const LLRect& rect, bool by_user)
-{
-	LLLayoutPanel::handleReshape(rect, by_user);
 
-	if (!mReshapeCallback.empty())
-	{
-		LLRect r;
-		localRectToOtherView(mButtonPanel->getRect(), &r, gFloaterView);
-		r.stretch(FLOATER_MIN_VISIBLE_PIXELS);
-		mReshapeCallback(mLocationId, r);
-	}
-}

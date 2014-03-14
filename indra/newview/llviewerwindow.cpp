@@ -1873,7 +1873,7 @@ void LLViewerWindow::initBase()
 	gFloaterView = main_view->getChild<LLFloaterView>("Floater View");
 	for (S32 i = 0; i < LLToolBarEnums::TOOLBAR_COUNT; ++i)
 	{
-		LLToolBar * toolbarp = gToolBarView->getToolbar((LLToolBarView::EToolBarLocation)i);
+		LLToolBar * toolbarp = gToolBarView->getToolbar((LLToolBarEnums::EToolBarLocation)i);
 		if (toolbarp)
 		{
 			toolbarp->getCenterLayoutPanel()->setReshapeCallback(boost::bind(&LLFloaterView::setToolbarRect, gFloaterView, _1, _2));
