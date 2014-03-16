@@ -221,7 +221,7 @@
      <key>grid.3rdrockgrid.com:8002</key>
         <map>
         <key>LastModified</key>
-            <date>2012-03-31T13:37:13.37Z</date>
+            <date>2014-03-16T21:37:43.18Z</date>
         <key>about</key>
             <string>http://3rdrockgrid.com/</string>
         <key>gridname</key>
@@ -238,7 +238,7 @@
                 <string>account</string>
             </array>
         <key>loginpage</key>
-            <string>http://3rdrockgrid.com/startpage.php</string>
+            <string>http://grid.3rdrockgrid.com/3rg_login/</string>
         <key>loginuri</key>
             <array>
                 <string>http://grid.3rdrockgrid.com:8002/</string>
@@ -252,7 +252,7 @@
         <key>slurl_base</key>
             <string>hop://grid.3rdrockgrid.com:8002/</string>
         </map>
-    <key>grid01.from-ne.com:8002</key>
+		<key>grid01.from-ne.com:8002</key>
         <map>
         <key>LastModified</key>
             <date>2012-03-31T13:37:13.37Z</date>
