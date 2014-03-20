@@ -2975,19 +2975,22 @@ void LLVOAvatar::idleUpdateNameTagText(BOOL new_name)
 		//
 		//	show the avatar's age in the name tag (or not)
 		//
-		static LLUICachedControl<bool> show_age("NameTagShowAge", false);
-		if (show_age) {
+		static const LLUICachedControl<bool> show_age("NameTagShowAge", false);
+
+		if ((BOOL)show_age) {
 			//
 			//	check whether the birthday is available or if
 			//	it needs to be requested from the server
 			//
-			if (mAvatarBirthdate != 0.0f) {
+
+			if (mAvatarBirthdate < 0.0f || mAvatarBirthdate > 0.0f ) {
 				//
 				//	check if the avatar's age is young
 				//	enough to be shown.  A zero age limit
 				//	means always show the age
 				//
-				static LLUICachedControl<U32> show_age_limit("NameTagShowAgeLimit", 28);
+				static const LLUICachedControl<U32> show_age_limit("NameTagShowAgeLimit", 28);
+				LL_WARNS("NameTag") << "DBX ShowAgeLimit = " << show_age_limit  << LL_ENDL;
 				LLDate date_now = LLDate::now();
 
 				if (!show_age_limit || date_now.secondsSinceEpoch() - ((show_age_limit + 1) * 86400) <= mAvatarBirthdate.secondsSinceEpoch()) {
