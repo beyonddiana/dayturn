@@ -283,8 +283,6 @@ private:
 	void	showToastsBottom();
 	void	showToastsCentre();
 	void	showToastsTop();
-
-	virtual bool isScreenChannel() const { return true; }
 	
 	// create the StartUp Toast
 	void	createStartUpToast(S32 notif_num, F32 timer);

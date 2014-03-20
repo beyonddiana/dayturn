@@ -678,8 +678,6 @@ public:
 	static S32 sLastLeftXML;
 	static S32 sLastBottomXML;
 	static BOOL sForceReshape;
-
-	virtual bool isScreenChannel() const { return false; }
 };
 
 class LLCompareByTabOrder
