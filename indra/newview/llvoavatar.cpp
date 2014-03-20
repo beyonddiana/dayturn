@@ -2932,7 +2932,7 @@ void LLVOAvatar::idleUpdateNameTagText(BOOL new_name)
 				// Note: do not connect a callback on idle().
 				clearNameTag();
 			}
-
+		have_name = !av_name.getDisplayName().empty();
 // [RLVa:KB] - Checked: 2010-10-31 (RLVa-1.2.2a) | Modified: RLVa-1.2.2a
 			if ( (!fRlvShowNames) || (isSelf()) )
 			{
@@ -2975,6 +2975,8 @@ void LLVOAvatar::idleUpdateNameTagText(BOOL new_name)
 		//
 		//	show the avatar's age in the name tag (or not)
 		//
+
+
 		static LLUICachedControl<bool> show_age("NameTagShowAge", false);
 		if (show_age) {
 			//
