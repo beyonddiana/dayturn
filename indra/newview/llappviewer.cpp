@@ -682,7 +682,6 @@ LLAppViewer::LLAppViewer() :
 	mSavePerAccountSettings(false),		// don't save settings on logout unless login succeeded.
 	mQuitRequested(false),
 	mLogoutRequestSent(false),
-	mYieldTime(-1),
 	mMainloopTimeout(NULL),
 	mAgentRegionLastAlive(false),
 	mRandomizeFramerate(LLCachedControl<bool>(gSavedSettings,"Randomize Framerate", FALSE)),
@@ -1308,9 +1307,11 @@ bool LLAppViewer::mainLoop()
 	
     LLSD newFrame;
 	
-	LLTimer frameTimer,idleTimer;
+	LLTimer frameTimer,idleTimer,periodicRenderingTimer;
 	LLTimer debugTime;
 	
+	BOOL restore_rendering_masks = FALSE;
+
 	//LLPrivateMemoryPoolTester::getInstance()->run(false) ;
 	//LLPrivateMemoryPoolTester::getInstance()->run(true) ;
 	//LLPrivateMemoryPoolTester::destroy() ;
@@ -1333,6 +1334,28 @@ bool LLAppViewer::mainLoop()
 		
 		try
 		{
+			// Check if we need to restore rendering masks.
+			if (restore_rendering_masks)
+			{
+				gPipeline.popRenderDebugFeatureMask();
+				gPipeline.popRenderTypeMask();
+			}
+			// Check if we need to temporarily enable rendering.
+			static LLCachedControl<F32> periodic_rendering(gSavedSettings, "ForcePeriodicRenderingTime", -1.0f);
+			if (periodic_rendering > F_APPROXIMATELY_ZERO && periodicRenderingTimer.getElapsedTimeF64() > periodic_rendering)
+			{
+				periodicRenderingTimer.reset();
+				restore_rendering_masks = TRUE;
+				gPipeline.pushRenderTypeMask();
+				gPipeline.pushRenderDebugFeatureMask();
+				gPipeline.setAllRenderTypes();
+				gPipeline.setAllRenderDebugFeatures();
+			}
+			else
+			{
+				restore_rendering_masks = FALSE;
+			}
+
 			pingMainloopTimeout("Main:MiscNativeWindowEvents");
 
 			if (gViewerWindow)
@@ -1452,10 +1475,11 @@ bool LLAppViewer::mainLoop()
 				LLFastTimer t2(FTM_SLEEP);
 				
 				// yield some time to the os based on command line option
-				if(mYieldTime >= 0)
+				LLCachedControl<S32> yield_time(gSavedSettings, "YieldTime", -1);
+				if(yield_time >= 0)
 				{
 					LLFastTimer t(FTM_YIELD);
-					ms_sleep(mYieldTime);
+					ms_sleep(yield_time);
 				}
 
 				// yield cooperatively when not running as foreground window
@@ -1567,6 +1591,26 @@ bool LLAppViewer::mainLoop()
 				{
 					gFrameStalls++;
 				}
+
+				// Limit FPS
+				static LLCachedControl<F32> max_fps(gSavedSettings, "MaxFPS", -1.0f);
+				// Only limit FPS when we are actually rendering something.  Otherwise
+				// logins, logouts and teleports take much longer to complete.
+				if (max_fps > F_APPROXIMATELY_ZERO &&
+					LLStartUp::getStartupState() == STATE_STARTED &&
+					!gTeleportDisplay &&
+					!logoutRequestSent())
+				{
+					// Sleep a while to limit frame rate.
+					F32 min_frame_time = 1.f / max_fps;
+					S32 milliseconds_to_sleep = llclamp((S32)((min_frame_time - frameTimer.getElapsedTimeF64()) * 1000.f), 0, 1000);
+					if (milliseconds_to_sleep > 0)
+					{
+						LLFastTimer t(FTM_YIELD);
+						ms_sleep(milliseconds_to_sleep);
+					}
+				}
+
 				frameTimer.reset();
 
 				resumeMainloopTimeout();
@@ -2718,8 +2762,6 @@ bool LLAppViewer::initConfiguration()
 			LLSpellChecker::instance().setSecondaryDictionaries(dict_list);
 		}
 	}
-
-    mYieldTime = gSavedSettings.getS32("YieldTime");
 
 	// Read skin/branding settings if specified.
 	//if (! gDirUtilp->getSkinDir().empty() )

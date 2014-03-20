@@ -270,9 +270,8 @@ private:
 
 	boost::optional<U32> mForceGraphicsLevel;
 
-    bool mQuitRequested;				// User wants to quit, may have modified documents open.
-    bool mLogoutRequestSent;			// Disconnect message sent to simulator, no longer safe to send messages to the sim.
-    S32 mYieldTime;
+	bool mQuitRequested;				// User wants to quit, may have modified documents open.
+	bool mLogoutRequestSent;			// Disconnect message sent to simulator, no longer safe to send messages to the sim.
 	struct SettingsFiles* mSettingsLocationList;
 
 	LLWatchdogTimeout* mMainloopTimeout;
