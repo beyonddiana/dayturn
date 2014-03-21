@@ -2969,6 +2969,7 @@ void LLVOAvatar::idleUpdateNameTagText(BOOL new_name)
 				full_name = RlvStrings::getAnonym(full_name);
 			}
 // [/RLVa:KB]
+			have_name = !full_name.empty();
 			addNameTagLine(full_name, name_tag_color, LLFontGL::NORMAL, font);
 		}
 
