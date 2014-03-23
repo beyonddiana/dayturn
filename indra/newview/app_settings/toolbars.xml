@@ -25,6 +25,7 @@
  
   </bottom_toolbar>
   <left_toolbar
+    button_alignment="bottom"
     button_display_mode="icons_only">
     <command name="avatar"/>
     <command name="destinations"/>

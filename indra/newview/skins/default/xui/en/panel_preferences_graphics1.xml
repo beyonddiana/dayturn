@@ -221,7 +221,7 @@
    label_width="90"
    layout="topleft"
    left="30"
-   max_val="4"
+   max_val="8"
    min_val="0"
    name="ObjectMeshDetail2"
    show_text="false"
@@ -256,8 +256,8 @@
    label_width="90"
    layout="topleft"
    left="30"
-   max_val="512"
-   min_val="64"
+   max_val="1024"
+   min_val="0"
    name="DrawDistance"
    top="128"
    width="330" />
@@ -276,7 +276,7 @@
   </text>
   <check_box
 		 control_name="RenderDeferred"
-     invisiblity_control="ShowAdvancedGraphicsSettings"
+         invisiblity_control="ShowAdvancedGraphicsSettings"
 		 height="16"
 		 initial_value="true"
 		 label="Advanced Lighting Model"
@@ -644,7 +644,7 @@
 		 label_width="185"
 		 layout="topleft"
 		 left_delta="0"
-		 max_val="4"
+		 max_val="8"
 		 name="ObjectMeshDetail"
 		 show_text="false"
 		 top_pad="6"
