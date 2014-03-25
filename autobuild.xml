@@ -699,9 +699,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>10cb3ba22a1d3649ec9e5b3489dfe818</string>
+              <string>180f4d703deec104469e6a9044243110</string>
               <key>url</key>
-              <string>http://viewer.catznip.com/downloads/packages/fmodex-4.44.12-linux-20130713.tar.bz2</string>
+              <string>http://s3-proxy.lindenlab.com/private-builds-secondlife-com/hg/repo/3p-fmodex-private/rev/288122/arch/Linux/installer/fmodex-4.44.31-linux-20140315.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux</string>
