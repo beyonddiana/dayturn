@@ -43,9 +43,10 @@
          label="[SECOND_LIFE] Help"
          name="Second Life Help"
          shortcut="F1">
-            <menu_item_call.on_click
-             function="ShowHelp"
-             parameter="f1_help" />
+        <menu_item_call.on_click
+            function="PromptShowURL"
+            name="wiki_kokua_viewer_org_url"
+            parameter="WebLaunchExternalTarget,http://wiki.kokuaviewer.org/wiki/Support" />
         </menu_item_call>
         <menu_item_separator />
         <menu_item_call
