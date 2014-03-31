@@ -368,7 +368,6 @@
 		(0 = Show all names)
 	    </text>
 	</panel>
-
 	<!--Privacy-->
 	<panel
 	    border="true"
@@ -481,6 +480,28 @@
 		width="350"
 		control_name="ShowPointAtLimited"
 		tool_tip="Don't show my own point-at crosshair to myself (reduces screen clutter)." />
+	</panel>
+	<!--Inventory-->
+	<panel
+	    border="true"
+	    follows="all"
+	    height="408"
+	    label="Inventory"
+	    left="1"
+	    mouse_opaque="true"
+	    name="kokua_inv"
+	    width="517">
+        <check_box
+         top_pad="5"
+         follows="left|top"
+         height="16"
+         label="Hide empty system folders from inventory"
+         left="15"
+         name="DebugHideEmptySystemFolders"
+         width="270"
+         control_name="DebugHideEmptySystemFolders"
+         tool_tip="If enabled, the inventory windows will hide all empty system folders like Favorites, Landmarks etc.">
+		</check_box>
 	</panel>
     </tab_container>
 </panel>
