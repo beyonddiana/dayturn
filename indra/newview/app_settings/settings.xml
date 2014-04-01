@@ -6250,6 +6250,17 @@
       <key>Value</key>
       <real>60.0</real>
     </map>
+    <key>MapMouseSensitivity</key>
+    <map>
+      <key>Comment</key>
+      <string>Accelerator for mouse-panning the minimap and world map.  The value acts as a multiplier.  Bigger numbers = more sensitive mouse movements.  Fractions between 0 and 1 = less sensitive.  This value needs to be positive</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>F32</string>
+      <key>Value</key>
+      <real>4.0</real>
+    </map>
     <key>MapOverlayIndex</key>
     <map>
       <key>Comment</key>
