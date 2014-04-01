@@ -38,6 +38,13 @@
         <on_click
          function="Wearing.TakeOffDetach" />
     </menu_item_call>
+    <menu_item_call
+     label="Show Original"
+     layout="topleft"
+     name="show_original">
+        <on_click
+         function="Wearing.ShowOriginal" />
+    </menu_item_call>
     <menu_item_separator
      layout="topleft"
      name="edit_outfit_separator" />

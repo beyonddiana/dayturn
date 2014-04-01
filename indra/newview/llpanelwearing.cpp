@@ -124,6 +124,7 @@ protected:
 		registrar.add("Wearing.EditItem", boost::bind(handleMultiple, edit_item, mUUIDs));
 		registrar.add("Wearing.EditOutfit", boost::bind(&edit_outfit));
 // [/SL:KB]
+		registrar.add("Wearing.ShowOriginal", boost::bind(show_item_original, mUUIDs.front()));
 		registrar.add("Wearing.TakeOff",
 					  boost::bind(&LLAppearanceMgr::removeItemsFromAvatar, LLAppearanceMgr::getInstance(), mUUIDs));
 		registrar.add("Wearing.Detach", 
@@ -192,6 +193,8 @@ protected:
 		menu->setItemVisible("edit_item",	bp_selected || clothes_selected || attachments_selected);
 		menu->setItemEnabled("edit_item",	1 == mUUIDs.size());
 // [/SL:KB]
+		menu->setItemVisible("show_original",	bp_selected || clothes_selected || attachments_selected);
+		menu->setItemEnabled("show_original",	1 == mUUIDs.size());
 		menu->setItemVisible("take_off",	allow_take_off);
 		menu->setItemVisible("detach",		allow_detach);
 // [SL:KB] - Patch: Inventory-AttachmentEdit - Checked: 2010-09-04 (Catznip-2.2.0a) | Added: Catznip-2.1.2a
