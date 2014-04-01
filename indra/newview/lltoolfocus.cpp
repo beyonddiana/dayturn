@@ -311,9 +311,11 @@ BOOL LLToolCamera::handleMouseUp(S32 x, S32 y, MASK mask)
 
 BOOL LLToolCamera::handleHover(S32 x, S32 y, MASK mask)
 {
+	static LLCachedControl<F32> camera_mouse_sensitivity(gSavedSettings, "CameraMouseSensitivity", 3.0f);
+	
 	S32 dx = gViewerWindow->getCurrentMouseDX();
 	S32 dy = gViewerWindow->getCurrentMouseDY();
-	
+
 	if (hasMouseCapture() && mValidClickPoint)
 	{
 		mAccumX += llabs(dx);
@@ -347,7 +349,7 @@ BOOL LLToolCamera::handleHover(S32 x, S32 y, MASK mask)
 			// Orbit tool
 			if (hasMouseCapture())
 			{
-				const F32 RADIANS_PER_PIXEL = 360.f * DEG_TO_RAD / gViewerWindow->getWorldViewWidthScaled();
+				const F32 RADIANS_PER_PIXEL = (360.f * DEG_TO_RAD / gViewerWindow->getWorldViewWidthScaled()) * camera_mouse_sensitivity;
 
 				if (dx != 0)
 				{
@@ -375,7 +377,7 @@ BOOL LLToolCamera::handleHover(S32 x, S32 y, MASK mask)
 				F32 dist = (F32) camera_to_focus.normVec();
 
 				// Fudge factor for pan
-				F32 meters_per_pixel = 3.f * dist / gViewerWindow->getWorldViewWidthScaled();
+				F32 meters_per_pixel = (3.f * dist / gViewerWindow->getWorldViewWidthScaled()) * camera_mouse_sensitivity;
 
 				if (dx != 0)
 				{
@@ -397,7 +399,7 @@ BOOL LLToolCamera::handleHover(S32 x, S32 y, MASK mask)
 			if (hasMouseCapture())
 			{
 
-				const F32 RADIANS_PER_PIXEL = 360.f * DEG_TO_RAD / gViewerWindow->getWorldViewWidthScaled();
+				const F32 RADIANS_PER_PIXEL = (360.f * DEG_TO_RAD / gViewerWindow->getWorldViewWidthScaled() * camera_mouse_sensitivity);
 
 				if (dx != 0)
 				{
@@ -414,7 +416,7 @@ BOOL LLToolCamera::handleHover(S32 x, S32 y, MASK mask)
 					}
 					else
 					{
-						gAgentCamera.cameraZoomIn( pow( IN_FACTOR, dy ) );
+						gAgentCamera.cameraZoomIn( pow( IN_FACTOR, dy * (camera_mouse_sensitivity / 2.0f)));
 					}
 				}
 
