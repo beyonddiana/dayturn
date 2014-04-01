@@ -73,6 +73,15 @@ static void edit_item(const LLUUID& idItem)
 }
 // [/SL:KB]
 
+static void touch_item(const LLUUID &id)
+{
+	const LLViewerInventoryItem *item = gInventory.getItem(id);
+
+	if (item && item->getType() == LLAssetType::AT_OBJECT) {
+		handle_attachment_touch(id);
+	}
+}
+
 //////////////////////////////////////////////////////////////////////////
 
 class LLWearingGearMenu
@@ -119,7 +128,8 @@ protected:
 	{
 		LLUICtrl::CommitCallbackRegistry::ScopedRegistrar registrar;
 
-//		registrar.add("Wearing.Edit", boost::bind(&edit_outfit));
+		registrar.add("Wearing.TouchAttach", boost::bind(handleMultiple, touch_item, mUUIDs));
+
 // [SL:KB] - Patch: Inventory-AttachmentEdit - Checked: 2010-09-04 (Catznip-2.2.0a) | Added: Catznip-2.1.2a
 		registrar.add("Wearing.EditItem", boost::bind(handleMultiple, edit_item, mUUIDs));
 		registrar.add("Wearing.EditOutfit", boost::bind(&edit_outfit));
@@ -190,6 +200,9 @@ protected:
 		bool allow_take_off = !bp_selected && clothes_selected && !attachments_selected;
 
 // [SL:KB] - Patch: Inventory-AttachmentEdit - Checked: 2010-09-04 (Catznip-2.2.0a) | Added: Catznip-2.1.2a
+		menu->setItemVisible("touch_attach",	attachments_selected);
+		menu->setItemEnabled("touch_attach",	1 == mUUIDs.size() && enable_attachment_touch(mUUIDs.front()));
+
 		menu->setItemVisible("edit_item",	bp_selected || clothes_selected || attachments_selected);
 		menu->setItemEnabled("edit_item",	1 == mUUIDs.size());
 // [/SL:KB]
