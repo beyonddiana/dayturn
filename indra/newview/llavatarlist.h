@@ -106,6 +106,8 @@ public:
 	void addAvalineItem(const LLUUID& item_id, const LLUUID& session_id, const std::string& item_name);
 	void handleDisplayNamesOptionChanged();
 
+	static std::string getNameToDisplay(const LLAvatarName &av_name);
+
 protected:
 	void refresh();
 

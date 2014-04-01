@@ -1348,7 +1348,16 @@ void LLPanelPeople::onFriendsViewSortMenuItemClicked(const LLSD& userdata)
 		mAllFriendList->showPermissions(show_permissions);
 		mOnlineFriendList->showPermissions(show_permissions);
 	}
+	else if (chosen_item == "view_login_names") {
+		gSavedSettings.setBOOL(
+			"useCompleteNameInLists",
+			!gSavedSettings.getBOOL("useCompleteNameInLists")
+		);
+
+		mAllFriendList->handleDisplayNamesOptionChanged();
+		mOnlineFriendList->handleDisplayNamesOptionChanged();
 	}
+}
 
 void LLPanelPeople::onGroupsViewSortMenuItemClicked(const LLSD& userdata)
 {
@@ -1380,6 +1389,14 @@ void LLPanelPeople::onNearbyViewSortMenuItemClicked(const LLSD& userdata)
 	{
 		setSortOrder(mNearbyList, E_SORT_BY_DISTANCE);
 	}
+	else if (chosen_item == "view_login_names") {
+		gSavedSettings.setBOOL(
+			"useCompleteNameInLists",
+			!gSavedSettings.getBOOL("useCompleteNameInLists")
+		);
+
+		mNearbyList->handleDisplayNamesOptionChanged();
+	}
 }
 
 bool LLPanelPeople::onNearbyViewSortMenuItemCheck(const LLSD& userdata)
@@ -1387,12 +1404,18 @@ bool LLPanelPeople::onNearbyViewSortMenuItemCheck(const LLSD& userdata)
 	std::string item = userdata.asString();
 	static LLCachedControl<U32> sort_order(gSavedSettings, "NearbyPeopleSortOrder", E_SORT_BY_RECENT_SPEAKERS);
 
-	if (item == "sort_by_recent_speakers")
+	if (item == "sort_by_recent_speakers") {
 		return sort_order == E_SORT_BY_RECENT_SPEAKERS;
-	if (item == "sort_name")
+	}
+	else if (item == "sort_name") {
 		return sort_order == E_SORT_BY_NAME;
-	if (item == "sort_distance")
+	}
+	else if (item == "sort_distance") {
 		return sort_order == E_SORT_BY_DISTANCE;
+	}
+	else if (item == "view_login_names") {
+		return gSavedSettings.getBOOL("UseCompleteNameInLists");
+	}
 
 	return false;
 }
@@ -1413,6 +1436,14 @@ void LLPanelPeople::onRecentViewSortMenuItemClicked(const LLSD& userdata)
 	{
 		mRecentList->toggleIcons();
 	}
+	else if (chosen_item == "view_login_names") {
+		gSavedSettings.setBOOL(
+			"useCompleteNameInLists",
+			!gSavedSettings.getBOOL("useCompleteNameInLists")
+		);
+
+		mRecentList->handleDisplayNamesOptionChanged();
+	}
 }
 
 bool LLPanelPeople::onFriendsViewSortMenuItemCheck(const LLSD& userdata) 
@@ -1421,10 +1452,15 @@ bool LLPanelPeople::onFriendsViewSortMenuItemCheck(const LLSD& userdata)
 
 	static LLCachedControl<U32> sort_order(gSavedSettings, "FriendsSortOrder", E_SORT_BY_NAME);
 
-	if (item == "sort_name") 
+	if (item == "sort_name") {
 		return sort_order == E_SORT_BY_NAME;
-	if (item == "sort_status")
+	}
+	else if (item == "sort_status") {
 		return sort_order == E_SORT_BY_STATUS;
+	}
+	else if (item == "view_login_names") {
+		return gSavedSettings.getBOOL("UseCompleteNameInLists");
+	}
 
 	return false;
 }
@@ -1434,10 +1470,15 @@ bool LLPanelPeople::onRecentViewSortMenuItemCheck(const LLSD& userdata)
 	std::string item = userdata.asString();
 	static LLCachedControl<U32> sort_order(gSavedSettings, "RecentPeopleSortOrder", E_SORT_BY_MOST_RECENT);
 
-	if (item == "sort_recent")
+	if (item == "sort_recent") {
 		return sort_order == E_SORT_BY_MOST_RECENT;
-	if (item == "sort_name") 
+	}
+	else if (item == "sort_name") {
 		return sort_order == E_SORT_BY_NAME;
+	}
+	else if (item == "view_login_names") {
+		return gSavedSettings.getBOOL("UseCompleteNameInLists");
+	}
 
 	return false;
 }

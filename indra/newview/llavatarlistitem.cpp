@@ -424,11 +424,9 @@ void LLAvatarListItem::onAvatarNameCache(const LLAvatarName& av_name)
 {
 	mAvatarNameCacheConnection.disconnect();
 
-//	setAvatarName(av_name.getDisplayName());
-//	setAvatarToolTip(av_name.getUserName());
 // [RLVa:KB] - Checked: 2010-10-31 (RLVa-1.2.2a) | Modified: RLVa-1.2.2a
 	bool fRlvFilter = (mRlvCheckShowNames) && (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES));
-	setAvatarName( (!fRlvFilter) ? av_name.getDisplayName() : RlvStrings::getAnonym(av_name) );
+	setAvatarName(!fRlvFilter ? LLAvatarList::getNameToDisplay(av_name) : RlvStrings::getAnonym(av_name));
 	setAvatarToolTip( (!fRlvFilter) ? av_name.getUserName() : RlvStrings::getAnonym(av_name) );
 	// TODO-RLVa: bit of a hack putting this here. Maybe find a better way?
 	mAvatarIcon->setDrawTooltip(!fRlvFilter);

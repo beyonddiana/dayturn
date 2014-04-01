@@ -179,11 +179,7 @@ std::string LLAvatarName::getCompleteName() const
 		}
 		else
 		{
-			name = mDisplayName;
-			if(sUseUsernames)
-			{
-				name += " (" + mUsername + ")";
-			}
+			name = mDisplayName + " (" + mUsername + ")";
 		}
 	}
 	else
