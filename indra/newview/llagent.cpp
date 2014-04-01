@@ -422,7 +422,11 @@ LLAgent::LLAgent() :
 	mAppearanceSerialNum(0),
 
 	mMouselookModeInSignal(NULL),
-	mMouselookModeOutSignal(NULL)
+	mMouselookModeOutSignal(NULL),
+
+	restoreToWorld(false),
+	restoreToWorldGroup(NULL),
+	restoreToWorldItem(NULL)
 {
 	for (U32 i = 0; i < TOTAL_CONTROLS; i++)
 	{
@@ -3625,6 +3629,65 @@ void LLAgent::processAgentDataUpdate(LLMessageSystem *msg, void **)
 		gAgent.mGroupPowers = 0;
 		gAgent.mGroupName.clear();
 	}		
+
+	if (gAgent.restoreToWorld) {
+		LLViewerInventoryItem *inv_item = gAgent.restoreToWorldItem;
+		const LLUUID trash_id = gInventory.findCategoryUUIDForType(LLFolderType::FT_TRASH);
+		bool remove_from_inventory = false;
+
+		//
+		//	this code is called if the agent is trying to restore
+		//	an item to the world using the correct group and code
+		//	in llinventorybridge.cpp had to temporarily switch the
+		//	agent's tag.
+		//
+		//	This code re-activates to the the tag the agent had
+		//	selected prior requesting that an object be restored
+		//	to the world and then deals with local inventory
+		//	removal if required
+		//
+		msg->newMessage("RezRestoreToWorld");
+		msg->nextBlockFast(_PREHASH_AgentData);
+		msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
+		msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
+		msg->nextBlockFast(_PREHASH_InventoryData);
+		inv_item->packMessage(msg);
+		msg->sendReliable(gAgent.getRegion()->getHost());
+
+		//
+		//	remove local inventory copy, sim will deal
+		//	with permissions and removing the item
+		//	from the actual inventory if its a no-copy etc.
+		//
+		if (!inv_item->getPermissions().allowCopyBy(gAgent.getID())) {
+			remove_from_inventory = true;
+		}
+		
+		//
+		//	check if the item is in the trash
+		//	(similar to the normal rez logic)
+		//
+		if (gInventory.isObjectDescendentOf(inv_item->getUUID(), trash_id)) {
+			remove_from_inventory = true;
+		}
+
+		if (remove_from_inventory) {
+			gInventory.deleteObject(inv_item->getUUID());
+			gInventory.notifyObservers();
+		}
+
+		//
+		//	restore the previous group
+		//
+		msg->newMessageFast(_PREHASH_ActivateGroup);
+		msg->nextBlockFast(_PREHASH_AgentData);
+		msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
+		msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
+		msg->addUUIDFast(_PREHASH_GroupID, gAgent.restoreToWorldGroup);
+
+		gAgent.restoreToWorld = false;
+		gAgent.sendReliableMessage();
+	}
 
 	update_group_floaters(active_id);
 }

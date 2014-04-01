@@ -35,6 +35,7 @@
 #include "llcoordframe.h"			// for mFrameAgent
 #include "llavatarappearancedefines.h"
 #include "llpermissionsflags.h"
+#include "llviewerinventory.h"			// for LLViewerInventoryItem
 
 #include <boost/function.hpp>
 #include <boost/shared_ptr.hpp>
@@ -294,6 +295,13 @@ private:
 	std::set<U64>	mRegionsVisited;		// Stat - what distinct regions has the avatar been to?
 	F64				mDistanceTraveled;		// Stat - how far has the avatar moved?
 	LLVector3d		mLastPositionGlobal;	// Used to calculate travel distance
+
+  public:
+	bool restoreToWorld;
+	LLUUID restoreToWorldGroup;
+	LLViewerInventoryItem *restoreToWorldItem;
+
+
 	
 /**                    Position
  **                                                                            **
