@@ -218,8 +218,8 @@
    top_delta="-1"
    left_pad="0"
    min_val="0.1"
-   max_val="5.0"
-   initial_value="3.0"
+   max_val="8.0"
+   initial_value="4.0"
    show_text="false" />
   <text
    follows="left|top"
