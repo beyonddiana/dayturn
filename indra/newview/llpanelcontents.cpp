@@ -143,6 +143,19 @@ void LLPanelContents::getState(LLViewerObject *objectp )
 	}
 // [/RLVa:KB]
 
+	bool enable_script_buttons = false;
+
+	if (	editable &&
+		all_volume && (
+			LLSelectMgr::getInstance()->getSelection()->getRootObjectCount() == 1 ||
+			LLSelectMgr::getInstance()->getSelection()->getObjectCount() == 1
+		)
+	) {
+		enable_script_buttons = true;
+	}
+
+	getChildView("button new script")->setEnabled(enable_script_buttons);
+	getChildView("button reset scripts")->setEnabled(enable_script_buttons);
 
 	getChildView("button permissions")->setEnabled(!objectp->isPermanentEnforced());
 	mPanelInventoryObject->setEnabled(!objectp->isPermanentEnforced());
