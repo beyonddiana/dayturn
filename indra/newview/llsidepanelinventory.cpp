@@ -33,7 +33,6 @@
 #include "llavataractions.h"
 #include "llbutton.h"
 #include "lldate.h"
-#include "llfiltereditor.h"
 #include "llfirstuse.h"
 #include "llfloatersidepanelcontainer.h"
 #include "llfoldertype.h"
@@ -60,7 +59,13 @@
 #include "llviewernetwork.h"
 #include "llweb.h"
 
-static LLPanelInjector<LLSidepanelInventory> t_inventory("sidepanel_inventory");
+#include "llfiltereditor.h"
+// <FS:CR> Needed to hide Received Items on OpenSim
+#ifdef OPENSIM
+#include "llviewernetwork.h"
+#endif // OPENSIM
+
+static LLRegisterPanelClassWrapper<LLSidepanelInventory> t_inventory("sidepanel_inventory");
 
 //
 // Constants
@@ -347,7 +352,15 @@ void LLSidepanelInventory::enableInbox(bool enabled)
 	LLLayoutPanel * inbox_layout_panel = getChild<LLLayoutPanel>(INBOX_LAYOUT_PANEL_NAME);
 	// <FS:Ansariel> Optional hiding of Received Items folder aka Inbox
 	//inbox_layout_panel->setVisible(enabled);
-	inbox_layout_panel->setVisible(enabled && !gSavedSettings.getBOOL("FSShowInboxFolder"));
+	inbox_layout_panel->setVisible(enabled&& !gSavedSettings.getBOOL("FSShowInboxFolder")); //<FS:CR>
+//done in xui in kokua
+// <FS:CR> Show Received Items panel only in Second Life
+//#ifdef OPENSIM
+//								   && LLGridManager::getInstance()->isInSecondLife()
+//#endif // OPENSIM
+
+//								   );
+// </FS:CR>
 }
 
 // <FS:Ansariel> Optional hiding of Received Items folder aka Inbox
