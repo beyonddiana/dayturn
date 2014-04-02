@@ -93,7 +93,9 @@ public:
 		LLUICtrl::CommitCallbackRegistry::ScopedRegistrar registrar;
 		LLUICtrl::EnableCallbackRegistry::ScopedRegistrar enable_registrar;
 
-		registrar.add("Gear.Edit", boost::bind(&edit_outfit));
+		registrar.add("Gear.EditOutfit", boost::bind(&edit_outfit));
+		registrar.add("Gear.EditItem", boost::bind(&LLWearingGearMenu::onEditItem, this));
+		registrar.add("Gear.TouchAttach", boost::bind(&LLWearingGearMenu::onTouchAttach, this));
 		registrar.add("Gear.TakeOff", boost::bind(&LLWearingGearMenu::onTakeOff, this));
 		registrar.add("Gear.Copy", boost::bind(&LLPanelWearing::copyToClipboard, mPanelWearing));
 
@@ -108,9 +110,26 @@ public:
 
 private:
 
+	void onTouchAttach()
+	{
+		uuid_vec_t selected_uuids;
+
+		mPanelWearing->getSelectedItemsUUIDs(selected_uuids);
+		touch_item(selected_uuids.front());
+	}
+
+	void onEditItem()
+	{
+		uuid_vec_t selected_uuids;
+
+		mPanelWearing->getSelectedItemsUUIDs(selected_uuids);
+		edit_item(selected_uuids.front());
+	}
+
 	void onTakeOff()
 	{
 		uuid_vec_t selected_uuids;
+
 		mPanelWearing->getSelectedItemsUUIDs(selected_uuids);
 		LLAppearanceMgr::instance().removeItemsFromAvatar(selected_uuids);
 	}
@@ -167,7 +186,7 @@ protected:
 
 			if (!item)
 			{
-				llwarns << "Invalid item" << llendl;
+				LL_WARNS("PanelWearing") << "Invalid item" << LL_ENDL;
 				continue;
 			}
 
@@ -219,7 +238,6 @@ protected:
 		menu->setItemEnabled("take_off",	!rlv_blocked);
 		menu->setItemEnabled("detach",		!rlv_blocked);
 // [/RLVa:KB]
-		menu->setItemVisible("edit_outfit_separator", allow_take_off || allow_detach);
 	}
 };
 
@@ -316,10 +334,55 @@ bool LLPanelWearing::isActionEnabled(const LLSD& userdata)
 		// allow save only if outfit isn't locked and is dirty
 		return !outfit_locked && outfit_dirty;
 	}
-
-	if (command_name == "take_off")
-	{
+	else if (command_name == "take_off") {
 		return hasItemSelected() && canTakeOffSelected();
+	}
+	else if (command_name == "touch_attach") {
+		uuid_vec_t selected;
+
+		getSelectedItemsUUIDs(selected);
+
+		if (selected.size() != 1) {
+			return false;
+		}
+
+		LLViewerInventoryItem *item = gInventory.getItem(selected.front());
+
+		if (!item) {
+			LL_WARNS("PanelWearing") << "Invalid item" << LL_ENDL;
+			return false;
+		}
+
+		LLAssetType::EType type = item->getType();
+
+		if (type == LLAssetType::AT_OBJECT) {
+			return enable_attachment_touch(selected.front());
+		}
+	}
+	else if (command_name == "edit_item") {
+		uuid_vec_t selected;
+
+		getSelectedItemsUUIDs(selected);
+
+		if (selected.size() != 1) {
+			return false;
+		}
+
+		LLViewerInventoryItem *item = gInventory.getItem(selected.front());
+
+		if (!item) {
+			LL_WARNS("PanelWearing") << "Invalid item" << LL_ENDL;
+			return false;
+		}
+
+		LLAssetType::EType type = item->getType();
+
+		if (	type == LLAssetType::AT_CLOTHING ||
+			type == LLAssetType::AT_BODYPART ||
+			type == LLAssetType::AT_OBJECT
+		) {
+			return true;
+		}
 	}
 
 	return false;
