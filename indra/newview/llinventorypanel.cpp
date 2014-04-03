@@ -263,7 +263,6 @@ void LLInventoryPanel::initFromParams(const LLInventoryPanel::Params& params)
 	}
 
 	// hide inbox
-	getFilter().setFilterCategoryTypes(getFilter().getFilterCategoryTypes() & ~(1ULL << LLFolderType::FT_INBOX));
 	// <FS:Ansariel> Optional hiding of Received Items folder aka Inbox
 	//getFilter()->setFilterCategoryTypes(getFilter()->getFilterCategoryTypes() & ~(1ULL << LLFolderType::FT_INBOX));
 	if (!gSavedSettings.getBOOL("FSShowInboxFolder"))
