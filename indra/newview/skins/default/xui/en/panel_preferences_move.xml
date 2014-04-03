@@ -89,7 +89,7 @@
   <icon
 	 follows="left|top"
 	 height="18"
-	 image_name="Move_Walk_Off"
+	 image_name="Keyboard"
    layout="topleft"
 	 name="avatar_icon"
 	 mouse_opaque="false"
