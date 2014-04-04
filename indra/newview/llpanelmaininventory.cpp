@@ -721,8 +721,6 @@ void LLFloaterInventoryFinder::updateElementsFromFilter()
 	U32 hours = mFilter->getHoursAgo();
 
 	// update the ui elements
-	setTitle(mFilter->getName());
-
 	getChild<LLUICtrl>("check_animation")->setValue((S32) (filter_types & 0x1 << LLInventoryType::IT_ANIMATION));
 
 	getChild<LLUICtrl>("check_calling_card")->setValue((S32) (filter_types & 0x1 << LLInventoryType::IT_CALLINGCARD));
