@@ -692,8 +692,6 @@ const LLUUID LLVOAvatar::sStepSounds[LL_MCODE_END] =
 	SND_RUBBER_RUBBER
 };
 
-S32 LLVOAvatar::sRenderName = RENDER_NAME_ALWAYS;
-BOOL LLVOAvatar::sRenderGroupTitles = TRUE;
 S32 LLVOAvatar::sNumVisibleChatBubbles = 0;
 BOOL LLVOAvatar::sDebugInvisible = FALSE;
 BOOL LLVOAvatar::sShowAttachmentPoints = FALSE;
@@ -746,7 +744,6 @@ LLVOAvatar::LLVOAvatar(const LLUUID& id,
 	mNameAppearance(false),
 	mNameFriend(false),
 	mNameAlpha(0.f),
- 	mRenderGroupTitles(sRenderGroupTitles),
 	mAvatarBirthdateRequest(NULL),
 	mAvatarBirthdate(0.0f),
 	mNameCloud(false),
@@ -2694,24 +2691,17 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 	static LLCachedControl<S32> AVATAR_NAME_TAG_MODE(gSavedSettings, "AvatarNameTagMode", 1);
 	static LLCachedControl<bool> NAME_TAG_SHOW_GROUP_TITLES(gSavedSettings, "NameTagShowGroupTitles", true);
 
-	const bool render_group_titles = (NAME_TAG_SHOW_GROUP_TITLES );
-
-    if (render_group_titles)
-	{
-		sRenderName = render_group_titles; 
-	} 
+	const bool render_group_titles = (NAME_TAG_SHOW_GROUP_TITLES && AVATAR_NAME_TAG_MODE);
 
 	BOOL visible_avatar = isVisible() || mNeedsAnimUpdate;
 	BOOL visible_chat = USE_CHAT_BUBBLES && (mChats.size() || mTyping);
 	BOOL render_name =	visible_chat ||
 		(visible_avatar &&
-//		 ((AVATAR_NAME_TAG_MODE == RENDER_NAME_ALWAYS) ||
-//		  (AVATAR_NAME_TAG_MODE == RENDER_NAME_FADE && time_visible < NAME_SHOW_TIME)));
 // [RLVa:KB] - Checked: 2010-04-04 (RLVa-1.2.2a) | Added: RLVa-1.0.0h
 						( (!fRlvShowNames) || (RlvSettings::getShowNameTags()) ) &&
 // [/RLVa:KB]
-		                ((sRenderName == RENDER_NAME_ALWAYS) ||
-		                 (sRenderName == RENDER_NAME_FADE && time_visible < NAME_SHOW_TIME)));
+		                ((AVATAR_NAME_TAG_MODE == RENDER_NAME_ALWAYS) ||
+		                 (AVATAR_NAME_TAG_MODE == RENDER_NAME_FADE && time_visible < NAME_SHOW_TIME)));
 	// If it's your own avatar, don't draw in mouselook, and don't
 	// draw if we're specifically hiding our own name.
 	if (isSelf())
@@ -2749,10 +2739,7 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 			new_name = TRUE;
 		}
 	}
-
 	else if ((BOOL)render_group_titles != mRenderGroupTitles)
-// [/RLVa]
-//	if (sRenderGroupTitles != mRenderGroupTitles)
 	{
 		mRenderGroupTitles = (BOOL)render_group_titles;
 		new_name = TRUE;
@@ -2901,12 +2888,7 @@ void LLVOAvatar::idleUpdateNameTagText(BOOL new_name)
 			addNameTagLine(line, name_tag_color, LLFontGL::NORMAL,
 				LLFontGL::getFontSansSerifSmall());
 		}
-//		if (sRenderGroupTitles
-// [RLVa:KB] - Checked: 2010-10-31 (RLVa-1.2.2a) | Modified: RLVa-1.2.2a
-//		if (sRenderGroupTitles && !fRlvShowNames
-// [/RLVa:KB]
 
-//		static LLCachedControl<S32> avatar_name_tag_mode(gSavedSettings, "AvatarNameTagMode", 1);
 		static LLCachedControl<bool> name_tag_show_group_titles(gSavedSettings, "NameTagShowGroupTitles", true);
 
 		if (name_tag_show_group_titles 

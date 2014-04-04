@@ -382,11 +382,6 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 
 	LLImageGL::updateStats(gFrameTimeSeconds);
 
-		S32 RenderName = gSavedSettings.getS32("AvatarNameTagMode");
-
-	if(RenderName > LLWorld::getInstance()->getAllowRenderName())//The most restricted gets set here
-		RenderName = LLWorld::getInstance()->getAllowRenderName();
-	LLVOAvatar::sRenderName = RenderName;
 	gPipeline.mBackfaceCull = TRUE;
 	gFrameCount++;
 	gRecentFrameCount++;
