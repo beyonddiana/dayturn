@@ -540,7 +540,7 @@
   <key>ShowStreamName</key>
   <map>
     <key>Comment</key>
-    <string>Shows the name of the stream in nearby chat (if ShowStreamMetadata is also TRUE).</string>
+    <string>Shows the name of the stream (if ShowStreamMetadata is also TRUE).</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>

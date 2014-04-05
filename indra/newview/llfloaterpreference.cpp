@@ -600,7 +600,7 @@ void LLFloaterPreference::onNameTagShowAgeLimitChanged()
 
 void LLFloaterPreference::onShowStreamMetadataChanged()
 {
-	BOOL enable = gSavedSettings.getBOOL("ShowStreamMetadata");
+	U32 enable = gSavedSettings.getU32("ShowStreamMetadata");
 
 	getChild<LLCheckBoxCtrl>("ShowStreamName")->setEnabled(enable);
 }

@@ -242,24 +242,62 @@
 		height="20"
 		width="400"
 		tool_tip="Commands typed into the chatbar will be acted upon."/>
-	    <check_box
-		control_name="ShowStreamMetadata"
-		name="ShowStreamMetadata"
-		label="Show the title of each track played on the stream in nearby chat"
-		layout="topleft"
-		left="15"
-		height="20"
-		width="400"
-		tool_tip="Send the title of each track played on the stream to your nearby chat window."/>
+            <text
+                name="show_stream_metadata_text"
+                layout="topleft"
+                follows="left|top"
+                top_pad="10"
+                left="15"
+                height="20"
+                width="200"
+                type="string"
+                length="1">
+		    Stream artist/title announcements:
+            </text>
+            <radio_group
+                name="ShowStreamMetadata"
+                control_name="ShowStreamMetadata"
+                layout="topleft"
+                height="20"
+                width="300"
+                left_pad="0">
+                <radio_item
+                    name="radio_off"
+                    layout="topleft"
+                    label="None"
+                    top="0"
+                    left="0"
+                    height="16"
+                    width="70"
+                    value="0" />
+                <radio_item
+                    name="radio_toasts"
+                    layout="topleft"
+                    label="Toasts"
+                    top_delta="0"
+                    left_pad="1"
+                    height="16"
+                    width="70"
+                    value="1" />
+                <radio_item
+                    name="radio_chat"
+                    layout="topleft"
+                    label="Nearby chat"
+                    top_delta="0"
+                    left_pad="1"
+                    height="16"
+                    width="70"
+                    value="2" />
+            </radio_group>
 	    <check_box
 		control_name="ShowStreamName"
 		name="ShowStreamName"
-		label="Also show the stream name in nearby chat"
+		label="Also announce the stream name"
 		layout="topleft"
 		left="60"
 		height="20"
 		width="400"
-		tool_tip="Send the name of the current stream to your nearby chat window."/>
+		tool_tip="Announce the name of the current stream along with the artist/track names."/>
 	    <check_box
 		control_name="StreamMetadataAnnounceToChat"
 		name="StreamMetadataAnnounceToChat"
@@ -269,7 +307,7 @@
 		left="15"
 		height="20"
 		width="400"
-		tool_tip="Send the title of each track played on the stream to the specified chat channel.  This data could be used by an inworld object."/>
+		tool_tip="Send the artist/title of each track played on the stream to the specified chat channel.  This data could be used by an inworld object."/>
 	    <spinner
 		control_name="StreamMetadataAnnounceChannel"
 		decimal_digits="0"
