@@ -59,9 +59,11 @@ class LLStreamingAudio_FMODEX : public LLStreamingAudioInterface
 	/*virtual*/ bool supportsAdjustableBufferSizes(){return true;}
 	/*virtual*/ void setBufferSizes(U32 streambuffertime, U32 decodebuffertime);
 
-	// <FS:CR> Streamtitle display
-	virtual bool getNewMetadata(LLSD& metadata);
-	// </FS:CR>
+	/* virtual */ bool hasNewMetadata();
+	/* virtual */ std::string getCurrentArtist();
+	/* virtual */ std::string getCurrentTitle();
+	/* virtual */ std::string getCurrentStreamName();
+	/* virtual */ std::string getCurrentStreamLocation();
 
 private:
 	FMOD::System *mSystem;

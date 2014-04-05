@@ -49,128 +49,85 @@ BOOL StreamTitleDisplay::tick()
 	checkMetadata();
 	return FALSE;
 }
-#if LL_LINUX
+
 void StreamTitleDisplay::checkMetadata()
 {
-bool ShowStreamConverted =  true; //temporary make work hack
+	static LLCachedControl<U32> show_stream_metadata(gSavedSettings, "ShowStreamMetadata", 2);
 
-	static LLCachedControl<U32> ShowStreamMetadata(gSavedSettings, "ShowStreamMetadata", 2);
-	static LLCachedControl<bool> ShowStreamName(gSavedSettings, "ShowStreamName", true);
-	static LLCachedControl<bool> StreamMetadataAnnounceToChat(gSavedSettings, "StreamMetadataAnnounceToChat", false);
-
-if (ShowStreamMetadata >= 1)
-{
-  ShowStreamConverted =  true;
-}
-else
-{
-  ShowStreamConverted =  false;
-}
-	if(!gAudiop)
+	if (show_stream_metadata == 0 || !gAudiop) {
 		return;
-	if(gAudiop->getStreamingAudioImpl()->hasNewMetadata() && (ShowStreamConverted || StreamMetadataAnnounceToChat))
-	{
-		LLStreamingAudioInterface *stream = gAudiop->getStreamingAudioImpl();
+	}
 
-		if (!stream) {
+	LLStreamingAudioInterface *stream = gAudiop->getStreamingAudioImpl();
+
+	if (!stream) {
+		return;
+	}
+
+	if (stream->hasNewMetadata()) {
+		std::string title = stream->getCurrentTitle();
+		std::string artist_title = stream->getCurrentArtist();
+
+		if (!title.empty()) {
+			if (!artist_title.empty()) {
+				artist_title += " - ";
+			}
+			artist_title += title;
+		}
+
+		if (artist_title.empty()) {
 			return;
 		}
 
-		LLChat chat;
-		std::string title = stream->getCurrentTitle();
-		std::string artist = stream->getCurrentArtist();
-		chat.mText = artist;
+		if (show_stream_metadata == 1) {
+			LLSD args;
+			args["ARTIST_TITLE"] = artist_title;
+			args["STREAM_NAME"] = stream->getCurrentStreamName();
 
-		if (!title.empty()) {
-			if (!chat.mText.empty()) {
-				chat.mText += " - ";
-			}
-			chat.mText += title;
+			LLNotificationsUtil::add("StreamMetadata", args);
 		}
+		else if (show_stream_metadata == 2) {
+			LLChat chat;
+			chat.mText = artist_title;
 
-		if (!chat.mText.empty()) {
-			if (StreamMetadataAnnounceToChat) {
-				sendStreamTitleToChat(chat.mText);
-			}
+			chat.mSourceType = CHAT_SOURCE_AUDIO_STREAM;
+			chat.mFromID = AUDIO_STREAM_FROM;
+			chat.mFromName = LLTrans::getString("Audio Stream");
+			chat.mText = "<nolink>" + chat.mText + "</nolink>";
 
-			if (ShowStreamConverted) {
-				chat.mSourceType = CHAT_SOURCE_AUDIO_STREAM;
-				chat.mFromID = AUDIO_STREAM_FROM;
-				chat.mFromName = LLTrans::getString("Audio Stream");
-				chat.mText = "<nolink>" + chat.mText + "</nolink>";
+			static LLCachedControl<bool> show_stream_name(gSavedSettings, "ShowStreamName", true);
 
-				if (ShowStreamName) {
-					std::string stream_name = stream->getCurrentStreamName();
+			if (show_stream_name) {
+				std::string stream_name = stream->getCurrentStreamName();
 
-					if (!stream_name.empty()) {
-						chat.mFromName += " - " + stream_name;
-					}
+				if (!stream_name.empty()) {
+					chat.mFromName += " - " + stream_name;
 				}
-
-				LLSD args;
-				args["type"] = LLNotificationsUI::NT_NEARBYCHAT;
-				LLNotificationsUI::LLNotificationManager::instance().onChat(chat, args);
 			}
+
+			LLSD args;
+			args["type"] = LLNotificationsUI::NT_NEARBYCHAT;
+			LLNotificationsUI::LLNotificationManager::instance().onChat(chat, args);
+		}
+		else {
+			return;
+		}
+
+		static LLCachedControl<bool> stream_metadata_announce(gSavedSettings, "StreamMetadataAnnounceToChat", false);
+
+		if (stream_metadata_announce) {
+			sendStreamTitleToChat(artist_title);
 		}
 	}
 }
 
-#else //WINDOWS AND DARWIN AND OTHERS
-void StreamTitleDisplay::checkMetadata()
-{
-	static LLCachedControl<U32> ShowStreamMetadata(gSavedSettings, "ShowStreamMetadata", 2);
-	static LLCachedControl<bool> StreamMetadataAnnounceToChat(gSavedSettings, "StreamMetadataAnnounceToChat", false);
-
-	if (!gAudiop)
-		return;
-		LL_DEBUGS("StreamTitles") << "Stream Meta data " << ShowStreamMetadata << LL_ENDL;
-	if ((ShowStreamMetadata > 0 || StreamMetadataAnnounceToChat)
-	    && gAudiop->getStreamingAudioImpl()->getNewMetadata(mMetadata))
-	{
-		std::string chat = "";
-		
-		if (mMetadata.has("ARTIST"))
-		{
-			chat = mMetadata["ARTIST"].asString();
-		}
-		if (mMetadata.has("TITLE"))
-		{
-			if (chat.length() > 0)
-			{
-				chat.append(" - ");
-			}
-			chat.append(mMetadata["TITLE"].asString());
-		}
-		if (chat.length() > 0)
-		{
-			if (StreamMetadataAnnounceToChat)
-			{
-				sendStreamTitleToChat(chat);
-			}
-
-			if (ShowStreamMetadata > 1)
-			{
-				chat = LLTrans::getString("StreamtitleNowPlaying") + " " + chat;
-				reportToNearbyChat(chat);
-			}
-			else if (ShowStreamMetadata == 1
-					 && (mMetadata.has("TITLE") || mMetadata.has("ARTIST")))
-			{
-				if (!mMetadata.has("TITLE"))
-					mMetadata["TITLE"] = "";
-				LLNotificationsUtil::add((mMetadata.has("ARTIST") ? "StreamMetadata" : "StreamMetadataNoArtist"), mMetadata);
-			}
-		}
-	}
-}
-#endif
-
-void StreamTitleDisplay::sendStreamTitleToChat(const std::string& title)
+void StreamTitleDisplay::sendStreamTitleToChat(const std::string &title)
 {
 	static LLCachedControl<S32> streamMetadataAnnounceChannel(gSavedSettings, "StreamMetadataAnnounceChannel", 1);
-	if (streamMetadataAnnounceChannel != 0)
-	{
-		LLMessageSystem* msg = gMessageSystem;
+
+	if (streamMetadataAnnounceChannel != 0) {
+		LLMessageSystem *msg = gMessageSystem;
+
 		msg->newMessageFast(_PREHASH_ChatFromViewer);
 		msg->nextBlockFast(_PREHASH_AgentData);
 		msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());

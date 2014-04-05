@@ -211,50 +211,49 @@ LLPluginClassMedia* LLStreamingAudio_MediaPlugins::initializeMedia(const std::st
 	return media_source;
 }
 
-// <ND> stream metadata from plugin
-bool LLStreamingAudio_MediaPlugins::getNewMetadata(LLSD& metadata)
-{
-	if (!mMediaPlugin)
-	{
-		metadata.clear();
- 		return false;
-	}
-	if (mTitle != mMediaPlugin->getTitle() || mArtist != mMediaPlugin->getArtist())
-	{
-		metadata["ARTIST"] = mMediaPlugin->getArtist();
-		metadata["TITLE"] = mMediaPlugin->getTitle();
-		return true;
-	}
-	return false;
-}
-#ifdef LL_LINUX
 bool LLStreamingAudio_MediaPlugins::hasNewMetadata()
 {
-	if (!mMediaPlugin)
+	if (!mMediaPlugin) {
 		return false;
+	}
 
-	return mTitle != mMediaPlugin->getTitle() || mArtist != mMediaPlugin->getArtist();
+	return (mTitle != mMediaPlugin->getTitle() || mArtist != mMediaPlugin->getArtist());
 }
 
 std::string LLStreamingAudio_MediaPlugins::getCurrentArtist()
 {
+	if (!mMediaPlugin) {
+		return "";
+	}
+
 	mArtist = mMediaPlugin->getArtist();
 	return mArtist;
 }
 
 std::string LLStreamingAudio_MediaPlugins::getCurrentTitle()
 {
+	if (!mMediaPlugin) {
+		return "";
+	}
+
 	mTitle = mMediaPlugin->getTitle();
 	return mTitle;
 }
-#endif
 
 std::string LLStreamingAudio_MediaPlugins::getCurrentStreamName()
 {
+	if (!mMediaPlugin) {
+		return "";
+	}
+
 	return mMediaPlugin->getStreamName();
 }
 
 std::string LLStreamingAudio_MediaPlugins::getCurrentStreamLocation()
 {
+	if (!mMediaPlugin) {
+		return "";
+	}
+
 	return mMediaPlugin->getStreamLocation();
 }

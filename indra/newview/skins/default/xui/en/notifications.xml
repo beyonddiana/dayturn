@@ -10634,41 +10634,16 @@ Shape import failed. Are you sure [FILENAME] is an avatar file?
     name="NewPermissionsPending"
     type="notifytip">
 	Your permission change request for [NAME] has been sent to [GRID_NAME] for processing.  This may take a few seconds to complete.
-  </notification>
-      <notification
-        icon="notifytip.tga"
-        name="StreamMetadata"
-		log_to_chat="false"
-        type="notifytip">
-        <tag>StreamMetadata</tag>
-♫ Now Playing:
-  [TITLE]
-  [ARTIST] ♫
+   </notification>
+
+   <notification
+     type="notifytip"
+     icon="Sound_Icon"
+     name="StreamMetadata"
+     log_to_chat="false">
+	<tag>StreamMetadata</tag>
+Audio stream: [STREAM_NAME]
+
+[ARTIST_TITLE]
     </notification>
-    <notification
-        icon="notifytip.tga"
-        name="StreamMetadataNoArtist"
-		log_to_chat="false"
-        type="notifytip">
-        <tag>StreamMetadata</tag>
-♫ Now Playing:
-  [TITLE] ♫
-    </notification>
-    <notification
-        icon="notifytip.tga"
-        name="StreamMetadata"
-        type="notifytip">
-        <tag>StreamMetadata</tag>
-        ♫ Now Playing:
-        [TITLE]
-        [ARTIST]♫
-    </notification>
-    <notification
-        icon="notifytip.tga"
-        name="StreamMetadataNoArtist"
-        type="notifytip">
-        <tag>StreamMetadata</tag>
-        ♫ Now Playing:
-        [TITLE]♫
-    </notification>    
 </notifications>

@@ -234,7 +234,15 @@ void LLStreamingAudio_FMODEX::update()
 							continue;
 						}
 						default:
+					    	{
+							if(name == "icy-name") {
+								name = "STREAM_NAME";
+							}
+							else if(name == "icy-url") {
+								name = "STREAM_LOCATION";
+							}
 							break;
+						}
 					}
 					switch(tag.datatype)
 					{
@@ -391,26 +399,35 @@ void LLStreamingAudio_FMODEX::setGain(F32 vol)
 	}
 }
 
-// <FS:CR> Streamtitle display
-// virtual
-bool LLStreamingAudio_FMODEX::getNewMetadata(LLSD& metadata)
+bool LLStreamingAudio_FMODEX::hasNewMetadata()
 {
-	if (mCurrentInternetStreamp)
-	{
-		if (mNewMetadata)
-		{
-			metadata = mMetadata;
-			mNewMetadata = false;
-			return true;
-		}
-			
-		return mNewMetadata;
+	if (mCurrentInternetStreamp && mNewMetadata) {
+		mNewMetadata = false;
+		return true;
 	}
 
-	metadata = LLSD();
 	return false;
 }
-// </FS:CR>
+
+std::string LLStreamingAudio_FMODEX::getCurrentArtist()
+{
+	return mMetadata["ARTIST"].asString();
+}
+
+std::string LLStreamingAudio_FMODEX::getCurrentTitle()
+{
+	return mMetadata["TITLE"].asString();
+}
+
+std::string LLStreamingAudio_FMODEX::getCurrentStreamName()
+{
+	return mMetadata["STREAM_NAME"].asString();
+}
+
+std::string LLStreamingAudio_FMODEX::getCurrentStreamLocation()
+{
+	return mMetadata["STREAM_LOCATION"].asString();
+}
 
 ///////////////////////////////////////////////////////
 // manager of possibly-multiple internet audio streams
