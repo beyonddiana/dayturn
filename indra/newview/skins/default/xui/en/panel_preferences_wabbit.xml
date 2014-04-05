@@ -289,21 +289,13 @@
                     width="70"
                     value="2" />
             </radio_group>
-	    <check_box
-		control_name="ShowStreamName"
-		name="ShowStreamName"
-		label="Also announce the stream name"
-		layout="topleft"
-		left="60"
-		height="20"
-		width="400"
-		tool_tip="Announce the name of the current stream along with the artist/track names."/>
+
 	    <check_box
 		control_name="StreamMetadataAnnounceToChat"
 		name="StreamMetadataAnnounceToChat"
 		label="Announce stream title to chat channel:"
 		layout="topleft"
-		top_pad="10"
+		top_pad="5"
 		left="15"
 		height="20"
 		width="400"

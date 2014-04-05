@@ -40,7 +40,6 @@ public:
 private:
 	BOOL tick();
 	void checkMetadata();
-	void sendStreamTitleToChat(const std::string &title);
 
 	LLSD mMetadata;
 };

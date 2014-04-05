@@ -1,9 +1,38 @@
-/* Copyright (c) 2010 Katharine Berry All rights reserved.
+/** 
+ * @file streamtitledisplay.cpp
+ * @brief Stream title display
+ *
+ * Copyright (c) 2014 Jessica Wabbit
+ * Portions copyright (c) 2014 Linden Research, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation;
+ * version 2.1 of the License only.
+ * 
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+ *
+ * ----------------------------------------------------------------------------
+ *
+ * This source code is licenced under the terms of the LGPL version 2.1,
+ * detailed above.  This file contains portions of source code provided
+ * under a BSD-style licence, and the following text is included to comply
+ * with the terms of that original licence, even though there are only
+ * a couple of original lines left in this file:
+ *
+ * Copyright (c) 2010 Katharine Berry All rights reserved.
  * Copyright (c) 2013 Cinder Roxley <cinder.roxley@phoenixviewer.com>
  *
  * Redistribution and use in source and binary forms, with or
  * without modification, are permitted provided that the following
- * conditions are met:
+ * conditions are met IN ADDITION TO THE TERMS OF THE LGPL v2.1:
  *
  *   1. Redistributions of source code must retain the above copyright
  *      notice, this list of conditions and the following disclaimer.
@@ -37,9 +66,7 @@
 #include "llnotificationsutil.h"
 #include "llnotificationmanager.h"
 #include "llstreamingaudio.h"
-#include "llviewercontrol.h"
 #include "lltrans.h"
-#include "fscommon.h"
 #include "message.h"
 
 StreamTitleDisplay::StreamTitleDisplay() : LLEventTimer(2.f) { }
@@ -53,18 +80,15 @@ BOOL StreamTitleDisplay::tick()
 void StreamTitleDisplay::checkMetadata()
 {
 	static LLCachedControl<U32> show_stream_metadata(gSavedSettings, "ShowStreamMetadata", 2);
+	static LLCachedControl<bool> stream_metadata_announce(gSavedSettings, "StreamMetadataAnnounceToChat", false);
 
-	if (show_stream_metadata == 0 || !gAudiop) {
+	if ((!show_stream_metadata && !stream_metadata_announce) || !gAudiop) {
 		return;
 	}
 
 	LLStreamingAudioInterface *stream = gAudiop->getStreamingAudioImpl();
 
-	if (!stream) {
-		return;
-	}
-
-	if (stream->hasNewMetadata()) {
+	if (stream && stream->hasNewMetadata()) {
 		std::string title = stream->getCurrentTitle();
 		std::string artist_title = stream->getCurrentArtist();
 
@@ -80,6 +104,9 @@ void StreamTitleDisplay::checkMetadata()
 		}
 
 		if (show_stream_metadata == 1) {
+			//
+			//	stream metadata to a toast
+			//
 			LLSD args;
 			args["ARTIST_TITLE"] = artist_title;
 			args["STREAM_NAME"] = stream->getCurrentStreamName();
@@ -87,6 +114,9 @@ void StreamTitleDisplay::checkMetadata()
 			LLNotificationsUtil::add("StreamMetadata", args);
 		}
 		else if (show_stream_metadata == 2) {
+			//
+			//	stream metadata to nearby chat
+			//
 			LLChat chat;
 			chat.mText = artist_title;
 
@@ -95,48 +125,34 @@ void StreamTitleDisplay::checkMetadata()
 			chat.mFromName = LLTrans::getString("Audio Stream");
 			chat.mText = "<nolink>" + chat.mText + "</nolink>";
 
-			static LLCachedControl<bool> show_stream_name(gSavedSettings, "ShowStreamName", true);
+			std::string stream_name = stream->getCurrentStreamName();
 
-			if (show_stream_name) {
-				std::string stream_name = stream->getCurrentStreamName();
-
-				if (!stream_name.empty()) {
-					chat.mFromName += " - " + stream_name;
-				}
+			if (!stream_name.empty()) {
+				chat.mFromName += " - " + stream_name;
 			}
 
 			LLSD args;
 			args["type"] = LLNotificationsUI::NT_NEARBYCHAT;
 			LLNotificationsUI::LLNotificationManager::instance().onChat(chat, args);
 		}
-		else {
-			return;
-		}
-
-		static LLCachedControl<bool> stream_metadata_announce(gSavedSettings, "StreamMetadataAnnounceToChat", false);
 
 		if (stream_metadata_announce) {
-			sendStreamTitleToChat(artist_title);
+			static LLCachedControl<S32> announce_channel(gSavedSettings, "StreamMetadataAnnounceChannel", 362394);
+
+			if (announce_channel != 0) {
+				LLMessageSystem *msg = gMessageSystem;
+
+				msg->newMessageFast(_PREHASH_ChatFromViewer);
+				msg->nextBlockFast(_PREHASH_AgentData);
+				msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
+				msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
+				msg->nextBlockFast(_PREHASH_ChatData);
+				msg->addStringFast(_PREHASH_Message, artist_title);
+				msg->addU8Fast(_PREHASH_Type, CHAT_TYPE_WHISPER);
+				msg->addS32(_PREHASH_Channel, announce_channel);
+
+				gAgent.sendReliableMessage();
+			}
 		}
-	}
-}
-
-void StreamTitleDisplay::sendStreamTitleToChat(const std::string &title)
-{
-	static LLCachedControl<S32> streamMetadataAnnounceChannel(gSavedSettings, "StreamMetadataAnnounceChannel", 1);
-
-	if (streamMetadataAnnounceChannel != 0) {
-		LLMessageSystem *msg = gMessageSystem;
-
-		msg->newMessageFast(_PREHASH_ChatFromViewer);
-		msg->nextBlockFast(_PREHASH_AgentData);
-		msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
-		msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
-		msg->nextBlockFast(_PREHASH_ChatData);
-		msg->addStringFast(_PREHASH_Message, title);
-		msg->addU8Fast(_PREHASH_Type, CHAT_TYPE_WHISPER);
-		msg->addS32("Channel", streamMetadataAnnounceChannel);
-
-		gAgent.sendReliableMessage();
 	}
 }

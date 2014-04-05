@@ -519,7 +519,6 @@ BOOL LLFloaterPreference::postBuild()
 	gSavedSettings.getControl("ShowPointAt")->getSignal()->connect(boost::bind(&LLFloaterPreference::onShowPointAtChanged, this));
 	gSavedSettings.getControl("NameTagShowAge")->getSignal()->connect(boost::bind(&LLFloaterPreference::onNameTagShowAgeChanged, this));
 	gSavedSettings.getControl("NameTagShowAgeLimit")->getSignal()->connect(boost::bind(&LLFloaterPreference::onNameTagShowAgeLimitChanged, this));
-	gSavedSettings.getControl("ShowStreamMetadata")->getSignal()->connect(boost::bind(&LLFloaterPreference::onShowStreamMetadataChanged, this));
 
 	onStreamMetadataAnnounceChanged();
 	onMiniMapChatRingChanged();
@@ -527,7 +526,6 @@ BOOL LLFloaterPreference::postBuild()
 	onShowPointAtChanged();
 	onNameTagShowAgeChanged();
 	onNameTagShowAgeLimitChanged();
-	onShowStreamMetadataChanged();
 
 	// set 'enable' property for 'Clear log...' button
 	changed();
@@ -596,13 +594,6 @@ void LLFloaterPreference::onNameTagShowAgeChanged()
 void LLFloaterPreference::onNameTagShowAgeLimitChanged()
 {
 	handleNameTagOptionChanged(LLSD());
-}
-
-void LLFloaterPreference::onShowStreamMetadataChanged()
-{
-	U32 enable = gSavedSettings.getU32("ShowStreamMetadata");
-
-	getChild<LLCheckBoxCtrl>("ShowStreamName")->setEnabled(enable);
 }
 
 void LLFloaterPreference::updateDeleteTranscriptsButton()
