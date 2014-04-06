@@ -243,71 +243,63 @@
 		width="400"
 		tool_tip="Commands typed into the chatbar will be acted upon."/>
 		<text
-			type="string"
-			length="1"
+                name="show_stream_metadata_text"
+                layout="topleft"
 			follows="left|top"
+                top_pad="10"
+                left="15"
 			height="20"
-			layout="topleft"
-			left="26"
-			name="show_stream_metadata_text"
-			top_pad="10"
-			width="200">
-			Show stream title notifications:
+                width="200"
+                type="string"
+                length="1">
+		    Stream artist/title announcements:
         </text>
 		<radio_group
+                name="ShowStreamMetadata"
 			control_name="ShowStreamMetadata"
+                layout="topleft"
 			height="20"
 			width="300"
-			layout="topleft"
-			left_pad="0"
-			name="show_stream_metadata">
+                left_pad="0">
             <radio_item
-				label="Off"
 				name="radio_off"
+                    layout="topleft"
+                    label="None"
 				top="0"
-				layout="topleft"
+                    left="0"
 				height="16"
-				left="0"
-				value="0"
-				width="70" />
+                    width="70"
+                    value="0" />
             <radio_item
-				enabled="true"
+                    name="radio_toasts"
+                    layout="topleft"
 				label="Toasts"
+                    top_delta="0"
 				left_pad="1"
-				layout="topleft"
 				height="16"
-				name="radio_toasts"
-				value="1"
-				width="70" />
+                    width="70"
+                    value="1" />
             <radio_item
-				label="Nearby Chat"
+                    name="radio_chat"
+                    layout="topleft"
+                    label="Nearby chat"
+                    top_delta="0"
 				left_pad="1"
-				layout="topleft"
 				height="16"
-				name="radio_chat"
-				value="2"
-				width="70" />
+                    width="70"
+                    value="2" />
         </radio_group>
-	    <check_box
-		control_name="ShowStreamName"
-		name="ShowStreamName"
-		enabled="true"
-		label="Show the stream name in nearby chat"
-		layout="topleft"
-		left="15"
-		height="20"
-		width="400"
-		tool_tip="Send the name of the current stream to your nearby chat window."/>
+
 	    <check_box
 		control_name="StreamMetadataAnnounceToChat"
 		name="StreamMetadataAnnounceToChat"
 		label="Announce stream title to chat channel:"
 		layout="topleft"
-		top_pad="10"
+		top_pad="5"
 		left="15"
 		height="20"
 		width="400"
-		tool_tip="Send the title of each track played on the stream to the specified chat channel.  This data could be used by an inworld object."/>
+		tool_tip="Send the artist/title of each track played on the stream to the specified chat channel.  This data could be used by an inworld object."/>
 	    <spinner
 		control_name="StreamMetadataAnnounceChannel"
 		decimal_digits="0"
@@ -380,17 +372,6 @@
 	    width="517">
 	    <check_box
 		top_pad="15"
-		font="SansSerifSmall"
-		height="20"
-		initial_value="false"
-		label="Cat mode (head follows mouse)"
-		layout="topleft"
-		left="15"
-		name="CatMode"
-		width="350"
-		control_name="CatMode"
-		tool_tip="Makes your head always look in the direction your mouse pointer when not idle.  Best left disabled." />
-	    <check_box
 		font="SansSerifSmall"
 		height="20"
 		initial_value="false"
