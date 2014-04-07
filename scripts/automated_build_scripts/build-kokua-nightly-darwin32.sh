@@ -8,11 +8,13 @@ BUILD_DIR="$TOP/kokua/build-darwin-i386"
 stage="$BUILD_DIR/newview/"
 pushd "$TOP/kokua"
 rm -v -f ~/NightBuildResult/Darwin.log
+rm -v -f ~/NightBuildResult/*.dmg
 date  2>&1 |tee Darwin.log
-hg pull -u  2>&1 |tee -a Darwin.log
-~/autobuild/bin/autobuild configure -v -c ReleaseOS -- -DLL_TESTS=OFF -DFMODEX=OFF -DOPENAL=ON -DPACKAGE=ON -DQUICKTIME=ON -DVIEWER_CHANNEL="\"Kokua Test\""
+hg pull -B Kokua-RLVa  2>&1 |tee -a Darwin.log
+hg update Kokua-RLVa
+~/autobuild/bin/autobuild configure -v -c ReleaseOS -- -DLL_TESTS=OFF -DFMODEX=ON -DOPENAL=OFF -DPACKAGE=ON -DQUICKTIME=ON -DVIEWER_CHANNEL="\"Kokua Test\""
 #check for errors
-~/autobuild/bin/autobuild build -c ReleaseOS --no-configure -- -j 3 2>&1 |tee -a Darwin.log
+~/autobuild/bin/autobuild build -c ReleaseOS 2>&1 |tee -a Darwin.log
 date 2>&1 |tee -a Darwin.log
 #check for errors
 cp -v Darwin*.log ~/NightBuildResult/ 2>&1 |tee -a Darwin.log
