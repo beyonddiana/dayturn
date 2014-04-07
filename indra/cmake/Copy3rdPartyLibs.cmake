@@ -340,8 +340,8 @@ elseif(DARWIN)
        )
     set(release_src_dir "${ARCH_PREBUILT_DIRS_RELEASE}")
     set(release_files
-        libalut.0.dylib
-        libopenal.1.dylib
+#        libalut.0.dylib
+#        libopenal.1.dylib
         libapr-1.0.dylib
         libapr-1.dylib
         libaprutil-1.0.dylib
@@ -352,7 +352,7 @@ elseif(DARWIN)
         libllqtwebkit.dylib
         libminizip.a
         libndofdev.dylib
-        libopenal.1.dylib
+#        libopenal.1.dylib
         libhunspell-1.3.0.dylib
         libexception_handler.dylib
         libcollada14dom.dylib

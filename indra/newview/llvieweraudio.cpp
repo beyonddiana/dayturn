@@ -90,7 +90,7 @@ void LLViewerAudio::startInternetStreamWithAutoFade(std::string streamURI)
 	// Record the URI we are going to be switching to	
 	mNextStreamURI = streamURI;
 	
-#ifdef LL_DARWIN
+#if 0 //#ifdef LL_DARWIN
 	if (!mNextStreamURI.empty())
 	{
 		std::string test_url(mNextStreamURI);

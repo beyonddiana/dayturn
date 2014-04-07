@@ -175,7 +175,7 @@ void LLAudioEngine::shutdown()
 void LLAudioEngine::startInternetStream(const std::string& url)
 {
 	std::string test_url(url);
-#ifdef LL_DARWIN
+#if 0 //#ifdef LL_DARWIN
 	// We need to change http:// streams to icy:// in order to use them with quicktime.
 	// This isn't a good place to put this, but none of this is good, so... -- MC
 	LLURI uri(test_url);
