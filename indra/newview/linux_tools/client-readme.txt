@@ -107,7 +107,7 @@ you wish.
 -=-=-=-=-=-=-=-=-=
 
 The client prints a lot of diagnostic information to the console it was
-run from.  Most of this is also replicated in ~/.secondlife/logs/SecondLife.log
+run from.  Most of this is also replicated in ~/.kokua/logs/Kokua.log
 - this is helpful to read when troubleshooting, especially 'WARNING' and
 'ERROR' lines.
 

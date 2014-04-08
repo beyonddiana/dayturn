@@ -699,7 +699,7 @@ LLAppViewer::LLAppViewer() :
 
 	// Need to do this initialization before we do anything else, since anything
 	// that touches files should really go through the lldir API
-	gDirUtilp->initAppDirs("SecondLife");
+	gDirUtilp->initAppDirs("Kokua");
 	//
 	// IMPORTANT! Do NOT put anything that will write
 	// into the log files during normal startup until AFTER
@@ -3529,10 +3529,10 @@ void LLAppViewer::writeSystemInfo()
         gDebugInfo["Dynamic"] = LLSD::emptyMap();
     
 #if LL_WINDOWS
-	gDebugInfo["SLLog"] = gDirUtilp->getExpandedFilename(LL_PATH_DUMP,"SecondLife.log");
+	gDebugInfo["SLLog"] = gDirUtilp->getExpandedFilename(LL_PATH_DUMP,"Kokua.log");
 #else
     //Not ideal but sufficient for good reporting.
-    gDebugInfo["SLLog"] = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"SecondLife.old");  //LLError::logFileName();
+    gDebugInfo["SLLog"] = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"Kokua.old");  //LLError::logFileName();
 #endif
 
 	gDebugInfo["ClientInfo"]["Name"] = LLVersionInfo::getChannel();
