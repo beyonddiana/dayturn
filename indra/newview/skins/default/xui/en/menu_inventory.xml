@@ -442,6 +442,14 @@
          parameter="rename" />
     </menu_item_call>
     <menu_item_call
+     label="Save Texture As"
+     layout="topleft"
+     name="Save As">
+        <menu_item_call.on_click
+         function="Inventory.DoToSelected"
+         parameter="save_as" />
+    </menu_item_call>
+    <menu_item_call
      label="Copy Asset UUID"
      layout="topleft"
      name="Copy Asset UUID">
@@ -640,17 +648,6 @@
         <menu_item_call.on_click
          function="Inventory.DoToSelected"
          parameter="deactivate" />
-    </menu_item_call>
-    <menu_item_separator
-     layout="topleft" 
-     name="Texture Separator" />
-    <menu_item_call
-     label="Save As"
-     layout="topleft"
-     name="Save As">
-        <menu_item_call.on_click
-         function="Inventory.DoToSelected"
-         parameter="save_as" />
     </menu_item_call>
     <menu_item_separator
      layout="topleft" 
