@@ -69,7 +69,7 @@ public:
 
 protected:
 	BOOL mUseVBO;
-	BOOL mUseAniso;
+	BOOL mUseAnisoSamples;
 	BOOL mUseFBO;
 	U32 mFSAASamples;
 	F32 mGamma;

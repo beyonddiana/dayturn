@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater
  legacy_header_height="18"
- height="232"
+ height="254"
  layout="topleft"
  name="Hardware Settings Floater"
  help_topic="hardware_settings_floater"
@@ -17,17 +17,51 @@
      name="Filtering:"
      top="30"
      width="188">
-        Filtering:
+        Anisotropic Filtering:
     </text>
-    <check_box
-     control_name="RenderAnisotropic"
-     height="16"
-     label="Anisotropic Filtering (slower when enabled)"
-     layout="topleft"
-     left_pad="10"
+    <combo_box
      name="ani"
+     control_name="RenderAnisotropicSamples"
+     label="Anisotropic Filtering"
+     layout="topleft"
+     height="22"
+     width="130"
      top_delta="0"
-     width="256" />
+     left_pad="10"
+     initial_value="0">
+        <combo_box.item
+         label="Disabled"
+         name="ANIDisabled"
+         value="0" />
+        <combo_box.item
+         label="2x"
+         name="2x"
+         value="2" />
+        <combo_box.item
+         label="4x"
+         name="4x"
+         value="4" />
+        <combo_box.item
+         label="8x"
+         name="8x"
+         value="8" />
+        <combo_box.item
+         label="16x"
+         name="16x"
+         value="16" />
+    </combo_box>
+    <text
+     name="ani note"
+     layout="topleft"
+     follows="left|top"
+     type="string"
+     length="1"
+     height="12"
+     width="188"
+     top_delta="0"
+     left_pad="10">
+        (Slower when enabled)
+    </text>
     <text
      type="string"
      length="1"
@@ -36,7 +70,7 @@
      layout="topleft"
      left="10"
      name="antialiasing label"
-     top_pad="5"
+     top_pad="15"
      width="188">
         Antialiasing:
     </text>
@@ -215,6 +249,6 @@
      layout="topleft"
      left="-102"
      name="OK"
-     top="200"
+     top="222"
      width="90" />
 </floater>

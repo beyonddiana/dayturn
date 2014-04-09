@@ -55,7 +55,7 @@ S32 LLImageGL::sBoundTextureMemoryInBytes		= 0;
 S32 LLImageGL::sCurBoundTextureMemory	= 0;
 S32 LLImageGL::sCount					= 0;
 
-BOOL LLImageGL::sGlobalUseAnisotropic	= FALSE;
+F32 LLImageGL::sGlobalAnisotropicSamples = 0.f;
 F32 LLImageGL::sLastFrameTime			= 0.f;
 BOOL LLImageGL::sAllowReadBackRaw       = FALSE ;
 LLImageGL* LLImageGL::sDefaultGLTexture = NULL ;

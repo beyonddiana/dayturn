@@ -52,7 +52,7 @@ LLFloaterHardwareSettings::LLFloaterHardwareSettings(const LLSD& key)
 	  // these should be set on imminent refresh() call,
 	  // but init them anyway
 	  mUseVBO(0),
-	  mUseAniso(0),
+	  mUseAnisoSamples(0.f),
 	  mFSAASamples(0),
 	  mGamma(0.0),
 	  mVideoCardMem(0),
@@ -76,7 +76,7 @@ void LLFloaterHardwareSettings::refresh()
 	LLPanel::refresh();
 
 	mUseVBO = gSavedSettings.getBOOL("RenderVBOEnable");
-	mUseAniso = gSavedSettings.getBOOL("RenderAnisotropic");
+	mUseAnisoSamples = gSavedSettings.getF32("RenderAnisotropicSamples");
 	mFSAASamples = gSavedSettings.getU32("RenderFSAASamples");
 	mGamma = gSavedSettings.getF32("RenderGamma");
 	mVideoCardMem = gSavedSettings.getS32("TextureMemory");
@@ -84,6 +84,7 @@ void LLFloaterHardwareSettings::refresh()
 	mProbeHardwareOnStartup = gSavedSettings.getBOOL("ProbeHardwareOnStartup");
 
 	getChild<LLUICtrl>("fsaa")->setValue((LLSD::Integer) mFSAASamples);
+	getChild<LLUICtrl>("ani")->setValue((LLSD::Real)mUseAnisoSamples);
 	refreshEnabledState();
 }
 
@@ -181,7 +182,7 @@ void LLFloaterHardwareSettings::apply()
 void LLFloaterHardwareSettings::cancel()
 {
 	gSavedSettings.setBOOL("RenderVBOEnable", mUseVBO);
-	gSavedSettings.setBOOL("RenderAnisotropic", mUseAniso);
+	gSavedSettings.setF32("RenderAnisotropicSamples", mUseAnisoSamples);
 	gSavedSettings.setU32("RenderFSAASamples", mFSAASamples);
 	gSavedSettings.setF32("RenderGamma", mGamma);
 	gSavedSettings.setS32("TextureMemory", mVideoCardMem);
