@@ -1142,7 +1142,18 @@ BOOL LLPanelMainInventory::isActionEnabled(const LLSD& userdata)
 	}
 	if (command_name == "find_original")
 	{
-		LLFolderViewItem* current_item = getActivePanel()->getRootFolder()->getCurSelectedItem();
+		LLFolderView *root = getActivePanel()->getRootFolder();
+
+		if (!root) {
+			return FALSE;
+		}
+
+		std::set<LLFolderViewItem*> selection_set = root->getSelectionList();
+		if (selection_set.size() != 1) {
+			return FALSE;
+		}
+
+		LLFolderViewItem *current_item = root->getCurSelectedItem();
 		if (!current_item) return FALSE;
 		const LLUUID& item_id = static_cast<LLFolderViewModelItemInventory*>(current_item->getViewModelItem())->getUUID();
 		const LLViewerInventoryItem *item = gInventory.getItem(item_id);

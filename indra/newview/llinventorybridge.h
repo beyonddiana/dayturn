@@ -139,7 +139,7 @@ public:
 	// Convenience functions for adding various common menu options.
 	//--------------------------------------------------------------------
 protected:
-	virtual void addTrashContextMenuOptions(menuentry_vec_t &items,
+	virtual void addTrashContextMenuOptions(U32 flags, menuentry_vec_t &items,
 											menuentry_vec_t &disabled_items);
 	virtual void addDeleteContextMenuOptions(menuentry_vec_t &items,
 											 menuentry_vec_t &disabled_items);

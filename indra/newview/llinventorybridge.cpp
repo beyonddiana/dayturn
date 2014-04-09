@@ -642,7 +642,8 @@ void LLInvFVBridge::getClipboardEntries(bool show_asset_id,
 		if (obj->getIsLinkType())
 		{
 			items.push_back(std::string("Find Original"));
-			if (isLinkedObjectMissing())
+
+			if (isLinkedObjectMissing() || !(flags & FIRST_SELECTED_ITEM))
 			{
 				disabled_items.push_back(std::string("Find Original"));
 			}
@@ -745,7 +746,7 @@ void LLInvFVBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 	menuentry_vec_t disabled_items;
 	if(isItemInTrash())
 	{
-		addTrashContextMenuOptions(items, disabled_items);
+		addTrashContextMenuOptions(flags, items, disabled_items);
 	}	
 	else if(isOutboxFolder())
 	{
@@ -781,14 +782,16 @@ void LLInvFVBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 	hide_context_entries(menu, items, disabled_items);
 }
 
-void LLInvFVBridge::addTrashContextMenuOptions(menuentry_vec_t &items,
-											   menuentry_vec_t &disabled_items)
+void LLInvFVBridge::addTrashContextMenuOptions(
+	U32 flags,
+	menuentry_vec_t &items,
+	menuentry_vec_t &disabled_items)
 {
 	const LLInventoryObject *obj = getInventoryObject();
 	if (obj && obj->getIsLinkType())
 	{
 		items.push_back(std::string("Find Original"));
-		if (isLinkedObjectMissing())
+		if (isLinkedObjectMissing() || !(flags & FIRST_SELECTED_ITEM))
 		{
 			disabled_items.push_back(std::string("Find Original"));
 		}
@@ -3494,7 +3497,7 @@ void LLFolderBridge::buildContextMenuOptions(U32 flags, menuentry_vec_t&   items
 	{
 		// This is a folder in the trash.
 		items.clear(); // clear any items that used to exist
-		addTrashContextMenuOptions(items, disabled_items);
+		addTrashContextMenuOptions(flags, items, disabled_items);
 	}
 	else if(isOutboxFolder())
 	{
@@ -4558,7 +4561,7 @@ void LLTextureBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 	menuentry_vec_t disabled_items;
 	if(isItemInTrash())
 	{
-		addTrashContextMenuOptions(items, disabled_items);
+		addTrashContextMenuOptions(flags, items, disabled_items);
 	}	
 	else if(isOutboxFolder())
 	{
@@ -4635,7 +4638,7 @@ void LLSoundBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 	{
 		if (isItemInTrash())
 		{
-			addTrashContextMenuOptions(items, disabled_items);
+			addTrashContextMenuOptions(flags, items, disabled_items);
 		}	
 		else
 		{
@@ -4693,7 +4696,7 @@ void LLLandmarkBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 	{
 		if(isItemInTrash())
 		{
-			addTrashContextMenuOptions(items, disabled_items);
+			addTrashContextMenuOptions(flags, items, disabled_items);
 		}	
 		else
 		{
@@ -4943,7 +4946,7 @@ void LLCallingCardBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 
 	if(isItemInTrash())
 	{
-		addTrashContextMenuOptions(items, disabled_items);
+		addTrashContextMenuOptions(flags, items, disabled_items);
 	}	
 	else if(isOutboxFolder())
 	{
@@ -5216,7 +5219,7 @@ void LLGestureBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 	menuentry_vec_t disabled_items;
 	if(isItemInTrash())
 	{
-		addTrashContextMenuOptions(items, disabled_items);
+		addTrashContextMenuOptions(flags, items, disabled_items);
 	}
 	else if(isOutboxFolder())
 	{
@@ -5280,7 +5283,7 @@ void LLAnimationBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 	{
 		if(isItemInTrash())
 		{
-			addTrashContextMenuOptions(items, disabled_items);
+			addTrashContextMenuOptions(flags, items, disabled_items);
 		}	
 		else
 		{
@@ -5651,7 +5654,7 @@ void LLObjectBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 	menuentry_vec_t disabled_items;
 	if(isItemInTrash())
 	{
-		addTrashContextMenuOptions(items, disabled_items);
+		addTrashContextMenuOptions(flags, items, disabled_items);
 	}	
 	else if(isOutboxFolder())
 	{
@@ -5903,7 +5906,7 @@ void LLWearableBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 	menuentry_vec_t disabled_items;
 	if(isItemInTrash())
 	{
-		addTrashContextMenuOptions(items, disabled_items);
+		addTrashContextMenuOptions(flags, items, disabled_items);
 	}
 	else if(isOutboxFolder())
 	{
@@ -6179,7 +6182,7 @@ void LLLinkItemBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 	
 	if(isItemInTrash())
 	{
-		addTrashContextMenuOptions(items, disabled_items);
+		addTrashContextMenuOptions(flags, items, disabled_items);
 	}
 	else
 	{
@@ -6273,7 +6276,7 @@ void LLLinkFolderBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 
 	if (isItemInTrash())
 	{
-		addTrashContextMenuOptions(items, disabled_items);
+		addTrashContextMenuOptions(flags, items, disabled_items);
 	}
 	else
 	{
