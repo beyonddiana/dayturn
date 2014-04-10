@@ -93,6 +93,27 @@ bool LLOfferHandler::processNotification(const LLNotificationPtr& notification)
 	{
 		bool add_notif_to_im = notification->canLogToIM() && notification->hasFormElements();
 
+		if (!notification->canShowToast())
+		{
+			LLNotificationsUtil::cancel(notification);
+		}
+		else if(!notification->canLogToIM() || !LLHandlerUtil::isIMFloaterOpened(notification))
+		{
+			LLToastNotifyPanel* notify_box = new LLToastNotifyPanel(notification);
+			LLToast::Params p;
+			p.notif_id = notification->getID();
+			p.notification = notification;
+			p.panel = notify_box;
+			// we not save offer notifications to the syswell floater that should be added to the IM floater
+			p.can_be_stored = !add_notif_to_im;
+			p.force_show = notification->getOfferFromAgent();
+
+			LLScreenChannel* channel = dynamic_cast<LLScreenChannel*>(mChannel.get());
+			if(channel)
+				channel->addToast(p);
+				//bool playSound = !((notification->getName() == "UserGiveItem"));//unused variable error on linnux
+		}
+
 		if (add_notif_to_im)
 		{
 			const std::string name = LLHandlerUtil::getSubstitutionName(notification);
@@ -126,27 +147,6 @@ bool LLOfferHandler::processNotification(const LLNotificationPtr& notification)
 				add_notif_to_im = false;
 			}
 // [/RLVa:KB]
-		}
-
-		if (!notification->canShowToast())
-		{
-			LLNotificationsUtil::cancel(notification);
-		}
-		else if(!notification->canLogToIM() || !LLHandlerUtil::isIMFloaterOpened(notification))
-		{
-			LLToastNotifyPanel* notify_box = new LLToastNotifyPanel(notification);
-			LLToast::Params p;
-			p.notif_id = notification->getID();
-			p.notification = notification;
-			p.panel = notify_box;
-			// we not save offer notifications to the syswell floater that should be added to the IM floater
-			p.can_be_stored = !add_notif_to_im;
-			p.force_show = notification->getOfferFromAgent();
-
-			LLScreenChannel* channel = dynamic_cast<LLScreenChannel*>(mChannel.get());
-			if(channel)
-				channel->addToast(p);
-				//bool playSound = !((notification->getName() == "UserGiveItem"));//unused variable error on linnux
 		}
 
 		if (notification->canLogToIM())
