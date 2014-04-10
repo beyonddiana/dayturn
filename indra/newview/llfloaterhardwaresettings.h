@@ -77,6 +77,8 @@ protected:
 	F32 mFogRatio;
 	BOOL mProbeHardwareOnStartup;
 
+	void onRenderVBOEnableChange();
+
 private:
 };
 

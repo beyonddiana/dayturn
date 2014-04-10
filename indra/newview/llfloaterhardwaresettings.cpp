@@ -67,6 +67,7 @@ LLFloaterHardwareSettings::~LLFloaterHardwareSettings()
 
 void LLFloaterHardwareSettings::initCallbacks(void) 
 {
+	getChild<LLCheckBoxCtrl>("vbo")->setCommitCallback(boost::bind(&LLFloaterHardwareSettings::onRenderVBOEnableChange, this));
 }
 
 // menu maintenance functions
@@ -100,7 +101,13 @@ void LLFloaterHardwareSettings::refreshEnabledState()
 	if (!LLFeatureManager::getInstance()->isFeatureAvailable("RenderVBOEnable") ||
 		!gGLManager.mHasVertexBufferObject)
 	{
-		getChildView("vbo")->setEnabled(FALSE);
+		getChild<LLTextBox>("vbo_label")->setEnabled(FALSE);
+		getChild<LLCheckBoxCtrl>("vbo")->setEnabled(FALSE);
+		getChild<LLTextBox>("streamed_vbo_label")->setEnabled(FALSE);
+		getChild<LLCheckBoxCtrl>("streamed_vbo")->setEnabled(FALSE);
+	}
+	else {
+		onRenderVBOEnableChange();
 	}
 
 	if (!LLFeatureManager::getInstance()->isFeatureAvailable("RenderCompressTextures") ||
@@ -109,11 +116,34 @@ void LLFloaterHardwareSettings::refreshEnabledState()
 		getChildView("texture compression")->setEnabled(FALSE);
 	}
 
-	// if no windlight shaders, turn off nighttime brightness, gamma, and fog distance
-	LLSpinCtrl* gamma_ctrl = getChild<LLSpinCtrl>("gamma");
-	gamma_ctrl->setEnabled(!gPipeline.canUseWindLightShaders());
-	getChildView("(brightness, lower is brighter)")->setEnabled(!gPipeline.canUseWindLightShaders());
-	getChildView("fog")->setEnabled(!gPipeline.canUseWindLightShaders());
+	if (gPipeline.canUseWindLightShaders()) {
+		//
+		//	windlight shaders are available so hide the gamma and
+		//	fog distance spinners
+		//
+		LLSpinCtrl *fog = getChild<LLSpinCtrl>("fog");
+		LLSpinCtrl *gamma = getChild<LLSpinCtrl>("gamma");
+
+		fog->setVisible(FALSE);
+		gamma->setVisible(FALSE);
+
+		getChild<LLTextBox>("gamma_note")->setVisible(FALSE);
+
+		//
+		//	reshape the floater to get rid of the blank space
+		//	caused by hiding the gamma and fog distance spinners
+		//
+		reshape(getRect().getWidth(), getRect().getHeight() - fog->getRect().getHeight() - gamma->getRect().getHeight() - 5);
+	}
+	else {
+		//
+		//	no windlight shaders are available so enable the
+		//	gamma and fog distance
+		//
+		getChild<LLSpinCtrl>("fog")->setEnabled(TRUE);
+		getChild<LLSpinCtrl>("gamma")->setEnabled(TRUE);
+		getChild<LLTextBox>("gamma_note")->setEnabled(TRUE);
+	}
 
 	// anti-aliasing
 	{
@@ -127,9 +157,7 @@ void LLFloaterHardwareSettings::refreshEnabledState()
 		if (gPipeline.canUseAntiAliasing())
 		{
 			fsaa_ctrl->setEnabled(TRUE);
-			
-			// borrow the text color from the gamma control for consistency
-			fsaa_text->setColor(gamma_ctrl->getEnabledTextColor());
+			fsaa_text->setEnabled(TRUE);
 
 			fsaa_restart->setVisible(!gSavedSettings.getBOOL("RenderDeferred"));
 		}
@@ -137,10 +165,7 @@ void LLFloaterHardwareSettings::refreshEnabledState()
 		{
 			fsaa_ctrl->setEnabled(FALSE);
 			fsaa_ctrl->setValue((LLSD::Integer) 0);
-			
-			// borrow the text color from the gamma control for consistency
-			fsaa_text->setColor(gamma_ctrl->getDisabledTextColor());
-			
+			fsaa_text->setEnabled(FALSE);
 			fsaa_restart->setVisible(FALSE);
 		}
 	}
@@ -190,6 +215,14 @@ void LLFloaterHardwareSettings::cancel()
 	gSavedSettings.setBOOL("ProbeHardwareOnStartup", mProbeHardwareOnStartup );
 
 	closeFloater();
+}
+
+void LLFloaterHardwareSettings::onRenderVBOEnableChange()
+{
+	const BOOL enable = gSavedSettings.getBOOL("RenderVBOEnable");
+
+	getChild<LLTextBox>("streamed_vbo_label")->setEnabled(enable);
+	getChild<LLCheckBoxCtrl>("streamed_vbo")->setEnabled(enable);
 }
 
 // static 

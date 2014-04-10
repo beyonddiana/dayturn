@@ -5,8 +5,8 @@
  layout="topleft"
  name="Hardware Settings Floater"
  help_topic="hardware_settings_floater"
- title="HARDWARE SETTINGS"
- width="615">
+ title="GRAPHICS HARDWARE SETTINGS"
+ width="522">
     <text
      type="string"
      length="1"
@@ -15,18 +15,19 @@
      layout="topleft"
      left="10"
      name="Filtering:"
-     top="30"
-     width="188">
-        Anisotropic Filtering:
+     text_readonly_color="LabelDisabledColor"
+     top="34"
+     width="130">
+        Anisotropic filtering:
     </text>
     <combo_box
      name="ani"
      control_name="RenderAnisotropicSamples"
-     label="Anisotropic Filtering"
+     label="Anisotropic filtering"
      layout="topleft"
      height="22"
      width="130"
-     top_delta="0"
+     top_delta="-4"
      left_pad="10"
      initial_value="0">
         <combo_box.item
@@ -57,9 +58,10 @@
      type="string"
      length="1"
      height="12"
-     width="188"
-     top_delta="0"
-     left_pad="10">
+     width="130"
+     top_delta="4"
+     left_pad="10"
+     text_readonly_color="LabelDisabledColor">
         (Slower when enabled)
     </text>
     <text
@@ -70,8 +72,9 @@
      layout="topleft"
      left="10"
      name="antialiasing label"
+     text_readonly_color="LabelDisabledColor"
      top_pad="15"
-     width="188">
+     width="130">
         Antialiasing:
     </text>
     <combo_box
@@ -82,7 +85,7 @@
      layout="topleft"
      left_pad="10"
      name="fsaa"
-     top_delta="0"
+     top_delta="-4"
      width="130">
         <combo_box.item
          label="Disabled"
@@ -113,36 +116,10 @@
      layout="topleft"
      left_pad="10"
      name="antialiasing restart"
-     top_delta="0"
+     text_readonly_color="LabelDisabledColor"
+     top_delta="4"
      width="230">
-      (requires viewer restart)
-    </text>
-    <spinner
-     control_name="RenderGamma"
-     decimal_digits="2"
-     follows="left|top"
-     height="16"
-     increment="0.01"
-     initial_value="1"
-     label="Gamma:"
-     label_width="198"
-     layout="topleft"
-     left="10"
-     max_val="2"
-     name="gamma"
-     top_pad="15"
-     width="262" />
-    <text
-     type="string"
-     length="1"
-     follows="left|top"
-     height="12"
-     layout="topleft"
-     left_pad="10"
-     name="(brightness, lower is brighter)"
-     top_delta="2"
-     width="385">
-        (0 = default brightness, lower = brighter)
+      (Requires restart)
     </text>
     <text
      type="string"
@@ -151,20 +128,21 @@
      height="16"
      layout="topleft"
      left="10"
-     name="Enable VBO:"
+     name="vbo_label"
+     text_readonly_color="LabelDisabledColor"
      top_pad="15"
-     width="188">
-        Enable VBO:
+     width="130">
+        Vertex buffer objects:
     </text>
     <check_box
      control_name="RenderVBOEnable"
      height="16"
      initial_value="true"
-     label="Enable OpenGL Vertex Buffer Objects"
+     label="Enable OpenGL vertex buffer objects"
      layout="topleft"
      left_pad="10"
      name="vbo"
-     tool_tip="Enabling this on modern hardware gives a performance gain.  However, older hardware often has poor implementations of VBOs and you may get crashes when this is enabled."
+     tool_tip="Enabling this on modern hardware gives a performance gain.  However, older hardware often has a poor VBO implementation and you may get crashes when this is enabled"
      width="315" />
   <text
     type="string"
@@ -173,20 +151,21 @@
     height="16"
     layout="topleft"
     left="10"
-    name="streamed vbo label"
+    name="streamed_vbo_label"
+    text_readonly_color="LabelDisabledColor"
     top_pad="5"
-    width="188">
-    Use VBOs For Stream Buffers:
+    width="130">
+    VBO stream buffers:
   </text>
     <check_box
      control_name="RenderUseStreamVBO"
      height="16"
      initial_value="true"
-     label="Use Vertex Buffer Objects For Stream Buffers"
+     label="Use vertex buffer objects for stream buffers"
      layout="topleft"
      left_pad="10"
-     name="streamed vbos"
-     tool_tip="Disabling this may improve performance when VBOs are enabled."
+     name="streamed_vbo"
+     tool_tip="Disabling this may improve performance when VBOs are enabled"
      width="315" />
   <text
     type="string"
@@ -196,19 +175,20 @@
     layout="topleft"
     left="10"
     name="tc label"
+    text_readonly_color="LabelDisabledColor"
     top_pad="5"
-    width="188">
-    Enable S3TC:
+    width="130">
+    Texture compression:
   </text>
     <check_box
      control_name="RenderCompressTextures"
      height="16"
      initial_value="true"
-     label="Enable Texture Compression (requires restart)"
+     label="Enable texture compression  (Requires restart)"
      layout="topleft"
      left_pad="10"
      name="texture compression"
-     tool_tip="Compresses textures in video memory, allowing for higher resolution textures to be loaded at the cost of some color quality."
+     tool_tip="Compresses textures in video memory isomh S3TC, allowing for higher resolution textures to be loaded at the cost of some color quality"
      width="315" />
     <slider
      control_name="TextureMemory"
@@ -218,14 +198,42 @@
      increment="16"
      initial_value="32"
      label="Texture Memory (MB):"
-     label_width="195"
+     label_width="130"
      layout="topleft"
      left="10"
      max_val="4096"
      name="GraphicsCardTextureMemory"
      tool_tip="Amount of memory to allocate for textures. Defaults to video card memory. Reducing this may improve performance but may also make textures blurry."
      top_pad="5"
-     width="360" />
+     width="512" />
+	 <spinner
+     name="gamma"
+     label="Gamma:"
+     control_name="RenderGamma"
+     layout="topleft"
+     follows="left|top"
+     top_pad="5"
+     left="10"
+     height="16"
+     width="200"
+     label_width="138"
+     decimal_digits="2"
+     initial_value="1"
+     increment="0.01"
+     max_val="2" />
+    <text
+     name="gamma_note"
+     type="string"
+     length="1"
+     layout="topleft"
+     follows="left|top"
+     top_delta="4"
+     left_pad="10"
+     height="12"
+     width="385"
+     text_readonly_color="LabelDisabledColor">
+        (0 = Default brightness.  Lower = brighter)
+    </text>	
     <spinner
      control_name="RenderFogRatio"
      decimal_digits="1"
@@ -233,14 +241,14 @@
      height="22"
      initial_value="4"
      label="Fog Distance Ratio:"
-     label_width="198"
+     label_width="138"
      layout="topleft"
      left_delta="0"
      max_val="10"
      min_val="0.5"
      name="fog"
-     top_pad="5"
-     width="262" />
+     top_pad="10"
+     width="200" />
     <button
      follows="right|bottom"
      height="22"
@@ -249,6 +257,6 @@
      layout="topleft"
      left="-102"
      name="OK"
-     top="222"
+     top="-32"
      width="90" />
 </floater>
