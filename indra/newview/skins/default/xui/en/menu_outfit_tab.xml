@@ -29,7 +29,7 @@
          parameter="wear_add" />
     </menu_item_call>
     <menu_item_call
-     label="Remove from Current Outfit"
+     label="Remove all (except Body Parts)"
      layout="topleft"
      name="take_off">
         <on_click
