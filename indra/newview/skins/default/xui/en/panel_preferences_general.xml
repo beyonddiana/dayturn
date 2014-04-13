@@ -300,6 +300,14 @@
      left_pad="50"
      name="show_friends"
      tool_tip="Highlight the name tags of your friends"/>     
+     <check_box
+     control_name="RenderHideGroupTitle"
+     height="16"
+     label="Hide your group title"
+     layout="topleft"
+     left_pad="50"
+     name="RenderHideGroupTitle"
+     tool_tip="Hides your own group title from you and others."/>
     <check_box
 	 control_name="UseDisplayNames"
 	 follows="top|left"
