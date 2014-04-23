@@ -29,6 +29,7 @@
 #include "llfloaterregionrestarting.h"
 
 #include "llfloaterreg.h"
+#include "lltrans.h"
 #include "lluictrl.h"
 #include "llagent.h"
 #include "llagentcamera.h"
@@ -83,11 +84,34 @@ BOOL LLFloaterRegionRestarting::tick()
 
 void LLFloaterRegionRestarting::refresh()
 {
-	LLStringUtil::format_map_t args;
-	std::string text;
+	const U32 minutes = sSeconds / 60;
+	const U32 seconds = sSeconds % 60;
 
-	args["[SECONDS]"] = llformat("%d", sSeconds);
-	getChild<LLTextBox>("restart_seconds")->setValue(getString("RestartSeconds", args));
+	const std::string lang = LLUI::getLanguage();
+
+	std::string format;
+	LLSD format_args;
+
+	if (minutes) {
+		format_args["[MINUTES]"] = LLTrans::getCountString(lang, "TimeMinutes", minutes);
+
+		if (seconds) {
+			format = "TimeMinutesSeconds";
+			format_args["[SECONDS]"] = LLTrans::getCountString(lang, "TimeSeconds", seconds);
+		}
+		else {
+			format = "TimeMinutes";
+		}
+	}
+	else {
+		format = "TimeSeconds";
+		format_args["[SECONDS]"] = LLTrans::getCountString(lang, "TimeSeconds", seconds);
+	}
+
+	LLStringUtil::format_map_t args;
+	args["[COUNTDOWN]"] = LLTrans::getString(format, format_args);
+
+	getChild<LLTextBox>("restart_seconds")->setValue(getString("RestartCountdown", args));
 
 	sSeconds = sSeconds - 1;
 	if(sSeconds < 0.0)
