@@ -116,35 +116,6 @@ void LLFloaterHardwareSettings::refreshEnabledState()
 		getChildView("texture compression")->setEnabled(FALSE);
 	}
 
-	if (gPipeline.canUseWindLightShaders()) {
-		//
-		//	windlight shaders are available so hide the gamma and
-		//	fog distance spinners
-		//
-		LLSpinCtrl *fog = getChild<LLSpinCtrl>("fog");
-		LLSpinCtrl *gamma = getChild<LLSpinCtrl>("gamma");
-
-		fog->setVisible(FALSE);
-		gamma->setVisible(FALSE);
-
-		getChild<LLTextBox>("gamma_note")->setVisible(FALSE);
-
-		//
-		//	reshape the floater to get rid of the blank space
-		//	caused by hiding the gamma and fog distance spinners
-		//
-		reshape(getRect().getWidth(), getRect().getHeight() - fog->getRect().getHeight() - gamma->getRect().getHeight() - 5);
-	}
-	else {
-		//
-		//	no windlight shaders are available so enable the
-		//	gamma and fog distance
-		//
-		getChild<LLSpinCtrl>("fog")->setEnabled(TRUE);
-		getChild<LLSpinCtrl>("gamma")->setEnabled(TRUE);
-		getChild<LLTextBox>("gamma_note")->setEnabled(TRUE);
-	}
-
 	// anti-aliasing
 	{
 		LLUICtrl* fsaa_ctrl = getChild<LLUICtrl>("fsaa");
@@ -188,6 +159,35 @@ BOOL LLFloaterHardwareSettings::postBuild()
 		combo->remove("16x");
 	}
 #endif
+
+	if (gPipeline.canUseWindLightShaders()) {
+		//
+		//	windlight shaders are available so hide the gamma and
+		//	fog distance spinners
+		//
+		LLSpinCtrl *fog = getChild<LLSpinCtrl>("fog");
+		LLSpinCtrl *gamma = getChild<LLSpinCtrl>("gamma");
+
+		fog->setVisible(FALSE);
+		gamma->setVisible(FALSE);
+
+		getChild<LLTextBox>("gamma_note")->setVisible(FALSE);
+
+		//
+		//	reshape the floater to get rid of the blank space
+		//	caused by hiding the gamma and fog distance spinners
+		//
+		reshape(getRect().getWidth(), getRect().getHeight() - fog->getRect().getHeight() - gamma->getRect().getHeight() - 5);
+	}
+	else {
+		//
+		//	no windlight shaders are available so enable the
+		//	gamma and fog distance
+		//
+		getChild<LLSpinCtrl>("fog")->setEnabled(TRUE);
+		getChild<LLSpinCtrl>("gamma")->setEnabled(TRUE);
+		getChild<LLTextBox>("gamma_note")->setEnabled(TRUE);
+	}
 
 	refresh();
 	center();
