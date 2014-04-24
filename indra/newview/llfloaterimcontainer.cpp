@@ -29,6 +29,7 @@
 
 #include "llfloaterimsession.h"
 #include "llfloaterimcontainer.h"
+#include "llfloaterreporter.h"
 
 #include "llfloaterreg.h"
 #include "lllayoutstack.h"
@@ -1149,6 +1150,10 @@ void LLFloaterIMContainer::doToParticipants(const std::string& command, uuid_vec
 		else if ("toggle_allow_text_chat" == command)
 		{
 			toggleAllowTextChat(userID);
+		}
+		else if ("report_abuse" == command)
+		{
+			LLFloaterReporter::showFromAvatar(userID, "name");
 		}
 	}
 	else if (selectedIDS.size() > 1)

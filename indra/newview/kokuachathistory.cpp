@@ -44,6 +44,7 @@
 #include "llavataractions.h"
 #include "lltrans.h"
 #include "llfloaterreg.h"
+#include "llfloaterreporter.h"
 #include "llfloatersidepanelcontainer.h"
 #include "llmutelist.h"
 #include "llstylemap.h"
@@ -180,6 +181,10 @@ public:
 			std::string url = "secondlife://" + mObjectData["slurl"].asString();
 			LLUrlAction::teleportToLocation(url);
 		}
+		else if (level == "report_abuse")
+		{
+			LLFloaterReporter::showFromObject(mObjectData["object_id"]);
+		}
 
 	}
 
@@ -274,6 +279,10 @@ public:
 		else if (level == "estateban")
 		{
 			LLAvatarActions::estateBan(getAvatarId());
+		}
+		else if (level == "report_abuse")
+		{
+			LLFloaterReporter::showFromAvatar(getAvatarId(), "name");
 		}
 	}
 
