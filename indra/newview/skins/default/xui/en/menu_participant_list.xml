@@ -130,7 +130,9 @@
      label="Report Abuse"
      layout="topleft"
      name="Report Abuse">
-        <on_click function="Avatar.DoToSelected" />
+        <on_click
+            function="Avatar.DoToSelected"
+            parameter="report_abuse" />
     </menu_item_call>
     <menu_item_separator
      layout="topleft" 
