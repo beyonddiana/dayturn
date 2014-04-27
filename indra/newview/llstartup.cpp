@@ -3029,6 +3029,7 @@ void LLStartUp::setStartSLURL(const LLSLURL& slurl)
 	}
     default:
 			LLGridManager::getInstance()->setGridChoice(slurl.getGrid());
+			gSavedSettings.setString("NextLoginLocation", slurl.getSLURLString());
 			break;
   }
 }
