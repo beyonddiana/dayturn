@@ -127,7 +127,6 @@
 #include "llimageworker.h"
 #include "llkeyboard.h"
 #include "lllineeditor.h"
-#include "lllogininstance.h"
 #include "llmenugl.h"
 #include "llmenuoptionpathfindingrebakenavmesh.h"
 #include "llmodaldialog.h"
