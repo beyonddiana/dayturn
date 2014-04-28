@@ -10,17 +10,17 @@ include(Variables)
 # Portable compilation flags.
 set(CMAKE_CXX_FLAGS_DEBUG "-D_DEBUG -DLL_DEBUG=1")
 set(CMAKE_CXX_FLAGS_RELEASE
-   "-DLL_RELEASE=1 -DLL_RELEASE_FOR_DOWNLOAD=1 -DLL_SEND_CRASH_REPORTS=1 -DNDEBUG") 
+#   "-DLL_RELEASE=1 -DLL_RELEASE_FOR_DOWNLOAD=1 -D_SECURE_SCL=0 -DLL_SEND_CRASH_REPORTS=${release_crash_reports} -DNDEBUG") 
 #kokua no crash reports for now, please
-#    "-DLL_RELEASE=1 -DLL_RELEASE_FOR_DOWNLOAD=1 -D_SECURE_SCL=0 -DLL_SEND_CRASH_REPORTS=0 -DNDEBUG") 
+    "-DLL_RELEASE=1 -DLL_RELEASE_FOR_DOWNLOAD=1 -D_SECURE_SCL=0 -DLL_SEND_CRASH_REPORTS=0 -DNDEBUG") 
 
 
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO 
     "-DLL_RELEASE=1 -DNDEBUG -DLL_RELEASE_WITH_DEBUG_INFO=1")
 
 # Configure crash reporting
-set(RELEASE_CRASH_REPORTING ON CACHE BOOL "Enable use of crash reporting in release builds")
-set(NON_RELEASE_CRASH_REPORTING ON CACHE BOOL "Enable use of crash reporting in developer builds")
+set(RELEASE_CRASH_REPORTING OFF CACHE BOOL "Enable use of crash reporting in release builds")
+set(NON_RELEASE_CRASH_REPORTING OFF CACHE BOOL "Enable use of crash reporting in developer builds")
 
 if(RELEASE_CRASH_REPORTING)
   set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DLL_SEND_CRASH_REPORTS=1")
