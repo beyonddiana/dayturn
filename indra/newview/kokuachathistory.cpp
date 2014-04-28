@@ -786,6 +786,7 @@ protected:
 				menu->setItemEnabled("Add Friend", false);
 				menu->setItemEnabled("Zoom In", false);
 				menu->setItemEnabled("Invite To Group", false);
+				menu->setItemEnabled("Report Abuse", false);
 				menu->setItemEnabled("Share", false);
 				menu->setItemEnabled("Pay", false);
 				menu->setItemEnabled("Block", false);
