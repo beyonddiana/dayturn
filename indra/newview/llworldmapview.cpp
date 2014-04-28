@@ -1613,6 +1613,14 @@ void LLWorldMapView::handleClick(S32 x, S32 y, MASK mask,
 }
 
 
+BOOL outside_slop(S32 x, S32 y, S32 start_x, S32 start_y)
+{
+	S32 dx = x - start_x;
+	S32 dy = y - start_y;
+
+	return (dx <= -2 || 2 <= dx || dy <= -2 || 2 <= dy);
+}
+
 BOOL LLWorldMapView::handleMouseDown( S32 x, S32 y, MASK mask )
 {
 	gFocusMgr.setMouseCapture( this );
@@ -1695,7 +1703,7 @@ BOOL LLWorldMapView::handleHover( S32 x, S32 y, MASK mask )
 {
 	if (hasMouseCapture())
 	{
-		if (mPanning || llabs(x - mMouseDownX) > 1 || llabs(y - mMouseDownY) > 1)
+		if (mPanning || outside_slop(x, y, mMouseDownX, mMouseDownY))
 		{
 			// just started panning, so hide cursor
 			if (!mPanning)
