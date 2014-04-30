@@ -2072,7 +2072,7 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
-    <key>CameraMouseSensitivity</key>
+    <key>CameraMouseSpeedMultiplier</key>
     <map>
       <key>Comment</key>
       <string>Accelerator for the mouse-controlled camera.  The value acts as a multiplier.  Bigger numbers = more sensitive.  Fractions between 0 and 1 = less sensitive.  This value needs to be positive</string>
@@ -2081,7 +2081,7 @@
       <key>Type</key>
       <string>F32</string>
       <key>Value</key>
-      <real>4.0</real>
+      <real>1.0</real>
     </map>
     <key>CameraMouseWheelZoom</key>
     <map>
@@ -6260,17 +6260,6 @@
       <string>F32</string>
       <key>Value</key>
       <real>60.0</real>
-    </map>
-    <key>MapMouseSensitivity</key>
-    <map>
-      <key>Comment</key>
-      <string>Accelerator for mouse-panning the minimap and world map.  The value acts as a multiplier.  Bigger numbers = more sensitive mouse movements.  Fractions between 0 and 1 = less sensitive.  This value needs to be positive</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>F32</string>
-      <key>Value</key>
-      <real>4.0</real>
     </map>
     <key>MapOverlayIndex</key>
     <map>

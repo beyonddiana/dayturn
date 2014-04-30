@@ -1715,11 +1715,9 @@ BOOL LLWorldMapView::handleHover( S32 x, S32 y, MASK mask )
 			F32 delta_x = (F32)(gViewerWindow->getCurrentMouseDX());
 			F32 delta_y = (F32)(gViewerWindow->getCurrentMouseDY());
 
-			static LLCachedControl<F32> map_mouse_sensitivity(gSavedSettings, "MapMouseSensitivity", 4.0f);
-
 			// Set pan to value at start of drag + offset
-			sPanX += delta_x * map_mouse_sensitivity;
-			sPanY += delta_y * map_mouse_sensitivity;
+			sPanX += delta_x;
+			sPanY += delta_y;
 			sTargetPanX = sPanX;
 			sTargetPanY = sPanY;
 

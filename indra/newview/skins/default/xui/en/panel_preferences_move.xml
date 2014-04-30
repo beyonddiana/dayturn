@@ -230,8 +230,8 @@
     Camera mouse sensitivity
   </text>
   <slider
-   name="camera_mouse_sensitivity"
-   control_name="CameraMouseSensitivity"
+   name="camera_mouse_speed_multiplier"
+   control_name="CameraMouseSpeedMultiplier"
    layout="topleft"
    follows="left|top"
    height="15"
@@ -239,8 +239,8 @@
    top_delta="-1"
    left_pad="0"
    min_val="0.1"
-   max_val="8.0"
-   initial_value="4.0"
+   max_val="2.0"
+   initial_value="1.0"
    show_text="false" />
   <text
    follows="left|top"

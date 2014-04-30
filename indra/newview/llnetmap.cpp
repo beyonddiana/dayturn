@@ -1233,10 +1233,8 @@ BOOL LLNetMap::handleHover( S32 x, S32 y, MASK mask )
 			LLVector2 delta(static_cast<F32>(gViewerWindow->getCurrentMouseDX()),
 							static_cast<F32>(gViewerWindow->getCurrentMouseDY()));
 
-			static LLCachedControl<F32> map_mouse_sensitivity(gSavedSettings, "MapMouseSensitivity", 4.0f);
-
 			// Set pan to value at start of drag + offset
-			mCurPan += (delta * map_mouse_sensitivity);
+			mCurPan += delta;
 			mTargetPan = mCurPan;
 
 			gViewerWindow->moveCursorToCenter();
