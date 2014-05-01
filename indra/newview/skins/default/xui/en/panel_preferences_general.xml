@@ -300,14 +300,6 @@
      left_pad="50"
      name="show_friends"
      tool_tip="Highlight the name tags of your friends"/>     
-     <check_box
-     control_name="RenderHideGroupTitle"
-     height="16"
-     label="Hide your group title"
-     layout="topleft"
-     left_pad="50"
-     name="RenderHideGroupTitle"
-     tool_tip="Hides your own group title from you and others."/>
     <check_box
 	 control_name="UseDisplayNames"
 	 follows="top|left"
@@ -316,9 +308,17 @@
 	 layout="topleft"
 	 left="35"
 	 name="display_names_check"
-	 width="237"
+	 width="100"
 	 tool_tip="Check to use display names in chat, IM, name tags, etc."
 	 top_pad="3"/>
+     <check_box
+         control_name="RenderHideGroupTitle"
+         height="16"
+         label="Hide your group title"
+         layout="topleft"
+         left_pad="50"
+         name="RenderHideGroupTitle"
+         tool_tip="Hide your active group title from yourself and others." />
 	 
 	<text
 	 type="string"
@@ -328,7 +328,7 @@
 	 layout="topleft"
 	 left="30"
 	 name="inworld_typing_rg_label"
-	 top_pad="1"
+	 top_pad="5"
 	 width="400">
        Pressing letter keys:
    </text>
@@ -410,7 +410,7 @@
      left="30"
      mouse_opaque="false"
      name="text_box3"
-     top_pad="3"
+     top_pad="5"
      width="240">
        Do Not Disturb response:
     </text>
