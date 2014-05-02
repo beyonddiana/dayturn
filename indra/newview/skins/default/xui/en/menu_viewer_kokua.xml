@@ -2151,6 +2151,14 @@
             parameter="WebLaunchExternalTarget,http://wiki.kokuaviewer.org/wiki/Support" />
         </menu_item_call>
         <menu_item_call
+             label="Second Life Grid Status"
+             name="Second Life Grid Status"
+             only_in_sl="true">
+             <menu_item_call.on_click
+                 function="Advanced.ShowURL"
+                 parameter="http://status.secondlifegrid.net/" />
+        </menu_item_call>
+        <menu_item_call
           label="Scripting LSL wiki"
           name="scripting_wiki">
            <menu_item_call.on_click

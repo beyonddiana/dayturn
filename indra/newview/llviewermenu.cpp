@@ -8621,7 +8621,17 @@ void handle_show_url(const LLSD& param)
 	}
 
 }
+void handle_show_grid_status()
+{
+	std::string grid = LLGridManager::getInstance()->getGridLabel();
+	LLStringUtil::replaceChar(grid, ' ', '_');
 
+	std::string status_link = gSavedSettings.getString("GridStatusLink_" + grid);
+
+	if (!status_link.empty()) {
+		handle_show_url(LLSD(status_link));
+	}
+}
 void handle_show_group()
 {
 	std::string grid = LLGridManager::getInstance()->getGridLabel();
@@ -9577,6 +9587,7 @@ void initialize_menus()
 	commit.add("Advanced.WebBrowserTest", boost::bind(&handle_web_browser_test,	_2));	// sigh! this one opens the MEDIA browser
 	commit.add("Advanced.WebContentTest", boost::bind(&handle_web_content_test, _2));	// this one opens the Web Content floater
 	commit.add("Advanced.ShowGroup", boost::bind(&handle_show_group));
+	commit.add("Advanced.ShowGridStatus", boost::bind(&handle_show_grid_status));
 	commit.add("Advanced.ShowURL", boost::bind(&handle_show_url, _2));
 	commit.add("Advanced.ReportBug", boost::bind(&handle_report_bug, _2));
 	view_listener_t::addMenu(new LLAdvancedBuyCurrencyTest(), "Advanced.BuyCurrencyTest");
