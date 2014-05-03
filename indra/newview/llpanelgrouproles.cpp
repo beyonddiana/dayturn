@@ -1802,7 +1802,7 @@ BOOL LLPanelGroupRolesSubTab::postBuildSubTab(LLView* root)
 	mRoleName = parent->getChild<LLLineEditor>("role_name", recurse);
 	mRoleTitle = parent->getChild<LLLineEditor>("role_title", recurse);
 	mRoleDescription = parent->getChild<LLTextEditor>("role_description", recurse);
-	mRoleUUID = parent->getChild<LLLineEditor>("role_uuid", recurse);
+	mRoleUUID = parent->getChild<LLTextEditor>("role_uuid", recurse);
 	mBtnRoleUUIDCopy = parent->getChild<LLButton>("role_uuid_copy", recurse);
 	if (mBtnRoleUUIDCopy) {
 		mBtnRoleUUIDCopy->setEnabled(FALSE);

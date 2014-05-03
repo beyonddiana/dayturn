@@ -173,7 +173,7 @@ BOOL LLPanelGroupGeneral::postBuild()
 		mComboActiveTitle->setCommitCallback(onCommitAny, this);
 	}
 
-	mGroupUUIDText = getChild<LLLineEditor>("group_uuid_text", recurse);
+	mGroupUUIDText = getChild<LLTextEditor>("group_uuid_text", recurse);
 	mBtnGroupUUIDCopy = getChild<LLButton>("group_uuid_copy", recurse);
 	if (mBtnGroupUUIDCopy) {
 		mBtnGroupUUIDCopy->setEnabled(FALSE);

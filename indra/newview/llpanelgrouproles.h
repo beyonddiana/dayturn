@@ -272,7 +272,7 @@ protected:
 
 	LLLineEditor* mRoleName;
 	LLLineEditor* mRoleTitle;
-	LLLineEditor* mRoleUUID;
+	LLTextEditor* mRoleUUID;
 	LLButton *mBtnRoleUUIDCopy;
 	LLTextEditor* mRoleDescription;
 

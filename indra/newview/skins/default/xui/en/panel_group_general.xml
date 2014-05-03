@@ -263,7 +263,7 @@ Hover your mouse over the options for more help.
        width="300">
            Group UUID:
     </text>
-    <line_editor
+    <text_editor
         type="string"
         name="group_uuid_text"
         layout="topleft"
@@ -273,7 +273,7 @@ Hover your mouse over the options for more help.
         left="10"
         width="175"
         enabled="false">
-    </line_editor>
+    </text_editor>
     <button
         label="Copy Group UUID"
         name="group_uuid_copy"
