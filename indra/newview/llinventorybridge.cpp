@@ -3788,7 +3788,7 @@ EInventorySortGroup LLFolderBridge::getSortGroup() const
 		return SG_TRASH_FOLDER;
 	}
 
-	if(LLFolderType::lookupIsProtectedType(preferred_type))
+	if (preferred_type == LLFolderType::FT_INBOX || LLFolderType::lookupIsProtectedType(preferred_type))
 	{
 		return SG_SYSTEM_FOLDER;
 	}
