@@ -188,7 +188,7 @@
      layout="topleft"
      left_pad="10"
      name="texture compression"
-     tool_tip="Compresses textures in video memory isomh S3TC, allowing for higher resolution textures to be loaded at the cost of some color quality"
+     tool_tip="Compresses textures in video memory using S3TC, allowing for higher resolution textures to be loaded at the cost of some color quality"
      width="315" />
     <slider
      control_name="TextureMemory"
