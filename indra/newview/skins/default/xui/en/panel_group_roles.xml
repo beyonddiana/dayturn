@@ -525,7 +525,7 @@ things in this group. There&apos;s a broad variety of Abilities.
            width="300">
                Role UUID:
         </text>
-        <text_editor
+        <line_editor
             type="string"
             name="role_uuid"
             layout="topleft"
@@ -535,7 +535,7 @@ things in this group. There&apos;s a broad variety of Abilities.
             left="5"
             width="180"
             enabled="false">
-        </text_editor>
+        </line_editor>
         <button
             name="role_uuid_copy"
             layout="topleft"

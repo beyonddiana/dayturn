@@ -89,7 +89,7 @@ private:
 	LLTextBox			*mFounderName;
 	LLTextureCtrl		*mInsignia;
 	LLTextEditor		*mEditCharter;
-	LLTextEditor		*mGroupUUIDText;
+	LLLineEditor		*mGroupUUIDText;
 	LLButton		*mBtnGroupUUIDCopy;
 
 	// Options (include any updates in updateChanged)
