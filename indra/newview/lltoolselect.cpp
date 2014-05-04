@@ -197,9 +197,10 @@ LLObjectSelectionHandle LLToolSelect::handleObjectSelection(const LLPickInfo& pi
 			LLSelectMgr::getInstance()->setAgentHUDZoom(target_zoom, current_zoom);
 		}
 
-		if (!gAgentCamera.getFocusOnAvatar() &&										// if camera not glued to avatar
+		if (!gAgentCamera.getFocusOnAvatar() &&						// if camera not glued to avatar
 			LLVOAvatar::findAvatarFromAttachment(object) != gAgentAvatarp &&	// and it's not one of your attachments
-			object != gAgentAvatarp)									// and it's not you
+			object != gAgentAvatarp &&						// and it's not you
+			!gSavedSettings.getBOOL("PreventAvatarTurnToSelected"))			// and this setting is not true
 		{
 			// have avatar turn to face the selected object(s)
 			LLVector3d selection_center = LLSelectMgr::getInstance()->getSelectionCenterGlobal();

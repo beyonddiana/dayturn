@@ -8371,6 +8371,17 @@
     <key>Value</key>
       <integer>0</integer>
   </map>
+  <key>PreventAvatarTurnToSelected</key>
+  <map>
+    <key>Comment</key>
+    <string>Prevent your avatar from turning to face selected objects</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>
     <key>PrecachingDelay</key>
     <map>
       <key>Comment</key>

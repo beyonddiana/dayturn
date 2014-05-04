@@ -376,6 +376,17 @@
 		font="SansSerifSmall"
 		height="20"
 		initial_value="false"
+		label="Do not turn to face selected objects"
+		layout="topleft"
+		left="15"
+		name="PreventAvatarTurnToSelected"
+		width="350"
+		control_name="PreventAvatarTurnToSelected"
+		tool_tip="When enabled, your avatar will not turn to face the objects you select." />
+	    <check_box
+		font="SansSerifSmall"
+		height="20"
+		initial_value="false"
 		label="Do not reveal to others where I am looking"
 		layout="topleft"
 		left="15"
