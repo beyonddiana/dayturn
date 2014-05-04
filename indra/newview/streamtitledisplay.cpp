@@ -103,13 +103,15 @@ void StreamTitleDisplay::checkMetadata()
 			return;
 		}
 
+		std::string stream_name = stream->getCurrentStreamName();
+
 		if (show_stream_metadata == 1) {
 			//
 			//	stream metadata to a toast
 			//
 			LLSD args;
 			args["ARTIST_TITLE"] = artist_title;
-			args["STREAM_NAME"] = stream->getCurrentStreamName();
+			args["STREAM_NAME"] = stream_name.empty() ? LLTrans::getString("Audio Stream") : stream_name;
 
 			LLNotificationsUtil::add("StreamMetadata", args);
 		}
@@ -124,8 +126,6 @@ void StreamTitleDisplay::checkMetadata()
 			chat.mFromID = AUDIO_STREAM_FROM;
 			chat.mFromName = LLTrans::getString("Audio Stream");
 			chat.mText = "<nolink>" + chat.mText + "</nolink>";
-
-			std::string stream_name = stream->getCurrentStreamName();
 
 			if (!stream_name.empty()) {
 				chat.mFromName += " - " + stream_name;

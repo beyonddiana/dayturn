@@ -10642,7 +10642,7 @@ Shape import failed. Are you sure [FILENAME] is an avatar file?
      name="StreamMetadata"
      log_to_chat="false">
 	<tag>StreamMetadata</tag>
-Audio stream: [STREAM_NAME]
+[STREAM_NAME]
 
 [ARTIST_TITLE]
     </notification>
