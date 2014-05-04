@@ -2036,6 +2036,8 @@ void LLPanelGroupRolesSubTab::update(LLGroupChange gc)
 			setFooterEnabled(FALSE);
 			mBtnRoleUUIDCopy->setEnabled(FALSE);
 			mDeleteRoleButton->setEnabled(FALSE);
+
+			mRolesList->selectFirstItem();
 		}
 	}
 
