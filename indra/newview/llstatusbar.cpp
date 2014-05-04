@@ -361,7 +361,7 @@ void LLStatusBar::setBalance(S32 balance)
 		LLFirstUse::receiveLindens();
 	}
 
-	std::string money_str = LLResMgr::getInstance()->getMonetaryString( balance );
+	std::string money_str = (balance < 0) ? "--" : LLResMgr::getInstance()->getMonetaryString(balance);
 
 	LLStringUtil::format_map_t string_args;
 	string_args["[AMT]"] = llformat("%s", money_str.c_str());
