@@ -27,6 +27,7 @@
 #include "llviewerprecompiledheaders.h"
 
 #include "llpanelgenerictip.h"
+#include "llpanelstreammetadata.h"
 #include "llpanelonlinestatus.h"
 #include "llnotifications.h"
 #include "lltoastnotifypanel.h"
@@ -120,6 +121,10 @@ LLToastPanel* LLToastPanel::buidPanelFromNotification(
 		if ("FriendOnlineOffline" == notification->getName())
 		{
 			res = new LLPanelOnlineStatus(notification);
+		}
+		else if ("StreamMetadata" == notification->getName())
+		{
+			res = new LLPanelStreamMetadata(notification);
 		}
 		// in all other case we use generic tip panel
 		else

@@ -451,6 +451,7 @@ set(viewer_SOURCE_FILES
     llpanelobject.cpp
     llpanelobjectinventory.cpp
     llpanelonlinestatus.cpp
+    llpanelstreammetadata.cpp
     llpaneloutfitedit.cpp
     llpaneloutfitsinventory.cpp
     llpanelpeople.cpp
@@ -1066,6 +1067,7 @@ set(viewer_HEADER_FILES
     llpanelobject.h
     llpanelobjectinventory.h
     llpanelonlinestatus.h
+    llpanelstreammetadata.h
     llpaneloutfitedit.h
     llpaneloutfitsinventory.h
     llpanelpeople.h

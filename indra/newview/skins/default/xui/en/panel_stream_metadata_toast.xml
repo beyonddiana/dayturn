@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel
+    name="stream_metadata"
+    label="stream_metadata"
+    layout="topleft"
+    top="0"
+    left="0"
+    height="80"
+    width="250"
+    background_visible="false">
+    <icon
+        name="avatar_icon"
+        layout="topleft"
+        follows="top|left"
+        top="10"
+        left="10"
+        height="18"
+        width="18"
+        image_name="Sound_Icon"
+        mouse_opaque="false" />
+    <text
+        name="message"
+        layout="topleft"
+        follows="all"
+        top="12"
+        left_pad="10"
+        height="70"
+        width="210"
+        value=""
+        font="SansSerifSmall"
+        text_color="White"
+        use_ellipses="true"
+        word_wrap="true"
+        max_length="350" />
+</panel>
