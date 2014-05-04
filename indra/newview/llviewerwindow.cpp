@@ -1960,6 +1960,9 @@ void LLViewerWindow::initWorldUI()
 	LLFloaterReg::getInstance("build");
 	LLFloaterReg::hideInstance("build");
 
+	// Pre-load the Preferenes floater
+	LLFloaterReg::getInstance("preferences");
+
 	// Status bar
 	LLPanel* status_bar_container = getRootView()->getChild<LLPanel>("status_bar_container");
 	gStatusBar = new LLStatusBar(status_bar_container->getLocalRect());
