@@ -14,13 +14,22 @@
          parameter="shownames" />
     </menu_item_call>
    <menu_item_call
-     enabled="false"
+     visible="false"
      label="Add Friend"
      name="Add Friend">
         <menu_item_call.on_click
          function="Avatar.AddFriend" />
-        <menu_item_call.on_enable
+        <menu_item_call.on_visible
          function="Avatar.EnableAddFriend" />
+    </menu_item_call>
+   <menu_item_call
+     visible="false"
+     label="Remove Friend"
+     name="Remove Friend">
+        <menu_item_call.on_click
+         function="Avatar.RemoveFriend" />
+        <menu_item_call.on_visible
+         function="Avatar.EnableRemoveFriend" />
     </menu_item_call>
     <menu_item_call
      label="IM"

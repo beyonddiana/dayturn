@@ -325,6 +325,7 @@ BOOL get_visibility(void*);
 
 // Avatar Pie menu
 void request_friendship(const LLUUID& agent_id);
+void request_friendship_removal(const LLUUID &agent_id);
 
 // Tools menu
 void handle_selected_texture_info(void*);
@@ -4119,6 +4120,14 @@ void request_friendship(const LLUUID& dest_id)
 	}
 }
 
+void request_friendship_removal(const LLUUID &id)
+{
+	LLViewerObject *obj = gObjectList.findObject(id);
+
+	if (obj && obj->isAvatar() && LLAvatarActions::isFriend(id)) {
+		LLAvatarActions::removeFriendDialog(id);
+	}
+}
 
 class LLEditEnableCustomizeAvatar : public view_listener_t
 {
@@ -6385,6 +6394,19 @@ class LLAvatarAddFriend : public view_listener_t
 	}
 };
 
+class LLAvatarRemoveFriend : public view_listener_t
+{
+	bool handleEvent(const LLSD &userdata)
+	{
+		LLVOAvatar *avatar = find_avatar_from_object(LLSelectMgr::getInstance()->getSelection()->getPrimaryObject());
+
+		if (avatar && LLAvatarActions::isFriend(avatar->getID()) && !gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) {
+			request_friendship_removal(avatar->getID());
+		}
+
+		return true;
+	}
+};
 
 class LLAvatarToggleMyProfile : public view_listener_t
 {
@@ -9827,6 +9849,7 @@ void initialize_menus()
 	view_listener_t::addMenu(new LLObjectMute(), "Avatar.Mute");
 	view_listener_t::addMenu(new LLObjectDerender(), "Object.Derender");
 	view_listener_t::addMenu(new LLAvatarAddFriend(), "Avatar.AddFriend");
+	view_listener_t::addMenu(new LLAvatarRemoveFriend(), "Avatar.RemoveFriend");
 	view_listener_t::addMenu(new LLAvatarAddContact(), "Avatar.AddContact");
 	view_listener_t::addMenu(new LLAvatarDebug(), "Avatar.Debug");
 	view_listener_t::addMenu(new LLAvatarVisibleDebug(), "Avatar.VisibleDebug");
