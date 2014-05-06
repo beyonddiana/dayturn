@@ -118,7 +118,47 @@
 	  parameter="copyprofileuri" />
       </menu_item_call>
     </menu>
+
+    <menu
+        label="Permissions"
+        name="Permissions">
+        <menu_item_check
+            label="See when I am online"
+            name="See when I am online">
+            <menu_item_check.on_click
+                function="AvatarIcon.Action"
+                parameter="toggle_online_status" />
+            <menu_item_check.on_check
+                function="AvatarIcon.Check"
+                parameter="online_status" />
+        </menu_item_check>
+        <menu_item_check
+            label="Find me on the world map"
+            name="Find me on the world map">
+            <menu_item_check.on_click
+                function="AvatarIcon.Action"
+                parameter="toggle_map_location" />
+            <menu_item_check.on_check
+                function="AvatarIcon.Check"
+                parameter="map_location" />
+            <menu_item_check.on_enable
+                function="AvatarIcon.Check"
+                parameter="online_status" />
+        </menu_item_check>
+        <menu_item_check
+            label="Edit, delete or take my objects"
+            name="Edit, delete or take my objects">
+            <menu_item_check.on_click
+                function="AvatarIcon.Action"
+                parameter="toggle_modify_objects" />
+            <menu_item_check.on_check
+                function="AvatarIcon.Check"
+                parameter="modify_objects" />
+        </menu_item_check>
+    </menu>
+
     <menu_item_separator />
+
     <menu_item_call
      label="Zoom In"
      layout="topleft"

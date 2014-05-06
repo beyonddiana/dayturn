@@ -284,6 +284,18 @@ public:
 		{
 			LLFloaterReporter::showFromAvatar(getAvatarId(), "name");
 		}
+		else if (level == "toggle_online_status")
+		{
+			LLAvatarActions::toggleAvatarRights(getAvatarId(), LLRelationship::GRANT_ONLINE_STATUS);
+		}
+		else if (level == "toggle_map_location")
+		{
+			LLAvatarActions::toggleAvatarRights(getAvatarId(), LLRelationship::GRANT_MAP_LOCATION);
+		}
+		else if (level == "toggle_modify_objects")
+		{
+			LLAvatarActions::toggleAvatarRights(getAvatarId(), LLRelationship::GRANT_MODIFY_OBJECTS);
+		}
 	}
 
 	void onAudioStreamIconContextMenuItemClipboard(const LLSD& userdata)
@@ -469,6 +481,25 @@ public:
 		{
 			return LLMuteList::getInstance()->isMuted(getAvatarId(), LLMute::flagTextChat);
 		}
+
+		const LLRelationship *relationship = LLAvatarTracker::instance().getBuddyInfo(getAvatarId());
+
+		if (relationship) {
+			const S32 rights = relationship->getRightsGrantedTo();
+
+			if (level == "online_status" && (rights & LLRelationship::GRANT_ONLINE_STATUS)) {
+				return true;
+			}
+
+			if (level == "map_location" && (rights & LLRelationship::GRANT_MAP_LOCATION)) {
+				return true;
+			}
+
+			if (level == "modify_objects" && (rights & LLRelationship::GRANT_MODIFY_OBJECTS)) {
+				return true;
+			}
+		}
+
 		return false;
 	}
 
@@ -807,6 +838,7 @@ protected:
 				const bool is_friend = (LLAvatarTracker::instance().getBuddyInfo(mAvatarID) != NULL);
 				menu->setItemVisible("Add Friend", !is_friend);
 				menu->setItemVisible("Remove Friend", is_friend);
+				menu->setItemVisible("Permissions", is_friend);
 
 				menu->setItemEnabled("Zoom In", gObjectList.findObject(mAvatarID) != NULL);
 				menu->setItemEnabled("Block Unblock", LLAvatarActions::canBlock(mAvatarID));
