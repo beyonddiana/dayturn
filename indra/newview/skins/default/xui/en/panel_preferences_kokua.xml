@@ -383,6 +383,15 @@
 		control_name="PrivateLookAtTarget"
 		tool_tip="If true then the viewer will show simulated look-at behavior to others." />
 	    <check_box
+		top_pad="15"
+		label="Do not turn to face selected objects"
+		layout="topleft"
+		left="15"
+		name="PreventAvatarTurnToSelected"
+		width="350"
+		control_name="PreventAvatarTurnToSelected"
+		tool_tip="When enabled, your avatar will not turn to face the objects you select." />
+	    <check_box
 		font="SansSerifSmall"
 		height="20"
 		initial_value="false"
