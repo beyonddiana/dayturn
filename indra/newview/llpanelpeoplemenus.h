@@ -51,6 +51,8 @@ private:
 	bool checkContextMenuItem(const LLSD& userdata);
 	void offerTeleport();
 	void requestTeleport();
+	void toggleRights(const LLSD& userdata);
+
 	void handle_avatar_grant_online_status(const LLUUID& avatar_id);
 	void handle_avatar_grant_map_location(const LLUUID& avatar_id);
 	void handle_avatar_grant_modify_objects(const LLUUID& avatar_id);

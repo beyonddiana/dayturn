@@ -4072,8 +4072,6 @@ BOOL is_agent_mappable(const LLUUID& agent_id)
 		);
 }
 
-
-// Enable a menu item when you don't have someone's card.
 class LLAvatarEnableAddFriend : public view_listener_t
 {
 	bool handleEvent(const LLSD& userdata)
@@ -4084,6 +4082,16 @@ class LLAvatarEnableAddFriend : public view_listener_t
 		bool new_value = avatar && !LLAvatarActions::isFriend(avatar->getID()) && (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES));
 // [/RLVa:KB]
 		return new_value;
+	}
+};
+
+class LLAvatarEnableRemoveFriend : public view_listener_t
+{
+	bool handleEvent(const LLSD &userdata)
+	{
+		LLVOAvatar *avatar = find_avatar_from_object(LLSelectMgr::getInstance()->getSelection()->getPrimaryObject());
+
+		return avatar && LLAvatarActions::isFriend(avatar->getID()) && !gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES);
 	}
 };
 
@@ -6268,6 +6276,37 @@ class LLAvatarCopyUUID : public view_listener_t
 	}
 };
 
+class LLAvatarCheckItem : public view_listener_t
+{
+	bool handleEvent(const LLSD &userdata)
+	{
+		const LLVOAvatar *avatar = find_avatar_from_object(LLSelectMgr::getInstance()->getSelection()->getPrimaryObject());
+
+		if (avatar) {
+			const LLRelationship *relationship = LLAvatarTracker::instance().getBuddyInfo(avatar->getID());
+
+			if (relationship) {
+				const S32 rights = relationship->getRightsGrantedTo();
+				const std::string item = userdata.asString();
+
+				if (item == std::string("online_status") && (rights & LLRelationship::GRANT_ONLINE_STATUS)) {
+					return true;
+				}
+
+				if (item == std::string("map_location") && (rights & LLRelationship::GRANT_MAP_LOCATION)) {
+					return true;
+				}
+
+				if (item == std::string("modify_objects") && (rights & LLRelationship::GRANT_MODIFY_OBJECTS)) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+};
+
 class LLAvatarCopyProfileSLURL : public view_listener_t
 {
 	bool handleEvent(const LLSD &userdata)
@@ -6276,6 +6315,29 @@ class LLAvatarCopyProfileSLURL : public view_listener_t
 
 		if (avatar) {
 			LLAvatarActions::copyProfileSLURL(avatar->getID());
+		}
+		return true;
+	}
+};
+
+class LLAvatarToggleRights : public view_listener_t
+{
+	bool handleEvent(const LLSD &userdata)
+	{
+		LLVOAvatar *avatar = find_avatar_from_object(LLSelectMgr::getInstance()->getSelection()->getPrimaryObject());
+
+		if (avatar) {
+			const std::string item = userdata.asString();
+
+			if (item == "online_status") {
+				LLAvatarActions::toggleAvatarRights(avatar->getID(), LLRelationship::GRANT_ONLINE_STATUS);
+			}
+			else if (item == "map_location") {
+				LLAvatarActions::toggleAvatarRights(avatar->getID(), LLRelationship::GRANT_MAP_LOCATION);
+			}
+			else if (item == "modify_objects") {
+				LLAvatarActions::toggleAvatarRights(avatar->getID(), LLRelationship::GRANT_MODIFY_OBJECTS);
+			}
 		}
 		return true;
 	}
@@ -9759,6 +9821,7 @@ void initialize_menus()
 	view_listener_t::addMenu( new LLCheckPanelPeopleTab(), "SideTray.CheckPanelPeopleTab");
 
 	 // Avatar pie menu
+	view_listener_t::addMenu(new LLAvatarCheckItem(), "Avatar.CheckItem");
 	view_listener_t::addMenu(new LLAvatarCheckImpostorMode(), "Avatar.CheckImpostorMode");
 	view_listener_t::addMenu(new LLAvatarSetImpostorMode(), "Avatar.SetImpostorMode");
 	view_listener_t::addMenu(new LLObjectMute(), "Avatar.Mute");
@@ -9771,6 +9834,7 @@ void initialize_menus()
 	view_listener_t::addMenu(new LLAvatarCopyName(), "Avatar.CopyName");
 	view_listener_t::addMenu(new LLAvatarCopyUUID(), "Avatar.CopyUUID");
 	view_listener_t::addMenu(new LLAvatarCopyProfileSLURL(), "Avatar.CopyProfileSLURL");
+	view_listener_t::addMenu(new LLAvatarToggleRights(), "Avatar.ToggleRights");
 	enable.add("Avatar.EnableFreezeEject", boost::bind(&enable_freeze_eject, _2));
 	commit.add("Avatar.Freeze", boost::bind(&handle_avatar_freeze, LLSD()));
 	commit.add("Avatar.Eject", boost::bind(&handle_avatar_eject, LLSD()));
@@ -9792,6 +9856,7 @@ void initialize_menus()
 	commit.add("Avatar.OpenMarketplace", boost::bind(&LLWeb::loadURLExternal, gSavedSettings.getString("MarketplaceURL")));
 	
 	view_listener_t::addMenu(new LLAvatarEnableAddFriend(), "Avatar.EnableAddFriend");
+	view_listener_t::addMenu(new LLAvatarEnableRemoveFriend(), "Avatar.EnableRemoveFriend");
 
 	// Object pie menu
 	view_listener_t::addMenu(new LLObjectBuild(), "Object.Build");

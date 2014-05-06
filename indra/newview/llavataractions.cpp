@@ -68,6 +68,7 @@
 #include "llviewercontrol.h"
 #include "llviewerobjectlist.h"
 #include "llviewermessage.h"	// for handle_lure
+#include "llviewernetwork.h"	// for LLGridManager
 #include "llviewerregion.h"
 #include "llvoavatar.h"
 #include "llselectmgr.h"
@@ -648,6 +649,73 @@ void LLAvatarActions::copyUUID(const LLUUID &id)
 void LLAvatarActions::copyProfileSLURL(const LLUUID &id)
 {
 	LLView::getWindow()->copyTextToClipboard(utf8str_to_wstring(LLSLURL("agent", id, "about").getSLURLString()));
+}
+
+// static
+void LLAvatarActions::toggleAvatarRights(const LLUUID &id, S32 rights)
+{
+	const LLRelationship *relationship = LLAvatarTracker::instance().getBuddyInfo(id);
+
+	if (relationship) {
+		S32 current_rights = relationship->getRightsGrantedTo();
+
+		if (rights & LLRelationship::GRANT_MODIFY_OBJECTS) {
+			//
+			//	"edit, delete or take my objects" permission
+			//	is being changed so request confirmation
+			//
+			confirmModifyRights(id, !(current_rights & LLRelationship::GRANT_MODIFY_OBJECTS), current_rights | rights);
+			return;
+		}
+
+		LLAvatarPropertiesProcessor::getInstance()->sendFriendRights(id, current_rights ^ rights);
+
+		LLSD args;
+		args["NAME"] = LLSLURL("agent", id, "displayname").getSLURLString();
+		args["GRID_NAME"] = LLGridManager::getInstance()->getGridLabel();
+
+		LLNotificationsUtil::add("NewPermissionsPending", args);
+	}
+}
+
+// static
+void LLAvatarActions::confirmModifyRights(const LLUUID &id, const bool grant, const S32 rights)
+{
+	LLSD args;
+	args["NAME"] = LLSLURL("agent", id, "displayname").getSLURLString();
+
+	if (grant) {
+		LLNotificationsUtil::add(
+			"GrantModifyRights",
+			args,
+			LLSD(),
+			boost::bind(&LLAvatarActions::rightsConfirmationCallback, _1, _2, id, rights)
+		);
+	}
+	else {
+		LLNotificationsUtil::add(
+			"RevokeModifyRights",
+			args,
+			LLSD(),
+			boost::bind(&LLAvatarActions::rightsConfirmationCallback, _1, _2, id, rights & ~LLRelationship::GRANT_MODIFY_OBJECTS)
+		);
+	}
+}
+
+// static
+void LLAvatarActions::rightsConfirmationCallback(const LLSD &notification, const LLSD &response, const LLUUID &id, const S32 rights)
+{
+	const S32 option = LLNotificationsUtil::getSelectedOption(notification, response);
+
+	if (option == 0) {
+		LLAvatarPropertiesProcessor::getInstance()->sendFriendRights(id, rights);
+
+		LLSD args;
+		args["NAME"] = LLSLURL("agent", id, "displayname").getSLURLString();
+		args["GRID_NAME"] = LLGridManager::getInstance()->getGridLabel();
+
+		LLNotificationsUtil::add("NewPermissionsPending", args);
+	}
 }
 
 namespace action_give_inventory

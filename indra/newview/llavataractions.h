@@ -136,6 +136,11 @@ public:
 	static void copyUUID(const LLUUID &id);
 
 	/**
+	 * Toggle avatar rights (see online status, see on map, edit objects)
+	 */
+	static void toggleAvatarRights(const LLUUID &id, S32 rights);
+
+	/**
 	 * Copy avatar profile URI to the clipboard.
 	 */
 	static void copyProfileSLURL(const LLUUID &id);
@@ -283,6 +288,9 @@ private:
 	static bool handleFreeze(const LLSD& notification, const LLSD& response);
 	static bool handleUnfreeze(const LLSD& notification, const LLSD& response);
 	static void callback_invite_to_group(LLUUID group_id, LLUUID id);
+
+	static void confirmModifyRights(const LLUUID &id, const bool grant, const S32 rights);
+	static void rightsConfirmationCallback(const LLSD &notification, const LLSD &response, const LLUUID &id, const S32 rights);
 
 	// Just request friendship, no dialog.
 	static void requestFriendship(const LLUUID& target_id, const std::string& target_name, const std::string& message);
