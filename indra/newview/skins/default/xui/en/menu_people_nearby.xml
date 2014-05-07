@@ -87,6 +87,9 @@
       	 function="Avatar.EnableItem"
          parameter="can_invite"/>
     </menu_item_call>
+
+    <menu_item_separator name="clipboard_menu_separator" />
+
     <context_menu
         label="Copy To Clipboard"
         name="copy_to_clipboard">
@@ -109,6 +112,7 @@
                 function="Avatar.CopyProfileSLURL" />
         </menu_item_call>
     </context_menu>
+
     <context_menu
         label="Permissions"
         name="permissions">
@@ -155,7 +159,9 @@
                 parameter="can_delete" />
         </menu_item_check>
     </context_menu>
+
     <menu_item_separator name="separator_blockunblock"/>
+
     <menu_item_check
      label="Block"
      layout="topleft"

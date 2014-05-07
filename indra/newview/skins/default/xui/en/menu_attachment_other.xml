@@ -57,6 +57,9 @@
          function="RLV.EnableIfNot"
          parameter="shownames" />
     </menu_item_call>
+
+    <menu_item_separator />
+
     <context_menu
       label="Copy To Clipboard"
       name="copy_to_clipboard">

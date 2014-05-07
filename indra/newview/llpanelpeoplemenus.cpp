@@ -145,6 +145,7 @@ void PeopleContextMenu::buildContextMenu(class LLMenuGL& menu, U32 flags)
 		items.push_back(std::string("request_teleport"));
 		items.push_back(std::string("voice_call"));
 		items.push_back(std::string("chat_history"));
+		items.push_back(std::string("clipboard_menu_separator"));
 		items.push_back(std::string("copy_to_clipboard"));
 		items.push_back(std::string("copy_name"));
 		items.push_back(std::string("copy_uuid"));
