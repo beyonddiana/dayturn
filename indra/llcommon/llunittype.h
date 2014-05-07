@@ -117,12 +117,12 @@ struct LLUnit
 
 	LL_FORCE_INLINE void operator += (self_t other)
 	{
-		mValue += convert(other).mValue;
+		mValue += this->convert(other).mValue;
 	}
 
 	LL_FORCE_INLINE void operator -= (self_t other)
 	{
-		mValue -= convert(other).mValue;
+		mValue -= this->convert(other).mValue;
 	}
 
 	LL_FORCE_INLINE void operator *= (storage_t multiplicand)
@@ -150,37 +150,37 @@ struct LLUnit
 	template<typename OTHER_STORAGE_TYPE, typename OTHER_UNITS>
 	LL_FORCE_INLINE bool operator == (LLUnit<OTHER_STORAGE_TYPE, OTHER_UNITS> other) const
 	{
-		return mValue == convert(other).value();
+		return mValue == this->convert(other).value();
 	}
 
 	template<typename OTHER_STORAGE_TYPE, typename OTHER_UNITS>
 	LL_FORCE_INLINE bool operator != (LLUnit<OTHER_STORAGE_TYPE, OTHER_UNITS> other) const
 	{
-		return mValue != convert(other).value();
+		return mValue != this->convert(other).value();
 	}
 
 	template<typename OTHER_STORAGE_TYPE, typename OTHER_UNITS>
 	LL_FORCE_INLINE bool operator < (LLUnit<OTHER_STORAGE_TYPE, OTHER_UNITS> other) const
 	{
-		return mValue < convert(other).value();
+		return mValue < this->convert(other).value();
 	}
 
 	template<typename OTHER_STORAGE_TYPE, typename OTHER_UNITS>
 	LL_FORCE_INLINE bool operator <= (LLUnit<OTHER_STORAGE_TYPE, OTHER_UNITS> other) const
 	{
-		return mValue <= convert(other).value();
+		return mValue <= this->convert(other).value();
 	}
 
 	template<typename OTHER_STORAGE_TYPE, typename OTHER_UNITS>
 	LL_FORCE_INLINE bool operator > (LLUnit<OTHER_STORAGE_TYPE, OTHER_UNITS> other) const
 	{
-		return mValue > convert(other).value();
+		return mValue > this->convert(other).value();
 	}
 
 	template<typename OTHER_STORAGE_TYPE, typename OTHER_UNITS>
 	LL_FORCE_INLINE bool operator >= (LLUnit<OTHER_STORAGE_TYPE, OTHER_UNITS> other) const
 	{
-		return mValue >= convert(other).value();
+		return mValue >= this->convert(other).value();
 	}
 
 	LL_FORCE_INLINE static self_t convert(self_t v) 
@@ -269,7 +269,7 @@ struct LLUnitImplicit : public LLUnit<STORAGE_TYPE, UNITS>
 	template<typename OTHER_STORAGE_TYPE, typename OTHER_UNITS>
 	LL_FORCE_INLINE void operator += (LLUnitImplicit<OTHER_STORAGE_TYPE, OTHER_UNITS> other)
 	{
-        base_t::mValue += convert(other).value();
+        base_t::mValue += this->convert(other).value();
 	}
 
 	using base_t::operator -=;
@@ -283,19 +283,19 @@ struct LLUnitImplicit : public LLUnit<STORAGE_TYPE, UNITS>
 	template<typename OTHER_STORAGE_TYPE, typename OTHER_UNITS>
 	LL_FORCE_INLINE void operator -= (LLUnitImplicit<OTHER_STORAGE_TYPE, OTHER_UNITS> other)
 	{
-        base_t::mValue -= convert(other).value();
+        base_t::mValue -= this->convert(other).value();
 	}
 
 	template<typename OTHER_STORAGE_TYPE, typename OTHER_UNITS>
 	LL_FORCE_INLINE bool operator == (LLUnit<OTHER_STORAGE_TYPE, OTHER_UNITS> other) const
 	{
-		return base_t::mValue == convert(other).value();
+		return base_t::mValue == this->convert(other).value();
 	}
 
 	template<typename OTHER_STORAGE_TYPE, typename OTHER_UNITS>
 	LL_FORCE_INLINE bool operator == (LLUnitImplicit<OTHER_STORAGE_TYPE, OTHER_UNITS> other) const
 	{
-		return base_t::mValue == convert(other).value();
+		return base_t::mValue == this->convert(other).value();
 	}
 
 	template<typename STORAGE_T>
@@ -307,13 +307,13 @@ struct LLUnitImplicit : public LLUnit<STORAGE_TYPE, UNITS>
 	template<typename OTHER_STORAGE_TYPE, typename OTHER_UNITS>
 	LL_FORCE_INLINE bool operator != (LLUnit<OTHER_STORAGE_TYPE, OTHER_UNITS> other) const
 	{
-		return base_t::mValue != convert(other).value();
+		return base_t::mValue != this->convert(other).value();
 	}
 
 	template<typename OTHER_STORAGE_TYPE, typename OTHER_UNITS>
 	LL_FORCE_INLINE bool operator != (LLUnitImplicit<OTHER_STORAGE_TYPE, OTHER_UNITS> other) const
 	{
-		return base_t::mValue != convert(other).value();
+		return base_t::mValue != this->convert(other).value();
 	}
 
 	template<typename STORAGE_T>
@@ -325,13 +325,13 @@ struct LLUnitImplicit : public LLUnit<STORAGE_TYPE, UNITS>
 	template<typename OTHER_STORAGE_TYPE, typename OTHER_UNITS>
 	LL_FORCE_INLINE bool operator < (LLUnit<OTHER_STORAGE_TYPE, OTHER_UNITS> other) const
 	{
-		return base_t::mValue < convert(other).value();
+		return base_t::mValue < this->convert(other).value();
 	}
 
 	template<typename OTHER_STORAGE_TYPE, typename OTHER_UNITS>
 	LL_FORCE_INLINE bool operator < (LLUnitImplicit<OTHER_STORAGE_TYPE, OTHER_UNITS> other) const
 	{
-		return base_t::mValue < convert(other).value();
+		return base_t::mValue < this->convert(other).value();
 	}
 
 	template<typename STORAGE_T>
@@ -343,13 +343,13 @@ struct LLUnitImplicit : public LLUnit<STORAGE_TYPE, UNITS>
 	template<typename OTHER_STORAGE_TYPE, typename OTHER_UNITS>
 	LL_FORCE_INLINE bool operator <= (LLUnit<OTHER_STORAGE_TYPE, OTHER_UNITS> other) const
 	{
-		return base_t::mValue <= convert(other).value();
+		return base_t::mValue <= this->convert(other).value();
 	}
 
 	template<typename OTHER_STORAGE_TYPE, typename OTHER_UNITS>
 	LL_FORCE_INLINE bool operator <= (LLUnitImplicit<OTHER_STORAGE_TYPE, OTHER_UNITS> other) const
 	{
-		return base_t::mValue <= convert(other).value();
+		return base_t::mValue <= this->convert(other).value();
 	}
 
 	template<typename STORAGE_T>
@@ -361,13 +361,13 @@ struct LLUnitImplicit : public LLUnit<STORAGE_TYPE, UNITS>
 	template<typename OTHER_STORAGE_TYPE, typename OTHER_UNITS>
 	LL_FORCE_INLINE bool operator > (LLUnit<OTHER_STORAGE_TYPE, OTHER_UNITS> other) const
 	{
-		return base_t::mValue > convert(other).value();
+		return base_t::mValue > this->convert(other).value();
 	}
 
 	template<typename OTHER_STORAGE_TYPE, typename OTHER_UNITS>
 	LL_FORCE_INLINE bool operator > (LLUnitImplicit<OTHER_STORAGE_TYPE, OTHER_UNITS> other) const
 	{
-		return base_t::mValue > convert(other).value();
+		return base_t::mValue > this->convert(other).value();
 	}
 
 	template<typename STORAGE_T>
@@ -379,13 +379,13 @@ struct LLUnitImplicit : public LLUnit<STORAGE_TYPE, UNITS>
 	template<typename OTHER_STORAGE_TYPE, typename OTHER_UNITS>
 	LL_FORCE_INLINE bool operator >= (LLUnit<OTHER_STORAGE_TYPE, OTHER_UNITS> other) const
 	{
-		return base_t::mValue >= convert(other).value();
+		return base_t::mValue >= this->convert(other).value();
 	}
 
 	template<typename OTHER_STORAGE_TYPE, typename OTHER_UNITS>
 	LL_FORCE_INLINE bool operator >= (LLUnitImplicit<OTHER_STORAGE_TYPE, OTHER_UNITS> other) const
 	{
-		return base_t::mValue >= convert(other).value();
+		return base_t::mValue >= this->convert(other).value();
 	}
 
 	template<typename STORAGE_T>
