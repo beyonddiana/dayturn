@@ -566,15 +566,25 @@ void LLFloaterIMSessionTab::refreshConversation()
 	{
 		// Build the session name and update it
 		std::string session_name;
-		if (participants_uuids.size() != 0)
+		if (participants_uuids.size() > 1)
 		{
 			LLAvatarActions::buildResidentsString(participants_uuids, session_name);
+
+			static LLColor4 colour = LLUIColorTable::instance().getColor("ChatEntryBgColourConference", LLColor4::white);
+			updateSessionColour(colour);
 		}
 		else
 		{
 			session_name = LLIMModel::instance().getName(mSessionID);
+
+			static LLColor4 colour = LLUIColorTable::instance().getColor("ChatEntryBgColourIM", LLColor4::white);
+			updateSessionColour(colour);
 		}
 		updateSessionName(session_name);
+	}
+	else if (mSession && mSession->isGroupSessionType()) {
+		static LLColor4 colour = LLUIColorTable::instance().getColor("ChatEntryBgColourGroup", LLColor4::white);
+		updateSessionColour(colour);
 	}
 
 	if (mSessionID.notNull())
@@ -695,6 +705,23 @@ void LLFloaterIMSessionTab::updateSessionName(const std::string& name)
 	const bool is_group = (mSession && mSession->isGroupSessionType());
 
 	mInputEditor->setLabel(LLTrans::getString(is_group ? "IM_group_label" : "IM_to_label") + " " + name);
+}
+
+void LLFloaterIMSessionTab::updateSessionColour(LLColor4 colour)
+{
+	static LLCachedControl<bool> colour_coded_chat(gSavedSettings, "ColourCodedChat", true);
+
+	if (colour_coded_chat) {
+		mInputEditor->setFocusColor(colour);
+		mInputEditor->setWriteableColor(colour * 0.75);
+	}
+	else {
+		static LLColor4 focus = LLUIColorTable::instance().getColor("TextBgFocusColor", LLColor4::white);
+		static LLColor4 writeable = LLUIColorTable::instance().getColor("TextBgWriteableColor", LLColor4::white);
+
+		mInputEditor->setFocusColor(focus);
+		mInputEditor->setWriteableColor(writeable);
+	}
 }
 
 void LLFloaterIMSessionTab::hideAllStandardButtons()

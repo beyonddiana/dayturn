@@ -7,5 +7,9 @@
             <color_swatch name="netmap_shoutring_color_swatch"
                 tool_tip="Click to open colour picker" />
         </panel>
+        <panel name="wabbit_chat">
+            <check_box name="ColourCodedChat"
+                label="Colour code the chat entry boxes according to the session type" />
+        </panel>
     </tab_container>
 </panel>

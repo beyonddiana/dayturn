@@ -229,6 +229,15 @@
      name="ButtonUnselectedFgColor"
      reference="Unused?" />
     <color
+     name="ChatEntryBgColourConference"
+     value="0.85 0.85 1 1" />
+    <color
+     name="ChatEntryBgColourGroup"
+     value="0.85 1 0.85 1" />
+    <color
+     name="ChatEntryBgColourIM"
+     value="1 0.85 0.85 1" />
+    <color
      name="ChatHistoryBgColor"
      reference="Transparent" />
     <color

@@ -129,6 +129,7 @@ protected:
 
 	// Update the input field help text and other places that need the session name
 	virtual void updateSessionName(const std::string& name);
+	virtual void updateSessionColour(LLColor4 colour);
 
 	// set the enable/disable state for the Call button
 	virtual void enableDisableCallBtn();
