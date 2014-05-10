@@ -50,6 +50,10 @@
 #include "llviewerattachmenu.h"
 #include "llviewerfoldertype.h"
 #include "llvoavatarself.h"
+// [RLVa:KB] - Checked: 2013-05-08 (RLVa-1.4.9)
+#include "rlvactions.h"
+#include "rlvcommon.h"
+// [/RLVa:KB]
 
 static LLDefaultChildRegistry::Register<LLInventoryPanel> r("inventory_panel");
 
@@ -1048,8 +1052,15 @@ bool LLInventoryPanel::beginIMSession()
 
 	std::string name;
 
-	LLDynamicArray<LLUUID> members;
-	EInstantMessage type = IM_SESSION_CONFERENCE_START;
+//	LLDynamicArray<LLUUID> members;
+//	EInstantMessage type = IM_SESSION_CONFERENCE_START;
+// [RLVa:KB] - Checked: 2011-04-11 (RLVa-1.3.0h) | Added: RLVa-1.3.0h
+	uuid_vec_t members;
+// [/RLVa:KB]
+
+// [RLVa:KB] - Checked: 2013-05-08 (RLVa-1.4.9)
+	bool fRlvCanStartIM = true;
+// [/RLVa:KB]
 
 	std::set<LLFolderViewItem*>::const_iterator iter;
 	for (iter = selected_items.begin(); iter != selected_items.end(); iter++)
@@ -1088,10 +1099,17 @@ bool LLInventoryPanel::beginIMSession()
 					for(S32 i = 0; i < count; ++i)
 					{
 						id = item_array.get(i)->getCreatorUUID();
-						if(at.isBuddyOnline(id))
+// [RLVa:KB] - Checked: 2013-05-08 (RLVa-1.4.9)
+						if ( (at.isBuddyOnline(id)) && (members.end() == std::find(members.begin(), members.end(), id)) )
 						{
-							members.put(id);
+							fRlvCanStartIM &= RlvActions::canStartIM(id);
+							members.push_back(id);
 						}
+// [/RLVa:KB]
+//						if(at.isBuddyOnline(id))
+//						{
+//							members.put(id);
+//						}
 					}
 				}
 			}
@@ -1108,10 +1126,17 @@ bool LLInventoryPanel::beginIMSession()
 						LLAvatarTracker& at = LLAvatarTracker::instance();
 						LLUUID id = inv_item->getCreatorUUID();
 
-						if(at.isBuddyOnline(id))
+// [RLVa:KB] - Checked: 2013-05-08 (RLVa-1.4.9)
+						if ( (at.isBuddyOnline(id)) && (members.end() == std::find(members.begin(), members.end(), id)) )
 						{
-							members.put(id);
+							fRlvCanStartIM &= RlvActions::canStartIM(id);
+							members.push_back(id);
 						}
+// [/RLVa:KB]
+//						if(at.isBuddyOnline(id))
+//						{
+//							members.put(id);
+//						}
 					}
 				} //if IT_CALLINGCARD
 			} //if !IT_CATEGORY
@@ -1121,16 +1146,34 @@ bool LLInventoryPanel::beginIMSession()
 	// the session_id is randomly generated UUID which will be replaced later
 	// with a server side generated number
 
+// [RLVa:KB] - Checked: 2013-05-08 (RLVa-1.4.9)
+	if (!fRlvCanStartIM)
+	{
+		make_ui_sound("UISndInvalidOp");
+		RlvUtil::notifyBlocked(RLV_STRING_BLOCKED_STARTCONF);
+		return true;
+	}
+// [/RLVa:KB]
+
 	if (name.empty())
 	{
 		name = LLTrans::getString("conference-title");
 	}
 
-	LLUUID session_id = gIMMgr->addSession(name, type, members[0], members);
-	if (session_id != LLUUID::null)
+// [RLVa:KB] - Checked: 2011-04-11 (RLVa-1.3.0h) | Added: RLVa-1.3.0h
+	if (!members.empty())
 	{
-		LLFloaterIMContainer::getInstance()->showConversation(session_id);
+		if (members.size() > 1)
+			LLAvatarActions::startConference(members);
+		else
+			LLAvatarActions::startIM(members[0]);
 	}
+// [/RLVa:KB]
+//	LLUUID session_id = gIMMgr->addSession(name, type, members[0], members);
+//	if (session_id != LLUUID::null)
+//	{
+//		LLFloaterIMContainer::getInstance()->showConversation(session_id);
+//	}
 		
 	return true;
 }
@@ -1218,8 +1261,11 @@ LLInventoryPanel* LLInventoryPanel::getActiveInventoryPanel(BOOL auto_open)
 			active_inv_floaterp->setMinimized(FALSE);
 		}
 	}	
-	else if (auto_open)
+//	else if (auto_open)
+// [RLVa:KB] - Checked: 2012-05-15 (RLVa-1.4.6)
+	else if ( (auto_open) && (LLFloaterReg::canShowInstance(floater_inventory->getInstanceName())) )
 	{
+// [/RLVa:KB]
 		floater_inventory->openFloater();
 
 		res = inventory_panel->getActivePanel();

@@ -35,6 +35,10 @@
 #include "llwaterparammanager.h"
 #include "llwlhandlers.h"
 #include "llwlparammanager.h"
+// [RLVa:KB] - Checked: 2011-09-04 (RLVa-1.4.1a) | Added: RLVa-1.4.1a
+#include <boost/algorithm/string.hpp>
+#include "rlvhandler.h"
+// [/RLVa:KB]
 
 std::string LLEnvPrefs::getWaterPresetName() const
 {
@@ -478,7 +482,10 @@ void LLEnvManagerNew::onRegionSettingsResponse(const LLSD& content)
 	LLWLParamManager::instance().refreshRegionPresets();
 
 	// If using server settings, update managers.
-	if (getUseRegionSettings())
+//	if (getUseRegionSettings())
+// [RLVa:KB] - Checked: 2011-08-29 (RLVa-1.4.1a) | Added: RLVa-1.4.1a
+	if ( (getUseRegionSettings()) && (LLWLParamManager::getInstance()->mAnimator.getIsRunning()) )
+// [/RLVa:KB]
 	{
 		updateManagersFromPrefs(mInterpNextChangeMessage);
 	}
@@ -588,7 +595,15 @@ void LLEnvManagerNew::updateWaterFromPrefs(bool interpolate)
 
 void LLEnvManagerNew::updateManagersFromPrefs(bool interpolate)
 {
+// [RLVa:KB] - Checked: 2011-09-04 (RLVa-1.4.1a) | Added: RLVa-1.4.1a
+	if (gRlvHandler.hasBehaviour(RLV_BHVR_SETENV))
+	{
+		return;
+	}
+// [/RLVa:KB]
+
 	LL_DEBUGS("Windlight")<<LL_ENDL;
+
 	// Apply water settings.
 	updateWaterFromPrefs(interpolate);
 
