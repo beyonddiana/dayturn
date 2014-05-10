@@ -98,6 +98,8 @@
 // [/SL:KB]
 // [RLVa:KB] - Checked: 2010-05-03 (RLVa-1.2.0g)
 #include "rlvhandler.h"
+#include "rlvactions.h"
+#include "rlvhelper.h"
 // [/RLVa:KB]
 
 #include "llweb.h"
@@ -3326,6 +3328,9 @@ LLSD LLAppViewer::getViewerInfo() const
 	}
 #endif
 
+// [RLVa:KB] - Checked: 2010-04-18 (RLVa-1.2.0)
+	info["RLV_VERSION"] = (RlvActions::isRlvEnabled()) ? RlvStrings::getVersionAbout() : "(disabled)";
+// [/RLVa:KB]
 	info["OPENGL_VERSION"] = (const char*)(glGetString(GL_VERSION));
 	info["LIBCURL_VERSION"] = LLCurl::getVersionString();
 	info["J2C_VERSION"] = LLImageJ2C::getEngineInfo();
@@ -3414,7 +3419,14 @@ std::string LLAppViewer::getViewerInfoString() const
 	support << LLTrans::getString("AboutHeader", args);
 	if (info.has("REGION"))
 	{
-		support << "\n\n" << LLTrans::getString("AboutPosition", args);
+// [RLVa:KB] - Checked: 2014-02-24 (RLVa-1.4.10)
+		support << "\n\n";
+		if (RlvActions::canShowLocation())
+			support << "\n\n" << LLTrans::getString("AboutPosition", args);
+		else
+			support << RlvStrings::getString(RLV_STRING_HIDDEN_REGION);
+// [/RLVa:KB]
+//		support << "\n\n" << LLTrans::getString("AboutPosition", args);
 	}
 	support << "\n\n" << LLTrans::getString("AboutSystem", args);
 	support << "\n";
