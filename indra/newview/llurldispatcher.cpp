@@ -151,7 +151,7 @@ bool LLURLDispatcherImpl::dispatchApp(const LLSLURL& slurl,
 									  LLMediaCtrl* web,
 									  bool trusted_browser)
 {
-	llinfos << "cmd: " << slurl.getAppCmd() << " path: " << slurl.getAppPath() << " query: " << slurl.getAppQuery() << llendl;
+	LL_INFOS() << "cmd: " << slurl.getAppCmd() << " path: " << slurl.getAppPath() << " query: " << slurl.getAppQuery() << LL_ENDL;
 	const LLSD& query_map = LLURI::queryMap(slurl.getAppQuery());
 
 // <FS:AW handle hop app teleports properly>

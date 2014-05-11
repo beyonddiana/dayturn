@@ -55,7 +55,7 @@ LLTool::~LLTool()
 {
 	if( hasMouseCapture() )
 	{
-		llwarns << "Tool deleted holding mouse capture.  Mouse capture removed." << llendl;
+		LL_WARNS() << "Tool deleted holding mouse capture.  Mouse capture removed." << LL_ENDL;
 		gFocusMgr.removeMouseCaptureWithoutCallback( this );
 	}
 }
@@ -80,10 +80,10 @@ BOOL LLTool::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	if (gDebugClicks)
 	{
-		llinfos << "LLTool left mouse down" << llendl;
+		LL_INFOS() << "LLTool left mouse down" << LL_ENDL;
 	}
 	// by default, didn't handle it
-	// llinfos << "LLTool::handleMouseDown" << llendl;
+	// LL_INFOS() << "LLTool::handleMouseDown" << LL_ENDL;
 	gAgent.setControlFlags(AGENT_CONTROL_LBUTTON_DOWN);
 	return TRUE;
 }
@@ -92,10 +92,10 @@ BOOL LLTool::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	if (gDebugClicks) 
 	{
-		llinfos << "LLTool left mouse up" << llendl;
+		LL_INFOS() << "LLTool left mouse up" << LL_ENDL;
 	}
 	// by default, didn't handle it
-	// llinfos << "LLTool::handleMouseUp" << llendl;
+	// LL_INFOS() << "LLTool::handleMouseUp" << LL_ENDL;
 	gAgent.setControlFlags(AGENT_CONTROL_LBUTTON_UP);
 	return TRUE;
 }
@@ -103,7 +103,7 @@ BOOL LLTool::handleMouseUp(S32 x, S32 y, MASK mask)
 BOOL LLTool::handleHover(S32 x, S32 y, MASK mask)
 {
 	gViewerWindow->setCursor(UI_CURSOR_ARROW);
-	lldebugst(LLERR_USER_INPUT) << "hover handled by a tool" << llendl;		
+	LL_DEBUGS("UserInput") << "hover handled by a tool" << LL_ENDL;		
 	// by default, do nothing, say we handled it
 	return TRUE;
 }
@@ -115,13 +115,13 @@ BOOL LLTool::handleScrollWheel(S32 x, S32 y, S32 clicks)
 	else
 		gAgent.setControlFlags(AGENT_CONTROL_MBUTTON_SCROLL_UP);
 	// by default, didn't handle it
-	// llinfos << "LLTool::handleScrollWheel" << llendl;
+	// LL_INFOS() << "LLTool::handleScrollWheel" << LL_ENDL;
 	return FALSE;
 }
 
 BOOL LLTool::handleDoubleClick(S32 x,S32 y,MASK mask)
 {
-	// llinfos << "LLTool::handleDoubleClick" << llendl;
+	// LL_INFOS() << "LLTool::handleDoubleClick" << LL_ENDL;
 	// by default, pretend it's a left click
 	return FALSE;
 }
@@ -130,7 +130,7 @@ BOOL LLTool::handleRightMouseDown(S32 x,S32 y,MASK mask)
 {
 	gAgent.setControlFlags(AGENT_CONTROL_RBUTTON_DOWN);
 	// by default, didn't handle it
-	// llinfos << "LLTool::handleRightMouseDown" << llendl;
+	// LL_INFOS() << "LLTool::handleRightMouseDown" << LL_ENDL;
 	return FALSE;
 }
 
@@ -138,7 +138,7 @@ BOOL LLTool::handleRightMouseUp(S32 x, S32 y, MASK mask)
 {
 	gAgent.setControlFlags(AGENT_CONTROL_RBUTTON_UP);
 	// by default, didn't handle it
-	// llinfos << "LLTool::handleRightMouseDown" << llendl;
+	// LL_INFOS() << "LLTool::handleRightMouseDown" << LL_ENDL;
 	return FALSE;
 }
  
@@ -146,7 +146,7 @@ BOOL LLTool::handleMiddleMouseDown(S32 x,S32 y,MASK mask)
 {
 	gAgent.setControlFlags(AGENT_CONTROL_MBUTTON_DOWN);
 	// by default, didn't handle it
-	// llinfos << "LLTool::handleMiddleMouseDown" << llendl;
+	// LL_INFOS() << "LLTool::handleMiddleMouseDown" << LL_ENDL;
 	return FALSE;
 }
 
@@ -154,14 +154,14 @@ BOOL LLTool::handleMiddleMouseUp(S32 x, S32 y, MASK mask)
 {
 	gAgent.setControlFlags(AGENT_CONTROL_MBUTTON_DOWN);
 	// by default, didn't handle it
-	// llinfos << "LLTool::handleMiddleMouseUp" << llendl;
+	// LL_INFOS() << "LLTool::handleMiddleMouseUp" << LL_ENDL;
 	return FALSE;
 }
 
 BOOL LLTool::handleToolTip(S32 x, S32 y, MASK mask)
 {
 	// by default, didn't handle it
-	// llinfos << "LLTool::handleToolTip" << llendl;
+	// LL_INFOS() << "LLTool::handleToolTip" << LL_ENDL;
 	return FALSE;
 }
 

@@ -37,7 +37,6 @@
 #include "llviewercontrol.h"
 #include "llfloaterbuycurrency.h"
 #include "llbuycurrencyhtml.h"
-#include "llfloaterlagmeter.h"
 #include "llpanelnearbymedia.h"
 #include "llpanelvolumepulldown.h"
 #include "llfloaterregioninfo.h"
@@ -75,7 +74,6 @@
 #include "lltrans.h"
 
 // library includes
-#include "imageids.h"
 #include "llfloaterreg.h"
 #include "llfontgl.h"
 #include "llrect.h"
@@ -202,8 +200,24 @@ BOOL LLStatusBar::postBuild()
 	mSGBandwidth = getChild<LLStatGraph>("bandwidth_graph");
 	if (mSGBandwidth) {
 		mSGBandwidth->setClickedCallback(boost::bind(&LLStatusBar::onClickStatistics, this));
+	sgp.stat.count_stat_float(&LLStatViewer::ACTIVE_MESSAGE_DATA_RECEIVED);
+	sgp.units("Kbps");
+	sgp.precision(0);
+	mSGBandwidth = LLUICtrlFactory::create<LLStatGraph>(sgp);
 		mSGBandwidth->setStat(&LLViewerStats::getInstance()->mKBitStat);
 	}
+	pgp.stat.sample_stat_float(&LLStatViewer::PACKETS_LOST_PERCENT);
+	pgp.units("%");
+	pgp.min(0.f);
+	pgp.max(5.f);
+	pgp.precision(1);
+	pgp.per_sec(false);
+	LLStatGraph::Thresholds thresholds;
+	thresholds.threshold.add(LLStatGraph::ThresholdParams().value(0.1).color(LLColor4::green))
+						.add(LLStatGraph::ThresholdParams().value(0.25f).color(LLColor4::yellow))
+						.add(LLStatGraph::ThresholdParams().value(0.6f).color(LLColor4::red));
+
+	pgp.thresholds(thresholds);
 
 	mSGPacketLoss = getChild<LLStatGraph>("packet_loss_graph");
 	if (mSGPacketLoss) {
@@ -413,7 +427,7 @@ void LLStatusBar::sendMoneyBalanceRequest()
 
 void LLStatusBar::setHealth(S32 health)
 {
-	//llinfos << "Setting health to: " << buffer << llendl;
+	//LL_INFOS() << "Setting health to: " << buffer << LL_ENDL;
 	if( mHealth > health )
 	{
 		if (mHealth > (health + gSavedSettings.getF32("UISndHealthReductionThreshold")))

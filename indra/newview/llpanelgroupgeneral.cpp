@@ -283,7 +283,7 @@ void LLPanelGroupGeneral::onClickInfo(void *userdata)
 
 	if ( !self ) return;
 
-	lldebugs << "open group info: " << self->mGroupID << llendl;
+	LL_DEBUGS() << "open group info: " << self->mGroupID << LL_ENDL;
 
 	LLGroupActions::show(self->mGroupID);
 
@@ -335,7 +335,7 @@ bool LLPanelGroupGeneral::apply(std::string& mesg)
 
 	if (has_power_in_group || mGroupID.isNull())
 	{
-		llinfos << "LLPanelGroupGeneral::apply" << llendl;
+		LL_INFOS() << "LLPanelGroupGeneral::apply" << LL_ENDL;
 
 		// Check to make sure mature has been set
 		if(mComboMature &&
@@ -641,7 +641,7 @@ void LLPanelGroupGeneral::update(LLGroupChange gc)
 	{
 		mEditCharter->setText(gdatap->mCharter);
 	}
-
+	
 	if (mGroupUUIDText) {
 		mGroupUUIDText->setText(mGroupID.asString());
 		mBtnGroupUUIDCopy->setEnabled(TRUE);
@@ -723,7 +723,7 @@ void LLPanelGroupGeneral::reset()
 		mEditCharter->setText(empty_str);
 		mGroupNameEditor->setText(empty_str);
 	}
-
+	
 	{
 		mComboMature->setEnabled(true);
 		mComboMature->setVisible( !gAgent.isTeen() );

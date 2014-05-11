@@ -422,7 +422,7 @@ public:
 	/*virtual*/ void onOpen(const LLSD& key);
 
 	// LLView
-	/*virtual*/ void handleVisibilityChange(BOOL new_visibility);
+	/*virtual*/ void onVisibilityChange(BOOL new_visibility);
 
 	// LLPanelRegionInfo
 	/*virtual*/ bool refreshFromRegion(LLViewerRegion* region);

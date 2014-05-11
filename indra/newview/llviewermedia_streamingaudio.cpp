@@ -78,7 +78,7 @@ void LLStreamingAudio_MediaPlugins::start(const std::string& url)
 	if (!mMediaPlugin) // lazy-init the underlying media plugin
 	{
 		mMediaPlugin = initializeMedia("audio/mpeg"); // assumes that whatever media implementation supports mp3 also supports vorbis.
-		llinfos << "streaming audio mMediaPlugin is now " << mMediaPlugin << llendl;
+		LL_INFOS() << "streaming audio mMediaPlugin is now " << mMediaPlugin << LL_ENDL;
 	}
 	else if (mMediaPlugin->isPluginExited()) // If our reset didn't work right, try again
 	{
@@ -89,8 +89,8 @@ void LLStreamingAudio_MediaPlugins::start(const std::string& url)
 	if(!mMediaPlugin)
 		return;
 
-	if (!url.empty()) 
-	{
+	if (!url.empty()) {
+		LL_INFOS() << "Starting internet stream: " << url << LL_ENDL;
 		std::string test_url(url);
 		// We need to change http:// streams to icy:// in order to use them with quicktime.
 		// This isn't a good place to put this, but none of this is good, so... -- MC
@@ -113,7 +113,7 @@ void LLStreamingAudio_MediaPlugins::start(const std::string& url)
 		mMediaPlugin->start();
 	}
 	else
-	{
+		LL_INFOS() << "setting stream to NULL"<< LL_ENDL;
 		//llinfos << "setting stream to NULL"<< llendl;
 		stop();
 	}
@@ -121,8 +121,7 @@ void LLStreamingAudio_MediaPlugins::start(const std::string& url)
 
 void LLStreamingAudio_MediaPlugins::stop()
 {
-
-	llinfos << "Stopping internet stream." << llendl;
+	LL_INFOS() << "Stopping internet stream." << LL_ENDL;
 	if(mMediaPlugin)
 	{
 		mMediaPlugin->stop();
@@ -140,12 +139,12 @@ void LLStreamingAudio_MediaPlugins::pause(int pause)
 	
 	if(pause)
 	{
-		llinfos << "Pausing internet stream: " << mURL << llendl;
+		LL_INFOS() << "Pausing internet stream." << LL_ENDL;
 		mMediaPlugin->pause();
 	} 
 	else 
 	{
-		llinfos << "Unpausing internet stream: " << mURL << llendl;
+		LL_INFOS() << "Unpausing internet stream." << LL_ENDL;
 		mMediaPlugin->start();
 	}
 }

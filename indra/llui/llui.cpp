@@ -105,7 +105,7 @@ void make_ui_sound(const char* namep)
 	std::string name = ll_safe_string(namep);
 	if (!LLUI::sSettingGroups["config"]->controlExists(name))
 	{
-		llwarns << "tried to make UI sound for unknown sound name: " << name << llendl;	
+		LL_WARNS() << "tried to make UI sound for unknown sound name: " << name << LL_ENDL;	
 	}
 	else
 	{
@@ -116,12 +116,12 @@ void make_ui_sound(const char* namep)
 			{
 				if (LLUI::sSettingGroups["config"]->getBOOL("UISndDebugSpamToggle"))
 				{
-					llinfos << "UI sound name: " << name << " triggered but silent (null uuid)" << llendl;	
+					LL_INFOS() << "UI sound name: " << name << " triggered but silent (null uuid)" << LL_ENDL;	
 				}				
 			}
 			else
 			{
-				llwarns << "UI sound named: " << name << " does not translate to a valid uuid" << llendl;	
+				LL_WARNS() << "UI sound named: " << name << " does not translate to a valid uuid" << LL_ENDL;	
 			}
 
 		}
@@ -129,7 +129,7 @@ void make_ui_sound(const char* namep)
 		{
 			if (LLUI::sSettingGroups["config"]->getBOOL("UISndDebugSpamToggle"))
 			{
-				llinfos << "UI sound name: " << name << llendl;	
+				LL_INFOS() << "UI sound name: " << name << LL_ENDL;	
 			}
 			LLUI::sAudioCallback(uuid);
 		}
@@ -149,7 +149,7 @@ void LLUI::initClass(const settings_map_t& settings,
 		(get_ptr_in_map(sSettingGroups, std::string("floater")) == NULL) ||
 		(get_ptr_in_map(sSettingGroups, std::string("ignores")) == NULL))
 	{
-		llerrs << "Failure to initialize configuration groups" << llendl;
+		LL_ERRS() << "Failure to initialize configuration groups" << LL_ENDL;
 	}
 
 	sAudioCallback = audio_callback;
