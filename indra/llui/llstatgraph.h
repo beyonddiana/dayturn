@@ -27,30 +27,18 @@
 #ifndef LL_LLSTATGRAPH_H
 #define LL_LLSTATGRAPH_H
 
+#include "llview.h"
 #include "llframetimer.h"
-#include "lluictrl.h"
 #include "v4color.h"
 #include "lltrace.h"
-#include <boost/signals2.hpp>
 
-
-class LLStatGraph : public LLUICtrl
+class LLStatGraph : public LLView
 {
 public:
 	struct ThresholdParams : public LLInitParam::Block<ThresholdParams>
 	{
 		Mandatory<F32>	value;
 		Optional<LLUIColor>	color;
-		Optional<F32>		value_min;
-		Optional<F32>		value_max;
-		Optional<S32>		precision;
-		Optional<std::string>	units;
-		Optional<bool>		per_sec;
-
-		Params();
-	};
-
-	LLStatGraph(const Params&);
 
 		ThresholdParams()
 		:	value("value"),
@@ -115,9 +103,6 @@ public:
 
 	/*virtual*/ void setValue(const LLSD& value);
 	
-
-	void setClickedCallback(boost::function<void (void*)> cb, void *userdata = NULL);
-
 private:
 	LLTrace::StatType<LLTrace::CountAccumulator>*	mNewStatFloatp;
 

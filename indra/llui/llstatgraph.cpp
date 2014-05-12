@@ -34,9 +34,9 @@
 #include "llui.h"
 #include "llgl.h"
 #include "llglheaders.h"
-#include "llwindow.h"
 #include "lltracerecording.h"
 #include "lltracethreadrecorder.h"
+//#include "llviewercontrol.h"
 
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -48,21 +48,6 @@ LLStatGraph::LLStatGraph(const Params& p)
 	mPrecision(p.precision),
 	mValue(p.value),
 	mNewStatFloatp(p.stat.count_stat_float)
-	units("units"),
-	per_sec("per_sec")
-{
-}
-
-LLStatGraph::LLStatGraph(const LLStatGraph::Params &p)
-:	LLUICtrl(p),
-	mStatp(NULL),
-	mMin(p.value_min),
-	mMax(p.value_max),
-	mPerSec(p.per_sec),
-	mValue(p.value),
-	mUnits(p.units),
-	mPrecision(p.precision),
-	mClickedCallback(NULL)
 {
 	setToolTip(p.name());
 
@@ -138,77 +123,3 @@ void LLStatGraph::setMax(const F32 max)
 	mMax = max;
 }
 
-}
-
-void LLStatGraph::setClickedCallback(boost::function<void (void*)> cb, void *userdata /* = NULL */)
-{
-	mClickedCallback = boost::bind(cb, userdata);
-}
-
-BOOL LLStatGraph::handleMouseDown(S32 x, S32 y, MASK mask)
-{
-	BOOL handled = LLUICtrl::handleMouseDown(x, y, mask);
-
-	if (getSoundFlags() & MOUSE_DOWN) {
-		make_ui_sound("UISndClick");
-	}
-
-	if (!handled && mClickedCallback) {
-		handled = TRUE;
-	}
-
-	if (handled) {
-		//
-		//	route future Mouse messages here preemptively
-		//	(release on mouse up)
-		//
-		gFocusMgr.setMouseCapture( this );
-	}
-
-	return handled;
-}
-
-BOOL LLStatGraph::handleMouseUp(S32 x, S32 y, MASK mask)
-{
-	BOOL handled = LLUICtrl::handleMouseUp(x, y, mask);
-
-	if (getSoundFlags() & MOUSE_UP) {
-		make_ui_sound("UISndClickRelease");
-	}
-
-	//
-	//	we only handle the click if the click both started
-	//	and ended within us
-	//
-	if (hasMouseCapture()) {
-		//
-		//	release the mouse
-		//
-		gFocusMgr.setMouseCapture( NULL );
-
-		//
-		//	DO THIS AT THE VERY END to allow the button
-		//	to be destroyed as a result of being clicked
-		//
-		if (mClickedCallback && !handled) {
-			mClickedCallback();
-			handled = TRUE;
-		}
-	}
-
-	return handled;
-}
-
-BOOL LLStatGraph::handleHover(S32 x, S32 y, MASK mask)
-{
-	BOOL handled = LLUICtrl::handleHover(x, y, mask);
-
-	if (!handled && mClickedCallback) {
-		//
-		//	clickable statistics graphs change the cursor to a hand
-		//
-		LLUI::getWindow()->setCursor(UI_CURSOR_HAND);
-		handled = TRUE;
-	}
-
-	return handled;
