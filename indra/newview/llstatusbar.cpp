@@ -45,14 +45,12 @@
 #include "llhudicon.h"
 #include "llnavigationbar.h"
 #include "llkeyboard.h"
-#include "lllayoutstack.h"
 #include "lllineeditor.h"
 #include "llmenugl.h"
 #include "llrootview.h"
 #include "llsd.h"
 #include "lltextbox.h"
 #include "llui.h"
-#include "llviewernetwork.h"	// for LLGridManager
 #include "llviewerparceloverlay.h"
 #include "llviewerregion.h"
 #include "llviewerstats.h"
@@ -86,6 +84,7 @@
 // system includes
 #include <iomanip>
 
+
 //
 // Globals
 //
@@ -113,13 +112,9 @@ LLStatusBar::LLStatusBar(const LLRect& rect)
 	mTextTime(NULL),
 	mSGBandwidth(NULL),
 	mSGPacketLoss(NULL),
-	mFPSText(NULL),
-	mDrawDistancePanel(NULL),
-	mStatisticsPanel(NULL),
-	mFPSPanel(NULL),
+	mBtnStats(NULL),
 	mBtnVolume(NULL),
 	mBoxBalance(NULL),
-	mInMouselookMode(false),
 	mBalance(0),
 	mHealth(100),
 	mSquareMetersCredit(0),
@@ -169,21 +164,16 @@ BOOL LLStatusBar::postBuild()
 	gMenuBarView->setRightMouseDownCallback(boost::bind(&show_navbar_context_menu, _1, _2, _3));
 
 	mTextTime = getChild<LLTextBox>("TimeText" );
-	mPurchasePanel = getChild<LLLayoutPanel>("purchase_panel");
 	
-	//
-	//	only show the Buy and Shop buttons in Second Life
-	//
-	if (LLGridManager::getInstance()->isInSecondLife()) {
-		getChild<LLUICtrl>("buyL")->setCommitCallback(boost::bind(&LLStatusBar::onClickBuyCurrency, this));
-		getChild<LLUICtrl>("goShop")->setCommitCallback(boost::bind(&LLWeb::loadURLExternal, gSavedSettings.getString("MarketplaceURL")));
-	}
-	else {
-		mPurchasePanel->setVisible(FALSE);
-	}
+	getChild<LLUICtrl>("buyL")->setCommitCallback(
+		boost::bind(&LLStatusBar::onClickBuyCurrency, this));
+
+	getChild<LLUICtrl>("goShop")->setCommitCallback(boost::bind(&LLWeb::loadURLExternal, gSavedSettings.getString("MarketplaceURL")));
 
 	mBoxBalance = getChild<LLTextBox>("balance");
 	mBoxBalance->setClickedCallback( &LLStatusBar::onClickBalance, this );
+	
+	mBtnStats = getChildView("stat_btn");
 
 	mBtnVolume = getChild<LLButton>( "volume_btn" );
 	mBtnVolume->setClickedCallback( onClickVolume, this );
@@ -197,17 +187,30 @@ BOOL LLStatusBar::postBuild()
 
 	gSavedSettings.getControl("MuteAudio")->getSignal()->connect(boost::bind(&LLStatusBar::onVolumeChanged, this, _2));
 
-	mSGBandwidth = getChild<LLStatGraph>("bandwidth_graph");
-/*
-if (mSGBandwidth) {
-		mSGBandwidth->setClickedCallback(boost::bind(&LLStatusBar::onClickStatistics, this));
+	// Adding Net Stat Graph
+	S32 x = getRect().getWidth() - 2;
+	S32 y = 0;
+	LLRect r;
+	r.set( x-SIM_STAT_WIDTH, y+MENU_BAR_HEIGHT-1, x, y+1);
+	LLStatGraph::Params sgp;
+	sgp.name("BandwidthGraph");
+	sgp.rect(r);
+	sgp.follows.flags(FOLLOWS_BOTTOM | FOLLOWS_RIGHT);
+	sgp.mouse_opaque(false);
 	sgp.stat.count_stat_float(&LLStatViewer::ACTIVE_MESSAGE_DATA_RECEIVED);
 	sgp.units("Kbps");
 	sgp.precision(0);
 	mSGBandwidth = LLUICtrlFactory::create<LLStatGraph>(sgp);
-		mSGBandwidth->setStat(&LLViewerStats::getInstance()->mKBitStat);
-	}
+	addChild(mSGBandwidth);
+	x -= SIM_STAT_WIDTH + 2;
 
+	r.set( x-SIM_STAT_WIDTH, y+MENU_BAR_HEIGHT-1, x, y+1);
+	//these don't seem to like being reused
+	LLStatGraph::Params pgp;
+	pgp.name("PacketLossPercent");
+	pgp.rect(r);
+	pgp.follows.flags(FOLLOWS_BOTTOM | FOLLOWS_RIGHT);
+	pgp.mouse_opaque(false);
 	pgp.stat.sample_stat_float(&LLStatViewer::PACKETS_LOST_PERCENT);
 	pgp.units("%");
 	pgp.min(0.f);
@@ -221,23 +224,8 @@ if (mSGBandwidth) {
 
 	pgp.thresholds(thresholds);
 
-	mSGPacketLoss = getChild<LLStatGraph>("packet_loss_graph");
-	if (mSGPacketLoss) {
-		mSGPacketLoss->setClickedCallback(boost::bind(&LLStatusBar::onClickStatistics, this));
-		mSGPacketLoss->setStat(&LLViewerStats::getInstance()->mPacketsLostPercentStat);
-		mSGPacketLoss->setThreshold(0, 0.5f);
-		mSGPacketLoss->setThreshold(1, 1.f);
-		mSGPacketLoss->setThreshold(2, 3.f);
-	}
-*/
-	mFPSText = getChild<LLTextBox>("fps_text");
-	if (mFPSText) {
-		mFPSText->setClickedCallback(boost::bind(&LLStatusBar::onClickStatistics, this));
-	}
-
-	mDrawDistancePanel = getChild<LLLayoutPanel>("draw_distance_panel");
-	mStatisticsPanel = getChild<LLLayoutPanel>("statistics_panel");
-	mFPSPanel = getChild<LLLayoutPanel>("fps_panel");
+	mSGPacketLoss = LLUICtrlFactory::create<LLStatGraph>(pgp);
+	addChild(mSGPacketLoss);
 
 	mPanelVolumePulldown = new LLPanelVolumePulldown();
 	addChild(mPanelVolumePulldown);
@@ -257,43 +245,20 @@ if (mSGBandwidth) {
 // Per-frame updates of visibility
 void LLStatusBar::refresh()
 {
-	if (mInMouselookMode) {
-		//
-		//	if we are in mouselook mode then there's no
-		//	need to update the status bar at all
-		//
-		return;
+	static LLCachedControl<bool> show_net_stats(gSavedSettings, "ShowNetStats", false);
+	bool net_stats_visible = show_net_stats;
+
+	if (net_stats_visible)
+	{
+		// Adding Net Stat Meter back in
+		F32 bwtotal = gViewerThrottle.getMaxBandwidth() / 1000.f;
+		mSGBandwidth->setMin(0.f);
+		mSGBandwidth->setMax(bwtotal*1.25f);
+		//mSGBandwidth->setThreshold(0, bwtotal*0.75f);
+		//mSGBandwidth->setThreshold(1, bwtotal);
+		//mSGBandwidth->setThreshold(2, bwtotal);
 	}
-
-	static LLCachedControl<bool> net_stats_visible(gSavedSettings, "ShowNetStats", true);
-	static LLCachedControl<bool> fps_stats_visible(gSavedSettings, "ShowFPSStats", true);
-	static LLCachedControl<bool> show_draw_distance(gSavedSettings, "ShowDDSlider", false);
-
-	//
-	//	update the netstat graph and FPS counter text
-	//	four times per second
-	//
-	if (mFPSUpdateTimer.getElapsedTimeF32() > 0.25f) {
-		mFPSUpdateTimer.reset();
-
-		if (net_stats_visible) {
-			F32 bwtotal = gViewerThrottle.getMaxBandwidth() / 1024.f;
-			mSGBandwidth->setMin(0.f);
-			mSGBandwidth->setMax(bwtotal * 1.25f);
-			mSGBandwidth->setThreshold(0, bwtotal * 0.75f);
-			mSGBandwidth->setThreshold(1, bwtotal);
-			mSGBandwidth->setThreshold(2, bwtotal);
-		}
-		
-		if (fps_stats_visible) {
-			mFPSText->setValue(llformat("%.1f", LLViewerStats::getInstance()->mFPSStat.getMeanPerSec()));
-		}
-
-		mDrawDistancePanel->setVisible(show_draw_distance);
-		mStatisticsPanel->setVisible(net_stats_visible);
-		mFPSPanel->setVisible(fps_stats_visible);
-	}
-
+	
 	// update clock every 10 seconds
 	if(mClockUpdateTimer.getElapsedTimeF32() > 10.f)
 	{
@@ -325,6 +290,10 @@ void LLStatusBar::refresh()
 		gMenuBarView->reshape(MENU_RIGHT, gMenuBarView->getRect().getHeight());
 	}
 
+	mSGBandwidth->setVisible(net_stats_visible);
+	mSGPacketLoss->setVisible(net_stats_visible);
+	mBtnStats->setEnabled(net_stats_visible);
+
 	// update the master volume button state
 	bool mute_audio = LLAppViewer::instance()->getMasterSystemAudioMute();
 	mBtnVolume->setToggleState(mute_audio);
@@ -343,20 +312,13 @@ void LLStatusBar::refresh()
 
 void LLStatusBar::setVisibleForMouselook(bool visible)
 {
-	static LLCachedControl<bool> net_stats_visible(gSavedSettings, "ShowNetStats", true);
-	static LLCachedControl<bool> fps_stats_visible(gSavedSettings, "ShowFPSStats", true);
-	static LLCachedControl<bool> show_draw_distance(gSavedSettings, "ShowDDSlider", true);
-
-	mInMouselookMode = !visible;
-
 	mTextTime->setVisible(visible);
+	getChild<LLUICtrl>("balance_bg")->setVisible(visible);
 	mBoxBalance->setVisible(visible);
-	mPurchasePanel->setVisible(visible && LLGridManager::getInstance()->isInSecondLife());
 	mBtnVolume->setVisible(visible);
 	mMediaToggle->setVisible(visible);
-	mDrawDistancePanel->setVisible(visible && show_draw_distance);
-	mStatisticsPanel->setVisible(visible && net_stats_visible);
-	mFPSPanel->setVisible(visible && fps_stats_visible);
+	mSGBandwidth->setVisible(visible);
+	mSGPacketLoss->setVisible(visible);
 	setBackgroundVisible(visible);
 }
 
@@ -377,7 +339,7 @@ void LLStatusBar::setBalance(S32 balance)
 		LLFirstUse::receiveLindens();
 	}
 
-	std::string money_str = (balance < 0) ? "--" : LLResMgr::getInstance()->getMonetaryString(balance);
+	std::string money_str = LLResMgr::getInstance()->getMonetaryString( balance );
 
 	LLStringUtil::format_map_t string_args;
 	string_args["[AMT]"] = llformat("%s", money_str.c_str());
@@ -505,11 +467,8 @@ void LLStatusBar::onClickBuyCurrency()
 void LLStatusBar::onMouseEnterVolume()
 {
 	LLButton* volbtn =  getChild<LLButton>( "volume_btn" );
+	LLRect vol_btn_rect = volbtn->getRect();
 	LLRect volume_pulldown_rect = mPanelVolumePulldown->getRect();
-	LLRect vol_btn_rect;
-
-	volbtn->localRectToOtherView(volbtn->getLocalRect(), &vol_btn_rect, this);
-
 	volume_pulldown_rect.setLeftTopAndSize(vol_btn_rect.mLeft -
 	     (volume_pulldown_rect.getWidth() - vol_btn_rect.getWidth()),
 			       vol_btn_rect.mBottom,
@@ -531,12 +490,9 @@ void LLStatusBar::onMouseEnterNearbyMedia()
 	LLView* popup_holder = gViewerWindow->getRootView()->getChildView("popup_holder");
 	LLRect nearby_media_rect = mPanelNearByMedia->getRect();
 	LLButton* nearby_media_btn =  getChild<LLButton>( "media_toggle_btn" );
-	LLRect nearby_media_btn_rect;
-
-	nearby_media_btn->localRectToOtherView(nearby_media_btn->getLocalRect(), &nearby_media_btn_rect, this);
-
+	LLRect nearby_media_btn_rect = nearby_media_btn->getRect();
 	nearby_media_rect.setLeftTopAndSize(nearby_media_btn_rect.mLeft - 
-										(nearby_media_rect.getWidth() - nearby_media_btn_rect.getWidth()/2),
+										(nearby_media_rect.getWidth() - nearby_media_btn_rect.getWidth())/2,
 										nearby_media_btn_rect.mBottom,
 										nearby_media_rect.getWidth(),
 										nearby_media_rect.getHeight());
@@ -585,11 +541,6 @@ BOOL can_afford_transaction(S32 cost)
 void LLStatusBar::onVolumeChanged(const LLSD& newvalue)
 {
 	refresh();
-}
-
-void LLStatusBar::onClickStatistics()
-{
-	LLFloaterReg::toggleInstance("stats");
 }
 
 // Implements secondlife:///app/balance/request to request a L$ balance
