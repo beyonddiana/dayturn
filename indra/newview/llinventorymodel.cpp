@@ -743,7 +743,7 @@ void LLInventoryModel::collectDescendentsIf(const LLUUID& id,
 			item = item_array->operator[](i);
 			if(add(NULL, item))
 			{
-				items.put(item);
+				items.push_back(item);
 			}
 		}
 	}
@@ -1025,7 +1025,7 @@ U32 LLInventoryModel::updateItem(const LLViewerInventoryItem* item)
 			else
 			{
 				// Fetch the current name
-				gCacheName->operator[](id, FALSE,
+				gCacheName->get(id, FALSE,
 					boost::bind(&LLViewerInventoryItem::onCallingCardNameLookup, new_item.get(),
 					_1, _2, _3));
 			}

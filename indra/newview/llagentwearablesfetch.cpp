@@ -388,7 +388,7 @@ void LLLibraryOutfitsFetch::outfitsDone()
 		 iter != cat_array.end();
 		 ++iter)
 	{
-		const LLViewerInventoryCategory *cat = iter->operator[]();
+		const LLViewerInventoryCategory *cat = iter->get();
 		
 		// Get the names and id's of every outfit in the library, skip "Ruth"
 		// because it's a low quality legacy outfit
@@ -540,7 +540,7 @@ void LLLibraryOutfitsFetch::importedFolderDone()
 		 iter != cat_array.end();
 		 ++iter)
 	{
-		const LLViewerInventoryCategory *cat = iter->operator[]();
+		const LLViewerInventoryCategory *cat = iter->get();
 		
 		// Get the name of every imported outfit
 		folders.push_back(cat->getUUID());
@@ -593,7 +593,7 @@ void LLLibraryOutfitsFetch::contentsDone()
 			 wearable_iter != wearable_array.end();
 			 ++wearable_iter)
 		{
-			const LLViewerInventoryItem *item = wearable_iter->operator[]();
+			const LLViewerInventoryItem *item = wearable_iter->get();
 			link_inventory_item(gAgent.getID(),
 								item->getLinkedUUID(),
 								new_outfit_folder_id,

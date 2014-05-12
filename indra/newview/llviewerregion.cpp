@@ -381,7 +381,7 @@ LLViewerRegion::LLViewerRegion(const U64 &handle,
 	mCacheDirty(FALSE),
 	mReleaseNotesRequested(FALSE),
 	mCapabilitiesReceived(false),
-	mWidth(region_width_meters)
+	mWidth(region_width_meters),
 	mBitsReceived(0.f),
 	mPacketsReceived(0.f),
 	mDead(FALSE),

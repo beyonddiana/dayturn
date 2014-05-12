@@ -231,7 +231,7 @@ public:
 	// call nextFrame() to reset timers
 	static void dumpCurTimes();
 
-private:
+public:
 	friend class BlockTimerStatHandle;
 	// FIXME: this friendship exists so that each thread can instantiate a root timer, 
 	// which could be a derived class with a public constructor instead, possibly
@@ -243,7 +243,6 @@ private:
 	// Visual Studio 2010 has a bug where capturing an object returned by value
 	// into a local reference requires access to the copy constructor at the call site.
 	// This appears to be fixed in 2012.
-public:
 #endif
 	// no-copy
 	BlockTimer(const BlockTimer& other) {};

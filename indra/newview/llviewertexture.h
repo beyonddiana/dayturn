@@ -418,7 +418,7 @@ public:
 	void        loadFromFastCache();
 	void        setInFastCacheList(bool in_list) { mInFastCacheList = in_list; }
 	bool        isInFastCacheList() { return mInFastCacheList; }
-	
+	/*virtual*/bool  isActiveFetching(); //is actively in fetching by the fetching pipeline.	
 	// <FS:Techwolf Lupindo> texture comment decoder
 	std::map<std::string,std::string> mComment;
 	// </FS:Techwolf Lupindo>

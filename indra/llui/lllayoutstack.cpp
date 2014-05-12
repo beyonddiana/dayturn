@@ -42,6 +42,12 @@ static const F32 MAX_FRACTIONAL_SIZE = 1.f;
 static LLDefaultChildRegistry::Register<LLLayoutStack> register_layout_stack("layout_stack");
 static LLLayoutStack::LayoutStackRegistry::Register<LLLayoutPanel> register_layout_panel("layout_panel");
 
+void LLLayoutStack::OrientationNames::declareValues()
+{
+	declare("horizontal", HORIZONTAL);
+	declare("vertical", VERTICAL);
+}
+
 //
 // LLLayoutPanel
 //
@@ -135,7 +141,7 @@ S32 LLLayoutPanel::getVisibleDim() const
 						+ (((F32)mTargetDim - min_dim) * (1.f - mCollapseAmt))));
 }
  
-void LLLayoutPanel::setOrientation( LLView::EOrientation orientation )
+void LLLayoutPanel::setOrientation( LLLayoutStack::ELayoutOrientation orientation )
 {
 	mOrientation = orientation;
 	S32 layout_dim = llround((F32)((mOrientation == LLLayoutStack::HORIZONTAL)
@@ -269,9 +275,25 @@ void LLLayoutStack::draw()
 			// only force drawing invisible children if visible amount is non-zero
 			drawChild(panelp, 0, 0, !clip_rect.isEmpty());
 		}
-		if (panelp->getResizeBar()->getVisible())
+	}
+
+	const LLView::child_list_t * child_listp = getChildList();
+	BOOST_FOREACH(LLView * childp, * child_listp)
+	{
+		LLResizeBar * resize_barp = dynamic_cast<LLResizeBar*>(childp);
+		if (resize_barp && resize_barp->isShowDragHandle() && resize_barp->getVisible() && resize_barp->getRect().isValid())
 		{
-			drawChild(panelp->getResizeBar());
+			LLRect screen_rect = resize_barp->calcScreenRect();
+			if (LLUI::getRootView()->getLocalRect().overlaps(screen_rect) && LLUI::sDirtyRect.overlaps(screen_rect))
+			{
+				LLUI::pushMatrix();
+		{
+					const LLRect& rb_rect(resize_barp->getRect());
+					LLUI::translate(rb_rect.mLeft, rb_rect.mBottom);
+					resize_barp->draw();
+				}
+				LLUI::popMatrix();
+			}
 		}
 	}
 }
@@ -445,6 +467,9 @@ void LLLayoutStack::updateLayout()
 		}
 
 		LLRect resize_bar_rect(panel_rect);
+		LLResizeBar * resize_barp = panelp->getResizeBar();
+		bool show_drag_handle = resize_barp->isShowDragHandle();
+		if (show_drag_handle) {} //init but unused workaroung
 		F32 panel_spacing = (F32)mPanelSpacing * panelp->getVisibleAmount();
 		F32 panel_visible_dim = panelp->getVisibleDim();
 		S32 panel_spacing_round = (S32)(llround(panel_spacing));
@@ -549,6 +574,7 @@ void LLLayoutStack::createResizeBar(LLLayoutPanel* panelp)
 			resize_params.min_size(lp->getRelevantMinDim());
 			resize_params.side((mOrientation == HORIZONTAL) ? LLResizeBar::RIGHT : LLResizeBar::BOTTOM);
 			resize_params.snapping_enabled(false);
+			resize_params.show_drag_handle(mShowDragHandle);
 			LLResizeBar* resize_bar = LLUICtrlFactory::create<LLResizeBar>(resize_params);
 			lp->mResizeBar = resize_bar;
 

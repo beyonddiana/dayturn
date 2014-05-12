@@ -6084,7 +6084,7 @@ void LLWearableBridge::wearAddOnAvatar()
 //			}
 //			else
 //			{
-				LL_INFOS() << "By the time wearable asset arrived, its inv item already pointed to a different asset." << LL_ENDL;
+//				LL_INFOS() << "By the time wearable asset arrived, its inv item already pointed to a different asset." << LL_ENDL;
 //			}
 //		}
 //	}
@@ -6111,7 +6111,7 @@ void LLWearableBridge::wearAddOnAvatar()
 //			}
 //			else
 //			{
-				LL_INFOS() << "By the time wearable asset arrived, its inv item already pointed to a different asset." << LL_ENDL;
+//				LL_INFOS() << "By the time wearable asset arrived, its inv item already pointed to a different asset." << LL_ENDL;
 //			}
 //		}
 //	}

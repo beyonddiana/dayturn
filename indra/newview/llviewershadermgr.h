@@ -29,6 +29,7 @@
 
 #include "llshadermgr.h"
 #include "llmaterial.h"
+#include "lldate.h"
 
 #define LL_DEFERRED_MULTI_LIGHT_COUNT 16
 

@@ -154,7 +154,8 @@ public:
 	std::string		getLabel() const { return mLabel; }
 	void			setHelpTopic(const std::string& help_topic) { mHelpTopic = help_topic; }
 	std::string		getHelpTopic() const { return mHelpTopic; }
-	
+	// LLTextBox/LLTextEditor/LLLineEditor
+	void childSetText(const std::string& id, const LLStringExplicit& text) { childSetValue(id, LLSD(text)); }	
 	void			setCtrlsEnabled(BOOL b);
 	ctrl_list_t		getCtrlList() const;
 
@@ -171,8 +172,7 @@ public:
 	bool hasString(const std::string& name);
 	std::string getString(const std::string& name, const LLStringUtil::format_map_t& args) const;
 	std::string getString(const std::string& name) const;
-	// LLTextBox/LLTextEditor/LLLineEditor
-	void childSetText(const std::string& id, const LLStringExplicit& text) { childSetValue(id, LLSD(text)); }
+
 	// ** Wrappers for setting child properties by name ** -TomY
 	// WARNING: These are deprecated, please use getChild<T>("name")->doStuff() idiom instead
 
@@ -201,6 +201,7 @@ public:
 	// This is the magic bullet for data-driven UI
 	void childSetValue(const std::string& id, LLSD value);
 	LLSD childGetValue(const std::string& id) const;
+
 
 	// For setting text / label replacement params, e.g. "Hello [NAME]"
 	// Not implemented for all types, defaults to noop, returns FALSE if not applicaple

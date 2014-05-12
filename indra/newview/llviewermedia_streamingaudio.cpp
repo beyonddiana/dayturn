@@ -89,7 +89,8 @@ void LLStreamingAudio_MediaPlugins::start(const std::string& url)
 	if(!mMediaPlugin)
 		return;
 
-	if (!url.empty()) {
+	if (!url.empty()) 
+	{
 		LL_INFOS() << "Starting internet stream: " << url << LL_ENDL;
 		std::string test_url(url);
 		// We need to change http:// streams to icy:// in order to use them with quicktime.
@@ -113,6 +114,7 @@ void LLStreamingAudio_MediaPlugins::start(const std::string& url)
 		mMediaPlugin->start();
 	}
 	else
+	{
 		LL_INFOS() << "setting stream to NULL"<< LL_ENDL;
 		//llinfos << "setting stream to NULL"<< llendl;
 		stop();

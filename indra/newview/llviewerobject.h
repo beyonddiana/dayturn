@@ -678,6 +678,10 @@ public:
 	LLPointer<class LLHUDIcon> mIcon;
 
 	static			BOOL		sUseSharedDrawables;
+	// <FS:Techwolf Lupindo> export
+	LLViewerPartSourceScript* getPartSourceScript() { return mPartSourcep.get(); }
+	bool getPhysicsShapeUnknown () { return mPhysicsShapeUnknown; }
+	// </FS:Techwolf Lupindo>
 
 protected:
 	// delete an item in the inventory, but don't tell the
@@ -713,10 +717,7 @@ protected:
 	void deleteParticleSource();
 	void setParticleSource(const LLPartSysData& particle_parameters, const LLUUID& owner_id);
 	
-	// <FS:Techwolf Lupindo> export
-	LLViewerPartSourceScript* getPartSourceScript() { return mPartSourcep.get(); }
-	bool getPhysicsShapeUnknown () { return mPhysicsShapeUnknown; }
-	// </FS:Techwolf Lupindo>
+
 private:
 	void setNameValueList(const std::string& list);		// clears nv pairs and then individually adds \n separated NV pairs from \0 terminated string
 	void deleteTEImages(); // correctly deletes list of images

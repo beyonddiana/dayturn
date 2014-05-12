@@ -39,6 +39,7 @@
 const	char	LAND_LAYER_CODE					= 'L';
 const	char	WIND_LAYER_CODE					= '7';
 const	char	CLOUD_LAYER_CODE				= '8';
+const	char	WATER_LAYER_CODE				= 'W';
 
 LLVLManager gVLManager;
 

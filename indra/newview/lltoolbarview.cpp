@@ -573,7 +573,8 @@ void LLToolBarView::draw()
 	{
 		if (mToolbars[i])
 		{
-			LLView::EOrientation orientation = LLToolBarEnums::getOrientation(mToolbars[i]->getSideType());
+			LLLayoutStack::ELayoutOrientation orientation = LLToolBarEnums::getOrientation(mToolbars[i]->getSideType());
+//			LLView::EOrientation orientation = LLToolBarEnums::getOrientation(mToolbars[i]->getSideType());
 
 			if (orientation == LLLayoutStack::HORIZONTAL)
 			{

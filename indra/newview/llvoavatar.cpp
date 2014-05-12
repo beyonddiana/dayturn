@@ -36,7 +36,7 @@
 #include "noise.h"
 #include "sound_ids.h"
 #include "raytrace.h"
-
+#include "lldate.h"
 #include "aoengine.h"			// ## Zi: Animation Overrider
 #include "llagent.h" //  Get state values from here
 #include "llagentcamera.h"

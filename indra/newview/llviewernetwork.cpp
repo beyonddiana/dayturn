@@ -272,12 +272,12 @@ void LLGridManager::initGridList(std::string grid_file, AddState state)
 				grid_entry->set_current = false;
 				grid_entry->grid = grid_itr->second;
 
-				LL_DEBUGS2("InitGridList","GridManager") << "reading: " << key_name << LL_ENDL;
+				LL_DEBUGS("InitGridList","GridManager") << "reading: " << key_name << LL_ENDL;
 
 				try
 				{
 					addGrid(grid_entry, state);
-					LL_DEBUGS2("InitGridList","GridManager")<< "Added grid: " << key_name << LL_ENDL;
+					LL_DEBUGS("InitGridList","GridManager")<< "Added grid: " << key_name << LL_ENDL;
 				}
 				catch (LLInvalidGridName ex)
 				{
@@ -361,7 +361,7 @@ void LLGridManager::initCmdLineGrids()
 	if(grid.empty())
 	{
 		/// no grid was specified so default to maingrid
-		LL_DEBUGS2("initCmdLineGrids","GridManager") << "Setting grid to MAINGRID as no grid has been specified " << LL_ENDL;
+		LL_DEBUGS("initCmdLineGrids","GridManager") << "Setting grid to MAINGRID as no grid has been specified " << LL_ENDL;
 		grid = MAINGRID;
 	}
 /**
@@ -373,12 +373,12 @@ void LLGridManager::initCmdLineGrids()
 	if(mGridList.has(grid))
 	{
  		grid_entry->grid = mGridList[grid];
-		LL_DEBUGS2("initCmdLineGrids","GridManager") << "Setting commandline grid " << grid << LL_ENDL;
+		LL_DEBUGS("initCmdLineGrids","GridManager") << "Setting commandline grid " << grid << LL_ENDL;
 		setGridChoice(grid);
 	}
 	else
 	{
-		LL_DEBUGS2("initCmdLineGrids","GridManager") << "Trying to fetch commandline grid " << grid << LL_ENDL;
+		LL_DEBUGS("initCmdLineGrids","GridManager") << "Trying to fetch commandline grid " << grid << LL_ENDL;
 		grid_entry->set_current = true;
 		grid_entry->grid = LLSD::emptyMap();	
 		grid_entry->grid[GRID_VALUE] = grid;
@@ -1151,13 +1151,13 @@ std::string LLGridManager::getUpdateServiceURL()
 			grid_nick = "aditi";
 		}
 	}
-		LL_INFOS2("UpdaterService","GridManager")
+		LL_INFOS("UpdaterService","GridManager")
 			<< "The grid nick: " << grid_nick
 			<< LL_ENDL;
 	if (  update_url_base.empty() && (grid_nick == "agni" || grid_nick == "aditi")) 
 	{
 		update_url_base = "https://update.secondlife.com/update";
-				LL_INFOS2("UpdaterService","GridManager")
+				LL_INFOS("UpdaterService","GridManager")
 			<< "Update URL base is using SecondLife default: " << update_url_base
 			<< LL_ENDL;
 		return update_url_base;

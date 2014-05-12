@@ -1368,7 +1368,7 @@ void LLAgentWearables::setWearableOutfit(const LLInventoryItem::item_array_t& it
 //	//LLAgentDumper dumper("setWearableItem");
 //	if (isWearingItem(new_item->getUUID()))
 //	{
-		LL_WARNS() << "wearable " << new_item->getUUID() << " is already worn" << LL_ENDL;
+//		LL_WARNS() << "wearable " << new_item->getUUID() << " is already worn" << LL_ENDL;
 //		return;
 //	}
 //	
@@ -1385,7 +1385,7 @@ void LLAgentWearables::setWearableOutfit(const LLInventoryItem::item_array_t& it
 //			if ((old_wearable->getAssetID() == new_wearable->getAssetID()) &&
 //				(old_item_id == new_item->getUUID()))
 //			{
-				LL_DEBUGS() << "No change to wearable asset and item: " << LLWearableType::getTypeName(type) << LL_ENDL;
+//				LL_DEBUGS() << "No change to wearable asset and item: " << LLWearableType::getTypeName(type) << LL_ENDL;
 //				return;
 //			}
 //			
@@ -1728,12 +1728,12 @@ void LLAgentWearables::userAttachMultipleAttachments(LLInventoryModel::item_arra
 	if ( (rlv_handler_t::isEnabled()) && (sInitialAttachmentsRequested) && (gRlvAttachmentLocks.hasLockedAttachmentPoint(RLV_LOCK_ANY)) )
 	{
 		// Fall-back code: everything should really already have been pruned before we get this far
-		for (S32 idxItem = obj_item_array.count() - 1; idxItem >= 0; idxItem--)
+		for (S32 idxItem = obj_item_array.size() - 1; idxItem >= 0; idxItem--)
 		{
-			const LLInventoryItem* pItem = obj_item_array.get(idxItem).get();
+			const LLInventoryItem* pItem = obj_item_array.operator[](idxItem).get();
 			if (!gRlvAttachmentLocks.canAttach(pItem))
 			{
-				obj_item_array.remove(idxItem);
+				obj_item_array.erase(obj_item_array.begin()+(idxItem));
 				RLV_ASSERT(false);
 			}
 		}

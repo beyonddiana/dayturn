@@ -312,13 +312,13 @@ LLSD LLFloaterAbout::getInfo()
 	// TODO: Implement media plugin version query
 	info["QT_WEBKIT_VERSION"] = "4.7.1 (version number hard-coded)";
 
-	if (gPacketsIn > 0)
+/*	if (gPacketsIn > 0)
 	{
 		info["PACKETS_LOST"] = LLViewerStats::getInstance()->mPacketsLostStat.getCurrent();
 		info["PACKETS_IN"] = F32(gPacketsIn);
 		info["PACKETS_PCT"] = 100.f*info["PACKETS_LOST"].asReal() / info["PACKETS_IN"].asReal();
 	}
-
+*/
     return info;
 }
 

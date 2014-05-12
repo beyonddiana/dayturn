@@ -682,13 +682,13 @@ bool FSExport::assetCheck(LLUUID asset_id, std::string& name, std::string& descr
 					LLInventoryModel::INCLUDE_TRASH,
 					asset_id_matches);
 
-	if (items.count())
+	if (items.size())
 	{
 		// use the name of the first match
 		name = items[0]->getName();
 		description = items[0]->getDescription();
 
-		for (S32 i = 0; i < items.count(); ++i)
+		for (S32 i = 0; i < items.size(); ++i)
 		{
 			if (!exportable)
 			{

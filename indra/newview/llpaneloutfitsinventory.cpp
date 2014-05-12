@@ -247,8 +247,9 @@ void LLPanelOutfitsInventory::initListCommandsHandlers()
 void LLPanelOutfitsInventory::updateListCommands()
 {
 	bool trash_enabled = isActionEnabled("delete");
-	bool wear_enabled = !isCOFPanelActive() && isActionEnabled("wear");
-	bool save_enabled = isActionEnabled("save_outfit");
+	bool wear_enabled =  isActionEnabled("wear");
+	bool wear_visible = !isCOFPanelActive();
+	bool make_outfit_enabled = isActionEnabled("save_outfit");
 
 	LLButton* wear_btn = mListCommands->getChild<LLButton>("wear_btn");
 	mMyOutfitsPanel->childSetEnabled("trash_btn", trash_enabled);
