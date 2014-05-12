@@ -2356,7 +2356,7 @@ void LLPanelObject::onCopyParams(const LLSD& data)
 									LLInventoryModel::INCLUDE_TRASH,
 									asset_id_matches);
 
-			if (items.count())
+			if (items.size())
 			{
 				// search for copyable version first
 				for (S32 i = 0; i < items.size(); i++)

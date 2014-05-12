@@ -355,7 +355,7 @@ void LLGridManager::initCmdLineGrids()
 		// in via the login uri if that's specified, or will default to maingrid
 */
 		grid = gSavedSettings.getString("CurrentGrid");
-		LL_DEBUGS2("initCmdLineGrids","GridManager") << "Setting grid from last selection " << grid << LL_ENDL;
+		LL_DEBUGS("initCmdLineGrids","GridManager") << "Setting grid from last selection " << grid << LL_ENDL;
 	}
 
 	if(grid.empty())
@@ -1125,7 +1125,7 @@ std::string LLGridManager::getLoginPage()
 std::string LLGridManager::getUpdateServiceURL()
 {
 	std::string update_url_base = gSavedSettings.getString("CmdLineUpdateService");
-		LL_INFOS2("UpdaterService","GridManager")
+		LL_INFOS("UpdaterService","GridManager")
 			<< "Update URL base overridden from command line: " << update_url_base
 			<< LL_ENDL;
 	std::string last_known_grid = gSavedSettings.getString("CurrentGrid");

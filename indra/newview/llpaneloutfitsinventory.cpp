@@ -250,7 +250,7 @@ void LLPanelOutfitsInventory::updateListCommands()
 	bool wear_enabled =  isActionEnabled("wear");
 	bool wear_visible = !isCOFPanelActive();
 	bool make_outfit_enabled = isActionEnabled("save_outfit");
-
+	if ( make_outfit_enabled) {} //empty it to bypass warning local variable is initialized but not referenced
 	LLButton* wear_btn = mListCommands->getChild<LLButton>("wear_btn");
 	mMyOutfitsPanel->childSetEnabled("trash_btn", trash_enabled);
 	wear_btn->setEnabled(wear_enabled);

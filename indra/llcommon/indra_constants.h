@@ -328,7 +328,9 @@ const U32 AGENT_CONTROL_MBUTTON_UP			= 0x3 << CONTROL_LBUTTON_UP_INDEX;		// 0x20
 // (for now)
 const U32 AGENT_ATTACH_OFFSET				= 4;
 const U32 AGENT_ATTACH_MASK					= 0xf << AGENT_ATTACH_OFFSET;
-
+// For linked sets
+const S32 MAX_CHILDREN_PER_TASK = 255;
+const S32 MAX_CHILDREN_PER_PHYSICAL_TASK = 32;
 // RN: this method swaps the upper and lower nibbles to maintain backward 
 // compatibility with old objects that only used the upper nibble
 #define ATTACHMENT_ID_FROM_STATE(state) ((S32)((((U8)state & AGENT_ATTACH_MASK) >> 4) | (((U8)state & ~AGENT_ATTACH_MASK) << 4)))

@@ -36,6 +36,7 @@
 #include "llpermissionsflags.h"
 #include "llviewerinventory.h"			// for LLViewerInventoryItem
 #include "v3dmath.h"
+#include "llviewerregion.h"
 
 #include <boost/function.hpp>
 #include <boost/shared_ptr.hpp>
