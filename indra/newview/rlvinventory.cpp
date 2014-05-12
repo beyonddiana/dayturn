@@ -107,8 +107,8 @@ void RlvInventory::fetchSharedInventory()
 	// Add them to the "to fetch" list
 	uuid_vec_t idFolders;
 	idFolders.push_back(pRlvRoot->getUUID());
-	for (S32 idxFolder = 0, cntFolder = folders.count(); idxFolder < cntFolder; idxFolder++)
-		idFolders.push_back(folders.get(idxFolder)->getUUID());
+	for (S32 idxFolder = 0, cntFolder = folders.size(); idxFolder < cntFolder; idxFolder++)
+		idFolders.push_back(folders.operator[](idxFolder)->getUUID());
 
 	// Now fetch them all in one go
 	RlvSharedInventoryFetcher* pFetcher = new RlvSharedInventoryFetcher(idFolders);
@@ -137,9 +137,9 @@ void RlvInventory::fetchSharedLinks()
 
 	// Add them to the "to fetch" list based on link type
 	uuid_vec_t idFolders, idItems;
-	for (S32 idxItem = 0, cntItem = items.count(); idxItem < cntItem; idxItem++)
+	for (S32 idxItem = 0, cntItem = items.size(); idxItem < cntItem; idxItem++)
 	{
-		const LLViewerInventoryItem* pItem = items.get(idxItem);
+		const LLViewerInventoryItem* pItem = items.operator[](idxItem);
 		switch (pItem->getActualType())
 		{
 			case LLAssetType::AT_LINK:
@@ -214,7 +214,7 @@ bool RlvInventory::findSharedFolders(const std::string& strCriteria, LLInventory
 	RlvCriteriaCategoryCollector f(strCriteria);
 	gInventory.collectDescendentsIf(pRlvRoot->getUUID(), folders, items, FALSE, f);
 
-	return (folders.count() != 0);
+	return (folders.size() != 0);
 }
 
 // Checked: 2010-08-30 (RLVa-1.2.1c) | Modified: RLVa-1.2.1c
@@ -239,7 +239,7 @@ bool RlvInventory::getPath(const uuid_vec_t& idItems, LLInventoryModel::cat_arra
 		}
 	}
 
-	return (folders.count() != 0);
+	return (folders.size() != 0);
 }
 
 // Checked: 2011-10-06 (RLVa-1.4.2a) | Modified: RLVa-1.4.2a
@@ -425,9 +425,9 @@ void RlvRenameOnWearObserver::doneIdle()
 			continue;
 		}
 
-		for (S32 idxItem = 0, cntItem = items.count(); idxItem < cntItem; idxItem++)
+		for (S32 idxItem = 0, cntItem = items.size(); idxItem < cntItem; idxItem++)
 		{
-			LLViewerInventoryItem* pItem = items.get(idxItem);
+			LLViewerInventoryItem* pItem = items.operator[](idxItem);
 			if (!pItem)
 				continue;
 

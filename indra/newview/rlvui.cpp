@@ -555,12 +555,12 @@ bool RlvUIEnabler::canViewParcelProperties()
 			const LLUUID& idOwner = pParcel->getOwnerID();
 			if ( (idOwner != gAgent.getID()) )
 			{
-				S32 count = gAgent.mGroups.count();
+				S32 count = gAgent.mGroups.size();
 				for (S32 i = 0; i < count; ++i)
 				{
-					if (gAgent.mGroups.get(i).mID == idOwner)
+					if (gAgent.mGroups.operator[](i).mID == idOwner)
 					{
-						fShow = ((gAgent.mGroups.get(i).mPowers & GP_LAND_RETURN) > 0);
+						fShow = ((gAgent.mGroups.operator[](i).mPowers & GP_LAND_RETURN) > 0);
 						break;
 					}
 				}
