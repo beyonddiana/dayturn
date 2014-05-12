@@ -30,7 +30,7 @@
 
 // Common
 #include "llavatarconstants.h" //AVATAR_ONLINE
-#include "llavatarnamecache.h"
+//#include "llavatarnamecache.h"
 #include "llslurl.h"
 #include "lldateutil.h" //ageFromDate
 

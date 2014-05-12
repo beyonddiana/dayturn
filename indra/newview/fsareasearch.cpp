@@ -817,7 +817,7 @@ void FSAreaSearch::getNameFromUUID(LLUUID &id, std::string &name, const BOOL is_
 		if (std::find(mNamesRequested.begin(), mNamesRequested.end(), id) == mNamesRequested.end()) {
 			mNamesRequested.push_back(id);
 
-			gCacheName->get(id, is_group, boost::bind(&FSAreaSearch::callbackLoadFullName, this, _1, _2));
+			gCacheName->operator[](id, is_group, boost::bind(&FSAreaSearch::callbackLoadFullName, this, _1, _2));
 		}
 
 		name_requested = true;

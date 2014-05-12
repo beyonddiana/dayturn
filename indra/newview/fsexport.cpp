@@ -30,7 +30,7 @@
 #include "fsexport.h"
 
 #include "llagent.h"
-#include "llagentconstants.h"
+////#include "llagentconstants.h"
 #include "llagentdata.h"
 #include "llappviewer.h"
 #include "llavatarnamecache.h"

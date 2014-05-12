@@ -584,7 +584,7 @@ bool LLUpdaterServiceImpl::onMainLoop(LLSD const & event)
 			{
 				mCheckPeriod = 3600;//set back to default
 			}
-			LL_DEBUGS2("UpdaterService","onMainlood")
+			LL_DEBUGS("UpdaterService","onMainlood")
 				<< "The grid nick: " << grid_nickname
 				<< LL_ENDL;
 			if ( !query_url.empty() )

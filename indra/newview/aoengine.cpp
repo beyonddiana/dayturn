@@ -669,12 +669,12 @@ BOOL AOEngine::createAnimationLink(const AOSet* set,AOSet::AOState* state,const 
 		LLInventoryModel::cat_array_t* cats;
 		gInventory.getDirectDescendentsOf(set->getInventoryUUID(),cats,items);
 
-		for(S32 index=0;index<cats->count();index++)
+		for(S32 index=0;index<cats->size();index++)
 		{
-			if(cats->get(index)->getName().compare(state->mName)==0)
+			if(cats->operator[](index)->getName().compare(state->mName)==0)
 			{
 				lldebugs << "UUID found!" << llendl;
-				newStateFolderUUID=cats->get(index)->getUUID();
+				newStateFolderUUID=cats->operator[](index)->getUUID();
 				state->mInventoryUUID=newStateFolderUUID;
 				break;
 			}
@@ -726,10 +726,10 @@ BOOL AOEngine::findForeignItems(const LLUUID& uuid) const
 	LLInventoryModel::cat_array_t* cats;
 
 	gInventory.getDirectDescendentsOf(uuid,cats,items);
-	for(S32 index=0;index<cats->count();index++)
+	for(S32 index=0;index<cats->size();index++)
 	{
 		// recurse into subfolders
-		if(findForeignItems(cats->get(index)->getUUID()))
+		if(findForeignItems(cats->operator[](index)->getUUID()))
 		{
 			moved=TRUE;
 		}
@@ -738,11 +738,11 @@ BOOL AOEngine::findForeignItems(const LLUUID& uuid) const
 	// count backwards in case we have to remove items
 	BOOL wasProtected=gSavedPerAccountSettings.getBOOL("ProtectAOFolders");
 	gSavedPerAccountSettings.setBOOL("ProtectAOFolders",FALSE);
-	for(S32 index=items->count()-1;index>=0;index--)
+	for(S32 index=items->size()-1;index>=0;index--)
 	{
 		BOOL move=FALSE;
 
-		LLPointer<LLViewerInventoryItem> item=items->get(index);
+		LLPointer<LLViewerInventoryItem> item=items->operator[](index);
 		if(item->getIsLinkType())
 		{
 			if(item->getInventoryType()!=LLInventoryType::IT_ANIMATION)
@@ -854,17 +854,17 @@ BOOL AOEngine::removeAnimation(const AOSet* set,AOSet::AOState* state,S32 index)
 		LLInventoryModel::cat_array_t* cats;
 		gInventory.getDirectDescendentsOf(set->getInventoryUUID(),cats,items);
 
-		for(S32 index=0;index<cats->count();index++)
+		for(S32 index=0;index<cats->size();index++)
 		{
 			std::vector<std::string> params;
-			LLStringUtil::getTokens(cats->get(index)->getName(),params,":");
+			LLStringUtil::getTokens(cats->operator[](index)->getName(),params,":");
 			std::string stateName=params[0];
 
 			if(state->mName.compare(stateName)==0)
 			{
-				lldebugs << "folder found: " << cats->get(index)->getName() << " purging uuid " << cats->get(index)->getUUID() << llendl;
+				lldebugs << "folder found: " << cats->operator[](index)->getName() << " purging uuid " << cats->operator[](index)->getUUID() << llendl;
 
-				purgeFolder(cats->get(index)->getUUID());
+				purgeFolder(cats->operator[](index)->getUUID());
 				state->mInventoryUUID.setNull();
 				break;
 			}
@@ -914,25 +914,25 @@ void AOEngine::reloadStateAnimations(AOSet::AOState* state)
 	state->mAnimations.clear();
 
 	gInventory.getDirectDescendentsOf(state->mInventoryUUID,dummy,items);
-	for(S32 num=0;num<items->count();num++)
+	for(S32 num=0;num<items->size();num++)
 	{
-		lldebugs	<< "Found animation link " << items->get(num)->LLInventoryItem::getName()
-					<< " desc " << items->get(num)->LLInventoryItem::getDescription()
-					<< " asset " << items->get(num)->getAssetUUID() << llendl;
+		lldebugs	<< "Found animation link " << items->operator[](num)->LLInventoryItem::getName()
+					<< " desc " << items->operator[](num)->LLInventoryItem::getDescription()
+					<< " asset " << items->operator[](num)->getAssetUUID() << llendl;
 
 		AOSet::AOAnimation anim;
-		anim.mAssetUUID=items->get(num)->getAssetUUID();
-		LLViewerInventoryItem* linkedItem=items->get(num)->getLinkedItem();
+		anim.mAssetUUID=items->operator[](num)->getAssetUUID();
+		LLViewerInventoryItem* linkedItem=items->operator[](num)->getLinkedItem();
 		if(linkedItem==0)
 		{
-			llwarns << "linked item for link " << items->get(num)->LLInventoryItem::getName() << " not found (broken link). Skipping." << llendl;
+			llwarns << "linked item for link " << items->operator[](num)->LLInventoryItem::getName() << " not found (broken link). Skipping." << llendl;
 			continue;
 		}
 		anim.mName=linkedItem->LLInventoryItem::getName();
-		anim.mInventoryUUID=items->get(num)->getUUID();
+		anim.mInventoryUUID=items->operator[](num)->getUUID();
 
 		S32 sortOrder;
-		if(!LLStringUtil::convertToS32(items->get(num)->LLInventoryItem::getDescription(),sortOrder))
+		if(!LLStringUtil::convertToS32(items->operator[](num)->LLInventoryItem::getDescription(),sortOrder))
 			sortOrder=-1;
 		anim.mSortOrder=sortOrder;
 
@@ -986,9 +986,9 @@ void AOEngine::update()
 	mTimerCollection.enableSettingsTimer(FALSE);
 
 	gInventory.getDirectDescendentsOf(mAOFolder,categories,items);
-	for(S32 index=0;index<categories->count();index++)
+	for(S32 index=0;index<categories->size();index++)
 	{
-		LLViewerInventoryCategory* currentCategory=categories->get(index);
+		LLViewerInventoryCategory* currentCategory=categories->operator[](index);
 		const std::string& setFolderName=currentCategory->getName();
 		std::vector<std::string> params;
 		LLStringUtil::getTokens(setFolderName,params,":");
@@ -1039,10 +1039,10 @@ void AOEngine::update()
 			gInventory.getDirectDescendentsOf(currentCategory->getUUID(),stateCategories,items);
 			newSet->setComplete(TRUE);
 
-			for(S32 index=0;index<stateCategories->count();index++)
+			for(S32 index=0;index<stateCategories->size();index++)
 			{
 				std::vector<std::string> params;
-				LLStringUtil::getTokens(stateCategories->get(index)->getName(),params,":");
+				LLStringUtil::getTokens(stateCategories->operator[](index)->getName(),params,":");
 				std::string stateName=params[0];
 
 				AOSet::AOState* state=newSet->getStateByName(stateName);
@@ -1053,7 +1053,7 @@ void AOEngine::update()
 				}
 				lldebugs << "Reading state " << stateName << llendl;
 
-				state->mInventoryUUID=stateCategories->get(index)->getUUID();
+				state->mInventoryUUID=stateCategories->operator[](index)->getUUID();
 				for(U32 num=1;num<params.size();num++)
 				{
 					if(params[num]=="CY")
@@ -1424,14 +1424,14 @@ void AOEngine::tick()
 		LLInventoryModel::cat_array_t* categories;
 		LLInventoryModel::item_array_t* items;
 		gInventory.getDirectDescendentsOf(categoryID,categories,items);
-		lldebugs << "cat " << categories->count() << " items " << items->count() << llendl;
+		lldebugs << "cat " << categories->size() << " items " << items->size() << llendl;
 
-		for(S32 index=0;index<categories->count();index++)
+		for(S32 index=0;index<categories->size();index++)
 		{
-			const std::string& catName=categories->get(index)->getName();
+			const std::string& catName=categories->operator[](index)->getName();
 			if(catName.compare(ROOT_AO_FOLDER)==0)
 			{
-				mAOFolder=categories->get(index)->getUUID();
+				mAOFolder=categories->operator[](index)->getUUID();
 				break;
 			}
 		}
@@ -1579,9 +1579,9 @@ void AOEngine::parseNotecard(const char* buffer)
 	gInventory.getDirectDescendentsOf(mImportSet->getInventoryUUID(),dummy,items);
 	for(U32 index=0;index<items->size();index++)
 	{
-		animationMap[items->get(index)->getName()]=items->get(index)->getUUID();
-		lldebugs	<<	"animation " << items->get(index)->getName() <<
-						" has inventory UUID " << animationMap[items->get(index)->getName()] << llendl;
+		animationMap[items->operator[](index)->getName()]=items->operator[](index)->getUUID();
+		lldebugs	<<	"animation " << items->operator[](index)->getName() <<
+						" has inventory UUID " << animationMap[items->operator[](index)->getName()] << llendl;
 	}
 
 	// [ State ]Anim1|Anim2|Anim3

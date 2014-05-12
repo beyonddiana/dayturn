@@ -171,7 +171,8 @@ public:
 	bool hasString(const std::string& name);
 	std::string getString(const std::string& name, const LLStringUtil::format_map_t& args) const;
 	std::string getString(const std::string& name) const;
-
+	// LLTextBox/LLTextEditor/LLLineEditor
+	void childSetText(const std::string& id, const LLStringExplicit& text) { childSetValue(id, LLSD(text)); }
 	// ** Wrappers for setting child properties by name ** -TomY
 	// WARNING: These are deprecated, please use getChild<T>("name")->doStuff() idiom instead
 

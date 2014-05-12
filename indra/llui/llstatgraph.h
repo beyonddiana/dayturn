@@ -41,8 +41,6 @@ public:
 	{
 		Mandatory<F32>	value;
 		Optional<LLUIColor>	color;
-	{
-		Optional<F32>		value;
 		Optional<F32>		value_min;
 		Optional<F32>		value_max;
 		Optional<S32>		precision;

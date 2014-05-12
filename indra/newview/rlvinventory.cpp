@@ -253,9 +253,9 @@ const LLUUID& RlvInventory::getSharedRootID() const
 		{
 			// NOTE: we might have multiple #RLV folders (pick the first one with sub-folders; otherwise the last one with no sub-folders)
 			const LLViewerInventoryCategory* pFolder;
-			for (S32 idxFolder = 0, cntFolder = pFolders->count(); idxFolder < cntFolder; idxFolder++)
+			for (S32 idxFolder = 0, cntFolder = pFolders->size(); idxFolder < cntFolder; idxFolder++)
 			{
-				if ( ((pFolder = pFolders->get(idxFolder)) != NULL) && (cstrSharedRoot == pFolder->getName()) )
+				if ( ((pFolder = pFolders->operator[](idxFolder)) != NULL) && (cstrSharedRoot == pFolder->getName()) )
 				{
 					m_idRlvRoot = pFolder->getUUID();
 					if (getDirectDescendentsFolderCount(pFolder) > 0)
@@ -283,9 +283,9 @@ LLViewerInventoryCategory* RlvInventory::getSharedFolder(const LLUUID& idParent,
 	//LLStringUtil::toLower(strFolderName); <- everything was already converted to lower case before
 
 	std::string strName;
-	for (S32 idxFolder = 0, cntFolder = pFolders->count(); idxFolder < cntFolder; idxFolder++)
+	for (S32 idxFolder = 0, cntFolder = pFolders->size(); idxFolder < cntFolder; idxFolder++)
 	{
-		LLViewerInventoryCategory* pFolder = pFolders->get(idxFolder);
+		LLViewerInventoryCategory* pFolder = pFolders->operator[](idxFolder);
 
 		strName = pFolder->getName();
 		if (strName.empty())
@@ -371,8 +371,8 @@ S32 RlvInventory::getDirectDescendentsItemCount(const LLInventoryCategory* pFold
 
 		if (pItems)
 		{
-			for (S32 idxItem = 0, cntItem = pItems->count(); idxItem < cntItem; idxItem++)
-				if (pItems->get(idxItem)->getType() == filterType)
+			for (S32 idxItem = 0, cntItem = pItems->size(); idxItem < cntItem; idxItem++)
+				if (pItems->operator[](idxItem)->getType() == filterType)
 					cntType++;
 		}
 	}

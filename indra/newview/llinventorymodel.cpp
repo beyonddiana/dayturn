@@ -520,12 +520,12 @@ LLUUID LLInventoryModel::findCategoryByName(std::string name)
 		cats = get_ptr_in_map(mParentChildCategoryTree, root_id);
 		if(cats)
 		{
-			S32 count = cats->count();
+			S32 count = cats->size();
 			for(S32 i = 0; i < count; ++i)
 			{
-				if(cats->get(i)->getName() == name)
+				if(cats->operator[](i)->getName() == name)
 				{
-					return cats->get(i)->getUUID();
+					return cats->operator[](i)->getUUID();
 				}
 			}
 		}
@@ -737,10 +737,10 @@ void LLInventoryModel::collectDescendentsIf(const LLUUID& id,
 	// Move onto items
 	if(item_array)
 	{
-		S32 count = item_array->count();
+		S32 count = item_array->size();
 		for(S32 i = 0; i < count; ++i)
 		{
-			item = item_array->get(i);
+			item = item_array->operator[](i);
 			if(add(NULL, item))
 			{
 				items.put(item);
@@ -1025,7 +1025,7 @@ U32 LLInventoryModel::updateItem(const LLViewerInventoryItem* item)
 			else
 			{
 				// Fetch the current name
-				gCacheName->get(id, FALSE,
+				gCacheName->operator[](id, FALSE,
 					boost::bind(&LLViewerInventoryItem::onCallingCardNameLookup, new_item.get(),
 					_1, _2, _3));
 			}
