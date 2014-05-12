@@ -2973,7 +2973,7 @@ void LLVOAvatar::idleUpdateNameTagText(BOOL new_name)
 			//	check whether the birthday is available or if
 			//	it needs to be requested from the server
 			//
-			if (mAvatarBirthdate != 0.0f) {
+			if (mAvatarBirthdate != (LLDate)0.0f) {
 				//
 				//	check if the avatar's age is young
 				//	enough to be shown.  A zero age limit
