@@ -32,6 +32,7 @@
 #include "llstreamingaudio.h"
 #include "lltimer.h"
 
+#include "llsd.h"
 //Stubs
 class LLAudioStreamManagerFMODEX;
 namespace FMOD
