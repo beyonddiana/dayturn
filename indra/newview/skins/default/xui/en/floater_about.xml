@@ -46,7 +46,7 @@
     </panel>
     <panel
       border="true" 
-      label="Credits" 
+      label="Linden Credits" 
       help_topic="about_credits_tab"
       name="credits_panel">
       <text
@@ -123,6 +123,147 @@ and translations from:
        width="435"
        word_wrap="true">
 Dummy Name replaced at run time
+      </text_editor>
+    </panel>
+    <panel
+      border="true"
+      label="Kokua Credits"
+      help_topic="about_kokua_credits_tab"
+      name="kokua_credits_panel">
+      <text
+          follows="top|left|right"
+          height="65"
+          layout="topleft"
+          left="5"
+          name="kokua_intro"
+          top="10"
+          width="435"
+          wrap="true">
+Kokua is an open source viewer for Second Life and OpenSim-based virtual worlds.  The goal of Kokua is to improve the user interface and usability of the viewer through community involvement, thoughtful design, modern development methods, and a pro-change atmosphere. 
+
+The Kokua Development Team:
+      </text>
+      <text_editor
+       enabled="false"
+       follows="top|left"
+       height="35"
+       bg_readonly_color="Transparent"
+       left="5"
+       text_color="LtGray"
+       max_length="65536"
+       name="kokua_names"
+       top_pad="15"
+       width="435"
+       word_wrap="true">
+Boroondas Gupta, Kentron Katana, McCabe Maxstead, Nicky Perian, Onefang Rejected.
+      </text_editor>
+      <text
+          follows="top|left"
+          height="10"
+          layout="topleft"
+          left="5"
+          name="kokua_retired_intro"
+          top_pad="10"
+          width="435"
+          wrap="true">
+Retired or inactive team members who contributed to Kokua:
+      </text>
+      <text_editor
+       enabled="false"
+       follows="top|left"
+       height="45"
+       bg_readonly_color="Transparent"
+       left="5"
+       text_color="LtGray"
+       max_length="65536"
+       name="kokua_retired_names"
+       top_pad="10"
+       width="435"
+       word_wrap="true">
+Armin Weatherwax, Jacek Antonelli, and others.
+      </text_editor>
+      <text
+          follows="top|left"
+          height="10"
+          layout="topleft"
+          left="5"
+          name="kokua_contrib_intro"
+          top_pad="10"
+          width="435"
+          wrap="true">
+Additional code contributed to Kokua by:
+      </text>
+      <text_editor
+       enabled="false"
+       follows="top|left"
+       height="45"
+       bg_readonly_color="Transparent"
+       left="5"
+       text_color="LtGray"
+       max_length="65536"
+       name="kokua_contrib_names"
+       top_pad="10"
+       width="435"
+       word_wrap="true">
+Cinder Roxley, David Rowe, Jessica Wabbit,  Kadah Coba, Kitty Barnett, Latif Khalifa, Liny Odell, Llirusaito, Marine Kelley, Nicky Dasmijn, Tankmaster Finesmith, Trinity Dejavu, tx Oh, and others.
+      </text_editor>
+    </panel>
+    <panel
+      border="true"
+      label="Firestorm Credits"
+      help_topic="about_fscredits_tab"
+      name="fs_credits_panel">
+      <text
+          follows="top|left|right"
+          height="80"
+          layout="topleft"
+          left="5"
+          name="firestorm_intro"
+          top="10"
+          width="435"
+          wrap="true">
+Kokua uses code from Firestorm and recognizes significant contributions by Firestorm and its developers to all Third Party Viewers and specifically to Kokua. Firestorm is developed and distributed by The Phoenix Firestorm Project, Inc., a non-profit organization.
+
+The Firestorm Development Team:
+      </text>
+      <text_editor
+       enabled="false"
+       follows="top|left"
+       height="80"
+       bg_readonly_color="Transparent"
+       left="5"
+       text_color="LtGray"
+       max_length="65536"
+       name="firestorm_names"
+       top_pad="10"
+       width="435"
+       word_wrap="true">
+Ansariel Hiller, ArminWeatherHax, Arrehn Oberlander, Cinder Roxley, Holy Gavenkrantz, Jessica Lyon, Kadah Coba, Kitty Barnett, Liny Odell, LordGregGreg Back, Mobius Ryba, Nicky Dasmijn, PanteraPolnocy, Selo Jacobus, Tankmaster Finesmith, Techwolf Lupindo, Tonya Souther, Tozh Taurog, Vortex Saito, WoLf Loonie, Wolfspirit Magic and Zi Ree.
+      </text_editor>
+      <text
+          follows="top|left"
+          height="10"
+          layout="topleft"
+          left="5"
+          name="fs_contrib_intro"
+          top_pad="10"
+          width="435"
+          wrap="true">
+Additional code generously contributed to Firestorm by:
+      </text>
+      <text_editor
+       enabled="false"
+       follows="top|left"
+       height="125"
+       bg_readonly_color="Transparent"
+       left="5"
+       text_color="LtGray"
+       max_length="65536"
+       name="fs_contrib_names"
+       top_pad="10"
+       width="435"
+       word_wrap="true">
+Albatroz Hird, Alexie Birman, Andromeda Rage, Armin Weatherwax, Casper Warden, Chalice Yao, Cron Stardust, Damian Zhaoying, Dawa Gurbux, Felyza Wishbringer, f0rbidden, Fractured Crystal, Geenz Spad, Hitomi Tiponi, Katharine Berry, Kittin Ninetails, Kool Koolhoven, Lance Corrimal, Magne Metaverse LLC, Magus Freston, MartinRJ Fayray, Melancholy Lemon, Miguael Liamano, Mimika Oh, Mister Acacia, Mysty Saunders, Nagi Michinaga, Name Short, nhede Core, NiranV Dean, Nogardrevlis Lectar, paperwork, Peyton Menges, programmtest, Qwerty Venom, Revolution Smythe, Sahkolihaa Contepomi, sal Kaligawa, Satomi Ahn, Sei Lisa, Shin Wasp, Shyotl Kuhr, Sione Lomu, Skills Hak, Sunset Faulkes, Thickbrick Sleaford, Vaalith Jinn, Whirly Fizzle, Zwagoth Klaar and others.
       </text_editor>
     </panel>
     <panel

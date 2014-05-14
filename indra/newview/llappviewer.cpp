@@ -3359,6 +3359,9 @@ LLSD LLAppViewer::getViewerInfo() const
 #if LL_MSVC
 	info["COMPILER"] = "MSVC";
 	info["COMPILER_VERSION"] = _MSC_VER;
+#elif LL_CLANG
+	info["COMPILER"] = "Clang";
+	info["COMPILER_VERSION"] = CLANG_VERSION_STRING;
 #elif LL_GNUC
 	info["COMPILER"] = "GCC";
 	info["COMPILER_VERSION"] = GCC_VERSION;
@@ -3370,6 +3373,9 @@ LLSD LLAppViewer::getViewerInfo() const
 	{
 		LLVector3d pos = gAgent.getPositionGlobal();
 		info["POSITION"] = ll_sd_from_vector3d(pos);
+		const LLVector3d& coords(region->getOriginGlobal());
+		std::string region_text = llformat("In region %s at (%.0f, %.0f) ", region->getName().c_str(), coords.mdV[VX]/REGION_WIDTH_METERS, coords.mdV[VY]/REGION_WIDTH_METERS);		
+		info["POSITION_DECIMAL"] = region_text;
 		info["POSITION_LOCAL"] = ll_sd_from_vector3(gAgent.getPosAgentFromGlobal(pos));
 		info["REGION"] = gAgent.getRegion()->getName();
 		info["HOSTNAME"] = gAgent.getRegion()->getHost().getHostName();
@@ -3395,7 +3401,9 @@ LLSD LLAppViewer::getViewerInfo() const
 		info["GRAPHICS_DRIVER_VERSION"] = driver_info["DriverVersion"];
 	}
 #endif
-
+// [RLVa:KB] - Checked: 2010-04-18 (RLVa-1.4.0a) | Added: RLVa-1.2.0e
+	info["RLV_VERSION"] = (rlv_handler_t::isEnabled()) ? RlvStrings::getVersionAbout() : "(disabled)";
+// [/RLVa:KB]
 	info["OPENGL_VERSION"] = (const char*)(glGetString(GL_VERSION));
 	info["LIBCURL_VERSION"] = LLCurl::getVersionString();
 	info["J2C_VERSION"] = LLImageJ2C::getEngineInfo();
@@ -3485,6 +3493,16 @@ std::string LLAppViewer::getViewerInfoString() const
 	support << LLTrans::getString("AboutHeader", args);
 	if (info.has("REGION"))
 	{
+		std::string grid = LLGridManager::getInstance()->getGridLabel();
+		LLStringUtil::replaceChar(grid, ' ', '_');
+
+		std::string group = gSavedSettings.getString("SupportGroupSLURL_" + grid);
+
+		if (!group.empty()) {
+			args["SUPPORT_GROUP_SLURL"] = group;
+			args["GRID_NAME"] = LLGridManager::getInstance()->getGridLabel();
+			support << "\n\n" << LLTrans::getString("SupportGroup", args);
+		}
 		support << "\n\n" << LLTrans::getString("AboutPosition", args);
 	}
 	support << "\n\n" << LLTrans::getString("AboutSystem", args);

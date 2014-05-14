@@ -25,11 +25,13 @@
 [APP_NAME] [VIEWER_VERSION_0].[VIEWER_VERSION_1].[VIEWER_VERSION_2] ([VIEWER_VERSION_3]) [BUILD_DATE] [BUILD_TIME] ([CHANNEL])
 [[VIEWER_RELEASE_NOTES_URL] [ReleaseNotes]]
 	</string>
+	<string name = "SupportGroup">[APP_NAME] support group on [GRID_NAME]: [SUPPORT_GROUP_SLURL]</string>
 	<string name="AboutCompiler">Built with [COMPILER] version [COMPILER_VERSION]</string>
 	<string name="AboutPosition">
 You are at [POSITION_LOCAL_0,number,1], [POSITION_LOCAL_1,number,1], [POSITION_LOCAL_2,number,1] in [REGION] located at &lt;nolink&gt;[HOSTNAME]&lt;/nolink&gt; ([HOSTIP])
 SLURL: &lt;nolink&gt;[SLURL]&lt;/nolink&gt;
 (global coordinates [POSITION_0,number,1], [POSITION_1,number,1], [POSITION_2,number,1])
+[POSITION_DECIMAL]
 [SERVER_VERSION]
 [SERVER_RELEASE_NOTES_URL]
 	</string>
@@ -47,6 +49,7 @@ Graphics Card: [GRAPHICS_CARD]
 	<string name="AboutLibs">
 OpenGL Version: [OPENGL_VERSION]
 
+RestrainedLove API: [RLV_VERSION]
 libcurl Version: [LIBCURL_VERSION]
 J2C Decoder Version: [J2C_VERSION]
 Audio Driver Version: [AUDIO_DRIVER_VERSION]
