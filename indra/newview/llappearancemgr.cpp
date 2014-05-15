@@ -2369,7 +2369,7 @@ void LLAppearanceMgr::updateAppearanceFromCOF(bool update_base_outfit_ordering)
 		LLAgentWearables::userUpdateAttachments(obj_items, !gAgentAvatarp->isFullyLoaded());
 	}
 // [/SL:KB]
-
+    if (!wear_items.size())
 	{
 		LLNotificationsUtil::add("CouldNotPutOnOutfit");
 		return;
