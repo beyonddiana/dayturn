@@ -2150,6 +2150,8 @@ void LLAppearanceMgr::updateAgentWearables(LLWearableHoldingPattern* holder, boo
 							itemsNew.push_back(item);
 					}
 // [/RLVa:KB]
+					items.push_back(item);
+					wearables.push_back(wearable);
 				}
 			}
 		}
@@ -2172,6 +2174,7 @@ void LLAppearanceMgr::updateAgentWearables(LLWearableHoldingPattern* holder, boo
 	}
 // [/RLVa:KB]
 
+	if (wearables.size() > 0)
 	{
 		gAgentWearables.setWearableOutfit(items, wearables, !append);
 	}
