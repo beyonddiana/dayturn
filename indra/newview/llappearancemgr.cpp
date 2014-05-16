@@ -2139,6 +2139,8 @@ void LLAppearanceMgr::updateAgentWearables(LLWearableHoldingPattern* holder, boo
 					}
 #endif // RLV_DEBUG
 // [/RLVa:KB]
+					items.push_back(item);
+					wearables.push_back(wearable);
 // [RLVa:KB] - Checked: 2011-03-31 (RLVa-1.3.0f) | Added: RLVa-1.3.0f
 					if ( (rlv_handler_t::isEnabled()) && (gAgentWearables.areInitalWearablesLoaded()) )
 					{
@@ -2150,8 +2152,6 @@ void LLAppearanceMgr::updateAgentWearables(LLWearableHoldingPattern* holder, boo
 							itemsNew.push_back(item);
 					}
 // [/RLVa:KB]
-					items.push_back(item);
-					wearables.push_back(wearable);
 				}
 			}
 		}
