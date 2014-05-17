@@ -40,6 +40,7 @@ class LLTextEditor;
 class LLUICtrl;
 class LLUUID;
 class LLFrameTimer;
+class LLLayoutPanel;
 class LLStatGraph;
 class LLPanelVolumePulldown;
 class LLPanelNearByMedia;
@@ -91,6 +92,7 @@ private:
 
 	void onMouseEnterVolume();
 	void onMouseEnterNearbyMedia();
+	void onClickStatistics();
 	void onClickScreen(S32 x, S32 y);
 
 	static void onClickMediaToggle(void* data);
@@ -98,17 +100,24 @@ private:
 
 private:
 	LLTextBox	*mTextTime;
+	LLTextBox	*mFPSText;
 
-	LLStatGraph *mSGBandwidth;
-	LLStatGraph *mSGPacketLoss;
+	LLLayoutPanel	*mPurchasePanel;
+	LLLayoutPanel	*mDrawDistancePanel;
+	LLLayoutPanel	*mStatisticsPanel;
+	LLLayoutPanel	*mFPSPanel;
 
-	LLView		*mBtnStats;
+	LLStatGraph	*mSGBandwidth;
+	LLStatGraph	*mSGPacketLoss;
 	LLButton	*mBtnVolume;
 	LLTextBox	*mBoxBalance;
 	LLButton	*mMediaToggle;
+	LLButton	*mBandwidthButton;
 	LLView		*mScriptOut;
+	LLFrameTimer	mFPSUpdateTimer;
 	LLFrameTimer	mClockUpdateTimer;
 
+	bool				mInMouselookMode;
 	S32				mBalance;
 	S32				mHealth;
 	S32				mSquareMetersCredit;
