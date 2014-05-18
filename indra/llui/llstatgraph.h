@@ -64,7 +64,12 @@ public:
 
 	struct Params : public LLInitParam::Block<Params, LLView::Params>
 	{
-		Mandatory<StatParams>	stat;
+		//
+		//	"stat" is now optional so that the widget can be set up
+		//	in XML without it, and the actual value to use can be
+		//	set up in the code later
+		//
+		Optional<StatParams>	stat;
 		Optional<std::string>	label,
 								units;
 		Optional<S32>			precision;
@@ -72,7 +77,9 @@ public:
 								max;
 		Optional<bool>			per_sec;
 		Optional<F32>			value;
-
+		Optional<LLUIColor>		color,
+								background_color,
+								border_color;
 		Optional<Thresholds>	thresholds;
 
 		Params()
@@ -84,20 +91,24 @@ public:
 			max("max", 125.f),
 			per_sec("per_sec", true),
 			value("value", 0.f),
+			color("color", LLColor4::white),
+			background_color("background_color", LLColor4::transparent),
+			border_color("border_color", LLColor4::black),
 			thresholds("thresholds")
 		{
-			Thresholds _thresholds;
-			_thresholds.threshold.add(ThresholdParams().value(0.f).color(LLColor4::green))
-								.add(ThresholdParams().value(0.33f).color(LLColor4::yellow))
-								.add(ThresholdParams().value(0.5f).color(LLColor4::red))
-								.add(ThresholdParams().value(0.75f).color(LLColor4::red));
-			thresholds = _thresholds;
 		}
 	};
 	LLStatGraph(const Params&);
 
+	typedef boost::function<void(void)> callback_t;
+
 	void setMin(const F32 min);
 	void setMax(const F32 max);
+	void setStat(LLTrace::StatType<LLTrace::CountAccumulator> *stat);
+	void setStat(LLTrace::StatType<LLTrace::EventAccumulator> *stat);
+	void setStat(LLTrace::StatType<LLTrace::SampleAccumulator> *stat);
+	void setThreshold(S32 threshold, F32 newval);
+	void setClickedCallback(callback_t cb);
 
 	virtual void draw();
 
@@ -117,6 +128,10 @@ private:
 	std::string mUnits;
 	S32 mPrecision; // Num of digits of precision after dot
 
+	LLUIColor mColor;
+	LLUIColor mBackgroundColor;
+	LLUIColor mBorderColor;
+
 	struct Threshold
 	{
 		Threshold(F32 value, const LLUIColor& color)
@@ -126,16 +141,15 @@ private:
 
 		F32 mValue;
 		LLUIColor mColor;
-		bool operator <(const Threshold& other)
-		{
-			return mValue < other.mValue;
-		}
 	};
 	typedef std::vector<Threshold> threshold_vec_t;
 	threshold_vec_t mThresholds;
-	//S32 mNumThresholds;
-	//F32 mThresholds[4];
-	//LLColor4 mThresholdColors[4];
+
+	callback_t mClickedCallback;
+
+	/*virtual*/ BOOL handleMouseDown(S32 x, S32 y, MASK mask);
+	/*virtual*/ BOOL handleMouseUp(S32 x, S32 y, MASK mask);
+	/*virtual*/ BOOL handleHover(S32 x, S32 y, MASK mask);
 };
 
 #endif  // LL_LLSTATGRAPH_H
