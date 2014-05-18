@@ -1238,16 +1238,6 @@ void LLViewerFetchedTexture::destroyTexture()
 	{
 		return ;
 	}
-	//               we reach the desired max texture memory!
-/*
-	static LLCachedControl<bool> fsDestroyGLTexturesImmediately(gSavedSettings, "FSDestroyGLTexturesImmediately", false);
-	static LLCachedControl<F32> fsDestroyGLTexturesThreshold(gSavedSettings, "FSDestroyGLTexturesThreshold", 0.9f);
-	if (!fsDestroyGLTexturesImmediately && LLImageGL::sGlobalTextureMemory < sMaxDesiredTextureMem * fsDestroyGLTexturesThreshold)//not ready to release unused memory.
-	{
-		return ;
-	}
-	// </FS:Ansariel>
-*/
 	if (mNeedsCreateTexture)//return if in the process of generating a new texture.
 	{
 		return;
