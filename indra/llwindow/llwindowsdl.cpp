@@ -2241,7 +2241,12 @@ void LLWindowSDL::hideCursorUntilMouseMove()
 	}
 }
 
+void LLWindowSDL::setTitle(const std::string &title)
+{
+	mWindowTitle = title.empty() ? "SDL Window" : title;
 
+	SDL_WM_SetCaption(mWindowTitle.c_str(), mWindowTitle.c_str());
+}
 
 //
 // LLSplashScreenSDL - I don't think we'll bother to implement this; it's

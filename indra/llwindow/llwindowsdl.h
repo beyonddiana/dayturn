@@ -79,6 +79,8 @@ public:
 	/*virtual*/ void setMouseClipping( BOOL b );
 	/*virtual*/	void setMinSize(U32 min_width, U32 min_height, bool enforce_immediately = true);
 
+	/*virtual*/ void setTitle(const std::string &title);
+
 	/*virtual*/ BOOL isClipboardTextAvailable();
 	/*virtual*/ BOOL pasteTextFromClipboard(LLWString &dst);
 	/*virtual*/ BOOL copyTextToClipboard(const LLWString & src);
@@ -185,7 +187,7 @@ protected:
 	U32             mGrabbyKeyFlags;
 	int			mReallyCapturedCount;
 	SDL_Surface *	mWindow;
-	std::string mWindowTitle;
+	std::string	mWindowTitle;
 	double		mOriginalAspectRatio;
 	BOOL		mNeedsResize;		// Constructor figured out the window is too big, it needs a resize.
 	LLCoordScreen   mNeedsResizeSize;

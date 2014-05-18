@@ -35,6 +35,7 @@
 #include "llfloaterpreference.h"
 
 #include "message.h"
+#include "llappviewer.h"	// for LLAppViewer::setViewerWindowTitle()
 #include "llfloaterautoreplacesettings.h"
 #include "llagent.h"
 #include "llcheckboxctrl.h"
@@ -522,6 +523,8 @@ BOOL LLFloaterPreference::postBuild()
 	gSavedSettings.getControl("ShowPointAt")->getSignal()->connect(boost::bind(&LLFloaterPreference::onShowPointAtChanged, this));
 	gSavedSettings.getControl("NameTagShowAge")->getSignal()->connect(boost::bind(&LLFloaterPreference::onNameTagShowAgeChanged, this));
 	gSavedSettings.getControl("NameTagShowAgeLimit")->getSignal()->connect(boost::bind(&LLFloaterPreference::onNameTagShowAgeLimitChanged, this));
+	gSavedSettings.getControl("WindowTitleAvatarName")->getSignal()->connect(boost::bind(&LLAppViewer::setViewerWindowTitle));
+	gSavedSettings.getControl("WindowTitleGridName")->getSignal()->connect(boost::bind(&LLAppViewer::setViewerWindowTitle));
 
 	onStreamMetadataAnnounceChanged();
 	onMiniMapChatRingChanged();

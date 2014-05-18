@@ -308,6 +308,9 @@ public:
 	static LLUpdaterInfo *sUpdaterInfo ;
 
 	void launchUpdater();
+
+	static void setViewerWindowTitle();
+
 	//---------------------------------------------
 };
 

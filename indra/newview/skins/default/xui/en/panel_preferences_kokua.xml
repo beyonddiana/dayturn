@@ -59,6 +59,26 @@
 		width="350"
 		control_name="SaveInventoryScriptsAsMono"
 		tool_tip="If true then scripts saved in inventory will be saved as Mono.  Otherwise they will be saved as LSL2.  This applies when compiling scripts and not when simply copying them." />
+        <check_box
+            name="WindowTitleAvatarName"
+            control_name="WindowTitleAvatarName"
+            label="Show your avatar's name in the viewer window's title bar"
+            tool_tip="Show your avatar's name in the viewer window's title bar."
+            layout="topleft"
+            follows="left|top"
+            left="15"
+            height="20"
+            width="400" />
+        <check_box
+            name="WindowTitleGridName"
+            control_name="WindowTitleGridName"
+            label="Show the grid's name in the viewer window's title bar"
+            tool_tip="Show the grid's name in the viewer window's title bar."
+            layout="topleft"
+            follows="left|top"
+            left="15"
+            height="20"
+            width="400" />
 	    <check_box
 		control_name="MiniMapChatRing"
 		name="MiniMapChatRing"

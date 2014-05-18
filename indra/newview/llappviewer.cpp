@@ -2826,7 +2826,7 @@ bool LLAppViewer::initConfiguration()
 	//
 	// Set the name of the window
 	//
-	gWindowTitle = LLTrans::getString("APP_NAME");
+	gWindowTitle = LLTrans::getString("APP_NAME") + " " + LLVersionInfo::getShortVersion();
 #if LL_DEBUG
 	gWindowTitle += std::string(" [DEBUG] ") + gArgs;
 #else
@@ -5709,12 +5709,7 @@ void LLAppViewer::handleLoginComplete()
 	}
 
 	mOnLoginCompleted();
-
-//-TT Window Title Access
-	gWindowTitle += std::string(" - ") + gAgentAvatarp->getFullname();
-	gViewerWindow->setTitle(gWindowTitle);
-//-TT
-
+	setViewerWindowTitle();
 	writeDebugInfo();
 
 	// we logged in successfully, so save settings on logout
@@ -5858,6 +5853,21 @@ void LLAppViewer::launchUpdater()
 	// LLAppViewer::instance()->forceQuit();
 }
 
+// static
+void LLAppViewer::setViewerWindowTitle()
+{
+	std::string title = "";
+
+	if (gSavedSettings.getBOOL("WindowTitleAvatarName")) {
+		title += gAgentAvatarp->getFullname() + " - ";
+	}
+
+	if (gSavedSettings.getBOOL("WindowTitleGridName")) {
+		title += LLGridManager::getInstance()->getGridLabel() + " - ";
+	}
+
+	gViewerWindow->setTitle(title + gWindowTitle);
+}
 
 //virtual
 void LLAppViewer::setMasterSystemAudioMute(bool mute)
