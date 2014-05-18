@@ -217,7 +217,13 @@
                 height="17"
                 units=" Kbps bandwidth in use\n(Click for details)"
                 per_sec="true"
-                mouse_opaque="true" />
+                mouse_opaque="true">
+                <thresholds>
+                    <threshold value="0.0" color="Green" />
+                    <threshold value="99999" color="Yellow" />
+                    <threshold value="99999" color="Red" />
+                </thresholds>
+            </statistics_graph>
             <statistics_graph
                 name="packet_loss_graph"
                 follows="top|left"
@@ -226,10 +232,15 @@
                 width="8"
                 height="17"
                 units="% packet loss\n(Click for details)"
-                value_min="0"
-                value_max="5"
+                max="5"
                 precision="1"
-                mouse_opaque="true" />
+                mouse_opaque="true">
+                <thresholds>
+                    <threshold value="0.0" color="Green" />
+                    <threshold value="0.25" color="Yellow" />
+                    <threshold value="0.6" color="Red" />
+                </thresholds>
+            </statistics_graph>
         </layout_panel>
 
         <layout_panel

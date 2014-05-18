@@ -198,38 +198,17 @@ BOOL LLStatusBar::postBuild()
 	gSavedSettings.getControl("MuteAudio")->getSignal()->connect(boost::bind(&LLStatusBar::onVolumeChanged, this, _2));
 
 	mSGBandwidth = getChild<LLStatGraph>("bandwidth_graph");
-/*
-if (mSGBandwidth) {
-		mSGBandwidth->setClickedCallback(boost::bind(&LLStatusBar::onClickStatistics, this));
-	sgp.stat.count_stat_float(&LLStatViewer::ACTIVE_MESSAGE_DATA_RECEIVED);
-	sgp.units("Kbps");
-	sgp.precision(0);
-	mSGBandwidth = LLUICtrlFactory::create<LLStatGraph>(sgp);
-		mSGBandwidth->setStat(&LLViewerStats::getInstance()->mKBitStat);
+	if (mSGBandwidth) {
+		mSGBandwidth->setStat(&LLStatViewer::ACTIVE_MESSAGE_DATA_RECEIVED);
+		// mSGBandwidth->setClickedCallback(boost::bind(&LLStatusBar::onClickStatistics, this));	// WABBIT FIXME
 	}
-
-	pgp.stat.sample_stat_float(&LLStatViewer::PACKETS_LOST_PERCENT);
-	pgp.units("%");
-	pgp.min(0.f);
-	pgp.max(5.f);
-	pgp.precision(1);
-	pgp.per_sec(false);
-	LLStatGraph::Thresholds thresholds;
-	thresholds.threshold.add(LLStatGraph::ThresholdParams().value(0.1).color(LLColor4::green))
-						.add(LLStatGraph::ThresholdParams().value(0.25f).color(LLColor4::yellow))
-						.add(LLStatGraph::ThresholdParams().value(0.6f).color(LLColor4::red));
-
-	pgp.thresholds(thresholds);
 
 	mSGPacketLoss = getChild<LLStatGraph>("packet_loss_graph");
 	if (mSGPacketLoss) {
-		mSGPacketLoss->setClickedCallback(boost::bind(&LLStatusBar::onClickStatistics, this));
-		mSGPacketLoss->setStat(&LLViewerStats::getInstance()->mPacketsLostPercentStat);
-		mSGPacketLoss->setThreshold(0, 0.5f);
-		mSGPacketLoss->setThreshold(1, 1.f);
-		mSGPacketLoss->setThreshold(2, 3.f);
+		mSGPacketLoss->setStat(&LLStatViewer::PACKETS_LOST_PERCENT);
+		// mSGPacketLoss->setClickedCallback(boost::bind(&LLStatusBar::onClickStatistics, this));	// WABBIT FIXME
 	}
-*/
+
 	mFPSText = getChild<LLTextBox>("fps_text");
 	if (mFPSText) {
 		mFPSText->setClickedCallback(boost::bind(&LLStatusBar::onClickStatistics, this));
@@ -257,13 +236,18 @@ if (mSGBandwidth) {
 // Per-frame updates of visibility
 void LLStatusBar::refresh()
 {
-	if (mInMouselookMode) {
+	if (mStatusBarUpdateTimer.getElapsedTimeF32() < 0.5f || mInMouselookMode) {
 		//
-		//	if we are in mouselook mode then there's no
+		//	only update the status bar twice per second rather
+		//	than on every frame
+		//
+		//	also, if we are in mouselook mode then there's no
 		//	need to update the status bar at all
 		//
 		return;
 	}
+
+	mStatusBarUpdateTimer.reset();
 
 	static LLCachedControl<bool> net_stats_visible(gSavedSettings, "ShowNetStats", true);
 	static LLCachedControl<bool> fps_stats_visible(gSavedSettings, "ShowFPSStats", true);
@@ -271,28 +255,29 @@ void LLStatusBar::refresh()
 
 	//
 	//	update the netstat graph and FPS counter text
-	//	four times per second
 	//
-	if (mFPSUpdateTimer.getElapsedTimeF32() > 0.25f) {
-		mFPSUpdateTimer.reset();
+	if (net_stats_visible) {
+		F32 bwtotal = gViewerThrottle.getMaxBandwidth() / 1024.f;
 
-		if (net_stats_visible) {
-			F32 bwtotal = gViewerThrottle.getMaxBandwidth() / 1024.f;
-			mSGBandwidth->setMin(0.f);
-			mSGBandwidth->setMax(bwtotal * 1.25f);
-			mSGBandwidth->setThreshold(0, bwtotal * 0.75f);
-			mSGBandwidth->setThreshold(1, bwtotal);
-			mSGBandwidth->setThreshold(2, bwtotal);
-		}
-		
-		if (fps_stats_visible) {
-			mFPSText->setValue(llformat("%.1f", LLViewerStats::getInstance()->mFPSStat.getMeanPerSec()));
-		}
-
-		mDrawDistancePanel->setVisible(show_draw_distance);
-		mStatisticsPanel->setVisible(net_stats_visible);
-		mFPSPanel->setVisible(fps_stats_visible);
+		mSGBandwidth->setMax(bwtotal * 1.25f);
+		mSGBandwidth->setThreshold(1, bwtotal * 0.60f);
+		mSGBandwidth->setThreshold(2, bwtotal);
 	}
+	
+	if (fps_stats_visible) {
+		F32 fps = LLTrace::get_frame_recording().getPeriodMeanPerSec(LLStatViewer::FPS, 200);
+
+		if (fps >= 100.f) {
+			mFPSText->setValue(llformat("%.0f", fps));
+		}
+		else {
+			mFPSText->setValue(llformat("%.1f", fps));
+		}
+	}
+
+	mDrawDistancePanel->setVisible(show_draw_distance);
+	mStatisticsPanel->setVisible(net_stats_visible);
+	mFPSPanel->setVisible(fps_stats_visible);
 
 	// update clock every 10 seconds
 	if(mClockUpdateTimer.getElapsedTimeF32() > 10.f)

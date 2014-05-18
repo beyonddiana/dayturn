@@ -114,7 +114,7 @@ private:
 	LLButton	*mMediaToggle;
 	LLButton	*mBandwidthButton;
 	LLView		*mScriptOut;
-	LLFrameTimer	mFPSUpdateTimer;
+	LLFrameTimer	mStatusBarUpdateTimer;
 	LLFrameTimer	mClockUpdateTimer;
 
 	bool				mInMouselookMode;
