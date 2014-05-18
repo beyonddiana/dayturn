@@ -36,7 +36,7 @@
 #include "llglheaders.h"
 #include "lltracerecording.h"
 #include "lltracethreadrecorder.h"
-//#include "llviewercontrol.h"
+#include "llwindow.h"
 
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -147,4 +147,78 @@ void LLStatGraph::setStat(LLTrace::StatType<LLTrace::SampleAccumulator> *stat)
 void LLStatGraph::setThreshold(S32 threshold, F32 newval)
 {
 	mThresholds[threshold].mValue = newval;
+}
+
+void LLStatGraph::setClickedCallback(callback_t cb)
+{
+	mClickedCallback = boost::bind(cb);
+}
+
+BOOL LLStatGraph::handleMouseDown(S32 x, S32 y, MASK mask)
+{
+	BOOL handled = LLView::handleMouseDown(x, y, mask);
+
+	if (getSoundFlags() & MOUSE_DOWN) {
+		make_ui_sound("UISndClick");
+	}
+
+	if (!handled && mClickedCallback) {
+		handled = TRUE;
+	}
+
+	if (handled) {
+		//
+		//	route future Mouse messages here preemptively
+		//	(release on mouse up)
+		//
+		gFocusMgr.setMouseCapture(this);
+	}
+
+	return handled;
+}
+
+BOOL LLStatGraph::handleMouseUp(S32 x, S32 y, MASK mask)
+{
+	BOOL handled = LLView::handleMouseUp(x, y, mask);
+
+	if (getSoundFlags() & MOUSE_UP) {
+		make_ui_sound("UISndClickRelease");
+	}
+
+	//
+	//	we only handle the click if the click both started
+	//	and ended within us
+	//
+	if (hasMouseCapture()) {
+		//
+		//	release the mouse
+		//
+		gFocusMgr.setMouseCapture(NULL);
+
+		//
+		//	DO THIS AT THE VERY END to allow the widget
+		//	to be destroyed as a result of being clicked
+		//
+		if (mClickedCallback && !handled) {
+			mClickedCallback();
+			handled = TRUE;
+		}
+	}
+
+	return handled;
+}
+
+BOOL LLStatGraph::handleHover(S32 x, S32 y, MASK mask)
+{
+	BOOL handled = LLView::handleHover(x, y, mask);
+
+	if (!handled && mClickedCallback) {
+		//
+		//	clickable statistics graphs change the cursor to a hand
+		//
+		LLUI::getWindow()->setCursor(UI_CURSOR_HAND);
+		handled = TRUE;
+	}
+
+	return handled;
 }

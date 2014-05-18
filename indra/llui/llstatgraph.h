@@ -100,12 +100,15 @@ public:
 	};
 	LLStatGraph(const Params&);
 
+	typedef boost::function<void(void)> callback_t;
+
 	void setMin(const F32 min);
 	void setMax(const F32 max);
 	void setStat(LLTrace::StatType<LLTrace::CountAccumulator> *stat);
 	void setStat(LLTrace::StatType<LLTrace::EventAccumulator> *stat);
 	void setStat(LLTrace::StatType<LLTrace::SampleAccumulator> *stat);
 	void setThreshold(S32 threshold, F32 newval);
+	void setClickedCallback(callback_t cb);
 
 	virtual void draw();
 
@@ -141,9 +144,12 @@ private:
 	};
 	typedef std::vector<Threshold> threshold_vec_t;
 	threshold_vec_t mThresholds;
-	//S32 mNumThresholds;
-	//F32 mThresholds[4];
-	//LLColor4 mThresholdColors[4];
+
+	callback_t mClickedCallback;
+
+	/*virtual*/ BOOL handleMouseDown(S32 x, S32 y, MASK mask);
+	/*virtual*/ BOOL handleMouseUp(S32 x, S32 y, MASK mask);
+	/*virtual*/ BOOL handleHover(S32 x, S32 y, MASK mask);
 };
 
 #endif  // LL_LLSTATGRAPH_H

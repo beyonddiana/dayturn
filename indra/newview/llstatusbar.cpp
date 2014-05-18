@@ -200,13 +200,13 @@ BOOL LLStatusBar::postBuild()
 	mSGBandwidth = getChild<LLStatGraph>("bandwidth_graph");
 	if (mSGBandwidth) {
 		mSGBandwidth->setStat(&LLStatViewer::ACTIVE_MESSAGE_DATA_RECEIVED);
-		// mSGBandwidth->setClickedCallback(boost::bind(&LLStatusBar::onClickStatistics, this));	// WABBIT FIXME
+		mSGBandwidth->setClickedCallback(boost::bind(&LLStatusBar::onClickStatistics, this));
 	}
 
 	mSGPacketLoss = getChild<LLStatGraph>("packet_loss_graph");
 	if (mSGPacketLoss) {
 		mSGPacketLoss->setStat(&LLStatViewer::PACKETS_LOST_PERCENT);
-		// mSGPacketLoss->setClickedCallback(boost::bind(&LLStatusBar::onClickStatistics, this));	// WABBIT FIXME
+		mSGPacketLoss->setClickedCallback(boost::bind(&LLStatusBar::onClickStatistics, this));
 	}
 
 	mFPSText = getChild<LLTextBox>("fps_text");
