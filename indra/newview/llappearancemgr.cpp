@@ -2024,6 +2024,13 @@ void LLAppearanceMgr::updateCOF(LLInventoryModel::item_array_t& body_items_new,
 	syncCOF(all_items, items_add, items_remove);
 // [/SL:KB]
 
+// [SL:KB]
+	// Synchronize COF
+	//  -> it's possible that we don't link to any new items in which case 'link_waiter' fires when it goes out of scope below
+	LLInventoryModel::item_array_t items_add, items_remove;
+	syncCOF(all_items, items_add, items_remove);
+// [/SL:KB]
+
 	// Will link all the above items.
 	LLPointer<LLInventoryCallback> link_waiter = new LLUpdateAppearanceOnDestroy;
 // [SL:KB] - Checked: 2013-03-05 (RLVa-1.4.8)
@@ -2943,6 +2950,7 @@ void LLAppearanceMgr::removeCOFItemLinks(const LLUUID& item_id)
 	for (S32 i=0; i<item_array.size(); i++)
 	{
 		const LLInventoryItem* item = item_array.at(i).get();
+		const LLViewerInventoryItem* item = item_array.get(i).get();
 		if (item->getIsLinkType() && item->getLinkedUUID() == item_id)
 		{
 // [RLVa:KB] - Checked: 2013-02-12 (RLVa-1.4.8)
@@ -2957,6 +2965,12 @@ void LLAppearanceMgr::removeCOFItemLinks(const LLUUID& item_id)
 
 			gInventory.purgeObject(item->getUUID());
 		}
+// [/RLVa:KB]
+//		const LLInventoryItem* item = item_array.get(i).get();
+//		if (item->getIsLinkType() && item->getLinkedUUID() == item_id)
+//		{
+//			gInventory.purgeObject(item->getUUID());
+//		}
 	}
 }
 
@@ -4095,6 +4109,43 @@ void LLAppearanceMgr::unregisterAttachment(const LLUUID& item_id)
 	   }
 }
 
+// [SL:KB] - Patch: Appearance-SyncAttach | Checked: 2010-09-18 (Catznip-2.2)
+void LLAppearanceMgr::linkPendingAttachments()
+{
+   LLPointer<LLInventoryCallback> cb = NULL;
+   for (uuid_vec_t::const_iterator itPendingAttachLink = mPendingAttachLinks.begin(); 
+			itPendingAttachLink != mPendingAttachLinks.end(); ++itPendingAttachLink)
+	{
+		const LLUUID& idAttachItem = *itPendingAttachLink;
+		if ( (gAgentAvatarp->isWearingAttachment(idAttachItem)) && (!isLinkInCOF(idAttachItem)) )
+		{
+			if (!cb)
+			{
+				cb = new LLRegisterAttachmentCallback();
+			}
+			LLAppearanceMgr::addCOFItemLink(idAttachItem, false, cb);
+		}
+	}
+}
+
+void LLAppearanceMgr::onRegisterAttachmentComplete(const LLUUID& idItem)
+{
+	const LLUUID& idItemBase = gInventory.getLinkedItemID(idItem);
+
+	// Remove the attachment from the pending list
+	uuid_vec_t::iterator itPendingAttachLink = std::find(mPendingAttachLinks.begin(), mPendingAttachLinks.end(), idItemBase);
+	if (itPendingAttachLink != mPendingAttachLinks.end())
+	{
+		mPendingAttachLinks.erase(itPendingAttachLink);
+	}
+
+	// It may have been detached already in which case we should remove the COF link
+	if ( (isAgentAvatarValid()) && (!gAgentAvatarp->isWearingAttachment(idItemBase)) )
+	{
+		removeCOFItemLinks(idItemBase);
+	}
+}
+// [/SL:KB]
 // [SL:KB] - Patch: Appearance-SyncAttach | Checked: 2010-09-18 (Catznip-2.2)
 void LLAppearanceMgr::linkPendingAttachments()
 {

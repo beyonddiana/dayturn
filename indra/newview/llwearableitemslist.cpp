@@ -989,6 +989,7 @@ void LLWearableItemsList::ContextMenu::updateItemsVisibility(LLContextMenu* menu
 	setMenuItemEnabled(menu, "detach",				rlvCanRemove);
 	setMenuItemEnabled(menu, "take_off_or_detach",	(n_worn == n_items) && (rlvCanRemove));
 // [/RLVa:KB]
+// [/RLVa:KB]
 	setMenuItemVisible(menu, "object_profile",		!standalone);
 	setMenuItemEnabled(menu, "object_profile",		n_items == 1);
 	setMenuItemVisible(menu, "--no options--", 		FALSE);

@@ -734,6 +734,20 @@ void LLInventoryModel::collectDescendentsIf(const LLUUID& id,
 	LLViewerInventoryItem* item = NULL;
 	item_array_t* item_array = get_ptr_in_map(mParentChildItemTree, id);
 
+	// Move onto items
+	if(item_array)
+	{
+		S32 count = item_array->size();
+		for(S32 i = 0; i < count; ++i)
+		{
+			item = item_array->operator[](i);
+			if(add(NULL, item))
+			{
+				items.put(item);
+			}
+		}
+	}
+
 // [RLVa:KB] - Checked: 2010-09-30 (RLVa-1.2.1d) | Added: RLVa-1.2.1d
 	// The problem is that we want some way for the functor to know that it's being asked to decide on a folder link
 	// but it won't know that until after it has encountered the folder link item (which doesn't happen until *after* 
@@ -771,20 +785,9 @@ void LLInventoryModel::collectDescendentsIf(const LLUUID& id,
 			}
 		}
 	}
-	
-	// Move onto items
-	if(item_array)
-	{
 		S32 count = item_array->size();
-		for(S32 i = 0; i < count; ++i)
-		{
 			item = item_array->at(i);
-			if(add(NULL, item))
-			{
 				items.push_back(item);
-			}
-		}
-	}
 }
 
 void LLInventoryModel::addChangedMaskForLinks(const LLUUID& object_id, U32 mask)

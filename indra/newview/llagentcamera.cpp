@@ -2086,8 +2086,8 @@ void LLAgentCamera::changeCameraToMouselook(BOOL animate)
 
 	//gViewerWindow->stopGrab();
 	LLSelectMgr::getInstance()->deselectAll();
-	gViewerWindow->hideCursor();
-	gViewerWindow->moveCursorToCenter();
+//	gViewerWindow->hideCursor();
+//	gViewerWindow->moveCursorToCenter();
 
 	if (mCameraMode != CAMERA_MODE_MOUSELOOK)
 	{
@@ -2283,6 +2283,13 @@ void LLAgentCamera::changeCameraToCustomizeAvatar()
 	{
 		return;
 	}
+
+// [RLVa:KB] - Checked: 2010-03-07 (RLVa-1.2.0c) | Modified: RLVa-1.0.0g
+	if ( (rlv_handler_t::isEnabled()) && (!RlvActions::canStand()) )
+	{
+		return;
+	}
+// [/RLVa:KB]
 
 // [RLVa:KB] - Checked: 2010-03-07 (RLVa-1.2.0c) | Modified: RLVa-1.0.0g
 	if ( (rlv_handler_t::isEnabled()) && (!RlvActions::canStand()) )

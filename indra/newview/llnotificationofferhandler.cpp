@@ -147,6 +147,13 @@ bool LLOfferHandler::processNotification(const LLNotificationPtr& notification)
 				add_notif_to_im = false;
 			}
 // [/RLVa:KB]
+			}
+			else
+			{
+				// Since we didn't add this notification to an IM session we want it to get routed to the notification syswell
+				add_notif_to_im = false;
+			}
+// [/RLVa:KB]
 		}
 
 		if (notification->canLogToIM())

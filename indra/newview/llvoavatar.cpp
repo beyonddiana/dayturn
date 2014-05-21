@@ -2703,7 +2703,7 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 	BOOL visible_avatar = isVisible() || mNeedsAnimUpdate;
 	BOOL visible_chat = USE_CHAT_BUBBLES && (mChats.size() || mTyping);
 	BOOL render_name =	visible_chat ||
-		(visible_avatar &&
+		                (visible_avatar &&
 // [RLVa:KB] - Checked: 2010-04-04 (RLVa-1.2.2a) | Added: RLVa-1.0.0h
 						( (!fRlvShowNames) || (RlvSettings::getShowNameTags()) ) &&
 // [/RLVa:KB]
@@ -2739,6 +2739,16 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 
 // [RLVa:KB] - Checked: 2010-04-04 (RLVa-1.2.2a) | Added: RLVa-0.2.0b
 	if (fRlvShowNames)
+	{
+		if (mRenderGroupTitles)
+		{
+			mRenderGroupTitles = FALSE;
+			new_name = TRUE;
+		}
+	}
+	else if (sRenderGroupTitles != mRenderGroupTitles)
+// [/RLVa]
+//	if (sRenderGroupTitles != mRenderGroupTitles)
 	{
 		if (mRenderGroupTitles)
 		{
@@ -2899,6 +2909,7 @@ void LLVOAvatar::idleUpdateNameTagText(BOOL new_name)
 		static LLCachedControl<bool> name_tag_show_group_titles(gSavedSettings, "NameTagShowGroupTitles", true);
 
 		if (name_tag_show_group_titles 
+// [/RLVa:KB]
 			&& title && title->getString() && title->getString()[0] != '\0')
 		{
 			std::string title_str = title->getString();
@@ -2926,20 +2937,20 @@ void LLVOAvatar::idleUpdateNameTagText(BOOL new_name)
 			if ( (!fRlvShowNames) || (isSelf()) )
 			{
 // [/RLVa:KB]
-			// Might be blank if name not available yet, that's OK
-			if (show_display_names)
-			{
-				addNameTagLine(av_name.getDisplayName(), name_tag_color, LLFontGL::NORMAL,
-					LLFontGL::getFontSansSerif());
-			}
-			// Suppress SLID display if display name matches exactly (ugh)
-			if (show_usernames && !av_name.isDisplayNameDefault())
-			{
-				// *HACK: Desaturate the color
-				LLColor4 username_color = name_tag_color * 0.83f;
-				addNameTagLine(av_name.getUserName(), username_color, LLFontGL::NORMAL,
+				// Might be blank if name not available yet, that's OK
+				if (show_display_names)
+				{
+					addNameTagLine(av_name.getDisplayName(), name_tag_color, LLFontGL::NORMAL,
+						LLFontGL::getFontSansSerif());
+				}
+				// Suppress SLID display if display name matches exactly (ugh)
+				if (show_usernames && !av_name.isDisplayNameDefault())
+				{
+					// *HACK: Desaturate the color
+					LLColor4 username_color = name_tag_color * 0.83f;
+					addNameTagLine(av_name.getUserName(), username_color, LLFontGL::NORMAL,
 					LLFontGL::getFontSansSerifSmall());
-			}
+				}
 // [RLVa:KB] - Checked: 2010-10-31 (RLVa-1.2.2a) | Modified: RLVa-1.2.2a
 			}
 			else

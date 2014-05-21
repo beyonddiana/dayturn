@@ -83,7 +83,7 @@ LLToolMgr::LLToolMgr()
 {
 	// Not a panel, register these callbacks globally.
 	LLUICtrl::EnableCallbackRegistry::currentRegistrar().add("Build.Active", boost::bind(&LLToolMgr::inEdit, this));
-	LLUICtrl::EnableCallbackRegistry::currentRegistrar().add("Build.Enabled", boost::bind(&LLToolMgr::canEdit, this));
+//	LLUICtrl::EnableCallbackRegistry::currentRegistrar().add("Build.Enabled", boost::bind(&LLToolMgr::canEdit, this));
 //	LLUICtrl::CommitCallbackRegistry::currentRegistrar().add("Build.Toggle", boost::bind(&LLToolMgr::toggleBuildMode, this, _2));
 // [RLVa:KB] - Checked: 2010-09-11 (RLVa-1.2.1d) | Added: RLVa-1.2.1d
 //	LLUICtrl::EnableCallbackRegistry::currentRegistrar().add("Build.Enabled", boost::bind(&RlvUIEnabler::isBuildEnabled));

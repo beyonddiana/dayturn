@@ -100,6 +100,8 @@
 // [/SL:KB]
 // [RLVa:KB] - Checked: 2010-05-03 (RLVa-1.2.0g)
 #include "rlvhandler.h"
+#include "rlvactions.h"
+#include "rlvhelper.h"
 // [/RLVa:KB]
 
 #include "llweb.h"
@@ -3404,6 +3406,7 @@ LLSD LLAppViewer::getViewerInfo() const
 // [RLVa:KB] - Checked: 2010-04-18 (RLVa-1.4.0a) | Added: RLVa-1.2.0e
 	info["RLV_VERSION"] = (rlv_handler_t::isEnabled()) ? RlvStrings::getVersionAbout() : "(disabled)";
 // [/RLVa:KB]
+// [/RLVa:KB]
 	info["OPENGL_VERSION"] = (const char*)(glGetString(GL_VERSION));
 	info["LIBCURL_VERSION"] = LLCurl::getVersionString();
 	info["J2C_VERSION"] = LLImageJ2C::getEngineInfo();
@@ -3493,9 +3496,9 @@ std::string LLAppViewer::getViewerInfoString() const
 	support << LLTrans::getString("AboutHeader", args);
 	if (info.has("REGION"))
 	{
-		std::string grid = LLGridManager::getInstance()->getGridLabel();
-		LLStringUtil::replaceChar(grid, ' ', '_');
-
+// [RLVa:KB] - Checked: 2014-02-24 (RLVa-1.4.10)
+		support << "\n\n";
+		if (RlvActions::canShowLocation())
 		std::string group = gSavedSettings.getString("SupportGroupSLURL_" + grid);
 
 		if (!group.empty()) {
@@ -3503,7 +3506,11 @@ std::string LLAppViewer::getViewerInfoString() const
 			args["GRID_NAME"] = LLGridManager::getInstance()->getGridLabel();
 			support << "\n\n" << LLTrans::getString("SupportGroup", args);
 		}
-		support << "\n\n" << LLTrans::getString("AboutPosition", args);
+			support << "\n\n" << LLTrans::getString("AboutPosition", args);
+		else
+			support << RlvStrings::getString(RLV_STRING_HIDDEN_REGION);
+// [/RLVa:KB]
+//		support << "\n\n" << LLTrans::getString("AboutPosition", args);
 	}
 	support << "\n\n" << LLTrans::getString("AboutSystem", args);
 	support << "\n";
@@ -5535,6 +5542,11 @@ void LLAppViewer::disconnectViewer()
 
 	// close inventory interface, close all windows
 	LLFloaterInventory::cleanup();
+
+// [SL:KB] - Patch: Appearance-Misc | Checked: 2013-02-12 (Catznip-3.4)
+	// Destroying all objects below will trigger attachment detaching code and attempt to remove the COF links for them
+	LLAppearanceMgr::instance().setAttachmentInvLinkEnable(false);
+// [/SL:KB]
 
 // [SL:KB] - Patch: Appearance-Misc | Checked: 2013-02-12 (Catznip-3.4)
 	// Destroying all objects below will trigger attachment detaching code and attempt to remove the COF links for them
