@@ -2124,6 +2124,10 @@ bool LLViewerFetchedTexture::updateFetch()
 
 void LLViewerFetchedTexture::clearFetchedResults()
 {
+	if(mNeedsCreateTexture || mIsFetching)
+	{
+		return;
+	}
 	// <FS:Ansariel> For texture refresh
 	//llassert_always(!mNeedsCreateTexture && !mIsFetching);
 	mIsMissingAsset = FALSE;
