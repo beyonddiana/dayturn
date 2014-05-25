@@ -1080,15 +1080,12 @@ bool LLInventoryPanel::beginIMSession()
 
 	std::string name;
 
-	std::vector<LLUUID> members;
+//	std::vector<LLUUID> members;
 //	EInstantMessage type = IM_SESSION_CONFERENCE_START;
 // [RLVa:KB] - Checked: 2011-04-11 (RLVa-1.3.0h) | Added: RLVa-1.3.0h
 	uuid_vec_t members;
 // [/RLVa:KB]
 
-// [RLVa:KB] - Checked: 2013-05-08 (RLVa-1.4.9)
-	bool fRlvCanStartIM = true;
-// [/RLVa:KB]
 
 // [RLVa:KB] - Checked: 2013-05-08 (RLVa-1.4.9)
 	bool fRlvCanStartIM = true;

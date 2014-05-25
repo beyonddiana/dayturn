@@ -2024,12 +2024,7 @@ void LLAppearanceMgr::updateCOF(LLInventoryModel::item_array_t& body_items_new,
 	syncCOF(all_items, items_add, items_remove);
 // [/SL:KB]
 
-// [SL:KB]
-	// Synchronize COF
-	//  -> it's possible that we don't link to any new items in which case 'link_waiter' fires when it goes out of scope below
-	LLInventoryModel::item_array_t items_add, items_remove;
-	syncCOF(all_items, items_add, items_remove);
-// [/SL:KB]
+
 
 	// Will link all the above items.
 	LLPointer<LLInventoryCallback> link_waiter = new LLUpdateAppearanceOnDestroy;
@@ -2949,8 +2944,7 @@ void LLAppearanceMgr::removeCOFItemLinks(const LLUUID& item_id)
 								  LLInventoryModel::EXCLUDE_TRASH);
 	for (S32 i=0; i<item_array.size(); i++)
 	{
-		const LLInventoryItem* item = item_array.at(i).get();
-		const LLViewerInventoryItem* item = item_array.get(i).get();
+		const LLViewerInventoryItem* item = item_array.at(i).get();
 		if (item->getIsLinkType() && item->getLinkedUUID() == item_id)
 		{
 // [RLVa:KB] - Checked: 2013-02-12 (RLVa-1.4.8)
@@ -4147,6 +4141,7 @@ void LLAppearanceMgr::onRegisterAttachmentComplete(const LLUUID& idItem)
 }
 // [/SL:KB]
 // [SL:KB] - Patch: Appearance-SyncAttach | Checked: 2010-09-18 (Catznip-2.2)
+/*
 void LLAppearanceMgr::linkPendingAttachments()
 {
    LLPointer<LLInventoryCallback> cb = NULL;
@@ -4183,7 +4178,7 @@ void LLAppearanceMgr::onRegisterAttachmentComplete(const LLUUID& idItem)
 	}
 }
 // [/SL:KB]
-
+*/
 BOOL LLAppearanceMgr::getIsInCOF(const LLUUID& obj_id) const
 {
 	return gInventory.isObjectDescendentOf(obj_id, getCOF());

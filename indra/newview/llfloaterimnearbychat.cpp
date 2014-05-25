@@ -903,9 +903,7 @@ void send_chat_from_viewer(std::string utf8_out_text, EChatType type, S32 channe
 			// Filter public chat if sendchat restricted
 			if (gRlvHandler.hasBehaviour(RLV_BHVR_SENDCHAT))
 				gRlvHandler.filterChat(utf8_out_text, true);
-		}
-		else
-		{
+		
 			// Don't allow chat on a non-public channel if sendchannel restricted (unless the channel is an exception)
 			if ( (gRlvHandler.hasBehaviour(RLV_BHVR_SENDCHANNEL)) && (!gRlvHandler.isException(RLV_BHVR_SENDCHANNEL, channel)) )
 				return;

@@ -2746,7 +2746,8 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 			new_name = TRUE;
 		}
 	}
-	else if (sRenderGroupTitles != mRenderGroupTitles)
+
+/*	else if (RenderGroupTitles != mRenderGroupTitles)
 // [/RLVa]
 //	if (sRenderGroupTitles != mRenderGroupTitles)
 	{
@@ -2756,6 +2757,7 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 			new_name = TRUE;
 		}
 	}
+*/
 	else if ((BOOL)render_group_titles != mRenderGroupTitles)
 	{
 		mRenderGroupTitles = (BOOL)render_group_titles;

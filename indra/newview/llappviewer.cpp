@@ -3498,15 +3498,17 @@ std::string LLAppViewer::getViewerInfoString() const
 	{
 // [RLVa:KB] - Checked: 2014-02-24 (RLVa-1.4.10)
 		support << "\n\n";
+		std::string group=""; // don't know why this is needed. NP
 		if (RlvActions::canShowLocation())
-		std::string group = gSavedSettings.getString("SupportGroupSLURL_" + grid);
+		std::string group = gSavedSettings.getString("SupportGroupSLURL_" + LLGridManager::getInstance()->getGridLabel());
 
 		if (!group.empty()) {
 			args["SUPPORT_GROUP_SLURL"] = group;
 			args["GRID_NAME"] = LLGridManager::getInstance()->getGridLabel();
 			support << "\n\n" << LLTrans::getString("SupportGroup", args);
-		}
+		
 			support << "\n\n" << LLTrans::getString("AboutPosition", args);
+		}
 		else
 			support << RlvStrings::getString(RLV_STRING_HIDDEN_REGION);
 // [/RLVa:KB]

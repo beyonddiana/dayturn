@@ -4195,11 +4195,6 @@ void handle_object_sit_or_stand()
 		{
 			if (gAgentAvatarp->isSitting())
 			{
-// [RLVa:KB] - Checked: 2010-08-29 (RLVa-1.2.1c) | Added: RLVa-1.2.1c
-		if ( (gRlvHandler.hasBehaviour(RLV_BHVR_STANDTP)) && (isAgentAvatarValid()) )
-		{
-			if (gAgentAvatarp->isSitting())
-			{
 				gAgent.standUp();
 				return;
 			}
@@ -4218,6 +4213,7 @@ void handle_object_sit_or_stand()
 		object->getRegion()->sendReliableMessage();
 	}
 }
+
 
 void handle_object_teleport()
 {
@@ -7458,27 +7454,6 @@ class LLAttachmentEnableDetach : public view_listener_t
 BOOL object_selected_and_point_valid(const LLSD& sdParam)
 // [/RLVa:KB]
 {
-// [RLVa:KB] - Checked: 2010-09-28 (RLVa-1.2.1f) | Modified: RLVa-1.2.1f
-	if (rlv_handler_t::isEnabled())
-	{
-		if (!isAgentAvatarValid())
-			return FALSE;
-
-		// RELEASE-RLVa: [SL-2.2.0] Look at the caller graph for this function on every new release
-		//   - object_is_wearable() => dead code [sdParam == 0 => default attach point => OK!]
-		//   - enabler set up in LLVOAvatarSelf::buildMenus() => Rezzed prim / Put On / "Attach To" [sdParam == idxAttachPt]
-		//   - "Object.EnableWear" enable => Rezzed prim / Put On / "Wear" or "Add" [sdParam blank]
-		// RELEASE-RLVa: [SL-2.2.0] If 'idxAttachPt != 0' then the object will be "add attached" [see LLSelectMgr::sendAttach()]
-		const LLViewerJointAttachment* pAttachPt = 
-			get_if_there(gAgentAvatarp->mAttachmentPoints, sdParam.asInteger(), (LLViewerJointAttachment*)NULL);
-		if ( ((!pAttachPt) && (gRlvAttachmentLocks.hasLockedAttachmentPoint(RLV_LOCK_ANY))) ||		// Can't wear on default attach point
-			 ((pAttachPt) && ((RLV_WEAR_ADD & gRlvAttachmentLocks.canAttach(pAttachPt)) == 0)) ||	// or non-attachable attach point
-			 (gRlvHandler.hasBehaviour(RLV_BHVR_REZ)) )												// Attach on object == "Take"
-		{
-			return FALSE;
-		}
-	}
-// [/RLVa:KB]
 
 // [RLVa:KB] - Checked: 2010-09-28 (RLVa-1.2.1f) | Modified: RLVa-1.2.1f
 	if (rlv_handler_t::isEnabled())

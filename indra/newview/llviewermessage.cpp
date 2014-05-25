@@ -2080,9 +2080,6 @@ void inventory_offer_handler(LLOfferInfo* info)
 		}
 // [/RLVa:KB]
 
-			args["NAME_SLURL"] = LLSLURL("agent", info->mFromID, "rlvanonym").getSLURLString();
-		}
-// [/RLVa:KB]
 
 		// Inventory Slurls don't currently work for non agent transfers, so only display the object name.
 		args["ITEM_SLURL"] = msg;

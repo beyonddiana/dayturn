@@ -743,7 +743,7 @@ void LLInventoryModel::collectDescendentsIf(const LLUUID& id,
 			item = item_array->operator[](i);
 			if(add(NULL, item))
 			{
-				items.put(item);
+				items.push_back(item);
 			}
 		}
 	}
@@ -785,9 +785,19 @@ void LLInventoryModel::collectDescendentsIf(const LLUUID& id,
 			}
 		}
 	}
+	// Move onto items
+	if(item_array)
+	{
 		S32 count = item_array->size();
+		for(S32 i = 0; i < count; ++i)
+		{
 			item = item_array->at(i);
+			if(add(NULL, item))
+			{
 				items.push_back(item);
+			}
+		}
+	}
 }
 
 void LLInventoryModel::addChangedMaskForLinks(const LLUUID& object_id, U32 mask)
