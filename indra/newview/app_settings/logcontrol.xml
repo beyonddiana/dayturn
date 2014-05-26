@@ -43,7 +43,7 @@
 					<key>tags</key>
 						<array>
 						<!-- <string>OctreeErrors</string> -->
-						     <string>SceneLoadTiming</string>
+						<!-- <string>SceneLoadTiming</string> -->
 					<!-- Chat -->
 						<!-- <string>NearbyChat</string> -->
 						
