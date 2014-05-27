@@ -448,10 +448,7 @@ public:
 		}
 		if (gDisplayWindInfo)
 		{
-			if (gAudiop)
-			{
-				audio_text= llformat("Audio for wind: %d", gAudiop->isWindEnabled());
-			}
+			audio_text = llformat("Audio for wind: %d", gAudiop ? gAudiop->isWindEnabled() : -1);
 			addText(xpos, ypos, audio_text);  ypos += y_inc;
 		}
 		if (gDisplayFOV)
@@ -3340,6 +3337,8 @@ void LLViewerWindow::updateUI()
 	}
 
 	updateLayout();
+
+	saveLastMouse(mCurrentMousePoint);
 
 	mLastMousePoint = mCurrentMousePoint;
 
