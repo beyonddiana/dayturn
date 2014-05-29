@@ -49,6 +49,7 @@
 #include "llviewertexturelist.h"
 #include "llviewerwindow.h"
 #include "llappviewer.h"
+#include "llversioninfo.h"
 #include "llweb.h"
 #include "lluictrlfactory.h"
 #include "llpanellogin.h"
@@ -91,7 +92,10 @@ BOOL LLProgressView::postBuild()
 	mCancelBtn = getChild<LLButton>("cancel_btn");
 	mCancelBtn->setClickedCallback(  LLProgressView::onCancelButtonClicked, NULL );
 
-	getChild<LLTextBox>("title_text")->setText(LLStringExplicit(LLAppViewer::instance()->getSecondLifeTitle()));
+	getChild<LLTextBox>("title_text")->setText(LLStringExplicit(
+		LLAppViewer::instance()->getSecondLifeTitle() + " " +
+		LLVersionInfo::getShortVersion()
+	));
 
 	getChild<LLTextBox>("message_text")->setClickedCallback(onClickMessage, this);
 

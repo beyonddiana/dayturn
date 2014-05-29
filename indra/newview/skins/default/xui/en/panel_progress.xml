@@ -58,6 +58,15 @@
                      left="0"
                      top="0"
                      width="670" />
+                    <icon
+                     name="viewer_logo"
+                     image_name="Wabbit_Logo_Large"
+                     layout="topleft"
+                     follows="left|top"
+                     top_delta="50"
+                     left_delta="47"
+                     height="40"
+                     width="40" />
                     <text
                      follows="left|right|top"
                      font="SansSerifHuge"
@@ -65,10 +74,10 @@
                      halign="left"
                      height="20"
                      layout="topleft"
-                     left_delta="47"
+                     left_pad="10"
                      name="title_text"
                      text_color="LoginProgressBoxTextColor"
-                     top_delta="50"
+                     top_delta="0"
                      right="-47"/>
                     <text
                      follows="left|right|top"
