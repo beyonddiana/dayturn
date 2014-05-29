@@ -1259,7 +1259,19 @@ void LLTextBase::setReadOnlyColor(const LLColor4 &c)
 	mReadOnlyFgColor = c;
 	mStyleDirty = true;
 }
+//virtual
+void LLTextBase::setFocusColor(const LLColor4 &c)
+{
+	mFocusBgColor = c;
+	mStyleDirty = true;
+}
 
+//virtual
+void LLTextBase::setWriteableColor(const LLColor4 &c)
+{
+	mWriteableBgColor = c;
+	mStyleDirty = true;
+}
 //virtual
 void LLTextBase::onVisibilityChange( BOOL new_visibility )
 {
