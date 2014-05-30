@@ -819,9 +819,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>f9e85717f4723a0b98444656013908fc</string>
+             <string>f5574498f04967f879a793164e84e465</string>
               <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-freetype/downloads/freetype-2.3.11-linux64-20120731.tar.bz2</string>
+              <string>http://bitbucket.org/kokua/3p-freetype/downloads/freetype-2.3.11-linux64-20140530.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux64</string>
