@@ -3413,7 +3413,6 @@ LLSD LLAppViewer::getViewerInfo() const
 // [RLVa:KB] - Checked: 2010-04-18 (RLVa-1.4.0a) | Added: RLVa-1.2.0e
 	info["RLV_VERSION"] = (rlv_handler_t::isEnabled()) ? RlvStrings::getVersionAbout() : "(disabled)";
 // [/RLVa:KB]
-// [/RLVa:KB]
 	info["OPENGL_VERSION"] = (const char*)(glGetString(GL_VERSION));
 	info["LIBCURL_VERSION"] = LLCurl::getVersionString();
 	info["J2C_VERSION"] = LLImageJ2C::getEngineInfo();
@@ -3503,21 +3502,25 @@ std::string LLAppViewer::getViewerInfoString() const
 	support << LLTrans::getString("AboutHeader", args);
 	if (info.has("REGION"))
 	{
-// [RLVa:KB] - Checked: 2014-02-24 (RLVa-1.4.10)
-		support << "\n\n";
-		std::string group=""; // don't know why this is needed. NP
-		if (RlvActions::canShowLocation())
-		std::string group = gSavedSettings.getString("SupportGroupSLURL_" + LLGridManager::getInstance()->getGridLabel());
+		std::string grid = LLGridManager::getInstance()->getGridLabel();
+		LLStringUtil::replaceChar(grid, ' ', '_');
+
+		std::string group = gSavedSettings.getString("SupportGroupSLURL_" + grid);
 
 		if (!group.empty()) {
 			args["SUPPORT_GROUP_SLURL"] = group;
 			args["GRID_NAME"] = LLGridManager::getInstance()->getGridLabel();
-			support << "\n\n" << LLTrans::getString("SupportGroup", args);
-		
+            support << "\n\n" << LLTrans::getString("SupportGroup", args);
+		}
+// [RLVa:KB] - Checked: 2014-02-24 (RLVa-1.4.10)
+		if (RlvActions::canShowLocation())
+		{
 			support << "\n\n" << LLTrans::getString("AboutPosition", args);
 		}
 		else
+		{
 			support << RlvStrings::getString(RLV_STRING_HIDDEN_REGION);
+		}
 // [/RLVa:KB]
 //		support << "\n\n" << LLTrans::getString("AboutPosition", args);
 	}
