@@ -422,7 +422,6 @@ BOOL LLButton::postBuild()
 	}
 	// <FS:Zi>
 
-	addBadgeToParentPanel();
 
 	return LLUICtrl::postBuild();
 }

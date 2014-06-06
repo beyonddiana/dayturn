@@ -44,6 +44,7 @@
 						<array>
 						<!-- <string>OctreeErrors</string> -->
 						<!-- <string>SceneLoadTiming</string> -->
+						     <string>Inventory</string>
 					<!-- Chat -->
 						<!-- <string>NearbyChat</string> -->
 						
