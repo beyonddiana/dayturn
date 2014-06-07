@@ -91,8 +91,8 @@ public:
 	// in place correction for inventory name string
 	static void correctInventoryName(std::string& name);
 // [/RLVa:KB]
-private:
-//	// in place correction for inventory name string
+
+	//	// in place correction for inventory name string
 //	void correctInventoryName(std::string& name);
 
 	//--------------------------------------------------------------------

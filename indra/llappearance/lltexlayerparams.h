@@ -196,7 +196,7 @@ public:
 protected:
 	LLTexLayerParamColor(const LLTexLayerParamColor& pOther);
 
-	virtual void onGlobalColorChanged() {}
+	virtual void onGlobalColorChanged(bool upload_bake) {}
 private:
 	LL_ALIGN_16(LLVector4a				mAvgDistortionVec);
 } LL_ALIGN_POSTFIX(16);

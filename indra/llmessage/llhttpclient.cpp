@@ -371,7 +371,7 @@ void LLHTTPClient::getHeaderOnly(const std::string& url, ResponderPtr responder,
 // <AW: opensim>
 void LLHTTPClient::getIfModified(const std::string& url, ResponderPtr responder, const time_t &if_modified_since, const LLSD& headers, const F32 timeout)
 {
-	request(url, LLURLRequest::HTTP_GET, NULL, responder, timeout, headers,  if_modified_since);
+	request(url, HTTP_GET, NULL, responder, timeout, headers,  if_modified_since);
 }
 // </AW: opensim>
 void LLHTTPClient::getHeaderOnly(const std::string& url, ResponderPtr responder, const F32 timeout,

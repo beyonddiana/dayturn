@@ -166,8 +166,7 @@ void LLFloaterOpenObject::moveToInventory(bool wear)
 	inventory_func_type func = boost::bind(LLFloaterOpenObject::callbackCreateInventoryCategory,_1,object_id,wear);
 	LLUUID category_id = gInventory.createNewCategory(parent_category_id, 
 													  LLFolderType::FT_NONE, 
-													  name,
-													  func);
+													  name);
 
 	//If we get a null category ID, we are using a capability in createNewCategory and we will
 	//handle the following in the callbackCreateInventoryCategory routine.

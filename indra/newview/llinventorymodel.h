@@ -222,11 +222,14 @@ public:
 							  cat_array_t& categories,
 							  item_array_t& items,
 							  BOOL include_trash,
-							  LLInventoryCollectFunctor& add);
+							  LLInventoryCollectFunctor& add,
+							  BOOL follow_folder_links = FALSE);
 
 	// Collect all items in inventory that are linked to item_id.
 	// Assumes item_id is itself not a linked item.
 	item_array_t collectLinksTo(const LLUUID& item_id);
+	item_array_t collectLinkedItems(const LLUUID& item_id,
+									const LLUUID& start_folder_id = LLUUID::null);
 
 	// Check if one object has a parent chain up to the category specified by UUID.
 	BOOL isObjectDescendentOf(const LLUUID& obj_id, const LLUUID& cat_id) const;
@@ -373,7 +376,17 @@ public:
 	void removeCategory(const LLUUID& category_id);
 	/// removeItem() or removeCategory(), whichever is appropriate
 	void removeObject(const LLUUID& object_id);
+	// Delete a particular inventory object by ID, and delete it from
+	// the server. Also updates linked items.
+	void purgeObject(const LLUUID& id);
 
+	// Collects and purges the descendants of the id
+	// provided. If the category is not found, no action is
+	// taken. This method goes through the long winded process of
+	// removing server representation of folders and items while doing
+	// cache accounting in a fairly efficient manner. This method does
+	// not notify observers (though maybe it should...)
+	void purgeDescendentsOf(const LLUUID& id);
 protected:
 	void updateLinkedObjectsFromPurge(const LLUUID& baseobj_id);
 	
@@ -406,10 +419,13 @@ public:
 	LLUUID findCategoryByName(std::string name);
 	// Returns the UUID of the new category. If you want to use the default 
 	// name based on type, pass in a NULL to the 'name' parameter.
+	// Returns the UUID of the new category. If you want to use the default 
+	// name based on type, pass in a NULL to the 'name' parameter.
 	LLUUID createNewCategory(const LLUUID& parent_id,
 							 LLFolderType::EType preferred_type,
 							 const std::string& name,
-							 boost::optional<inventory_func_type> callback = boost::optional<inventory_func_type>());
+							 void (*callback)(const LLSD&, void*) = NULL,
+							 void* user_data = NULL );
 protected:
 	// Internal methods that add inventory and make sure that all of
 	// the internal data structures are consistent. These methods

@@ -121,7 +121,7 @@ public:
 	virtual void updateParentOnServer(BOOL restamp) const;
 	virtual void updateServer(BOOL is_new) const;
 	void fetchFromServer(void) const;
-
+	virtual void removeFromServer( void );
 	virtual void packMessage(LLMessageSystem* msg) const;
 	virtual BOOL unpackMessage(LLMessageSystem* msg, const char* block, S32 block_num = 0);
 	virtual BOOL unpackMessage(const LLSD& item);
@@ -366,6 +366,15 @@ void link_inventory_object(const LLUUID& category,
 void link_inventory_array(const LLUUID& category,
 						  LLInventoryObject::const_object_list_t& baseobj_array,
 						  LLPointer<LLInventoryCallback> cb);
+/** Kokua SSA merge may Overload for firestorm ao */
+void link_inventory_item(
+	const LLUUID& agent_id,
+	const LLUUID& item_id,
+	const LLUUID& parent_id,
+	const std::string& new_name,
+	const std::string& new_description,
+	const LLAssetType::EType asset_type,
+	LLPointer<LLInventoryCallback> cb);
 
 void move_inventory_item(
 	const LLUUID& agent_id,

@@ -144,7 +144,10 @@ public:
 	void unregisterAttachment(const LLUUID& item_id);
 	void registerAttachment(const LLUUID& item_id);
 	void setAttachmentInvLinkEnable(bool val);
-
+	// utility function for bulk linking.
+	void linkAll(const LLUUID& category,
+				 LLInventoryModel::item_array_t& items,
+				 LLPointer<LLInventoryCallback> cb);
 	// Add COF link to individual item.
 	void addCOFItemLink(const LLUUID& item_id, LLPointer<LLInventoryCallback> cb = NULL, const std::string description = "");
 	void addCOFItemLink(const LLInventoryItem *item, LLPointer<LLInventoryCallback> cb = NULL, const std::string description = "");
@@ -317,17 +320,10 @@ private:
 	bool mEnforceOrdering;
 	nullary_func_t mPostUpdateFunc;
 };
-
 class LLUpdateAppearanceAndEditWearableOnDestroy: public LLInventoryCallback
 {
 public:
 	LLUpdateAppearanceAndEditWearableOnDestroy(const LLUUID& item_id);
-	/*virtual*/ void fire(const LLUUID& idItem)
-	{
-		LLAppearanceMgr::instance().onRegisterAttachmentComplete(idItem);
-	}
-};
-// [/SL:KB]
 
 	/* virtual */ void fire(const LLUUID& item_id) {}
 
@@ -336,6 +332,7 @@ public:
 private:
 	LLUUID mItemID;
 };
+
 
 LLUUID findDescendentCategoryIDByName(const LLUUID& parent_id,const std::string& name);
 

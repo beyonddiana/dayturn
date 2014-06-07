@@ -347,6 +347,23 @@ void LLViewerInventoryItem::cloneViewerItem(LLPointer<LLViewerInventoryItem>& ne
 		newitem->setUUID(item_id);
 	}
 }
+void LLViewerInventoryItem::removeFromServer()
+{
+	LL_DEBUGS() << "Removing inventory item " << mUUID << " from server."
+			 << LL_ENDL;
+
+	LLInventoryModel::LLCategoryUpdate up(mParentUUID, -1);
+	gInventory.accountForUpdate(up);
+
+	LLMessageSystem* msg = gMessageSystem;
+	msg->newMessageFast(_PREHASH_RemoveInventoryItem);
+	msg->nextBlockFast(_PREHASH_AgentData);
+	msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
+	msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID()); 
+	msg->nextBlockFast(_PREHASH_InventoryData);
+	msg->addUUIDFast(_PREHASH_ItemID, mUUID);
+	gAgent.sendReliableMessage();
+}
 
 void LLViewerInventoryItem::updateServer(BOOL is_new) const
 {
@@ -1090,6 +1107,76 @@ void copy_inventory_item(
 	msg->addUUIDFast(_PREHASH_OldItemID, item_id);
 	msg->addUUIDFast(_PREHASH_NewFolderID, parent_id);
 	msg->addStringFast(_PREHASH_NewName, new_name);
+	gAgent.sendReliableMessage();
+}
+void link_inventory_item(
+	const LLUUID& agent_id,
+	const LLUUID& item_id,
+	const LLUUID& parent_id,
+	const std::string& new_name,
+	const std::string& new_description,
+	const LLAssetType::EType asset_type,
+	LLPointer<LLInventoryCallback> cb)
+{
+	const LLInventoryObject *baseobj = gInventory.getObject(item_id);
+	if (!baseobj)
+	{
+		llwarns << "attempt to link to unknown item, linked-to-item's itemID " << item_id << llendl;
+		return;
+	}
+	if (baseobj && baseobj->getIsLinkType())
+	{
+		llwarns << "attempt to create a link to a link, linked-to-item's itemID " << item_id << llendl;
+		return;
+	}
+
+	if (baseobj && !LLAssetType::lookupCanLink(baseobj->getType()))
+	{
+		// Fail if item can be found but is of a type that can't be linked.
+		// Arguably should fail if the item can't be found too, but that could
+		// be a larger behavioral change.
+		llwarns << "attempt to link an unlinkable item, type = " << baseobj->getActualType() << llendl;
+		return;
+	}
+	
+	LLUUID transaction_id;
+	LLInventoryType::EType inv_type = LLInventoryType::IT_NONE;
+	if (dynamic_cast<const LLInventoryCategory *>(baseobj))
+	{
+		inv_type = LLInventoryType::IT_CATEGORY;
+	}
+	else
+	{
+		const LLViewerInventoryItem *baseitem = dynamic_cast<const LLViewerInventoryItem *>(baseobj);
+		if (baseitem)
+		{
+			inv_type = baseitem->getInventoryType();
+		}
+	}
+
+#if 1 // debugging stuff
+	LLViewerInventoryCategory* cat = gInventory.getCategory(parent_id);
+	lldebugs << "cat: " << cat << llendl;
+	
+#endif
+	LLMessageSystem* msg = gMessageSystem;
+	msg->newMessageFast(_PREHASH_LinkInventoryItem);
+	msg->nextBlock(_PREHASH_AgentData);
+	{
+		msg->addUUIDFast(_PREHASH_AgentID, agent_id);
+		msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
+	}
+	msg->nextBlock(_PREHASH_InventoryBlock);
+	{
+		msg->addU32Fast(_PREHASH_CallbackID, gInventoryCallbacks.registerCB(cb));
+		msg->addUUIDFast(_PREHASH_FolderID, parent_id);
+		msg->addUUIDFast(_PREHASH_TransactionID, transaction_id);
+		msg->addUUIDFast(_PREHASH_OldItemID, item_id);
+		msg->addS8Fast(_PREHASH_Type, (S8)asset_type);
+		msg->addS8Fast(_PREHASH_InvType, (S8)inv_type);
+		msg->addStringFast(_PREHASH_Name, new_name);
+		msg->addStringFast(_PREHASH_Description, new_description);
+	}
 	gAgent.sendReliableMessage();
 }
 

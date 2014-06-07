@@ -3089,7 +3089,6 @@ void LLVOAvatarSelf::processRebakeAvatarTextures(LLMessageSystem* msg, void**)
 					llinfos << "TAT: rebake - matched entry " << (S32)index << llendl;
 					gAgentAvatarp->invalidateComposite(layer_set, TRUE);
 					found = TRUE;
-					LLViewerStats::getInstance()->incStat(LLViewerStats::ST_TEX_REBAKES);
 				}
 			}
 		}

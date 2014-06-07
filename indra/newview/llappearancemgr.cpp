@@ -1906,15 +1906,39 @@ void LLAppearanceMgr::filterWearableItems(
 	}
 }
 
+// Create links to all listed items.
+void LLAppearanceMgr::linkAll(const LLUUID& cat_uuid,
+							  LLInventoryModel::item_array_t& items,
+							  LLPointer<LLInventoryCallback> cb)
+{
+	for (S32 i=0; i<items.size(); i++)
+	{
+		const LLInventoryItem* item = items.at(i).get();
+		link_inventory_item(gAgent.getID(),
+							item->getLinkedUUID(),
+							cat_uuid,
+							item->getName(),
+							item->getActualDescription(),
+							LLAssetType::AT_LINK,
+							cb);
+
+		const LLViewerInventoryCategory *cat = gInventory.getCategory(cat_uuid);
+		const std::string cat_name = cat ? cat->getName() : "CAT NOT FOUND";
+#ifndef LL_RELEASE_FOR_DOWNLOAD
+		LL_DEBUGS("Avatar") << self_av_string() << "Linking Item [ name:" << item->getName() << " UUID:" << item->getUUID() << " ] to Category [ name:" << cat_name << " UUID:" << cat_uuid << " ] " << LL_ENDL;
+#endif
+	}
+}
+
 //void LLAppearanceMgr::updateCOF(const LLUUID& category, bool append)
 // [RLVa:KB] - Checked: 2010-03-05 (RLVa-1.2.0b) | Added: RLVa-1.2.0b
 void LLAppearanceMgr::updateCOF(const LLUUID& category, bool append)
 {
 	LLInventoryModel::item_array_t body_items_new, wear_items_new, obj_items_new, gest_items_new;
-	getDescendentsOfAssetType(category, body_items_new, LLAssetType::AT_BODYPART, false);
-	getDescendentsOfAssetType(category, wear_items_new, LLAssetType::AT_CLOTHING, false);
-	getDescendentsOfAssetType(category, obj_items_new, LLAssetType::AT_OBJECT, false);
-	getDescendentsOfAssetType(category, gest_items_new, LLAssetType::AT_GESTURE, false);
+	getDescendentsOfAssetType(category, body_items_new, LLAssetType::AT_BODYPART);
+	getDescendentsOfAssetType(category, wear_items_new, LLAssetType::AT_CLOTHING);
+	getDescendentsOfAssetType(category, obj_items_new, LLAssetType::AT_OBJECT);
+	getDescendentsOfAssetType(category, gest_items_new, LLAssetType::AT_GESTURE);
 	updateCOF(body_items_new, wear_items_new, obj_items_new, gest_items_new, append, category);
 }
 
@@ -1981,7 +2005,7 @@ void LLAppearanceMgr::updateCOF(LLInventoryModel::item_array_t& body_items_new,
 	else if ( (rlv_handler_t::isEnabled()) && (gRlvWearableLocks.hasLockedWearableType(RLV_LOCK_ANY)) )
 	{
 		// Make sure that all currently locked clothing layers remain in COF when replacing
-		getDescendentsOfAssetType(cof, wear_items, LLAssetType::AT_CLOTHING, false);
+		getDescendentsOfAssetType(cof, wear_items, LLAssetType::AT_CLOTHING);
 		wear_items.erase(std::remove_if(wear_items.begin(), wear_items.end(), rlvPredCanRemoveItem), wear_items.end());
 	}
 // [/RLVa:KB]
@@ -2009,7 +2033,7 @@ void LLAppearanceMgr::updateCOF(LLInventoryModel::item_array_t& body_items_new,
 	else if ( (rlv_handler_t::isEnabled()) && (gRlvAttachmentLocks.hasLockedAttachmentPoint(RLV_LOCK_ANY)) )
 	{
 		// Make sure that all currently locked attachments remain in COF when replacing
-		getDescendentsOfAssetType(cof, obj_items, LLAssetType::AT_OBJECT, false);
+		getDescendentsOfAssetType(cof, obj_items, LLAssetType::AT_OBJECT);
 		obj_items.erase(std::remove_if(obj_items.begin(), obj_items.end(), rlvPredCanRemoveItem), obj_items.end());
 	}
 // [/RLVa:KB]
@@ -2051,60 +2075,45 @@ void LLAppearanceMgr::updateCOF(LLInventoryModel::item_array_t& body_items_new,
 
 
 	// Will link all the above items.
-	// link_waiter enforce flags are false because we've already fixed everything up in updateCOF().
+	LLPointer<LLInventoryCallback> link_waiter = new LLUpdateAppearanceOnDestroy;
 // [SL:KB] - Checked: 2013-03-05 (RLVa-1.4.8)
 	linkAll(cof, items_add, link_waiter);
 // [/SL:KB]
 //	linkAll(cof,all_items,link_waiter);
 
-	for (LLInventoryModel::item_array_t::const_iterator it = all_items.begin();
+	// Add link to outfit if category is an outfit. 
 // [SL:KB] - Checked: 2010-04-24 (RLVa-1.2.0f) | Added: RLVa-1.2.0f
 	if ( (!append) && (idOutfit.notNull()) )
 	{
 		createBaseOutfitLink(idOutfit, link_waiter);
-		LLInventoryItem *item = *it;
-
-		std::string desc;
-		desc_map_t::const_iterator desc_iter = desc_map.find(item->getUUID());
-		if (desc_iter != desc_map.end())
-		{
-			desc = desc_iter->second;
-			LL_DEBUGS("Avatar") << item->getName() << " overriding desc to: " << desc
-								<< " (was: " << item->getActualDescription() << ")" << LL_ENDL;
-		}
-		else
-		{
-			desc = item->getActualDescription();
-		}
+	}
 // [/SL:KB]
 //	if (!append)
 //	{
 //		createBaseOutfitLink(category, link_waiter);
 //	}
 //
-	}
-	const LLUUID& base_id = append ? getBaseOutfitUUID() : category;
-	LLViewerInventoryCategory *base_cat = gInventory.getCategory(base_id);
-	if (base_cat)
+	// Remove current COF contents.  Have to do this after creating
+	// the link_waiter so links can be followed for any items that get
+	// carried over (e.g. keeping old shape if the new outfit does not
+	// contain one)
 // [SL:KB]
 	purgeItems(items_remove);
 
-		base_contents["desc"] = "";
+	bool keep_outfit_links = append;
 	if (!keep_outfit_links)
 	{
 		purgeItemsOfType(LLAssetType::AT_LINK_FOLDER);
 	}
 
-	if (gSavedSettings.getBOOL("DebugAvatarAppearanceMessage"))
-	{
-		dump_sequential_xml(gAgentAvatarp->getFullname() + "_slam_request", contents);
-	}
-	slam_inventory_folder(getCOF(), contents, link_waiter);
+	gInventory.notifyObservers();
+// [/SL:KB]
+//	bool keep_outfit_links = append;
+//	purgeCategory(cof, keep_outfit_links, &all_items);
 //	gInventory.notifyObservers();
 
 	LL_DEBUGS("Avatar") << self_av_string() << "waiting for LLUpdateAppearanceOnDestroy" << LL_ENDL;
 }
-
 void LLAppearanceMgr::updatePanelOutfitName(const std::string& name)
 {
 	LLSidepanelAppearance* panel_appearance =
@@ -3956,8 +3965,7 @@ void LLAppearanceMgr::makeNewOutfitLinks(const std::string& new_folder_name, boo
 		LLUUID folder_id = gInventory.createNewCategory(
 			parent_id,
 			LLFolderType::FT_OUTFIT,
-			new_folder_name,
-			func);
+			new_folder_name);
 	}
 	else
 	{		
@@ -4254,10 +4262,10 @@ void LLAppearanceMgr::registerAttachment(const LLUUID& item_id)
 		   // we have to pass do_update = true to call LLAppearanceMgr::updateAppearanceFromCOF.
 		   // it will trigger gAgentWariables.notifyLoadingFinished()
 		   // But it is not acceptable solution. See EXT-7777
-//		   LLAppearanceMgr::addCOFItemLink(item_id, false);  // Add COF link for item.
+		   LLAppearanceMgr::addCOFItemLink(item_id, false);  // Add COF link for item.
 // [SL:KB] - Patch: Appearance-SyncAttach | Checked: 2010-10-05 (Catznip-2.2)
-		   LLPointer<LLInventoryCallback> cb = new LLRegisterAttachmentCallback();
-		   LLAppearanceMgr::addCOFItemLink(item_id, false, cb);  // Add COF link for item.
+//		   LLPointer<LLInventoryCallback> cb = new LLRegisterAttachmentCallback();
+//		   LLAppearanceMgr::addCOFItemLink(item_id, false, cb);  // Add COF link for item.
 // [/SL:KB]
 	   }
 	   else
@@ -4299,9 +4307,9 @@ void LLAppearanceMgr::linkPendingAttachments()
 		{
 			if (!cb)
 			{
-				cb = new LLRegisterAttachmentCallback();
+//				cb = new LLRegisterAttachmentCallback();
 			}
-			LLAppearanceMgr::addCOFItemLink(idAttachItem, false, cb);
+//			LLAppearanceMgr::addCOFItemLink(idAttachItem, false, cb);
 		}
 	}
 }

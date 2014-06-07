@@ -522,33 +522,29 @@ LLUUID LLInventoryModel::findCategoryByName(std::string name)
 
 class LLCreateInventoryCategoryResponder : public LLHTTPClient::Responder
 {
-	LOG_CLASS(LLCreateInventoryCategoryResponder);
 public:
 	LLCreateInventoryCategoryResponder(LLInventoryModel* model, 
-									   boost::optional<inventory_func_type> callback):
-		mModel(model),
-		mCallback(callback) 
+									   void (*callback)(const LLSD&, void*),
+									   void* user_data) :
+										mModel(model),
+										mCallback(callback), 
+										mData(user_data) 
 	{
 	}
 	
-protected:
-	virtual void httpFailure()
+	virtual void errorWithContent(U32 status, const std::string& reason, const LLSD& content)
 	{
-		LL_WARNS("InvAPI") << dumpResponse() << LL_ENDL;
+		LL_WARNS("InvAPI") << "CreateInventoryCategory failed [status:"
+				<< status << "]: " << content << LL_ENDL;
 	}
 	
-	virtual void httpSuccess()
+	virtual void result(const LLSD& content)
 	{
 		//Server has created folder.
-		const LLSD& content = getContent();
-		if (!content.isMap() || !content.has("folder_id"))
-		{
-			failureResult(HTTP_INTERNAL_ERROR, "Malformed response contents", content);
-			return;
-		}
+		
 		LLUUID category_id = content["folder_id"].asUUID();
 		
-		LL_DEBUGS("Avatar") << ll_pretty_print_sd(content) << LL_ENDL;
+		
 		// Add the category to the internal representation
 		LLPointer<LLViewerInventoryCategory> cat =
 		new LLViewerInventoryCategory( category_id, 
@@ -561,15 +557,17 @@ protected:
 		LLInventoryModel::LLCategoryUpdate update(cat->getParentUUID(), 1);
 		mModel->accountForUpdate(update);
 		mModel->updateCategory(cat);
-
-		if (mCallback)
+		
+		if (mCallback && mData)
 		{
-			mCallback.get()(category_id);
+			mCallback(content, mData);
 		}
+		
 	}
 	
 private:
-	boost::optional<inventory_func_type> mCallback;
+	void (*mCallback)(const LLSD&, void*);
+	void* mData;
 	LLInventoryModel* mModel;
 };
 
@@ -580,7 +578,8 @@ private:
 LLUUID LLInventoryModel::createNewCategory(const LLUUID& parent_id,
 										   LLFolderType::EType preferred_type,
 										   const std::string& pname,
-										   boost::optional<inventory_func_type> callback)
+										   void (*callback)(const LLSD&, void*),	//Default to NULL
+										   void* user_data)							//Default to NULL
 {
 	
 	LLUUID id;
@@ -607,32 +606,33 @@ LLUUID LLInventoryModel::createNewCategory(const LLUUID& parent_id,
 		name.assign(LLViewerFolderType::lookupNewCategoryName(preferred_type));
 	}
 	
-	LLViewerRegion* viewer_region = gAgent.getRegion();
-	std::string url;
-	if ( viewer_region )
-		url = viewer_region->getCapability("CreateInventoryCategory");
-	
-	if (!url.empty() && callback.get_ptr())
+	if ( callback && user_data )  //callback required for acked message.
 	{
-		//Let's use the new capability.
+		LLViewerRegion* viewer_region = gAgent.getRegion();
+		std::string url;
+		if ( viewer_region )
+			url = viewer_region->getCapability("CreateInventoryCategory");
 		
-		LLSD request, body;
-		body["folder_id"] = id;
-		body["parent_id"] = parent_id;
-		body["type"] = (LLSD::Integer) preferred_type;
-		body["name"] = name;
-		
-		request["message"] = "CreateInventoryCategory";
-		request["payload"] = body;
-
-		LL_DEBUGS("Avatar") << "create category request: " << ll_pretty_print_sd(request) << LL_ENDL;
-		//		viewer_region->getCapAPI().post(request);
-		LLHTTPClient::post(
-			url,
-			body,
-			new LLCreateInventoryCategoryResponder(this, callback) );
-
-		return LLUUID::null;
+		if (!url.empty())
+		{
+			//Let's use the new capability.
+			
+			LLSD request, body;
+			body["folder_id"] = id;
+			body["parent_id"] = parent_id;
+			body["type"] = (LLSD::Integer) preferred_type;
+			body["name"] = name;
+			
+			request["message"] = "CreateInventoryCategory";
+			request["payload"] = body;
+			
+	//		viewer_region->getCapAPI().post(request);
+			LLHTTPClient::post(
+							   url,
+							   body,
+							   new LLCreateInventoryCategoryResponder(this, callback, user_data) );
+			return LLUUID::null;
+		}
 	}
 
 	// Add the category to the internal representation
@@ -724,7 +724,8 @@ void LLInventoryModel::collectDescendentsIf(const LLUUID& id,
 											cat_array_t& cats,
 											item_array_t& items,
 											BOOL include_trash,
-											LLInventoryCollectFunctor& add)
+											LLInventoryCollectFunctor& add,
+											BOOL follow_folder_links)
 {
 	// Start with categories
 	if(!include_trash)
@@ -834,7 +835,19 @@ LLInventoryModel::item_array_t LLInventoryModel::collectLinksTo(const LLUUID& id
 
 	return items;
 }
-
+LLInventoryModel::item_array_t LLInventoryModel::collectLinkedItems(const LLUUID& id,
+																	const LLUUID& start_folder_id)
+{
+	item_array_t items;
+	LLInventoryModel::cat_array_t cat_array;
+	LLLinkedItemIDMatches is_linked_item_match(id);
+	collectDescendentsIf((start_folder_id == LLUUID::null ? gInventory.getRootFolderID() : start_folder_id),
+						 cat_array,
+						 items,
+						 LLInventoryModel::INCLUDE_TRASH,
+						 is_linked_item_match);
+	return items;
+}
 bool LLInventoryModel::isInventoryUsable() const
 {
 	bool result = false;

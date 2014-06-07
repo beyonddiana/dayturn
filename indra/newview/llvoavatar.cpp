@@ -2057,33 +2057,27 @@ LLViewerFetchedTexture *LLVOAvatar::getBakedTextureImage(const U8 te, const LLUU
 		// Should already exist, don't need to find it on sim or baked-texture host.
 		result = gTextureList.findImage(uuid);
 	}
+
 	if (!result)
 {
 		const std::string url = getImageURL(te,uuid);
-
 		if (!url.empty())
-		{
-			LL_DEBUGS("Avatar") << avString() << "get server-bake image from URL " << url << llendl;
+	{
+			LL_DEBUGS("Avatar") << avString() << "from URL " << url << LL_ENDL;
 			result = LLViewerTextureManager::getFetchedTextureFromUrl(
 				url, FTT_SERVER_BAKE, TRUE, LLGLTexture::BOOST_NONE, LLViewerTexture::LOD_TEXTURE, 0, 0, uuid);
-			if (result->isMissingAsset())
-			{
-				result->setIsMissingAsset(false);
-			}
-		}
-		else
-		{
-			LL_DEBUGS("Avatar") << avString() << "get old-bake image from host " << uuid << llendl;
+	}
+	else
+	{
+			LL_DEBUGS("Avatar") << avString() << "from host " << uuid << LL_ENDL;
 			LLHost host = getObjectHost();
 			result = LLViewerTextureManager::getFetchedTexture(
 				uuid, FTT_HOST_BAKE, TRUE, LLGLTexture::BOOST_NONE, LLViewerTexture::LOD_TEXTURE, 0, 0, host);
-		if (result->isMissingAsset())
-		{
-			result->setIsMissingAsset(false);
-		}
 	}
+}
 	return result;
 }
+
 
 // virtual
 S32 LLVOAvatar::setTETexture(const U8 te, const LLUUID& uuid)
@@ -4905,22 +4899,20 @@ const std::string LLVOAvatar::getImageURL(const U8 te, const LLUUID &uuid)
 {
 	llassert(isIndexBakedTexture(ETextureIndex(te)));
 	std::string url = "";
-	if (isUsingServerBakes())
+	const std::string& appearance_service_url = LLAppearanceMgr::instance().getAppearanceServiceURL();
+	if (appearance_service_url.empty())
 	{
-		const std::string& appearance_service_url = LLAppearanceMgr::instance().getAppearanceServiceURL();
-		if (appearance_service_url.empty())
-		{
-			// Probably a server-side issue if we get here:
-			llwarns << "AgentAppearanceServiceURL not set - Baked texture requests will fail" << llendl;
-			return url;
-		}
-		const LLAvatarAppearanceDictionary::TextureEntry* texture_entry = LLAvatarAppearanceDictionary::getInstance()->getTexture((ETextureIndex)te);
-		if (texture_entry != NULL)
-		{
-			url = appearance_service_url + "texture/" + getID().asString() + "/" + texture_entry->mDefaultImageName + "/" + uuid.asString();
-			//llinfos << "baked texture url: " << url << llendl;
-		}
-   }
+		// Probably a server-side issue if we get here:
+		LL_WARNS() << "AgentAppearanceServiceURL not set - Baked texture requests will fail" << LL_ENDL;
+		return url;
+	}
+	
+	const LLAvatarAppearanceDictionary::TextureEntry* texture_entry = LLAvatarAppearanceDictionary::getInstance()->getTexture((ETextureIndex)te);
+	if (texture_entry != NULL)
+	{
+		url = appearance_service_url + "texture/" + getID().asString() + "/" + texture_entry->mDefaultImageName + "/" + uuid.asString();
+		//LL_INFOS() << "baked texture url: " << url << LL_ENDL;
+	}
 	return url;
 }
 
@@ -7501,13 +7493,13 @@ void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
 			&& mBakedTextureDatas[baked_index].mLastTextureID != IMG_DEFAULT
 			&& baked_index != BAKED_SKIRT)
 		{
-+			LL_DEBUGS("Avatar") << avString() << "sb " << (S32) isUsingServerBakes() << " baked_index " << (S32) baked_index << " using mLastTextureID " << mBakedTextureDatas[baked_index].mLastTextureID << LL_ENDL;
+			LL_DEBUGS("Avatar") << avString() << "sb " << (S32) isUsingServerBakes() << " baked_index " << (S32) baked_index << " using mLastTextureID " << mBakedTextureDatas[baked_index].mLastTextureID << LL_ENDL;
 			setTEImage(mBakedTextureDatas[baked_index].mTextureIndex, 
 				LLViewerTextureManager::getFetchedTexture(mBakedTextureDatas[baked_index].mLastTextureID, FTT_DEFAULT, TRUE, LLGLTexture::BOOST_NONE, LLViewerTexture::LOD_TEXTURE));
 		}
 		else
 		{
-+			LL_DEBUGS("Avatar") << avString() << "sb " << (S32) isUsingServerBakes() << " baked_index " << (S32) baked_index << " using texture id "
+			LL_DEBUGS("Avatar") << avString() << "sb " << (S32) isUsingServerBakes() << " baked_index " << (S32) baked_index << " using texture id "
  								<< getTE(mBakedTextureDatas[baked_index].mTextureIndex)->getID() << LL_ENDL;
 		}
 	}

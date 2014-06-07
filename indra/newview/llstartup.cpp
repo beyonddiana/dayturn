@@ -2249,7 +2249,7 @@ bool idle_startup()
 		
 		display_startup();
 
-		if (gAgent.isOutfitChosen() > max_wearables_time)
+		if (gAgent.isGenderChosen() > max_wearables_time)
 		{
 			LLNotificationsUtil::add("ClothingLoading");
 			record(LLStatViewer::LOADING_WEARABLES_LONG_DELAY, wearables_time);
