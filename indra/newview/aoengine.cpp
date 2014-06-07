@@ -791,12 +791,15 @@ void AOEngine::purgeFolder(const LLUUID& uuid) const
 	gInventory.removeCategory(uuid);
 
 	// clean it
-	gInventory.purgeDescendentsOf(uuid);
+	purge_descendents_of(uuid, NULL);
 	gInventory.notifyObservers();
 
 	// purge it
-	gInventory.onDescendentsPurgedFromServer(uuid);
-	gInventory.notifyObservers();
+
+/** Kokua SSA Merge */
+//	gInventory.purgeObject(uuid);
+//	gInventory.notifyObservers();
+
 	// protect it
 	gSavedPerAccountSettings.setBOOL("ProtectAOFolders",wasProtected);
 }
@@ -840,7 +843,7 @@ BOOL AOEngine::removeAnimation(const AOSet* set,AOSet::AOState* state,S32 index)
 
 	// purge the item from inventory
 	lldebugs << __LINE__ << " purging: " << state->mAnimations[index].mInventoryUUID << llendl;
-	gInventory.purgeObject(state->mAnimations[index].mInventoryUUID); // item->getUUID());
+//	gInventory.purgeObject(state->mAnimations[index].mInventoryUUID); // item->getUUID());
 	gInventory.notifyObservers();
 
 	state->mAnimations.erase(state->mAnimations.begin()+index);

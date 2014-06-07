@@ -1228,7 +1228,18 @@ void LLInventoryModel::changeCategoryParent(LLViewerInventoryCategory* cat,
 	updateCategory(new_cat);
 	notifyObservers();
 }
-
+// Delete a particular inventory item by ID, and remove it from the server.
+void LLInventoryModel::purgeObject(const LLUUID &id)
+{
+	LL_DEBUGS() << "LLInventoryModel::purgeObject() [ id: " << id << " ] " << LL_ENDL;
+	LLPointer<LLInventoryObject> obj = getObject(id);
+	if(obj)
+	{
+		obj->removeFromServer();
+		LLPreview::hide(id);
+		deleteObject(id);
+	}
+}
 void LLInventoryModel::onAISUpdateReceived(const std::string& context, const LLSD& update)
 {
 	LLTimer timer;
