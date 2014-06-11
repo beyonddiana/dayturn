@@ -231,33 +231,14 @@ LLAgentWearables::AddWearableToAgentInventoryCallback::AddWearableToAgentInvento
 
 void LLAgentWearables::AddWearableToAgentInventoryCallback::fire(const LLUUID& inv_item)
 {
-	if (mTodo & CALL_CREATESTANDARDDONE)
-	{
-		llinfos << "callback fired, inv_item " << inv_item.asString() << llendl;
-	}
-
 	if (inv_item.isNull())
 		return;
 
 	gAgentWearables.addWearabletoAgentInventoryDone(mType, mIndex, inv_item, mWearable);
 
-	if (mTodo & CALL_UPDATE)
-	{
-		gAgentWearables.sendAgentWearablesUpdate();
-	}
-	if (mTodo & CALL_RECOVERDONE)
-	{
-		LLAppearanceMgr::instance().addCOFItemLink(inv_item);
-		gAgentWearables.recoverMissingWearableDone();
-	}
 	/*
 	 * Do this for every one in the loop
 	 */
-	if (mTodo & CALL_CREATESTANDARDDONE)
-	{
-		LLAppearanceMgr::instance().addCOFItemLink(inv_item);
-		gAgentWearables.createStandardWearablesDone(mType, mIndex);
-	}
 	if (mTodo & CALL_MAKENEWOUTFITDONE)
 	{
 		gAgentWearables.makeNewOutfitDone(mType, mIndex);
@@ -268,7 +249,6 @@ void LLAgentWearables::AddWearableToAgentInventoryCallback::fire(const LLUUID& i
 			new LLUpdateAppearanceAndEditWearableOnDestroy(inv_item), mDescription);
 	}
 }
-
 void LLAgentWearables::addWearabletoAgentInventoryDone(const LLWearableType::EType type,
 													   const U32 index,
 													   const LLUUID& item_id,
