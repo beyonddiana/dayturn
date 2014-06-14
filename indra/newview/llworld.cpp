@@ -235,7 +235,7 @@ void LLWorld::refreshLimits()
 
 	mLimitsNeedRefresh = false;
 
-	if(LLGridManager::getInstance()->isInOpenSim())
+	if(!(LLGridManager::getInstance()->isInSecondLife()))
 	{
 		//llmath/xform.h
 		mRegionMaxHeight = OS_MAX_OBJECT_Z; //llmath/xform.h
