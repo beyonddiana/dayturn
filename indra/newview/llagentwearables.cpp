@@ -245,19 +245,6 @@ void LLAgentWearables::AddWearableToAgentInventoryCallback::fire(const LLUUID& i
 	{
 		gAgentWearables.sendAgentWearablesUpdate();
 	}
-	if (mTodo & CALL_RECOVERDONE)
-	{
-		LLAppearanceMgr::instance().addCOFItemLink(inv_item);
-		gAgentWearables.recoverMissingWearableDone();
-	}
-	/*
-	 * Do this for every one in the loop
-	 */
-	if (mTodo & CALL_CREATESTANDARDDONE)
-	{
-		LLAppearanceMgr::instance().addCOFItemLink(inv_item);
-		gAgentWearables.createStandardWearablesDone(mType, mIndex);
-	}
 	if (mTodo & CALL_MAKENEWOUTFITDONE)
 	{
 		gAgentWearables.makeNewOutfitDone(mType, mIndex);

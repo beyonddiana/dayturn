@@ -4256,17 +4256,16 @@ void LLAppearanceMgr::registerAttachment(const LLUUID& item_id)
 	   }
 	   mPendingAttachLinks.push_back(item_id);
 // [/SL:KB]
-
 	   if (mAttachmentInvLinkEnabled)
 	   {
 		   // we have to pass do_update = true to call LLAppearanceMgr::updateAppearanceFromCOF.
 		   // it will trigger gAgentWariables.notifyLoadingFinished()
 		   // But it is not acceptable solution. See EXT-7777
-		   LLAppearanceMgr::addCOFItemLink(item_id, false);  // Add COF link for item.
-// [SL:KB] - Patch: Appearance-SyncAttach | Checked: 2010-10-05 (Catznip-2.2)
-//		   LLPointer<LLInventoryCallback> cb = new LLRegisterAttachmentCallback();
-//		   LLAppearanceMgr::addCOFItemLink(item_id, false, cb);  // Add COF link for item.
-// [/SL:KB]
+		   if (!isLinkedInCOF(item_id))
+		   {
+			   LLPointer<LLInventoryCallback> cb = new LLUpdateAppearanceOnDestroy();
+			   LLAppearanceMgr::addCOFItemLink(item_id, cb);  // Add COF link for item.
+		   }
 	   }
 	   else
 	   {
