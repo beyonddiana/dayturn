@@ -236,9 +236,6 @@ void LLAgentWearables::AddWearableToAgentInventoryCallback::fire(const LLUUID& i
 
 	gAgentWearables.addWearabletoAgentInventoryDone(mType, mIndex, inv_item, mWearable);
 
-	/*
-	 * Do this for every one in the loop
-	 */
 	if (mTodo & CALL_MAKENEWOUTFITDONE)
 	{
 		gAgentWearables.makeNewOutfitDone(mType, mIndex);
