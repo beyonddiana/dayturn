@@ -5369,7 +5369,20 @@ void process_sim_stats(LLMessageSystem *msg, void **user_data)
 		}
 		else
 		{
-			LL_WARNS() << "Unknown sim stat identifier: " << stat_id << LL_ENDL;
+			if (gSimulatorType == "SecondLife")
+			{
+				LL_WARNS() << "Unknown sim stat identifier: " << stat_id << LL_ENDL;
+			}
+			else
+			if (stat_id == 16)
+			{
+				LL_DEBUGS() << "Unknown sim stat identifier: " << stat_id << LL_ENDL;
+			}
+			else
+			{
+				LL_WARNS() << "Unknown sim stat identifier: " << stat_id << LL_ENDL;
+			}
+			
 		}
 	}
 
