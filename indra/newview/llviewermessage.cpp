@@ -5374,7 +5374,7 @@ void process_sim_stats(LLMessageSystem *msg, void **user_data)
 				LL_WARNS() << "Unknown sim stat identifier: " << stat_id << LL_ENDL;
 			}
 			else
-			if (stat_id == 16)
+			if (stat_id == 16) //cut log spam on opensim
 			{
 				LL_DEBUGS() << "Unknown sim stat identifier: " << stat_id << LL_ENDL;
 			}
