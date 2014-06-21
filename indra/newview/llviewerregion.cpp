@@ -77,7 +77,7 @@
 #include "llviewerdisplay.h"
 #include "llviewerwindow.h"
 #include "llprogressview.h"
-
+#include "llviewernetwork.h" //SecondLife or Opensim -- Server or client bake
 #ifdef LL_WINDOWS
 	#pragma warning(disable:4355)
 #endif
@@ -2590,9 +2590,14 @@ void LLViewerRegion::unpackRegionHandshake()
 		mProductSKU = productSKU;
 		mProductName = productName;
 	}
-
-
-	mCentralBakeVersion = region_protocols & 1; // was (S32)gSavedSettings.getBOOL("UseServerTextureBaking");
+	if (LLGridManager::getInstance()->isInSecondLife())
+	{
+		mCentralBakeVersion = region_protocols & 1; // was (S32)gSavedSettings.getBOOL("UseServerTextureBaking");
+	}
+	else
+	{
+		mCentralBakeVersion = region_protocols & 0; // was (S32)gSavedSettings.getBOOL("UseServerTextureBaking");
+	}
 	LLVLComposition *compp = getComposition();
 	if (compp)
 	{
