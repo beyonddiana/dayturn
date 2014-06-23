@@ -687,9 +687,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>3977c3628b34c1a25a71c78204ab1113</string>
+              <string>b71f4851d0618d71ca99db5d22303525</string>
               <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-fmodex/downloads/fmodex-4.44.33-darwin-20140513.tar.bz2</string>
+              <string>http://bitbucket.org/kokua/3p-fmodex/downloads/fmodex-4.44.36-darwin-20140623.tar.bz2</string>
             </map>
             <key>name</key>
             <string>darwin</string>
@@ -711,9 +711,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>2e7f288157c1c9196969923da5650a17</string>
+              <string>7a0e4f17584bb8ec47a52e312b17c574</string>
               <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-fmodex/downloads/fmodex-4.44.33-windows-20140513.tar.bz2</string>
+              <string>http://bitbucket.org/kokua/3p-fmodex/downloads/fmodex-4.44.36-windows-20140622.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
