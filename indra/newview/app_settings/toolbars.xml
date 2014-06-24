@@ -8,7 +8,6 @@
     <command name="speak"/>
     <command name="destinations"/>
     <command name="people"/>
-    <command name="social"/>
     <command name="snapshot"/> 
     <command name="search"/>	
     <command name="build"/>
@@ -31,5 +30,6 @@
     <command name="destinations"/>
     <command name="legacy_search"/>
     <command name="web_browser"/>
+    <command name="facebook"/>
   </left_toolbar>
 </toolbars>

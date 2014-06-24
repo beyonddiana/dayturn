@@ -87,9 +87,10 @@ public:
 		FFLOAD_COLLADA = 10,
     	FFLOAD_SCRIPT = 11,
 		FFLOAD_DICTIONARY = 12,
-        FFLOAD_DIRECTORY = 13,   //To call from lldirpicker. 
-// <FS:CR> Export filter
-		FFLOAD_IMPORT = 14
+        FFLOAD_DIRECTORY = 13,   // To call from lldirpicker.
+        FFLOAD_EXE = 14,          // Note: EXE will be treated as ALL on Windows and Linux but not on Darwin
+ // <FS:CR> Export filter
+		FFLOAD_IMPORT = 15
 // </FS:CR>
 	};
 
