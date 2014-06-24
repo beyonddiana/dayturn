@@ -31,5 +31,7 @@
     <command name="legacy_search"/>
     <command name="web_browser"/>
     <command name="facebook"/>
+    <command name="twitter"/>
+    <command name="flickr"/>
   </left_toolbar>
 </toolbars>
