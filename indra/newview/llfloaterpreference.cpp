@@ -396,6 +396,7 @@ LLFloaterPreference::LLFloaterPreference(const LLSD& key)
 	mCommitCallbackRegistrar.add("Pref.Proxy",					boost::bind(&LLFloaterPreference::onClickProxySettings, this));
 	mCommitCallbackRegistrar.add("Pref.TranslationSettings",	boost::bind(&LLFloaterPreference::onClickTranslationSettings, this));
 	mCommitCallbackRegistrar.add("Pref.AutoReplace",            boost::bind(&LLFloaterPreference::onClickAutoReplace, this));
+	mCommitCallbackRegistrar.add("Pref.PermsDefault",           boost::bind(&LLFloaterPreference::onClickPermsDefault, this));
 	mCommitCallbackRegistrar.add("Pref.SpellChecker",           boost::bind(&LLFloaterPreference::onClickSpellChecker, this));
 
 	sSkin = gSavedSettings.getString("SkinCurrent");
@@ -1349,6 +1350,9 @@ void LLFloaterPreference::refreshEnabledState()
 	bool logged_in = LLLoginInstance::getInstance()->authSuccess();
 	getChildView("block_list")->setEnabled(logged_in);
 	getChildView("pick_current_search_url")->setEnabled(logged_in);
+
+	// Cannot have floater active until caps have been received
+	getChild<LLButton>("default_creation_permissions")->setEnabled(LLStartUp::getStartupState() < STATE_STARTED ? false : true);
 }
 
 void LLFloaterPreference::disableUnavailableSettings()
@@ -1843,6 +1847,11 @@ void LLFloaterPreference::onClickSpellChecker()
 void LLFloaterPreference::onClickActionChange()
 {
 	mClickActionDirty = true;
+}
+
+void LLFloaterPreference::onClickPermsDefault()
+{
+	LLFloaterReg::showInstance("perms_default");
 }
 
 void LLFloaterPreference::onDeleteTranscripts()

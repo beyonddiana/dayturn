@@ -1,19 +1,12 @@
 # -*- cmake -*-
 include(Prebuilt)
-if (STANDALONE)
-  set(STANDALONE OFF)
+if (NOT USESYSTEMLIBS)
   use_prebuilt_binary(slvoice)
   use_prebuilt_binary(libhunspell)
-#kokuafixme
-#   if(LINUX AND ${ARCH} STREQUAL "x86_64")
-#     use_prebuilt_binary(32bitcompatibilitylibs)
-#   endif(LINUX AND ${ARCH} STREQUAL "x86_64")
-  set(STANDALONE ON)
-else (STANDALONE)
   use_prebuilt_binary(libuuid)
   use_prebuilt_binary(slvoice)
   use_prebuilt_binary(fontconfig)
-  if(LINUX)
+endif(NOT USESYSTEMLIBS)
      if (${ARCH} STREQUAL "x86_64")
       use_prebuilt_binary(32bitcompatibilitylibs)
       # for mesh, this is built with colladadom and

@@ -4,7 +4,7 @@ include(Variables)
 include(GLEXT)
 include(Prebuilt)
 
-if (STANDALONE)
+if (USESYSTEMLIBS)
   include(FindSDL)
 
   # This should be done by FindSDL.  Sigh.
@@ -13,7 +13,7 @@ if (STANDALONE)
       SDL_INCLUDE_DIR
       SDL_LIBRARY
       )
-else (STANDALONE)
+else (USESYSTEMLIBS)
   if (LINUX)
     use_prebuilt_binary(SDL)#kokuafixme was:SDL-noartwork
     set (SDL_FOUND TRUE)
@@ -23,7 +23,7 @@ else (STANDALONE)
       list(APPEND SDL_LIBRARY directfb fusion direct)
     endif (NOT ${ARCH} STREQUAL "x86_64")
   endif (LINUX)	
-endif (STANDALONE)
+endif (USESYSTEMLIBS)
 
 if (SDL_FOUND)
   include_directories(${SDL_INCLUDE_DIR})

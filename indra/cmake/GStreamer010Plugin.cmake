@@ -1,15 +1,15 @@
 # -*- cmake -*-
 include(Prebuilt)
 
-if (STANDALONE)
+if (USESYSTEMLIBS)
   include(FindPkgConfig)
 
   pkg_check_modules(GSTREAMER010 REQUIRED gstreamer-0.10)
   pkg_check_modules(GSTREAMER010_PLUGINS_BASE REQUIRED gstreamer-plugins-base-0.10)
 
 else (STANDALONE)
-
-  # Possibly libxml and glib should have their own .cmake file instead...
+  # possible libxml2 should have its own .cmake file instead
+  use_prebuilt_binary(libxml2)
   use_prebuilt_binary(gstreamer)	# includes glib, libxml, and iconv on Windows
   set(GSTREAMER010_FOUND ON FORCE BOOL)
   set(GSTREAMER010_PLUGINS_BASE_FOUND ON FORCE BOOL)
@@ -63,7 +63,7 @@ else (WINDOWS)
          rt
          glib-2.0
          )
-endif (WINDOWS)
+endif (USESYSTEMLIBS)
 
 
 if (GSTREAMER010_FOUND AND GSTREAMER010_PLUGINS_BASE_FOUND)
