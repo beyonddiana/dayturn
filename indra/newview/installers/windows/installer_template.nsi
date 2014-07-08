@@ -735,7 +735,6 @@ Call CheckIfAdministrator		; Make sure the user can install/uninstall
 Call CheckIfAlreadyCurrent		; Make sure that we haven't already installed this version
 Call CloseSecondLife			; Make sure we're not running
 Call CheckNetworkConnection		; ping secondlife.com
-Call CheckWillUninstallV2		; See if a V2 install exists and will be removed.
 Call CheckOldExeName                    ; Clean up a previous version of the exe
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
