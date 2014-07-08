@@ -458,12 +458,6 @@ void LLScriptEdCore::processKeywords()
 		}
 	}
 	for (string_vec_t::const_iterator iter = primary_keywords.begin();
-		// <FS:CR> OSSL Keywords
-#ifdef OPENSIM
-		mEditor->loadKeywords(gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "keywords_ossl.ini"), funcs, tooltips, color);
-#endif // OPENSIM
-		// </FS:CR>
-
 		 iter!= primary_keywords.end(); ++iter)
 	{
 		mFunctions->add(*iter);
@@ -621,11 +615,9 @@ void LLScriptEdCore::sync()
 
 bool LLScriptEdCore::hasChanged()
 {
-	LLLineEditor *desc = mContainer->getChild<LLLineEditor>("desc");
+	if (!mEditor) return false;
 
-	if (!mEditor || !desc) return false;
-
-	return ((!mEditor->isPristine() || desc->isDirty() || mEnableSave) && mHasScriptData);
+	return ((!mEditor->isPristine() || mEnableSave) && mHasScriptData);
 }
 
 void LLScriptEdCore::draw()
@@ -1441,13 +1433,7 @@ void LLPreviewLSL::saveIfNeeded(bool sync /*= true*/)
 		return;
 	}
 
-	LLLineEditor *desc = mScriptEd->mContainer->getChild<LLLineEditor>("desc");
-	if (desc) {
-		desc->resetDirty();
-	}
-
 	mPendingUploads = 0;
-	mScriptEd->mErrorList->setCommentText("");
 	mScriptEd->mErrorList->deleteAllItems();
 	mScriptEd->mEditor->makePristine();
 
@@ -1490,7 +1476,7 @@ void LLPreviewLSL::uploadAssetViaCaps(const std::string& url,
 	LL_INFOS() << "Update Agent Inventory via capability" << LL_ENDL;
 	LLSD body;
 	body["item_id"] = item_id;
-	body["target"] = gSavedSettings.getBOOL("SaveInventoryScriptsAsMono") ? "mono" : "lsl2";
+	body["target"] = "lsl2";
 	LLHTTPClient::post(url, body, new LLUpdateAgentInventoryResponder(body, filename, LLAssetType::AT_LSL_TEXT));
 }
 
