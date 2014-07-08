@@ -6,8 +6,8 @@ if (USESYSTEMLIBS)
 
   pkg_check_modules(GSTREAMER010 REQUIRED gstreamer-0.10)
   pkg_check_modules(GSTREAMER010_PLUGINS_BASE REQUIRED gstreamer-plugins-base-0.10)
-
-else (STANDALONE)
+ else (USESYSTEMLIBS)
+  use_prebuilt_binary(gstreamer)
   # possible libxml2 should have its own .cmake file instead
   use_prebuilt_binary(libxml2)
   use_prebuilt_binary(gstreamer)	# includes glib, libxml, and iconv on Windows
@@ -33,7 +33,7 @@ else (STANDALONE)
 		)
   endif (WINDOWS)
 
-endif (STANDALONE)
+endif (USESYSTEMLIBS)
 
 if (WINDOWS)
 
