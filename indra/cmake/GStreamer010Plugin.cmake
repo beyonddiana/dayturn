@@ -25,7 +25,7 @@ if (USESYSTEMLIBS)
 		)
   else (WINDOWS)
     use_prebuilt_binary(glib)			# gstreamer needs glib
-	use_prebuilt_binary(libxml)
+	use_prebuilt_binary(libxml2)
 	set(GSTREAMER010_INCLUDE_DIRS
 		${LIBS_PREBUILT_DIR}/include/gstreamer-0.10
 		${LIBS_PREBUILT_DIR}/include/glib-2.0
