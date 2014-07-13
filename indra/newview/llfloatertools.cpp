@@ -1154,9 +1154,9 @@ void LLFloaterTools::setGridMode(S32 mode)
 
 void LLFloaterTools::onClickGridOptions()
 {
-	LLFloaterReg::showInstance("advancedbuild_options"); //Includes build_options and advanced build options
+//	LLFloaterReg::showInstance("advancedbuild_options"); //Includes build_options and advanced build options
 	//LLFloaterReg::showInstance("build_options");
-//	LLFloater* floaterp = LLFloaterReg::showInstance("build_options");
+	LLFloater* floaterp = LLFloaterReg::showInstance("advancedbuild_options");
 	// position floater next to build tools, not over
 	floaterp->setRect(gFloaterView->findNeighboringPosition(this, floaterp));
 }
