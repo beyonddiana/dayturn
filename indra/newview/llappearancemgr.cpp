@@ -1400,7 +1400,7 @@ bool LLAppearanceMgr::wearItemOnAvatar(const LLUUID& item_id_to_wear,
 		LLNotificationsUtil::add("CannotWearTrash");
 		return false;
 	}
-	else if (gInventory.isObjectDescendentOf(item_to_wear->getUUID(), LLAppearanceMgr::instance().getCOF())) // EXT-84911
+	else if (isLinkedInCOF(item_to_wear->getUUID())) // EXT-84911
 	{
 		return false;
 	}
@@ -1415,8 +1415,8 @@ bool LLAppearanceMgr::wearItemOnAvatar(const LLUUID& item_id_to_wear,
 
 	switch (item_to_wear->getType())
 	{
-	case LLAssetType::AT_CLOTHING:
-	if (gAgentWearables.areWearablesLoaded())
+		case LLAssetType::AT_CLOTHING:
+		if (gAgentWearables.areWearablesLoaded())
 		{
 			if (!cb && do_update)
 			{
@@ -1434,7 +1434,8 @@ bool LLAppearanceMgr::wearItemOnAvatar(const LLUUID& item_id_to_wear,
 			addCOFItemLink(item_to_wear, cb);
 		} 
 		break;
-	case LLAssetType::AT_BODYPART:
+
+		case LLAssetType::AT_BODYPART:
 		// TODO: investigate wearables may not be loaded at this point EXT-8231
 		
 		// Remove the existing wearables of the same type.
@@ -1446,10 +1447,12 @@ bool LLAppearanceMgr::wearItemOnAvatar(const LLUUID& item_id_to_wear,
 		}
 		addCOFItemLink(item_to_wear, cb);
 		break;
-	case LLAssetType::AT_OBJECT:
+
+		case LLAssetType::AT_OBJECT:
 		rez_attachment(item_to_wear, NULL, replace);
 		break;
-	default: return false;;
+
+		default: return false;;
 	}
 
 	return true;

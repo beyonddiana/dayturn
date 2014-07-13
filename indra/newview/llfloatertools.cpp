@@ -1156,8 +1156,9 @@ void LLFloaterTools::onClickGridOptions()
 {
 	LLFloaterReg::showInstance("advancedbuild_options"); //Includes build_options and advanced build options
 	//LLFloaterReg::showInstance("build_options");
-	// RN: this makes grid options dependent on build tools window
-	//floaterp->addDependentFloater(LLFloaterBuildOptions::getInstance(), FALSE);
+//	LLFloater* floaterp = LLFloaterReg::showInstance("build_options");
+	// position floater next to build tools, not over
+	floaterp->setRect(gFloaterView->findNeighboringPosition(this, floaterp));
 }
 
 // static

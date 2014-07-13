@@ -880,12 +880,9 @@ void LLAgent::handleServerBakeRegionTransition(const LLUUID& region_id)
 //-----------------------------------------------------------------------------
 void LLAgent::setRegion(LLViewerRegion *regionp)
 {
-	bool notifyRegionChange;
-
 	llassert(regionp);
 	if (mRegionp != regionp)
 	{
-		notifyRegionChange = true;
 
 		std::string ip = regionp->getHost().getString();
 		LL_INFOS("AgentLocation") << "Moving agent into region: " << regionp->getName()
@@ -938,10 +935,7 @@ void LLAgent::setRegion(LLViewerRegion *regionp)
 		// Pass new region along to metrics components that care about this level of detail.
 		LLAppViewer::metricsUpdateRegion(regionp->getHandle());
 	}
-	else
-	{
-		notifyRegionChange = false;
-	}
+
 	mRegionp = regionp;
 
 	// TODO - most of what follows probably should be moved into callbacks
@@ -967,11 +961,9 @@ void LLAgent::setRegion(LLViewerRegion *regionp)
 	LLFloaterMove::sUpdateMovementStatus();
 // [/RLVa:KB]
 
-	if (notifyRegionChange)
-	{
-		LL_DEBUGS("AgentLocation") << "Calling RegionChanged callbacks" << LL_ENDL;
-		mRegionChangedSignal();
-	}
+	LL_DEBUGS("AgentLocation") << "Calling RegionChanged callbacks" << LL_ENDL;
+	mRegionChangedSignal();
+}
 
 	// If the newly entered region is using server bakes, and our
 	// current appearance is non-baked, request appearance update from
@@ -985,7 +977,6 @@ void LLAgent::setRegion(LLViewerRegion *regionp)
 		// Need to handle via callback after caps arrive.
 		mRegionp->setCapabilitiesReceivedCallback(boost::bind(&LLAgent::handleServerBakeRegionTransition,this,_1));
 	}
-}
 
 
 //-----------------------------------------------------------------------------
@@ -1506,6 +1497,7 @@ void LLAgent::setDoNotDisturb(bool pIsDoNotDisturb)
 	{
 		LLDoNotDisturbNotificationStorage::getInstance()->updateNotifications();
 	}
+	gIMMgr->updateDNDMessageStatus();
 }
 
 //-----------------------------------------------------------------------------

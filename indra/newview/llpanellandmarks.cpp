@@ -1318,6 +1318,7 @@ bool LLLandmarksPanel::handleDragAndDropToTrash(BOOL drop, EDragAndDropType carg
 		break;
 	}
 
+	updateVerbs();
 	return true;
 }
 
