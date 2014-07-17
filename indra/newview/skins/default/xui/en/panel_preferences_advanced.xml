@@ -219,7 +219,18 @@
          top_delta="0"
          width="315" />
     </radio_group>
-
+	<button
+     height="20"
+     label="Default Creation Permissions"
+     follows="left|top"
+     layout="topleft"
+     name="default_creation_permissions"
+     left="30"
+     top_pad = "5"
+     width="250">
+	<button.commit_callback
+	 function="Pref.PermsDefault" />
+   </button>
     <check_box
      control_name="AllowMultipleViewers"
      follows="top|left"
@@ -228,7 +239,7 @@
      layout="topleft"
      left="30"
      name="allow_multiple_viewer_check"
-     top_pad="20"
+     top_pad="10"
      width="237"/>
     <check_box
      control_name="ForceShowGrid"
@@ -260,17 +271,6 @@
      name="show_develop_menu_check"
      top_pad="5"
      width="237"/>
-    <button
-     height="20"
-     label="Default Creation Permissions"
-     layout="topleft"
-     name="default_creation_permissions"
-     left="30"
-     top_pad = "20"
-     width="250">
-	<button.commit_callback
-	 function="Pref.PermsDefault" />
-  </button>
     <check_box
      control_name="UsePieMenu"
      follows="top|left"
