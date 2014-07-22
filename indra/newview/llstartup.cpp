@@ -2183,16 +2183,16 @@ bool idle_startup()
 			// Start loading the wearables, textures, gestures
 			LLStartUp::loadInitialOutfit( sInitialOutfit, sInitialOutfitGender );
 		}
-/*		// If not first login, we need to fetch COF contents and
+		// If not first login, we need to fetch COF contents and
 		// compute appearance from that.
-		if (isAgentAvatarValid() && !gAgent.isFirstLogin() && !gAgent.isOutfitChosen())
+		if (isAgentAvatarValid() && !gAgent.isFirstLogin() && !gAgent.isGenderChosen())
 		{
 			gAgentWearables.notifyLoadingStarted();
-			gAgent.setOutfitChosen(TRUE);
+			gAgent.setGenderChosen(TRUE);
 			gAgentWearables.sendDummyAgentWearablesUpdate();
 			callAfterCategoryFetch(LLAppearanceMgr::instance().getCOF(), set_flags_and_update_appearance);
 		}
-*/
+
 
 		display_startup();
 
