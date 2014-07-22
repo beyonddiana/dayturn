@@ -1379,12 +1379,12 @@ BOOL LLViewerFetchedTexture::createTexture(S32 usename/*= 0*/)
 		setIsMissingAsset();
 		return FALSE;
 	}
-// 	LL_INFOS() << llformat("IMAGE Creating (%d) [%d x %d] Bytes: %d ",
-// 						mRawDiscardLevel, 
-// 						mRawImage->getWidth(), mRawImage->getHeight(),mRawImage->getDataSize())
-// 			<< mID.getString() << LL_ENDL;
+ 	LL_INFOS() << llformat("IMAGE Creating (%d) [%d x %d] Bytes: %d ",
+ 						mRawDiscardLevel, 
+ 						mRawImage->getWidth(), mRawImage->getHeight(),mRawImage->getDataSize())
+ 			<< mID.getString() << LL_ENDL;
 
-	// <FS:Techwolf Lupindo> texture comment metadata reader
+/*	// <FS:Techwolf Lupindo> texture comment metadata reader
 	if (!mRawImage->mComment.empty())
 	{
 		std::string comment = mRawImage->mComment;
@@ -1415,7 +1415,7 @@ BOOL LLViewerFetchedTexture::createTexture(S32 usename/*= 0*/)
 		}
 	}
 	// </FS:Techwolf Lupindo>
-
+*/
 	BOOL res = TRUE;
 
 	// store original size only for locally-sourced images
