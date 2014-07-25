@@ -165,10 +165,10 @@ public:
 public:
 	// On the very first login, gender isn't chosen until the user clicks
 	// in a dialog.  We don't render the avatar until they choose.
-	BOOL 			isGenderChosen() const 	{ return mGenderChosen; }
-	void			setGenderChosen(BOOL b)	{ mGenderChosen = b; }
+	BOOL 			isOutfitChosen() const 	{ return mOutfitChosen; }
+	void			setOutfitChosen(BOOL b)	{ mOutfitChosen = b; }
 private:
-	BOOL			mGenderChosen;
+	BOOL			mOutfitChosen;
 
 /**                    Identity
  **                                                                            **
