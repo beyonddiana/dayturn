@@ -1379,7 +1379,7 @@ BOOL LLViewerFetchedTexture::createTexture(S32 usename/*= 0*/)
 		setIsMissingAsset();
 		return FALSE;
 	}
- 	LL_INFOS() << llformat("IMAGE Creating (%d) [%d x %d] Bytes: %d ",
+ 	LL_DEBUGS("Texture") << llformat("IMAGE Creating (%d) [%d x %d] Bytes: %d ",
  						mRawDiscardLevel, 
  						mRawImage->getWidth(), mRawImage->getHeight(),mRawImage->getDataSize())
  			<< mID.getString() << LL_ENDL;
