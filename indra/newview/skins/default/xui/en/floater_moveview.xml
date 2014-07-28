@@ -2,8 +2,8 @@
 <!-- you also want to edit panel_stand_stop_flying.xml code in llmoveview.* -->
 <floater
  positioning="specified"
- right="-693"
- bottom="-50"
+ right="-905"
+ bottom="-30"
  legacy_header_height="18"
  bg_alpha_image_overlay="LtGray_50"
  chrome="true"
