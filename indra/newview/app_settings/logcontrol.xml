@@ -2,7 +2,7 @@
 	<map>
 		<!-- default-level can be ALL, DEBUG, INFO, WARN, ERROR, or NONE -->
 		<key>default-level</key>    <string>INFO</string>
-		<key>print-location</key>   <boolean>true</boolean>
+		<key>print-location</key>   <boolean>false</boolean>
 		<key>settings</key>
 			<array>
 				<!-- sample entry for changing settings on specific items -->
@@ -42,61 +42,12 @@
 						</array>
 					<key>tags</key>
 						<array>
-						<!-- <string>OctreeErrors</string> -->
-						<!-- <string>SceneLoadTiming</string> -->
-						<!-- <string>Inventory</string> -->
-					<!-- Chat -->
-						<!-- <string>NearbyChat</string> -->
-						
-					<!-- Clicks
-						<string>DoubleClicks</string>
-						<string>MiddleMouse</string> -->
-
-					<!-- OpenSim related
-						<string>OS_SETTINGS</string>
-						<string>GridManager</string>
-						<string>SLURL</string>
-						<string>UrlEntry</string>
-						<string>WebApi</string> -->
-
-					<!-- Inventory -->
-						<!-- <string>InventoryFetch</string> -->
-
-					<!-- Login -->
-						<!-- <string>PanelLogin</string>-->
-					<!-- Media Plugins -->
-						<!--<string>Plugin</string>-->
-						<!--<string>PluginRect</string>--> <!--Spammer-->
-						<!--<string>PLUGIN_WEBKIT</string>-->
-						<!--<string>PLUGIN_VOLUME</string>-->
-					<!-- Voice -->
-						<!--<string>Voice</string>-->
-						<!--<string>VivoxProtocolParser</string>-->
-						<!--<string>InterfaceProtocolParser</string>-->
-						<!-- Wearable -->
-
-					<!--Shaders-->
-						<!--<string>Shaders</string>-->
-						<!--<string>WindLight</string>-->
-
-					<!-- see lltexturefetch -->
-						<!-- <string>HTTPGetResponder</string>-->
-						<!-- <string>TextureFetch</string>-->
-						<!-- <string>TextureFetchWorker</string>-->
-						 <!--<string>LocalTextures</string>--> 
-						<!-- <string>ViewerImages</string>-->
-						<!-- <string>Texture</string>--> 
-						<!-- <string>IM</string>--> 
-					<!-- Spammers -->
-						<!--Meminfo-->
-						<!-- <string>FrameWatcher</string> -->
-						<!-- <string>FastTimer</string> -->
-						<!--shader-->
-						<!-- <string>ShaderLoading</string> -->
-						<!--LLUI-->
-						<!-- <string>View</string> -->
-
-
+						<!-- sample entry for debugging specific items	
+						     <string>Inventory</string>
+						     <string>SceneLoadTiming</string>
+						     <string>Avatar</string>
+						     <string>Voice</string>		
+						-->
 						</array>
 				</map>
 			</array>
