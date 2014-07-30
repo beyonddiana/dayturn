@@ -1367,6 +1367,8 @@ class Linux_x86_64_Manifest(LinuxManifest):
         except:
             print "Skipping llcommon.so (assuming llcommon was linked statically)"
 
+
+
         if self.prefix("../packages/lib/release", dst="lib64"):
             self.path("libapr-1.so*")
             self.path("libaprutil-1.so*")
@@ -1441,6 +1443,26 @@ class Linux_x86_64_Manifest(LinuxManifest):
                     self.path("libopenal.so.1.15.1")
                     self.path("libvivoxoal.so.1") # vivox's sdk expects this soname 
                     self.end_prefix("lib32")
+
+	if self.args['buildtype'].lower() == 'debug':
+    	 if self.prefix("../packages/lib/debug", dst="lib64"):
+             self.path("libapr-1.so*")
+             self.path("libaprutil-1.so*")
+             self.path("libboost_context-mt-d.so.*")
+             self.path("libboost_program_options-mt-d.so.*")
+             self.path("libboost_regex-mt-d.so.*")
+             self.path("libboost_thread-mt-d.so.*")
+             self.path("libboost_filesystem-mt-d.so.*")
+             self.path("libboost_signals-mt-d.so.*")
+             self.path("libboost_system-mt-d.so.*")
+             self.path("libboost_wave-mt-d.so.*")
+             self.path("libexpat.so.1")
+             self.path("libz.so.1.2.5")
+             self.path("libz.so.1")
+             self.path("libz.so")
+             self.path("libcollada14dom-d.so*")
+             self.path("libGLOD.so")
+             self.end_prefix("lib64")
 
 
 ################################################################
