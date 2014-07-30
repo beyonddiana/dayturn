@@ -39,11 +39,6 @@
 #include "llfloaterreg.h"
 #include "llfloaterpreference.h"
 #include "llsliderctrl.h"
-#include "llaudioengine.h"
-#include "llvieweraudio.h"
-#include "llviewermedia.h"
-#include "llviewermedia_streamingaudio.h"
-
 
 /* static */ const F32 LLPanelVolumePulldown::sAutoCloseFadeStartTimeSec = 4.0f;
 /* static */ const F32 LLPanelVolumePulldown::sAutoCloseTotalTimeSec = 5.0f;
@@ -59,7 +54,6 @@ LLPanelVolumePulldown::LLPanelVolumePulldown()
 
     mCommitCallbackRegistrar.add("Vol.setControlFalse", boost::bind(&LLPanelVolumePulldown::setControlFalse, this, _2));
 	mCommitCallbackRegistrar.add("Vol.GoAudioPrefs", boost::bind(&LLPanelVolumePulldown::onAdvancedButtonClick, this, _2));
-	mCommitCallbackRegistrar.add("Pref.updateMediaAutoPlayCheckbox", boost::bind(&LLPanelVolumePulldown::onMusicButtonClick, this, _2));
 	buildFromFile( "panel_volume_pulldown.xml");
 }
 
@@ -68,6 +62,7 @@ BOOL LLPanelVolumePulldown::postBuild()
 	// set the initial volume-slider's position to reflect reality
 	LLSliderCtrl* volslider =  getChild<LLSliderCtrl>( "mastervolume" );
 	volslider->setValue(gSavedSettings.getF32("AudioLevelMaster"));
+
 	return LLPanel::postBuild();
 }
 
@@ -134,25 +129,7 @@ void LLPanelVolumePulldown::setControlFalse(const LLSD& user_data)
 	if (control)
 		control->set(LLSD(FALSE));
 }
-void LLPanelVolumePulldown::onMusicButtonClick(const LLSD& user_data)
-{
-	std::string control_status = user_data.asString();
-	LL_DEBUGS("Media") << "Start(1) / Stop(0) Streaming Audio " << control_status << LL_ENDL;
-	if (user_data)
-	{
-		if (gSavedSettings.getBOOL("ParcelMediaAutoPlayEnable"))
-		{
-			LLViewerAudio::getInstance()->startInternetStreamWithAutoFade(LLViewerMedia::getParcelAudioURL());
-		}
-	}
-	else 
-	{
-		if( LLViewerMedia::isParcelAudioPlaying() ) 
-		{
-			LLViewerAudio::getInstance()->stopInternetStreamWithAutoFade();
-		}
-	}
-}
+
 //virtual
 void LLPanelVolumePulldown::draw()
 {
