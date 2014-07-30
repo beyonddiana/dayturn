@@ -1334,6 +1334,7 @@ S32 LLStringUtil::format(std::string& s, const LLSD& substitutions)
 	return res;
 }
 
+/*
 ////////////////////////////////////////////////////////////
 // Testing
 
@@ -1439,3 +1440,4 @@ void LLStringUtilBase<T>::testHarness()
 
 
 #endif  // _DEBUG
+*/
