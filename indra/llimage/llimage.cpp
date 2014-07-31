@@ -51,6 +51,21 @@ bool LLImage::sUseNewByteRange = false;
 S32  LLImage::sMinimalReverseByteRangePercent = 75;
 LLPrivateMemoryPool* LLImageBase::sPrivatePoolp = NULL ;
 
+// <FS:ND> Report amount of failed buffer allocations
+
+U32 LLImageBase::mAllocationErrors;
+
+void LLImageBase::addAllocationError()
+{
+	++mAllocationErrors;
+}
+
+U32 LLImageBase::getAllocationErrors()
+{
+	return mAllocationErrors;
+}
+//</FS:ND>
+
 //static
 void LLImage::initClass(bool use_new_byte_range, S32 minimal_reverse_byte_range_percent)
 {
@@ -145,6 +160,7 @@ void LLImageBase::sanityCheck()
 		)
 	{
 		LL_ERRS() << "Failed LLImageBase::sanityCheck "
+		       << "Failed LLImageBase::sanityCheck "
 			   << "width " << mWidth
 			   << "height " << mHeight
 			   << "datasize " << mDataSize
@@ -172,6 +188,7 @@ U8* LLImageBase::allocateData(S32 size)
 		if (size <= 0)
 		{
 			LL_ERRS() << llformat("LLImageBase::allocateData called with bad dimensions: %dx%dx%d",mWidth,mHeight,(S32)mComponents) << LL_ENDL;
+			return NULL;
 		}
 	}
 	
@@ -187,6 +204,7 @@ U8* LLImageBase::allocateData(S32 size)
 		else
 		{
 			LL_ERRS() << "LLImageBase::allocateData: bad size: " << size << LL_ENDL;
+			return NULL;
 		}
 	}
 	if (!mData || size != mDataSize)
@@ -200,6 +218,7 @@ U8* LLImageBase::allocateData(S32 size)
 			size = 0 ;
 			mWidth = mHeight = 0 ;
 			mBadBufferAllocation = true ;
+			addAllocationError();
 		}
 		mDataSize = size;
 		claimMem(mDataSize);
@@ -276,7 +295,6 @@ S32 LLImageRaw::sGlobalRawMemory = 0;
 S32 LLImageRaw::sRawImageCount = 0;
 
 LLImageRaw::LLImageRaw()
-	: LLImageBase()
 {
 	++sRawImageCount;
 }
@@ -669,10 +687,10 @@ void LLImageRaw::fill( const LLColor4U& color )
 	if( 4 == getComponents() )
 	{
 		U32* data = (U32*) getData();
+		U32 mColor = color.asRGBA();
+
 		for( S32 i = 0; i < pixels; i++ )
-		{
-			data[i] = color.mAll;
-		}
+			data[i] = mColor;
 	}
 	else
 	if( 3 == getComponents() )
@@ -894,6 +912,11 @@ BOOL LLImageRaw::scale( S32 new_width, S32 new_height, BOOL scale_image_data )
 
 		U8* new_buffer = allocateDataSize(new_width, new_height, getComponents());
 
+		// <FS:ND> Handle out of memory situations a bit more graceful than a crash
+		if( !new_buffer )
+			return FALSE;
+		// </FS:ND>
+
 		// Horizontal
 		for( S32 row = 0; row < new_height; row++ )
 		{
@@ -909,6 +932,11 @@ BOOL LLImageRaw::scale( S32 new_width, S32 new_height, BOOL scale_image_data )
 
 		// allocate	new	image data,	will delete	old	data
 		U8*	new_buffer = allocateDataSize(new_width, new_height, getComponents());
+
+		// <FS:ND> Handle out of memory situations a bit more graceful than a crash
+		if( !new_buffer )
+			return FALSE;
+		// </FS:ND>
 
 		for( S32 row = 0; row <	new_height;	row++ )
 		{
@@ -1436,6 +1464,7 @@ BOOL LLImageFormatted::decodeChannels(LLImageRaw* raw_image,F32  decode_time, S3
 U8* LLImageFormatted::allocateData(S32 size)
 {
 	U8* res = LLImageBase::allocateData(size); // calls deleteData()
+	if(res)
 	sGlobalFormattedMemory += getDataSize();
 	return res;
 }
@@ -1445,6 +1474,7 @@ U8* LLImageFormatted::reallocateData(S32 size)
 {
 	sGlobalFormattedMemory -= getDataSize();
 	U8* res = LLImageBase::reallocateData(size);
+	if(res)
 	sGlobalFormattedMemory += getDataSize();
 	return res;
 }
@@ -1466,6 +1496,7 @@ void LLImageFormatted::sanityCheck()
 	if (mCodec >= IMG_CODEC_EOF)
 	{
 		LL_ERRS() << "Failed LLImageFormatted::sanityCheck "
+		      << "Failed LLImageFormatted::sanityCheck "
 			   << "decoding " << S32(mDecoding)
 			   << "decoded " << S32(mDecoded)
 			   << "codec " << S32(mCodec)
@@ -1526,7 +1557,12 @@ BOOL LLImageFormatted::load(const std::string &filename, int load_size)
 	S32 file_size = 0;
 	LLAPRFile infile ;
 	infile.open(filename, LL_APR_RB, NULL, &file_size);
-	apr_file_t* apr_file = infile.getFileHandle();
+
+	// <FS:ND> Remove LLVolatileAPRPool/apr_file_t and use FILE* instead
+	// apr_file_t* apr_file = infile.getFileHandle();
+	LLAPRFile::tFiletype* apr_file = infile.getFileHandle();
+	// </FS:ND>
+
 	if (!apr_file)
 	{
 		setLastError("Unable to open file for reading", filename);
@@ -1648,6 +1684,7 @@ void LLImageBase::generateMip(const U8* indata, U8* mipdata, S32 width, S32 heig
 				break;
 			  default:
 				LL_ERRS() << "generateMmip called with bad num channels" << LL_ENDL;
+				return;
 			}
 			indata += nchannels*2;
 			data += nchannels;
