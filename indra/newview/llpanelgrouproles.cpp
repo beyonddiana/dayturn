@@ -358,6 +358,7 @@ void LLPanelGroupRoles::activate()
 		LLGroupMgr::getInstance()->sendCapGroupMembersRequest(mGroupID);
 	}
 
+		// Check role data.
 	if (!gdatap || !gdatap->isRoleDataComplete() )
 	{
 		// Mildly hackish - clear all pending changes
@@ -884,8 +885,6 @@ void LLPanelGroupMembersSubTab::setGroupID(const LLUUID& id)
 	LLPanelGroupSubTab::setGroupID(id);
 }
 
-	if(mRoleUUID) mRoleUUID->clear();
-	if(mBtnRoleUUIDCopy) mBtnRoleUUIDCopy->setEnabled(FALSE);
 // static
 void LLPanelGroupMembersSubTab::onMemberSelect(LLUICtrl* ctrl, void* user_data)
 {
@@ -2124,8 +2123,6 @@ void LLPanelGroupRolesSubTab::update(LLGroupChange gc)
 			setFooterEnabled(FALSE);
 			mBtnRoleUUIDCopy->setEnabled(FALSE);
 			mDeleteRoleButton->setEnabled(FALSE);
-
-			mRolesList->selectFirstItem();
 		}
 	}
 
@@ -2670,6 +2667,9 @@ void LLPanelGroupRolesSubTab::saveRoleChanges(bool select_saved_role)
 		mHasRoleChange = FALSE;
 	}
 }
+////////////////////////////
+// LLPanelGroupActionsSubTab
+////////////////////////////
 
 void LLPanelGroupRolesSubTab::setGroupID(const LLUUID& id)
 {

@@ -40,6 +40,9 @@ class LLScrollListItem;
 class LLTextEditor;
 class LLButton;
 
+// Forward declare for friend usage.
+//virtual BOOL LLPanelGroupSubTab::postBuildSubTab(LLView*);
+
 typedef std::map<std::string,std::string> icon_map_t;
 
 
