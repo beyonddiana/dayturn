@@ -6,7 +6,7 @@
 
 ### How do I get set up? ###
 
-* There are two bookmarks/branches; Kokua and Kokua-RLVa. Kokua is without RLVa code and Kokua-RLVa has RLVa code merged in.
+* There are three bookmarks/branches; Kokua, Kokua-RLVa and Kokua-OpenSim. Kokua is without RLVa code and Kokua-RLVa has RLVa code merged in. Kokua-OpenSim is OpenSim stable; it doesn't have the latest SL features.
 * Clone the repository and use hg bookmarks to insure the bookmarks made it into your repository. If not, hg pull -B Kokua and then hg pull -B Kokua-RLVa to get the bookmarks in your local copy. Use hg update Kokua or Kokua-RLVa to work on a branch.
 * There are Nightly build binaries at
 [Nightlies](https://sourceforge.net/projects/kokua.team-purple.p/files/Nightly/) These may skip several nights depending on work in progress, 
