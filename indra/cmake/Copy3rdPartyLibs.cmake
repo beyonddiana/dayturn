@@ -105,7 +105,6 @@ if(WINDOWS)
 
         ssleay32.dll
         libeay32.dll
-        libcollada14dom22-d.dll
         glod.dll
         libhunspell.dll
         )
@@ -183,7 +182,6 @@ if(WINDOWS)
 
         ssleay32.dll
         libeay32.dll
-        libcollada14dom22.dll
         glod.dll
         libhunspell.dll
         )
@@ -346,16 +344,13 @@ elseif(DARWIN)
         libapr-1.dylib
         libaprutil-1.0.dylib
         libaprutil-1.dylib
+        libexception_handler.dylib
         libexpat.1.5.2.dylib
         libexpat.dylib
         libGLOD.dylib
-        libllqtwebkit.dylib
-        libminizip.a
-        libndofdev.dylib
 #        libopenal.1.dylib
         libhunspell-1.3.0.dylib
-        libexception_handler.dylib
-        libcollada14dom.dylib
+        libndofdev.dylib
        )
 
     if (FMODEX)
@@ -447,36 +442,21 @@ elseif(LINUX)
         libapr-1.so.0
         libaprutil-1.so.0
         libatk-1.0.so
-        libboost_context-mt.so.${BOOST_VERSION}.0
-        libboost_filesystem-mt.so.${BOOST_VERSION}.0
-        libboost_program_options-mt.so.${BOOST_VERSION}.0
-        libboost_regex-mt.so.${BOOST_VERSION}.0
-        libboost_signals-mt.so.${BOOST_VERSION}.0
         libboost_system-mt.so.${BOOST_VERSION}.0
-        libboost_thread-mt.so.${BOOST_VERSION}.0
-        libboost_system-mt.so.${BOOST_VERSION}.0
-        libcollada14dom.so
-        libcrypto.so.1.0.0
         libdb-5.1.so
         libexpat.so
         libexpat.so.1
-#        libfreetype.so.6
+        libfreetype.so.6.6.2
         libGLOD.so
-        libgmock_main.so
-        libgmock.so.0
         libgmodule-2.0.so
         libgobject-2.0.so
-        libgtest_main.so
-        libgtest.so.0
         libhunspell-1.3.so.0.0.0
-        libminizip.so
         libopenal.so
         libopenjpeg.so
-        libssl.so
         libuuid.so.16
         libuuid.so.16.0.22
-        libssl.so.1.0.0
-        libfontconfig.so.1.4.4
+        libfontconfig.so.1.8.0
+        libfontconfig.so.1
         libpng15.so.15
         libpng15.so.15.10.0
 # Remove OPenMP from build of viewer causes conflict starting at Viewer-Beta 3.3.3
