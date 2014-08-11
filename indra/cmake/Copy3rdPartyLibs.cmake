@@ -442,7 +442,6 @@ elseif(LINUX)
         libapr-1.so.0
         libaprutil-1.so.0
         libatk-1.0.so
-        libboost_system-mt.so.${BOOST_VERSION}.0
         libdb-5.1.so
         libexpat.so
         libexpat.so.1
@@ -457,8 +456,8 @@ elseif(LINUX)
         libuuid.so.16.0.22
         libfontconfig.so.1.8.0
         libfontconfig.so.1
-        libpng15.so.15
-        libpng15.so.15.10.0
+#        libpng15.so.15
+#        libpng15.so.15.10.0
 # Remove OPenMP from build of viewer causes conflict starting at Viewer-Beta 3.3.3
 #        libgomp.so.1
 #        libgomp.so.1.0.0

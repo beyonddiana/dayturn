@@ -735,9 +735,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>7d1b34f062795570b8f79c36c1aafdce</string>
+              <string>2843c48e6c84a51e3d6aa05dace4c8c0</string>
               <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-fontconfig/downloads/fontconfig-2.8.0-linux-20120803.tar.bz2</string>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/3pl_3p-fontconfig-update/rev/290569/arch/Linux/installer/fontconfig-2.11.0-linux-20140602.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux</string>
