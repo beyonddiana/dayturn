@@ -316,9 +316,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>c71273a79a7d38d2a316f07825cc5b67</string>
+              <string>432bde5cf6e9415979935102346325de</string>
               <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-boost-64/downloads/boost-1.52.0-linux64-20130531.tar.bz2</string>
+              <string>http://bitbucket.org/kokua/3p-boost-update/downloads/boost-1.55.0-linux64-20140813.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux64</string>
@@ -1787,9 +1787,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>833c0012de87001d2d6fbb44cb4e22fc</string>
+              <string>419eca1a0b9cc87b81da5fe10d15e7de</string>
               <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-libpng/downloads/libpng-1.5.10-linux64-20121024.tar.bz2</string>
+              <string>https://bitbucket.org/kokua/3p-libpng-update/downloads/libpng-1.6.8-linux64-20140812.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux64</string>
@@ -2927,9 +2927,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>532ba2b7f9a31b93cd272ce834da3177</string>
+              <string>c3922db2756cd489061f2f1e54141ac4</string>
               <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-zlib/downloads/zlib-1.2.6-linux64-20121024.tar.bz2</string>
+              <string>http://bitbucket.org/kokua/3p-zlib-update/downloads/zlib-1.2.8-linux64-20140812.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux64</string>

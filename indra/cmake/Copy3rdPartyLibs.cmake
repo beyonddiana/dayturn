@@ -391,14 +391,6 @@ elseif(LINUX)
           libapr-1.so.0
           libaprutil-1.so.0
           libatk-1.0.so.0 
-          libboost_context-mt.so.${BOOST_VERSION}.0
-          libboost_program_options-mt.so.${BOOST_VERSION}.0
-          libboost_regex-mt.so.${BOOST_VERSION}.0
-          libboost_thread-mt.so.${BOOST_VERSION}.0
-          libboost_filesystem-mt.so.${BOOST_VERSION}.0
-          libboost_signals-mt.so.${BOOST_VERSION}.0
-          libboost_system-mt.so.${BOOST_VERSION}.0
-          libboost_system-mt.so.${BOOST_VERSION}.0
 #          libbreakpad_client.so.0
           libcares.so.2
           libcrypto.so
@@ -425,8 +417,8 @@ elseif(LINUX)
 #          libgomp.so.1
 #          libgomp.so.1.0.0
           libpcre.so.3
-          libpng15.so.15
-          libpng15.so.15.10.0
+#          libpng15.so.15
+#          libpng15.so.15.10.0
          )
     else(${ARCH} STREQUAL "x86_64")
       set(vivox_src_dir "${ARCH_PREBUILT_DIRS_RELEASE}")
@@ -456,8 +448,6 @@ elseif(LINUX)
         libuuid.so.16.0.22
         libfontconfig.so.1.8.0
         libfontconfig.so.1
-#        libpng15.so.15
-#        libpng15.so.15.10.0
 # Remove OPenMP from build of viewer causes conflict starting at Viewer-Beta 3.3.3
 #        libgomp.so.1
 #        libgomp.so.1.0.0
