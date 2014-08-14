@@ -244,21 +244,10 @@
           <map>
             <key>archive</key>
             <map>
-              <key>dir_structure</key>
-              <map>
-                <key>LICENSES</key>
-                <string>LICENSES</string>
-                <key>libraries/include</key>
-                <string>include</string>
-                <key>libraries/x86_64-linux/include</key>
-                <string>include</string>
-                <key>libraries/x86_64-linux/lib_release_client</key>
-                <string>lib/release</string>
-              </map>
               <key>hash</key>
-              <string>301a1317c7d5bebbdc396e1a4874175b</string>
+              <string>db144d307a164de532f78153ce4351eb</string>
               <key>url</key>
-              <string>http://download.kokuaviewer.org/files/libs/ares-1.7.1-Linux-x86_64-20110405.tar.bz2</string>
+              <string>http://bitbucket.org/kokua/3p-ares-update/downloads/ares-1.10.0-linux64-20140814.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux64</string>
