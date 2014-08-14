@@ -175,7 +175,7 @@
               <key>hash</key>
               <string>46cfc1e55d071deaf2e3406140ae9da1</string>
               <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-apr/downloads/apr_suite-1.4.5-linux64-20120619.tar.bz2</string>
+              <string>http://bitbucket.org/kokua/3p-apr/downloads/apr_suite-1.4.5-linux64-20120619.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux64</string>
@@ -642,7 +642,7 @@
               <key>hash</key>
               <string>5f6c43f46c0b23f8924e07f89def2fe9</string>
               <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-expat/downloads/expat-2.0.1-linux64-20120616.tar.bz2</string>
+              <string>http://bitbucket.org/kokua/3p-expat/downloads/expat-2.0.1-linux64-20120616.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux64</string>
@@ -1480,7 +1480,7 @@
               <key>hash</key>
               <string>1293364aa62a6b6377e838004554467c</string>
               <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-jpeglib/downloads/jpeglib-8c-linux64-20120728.tar.bz2</string>
+              <string>http://bitbucket.org/kokua/3p-jpeglib/downloads/jpeglib-8c-linux64-20120728.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux64</string>
@@ -1778,7 +1778,7 @@
               <key>hash</key>
               <string>419eca1a0b9cc87b81da5fe10d15e7de</string>
               <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-libpng-update/downloads/libpng-1.6.8-linux64-20140812.tar.bz2</string>
+              <string>http://bitbucket.org/kokua/3p-libpng-update/downloads/libpng-1.6.8-linux64-20140812.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux64</string>
@@ -2482,9 +2482,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>fb112c0ea9068c91d5ed43ae501b95f9</string>
+             <string>4001d38e2477a1f184788f816191f304</string>
               <key>url</key>
-              <string>http://download.kokuaviewer.org/files/libs/openSSL-1.0.0-Linux-x86_64-20111224.tar.bz2</string>
+              <string>http://bitbucket.org/kokua/3p-openssl-update/downloads/openssl-1.0.1h-linux64-20140815.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux64</string>
@@ -2534,7 +2534,7 @@
               <key>hash</key>
               <string>dd6fbac69e118b744f55a7bac0411f27</string>
               <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-openal/downloads/openal-1.15.1-1.1.0-linux64-20130329.tar.bz2</string>
+              <string>http://bitbucket.org/kokua/3p-openal/downloads/openal-1.15.1-1.1.0-linux64-20130329.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux64</string>

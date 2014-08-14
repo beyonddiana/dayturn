@@ -393,8 +393,8 @@ elseif(LINUX)
           libatk-1.0.so.0 
 #          libbreakpad_client.so.0
 #          libcares.so.2
-          libcrypto.so
-          libcrypto.so.1.0.0
+#          libcrypto.so
+#          libcrypto.so.1.0.0
           libcollada14dom.so
           libdb-5.1.so
           libexpat.so
@@ -411,8 +411,8 @@ elseif(LINUX)
           libopenjpeg.so.1.4.0
 #           libstacktrace.so
 #           libtcmalloc.so
-          libssl.so
-          libssl.so.1.0.0
+#          libssl.so
+#          libssl.so.1.0.0
 # Remove OPenMP from build of viewer causes conflict starting at Viewer-Beta 3.3.3
 #          libgomp.so.1
 #          libgomp.so.1.0.0
