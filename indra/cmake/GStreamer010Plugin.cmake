@@ -63,7 +63,7 @@ else (WINDOWS)
          rt
          glib-2.0
          )
-endif (USESYSTEMLIBS)
+endif (WINDOWS)
 
 
 if (GSTREAMER010_FOUND AND GSTREAMER010_PLUGINS_BASE_FOUND)
