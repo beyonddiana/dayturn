@@ -82,7 +82,7 @@ elseif (LINUX)
         QtCore
         crypto
         ssl
-        jscore
+#        jscore
 #        qgif
 #        qjpeg
 #        jpeg

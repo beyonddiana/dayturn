@@ -1628,18 +1628,6 @@
         <string>kokua-qt</string>
         <key>platforms</key>
         <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>15e99de5bf1ed04ec3d64f67198ff36e</string>
-              <key>url</key>
-              <string>http://download.kokuaviewer.org/files/libs/kokua-qt4.7.4-autobuild-Linux-i686-20110628.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
           <key>linux64</key>
           <map>
             <key>archive</key>
