@@ -125,9 +125,9 @@ export SAVED_LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
 BINARY_TYPE=$(expr match "$(file -b bin/do-not-directly-run-kokua-bin)" '\(.*executable\)')
 if [ "${BINARY_TYPE}" == "ELF 32-bit LSB executable" ]; then
 
-	export SL_ENV='LD_LIBRARY_PATH="`pwd`"/lib:"${LD_LIBRARY_PATH}"'
+    export LD_LIBRARY_PATH="$PWD/lib:${LD_LIBRARY_PATH}"
 else
-	export SL_ENV='LD_LIBRARY_PATH="`pwd`"/lib64:"`pwd`"/lib32:"${LD_LIBRARY_PATH}"'
+	export LD_LIBRARY_PATH="$PWD/lib:$PWD/lib64:$PWD/lib32:${LD_LIBRARY_PATH}"
 fi
 # First, check if we have been instructed to skip reading in gridargs.dat:
 skip_gridargs=false
@@ -161,9 +161,9 @@ if [ -n "$LL_RUN_ERR" ]; then
 		if [ "`uname -m`" = "x86_64" ]; then
 			echo
 			cat << EOFMARKER
-You are running the Second Life Viewer on a x86_64 platform.  The
+You are running the Kokua Viewer on a x86_64 platform.  The
 most common problems when launching the Viewer (particularly
-'bin/do-not-directly-run-secondlife-bin: not found' and 'error while
+'bin/do-not-directly-run-kokua-bin: not found' and 'error while
 loading shared libraries') may be solved by installing your Linux
 distribution's 32-bit compatibility packages.
 For example, on Ubuntu and other Debian-based Linuxes you might run:
