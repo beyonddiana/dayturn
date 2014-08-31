@@ -281,9 +281,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>1f88e7e31b2e3764fc417491b68a4be8</string>
+              <string>1d61b893556e44bd50b01fceb06c8137</string>
               <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-boost-update/downloads/boost-1.55.0-linux-20140811.tar.bz2</string>
+              <string>http://bitbucket.org/kokua/3p-boost-update/downloads/boost-1.55.0-linux32-gcc-4.6.3-20140830.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux</string>
