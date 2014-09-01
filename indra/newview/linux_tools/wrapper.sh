@@ -55,7 +55,9 @@ fi
 ##   in the bin directory will be stripped: you should replace it with
 ##   an unstripped binary before you run.
 #export LL_WRAPPER='gdb --args'
-#export LL_WRAPPER='valgrind --smc-check=all --error-limit=no --log-file=secondlife.vg --leak-check=full --suppressions=/usr/lib/valgrind/glibc-2.5.supp --suppressions=secondlife-i686.supp'
+##   --suppressions=/usr/lib/valgrind/glibc-2.5.supp  this switch causes valgrid to not run on 64 bit
+##   may need but back in pl for 32 bit
+#export LL_WRAPPER='valgrind --smc-check=all --error-limit=no --log-file=secondlife.vg --leak-check=full --suppressions=secondlife-i686.supp'
 
 ## - Avoids an often-buggy X feature that doesn't really benefit us anyway.
 export SDL_VIDEO_X11_DGAMOUSE=0
@@ -127,22 +129,15 @@ if [ "${BINARY_TYPE}" == "ELF 32-bit LSB executable" ]; then
 else
 	export LD_LIBRARY_PATH="$PWD/lib:$PWD/lib64:$PWD/lib32:${LD_LIBRARY_PATH}"
 fi
-# First, check if we have been instructed to skip reading in gridargs.dat:
-skip_gridargs=false
-argnum=0
+# Copy "$@" to ARGS array specifically to delete the --skip-gridargs switch.
+# The gridargs.dat file is no more, but we still want to avoid breaking
+# scripts that invoke this one with --skip-gridargs.
+ARGS=()
 for ARG in "$@"; do
-    if [ "--skip-gridargs" == "$ARG" ]; then
-        skip_gridargs=true
-    else
-        ARGS[$argnum]="$ARG"
-        argnum=$(($argnum+1))
+    if [ "--skip-gridargs" != "$ARG" ]; then
+        ARGS[${#ARGS[*]}]="$ARG"
     fi
 done
-
-# Second, read it without scanning, then scan that string. Break quoted words
-if ! $skip_gridargs ; then
-    eval gridargs=("$(<etc/gridargs.dat)")
-fi
 
 export SL_CMD='$LL_WRAPPER bin/do-not-directly-run-kokua-bin'
 export SL_OPT="`cat etc/gridargs.dat` $@"
