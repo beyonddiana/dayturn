@@ -20,7 +20,7 @@ Terminal=false\n\
 Type=Application\n\
 Categories=Application;Network;\n\
 StartupNotify=true\n\
-StartupWMClass=do-not-directly-run-wabbit-viewer-bin\n\
+StartupWMClass=do-not-directly-run-kokua-bin\n\
 X-Desktop-File-Install-Version=3.0"
 
     echo " - Installing menu entries in ${desktop_entries_dir}"
