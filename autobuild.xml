@@ -245,9 +245,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>db144d307a164de532f78153ce4351eb</string>
+              <string>f36501cd6a87ef9b67f93de360e4c606</string>
               <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-ares-update/downloads/ares-1.10.0-linux64-20140814.tar.bz2</string>
+              <string>https://bitbucket.org/kokua/3p-ares/downloads/ares-1.10.0-linux64-gcc-4.6.3-20140903.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux64</string>
