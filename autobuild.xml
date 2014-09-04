@@ -2472,7 +2472,7 @@
               <key>hash</key>
              <string>4001d38e2477a1f184788f816191f304</string>
               <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-openssl-update/downloads/openssl-1.0.1h-linux64-20140815.tar.bz2</string>
+              <string>http://bitbucket.org/kokua/3p-openssl-ll/downloads/openssl-1.0.1h-linux64-20140815.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux64</string>
