@@ -425,9 +425,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>941fb7f3cf20663d345479d7f1e0c866</string>
+              <string>6d725f2e702db3904584e5c518e608da</string>
               <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-curl/downloads/curl-7.24.0-linux64-20140109.tar.bz2</string>
+              <string>http://bitbucket.org/kokua/3p-curl/downloads/curl-7.37.0-linux64-gcc-4.6-20140904.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux64</string>
