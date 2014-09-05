@@ -416,7 +416,7 @@ elseif(LINUX)
 # Remove OPenMP from build of viewer causes conflict starting at Viewer-Beta 3.3.3
 #          libgomp.so.1
 #          libgomp.so.1.0.0
-          libpcre.so.3
+#          libpcre.so.3
 #          libpng15.so.15
 #          libpng15.so.15.10.0
          )

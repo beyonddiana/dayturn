@@ -2654,9 +2654,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>66c1e00918951757ee16e4c9f257ccb7</string>
+              <string>a322ddf8479cec722d8d54cfb5af6bfe</string>
               <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-pcre/downloads/pcre-7.6-linux64-20120731c.tar.bz2</string>
+              <string>https://bitbucket.org/kokua/3p-pcre/downloads/pcre-8.35-linux64-gcc-4-6-20140905.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux64</string>
