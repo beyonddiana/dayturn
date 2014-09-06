@@ -1130,21 +1130,10 @@
           <map>
             <key>archive</key>
             <map>
-              <key>dir_structure</key>
-              <map>
-                <key>LICENSES</key>
-                <string>LICENSES</string>
-                <key>libraries/include</key>
-                <string>include</string>
-                <key>libraries/x86_64-linux/include</key>
-                <string>include</string>
-                <key>libraries/x86_64-linux/lib_release_client</key>
-                <string>lib/release</string>
-              </map>
               <key>hash</key>
-              <string>71316e5ce1ab4892c5fb369bbee02929</string>
+              <string>5400d22ba4130b3611a5b9c12e7ca84c</string>
               <key>url</key>
-              <string>http://imprudenceviewer.org/download/libs/googlemock-1.5.0-linux64-20101115.tar.bz2</string>
+              <string>http://bitbucket.org/kokua/3p-google-mock/downloads/gmock-1.7.0-linux64-gcc-4.6-20140906.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux64</string>

@@ -399,12 +399,12 @@ elseif(LINUX)
           libdb-5.1.so
           libexpat.so
           libexpat.so.1
-          libgmock_main.so
-          libgmock.so.0
+#          libgmock_main.so
+#          libgmock.so.0
           libgmodule-2.0.so.0 
           libgobject-2.0.so 
-          libgtest_main.so
-          libgtest.so.0
+#          libgtest_main.so
+#          libgtest.so.0
           libminizip.so
           libopenal.so
           libopenjpeg.so
