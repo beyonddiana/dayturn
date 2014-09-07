@@ -139,11 +139,14 @@ for ARG in "$@"; do
     fi
 done
 
-export SL_CMD='$LL_WRAPPER bin/do-not-directly-run-kokua-bin'
-export SL_OPT="`cat etc/gridargs.dat` $@"
+# Run the program.
+# Don't quote $LL_WRAPPER because, if empty, it should simply vanish from the
+# command line. But DO quote "${ARGS[@]}": preserve separate args as
+# individually quoted.
+$LL_WRAPPER bin/do-not-directly-run-kokua-bin "${ARGS[@]}"
+LL_RUN_ERR=$?
 
-# Run the program
-eval ${SL_ENV} ${SL_CMD} ${SL_OPT} || LL_RUN_ERR=runerr
+
 
 # Handle any resulting errors
 if [ -n "$LL_RUN_ERR" ]; then
