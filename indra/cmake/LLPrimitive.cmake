@@ -40,13 +40,14 @@ elseif (LINUX)
         llprimitive
         debug collada14dom-d
         optimized collada14dom
+        minizip
         xml2
         pcrecpp
         pcre
         )
-   if(LINUX)
-      list(APPEND LLPRIMITIVE_LIBRARIES minizip xml2 )
-    endif(LINUX)
+#   if(LINUX)
+#      list(APPEND LLPRIMITIVE_LIBRARIES minizip xml2 )
+#    endif(LINUX)
 endif (WINDOWS)
 
 
