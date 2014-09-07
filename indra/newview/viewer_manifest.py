@@ -1450,6 +1450,7 @@ class Linux_x86_64_Manifest(LinuxManifest):
             self.path("libssl.so.1.0.0")
             self.path("libexpat.so.1")
             self.path("libSDL-1.2.so.0.11.3","libSDL-1.2.so.0")
+            self.path("libdirectfb-1.7.so.1")
             self.path("libjpeg.so")
             self.path("libjpeg.so.8")
             self.path("libjpeg.so.8.3.0")
