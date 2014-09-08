@@ -1482,6 +1482,36 @@ class Linux_x86_64_Manifest(LinuxManifest):
             self.path("libpng16.so.16.8.0")
             self.end_prefix("lib64")
 
+            # plugin runtime
+            if self.prefix(src="../packages/lib/release", dst="lib64"):
+                self.path("libQtCore.so*")
+                self.path("libQtGui.so*")
+                self.path("libQtNetwork.so*")
+                self.path("libQtOpenGL.so*")
+                self.path("libQtSvg.so*")
+                self.path("libQtWebKit.so*")
+                self.path("libQtXml.so*")
+                self.end_prefix("lib64")
+
+            # For WebKit/Qt plugin runtimes (image format plugins)
+            if self.prefix(src="../packages/plugins/imageformats", dst="bin/llplugin/imageformats"):
+                self.path("libqgif.so")
+                self.path("libqico.so")
+                self.path("libqjpeg.so")
+                self.path("libqmng.so")
+                self.path("libqsvg.so")
+                self.path("libqtiff.so")
+                self.end_prefix("bin/llplugin/imageformats")
+
+            # For WebKit/Qt plugin runtimes (codec/character encoding plugins)
+            if self.prefix(src="../packages/plugins/codecs", dst="bin/llplugin/codecs"):
+                self.path("libqcncodecs.so")
+                self.path("libqjpcodecs.so")
+                self.path("libqkrcodecs.so")
+                self.path("libqtwcodecs.so")
+                self.end_prefix("bin/llplugin/codecs")
+
+
             # Vivox runtimes
             if self.prefix(src="../packages/lib/release", dst="bin"):
                     self.path("SLVoice")
