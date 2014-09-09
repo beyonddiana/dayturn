@@ -2825,9 +2825,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>c3922db2756cd489061f2f1e54141ac4</string>
+              <string>54978827de8f2ccbb8255b7198808cd0</string>
               <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-zlib/downloads/zlib-1.2.8-linux64-20140812.tar.bz2</string>
+              <string>http://bitbucket.org/kokua/3p-zlib/downloads/zlib-1.2.8-linux64-gcc-4.6-20140908.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux64</string>
