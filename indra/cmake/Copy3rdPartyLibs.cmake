@@ -405,7 +405,7 @@ elseif(LINUX)
           libgobject-2.0.so 
 #          libgtest_main.so
 #          libgtest.so.0
-          libminizip.so
+#          libminizip.so
           libopenal.so
           libopenjpeg.so
           libopenjpeg.so.1.4.0

@@ -18,7 +18,7 @@ else (USESYSTEMLIBS)
       use_prebuilt_binary(32bitcompatibilitylibs)
       # for mesh, this is built with colladadom and
       # KOKUAFIXME: should be packaged with colladadom the next time packaging it
-      use_prebuilt_binary(minizip)
+      #use_prebuilt_binary(minizip)
      endif (${ARCH} STREQUAL "x86_64")
   endif(LINUX)
 endif(USESYSTEMLIBS)

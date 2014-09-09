@@ -2094,30 +2094,6 @@
           </map>
         </map>
       </map>
-      <key>minizip</key>
-      <map>
-        <key>license</key>
-        <string>gpl</string>
-        <key>license_file</key>
-        <string>LICENSES/*.txt</string>
-        <key>name</key>
-        <string>minizip</string>
-        <key>platforms</key>
-        <map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>89e178a6c1308d1e86cf5211e9434582</string>
-              <key>url</key>
-              <string>http://download.kokuaviewer.org/files/libs/minizip-Linux-x86_64-20111209.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
-        </map>
-      </map>
       <key>ndPhysicsStub</key>
       <map>
         <key>name</key>
