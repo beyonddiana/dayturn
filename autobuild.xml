@@ -354,9 +354,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>84e23e8d4cf9cea65fd7db9c7dcca376</string>
+              <string>62310135c24d33aa7d8f6c621aead82b</string>
               <key>url</key>
-              <string>http://bitbucket.org/kokua/colladadom/downloads/colladadom-2.2-linux64-20130517.tar.bz2</string>
+              <string>http://bitbucket.org/kokua/colladadom-ll/downloads/colladadom-2.3-linux64-gcc-4.6-fpic-20140908.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux64</string>
