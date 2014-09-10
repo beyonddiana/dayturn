@@ -234,9 +234,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>f36501cd6a87ef9b67f93de360e4c606</string>
+              <string>12a5e3d8e6126aaa160812242348bbdc</string>
               <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-ares/downloads/ares-1.10.0-linux64-gcc-4.6.3-20140903.tar.bz2</string>
+              <string>http://bitbucket.org/kokua/3p-ares/downloads/ares-1.10.0-linux64-gcc-4.6-20140909.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux64</string>
@@ -1131,9 +1131,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>5400d22ba4130b3611a5b9c12e7ca84c</string>
+              <string>399c446286ef03849729af18fa2f6f21</string>
               <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-google-mock/downloads/gmock-1.7.0-linux64-gcc-4.6-20140906.tar.bz2</string>
+              <string>http://bitbucket.org/kokua/3p-google-mock/downloads/gmock-1.7.0-linux64-gcc-4.6-20140909.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux64</string>
