@@ -1425,7 +1425,11 @@ class Linux_x86_64_Manifest(LinuxManifest):
         except:
             print "Skipping llcommon.so (assuming llcommon was linked statically)"
 
-
+       # Use the build system libstdc++.so An attempt try to allow versions earlier than
+        # then wheezy to run the viewer without complaining about GLIBCXX version.
+        if self.prefix("/usr/lib/x86_64-linux-gnu", dst="lib64"):
+            self.path("libstdc++.so.*")
+            self.end_prefix("lib64") 
 
         if self.prefix("../packages/lib/release", dst="lib64"):
             self.path("libapr-1.so*")
@@ -1439,35 +1443,23 @@ class Linux_x86_64_Manifest(LinuxManifest):
             self.path("libboost_system-mt.so.*")
             self.path("libboost_wave-mt.so.*")
             self.path("libboost_coroutine-mt.so.*")
-            self.path("libbreakpad_client.so*")
-            self.path("libdb-5.1.so")
-            self.path("libdb-5.so")
-            self.path("libdb.so")
-            self.path("libcares.so.2.0.0", "libcares.so.2")
-            self.path("libcurl.so.4.2.0", "libcurl.so.4")
+            self.path("libdb*.so")
             self.path("libcrypto.so.1.0.0")
             self.path("libssl.so")
             self.path("libssl.so.1.0.0")
-            self.path("libexpat.so.1")
-            self.path("libSDL-1.2.so.0.11.3","libSDL-1.2.so.0")
-            self.path("libdirectfb-1.7.so.1")
+            self.path("libexpat.so.*")
+            self.path("libSDL-1.2.so.*")
+            self.path("libdirectfb-1.*.so.*")
+            self.path("libfusion-1.*.so.*")
+            self.path("libdirect-1.*.so.*")
+            self.path("libopenjpeg.so*")
+            self.path("libdirectfb-1.4.so.5")
+            self.path("libfusion-1.4.so.5")
+            self.path("libdirect-1.4.so.5*")
             self.path("libjpeg.so")
             self.path("libjpeg.so.8")
             self.path("libjpeg.so.8.3.0")
-            self.path("libopenjpeg.so.1.4.0")
-            self.path("libopenjpeg.so.1")
-            self.path("libopenjpeg.so")
-            self.path("libhunspell-1.3.so")
-            self.path("libhunspell-1.3.so.0")
-            self.path("libhunspell-1.3.so.0.0.0")
-            self.path("libminizip.so")
-            self.path("libminizip.so.1")
-            self.path("libminizip.so.1.2.3")
-            self.path("libxml2.so.2.7.8")
-            self.path("libz.so.1.2.5")
-            self.path("libz.so.1")
-            self.path("libz.so")
-            self.path("libcollada14dom.so*")
+            self.path("libhunspell-1.3.so*")
             self.path("libGLOD.so")
 
             # OpenAL
@@ -1478,6 +1470,7 @@ class Linux_x86_64_Manifest(LinuxManifest):
             self.path("libalut.so.0.0.0")
             self.path("libopenal.so.1.15.1")
             self.path("libfontconfig.so*")
+            self.path("libfreetype.so.*.*")
             self.path("libpng16.so.16") 
             self.path("libpng16.so.16.8.0")
             self.end_prefix("lib64")
