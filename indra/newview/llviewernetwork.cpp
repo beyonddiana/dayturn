@@ -66,17 +66,17 @@ public:
 
 
 	/// the grid info is no LLSD *sigh* ... override the default LLSD parsing behaviour 
-	virtual  void completedRaw(U32 status, const std::string& reason,
-									const LLChannelDescriptors& channels,
-									const LLIOPipe::buffer_ptr_t& buffer)
+	virtual void completedRaw(
+			const LLChannelDescriptors& channels,
+			const LLIOPipe::buffer_ptr_t& buffer)
 	{
 		mOwner->decResponderCount();
-		LL_DEBUGS("GridManager") << mData->grid[GRID_VALUE] << " status: " << status << " reason: " << reason << llendl;
-		if(LLGridManager::TRYLEGACY == mState && 200 == status)
+		LL_DEBUGS("GridManager") << mData->grid[GRID_VALUE] << " status: " << getStatus() << " reason: " << getReason() << llendl;
+		if(LLGridManager::TRYLEGACY == mState && 200 == getStatus())
 		{
 			mOwner->addGrid(mData, LLGridManager::SYSTEM);
 		}
-		else if (200 == status)/// OK
+		else if (200 == getStatus())/// OK
 		{
 			LL_DEBUGS("GridManager") << "Parsing gridinfo xml file from "
 				<< mData->grid[GRID_VALUE] << LL_ENDL;
@@ -98,7 +98,7 @@ public:
 				mOwner->addGrid(mData, LLGridManager::FAIL);
 			}
 		}
-		else if (304 == status && !LLGridManager::TRYLEGACY == mState) /// not modified
+		else if (304 == getStatus() && !LLGridManager::TRYLEGACY == mState) /// not modified
 		{
 			mOwner->addGrid(mData, LLGridManager::FINISH);
 		}
@@ -109,7 +109,7 @@ public:
 		}
 		else
 		{
-			error(status, reason);
+			error(getStatus(), getReason());
 		}
 	}
 
