@@ -64,6 +64,56 @@ public:
 		llwarns << "goodbye " << this << llendl;
 	}
 
+
+	/// the grid info is no LLSD *sigh* ... override the default LLSD parsing behaviour 
+	virtual void completedRaw(
+			const LLChannelDescriptors& channels,
+			const LLIOPipe::buffer_ptr_t& buffer)
+	{
+		mOwner->decResponderCount();
+		LL_DEBUGS("GridManager") << mData->grid[GRID_VALUE] << " status: " << getStatus() << " reason: " << getReason() << llendl;
+		if(LLGridManager::TRYLEGACY == mState && 200 == getStatus())
+		{
+			mOwner->addGrid(mData, LLGridManager::SYSTEM);
+		}
+		else if (200 == getStatus())/// OK
+		{
+			LL_DEBUGS("GridManager") << "Parsing gridinfo xml file from "
+				<< mData->grid[GRID_VALUE] << LL_ENDL;
+			LLBufferStream istr(channels, buffer.get());
+			if(LLXMLNode::parseStream( istr, mData->info_root, NULL))
+			{
+				mOwner->gridInfoResponderCB(mData);
+			}
+			else
+			{
+				LLSD args;
+				args["GRID"] = mData->grid[GRID_VALUE];
+				///Could not add [GRID] to the grid list.
+				args["REASON"] = "Server provided broken grid info xml. Please";
+				///[REASON] contact support of [GRID].
+				LLNotificationsUtil::add("CantAddGrid", args);
+				llwarns << " Could not parse grid info xml from server."
+					<< mData->grid[GRID_VALUE] << " skipping." << llendl;
+				mOwner->addGrid(mData, LLGridManager::FAIL);
+			}
+		}
+		else if (304 == getStatus() && !LLGridManager::TRYLEGACY == mState) /// not modified
+		{
+			mOwner->addGrid(mData, LLGridManager::FINISH);
+		}
+		else if (LLGridManager::LOCAL == mState) ///always add localhost, no matter
+		{
+			mOwner->addGrid(mData,	LLGridManager::FINISH);
+			///since we know now that its not up we could also start it
+		}
+		else
+		{
+			error(getStatus(), getReason());
+		}
+	}
+
+
 	virtual void error(U32 status, const std::string& reason)
 	{
 		if (504 == status)/// gateway timeout ... well ... retry once >_>
