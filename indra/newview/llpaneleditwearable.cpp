@@ -988,7 +988,7 @@ void LLPanelEditWearable::onTexturePickerCommit(const LLUICtrl* ctrl)
                                 U32 index = gAgentWearables.getWearableIndex(getWearable());
                                 gAgentAvatarp->setLocalTexture(entry->mTextureIndex, image, FALSE, index);
                                 LLVisualParamHint::requestHintUpdates();
-                                gAgentAvatarp->wearableUpdated(type, FALSE);
+                                gAgentAvatarp->wearableUpdated(type);
                         }
                 }
                 else
@@ -1014,7 +1014,7 @@ void LLPanelEditWearable::onColorSwatchCommit(const LLUICtrl* ctrl)
                         {
                                 getWearable()->setClothesColor(entry->mTextureIndex, new_color, TRUE);
                                 LLVisualParamHint::requestHintUpdates();
-                                gAgentAvatarp->wearableUpdated(getWearable()->getType(), FALSE);
+                                gAgentAvatarp->wearableUpdated(getWearable()->getType());
                         }
                 }
                 else
@@ -1086,7 +1086,7 @@ void LLPanelEditWearable::saveChanges(bool force_save_as)
         if (force_save_as)
         {
 			// the name of the wearable has changed, re-save wearable with new name
-			LLAppearanceMgr::instance().removeCOFItemLinks(mWearablePtr->getItemID(),gAgentAvatarp->mEndCustomizeCallback);
+                LLAppearanceMgr::instance().removeCOFItemLinks(mWearablePtr->getItemID());
 			gAgentWearables.saveWearableAs(mWearablePtr->getType(), index, new_name, description, FALSE);
 			mNameEditor->setText(mWearableItem->getName());
         }
@@ -1098,17 +1098,15 @@ void LLPanelEditWearable::saveChanges(bool force_save_as)
 			if (link_item)
 			{
 				// Create new link
-				LL_DEBUGS("Avatar") << "link refresh, creating new link to " << link_item->getLinkedUUID()
-									<< " removing old link at " << link_item->getUUID()
-									<< " wearable item id " << mWearablePtr->getItemID() << LL_ENDL;
-
-				LLInventoryObject::const_object_list_t obj_array;
-				obj_array.push_back(LLConstPointer<LLInventoryObject>(link_item));
-				link_inventory_array(LLAppearanceMgr::instance().getCOF(),
-									 obj_array, 
-									 gAgentAvatarp->mEndCustomizeCallback);
+				link_inventory_item( gAgent.getID(),
+									 link_item->getLinkedUUID(),
+									 LLAppearanceMgr::instance().getCOF(),
+									 link_item->getName(),
+									 description,
+									 LLAssetType::AT_LINK,
+									 NULL);
 				// Remove old link
-				remove_inventory_item(link_item->getUUID(), gAgentAvatarp->mEndCustomizeCallback);
+				gInventory.purgeObject(link_item->getUUID());
 			}
 			gAgentWearables.saveWearable(mWearablePtr->getType(), index, TRUE, new_name);
         }
@@ -1128,7 +1126,7 @@ void LLPanelEditWearable::revertChanges()
         mNameEditor->setText(mWearableItem->getName());
         updatePanelPickerControls(mWearablePtr->getType());
         updateTypeSpecificControls(mWearablePtr->getType());
-        gAgentAvatarp->wearableUpdated(mWearablePtr->getType(), FALSE);
+        gAgentAvatarp->wearableUpdated(mWearablePtr->getType());
 }
 
 void LLPanelEditWearable::showWearable(LLViewerWearable* wearable, BOOL show, BOOL disable_camera_switch)
@@ -1594,7 +1592,7 @@ void LLPanelEditWearable::onInvisibilityCommit(LLCheckBoxCtrl* checkbox_ctrl, LL
                 LLViewerFetchedTexture* image = LLViewerTextureManager::getFetchedTexture( IMG_INVISIBLE );
                 U32 index = gAgentWearables.getWearableIndex(getWearable());
                 gAgentAvatarp->setLocalTexture(te, image, FALSE, index);
-                gAgentAvatarp->wearableUpdated(getWearable()->getType(), FALSE);
+                gAgentAvatarp->wearableUpdated(getWearable()->getType());
         }
         else
         {
@@ -1611,7 +1609,7 @@ void LLPanelEditWearable::onInvisibilityCommit(LLCheckBoxCtrl* checkbox_ctrl, LL
 
                 U32 index = gAgentWearables.getWearableIndex(getWearable());
                 gAgentAvatarp->setLocalTexture(te, image, FALSE, index);
-                gAgentAvatarp->wearableUpdated(getWearable()->getType(), FALSE);
+                gAgentAvatarp->wearableUpdated(getWearable()->getType());
         }
 
         updatePanelPickerControls(getWearable()->getType());

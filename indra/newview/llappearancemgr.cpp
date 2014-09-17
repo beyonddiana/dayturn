@@ -3032,7 +3032,7 @@ void LLAppearanceMgr::removeCOFItemLinks(const LLUUID& item_id, LLPointer<LLInve
 			}
 #endif // LL_RELEASE_WITH_DEBUG_INFO || LL_DEBUG
 // [/RLVa:KB]
-
+			gInventory.purgeObject(item->getUUID());
 		}
 // [/RLVa:KB]
 //		const LLInventoryItem* item = item_array.get(i).get();
@@ -4005,7 +4005,6 @@ void LLAppearanceMgr::removeItemsFromAvatar(const uuid_vec_t& ids_to_remove)
 	if (ids_to_remove.empty())
 	{
 		LL_WARNS() << "called with empty list, nothing to do" << LL_ENDL;
-		return;
 	}
 
 // [RLVa:KB] - Checked: 2013-02-12 (RLVa-1.4.8)
@@ -4020,6 +4019,7 @@ void LLAppearanceMgr::removeItemsFromAvatar(const uuid_vec_t& ids_to_remove)
 		}
 
 		fUpdateAppearance = true;
+		removeCOFItemLinks(linked_item_id);
 		addDoomedTempAttachment(linked_item_id);
 	}
 
@@ -4151,7 +4151,7 @@ bool LLAppearanceMgr::moveWearable(LLViewerInventoryItem* item, bool closer_to_b
 	bool result = false;
 	if (result = gAgentWearables.moveWearable(item, closer_to_body))
 	{
-		gAgentAvatarp->wearableUpdated(item->getWearableType(), FALSE);
+		gAgentAvatarp->wearableUpdated(item->getWearableType());
 	}
 
 	setOutfitDirty(true);
