@@ -292,7 +292,7 @@ protected:
  **/
 
 public:
-	void				wearableUpdated(LLWearableType::EType type, BOOL upload_result);
+	void				wearableUpdated(LLWearableType::EType type);
 protected:
 	U32 getNumWearables(LLAvatarAppearanceDefines::ETextureIndex i) const;
 

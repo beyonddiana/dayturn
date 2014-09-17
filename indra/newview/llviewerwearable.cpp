@@ -403,7 +403,7 @@ void LLViewerWearable::removeFromAvatar( LLWearableType::EType type, BOOL upload
 	}
 
 	gAgentAvatarp->updateVisualParams();
-	gAgentAvatarp->wearableUpdated(type, FALSE);
+	gAgentAvatarp->wearableUpdated(type);
 
 //	if( upload_bake )
 //	{

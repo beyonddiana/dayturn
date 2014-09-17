@@ -448,7 +448,7 @@ void LLAgentWearables::saveWearable(const LLWearableType::EType type, const U32 
 			return;
 		}
 
-		gAgentAvatarp->wearableUpdated( type, TRUE );
+		gAgentAvatarp->wearableUpdated( type );
 
 		if (send_update)
 		{
@@ -725,8 +725,8 @@ void LLAgentWearables::wearableUpdated(LLWearable *wearable, BOOL removed)
 {
 	if (isAgentAvatarValid())
 	{
-		const BOOL upload_result = removed;
-		gAgentAvatarp->wearableUpdated(wearable->getType(), upload_result);
+//		const BOOL upload_result = removed;
+		gAgentAvatarp->wearableUpdated(wearable->getType());
 	}
 
 	LLWearableData::wearableUpdated(wearable, removed);
