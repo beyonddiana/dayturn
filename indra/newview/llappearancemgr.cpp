@@ -4057,7 +4057,9 @@ void LLAppearanceMgr::removeItemFromAvatar(const LLUUID& id_to_remove)
 		LLVOAvatarSelf::detachAttachmentIntoInventory(linked_item_id);
 	}
  //mk
+	removeCOFItemLinks(linked_item_id);
 	addDoomedTempAttachment(linked_item_id);
+	updateAppearanceFromCOF();
 }
 
 
