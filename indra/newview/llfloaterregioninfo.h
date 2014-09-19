@@ -98,6 +98,8 @@ public:
 	
 	void requestRegionInfo();
 	void requestMeshRezInfo();
+	void enableTopButtons();
+	void disableTopButtons();
 
 private:
 	
