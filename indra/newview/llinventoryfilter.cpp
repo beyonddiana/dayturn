@@ -1217,7 +1217,8 @@ void LLInventoryFilter::fromParams(const Params& params)
 	if (params.filter_ops.hours_ago.isProvided())
 	{
 		setHoursAgo(params.filter_ops.hours_ago);
-	setDateSearchDirection(params.filter_ops.date_search_direction);
+		setDateSearchDirection(params.filter_ops.date_search_direction);
+	}
 	if (params.filter_ops.show_folder_state.isProvided())
 	{
 		setShowFolderState(params.filter_ops.show_folder_state);
