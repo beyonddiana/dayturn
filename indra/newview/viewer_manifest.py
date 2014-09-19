@@ -1469,8 +1469,6 @@ class Linux_x86_64_Manifest(LinuxManifest):
             self.path("libopenal.so.1")
             self.path("libalut.so.0.0.0")
             self.path("libopenal.so.1.15.1")
-            self.path("libfontconfig.so*")
-            self.path("libfreetype.so.*.*")
             self.path("libpng16.so.16") 
             self.path("libpng16.so.16.8.0")
             self.end_prefix("lib64")
