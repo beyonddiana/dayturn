@@ -97,8 +97,6 @@ if(WINDOWS)
         libvorbisfile-3.dll
         libwavpack-1.dll
         libx264-67.dll
-        libxml2-2.dll
-        libxml2.dll
         SDL.dll
         xvidcore.dll
         z.dll
@@ -174,8 +172,6 @@ if(WINDOWS)
         libvorbisfile-3.dll
         libwavpack-1.dll
         libx264-67.dll
-        libxml2-2.dll
-        libxml2.dll
         SDL.dll
         xvidcore.dll
         z.dll

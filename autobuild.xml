@@ -1237,9 +1237,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>063358a877595303075ccca8c546266f</string>
+              <string>40cbe362790348f1a465697a7ef8c914</string>
               <key>url</key>
-              <string>http://download.kokuaviewer.org/files/libs/gstreamer-glib-iconv-libxml-plugins-autobuild-windows-20110816.tar.bz2</string>
+              <string>http://bitbucket.org/kokua/3p-gstreamer/downloads/gstreamer-glib-iconv-plugins-autobuild-windows-20140919.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
