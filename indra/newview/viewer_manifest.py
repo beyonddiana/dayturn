@@ -1537,6 +1537,7 @@ class Linux_x86_64_Manifest(LinuxManifest):
              self.path("libboost_signals-mt-d.so.*")
              self.path("libboost_system-mt-d.so.*")
              self.path("libboost_wave-mt-d.so.*")
+             self.path("libboost_coroutine-mt-d.so.*")
              self.path("libexpat.so.1")
              self.path("libz.so.1.2.5")
              self.path("libz.so.1")
