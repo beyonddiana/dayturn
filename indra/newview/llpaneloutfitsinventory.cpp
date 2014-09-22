@@ -102,6 +102,8 @@ void LLPanelOutfitsInventory::onOpen(const LLSD& key)
 		}
 		mInitialized = true;
 	}
+	
+	mSaveComboBtn.reset(new LLSaveOutfitComboBtn(this, true));
 
 	// Make sure we know which tab is selected, update the filter,
 	// and update verbs.
