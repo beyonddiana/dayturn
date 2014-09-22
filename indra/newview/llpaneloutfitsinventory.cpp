@@ -39,6 +39,7 @@
 #include "lloutfitobserver.h"
 #include "lloutfitslist.h"
 #include "llpanelwearing.h"
+#include "llsaveoutfitcombobtn.h"
 #include "llsidepanelappearance.h"
 #include "llviewerfoldertype.h"
 
@@ -81,6 +82,8 @@ BOOL LLPanelOutfitsInventory::postBuild()
 	{
 		LLInventoryModelBackgroundFetch::instance().start(outfits_cat);
 	}
+	
+	mSaveComboBtn.reset(new LLSaveOutfitComboBtn(this, true));
 
 	return TRUE;
 }
@@ -201,16 +204,6 @@ bool LLPanelOutfitsInventory::onSaveCommit(const LLSD& notification, const LLSD&
 
 void LLPanelOutfitsInventory::onSave()
 {
-	if (!LLAppearanceMgr::getInstance()->updateBaseOutfit()) {
-		//
-		//	if updateBaseOutfit fails then ask for an outfit name
-		//
-		onSaveAs();
-	}
-}
-
-void LLPanelOutfitsInventory::onSaveAs()
-{
 	std::string outfit_name;
 
 	if (!LLAppearanceMgr::getInstance()->getBaseOutfitName(outfit_name))
@@ -239,8 +232,6 @@ LLPanelOutfitsInventory* LLPanelOutfitsInventory::findInstance()
 void LLPanelOutfitsInventory::initListCommandsHandlers()
 {
 	mListCommands = getChild<LLPanel>("bottom_panel");
-	mListCommands->childSetAction("save_btn", boost::bind(&LLPanelOutfitsInventory::onSave, this));
-	mListCommands->childSetAction("save_as_btn", boost::bind(&LLPanelOutfitsInventory::onSaveAs, this));
 	mListCommands->childSetAction("wear_btn", boost::bind(&LLPanelOutfitsInventory::onWearButtonClick, this));
 	mMyOutfitsPanel->childSetAction("trash_btn", boost::bind(&LLPanelOutfitsInventory::onTrashButtonClick, this));
 }
@@ -251,12 +242,12 @@ void LLPanelOutfitsInventory::updateListCommands()
 	bool wear_enabled =  isActionEnabled("wear");
 	bool wear_visible = !isCOFPanelActive();
 	bool make_outfit_enabled = isActionEnabled("save_outfit");
-	if ( make_outfit_enabled) {} //empty it to bypass warning local variable is initialized but not referenced
+
 	LLButton* wear_btn = mListCommands->getChild<LLButton>("wear_btn");
 	mMyOutfitsPanel->childSetEnabled("trash_btn", trash_enabled);
 	wear_btn->setEnabled(wear_enabled);
 	wear_btn->setVisible(wear_visible);
-
+	mSaveComboBtn->setMenuItemEnabled("save_outfit", make_outfit_enabled);
 	wear_btn->setToolTip(getString(mMyOutfitsPanel->hasItemSelected() ? "wear_items_tooltip" : "wear_outfit_tooltip"));
 }
 
