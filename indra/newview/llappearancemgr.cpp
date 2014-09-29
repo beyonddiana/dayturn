@@ -3980,7 +3980,8 @@ void LLAppearanceMgr::makeNewOutfitLinks(const std::string& new_folder_name, boo
 		LLUUID folder_id = gInventory.createNewCategory(
 			parent_id,
 			LLFolderType::FT_OUTFIT,
-			new_folder_name);
+			new_folder_name,
+			func);
 	}
 	else
 	{		

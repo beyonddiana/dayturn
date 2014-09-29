@@ -463,8 +463,7 @@ void RlvRenameOnWearObserver::doneIdle()
 					else
 					{
 						// "No modify" item with a non-renameable parent: create a new folder named and move the item into it
-						LLUUID idFolder = gInventory.createNewCategory(pFolder->getUUID(), LLFolderType::FT_NONE, strFolderName,
-						                                               &RlvRenameOnWearObserver::onCategoryCreate, new LLUUID(pItem->getUUID()));
+						LLUUID idFolder = gInventory.createNewCategory(pFolder->getUUID(), LLFolderType::FT_NONE, strFolderName);
 						if (idFolder.notNull())
 						{
 							// Not using the new 'CreateInventoryCategory' cap so manually invoke the callback
@@ -521,7 +520,7 @@ bool RlvGiveToRLVOffer::createDestinationFolder(const std::string& strPath)
 			}
 			else
 			{
-				const LLUUID idTemp = gInventory.createNewCategory(gInventory.getRootFolderID(), LLFolderType::FT_NONE, RLV_ROOT_FOLDER, onCategoryCreateCallback, (void*)this);
+				const LLUUID idTemp = gInventory.createNewCategory(gInventory.getRootFolderID(), LLFolderType::FT_NONE, RLV_ROOT_FOLDER);
 				if (idTemp.notNull())
 					onCategoryCreateCallback(LLSD().with("folder_id", idTemp), this);
 			}
@@ -558,7 +557,7 @@ void RlvGiveToRLVOffer::onCategoryCreateCallback(const LLSD& sdData, void* pInst
 		else
 		{
 			LLInventoryObject::correctInventoryName(strFolder);
-			const LLUUID idTemp = gInventory.createNewCategory(idFolder, LLFolderType::FT_NONE, strFolder, onCategoryCreateCallback, pInstance);
+			const LLUUID idTemp = gInventory.createNewCategory(idFolder, LLFolderType::FT_NONE, strFolder);
 			if (idTemp.notNull())
 				onCategoryCreateCallback(LLSD().with("folder_id", idTemp), pInstance);
 			return;

@@ -522,29 +522,33 @@ LLUUID LLInventoryModel::findCategoryByName(std::string name)
 
 class LLCreateInventoryCategoryResponder : public LLHTTPClient::Responder
 {
+	LOG_CLASS(LLCreateInventoryCategoryResponder);
 public:
 	LLCreateInventoryCategoryResponder(LLInventoryModel* model, 
-									   void (*callback)(const LLSD&, void*),
-									   void* user_data) :
-										mModel(model),
-										mCallback(callback), 
-										mData(user_data) 
+									   boost::optional<inventory_func_type> callback):
+		mModel(model),
+		mCallback(callback) 
 	{
 	}
 	
-	virtual void errorWithContent(U32 status, const std::string& reason, const LLSD& content)
+protected:
+	virtual void httpFailure()
 	{
-		LL_WARNS("InvAPI") << "CreateInventoryCategory failed [status:"
-				<< status << "]: " << content << LL_ENDL;
+		LL_WARNS("InvAPI") << dumpResponse() << LL_ENDL;
 	}
 	
-	virtual void result(const LLSD& content)
+	virtual void httpSuccess()
 	{
 		//Server has created folder.
-		
+		const LLSD& content = getContent();
+		if (!content.isMap() || !content.has("folder_id"))
+		{
+			failureResult(HTTP_INTERNAL_ERROR, "Malformed response contents", content);
+			return;
+		}
 		LLUUID category_id = content["folder_id"].asUUID();
 		
-		
+		LL_DEBUGS("Avatar") << ll_pretty_print_sd(content) << LL_ENDL;
 		// Add the category to the internal representation
 		LLPointer<LLViewerInventoryCategory> cat =
 		new LLViewerInventoryCategory( category_id, 
@@ -557,17 +561,15 @@ public:
 		LLInventoryModel::LLCategoryUpdate update(cat->getParentUUID(), 1);
 		mModel->accountForUpdate(update);
 		mModel->updateCategory(cat);
-		
-		if (mCallback && mData)
+
+		if (mCallback)
 		{
-			mCallback(content, mData);
+			mCallback.get()(category_id);
 		}
-		
 	}
 	
 private:
-	void (*mCallback)(const LLSD&, void*);
-	void* mData;
+	boost::optional<inventory_func_type> mCallback;
 	LLInventoryModel* mModel;
 };
 
@@ -578,8 +580,7 @@ private:
 LLUUID LLInventoryModel::createNewCategory(const LLUUID& parent_id,
 										   LLFolderType::EType preferred_type,
 										   const std::string& pname,
-										   void (*callback)(const LLSD&, void*),	//Default to NULL
-										   void* user_data)							//Default to NULL
+										   boost::optional<inventory_func_type> callback)
 {
 	
 	LLUUID id;
@@ -606,33 +607,32 @@ LLUUID LLInventoryModel::createNewCategory(const LLUUID& parent_id,
 		name.assign(LLViewerFolderType::lookupNewCategoryName(preferred_type));
 	}
 	
-	if ( callback && user_data )  //callback required for acked message.
+	LLViewerRegion* viewer_region = gAgent.getRegion();
+	std::string url;
+	if ( viewer_region )
+		url = viewer_region->getCapability("CreateInventoryCategory");
+	
+	if (!url.empty() && callback.get_ptr())
 	{
-		LLViewerRegion* viewer_region = gAgent.getRegion();
-		std::string url;
-		if ( viewer_region )
-			url = viewer_region->getCapability("CreateInventoryCategory");
+		//Let's use the new capability.
 		
-		if (!url.empty())
-		{
-			//Let's use the new capability.
-			
-			LLSD request, body;
-			body["folder_id"] = id;
-			body["parent_id"] = parent_id;
-			body["type"] = (LLSD::Integer) preferred_type;
-			body["name"] = name;
-			
-			request["message"] = "CreateInventoryCategory";
-			request["payload"] = body;
-			
-	//		viewer_region->getCapAPI().post(request);
-			LLHTTPClient::post(
-							   url,
-							   body,
-							   new LLCreateInventoryCategoryResponder(this, callback, user_data) );
-			return LLUUID::null;
-		}
+		LLSD request, body;
+		body["folder_id"] = id;
+		body["parent_id"] = parent_id;
+		body["type"] = (LLSD::Integer) preferred_type;
+		body["name"] = name;
+		
+		request["message"] = "CreateInventoryCategory";
+		request["payload"] = body;
+
+		LL_DEBUGS("Avatar") << "create category request: " << ll_pretty_print_sd(request) << LL_ENDL;
+		//		viewer_region->getCapAPI().post(request);
+		LLHTTPClient::post(
+			url,
+			body,
+			new LLCreateInventoryCategoryResponder(this, callback) );
+
+		return LLUUID::null;
 	}
 
 	// Add the category to the internal representation
