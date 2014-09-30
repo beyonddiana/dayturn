@@ -174,6 +174,13 @@ void LLPanelContents::refresh()
 	}	
 }
 
+void LLPanelContents::clearContents()
+{
+	if (mPanelInventoryObject)
+	{
+		mPanelInventoryObject->clearInventoryTask();
+	}
+}
 
 
 //

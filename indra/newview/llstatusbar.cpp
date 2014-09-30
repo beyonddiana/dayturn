@@ -202,6 +202,7 @@ BOOL LLStatusBar::postBuild()
 		mSGBandwidth->setStat(&LLStatViewer::ACTIVE_MESSAGE_DATA_RECEIVED);
 		mSGBandwidth->setClickedCallback(boost::bind(&LLStatusBar::onClickStatistics, this));
 	}
+	sgp.per_sec(true);
 
 	mSGPacketLoss = getChild<LLStatGraph>("packet_loss_graph");
 	if (mSGPacketLoss) {

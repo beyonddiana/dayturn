@@ -46,7 +46,7 @@ LLStatGraph::LLStatGraph(const Params& p)
 :	LLView(p),
 	mMin(p.min),
 	mMax(p.max),
-	mPerSec(true),
+	mPerSec(p.per_sec),
 	mPrecision(p.precision),
 	mValue(p.value),
 	mLabel(p.label),

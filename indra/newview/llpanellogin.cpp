@@ -256,11 +256,16 @@ void LLPanelLogin::addUsersWithFavoritesToUsername()
 {
 	LLComboBox* combo = getChild<LLComboBox>("username_combo");
 	if (!combo) return;
-	std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "stored_favorites.xml");
+	std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "stored_favorites_" + LLGridManager::getInstance()->getGrid() + ".xml");
+	std::string old_filename = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "stored_favorites.xml");
 	LLSD fav_llsd;
 	llifstream file;
 	file.open(filename);
-	if (!file.is_open()) return;
+	if (!file.is_open())
+	{
+		file.open(old_filename);
+		if (!file.is_open()) return;
+	}
 	LLSDSerialize::fromXML(fav_llsd, file);
 	for (LLSD::map_const_iterator iter = fav_llsd.beginMap();
 		iter != fav_llsd.endMap(); ++iter)
@@ -282,11 +287,17 @@ void LLPanelLogin::addFavoritesToStartLocation()
 
 	// Load favorites into the combo.
 	std::string user_defined_name = getChild<LLComboBox>("username_combo")->getSimple();
-	std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "stored_favorites.xml");
+	std::replace(user_defined_name.begin(), user_defined_name.end(), '.', ' ');
+	std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "stored_favorites_" + LLGridManager::getInstance()->getGrid() + ".xml");
+	std::string old_filename = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "stored_favorites.xml");
 	LLSD fav_llsd;
 	llifstream file;
 	file.open(filename);
-	if (!file.is_open()) return;
+	if (!file.is_open())
+	{
+		file.open(old_filename);
+		if (!file.is_open()) return;
+	}
 	LLSDSerialize::fromXML(fav_llsd, file);
 	for (LLSD::map_const_iterator iter = fav_llsd.beginMap();
 		iter != fav_llsd.endMap(); ++iter)
@@ -1196,7 +1207,7 @@ void LLPanelLogin::onSelectServer(LLUICtrl*, void*)
 	// The user twiddled with the grid choice ui.
 	// apply the selection to the grid setting.
 	//LLPointer<LLCredential> credential;
-	
+
 	LLComboBox* combo = sInstance->getChild<LLComboBox>("server_combo");
 	LLSD combo_val = combo->getSelectedValue();
 	if (combo_val.isUndefined())
@@ -1205,6 +1216,7 @@ void LLPanelLogin::onSelectServer(LLUICtrl*, void*)
 	}
 
 	std::string new_combo_value = combo_val.asString();
+    addFavoritesToStartLocation();
 	if (!new_combo_value.empty())
 	{
 		std::string match = "://";

@@ -1402,6 +1402,13 @@ BOOL LLViewerWindow::handleTranslatedKeyUp(KEY key,  MASK mask)
 	// Let the voice chat code check for its PTT key.  Note that this never affects event processing.
 	LLVoiceClient::getInstance()->keyUp(key, mask);
 
+	// Let the inspect tool code check for ALT key to set LLToolSelectRect active instead LLToolCamera
+	LLToolCompInspect * tool_inspectp = LLToolCompInspect::getInstance();
+	if (LLToolMgr::getInstance()->getCurrentTool() == tool_inspectp)
+	{
+		tool_inspectp->keyUp(key, mask);
+	}
+
 	return FALSE;
 }
 
@@ -1972,7 +1979,7 @@ void LLViewerWindow::initWorldUI()
 
 	// Force gFloaterTools to initialize
 	LLFloaterReg::getInstance("build");
-	LLFloaterReg::hideInstance("build");
+
 
 	// Pre-load the Preferenes floater
 	LLFloaterReg::getInstance("preferences");
@@ -3311,6 +3318,8 @@ void LLViewerWindow::updateUI()
 				}
 
 				append_xui_tooltip(tooltip_view, params);
+				params.styled_message.add().text("\n");
+
 				screen_sticky_rect.intersectWith(tooltip_view->calcScreenRect());
 				
 				params.sticky_rect = screen_sticky_rect;
@@ -3360,7 +3369,7 @@ void LLViewerWindow::updateUI()
 
 	updateLayout();
 
-	saveLastMouse(mCurrentMousePoint);
+	mLastMousePoint = mCurrentMousePoint;
 
 	mLastMousePoint = mCurrentMousePoint;
 

@@ -2138,7 +2138,7 @@ void LLVOAvatar::idleUpdate(LLAgent &agent, const F64 &time)
 
 	LLCachedControl<bool>disable_all_render_types(gSavedSettings, "DisableAllRenderTypes", false);
 	if (!(gPipeline.hasRenderType(LLPipeline::RENDER_TYPE_AVATAR))
-		&& !(disable_all_render_types))
+		&& !(gSavedSettings.getBOOL("DisableAllRenderTypes")) && !isSelf())
 	{
 		return;
 	}

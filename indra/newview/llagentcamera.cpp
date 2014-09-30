@@ -2770,6 +2770,11 @@ void LLAgentCamera::lookAtLastChat()
 	}
 }
 
+bool LLAgentCamera::isfollowCamLocked()
+{
+	return mFollowCam.getPositionLocked();
+}
+
 BOOL LLAgentCamera::setPointAt(EPointAtType target_type, LLViewerObject *object, LLVector3 position)
 {
 	static LLUICachedControl<bool> private_pointat("PrivatePointAtTarget", true);

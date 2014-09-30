@@ -1973,7 +1973,7 @@ bool LLPanelGroupRolesSubTab::needsApply(std::string& mesg)
 	LLGroupMgrGroupData* gdatap = LLGroupMgr::getInstance()->getGroupData(mGroupID);
 	if(!gdatap)
 	{
-		llwarns << "Unable to get group data for group " << mGroupID << llendl;
+		LL_WARNS() << "Unable to get group data for group " << mGroupID << LL_ENDL;
 		return false;
 	}
 
@@ -2408,8 +2408,8 @@ void LLPanelGroupRolesSubTab::handleActionCheck(LLUICtrl* ctrl, bool force)
 		}
 		else
 		{
-			llwarns << "Unable to look up role information for role id: "
-				<< role_id << llendl;
+			LL_WARNS() << "Unable to look up role information for role id: "
+				<< role_id << LL_ENDL;
 		}
 		
 		//////////////////////////////////////////////////////////////////////////
@@ -2871,7 +2871,7 @@ void LLPanelGroupActionsSubTab::setGroupID(const LLUUID& id)
 	if(mActionMembers) mActionMembers->deleteAllItems();
 
 	if(mActionDescription) mActionDescription->clear();
-
+	
 	LLPanelGroupSubTab::setGroupID(id);
 }
 
