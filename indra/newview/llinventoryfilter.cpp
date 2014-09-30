@@ -1247,13 +1247,13 @@ void LLInventoryFilter::fromParams(const Params& params)
 	if (params.since_logoff.isProvided())
 	{
 		setDateRangeLastLogoff(params.since_logoff);
+	}
 }
+	// </FS:Ansariel>
 
 U64 LLInventoryFilter::getFilterTypes() const
 {
 	return mFilterOps.mFilterTypes;
-	}
-	// </FS:Ansariel>
 }
 
 U64 LLInventoryFilter::getFilterObjectTypes() const
