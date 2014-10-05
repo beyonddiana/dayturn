@@ -28,7 +28,7 @@ if (HAS_OPENSIM_SUPPORT)
   add_definitions(-DHAS_OPENSIM_SUPPORT=1)
   message("compiling with OpenSim support")
 endif (HAS_OPENSIM_SUPPORT)
-
+add_definitions(-DLL_SEND_CRASH_REPORTS=1)
 # For the library installation process;
 # see cmake/Prebuild.cmake for the counterpart code.
 if ("${CMAKE_SOURCE_DIR}/../autobuild.xml" IS_NEWER_THAN "${CMAKE_BINARY_DIR}/temp/sentinel_installed")
