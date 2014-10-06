@@ -2000,7 +2000,7 @@ bool LLModelLoader::doLoadModel()
 										LLJoint* pJoint = mPreview->getPreviewAvatar()->getJoint( lookingForJoint );
 										if ( pJoint )
 										{   
-											pJoint->storeCurrentXform( jointTransform.getTranslation() );												
+											pJoint->addAttachmentPosOverride( jointTransform.getTranslation(), mFilename);
 										}
 										else
 										{
