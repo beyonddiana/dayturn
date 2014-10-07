@@ -312,7 +312,7 @@
         <key>Type</key>
              <string>Boolean</string>
         <key>Value</key>
-             <integer>1</integer>
+             <integer>0</integer>
         </map>
     <!-- End of back compatibility settings -->
     </map>

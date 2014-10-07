@@ -756,16 +756,6 @@ void LLFloaterPreference::initDoNotDisturbResponse()
 		}
 	}
 
-//static 
-void LLFloaterPreference::updateShowFavoritesCheckbox(bool val)
-{
-	LLFloaterPreference* instance = LLFloaterReg::findTypedInstance<LLFloaterPreference>("preferences");
-	if (instance)
-	{
-		instance->getChild<LLUICtrl>("favorites_on_login_check")->setValue(val);
-	}	
-}
-
 void LLFloaterPreference::setHardwareDefaults()
 {
 	LLFeatureManager::getInstance()->applyRecommendedSettings();
@@ -1619,7 +1609,6 @@ void LLFloaterPreference::setPersonalInfo(const std::string& visibility, bool im
 	getChildView("chat_font_size")->setEnabled(TRUE);
 }
 
-
 void LLFloaterPreference::refreshUI()
 {
 	refresh();
@@ -1912,8 +1901,6 @@ BOOL LLPanelPreference::postBuild()
 	if (hasChild("favorites_on_login_check", TRUE))
 	{
 		getChild<LLCheckBoxCtrl>("favorites_on_login_check")->setCommitCallback(boost::bind(&showFavoritesOnLoginWarning, _1, _2));
-		bool show_favorites_at_login = LLPanelLogin::getShowFavorites();
-		getChild<LLCheckBoxCtrl>("favorites_on_login_check")->setValue(show_favorites_at_login);
 	}
 
 	//////////////////////PanelAdvanced ///////////////////

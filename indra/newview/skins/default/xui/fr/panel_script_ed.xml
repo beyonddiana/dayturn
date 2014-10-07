@@ -24,7 +24,6 @@
 			<menu_item_call label="Annuler tous les changements" name="Revert All Changes"/>
 			<menu_item_call label="Charger depuis un fichier..." name="LoadFromFile"/>
 			<menu_item_call label="Enregistrer sous..." name="SaveToFile"/>
-			<menu_item_call label="Couleurs..." name="Colors"/>
 		</menu>
 		<menu label="Modifier" name="Edit">
 			<menu_item_call label="Annuler" name="Undo"/>
@@ -42,9 +41,9 @@
 			<menu_item_call label="Aide par mots-clés..." name="Keyword Help..."/>
 		</menu>
 	</menu_bar>
-	<script_editor name="Script Editor">
+	<text_editor name="Script Editor">
 		Chargement...
-	</script_editor>
+	</text_editor>
 	<combo_box label="Insérer..." name="Insert..."/>
 	<button label="Enregistrer" label_selected="Enregistrer" name="Save_btn"/>
 	<button label="Modifier..." name="Edit_btn"/>
