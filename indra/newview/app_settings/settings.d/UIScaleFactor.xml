@@ -1,0 +1,11 @@
+  <key>UIScaleFactor</key>
+  <map>
+    <key>Comment</key>
+    <string>Size of UI relative to default layout on 1024x768 screen</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>1.0</real>
+  </map>

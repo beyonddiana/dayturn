@@ -1,0 +1,11 @@
+  <key>SkyAmbientScale</key>
+  <map>
+    <key>Comment</key>
+    <string>Controls strength of ambient, or non-directional light from the sun and moon (fraction or multiple of default ambient level)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.300000011921</real>
+  </map>

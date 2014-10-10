@@ -1,0 +1,11 @@
+  <key>RenderShaderLightingMaxLevel</key>
+  <map>
+    <key>Comment</key>
+    <string>Max lighting level to use in the shader (class 3 is default, 2 is less lights, 1 is sun/moon only.  Works around shader compiler bugs on certain platforms.)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>3</integer>
+  </map>

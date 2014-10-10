@@ -1,0 +1,11 @@
+  <key>InspectorFadeTime</key>
+  <map>
+    <key>Comment</key>
+    <string>Fade out timing for inspectors</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.5</real>
+  </map>

@@ -1,0 +1,11 @@
+  <key>UISpinctrlBtnHeight</key>
+  <map>
+    <key>Comment</key>
+    <string>UI spin control button height</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>11</integer>
+  </map>

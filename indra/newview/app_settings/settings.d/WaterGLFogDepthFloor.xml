@@ -1,0 +1,11 @@
+  <key>WaterGLFogDepthFloor</key>
+  <map>
+    <key>Comment</key>
+    <string>Controls how dark water gl fog can get</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.25</real>
+  </map>

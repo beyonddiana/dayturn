@@ -1,0 +1,11 @@
+  <key>CmdLineLoginLocation</key>
+  <map>
+    <key>Comment</key>
+    <string>Startup destination requested on command line</string>
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string />
+  </map>

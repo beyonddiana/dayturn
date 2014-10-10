@@ -1,0 +1,11 @@
+  <key>UISndPieMenuSliceHighlight6</key>
+  <map>
+    <key>Comment</key>
+    <string>Sound file for selecting pie menu item 6 (uuid for sound asset)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>242af82b-43c2-9a3b-e108-3b0c7e384981</string>
+  </map>

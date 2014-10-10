@@ -1,0 +1,11 @@
+  <key>RotationStep</key>
+  <map>
+    <key>Comment</key>
+    <string>All rotations via rotation tool are constrained to multiples of this unit (degrees)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>1.0</real>
+  </map>

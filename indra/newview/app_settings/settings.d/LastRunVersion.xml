@@ -1,0 +1,11 @@
+  <key>LastRunVersion</key>
+  <map>
+    <key>Comment</key>
+    <string>Version number of last instance of the viewer that you ran</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>0.0.0</string>
+  </map>

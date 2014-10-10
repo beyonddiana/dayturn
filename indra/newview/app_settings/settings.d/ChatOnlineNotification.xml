@@ -1,0 +1,11 @@
+  <key>ChatOnlineNotification</key>
+  <map>
+    <key>Comment</key>
+    <string>Provide notifications for when friend log on and off of SL</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>

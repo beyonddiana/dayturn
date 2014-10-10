@@ -1,0 +1,11 @@
+  <key>AudioLevelRolloff</key>
+  <map>
+    <key>Comment</key>
+    <string>Controls the distance-based dropoff of audio volume (fraction or multiple of default audio rolloff)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>1.0</real>
+  </map>

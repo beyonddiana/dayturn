@@ -1,0 +1,11 @@
+  <key>FSCmdLineOfferTp</key>
+  <map>
+    <key>Comment</key>
+    <string>Offer a teleport to target avatar</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>offertp</string>
+  </map>

@@ -1,0 +1,11 @@
+  <key>RadioLandBrushAction</key>
+  <map>
+    <key>Comment</key>
+    <string>Last selected land modification operation (0 = flatten, 1 = raise, 2 = lower, 3 = smooth, 4 = roughen, 5 = revert)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>

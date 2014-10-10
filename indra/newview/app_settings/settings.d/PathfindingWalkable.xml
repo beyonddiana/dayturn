@@ -1,0 +1,16 @@
+  <key>PathfindingWalkable</key>
+  <map>
+    <key>Comment</key>
+    <string>Color of walkable objects when displaying pathfinding navmesh object types.</string>
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>Color4</string>
+    <key>Value</key>
+    <array>
+      <real>0.454901960784</real>
+      <real>0.933333333333</real>
+      <real>0.388235294118</real>
+      <real>1.0</real>
+    </array>
+  </map>

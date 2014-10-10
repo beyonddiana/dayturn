@@ -1,0 +1,11 @@
+  <key>UITabCntrButtonPanelOverlap</key>
+  <map>
+    <key>Comment</key>
+    <string>UI Tab Container Button Panel Overlap</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>

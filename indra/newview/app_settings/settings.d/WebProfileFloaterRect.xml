@@ -1,0 +1,16 @@
+  <key>WebProfileFloaterRect</key>
+  <map>
+    <key>Comment</key>
+    <string>Web profile floater dimensions</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Rect</string>
+    <key>Value</key>
+    <array>
+      <integer>0</integer>
+      <integer>680</integer>
+      <integer>485</integer>
+      <integer>0</integer>
+    </array>
+  </map>

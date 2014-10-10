@@ -1,0 +1,11 @@
+  <key>HtmlHelpLastPage</key>
+  <map>
+    <key>Comment</key>
+    <string>Last URL visited via help system</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string />
+  </map>

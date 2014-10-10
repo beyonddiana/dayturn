@@ -1,0 +1,11 @@
+  <key>NotifyTipDuration</key>
+  <map>
+    <key>Comment</key>
+    <string>Length of time that notification tips stay on screen (seconds)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>4.0</real>
+  </map>

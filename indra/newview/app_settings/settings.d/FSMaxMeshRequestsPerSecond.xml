@@ -1,0 +1,11 @@
+  <key>FSMaxMeshRequestsPerSecond</key>
+  <map>
+    <key>Comment</key>
+    <string>The maximum number of mesh requests per second.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <integer>100</integer>
+  </map>

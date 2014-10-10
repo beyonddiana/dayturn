@@ -1,0 +1,11 @@
+  <key>VoiceEffectExpiryWarningTime</key>
+  <map>
+    <key>Comment</key>
+    <string>How much notice to give of Voice Morph subscriptions expiry, in seconds.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>259200</integer>
+  </map>

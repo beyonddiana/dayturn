@@ -1,0 +1,11 @@
+  <key>CmdLineGridChoice</key>
+  <map>
+    <key>Comment</key>
+    <string>The user's grid choice or ip address.</string>
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string />
+  </map>

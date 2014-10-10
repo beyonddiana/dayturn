@@ -1,0 +1,11 @@
+  <key>UISndObjectCreate</key>
+  <map>
+    <key>Comment</key>
+    <string>Sound file for object creation (uuid for sound asset)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>f4a0660f-5446-dea2-80b7-6482a082803c</string>
+  </map>

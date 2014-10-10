@@ -1,0 +1,11 @@
+  <key>LSLHelpURL</key>
+  <map>
+    <key>Comment</key>
+    <string>URL that points to LSL help files, with [LSL_STRING] corresponding to the referenced LSL function or keyword</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>http://wiki.secondlife.com/wiki/[LSL_STRING]</string>
+  </map>

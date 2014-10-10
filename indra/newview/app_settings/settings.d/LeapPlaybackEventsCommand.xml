@@ -1,0 +1,12 @@
+  <key>LeapPlaybackEventsCommand</key>
+  <map>
+    <key>Comment</key>
+    <string>Command line to use leap to launch playback of event recordings</string>
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>LLSD</string>
+    <key>Value</key>
+    <array>
+    </array>
+  </map>

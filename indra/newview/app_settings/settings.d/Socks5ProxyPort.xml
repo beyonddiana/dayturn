@@ -1,0 +1,11 @@
+  <key>Socks5ProxyPort</key>
+  <map>
+    <key>Comment</key>
+    <string>Socks 5 Proxy Port</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <integer>1080</integer>
+  </map>

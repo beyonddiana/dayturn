@@ -1,0 +1,11 @@
+  <key>RenderGlowMaxExtractAlpha</key>
+  <map>
+    <key>Comment</key>
+    <string>Max glow alpha value for brightness extraction to auto-glow.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.25</real>
+  </map>

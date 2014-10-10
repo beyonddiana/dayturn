@@ -1,0 +1,11 @@
+  <key>LCDDestination</key>
+  <map>
+    <key>Comment</key>
+    <string>Which LCD to use</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>

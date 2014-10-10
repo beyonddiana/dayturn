@@ -1,0 +1,11 @@
+  <key>PluginInstancesNormal</key>
+  <map>
+    <key>Comment</key>
+    <string>Limit on the number of inworld media plugins that will run at "normal" or higher priority</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <integer>2</integer>
+  </map>

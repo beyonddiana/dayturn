@@ -1,0 +1,11 @@
+  <key>UseEnvironmentFromRegion</key>
+  <map>
+    <key>Comment</key>
+    <string>Choose whether to use the region's environment settings, or override them with the local settings.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>

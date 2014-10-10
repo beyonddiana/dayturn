@@ -1,0 +1,15 @@
+  <key>RenderShadowNearDist</key>
+  <map>
+    <key>Comment</key>
+    <string>Near clip plane of shadow camera (affects precision of depth shadows).</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Vector3</string>
+    <key>Value</key>
+    <array>
+      <real>256.0</real>
+      <real>256.0</real>
+      <real>256.0</real>
+    </array>
+  </map>

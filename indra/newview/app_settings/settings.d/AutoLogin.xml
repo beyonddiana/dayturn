@@ -1,0 +1,11 @@
+  <key>AutoLogin</key>
+  <map>
+    <key>Comment</key>
+    <string>Login automatically using last username/password combination</string>
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>

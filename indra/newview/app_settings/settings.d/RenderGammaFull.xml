@@ -1,0 +1,11 @@
+  <key>RenderGammaFull</key>
+  <map>
+    <key>Comment</key>
+    <string>Use fully controllable gamma correction, instead of faster, hard-coded gamma correction of 2.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <real>1.0</real>
+  </map>

@@ -1,0 +1,11 @@
+  <key>PrimMediaMaxSortedQueueSize</key>
+  <map>
+    <key>Comment</key>
+    <string>Maximum number of objects the viewer will load media for initially</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <integer>100000</integer>
+  </map>

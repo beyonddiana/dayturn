@@ -1,0 +1,11 @@
+  <key>UISndTeleportOut</key>
+  <map>
+    <key>Comment</key>
+    <string>Sound file for teleporting (uuid for sound asset)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>d7a9a565-a013-2a69-797d-5332baa1a947</string>
+  </map>

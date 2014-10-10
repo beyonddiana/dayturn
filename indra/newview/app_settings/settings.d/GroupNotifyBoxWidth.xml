@@ -1,0 +1,11 @@
+  <key>GroupNotifyBoxWidth</key>
+  <map>
+    <key>Comment</key>
+    <string>Width of group notice messages</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>305</integer>
+  </map>

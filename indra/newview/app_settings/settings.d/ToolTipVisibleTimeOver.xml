@@ -1,0 +1,11 @@
+  <key>ToolTipVisibleTimeOver</key>
+  <map>
+    <key>Comment</key>
+    <string>Fade tooltip after after time passes (seconds) while mouse over tooltip</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>1000.0</real>
+  </map>

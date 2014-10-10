@@ -1,0 +1,11 @@
+  <key>UISndRestart</key>
+  <map>
+    <key>Comment</key>
+    <string>Sound file for region restarting (uuid for sound asset)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>b92a0f64-7709-8811-40c5-16afd624a45f</string>
+  </map>

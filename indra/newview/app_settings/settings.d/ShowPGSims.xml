@@ -1,0 +1,13 @@
+  <key>ShowPGSims</key>
+  <map>
+    <key>Comment</key>
+    <string>Display results of find places or find popular that are in general sims</string>
+    <key>HideFromEditor</key>
+    <integer>1</integer>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>

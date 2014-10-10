@@ -1,0 +1,11 @@
+  <key>TextureCameraMotionBoost</key>
+  <map>
+    <key>Comment</key>
+    <string>Progressive discard level decrement when the camera is still</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>3</integer>
+  </map>

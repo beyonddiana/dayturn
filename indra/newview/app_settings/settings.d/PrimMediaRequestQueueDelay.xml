@@ -1,0 +1,11 @@
+  <key>PrimMediaRequestQueueDelay</key>
+  <map>
+    <key>Comment</key>
+    <string>Timer delay for fetching media from the queue (in seconds).</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>1.0</real>
+  </map>

@@ -1,0 +1,11 @@
+  <key>DayCycleName</key>
+  <map>
+    <key>Comment</key>
+    <string>Day cycle to use. May be superseded by region settings.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>Default</string>
+  </map>

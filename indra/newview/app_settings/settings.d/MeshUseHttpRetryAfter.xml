@@ -1,0 +1,11 @@
+  <key>MeshUseHttpRetryAfter</key>
+  <map>
+    <key>Comment</key>
+    <string>If TRUE, use Retry-After response headers when rescheduling a mesh request that fails with an HTTP 503 status.  Static.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <boolean>true</boolean>
+  </map>

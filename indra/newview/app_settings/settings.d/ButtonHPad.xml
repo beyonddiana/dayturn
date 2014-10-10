@@ -1,0 +1,11 @@
+  <key>ButtonHPad</key>
+  <map>
+    <key>Comment</key>
+    <string>Default horizontal spacing between buttons (pixels)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>4</integer>
+  </map>

@@ -1,0 +1,11 @@
+  <key>MiniMapChatRing</key>
+  <map>
+    <key>Comment</key>
+    <string>Show chat and shout range rings on the minimap.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>

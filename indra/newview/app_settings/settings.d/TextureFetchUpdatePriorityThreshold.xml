@@ -1,0 +1,11 @@
+  <key>TextureFetchUpdatePriorityThreshold</key>
+  <map>
+    <key>Comment</key>
+    <string>Threshold under which textures will be considered too low priority and skipped for update</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.0</real>
+  </map>

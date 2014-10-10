@@ -1,0 +1,11 @@
+  <key>MemoryPrivatePoolSize</key>
+  <map>
+    <key>Comment</key>
+    <string>Size of the private memory pool in MB (min. value is 256)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <integer>512</integer>
+  </map>

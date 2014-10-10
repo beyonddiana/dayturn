@@ -1,0 +1,11 @@
+  <key>ColourCodedChat</key>
+  <map>
+    <key>Comment</key>
+    <string>Gives the chat floater's text entry widget a slight tint that differs with the chat type (nearby, group, conference or IM)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <real>1.0</real>
+  </map>

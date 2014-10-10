@@ -1,0 +1,11 @@
+  <key>InventoryOutboxMaxFolderCount</key>
+  <map>
+    <key>Comment</key>
+    <string>Maximum number of subfolders allowed in a listing in the merchant outbox.</string>
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <integer>21</integer>
+  </map>

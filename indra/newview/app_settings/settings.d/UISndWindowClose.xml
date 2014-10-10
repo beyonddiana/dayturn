@@ -1,0 +1,11 @@
+  <key>UISndWindowClose</key>
+  <map>
+    <key>Comment</key>
+    <string>Sound file for closing a window (uuid for sound asset)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>2c346eda-b60c-ab33-1119-b8941916a499</string>
+  </map>

@@ -1,0 +1,11 @@
+  <key>ToastGap</key>
+  <map>
+    <key>Comment</key>
+    <string>Gap between toasts on a screen (min. value is 5)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>7</integer>
+  </map>

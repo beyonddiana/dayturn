@@ -1,0 +1,11 @@
+  <key>PTTCurrentlyEnabled</key>
+  <map>
+    <key>Comment</key>
+    <string>Use Push to Talk mode</string>
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>

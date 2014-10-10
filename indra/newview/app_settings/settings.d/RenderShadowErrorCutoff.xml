@@ -1,0 +1,11 @@
+  <key>RenderShadowErrorCutoff</key>
+  <map>
+    <key>Comment</key>
+    <string>Cutoff error value to use ortho instead of perspective projection.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>5.0</real>
+  </map>

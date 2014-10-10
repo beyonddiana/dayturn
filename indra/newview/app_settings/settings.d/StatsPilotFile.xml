@@ -1,0 +1,11 @@
+  <key>StatsPilotFile</key>
+  <map>
+    <key>Comment</key>
+    <string>Filename for stats logging autopilot path</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>pilot.txt</string>
+  </map>

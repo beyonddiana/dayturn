@@ -1,0 +1,11 @@
+  <key>UISndBadKeystroke</key>
+  <map>
+    <key>Comment</key>
+    <string>Sound file for invalid keystroke (uuid for sound asset)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>2ca849ba-2885-4bc3-90ef-d4987a5b983a</string>
+  </map>

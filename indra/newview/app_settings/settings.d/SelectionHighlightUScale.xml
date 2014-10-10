@@ -1,0 +1,11 @@
+  <key>SelectionHighlightUScale</key>
+  <map>
+    <key>Comment</key>
+    <string>Scale of texture display on selection highlight line (fraction of texture size)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.1</real>
+  </map>

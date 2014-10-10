@@ -1,0 +1,11 @@
+  <key>SceneLoadFrontPixelThreshold</key>
+  <map>
+    <key>Comment</key>
+    <string>in pixels, all objects in view frustum whose screen area is greater than this threshold will be loaded</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>100.0</real>
+  </map>

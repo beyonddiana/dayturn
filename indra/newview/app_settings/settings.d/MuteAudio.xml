@@ -1,0 +1,11 @@
+  <key>MuteAudio</key>
+  <map>
+    <key>Comment</key>
+    <string>All audio plays at 0 volume (streaming audio still takes up bandwidth, for example)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>

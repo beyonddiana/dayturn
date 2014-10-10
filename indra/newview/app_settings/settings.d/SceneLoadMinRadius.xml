@@ -1,0 +1,11 @@
+  <key>SceneLoadMinRadius</key>
+  <map>
+    <key>Comment</key>
+    <string>in meters, all objects (visible or invisible) within this radius will remain loaded in memory</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>32.0</real>
+  </map>

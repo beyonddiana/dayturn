@@ -1,0 +1,11 @@
+  <key>LipSyncEnabled</key>
+  <map>
+    <key>Comment</key>
+    <string>0 disable lip-sync, 1 enable babble loop</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>

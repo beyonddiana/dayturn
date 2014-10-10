@@ -1,0 +1,11 @@
+  <key>FSCmdTeleportToCam</key>
+  <map>
+    <key>Comment</key>
+    <string>Teleport to your camera</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>tp2cam</string>
+  </map>

@@ -1,0 +1,11 @@
+  <key>UISndTyping</key>
+  <map>
+    <key>Comment</key>
+    <string>Sound file for starting to type a chat message (uuid for sound asset)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>5e191c7b-8996-9ced-a177-b2ac32bfea06</string>
+  </map>

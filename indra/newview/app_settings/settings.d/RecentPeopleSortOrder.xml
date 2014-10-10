@@ -1,0 +1,11 @@
+  <key>RecentPeopleSortOrder</key>
+  <map>
+    <key>Comment</key>
+    <string>Specifies sort order for recent people (0 = by name, 2 = by most recent)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <integer>2</integer>
+  </map>

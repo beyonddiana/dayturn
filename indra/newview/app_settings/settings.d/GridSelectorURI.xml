@@ -1,0 +1,11 @@
+  <key>GridSelectorURI</key>
+  <map>
+    <key>Comment</key>
+    <string>URL that provides grid hop:// uris (adjust size: GridSelectorRect)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>http://ubuntuone.com/06v4P4LWWjFCA4XcyaguRj</string>
+  </map>

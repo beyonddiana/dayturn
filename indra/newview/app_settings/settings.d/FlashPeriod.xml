@@ -1,0 +1,11 @@
+  <key>FlashPeriod</key>
+  <map>
+    <key>Comment</key>
+    <string>Period at which item flash (seconds). Requires restart.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.5</real>
+  </map>

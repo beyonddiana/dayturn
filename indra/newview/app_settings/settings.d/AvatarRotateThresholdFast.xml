@@ -1,0 +1,11 @@
+  <key>AvatarRotateThresholdFast</key>
+  <map>
+    <key>Comment</key>
+    <string>Angle between avatar facing and camera facing at which avatar turns to face same direction as camera, when moving fast (degrees)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <integer>2</integer>
+  </map>

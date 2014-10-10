@@ -1,0 +1,11 @@
+  <key>UISndObjectDelete</key>
+  <map>
+    <key>Comment</key>
+    <string>Sound file for object deletion (uuid for sound asset)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>0cb7b00a-4c10-6948-84de-a93c09af2ba9</string>
+  </map>

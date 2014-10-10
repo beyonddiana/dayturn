@@ -1,0 +1,11 @@
+  <key>RegionTextureSize</key>
+  <map>
+    <key>Comment</key>
+    <string>Terrain texture dimensions (power of 2)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <integer>256</integer>
+  </map>

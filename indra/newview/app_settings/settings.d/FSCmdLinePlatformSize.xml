@@ -1,0 +1,11 @@
+  <key>FSCmdLinePlatformSize</key>
+  <map>
+    <key>Comment</key>
+    <string>How wide the rezzed platform will appear to be.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>30.0</real>
+  </map>

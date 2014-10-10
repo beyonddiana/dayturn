@@ -1,0 +1,11 @@
+  <key>ShowStreamMetadata</key>
+  <map>
+    <key>Comment</key>
+    <string>Shows stream metadata (artist, title) notifications. (0 = Off, 1 = Notification Toast, 2 = Nearby Chat)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <integer>2</integer>
+  </map>

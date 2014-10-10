@@ -1,0 +1,11 @@
+  <key>WindowHeight</key>
+  <map>
+    <key>Comment</key>
+    <string>SL viewer window height</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <integer>738</integer>
+  </map>

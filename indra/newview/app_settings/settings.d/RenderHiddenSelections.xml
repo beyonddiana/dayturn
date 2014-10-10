@@ -1,0 +1,11 @@
+  <key>RenderHiddenSelections</key>
+  <map>
+    <key>Comment</key>
+    <string>Show selection lines on objects that are behind other objects</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>

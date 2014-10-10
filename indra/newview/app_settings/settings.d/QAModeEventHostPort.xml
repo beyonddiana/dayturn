@@ -1,0 +1,11 @@
+  <key>QAModeEventHostPort</key>
+  <map>
+    <key>Comment</key>
+    <string>DEPRECATED: Port on which lleventhost should listen</string>
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>-1</integer>
+  </map>

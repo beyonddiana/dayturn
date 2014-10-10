@@ -1,0 +1,11 @@
+  <key>SnapMargin</key>
+  <map>
+    <key>Comment</key>
+    <string>Controls maximum distance between windows before they auto-snap together (pixels)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>10</integer>
+  </map>

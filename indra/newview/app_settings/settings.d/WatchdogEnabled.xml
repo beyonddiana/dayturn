@@ -1,0 +1,11 @@
+  <key>WatchdogEnabled</key>
+  <map>
+    <key>Comment</key>
+    <string>Controls whether the thread watchdog timer is activated. Value is boolean. Set to -1 to defer to built-in default.</string>
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>

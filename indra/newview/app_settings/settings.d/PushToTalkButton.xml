@@ -1,0 +1,11 @@
+  <key>PushToTalkButton</key>
+  <map>
+    <key>Comment</key>
+    <string>Which button or keyboard key is used for push-to-talk</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>MiddleMouse</string>
+  </map>

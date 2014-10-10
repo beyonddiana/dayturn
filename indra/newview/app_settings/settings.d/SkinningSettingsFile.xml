@@ -1,0 +1,11 @@
+  <key>SkinningSettingsFile</key>
+  <map>
+    <key>Comment</key>
+    <string>Client skin color setting file name (per install).</string>
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string />
+  </map>

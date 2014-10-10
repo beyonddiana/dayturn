@@ -1,0 +1,11 @@
+  <key>GridListDownloadURL</key>
+  <map>
+    <key>Comment</key>
+    <string>Fetch a grid list from this URL.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>http://localhost/grids.xml</string>
+  </map>

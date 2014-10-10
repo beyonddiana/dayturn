@@ -1,0 +1,11 @@
+  <key>FontScreenDPI</key>
+  <map>
+    <key>Comment</key>
+    <string>Font resolution, higher is bigger (pixels per inch)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>96.0</real>
+  </map>
