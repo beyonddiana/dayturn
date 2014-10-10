@@ -1,0 +1,11 @@
+  <key>MainloopTimeoutDefault</key>
+  <map>
+    <key>Comment</key>
+    <string>Timeout duration for mainloop lock detection, in seconds.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>60.0</real>
+  </map>

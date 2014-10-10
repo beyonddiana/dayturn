@@ -1,0 +1,11 @@
+  <key>RevokePermsOnStopAnimation</key>
+  <map>
+    <key>Comment</key>
+    <string>Clear animation permssions when choosing "Stop Animating Me"</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>

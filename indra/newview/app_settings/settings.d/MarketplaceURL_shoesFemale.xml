@@ -1,0 +1,11 @@
+  <key>MarketplaceURL_shoesFemale</key>
+  <map>
+    <key>Comment</key>
+    <string>URL to the Marketplace Shoes Female</string>
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>https://marketplace.secondlife.com/trampoline/viewer21/shoes_women</string>
+  </map>

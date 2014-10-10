@@ -1,0 +1,11 @@
+  <key>RenderSunDynamicRange</key>
+  <map>
+    <key>Comment</key>
+    <string>Defines what percent brighter the sun is than local point lights (1.0 = 100% brighter. Value should not be less than 0. ).</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>1.0</real>
+  </map>

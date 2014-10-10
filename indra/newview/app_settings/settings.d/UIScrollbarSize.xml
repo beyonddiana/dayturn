@@ -1,0 +1,11 @@
+  <key>UIScrollbarSize</key>
+  <map>
+    <key>Comment</key>
+    <string>UI scrollbar size</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <real>15.0</real>
+  </map>

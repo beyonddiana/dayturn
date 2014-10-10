@@ -1,0 +1,16 @@
+  <key>ObjectCostLowColor</key>
+  <map>
+    <key>Comment</key>
+    <string>Color for object with a low object cost.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Color4</string>
+    <key>Value</key>
+    <array>
+      <real>0.0</real>
+      <real>0.5</real>
+      <real>1.0</real>
+      <real>0.5</real>
+    </array>
+  </map>

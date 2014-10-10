@@ -1,0 +1,11 @@
+  <key>FSNearbyChatbar</key>
+  <map>
+    <key>Comment</key>
+    <string>Set to true to add a chat bar to the Nearby Chat window</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>

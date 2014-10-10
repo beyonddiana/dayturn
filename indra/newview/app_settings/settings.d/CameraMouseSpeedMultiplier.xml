@@ -1,0 +1,11 @@
+  <key>CameraMouseSpeedMultiplier</key>
+  <map>
+    <key>Comment</key>
+    <string>Accelerator for the mouse-controlled camera.  The value acts as a multiplier.  Bigger numbers = more sensitive.  Fractions between 0 and 1 = less sensitive.  This value needs to be positive</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>1.0</real>
+  </map>

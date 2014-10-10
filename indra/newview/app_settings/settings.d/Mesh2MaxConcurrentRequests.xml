@@ -1,0 +1,11 @@
+  <key>Mesh2MaxConcurrentRequests</key>
+  <map>
+    <key>Comment</key>
+    <string>Number of connections to use for loading meshes.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <integer>8</integer>
+  </map>

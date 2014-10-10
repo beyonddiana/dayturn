@@ -1,0 +1,11 @@
+  <key>MinWindowHeight</key>
+  <map>
+    <key>Comment</key>
+    <string>SL viewer minimum window height in pixels</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>

@@ -1,0 +1,11 @@
+  <key>max_texture_dimension_Y</key>
+  <map>
+    <key>Comment</key>
+    <string>Maximum texture height for user uploaded textures</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>2048</integer>
+  </map>

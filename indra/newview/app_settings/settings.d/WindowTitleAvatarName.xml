@@ -1,0 +1,11 @@
+  <key>WindowTitleAvatarName</key>
+  <map>
+    <key>Comment</key>
+    <string>Show your avatar's name in the viewer window's title bar</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <real>0.0</real>
+  </map>

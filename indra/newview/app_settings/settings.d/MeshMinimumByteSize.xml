@@ -1,0 +1,11 @@
+  <key>MeshMinimumByteSize</key>
+  <map>
+    <key>Comment</key>
+    <string>Minimum number of bytes per LoD block when determining streaming cost.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <real>16.0</real>
+  </map>

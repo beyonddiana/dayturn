@@ -1,0 +1,11 @@
+  <key>RenderMaxPartCount</key>
+  <map>
+    <key>Comment</key>
+    <string>Maximum number of particles to display on screen</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>4096</integer>
+  </map>

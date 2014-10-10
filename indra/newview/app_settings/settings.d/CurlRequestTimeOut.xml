@@ -1,0 +1,11 @@
+  <key>CurlRequestTimeOut</key>
+  <map>
+    <key>Comment</key>
+    <string>Max idle time of a curl request before killed (requires restart)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>120.0</real>
+  </map>

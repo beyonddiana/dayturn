@@ -1,0 +1,11 @@
+  <key>RenderAvatarMaxVisible</key>
+  <map>
+    <key>Comment</key>
+    <string>Maximum number of avatars to display at any one time</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>12</integer>
+  </map>

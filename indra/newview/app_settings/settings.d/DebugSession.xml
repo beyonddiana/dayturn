@@ -1,0 +1,11 @@
+  <key>DebugSession</key>
+  <map>
+    <key>Comment</key>
+    <string>Request debugging for a particular viewer session</string>
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>

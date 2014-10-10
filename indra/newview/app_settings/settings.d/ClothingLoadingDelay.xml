@@ -1,0 +1,11 @@
+  <key>ClothingLoadingDelay</key>
+  <map>
+    <key>Comment</key>
+    <string>Time to wait for avatar appearance to resolve before showing world (seconds)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>10.0</real>
+  </map>

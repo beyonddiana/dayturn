@@ -1,0 +1,16 @@
+  <key>PreviewDiffuse1</key>
+  <map>
+    <key>Comment</key>
+    <string>Diffise color of preview light 1.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Color4</string>
+    <key>Value</key>
+    <array>
+      <real>0.25</real>
+      <real>0.25</real>
+      <real>0.25</real>
+      <real>1.0</real>
+    </array>
+  </map>

@@ -1,0 +1,11 @@
+  <key>AudioLevelSFX</key>
+  <map>
+    <key>Comment</key>
+    <string>Audio level of in-world sound effects</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.5</real>
+  </map>

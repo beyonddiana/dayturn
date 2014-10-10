@@ -1,0 +1,11 @@
+  <key>PostFirstLoginIntroURL</key>
+  <map>
+    <key>Comment</key>
+    <string>URL of intro presenatation after first time users first login</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string />
+  </map>

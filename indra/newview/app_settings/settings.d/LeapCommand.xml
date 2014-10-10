@@ -1,0 +1,12 @@
+  <key>LeapCommand</key>
+  <map>
+    <key>Comment</key>
+    <string>Zero or more command lines to run LLSD Event API Plugin programs.</string>
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>LLSD</string>
+    <key>Value</key>
+    <array>
+    </array>
+  </map>

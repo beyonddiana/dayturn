@@ -1,0 +1,11 @@
+  <key>CacheSize</key>
+  <map>
+    <key>Comment</key>
+    <string>Controls amount of hard drive space reserved for local file caching in MB</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <integer>512</integer>
+  </map>

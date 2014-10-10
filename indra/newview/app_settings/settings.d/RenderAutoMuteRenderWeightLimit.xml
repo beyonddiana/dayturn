@@ -1,0 +1,11 @@
+  <key>RenderAutoMuteRenderWeightLimit</key>
+  <map>
+    <key>Comment</key>
+    <string>Maximum render weight before an avatar is rendered as a simple impostor (0 to not use this limit).</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>

@@ -1,0 +1,11 @@
+  <key>RenderMaxNodeSize</key>
+  <map>
+    <key>Comment</key>
+    <string>Maximum size of a single node's vertex data (in KB).</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>65536</integer>
+  </map>

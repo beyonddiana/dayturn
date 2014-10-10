@@ -1,0 +1,11 @@
+  <key>EnergyHeight</key>
+  <map>
+    <key>Comment</key>
+    <string />
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>40</integer>
+  </map>

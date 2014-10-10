@@ -1,0 +1,11 @@
+  <key>RecentItemsSortOrder</key>
+  <map>
+    <key>Comment</key>
+    <string>Specifies sort key for recent inventory items (+0 = name, +1 = date, +2 = folders always by name, +4 = system folders to top)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>

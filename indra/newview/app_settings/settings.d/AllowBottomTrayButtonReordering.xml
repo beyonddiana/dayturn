@@ -1,0 +1,11 @@
+  <key>AllowBottomTrayButtonReordering</key>
+  <map>
+    <key>Comment</key>
+    <string>Allow user to move and hide bottom tray buttons</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>

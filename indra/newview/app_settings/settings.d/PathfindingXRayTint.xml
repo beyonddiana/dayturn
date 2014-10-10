@@ -1,0 +1,11 @@
+  <key>PathfindingXRayTint</key>
+  <map>
+    <key>Comment</key>
+    <string>Amount to darken/lighten x-ray lines in pathfinding display.</string>
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.8</real>
+  </map>

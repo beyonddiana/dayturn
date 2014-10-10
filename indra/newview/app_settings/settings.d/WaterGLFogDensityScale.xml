@@ -1,0 +1,11 @@
+  <key>WaterGLFogDensityScale</key>
+  <map>
+    <key>Comment</key>
+    <string>Maps shader water fog density to gl fog density</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.02</real>
+  </map>

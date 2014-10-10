@@ -1,0 +1,15 @@
+  <key>RenderSSAOEffect</key>
+  <map>
+    <key>Comment</key>
+    <string>Multiplier for (1) value and (2) saturation (HSV definition), for areas which are totally occluded.  Blends with original color for partly-occluded areas.  (Third component is unused.)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Vector3</string>
+    <key>Value</key>
+    <array>
+      <real>0.8</real>
+      <real>1.0</real>
+      <real>0.0</real>
+    </array>
+  </map>

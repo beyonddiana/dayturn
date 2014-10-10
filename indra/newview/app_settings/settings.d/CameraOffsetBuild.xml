@@ -1,0 +1,15 @@
+  <key>CameraOffsetBuild</key>
+  <map>
+    <key>Comment</key>
+    <string>Default camera position relative to focus point when entering build mode</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Vector3</string>
+    <key>Value</key>
+    <array>
+      <real>-6.0</real>
+      <real>0.0</real>
+      <real>6.0</real>
+    </array>
+  </map>

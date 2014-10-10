@@ -1,0 +1,11 @@
+  <key>ChannelBottomPanelMargin</key>
+  <map>
+    <key>Comment</key>
+    <string>Space from a lower toast to the Bottom Tray</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>35</integer>
+  </map>

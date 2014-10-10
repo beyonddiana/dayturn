@@ -1,0 +1,11 @@
+  <key>FriendsSortOrder</key>
+  <map>
+    <key>Comment</key>
+    <string>Specifies sort order for friends (0 = by name, 1 = by online status)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>

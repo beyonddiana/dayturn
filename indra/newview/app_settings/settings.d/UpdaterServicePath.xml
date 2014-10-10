@@ -1,0 +1,11 @@
+  <key>UpdaterServicePath</key>
+  <map>
+    <key>Comment</key>
+    <string>Path on the update server host.</string>
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>update</string>
+  </map>

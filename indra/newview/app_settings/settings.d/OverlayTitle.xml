@@ -1,0 +1,11 @@
+  <key>OverlayTitle</key>
+  <map>
+    <key>Comment</key>
+    <string>Controls watermark text message displayed on screen when "ShowOverlayTitle" is enabled (one word, underscores become spaces)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>Set_via_OverlayTitle_in_settings.xml</string>
+  </map>

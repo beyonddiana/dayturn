@@ -1,0 +1,11 @@
+  <key>ChatBarStealsFocus</key>
+  <map>
+    <key>Comment</key>
+    <string>Whenever keyboard focus is removed from the UI, and the chat bar is visible, the chat bar takes focus</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>

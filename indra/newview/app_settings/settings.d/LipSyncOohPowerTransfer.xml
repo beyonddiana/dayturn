@@ -1,0 +1,11 @@
+  <key>LipSyncOohPowerTransfer</key>
+  <map>
+    <key>Comment</key>
+    <string>Transfer curve for Voice Interface power to ooh lip sync amplitude</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>0012345566778899</string>
+  </map>

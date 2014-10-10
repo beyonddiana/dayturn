@@ -1,0 +1,15 @@
+  <key>RenderGlowLumWeights</key>
+  <map>
+    <key>Comment</key>
+    <string>Weights for each color channel to be used in calculating luminance (should add up to 1.0)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Vector3</string>
+    <key>Value</key>
+    <array>
+      <real>1.0</real>
+      <real>0.0</real>
+      <real>0.0</real>
+    </array>
+  </map>

@@ -1,0 +1,11 @@
+  <key>LipSyncOohAahRate</key>
+  <map>
+    <key>Comment</key>
+    <string>Rate to babble Ooh and Aah (/sec)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>24.0</real>
+  </map>

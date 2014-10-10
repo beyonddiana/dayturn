@@ -1,0 +1,11 @@
+  <key>RestrainedLoveReplaceWhenFolderBeginsWith</key>
+  <map>
+    <key>Comment</key>
+    <string>If a folder name begins with this string, its attach behavior will always be "replace", never "stack". Default is blank (disabled).</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string />
+  </map>

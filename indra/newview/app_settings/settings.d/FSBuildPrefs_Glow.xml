@@ -1,0 +1,13 @@
+  <key>FSBuildPrefs_Glow</key>
+  <map>
+    <key>Backup</key>
+    <integer>0</integer>
+    <key>Comment</key>
+    <string>New object created default glow</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.0</real>
+  </map>

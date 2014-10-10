@@ -1,0 +1,16 @@
+  <key>PathfindingHeatColorMax</key>
+  <map>
+    <key>Comment</key>
+    <string>Color of the most walkable value when displaying the pathfinding navmesh as a heatmap.</string>
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>Color4</string>
+    <key>Value</key>
+    <array>
+      <real>1.0</real>
+      <real>1.0</real>
+      <real>1.0</real>
+      <real>1.0</real>
+    </array>
+  </map>

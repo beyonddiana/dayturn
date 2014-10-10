@@ -1,0 +1,11 @@
+  <key>PingInterpolate</key>
+  <map>
+    <key>Comment</key>
+    <string>Extrapolate object position along velocity vector based on ping delay</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>

@@ -1,0 +1,16 @@
+  <key>PathfindingFaceColor</key>
+  <map>
+    <key>Comment</key>
+    <string>Color of the faces when displaying the default view of the pathfinding navmesh.</string>
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>Color4</string>
+    <key>Value</key>
+    <array>
+      <real>1.0</real>
+      <real>1.0</real>
+      <real>1.0</real>
+      <real>1.0</real>
+    </array>
+  </map>

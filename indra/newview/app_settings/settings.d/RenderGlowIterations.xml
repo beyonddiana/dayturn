@@ -1,0 +1,11 @@
+  <key>RenderGlowIterations</key>
+  <map>
+    <key>Comment</key>
+    <string>Number of times to iterate the glow (higher = wider and smoother but slower)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>2</integer>
+  </map>

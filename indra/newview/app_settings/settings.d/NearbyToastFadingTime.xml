@@ -1,0 +1,11 @@
+  <key>NearbyToastFadingTime</key>
+  <map>
+    <key>Comment</key>
+    <string>Number of seconds while a nearby chat toast is fading </string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>3</integer>
+  </map>

@@ -1,0 +1,16 @@
+  <key>PathfindingConnectedEdge</key>
+  <map>
+    <key>Comment</key>
+    <string>Color of a connected (crossable) edge when displaying pathfinding navmesh.</string>
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>Color4</string>
+    <key>Value</key>
+    <array>
+      <real>0.86</real>
+      <real>0.86</real>
+      <real>0.86</real>
+      <real>1.0</real>
+    </array>
+  </map>

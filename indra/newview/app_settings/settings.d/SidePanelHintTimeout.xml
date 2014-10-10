@@ -1,0 +1,11 @@
+  <key>SidePanelHintTimeout</key>
+  <map>
+    <key>Comment</key>
+    <string>Number of seconds to wait before telling resident about side panel.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>300.0</real>
+  </map>

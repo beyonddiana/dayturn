@@ -1,0 +1,11 @@
+  <key>NewObjectCreationThrottleDelayTime</key>
+  <map>
+    <key>Comment</key>
+    <string>time in seconds NewObjectCreationThrottle to take effect after the progress screen is lifted</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>2.0</real>
+  </map>

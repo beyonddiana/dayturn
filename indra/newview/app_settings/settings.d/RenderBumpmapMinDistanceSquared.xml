@@ -1,0 +1,11 @@
+  <key>RenderBumpmapMinDistanceSquared</key>
+  <map>
+    <key>Comment</key>
+    <string>Maximum distance at which to render bumpmapped primitives (distance in meters, squared)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>100.0</real>
+  </map>

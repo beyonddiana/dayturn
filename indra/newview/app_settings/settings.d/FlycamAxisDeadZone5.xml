@@ -1,0 +1,11 @@
+  <key>FlycamAxisDeadZone5</key>
+  <map>
+    <key>Comment</key>
+    <string>Flycam axis 5 dead zone.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.1</real>
+  </map>

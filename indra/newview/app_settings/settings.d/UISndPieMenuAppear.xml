@@ -1,0 +1,11 @@
+  <key>UISndPieMenuAppear</key>
+  <map>
+    <key>Comment</key>
+    <string>Sound file for opening pie menu (uuid for sound asset)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>8eaed61f-92ff-6485-de83-4dcc938a478e</string>
+  </map>

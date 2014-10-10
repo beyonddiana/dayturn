@@ -1,0 +1,11 @@
+  <key>ConsoleMaxLines</key>
+  <map>
+    <key>Comment</key>
+    <string>Max number of lines of chat text visible in console.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>40</integer>
+  </map>

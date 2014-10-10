@@ -1,0 +1,11 @@
+  <key>LimitSelectDistance</key>
+  <map>
+    <key>Comment</key>
+    <string>Disallow selection of objects beyond max select distance</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>

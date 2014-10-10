@@ -1,0 +1,11 @@
+  <key>UserLoginInfo</key>
+  <map>
+    <key>Comment</key>
+    <string>User login data.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>LLSD</string>
+    <key>Value</key>
+    <string />
+  </map>

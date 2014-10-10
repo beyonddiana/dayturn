@@ -1,0 +1,11 @@
+  <key>OctreeAttachmentSizeFactor</key>
+  <map>
+    <key>Comment</key>
+    <string>Multiplier on attachment size for determining octree node size </string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>4</integer>
+  </map>

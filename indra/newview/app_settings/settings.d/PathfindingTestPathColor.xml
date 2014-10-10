@@ -1,0 +1,16 @@
+  <key>PathfindingTestPathColor</key>
+  <map>
+    <key>Comment</key>
+    <string>Color of the pathfinding test-path when the path is valid.</string>
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>Color4</string>
+    <key>Value</key>
+    <array>
+      <real>1.0</real>
+      <real>0.59</real>
+      <real>0.0</real>
+      <real>0.9</real>
+    </array>
+  </map>

@@ -1,0 +1,11 @@
+  <key>MiniMapPhantomOpacity</key>
+  <map>
+    <key>Comment</key>
+    <string>Percentage of opacity for phantom objects on netmap</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <integer>80</integer>
+  </map>

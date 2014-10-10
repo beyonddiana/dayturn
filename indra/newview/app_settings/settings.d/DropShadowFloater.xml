@@ -1,0 +1,11 @@
+  <key>DropShadowFloater</key>
+  <map>
+    <key>Comment</key>
+    <string>Drop shadow width for floaters (pixels)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>5</integer>
+  </map>

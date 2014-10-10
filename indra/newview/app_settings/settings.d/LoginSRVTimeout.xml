@@ -1,0 +1,11 @@
+  <key>LoginSRVTimeout</key>
+  <map>
+    <key>Comment</key>
+    <string>Duration in seconds of the login SRV request timeout</string>
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>10.0</real>
+  </map>

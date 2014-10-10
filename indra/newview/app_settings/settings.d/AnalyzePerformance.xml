@@ -1,0 +1,11 @@
+  <key>AnalyzePerformance</key>
+  <map>
+    <key>Comment</key>
+    <string>Request performance analysis for a particular viewer run</string>
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>

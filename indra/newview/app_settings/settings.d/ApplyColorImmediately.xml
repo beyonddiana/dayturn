@@ -1,0 +1,11 @@
+  <key>ApplyColorImmediately</key>
+  <map>
+    <key>Comment</key>
+    <string>Preview selections in color picker immediately</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>1</integer>
+  </map>

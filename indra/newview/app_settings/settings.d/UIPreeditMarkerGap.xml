@@ -1,0 +1,11 @@
+  <key>UIPreeditMarkerGap</key>
+  <map>
+    <key>Comment</key>
+    <string>UI Preedit Marker Gap</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <real>1.0</real>
+  </map>

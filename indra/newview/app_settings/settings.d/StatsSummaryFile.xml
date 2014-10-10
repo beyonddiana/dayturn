@@ -1,0 +1,11 @@
+  <key>StatsSummaryFile</key>
+  <map>
+    <key>Comment</key>
+    <string>Filename for stats logging summary</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>fss.txt</string>
+  </map>

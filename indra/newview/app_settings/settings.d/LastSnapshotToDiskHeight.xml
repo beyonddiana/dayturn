@@ -1,0 +1,11 @@
+  <key>LastSnapshotToDiskHeight</key>
+  <map>
+    <key>Comment</key>
+    <string>The height of the last disk snapshot, in px</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>768</integer>
+  </map>

@@ -1,0 +1,11 @@
+  <key>ChatLoadGroupMaxMembers</key>
+  <map>
+    <key>Comment</key>
+    <string>Max number of active members we'll show up for an unresponsive group</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <real>100.0</real>
+  </map>

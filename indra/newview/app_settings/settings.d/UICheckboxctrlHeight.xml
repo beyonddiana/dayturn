@@ -1,0 +1,11 @@
+  <key>UICheckboxctrlHeight</key>
+  <map>
+    <key>Comment</key>
+    <string>UI Checkbox Control Height</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <real>16.0</real>
+  </map>

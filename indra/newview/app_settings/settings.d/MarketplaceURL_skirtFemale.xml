@@ -1,0 +1,11 @@
+  <key>MarketplaceURL_skirtFemale</key>
+  <map>
+    <key>Comment</key>
+    <string>URL to the Marketplace Skirt Female</string>
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>https://marketplace.secondlife.com/trampoline/viewer21/skirts_women</string>
+  </map>

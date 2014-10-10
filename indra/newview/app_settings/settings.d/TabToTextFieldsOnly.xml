@@ -1,0 +1,11 @@
+  <key>TabToTextFieldsOnly</key>
+  <map>
+    <key>Comment</key>
+    <string>TAB key takes you to next text entry field, instead of next widget</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>

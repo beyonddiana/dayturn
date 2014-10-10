@@ -1,0 +1,11 @@
+  <key>CreateToolKeepSelected</key>
+  <map>
+    <key>Comment</key>
+    <string>After using create tool, keep the create tool active</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>

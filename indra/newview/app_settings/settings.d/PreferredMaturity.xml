@@ -1,0 +1,11 @@
+  <key>PreferredMaturity</key>
+  <map>
+    <key>Comment</key>
+    <string>Setting for the user's preferred maturity level (consts in indra_constants.h)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <integer>13</integer>
+  </map>

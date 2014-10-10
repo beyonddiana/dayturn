@@ -1,0 +1,11 @@
+  <key>NotifyBoxHeight</key>
+  <map>
+    <key>Comment</key>
+    <string>Height of notification messages</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>200</integer>
+  </map>

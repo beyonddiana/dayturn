@@ -1,0 +1,11 @@
+  <key>PathfindingAmbiance</key>
+  <map>
+    <key>Comment</key>
+    <string>Ambiance of lit pathfinding navmesh displays.</string>
+    <key>Persist</key>
+    <integer>0</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>0.5</real>
+  </map>

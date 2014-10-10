@@ -1,0 +1,11 @@
+  <key>UISndClickRelease</key>
+  <map>
+    <key>Comment</key>
+    <string>Sound file for mouse button release (uuid for sound asset)</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>4c8c3c77-de8d-bde2-b9b8-32635e0fd4a6</string>
+  </map>

@@ -1,0 +1,11 @@
+  <key>FSCopyObjKeySeparator</key>
+  <map>
+    <key>Comment</key>
+    <string>This chunk of text goes between keys when you use the Copy Key button with multiple objects selected.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>,</string>
+  </map>

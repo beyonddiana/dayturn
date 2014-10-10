@@ -1,0 +1,11 @@
+  <key>UserConnectionPort</key>
+  <map>
+    <key>Comment</key>
+    <string>Port that this client transmits on.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>U32</string>
+    <key>Value</key>
+    <integer>0</integer>
+  </map>

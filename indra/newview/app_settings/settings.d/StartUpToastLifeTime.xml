@@ -1,0 +1,11 @@
+  <key>StartUpToastLifeTime</key>
+  <map>
+    <key>Comment</key>
+    <string>Number of seconds while a StartUp toast exist</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>S32</string>
+    <key>Value</key>
+    <integer>5</integer>
+  </map>

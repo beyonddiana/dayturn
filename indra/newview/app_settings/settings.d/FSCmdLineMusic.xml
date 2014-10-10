@@ -1,0 +1,11 @@
+  <key>FSCmdLineMusic</key>
+  <map>
+    <key>Comment</key>
+    <string>Chat command for setting a music url</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>/music</string>
+  </map>

@@ -1,0 +1,11 @@
+  <key>MediaControlFadeTime</key>
+  <map>
+    <key>Comment</key>
+    <string>Amount of time (in seconds) that the media control fades</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>1.5</real>
+  </map>
