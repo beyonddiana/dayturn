@@ -2180,11 +2180,6 @@ if (DARWIN)
   endif (PACKAGE)
 endif (DARWIN)
 
-add_custom_target(JoinSettings ALL
-                  COMMAND ${PYTHON_EXECUTABLE} ${SCRIPTS_DIR}/join_settings.py settings
-                  COMMENT "Generating settings.xml"
-                  )
-
 if (INSTALL)
   include(${CMAKE_CURRENT_SOURCE_DIR}/ViewerInstall.cmake)
 endif (INSTALL)
