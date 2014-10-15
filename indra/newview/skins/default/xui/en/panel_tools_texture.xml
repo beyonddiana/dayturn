@@ -38,7 +38,6 @@
              follows="left|top"
              height="64"
              label=""
-             label_height="0"
              layout="topleft"
              left="10"
              name="colorswatch"
