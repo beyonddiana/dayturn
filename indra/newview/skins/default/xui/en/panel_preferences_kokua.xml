@@ -420,6 +420,16 @@
 		width="350"
 		control_name="PreventAvatarTurnToSelected"
 		tool_tip="When enabled, your avatar will not turn to face the objects you select." />
+		<check_box
+		top_pad="15"
+		initial_value="true"
+		label="Do not show money balance on snapshots"
+		layout="topleft"
+		left="15"
+		name="HideBalanceInSnapshots"
+		width="350"
+		control_name="HideBalanceInSnapshots"
+		tool_tip="When enabled, your avatar will not turn to face the objects you select." />
 	    <check_box
 		font="SansSerifSmall"
 		height="20"
