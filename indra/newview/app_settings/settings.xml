@@ -7171,7 +7171,7 @@
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
-      <boolean>0</boolean>
+      <boolean>1</boolean>
     </map>
     <key>MiniMapObjects</key>
     <map>
@@ -7182,7 +7182,7 @@
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
-      <boolean>0</boolean>
+      <boolean>1</boolean>
     </map>
     <key>MiniMapPrimMaxRadius</key>
     <map>
@@ -7204,7 +7204,7 @@
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
-      <boolean>0</boolean>
+      <boolean>1</boolean>
     </map>
     <key>MiniMapPhantomOpacity</key>
     <map>
@@ -7226,7 +7226,7 @@
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
-      <integer>0</integer>
+      <integer>1</integer>
     </map>
     <key>MiniMapRotate</key>
     <map>
@@ -7248,7 +7248,7 @@
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
-      <integer>0</integer>
+      <integer>1</integer>
     </map>
     <key>MiniMapTempOnRez</key>
     <map>
