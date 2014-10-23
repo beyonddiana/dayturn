@@ -2038,9 +2038,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>f809e26c70d6be38ce91e16922d667ae</string>
+              <string>5a3905c518809ffe6a131025f3b7023a</string>
               <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-llqtwebkit2/downloads/llqtwebkit-4.7.1-linux64-gcc-4.6.3-20140907.tar.bz2</string>
+              <string>http://bitbucket.org/kokua/3p-llqtwebkit2/downloads/llqtwebkit-4.7.1-linux64-gcc-4.6.3-20141022.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux64</string>
