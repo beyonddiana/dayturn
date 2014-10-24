@@ -7,9 +7,9 @@
 	 reference="Kokua" />
 	<color
 	 name="EmphasisColor_13"
-	 value="0.38 0.694 0.573 0.13" />
+	 value="Kokua_13" />
 	<color
-	 name="EmphasisColor_35"
+     name="EmphasisColor_35"
 	 reference="Kokua_42" />
 	<color
 	 name="BeaconColor"
@@ -497,6 +497,9 @@
      name="Kokua_11"
      value="0.749019607843140033942575 0.4666666666666700047372274 0.8078431372548999789273694 .11" />
     <color
+     name="Kokua_13"
+     value="0.749019607843140033942575 0.4666666666666700047372274 0.8078431372548999789273694 .13" />
+    <color
      name="Kokua_23"
      value="0.749019607843140033942575 0.4666666666666700047372274 0.8078431372548999789273694 .23" />
     <color
@@ -800,7 +803,7 @@
      reference="Unused?" />
     <color
      name="ScrollHoveredColor"
-     reference="EmphasisColor_13" />
+     reference="EmphasisColor_35" />
     <color
      name="ScrollSelectedBGColor"
      reference="EmphasisColor_35" />
