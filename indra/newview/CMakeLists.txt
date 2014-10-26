@@ -1511,12 +1511,6 @@ if (WINDOWS)
       )
     execute_process(
       COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        "${CMAKE_CURRENT_SOURCE_DIR}/icons/${ICON_PATH}/kokua_icon.png"
-        "${CMAKE_CURRENT_SOURCE_DIR}/res/kokua_icon.png"
-      )
-      
-    execute_process(
-      COMMAND ${CMAKE_COMMAND} -E copy_if_different
         "${CMAKE_CURRENT_SOURCE_DIR}/icons/${ICON_PATH}/kokua_icon.BMP"
         "${CMAKE_CURRENT_SOURCE_DIR}/res/kokua_icon.png"
 	  )
