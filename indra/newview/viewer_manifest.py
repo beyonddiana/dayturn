@@ -265,7 +265,8 @@ class ViewerManifest(LLManifest):
         return ''.join(self.app_name().split())
     
     def icon_path(self):
-        return "icons/" + self.channel_type()
+        #return "icons/" + self.channel_type() used for selection of icon by type not used for kokua
+		return "icons/kokua"
 
     def extract_names(self,src):
         try:
@@ -1185,7 +1186,7 @@ class LinuxManifest(ViewerManifest):
     def construct(self):
         super(LinuxManifest, self).construct()
         self.path("licenses-linux.txt","licenses.txt")
-        self.path("res/kokua_icon.png", "kokua_icon.png")
+        self.path("icons/kokua/kokua_icon.png", "kokua_icon.png")
         self.path("VivoxAUP.txt")
         if self.prefix("linux_tools", dst=""):
             self.path("client-readme.txt","README-linux.txt")
