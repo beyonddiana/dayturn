@@ -39,6 +39,7 @@
 #include "lloutfitobserver.h"
 #include "lloutfitslist.h"
 #include "llpanelwearing.h"
+#include "llsaveoutfitcombobtn.h"
 #include "llsidepanelappearance.h"
 #include "llviewerfoldertype.h"
 
@@ -100,7 +101,7 @@ void LLPanelOutfitsInventory::onOpen(const LLSD& key)
 		mInitialized = true;
 	}
 	
-	mSaveComboBtn.reset(new LLSaveOutfitComboBtn(this, true));
+//	mSaveComboBtn.reset(new LLSaveOutfitComboBtn(this, true));
 
 	// Make sure we know which tab is selected, update the filter,
 	// and update verbs.
