@@ -75,6 +75,7 @@
 #include "llmutelist.h"
 #include "llstylemap.h"
 #include "llappviewer.h"
+#include "rlvcommon.h"
 
 //
 // Constants
@@ -704,8 +705,18 @@ void LLFloaterIMPanel::onClickSend(void* userdata)
 void LLFloaterIMPanel::onClickToggleActiveSpeakers(void* userdata)
 {
 	LLFloaterIMPanel* self = (LLFloaterIMPanel*)userdata;
-
-	self->childSetVisible("active_speakers_panel", !self->childIsVisible("active_speakers_panel"));
+	if (rlv_handler_t::isEnabled())
+	{
+		if ( (!mRlvCheckShowNames) || (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES)) )
+		{
+			self->childSetVisible("active_speakers_panel", !self->childIsVisible("active_speakers_panel"));
+		}
+	}
+	else
+	{
+		self->childSetVisible("active_speakers_panel", !self->childIsVisible("active_speakers_panel"));
+	}
+	
 }
 
 // static
