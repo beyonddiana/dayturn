@@ -11238,7 +11238,7 @@ Changes won't take effect until after you restart [APP_NAME].
    name="NewAOSet"
    type="alertmodal">
 Specify a name for the new AO set:
-(The name may not contain a ":" or "|" character)
+(The name may contain any ASCII character, except for ":" or "|")
     <form name="form">
       <input name="message" type="text" default="true">
 New AO Set
@@ -11257,10 +11257,10 @@ New AO Set
 
   <notification
    icon="alertmodal.tga"
-   name="NewAOCantContainColon"
+   name="NewAOCantContainNonASCII"
    type="alertmodal">
 Could not create new AO set "[AO_SET_NAME]".
-The name may not contain ":" or "|" characters.
+The name may only contain ASCII characters, excluding ":" and "|".
     <usetemplate
      name="okbutton"
      yestext="OK"/>
