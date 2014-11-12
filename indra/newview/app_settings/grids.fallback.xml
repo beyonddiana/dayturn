@@ -344,34 +344,6 @@
         <key>slurl_base</key>
             <string>hop://grid.3rdrockgrid.com:8002/</string>
         </map>
-		<key>grid01.from-ne.com:8002</key>
-        <map>
-        <key>LastModified</key>
-            <date>2012-03-31T13:37:13.37Z</date>
-        <key>about</key>
-            <string>http://www.youralternativelife.com</string>
-        <key>gridname</key>
-            <string>Your Alternative Life</string>
-        <key>gridnick</key>
-            <string>YAL</string>
-        <key>helperuri</key>
-            <string>http://grid01.from-ne.com/tios/services/</string>
-        <key>login_identifier_types</key>
-            <array>
-                <string>agent</string>
-                <string>account</string>
-            </array>
-        <key>loginpage</key>
-            <string>http://grid01.from-ne.com/tios/loginscreen3.php</string>
-        <key>loginuri</key>
-            <array>
-                <string>http://grid01.from-ne.com:8002</string>
-            </array>
-        <key>name</key>
-            <string>grid01.from-ne.com:8002</string>
-        <key>slurl_base</key>
-            <string>hop://grid01.from-ne.com:8002/</string>
-        </map>
     <key>hypergrid.org:8002</key>
         <map>
         <key>LastModified</key>
