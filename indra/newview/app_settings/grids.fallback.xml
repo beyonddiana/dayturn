@@ -123,7 +123,7 @@
         <key>gatekeeper</key>
             <string>cc.opensimulator.org:8002</string>
         <key>gridname</key>
-            <string>2013 OpenSim Community Conference</string>
+            <string>OpenSim Community Conference</string>
         <key>gridnick</key>
             <string>opensimcc</string>
         <key>helperuri</key>
