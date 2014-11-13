@@ -3716,75 +3716,70 @@ bool LLVOAvatar::isVisuallyMuted()
 
 	if (!isSelf())
 	{
-		static LLCachedControl<U32> render_auto_mute_functions(gSavedSettings, "RenderAutoMuteFunctions", 0);
-		if (render_auto_mute_functions)		// Hacky debug switch for developing feature
-		{
-			// Priority order (highest priority first)
-			// * own avatar is never visually muted
-			// * if on the "always draw normally" list, draw them normally
-			// * if on the "always visually mute" list, mute them
-			// * draw them normally if they meet the following criteria:
-			//       - within the closest N avatars OR on friends list OR in an IM chat
-			//       - AND aren't over the thresholds
-			// * otherwise visually mute all other avatars
+        // Priority order (highest priority first)
+        // * own avatar is never visually muted
+        // * if on the "always draw normally" list, draw them normally
+        // * if on the "always visually mute" list, mute them
+        // * draw them normally if they meet the following criteria:
+        //       - within the closest N avatars OR on friends list OR in an IM chat
+        //       - AND aren't over the thresholds
+        // * otherwise visually mute all other avatars
 
-			static LLCachedControl<U32> max_attachment_bytes(gSavedSettings, "RenderAutoMuteByteLimit", 0);
-			static LLCachedControl<F32> max_attachment_area(gSavedSettings, "RenderAutoMuteSurfaceAreaLimit", 0.0);
-			static LLCachedControl<U32> max_render_cost(gSavedSettings, "RenderAutoMuteRenderWeightLimit", 0);
+        static LLCachedControl<U32> max_attachment_bytes(gSavedSettings, "RenderAutoMuteByteLimit", 0);
+        static LLCachedControl<F32> max_attachment_area(gSavedSettings, "RenderAutoMuteSurfaceAreaLimit", 0.0);
+        static LLCachedControl<U32> max_render_cost(gSavedSettings, "RenderAutoMuteRenderWeightLimit", 0);
 
-			if (mVisuallyMuteSetting == ALWAYS_VISUAL_MUTE)
-			{	// Always want to see this AV as an impostor
-				muted = true;
-			}
-			else if (mVisuallyMuteSetting == NEVER_VISUAL_MUTE)
-			{	// Never show as impostor
-				muted = false;
-			}
-			else 
-			{
-				F64 now = LLFrameTimer::getTotalSeconds();
+        if (mVisuallyMuteSetting == ALWAYS_VISUAL_MUTE)
+        {	// Always want to see this AV as an impostor
+            muted = true;
+        }
+        else if (mVisuallyMuteSetting == NEVER_VISUAL_MUTE)
+        {	// Never show as impostor
+            muted = false;
+        }
+        else 
+        {
+            F64 now = LLFrameTimer::getTotalSeconds();
 
-				if (now < mCachedVisualMuteUpdateTime)
-				{	// Use cached mute value
-					muted = mCachedVisualMute;
-				}
-				else
-				{	// Determine if visually muted or not
+            if (now < mCachedVisualMuteUpdateTime)
+            {	// Use cached mute value
+                muted = mCachedVisualMute;
+            }
+            else
+            {	// Determine if visually muted or not
 
-					U32 max_cost = (U32) (max_render_cost*(LLVOAvatar::sLODFactor+0.5));
+                U32 max_cost = (U32) (max_render_cost);
 
-					muted = (mAttachmentGeometryBytes > max_attachment_bytes && max_attachment_bytes > 0) ||
-						    (mAttachmentSurfaceArea > max_attachment_area && max_attachment_area > 0.f) ||
-							(mVisualComplexity > max_cost && max_render_cost > 0);
+                muted = (mAttachmentGeometryBytes > max_attachment_bytes && max_attachment_bytes > 0) ||
+                        (mAttachmentSurfaceArea > max_attachment_area && max_attachment_area > 0.f) ||
+                        (mVisualComplexity > max_cost && max_render_cost > 0);
 
-					// Could be part of the grand || collection above, but yanked out to make the logic visible
-					if (!muted)
-					{
-						if (sMaxVisible > 0)
-						{	// They are above the visibilty rank - mute them
-							muted = (mVisibilityRank > sMaxVisible);
-						}
-			
-						// Always draw friends or those in IMs.  Needs UI?
-						if ((render_auto_mute_functions & 0x02) &&
-							(muted || sMaxVisible == 0))		// Don't mute friends or IMs							
-						{
-							muted = !(LLAvatarTracker::instance().isBuddy(getID()));
-							if (muted)
-							{	// Not a friend, so they are muted ... are they in an IM?
-								LLUUID session_id = gIMMgr->computeSessionID(IM_NOTHING_SPECIAL,getID());
-								muted = !gIMMgr->hasSession(session_id);
-							}
-						}
-					}
+                // Could be part of the grand || collection above, but yanked out to make the logic visible
+                if (!muted)
+                {
+                    if (sMaxVisible > 0)
+                    {	// They are above the visibilty rank - mute them
+                        muted = (mVisibilityRank > sMaxVisible);
+                    }
+        
+                    // Always draw friends or those in IMs.  Needs UI?
+                    if (muted || sMaxVisible == 0)		// Don't mute friends or IMs							
+                    {
+                        muted = !(LLAvatarTracker::instance().isBuddy(getID()));
+                        if (muted)
+                        {	// Not a friend, so they are muted ... are they in an IM?
+                            LLUUID session_id = gIMMgr->computeSessionID(IM_NOTHING_SPECIAL,getID());
+                            muted = !gIMMgr->hasSession(session_id);
+                        }
+                    }
+                }
 
-					// Save visual mute state and set interval for updating
-					const F64 SECONDS_BETWEEN_RENDER_AUTO_MUTE_UPDATES = 1.5;
-					mCachedVisualMuteUpdateTime = now + SECONDS_BETWEEN_RENDER_AUTO_MUTE_UPDATES;		
-					mCachedVisualMute = muted;
-				} 
-			}
-		}
+                // Save visual mute state and set interval for updating
+                const F64 SECONDS_BETWEEN_RENDER_AUTO_MUTE_UPDATES = 1.5;
+                mCachedVisualMuteUpdateTime = now + SECONDS_BETWEEN_RENDER_AUTO_MUTE_UPDATES;		
+                mCachedVisualMute = muted;
+            } 
+        }
 	}
 
 	return muted || isInMuteList();
@@ -10561,28 +10556,58 @@ void LLVOAvatar::getImpostorValues(LLVector4a* extents, LLVector3& angle, F32& d
 
 void LLVOAvatar::idleUpdateRenderCost()
 {
-	static LLCachedControl<U32> max_render_cost(gSavedSettings, "RenderAutoMuteRenderWeightLimit", 0);
-	static const U32 ARC_LIMIT = 20000;
-
-	if (gPipeline.hasRenderDebugMask(LLPipeline::RENDER_DEBUG_ATTACHMENT_BYTES))
-	{ //set debug text to attachment geometry bytes here so render cost will override
-		setDebugText(llformat("%.1f KB, %.2f m^2", mAttachmentGeometryBytes/1024.f, mAttachmentSurfaceArea));
-	}
-
-	if (!gPipeline.hasRenderDebugMask(LLPipeline::RENDER_DEBUG_SHAME) && max_render_cost == 0)
+	if (gPipeline.hasRenderDebugMask(LLPipeline::RENDER_DEBUG_AVATAR_DRAW_INFO))
 	{
-		return;
-	}
+		std::string render_info_text;
+		F32 worst_ratio = 0.f;
+		F32 red_level, green_level;
+		
+		static LLCachedControl<U32> max_attachment_bytes(gSavedSettings, "RenderAutoMuteByteLimit", 0);
+		render_info_text.append(llformat("%.1f KB%s", mAttachmentGeometryBytes/1024.f,
+										 (max_attachment_bytes > 0 && mAttachmentGeometryBytes > max_attachment_bytes) ? "!" : ""));
 
-	calculateUpdateRenderCost();				// Update mVisualComplexity if needed
-	
-	if (gPipeline.hasRenderDebugMask(LLPipeline::RENDER_DEBUG_SHAME))
-	{
-		std::string viz_string = LLVOAvatar::rezStatusToString(getRezzedStatus());
-		setDebugText(llformat("%s %d", viz_string.c_str(), mVisualComplexity));
-		F32 green = 1.f-llclamp(((F32) mVisualComplexity-(F32)ARC_LIMIT)/(F32)ARC_LIMIT, 0.f, 1.f);
-		F32 red = llmin((F32) mVisualComplexity/(F32)ARC_LIMIT, 1.f);
-		mText->setColor(LLColor4(red,green,0,1));
+		if (max_attachment_bytes != 0) // zero means don't care, so don't bother coloring based on this
+		{
+			if ((mAttachmentGeometryBytes/(F32)max_attachment_bytes) > worst_ratio)
+			{
+				worst_ratio = mAttachmentGeometryBytes/(F32)max_attachment_bytes;
+				green_level = 1.f-llclamp(((F32) mAttachmentGeometryBytes-(F32)max_attachment_bytes)/(F32)max_attachment_bytes, 0.f, 1.f);
+				red_level   = llmin((F32) mAttachmentGeometryBytes/(F32)max_attachment_bytes, 1.f);
+			}
+		}
+		
+		static LLCachedControl<F32> max_attachment_area(gSavedSettings, "RenderAutoMuteSurfaceAreaLimit", 0);
+		render_info_text.append(llformat(" %.2f m^2%s", mAttachmentSurfaceArea,
+										 (max_attachment_area > 0 && mAttachmentSurfaceArea > max_attachment_area) ? "!" : ""));
+
+		if (max_attachment_area != 0) // zero means don't care, so don't bother coloring based on this
+		{
+			if ((mAttachmentSurfaceArea/max_attachment_area) > worst_ratio)
+			{
+				worst_ratio = mAttachmentSurfaceArea/max_attachment_area;
+				green_level = 1.f-llclamp((mAttachmentSurfaceArea-max_attachment_area)/max_attachment_area, 0.f, 1.f);
+				red_level   = llmin(mAttachmentSurfaceArea/max_attachment_area, 1.f);
+			}
+		}
+
+		calculateUpdateRenderCost();				// Update mVisualComplexity if needed	
+
+		static LLCachedControl<U32> max_render_cost(gSavedSettings, "RenderAutoMuteRenderWeightLimit", 0);
+		render_info_text.append(llformat(" %d%s", mVisualComplexity,
+										 (max_render_cost > 0 && mVisualComplexity > max_render_cost) ? "!" : ""));
+
+		if (max_render_cost != 0) // zero means don't care, so don't bother coloring based on this
+		{
+			if (((F32)mVisualComplexity/(F32)max_render_cost) > worst_ratio)
+			{
+				worst_ratio = (F32)mVisualComplexity/(F32)max_render_cost;
+				green_level = 1.f-llclamp(((F32) mVisualComplexity-(F32)max_render_cost)/(F32)max_render_cost, 0.f, 1.f);
+				red_level   = llmin((F32) mVisualComplexity/(F32)max_render_cost, 1.f);
+			}
+		}
+
+		setDebugText(render_info_text);
+		mText->setColor(worst_ratio != 0.f ? LLColor4(red_level,green_level,0,1) : LLColor4::green);
 	}
 }
 

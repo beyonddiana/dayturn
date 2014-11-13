@@ -2193,14 +2193,14 @@
                  parameter="stats" />
             </menu_item_check>
       <menu_item_check
-        label="Show Avatar Rendering Cost"
-        name="Avatar Rendering Cost">
+        label="Show Draw Information for Avatars"
+        name="Avatar Draw Info">
            <menu_item_check.on_check
             function="Advanced.CheckInfoDisplay"
-            parameter="shame" />
+            parameter="avatardrawinfo" />
            <menu_item_check.on_click
             function="Advanced.ToggleInfoDisplay"
-            parameter="shame" />
+            parameter="avatardrawinfo" />
        </menu_item_check>
         </menu>
         <menu

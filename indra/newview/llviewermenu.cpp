@@ -1048,10 +1048,6 @@ U32 info_display_from_string(std::string info_display)
 	{
 		return LLPipeline::RENDER_DEBUG_TEXTURE_PRIORITY;
 	}
-	else if ("shame" == info_display)
-	{
-		return LLPipeline::RENDER_DEBUG_SHAME;
-	}
 	else if ("texture area" == info_display)
 	{
 		return LLPipeline::RENDER_DEBUG_TEXTURE_AREA;
@@ -1080,9 +1076,9 @@ U32 info_display_from_string(std::string info_display)
 	{
 		return LLPipeline::RENDER_DEBUG_COMPOSITION;
 	}
-	else if ("attachment bytes" == info_display)
+	else if ("avatardrawinfo" == info_display)
 	{
-		return LLPipeline::RENDER_DEBUG_ATTACHMENT_BYTES;
+		return (LLPipeline::RENDER_DEBUG_AVATAR_DRAW_INFO);
 	}
 	else if ("glow" == info_display)
 	{
