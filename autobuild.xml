@@ -1515,21 +1515,10 @@
           <map>
             <key>archive</key>
             <map>
-              <key>dir_structure</key>
-              <map>
-                <key>LICENSES</key>
-                <string>LICENSES</string>
-                <key>libraries/include</key>
-                <string>include</string>
-                <key>libraries/x86_64-linux/include</key>
-                <string>include</string>
-                <key>libraries/x86_64-linux/lib_release_client</key>
-                <string>lib/release</string>
-              </map>
               <key>hash</key>
-              <string>a06ab38628ab7b53b8f3326cd942a6a8</string>
+              <string>022a5a8d273aa00e7697667cfc311710</string>
               <key>url</key>
-              <string>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/jsoncpp-svn-r69-linux64-20090922.tar.bz2</string>
+              <string>http://bitbucket.org/kokua/3p-jsoncpp/downloads/jsoncpp-0.5.0-linux64-20141113.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux64</string>
