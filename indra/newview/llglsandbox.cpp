@@ -1034,11 +1034,11 @@ F32 gpu_benchmark()
 	
 	bool busted_finish = false;
 
+	buff->setBuffer(LLVertexBuffer::MAP_VERTEX);
+	glFinish();
+
 	for (S32 c = -1; c < samples; ++c)
 	{
-		buff->setBuffer(LLVertexBuffer::MAP_VERTEX);
-		glFinish();
-
 		LLTimer timer;
 		timer.start();
 
