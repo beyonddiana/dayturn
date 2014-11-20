@@ -36,6 +36,7 @@
 #include "lltexteditor.h"
 #include "llerrorcontrol.h"
 #include "lleventtimer.h"
+#include "llviewernetwork.h"
 #include "llviewertexturelist.h"
 #include "llgroupmgr.h"
 #include "llagent.h"
@@ -4916,10 +4917,10 @@ void LLAppViewer::idle()
 		    
 	    if (flags_changed || (agent_update_time > (1.0f / (F32) AGENT_UPDATES_PER_SECOND)))
 	    {
-		    LL_RECORD_BLOCK_TIME(FTM_AGENT_UPDATE);
+			LL_RECORD_BLOCK_TIME(FTM_AGENT_UPDATE);
 		    // Send avatar and camera info
 		    last_control_flags = gAgent.getControlFlags();
-		    send_agent_update(TRUE);
+		    send_agent_update(LLGridManager::getInstance()->isInSecondLife()); //false on other than secondlife to reduce server hits
 		    agent_update_timer.reset();
 	    }
 	}
