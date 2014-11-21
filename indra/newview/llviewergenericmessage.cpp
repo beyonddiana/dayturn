@@ -77,7 +77,7 @@ void send_generic_message(const std::string& method,
 void process_generic_message(LLMessageSystem* msg, void**)
 {
 // <FS:CR> FIRE-5118 - Lightshare support
-	if(gSimulatorType != "SecondLife") {
+	if(!(gIsInSecondLife)) {
 		std::string method;
 		msg->getStringFast(_PREHASH_MethodData, _PREHASH_Method, method);
 		if (method == "Windlight")

@@ -757,7 +757,7 @@ void handleLoginToolbarSetup()
 	// Open the destinations guide by default on first login, per Rhett
 	if (gSavedPerAccountSettings.getBOOL("DisplayDestinationsOnInitialRun") || gAgent.isFirstLogin())
 	{
-		if (gSimulatorType == "SecondLife")
+		if (gIsInSecondLife)
 		{
 			LLFloaterReg::showInstance("destinations");
 			gSavedPerAccountSettings.setBOOL("DisplayDestinationsOnInitialRun", FALSE);
