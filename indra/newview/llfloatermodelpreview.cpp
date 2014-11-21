@@ -3505,7 +3505,7 @@ void LLModelPreview::rebuildUploadData()
 	F32 max_import_scale = region_max_prim_scale/max_scale;
 // </AW: opensim-limits>
 
-	if (!(gSimulatorType == "SecondLife"))
+	if (!(gIsInSecondLife))
 	// Some other simulator like OpenSim, Aurora or a self named version.
     {
     llinfos << "Type: Float , Region Max Prim: " << region_max_prim_scale << llendl;

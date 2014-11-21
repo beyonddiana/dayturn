@@ -1286,7 +1286,7 @@ BOOL LLPanelRegionTerrainInfo::validateTextureSizes()
 			return FALSE;
 		}
 
-		if(gSimulatorType == "SecondLife")
+		if(gIsInSecondLife)
 		{
 			maxSize = 512;
 		}
