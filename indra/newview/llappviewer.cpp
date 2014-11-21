@@ -346,6 +346,7 @@ U64Bytes gMemoryAllocated(0); // updated in display_stats() in llviewerdisplay.c
 
 std::string gLastVersionChannel;
 std::string gSimulatorType;
+BOOL gIsInSecondLife; 
 
 LLVector3			gWindVec(3.0, 3.0, 0.0);
 LLVector3			gRelativeWindVec(0.0, 0.0, 0.0);
@@ -4920,7 +4921,9 @@ void LLAppViewer::idle()
 			LL_RECORD_BLOCK_TIME(FTM_AGENT_UPDATE);
 		    // Send avatar and camera info
 		    last_control_flags = gAgent.getControlFlags();
-		    send_agent_update(LLGridManager::getInstance()->isInSecondLife()); //false on other than secondlife to reduce server hits
+			// The method LLGridManager::getInstance()->isInSecondLife() is three method calls of overhead.
+			// gIsInSecondLife is set at scene complete and that make a bool at this point without the call overhead.
+		    send_agent_update(gIsInSecondLife); // false on other than secondlife to reduce opensim server hits
 		    agent_update_timer.reset();
 	    }
 	}
