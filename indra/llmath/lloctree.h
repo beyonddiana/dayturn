@@ -35,7 +35,7 @@
 #define OCT_ERRS LL_WARNS("OctreeErrors")
 
 
-extern std::string gSimulatorType; //Opensim or SecondLife
+extern BOOL gIsInSecondLife; //Opensim or SecondLife
 extern U32 gOctreeMaxCapacity;
 extern float gOctreeMinSize;
 
@@ -403,7 +403,7 @@ public:
 			}
 		}
 			else
-			if (gSimulatorType == "SecondLife")
+			if (gIsInSecondLife)
 			{
 				{
 					//it's not in here, give it to the root
@@ -744,7 +744,7 @@ public:
 		}
 		
 		LLVector4a MAX_MAG;
-		if (gSimulatorType == "SecondLife")
+		if (gIsInSecondLife)
 		{
 			MAX_MAG.splat(1024.f * 1024.f);
 		}
