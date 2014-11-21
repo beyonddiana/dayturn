@@ -4512,7 +4512,8 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 		endIdx = simString.find_first_of (delims, begIdx);
 		gSimulatorType = simString.substr (begIdx, endIdx - begIdx);
 	}
-	llinfos << "Simulator Type : " << gSimulatorType <<llendl;
+	gIsInSecondLife = LLGridManager::getInstance()->isInSecondLife();
+	LL_INFOS("GridManager") << "Simulator Type : " << gSimulatorType << " Global isInSecondLife is: " << gIsInSecondLife << LL_ENDL;
 	if (!isAgentAvatarValid())
 	{
 		// Could happen if you were immediately god-teleported away on login,

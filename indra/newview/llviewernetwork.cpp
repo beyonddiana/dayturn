@@ -1210,7 +1210,8 @@ void LLGridManager::updateIsInProductionGrid()
 	{
 		LL_DEBUGS("GridManager")<< "uri: "<<  login_uri.authority() << " set IsInSLMain" << LL_ENDL;
 		gSimulatorType = "SecondLife";
-		llinfos << "Simulator Type : " << gSimulatorType <<llendl;
+		gIsInSecondLife = true;
+		LL_INFOS("GridManager") << "Simulator Type : " << gSimulatorType << " Global isInSecondLife is: " << gIsInSecondLife << LL_ENDL;
 		mIsInSLMain = true;
 		return;
 	}
@@ -1218,7 +1219,8 @@ void LLGridManager::updateIsInProductionGrid()
 	{
 		LL_DEBUGS("GridManager")<< "uri: "<< login_uri.authority() << " set IsInSLBeta" << LL_ENDL;
 		gSimulatorType = "SecondLife";
-		llinfos << "Simulator Type : " << gSimulatorType <<llendl;
+		gIsInSecondLife = true;
+		LL_INFOS("GridManager") << "Simulator Type : " << gSimulatorType << " Global isInSecondLife is: " << gIsInSecondLife << LL_ENDL;
 		mIsInSLBeta = true;
 		return;
 	}
@@ -1236,7 +1238,8 @@ void LLGridManager::updateIsInProductionGrid()
 
 	LL_DEBUGS("GridManager")<< "uri: "<< login_uri.authority() << " set IsInOpenSim" << LL_ENDL;
 	gSimulatorType = "OpenSim";
-	llinfos << "Simulator Type : " << gSimulatorType <<llendl;
+	gIsInSecondLife = false;
+	LL_INFOS("GridManager") << "Simulator Type : " << gSimulatorType << " Global isInSecondLife is: " << gIsInSecondLife << LL_ENDL;
 	mIsInOpenSim = true;
 }
 
