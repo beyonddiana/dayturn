@@ -274,10 +274,10 @@ void LLGLSLShader::readProfileQuery(U32 count, U32 mode)
     glEndQueryARB(GL_SAMPLES_PASSED);
     
     U64 time_elapsed = 0;
-    glGetQueryObjectui64v(mTimerQuery, GL_QUERY_RESULT, &time_elapsed);
+    glGetQueryObjectui64v(mTimerQuery, GL_QUERY_RESULT, reinterpret_cast <GLuint64 *> (&time_elapsed));
 
     U64 samples_passed = 0;
-    glGetQueryObjectui64v(mSamplesQuery, GL_QUERY_RESULT, &samples_passed);
+    glGetQueryObjectui64v(mSamplesQuery, GL_QUERY_RESULT, reinterpret_cast <GLuint64 *> (&samples_passed));
 
     sTotalTimeElapsed += time_elapsed;
     mTimeElapsed += time_elapsed;
