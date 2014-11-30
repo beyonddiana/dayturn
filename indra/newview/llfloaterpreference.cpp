@@ -899,6 +899,17 @@ void LLFloaterPreference::onOpen(const LLSD& key)
 	// job
 	saveSettings();
 	
+	// Make sure there is a default preference file
+	std::string default_file = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, PRESETS_DIR, PRESETS_GRAPHIC, "default.xml");
+	if (!gDirUtilp->fileExists(default_file))
+	{
+		LL_WARNS() << "No " << default_file << " found -- creating one" << LL_ENDL;
+		// Write current graphic settings to default.xml
+		// If this name is to be localized additional code will be needed to delete the old default
+		// when changing languages.
+		LLPresetsManager::getInstance()->savePreset(PRESETS_GRAPHIC, "Default");
+	}
+	
 	collectSearchableItems();
 	if (!mFilterEdit->getText().empty())
 	{
@@ -2100,6 +2111,8 @@ LLPanelPreference::LLPanelPreference()
 {
 	mCommitCallbackRegistrar.add("Pref.setControlFalse",	boost::bind(&LLPanelPreference::setControlFalse,this, _2));
 	mCommitCallbackRegistrar.add("Pref.updateMediaAutoPlayCheckbox",	boost::bind(&LLPanelPreference::updateMediaAutoPlayCheckbox, this, _1));
+	mCommitCallbackRegistrar.add("Pref.Preset",	boost::bind(&LLPanelPreference::onChangePreset, this));
+	mCommitCallbackRegistrar.add("Pref.PrefDelete",	boost::bind(&LLPanelPreference::onDeletePreset, this));
 }
 
 //virtual
@@ -2365,8 +2378,24 @@ void LLPanelPreference::updateMediaAutoPlayCheckbox(LLUICtrl* ctrl)
 			LLViewerAudio::getInstance()->startInternetStreamWithAutoFade(LLViewerMedia::getParcelAudioURL());
 		}
 	}
+}
 
+void LLPanelPreference::onDeletePreset()
+{
+	LLFloaterReg::showInstance("delete_pref_preset", PRESETS_GRAPHIC);
+}
 
+void LLPanelPreference::onChangePreset()
+{
+	LLComboBox* combo = getChild<LLComboBox>("graphic_preset_combo");
+	std::string name = combo->getSimple();
+
+	LLPresetsManager::getInstance()->loadPreset(PRESETS_GRAPHIC, name);
+	LLFloaterPreference* instance = LLFloaterReg::findTypedInstance<LLFloaterPreference>("preferences");
+	if (instance)
+	{
+		instance->refreshEnabledGraphics();
+	}
 }
 
 class LLPanelPreferencePrivacy : public LLPanelPreference
@@ -2414,6 +2443,21 @@ BOOL LLPanelPreferenceGraphics::postBuild()
 {
 	return LLPanelPreference::postBuild();
 }
+
+void LLPanelPreferenceGraphics::onPresetsListChange()
+{
+	setPresetNamesInComboBox();
+}
+
+void LLPanelPreferenceGraphics::setPresetNamesInComboBox()
+{
+	LLComboBox* combo = getChild<LLComboBox>("graphic_preset_combo");
+	
+	EDefaultOptions option = DEFAULT_HIDE;
+
+	LLPresetsManager::getInstance()->setPresetNamesInComboBox(PRESETS_GRAPHIC, combo, option);
+}
+
 void LLPanelPreferenceGraphics::draw()
 {
 	LLPanelPreference::draw();
