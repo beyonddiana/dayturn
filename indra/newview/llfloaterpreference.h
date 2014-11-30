@@ -241,7 +241,10 @@ public:
 	// This function squirrels away the current values of the controls so that
 	// cancel() can restore them.
 	virtual void saveSettings();
-	
+
+	void onDeletePreset();
+	void onChangePreset();
+
 	class Updater;
 
 protected:
@@ -272,6 +275,9 @@ public:
 	void cancel();
 	void saveSettings();
 	void setHardwareDefaults();
+	void setPresetNamesInComboBox();
+	static const std::string getPresetsPath();
+
 protected:
 	bool hasDirtyChilds();
 	void resetDirtyChilds();
