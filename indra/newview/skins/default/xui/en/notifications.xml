@@ -171,7 +171,7 @@ No tutorial is currently available.
    icon="alertmodal.tga"
    name="BadInstallation"
    type="alertmodal">
- An error occurred while updating [APP_NAME].  Please [https://sourceforge.net/projects/kokua/files/  download the latest version] of the Viewer.
+ An error occurred while updating [APP_NAME].  Please [https://sourceforge.net/projects/kokua.team-purple.p/files/  download the latest version] of the Viewer.
     <tag>fail</tag>
     <usetemplate
      name="okbutton"
@@ -3440,7 +3440,7 @@ Download to your Applications folder?
    type="alertmodal">
 An error occurred installing the viewer update.
 Please download and install the latest viewer from
-https://sourceforge.net/projects/kokua/files/ .
+https://sourceforge.net/projects/kokua.team-purple.p/files/ .
     <usetemplate
      name="okbutton"
      yestext="OK"/>
@@ -3454,7 +3454,7 @@ We were unable to install a required update.
 You will be unable to log in until [APP_NAME] has been updated.
 
 Please download and install the latest viewer from
-https://sourceforge.net/projects/kokua/files/ .
+https://sourceforge.net/projects/kokua.team-purple.p/files/ .
   <tag>fail</tag>
     <usetemplate
      name="okbutton"
@@ -3467,7 +3467,7 @@ https://sourceforge.net/projects/kokua/files/ .
    type="alertmodal">
 There is a required update for your Kokua Installation.
 
-You may download this update from https://sourceforge.net/projects/kokua/files/ .
+You may download this update from https://sourceforge.net/projects/kokua.team-purple.p/files/ .
 or you can install it now.
     <tag>confirm</tag>
     <usetemplate
