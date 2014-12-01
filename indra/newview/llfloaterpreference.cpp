@@ -911,6 +911,17 @@ void LLFloaterPreference::onOpen(const LLSD& key)
 		LLPresetsManager::getInstance()->savePreset(PRESETS_GRAPHIC, "Default");
 	}
 	
+
+	bool started = (LLStartUp::getStartupState() == STATE_STARTED);
+
+	LLComboBox* combo = getChild<LLComboBox>("graphic_preset_combo");
+	LLButton* save_btn = findChild<LLButton>("PrefSaveButton");	
+	LLButton* delete_btn = findChild<LLButton>("PrefDeleteButton");	
+
+	combo->setEnabled(started);
+	save_btn->setEnabled(started);
+	delete_btn->setEnabled(started);	
+	
 	collectSearchableItems();
 	if (!mFilterEdit->getText().empty())
 	{
