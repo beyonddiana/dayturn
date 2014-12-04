@@ -78,8 +78,8 @@
 static LLDefaultChildRegistry::Register<LLChatHistory> r("chat_history");
 
 const static std::string NEW_LINE(rawstr_to_utf8("\n"));
-
-const static std::string SLURL_APP_AGENT = "hop:///app/agent/";
+const static std::string SLURL_APP_AGENT = "secondlife:///app/agent/";
+//const static std::string SLURL_APP_AGENT = "hop:///app/agent/";
 const static std::string SLURL_ABOUT = "/about";
 
 // support for secondlife:///app/objectim/{UUID}/ SLapps
@@ -1098,6 +1098,7 @@ LLChatHistory::LLChatHistory(const LLChatHistory::Params& p)
 	editor_params.follows.flags = FOLLOWS_ALL;
 	editor_params.enabled = false; // read only
 	editor_params.show_context_menu = "true";
+	editor_params.trusted_content = false;
 	mEditor = LLUICtrlFactory::create<LLTextEditor>(editor_params, this);
 	mEditor->setIsFriendCallback(LLAvatarActions::isFriend);
 }
