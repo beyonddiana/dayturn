@@ -1002,6 +1002,7 @@ Nicky Perian
 	STORM-1090
 	STORM-1828
     STORM-2080
+	KOKUA-292
 Nicoladie Gymnast
 NiranV Dean
     STORM-2040
