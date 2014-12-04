@@ -110,7 +110,14 @@ void LLUrlAction::teleportToLocation(std::string url)
 	{
 		if (! match.getLocation().empty())
 		{
-			executeSLURL("hop:///app/teleport/" + match.getLocation());
+			if (gIsInSecondLife)
+			{
+				executeSLURL("secondlife:///app/teleport/" + match.getLocation());
+			}
+			else
+			{
+				executeSLURL("hop:///app/teleport/" + match.getLocation());
+			}
 		}
 	}	
 }
