@@ -1,5 +1,39 @@
 <llsd>
     <map>
+    <key>hg.sirinhgpole.com:8002</key>
+        <map>
+        <key>LastModified</key>
+            <date>2014-12-04T20:32:02.88Z</date>
+        <key>about</key>
+            <string>http://hg.sirinhgpole.com/elgg/blog/owner/sirinPeccable</string>
+        <key>gatekeeper</key>
+            <string>hg.sirinhgpole.com:8002</string>
+        <key>gridname</key>
+            <string>SirinHGpole-Grid</string>
+        <key>gridnick</key>
+            <string>SirinHGgrid</string>
+        <key>help</key>
+            <string>http://sirinhgpole.com/website/contactfor</string>
+        <key>login_identifier_types</key>
+            <array>
+                <string>agent</string>
+                <string>account</string>
+            </array>
+        <key>loginpage</key>
+            <string>http://hg.sirinhgpole.com/splash/index.php</string>
+        <key>loginuri</key>
+            <array>
+                <string>http://hg.sirinhgpole.com:8002/</string>
+            </array>
+        <key>name</key>
+            <string>hg.sirinhgpole.com:8002</string>
+        <key>password</key>
+            <string>http://hg.sirinhgpole.com:8002/wifi/forgotpassword</string>
+        <key>register</key>
+            <string>http://hg.sirinhgpole.com:8002/wifi/user/account</string>
+        <key>slurl_base</key>
+            <string>hop://hg.sirinhgpole.com:8002/</string>
+        </map>	
     <key>login.greatcanadiangrid.ca:8002</key>
         <map>
         <key>LastModified</key>
