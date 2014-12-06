@@ -7956,7 +7956,6 @@ void LLVOAvatar::dumpArchetypeXML(const std::string& prefix, bool group_by_weara
 		
 		LLVector3 pos;
 		LLUUID mesh_id;
-
 		if (pJoint->hasAttachmentPosOverride(pos,mesh_id))
 		{
 			apr_file_printf( file, "\t\t<joint_offset name=\"%s\" position=\"%f %f %f\" mesh_id=\"%s\"/>\n", 
@@ -7969,7 +7968,6 @@ void LLVOAvatar::dumpArchetypeXML(const std::string& prefix, bool group_by_weara
 	{
 		apr_file_printf( file, "\t\t<pelvis_fixup z=\"%f\" mesh_id=\"%s\"/>\n", 
 						 pelvis_fixup, mesh_id.asString().c_str());
-	}
 
 		apr_file_printf( file, "\t</archetype>\n" );
 		apr_file_printf( file, "\n</linden_genepool>\n" );

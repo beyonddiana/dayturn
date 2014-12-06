@@ -1350,6 +1350,9 @@ BOOL LLFilePicker::getOpenFile( ELoadFilter filter, bool blocking )
 		case FFLOAD_XML:
 			filtername = add_xml_filter_to_gtkchooser(picker);
 			break;
+		case FFLOAD_XML:
+			filtername = add_xml_filter_to_gtkchooser(picker);
+			break;
 		case FFLOAD_COLLADA:
 			filtername = add_collada_filter_to_gtkchooser(picker);
 			break;
