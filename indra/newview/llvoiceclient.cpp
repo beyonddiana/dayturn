@@ -165,7 +165,7 @@ void LLVoiceClient::setHidden(bool hidden)
 {
     if (mVoiceModule)
     {
-        mVoiceModule->setHidden(hidden && gisInSecondLife);
+        mVoiceModule->setHidden(hidden && gIsInSecondLife);
     }
 }
 

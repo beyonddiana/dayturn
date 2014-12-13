@@ -39,7 +39,7 @@ class LLVOAvatar;
 #include "llcontrol.h"
 
 // devices
-
+extern BOOL gIsInSecondLife; //Opensim or SecondLife
 typedef std::vector<std::string> LLVoiceDeviceList;	
 
 
