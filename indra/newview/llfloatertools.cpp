@@ -735,6 +735,7 @@ void LLFloaterTools::updatePopup(LLCoordGL center, MASK mask)
 	mBtnEdit	->setToggleState( edit_visible );
 	mRadioGroupEdit->setVisible( edit_visible );
 	//bool linked_parts = gSavedSettings.getBOOL("EditLinkedParts");
+	static LLCachedControl<bool> linked_parts(gSavedSettings,  "EditLinkedParts");	
 	//getChildView("RenderingCost")->setVisible( !linked_parts && (edit_visible || focus_visible || move_visible) && sShowObjectCost);
 
 	mBtnLink->setVisible(edit_visible);
