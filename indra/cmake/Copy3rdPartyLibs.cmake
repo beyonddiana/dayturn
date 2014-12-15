@@ -349,7 +349,7 @@ elseif(DARWIN)
         libexpat.1.5.2.dylib
         libexpat.dylib
         libGLOD.dylib
-        libllqtwebkit.dylib
+#        libllqtwebkit.dylib
         libminizip.a
         libndofdev.dylib
 #        libopenal.1.dylib
