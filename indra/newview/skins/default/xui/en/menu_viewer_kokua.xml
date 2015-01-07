@@ -779,7 +779,7 @@
    name="World"
    tear_off="true">
     <menu_item_call
-     label="Landmark This Place..."
+     label="Landmark This Place"
      name="Create Landmark Here"
 	 shortcut="control|shift|D">
       <menu_item_call.on_click
@@ -795,7 +795,7 @@
        parameter="destinations" />
     </menu_item_call>
     <menu_item_check
-     label="World map..."
+     label="World map"
      name="World Map"
      shortcut="control|M"
      use_mac_ctrl="true">
@@ -818,7 +818,7 @@
        parameter="mini_map" />
     </menu_item_check>
         <menu_item_check
-        label="Search..."
+        label="Search"
         name="Search"
         shortcut="control|F">
             <menu_item_check.on_check
@@ -829,7 +829,7 @@
              parameter="search" />
             </menu_item_check>
         <menu_item_check
-			label="Legacy Search..."
+			label="Legacy Search"
 			name="Legacy Search"
       shortcut="control|alt|F">
             <menu_item_check.on_check
@@ -840,7 +840,7 @@
 			parameter="search_legacy" />
 		</menu_item_check>
        <menu_item_call
-         label="Area Search..."
+         label="Area Search"
          name="area_search"
          shortcut="alt|A">
             <menu_item_call.on_click
@@ -890,7 +890,7 @@
        parameter="about_land" />
     </menu_item_call>
     <menu_item_call
-     label="Region / Estate..."
+     label="Region / Estate"
      name="Region/Estate">
       <menu_item_call.on_click
        function="Floater.Show"
