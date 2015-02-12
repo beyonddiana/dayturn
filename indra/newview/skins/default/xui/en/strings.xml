@@ -5878,6 +5878,9 @@ Try enclosing path to the editor with double quotes.
   <string name="loading_chat_logs">
     Loading...
   </string>
+  
+  <!-- Statistics -->
+  <string name="na">n/a</string>
 
   <string name="Mav_Details_MAV_FOUND_DEGENERATE_TRIANGLES">
       The physics shape contains triangles which are too small. Try simplifying the physics model.
