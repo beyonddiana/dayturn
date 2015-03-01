@@ -1080,10 +1080,10 @@ void AOEngine::update()
 			gInventory.getDirectDescendentsOf(currentCategory->getUUID(),stateCategories,items);
 			newSet->setComplete(TRUE);
 
-			for(S32 index=0;index<stateCategories->size();index++)
+			for (S32 state_index = 0; state_index < stateCategories->size(); ++state_index)
 			{
 				std::vector<std::string> params;
-				LLStringUtil::getTokens(stateCategories->operator[](index)->getName(),params,":");
+				LLStringUtil::getTokens(stateCategories->at(state_index)->getName(), params, ":");
 				std::string stateName=params[0];
 
 				AOSet::AOState* state=newSet->getStateByName(stateName);
@@ -1094,8 +1094,8 @@ void AOEngine::update()
 				}
 				LL_DEBUGS() << "Reading state " << stateName << LL_ENDL;
 
-				state->mInventoryUUID=stateCategories->operator[](index)->getUUID();
-				for(U32 num=1;num<params.size();num++)
+				state->mInventoryUUID = stateCategories->at(state_index)->getUUID();
+				for(U32 num = 1; num < params.size(); num++)
 				{
 					if(params[num]=="CY")
 					{
@@ -1120,7 +1120,7 @@ void AOEngine::update()
 				{
 					LL_DEBUGS() << "State category " << stateName << " is incomplete, fetching descendents" << LL_ENDL;
 					gInventory.fetchDescendentsOf(state->mInventoryUUID);
-					allComplete=FALSE;
+					allComplete = FALSE;
 					newSet->setComplete(FALSE);
 					continue;
 				}
@@ -1136,7 +1136,7 @@ void AOEngine::update()
 
 	if(allComplete)
 	{
-		mEnabled=gSavedPerAccountSettings.getBOOL("UseAO");
+		mEnabled = gSavedPerAccountSettings.getBOOL("UseAO");
 
 		if(!mCurrentSet && !mSets.empty())
 		{
