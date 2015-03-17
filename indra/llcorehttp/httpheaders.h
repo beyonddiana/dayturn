@@ -27,9 +27,8 @@
 #ifndef	_LLCORE_HTTP_HEADERS_H_
 #define	_LLCORE_HTTP_HEADERS_H_
 
-
+#include "httpcommon.h"
 #include <string>
-
 #include "_refcounted.h"
 
 
@@ -92,6 +91,7 @@ public:
 	/// the instance.
 	HttpHeaders();
 
+	typedef boost::intrusive_ptr<HttpHeaders> ptr_t;
 protected:
 	virtual ~HttpHeaders();						// Use release()
 
