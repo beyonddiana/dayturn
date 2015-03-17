@@ -2708,7 +2708,6 @@ void LLVOAvatarSelf::sendViewerAppearanceChangeMetrics()
 	if (!caps_url.empty())
 	{
 		gPendingMetricsUploads++;
-		LLCurlRequest::headers_t headers;
 		LLHTTPClient::post(caps_url,
 						   msg,
 						   new ViewerAppearanceChangeMetricsResponder(report_sequence,

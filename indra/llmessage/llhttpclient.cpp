@@ -38,6 +38,10 @@
 #include "lluri.h"
 
 #include "message.h"
+#include "httpcommon.h"
+#include "httprequest.h"
+#include "httpoptions.h"
+
 #include <curl/curl.h>
 
 
@@ -213,6 +217,7 @@ void LLHTTPClient::setCertVerifyCallback(LLURLRequest::SSLCertVerifyCallback cal
 {
 	LLHTTPClient::mCertVerifyCallback = callback;
 }
+
 
 static void request(
 	const std::string& url,

@@ -117,6 +117,15 @@ HttpStatus HttpRequest::setStaticPolicyOption(EPolicyOption opt, policy_t pclass
 	return HttpService::instanceOf()->setPolicyOption(opt, pclass, value, ret_value);
 }
 
+HttpStatus HttpRequest::setStaticPolicyOption(EPolicyOption opt, policy_t pclass, policyCallback value, policyCallback * ret_value)
+{
+	if (HttpService::RUNNING == HttpService::instanceOf()->getState())
+	{
+		return HttpStatus(HttpStatus::LLCORE, HE_OPT_NOT_DYNAMIC);
+	}
+
+	return HttpService::instanceOf()->setPolicyOption(opt, pclass, value, ret_value);
+}
 
 HttpHandle HttpRequest::setPolicyOption(EPolicyOption opt, policy_t pclass,
 										long value, HttpHandler * handler)

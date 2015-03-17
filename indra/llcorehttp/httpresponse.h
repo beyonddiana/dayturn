@@ -204,6 +204,8 @@ const std::string &getRequestURL() const
 	return mRequestUrl;
 }
 
+
+
 protected:
 	// Response data here
 	HttpStatus			mStatus;

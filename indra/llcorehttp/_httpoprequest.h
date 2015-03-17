@@ -33,11 +33,15 @@
 #include <string>
 #include <curl/curl.h>
 
+#include <openssl/x509_vfy.h>
+#include <openssl/ssl.h>
+
 #include "httpcommon.h"
 #include "httprequest.h"
 #include "_httpoperation.h"
 #include "_refcounted.h"
 
+#include "httpheaders.h"
 
 namespace LLCore
 {
@@ -64,7 +68,7 @@ class HttpOpRequest : public HttpOperation
 {
 public:
 	HttpOpRequest();
-
+	
 protected:
 	virtual ~HttpOpRequest();							// Use release()
 
@@ -173,6 +177,9 @@ protected:
 	static size_t writeCallback(void * data, size_t size, size_t nmemb, void * userdata);
 	static size_t readCallback(void * data, size_t size, size_t nmemb, void * userdata);
 	static size_t headerCallback(void * data, size_t size, size_t nmemb, void * userdata);
+	static CURLcode curlSslCtxCallback(CURL *curl, void *ssl_ctx, void *userptr);
+	static int sslCertVerifyCallback(X509_STORE_CTX *ctx, void *param);
+
 	static int debugCallback(CURL *, curl_infotype info, char * buffer, size_t len, void * userdata);
 
 protected:
@@ -180,6 +187,8 @@ protected:
 	static const unsigned int	PF_SCAN_RANGE_HEADER = 0x00000001U;
 	static const unsigned int	PF_SAVE_HEADERS = 0x00000002U;
 	static const unsigned int	PF_USE_RETRY_AFTER = 0x00000004U;
+
+	HttpRequest::policyCallback	mCallbackSSLVerify;
 
 public:
 	// Request data

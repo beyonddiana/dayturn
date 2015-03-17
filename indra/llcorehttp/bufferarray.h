@@ -30,6 +30,8 @@
 
 #include <cstdlib>
 #include <vector>
+#include "boost/intrusive_ptr.hpp"
+
 
 #include "_refcounted.h"
 
@@ -72,6 +74,8 @@ public:
 	friend class BufferArrayStreamBuf;
 	
 	BufferArray();
+
+	typedef boost::intrusive_ptr<BufferArray> ptr_t;
 
 protected:
 	virtual ~BufferArray();						// Use release()
