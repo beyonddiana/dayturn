@@ -39,7 +39,6 @@
 class LLWearableHoldingPattern;
 class LLInventoryCallback;
 class LLOutfitUnLockTimer;
-class RequestAgentUpdateAppearanceResponder;
 
 class LLAppearanceMgr: public LLSingleton<LLAppearanceMgr>
 {
@@ -55,7 +54,6 @@ public:
 	void updateAppearanceFromCOF(bool enforce_item_restrictions = true,
 								 bool enforce_ordering = true,
 								 nullary_func_t post_update_func = no_op);
-	bool needToSaveCOF();
 	void updateCOF(const LLUUID& category, bool append = false);
 	void wearInventoryCategory(LLInventoryCategory* category, bool copy, bool append);
 	void wearInventoryCategoryOnAvatar(LLInventoryCategory* category, bool append);
@@ -228,13 +226,6 @@ public:
 	bool isInUpdateAppearanceFromCOF() { return mIsInUpdateAppearanceFromCOF; }
 
 	void requestServerAppearanceUpdate();
-
-	void incrementCofVersion(LLHTTPClient::ResponderPtr responder_ptr = NULL);
-
-	U32 getNumAttachmentsInCOF();
-
-	// *HACK Remove this after server side texture baking is deployed on all sims.
-	void incrementCofVersionLegacy();
 
 	void setAppearanceServiceURL(const std::string& url) { mAppearanceServiceURL = url; }
 	std::string getAppearanceServiceURL() const;
