@@ -244,12 +244,6 @@ public:
 private:
 	std::string		mAppearanceServiceURL;
 
-	LLCore::HttpRequest::ptr_t		mHttpRequest;
-	LLCore::HttpHeaders::ptr_t		mHttpHeaders;
-	LLCore::HttpOptions::ptr_t		mHttpOptions;
-	LLCore::HttpRequest::policy_t	mHttpPolicy;
-	LLCore::HttpRequest::priority_t	mHttpPriority;
-	
 private:
 
 	void filterWearableItems(LLInventoryModel::item_array_t& items, S32 max_per_type, S32 max_total);
@@ -265,8 +259,6 @@ private:
 
 	static void onOutfitRename(const LLSD& notification, const LLSD& response);
 	
-	bool onIdle();
-
 	bool mAttachmentInvLinkEnabled;
 	bool mOutfitIsDirty;
 	bool mIsInUpdateAppearanceFromCOF; // to detect recursive calls.
