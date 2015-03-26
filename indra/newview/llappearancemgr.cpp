@@ -4274,16 +4274,11 @@ void LLAppearanceMgr::requestServerAppearanceUpdate()
 	llassert(cof_version >= gAgentAvatarp->mLastUpdateRequestCOFVersion);
 	gAgentAvatarp->mLastUpdateRequestCOFVersion = cof_version;
 
-	LLCore::HttpHandle handle = LLCoreHttpUtil::requestPostWithLLSD(mHttpRequest,
-		mHttpPolicy, mHttpPriority, url,
-		postData, mHttpOptions, mHttpHeaders, handler);
+	LLCore::HttpHandle handle = gAgent.requestPostCapibility("UpdateAvatarAppearance", url, postData, handler);
 
 	if (handle == LLCORE_HTTP_HANDLE_INVALID)
 	{
 		delete handler;
-		LLCore::HttpStatus status = mHttpRequest->getStatus();
-		LL_WARNS("Avatar") << "Appearance request post failed Reason " << status.toTerseString()
-			<< " \"" << status.toString() << "\"" << LL_ENDL;
 	}
 }
 
@@ -4316,15 +4311,6 @@ bool LLAppearanceMgr::testCOFRequestVersion() const
 	LL_DEBUGS("Avatar") << "Will send request for cof_version " << cof_version << LL_ENDL;
 	return true;
 }
-
-bool LLAppearanceMgr::onIdle()
-{
-	if (!LLAppearanceMgr::mActive)
-		return true;
-	mHttpRequest->update(0L);
-	return false;
-}
-
 
 std::string LLAppearanceMgr::getAppearanceServiceURL() const
 {
