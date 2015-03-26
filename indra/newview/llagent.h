@@ -37,6 +37,9 @@
 #include "llviewerinventory.h"			// for LLViewerInventoryItem
 #include "v3dmath.h"
 #include "llviewerregion.h"
+#include "httprequest.h"
+#include "httpheaders.h"
+#include "httpoptions.h"
 
 #include <boost/function.hpp>
 #include <boost/shared_ptr.hpp>
@@ -66,6 +69,7 @@ class LLSLURL;
 class LLPauseRequestHandle;
 class LLUIColor;
 class LLTeleportRequest;
+class LLHttpSDHandler;
 
 typedef boost::shared_ptr<LLTeleportRequest> LLTeleportRequestPtr;
 
@@ -116,6 +120,10 @@ public:
 	void			init();
 	void			cleanup();
 
+private:
+	bool			onIdle();
+
+	static bool		mActive;
 	//--------------------------------------------------------------------
 	// Login
 	//--------------------------------------------------------------------
@@ -786,11 +794,16 @@ private:
 	unsigned int                    mMaturityPreferenceNumRetries;
 	U8                              mLastKnownRequestMaturity;
 	U8                              mLastKnownResponseMaturity;
+	LLCore::HttpRequest::ptr_t		mHttpRequest;
+	LLCore::HttpHeaders::ptr_t		mHttpHeaders;
+	LLCore::HttpOptions::ptr_t		mHttpOptions;
+	LLCore::HttpRequest::policy_t	mHttpPolicy;
+	LLCore::HttpRequest::priority_t	mHttpPriority;
 
 	bool            isMaturityPreferenceSyncedWithServer() const;
 	void 			sendMaturityPreferenceToServer(U8 pPreferredMaturity);
 
-	friend class LLMaturityPreferencesResponder;
+	friend class	LLMaturityHttpHandler;
 	void            handlePreferredMaturityResult(U8 pServerMaturity);
 	void            handlePreferredMaturityError();
 	void            reportPreferredMaturitySuccess();
@@ -937,6 +950,20 @@ public:
 	static void		processAgentCachedTextureResponse(LLMessageSystem *mesgsys, void **user_data);
 	
 /**                    Messaging
+ **                                                                            **
+ *******************************************************************************/
+
+/********************************************************************************
+ **                                                                            **
+ **                    UTILITY
+ **/
+public:
+	/// Utilities for allowing the the agent sub managers to post and get via
+	/// HTTP using the agent's policy settings and headers.
+	LLCore::HttpHandle	requestPostCapibility(const std::string &cap, const std::string &url, LLSD &postData, LLHttpSDHandler *usrhndlr = NULL);
+	//LLCore::HttpHandle	httpGetCapibility(const std::string &cap, const LLURI &uri, LLHttpSDHandler *usrhndlr = NULL);
+
+/**                    Utility
  **                                                                            **
  *******************************************************************************/
 
