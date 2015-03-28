@@ -188,7 +188,7 @@ protected:
 	static const unsigned int	PF_SAVE_HEADERS = 0x00000002U;
 	static const unsigned int	PF_USE_RETRY_AFTER = 0x00000004U;
 
-	HttpRequest::policyCallback	mCallbackSSLVerify;
+	HttpRequest::policyCallback_t	mCallbackSSLVerify;
 
 public:
 	// Request data

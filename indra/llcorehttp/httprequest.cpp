@@ -117,7 +117,7 @@ HttpStatus HttpRequest::setStaticPolicyOption(EPolicyOption opt, policy_t pclass
 	return HttpService::instanceOf()->setPolicyOption(opt, pclass, value, ret_value);
 }
 
-HttpStatus HttpRequest::setStaticPolicyOption(EPolicyOption opt, policy_t pclass, policyCallback value, policyCallback * ret_value)
+HttpStatus HttpRequest::setStaticPolicyOption(EPolicyOption opt, policy_t pclass, policyCallback_t value, policyCallback_t * ret_value)
 {
 	if (HttpService::RUNNING == HttpService::instanceOf()->getState())
 	{
