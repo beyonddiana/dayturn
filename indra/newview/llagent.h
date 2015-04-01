@@ -34,6 +34,7 @@
 #include "llcoordframe.h"			// for mFrameAgent
 #include "llavatarappearancedefines.h"
 #include "llpermissionsflags.h"
+#include "llevents.h"
 #include "llviewerinventory.h"			// for LLViewerInventoryItem
 #include "v3dmath.h"
 #include "llviewerregion.h"
@@ -117,9 +118,6 @@ public:
 	void			cleanup();
 
 private:
-	bool			onIdle();
-
-	static bool		mActive;
 	//--------------------------------------------------------------------
 	// Login
 	//--------------------------------------------------------------------
@@ -790,6 +788,7 @@ private:
 	LLCore::HttpOptions::ptr_t		mHttpOptions;
 	LLCore::HttpRequest::policy_t	mHttpPolicy;
 	LLCore::HttpRequest::priority_t	mHttpPriority;
+    LLTempBoundListener             mBoundListener;
 
 	bool            isMaturityPreferenceSyncedWithServer() const;
 	void 			sendMaturityPreferenceToServer(U8 pPreferredMaturity);
@@ -803,6 +802,8 @@ private:
 	// Maturity callbacks for PreferredMaturity control variable
 	void 			handleMaturity(const LLSD &pNewValue);
 	bool 			validateMaturity(const LLSD& newvalue);
+
+    bool            pollHttp(const LLSD &);
 
 
 /**                    Access
@@ -952,7 +953,7 @@ public:
 	/// Utilities for allowing the the agent sub managers to post and get via
 	/// HTTP using the agent's policy settings and headers.
 	LLCore::HttpHandle	requestPostCapability(const std::string &cap, const std::string &url, LLSD &postData, LLHttpSDHandler *usrhndlr = NULL);
-	//LLCore::HttpHandle	httpGetCapability(const std::string &cap, const LLURI &uri, LLHttpSDHandler *usrhndlr = NULL);
+    LLCore::HttpHandle	requestGetCapability(const std::string &cap, const std::string &url, LLHttpSDHandler *usrhndlr = NULL);
 
 /**                    Utility
  **                                                                            **
