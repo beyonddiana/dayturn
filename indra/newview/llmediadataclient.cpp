@@ -94,20 +94,6 @@ const U32 LLMediaDataClient::MAX_ROUND_ROBIN_QUEUE_SIZE = 10000;
 std::ostream& operator<<(std::ostream &s, const LLMediaDataClient::request_queue_t &q);
 std::ostream& operator<<(std::ostream &s, const LLMediaDataClient::Request &q);
 
-template <typename T>
-typename T::iterator find_matching_request(T &c, const LLMediaDataClient::Request *request, LLMediaDataClient::Request::Type match_type)
-{
-	for(typename T::iterator iter = c.begin(); iter != c.end(); ++iter)
-	{
-		if(request->isMatch(*iter, match_type))
-		{
-			return iter;
-		}
-	}
-	
-	return c.end();
-}
-
 
 //=========================================================================
 /// Uniary Predicate for matching requests in collections by either the request
@@ -168,7 +154,8 @@ void mark_dead_and_remove_if(T &c, const PredicateMatchRequest &matchPred)
         if (matchPred(*it))
         {
             (*it)->markDead();
-            it = c.erase(it);
+            // *TDOO: When C++11 is in change the following line to: it = c.erase(it);
+            c.erase(it++);
         }
         else
         {
@@ -286,7 +273,7 @@ LLMediaDataClient::Request::ptr_t LLMediaDataClient::dequeue()
 		else
 		{
 			// Don't return this request -- it's not ready to be serviced.
-			request = NULL;
+            request.reset();
 		}
 	}
 
@@ -482,7 +469,7 @@ bool LLMediaDataClient::RetryTimer::tick()
 	}
 	
 	// Release the ref to the request.
-	mRequest = NULL;
+    mRequest.reset();
 
 	// Don't fire again
 	return true;
