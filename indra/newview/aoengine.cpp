@@ -702,9 +702,9 @@ BOOL AOEngine::createAnimationLink(const AOSet* set,AOSet::AOState* state,const 
 
 		LLInventoryModel::item_array_t* items;
 		LLInventoryModel::cat_array_t* cats;
-		gInventory.getDirectDescendentsOf(set->getInventoryUUID(),cats,items);
+		gInventory.getDirectDescendentsOf(set->getInventoryUUID(), cats, items);
 
-		for(S32 index=0;index<cats->size();index++)
+		for(S32 index = 0; index < cats->size(); index++)
 		{
 			if(cats->operator[](index)->getName().compare(state->mName)==0)
 			{
@@ -718,7 +718,7 @@ BOOL AOEngine::createAnimationLink(const AOSet* set,AOSet::AOState* state,const 
 
 	if(state->mInventoryUUID.isNull())
 	{
-		LL_DEBUGS() << "state inventory UUID not found, failing." << LL_ENDL;
+		LL_DEBUGS("AOEngine") << "state inventory UUID not found, failing." << LL_ENDL;
 		return FALSE;
 	}
 
@@ -782,17 +782,17 @@ BOOL AOEngine::findForeignItems(const LLUUID& uuid) const
 		{
 			if(item->getInventoryType()!=LLInventoryType::IT_ANIMATION)
 			{
-				LL_DEBUGS() << item->getName() << " is a link but does not point to an animation." << LL_ENDL;
+				LL_DEBUGS("AOEngine") << item->getName() << " is a link but does not point to an animation." << LL_ENDL;
 				move=TRUE;
 			}
 			else
 			{
-				LL_DEBUGS() << item->getName() << " is an animation link." << LL_ENDL;
+				LL_DEBUGS("AOEngine") << item->getName() << " is an animation link." << LL_ENDL;
 			}
 		}
 		else
 		{
-			LL_DEBUGS() << item->getName() << " is not a link!" << LL_ENDL;
+			LL_DEBUGS("AOEngine") << item->getName() << " is not a link!" << LL_ENDL;
 			move=TRUE;
 		}
 
@@ -893,19 +893,20 @@ BOOL AOEngine::removeAnimation(const AOSet* set,AOSet::AOState* state,S32 index)
 
 		LLInventoryModel::item_array_t* items;
 		LLInventoryModel::cat_array_t* cats;
-		gInventory.getDirectDescendentsOf(set->getInventoryUUID(),cats,items);
+		gInventory.getDirectDescendentsOf(set->getInventoryUUID(), cats, items);
 
-		for(S32 index=0;index<cats->size();index++)
+		for (LLInventoryModel::cat_array_t::iterator it = cats->begin(); it != cats->end(); ++it)
 		{
+			LLPointer<LLInventoryCategory> cat = (*it);
 			std::vector<std::string> params;
-			LLStringUtil::getTokens(cats->operator[](index)->getName(),params,":");
+			LLStringUtil::getTokens(cat->getName(), params, ":");
 			std::string stateName=params[0];
 
 			if(state->mName.compare(stateName)==0)
 			{
-				LL_DEBUGS("AOEngine") << "folder found: " << cats->operator[](index)->getName() << " purging uuid " << cats->operator[](index)->getUUID() << LL_ENDL;
+				LL_DEBUGS("AOEngine") << "folder found: " << cat->getName() << " purging uuid " << cat->getUUID() << LL_ENDL;
 
-				purgeFolder(cats->operator[](index)->getUUID());
+				purgeFolder(cat->getUUID());
 				state->mInventoryUUID.setNull();
 				break;
 			}
@@ -957,7 +958,7 @@ void AOEngine::reloadStateAnimations(AOSet::AOState* state)
 	gInventory.getDirectDescendentsOf(state->mInventoryUUID,dummy,items);
 	for(S32 num=0;num<items->size();num++)
 	{
-		LL_DEBUGS()	<< "Found animation link " << items->operator[](num)->LLInventoryItem::getName()
+		LL_DEBUGS("AOEngine")	<< "Found animation link " << items->operator[](num)->LLInventoryItem::getName()
 					<< " desc " << items->operator[](num)->LLInventoryItem::getDescription()
 					<< " asset " << items->operator[](num)->getAssetUUID() << LL_ENDL;
 
@@ -977,7 +978,7 @@ void AOEngine::reloadStateAnimations(AOSet::AOState* state)
 			sortOrder=-1;
 		anim.mSortOrder=sortOrder;
 
-		LL_DEBUGS() << "current sort order is " << sortOrder << LL_ENDL;
+		LL_DEBUGS("AOEngine") << "current sort order is " << sortOrder << LL_ENDL;
 
 		if(sortOrder==-1)
 		{
@@ -991,7 +992,7 @@ void AOEngine::reloadStateAnimations(AOSet::AOState* state)
 			{
 				if(state->mAnimations[index].mSortOrder>sortOrder)
 				{
-					LL_DEBUGS() << "inserting at index " << index << LL_ENDL;
+					LL_DEBUGS("AOEngine") << "inserting at index " << index << LL_ENDL;
 					state->mAnimations.insert(state->mAnimations.begin()+index,anim);
 					inserted=TRUE;
 					break;
@@ -999,11 +1000,11 @@ void AOEngine::reloadStateAnimations(AOSet::AOState* state)
 			}
 			if(!inserted)
 			{
-				LL_DEBUGS() << "not inserted yet, appending to the list instead" << LL_ENDL;
+				LL_DEBUGS("AOEngine") << "not inserted yet, appending to the list instead" << LL_ENDL;
 				state->mAnimations.push_back(anim);
 			}
 		}
-		LL_DEBUGS() << "Animation count now: " << state->mAnimations.size() << LL_ENDL;
+		LL_DEBUGS("AOEngine") << "Animation count now: " << state->mAnimations.size() << LL_ENDL;
 	}
 
 	updateSortOrder(state);
@@ -1053,10 +1054,10 @@ void AOEngine::update()
 		{
 			if(newSet->getComplete())
 			{
-				LL_DEBUGS() << "Set " << params[0] << " already complete. Skipping." << LL_ENDL;
+				LL_DEBUGS("AOEngine") << "Set " << params[0] << " already complete. Skipping." << LL_ENDL;
 				continue;
 			}
-			LL_DEBUGS() << "Updating set " << setFolderName << " in AO." << LL_ENDL;
+			LL_DEBUGS("AOEngine") << "Updating set " << setFolderName << " in AO." << LL_ENDL;
 		}
 		allComplete=FALSE;
 
@@ -1089,9 +1090,9 @@ void AOEngine::update()
 
 			for (S32 state_index = 0; state_index < stateCategories->size(); ++state_index)
 			{
-				std::vector<std::string> params;
-				LLStringUtil::getTokens(stateCategories->at(state_index)->getName(), params, ":");
-				std::string stateName=params[0];
+				std::vector<std::string> state_params;
+				LLStringUtil::getTokens(stateCategories->at(state_index)->getName(), state_params, ":");
+				std::string stateName = state_params[0];
 
 				AOSet::AOState* state=newSet->getStateByName(stateName);
 				if(state==NULL)
@@ -1102,30 +1103,30 @@ void AOEngine::update()
 				LL_DEBUGS("AOEngine") << "Reading state " << stateName << LL_ENDL;
 
 				state->mInventoryUUID = stateCategories->at(state_index)->getUUID();
-				for(U32 num = 1; num < params.size(); num++)
+				for (U32 num = 1; num < state_params.size(); ++num)
 				{
-					if(params[num]=="CY")
+					if (state_params[num] == "CY")
 					{
 						state->mCycle=TRUE;
-						LL_DEBUGS() << "Cycle on" << LL_ENDL;
+						LL_DEBUGS("AOEngine") << "Cycle on" << LL_ENDL;
 					}
-					else if(params[num]=="RN")
+                    else if (state_params[num] == "RN")
 					{
 						state->mRandom=TRUE;
-						LL_DEBUGS() << "Random on" << LL_ENDL;
+						LL_DEBUGS("AOEngine") << "Random on" << LL_ENDL;
 					}
-					else if(params[num].substr(0,2)=="CT")
+					else if (state_params[num].substr(0, 2) == "CT")
 					{
-						LLStringUtil::convertToS32(params[num].substr(2,params[num].size()-2),state->mCycleTime);
-						LL_DEBUGS() << "Cycle Time specified:" << state->mCycleTime << LL_ENDL;
+						LLStringUtil::convertToS32(state_params[num].substr(2, state_params[num].size() - 2), state->mCycleTime);
+						LL_DEBUGS("AOEngine") << "Cycle Time specified:" << state->mCycleTime << LL_ENDL;
 					}
 					else
-						LL_WARNS() << "Unknown AO set option " << params[num] << LL_ENDL;
+						LL_WARNS("AOEngine") << "Unknown AO set option " << state_params[num] << LL_ENDL;
 				}
 
 				if(!gInventory.isCategoryComplete(state->mInventoryUUID))
 				{
-					LL_DEBUGS() << "State category " << stateName << " is incomplete, fetching descendents" << LL_ENDL;
+					LL_DEBUGS("AOEngine") << "State category " << stateName << " is incomplete, fetching descendents" << LL_ENDL;
 					gInventory.fetchDescendentsOf(state->mInventoryUUID);
 					allComplete = FALSE;
 					newSet->setComplete(FALSE);
@@ -1147,7 +1148,7 @@ void AOEngine::update()
 
 		if(!mCurrentSet && !mSets.empty())
 		{
-			LL_DEBUGS() << "No default set defined, choosing the first in the list." << LL_ENDL;
+			LL_DEBUGS("AOEngine") << "No default set defined, choosing the first in the list." << LL_ENDL;
 			selectSet(mSets[0]);
 		}
 
@@ -1758,17 +1759,17 @@ void AOEngine::processImport( bool aFromTimer )
 		if(state->mAnimations.size())
 		{
 			allComplete=FALSE;
-			LL_DEBUGS() << "state " << state->mName << " still has animations to link." << LL_ENDL;
+			LL_DEBUGS("AOEngine") << "state " << state->mName << " still has animations to link." << LL_ENDL;
 
 			for(S32 animationIndex=state->mAnimations.size()-1;animationIndex>=0;animationIndex--)
 			{
-				LL_DEBUGS() << "linking animation " << state->mAnimations[animationIndex].mName << LL_ENDL;
+				LL_DEBUGS("AOEngine") << "linking animation " << state->mAnimations[animationIndex].mName << LL_ENDL;
 				if(createAnimationLink(mImportSet,state,gInventory.getItem(state->mAnimations[animationIndex].mInventoryUUID)))
 				{
-					LL_DEBUGS()	<< "link success, size "<< state->mAnimations.size() << ", removing animation "
+					LL_DEBUGS("AOEngine")	<< "link success, size "<< state->mAnimations.size() << ", removing animation "
 								<< (*(state->mAnimations.begin()+animationIndex)).mName << " from import state" << LL_ENDL;
 					state->mAnimations.erase(state->mAnimations.begin()+animationIndex);
-					LL_DEBUGS() << "deleted, size now: " << state->mAnimations.size() << LL_ENDL;
+					LL_DEBUGS("AOEngine") << "deleted, size now: " << state->mAnimations.size() << LL_ENDL;
 				}
 				else
 				{
