@@ -36,7 +36,7 @@
 #include "llfilepicker.h"
 #include "lllineeditor.h"
 #include "lluictrlfactory.h"
-#include "lluictrlfactory.h"
+#include "lldatapacker.h"
 
 extern LLAgent gAgent;
 
@@ -109,6 +109,12 @@ void LLPreviewAnim::play(const LLSD& param)
 			}
 			else
 			{
+                // FIXME BENTO - TEMP HACK TO DUMP AS FILE
+                LLKeyframeMotion *motionp = dynamic_cast<LLKeyframeMotion*>(gAgentAvatarp->findMotion(itemID));
+                if (motionp && motionp->isLoaded())
+                {
+                    motionp->dumpToFile(item->getName());
+                }
 				gAgentAvatarp->startMotion(item->getAssetUUID());
 			}
 
