@@ -29,6 +29,9 @@
 #if ! defined(LL_llavatarrenderinfoaccountant_H)
 #define LL_llavatarrenderinfoaccountant_H
 
+#include "httpcommon.h"
+#include "llcoros.h"
+
 class LLViewerRegion;
 
 // Class to gather avatar rendering information 

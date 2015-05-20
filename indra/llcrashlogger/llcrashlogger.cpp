@@ -44,6 +44,7 @@
 #include "llhttpclient.h"
 #include "llsdserialize.h"
 #include "llproxy.h"
+#include "llcleanup.h"
 #include "llsdutil.h"  //remove
 
 #include <boost/regex.hpp>
@@ -526,5 +527,5 @@ bool LLCrashLogger::init()
 void LLCrashLogger::commonCleanup()
 {
 	LLError::logToFile("");   //close crashreport.log
-	LLProxy::cleanupClass();
+	SUBSYSTEM_CLEANUP(LLProxy);
 }
