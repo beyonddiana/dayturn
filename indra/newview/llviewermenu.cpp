@@ -142,6 +142,7 @@
 #include "llpathfindingmanager.h"
 #include "llstartup.h"
 #include "boost/unordered_map.hpp"
+#include "llcleanup.h"
 #include "llvowlsky.h"
 #include "fsexport.h"
 #include "daeexport.h"
@@ -9160,7 +9161,7 @@ class LLWorldPostProcess : public view_listener_t
 
 void handle_flush_name_caches()
 {
-	LLAvatarNameCache::cleanupClass();
+	SUBSYSTEM_CLEANUP(LLAvatarNameCache);
 	if (gCacheName) gCacheName->clear();
 }
 

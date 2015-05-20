@@ -48,6 +48,7 @@
 #include "lleventtimer.h"
 #include "google_breakpad/exception_handler.h"
 #include "stringize.h"
+#include "llcleanup.h"
 
 //
 // Signal handling
@@ -179,7 +180,7 @@ LLApp::~LLApp()
 	
 	if(mExceptionHandler != 0) delete mExceptionHandler;
 
-	LLCommon::cleanupClass();
+	SUBSYSTEM_CLEANUP(LLCommon);
 }
 
 // static
