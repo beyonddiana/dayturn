@@ -192,6 +192,7 @@ set(llcommon_HEADER_FILES
     llmortician.h
     llnametable.h
     llpointer.h
+    llpounceable.h
     llpredicate.h
     llpreprocessor.h
     llpriqueuemap.h
@@ -354,6 +355,7 @@ if (LL_TESTS)
   LL_ADD_INTEGRATION_TEST(llprocess "" "${test_libs}")
   LL_ADD_INTEGRATION_TEST(llleap "" "${test_libs}")
   LL_ADD_INTEGRATION_TEST(llstreamqueue "" "${test_libs}")
+  LL_ADD_INTEGRATION_TEST(llpounceable "" "${test_libs}")
   LL_ADD_INTEGRATION_TEST(llheteromap "" "${test_libs}")
   
 ## llexception_test.cpp isn't a regression test, and doesn't need to be run
