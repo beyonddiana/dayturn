@@ -176,6 +176,7 @@ set(llcommon_HEADER_FILES
     llheartbeat.h
     llheteromap.h
     llindexedvector.h
+    llinitdestroyclass.h
     llinitparam.h
     llinstancetracker.h
     llkeythrottle.h

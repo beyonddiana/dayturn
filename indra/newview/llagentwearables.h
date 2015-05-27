@@ -38,6 +38,7 @@
 #include "llviewerinventory.h"
 #include "llavatarappearancedefines.h"
 #include "llwearabledata.h"
+#include "llinitdestroyclass.h"
 
 //MK
 #include "llappviewer.h" // for gFrameTimeSeconds
