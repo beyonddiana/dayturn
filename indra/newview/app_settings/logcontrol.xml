@@ -43,8 +43,8 @@
 					<key>tags</key>
 						<array>
 					<string>AXON</string>
-					<string>BVH</string>
 						<!-- sample entry for debugging specific items
+							<string>BVH</string>
 							<string>FmodEX</string>
 						     <string>Avatar</string>
 						     <string>Inventory</string>
