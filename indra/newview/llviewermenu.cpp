@@ -10094,22 +10094,8 @@ class LLToggleUIHints : public view_listener_t
 
 void LLUploadCostCalculator::calculateCost()
 {
-// <FS:AW opensim currency support>
-// 	S32 upload_cost = LLGlobalEconomy::Singleton::getInstance()->getPriceUpload();
-// 
-// 	// getPriceUpload() returns -1 if no data available yet.
-// 	if(upload_cost >= 0)
-// 	{
-// 		mCostStr = llformat("%d", upload_cost);
-// 	}
-// 	else
-// 	{
-// 		mCostStr = llformat("%d", gSavedSettings.getU32("DefaultUploadCost"));
-// 	}
-
-	// \0/ Copypasta! See llviewermessage, llviewermenu and llpanelmaininventory
-	S32 cost = LLGlobalEconomy::Singleton::getInstance()->getPriceUpload();
-	std::string upload_cost;
+    S32 upload_cost = LLGlobalEconomy::getInstance()->getPriceUpload();
+    std::string upload_cost;
 #ifdef HAS_OPENSIM_SUPPORT // <FS:AW optional opensim support>
 	bool in_opensim = LLGridManager::getInstance()->isInOpenSim();
 	if(in_opensim)
@@ -10123,7 +10109,6 @@ void LLUploadCostCalculator::calculateCost()
 	}
 
 	mCostStr = upload_cost;
-// </FS:AW opensim currency support>
 }
 
 void show_navbar_context_menu(LLView* ctrl, S32 x, S32 y)

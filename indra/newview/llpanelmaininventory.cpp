@@ -1481,28 +1481,8 @@ void LLPanelMainInventory::setUploadCostIfNeeded()
 		LLMenuItemBranchGL* upload_menu = mMenuAdd->findChild<LLMenuItemBranchGL>("upload");
 		if(upload_menu)
 		{
-// <FS:AW opensim currency support>
-//			S32 upload_cost = LLGlobalEconomy::Singleton::getInstance()->getPriceUpload();
-//			std::string cost_str;
-//
-//			// getPriceUpload() returns -1 if no data available yet.
-//			if(upload_cost >= 0)
-//			{
-//				mNeedUploadCost = false;
-//				cost_str = llformat("%d", upload_cost);
-//			}
-//			else
-//			{
-//				cost_str = llformat("%d", gSavedSettings.getU32("DefaultUploadCost"));
-//			}
-//			upload_menu->getChild<LLView>("Upload Image")->setLabelArg("[COST]", cost_str);
-//			upload_menu->getChild<LLView>("Upload Sound")->setLabelArg("[COST]", cost_str);
-//			upload_menu->getChild<LLView>("Upload Animation")->setLabelArg("[COST]", cost_str);
-//			upload_menu->getChild<LLView>("Bulk Upload")->setLabelArg("[COST]", cost_str);
-
-			// \0/ Copypasta! See llviewermessage, llviewermenu and llpanelmaininventory
-			S32 cost = LLGlobalEconomy::Singleton::getInstance()->getPriceUpload();
-			std::string upload_cost;
+            S32 upload_cost = LLGlobalEconomy::getInstance()->getPriceUpload();
+            std::string upload_cost;
 #ifdef HAS_OPENSIM_SUPPORT // <FS:AW optional opensim support>
 			bool in_opensim = LLGridManager::getInstance()->isInOpenSim();
 			if(in_opensim)
@@ -1519,7 +1499,6 @@ void LLPanelMainInventory::setUploadCostIfNeeded()
 			upload_menu->getChild<LLView>("Upload Sound")->setLabelArg("[COST]", upload_cost);
 			upload_menu->getChild<LLView>("Upload Animation")->setLabelArg("[COST]", upload_cost);
 			upload_menu->getChild<LLView>("Bulk Upload")->setLabelArg("[COST]", upload_cost);
-// </FS:AW opensim currency support>
 		}
 	}
 }

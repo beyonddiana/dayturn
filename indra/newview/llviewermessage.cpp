@@ -7177,9 +7177,9 @@ void process_frozen_message(LLMessageSystem *msgsystem, void **user_data)
 // do some extra stuff once we get our economy data
 void process_economy_data(LLMessageSystem *msg, void** /*user_data*/)
 {
-	LLGlobalEconomy::processEconomyData(msg, LLGlobalEconomy::Singleton::getInstance());
+	LLGlobalEconomy::processEconomyData(msg, LLGlobalEconomy::getInstance());
 
-	S32 cost = LLGlobalEconomy::Singleton::getInstance()->getPriceUpload();
+	S32 upload_cost = LLGlobalEconomy::getInstance()->getPriceUpload();
 	std::string upload_cost;
 #ifdef HAS_OPENSIM_SUPPORT // <FS:AW optional opensim support>
 	bool in_opensim = LLGridManager::getInstance()->isInOpenSim();
@@ -7199,7 +7199,6 @@ void process_economy_data(LLMessageSystem *msg, void** /*user_data*/)
 	gMenuHolder->getChild<LLUICtrl>("Upload Sound")->setLabelArg("[COST]",  upload_cost);
 	gMenuHolder->getChild<LLUICtrl>("Upload Animation")->setLabelArg("[COST]", upload_cost);
 	gMenuHolder->getChild<LLUICtrl>("Bulk Upload")->setLabelArg("[COST]", upload_cost);
- // <FS:AW opensim currency support>
 }
 
 void notify_cautioned_script_question(const LLSD& notification, const LLSD& response, S32 orig_questions, BOOL granted)
