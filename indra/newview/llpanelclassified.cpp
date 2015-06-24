@@ -57,6 +57,10 @@
 #include "llscrollcontainer.h"
 #include "llstatusbar.h"
 #include "llviewertexture.h"
+#ifdef OPENSIM
+#include "llviewernetwork.h"
+#endif // OPENSIM
+
 
 const S32 MINIMUM_PRICE_FOR_LISTING = 50;	// L$
 
@@ -835,10 +839,26 @@ void LLPanelClassifiedEdit::resetControls()
 	getChild<LLComboBox>("category")->setCurrentByIndex(0);
 	getChild<LLComboBox>("content_type")->setCurrentByIndex(0);
 	getChild<LLUICtrl>("auto_renew")->setValue(false);
-	getChild<LLUICtrl>("price_for_listing")->setValue(MINIMUM_PRICE_FOR_LISTING);
+	// <FS:CR> FIRE-9814 - Don't hardcode a classified listing fee
+	//getChild<LLUICtrl>("price_for_listing")->setValue(MINIMUM_PRICE_FOR_LISTING);
+	getChild<LLUICtrl>("price_for_listing")->setValue(getClassifiedFee());
+	// </FS:CR>
 	getChildView("price_for_listing")->setEnabled(TRUE);
 }
-
+// <FS:CR> FIRE-9814 - Don't hardcode a classified listing fee
+S32 LLPanelClassifiedEdit::getClassifiedFee()
+{
+	S32 fee = MINIMUM_PRICE_FOR_LISTING;
+#ifdef OPENSIM
+	if (LLGridManager::getInstance()->isInOpenSim())
+	{
+		fee = LLGridManager::getInstance()->getClassifiedFee();
+		LL_WARNS("Classified") << "Classified fee from grid manager " << fee << LL_ENDL;
+	}
+#endif // OPENSIM
+	return fee;
+}
+// </FS:CR>
 bool LLPanelClassifiedEdit::canClose()
 {
 	return mCanClose;
@@ -1029,7 +1049,7 @@ void LLPanelClassifiedEdit::onSaveClick()
 	{
 		if(gStatusBar->getBalance() < getPriceForListing())
 		{
-			LLNotificationsUtil::add("ClassifiedInsufficientFunds");
+		LLNotificationsUtil::add("ClassifiedInsufficientFunds");
 			return;
 		}
 

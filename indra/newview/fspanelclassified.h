@@ -27,8 +27,9 @@
 // Display of a classified used both for the global view in the
 // Find directory, and also for each individual user's classified in their
 // profile.
-#ifndef LL_FSPANELCLASSIFIED_H
-#define LL_FSPANELCLASSIFIED_H
+
+#ifndef FS_PANELCLASSIFIED_H
+#define FS_PANELCLASSIFIED_H
 
 #include "llavatarpropertiesprocessor.h"
 #include "llclassifiedinfo.h"
@@ -69,6 +70,8 @@ public:
 	virtual ~FSPanelClassifiedInfo();
 
 	/*virtual*/ void onOpen(const LLSD& key);
+
+	void updateData();
 
 	/*virtual*/ BOOL postBuild();
 
@@ -284,6 +287,7 @@ protected:
 	void onTextureSelected();
 
 private:
+	S32 getClassifiedFee();	// <FS:CR> FIRE-9814 - Don't hardcode a classified listing fee
 	bool mIsNew;
 	bool mIsNewWithErrors;
 	bool mCanClose;
@@ -293,4 +297,4 @@ private:
 	commit_signal_t mSaveButtonClickedSignal;
 };
 
-#endif // LL_FSPANELCLASSIFIED_H
+#endif // FS_PANELCLASSIFIED_H

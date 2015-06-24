@@ -239,6 +239,11 @@ public:
 	void setDirectoryFee(const S32 directory_fee) { sDirectoryFee = directory_fee; }
 	S32 getDirectoryFee() { return sDirectoryFee; }
 	// </FS:CR>	
+	// <FS:CR> FIRE-10567 - Variable classified fee
+	S32 sClassifiedFee;
+	void setClassifiedFee(const S32 classified_fee) { sClassifiedFee = classified_fee; }
+	S32 getClassifiedFee() { return sClassifiedFee; }
+	// <FS:CR> Variable parcel listing fee
 private:
 	friend class GridInfoRequestResponder;
 	void addGrid(GridEntry* grid_info, AddState state);

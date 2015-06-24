@@ -157,6 +157,7 @@
 #include "llsyswellwindow.h"
 
 // *NOTE: Please add files in alphabetical order to keep merges easy.
+#include "fspanelclassified.h"
 #include "fsfloaterimport.h"
 
 // handle secondlife:///app/openfloater/{NAME} URLs
@@ -367,5 +368,6 @@ void LLViewerFloaterReg::registerFloaters()
 	LLFloaterReg::add("fs_import", "floater_fs_import.xml", (LLFloaterBuildFunc)&LLFloaterReg::build<FSFloaterImport>);
 	// <FS:CR> FIRE-6310: Include Legacy Search
 	LLFloaterReg::add("search_legacy", "floater_fs_search_legacy.xml", (LLFloaterBuildFunc)&LLFloaterReg::build<FSFloaterSearchLegacy>);
+	LLFloaterReg::add("publish_classified_fs", "floater_publish_classified.xml", (LLFloaterBuildFunc)&LLFloaterReg::build<FSPublishClassifiedFloater>);
 	LLFloaterReg::registerControlVariables(); // Make sure visibility and rect controls get preserved when saving
 }
