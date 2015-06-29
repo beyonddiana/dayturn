@@ -382,7 +382,7 @@ void LLXMLRPCTransaction::Impl::init(XMLRPC_REQUEST request, bool useGzip, const
 	//This might help with bug #503 */
 	//httpOpts->setDNSCacheTimeout(-1);
 
-	LLCore::BufferArray::ptr_t body = LLCore::BufferArray::ptr_t(new LLCore::BufferArray(), false);
+	LLCore::BufferArray::ptr_t body = LLCore::BufferArray::ptr_t(new LLCore::BufferArray());
 
 	// TODO: See if there is a way to serialize to a preallocated buffer I'm 
 	// not fond of the copy here.
