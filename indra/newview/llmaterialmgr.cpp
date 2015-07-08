@@ -63,6 +63,7 @@
 #define MATERIALS_PUT_MAX_ENTRIES                 50
 
 
+
 class LLMaterialHttpHandler : public LLHttpSDHandler
 {
 public:
@@ -139,8 +140,8 @@ LLMaterialMgr::LLMaterialMgr():
 	LLAppCoreHttp & app_core_http(LLAppViewer::instance()->getAppCoreHttp());
 
 	mHttpRequest = LLCore::HttpRequest::ptr_t(new LLCore::HttpRequest());
-	mHttpHeaders = LLCore::HttpHeaders::ptr_t(new LLCore::HttpHeaders(), false);
-	mHttpOptions = LLCore::HttpOptions::ptr_t(new LLCore::HttpOptions(), false);
+	mHttpHeaders = LLCore::HttpHeaders::ptr_t(new LLCore::HttpHeaders());
+	mHttpOptions = LLCore::HttpOptions::ptr_t(new LLCore::HttpOptions());
 	mHttpPolicy = app_core_http.getPolicy(LLAppCoreHttp::AP_MATERIALS);
 
 	mMaterials.insert(std::pair<LLMaterialID, LLMaterialPtr>(LLMaterialID::null, LLMaterialPtr(NULL)));
@@ -740,7 +741,7 @@ void LLMaterialMgr::processGetAllQueue()
 			);
 
 		LLCore::HttpHandle handle = mHttpRequest->requestGet(mHttpPolicy, mHttpPriority, capURL,
-				mHttpOptions.get(), mHttpHeaders.get(), handler);
+				mHttpOptions.get(), mHttpHeaders, handler);
 
 		if (handle == LLCORE_HTTP_HANDLE_INVALID)
 		{

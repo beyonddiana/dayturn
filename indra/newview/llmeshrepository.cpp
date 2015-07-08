@@ -798,7 +798,7 @@ LLMeshRepoThread::LLMeshRepoThread()
   mHttpRequest(NULL),
   mHttpOptions(NULL),
   mHttpLargeOptions(NULL),
-  mHttpHeaders(NULL),
+  mHttpHeaders(),
   mHttpPolicyClass(LLCore::HttpRequest::DEFAULT_POLICY_ID),
   mHttpLegacyPolicyClass(LLCore::HttpRequest::DEFAULT_POLICY_ID),
   mHttpLargePolicyClass(LLCore::HttpRequest::DEFAULT_POLICY_ID),
@@ -817,7 +817,7 @@ LLMeshRepoThread::LLMeshRepoThread()
 	mHttpLargeOptions = new LLCore::HttpOptions;
 	mHttpLargeOptions->setTransferTimeout(LARGE_MESH_XFER_TIMEOUT);
 	mHttpLargeOptions->setUseRetryAfter(gSavedSettings.getBOOL("MeshUseHttpRetryAfter"));
-	mHttpHeaders = new LLCore::HttpHeaders;
+    mHttpHeaders = LLCore::HttpHeaders::ptr_t(new LLCore::HttpHeaders);
 	mHttpHeaders->append(HTTP_OUT_HEADER_ACCEPT, HTTP_CONTENT_VND_LL_MESH);
 	mHttpPolicyClass = app_core_http.getPolicy(LLAppCoreHttp::AP_MESH2);
 	mHttpLegacyPolicyClass = app_core_http.getPolicy(LLAppCoreHttp::AP_MESH1);
@@ -839,11 +839,7 @@ LLMeshRepoThread::~LLMeshRepoThread()
 		delete *iter;
 	}
 	mHttpRequestSet.clear();
-	if (mHttpHeaders)
-	{
-		mHttpHeaders->release();
-		mHttpHeaders = NULL;
-	}
+    mHttpHeaders.reset();
 	if (mHttpOptions)
 	{
 		mHttpOptions->release();
@@ -2142,7 +2138,7 @@ LLMeshUploadThread::LLMeshUploadThread(LLMeshUploadThread::instance_list& data, 
 	mHttpOptions->setTransferTimeout(mMeshUploadTimeOut);
 	mHttpOptions->setUseRetryAfter(gSavedSettings.getBOOL("MeshUseHttpRetryAfter"));
 	mHttpOptions->setRetries(UPLOAD_RETRY_LIMIT);
-	mHttpHeaders = new LLCore::HttpHeaders;
+    mHttpHeaders = LLCore::HttpHeaders::ptr_t(new LLCore::HttpHeaders);
 	mHttpHeaders->append(HTTP_OUT_HEADER_CONTENT_TYPE, HTTP_CONTENT_LLSD_XML);
 	mHttpPolicyClass = LLAppViewer::instance()->getAppCoreHttp().getPolicy(LLAppCoreHttp::AP_UPLOADS);
 	mHttpPriority = 0;
@@ -2150,11 +2146,6 @@ LLMeshUploadThread::LLMeshUploadThread(LLMeshUploadThread::instance_list& data, 
 
 LLMeshUploadThread::~LLMeshUploadThread()
 {
-	if (mHttpHeaders)
-	{
-		mHttpHeaders->release();
-		mHttpHeaders = NULL;
-	}
 	if (mHttpOptions)
 	{
 		mHttpOptions->release();

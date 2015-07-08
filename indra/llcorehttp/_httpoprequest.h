@@ -109,7 +109,7 @@ public:
 						HttpRequest::priority_t priority,
 						const std::string & url,
 						HttpOptions * options,
-						HttpHeaders * headers);
+                        HttpHeaders::ptr_t &headers);
 	
 	HttpStatus setupGetByteRange(HttpRequest::policy_t policy_id,
 								 HttpRequest::priority_t priority,
@@ -117,46 +117,46 @@ public:
 								 size_t offset,
 								 size_t len,
 								 HttpOptions * options,
-								 HttpHeaders * headers);
+                                 HttpHeaders::ptr_t &headers);
 	
 	HttpStatus setupPost(HttpRequest::policy_t policy_id,
 						 HttpRequest::priority_t priority,
 						 const std::string & url,
 						 BufferArray * body,
 						 HttpOptions * options,
-						 HttpHeaders * headers);
+                         HttpHeaders::ptr_t &headers);
 	
 	HttpStatus setupPut(HttpRequest::policy_t policy_id,
 						HttpRequest::priority_t priority,
 						const std::string & url,
 						BufferArray * body,
 						HttpOptions * options,
-						HttpHeaders * headers);
+                        HttpHeaders::ptr_t &headers);
 						
 	HttpStatus setupDelete(HttpRequest::policy_t policy_id,
 						HttpRequest::priority_t priority,
 						const std::string & url,
 						HttpOptions * options,
-						HttpHeaders * headers);
+                           HttpHeaders::ptr_t &headers);
 						
 	HttpStatus setupPatch(HttpRequest::policy_t policy_id,
 						HttpRequest::priority_t priority,
 						const std::string & url,
 						BufferArray * body,
 						HttpOptions * options,
-						HttpHeaders * headers);
+                          HttpHeaders::ptr_t &headers);
 						
 	HttpStatus setupCopy(HttpRequest::policy_t policy_id,
 						HttpRequest::priority_t priority,
 						const std::string & url,
 						HttpOptions * options,
-						HttpHeaders * headers);
+                         HttpHeaders::ptr_t &headers);
 						
 	HttpStatus setupMove(HttpRequest::policy_t policy_id,
                         HttpRequest::priority_t priority,
                         const std::string & url,
                         HttpOptions * options,
-						HttpHeaders * headers);
+                        HttpHeaders::ptr_t &headers);
 
 	// Internal method used to setup the libcurl options for a request.
 	// Does all the libcurl handle setup in one place.
@@ -177,7 +177,7 @@ protected:
 					 const std::string & url,
 					 BufferArray * body,
 					 HttpOptions * options,
-					 HttpHeaders * headers);
+                     HttpHeaders::ptr_t &headers);
 
 	// libcurl operational callbacks
 	//
@@ -206,7 +206,7 @@ public:
 	BufferArray *		mReqBody;
 	off_t				mReqOffset;
 	size_t				mReqLength;
-	HttpHeaders *		mReqHeaders;
+    HttpHeaders::ptr_t	mReqHeaders;
 	HttpOptions *		mReqOptions;
 
 	// Transport data
@@ -224,7 +224,7 @@ public:
 	off_t				mReplyOffset;
 	size_t				mReplyLength;
 	size_t				mReplyFullLength;
-	HttpHeaders *		mReplyHeaders;
+    HttpHeaders::ptr_t	mReplyHeaders;
 	std::string			mReplyConType;
 	int					mReplyRetryAfter;
 
@@ -257,7 +257,8 @@ public:
 
 // Internal function to append the contents of an HttpHeaders
 // instance to a curl_slist object.
-curl_slist * append_headers_to_slist(const HttpHeaders *, curl_slist * slist);
+curl_slist * append_headers_to_slist(const HttpHeaders::ptr_t &, curl_slist * slist);
+
 
 }   // end namespace LLCore
 

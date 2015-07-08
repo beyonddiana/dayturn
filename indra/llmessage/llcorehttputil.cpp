@@ -68,7 +68,7 @@ HttpHandle requestPostWithLLSD(HttpRequest * request,
 							   const std::string & url,
 							   const LLSD & body,
 							   HttpOptions * options,
-							   HttpHeaders * headers,
+                               HttpHeaders::ptr_t &headers,
 							   HttpHandler * handler)
 {
 	HttpHandle handle(LLCORE_HTTP_HANDLE_INVALID);
@@ -98,7 +98,7 @@ HttpHandle requestPostWithLLSD(HttpRequest::ptr_t & request,
 	HttpHandler * handler)
 {
 	return requestPostWithLLSD(request.get(), policy_id, priority,
-		url, body, options.get(), headers.get(), handler);
+		url, body, options.get(), headers, handler);
 }
 
 HttpHandle requestPutWithLLSD(HttpRequest * request,
@@ -107,7 +107,7 @@ HttpHandle requestPutWithLLSD(HttpRequest * request,
 							   const std::string & url,
 							   const LLSD & body,
 							   HttpOptions * options,
-							   HttpHeaders * headers,
+                               HttpHeaders::ptr_t &headers,
 							   HttpHandler * handler)
 {
 	HttpHandle handle(LLCORE_HTTP_HANDLE_INVALID);
@@ -137,7 +137,7 @@ HttpHandle requestPutWithLLSD(HttpRequest::ptr_t & request,
 	HttpHandler * handler)
 {
 	return requestPutWithLLSD(request.get(), policy_id, priority,
-		url, body, options.get(), headers.get(), handler);
+		url, body, options.get(), headers, handler);
 }
 
 std::string responseToString(LLCore::HttpResponse * response)
