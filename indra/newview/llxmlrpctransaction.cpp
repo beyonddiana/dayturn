@@ -351,7 +351,7 @@ void LLXMLRPCTransaction::Impl::init(XMLRPC_REQUEST request, bool useGzip, const
 	}
 
 	// LLRefCounted starts with a 1 ref, so don't add a ref in the smart pointer
-	httpOpts = LLCore::HttpOptions::ptr_t(new LLCore::HttpOptions(), false); 
+	httpOpts = LLCore::HttpOptions::ptr_t(new LLCore::HttpOptions());
 
 	// delay between repeats will start from 5 sec and grow to 20 sec with each repeat
 	httpOpts->setMinBackoff(5E6L);
@@ -374,7 +374,7 @@ void LLXMLRPCTransaction::Impl::init(XMLRPC_REQUEST request, bool useGzip, const
 	httpOpts->setSSLVerifyHost( verifySSLCert );
 
 	// LLRefCounted starts with a 1 ref, so don't add a ref in the smart pointer
-	httpHeaders = LLCore::HttpHeaders::ptr_t(new LLCore::HttpHeaders(), false);
+	httpHeaders = LLCore::HttpHeaders::ptr_t(new LLCore::HttpHeaders());
 
 	httpHeaders->append(HTTP_OUT_HEADER_CONTENT_TYPE, HTTP_CONTENT_TEXT_XML);
 
@@ -396,7 +396,7 @@ void LLXMLRPCTransaction::Impl::init(XMLRPC_REQUEST request, bool useGzip, const
 	mHandler = LLXMLRPCTransaction::Handler::ptr_t(new Handler( mHttpRequest, this ));
 
 	mPostH = mHttpRequest->requestPost(LLCore::HttpRequest::DEFAULT_POLICY_ID, 0, 
-		mURI, body.get(), httpOpts.get(), httpHeaders.get(), mHandler.get());
+		mURI, body.get(), httpOpts.get(), httpHeaders, mHandler.get());
 
 }
 

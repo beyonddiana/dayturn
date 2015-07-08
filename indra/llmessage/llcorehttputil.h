@@ -106,7 +106,7 @@ LLCore::HttpHandle requestPostWithLLSD(LLCore::HttpRequest * request,
 									   const std::string & url,
 									   const LLSD & body,
 									   LLCore::HttpOptions * options,
-									   LLCore::HttpHeaders * headers,
+                                       LLCore::HttpHeaders::ptr_t &headers,
 									   LLCore::HttpHandler * handler);
 
 LLCore::HttpHandle requestPostWithLLSD(LLCore::HttpRequest::ptr_t & request,
@@ -140,7 +140,7 @@ LLCore::HttpHandle requestPutWithLLSD(LLCore::HttpRequest * request,
 	const std::string & url,
 	const LLSD & body,
 	LLCore::HttpOptions * options,
-	LLCore::HttpHeaders * headers,
+    LLCore::HttpHeaders::ptr_t &headers,
 	LLCore::HttpHandler * handler);
 
 LLCore::HttpHandle requestPutWithLLSD(LLCore::HttpRequest::ptr_t & request,
