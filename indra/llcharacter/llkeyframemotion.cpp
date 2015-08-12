@@ -2305,7 +2305,7 @@ void LLKeyframeMotion::onLoadComplete(LLVFS *vfs,
 			{
 				motionp->mAssetStatus = ASSET_LOADED;
                 // FIXME BENTO TEMP
-                motionp->dumpToFile("");
+                //motionp->dumpToFile("");
                 
 			}
 			else
