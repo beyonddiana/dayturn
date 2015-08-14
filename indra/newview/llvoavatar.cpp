@@ -5391,7 +5391,10 @@ void LLVOAvatar::clearAttachmentPosOverrides()
 	for (; iter != end; ++iter)
 	{
 		LLJoint* pJoint = (*iter);
-		pJoint->clearAttachmentPosOverrides();
+		if (pJoint)
+		{
+			pJoint->clearAttachmentPosOverrides();
+		}
 	}
 }
 
