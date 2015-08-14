@@ -1760,6 +1760,20 @@ void LLModelPreview::clearModel(S32 lod)
 	mScene[lod].clear();
 }
 
+void LLModelPreview::getJointAliases( JointMap& joint_map)
+{
+    // Get all standard skeleton joints from the preview avatar.
+    LLVOAvatar *av = getPreviewAvatar();
+    
+    //Joint names and aliases come from avatar_skeleton.xml
+    
+    joint_map = av->getJointAliases();
+    for (S32 i = 0; i < av->mNumCollisionVolumes; i++)
+    {
+        joint_map[av->mCollisionVolumes[i].getName()] = av->mCollisionVolumes[i].getName();
+    }
+}
+
 void LLModelPreview::loadModel(std::string filename, S32 lod, bool force_disable_slm)
 {
 	assert_main_thread();
@@ -1801,6 +1815,9 @@ void LLModelPreview::loadModel(std::string filename, S32 lod, bool force_disable
 	{
 		clearGLODGroup();
 	}
+
+    std::map<std::string, std::string> joint_alias_map;
+    getJointAliases(joint_alias_map);
 
 	mModelLoader = new LLDAELoader(
 		filename,
