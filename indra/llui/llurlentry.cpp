@@ -994,8 +994,8 @@ std::string LLUrlEntryParcel::getLabel(const std::string &url, const LLUrlLabelC
 
 void LLUrlEntryParcel::sendParcelInfoRequest(const LLUUID& parcel_id)
 {
-	if (sRegionHost == LLHost() || sDisconnected) return;
-
+    if (sRegionHost.isInvalid() || sDisconnected) return;
+    
 	LLMessageSystem *msg = gMessageSystem;
 	msg->newMessage("ParcelInfoRequest");
 	msg->nextBlockFast(_PREHASH_AgentData);
