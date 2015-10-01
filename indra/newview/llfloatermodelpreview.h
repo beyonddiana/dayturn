@@ -260,6 +260,7 @@ public:
 	virtual BOOL needsRender() { return mNeedsUpdate; }
 	void setPreviewLOD(S32 lod);
 	void clearModel(S32 lod);
+    void getLegalJointNames(JointNameSet& legal_joint_names);	
 	void getJointAliases(JointMap& joint_map);
 	void loadModel(std::string filename, S32 lod, bool force_disable_slm = false);
 	void loadModelCallback(S32 lod);
@@ -412,7 +413,7 @@ private:
 
 	bool		mLastJointUpdate;
 
-	JointSet				mJointsFromNode;
+	JointNameSet		mJointsFromNode;
 	JointTransformMap	mJointTransformMap;
 
 	LLPointer<LLVOAvatar>	mPreviewAvatar;

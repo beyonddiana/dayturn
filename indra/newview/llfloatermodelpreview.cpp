@@ -1774,6 +1774,21 @@ void LLModelPreview::getJointAliases( JointMap& joint_map)
     }
 }
 
+void LLModelPreview::getLegalJointNames(JointNameSet& legal_joint_names)
+{
+    // Get all standard skeleton joints from the preview avatar.
+    LLVOAvatar *av = getPreviewAvatar();
+    const LLVOAvatar::avatar_joint_list_t &skel = av->getSkeleton();
+    for (S32 i=0; i<skel.size(); i++)
+    {
+        LLAvatarJoint *joint = skel[i];
+        if (joint)
+        {
+            legal_joint_names.push_back(joint->getName());
+        }
+    }
+}
+
 void LLModelPreview::loadModel(std::string filename, S32 lod, bool force_disable_slm)
 {
 	assert_main_thread();
@@ -1819,6 +1834,10 @@ void LLModelPreview::loadModel(std::string filename, S32 lod, bool force_disable
     std::map<std::string, std::string> joint_alias_map;
     getJointAliases(joint_alias_map);
 
+
+    JointNameSet legal_joint_names;
+    getLegalJointNames(legal_joint_names);
+    
 	mModelLoader = new LLDAELoader(
 		filename,
 		lod, 
@@ -1829,6 +1848,7 @@ void LLModelPreview::loadModel(std::string filename, S32 lod, bool force_disable
 		this,
 		mJointTransformMap,
 		mJointsFromNode,
+		legal_joint_names,
 		gSavedSettings.getU32("ImporterModelLimit"),
 		gSavedSettings.getBOOL("ImporterPreprocessDAE"));
 
@@ -3775,6 +3795,11 @@ BOOL LLModelPreview::render()
 				LL_INFOS() << "Vertex Buffer[" << mPreviewLOD << "]" << " is EMPTY!!!" << LL_ENDL;
 				regen = TRUE;
 			}
+		}
+
+		if (regen)
+		{
+			genBuffers(mPreviewLOD, skin_weight);
 		}
 
 		if (!skin_weight)
