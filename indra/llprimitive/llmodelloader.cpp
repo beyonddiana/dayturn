@@ -102,16 +102,17 @@ void stretch_extents(LLModel* model, LLMatrix4& mat, LLVector3& min, LLVector3& 
 // LLModelLoader
 //-----------------------------------------------------------------------------
 LLModelLoader::LLModelLoader(
-	std::string				filename,
-	S32						lod,
+	std::string			filename,
+	S32					lod,
 	load_callback_t		load_cb,
 	joint_lookup_func_t	joint_lookup_func,
 	texture_load_func_t	texture_load_func,
-	state_callback_t		state_cb,
-	void*						opaque_userdata,
-	JointTransformMap&	jointMap,
-	JointSet&				jointsFromNodes )
-: mJointList( jointMap )
+	state_callback_t	state_cb,
+	void*				opaque_userdata,
+	JointTransformMap&	jointTransformMap,
+	JointNameSet&		jointsFromNodes,
+    JointNameSet&		legalJointNames)
+: mJointList( jointTransformMap )
 , mJointsFromNode( jointsFromNodes )
 , LLThread("Model Loader")
 , mFilename(filename)
@@ -199,8 +200,15 @@ LLModelLoader::LLModelLoader(
 	mJointMap["avatar_mAnkleLeft"] = "mAnkleLeft";
 	mJointMap["avatar_mFootLeft"] = "mFootLeft";
 	mJointMap["avatar_mToeLeft"] = "mToeLeft";
+    // Recognize all names we've been told are legal.
+    for (JointNameSet::iterator joint_name_it = legalJointNames.begin();
+         joint_name_it != legalJointNames.end(); ++joint_name_it)
+    {
+        const std::string& name = *joint_name_it;
+        mJointMap[name] = name;
+    }
 
-
+    // Also support various legacy aliases for commonly used joints
 	mJointMap["hip"] = "mPelvis";
 	mJointMap["abdomen"] = "mTorso";
 	mJointMap["chest"] = "mChest";
@@ -520,8 +528,8 @@ void LLModelLoader::critiqueJointToNodeMappingFromScene( void  )
 	//Do the actual nodes back the joint listing from the dae?
 	//if yes then this is a fully rigged asset, otherwise it's just a partial rig
 	
-	JointSet::iterator jointsFromNodeIt = mJointsFromNode.begin();
-	JointSet::iterator jointsFromNodeEndIt = mJointsFromNode.end();
+	JointNameSet::iterator jointsFromNodeIt = mJointsFromNode.begin();
+	JointNameSet::iterator jointsFromNodeEndIt = mJointsFromNode.end();
 	bool result = true;
 
 	if ( !mJointsFromNode.empty() )
@@ -566,8 +574,8 @@ bool LLModelLoader::isRigLegacy( const std::vector<std::string> &jointListFromAs
 
 	bool result = false;
 
-	JointSet :: const_iterator masterJointIt = mMasterLegacyJointList.begin();	
-	JointSet :: const_iterator masterJointEndIt = mMasterLegacyJointList.end();
+	JointNameSet :: const_iterator masterJointIt = mMasterLegacyJointList.begin();	
+	JointNameSet :: const_iterator masterJointEndIt = mMasterLegacyJointList.end();
 	
 	std::vector<std::string> :: const_iterator modelJointIt = jointListFromAsset.begin();	
 	std::vector<std::string> :: const_iterator modelJointItEnd = jointListFromAsset.end();
@@ -600,8 +608,8 @@ bool LLModelLoader::isRigSuitableForJointPositionUpload( const std::vector<std::
 {
 	bool result = false;
 
-	JointSet :: const_iterator masterJointIt = mMasterJointList.begin();	
-	JointSet :: const_iterator masterJointEndIt = mMasterJointList.end();
+	JointNameSet :: const_iterator masterJointIt = mMasterJointList.begin();	
+	JointNameSet :: const_iterator masterJointEndIt = mMasterJointList.end();
 	
 	std::vector<std::string> :: const_iterator modelJointIt = jointListFromAsset.begin();	
 	std::vector<std::string> :: const_iterator modelJointItEnd = jointListFromAsset.end();
