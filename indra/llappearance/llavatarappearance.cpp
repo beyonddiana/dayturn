@@ -613,6 +613,7 @@ BOOL LLAvatarAppearance::setupBone(const LLAvatarBoneInfo* info, LLJoint* parent
 	joint->setRotation(mayaQ(info->mRot.mV[VX], info->mRot.mV[VY],
 							 info->mRot.mV[VZ], LLQuaternion::XYZ));
 	joint->setScale(info->mScale);
+    joint->setSupport(info->mSupport);
 
 	if (info->mIsJoint)
 	{
@@ -1574,6 +1575,13 @@ BOOL LLAvatarBoneInfo::parseXml(LLXmlTreeNode* node)
 		LL_WARNS() << "Bone without scale" << LL_ENDL;
 		return FALSE;
 	}
+
+	static LLStdStringHandle support_string = LLXmlTree::addAttributeString("support");
+    if (!node->getFastAttributeString(support_string,mSupport))
+    {
+        LL_WARNS() << "Bone without support" << LL_ENDL;
+        mSupport = "base";
+    }
 
 	if (mIsJoint)
 	{
