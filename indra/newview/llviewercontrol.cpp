@@ -66,6 +66,7 @@
 #include "llvowlsky.h"
 #include "llrender.h"
 #include "llnavigationbar.h"
+#include "llnotificationsutil.h"
 #include "llfloatertools.h"
 #include "llpaneloutfitsinventory.h"
 #include "llpanellogin.h"
@@ -121,6 +122,12 @@ static bool handleViewerAssetHttpTypesChanged(const LLSD& newvalue)
 {
     std::string new_string = newvalue.asString();
     LLAssetType::setFetchWithVACapConfigString(new_string);
+    return true;
+}
+
+static bool handleDeferredDebugSettingChanged(const LLSD& newvalue)
+{
+    LLNotificationsUtil::add("ChangeDeferredDebugSetting");
     return true;
 }
 
