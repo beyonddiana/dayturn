@@ -70,11 +70,7 @@ class LLHUDEffectSpiral;
 class LLTexGlobalColor;
 class FetchAvatarBirthdate;
 
-struct LLVOAvatarBoneInfo;
-struct LLVOAvatarChildJoint;
-//class LLViewerJoint;
 struct LLAppearanceMessageContents;
-struct LLVOAvatarSkeletonInfo;
 class LLViewerJointMesh;
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
