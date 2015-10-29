@@ -1856,6 +1856,7 @@ void LLModelPreview::loadModel(std::string filename, S32 lod, bool force_disable
 		mJointTransformMap,
 		mJointsFromNode,
 		legal_joint_names,
+		LLSkinningUtil::getMaxJointCount(),
 		gSavedSettings.getU32("ImporterModelLimit"),
 		gSavedSettings.getBOOL("ImporterPreprocessDAE"));
 

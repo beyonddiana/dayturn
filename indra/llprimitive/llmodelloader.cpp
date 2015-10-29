@@ -111,7 +111,8 @@ LLModelLoader::LLModelLoader(
 	void*				opaque_userdata,
 	JointTransformMap&	jointTransformMap,
 	JointNameSet&		jointsFromNodes,
-    JointNameSet&		legalJointNames)
+    JointNameSet&		legalJointNames,
+    U32					maxJointsPerMesh)
 : mJointList( jointTransformMap )
 , mJointsFromNode( jointsFromNodes )
 , LLThread("Model Loader")
@@ -131,6 +132,7 @@ LLModelLoader::LLModelLoader(
 , mNoNormalize(false)
 , mNoOptimize(false)
 , mCacheOnlyHitIfRigged(false)
+, mMaxJointsPerMesh(maxJointsPerMesh)
 {
 	mJointMap["mPelvis"] = "mPelvis";
 	mJointMap["mTorso"] = "mTorso";
@@ -500,7 +502,14 @@ void LLModelLoader::loadModelCallback()
 void LLModelLoader::critiqueRigForUploadApplicability( const std::vector<std::string> &jointListFromAsset )
 {
 	critiqueJointToNodeMappingFromScene();
-	
+
+    if (jointListFromAsset.size()>mMaxJointsPerMesh)
+    {
+        LL_WARNS() << "Rigged to " << jointListFromAsset.size() << " joints, max is " << mMaxJointsPerMesh << LL_ENDL;
+        LL_WARNS() << "Skinning disabled" << LL_ENDL;
+        return;
+    }
+
 	//Determines the following use cases for a rig:
 	//1. It is suitable for upload with skin weights & joint positions, or
 	//2. It is suitable for upload as standard av with just skin weights
