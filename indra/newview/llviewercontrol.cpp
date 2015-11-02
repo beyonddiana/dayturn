@@ -777,8 +777,11 @@ void settings_setup_listeners()
 	gSavedSettings.getControl("SpellCheck")->getSignal()->connect(boost::bind(&handleSpellCheckChanged));
 	gSavedSettings.getControl("SpellCheckDictionary")->getSignal()->connect(boost::bind(&handleSpellCheckChanged));
 	gSavedSettings.getControl("LoginLocation")->getSignal()->connect(boost::bind(&handleLoginLocationChanged));
+	// BENTO - remove MaxJointsPerMeshObject before release
+	gSavedSettings.getControl("MaxJointsPerMeshObject")->getCommitSignal()->connect(boost::bind(&handleDeferredDebugSettingChanged, _2));
+	gSavedSettings.getControl("IncludeEnhancedSkeleton")->getCommitSignal()->connect(boost::bind(&handleDeferredDebugSettingChanged, _2));    
     gSavedSettings.getControl("ViewerAssetHttpTypes")->getCommitSignal()->connect(boost::bind(&handleViewerAssetHttpTypesChanged, _2));
-    gSavedSettings.getControl("MaxJointsPerMeshObject")->getCommitSignal()->connect(boost::bind(&handleSetShaderChanged, _2));
+
 }
 
 #if TEST_CACHED_CONTROL
