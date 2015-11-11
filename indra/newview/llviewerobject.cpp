@@ -4709,13 +4709,6 @@ S32 LLViewerObject::setTEMaterialParams(const U8 te, const LLMaterialPtr pMateri
 		LL_WARNS() << "No texture entry for te " << (S32)te << ", object " << mID << LL_ENDL;
 		return 0;
 	}
-
-//MK
-	// Attempt at fixing BUG-10601 (Fix recommended by Ansariel Hiller) : move these lines after the call to setTEMaterialParams()
-	////setTENormalMap(te, (pMaterialParams) ? pMaterialParams->getNormalID() : LLUUID::null);
-	////setTESpecularMap(te, (pMaterialParams) ? pMaterialParams->getSpecularID() : LLUUID::null);
-//mk
-
 	retval = LLPrimitive::setTEMaterialParams(te, pMaterialParams);
 	LL_DEBUGS("Material") << "Changing material params for te " << (S32)te
 							<< ", object " << mID
@@ -4723,12 +4716,6 @@ S32 LLViewerObject::setTEMaterialParams(const U8 te, const LLMaterialPtr pMateri
 							<< LL_ENDL;
 	setTENormalMap(te, (pMaterialParams) ? pMaterialParams->getNormalID() : LLUUID::null);
 	setTESpecularMap(te, (pMaterialParams) ? pMaterialParams->getSpecularID() : LLUUID::null);
-
-//MK
-	// Attempt at fixing BUG-10601 (Fix recommended by Ansariel Hiller)
-	setTENormalMap(te, (pMaterialParams) ? pMaterialParams->getNormalID() : LLUUID::null);
-	setTESpecularMap(te, (pMaterialParams) ? pMaterialParams->getSpecularID() : LLUUID::null);
-//mk
 	refreshMaterials();
 	return retval;
 }
