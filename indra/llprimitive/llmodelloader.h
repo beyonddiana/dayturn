@@ -130,6 +130,7 @@ public:
 		JointTransformMap&					jointTransformMap,
 		JointNameSet&						jointsFromNodes,
         JointNameSet&						legalJointNames,
+        std::string                         jointAliasFilename,
         U32									maxJointsPerMesh);
 	virtual ~LLModelLoader() ;
 

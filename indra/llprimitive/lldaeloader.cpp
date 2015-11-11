@@ -824,6 +824,7 @@ LLDAELoader::LLDAELoader(
 	JointTransformMap&	jointTransformMap,
 	JointNameSet&		jointsFromNodes,
 	JointNameSet&       legalJointNames,
+	std::string         jointAliasesFilename,
 	U32					maxJointsPerMesh,
 	U32					modelLimit,
 	bool				preprocess)
@@ -838,6 +839,7 @@ LLDAELoader::LLDAELoader(
 		jointTransformMap,
 		jointsFromNodes,
 		legalJointNames,
+		jointAliasesFilename,
 		maxJointsPerMesh),
 mGeneratedModelLimit(modelLimit),
 mPreprocessDAE(preprocess)
