@@ -57,6 +57,7 @@ public:
 		JointTransformMap&					JointTransformMap,
 		JointNameSet&						jointsFromNodes,
 		JointNameSet&                       legalJointNames,
+		std::string                         jointAliasesFilename,
 		U32									maxJointsPerMesh,
 		U32									modelLimit,
 		bool								preprocess);

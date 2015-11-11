@@ -112,6 +112,7 @@ LLModelLoader::LLModelLoader(
 	JointTransformMap&	jointTransformMap,
 	JointNameSet&		jointsFromNodes,
     JointNameSet&		legalJointNames,
+    std::string         jointAliasFilename,
     U32					maxJointsPerMesh)
 : mJointList( jointTransformMap )
 , mJointsFromNode( jointsFromNodes )
@@ -175,32 +176,6 @@ LLModelLoader::LLModelLoader(
 	mJointMap["mTail_3"] = "mTail_3";
 	mJointMap["mTail_4"] = "mTail_4";
 
-	mJointMap["avatar_mPelvis"] = "mPelvis";
-	mJointMap["avatar_mTorso"] = "mTorso";
-	mJointMap["avatar_mChest"] = "mChest";
-	mJointMap["avatar_mNeck"] = "mNeck";
-	mJointMap["avatar_mHead"] = "mHead";
-	mJointMap["avatar_mSkull"] = "mSkull";
-	mJointMap["avatar_mEyeRight"] = "mEyeRight";
-	mJointMap["avatar_mEyeLeft"] = "mEyeLeft";
-	mJointMap["avatar_mCollarLeft"] = "mCollarLeft";
-	mJointMap["avatar_mShoulderLeft"] = "mShoulderLeft";
-	mJointMap["avatar_mElbowLeft"] = "mElbowLeft";
-	mJointMap["avatar_mWristLeft"] = "mWristLeft";
-	mJointMap["avatar_mCollarRight"] = "mCollarRight";
-	mJointMap["avatar_mShoulderRight"] = "mShoulderRight";
-	mJointMap["avatar_mElbowRight"] = "mElbowRight";
-	mJointMap["avatar_mWristRight"] = "mWristRight";
-	mJointMap["avatar_mHipRight"] = "mHipRight";
-	mJointMap["avatar_mKneeRight"] = "mKneeRight";
-	mJointMap["avatar_mAnkleRight"] = "mAnkleRight";
-	mJointMap["avatar_mFootRight"] = "mFootRight";
-	mJointMap["avatar_mToeRight"] = "mToeRight";
-	mJointMap["avatar_mHipLeft"] = "mHipLeft";
-	mJointMap["avatar_mKneeLeft"] = "mKneeLeft";
-	mJointMap["avatar_mAnkleLeft"] = "mAnkleLeft";
-	mJointMap["avatar_mFootLeft"] = "mFootLeft";
-	mJointMap["avatar_mToeLeft"] = "mToeLeft";
     // Recognize all names we've been told are legal.
     for (JointNameSet::iterator joint_name_it = legalJointNames.begin();
          joint_name_it != legalJointNames.end(); ++joint_name_it)
@@ -209,28 +184,24 @@ LLModelLoader::LLModelLoader(
         mJointMap[name] = name;
     }
 
-    // Also support various legacy aliases for commonly used joints
-	mJointMap["hip"] = "mPelvis";
-	mJointMap["abdomen"] = "mTorso";
-	mJointMap["chest"] = "mChest";
-	mJointMap["neck"] = "mNeck";
-	mJointMap["head"] = "mHead";
-	mJointMap["figureHair"] = "mSkull";
-	mJointMap["lCollar"] = "mCollarLeft";
-	mJointMap["lShldr"] = "mShoulderLeft";
-	mJointMap["lForeArm"] = "mElbowLeft";
-	mJointMap["lHand"] = "mWristLeft";
-	mJointMap["rCollar"] = "mCollarRight";
-	mJointMap["rShldr"] = "mShoulderRight";
-	mJointMap["rForeArm"] = "mElbowRight";
-	mJointMap["rHand"] = "mWristRight";
-	mJointMap["rThigh"] = "mHipRight";
-	mJointMap["rShin"] = "mKneeRight";
-	mJointMap["rFoot"] = "mFootRight";
-	mJointMap["lThigh"] = "mHipLeft";
-	mJointMap["lShin"] = "mKneeLeft";
-	mJointMap["lFoot"] = "mFootLeft";
-
+    LLSD aliases_sd;
+    llifstream input_stream;
+    input_stream.open(jointAliasFilename.c_str(), std::ios::in | std::ios::binary);
+    
+    if(input_stream.is_open())
+    {
+        LLSDSerialize::fromXML(aliases_sd, input_stream);
+        for(LLSD::map_iterator alias_iter = aliases_sd.beginMap();
+            alias_iter != aliases_sd.endMap();
+            ++alias_iter)
+        {
+            LLSD::String alias_name = alias_iter->first;
+            LLSD::String joint_name = alias_iter->second;
+            mJointMap[ alias_name ] = joint_name;
+        }
+        input_stream.close();
+    }
+    
 	//move into joint mapper class
 	//1. joints for joint offset verification
 	mMasterJointList.push_front("mPelvis");
