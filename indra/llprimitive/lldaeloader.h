@@ -56,8 +56,7 @@ public:
 		void*								opaque_userdata,
 		JointTransformMap&					JointTransformMap,
 		JointNameSet&						jointsFromNodes,
-		JointNameSet&                       legalJointNames,
-		std::string                         jointAliasesFilename,
+        std::map<std::string, std::string>& jointAliasMap,
 		U32									maxJointsPerMesh,
 		U32									modelLimit,
 		bool								preprocess);

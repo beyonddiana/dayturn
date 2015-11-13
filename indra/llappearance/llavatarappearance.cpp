@@ -1548,6 +1548,9 @@ BOOL LLAvatarBoneInfo::parseXml(LLXmlTreeNode* node)
 		{
 			mName = "Collision Volume";
 		}
+        
+        static LLStdStringHandle aliases_string = LLXmlTree::addAttributeString("aliases");
+        node->getFastAttributeString(aliases_string, mAliases ); //Aliases are not required.
 	}
 	else
 	{
