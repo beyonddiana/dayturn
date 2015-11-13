@@ -123,39 +123,17 @@ LLQuaternion::Order bvhStringToOrder( char *str )
 // LLBVHLoader()
 //-----------------------------------------------------------------------------
 
-LLBVHLoader::LLBVHLoader(const char* buffer, ELoadStatus &loadStatus, S32 &errorLine, std::deque<std::string>& legal_joint_names)
+LLBVHLoader::LLBVHLoader(const char* buffer, ELoadStatus &loadStatus, S32 &errorLine, std::map<std::string, std::string>& joint_alias_map )
 {
 	reset();
 	errorLine = 0;
     
     // Recognize all names we've been told are legal.
-    for (std::deque<std::string>::iterator joint_name_it = legal_joint_names.begin();
-         joint_name_it != legal_joint_names.end(); ++joint_name_it)
+    std::map<std::string, std::string>::iterator iter;
+    for (iter = joint_alias_map.begin(); iter != joint_alias_map.end(); iter++)
     {
-        const std::string& name = *joint_name_it;
-
-        makeTranslation(name, name);
+        makeTranslation( iter->first , iter->second );
     }
-
-	mStatus = loadAliases("joint_aliases.xml"); //Load joint name aliases
-	loadStatus = mStatus;
-	LL_INFOS("BVH") << "Load Status 00 : " << loadStatus << LL_ENDL;
-	if (mStatus == E_ST_NO_XLT_FILE)
-	{
-		LL_WARNS("BVH") << "NOTE: No translation table found." << LL_ENDL;
-		loadStatus = mStatus;
-		return;
-	}
-	else
-	{
-		if (mStatus != E_ST_OK)
-		{
-			LL_WARNS("BVH") << "ERROR: [line: " << getLineNumber() << "] " << mStatus << LL_ENDL;
-			errorLine = getLineNumber();
-			loadStatus = mStatus;
-			return;
-		}
-	}
 	
 	char error_text[128];		/* Flawfinder: ignore */
 	S32 error_line;

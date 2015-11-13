@@ -111,8 +111,7 @@ LLModelLoader::LLModelLoader(
 	void*				opaque_userdata,
 	JointTransformMap&	jointTransformMap,
 	JointNameSet&		jointsFromNodes,
-    JointNameSet&		legalJointNames,
-    std::string         jointAliasFilename,
+    JointMap&           legalJointNamesMap,
     U32					maxJointsPerMesh)
 : mJointList( jointTransformMap )
 , mJointsFromNode( jointsFromNodes )
@@ -133,7 +132,11 @@ LLModelLoader::LLModelLoader(
 , mNoOptimize(false)
 , mCacheOnlyHitIfRigged(false)
 , mMaxJointsPerMesh(maxJointsPerMesh)
-{
+, mJointMap(legalJointNamesMap)
+{    
+	//move into joint mapper class
+	//1. joints for joint offset verification
+
 	mJointMap["mPelvis"] = "mPelvis";
 	mJointMap["mTorso"] = "mTorso";
 	mJointMap["mChest"] = "mChest";
@@ -176,31 +179,6 @@ LLModelLoader::LLModelLoader(
 	mJointMap["mTail_3"] = "mTail_3";
 	mJointMap["mTail_4"] = "mTail_4";
 
-    // Recognize all names we've been told are legal.
-    for (JointNameSet::iterator joint_name_it = legalJointNames.begin();
-         joint_name_it != legalJointNames.end(); ++joint_name_it)
-    {
-        const std::string& name = *joint_name_it;
-        mJointMap[name] = name;
-    }
-
-    LLSD aliases_sd;
-    llifstream input_stream;
-    input_stream.open(jointAliasFilename.c_str(), std::ios::in | std::ios::binary);
-    
-    if(input_stream.is_open())
-    {
-        LLSDSerialize::fromXML(aliases_sd, input_stream);
-        for(LLSD::map_iterator alias_iter = aliases_sd.beginMap();
-            alias_iter != aliases_sd.endMap();
-            ++alias_iter)
-        {
-            LLSD::String alias_name = alias_iter->first;
-            LLSD::String joint_name = alias_iter->second;
-            mJointMap[ alias_name ] = joint_name;
-        }
-        input_stream.close();
-    }
     
 	//move into joint mapper class
 	//1. joints for joint offset verification

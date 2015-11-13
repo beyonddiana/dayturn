@@ -129,8 +129,7 @@ public:
 		void*								opaque_userdata,
 		JointTransformMap&					jointTransformMap,
 		JointNameSet&						jointsFromNodes,
-        JointNameSet&						legalJointNames,
-        std::string                         jointAliasFilename,
+        JointMap&                           legalJointNamesMap,
         U32									maxJointsPerMesh);
 	virtual ~LLModelLoader() ;
 
