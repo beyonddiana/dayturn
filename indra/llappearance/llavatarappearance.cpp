@@ -1581,8 +1581,7 @@ BOOL LLAvatarBoneInfo::parseXml(LLXmlTreeNode* node)
 		return FALSE;
 	}
 
-    // BENTO rename leaf->end
-	static LLStdStringHandle end_string = LLXmlTree::addAttributeString("leaf");
+	static LLStdStringHandle end_string = LLXmlTree::addAttributeString("end");
 	if (!node->getFastAttributeVector3(end_string, mEnd))
 	{
 		LL_WARNS() << "Bone without end " << mName << LL_ENDL;
