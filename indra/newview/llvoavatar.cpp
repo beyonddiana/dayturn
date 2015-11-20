@@ -1508,7 +1508,8 @@ void LLVOAvatar::renderJoints()
 		ostr << jointp->getName() << ", ";
 
 		jointp->updateWorldMatrix();
-	
+		LLJoint::SupportCategory sc = jointp->getSupport();
+
 		gGL.pushMatrix();
 		gGL.multMatrix( &jointp->getXform()->getWorldMatrix().mMatrix[0][0] );
 			
