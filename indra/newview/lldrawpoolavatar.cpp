@@ -1604,7 +1604,7 @@ void LLDrawPoolAvatar::updateRiggedFaceVertexBuffer(
 	{
 		return;
 	}
-    // BENTO ugly const cast
+    // FIXME ugly const cast
     LLSkinningUtil::remapSkinInfoJoints(avatar, const_cast<LLMeshSkinInfo*>(skin));
 
 	LLPointer<LLVertexBuffer> buffer = face->getVertexBuffer();
