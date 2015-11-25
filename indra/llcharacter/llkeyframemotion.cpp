@@ -2059,7 +2059,6 @@ U32	LLKeyframeMotion::getFileSize()
 }
 
 //-----------------------------------------------------------------------------
-// FIXME BENTO TEMP
 // dumpToFile()
 //-----------------------------------------------------------------------------
 void LLKeyframeMotion::dumpToFile(const std::string& name)
@@ -2304,9 +2303,6 @@ void LLKeyframeMotion::onLoadComplete(LLVFS *vfs,
 			if (motionp->deserialize(dp, asset_uuid))
 			{
 				motionp->mAssetStatus = ASSET_LOADED;
-                // FIXME BENTO TEMP
-                //motionp->dumpToFile("");
-                
 			}
 			else
 			{

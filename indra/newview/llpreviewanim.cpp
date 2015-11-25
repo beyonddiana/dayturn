@@ -109,13 +109,6 @@ void LLPreviewAnim::play(const LLSD& param)
 			}
 			else
 			{
-                // BENTO TEMP
-                LLKeyframeMotion *motionp = dynamic_cast<LLKeyframeMotion*>(gAgentAvatarp->findMotion(itemID));
-                if (motionp && motionp->isLoaded())
-                {
-                    //motionp->dumpToFile(item->getName());
-                }
-
 				gAgentAvatarp->startMotion(item->getAssetUUID());
 			}
 

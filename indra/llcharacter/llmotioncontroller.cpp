@@ -380,14 +380,6 @@ LLMotion* LLMotionController::createMotion( const LLUUID &id )
 		case LLMotion::STATUS_SUCCESS:
 		    // add motion to our list
 		    mLoadedMotions.insert(motion);
-            // BENTO TEMP
-            {
-                LLKeyframeMotion *km = dynamic_cast<LLKeyframeMotion*>(motion);
-                if (km)
-                {
-                    //km->dumpToFile("");
-                }
-            }
 			break;
 		default:
 			LL_ERRS() << "Invalid initialization status" << LL_ENDL;
@@ -587,8 +579,6 @@ void LLMotionController::updateMotionsByType(LLMotion::LLMotionBlendType anim_ty
 		}
 		else
 		{
-			// NUM_JOINT_SIGNATURE_STRIDES should be multiple of 4
-			// FIXME BENTO - think it's just the number of joints that needs to be a multiple of 4, not the number of strides.
 			for (S32 i = 0; i < NUM_JOINT_SIGNATURE_STRIDES; i++)
 			{
 		 		U32 *current_signature = (U32*)&(mJointSignature[0][i * 4]);
@@ -792,14 +782,6 @@ void LLMotionController::updateLoadingMotions()
 			mLoadingMotions.erase(curiter);
 			// add motion to our loaded motion list
 			mLoadedMotions.insert(motionp);
-            // FIXME BENTO SO MUCH DUMP
-            {
-                LLKeyframeMotion *km = dynamic_cast<LLKeyframeMotion*>(motionp);
-                if (km)
-                {
-                    //km->dumpToFile("");
-                }
-            }
 			// this motion should be playing
 			if (!motionp->isStopped())
 			{
