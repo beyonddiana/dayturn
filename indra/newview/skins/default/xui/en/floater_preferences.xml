@@ -3,7 +3,7 @@
  legacy_header_height="18"
  positioning="centered"
  default_tab_group="1"
- height="500"
+ height="512"
  layout="topleft"
  name="Preferences"
  help_topic="preferences"
@@ -19,7 +19,7 @@
      layout="topleft"
      right="-100"
      name="OK"
-     top="470"
+     top="473"
      width="90">
         <button.commit_callback
          function="Pref.OK" />
