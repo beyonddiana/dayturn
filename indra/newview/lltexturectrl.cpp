@@ -71,6 +71,7 @@
 #include "llradiogroup.h"
 #include "llfloaterreg.h"
 #include "lllocalbitmaps.h"
+#include "llerror.h"
 
 static const F32 CONTEXT_CONE_IN_ALPHA = 0.0f;
 static const F32 CONTEXT_CONE_OUT_ALPHA = 1.f;
@@ -586,6 +587,7 @@ void LLFloaterTexturePicker::draw()
 		mTexturep = NULL;
 		if(mImageAssetID.notNull())
 		{
+            LL_WARNS() << "mImageAssetID: " << mImageAssetID << LL_ENDL;
 			mTexturep = LLViewerTextureManager::getFetchedTexture(mImageAssetID);
 			mTexturep->setBoostLevel(LLGLTexture::BOOST_PREVIEW);
 		}
