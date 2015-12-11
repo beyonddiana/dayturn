@@ -30,8 +30,9 @@
 
 #include "llpanel.h"
 
+class LLOutfitGallery;
 class LLOutfitsList;
-class LLOutfitListGearMenu;
+class LLOutfitListGearMenuBase;
 class LLPanelAppearanceTab;
 class LLPanelWearing;
 class LLMenuGL;
@@ -82,6 +83,7 @@ protected:
 private:
 	LLPanelAppearanceTab*	mActivePanel;
 	LLOutfitsList*			mMyOutfitsPanel;
+    LLOutfitGallery*        mOutfitGalleryPanel;
 	LLPanelWearing*			mCurrentOutfitPanel;
 
 	// tab panels                                                                   //
