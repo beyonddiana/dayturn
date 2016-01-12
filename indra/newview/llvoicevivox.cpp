@@ -86,10 +86,13 @@ static const std::string VOICE_SERVER_TYPE = "Vivox";
 const F32 CONNECT_THROTTLE_SECONDS = 1.0f;
 
 // Don't send positional updates more frequently than this:
-const F32 UPDATE_THROTTLE_SECONDS = 0.1f;
+const F32 UPDATE_THROTTLE_SECONDS = 0.5f;
 
 const F32 LOGIN_RETRY_SECONDS = 10.0f;
 const int MAX_LOGIN_RETRIES = 12;
+
+// Cosine of a "trivially" small angle
+const F32 MINUSCULE_ANGLE_COS = 0.999f;
 
 // Defines the maximum number of times(in a row) "stateJoiningSession" case for spatial channel is reached in stateMachine()
 // which is treated as normal. The is the number of frames to wait for a channel join before giving up.  This was changed 
@@ -2429,10 +2432,12 @@ void LLVivoxVoiceClient::sendPositionalUpdate(void)
 		
 		stream << "<SpeakerPosition>";
 
+        LLMatrix3 avatarRot = mAvatarRot.getMatrix3();
+
 //		LL_DEBUGS("Voice") << "Sending speaker position " << mAvatarPosition << LL_ENDL;
-		l = mAvatarRot.getLeftRow();
-		u = mAvatarRot.getUpRow();
-		a = mAvatarRot.getFwdRow();
+		l = avatarRot.getLeftRow();
+		u = avatarRot.getUpRow();
+		a = avatarRot.getFwdRow();
 
         pos = mAvatarPosition;
 		vel = mAvatarVelocity;
@@ -2496,7 +2501,7 @@ void LLVivoxVoiceClient::sendPositionalUpdate(void)
 			case earLocAvatar:
 				earPosition = mAvatarPosition;
 				earVelocity = mAvatarVelocity;
-				earRot = mAvatarRot;
+				earRot = avatarRot;
 			break;
 			
 			case earLocMixed:
@@ -4587,6 +4592,7 @@ void LLVivoxVoiceClient::updatePosition(void)
 	{
 		LLMatrix3 rot;
 		LLVector3d pos;
+        LLQuaternion qrot;
 		
 		// TODO: If camera and avatar velocity are actually used by the voice system, we could compute them here...
 		// They're currently always set to zero.
@@ -4601,7 +4607,7 @@ void LLVivoxVoiceClient::updatePosition(void)
 															 rot);				// rotation matrix
 		
 		// Send the current avatar position to the voice code
-		rot = gAgentAvatarp->getRootJoint()->getWorldRotation().getMatrix3();
+        qrot = gAgentAvatarp->getRootJoint()->getWorldRotation();
 		pos = gAgentAvatarp->getPositionGlobal();
 
 		// TODO: Can we get the head offset from outside the LLVOAvatar?
@@ -4611,7 +4617,7 @@ void LLVivoxVoiceClient::updatePosition(void)
 		LLVivoxVoiceClient::getInstance()->setAvatarPosition(
 															 pos,				// position
 															 LLVector3::zero, 	// velocity
-															 rot);				// rotation matrix
+															 qrot);				// rotation matrix
 	}
 }
 
@@ -4632,7 +4638,7 @@ void LLVivoxVoiceClient::setCameraPosition(const LLVector3d &position, const LLV
 	}
 }
 
-void LLVivoxVoiceClient::setAvatarPosition(const LLVector3d &position, const LLVector3 &velocity, const LLMatrix3 &rot)
+void LLVivoxVoiceClient::setAvatarPosition(const LLVector3d &position, const LLVector3 &velocity, const LLQuaternion &rot)
 {
 	if(dist_vec_squared(mAvatarPosition, position) > 0.01)
 	{
@@ -4646,8 +4652,9 @@ void LLVivoxVoiceClient::setAvatarPosition(const LLVector3d &position, const LLV
 		mSpatialCoordsDirty = true;
 	}
 	
-	if(mAvatarRot != rot)
-	{
+    if ((mAvatarRot != rot) && (llabs(dot(mAvatarRot, rot)) > MINUSCULE_ANGLE_COS))
+	{   // if the two rotations are not exactly equal test their dot product
+        // to get the cos of the angle between them.  If it is minuscule don't update.
 		mAvatarRot = rot;
 		mSpatialCoordsDirty = true;
 	}
