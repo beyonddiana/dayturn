@@ -70,11 +70,6 @@ public:
 	void onAddNotification(const LLUUID& notification_id);
 
 	/**
-	* Removes all notifications by owner id.
-	*/
-	void removeAllNotificationsByOwner(const LLUUID& notification_id);
-
-	/**
 	 * Removes notification.
 	 */
 	void removeNotification(const LLUUID& notification_id);
