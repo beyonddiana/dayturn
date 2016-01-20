@@ -563,7 +563,7 @@ void LLMaterialMgr::processGetQueue()
 	{
 		get_queue_t::iterator itRegionQueue = loopRegionQueue++;
 
-		const LLUUID& region_id = itRegionQueue->first;
+        LLUUID region_id = itRegionQueue->first;
 		if (isGetAllPending(region_id))
 		{
 			continue;
@@ -610,6 +610,7 @@ void LLMaterialMgr::processGetQueue()
 		}
 		if (materials.empty())
 		{
+			// $TODO*: We may be able to issue a continue here.  Research.
 			mGetQueue.erase(itRegionQueue);
 		}
 		
