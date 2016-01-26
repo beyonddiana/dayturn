@@ -257,6 +257,7 @@ public:
 	void setEnvControls(bool available);									// Whether environment settings are available for this region
 
 	BOOL validateTextureSizes();
+	BOOL validateTextureHeights();
 
 	//static void onChangeAnything(LLUICtrl* ctrl, void* userData);			// callback for any change, to enable commit button
 	
@@ -266,6 +267,11 @@ public:
 	static void onClickUploadRaw(void*);
 	static void onClickBakeTerrain(void*);
 	bool callbackBakeTerrain(const LLSD& notification, const LLSD& response);
+	bool callbackTextureHeights(const LLSD& notification, const LLSD& response);
+
+private:
+	bool mConfirmedTextureHeights;
+	bool mAskedTextureHeights;
 };
 
 /////////////////////////////////////////////////////////////////////////////
