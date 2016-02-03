@@ -1472,6 +1472,7 @@ void LLAgentCamera::updateCamera()
 			diff.mV[VZ] = 0.f;
 		}
 
+		// SL-315
 		gAgentAvatarp->mPelvisp->setPosition(gAgentAvatarp->mPelvisp->getPosition() + diff);
 
 		gAgentAvatarp->mRoot->updateWorldMatrixChildren();
@@ -2182,6 +2183,7 @@ void LLAgentCamera::changeCameraToFollow(BOOL animate)
 
 		if (isAgentAvatarValid())
 		{
+			// SL-315
 			gAgentAvatarp->mPelvisp->setPosition(LLVector3::zero);
 			gAgentAvatarp->startMotion( ANIM_AGENT_BODY_NOISE );
 			gAgentAvatarp->startMotion( ANIM_AGENT_BREATHE_ROT );
@@ -2222,6 +2224,7 @@ void LLAgentCamera::changeCameraToThirdPerson(BOOL animate)
 	{
 		if (!gAgentAvatarp->isSitting())
 		{
+			// SL-315
 			gAgentAvatarp->mPelvisp->setPosition(LLVector3::zero);
 		}
 		gAgentAvatarp->startMotion(ANIM_AGENT_BODY_NOISE);

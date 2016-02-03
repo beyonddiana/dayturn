@@ -3298,6 +3298,7 @@ void LLVOAvatar::idleUpdateBelowWater()
 void LLVOAvatar::slamPosition()
 {
 	gAgent.setPositionAgent(getPositionAgent());
+	// SL-315
 	mRoot->setWorldPosition(getPositionAgent()); // teleport
 	setChanged(TRANSLATED);
 	if (mDrawable.notNull())
@@ -3652,6 +3653,7 @@ BOOL LLVOAvatar::updateCharacter(LLAgent &agent)
 			mTimeLast = animation_time;
 
 			// put the pelvis at slaved position/mRotation
+			// SL-315
 			mRoot->setWorldPosition( getPositionAgent() ); // first frame
 			mRoot->setWorldRotation( getRotation() );
 		}
@@ -3706,6 +3708,7 @@ BOOL LLVOAvatar::updateCharacter(LLAgent &agent)
 		if (newPosition != mRoot->getXform()->getWorldPosition())
 		{		
 			mRoot->touch();
+			// SL-315			
 			mRoot->setWorldPosition( newPosition ); // regular update				
 		}
 
@@ -3869,6 +3872,7 @@ BOOL LLVOAvatar::updateCharacter(LLAgent &agent)
 	else if (mDrawable.notNull())
 	{
 		LLVector3 pos = mDrawable->getPosition();
+		// SL-315		
 		pos += getHoverOffset() * mDrawable->getRotation();
 		mRoot->setPosition(pos);
 		mRoot->setRotation(mDrawable->getRotation());
@@ -3900,6 +3904,7 @@ BOOL LLVOAvatar::updateCharacter(LLAgent &agent)
 			LLVector3 pos = mRoot->getWorldPosition();
 			pos.mV[VZ] += off_z;
 			mRoot->touch();
+			// SL-315			
 			mRoot->setWorldPosition(pos);
 		}
 	}
@@ -5649,6 +5654,7 @@ void LLVOAvatar::resetJointPositionsOnDetach(const LLUUID& mesh_id)
 		if ( pJoint && pJoint == pJointPelvis)
 		{
 			removePelvisFixup( mesh_id );
+			// SL-315			
 			pJoint->setPosition( LLVector3( 0.0f, 0.0f, 0.0f) );
 		}		
 	}	
@@ -6430,6 +6436,7 @@ void LLVOAvatar::sitOnObject(LLViewerObject *sit_object)
 	// objects to be not rendered for new arrivals. See EXT-6835 and EXT-1655.
 	sitDown(TRUE);
 	mRoot->getXform()->setParent(&sit_object->mDrawable->mXform); // LLVOAvatar::sitOnObject
+	// SL-315
 	mRoot->setPosition(getPosition());
 	mRoot->updateWorldMatrixChildren();
 
@@ -6488,6 +6495,7 @@ void LLVOAvatar::getOffObject()
 	sitDown(FALSE);
 
 	mRoot->getXform()->setParent(NULL); // LLVOAvatar::getOffObject
+	// SL-315	
 	mRoot->setPosition(cur_position_world);
 	mRoot->setRotation(cur_rotation_world);
 	mRoot->getXform()->update();
