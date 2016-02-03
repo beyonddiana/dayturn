@@ -1119,7 +1119,6 @@ void LLVOAvatar::deleteCachedImages(bool clearAll)
 {	
 	if (LLViewerTexLayerSet::sHasCaches)
 	{
-		LL_DEBUGS() << "Deleting layer set caches" << LL_ENDL;
 		for (std::vector<LLCharacter*>::iterator iter = LLCharacter::sInstances.begin();
 			 iter != LLCharacter::sInstances.end(); ++iter)
 		{
@@ -1235,12 +1234,6 @@ void LLVOAvatar::initInstance(void)
 LLAvatarJoint* LLVOAvatar::createAvatarJoint()
 {
 	return new LLViewerJoint();
-}
-
-// virtual
-LLAvatarJoint* LLVOAvatar::createAvatarJoint(S32 joint_num)
-{
-	return new LLViewerJoint(joint_num);
 }
 
 // virtual
@@ -1877,8 +1870,6 @@ void LLVOAvatar::releaseMeshData()
 		return;
 	}
 
-	LL_DEBUGS() << "Releasing mesh data" << LL_ENDL;
-
 	// cleanup mesh data
 	for (avatar_joint_list_t::iterator iter = mMeshLOD.begin();
 		 iter != mMeshLOD.end(); 
@@ -2088,17 +2079,12 @@ U32 LLVOAvatar::processUpdateMessage(LLMessageSystem *mesgsys,
 	// Do base class updates...
 	U32 retval = LLViewerObject::processUpdateMessage(mesgsys, user_data, block_num, update_type, dp);
 
-	//LLTEContents tec;
-	//S32 te_retval = parseTEMessage(mesgsys, _PREHASH_ObjectData, block_num, tec);
-
-	LL_DEBUGS("Avatar") << avString() << update_type << LL_ENDL; 
-
 	// Print out arrival information once we have name of avatar.
-		if (has_name && getNVPair("FirstName"))
-		{
-			mDebugExistenceTimer.reset();
-			debugAvatarRezTime("AvatarRezArrivedNotification","avatar arrived");
-		}
+    if (has_name && getNVPair("FirstName"))
+    {
+        mDebugExistenceTimer.reset();
+        debugAvatarRezTime("AvatarRezArrivedNotification","avatar arrived");
+    }
 
 	if(retval & LLViewerObject::INVALID_UPDATE)
 	{
@@ -5800,7 +5786,6 @@ BOOL LLVOAvatar::loadSkeletonNode ()
 			}
 
 			LLViewerJointAttachment* attachment = new LLViewerJointAttachment();
-
 			attachment->setName(info->mName);
 			LLJoint *parent_joint = getJoint(info->mJointName);
             if (!parent_joint)
@@ -5833,7 +5818,7 @@ BOOL LLVOAvatar::loadSkeletonNode ()
 			int group = info->mGroup;
 			if (group >= 0)
 			{
-				if (group < 0 || group >= 9)
+				if (group < 0 || group > 9)
 				{
 					LL_WARNS() << "Invalid group number (" << group << ") for attachment point " << info->mName << LL_ENDL;
 				}
@@ -5859,7 +5844,8 @@ BOOL LLVOAvatar::loadSkeletonNode ()
 
 			attachment->setVisibleInFirstPerson(info->mVisibleFirstPerson);
 			attachment->setIsHUDAttachment(info->mIsHUDAttachment);
-
+			// attachment can potentially be animated, needs a number.
+            attachment->setJointNum(mSkeleton.size() + attachmentID -1);
 			mAttachmentPoints[attachmentID] = attachment;
 
 			// now add attachment joint
@@ -7603,7 +7589,7 @@ void LLVOAvatar::parseAppearanceMessage(LLMessageSystem* mesgsys, LLAppearanceMe
 		U8 av_u8;
 		mesgsys->getU8Fast(_PREHASH_AppearanceData, _PREHASH_AppearanceVersion, av_u8, 0);
 		contents.mAppearanceVersion = av_u8;
-		LL_DEBUGS("Avatar") << "appversion set by AppearanceData field: " << contents.mAppearanceVersion << LL_ENDL;
+		//LL_DEBUGS("Avatar") << "appversion set by AppearanceData field: " << contents.mAppearanceVersion << LL_ENDL;
 		mesgsys->getS32Fast(_PREHASH_AppearanceData, _PREHASH_CofVersion, contents.mCOFVersion, 0);
 		// For future use:
 		//mesgsys->getU32Fast(_PREHASH_AppearanceData, _PREHASH_Flags, appearance_flags, 0);
@@ -7615,7 +7601,7 @@ void LLVOAvatar::parseAppearanceMessage(LLMessageSystem* mesgsys, LLAppearanceMe
 	{
 		LLVector3 hover;
 		mesgsys->getVector3Fast(_PREHASH_AppearanceHover, _PREHASH_HoverHeight, hover);
-		LL_DEBUGS("Avatar") << avString() << " hover received " << hover.mV[ VX ] << "," << hover.mV[ VY ] << "," << hover.mV[ VZ ] << LL_ENDL;
+		//LL_DEBUGS("Avatar") << avString() << " hover received " << hover.mV[ VX ] << "," << hover.mV[ VY ] << "," << hover.mV[ VZ ] << LL_ENDL;
 		contents.mHoverOffset = hover;
 		contents.mHoverOffsetWasSet = true;
 	}
@@ -7627,7 +7613,7 @@ void LLVOAvatar::parseAppearanceMessage(LLMessageSystem* mesgsys, LLAppearanceMe
 	bool drop_visual_params_debug = block_some_avatar_appearance_visual_params && (ll_rand(2) == 0); // pretend that ~12% of AvatarAppearance messages arrived without a VisualParam block, for testing
 	if( num_blocks > 1 && !drop_visual_params_debug)
 	{
-		LL_DEBUGS("Avatar") << avString() << " handle visual params, num_blocks " << num_blocks << LL_ENDL;
+		//LL_DEBUGS("Avatar") << avString() << " handle visual params, num_blocks " << num_blocks << LL_ENDL;
 		
 		LLVisualParam* param = getFirstVisualParam();
 		llassert(param); // if this ever fires, we should do the same as when num_blocks<=1
@@ -7688,7 +7674,7 @@ void LLVOAvatar::parseAppearanceMessage(LLMessageSystem* mesgsys, LLAppearanceMe
 		{
 			S32 index = it - contents.mParams.begin();
 			contents.mParamAppearanceVersion = ll_round(contents.mParamWeights[index]);
-			LL_DEBUGS("Avatar") << "appversion req by appearance_version param: " << contents.mParamAppearanceVersion << LL_ENDL;
+			//LL_DEBUGS("Avatar") << "appversion req by appearance_version param: " << contents.mParamAppearanceVersion << LL_ENDL;
 		}
 	}
 }
@@ -7709,17 +7695,17 @@ bool resolve_appearance_version(const LLAppearanceMessageContents& contents, S32
 	{
 		appearance_version = contents.mParamAppearanceVersion;
 	}
-	else if (contents.mAppearanceVersion >=0)
+	else if (contents.mAppearanceVersion > 0)
 	{
 		appearance_version = contents.mAppearanceVersion;
 	}
-	if (appearance_version < 0) // still not set, go with 0.
+	else // still not set, go with 1.
 	{
-		appearance_version = 0;
+		appearance_version = 1;
 	}
-	LL_DEBUGS("Avatar") << "appearance version info - field " << contents.mAppearanceVersion
-						<< " param: " << contents.mParamAppearanceVersion
-						<< " final: " << appearance_version << LL_ENDL;
+	//LL_DEBUGS("Avatar") << "appearance version info - field " << contents.mAppearanceVersion
+	//					<< " param: " << contents.mParamAppearanceVersion
+	//					<< " final: " << appearance_version << LL_ENDL;
 	return true;
 }
 
@@ -7727,9 +7713,7 @@ bool resolve_appearance_version(const LLAppearanceMessageContents& contents, S32
 // processAvatarAppearance()
 //-----------------------------------------------------------------------------
 void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
-{
-	LL_DEBUGS("Avatar") << "starts" << LL_ENDL;
-	
+{	
 	static LLCachedControl<bool> block_verbose_dumps(gSavedSettings, "BlockAvatarAppearanceMessages", false);
 	std::string dump_prefix = getFullname() + "_" + (isSelf()?"s":"o") + "_";
 	if (block_verbose_dumps) {
@@ -7776,7 +7760,7 @@ void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
 	}
 	else
 	{
-		LL_DEBUGS("Avatar") << "appearance message received" << LL_ENDL;
+		//LL_DEBUGS("Avatar") << "appearance message received" << LL_ENDL;
 	}
 
 	// Check for stale update.
@@ -7839,8 +7823,8 @@ void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
 	BOOL is_first_appearance_message = !mFirstAppearanceMessageReceived;
 	mFirstAppearanceMessageReceived = TRUE;
 
-	LL_DEBUGS("Avatar") << avString() << "processAvatarAppearance start " << mID
-			<< " first? " << is_first_appearance_message << " self? " << isSelf() << LL_ENDL;
+	//LL_DEBUGS("Avatar") << avString() << "processAvatarAppearance start " << mID
+	//		<< " first? " << is_first_appearance_message << " self? " << isSelf() << LL_ENDL;
 
 	if (is_first_appearance_message )
 	{
@@ -7853,7 +7837,7 @@ void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
 	// Apply visual params
 	if( num_params > 1)
 	{
-		LL_DEBUGS("Avatar") << avString() << " handle visual params, num_params " << num_params << LL_ENDL;
+		//LL_DEBUGS("Avatar") << avString() << " handle visual params, num_params " << num_params << LL_ENDL;
 		BOOL params_changed = FALSE;
 		BOOL interp_params = FALSE;
 		S32 params_changed_count = 0;
@@ -8084,7 +8068,7 @@ void LLVOAvatar::onInitialBakedTextureLoaded( BOOL success, LLViewerFetchedTextu
 
 	if (selfp)
 	{
-		LL_DEBUGS("Avatar") << selfp->avString() << "discard_level " << discard_level << " success " << success << " final " << final << LL_ENDL;
+		//LL_DEBUGS("Avatar") << selfp->avString() << "discard_level " << discard_level << " success " << success << " final " << final << LL_ENDL;
 	}
 
 	if (!success && selfp)
@@ -8102,14 +8086,14 @@ void LLVOAvatar::onBakedTextureLoaded(BOOL success,
 									  LLViewerFetchedTexture *src_vi, LLImageRaw* src, LLImageRaw* aux_src,
 									  S32 discard_level, BOOL final, void* userdata)
 {
-	LL_DEBUGS("Avatar") << "onBakedTextureLoaded: " << src_vi->getID() << LL_ENDL;
+	//LL_DEBUGS("Avatar") << "onBakedTextureLoaded: " << src_vi->getID() << LL_ENDL;
 
 	LLUUID id = src_vi->getID();
 	LLUUID *avatar_idp = (LLUUID *)userdata;
 	LLVOAvatar *selfp = (LLVOAvatar *)gObjectList.findObject(*avatar_idp);
 	if (selfp)
 	{	
-		LL_DEBUGS("Avatar") << selfp->avString() << "discard_level " << discard_level << " success " << success << " final " << final << " id " << src_vi->getID() << LL_ENDL;
+		//LL_DEBUGS("Avatar") << selfp->avString() << "discard_level " << discard_level << " success " << success << " final " << final << " id " << src_vi->getID() << LL_ENDL;
 	}
 
 	if (selfp && !success)

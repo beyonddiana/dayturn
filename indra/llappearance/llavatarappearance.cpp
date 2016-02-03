@@ -1275,7 +1275,8 @@ LLJoint *LLAvatarAppearance::getCharacterJoint( U32 num )
 	}
     if (!mSkeleton[num])
     {
-        mSkeleton[num] = createAvatarJoint(num);
+        mSkeleton[num] = createAvatarJoint();
+		mSkeleton[num]->setJointNum(num);
     }
 	return mSkeleton[num];
 }

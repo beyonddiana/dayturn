@@ -40,14 +40,15 @@
 #include "xform.h"
 
 const S32 LL_CHARACTER_MAX_JOINTS_PER_MESH = 15;
-// BENTO JOINT COUNT LIMIT - need to set this to final skeleton size + 2
-const U32 LL_CHARACTER_MAX_JOINTS = 144; // must be divisible by 4!
+// BENTO JOINT COUNT LIMIT - need to set this to final skeleton size
+// (bones + attachments) + 2, rounded to next multiple of 4.
+const U32 LL_CHARACTER_MAX_ANIMATED_JOINTS = 164; // must be divisible by 4!
 const U32 LL_MAX_JOINTS_PER_MESH_OBJECT = 110;
 
 // These should be higher than the joint_num of any
 // other joint, to avoid conflicts in updateMotionsByType()
-const U32 LL_HAND_JOINT_NUM = (LL_CHARACTER_MAX_JOINTS-1);
-const U32 LL_FACE_JOINT_NUM = (LL_CHARACTER_MAX_JOINTS-2);
+const U32 LL_HAND_JOINT_NUM = (LL_CHARACTER_MAX_ANIMATED_JOINTS-1);
+const U32 LL_FACE_JOINT_NUM = (LL_CHARACTER_MAX_ANIMATED_JOINTS-2);
 const S32 LL_CHARACTER_MAX_PRIORITY = 7;
 const F32 LL_MAX_PELVIS_OFFSET = 5.f;
 
@@ -138,7 +139,7 @@ public:
 
 public:
 	LLJoint();
-	LLJoint(S32 joint_num);
+    
 	// *TODO: Only used for LLVOAvatarSelf::mScreenp.  *DOES NOT INITIALIZE mResetAfterRestoreOldXform*
 	LLJoint( const std::string &name, LLJoint *parent=NULL );
 	virtual ~LLJoint();
@@ -228,7 +229,6 @@ public:
 	void clampRotation(LLQuaternion old_rot, LLQuaternion new_rot);
 
 	virtual BOOL isAnimatable() const { return TRUE; }
-
 
 	void addAttachmentPosOverride( const LLVector3& pos, const LLUUID& mesh_id, const std::string& av_info );
 	void removeAttachmentPosOverride( const LLUUID& mesh_id, const std::string& av_info );
