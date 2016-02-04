@@ -29,6 +29,7 @@
 
 #include "llpanel.h"
 #include "llbutton.h"
+#include "lllayoutstack.h"
 
 class LLLocationInputCtrl;
 class LLMenuGL;
@@ -108,6 +109,7 @@ private:
 	void rebuildTeleportHistoryMenu();
 	void showTeleportHistoryMenu(LLUICtrl* btn_ctrl);
 	void invokeSearch(std::string search_text);
+	void resizeLayoutPanel();
 	// callbacks
 //MK
 	void onAvatarHeightOffsetResetButtonClicked();
@@ -123,6 +125,7 @@ private:
 	void onLocationPrearrange(const LLSD& data);
 	void onTeleportFinished(const LLVector3d& global_agent_pos);
 	void onTeleportFailed();
+	void onNavbarResized();
 	void onRegionNameResponse(
 			std::string typed_location,
 			std::string region_name,
@@ -138,6 +141,7 @@ private:
 		}
 	}
 
+	S32							mNavPanWidth;
 	LLMenuGL*					mTeleportHistoryMenu;
 	LLPullButton*				mBtnBack;
 	LLPullButton*				mBtnForward;
@@ -148,11 +152,18 @@ private:
 	LLLocationInputCtrl*		mCmbLocation;
 	LLRect						mDefaultNbRect;
 	LLRect						mDefaultFpRect;
+	LLLayoutPanel* 				mNavigationPanel;
+	LLLayoutPanel* 				mFavoritePanel;
 	boost::signals2::connection	mTeleportFailedConnection;
 	boost::signals2::connection	mTeleportFinishConnection;
 	boost::signals2::connection	mHistoryMenuConnection;
 	// if true, save location to location history when teleport finishes
 	bool						mSaveToLocationHistory;
+	boost::signals2::connection resizeSignalUpNavBar;
+	boost::signals2::connection resizeSignalDownNavBar;
+	boost::signals2::connection resizeSignalUpFavPan;
+	boost::signals2::connection resizeSignalDownFavPan;
+
 };
 
 #endif
