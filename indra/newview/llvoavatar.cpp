@@ -1231,9 +1231,9 @@ void LLVOAvatar::initInstance(void)
 }
 
 // virtual
-LLAvatarJoint* LLVOAvatar::createAvatarJoint()
+LLAvatarJoint* LLVOAvatar::createAvatarJoint(S32 joint_num)
 {
-	return new LLViewerJoint();
+	return new LLViewerJoint(joint_num);
 }
 
 // virtual
