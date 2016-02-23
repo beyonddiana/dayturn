@@ -1439,11 +1439,13 @@ void render_sphere_and_line(const LLVector3& begin_pos, const LLVector3& end_pos
 void LLVOAvatar::renderCollisionVolumes()
 {
 	std::ostringstream ostr;
-
 	for (S32 i = 0; i < mNumCollisionVolumes; i++)
 	{
 		ostr << mCollisionVolumes[i].getName() << ", ";
+	}
 
+   	for (S32 i = 0; i < mNumCollisionVolumes; i++)
+	{
         LLAvatarJointCollisionVolume& collision_volume = mCollisionVolumes[i];
 
 		collision_volume.updateWorldMatrix();
@@ -1485,6 +1487,11 @@ void LLVOAvatar::renderBones()
 
 	avatar_joint_list_t::iterator iter = mSkeleton.begin();
 	avatar_joint_list_t::iterator end  = mSkeleton.end();
+	
+    static LLVector3 BASE_COLOR_OCCLUDED(1.0f, 0.0f, 0.0f);
+    static LLVector3 BASE_COLOR_VISIBLE(0.5f, 0.5f, 0.5f);
+    static LLVector3 EXTENDED_COLOR_OCCLUDED(0.0f, 1.0f, 0.0f);
+    static LLVector3 EXTENDED_COLOR_VISIBLE(0.5f, 0.5f, 0.5f);	
 
     // For bones with position overrides defined
     static LLVector3 OVERRIDE_COLOR_OCCLUDED(1.0f, 0.0f, 0.0f);
