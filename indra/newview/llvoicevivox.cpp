@@ -1664,7 +1664,7 @@ void LLVivoxVoiceClient::stateMachine()
 				if((mAudioSession && mAudioSession->mMuteDirty) || mMuteMicDirty || mUpdateTimer.hasExpired())
 				{
 					mUpdateTimer.setTimerExpirySec(UPDATE_THROTTLE_SECONDS);
-					sendPositionalUpdate();
+					sendPositionAndVolumeUpdate();
 				}
 				mIsInitialized = true;
 			}
@@ -2537,16 +2537,16 @@ void LLVivoxVoiceClient::setHidden(bool hidden)
     }
     else
     {
-        sendPositionalUpdate();
+        sendPositionAndVolumeUpdate();
     }
 }
 
-void LLVivoxVoiceClient::sendPositionalUpdate(void)
+void LLVivoxVoiceClient::sendPositionAndVolumeUpdate(void)
 {	
 	std::ostringstream stream;
 	
 
-	if(mSpatialCoordsDirty)
+	if (mSpatialCoordsDirty && inSpatialChannel())
 	{
 		LLVector3 l, u, a, vel;
 		LLVector3d pos;
