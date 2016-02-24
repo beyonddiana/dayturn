@@ -464,11 +464,18 @@ LLViewerFetchedTexture* LLViewerTextureList::getImageFromUrl(const std::string& 
 
 		if (boost_priority != 0)
 		{
-			if (boost_priority == LLViewerFetchedTexture::BOOST_UI
-				|| boost_priority == LLViewerFetchedTexture::BOOST_ICON)
+			if (boost_priority == LLViewerFetchedTexture::BOOST_UI)
 			{
 				imagep->dontDiscard();
 			}
+			if (boost_priority == LLViewerFetchedTexture::BOOST_ICON)
+			{
+				// Agent and group Icons are downloadable content, nothing manages
+				// icon deletion yet, so they should not persist
+				imagep->dontDiscard();
+				imagep->forceActive();
+			}
+
 			imagep->setBoostLevel(boost_priority);
 		}
 	}
@@ -568,10 +575,16 @@ LLViewerFetchedTexture* LLViewerTextureList::createImage(const LLUUID &image_id,
 
 	if (boost_priority != 0)
 	{
-		if (boost_priority == LLViewerFetchedTexture::BOOST_UI
-			|| boost_priority == LLViewerFetchedTexture::BOOST_ICON)
+		if (boost_priority == LLViewerFetchedTexture::BOOST_UI)
 		{
 			imagep->dontDiscard();
+		}
+		if (boost_priority == LLViewerFetchedTexture::BOOST_ICON)
+		{
+			// Agent and group Icons are downloadable content, nothing manages
+			// icon deletion yet, so they should not persist.
+			imagep->dontDiscard();
+			imagep->forceActive();
 		}
 		imagep->setBoostLevel(boost_priority);
 	}
@@ -1700,8 +1713,11 @@ LLUIImagePtr LLUIImageList::loadUIImage(LLViewerFetchedTexture* imagep, const st
 		imagep->getBoostLevel() != LLGLTexture::BOOST_PREVIEW)
 	{
 		// Don't add downloadable content into this list
-		// all UI images are non-deletable and list does not support deletion
+	//all UI images are non-deletable, except downloadable icons
+	if (imagep->getBoostLevel() != LLGLTexture::BOOST_ICON)
+	{
 		imagep->setNoDelete();
+	}
 		mUIImages.insert(std::make_pair(name, new_imagep));
 		mUITextureList.push_back(imagep);
 	}
