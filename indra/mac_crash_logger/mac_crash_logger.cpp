@@ -45,6 +45,11 @@ int main(int argc, char **argv)
 		return 1;
 	}
 
+    if (!(options.has("pid") && options.has("dumpdir")))
+    {
+        LL_WARNS() << "Insufficient parameters to crash report." << LL_ENDL;
+    }	
+
     if (app.getCrashBehavior() != CRASH_BEHAVIOR_ALWAYS_SEND)
     {
 //        return NSApplicationMain(argc, (const char **)argv);
