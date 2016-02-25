@@ -65,6 +65,7 @@ void LLCrashLoggerMac::gatherPlatformSpecificFiles()
 }
 
 bool LLCrashLoggerMac::mainLoop()
+
 {
 
     if (mCrashBehavior == CRASH_BEHAVIOR_ALWAYS_SEND)
