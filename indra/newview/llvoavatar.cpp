@@ -1442,10 +1442,7 @@ void LLVOAvatar::renderCollisionVolumes()
 	for (S32 i = 0; i < mNumCollisionVolumes; i++)
 	{
 		ostr << mCollisionVolumes[i].getName() << ", ";
-	}
 
-   	for (S32 i = 0; i < mNumCollisionVolumes; i++)
-	{
         LLAvatarJointCollisionVolume& collision_volume = mCollisionVolumes[i];
 
 		collision_volume.updateWorldMatrix();
