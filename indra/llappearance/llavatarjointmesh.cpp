@@ -39,6 +39,41 @@
 #include "m3math.h"
 
 
+// Utility functions added with Bento to simplify handling of extra
+// spine joints, or other new joints internal to the original
+// skeleton, and unknown to the system avatar.
+
+//-----------------------------------------------------------------------------
+// getBaseSkeletonAncestor()
+//-----------------------------------------------------------------------------
+LLAvatarJoint *getBaseSkeletonAncestor(LLAvatarJoint* joint)
+{
+    LLJoint *ancestor = joint->getParent();
+    while (ancestor->getParent() && (ancestor->getSupport() != LLJoint::SUPPORT_BASE))
+    {
+        LL_DEBUGS("Avatar") << "skipping non-base ancestor " << ancestor->getName() << LL_ENDL;
+        ancestor = ancestor->getParent();
+    }
+    return (LLAvatarJoint*) ancestor;
+}
+
+//-----------------------------------------------------------------------------
+// totalSkinOffset()
+//-----------------------------------------------------------------------------
+LLVector3 totalSkinOffset(LLAvatarJoint *joint)
+{
+    LLVector3 totalOffset;
+    while (joint)
+    {
+		if (joint->getSupport() == LLJoint::SUPPORT_BASE)
+		{
+			totalOffset += joint->getSkinOffset();
+		}
+		joint = (LLAvatarJoint*)joint->getParent();
+    }
+    return totalOffset;
+}
+
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 // LLAvatarJointMesh::LLSkinJoint
@@ -61,31 +96,6 @@ LLSkinJoint::~LLSkinJoint()
 	mJoint = NULL;
 }
 
-
-LLAvatarJoint *getBaseSkeletonAncestor(LLAvatarJoint* joint)
-{
-    LLJoint *ancestor = joint->getParent();
-    while (ancestor->getParent() && (ancestor->getSupport() != LLJoint::SUPPORT_BASE))
-    {
-        LL_DEBUGS("Avatar") << "skipping non-base ancestor " << ancestor->getName() << LL_ENDL;
-        ancestor = ancestor->getParent();
-    }
-    return (LLAvatarJoint*) ancestor;
-}
-
-LLVector3 totalSkinOffset(LLAvatarJoint *joint)
-{
-    LLVector3 totalOffset;
-    while (joint)
-    {
-		if (joint->getSupport() == LLJoint::SUPPORT_BASE)
-		{
-			totalOffset += joint->getSkinOffset();
-		}
-		joint = (LLAvatarJoint*)joint->getParent();
-    }
-    return totalOffset;
-}
 
 //-----------------------------------------------------------------------------
 // LLSkinJoint::setupSkinJoint()
