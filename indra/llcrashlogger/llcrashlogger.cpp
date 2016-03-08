@@ -209,7 +209,6 @@ void LLCrashLogger::gatherFiles()
     
     bool has_logs = readFromXML( static_sd, "static_debug_info.log" );
     has_logs |= readFromXML( dynamic_sd, "dynamic_debug_info.log" );
-    bool has_endpoint = readFromXML( endpoint, "endpoint.xml" );
 
     
     if ( has_logs )
@@ -220,6 +219,7 @@ void LLCrashLogger::gatherFiles()
 
 		mFileMap["KokuaOSLog"] = mDebugLog["KOSLog"].asString();
 		mFileMap["SettingsXml"] = mDebugLog["SettingsFilename"].asString();
+		mFileMap["CrashHostUrl"] = loadCrashURLSetting();
 		if(mDebugLog.has("CAFilename"))
 		{
 			LLCurl::setCAFile(mDebugLog["CAFilename"].asString());
@@ -248,38 +248,10 @@ void LLCrashLogger::gatherFiles()
 
 	gatherPlatformSpecificFiles();
 
-    if ( has_endpoint && endpoint.has("ViewerCrashReceiver" ) )
+    if ( has_logs && (mFileMap["CrashHostUrl"] != "") )
     {
-        mCrashHost = endpoint["ViewerCrashReceiver"].asString();
+        mCrashHost = mFileMap["CrashHostUrl"];
     }
-    else if ( has_logs )
-    {
-    	//Use the debug log to reconstruct the URL to send the crash report to
-    	if(mDebugLog.has("CurrentSimHost"))
-    	{
-            mCrashHost = "http://viewercrashreport";
-            fqdn = mDebugLog["CurrentSimHost"].asString();
-            boost::regex sim_re( "sim[[:digit:]]+.[[:alpha:]]+.lindenlab.com" );
-            boost::match_results<std::string::const_iterator> results;
-            if ( regex_match( fqdn, sim_re ) )
-            {
-                boost::regex regex_delimited("\\.[[:alpha:]]+\\.");
-                boost::match_flag_type flags = boost::match_default;
-                std::string::const_iterator start = fqdn.begin();
-                std::string::const_iterator end = fqdn.end();
-                boost::regex_search(start, end, results, regex_delimited, flags);
-                grid = std::string(results[0].first, results[0].second);
-                mCrashHost += grid;
-                mCrashHost += "lindenlab.com/cgi-bin/viewercrashreceiver.py"; 
-            }
-            else
-            {
-                mCrashHost = "";
-            }
-
-
-    	}
-    } 
 
 	//default to agni, per product
 	mAltCrashHost = "http://viewercrashreport.agni.lindenlab.com/cgi-bin/viewercrashreceiver.py";
@@ -367,7 +339,8 @@ LLSD LLCrashLogger::constructPostData()
 
 const char* const CRASH_SETTINGS_FILE = "settings_crash_behavior.xml";
 
-S32 LLCrashLogger::loadCrashBehaviorSetting()
+std::string LLCrashLogger::loadCrashURLSetting()
+
 {
 	// First check user_settings (in the user's home dir)
 	std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, CRASH_SETTINGS_FILE);
@@ -378,38 +351,14 @@ S32 LLCrashLogger::loadCrashBehaviorSetting()
 		mCrashSettings.loadFromFile(filename);
 	}
 
-	// If we didn't load any files above, this will return the default
-	S32 value = mCrashSettings.getS32("CrashSubmitBehavior");
-
-	// Whatever value we got, make sure it's valid
-	switch (value)
-	{
-	case CRASH_BEHAVIOR_NEVER_SEND:
-		return CRASH_BEHAVIOR_NEVER_SEND;
-	case CRASH_BEHAVIOR_ALWAYS_SEND:
-		return CRASH_BEHAVIOR_ALWAYS_SEND;
-	}
-
-	return CRASH_BEHAVIOR_ASK;
-}
-
-bool LLCrashLogger::saveCrashBehaviorSetting(S32 crash_behavior)
-{
-	switch (crash_behavior)
-	{
-	case CRASH_BEHAVIOR_ASK:
-	case CRASH_BEHAVIOR_NEVER_SEND:
-	case CRASH_BEHAVIOR_ALWAYS_SEND:
-		break;
-	default:
-		return false;
-	}
-
-	mCrashSettings.setS32("CrashSubmitBehavior", crash_behavior);
-	std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, CRASH_SETTINGS_FILE);
-	mCrashSettings.saveToFile(filename, FALSE);
-
-	return true;
+	if (! mCrashSettings.controlExists("CrashHostUrl"))
+    {
+        return "";
+    }
+    else
+    {
+        return mCrashSettings.getString("CrashHostUrl");
+    }
 }
 
 bool LLCrashLogger::runCrashLogPost(std::string host, LLSD data, std::string msg, int retries, int timeout)
@@ -455,6 +404,7 @@ bool LLCrashLogger::sendCrashLog(std::string dump_dir)
 	bool sent = false;
     
 	//*TODO: Translate
+	updateApplication("DEBUG: crash host in send logs "+mCrashHost);
 	if(mCrashHost != "")
 	{   
         std::string msg = "Using derived crash server... ";
@@ -466,8 +416,8 @@ bool LLCrashLogger::sendCrashLog(std::string dump_dir)
     
 	if(!sent)
 	{
-	    updateApplication("Using alternate (default) server...");
-		sent = runCrashLogPost(mCrashHost, post_data, std::string("Sending to server"), CRASH_UPLOAD_RETRIES, CRASH_UPLOAD_TIMEOUT);
+        updateApplication("Using default server...");
+		sent = runCrashLogPost(mAltCrashHost, post_data, std::string("Sending to default server"), 3, 5);
 	}
     
 	mSentCrashLogs = sent;
