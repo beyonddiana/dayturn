@@ -5193,6 +5193,13 @@ void LLViewerWindow::stopGL(BOOL save_state)
 		
 		gGLManager.mIsDisabled = TRUE;
 		stop_glerror();
+
+		//unload shader's
+		while (LLGLSLShader::sInstances.size())
+		{
+			LLGLSLShader* shader = *(LLGLSLShader::sInstances.begin());
+			shader->unload();
+		}
 		
 		LL_INFOS() << "Remaining allocated texture memory: " << LLImageGL::sGlobalTextureMemory.value() << " bytes" << LL_ENDL;
 	}
