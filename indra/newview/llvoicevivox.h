@@ -115,7 +115,7 @@ public:
 	
 	// close any existing text IM session with the specified user
 	virtual void endUserIMSession(const LLUUID &uuid);
-	
+
 	// Returns true if calling back the session URI after the session has closed is possible.
 	// Currently this will be false only for PSTN P2P calls.		
 	// NOTE: this will return true if the session can't be found. 
@@ -256,6 +256,7 @@ protected:
 	friend class LLVivoxVoiceAccountProvisionResponder;
 	friend class LLVivoxVoiceClientMuteListObserver;
 	friend class LLVivoxVoiceClientFriendsObserver;	
+
 	
 	enum streamState
 	{
@@ -266,6 +267,7 @@ protected:
 		streamStateConnecting = 6,  // same as Vivox session_media_connecting enum
 		streamStateDisconnecting = 7,  //Same as Vivox session_media_disconnecting enum
 	};	
+
 	struct participantState
 	{
 	public:
@@ -500,7 +502,7 @@ protected:
 	// disable auto-VAD and configure VAD parameters explicitly
 	void setupVADParams(unsigned int vad_auto, unsigned int vad_hangover, unsigned int vad_noise_floor, unsigned int vad_sensitivity);
 	void onVADSettingsChange();
-		
+
 	/////////////////////////////
 	// Sending updates of current state
 	void updatePosition(void);
@@ -706,10 +708,10 @@ private:
 	S32 mCurrentParcelLocalID;			// Used to detect parcel boundary crossings
 	std::string mCurrentRegionName;		// Used to detect parcel boundary crossings
 	
-	std::string mConnectorHandle;	// returned by "Create Connector" message
-	std::string mAccountHandle;		// returned by login message		
-	int 		mNumberOfAliases;
-	U32 mCommandCookie;
+    bool mConnectorEstablished; // set by "Create Connector" response
+    bool mAccountLoggedIn;		// set by login message		
+	int  mNumberOfAliases;
+	U32  mCommandCookie;
 
 	std::string mVoiceAccountServerURI;
 	std::string mVoiceSIPURIHostName;
@@ -734,7 +736,6 @@ private:
 
 	bool mIsInitialized;
 	bool mShutdownComplete;
-	
 	
 	bool checkParcelChanged(bool update = false);
 	// This should be called when the code detects we have changed parcels.
@@ -914,6 +915,7 @@ private:
 	S32 mPlayRequestCount;
 };
 
+
 /** 
  * @class LLVivoxProtocolParser
  * @brief This class helps construct new LLIOPipe specializations
@@ -1021,8 +1023,22 @@ protected:
 	void			EndTag(const char *tag);
 	void			CharData(const char *buffer, int length);
 	LLDate			expiryTimeStampToLLDate(const std::string& vivox_ts);
+
 };
 
+class LLVivoxSecurity :	public LLSingleton<LLVivoxSecurity>
+{
+    LLSINGLETON(LLVivoxSecurity);
+    virtual ~LLVivoxSecurity();
+
+  public:
+    std::string     connectorHandle() { return mConnectorHandle; };
+    std::string     accountHandle()    { return mAccountHandle;    };
+
+  private:
+    std::string     mConnectorHandle;
+    std::string     mAccountHandle;
+};
 
 class LLVoiceVivoxStats : public LLSingleton<LLVoiceVivoxStats>
 {
