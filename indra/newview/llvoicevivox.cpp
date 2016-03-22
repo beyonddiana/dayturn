@@ -403,6 +403,7 @@ LLVivoxVoiceClient::LLVivoxVoiceClient() :
 
 	mCurrentParcelLocalID(0),
     mConnectorEstablished(false),
+    mAccountLoggedIn(false),
 	mNumberOfAliases(0),
 	mCommandCookie(0),
 	mLoginRetryCount(0),
