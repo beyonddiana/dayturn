@@ -3611,7 +3611,7 @@ LLSD LLAppViewer::getViewerInfo() const
 //MK
 	if (gRRenabled)
 	{
-		info["CHANNEL"] = gAgent.mRRInterface.getVersion2 ();
+//		info["CHANNEL"] = gAgent.mRRInterface.getVersion2 ();
 	}
 
 	if (gRRenabled && gAgent.mRRInterface.mContainsShowloc)
