@@ -4185,6 +4185,8 @@ If you continue to receive this message, please contact Second Life support for 
     <string name="Alt Right Eye">Alt Right Eye</string>
     <string name="Tongue">Tongue</string>
     <string name="Groin">Groin</string>
+    <string name="Left Hind Foot">Left Hind Foot</string>
+    <string name="Right Hind Foot">Right Hind Foot</string>
 	<string name="Invalid Attachment">Invalid Attachment Point</string>
 	<string name="ATTACHMENT_MISSING_ITEM">Error: missing item</string>
 	<string name="ATTACHMENT_MISSING_BASE_ITEM">Error: missing base item</string>
