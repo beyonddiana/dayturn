@@ -7756,6 +7756,15 @@ void process_teleport_local(LLMessageSystem *msg,void**)
 	////	gAgentCamera.resetView(TRUE, TRUE);
 	////}
 //mk
+	if ( !gRRenabled )
+	{
+		if ( !(gAgent.getTeleportKeepsLookAt() && LLViewerJoystick::getInstance()->getOverrideCamera()) )
+		{
+			gAgentCamera.resetView(TRUE, TRUE);
+		}
+	}
+
+
 	// send camera update to new region
 	gAgentCamera.updateCamera();
 
