@@ -2159,30 +2159,38 @@ static bool parse_lure_bucket(const std::string& bucket,
 							  U8& region_access)
 {
 	// tokenize the bucket
+    
+	if (!gIsInSecondLife)
+	{
+	    return false;
+	}
+    
 	typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
 	boost::char_separator<char> sep("|", "", boost::keep_empty_tokens);
 	tokenizer tokens(bucket, sep);
 	tokenizer::iterator iter = tokens.begin();
+    LL_WARNS() << "Lure bucket from region " << bucket << LL_ENDL; 
 
-	S32 gx,gy,rx,ry,rz,lx,ly,lz;
+	U32 gx,gy,rx,ry,rz,lx,ly,lz;
 	try
 	{
-		gx = boost::lexical_cast<S32>((*(iter)).c_str());
-		gy = boost::lexical_cast<S32>((*(++iter)).c_str());
-		rx = boost::lexical_cast<S32>((*(++iter)).c_str());
-		ry = boost::lexical_cast<S32>((*(++iter)).c_str());
-		rz = boost::lexical_cast<S32>((*(++iter)).c_str());
-		lx = boost::lexical_cast<S32>((*(++iter)).c_str());
-		ly = boost::lexical_cast<S32>((*(++iter)).c_str());
-		lz = boost::lexical_cast<S32>((*(++iter)).c_str());
+		gx = boost::lexical_cast<U32>((*(iter)).c_str());
+		gy = boost::lexical_cast<U32>((*(++iter)).c_str());
+		rx = boost::lexical_cast<U32>((*(++iter)).c_str());
+		ry = boost::lexical_cast<U32>((*(++iter)).c_str());
+		rz = boost::lexical_cast<U32>((*(++iter)).c_str());
+		lx = boost::lexical_cast<U32>((*(++iter)).c_str());
+		ly = boost::lexical_cast<U32>((*(++iter)).c_str());
+		lz = boost::lexical_cast<U32>((*(++iter)).c_str());
 	}
-	catch( boost::bad_lexical_cast& )
+    catch( boost::bad_lexical_cast& )
 	{
 		LL_WARNS("parse_lure_bucket")
 			<< "Couldn't parse lure bucket."
 			<< LL_ENDL;
 		return false;
 	}
+
 	// Grab region access
 	region_access = SIM_ACCESS_MIN;
 	if (++iter != tokens.end())
