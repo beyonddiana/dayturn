@@ -53,14 +53,11 @@ public:
 
 // LLUpdateChecker
 //-----------------------------------------------------------------------------
-
-
 LLUpdateChecker::LLUpdateChecker(LLUpdateChecker::Client & client):
 	mImplementation(new LLUpdateChecker::Implementation(client))
 {
 	; // No op.
 }
-
 
 void LLUpdateChecker::checkVersion(std::string const & urlBase, 
 								   std::string const & channel,
@@ -74,18 +71,16 @@ void LLUpdateChecker::checkVersion(std::string const & urlBase,
 }
 
 
-
 // LLUpdateChecker::Implementation
 //-----------------------------------------------------------------------------
-
-
 const char * LLUpdateChecker::Implementation::sProtocolVersion = "v1.1";
 
 
 LLUpdateChecker::Implementation::Implementation(LLUpdateChecker::Client & client):
 	mClient(client),
 	mInProgress(false),
-	mProtocol(sProtocolVersion)
+	mProtocol(sProtocolVersion),
+	mWillingToTest(false)
 {
 	; // No op.
 }
