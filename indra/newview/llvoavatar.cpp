@@ -5627,7 +5627,50 @@ void LLVOAvatar::addAttachmentPosOverridesForObject(LLViewerObject *vo)
 	if ( pelvisGotSet ) 
 	{
 		postPelvisSetRecalc();
-	}		
+	}
+	
+    showAttachmentPosOverrides();		
+}
+
+//-----------------------------------------------------------------------------
+// showAttachmentPosOverrides
+//-----------------------------------------------------------------------------
+void LLVOAvatar::showAttachmentPosOverrides() const
+{
+    LLVector3 pos;
+    LLUUID mesh_id;
+    S32 count = 0;
+    
+    // Bones
+	for (avatar_joint_list_t::const_iterator iter = mSkeleton.begin();
+         iter != mSkeleton.end(); ++iter)
+	{
+		const LLJoint* pJoint = (*iter);
+		if (pJoint && pJoint->hasAttachmentPosOverride(pos,mesh_id))
+		{
+			pJoint->showAttachmentPosOverrides(getFullname());
+            count++;
+		}
+	}
+
+    // Attachment points
+	for (attachment_map_t::const_iterator iter = mAttachmentPoints.begin();
+		 iter != mAttachmentPoints.end();
+		 ++iter)
+	{
+		const LLViewerJointAttachment *attachment_pt = (*iter).second;
+        if (attachment_pt && attachment_pt->hasAttachmentPosOverride(pos,mesh_id))
+        {
+            attachment_pt->showAttachmentPosOverrides(getFullname());
+            count++;
+        }
+    }
+
+    if (count)
+    {
+        LL_DEBUGS("Avatar") << avString() << " end of pos overrides" << LL_ENDL;
+        LL_DEBUGS("Avatar") << "=================================" << LL_ENDL;
+    }
 }
 
 //-----------------------------------------------------------------------------
@@ -5843,6 +5886,7 @@ BOOL LLVOAvatar::loadSkeletonNode ()
 			if (info->mHasPosition)
 			{
 				attachment->setOriginalPosition(info->mPosition);
+				attachment->setDefaultPosition(info->mPosition);
 			}
 			
 			if (info->mHasRotation)
