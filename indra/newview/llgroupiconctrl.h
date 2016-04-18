@@ -65,6 +65,8 @@ public:
 	 * @params value - if LLUUID - it is processed as group id otherwise base method is called.
 	 */
 	virtual void setValue(const LLSD& value);
+	
+	void setIconId(const LLSD& value);
 
 	// LLGroupMgrObserver observer trigger
 	virtual void changed(LLGroupChange gc);
