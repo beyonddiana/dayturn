@@ -34,6 +34,8 @@
 #include "llmath.h"
 #include "llapr.h"
 
+extern BOOL gIsInSecondLife; //Opensim or SecondLife
+
 //#if LL_DARWIN
 // MBW -- XXX -- Getting rid of SecondLifeVorbis for now
 #if 0
@@ -189,10 +191,15 @@ S32 check_for_invalid_wav_formats(const std::string& in_fname, std::string& erro
 
 	F32 clip_length = (F32)raw_data_length/(F32)bytes_per_sec;
 		
-	if (clip_length > LLVORBIS_CLIP_MAX_TIME)
+	if (gIsInSecondLife && clip_length > LLVORBIS_CLIP_MAX_TIME)
 	{
-		error_msg = "SoundFileInvalidTooLong";
-		return(LLVORBISENC_CLIP_TOO_LONG);		 
+		error_msg = "LLSoundFileInvalidTooLong";
+		return(LLVORBISENC_CLIP_TOO_LONG);	
+			 
+	} else if (!gIsInSecondLife && clip_length > OSVORBIS_CLIP_MAX_TIME)
+	{
+		error_msg = "OSSoundFileInvalidTooLong";
+		return(LLVORBISENC_CLIP_TOO_LONG);	
 	}
 
     return(LLVORBISENC_NOERR);
