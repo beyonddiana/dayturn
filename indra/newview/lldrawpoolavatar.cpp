@@ -52,6 +52,7 @@
 #include "llrendersphere.h"
 #include "llviewerpartsim.h"
 #include "llviewercontrol.h" // for gSavedSettings
+#include "llviewertexturelist.h"
 
 //MK
 #include "llvoavatarself.h"
@@ -68,6 +69,7 @@ S32     LLDrawPoolAvatar::sShadowPass = -1;
 S32 LLDrawPoolAvatar::sDiffuseChannel = 0;
 F32 LLDrawPoolAvatar::sMinimumAlpha = 0.2f;
 
+LLUUID gBlackSquareID;
 
 static bool is_deferred_render = false;
 static bool is_post_deferred_render = false;
@@ -2067,7 +2069,21 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 			{
 				//order is important here LLRender::DIFFUSE_MAP should be last, becouse it change 
 				//(gGL).mCurrTextureUnitIndex
-				gGL.getTexUnit(specular_channel)->bind(face->getTexture(LLRender::SPECULAR_MAP));
+                LLViewerTexture* specular = NULL;
+                if (LLPipeline::sImpostorRender)
+                {
+                    specular = LLViewerTextureManager::findFetchedTexture(gBlackSquareID, TEX_LIST_STANDARD);
+                    llassert(NULL != specular);
+                }
+                else
+                {
+                    specular = face->getTexture(LLRender::SPECULAR_MAP);
+                }
+                if (specular)
+                {
+                    gGL.getTexUnit(specular_channel)->bind(specular);
+                }
+
 				gGL.getTexUnit(normal_channel)->bind(face->getTexture(LLRender::NORMAL_MAP));
 				gGL.getTexUnit(sDiffuseChannel)->bind(face->getTexture(LLRender::DIFFUSE_MAP), false, true);
 
