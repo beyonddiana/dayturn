@@ -195,6 +195,12 @@ void LLViewerTextureList::doPreloadImages()
 		mImagePreloads.insert(image);
 	}
 
+	LLPointer<LLImageRaw> img_blak_square_tex(new LLImageRaw(2, 2, 3));
+	memset(img_blak_square_tex->getData(), 0, img_blak_square_tex->getDataSize());
+	LLPointer<LLViewerFetchedTexture> img_blak_square(new LLViewerFetchedTexture(img_blak_square_tex, FTT_DEFAULT, FALSE));
+	gBlackSquareID = img_blak_square->getID();
+	img_blak_square->setUnremovable(true);
+	addImage(img_blak_square, TEX_LIST_STANDARD);
 	
 }
 
@@ -884,7 +890,7 @@ void LLViewerTextureList::updateImagesDecodePriorities()
 			LLPointer<LLViewerFetchedTexture> imagep = iter->second;
 			++iter; // safe to increment now
 
-			if(imagep->isInDebug())
+			if(imagep->isInDebug() || imagep->isUnremovable())
 			{
 				update_counter--;
 				continue; //is in debug, ignore.

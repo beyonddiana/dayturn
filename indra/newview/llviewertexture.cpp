@@ -1152,6 +1152,7 @@ void LLViewerFetchedTexture::init(bool firstinit)
 	mLastCallBackActiveTime = 0.f;
 	mForceCallbackFetch = FALSE;
 	mInDebug = FALSE;
+	mUnremovable = false;
 
 	mFTType = FTT_UNKNOWN;
 }
