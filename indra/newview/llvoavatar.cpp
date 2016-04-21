@@ -1520,27 +1520,25 @@ void LLVOAvatar::renderBones()
 		}
 
 		jointp->updateWorldMatrix();
-
+        LLJoint::SupportCategory sc = jointp->getSupport();
         LLVector3 occ_color, visible_color;
 
-        LLVector3 pos;
-        LLUUID mesh_id;
-        if (jointp->hasAttachmentPosOverride(pos,mesh_id))
-        {
-            occ_color = OVERRIDE_COLOR_OCCLUDED;
-            visible_color = OVERRIDE_COLOR_VISIBLE;
+        if (jointIsRiggedTo(jointp->getName()))
+		{
+            occ_color = RIGGED_COLOR_OCCLUDED;
+            visible_color = RIGGED_COLOR_VISIBLE;
         }
         else
         {
-            if (jointIsRiggedTo(jointp->getName()))
+            if (sc == LLJoint::SUPPORT_BASE)
             {
-                occ_color = RIGGED_COLOR_OCCLUDED;
-                visible_color = RIGGED_COLOR_VISIBLE;
+                occ_color = BASE_COLOR_OCCLUDED;
+                visible_color = BASE_COLOR_VISIBLE;
             }
             else
             {
-                occ_color = OTHER_COLOR_OCCLUDED;
-                visible_color = OTHER_COLOR_VISIBLE;
+                occ_color = EXTENDED_COLOR_OCCLUDED;
+                visible_color = EXTENDED_COLOR_VISIBLE;
             }
         }
         LLVector3 begin_pos(0,0,0);
@@ -5534,6 +5532,62 @@ bool LLVOAvatar::jointIsRiggedTo(const std::string& joint_name, const LLViewerOb
     return false;
 }
 
+bool LLVOAvatar::jointIsRiggedTo(const std::string& joint_name)
+{
+	for (attachment_map_t::iterator iter = mAttachmentPoints.begin(); 
+		 iter != mAttachmentPoints.end();
+		 ++iter)
+	{
+		LLViewerJointAttachment* attachment = iter->second;
+        for (LLViewerJointAttachment::attachedobjs_vec_t::iterator attachment_iter = attachment->mAttachedObjects.begin();
+             attachment_iter != attachment->mAttachedObjects.end();
+             ++attachment_iter)
+        {
+            const LLViewerObject* attached_object = (*attachment_iter);
+            if (attached_object && jointIsRiggedTo(joint_name, attached_object))
+            {
+                return true;
+            }
+        }
+	}
+    return false;
+}
+
+bool LLVOAvatar::jointIsRiggedTo(const std::string& joint_name, const LLViewerObject *vo)
+{
+	// Process all children
+	LLViewerObject::const_child_list_t& children = vo->getChildren();
+	for (LLViewerObject::const_child_list_t::const_iterator it = children.begin();
+		 it != children.end(); ++it)
+	{
+		LLViewerObject *childp = *it;
+        if (jointIsRiggedTo(joint_name,childp))
+        {
+            return true;
+        }
+	}
+
+	const LLVOVolume *vobj = dynamic_cast<const LLVOVolume*>(vo);
+	if (!vobj)
+	{
+		return false;
+	}
+
+	LLUUID currentId = vobj->getVolume()->getParams().getSculptID();						
+	const LLMeshSkinInfo*  pSkinData = gMeshRepo.getSkinInfo( currentId, vobj );
+
+	if ( vobj && vobj->isAttachment() && vobj->isMesh() && pSkinData )
+	{
+        if (std::find(pSkinData->mJointNames.begin(), pSkinData->mJointNames.end(), joint_name) !=
+            pSkinData->mJointNames.end())
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 void LLVOAvatar::clearAttachmentPosOverrides()
 {
 	//Subsequent joints are relative to pelvis
@@ -5608,14 +5662,17 @@ void LLVOAvatar::addAttachmentPosOverridesForObject(LLViewerObject *vo)
 					{   									
 						pJoint->setId( currentId );
 						const LLVector3& jointPos = pSkinData->mAlternateBindMatrix[i].getTranslation();									
-						//Set the joint position
-						pJoint->addAttachmentPosOverride( jointPos, mesh_id, avString() );
-									
-						//If joint is a pelvis then handle old/new pelvis to foot values
-						if ( lookingForJoint == "mPelvis" )
-						{	
-							pelvisGotSet = true;											
-						}										
+                        if (!jointPos.isNull())
+                        {
+                            //Set the joint position
+                            pJoint->addAttachmentPosOverride( jointPos, mesh_id, avString() );
+                            
+                            //If joint is a pelvis then handle old/new pelvis to foot values
+                            if ( lookingForJoint == "mPelvis" )
+                            {	
+                                pelvisGotSet = true;											
+                            }										
+                        }
 					}										
 				}																
 				if (pelvisZOffset != 0.0F)
