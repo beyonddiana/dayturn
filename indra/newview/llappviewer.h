@@ -150,12 +150,7 @@ public:
     virtual void forceErrorBadMemoryAccess();
     virtual void forceErrorInfiniteLoop();
     virtual void forceErrorSoftwareException();
-    virtual void forceErrorDriverCrash();
-
-	// The list is found in app_settings/settings_files.xml
-	// but since they are used explicitly in code,
-	// the follow consts should also do the trick.
-	static const std::string sGlobalSettingsName; 
+    virtual void forceErrorDriverCrash(); 
 
 	LLCachedControl<bool> mRandomizeFramerate; 
 	LLCachedControl<bool> mPeriodicSlowFrame; 
