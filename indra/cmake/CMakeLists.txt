@@ -136,7 +136,6 @@ set(cmake_SOURCE_FILES
     FindFMODEX.cmake
     FindGLH.cmake
     FindGoogleBreakpad.cmake
-    FindGooglePerfTools.cmake
     FindHUNSPELL.cmake
     FindJsonCpp.cmake
     FindNDOF.cmake
@@ -154,7 +153,6 @@ set(cmake_SOURCE_FILES
     Glut.cmake
     GoogleBreakpad.cmake
     GoogleMock.cmake
-    GooglePerfTools.cmake
     Havok.cmake
     Hunspell.cmake
     JPEG.cmake
