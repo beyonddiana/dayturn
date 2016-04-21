@@ -62,6 +62,7 @@ using namespace llsd;
 #	include "llwin32headerslean.h"
 #   include <psapi.h>               // GetPerformanceInfo() et al.
 #elif LL_DARWIN
+#   include "llsys_objc.h"  // <AV:CR>
 #	include <errno.h>
 #	include <sys/sysctl.h>
 #	include <sys/utsname.h>
@@ -440,14 +441,12 @@ LLOSInfo::LLOSInfo() :
 	// Initialize mOSStringSimple to something like:
 	// "Mac OS X 10.6.7"
 	{
+		// <AV:CR>
 		const char * DARWIN_PRODUCT_NAME = "Mac OS X";
 		
-		SInt32 major_version, minor_version, bugfix_version;
-		OSErr r1 = Gestalt(gestaltSystemVersionMajor, &major_version);
-		OSErr r2 = Gestalt(gestaltSystemVersionMinor, &minor_version);
-		OSErr r3 = Gestalt(gestaltSystemVersionBugFix, &bugfix_version);
+		S32 major_version, minor_version, bugfix_version = 0;
 
-		if((r1 == noErr) && (r2 == noErr) && (r3 == noErr))
+		if (LLSysDarwin::getOperatingSystemInfo(major_version, minor_version, bugfix_version))
 		{
 			mMajorVer = major_version;
 			mMinorVer = minor_version;
@@ -463,7 +462,9 @@ LLOSInfo::LLOSInfo() :
 		{
 			mOSStringSimple.append("Unable to collect OS info");
 		}
+		// </AV:CR>
 	}
+	
 	
 	// Initialize mOSString to something like:
 	// "Mac OS X 10.6.7 Darwin Kernel Version 10.7.0: Sat Jan 29 15:17:16 PST 2011; root:xnu-1504.9.37~1/RELEASE_I386 i386"
