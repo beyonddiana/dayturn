@@ -38,7 +38,7 @@
 		顯像初始化失敗。 請更新你的顯像卡驅動程式！
 	</string>
 	<string name="AboutHeader">
-		[APP_NAME] [VIEWER_VERSION_0].[VIEWER_VERSION_1].[VIEWER_VERSION_2] ([VIEWER_VERSION_3]) [BUILD_DATE] [BUILD_TIME] ([CHANNEL])
+		[APP_NAME] [VIEWER_VERSION_0].[VIEWER_VERSION_1].[VIEWER_VERSION_2].[VIEWER_VERSION_3] ([CHANNEL])
 [[VIEWER_RELEASE_NOTES_URL] [ReleaseNotes]]
 	</string>
 	<string name="AboutCompiler">
@@ -64,10 +64,9 @@
 	<string name="AboutLibs">
 		OpenGL 版本：[OPENGL_VERSION]
 
-libcurl 版本： [LIBCURL_VERSION]
 J2C 解碼器版本： [J2C_VERSION]
 音效驅動程式版本： [AUDIO_DRIVER_VERSION]
-Qt Webkit 版本： [QT_WEBKIT_VERSION]
+LLCEFLib/CEF版本：[LLCEFLIB_VERSION]
 語音伺服器版本： [VOICE_VERSION]
 	</string>
 	<string name="AboutTraffic">
