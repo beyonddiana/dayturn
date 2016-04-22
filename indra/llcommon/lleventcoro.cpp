@@ -251,6 +251,15 @@ LLSD llcoro::suspendUntilEventOnWithTimeout(const LLEventPumpOrPumpName& suspend
     return llcoro::suspendUntilEventOn(suspendPump);
 }
 
+LLSD llcoro::suspendUntilEventOnWithTimeout(const LLEventPumpOrPumpName& pump, F32 timeoutin, const LLSD &timeoutResult)
+{
+    LLEventTimeout timeoutPump(pump);
+
+    timeoutPump.eventAfter(timeoutin, timeoutResult);
+    return llcoro::suspendUntilEventOn(timeoutPump);
+
+}
+
 namespace
 {
 
