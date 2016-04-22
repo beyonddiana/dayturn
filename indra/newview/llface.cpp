@@ -2229,11 +2229,10 @@ BOOL LLFace::getGeometryVolume(const LLVolume& volume,
 
 			LLVector4a src;
 
-			U32 glow32 = glow |
-						 (glow << 8) |
-						 (glow << 16) |
-						 (glow << 24);
 
+ 			LLColor4U glow4u = LLColor4U(0,0,0,glow);
+ 			
+ 			U32 glow32 = glow4u.asRGBA();
 
 			U32 vec[4];
 			vec[0] = vec[1] = vec[2] = vec[3] = glow32;
