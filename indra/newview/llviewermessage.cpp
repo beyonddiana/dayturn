@@ -96,7 +96,6 @@
 #include "llviewermenu.h"
 #include "llviewerinventory.h"
 #include "llviewerjoystick.h"
-#include "llviewernetwork.h" // <FS:AW opensim currency support>
 #include "llviewerobjectlist.h"
 #include "llviewerparcelmgr.h"
 #include "llviewerstats.h"
@@ -146,6 +145,8 @@ static const F32 LLREQUEST_PERMISSION_THROTTLE_INTERVAL	= 10.0f; // seconds
 
 extern BOOL gDebugClicks;
 extern bool gShiftFrame;
+extern BOOL gIsInSecondLife; //Opensim or SecondLife
+
 
 // function prototypes
 bool check_offer_throttle(const std::string& from_name, bool check_only);
@@ -4152,7 +4153,7 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 		endIdx = simString.find_first_of (delims, begIdx);
 		gSimulatorType = simString.substr (begIdx, endIdx - begIdx);
 	}
-	gIsInSecondLife = LLGridManager::getInstance()->isInSecondLife();
+
 	LL_INFOS("GridManager") << "Simulator Type : " << gSimulatorType << " Global isInSecondLife is: " << gIsInSecondLife << LL_ENDL;
 	if (!isAgentAvatarValid())
 	{
