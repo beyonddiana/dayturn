@@ -50,6 +50,10 @@ LLPumpIO* gServicePump = NULL;
 BOOL gBreak = false;
 BOOL gSent = false;
 
+#define CRASH_UPLOAD_RETRIES 3 /* seconds */
+#define CRASH_UPLOAD_TIMEOUT 180 /* seconds */
+
+
 class LLCrashLoggerResponder : public LLHTTPClient::Responder
 {
 	LOG_CLASS(LLCrashLoggerResponder);
@@ -430,12 +434,12 @@ bool LLCrashLogger::sendCrashLog(std::string dump_dir)
 	//*TODO: Translate
 	if(mCrashHost != "")
 	{
-		sent = runCrashLogPost(mCrashHost, post_data, std::string("Sending to server"), 3, 5);
+		sent = runCrashLogPost(mCrashHost, post_data, std::string("Sending to server"), CRASH_UPLOAD_RETRIES, CRASH_UPLOAD_TIMEOUT);
 	}
     
 	if(!sent)
 	{
-		sent = runCrashLogPost(mAltCrashHost, post_data, std::string("Sending to alternate server"), 3, 5);
+		sent = runCrashLogPost(mCrashHost, post_data, std::string("Sending to server"), CRASH_UPLOAD_RETRIES, CRASH_UPLOAD_TIMEOUT);
 	}
     
 	mSentCrashLogs = sent;
