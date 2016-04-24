@@ -62,7 +62,7 @@ viewer_channel = "Kokua Release"
 # the default sourceid should always be a null string:
 sourceid = ""
 # the additional_packages variable is a blank separated list of package prefixes:
-additional_packages = ""
+# additional_packages = ""
 # to set the special values for a package, create variables using each prefix:
 #   additional_packages = "Foo Bar"
 #   Foo_sourceid = "bingo"
@@ -78,6 +78,7 @@ additional_packages = "EDU"
 # are synchronized as much as possible with the academic year
 EDU_sourceid = ""
 EDU_viewer_channel_suffix = "edu"
+Linux.additional_packages = ""
 
 # Notifications - to configure email notices use the TeamCity parameter
 # setting screen for your project or build configuration to set the
