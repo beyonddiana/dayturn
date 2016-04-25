@@ -805,6 +805,10 @@ void LLLandmarksPanel::onAddAction(const LLSD& userdata) const
 	std::string command_name = userdata.asString();
 	if("add_landmark" == command_name)
 	{
+//MK
+		if (!gRRenabled || !gAgent.mRRInterface.mContainsShowloc)
+		{
+//mk
 		LLViewerInventoryItem* landmark = LLLandmarkActions::findLandmarkForAgentPos();
 		if(landmark)
 		{
@@ -814,7 +818,10 @@ void LLLandmarksPanel::onAddAction(const LLSD& userdata) const
 		{
 			LLFloaterSidePanelContainer::showPanel("places", LLSD().with("type", "create_landmark"));
 		}
-	} 
+//MK
+		}
+//mk
+	}
 	else if ("category" == command_name)
 	{
 		if (item && mCurrentSelectedList == mLandmarksInventoryPanel)
