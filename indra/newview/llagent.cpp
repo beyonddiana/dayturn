@@ -673,7 +673,15 @@ void LLAgent::moveAt(S32 direction, bool reset)
 
 	if (reset)
 	{
+//MK
+		// If we are sitting on something, don't reset the view when moving (we can press Escape for that)
+		if (!gAgentAvatarp->isSitting())
+		{
+//mk
 		gAgentCamera.resetView();
+//MK
+		}
+//mk
 	}
 }
 
@@ -748,7 +756,15 @@ void LLAgent::moveLeft(S32 direction)
 		setControlFlags(AGENT_CONTROL_LEFT_NEG | AGENT_CONTROL_FAST_LEFT);
 	}
 
+//MK
+	// If we are sitting on something, don't reset the view when moving (we can press Escape for that)
+	if (!gAgentAvatarp->isSitting())
+	{
+//mk
 	gAgentCamera.resetView();
+//MK
+	}
+//mk
 }
 
 //-----------------------------------------------------------------------------
@@ -781,7 +797,15 @@ void LLAgent::moveLeftNudge(S32 direction)
 		setControlFlags(AGENT_CONTROL_NUDGE_LEFT_NEG);
 	}
 
-	gAgentCamera.resetView();
+//MK
+	// If we are sitting on something, don't reset the view when moving (we can press Escape for that)
+	if (!gAgentAvatarp->isSitting())
+	{
+//mk
+		gAgentCamera.resetView();
+//MK
+	}
+//mk
 }
 
 //-----------------------------------------------------------------------------
