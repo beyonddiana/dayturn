@@ -5767,6 +5767,13 @@ void LLVOAvatar::clearAttachmentPosOverrides()
 	}
 }
 
+bool above_joint_pos_threshold(const LLVector3& diff)
+{
+    return !diff.isNull();
+    //const F32 max_joint_pos_offset = 0.0001f; // 0.1 mm
+    //return diff.lengthSquared() > max_joint_pos_offset * max_joint_pos_offset;
+}
+
 //-----------------------------------------------------------------------------
 // addAttachmentPosOverridesForObject
 //-----------------------------------------------------------------------------
@@ -5825,7 +5832,7 @@ void LLVOAvatar::addAttachmentPosOverridesForObject(LLViewerObject *vo)
 					{   									
 						pJoint->setId( currentId );
 						const LLVector3& jointPos = pSkinData->mAlternateBindMatrix[i].getTranslation();									
-                        if ((jointPos-pJoint->getDefaultPosition()).isNull())
+                        if (!above_joint_pos_threshold(jointPos-pJoint->getDefaultPosition()))
                         {
                             LL_DEBUGS("Avatar") << "Attachment pos override ignored for " << pJoint->getName()
                                                 << ", pos " << jointPos << " is same as default pos" << LL_ENDL;
@@ -5858,7 +5865,10 @@ void LLVOAvatar::addAttachmentPosOverridesForObject(LLViewerObject *vo)
 		postPelvisSetRecalc();
 	}
 	
-    showAttachmentPosOverrides();		
+    if (isSelf())
+    {
+        showAttachmentPosOverrides();
+    }
 }
 
 //-----------------------------------------------------------------------------
