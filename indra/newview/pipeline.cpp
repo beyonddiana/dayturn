@@ -926,18 +926,6 @@ bool LLPipeline::allocateScreenBuffer(U32 resX, U32 resY, U32 samples)
 
 	if (res_mod > 1 && res_mod < resX && res_mod < resY)
 	{
-//MK
-		// We have a bug right now : when spheres are drawn by RLV commands such as @camdrawXXX, RenderResolutionDivisor makes
-		// the display go nuts, allowing to cheat through the rendering of the spheres
-		// => make RenderResolutionDivisor very high so that we don't see anything at all.
-		if (gRRenabled && (gAgent.mRRInterface.mCamDistDrawMin < EXTREMUM || gAgent.mRRInterface.mCamDistDrawMax < EXTREMUM))
-		{
-			if (res_mod < 256)
-			{
-				res_mod = 256;
-			}
-		}
-//mk
 		resX /= res_mod;
 		resY /= res_mod;
 	}
