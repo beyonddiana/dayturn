@@ -95,7 +95,7 @@ const int MAX_LOGIN_RETRIES = 12;
 // to voice server (EXT-4313). When voice works correctly, there is from 1 to 15 times. 50 was chosen 
 // to make sure we don't make mistake when slight connection problems happen- situation when connection to server is 
 // blocked is VERY rare and it's better to sacrifice response time in this situation for the sake of stability.
-const int MAX_NORMAL_JOINING_SPATIAL_NUM = 50;
+const int MAX_NORMAL_JOINING_SPATIAL_NUM = 150;
 
 // How often to check for expired voice fonts in seconds
 const F32 VOICE_FONT_EXPIRY_INTERVAL = 10.f;
@@ -1528,7 +1528,7 @@ void LLVivoxVoiceClient::stateMachine()
 		//MARK: stateLeavingSession
 		case stateLeavingSession:		// waiting for terminate session response
 			// The handler for the Session.Terminate response will transition from here to stateSessionTerminated.
-		break;
+		// break; // brett, should fall through and clean up session before getting terminated event.
 
 		//MARK: stateSessionTerminated
 		case stateSessionTerminated:
@@ -1538,6 +1538,7 @@ void LLVivoxVoiceClient::stateMachine()
 			
 			if(mAudioSession)
 			{
+				leaveAudioSession();
 				sessionState *oldSession = mAudioSession;
 
 				mAudioSession = NULL;
@@ -2829,21 +2830,26 @@ void LLVivoxVoiceClient::sessionGroupAddSessionResponse(std::string &requestId, 
 void LLVivoxVoiceClient::sessionConnectResponse(std::string &requestId, int statusCode, std::string &statusString)
 {
 	sessionState *session = findSession(requestId);
-	if(statusCode != 0)
+	// 1026 is session already has media, somehow mediaconnect was called twice in the same session
+	// set the session info to reflect the user is already connected.
+	if(statusCode = 1026)
+	{
+		session->mVoiceEnabled = true;
+		session->mMediaConnectInProgress = false;
+		session->mMediaStreamState = streamStateConnected;
+		session->mTextStreamState = streamStateConnected;
+		session->mErrorStatusCode = 0;
+	}
+	else if (statusCode != 0)
 	{
 		LL_WARNS("Voice") << "Session.Connect response failure (" << statusCode << "): " << statusString << LL_ENDL;
 		if(session)
 		{
 			session->mMediaConnectInProgress = false;
-			session->mErrorStatusCode = statusCode;		
-			session->mErrorStatusString = statusString;
-			if(session == mAudioSession)
+			session->mErrorStatusCode = statusCode;
+			if (session == mAudioSession)
 				setState(stateJoinSessionFailed);
 		}
-	}
-	else
-	{
-		LL_DEBUGS("Voice") << "Session.Connect response received (success)" << LL_ENDL;
 	}
 }
 
@@ -4626,6 +4632,10 @@ void LLVivoxVoiceClient::enforceTether(void)
 
 void LLVivoxVoiceClient::updatePosition(void)
 {
+	// Throttle the position updates to one every 1/10 of a second if we are in an audio session at all
+	if (mAudioSession == NULL) {
+		return;
+	}
 	
 	LLViewerRegion *region = gAgent.getRegion();
 	if(region && isAgentAvatarValid())
