@@ -1967,7 +1967,10 @@ void LLVivoxVoiceClient::leaveAudioSession()
 void LLVivoxVoiceClient::sessionTerminateSendMessage(sessionState *session)
 {
 	std::ostringstream stream;
-	
+
+	sessionGroupTerminateSendMessage(session);
+	return;
+	/*
 	LL_DEBUGS("Voice") << "Sending Session.Terminate with handle " << session->mHandle << LL_ENDL;	
 	stream
 	<< "<Request requestId=\"" << mCommandCookie++ << "\" action=\"Session.Terminate.1\">"
@@ -1975,6 +1978,7 @@ void LLVivoxVoiceClient::sessionTerminateSendMessage(sessionState *session)
 	<< "</Request>\n\n\n";
 	
 	writeString(stream.str());
+	*/
 }
 
 void LLVivoxVoiceClient::sessionGroupTerminateSendMessage(sessionState *session)
@@ -1993,7 +1997,9 @@ void LLVivoxVoiceClient::sessionGroupTerminateSendMessage(sessionState *session)
 void LLVivoxVoiceClient::sessionMediaDisconnectSendMessage(sessionState *session)
 {
 	std::ostringstream stream;
-	
+	sessionGroupTerminateSendMessage(session);
+	return;
+	/*
 	LL_DEBUGS("Voice") << "Sending Session.MediaDisconnect with handle " << session->mHandle << LL_ENDL;	
 	stream
 	<< "<Request requestId=\"" << mCommandCookie++ << "\" action=\"Session.MediaDisconnect.1\">"
@@ -2003,6 +2009,7 @@ void LLVivoxVoiceClient::sessionMediaDisconnectSendMessage(sessionState *session
 	<< "</Request>\n\n\n";
 	
 	writeString(stream.str());
+	*/
 	
 }
 
