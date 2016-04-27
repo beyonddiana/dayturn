@@ -27,6 +27,7 @@
 #import "llappdelegate-objc.h"
 #include "llwindowmacosx-objc.h"
 #include <Carbon/Carbon.h> // Used for Text Input Services ("Safe" API - it's supported)
+#import <Foundation/Foundation.h>
 
 @implementation LLAppDelegate
 
@@ -43,6 +44,7 @@
 - (void) applicationWillFinishLaunching:(NSNotification *)notification
 {
     [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
+	
 }
 
 - (void) applicationDidFinishLaunching:(NSNotification *)notification
@@ -54,6 +56,7 @@
 	if (initViewer())
 	{
 		frameTimer = [NSTimer scheduledTimerWithTimeInterval:0.0 target:self selector:@selector(mainLoop) userInfo:nil repeats:YES];
+		// this is possibly where SLPlugin should be launced with NSTask
 	} else {
 		handleQuit();
 	}
@@ -102,6 +105,7 @@
 		return NSTerminateCancel;
 	} else {
 		[frameTimer release];
+		// SLPlugin should be stopped here
 		cleanupViewer();
 		return NSTerminateNow;
 	}
@@ -167,6 +171,12 @@
     }
     
     return true;
+}
+
+- (void)applicationWillTerminate:(NSNotification *)notification
+{
+		// do nothing for now
+		// clean up the last bits here 
 }
 
 @end
