@@ -283,9 +283,9 @@ LLVivoxVoiceClient::LLVivoxVoiceClient() :
 	mDevicesListUpdated(false),
 
 	mAreaVoiceDisabled(false),
-	mAudioSession(NULL),
+	mAudioSession(),
 	mAudioSessionChanged(false),
-	mNextAudioSession(NULL),
+	mNextAudioSession(),
 
 	mCurrentParcelLocalID(0),
 	mNumberOfAliases(0),
