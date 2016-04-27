@@ -363,6 +363,7 @@ BOOL LLVoiceClient::isSessionCallBackPossible(const LLUUID& id)
 	}	
 }
 
+/* obsolete
 BOOL LLVoiceClient::sendTextMessage(const LLUUID& participant_id, const std::string& message)
 {
 	if (mVoiceModule) 
@@ -374,12 +375,13 @@ BOOL LLVoiceClient::sendTextMessage(const LLUUID& participant_id, const std::str
 		return FALSE;
 	}	
 }
+*/
 
 void LLVoiceClient::endUserIMSession(const LLUUID& participant_id)
 {
 	if (mVoiceModule) 
 	{
-		mVoiceModule->endUserIMSession(participant_id);
+		// mVoiceModule->endUserIMSession(participant_id);  // A SLim leftover
 	}
 }
 
@@ -657,11 +659,8 @@ void LLVoiceClient::keyUp(KEY key, MASK mask)
 {
 	if (!mPTTIsMiddleMouse && (key == mPTTKey))
 	{
-		bool down = gKeyboard->getKeyDown(mPTTKey);
-		if (!down)
-		{
-			inputUserControlState(down);
-		}
+		bool down = (mPTTKey != KEY_NONE) && gKeyboard->getKeyDown(mPTTKey);
+		if (down) { inputUserControlState(down); }
 	}
 }
 void LLVoiceClient::middleMouseState(bool down)

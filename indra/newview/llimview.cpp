@@ -1277,11 +1277,12 @@ void LLIMModel::sendMessage(const std::string& utf8_text,
 	
 	U8 offline = (!info || info->isOnline()) ? IM_ONLINE : IM_OFFLINE;
 	
-	if((offline == IM_OFFLINE) && (LLVoiceClient::getInstance()->isOnlineSIP(other_participant_id)))
-	{
-		// User is online through the OOW connector, but not with a regular viewer.  Try to send the message via SLVoice.
-		sent = LLVoiceClient::getInstance()->sendTextMessage(other_participant_id, utf8_text);
-	}
+	// Old call to send messages to SLim client,  no longer supported.
+	//if((offline == IM_OFFLINE) && (LLVoiceClient::getInstance()->isOnlineSIP(other_participant_id)))
+	//{
+	//	// User is online through the OOW connector, but not with a regular viewer.  Try to send the message via SLVoice.
+	//	sent = LLVoiceClient::getInstance()->sendTextMessage(other_participant_id, utf8_text);
+	//}
 	
 	if(!sent)
 	{
