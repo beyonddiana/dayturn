@@ -407,11 +407,6 @@ class Windows_i686_Manifest(ViewerManifest):
             self.path("libsndfile-1.dll")
             self.path("vivoxoal.dll")
             self.path("ca-bundle.crt")
-            self.path("vivoxplatform.dll")
-            try:
-                self.path("zlib1.dll")
-            except:
-                print "Skipping zlib1.dll"
 
 				# Security
             self.path("ssleay32.dll")

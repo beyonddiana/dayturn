@@ -508,7 +508,7 @@ void LLVivoxVoiceClient::connectorCreate()
 		<< "<Folder>" << logpath << "</Folder>"
 		<< "<FileNamePrefix>Connector</FileNamePrefix>"
 		<< "<FileNameSuffix>.log</FileNameSuffix>"
-		<< "<LogLevel>" << loglevel << "</LogLevel>""
+		<< "<LogLevel>" << loglevel << "</LogLevel>"
 		<< "</Logging>"
 		<< "<Application>" << LLVersionInfo::getChannel().c_str() << " " << LLVersionInfo::getVersion().c_str() << "</Application>"
 		//<< "<Application></Application>"  //Name can cause problems per vivox.
@@ -3079,8 +3079,8 @@ void LLVivoxVoiceClient::sessionRemovedEvent(
 	}
 	else
 	{
-		LL_WARNS("Voice") << "unknown session " << sessionHandle << " removed" << LL_ENDL;
-	}
+		// Already reaped this session.
+		LL_DEBUGS("Voice") << "unknown session " << sessionHandle << " removed" << LL_ENDL;	}
 }
 
 void LLVivoxVoiceClient::reapSession(sessionState *session)
@@ -3322,8 +3322,8 @@ void LLVivoxVoiceClient::mediaStreamUpdatedEvent(
 	}
 	else
 	{
-		LL_WARNS("Voice") << "session " << sessionHandle << "not found"<< LL_ENDL;
-	}
+		// session disconnectintg and disconnected events arriving after we have already left the session.
+		LL_DEBUGS("Voice") << "session " << sessionHandle << " not found"<< LL_ENDL;	}
 }
 
 
@@ -3397,6 +3397,7 @@ void LLVivoxVoiceClient::participantRemovedEvent(
 	}
 	else
 	{
+		// a late arriving event on a session we have already left.
 		LL_DEBUGS("Voice") << "unknown session " << sessionHandle << LL_ENDL;
 	}
 }
@@ -3481,7 +3482,7 @@ void LLVivoxVoiceClient::participantUpdatedEvent(
 	}
 	else
 	{
-		LL_INFOS("Voice") << "unknown session " << sessionHandle << LL_ENDL;
+		LL_DEBUGS("Voice") << "unknown session " << sessionHandle << LL_ENDL;
 	}
 }
 

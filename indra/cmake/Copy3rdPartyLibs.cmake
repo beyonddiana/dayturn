@@ -26,8 +26,6 @@ if(WINDOWS)
         ortp.dll
         libsndfile-1.dll
         vivoxoal.dll
-        vivoxplatform.dll
-        zlib1.dll
         )
 
     #*******************************
