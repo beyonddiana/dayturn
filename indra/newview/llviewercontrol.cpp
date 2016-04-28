@@ -197,9 +197,9 @@ static bool handleLUTBufferChanged(const LLSD& newvalue)
 	return true;
 }
 
-static bool handleAnisotropicChanged(const LLSD &newvalue)
+static bool handleAnisotropicChanged(const LLSD& newvalue)
 {
-	LLImageGL::sGlobalAnisotropicSamples = (F32)newvalue.asReal();
+	LLImageGL::sGlobalUseAnisotropic = newvalue.asBoolean();
 	LLImageGL::dirtyTexOptions();
 	return true;
 }

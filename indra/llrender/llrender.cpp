@@ -498,7 +498,7 @@ void LLTexUnit::setTextureFilteringOption(LLTexUnit::eTextureFilterOptions optio
 
 	if (gGLManager.mHasAnisotropic)
 	{
-		if (LLImageGL::sGlobalAnisotropicSamples > 1.f && option == TFO_ANISOTROPIC)
+		if (LLImageGL::sGlobalUseAnisotropic && option == TFO_ANISOTROPIC)
 		{
 			if (gGL.mMaxAnisotropy < 1.f)
 			{
@@ -507,7 +507,7 @@ void LLTexUnit::setTextureFilteringOption(LLTexUnit::eTextureFilterOptions optio
 				LL_INFOS() << "gGL.mMaxAnisotropy: " << gGL.mMaxAnisotropy << LL_ENDL ;
 				gGL.mMaxAnisotropy = llmax(1.f, gGL.mMaxAnisotropy) ;
 			}
-			glTexParameterf(sGLTextureType[mCurrTexType], GL_TEXTURE_MAX_ANISOTROPY_EXT, llmin(LLImageGL::sGlobalAnisotropicSamples, gGL.mMaxAnisotropy));
+			glTexParameterf(sGLTextureType[mCurrTexType], GL_TEXTURE_MAX_ANISOTROPY_EXT, gGL.mMaxAnisotropy);
 		}
 		else
 		{
