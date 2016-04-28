@@ -144,12 +144,12 @@ void LLWorld::destroyClass()
 
 	LLSceneMonitor::deleteSingleton();
 }
-// <NP: disable build constraints> //see /indra/llcommon/stdtypes.h for defined values F32_MIN = FLT_MIN = 0 NOT -INF
+// <NP: disable build constraints> //see /indra/llcommon/stdtypes.h for defined values F32_MIN = FLT_MIN = 0 NOT -INF 
 F32 LLWorld::getRegionMinPrimScale() const
 {
 	if (gSavedSettings.getBOOL("DisableMaxBuildConstraints"))
 	{
-		return F32_MIN; 
+		return ( mRegionMinPrimScale * 0.1f );
 	}
 	else
 	{
@@ -197,7 +197,7 @@ F32 LLWorld::getRegionMinPrimXPos() const
 {
 	if (gSavedSettings.getBOOL("DisableMaxBuildConstraints"))
 	{
-		return F32_MIN;
+		return ( mRegionMinPrimXPos * 0.1f );
 	}
 	else
 	{
@@ -209,7 +209,7 @@ F32 LLWorld::getRegionMinPrimYPos() const
 {
 	if (gSavedSettings.getBOOL("DisableMaxBuildConstraints"))
 	{
-		return FLT_MIN;
+		return ( mRegionMinPrimYPos * 0.1f );
 	}
 	else
 	{
@@ -221,7 +221,7 @@ F32 LLWorld::getRegionMinPrimZPos() const
 {
 	if (gSavedSettings.getBOOL("DisableMaxBuildConstraints"))
 	{
-		return FLT_MIN;
+		return ( mRegionMinPrimZPos * 0.1F );
 	}
 	else
 	{
