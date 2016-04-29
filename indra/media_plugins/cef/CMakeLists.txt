@@ -2,6 +2,7 @@
 
 project(media_plugin_cef)
 
+include(Boost)
 include(00-Common)
 include(LLCommon)
 include(LLImage)
@@ -57,8 +58,8 @@ set(media_plugin_cef_HEADER_FILES
 set (media_plugin_cef_LINK_LIBRARIES
   ${LLPLUGIN_LIBRARIES}
   ${MEDIA_PLUGIN_BASE_LIBRARIES}
-  ${LLCOMMON_LIBRARIES}
   ${CEF_PLUGIN_LIBRARIES}
+  ${LLCOMMON_LIBRARIES}
   ${PLUGIN_API_WINDOWS_LIBRARIES})
 
 
@@ -97,11 +98,9 @@ add_library(media_plugin_cef
     ${media_plugin_cef_SOURCE_FILES}
 )
 
-add_dependencies(media_plugin_cef
-  ${LLPLUGIN_LIBRARIES}
-  ${MEDIA_PLUGIN_BASE_LIBRARIES}
-  ${LLCOMMON_LIBRARIES}
-)
+#add_dependencies(media_plugin_cef
+#  ${MEDIA_PLUGIN_BASE_LIBRARIES}
+#)
 
 target_link_libraries(media_plugin_cef
   ${media_plugin_cef_LINK_LIBRARIES}
@@ -111,7 +110,7 @@ if (WINDOWS)
   set_target_properties(
     media_plugin_cef
     PROPERTIES
-    LINK_FLAGS "/MANIFEST:NO /SAFESEH:NO /NODEFAULTLIB:LIBCMT"
+    LINK_FLAGS "/MANIFEST:NO /SAFESEH:NO /LTCG /NODEFAULTLIB:LIBCMT"
     LINK_FLAGS_DEBUG "/MANIFEST:NO /SAFESEH:NO /NODEFAULTLIB:LIBCMTD"
     )
 endif (WINDOWS)
