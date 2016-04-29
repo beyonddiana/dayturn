@@ -174,25 +174,8 @@ void LLAudioEngine::shutdown()
 // virtual
 void LLAudioEngine::startInternetStream(const std::string& url)
 {
-	std::string test_url(url);
-#if 0 //#ifdef LL_DARWIN
-	// We need to change http:// streams to icy:// in order to use them with quicktime.
-	// This isn't a good place to put this, but none of this is good, so... -- MC
-	LLURI uri(test_url);
-	std::string scheme = uri.scheme();
-	if ((scheme.empty() || "http" == scheme || "https" == scheme) &&
-		((test_url.length() > 4) &&
-		 (test_url.substr(test_url.length()-4, 4) != ".pls") &&		// Shoutcast listen.pls playlists
-		 (test_url.substr(test_url.length()-4, 4) != ".m3u"))		// Icecast liten.m3u playlists
-		)
-	{
-		std::string temp_url = "icy:" + uri.opaque();
-		test_url = temp_url; 
-	}
-#endif
-	
 	if (mStreamingAudioImpl)
-		mStreamingAudioImpl->start(test_url);
+		mStreamingAudioImpl->start(url);
 }
 
 
@@ -858,6 +841,10 @@ void LLAudioEngine::triggerSound(const LLUUID &audio_uuid, const LLUUID& owner_i
 	asp->play(audio_uuid);
 }
 
+void LLAudioEngine::triggerSound(SoundData& soundData)
+{
+	triggerSound(soundData.audio_uuid, soundData.owner_id, soundData.gain, soundData.type, soundData.pos_global);
+}
 
 void LLAudioEngine::setListenerPos(LLVector3 aVec)
 {
