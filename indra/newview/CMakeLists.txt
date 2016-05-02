@@ -1627,6 +1627,7 @@ if (WINDOWS)
         oleaut32
         shell32
         Vfw32
+        wer
         winspool
         )
 
