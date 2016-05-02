@@ -85,22 +85,23 @@ std::string LLModel::getStatusString(U32 status)
 }
 
 
-void LLModel::offsetMesh(const LLVector3& pivotPoint)
+void LLModel::offsetMesh( const LLVector3& pivotPoint )
 {
-	LLVector4a pivot(pivotPoint[VX], pivotPoint[VY], pivotPoint[VZ]);
-
-	for (std::vector<LLVolumeFace>::iterator faceIt = mVolumeFaces.begin(); faceIt != mVolumeFaces.end();)
+	LLVector4a pivot( pivotPoint[VX], pivotPoint[VY], pivotPoint[VZ] );
+	
+	for (std::vector<LLVolumeFace>::iterator faceIt = mVolumeFaces.begin(); faceIt != mVolumeFaces.end(); )
 	{
-		std::vector<LLVolumeFace>::iterator currentFaceIt = faceIt++;
+		std::vector<LLVolumeFace>:: iterator currentFaceIt = faceIt++;
 		LLVolumeFace& face = *currentFaceIt;
-		LLVector4a *pos = (LLVector4a*)face.mPositions;
-
-		for (U32 i = 0; i<face.mNumVertices; ++i)
+		LLVector4a *pos = (LLVector4a*) face.mPositions;
+		
+		for (U32 i=0; i<face.mNumVertices; ++i )
 		{
-			pos[i].add(pivot);
+			pos[i].add( pivot );
 		}
 	}
 }
+
 void LLModel::optimizeVolumeFaces()
 {
 	for (U32 i = 0; i < getNumVolumeFaces(); ++i)
@@ -165,7 +166,7 @@ void LLModel::trimVolumeFacesToSize(U32 new_count, LLVolume::face_list_t* remain
 		if (remainder)
 		{
 			(*remainder).assign(mVolumeFaces.begin() + new_count, mVolumeFaces.end());
-		}
+		}		
 
 		// Trim down to the final set of volume faces (now stuffed to the gills!)
 		//
