@@ -35,7 +35,6 @@
 //mk
 
 class LLButton;
-class LLComboBox;
 class LLCheckBoxCtrl;
 class LLComboBox;
 class LLPanelPermissions;
