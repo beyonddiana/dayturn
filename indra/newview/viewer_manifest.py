@@ -745,7 +745,6 @@ class Darwin_i386_Manifest(ViewerManifest):
 
                 self.path("licenses-mac.txt", dst="licenses.txt")
                 self.path("featuretable_mac.txt")
-                self.path("Kokua.nib")
 
                 icon_path = self.icon_path()
                 if self.prefix(src=icon_path, dst="") :
