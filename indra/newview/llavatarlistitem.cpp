@@ -82,6 +82,7 @@ LLAvatarListItem::LLAvatarListItem(bool not_from_ui_factory/* = true*/)
 ////	mShowPermissions(false),
 	mShowPermissions(true),
 //mk
+	mShowCompleteName(false),
 	mHovered(false),
 	mShowDisplayName(true),
 	mShowUsername(true),
@@ -95,6 +96,7 @@ LLAvatarListItem::LLAvatarListItem(bool not_from_ui_factory/* = true*/)
 	mPaymentStatus(NULL),
 	mAvatarAge(0),
 	mAvatarNameCacheConnection(),
+	mGreyOutUsername(""),
 	// [Ansariel: Colorful radar]
 	mUseRangeColors(false),
 	// [Ansariel: Colorful radar]
@@ -617,15 +619,27 @@ void LLAvatarListItem::processProperties(void* data, EAvatarProcessorType type)
 
 void LLAvatarListItem::setNameInternal(const std::string& name, const std::string& highlight)
 {
-	LLTextUtil::textboxSetHighlightedVal(mAvatarName, mAvatarNameStyle, name, highlight);
-}
+    if(mShowCompleteName && highlight.empty())
+    {
+        LLTextUtil::textboxSetGreyedVal(mAvatarName, mAvatarNameStyle, name, mGreyOutUsername);
+    }
+    else
+    {
+        LLTextUtil::textboxSetHighlightedVal(mAvatarName, mAvatarNameStyle, name, highlight);
+    }}
 
 void LLAvatarListItem::onAvatarNameCache(const LLAvatarName& av_name)
 {
 	mAvatarNameCacheConnection.disconnect();
 
-	setAvatarName(LLAvatarList::getNameToDisplay(av_name));
-	setAvatarToolTip(av_name.getUserName());
+	mGreyOutUsername = "";
+	std::string name_string = mShowCompleteName? av_name.getCompleteName(false) : av_name.getDisplayName();
+	if(av_name.getCompleteName() != av_name.getUserName())
+	{
+	    mGreyOutUsername = "[ " + av_name.getUserName(true) + " ]";
+	    LLStringUtil::toLower(mGreyOutUsername);
+	}
+	setAvatarName(name_string);	setAvatarToolTip(av_name.getUserName());
 
 	//requesting the list to resort
 	notifyParent(LLSD().with("sort", LLSD()));

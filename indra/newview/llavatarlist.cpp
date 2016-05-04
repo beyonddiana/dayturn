@@ -233,6 +233,7 @@ LLAvatarList::LLAvatarList(const Params& p)
 , mShowStatusFlags(false)
 , mShowUsername(true)
 , mShowDisplayName(true)
+, mShowCompleteName(false)
 , mIgnoreGlobalIcons(false)
 , mShowAge(false)
 , mShowPaymentStatus(false)
@@ -286,6 +287,12 @@ void LLAvatarList::setUseRangeColors(bool UseRangeColors)
 	}
 }
 // [Ansariel: Colorful radar]
+
+std::string LLAvatarList::getAvatarName(LLAvatarName av_name)
+{
+	return mShowCompleteName? av_name.getCompleteName(false) : av_name.getDisplayName();
+}
+
 
 // virtual
 void LLAvatarList::draw()
@@ -391,9 +398,8 @@ void LLAvatarList::refresh()
 		const LLUUID& buddy_id = *it;
 		LLAvatarName av_name;
 		have_names &= LLAvatarNameCache::get(buddy_id, &av_name);
-		std::string display_name = getNameToDisplay(av_name);
 
-		if (!have_filter || findInsensitive(display_name, mNameFilter))
+		if (!have_filter || findInsensitive(getAvatarName(av_name), mNameFilter))
 		{
 			if (nadded >= ADD_LIMIT)
 			{
@@ -411,6 +417,7 @@ void LLAvatarList::refresh()
 				}
 				else
 				{
+					std::string display_name = getAvatarName(av_name);
 					addNewItem(buddy_id, 
 						display_name.empty() ? waiting_str : display_name, 
 						LLAvatarTracker::instance().isBuddyOnline(buddy_id));
@@ -440,7 +447,7 @@ void LLAvatarList::refresh()
 			const LLUUID& buddy_id = it->asUUID();
 			LLAvatarName av_name;
 			have_names &= LLAvatarNameCache::get(buddy_id, &av_name);
-			if (!findInsensitive(getNameToDisplay(av_name), mNameFilter))
+			if (!findInsensitive(getAvatarName(av_name), mNameFilter))
 			{
 				removeItemByUUID(buddy_id);
 				modified = true;
@@ -494,6 +501,7 @@ void LLAvatarList::updateAvatarNames()
 	for( std::vector<LLPanel*>::const_iterator it = items.begin(); it != items.end(); it++)
 	{
 		LLAvatarListItem* item = static_cast<LLAvatarListItem*>(*it);
+		item->setShowCompleteName(mShowCompleteName);
 		item->updateAvatarName();
 	}
 	mNeedUpdateNames = false;
@@ -554,6 +562,7 @@ void LLAvatarList::addNewItem(const LLUUID& id, const std::string& name, BOOL is
 	}
 //mk
 	LLAvatarListItem* item = new LLAvatarListItem();
+	item->setShowCompleteName(mShowCompleteName);
 	// This sets the name as a side effect
 	item->setAvatarId(id, mSessionID, mIgnoreOnlineStatus);
 	item->setOnline(mIgnoreOnlineStatus ? true : is_online);
@@ -578,6 +587,8 @@ void LLAvatarList::addNewItem(const LLUUID& id, const std::string& name, BOOL is
 	item->setShoutRangeColor(colorTable->getColor("AvatarListItemShoutRange", LLColor4::yellow));
 	item->setBeyondShoutRangeColor(colorTable->getColor("AvatarListItemBeyondShoutRange", LLColor4::red));
 	// [/Ansariel: Colorful radar]
+
+
 
 	item->setDoubleClickCallback(boost::bind(&LLAvatarList::onItemDoubleClicked, this, _1, _2, _3, _4));
 
