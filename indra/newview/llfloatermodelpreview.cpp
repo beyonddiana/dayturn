@@ -95,6 +95,7 @@
 //static
 S32 LLFloaterModelPreview::sUploadAmount = 10;
 LLFloaterModelPreview* LLFloaterModelPreview::sInstance = NULL;
+extern BOOL gIsInSecondLife; //Opensim or SecondLife
 
 bool LLModelPreview::sIgnoreLoadedCallback = false;
 
@@ -247,9 +248,6 @@ void FindModel(LLModelLoader::scene& scene, const std::string& name_to_match, LL
             }
         }
         base_iter++;
-// <FS:CR Threaded Filepickers>
-	//: LLLoadFilePickerThread(LLFilePicker::FFLOAD_COLLADA) //<KOKUA:NP revert>
-// </FS:CR Threaded Filepickers>
     }
 }
 
@@ -365,27 +363,6 @@ BOOL LLFloaterModelPreview::postBuild()
 			text->setMouseDownCallback(boost::bind(&LLModelPreview::setPreviewLOD, mModelPreview, i));
 		}
 	}
-
-	// <Ansariel> Changed grid detection and validation URL generation
-	//            because of grid manager. This will need adjustments
-	//            when OpenSims become mesh-capable!
-	//std::string current_grid = LLGridManager::getInstance()->getGridId();
-	//std::transform(current_grid.begin(),current_grid.end(),current_grid.begin(),::tolower);
-	//std::string validate_url;
-	//if (current_grid == "agni")
-	//{
-	//	validate_url = "http://secondlife.com/my/account/mesh.php";
-	//}
-	//else if (current_grid == "damballah")
-	//{
-	//	// Staging grid has its own naming scheme.
-	//	validate_url = "http://secondlife-staging.com/my/account/mesh.php";
-	//}
-	//else
-	//{
-	//	validate_url = llformat("http://secondlife.%s.lindenlab.com/my/account/mesh.php",current_grid.c_str());
-	//}
-
 	std::string current_grid = LLGridManager::getInstance()->getGridNick();
 	std::transform(current_grid.begin(),current_grid.end(),current_grid.begin(),::tolower);
 	std::string validate_url;
@@ -395,17 +372,14 @@ BOOL LLFloaterModelPreview::postBuild()
 	}
 	else if (LLGridManager::getInstance()->isInSLBeta())
 	{
-		validate_url = llformat("http://secondlife.%s.lindenlab.com/my/account/mesh.php", current_grid.c_str());
+		// Staging grid has its own naming scheme.
+		validate_url = "http://secondlife-staging.com/my/account/mesh.php";
 	}
-#ifdef HAS_OPENSIM_SUPPORT // <FS:AW optional opensim support>
 	else
 	{
 		// TODO: Opensim: Set it to something reasonable
 		validate_url = LLGridManager::getInstance()->getLoginPage();
 	}
-	// </Ansariel>
-#endif // <FS:AW optional opensim support>
-
 	getChild<LLTextBox>("warning_message")->setTextArg("[VURL]", validate_url);
 
 	mUploadBtn = getChild<LLButton>("ok_btn");
@@ -1216,7 +1190,7 @@ void LLFloaterModelPreview::onMouseCaptureLostModelPreview(LLMouseHandler* handl
 	gViewerWindow->showCursor();
 }
 
-
+//-----------------------------------------------------------------------------
 // LLModelPreview
 //-----------------------------------------------------------------------------
 
@@ -1442,8 +1416,9 @@ void LLModelPreview::rebuildUploadData()
 		F32 x_length = x_transformed.normalize();
 		F32 y_length = y_transformed.normalize();
 		F32 z_length = z_transformed.normalize();
+
 		max_scale = llmax(llmax(llmax(max_scale, x_length), y_length), z_length);
-		
+
 		mat *= scale_mat;
 
 		for (LLModelLoader::model_instance_list::iterator model_iter = iter->second.begin(); model_iter != iter->second.end();)
@@ -3337,7 +3312,8 @@ void LLModelPreview::genBuffers(S32 lod, bool include_skin_weights)
 			if (vf.mTexCoords)
 			{
 				vb->getTexCoord0Strider(tc_strider);
-				LLVector4a::memcpyNonAliased16((F32*) tc_strider.get(), (F32*) vf.mTexCoords, num_vertices*2*sizeof(F32));
+				S32 tex_size = (num_vertices*2*sizeof(F32)+0xF) & ~0xF;
+				LLVector4a::memcpyNonAliased16((F32*) tc_strider.get(), (F32*) vf.mTexCoords, tex_size);
 			}
 			
 			if (vf.mNormals)
@@ -4553,6 +4529,18 @@ void LLFloaterModelPreview::onPermissionsReceived(const LLSD& result)
 	std::string upload_status = result["mesh_upload_status"].asString();
 	// BAP HACK: handle "" for case that  MeshUploadFlag cap is broken.
 	mHasUploadPerm = (("" == upload_status) || ("valid" == upload_status));
+
+    if (gIsInSecondLife)
+    {
+    	if (!mHasUploadPerm) 
+    	{
+        	LL_WARNS() << "Upload permission set to false because upload_status=\"" << upload_status << "\"" << LL_ENDL;
+    	}
+    	else if (mHasUploadPerm && mUploadModelUrl.empty())
+    	{
+        LL_WARNS() << "Upload permission set to true but uploadModelUrl is empty!" << LL_ENDL;
+    	}
+    }
 
 	// isModelUploadAllowed() includes mHasUploadPerm
 	mUploadBtn->setEnabled(isModelUploadAllowed());
