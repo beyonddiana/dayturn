@@ -8359,9 +8359,9 @@ void LLVOAvatar::dumpArchetypeXML(const std::string& prefix, bool group_by_weara
 	{
 		LLNotificationsUtil::add("AppearanceToXMLFailed");
 	}
-	outfile.close()
-	}
+	outfile.close();
 }
+
 
 
 void LLVOAvatar::setVisibilityRank(U32 rank)
