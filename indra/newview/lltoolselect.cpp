@@ -236,7 +236,7 @@ LLObjectSelectionHandle LLToolSelect::handleObjectSelection(const LLPickInfo& pi
 	{
 		gSavedSettings.setBOOL("SelectOwnedOnly", select_owned);
 		gSavedSettings.setBOOL("SelectMovableOnly", select_movable);
-		gSavedSettings.setBOOL("SelectCoyableOnly", select_copyable);
+		gSavedSettings.setBOOL("SelectCopyableOnly", select_copyable);
 		LLSelectMgr::getInstance()->setForceSelection(FALSE);
 	}
 
