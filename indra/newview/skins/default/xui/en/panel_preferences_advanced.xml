@@ -219,18 +219,6 @@
          top_delta="0"
          width="315" />
     </radio_group>
-	<button
-     height="20"
-     label="Default Creation Permissions"
-     follows="left|top"
-     layout="topleft"
-     name="default_creation_permissions"
-     left="30"
-     top_pad = "5"
-     width="250">
-	<button.commit_callback
-	 function="Pref.PermsDefault" />
-   </button>
     <check_box
      control_name="AllowMultipleViewers"
      follows="top|left"
@@ -318,4 +306,15 @@
      text_color="White_25">
         (requires restart)
     </text>
+    <button
+     height="20"
+     label="Default Creation Permissions"
+     layout="topleft"
+     name="Default Creation Permissions"
+     left="30"
+     top_pad = "10"
+     width="250">
+	<button.commit_callback
+	 function="Pref.PermsDefault" />
+  </button>
 </panel>
