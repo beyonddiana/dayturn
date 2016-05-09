@@ -112,6 +112,10 @@ if __name__ == "__main__":
         print "adding random offsets for",args.random_offsets
         mesh_random_offsets(tree, args.random_offsets)
 
+    if args.random_offsets:
+        print "adding random offsets for",args.random_offsets
+        mesh_random_offsets(tree, args.random_offsets)
+
     if args.outfilename:
         print "writing",args.outfilename
         f = open(args.outfilename,"w")
