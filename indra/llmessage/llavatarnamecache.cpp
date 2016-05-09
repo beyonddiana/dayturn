@@ -33,8 +33,13 @@
 #include "llhttpclient.h"
 #include "llsd.h"
 #include "llsdserialize.h"
-
+#include "httpresponse.h"
 #include <boost/tokenizer.hpp>
+
+#include "httpcommon.h"
+#include "httprequest.h"
+#include "httpheaders.h"
+
 
 #include <map>
 #include <set>
