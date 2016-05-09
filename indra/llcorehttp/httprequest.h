@@ -463,6 +463,67 @@ public:
 						  HttpHeaders * headers,
 						  HttpHandler * handler);
 
+    /// Queue a full HTTP PUT.  Query arguments and body may
+    /// be provided.  Caller is responsible for escaping and
+    /// encoding and communicating the content types.
+    ///
+    /// @param	policy_id		@see requestGet()
+    /// @param	priority		"
+    /// @param	url				"
+    /// @param	options			@see requestGet()K(optional)
+    /// @param	headers			"
+    /// @param	handler			"
+    /// @return					"
+    ///
+    HttpHandle requestDelete(policy_t policy_id,
+            priority_t priority,
+            const std::string & url,
+            HttpOptions * options,
+            HttpHeaders * headers,
+            HttpHandler * user_handler);
+
+    /// Queue a full HTTP PUT.  Query arguments and body may
+    /// be provided.  Caller is responsible for escaping and
+    /// encoding and communicating the content types.
+    ///
+    /// @param	policy_id		@see requestGet()
+    /// @param	priority		"
+    /// @param	url				"
+    /// @param	body			Byte stream to be sent as the body.  No
+    ///							further encoding or escaping will be done
+    ///							to the content.
+    /// @param	options			@see requestGet()K(optional)
+    /// @param	headers			"
+    /// @param	handler			"
+    /// @return					"
+    ///
+    HttpHandle requestPatch(policy_t policy_id,
+            priority_t priority,
+            const std::string & url,
+            BufferArray * body,
+            HttpOptions * options,
+            HttpHeaders * headers,
+            HttpHandler * user_handler);
+
+    /// Queue a full HTTP PUT.  Query arguments and body may
+    /// be provided.  Caller is responsible for escaping and
+    /// encoding and communicating the content types.
+    ///
+    /// @param	policy_id		@see requestGet()
+    /// @param	priority		"
+    /// @param	url				"
+    /// @param	options			@see requestGet()K(optional)
+    /// @param	headers			"
+    /// @param	handler			"
+    /// @return					"
+    ///
+    HttpHandle requestCopy(policy_t policy_id,
+            priority_t priority,
+            const std::string & url,
+            HttpOptions * options,
+            HttpHeaders * headers,
+            HttpHandler * user_handler);
+ 
 
 	/// Queue a NoOp request.
 	/// The request is queued and serviced by the working thread which
