@@ -6519,7 +6519,7 @@ class LLAvatarResetSkeleton: public view_listener_t
 		LLVOAvatar* avatar = find_avatar_from_object( LLSelectMgr::getInstance()->getSelection()->getPrimaryObject() );
 		if(avatar)
         {
-            avatar->resetSkeleton();
+            avatar->resetSkeleton(false);
         }
         return true;
     }

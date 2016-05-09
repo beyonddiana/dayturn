@@ -217,7 +217,7 @@ struct LLTextureMaskData
  **/
 
 
-struct LLAppearanceMessageContents
+struct LLAppearanceMessageContents: public LLRefCount
 {
 	LLAppearanceMessageContents():
 		mAppearanceVersion(-1),
@@ -1872,45 +1872,107 @@ void LLVOAvatar::buildCharacter()
 //-----------------------------------------------------------------------------
 // resetSkeleton()
 //-----------------------------------------------------------------------------
-void LLVOAvatar::resetSkeleton()
+void LLVOAvatar::resetVisualParams()
 {
-    LL_DEBUGS("Avatar") << avString() << LL_ENDL;
-
-    // Stop all animations
-
-    // Clear all attachment pos overrides
-    clearAttachmentOverrides();
-
-    // Preserve state of tweakable params
-    
-    // Reset all params to default state, without propagating changes downstream.
+#if 0
 	for (LLVisualParam *param = getFirstVisualParam(); 
 		param;
 		param = getNextVisualParam())
 	{
-#if 0	
 		if (param->isAnimating())
 		{
 			continue;
 		}
         param->setLastWeight(param->getDefaultWeight());
+    }
 #endif
-	}
+}
 
-    // Reset all bones and collision volumes to their initial skeleton state.
+//-----------------------------------------------------------------------------
+// resetSkeleton()
+//-----------------------------------------------------------------------------
+void LLVOAvatar::resetSkeleton(bool reset_animations)
+{
+    LL_DEBUGS("Avatar") << avString() << " reset starts" << LL_ENDL;
+    if (!mLastProcessedAppearance)
+    {
+        LL_WARNS() << "Can't reset avatar; no appearance message has been received yet." << LL_ENDL;
+        return;
+    }
+
+    // Save mPelvis state
+    //LLVector3 pelvis_pos = getJoint("mPelvis")->getPosition();
+    //LLQuaternion pelvis_rot = getJoint("mPelvis")->getRotation();
+
+    // Clear all attachment pos and scale overrides
+    clearAttachmentOverrides();
+
+    // Note that we call buildSkeleton twice in this function. The first time is
+    // just to get the right scale for the collision volumes, because
+    // this will be used in setting the mJointScales for the
+    // LLPolySkeletalDistortions of which the CVs are children.
 	if( !buildSkeleton(sAvatarSkeletonInfo) )
     {
         LL_ERRS() << "Error resetting skeleton" << LL_ENDL;
 	}
 
+    // Reset some params to default state, without propagating changes downstream.
+    resetVisualParams();
+
+    // Now we have to reset the skeleton again, because its state
+    // got clobbered by the resetVisualParams() calls
+    // above.
+	if( !buildSkeleton(sAvatarSkeletonInfo) )
+    {
+        LL_ERRS() << "Error resetting skeleton" << LL_ENDL;
+	}
+
+    // Reset attachment points (buildSkeleton only does bones and CVs)
+    bool ignore_hud_joints = true;
+    initAttachmentPoints(ignore_hud_joints);
+
+    // Fix up collision volumes
+    for (LLVisualParam *param = getFirstVisualParam(); 
+         param;
+         param = getNextVisualParam())
+    {
+        LLPolyMorphTarget *poly_morph = dynamic_cast<LLPolyMorphTarget*>(param);
+        if (poly_morph)
+        {
+            // This is a kludgy way to correct for the fact that the
+            // collision volumes have been reset out from under the
+            // poly morph sliders.
+            F32 delta_weight = poly_morph->getLastWeight() - poly_morph->getDefaultWeight();
+            poly_morph->applyVolumeChanges(delta_weight);
+        }
+    }
+
     // Reset tweakable params to preserved state
-    // Apply params
-#if 0
+    bool slam_params = true;
+    applyParsedAppearanceMessage(*mLastProcessedAppearance, slam_params);
     updateVisualParams();
-#endif
 
     // Restore attachment pos overrides
     rebuildAttachmentOverrides();
+
+    // Animations
+    if (reset_animations)
+    {
+        if (isSelf())
+        {
+            // This is equivalent to "Stop Animating Me". Will reset
+            // all animations and propagate the changes to other
+            // viewers.
+            gAgent.stopCurrentAnimations();
+        }
+        else
+        {
+            // Local viewer-side reset for non-self avatars.
+            resetAnimations();
+        }
+    }
+    
+    LL_DEBUGS("Avatar") << avString() << " reset ends" << LL_ENDL;    
 }
 
 //-----------------------------------------------------------------------------
@@ -6042,87 +6104,82 @@ BOOL LLVOAvatar::loadSkeletonNode ()
 		return FALSE;
 	}
 	
-	// ATTACHMENTS
-	{
-		LLAvatarXmlInfo::attachment_info_list_t::iterator iter;
-		for (iter = sAvatarXmlInfo->mAttachmentInfoList.begin();
-			 iter != sAvatarXmlInfo->mAttachmentInfoList.end(); 
-			 ++iter)
-		{
-			LLAvatarXmlInfo::LLAvatarAttachmentInfo *info = *iter;
-			if (!isSelf() && info->mJointName == "mScreen")
-			{ //don't process screen joint for other avatars
-				continue;
-			}
-
-			LLViewerJointAttachment* attachment = new LLViewerJointAttachment();
-			attachment->setName(info->mName);
-			LLJoint *parent_joint = getJoint(info->mJointName);
-            if (!parent_joint)
-            {
-                // If the intended parent for attachment point is unavailable, avatar_lad.xml is corrupt.
-				LL_WARNS() << "No parent joint by name " << info->mJointName << " found for attachment point " << info->mName << LL_ENDL;
-				LL_ERRS() << "Invalid avatar_lad.xml file" << LL_ENDL;
-                // If we wanted to continue from this case, we could do:
-				//delete attachment;
-                //continue;
-                // but there's no point.
-            }
-
-			if (info->mHasPosition)
-			{
-				attachment->setOriginalPosition(info->mPosition);
-				attachment->setDefaultPosition(info->mPosition);
-			}
-			
-			if (info->mHasRotation)
-			{
-				LLQuaternion rotation;
-				rotation.setQuat(info->mRotationEuler.mV[VX] * DEG_TO_RAD,
-								 info->mRotationEuler.mV[VY] * DEG_TO_RAD,
-								 info->mRotationEuler.mV[VZ] * DEG_TO_RAD);
-				attachment->setRotation(rotation);
-			}
-
-			int group = info->mGroup;
-			if (group >= 0)
-			{
-				if (group < 0 || group > 9)
-				{
-					LL_WARNS() << "Invalid group number (" << group << ") for attachment point " << info->mName << LL_ENDL;
-				}
-				else
-				{
-					attachment->setGroup(group);
-				}
-			}
-
-			S32 attachmentID = info->mAttachmentID;
-			if (attachmentID < 1 || attachmentID > 255)
-			{
-				LL_WARNS() << "Attachment point out of range [1-255]: " << attachmentID << " on attachment point " << info->mName << LL_ENDL;
-				delete attachment;
-				continue;
-			}
-			if (mAttachmentPoints.find(attachmentID) != mAttachmentPoints.end())
-			{
-				LL_WARNS() << "Attachment point redefined with id " << attachmentID << " on attachment point " << info->mName << LL_ENDL;
-				delete attachment;
-				continue;
-			}
-
-			attachment->setVisibleInFirstPerson(info->mVisibleFirstPerson);
-			attachment->setIsHUDAttachment(info->mIsHUDAttachment);
-			// attachment can potentially be animated, needs a number.
-            attachment->setJointNum(mSkeleton.size() + attachmentID -1);
-			mAttachmentPoints[attachmentID] = attachment;
-
-			// now add attachment joint
-			parent_joint->addChild(attachment);
-		}
-	}
+    bool ignore_hud_joints = false;
+    initAttachmentPoints(ignore_hud_joints);
 
 	return TRUE;
+}
+
+//-----------------------------------------------------------------------------
+// initAttachmentPoints(): creates attachment points if needed, sets state based on avatar_lad.xml. 
+//-----------------------------------------------------------------------------
+void LLVOAvatar::initAttachmentPoints(bool ignore_hud_joints)
+{
+    LLAvatarXmlInfo::attachment_info_list_t::iterator iter;
+    for (iter = sAvatarXmlInfo->mAttachmentInfoList.begin();
+         iter != sAvatarXmlInfo->mAttachmentInfoList.end(); 
+         ++iter)
+    {
+        LLAvatarXmlInfo::LLAvatarAttachmentInfo *info = *iter;
+        if (info->mIsHUDAttachment && (!isSelf() || ignore_hud_joints))
+        {
+		    //don't process hud joint for other avatars, or when doing a skeleton reset.
+            continue;
+        }
+
+        S32 attachmentID = info->mAttachmentID;
+        if (attachmentID < 1 || attachmentID > 255)
+        {
+            LL_WARNS() << "Attachment point out of range [1-255]: " << attachmentID << " on attachment point " << info->mName << LL_ENDL;
+            continue;
+        }
+
+        LLViewerJointAttachment* attachment = NULL;
+        bool newly_created = false;
+        if (mAttachmentPoints.find(attachmentID) == mAttachmentPoints.end())
+        {
+            attachment = new LLViewerJointAttachment();
+            newly_created = true;
+        }
+        else
+        {
+            attachment = mAttachmentPoints[attachmentID];
+        }
+
+        attachment->setName(info->mName);
+        LLJoint *parent_joint = getJoint(info->mJointName);
+        if (!parent_joint)
+        {
+            // If the intended parent for attachment point is unavailable, avatar_lad.xml is corrupt.
+            LL_WARNS() << "No parent joint by name " << info->mJointName << " found for attachment point " << info->mName << LL_ENDL;
+            LL_ERRS() << "Invalid avatar_lad.xml file" << LL_ENDL;
+        }
+
+        if (info->mHasPosition)
+        {
+            attachment->setOriginalPosition(info->mPosition);
+            attachment->setDefaultPosition(info->mPosition);
+        }
+			
+            else
+            {
+                attachment->setGroup(group);
+            }
+        }
+
+        attachment->setVisibleInFirstPerson(info->mVisibleFirstPerson);
+        attachment->setIsHUDAttachment(info->mIsHUDAttachment);
+        // attachment can potentially be animated, needs a number.
+        attachment->setJointNum(mSkeleton.size() + attachmentID - 1);
+
+        if (newly_created)
+        {
+            mAttachmentPoints[attachmentID] = attachment;
+            
+            // now add attachment joint
+            parent_joint->addChild(attachment);
+        }
+    }
 }
 
 //-----------------------------------------------------------------------------
@@ -7984,72 +8041,69 @@ bool resolve_appearance_version(const LLAppearanceMessageContents& contents, S32
 //-----------------------------------------------------------------------------
 void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
 {	
-	static LLCachedControl<bool> block_verbose_dumps(gSavedSettings, "BlockAvatarAppearanceMessages", false);
+    LL_DEBUGS("Avatar") << "starts" << LL_ENDL;
+	
+	bool enable_verbose_dumps = gSavedSettings.getBOOL("DebugAvatarAppearanceMessage");
 	std::string dump_prefix = getFullname() + "_" + (isSelf()?"s":"o") + "_";
-	if (block_verbose_dumps) {
+	if (gSavedSettings.getBOOL("BlockAvatarAppearanceMessages"))
+	{
 		LL_WARNS() << "Blocking AvatarAppearance message" << LL_ENDL;
 		return;
 	}
 
 	mLastAppearanceMessageTimer.reset();
 
-	ESex old_sex = getSex();
-
-	LLAppearanceMessageContents contents;
-	parseAppearanceMessage(mesgsys, contents);
-
-	static LLCachedControl<bool> enable_verbose_dumps(gSavedSettings, "DebugAvatarAppearanceMessage", false);
-	if (enable_verbose_dumps) {
-		dumpAppearanceMsgParams(dump_prefix + "appearance_msg", contents);
+	LLPointer<LLAppearanceMessageContents> contents(new LLAppearanceMessageContents);
+	parseAppearanceMessage(mesgsys, *contents);
+	if (enable_verbose_dumps)
+	{
+		dumpAppearanceMsgParams(dump_prefix + "appearance_msg", *contents);
 	}
 
 	S32 appearance_version;
-	if (!resolve_appearance_version(contents, appearance_version))
+	if (!resolve_appearance_version(*contents, appearance_version))
 	{
 		LL_WARNS() << "bad appearance version info, discarding" << LL_ENDL;
 		return;
 	}
-
-	S32 this_update_cof_version = contents.mCOFVersion;
-	S32 last_update_request_cof_version = mLastUpdateRequestCOFVersion;
-	// Only now that we have result of appearance_version can we decide whether to bail out.
-	if( isSelf() )
+	llassert(appearance_version > 0);
+	if (appearance_version > 1)
 	{
-		LL_DEBUGS("Avatar") << "this_update_cof_version " << this_update_cof_version
-				<< " last_update_request_cof_version " << last_update_request_cof_version
-				<<  " my_cof_version " << LLAppearanceMgr::instance().getCOFVersion() << LL_ENDL;
-
-		if (getRegion() && (getRegion()->getCentralBakeVersion()==0))
-		{
-			LL_WARNS() << avString() << "Received AvatarAppearance message for self in non-server-bake region" << LL_ENDL;
-		}
-		if( mFirstTEMessageReceived && (appearance_version == 0))
-		{
-			return;
-		}
-	}
-	else
-	{
-		//LL_DEBUGS("Avatar") << "appearance message received" << LL_ENDL;
-	}
-
-	// Check for stale update.
-	if (isSelf()
-		&& (appearance_version>0)
-		&& (this_update_cof_version < last_update_request_cof_version))
-	{
-		LL_WARNS() << "Stale appearance update, wanted version " << last_update_request_cof_version
-				<< ", got " << this_update_cof_version << LL_ENDL;
+		LL_WARNS() << "unsupported appearance version " << appearance_version << ", discarding appearance message" << LL_ENDL;
 		return;
 	}
 
-	if (isSelf() && isEditingAppearance())
-	{
-		LL_DEBUGS("Avatar") << "ignoring appearance message while in appearance edit" << LL_ENDL;
-		return;
-	}
+    S32 thisAppearanceVersion(contents->mCOFVersion);
+    if (isSelf())
+    {   // In the past this was considered to be the canonical COF version, 
+        // that is no longer the case.  The canonical version is maintained 
+        // by the AIS code and should match the COF version there. Even so,
+        // we must prevent rolling this one backwards backwards or processing 
+        // stale versions.
 
-	S32 num_params = contents.mParamWeights.size();
+        S32 aisCOFVersion(LLAppearanceMgr::instance().getCOFVersion());
+
+        LL_DEBUGS("Avatar") << "handling self appearance message #" << thisAppearanceVersion <<
+            " (highest seen #" << mLastUpdateReceivedCOFVersion <<
+            ") (AISCOF=#" << aisCOFVersion << ")" << LL_ENDL;
+
+        if (mLastUpdateReceivedCOFVersion >= thisAppearanceVersion)
+        {
+            LL_WARNS("Avatar") << "Stale appearance received #" << thisAppearanceVersion <<
+                " attempt to roll back from #" << mLastUpdateReceivedCOFVersion <<
+                "... dropping." << LL_ENDL;
+            return;
+        }
+        if (isEditingAppearance())
+        {
+            LL_DEBUGS("Avatar") << "Editing appearance.  Dropping appearance update." << LL_ENDL;
+            return;
+        }
+
+    }
+
+	// SUNSHINE CLEANUP - is this case OK now?
+	S32 num_params = contents->mParamWeights.size();
 	if (num_params <= 1)
 	{
 		// In this case, we have no reliable basis for knowing
@@ -8060,29 +8114,39 @@ void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
 		return;
 	}
 
-	// No backsies zone - if we get here, the message should be valid and usable.
-	if (appearance_version > 0)
-	{
-		// Note:
-		// RequestAgentUpdateAppearanceResponder::onRequestRequested()
-		// assumes that cof version is only updated with server-bake
-		// appearance messages.
-		LL_INFOS("Avatar") << "Processing appearance message version " << appearance_version << LL_ENDL;
-		
-        // Note:
-        // locally the COF is maintained via LLInventoryModel::accountForUpdate
-        // which is called from various places.  This should match the simhost's 
-        // idea of what the COF version is.  AIS however maintains its own version
-        // of the COF that should be considered canonical.		
-		mLastUpdateReceivedCOFVersion = this_update_cof_version;
-	}
-		
-	setIsUsingServerBakes(appearance_version > 0);
+	// No backsies zone - if we get here, the message should be valid and usable, will be processed.
+	// Note:
+	// RequestAgentUpdateAppearanceResponder::onRequestRequested()
+	// assumes that cof version is only updated with server-bake
+	// appearance messages.
+    LL_INFOS("Avatar") << "Processing appearance message version " << thisAppearanceVersion << LL_ENDL;
 
-	applyParsedTEMessage(contents.mTEContents);
+    // Note:
+    // locally the COF is maintained via LLInventoryModel::accountForUpdate
+    // which is called from various places.  This should match the simhost's 
+    // idea of what the COF version is.  AIS however maintains its own version
+    // of the COF that should be considered canonical. 
+    mLastUpdateReceivedCOFVersion = thisAppearanceVersion;
 
-	// prevent the overwriting of valid baked textures with invalid baked textures
-	// prevent the overwriting of valid baked textures with invalid baked textures
+    mLastProcessedAppearance = contents;
+
+    // Reset tweakable params to preserved state
+    bool slam_params = false;
+    applyParsedAppearanceMessage(*contents, slam_params);
+    
+} 
+
+void LLVOAvatar::applyParsedAppearanceMessage(LLAppearanceMessageContents& contents, bool slam_params)
+{
+	S32 num_params = contents.mParamWeights.size();
+	ESex old_sex = getSex();
+
+    if (applyParsedTEMessage(contents.mTEContents) > 0 && isChanged(TEXTURE))
+    {
+        updateVisualComplexity();
+    }
+
+   	// prevent the overwriting of valid baked textures with invalid baked textures
 	for (U8 baked_index = 0; baked_index < mBakedTextureDatas.size(); baked_index++)
 	{
 		if (!isTextureDefined(mBakedTextureDatas[baked_index].mTextureIndex) 
@@ -8124,20 +8188,20 @@ void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
 			LLVisualParam* param = contents.mParams[i];
 			F32 newWeight = contents.mParamWeights[i];
 
-			if (is_first_appearance_message || (param->getWeight() != newWeight))
+			if (slam_params || is_first_appearance_message || (param->getWeight() != newWeight))
 			{
 				params_changed = TRUE;
 				params_changed_count++;
 
-				if(is_first_appearance_message)
-				{
+                if(is_first_appearance_message || slam_params)
+                {
 					//LL_DEBUGS("Avatar") << "param slam " << i << " " << newWeight << LL_ENDL;
-					param->setWeight(newWeight, FALSE);
+					param->setWeight(newWeight, TRUE);
 				}
 				else
 				{
 					interp_params = TRUE;
-					param->setAnimationTarget(newWeight, FALSE);
+					param->setAnimationTarget(newWeight, TRUE);
 				}
 			}
 		}
@@ -8160,7 +8224,7 @@ void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
 			ESex new_sex = getSex();
 			if( old_sex != new_sex )
 			{
-				updateSexDependentLayerSets( FALSE );
+				updateSexDependentLayerSets(TRUE);
 			}	
 		}
 
@@ -8214,7 +8278,6 @@ void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
 	}
 
 	updateMeshTextures();
-	//if (enable_verbose_dumps) dumpArchetypeXML(dump_prefix + "process_end");
 }
 
 // static

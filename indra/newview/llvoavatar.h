@@ -371,8 +371,10 @@ public:
 	void				postPelvisSetRecalc( void );
 
 	/*virtual*/ BOOL	loadSkeletonNode();
+	void                initAttachmentPoints(bool ignore_hud_joints = false);
 	/*virtual*/ void	buildCharacter();
-    void				resetSkeleton();
+	void                resetVisualParams();
+    void				resetSkeleton(bool reset_animations);
 
 	LLVector3			mCurRootToHeadOffset;
 	LLVector3			mTargetRootToHeadOffset;
@@ -676,9 +678,12 @@ protected:
  **                    APPEARANCE
  **/
 
+    LLPointer<LLAppearanceMessageContents>     mLastProcessedAppearance;
+
 public:
 	void 			parseAppearanceMessage(LLMessageSystem* mesgsys, LLAppearanceMessageContents& msg);
 	void 			processAvatarAppearance(LLMessageSystem* mesgsys);
+    void            applyParsedAppearanceMessage(LLAppearanceMessageContents& contents, bool slam_params);
 	void 			hideSkirt();
 	void			startAppearanceAnimation();
 	/*virtual*/ void bodySizeChanged();
