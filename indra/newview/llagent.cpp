@@ -1051,6 +1051,15 @@ BOOL LLAgent::inPrelude()
 }
 
 
+std::string LLAgent::getRegionCapability(const std::string &name)
+{
+    if (!mRegionp)
+        return std::string();
+    
+    return mRegionp->getCapability(name);
+}
+
+
 //-----------------------------------------------------------------------------
 // canManageEstate()
 //-----------------------------------------------------------------------------
@@ -4954,6 +4963,7 @@ LLTeleportRequestViaLandmark::LLTeleportRequestViaLandmark(const LLUUID &pLandma
 	: LLTeleportRequest(),
 	mLandmarkId(pLandmarkId)
 {
+    LL_INFOS("Teleport") << "LLTeleportRequestViaLandmark created." << LL_ENDL;
 }
 
 LLTeleportRequestViaLandmark::~LLTeleportRequestViaLandmark()
@@ -4962,16 +4972,19 @@ LLTeleportRequestViaLandmark::~LLTeleportRequestViaLandmark()
 
 bool LLTeleportRequestViaLandmark::canRestartTeleport()
 {
+    LL_INFOS("Teleport") << "LLTeleportRequestViaLandmark::canRestartTeleport? -> true" << LL_ENDL;
 	return true;
 }
 
 void LLTeleportRequestViaLandmark::startTeleport()
 {
+    LL_INFOS("Teleport") << "LLTeleportRequestViaLandmark::startTeleport" << LL_ENDL;
 	gAgent.doTeleportViaLandmark(getLandmarkId());
 }
 
 void LLTeleportRequestViaLandmark::restartTeleport()
 {
+    LL_INFOS("Teleport") << "LLTeleportRequestViaLandmark::restartTeleport" << LL_ENDL;
 	gAgent.doTeleportViaLandmark(getLandmarkId());
 }
 
@@ -4983,10 +4996,12 @@ LLTeleportRequestViaLure::LLTeleportRequestViaLure(const LLUUID &pLureId, BOOL p
 	: LLTeleportRequestViaLandmark(pLureId),
 	mIsLureGodLike(pIsLureGodLike)
 {
+    LL_INFOS("Teleport") << "LLTeleportRequestViaLure created" << LL_ENDL;
 }
 
 LLTeleportRequestViaLure::~LLTeleportRequestViaLure()
 {
+    LL_INFOS("Teleport") << "~LLTeleportRequestViaLure" << LL_ENDL;
 }
 
 bool LLTeleportRequestViaLure::canRestartTeleport()
@@ -5003,7 +5018,8 @@ bool LLTeleportRequestViaLure::canRestartTeleport()
 	//    8. User B's viewer then attempts to teleport via lure again
 	//    9. This request will time-out on the viewer-side because User A's initial request has been removed from the "queue" in step 4
 
-	return false;
+    LL_INFOS("Teleport") << "LLTeleportRequestViaLure::canRestartTeleport? -> false" << LL_ENDL;
+    return false;
 }
 
 void LLTeleportRequestViaLure::startTeleport()
