@@ -8546,7 +8546,7 @@ LLHost LLVOAvatar::getObjectHost() const
 	}
 	else
 	{
-		return LLHost::invalid;
+		return LLHost();
 	}
 }
 

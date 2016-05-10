@@ -235,7 +235,7 @@ void LLPreviewNotecard::loadAsset()
 			}
 			else
 			{
-				LLHost source_sim = LLHost::invalid;
+				LLHost source_sim = LLHost();
 				LLSD* user_data = new LLSD();
 				if (mObjectUUID.notNull())
 				{
