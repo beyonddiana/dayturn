@@ -42,8 +42,6 @@ protected:
 	U32         mIP;
 public:
 	
-	static LLHost invalid;
-
 	// CREATORS
 	LLHost()
 	:	mPort(INVALID_PORT),
