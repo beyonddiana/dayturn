@@ -1128,8 +1128,20 @@ void mask_to_string(U32 mask, char* str)
 	else
 	{
 		*str = ' ';
-	}	
-	str++;	
+	}
+	str++;
+	
+// <FS:CR> OpenSim export permission
+	if (mask & PERM_EXPORT)
+	{
+		*str = 'X';
+	}
+	else
+	{
+		*str = ' ';
+	}
+	str++;
+// </FS:CR>
 	*str = '\0';
 }
 
