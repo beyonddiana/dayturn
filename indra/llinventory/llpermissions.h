@@ -273,6 +273,7 @@ public:
 	inline bool allowModifyBy(const LLUUID &agent_id, const LLUUID& group) const;
 	inline bool allowCopyBy(const LLUUID& agent_id, const LLUUID& group) const;
 	inline bool allowMoveBy(const LLUUID &agent_id, const LLUUID &group) const;
+	inline bool allowExportBy(const LLUUID& agent_id) const;	// <FS:CR> OpenSim export permission
 
 	// This somewhat specialized function is meant for testing if the
 	// current owner is allowed to transfer to the specified agent id.
@@ -368,6 +369,13 @@ bool LLPermissions::allowTransferTo(const LLUUID &agent_id) const
 		return ((mOwner == agent_id) ? TRUE : allowOperationBy(PERM_TRANSFER, mOwner));
 	}
 }
+
+// <FS:CR> Opensim Export Permissions
+bool LLPermissions::allowExportBy(const LLUUID& agent) const
+{
+	return ((mCreator == agent) ? true : (allowOperationBy(PERM_EXPORT, agent, LLUUID::null)));
+}
+// </FS:CR>
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Class LLAggregatePermissions
