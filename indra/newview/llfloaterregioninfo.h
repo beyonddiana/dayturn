@@ -96,6 +96,7 @@ public:
 	static LLPanelRegionTerrainInfo* getPanelRegionTerrain();
 	static LLPanelRegionOpenSettingsInfo* getPanelOpenSettings();
 	static LLPanelRegionExperiences* getPanelExperiences();
+	static LLPanelRegionGeneralInfo* getPanelGeneral();
 
 	// from LLPanel
 	virtual void refresh();
@@ -200,6 +201,9 @@ public:
 	// LLPanel
 	virtual BOOL postBuild();
 	
+	void onBtnSet();
+	void setObjBonusFactor(F32 object_bonus_factor) {mObjBonusFactor = object_bonus_factor;}
+
 protected:
 	virtual BOOL sendUpdate();
 	void onClickKick();
@@ -208,6 +212,9 @@ protected:
 	bool onKickAllCommit(const LLSD& notification, const LLSD& response);
 	static void onClickMessage(void* userdata);
 	bool onMessageCommit(const LLSD& notification, const LLSD& response);
+	bool onChangeObjectBonus(const LLSD& notification, const LLSD& response);
+
+	F32 mObjBonusFactor;
 
 };
 
