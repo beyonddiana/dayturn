@@ -66,7 +66,6 @@ public:
 	// <FS:Ansariel> Getter for CapSent
 	static bool getCapSent() { return sCapSent; }
 
-
 // Update instantiation of sCategoryNames in the .cpp file to match if you change this!
 enum Categories
 {
@@ -94,7 +93,6 @@ private:
 	
 	// <FS:Ansariel> Getter for CapSent
 	static bool sCapSent;
-
 };
 
 class LLFloaterPermsRequester
