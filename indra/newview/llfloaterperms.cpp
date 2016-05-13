@@ -195,6 +195,7 @@ void LLFloaterPermsRequester::finalize()
 	}
 }
 
+
 //static
 LLFloaterPermsRequester* LLFloaterPermsRequester::instance()
 {
@@ -217,35 +218,43 @@ bool LLFloaterPermsRequester::retry()
 	return false;
 }
 
+
 void LLFloaterPermsResponder::httpFailure()
 {
 	if (!LLFloaterPermsRequester::instance() || !LLFloaterPermsRequester::instance()->retry())
 	{
 		LLFloaterPermsRequester::finalize();
-		const std::string& reason = getReason();
+		const std::string reason = getReason();
 		// Do not display the same error more than once in a row
 		if (reason != sPreviousReason)
 		{
-			sPreviousReason = reason;
-			LLSD args;
-			args["REASON"] = reason;
-			LLNotificationsUtil::add("DefaultObjectPermissions", args);
+				sPreviousReason = reason;
+				LLSD args;
+				args["REASON"] = reason;
+				LLNotificationsUtil::add("DefaultUploadPermissions", args);
 		}
 	}
 }
-
 void LLFloaterPermsResponder::httpSuccess()
 {
-	//const LLSD& content = getContent();
-	//dump_sequential_xml("perms_responder_result.xml", content);
-
-	// Since we have had a successful POST call be sure to display the next error message
-	// even if it is the same as a previous one.
+	// const LLSD& content = getContent();
+	// dump_sequential_xml("perms_responder_result.xml", content);
+	
+	// Since we had a successful POST call be sure to display the next error message
+	// even if it is the same reason as the previous one.
 	sPreviousReason = "";
-	LL_INFOS("ObjectPermissionsFloater") << "Default permissions successfully sent to simulator" << LL_ENDL;
+	LLFloaterPermsDefault::setCapSent(true);
+	LL_INFOS("ObjectPermissionsFloater") << "Default permissions successfully sent to simulator" << LL_ENDL; 
+	
+	// <FS:Ansarariel> Set cap sent = true only on success to allow re-transmit on region change 
+	LLFloaterPermsDefault::setCapSent(true);
+	
+	// <FS:Ansariel> BUG-10466. Default creation permission changes for objects until you relog (in SL).
+	LLFloaterPermsRequester::finalize();
 }
 
-std::string	LLFloaterPermsResponder::sPreviousReason;
+
+std::string LLFloaterPermsResponder::sPreviousReason;
 
 void LLFloaterPermsDefault::sendInitialPerms()
 {
@@ -255,7 +264,8 @@ void LLFloaterPermsDefault::sendInitialPerms()
 	// </FS:Ansariel>
 	{
 		updateCap();
-		setCapSent(true);
+		// <FS:Ansariel> Set cap sent = true only on success to allow re-transmit on region change
+		// setCapSent(true);
 	}
 }
 
@@ -273,13 +283,14 @@ void LLFloaterPermsDefault::updateCap()
 		report["default_object_perm_masks"]["NextOwner"] =
 			(LLSD::Integer)LLFloaterPerms::getNextOwnerPerms(sCategoryNames[CAT_OBJECTS]);
 
-        {
-            LL_DEBUGS("ObjectPermissionsFloater") << "Sending default permissions to '"
-                                                  << object_url << "'\n";
-            std::ostringstream sent_perms_log;
-            LLSDSerialize::toPrettyXML(report, sent_perms_log);
-            LL_CONT << sent_perms_log.str() << LL_ENDL;
-        }
+		{
+			LL_DEBUGS("ObjectPermissionsFloater") << "Sending default permissions to '"
+												  << object_url << "'\n";
+			std::ostringstream sent_perms_log;
+			LLSDSerialize::toPrettyXML(report, sent_perms_log);
+			LL_CONT << sent_perms_log.str() << LL_ENDL;
+		}
+		
         LLFloaterPermsRequester::init(object_url, report, MAX_HTTP_RETRIES);
         LLFloaterPermsRequester::instance()->start();
 	}
@@ -299,6 +310,7 @@ void LLFloaterPermsDefault::setCapSent(bool cap_sent)
 
 void LLFloaterPermsDefault::ok()
 {
+	
 //	Changes were already applied automatically to saved settings.
 //	Refreshing internal values makes it official.
 	refresh();
