@@ -810,6 +810,11 @@ bool idle_startup()
 			gRememberPassword = gSavedSettings.getBOOL("RememberPassword");
 			show_connect_box = TRUE;
 		}
+
+		//setup map of datetime strings to codes and slt & local time offset from utc
+		// *TODO: Does this need to be here?
+		LLStringOps::setupDatetimeInfo(false);
+
 		// Go to the next startup state
 		LLStartUp::setStartupState( STATE_BROWSER_INIT );
 		return FALSE;
@@ -1282,9 +1287,6 @@ bool idle_startup()
 						LLNotificationsUtil::add("ErrorMessage", args, LLSD(), login_alert_done);
 					}
 				}
-				//setup map of datetime strings to codes and slt & local time offset from utc
-				// *TODO: Does this need to be here?
-				LLStringOps::setupDatetimeInfo (false);
 				transition_back_to_login_panel(emsg.str());
 				show_connect_box = true;
 			}
