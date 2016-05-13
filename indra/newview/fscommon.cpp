@@ -36,9 +36,11 @@
 #include "lltooldraganddrop.h"
 #include "llviewerinventory.h"
 #include "llviewerregion.h"
+#include "llfloaterperms.h"
 
 #include <boost/date_time/gregorian/gregorian.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
+extern BOOL gIsInSecondLife; //Opensim or SecondLife
 using namespace boost::posix_time;
 using namespace boost::gregorian;
 
@@ -204,30 +206,32 @@ void FSCommon::applyDefaultBuildPreferences(LLViewerObject* object)
 			}
 		}
 	}
-	
 	U32 object_local_id = object->getLocalID();
-	gMessageSystem->newMessageFast(_PREHASH_ObjectPermissions);
-	gMessageSystem->nextBlockFast(_PREHASH_AgentData);
-	gMessageSystem->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
-	gMessageSystem->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
-	gMessageSystem->nextBlockFast(_PREHASH_HeaderData);
-	gMessageSystem->addBOOLFast(_PREHASH_Override, (BOOL)FALSE);
-	gMessageSystem->nextBlockFast(_PREHASH_ObjectData);
-	gMessageSystem->addU32Fast(_PREHASH_ObjectLocalID, object_local_id);
-	gMessageSystem->addU8Fast(_PREHASH_Field, PERM_NEXT_OWNER);
-	gMessageSystem->addBOOLFast(_PREHASH_Set, gSavedSettings.getBOOL("NextOwnerCopy"));
-	gMessageSystem->addU32Fast(_PREHASH_Mask, PERM_MODIFY);
-	gMessageSystem->nextBlockFast(_PREHASH_ObjectData);
-	gMessageSystem->addU32Fast(_PREHASH_ObjectLocalID, object_local_id);
-	gMessageSystem->addU8Fast(_PREHASH_Field, PERM_NEXT_OWNER);
-	gMessageSystem->addBOOLFast(_PREHASH_Set, gSavedSettings.getBOOL("NextOwnerModify"));
-	gMessageSystem->addU32Fast(_PREHASH_Mask, PERM_COPY);
-	gMessageSystem->nextBlockFast(_PREHASH_ObjectData);
-	gMessageSystem->addU32Fast(_PREHASH_ObjectLocalID, object_local_id);
-	gMessageSystem->addU8Fast(_PREHASH_Field, PERM_NEXT_OWNER);
-	gMessageSystem->addBOOLFast(_PREHASH_Set, gSavedSettings.getBOOL("NextOwnerTransfer"));
-	gMessageSystem->addU32Fast(_PREHASH_Mask, PERM_TRANSFER);
-	gMessageSystem->sendReliable(object->getRegion()->getHost());
+	if (!gIsInSecondLife || !LLFloaterPermsDefault::getCapSent())
+	{	
+		gMessageSystem->newMessageFast(_PREHASH_ObjectPermissions);
+		gMessageSystem->nextBlockFast(_PREHASH_AgentData);
+		gMessageSystem->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
+		gMessageSystem->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
+		gMessageSystem->nextBlockFast(_PREHASH_HeaderData);
+		gMessageSystem->addBOOLFast(_PREHASH_Override, (BOOL)FALSE);
+		gMessageSystem->nextBlockFast(_PREHASH_ObjectData);
+		gMessageSystem->addU32Fast(_PREHASH_ObjectLocalID, object_local_id);
+		gMessageSystem->addU8Fast(_PREHASH_Field, PERM_NEXT_OWNER);
+		gMessageSystem->addBOOLFast(_PREHASH_Set, gSavedSettings.getBOOL("ObjectsNextOwnerModify"));
+		gMessageSystem->addU32Fast(_PREHASH_Mask, PERM_MODIFY);
+		gMessageSystem->nextBlockFast(_PREHASH_ObjectData);
+		gMessageSystem->addU32Fast(_PREHASH_ObjectLocalID, object_local_id);
+		gMessageSystem->addU8Fast(_PREHASH_Field, PERM_NEXT_OWNER);
+		gMessageSystem->addBOOLFast(_PREHASH_Set, gSavedSettings.getBOOL("ObjectsNextOwnerCopy"));
+		gMessageSystem->addU32Fast(_PREHASH_Mask, PERM_COPY);
+		gMessageSystem->nextBlockFast(_PREHASH_ObjectData);
+		gMessageSystem->addU32Fast(_PREHASH_ObjectLocalID, object_local_id);
+		gMessageSystem->addU8Fast(_PREHASH_Field, PERM_NEXT_OWNER);
+		gMessageSystem->addBOOLFast(_PREHASH_Set, gSavedSettings.getBOOL("ObjectsNextOwnerTransfer"));
+		gMessageSystem->addU32Fast(_PREHASH_Mask, PERM_TRANSFER);
+		gMessageSystem->sendReliable(object->getRegion()->getHost());
+	}
 
 	gMessageSystem->newMessage(_PREHASH_ObjectFlagUpdate);
 	gMessageSystem->nextBlockFast(_PREHASH_AgentData);
