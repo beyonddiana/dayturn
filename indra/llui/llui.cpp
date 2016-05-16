@@ -75,8 +75,9 @@
 std::map<std::string, std::string> gTranslation;
 std::list<std::string> gUntranslated;
 /*static*/ LLUI::settings_map_t LLUI::sSettingGroups;
-/*static*/ LLUIAudioCallback LLUI::sAudioCallback = NULL;
 /*static*/ LLVector2		LLUI::sGLScaleFactor(1.f, 1.f);
+/*static*/ LLUIAudioCallback LLUI::sDeferredAudioCallback = NULL;
+/*static*/ LLUIAudioCallback LLUI::sAudioCallback = NULL;
 /*static*/ LLWindow*		LLUI::sWindow = NULL;
 /*static*/ LLView*			LLUI::sRootView = NULL;
 /*static*/ BOOL                         LLUI::sDirty = FALSE;
@@ -100,16 +101,18 @@ static LLDefaultChildRegistry::Register<LLToolBar> register_toolbar("toolbar");
 //
 // Functions
 //
-void make_ui_sound(const char* namep)
+
+LLUUID find_ui_sound(const char * namep)
 {
 	std::string name = ll_safe_string(namep);
+	LLUUID uuid = LLUUID(NULL);
 	if (!LLUI::sSettingGroups["config"]->controlExists(name))
 	{
 		LL_WARNS() << "tried to make UI sound for unknown sound name: " << name << LL_ENDL;	
 	}
 	else
 	{
-		LLUUID uuid(LLUI::sSettingGroups["config"]->getString(name));
+		uuid = LLUUID(LLUI::sSettingGroups["config"]->getString(name));
 		if (uuid.isNull())
 		{
 			if (LLUI::sSettingGroups["config"]->getString(name) == LLUUID::null.asString())
@@ -123,7 +126,6 @@ void make_ui_sound(const char* namep)
 			{
 				LL_WARNS() << "UI sound named: " << name << " does not translate to a valid uuid" << LL_ENDL;	
 			}
-
 		}
 		else if (LLUI::sAudioCallback != NULL)
 		{
@@ -131,14 +133,34 @@ void make_ui_sound(const char* namep)
 			{
 				LL_INFOS() << "UI sound name: " << name << LL_ENDL;	
 			}
-			LLUI::sAudioCallback(uuid);
 		}
+	}
+
+	return uuid;
+}
+
+void make_ui_sound(const char* namep)
+{
+	LLUUID soundUUID = find_ui_sound(namep);
+	if(soundUUID.notNull())
+	{
+		LLUI::sAudioCallback(soundUUID);
+	}
+}
+
+void make_ui_sound_deferred(const char* namep)
+{
+	LLUUID soundUUID = find_ui_sound(namep);
+	if(soundUUID.notNull())
+	{
+		LLUI::sDeferredAudioCallback(soundUUID);
 	}
 }
 
 void LLUI::initClass(const settings_map_t& settings,
 					 LLImageProviderInterface* image_provider,
 					 LLUIAudioCallback audio_callback,
+					 LLUIAudioCallback deferred_audio_callback,
 					 const LLVector2* scale_factor,
 					 const std::string& language)
 {
@@ -153,6 +175,7 @@ void LLUI::initClass(const settings_map_t& settings,
 	}
 
 	sAudioCallback = audio_callback;
+	sDeferredAudioCallback = deferred_audio_callback;
 	sWindow = NULL; // set later in startup
 	LLFontGL::sShadowColor = LLUIColorTable::instance().getColor("ColorDropShadow");
 
@@ -734,4 +757,3 @@ namespace LLInitParam
 		declare("soft", LLFontGL::DROP_SHADOW_SOFT);
 	}
 }
-

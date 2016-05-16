@@ -210,6 +210,7 @@
 #include "llviewercontrol.h"
 #include "lleventnotifier.h"
 #include "llcallbacklist.h"
+#include "lldeferredsounds.h"
 #include "pipeline.h"
 #include "llgesturemgr.h"
 #include "llsky.h"
@@ -342,6 +343,7 @@ U64Bytes gMemoryAllocated(0); // updated in display_stats() in llviewerdisplay.c
 std::string gLastVersionChannel;
 std::string gSimulatorType;
 BOOL gIsInSecondLife; 
+
 
 LLVector3			gWindVec(3.0, 3.0, 0.0);
 LLVector3			gRelativeWindVec(0.0, 0.0, 0.0);
@@ -497,7 +499,18 @@ static void ui_audio_callback(const LLUUID& uuid)
 {
 	if (gAudiop)
 	{
-		gAudiop->triggerSound(uuid, gAgent.getID(), 1.0f, LLAudioEngine::AUDIO_TYPE_UI);
+		SoundData soundData(uuid, gAgent.getID(), 1.0f, LLAudioEngine::AUDIO_TYPE_UI);
+		gAudiop->triggerSound(soundData);
+	}
+}
+
+// A callback set in LLAppViewer::init()
+static void deferred_ui_audio_callback(const LLUUID& uuid)
+{
+	if (gAudiop)
+	{
+		SoundData soundData(uuid, gAgent.getID(), 1.0f, LLAudioEngine::AUDIO_TYPE_UI);
+		LLDeferredSounds::instance().deferSound(soundData);
 	}
 }
 
@@ -858,6 +871,7 @@ bool LLAppViewer::init()
 	LLUI::initClass(settings_map,
 		LLUIImageList::getInstance(),
 		ui_audio_callback,
+		deferred_ui_audio_callback,
 		&LLUI::getScaleFactor());
 	LL_INFOS("InitInfo") << "UI initialized." << LL_ENDL ;
 
@@ -1252,8 +1266,8 @@ void LLAppViewer::checkMemory()
 	}
 	mMemCheckTimer.reset() ;
 
-	//update the availability of memory
-	LLMemory::updateMemoryInfo() ;
+		//update the availability of memory
+		LLMemory::updateMemoryInfo() ;
 
 	bool is_low = LLMemory::isMemoryPoolLow() ;
 
@@ -2176,7 +2190,7 @@ bool LLAppViewer::cleanup()
 
     removeDumpDir();
 
- 	// return 0;
+	// return 0;
 	return true;
 }
 
@@ -2656,9 +2670,9 @@ bool LLAppViewer::initConfiguration()
                 {
 					LL_WARNS() << "Failed --set " << name << ": setting name unknown." << LL_ENDL;
                 }
-                }
             }
         }
+    }
 
     if  (clp.hasOption("logevents")) {
 		LLViewerEventRecorder::instance().setEventLoggingOn();
@@ -3418,7 +3432,7 @@ LLSD LLAppViewer::getViewerInfo() const
 	}
 #endif
 	info["OPENGL_VERSION"] = (const char*)(glGetString(GL_VERSION));
-
+	info["LIBCURL_VERSION"] = LLCurl::getVersionString();
 	info["J2C_VERSION"] = LLImageJ2C::getEngineInfo();
 	bool want_fullname = true;
 	info["AUDIO_DRIVER_VERSION"] = gAudiop ? LLSD(gAudiop->getDriverName(want_fullname)) : LLSD();
@@ -3630,7 +3644,7 @@ void LLAppViewer::writeSystemInfo()
 	gDebugInfo["OSInfo"] = getOSInfo().getOSStringSimple();
 
 	// The user is not logged on yet, but record the current grid choice login url
-	// which may have been the intended grid. This can b
+	// which may have been the intended grid. 
 	gDebugInfo["GridName"] = LLGridManager::getInstance()->getGridNick();
 
 	// *FIX:Mani - move this down in llappviewerwin32

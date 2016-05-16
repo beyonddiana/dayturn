@@ -103,6 +103,7 @@ enum EAddPosition
 
 
 void make_ui_sound(const char* name);
+void make_ui_sound_deferred(const char * name);
 
 class LLImageProviderInterface;
 
@@ -239,6 +240,7 @@ public:
 	static void initClass(const settings_map_t& settings,
 						  LLImageProviderInterface* image_provider,
 						  LLUIAudioCallback audio_callback = NULL,
+						  LLUIAudioCallback deferred_audio_callback = NULL,
 						  const LLVector2 *scale_factor = NULL,
 						  const std::string& language = LLStringUtil::null);
 	static void cleanupClass();
@@ -328,6 +330,7 @@ public:
 	static settings_map_t sSettingGroups;
 	static LLUIAudioCallback sAudioCallback;
 	static LLVector2		sGLScaleFactor;
+	static LLUIAudioCallback sDeferredAudioCallback;
 	static LLWindow*		sWindow;
 	static LLView*			sRootView;
 	static LLHelp*			sHelpImpl;
