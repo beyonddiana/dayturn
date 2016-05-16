@@ -296,8 +296,6 @@
   <command name="web_browser"
            available_in_toybox="true"
            icon="Command_Web_Browser_Icon"
-           hover_icon_unselected="Command_Highlighting_Icon"
-           hover_icon_selected="Command_Highlighting_Selected_Icon"
            label_ref="Command_Web_Browser_Label"
            tooltip_ref="Command_Web_Browser_Tooltip"
            execute_function="Floater.ToggleOrBringToFront"
