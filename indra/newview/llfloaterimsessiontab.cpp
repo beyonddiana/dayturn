@@ -1131,6 +1131,12 @@ void LLFloaterIMSessionTab::saveCollapsedState()
 		gSavedPerAccountSettings.setBOOL("NearbyChatIsNotCollapsed", isMessagePaneExpanded());
 	}
 }
+
+LLView* LLFloaterIMSessionTab::getChatHistory()
+{
+	return mChatHistory;
+}
+
 BOOL LLFloaterIMSessionTab::handleKeyHere(KEY key, MASK mask )
 {
 	BOOL handled = FALSE;
