@@ -171,7 +171,7 @@ void LLViewerTextureList::doPreloadImages()
 		mImagePreloads.insert(image);
 	}
 	image = LLViewerTextureManager::getFetchedTextureFromFile("transparent.j2c", FTT_LOCAL_FILE, MIPMAP_YES, LLViewerFetchedTexture::BOOST_UI, LLViewerTexture::FETCHED_TEXTURE,
-		0,0,LLUUID("8dcd4a48-2d37-4909-9f78-f7a9eb4ef903"));
+		0,0,LLUUID("IMG_TRANSPARENT"));
 	if (image) 
 	{
 		image->setAddressMode(LLTexUnit::TAM_WRAP);
@@ -182,6 +182,21 @@ void LLViewerTextureList::doPreloadImages()
 	{
 		mImagePreloads.insert(image);
 	}
+	image = LLViewerTextureManager::getFetchedTextureFromFile("alpha_gradient.tga", FTT_LOCAL_FILE, MIPMAP_YES, LLViewerFetchedTexture::BOOST_UI, LLViewerTexture::FETCHED_TEXTURE,
+		GL_ALPHA8, GL_ALPHA, IMG_ALPHA_GRAD);
+	if (image)
+	{
+		image->setAddressMode(LLTexUnit::TAM_CLAMP);
+		mImagePreloads.insert(image);
+	}
+	image = LLViewerTextureManager::getFetchedTextureFromFile("alpha_gradient_2d.j2c", FTT_LOCAL_FILE, MIPMAP_YES, LLViewerFetchedTexture::BOOST_UI, LLViewerTexture::FETCHED_TEXTURE,
+		GL_ALPHA8, GL_ALPHA, IMG_ALPHA_GRAD_2D);
+	if (image)
+	{
+		image->setAddressMode(LLTexUnit::TAM_CLAMP);
+		mImagePreloads.insert(image);
+	}
+
 	
 }
 
