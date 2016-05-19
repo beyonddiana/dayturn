@@ -1,18 +1,6 @@
 /** 
- * @mainpage
- *
- * This is the sources for the Second Life Viewer;
- * information on the open source project is at 
- * https://wiki.secondlife.com/wiki/Open_Source_Portal
- *
- * The Mercurial repository for the trunk version is at
- * https://bitbucket.org/lindenlab/viewer-release
- *
- * @section source-license Source License
- * @verbinclude LICENSE-source.txt
- *
- * @section artwork-license Artwork License
- * @verbinclude LICENSE-logos.txt
+ * @file llappviewer.h
+ * @brief The LLAppViewer class declaration
  *
  * $LicenseInfo:firstyear=2007&license=viewerlgpl$
  * Second Life Viewer Source Code
@@ -34,9 +22,6 @@
  * 
  * Linden Research, Inc., 945 Battery Street, San Francisco, CA  94111  USA
  * $/LicenseInfo$
- *
- * @file llappviewer.h
- * @brief The LLAppViewer class declaration
  */
 
 #ifndef LL_LLAPPVIEWER_H
@@ -150,7 +135,12 @@ public:
     virtual void forceErrorBadMemoryAccess();
     virtual void forceErrorInfiniteLoop();
     virtual void forceErrorSoftwareException();
-    virtual void forceErrorDriverCrash(); 
+    virtual void forceErrorDriverCrash();
+
+	// The list is found in app_settings/settings_files.xml
+	// but since they are used explicitly in code,
+	// the follow consts should also do the trick.
+	static const std::string sGlobalSettingsName; 
 
 	LLCachedControl<bool> mRandomizeFramerate; 
 	LLCachedControl<bool> mPeriodicSlowFrame; 
@@ -286,8 +276,9 @@ private:
 
 	boost::optional<U32> mForceGraphicsLevel;
 
-	bool mQuitRequested;				// User wants to quit, may have modified documents open.
-	bool mLogoutRequestSent;			// Disconnect message sent to simulator, no longer safe to send messages to the sim.
+    bool mQuitRequested;				// User wants to quit, may have modified documents open.
+    bool mLogoutRequestSent;			// Disconnect message sent to simulator, no longer safe to send messages to the sim.
+    S32 mYieldTime;
 	U32 mLastAgentControlFlags;
 	F32 mLastAgentForceUpdate;
 	struct SettingsFiles* mSettingsLocationList;
