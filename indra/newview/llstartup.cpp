@@ -810,11 +810,6 @@ bool idle_startup()
 			gRememberPassword = gSavedSettings.getBOOL("RememberPassword");
 			show_connect_box = TRUE;
 		}
-
-		//setup map of datetime strings to codes and slt & local time offset from utc
-		// *TODO: Does this need to be here?
-		LLStringOps::setupDatetimeInfo(false);
-
 		// Go to the next startup state
 		LLStartUp::setStartupState( STATE_BROWSER_INIT );
 		return FALSE;
@@ -1287,6 +1282,9 @@ bool idle_startup()
 						LLNotificationsUtil::add("ErrorMessage", args, LLSD(), login_alert_done);
 					}
 				}
+				//setup map of datetime strings to codes and slt & local time offset from utc
+				// *TODO: Does this need to be here?
+				LLStringOps::setupDatetimeInfo (false);
 				transition_back_to_login_panel(emsg.str());
 				show_connect_box = true;
 			}
@@ -1299,10 +1297,6 @@ bool idle_startup()
 				LLVoiceClient::getInstance()->userAuthorized(gUserCredential->userID(), gAgentID);
 				// create the default proximal channel
 				LLVoiceChannel::initClass();
-// <AW: opensim>
-				// Not used anymore
-				//LLGridManager::getInstance()->setFavorite();
- // </AW: opensim>
 				LLStartUp::setStartupState( STATE_WORLD_INIT);
 				LLTrace::get_frame_recording().reset();
 			}
@@ -2216,9 +2210,9 @@ bool idle_startup()
 
 		if (!gAgent.isOutfitChosen() && isAgentAvatarValid())
 		{
-			// No point in waiting for clothing, we don't even
-			// know what gender we are.  Pop a dialog to ask and
-			// proceed to draw the world. JC
+			// No point in waiting for clothing, we don't even know
+			// what outfit we want.  Pop up a gender chooser dialog to
+			// ask and proceed to draw the world. JC
 			//
 			// *NOTE: We might hit this case even if we have an
 			// initial outfit, but if the load hasn't started
@@ -2262,7 +2256,6 @@ bool idle_startup()
 			}
 		}
 		//fall through this frame to STATE_CLEANUP
-		return TRUE; //do like fall throughs just adding another cycle seems safer
 	}
 
 	if (STATE_CLEANUP == LLStartUp::getStartupState())
@@ -2357,7 +2350,6 @@ void login_show()
 {
 	LL_INFOS("AppInit") << "Initializing Login Screen" << LL_ENDL;
 
-
 	// Hide the toolbars: may happen to come back here if login fails after login agent but before login in region
 	if (gToolBarView)
 	{
@@ -2365,7 +2357,6 @@ void login_show()
 	}
 	
 	LLPanelLogin::show(	gViewerWindow->getWindowRectScaled(), login_callback, NULL );
-
 }
 
 // Callback for when login screen is closed.  Option 0 = connect, option 1 = quit.
@@ -2519,7 +2510,7 @@ void register_viewer_callbacks(LLMessageSystem* msg)
 
 	msg->setHandlerFuncFast(_PREHASH_ImprovedInstantMessage,	process_improved_im);
 	msg->setHandlerFuncFast(_PREHASH_ScriptQuestion,			process_script_question);
-	msg->setHandlerFuncFast(_PREHASH_ObjectProperties,		process_object_properties, NULL);
+	msg->setHandlerFuncFast(_PREHASH_ObjectProperties,			LLSelectMgr::processObjectProperties, NULL);
 	msg->setHandlerFuncFast(_PREHASH_ObjectPropertiesFamily,	LLSelectMgr::processObjectPropertiesFamily, NULL);
 	msg->setHandlerFunc("ForceObjectSelect", LLSelectMgr::processForceObjectSelect);
 
@@ -2925,6 +2916,7 @@ void reset_login()
 
 	// Hide any other stuff
 	LLFloaterReg::hideVisibleInstances();
+    LLStartUp::setStartupState( STATE_BROWSER_INIT );
 }
 
 //---------------------------------------------------------------------------
