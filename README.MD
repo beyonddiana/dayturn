@@ -216,10 +216,10 @@ eol = auto
 
 [hooks]
 
-#pretxncommit = python:~/hg-tools/coding_policy.py:hook
+ #pretxncommit = python:~/hg-tools/coding_policy.py:hook
 As an options add this to you bash history file ~/.bashrc
 
-#pretxnchangegroup = python:~/hg-tools/coding_policy.py:hook
+ #pretxnchangegroup = python:~/hg-tools/coding_policy.py:hook
 
 ----------------------
 As an options add this to you bash history file ~/.bashrc
@@ -279,17 +279,17 @@ Mac
 
 --------
 
-The current development environment is XCode 7.3 running on OS X 10.11.4 where the viewer is built 32-bit with OS X SDK 10.11 and Deployment Target of OS X 10.9.
+The current development environment is XCode 7.3 running on OS X 10.11.5 where the viewer is built 32-bit with OS X SDK 10.11 and Deployment Target of OS X 10.9.
 
-Still building for i386 as there are dependencies in the LL code to old Carbon framework that prevents successfull 64-bit build. A 32-bit build is not such a big issue on OS X as the application can use the full 32-bit address space of 4 GB which should be sufficient unless you run in an OpenSim grid with very large VAR regions.
+We are still building for i386 as there are dependencies in the LL code to old Carbon framework that prevents successful 64-bit build. A 32-bit build is not such a big issue on OS X as the application can use the full 32-bit address space of 4 GB which should be sufficient unless you run in an OpenSim grid with very large VAR regions.
 
-You can both build from the command line in terminal or build the XCode project that is generatedduing configuration.
+You can both build from the command line in terminal or build the Xcode project that is generated during configuration. 
 
 NOTE: On Upgrading XCode to a new version you probably should delete the Derived Data folder that is found in Development/XCode as it may contain links to old system library locations preventing your build from linking.
 
 	-- 
 
-Linden’s version of autobuild requires a different version of Python than the system installed so the best way to get it installed is to first install MacPorts from https://www.macports.org with the latest current release (2.3.3).
+Linden’s version of autobuild requires a different version of Python than the system installed so the best way to get it installed is to first install MacPorts from https://www.macports.org with the latest current release (2.3.4).
 
 With MacPorts installed, in terminal install the following ports:
 
@@ -301,7 +301,7 @@ With MacPorts installed, in terminal install the following ports:
 
 When prompted by the installer run python_select to use the version you just installed. It will be installed in /opt/local/bin
 
-If you have newer versions of Xcode installed then you also need to run xcode-select to make sure you use 6.4 for your build
+If you have beta versions of Xcode installed then you also need to run code-select to make sure you use 7.3 for your build
 
 --
 Xcode should have created the directory ~/Library/Developer during installation. If not create it (or use the location of your choice) and shortcut it to the Finder sidebar. 
@@ -356,10 +356,3 @@ Disclaimer
 -----
 
 -      This software is not provided nor supported by Linden Lab, the makers of Second Life.
-
-
-
-
-
-
-
