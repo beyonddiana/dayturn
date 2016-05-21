@@ -1,5 +1,4 @@
-**Kokua OpenSim**
-
+## ** Kokua OpenSim ** ##
 This repository is a baseline of the combined Linden Lab 4.0.2 SecondLife Viewer and Kokua 4.0.2 releases with select commits from the following Linden code base with the aim of providing a starting point for development of an OpenSim specific version of Kokua or derived viewers.
 
 The reason for this is that the http changes in the Linden 4.0.3 release are interoperable with OpenSim core in Standalone mode or in Grid mode without assets served over http. Assets over http is still largely experimental in OpenSim and currently requires both more hardware and configuration skills than many small grids are willing or able to invest in. 
@@ -8,10 +7,10 @@ A pure-play OpenSim viewer will also over time evolve to a simpler code base rem
 
 It will also remove the code for SecondLife specific functionality such as Pathfinding, a unified marketplace, experience keys, avatar complexity and information that is not directly relevant to OpenSim grids. 
 
-================
-Contributing Code to Kokua
 
---------------------------
+
+### Contributing Code to Kokua OpenSim ###
+----------------------------------
 
 Contributing one patch with less than 3 files touched can be submitted as a diff or patch file. Please open a ticket and attach the file to a ticket.
 
