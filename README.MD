@@ -71,12 +71,14 @@ Development system:
 
 
 
+3.19.0-47-generic #53~14.04.1-Ubuntu SMP Mon Jan 18 16:09:14 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
 
 Development system is UBUNTU 14.04 LTS (testing). The compiler is gcc-4.8. If starting with a new Stretch you will need to install
 Library archives for the most part are built with gcc-4.6.4.  except Boost gcc-4.7 
 
 3.19.0-47-generic #53~14.04.1-Ubuntu SMP Mon Jan 18 16:09:14 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
 
+--------------
 
 Preprations to build:
 
@@ -85,8 +87,11 @@ Preprations to build:
 sudo apt-get update
 
 sudo apt-get upgrade
+libX11-dev libxinerama-dev libxml2-dev libxrender-dev libpulse-dev libalut-dev 
 
 sudo apt-get install --install-recommends bison bzip2 cmake curl flex g++-4.8 m4 mercurial python2.7 python2.7-dev python-pip
+gcc --version
+gcc (Ubuntu 4.8.4-2ubuntu1~14.04) 4.8.4
 
 sudo apt-get install --install-recommends libgl1-mesa-dev libglu1-mesa-dev libstdc++6 \
 libX11-dev libxinerama-dev libxml2-dev libxrender-dev libpulse-dev libalut-dev 
@@ -128,9 +133,10 @@ Voice 32 bit libraries are not needed to build the viewer but, are needed to tes
 sudo dpkg --add-architecture i386
 
 sudo apt-get update
-
+ 
 sudo apt-get install --install-recommends libasound2:i386 libasound2-plugins:i386 libasyncns0:i386 libattr1:i386 libc6:i386 libc6-i686:i386 libcap2:i386 libdbus-1-3:i386 libflac8:i386 libgcc1:i386 libice6:i386 libidn11:i386 libjson0:i386 libogg0:i386 libpulse0:i386 libsm6:i386 libsndfile1:i386 libstdc++6:i386 libvorbis0a:i386 libvorbisenc2:i386 libwrap0:i386 libuuid1:i386 libx11-6:i386 libx11-xcb1:i386 libxau6:i386 libxcb1:i386 libxdmcp6:i386 libxext6:i386 libxi6:i386 libxtst6:i386 zlib1g:i386 
 
+ubuntu-14.04.3-desktop-i386.iso
  
 Following applies to building 32 bit kokua by using a 32 bit virtual machine(vm). If building on 32 bit hardware -- follow 64 bit instructions from above.
 
@@ -210,9 +216,10 @@ eol = auto
 
 [hooks]
 
-#pretxncommit = python:~/hg-tools/coding_policy.py:hook
+ #pretxncommit = python:~/hg-tools/coding_policy.py:hook
+As an options add this to you bash history file ~/.bashrc
 
-#pretxnchangegroup = python:~/hg-tools/coding_policy.py:hook
+ #pretxnchangegroup = python:~/hg-tools/coding_policy.py:hook
 
 ----------------------
 As an options add this to you bash history file ~/.bashrc
@@ -223,6 +230,7 @@ Skip the export for 32 bit builds.
 
 export AUTOBUILD_PLATFORM_OVERRIDE='linux64'
 
+  KokuaNT can be built with opensource or properity audio engine. The opensource solution uses openal for sounds and gstreamer for streaming music and audio visual files like mp4's. Use of the properity FMOD Ex library for sounds and streaming audio is supported but, the FMOD Ex library must be provided separately.
 
 -  hg clone https://NickyP@bitbucket.org/NickyP/kokuant
 
@@ -259,6 +267,7 @@ This places the viewer in /opt/kokua-install and places a Kokua menu entry under
 
 sudo is the perferred method as the chrome-sandbox a part of Chrome Embedded Framework requies root permissions.
 
+To be published
 
 Windows
 
@@ -270,17 +279,17 @@ Mac
 
 --------
 
-The current development environment is XCode 7.3 running on OS X 10.11.4 where the viewer is built 32-bit with OS X SDK 10.11 and Deployment Target of OS X 10.9.
+The current development environment is XCode 7.3 running on OS X 10.11.5 where the viewer is built 32-bit with OS X SDK 10.11 and Deployment Target of OS X 10.9.
 
-Still building for i386 as there are dependencies in the LL code to old Carbon framework that prevents successfull 64-bit build. A 32-bit build is not such a big issue on OS X as the application can use the full 32-bit address space of 4 GB which should be sufficient unless you run in an OpenSim grid with very large VAR regions.
+We are still building for i386 as there are dependencies in the LL code to old Carbon framework that prevents successful 64-bit build. A 32-bit build is not such a big issue on OS X as the application can use the full 32-bit address space of 4 GB which should be sufficient unless you run in an OpenSim grid with very large VAR regions.
 
-You can both build from the command line in terminal or build the XCode project that is generatedduing configuration.
+You can both build from the command line in terminal or build the Xcode project that is generated during configuration. 
 
 NOTE: On Upgrading XCode to a new version you probably should delete the Derived Data folder that is found in Development/XCode as it may contain links to old system library locations preventing your build from linking.
 
 	-- 
 
-Linden’s version of autobuild requires a different version of Python than the system installed so the best way to get it installed is to first install MacPorts from https://www.macports.org with the latest current release (2.3.3).
+Linden’s version of autobuild requires a different version of Python than the system installed so the best way to get it installed is to first install MacPorts from https://www.macports.org with the latest current release (2.3.4).
 
 With MacPorts installed, in terminal install the following ports:
 
@@ -292,12 +301,10 @@ With MacPorts installed, in terminal install the following ports:
 
 When prompted by the installer run python_select to use the version you just installed. It will be installed in /opt/local/bin
 
-If you have newer versions of Xcode installed then you also need to run xcode-select to make sure you use 6.4 for your build
+If you have beta versions of Xcode installed then you also need to run code-select to make sure you use 7.3 for your build
 
 --
-
 Xcode should have created the directory ~/Library/Developer during installation. If not create it (or use the location of your choice) and shortcut it to the Finder sidebar. 
-
 In terminal cd to the above directory and type the command:
 
 hg clone https://bitbucket.org/lindenlab/autobuild
@@ -349,10 +356,3 @@ Disclaimer
 -----
 
 -      This software is not provided nor supported by Linden Lab, the makers of Second Life.
-
-
-
-
-
-
-
