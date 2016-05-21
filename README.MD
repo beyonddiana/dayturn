@@ -7,6 +7,7 @@ A pure-play OpenSim viewer will also over time evolve to a simpler code base rem
 
 It will also remove the code for SecondLife specific functionality such as Pathfinding, a unified marketplace, experience keys, avatar complexity and information that is not directly relevant to OpenSim grids. 
 
+There are two active branches KokuaNT and Kokua-MKRLV. 
 
 
 ### Contributing Code to Kokua OpenSim ###
