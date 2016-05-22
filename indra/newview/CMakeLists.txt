@@ -166,7 +166,8 @@ set(viewer_SOURCE_FILES
     llcaphttpsender.cpp
     llchannelmanager.cpp
     llchatbar.cpp
-    kokuachathistory.cpp
+    llchathistory.cpp
+    # kokuachathistory.cpp
     llchatitemscontainerctrl.cpp
     llchatmsgbox.cpp
     llchiclet.cpp
@@ -812,7 +813,8 @@ set(viewer_HEADER_FILES
     llcaphttpsender.h
     llchannelmanager.h
     llchatbar.h
-    kokuachathistory.h
+    llchathistory.h
+    # kokuachathistory.h
     llchatitemscontainerctrl.h
     llchatmsgbox.h
     llchiclet.h
