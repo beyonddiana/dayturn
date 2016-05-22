@@ -8,6 +8,7 @@ include(LLCommon)
 include(Linking)
 include(Boost)
 include(LLSharedLibs)
+include(JsonCpp)
 include(GoogleBreakpad)
 include(GooglePerfTools)
 include(Copy3rdPartyLibs)
@@ -17,6 +18,7 @@ include(URIPARSER)
 include_directories(
     ${EXPAT_INCLUDE_DIRS}
     ${LLCOMMON_INCLUDE_DIRS}
+    ${JSONCPP_INCLUDE_DIR}
     ${ZLIB_INCLUDE_DIRS}
     ${BREAKPAD_INCLUDE_DIRECTORIES}
     ${URIPARSER_INCLUDE_DIRS}
@@ -86,6 +88,7 @@ set(llcommon_SOURCE_FILES
     llrefcount.cpp
     llrun.cpp
     llsd.cpp
+    llsdjson.cpp
     llsdparam.cpp
     llsdserialize.cpp
     llsdserialize_xml.cpp
@@ -195,6 +198,7 @@ set(llcommon_HEADER_FILES
     llrefcount.h
     llsafehandle.h
     llsd.h
+    llsdjson.h
     llsdparam.h
     llsdserialize.h
     llsdserialize_xml.h
@@ -246,23 +250,8 @@ set_source_files_properties(${llcommon_HEADER_FILES}
 
 list(APPEND llcommon_SOURCE_FILES ${llcommon_HEADER_FILES})
 
-if(NOT WORD_SIZE EQUAL 32)
-  if(WINDOWS)
-    add_definitions(/FIXED:NO)
-  else(WINDOWS) # not windows therefore gcc LINUX and DARWIN
-    add_definitions(-fPIC)
-  endif(WINDOWS)
-endif(NOT WORD_SIZE EQUAL 32)
- 
 if(LLCOMMON_LINK_SHARED)
   add_library (llcommon SHARED ${llcommon_SOURCE_FILES})
-  if(WINDOWS)
-    # always generate llcommon.pdb, even for "Release" builds
-    set_target_properties(llcommon PROPERTIES LINK_FLAGS "/DEBUG")
-  endif(WINDOWS)
-  ll_stage_sharedlib(llcommon)
-else(LLCOMMON_LINK_SHARED)
-    add_library (llcommon ${llcommon_SOURCE_FILES})
   if(NOT WORD_SIZE EQUAL 32)
     if(WINDOWS)
       add_definitions(/FIXED:NO)
@@ -274,6 +263,9 @@ else(LLCOMMON_LINK_SHARED)
     # always generate llcommon.pdb, even for "Release" builds
     set_target_properties(llcommon PROPERTIES LINK_FLAGS "/DEBUG")
   endif(WINDOWS)
+  ll_stage_sharedlib(llcommon)
+else(LLCOMMON_LINK_SHARED)
+    add_library (llcommon ${llcommon_SOURCE_FILES})
 endif(LLCOMMON_LINK_SHARED)
 
 target_link_libraries(
@@ -282,10 +274,12 @@ target_link_libraries(
     ${APRUTIL_LIBRARIES}
     ${APR_LIBRARIES}
     ${EXPAT_LIBRARIES}
+    ${JSONCPP_LIBRARIES}
     ${ZLIB_LIBRARIES}
     ${WINDOWS_LIBRARIES}
     ${BOOST_PROGRAM_OPTIONS_LIBRARY}
     ${BOOST_REGEX_LIBRARY}
+    ${BOOST_SYSTEM_LIBRARY}
     ${GOOGLE_PERFTOOLS_LIBRARIES}
     ${URIPARSER_LIBRARIES}
     )
