@@ -51,17 +51,25 @@
 #include "lllayoutstack.h"
 #include "llagent.h"
 #include "llnotificationsutil.h"
+#include "lltabcontainer.h"
 #include "lltoastnotifypanel.h"
 #include "lltooltip.h"
 #include "llviewerregion.h"
 #include "llviewertexteditor.h"
+#include "llviewermenu.h"
 #include "llworld.h"
 #include "lluiconstants.h"
 #include "llstring.h"
 #include "llurlaction.h"
 #include "llviewercontrol.h"
 #include "llviewerobjectlist.h"
+#include "llwindow.h"
 #include "llmutelist.h"
+
+#include "llaudioengine.h"
+#include "llvieweraudio.h"
+#include "llviewermedia.h"
+#include "llviewermedia_streamingaudio.h"
 
 static LLDefaultChildRegistry::Register<LLChatHistory> r("chat_history");
 
@@ -277,6 +285,143 @@ public:
 			LLMuteList::getInstance()->remove(mute, flags);
 		}
 	}
+	
+		void onAudioStreamIconContextMenuItemClipboard(const LLSD& userdata)
+	{
+		std::string action = userdata.asString();
+		std::string clipboard = "";
+		
+		//
+		//	check if music is playing first
+		//
+		if (gAudiop && 
+			LLViewerMedia::hasParcelAudio() &&
+			LLViewerMedia::isParcelAudioPlaying()
+		) {
+			LLStreamingAudioInterface *stream = gAudiop->getStreamingAudioImpl();
+
+			if (stream) {
+				if (action == "copy_track_name") {
+					//
+					//	prepend the artist to the track
+					//	name if artist info is available
+					//
+					clipboard = stream->getCurrentArtist();
+
+					if (!stream->getCurrentTitle().empty()) {
+						if (!clipboard.empty()) {
+							clipboard += " - ";
+						}
+						clipboard += stream->getCurrentTitle();
+					}
+				}
+				else if (action == "copy_stream_name") {
+					clipboard = stream->getCurrentStreamName();
+				}
+				else if (action == "copy_stream_address") {
+					clipboard = stream->getURL();
+				}
+			}
+		}
+
+		LLView::getWindow()->copyTextToClipboard(utf8str_to_wstring(clipboard));
+	}
+	
+	void onAudioStreamIconContextMenuItemVisitWebsite(const LLSD& userdata)
+	{
+		std::string action = userdata.asString();
+		
+		//
+		//	check if music is playing first
+		//
+		if (gAudiop && 
+			LLViewerMedia::hasParcelAudio() &&
+			LLViewerMedia::isParcelAudioPlaying()
+		) {
+			LLStreamingAudioInterface *stream = gAudiop->getStreamingAudioImpl();
+
+			if (stream) {
+				LLWeb::loadURL(stream->getCurrentStreamLocation());
+			}
+		}
+
+	}
+
+	void onAudioStreamIconContextMenuItemStopStream(const LLSD& userdata)
+	{
+		LLViewerAudio *audio = LLViewerAudio::getInstance();
+			
+		if (audio) {
+			//
+			//	stop the stream
+			//
+			audio->stopInternetStreamWithAutoFade();
+		}
+	}
+
+	void onAudioStreamIconContextMenuItemStartStream(const LLSD& userdata)
+	{
+		if (gAudiop && LLViewerMedia::hasParcelAudio()) {
+			if (gAudiop->isInternetStreamPlaying() == LLAudioEngine::AUDIO_PAUSED) {
+				//
+				//	unpause the stream
+				//
+				gAudiop->pauseInternetStream(false);
+			}
+			else {
+				LLViewerAudio *audio = LLViewerAudio::getInstance();
+
+				if (audio) {
+					//
+					//	start the stream
+					//
+					audio->startInternetStreamWithAutoFade(LLViewerMedia::getParcelAudioURL());
+				}
+			}
+		}
+	}
+
+	void onAudioStreamIconContextMenuItemViewerSound(const LLSD& userdata)
+	{
+		open_floater_at_tab("preferences", "audio");
+	}
+
+	void onAudioStreamIconContextMenuItemParcelSound(const LLSD& userdata)
+	{
+		open_floater_at_tab("about_land", "land_audio_panel");
+	}
+
+	void open_floater_at_tab(const std::string floater_name, const std::string tab_name)
+	{
+		//
+		//	open the named floater
+		//
+		LLFloater *floater = LLFloaterReg::getTypedInstance<LLFloater>(floater_name);
+
+		if (!floater) {
+			return;
+		}
+
+		floater->openFloater();
+
+		//
+		//	switch to the named tab in the floater
+		//
+		LLPanel *tab = floater->getChild<LLPanel>(tab_name);
+
+		if (tab) {
+			LLTabContainer *container = dynamic_cast<LLTabContainer*>(tab->getParent());
+
+			if (container) {
+				container->selectTabPanel(tab);
+		    	}
+		}
+
+		//
+		//	focus the floater
+		//
+		floater->setFocus(TRUE);
+	}
 
 	BOOL postBuild()
 	{
@@ -396,6 +541,11 @@ public:
 			user_name->setValue(mFrom);
 			updateMinUserNameWidth();
 		}
+		else if (mSourceType == CHAT_SOURCE_AUDIO_STREAM) {
+			mFrom = chat.mFromName;
+			user_name->setValue(mFrom);
+			updateMinUserNameWidth();
+	    	}
 		else if (mSourceType == CHAT_SOURCE_AGENT
 				 && !mAvatarID.isNull()
 				 && chat.mChatStyle != CHAT_STYLE_HISTORY)
@@ -468,7 +618,10 @@ public:
 				icon->setValue(LLSD("OBJECT_Icon"));
 				break;
 			case CHAT_SOURCE_SYSTEM:
-				icon->setValue(LLSD("SL_Logo"));
+				icon->setValue(LLSD("Kokua_Logo"));
+				break;
+			case CHAT_SOURCE_AUDIO_STREAM:
+				icon->setValue(LLSD("Sound_Icon"));
 				break;
 			case CHAT_SOURCE_UNKNOWN: 
 				icon->setValue(LLSD("Unknown_Icon"));
@@ -537,10 +690,12 @@ protected:
 	{
 		if(mSourceType == CHAT_SOURCE_SYSTEM)
 			showSystemContextMenu(x,y);
-		if(mAvatarID.notNull() && mSourceType == CHAT_SOURCE_AGENT)
+		else if (mAvatarID.notNull() && mSourceType == CHAT_SOURCE_AGENT)
 			showAvatarContextMenu(x,y);
-		if(mAvatarID.notNull() && mSourceType == CHAT_SOURCE_OBJECT)
+		else if (mAvatarID.notNull() && mSourceType == CHAT_SOURCE_OBJECT && SYSTEM_FROM != mFrom)
 			showObjectContextMenu(x,y);
+		else if (mSourceType == CHAT_SOURCE_AUDIO_STREAM)
+			showAudioStreamContextMenu(x,y);
 	}
 
 	void showSystemContextMenu(S32 x,S32 y)
@@ -600,6 +755,47 @@ protected:
 				menu->setItemEnabled("Chat History", LLLogChat::isTranscriptExist(mAvatarID));
 			}
 
+			menu->setItemEnabled("Map", (LLAvatarTracker::instance().isBuddyOnline(mAvatarID) && is_agent_mappable(mAvatarID)) || gAgent.isGodlike() );
+			menu->buildDrawLabels();
+			menu->updateParent(LLMenuGL::sMenuContainer);
+			LLMenuGL::showPopup(this, menu, x, y);
+		}
+	}
+
+	void showAudioStreamContextMenu(S32 x,S32 y)
+	{
+		LLMenuGL *menu = (LLMenuGL*)mPopupMenuHandleAudioStream.get();
+
+		if (menu) 
+		{
+			LLStreamingAudioInterface *stream = NULL;
+
+			static LLCachedControl<bool> audio_streaming_music(gSavedSettings, "AudioStreamingMusic", true);
+
+			if (gAudiop && audio_streaming_music && LLViewerMedia::hasParcelAudio()) 
+				{
+				if (LLViewerMedia::isParcelAudioPlaying()) 
+				{
+					stream = gAudiop->getStreamingAudioImpl();
+				}
+
+				menu->setItemVisible("start_stream", stream == NULL);
+				menu->setItemEnabled("start_stream", stream == NULL);
+		}
+		else 
+		{
+				menu->setItemVisible("start_stream", true);
+				menu->setItemEnabled("start_stream", false);
+		}
+
+			menu->setItemVisible("stop_stream", stream != NULL);
+			menu->setItemEnabled("stop_stream", stream != NULL);
+			menu->setItemEnabled("copy_track_name", stream && (!stream->getCurrentArtist().empty() || !stream->getCurrentTitle().empty()));
+			menu->setItemEnabled("copy_stream_name", stream && !stream->getCurrentStreamName().empty());
+			menu->setItemEnabled("copy_stream_address", stream != NULL);
+			menu->setItemEnabled("visit_stream_website", stream && !stream->getCurrentStreamLocation().empty());
+
+			menu->setItemEnabled("Chat History", LLLogChat::isTranscriptExist(mAvatarID));
 			menu->setItemEnabled("Map", (LLAvatarTracker::instance().isBuddyOnline(mAvatarID) && is_agent_mappable(mAvatarID)) || gAgent.isGodlike() );
 			menu->buildDrawLabels();
 			menu->updateParent(LLMenuGL::sMenuContainer);
@@ -691,6 +887,7 @@ private:
 protected:
 	LLHandle<LLView>	mPopupMenuHandleAvatar;
 	LLHandle<LLView>	mPopupMenuHandleObject;
+	LLHandle<LLView>	mPopupMenuHandleAudioStream;
 
 	LLUICtrl*			mInfoCtrl;
 
@@ -996,7 +1193,7 @@ void LLChatHistory::appendMessage(const LLChat& chat, const LLSD &args, const LL
 				mEditor->appendText(chat.mFromName + delimiter, prependNewLineState, link_params);
 				prependNewLineState = false;
 			}
-			else if ( chat.mFromName != SYSTEM_FROM && chat.mFromID.notNull() && !message_from_log)
+			else if (chat.mFromName != SYSTEM_FROM && chat.mFromID.notNull() && chat.mFromID != AUDIO_STREAM_FROM && !message_from_log)
 			{
 				LLStyle::Params link_params(body_message_params);
 				link_params.overwriteFrom(LLStyleMap::instance().lookupAgent(chat.mFromID));
