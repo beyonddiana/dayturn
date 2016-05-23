@@ -247,6 +247,7 @@ void LLPanelOutfitsInventory::initListCommandsHandlers()
 	mListCommands->childSetAction("save_as_btn", boost::bind(&LLPanelOutfitsInventory::onSaveAs, this));
 	mListCommands->childSetAction("wear_btn", boost::bind(&LLPanelOutfitsInventory::onWearButtonClick, this));
 	mMyOutfitsPanel->childSetAction("trash_btn", boost::bind(&LLPanelOutfitsInventory::onTrashButtonClick, this));
+	mOutfitGalleryPanel->childSetAction("trash_btn", boost::bind(&LLPanelOutfitsInventory::onGalleryTrashButtonClick, this));
 }
 
 void LLPanelOutfitsInventory::updateListCommands()
@@ -258,6 +259,7 @@ void LLPanelOutfitsInventory::updateListCommands()
 	if ( make_outfit_enabled) {} //empty it to bypass warning local variable is initialized but not referenced
 	LLButton* wear_btn = mListCommands->getChild<LLButton>("wear_btn");
 	mMyOutfitsPanel->childSetEnabled("trash_btn", trash_enabled);
+	mOutfitGalleryPanel->childSetEnabled("trash_btn", trash_enabled);
 	wear_btn->setEnabled(wear_enabled);
 	wear_btn->setVisible(wear_visible);
 
@@ -267,6 +269,11 @@ void LLPanelOutfitsInventory::updateListCommands()
 void LLPanelOutfitsInventory::onTrashButtonClick()
 {
 	mMyOutfitsPanel->removeSelected();
+}
+
+void LLPanelOutfitsInventory::onGalleryTrashButtonClick()
+{
+	mOutfitGalleryPanel->removeSelected();
 }
 
 bool LLPanelOutfitsInventory::isActionEnabled(const LLSD& userdata)
