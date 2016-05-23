@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <!-- header_height="0"-->
-<floater
+<!--bg_alpha_image_overlay="LtGray_50"--><floater
  header_height="0"
- bg_alpha_image_overlay="LtGray_50"
  can_minimize="false"
  can_close="true"
  follows="bottom"
