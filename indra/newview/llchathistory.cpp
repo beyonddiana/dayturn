@@ -431,14 +431,21 @@ public:
 		registrar.add("AvatarIcon.Action", boost::bind(&LLChatHistoryHeader::onAvatarIconContextMenuItemClicked, this, _2));
 		registrar_enable.add("AvatarIcon.Check", boost::bind(&LLChatHistoryHeader::onAvatarIconContextMenuItemChecked, this, _2));
 		registrar.add("ObjectIcon.Action", boost::bind(&LLChatHistoryHeader::onObjectIconContextMenuItemClicked, this, _2));
-		registrar_enable.add("ObjectIcon.Enable", boost::bind(&LLChatHistoryHeader::onObjectIconContextMenuItemEnabled, this, _2));
-
+		registrar.add("AudioStreamIcon.Clipboard", boost::bind(&LLChatHistoryHeader::onAudioStreamIconContextMenuItemClipboard, this, _2));
+		registrar.add("AudioStreamIcon.VisitWebsite", boost::bind(&LLChatHistoryHeader::onAudioStreamIconContextMenuItemVisitWebsite, this, _2));
+		registrar.add("AudioStreamIcon.StopStream", boost::bind(&LLChatHistoryHeader::onAudioStreamIconContextMenuItemStopStream, this, _2));
+		registrar.add("AudioStreamIcon.StartStream", boost::bind(&LLChatHistoryHeader::onAudioStreamIconContextMenuItemStartStream, this, _2));
+		registrar.add("AudioStreamIcon.ViewerSound", boost::bind(&LLChatHistoryHeader::onAudioStreamIconContextMenuItemViewerSound, this, _2));
+		registrar.add("AudioStreamIcon.ParcelSound", boost::bind(&LLChatHistoryHeader::onAudioStreamIconContextMenuItemParcelSound, this, _2));
 
 		LLMenuGL* menu = LLUICtrlFactory::getInstance()->createFromFile<LLMenuGL>("menu_avatar_icon.xml", gMenuHolder, LLViewerMenuHolderGL::child_registry_t::instance());
 		mPopupMenuHandleAvatar = menu->getHandle();
 
 		menu = LLUICtrlFactory::getInstance()->createFromFile<LLMenuGL>("menu_object_icon.xml", gMenuHolder, LLViewerMenuHolderGL::child_registry_t::instance());
 		mPopupMenuHandleObject = menu->getHandle();
+		
+		menu = LLUICtrlFactory::getInstance()->createFromFile<LLMenuGL>("menu_audio_stream_icon.xml", gMenuHolder, LLViewerMenuHolderGL::child_registry_t::instance());
+		mPopupMenuHandleAudioStream = menu->getHandle();
 
 		setDoubleClickCallback(boost::bind(&LLChatHistoryHeader::showInspector, this));
 
@@ -524,6 +531,9 @@ public:
 		{
 			mSourceType = CHAT_SOURCE_SYSTEM;
 		}  
+		else if (chat.mFromID == AUDIO_STREAM_FROM) {
+			mSourceType = CHAT_SOURCE_AUDIO_STREAM;
+		}
 
 		mUserNameFont = style_params.font();
 		LLTextBox* user_name = getChild<LLTextBox>("user_name");
