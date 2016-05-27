@@ -164,6 +164,14 @@ public:
 			LLFloaterSidePanelContainer::showPanel("people", "panel_people",
 				LLSD().with("people_panel_tab_name", "blocked_panel").with("blocked_to_select", getAvatarId()));
 		}
+				else if (level == "unblock")
+		{
+			LLMuteList::getInstance()->remove(LLMute(getAvatarId(), mFrom, LLMute::OBJECT));
+		}
+		else if (level == "unblock")
+		{
+			LLMuteList::getInstance()->remove(LLMute(getAvatarId(), mFrom, LLMute::OBJECT));
+		}
 		else if (level == "map")
 		{
 			std::string url = "secondlife://" + mObjectData["slurl"].asString();
@@ -177,11 +185,16 @@ public:
 
 	}
 	
-	bool onObjectIconContextMenuItemEnabled(const LLSD& userdata)
+    bool onObjectIconContextMenuItemVisible(const LLSD& userdata)
     {
         std::string level = userdata.asString();
         if (level == "is_blocked")
         {
+			return LLMuteList::getInstance()->isMuted(getAvatarId(), mFrom, LLMute::flagTextChat);
+        }
+        else if (level == "not_blocked")
+        {
+
             return !LLMuteList::getInstance()->isMuted(getAvatarId(), mFrom, LLMute::flagTextChat);
         }
         return false;
@@ -431,6 +444,7 @@ public:
 		registrar.add("AvatarIcon.Action", boost::bind(&LLChatHistoryHeader::onAvatarIconContextMenuItemClicked, this, _2));
 		registrar_enable.add("AvatarIcon.Check", boost::bind(&LLChatHistoryHeader::onAvatarIconContextMenuItemChecked, this, _2));
 		registrar.add("ObjectIcon.Action", boost::bind(&LLChatHistoryHeader::onObjectIconContextMenuItemClicked, this, _2));
+		registrar_enable.add("ObjectIcon.Visible", boost::bind(&LLChatHistoryHeader::onObjectIconContextMenuItemVisible, this, _2));
 		registrar.add("AudioStreamIcon.Clipboard", boost::bind(&LLChatHistoryHeader::onAudioStreamIconContextMenuItemClipboard, this, _2));
 		registrar.add("AudioStreamIcon.VisitWebsite", boost::bind(&LLChatHistoryHeader::onAudioStreamIconContextMenuItemVisitWebsite, this, _2));
 		registrar.add("AudioStreamIcon.StopStream", boost::bind(&LLChatHistoryHeader::onAudioStreamIconContextMenuItemStopStream, this, _2));
@@ -939,6 +953,7 @@ LLChatHistory::LLChatHistory(const LLChatHistory::Params& p)
 	editor_params.trusted_content = false;
 	mEditor = LLUICtrlFactory::create<LLTextEditor>(editor_params, this);
 	mEditor->setIsFriendCallback(LLAvatarActions::isFriend);
+	mEditor->setIsObjectBlockedCallback(boost::bind(&LLMuteList::isMuted, LLMuteList::getInstance(), _1, _2, 0));
 }
 
 LLSD LLChatHistory::getValue() const
