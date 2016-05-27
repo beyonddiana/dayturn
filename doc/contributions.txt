@@ -184,12 +184,14 @@ Ansariel Hiller
 	MAINT-3187
 	BUG-3764
 	MAINT-3560
-	STORM-1984
 	STORM-1979
-	MAINT-3821
+	STORM-2083
 	MAINT-5533
+	STORM-2094
 	MAINT-5756
-	MAINT-2199
+	MAINT-4677
+	MAINT-6300
+	MAINT-6397
 Aralara Rajal
 Arare Chantilly
 	CHUIBUG-191
@@ -203,7 +205,6 @@ ArminWeatherHax
 	STORM-1532
 Armin Weatherwax
 	VWR-8436
-	KOKUA-1152
 ArminasX Saiman
 Arya Braveheart
 Asaeda Meltingdots
@@ -325,8 +326,6 @@ Cinder Roxley
     OPEN-292
     OPEN-297
     STORM-1703
-    STORM-1888
-    STORM-1949
     STORM-1948
     STORM-1831
     STORM-1888
@@ -733,6 +732,12 @@ Jonathan Yap
 	STORM-2030
 	STORM-2034
 	STORM-2018
+	STORM-2082
+	STORM-2086
+	STORM-2085
+	STORM-2088
+	STORM-2094
+	STORM-2099
 Kadah Coba
 	STORM-1060
     STORM-1843
@@ -1014,7 +1019,8 @@ Nicky Dasmijn
 	STORM-1937
 	OPEN-187
     STORM-2010
-Nicky Perian 
+	STORM-2082
+Nicky Perian
 	OPEN-1
 	STORM-1087
 	STORM-1090
@@ -1256,6 +1262,8 @@ Sovereign Engineer
     OPEN-217
     OPEN-295
     MAINT-6107
+    STORM-2107
+    MAINT-6218
 SpacedOut Frye
 	VWR-34
 	VWR-45
