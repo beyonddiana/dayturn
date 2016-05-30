@@ -201,9 +201,7 @@ void LLGroupList::refresh()
 		const LLGroupData& group_data = gAgent.mGroups.at(i);
 		if (have_filter && !findInsensitive(group_data.mName, mNameFilter))
 			continue;
-		// <FS:Ansariel> Mark groups hidden in profile
-		//addNewItem(id, group_data.mName, group_data.mInsigniaID, ADD_BOTTOM);
-		addNewItem(id, group_data.mName, group_data.mInsigniaID, ADD_BOTTOM, !group_data.mListInProfile);
+		addNewItem(id, group_data.mName, group_data.mInsigniaID, ADD_BOTTOM);
 	}
 
 	// Sort the list.
@@ -261,9 +259,7 @@ void LLGroupList::setGroups(const std::map< std::string,LLUUID> group_list)
 // PRIVATE Section
 //////////////////////////////////////////////////////////////////////////
 
-// <FS:Ansariel> Mark groups hidden in profile
-//void LLGroupList::addNewItem(const LLUUID& id, const std::string& name, const LLUUID& icon_id, EAddPosition pos)
-void LLGroupList::addNewItem(const LLUUID& id, const std::string& name, const LLUUID& icon_id, EAddPosition pos, bool hiddenInProfile)
+void LLGroupList::addNewItem(const LLUUID& id, const std::string& name, const LLUUID& icon_id, EAddPosition pos)
 {
 	LLGroupListItem* item = new LLGroupListItem(mForAgent && mShowIcons);
 
@@ -274,13 +270,6 @@ void LLGroupList::addNewItem(const LLUUID& id, const std::string& name, const LL
 	item->getChildView("info_btn")->setVisible( false);
 	item->getChildView("profile_btn")->setVisible( false);
 	item->setGroupIconVisible(mShowIcons);
-
-	// <FS:Ansariel> Mark groups hidden in profile
-	if (hiddenInProfile)
-	{
-		item->markHiddenInProfile();
-	}
-	// </FS:Ansariel> Mark groups hidden in profile
 
 	addItem(item, id, pos);
 
@@ -459,12 +448,6 @@ void LLGroupListItem::setGroupIconVisible(bool visible)
 	mGroupNameBox->setRect(name_rect);
 }
 
-// <FS:Ansariel> Mark groups hidden in profile
-void LLGroupListItem::markHiddenInProfile()
-{
-	mGroupNameBox->setColor(LLUIColorTable::instance().getColor("GroupHiddenInProfile", LLColor4::red).get());
-}
-// </FS:Ansariel> Mark groups hidden in profile
 
 //////////////////////////////////////////////////////////////////////////
 // Private Section
