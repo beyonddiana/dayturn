@@ -117,13 +117,6 @@ LLInventoryFilter::EFilterSubstringTarget LLInventoryFilter::getFilterSubStringT
 bool LLInventoryFilter::check(const LLFolderViewModelItem* item) 
 {
 	const LLFolderViewModelItemInventory* listener = dynamic_cast<const LLFolderViewModelItemInventory*>(item);
-	// Clipboard cut items are *always* filtered so we need this value upfront
-	// <FS:Ansariel> FIRE-6714: Don't move objects to trash during cut&paste
-	// Don't hide cut items in inventory
-	//const BOOL passed_clipboard = (listener ? checkAgainstClipboard(listener->getUUID()) : TRUE);
-	const BOOL passed_clipboard = TRUE;
-	// </FS:Ansariel> FIRE-6714: Don't move objects to trash during cut&paste
-
 	// If it's a folder and we're showing all folders, return automatically.
 	const BOOL is_folder = listener->getInventoryType() == LLInventoryType::IT_CATEGORY;
 	if (is_folder && (mFilterOps.mShowFolderState == LLInventoryFilter::SHOW_ALL_FOLDERS))
