@@ -118,6 +118,8 @@ protected:
     /*virtual*/ void onExpandAllFolders() {}
     /*virtual*/ LLOutfitListGearMenuBase* createGearMenu();
 
+    void applyFilter(LLOutfitGalleryItem* item, const std::string& filter_substring);
+
 private:
     void loadPhotos();
     void uploadPhoto(LLUUID outfit_id);
@@ -151,6 +153,7 @@ private:
     std::vector<LLPanel*> mRowPanels;
     std::vector<LLPanel*> mItemPanels;
     std::vector<LLOutfitGalleryItem*> mItems;
+    std::vector<LLOutfitGalleryItem*> mHiddenItems;
     LLScrollContainer* mScrollPanel;
     LLPanel* mGalleryPanel;
     LLPanel* mLastRowPanel;
@@ -248,6 +251,9 @@ public:
     std::string getItemName() {return mOutfitName;}
     bool mIsDefaultImage() {return mDefaultImage;}
     
+    bool isHidden() {return mHidden;}
+    void setHidden(bool hidden) {mHidden = hidden;}
+
     struct compareGalleryItem
     {
         bool operator()(LLOutfitGalleryItem* a, LLOutfitGalleryItem* b)
@@ -273,6 +279,7 @@ private:
     bool     mSelected;
     bool     mWorn;
     bool     mDefaultImage;
+    bool	 mHidden;
     std::string mOutfitName;
 };
 
