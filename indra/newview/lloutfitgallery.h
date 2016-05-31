@@ -102,6 +102,8 @@ public:
 
     /*virtual*/ bool getHasExpandableFolders() { return FALSE; }
 
+    void updateMessageVisibility();
+
     void refreshTextures(const LLUUID& category_id);
     void refreshOutfit(const LLUUID& category_id);
 
@@ -159,6 +161,7 @@ private:
     LLPanel* mLastRowPanel;
     LLUUID mOutfitLinkPending;
     LLUUID mOutfitRenamePending;
+    LLTextBox* mMessageTextBox;
     bool mGalleryCreated;
     int mRowCount;
     int mItemsAddedCount;
