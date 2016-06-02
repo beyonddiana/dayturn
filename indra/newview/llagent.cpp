@@ -2426,63 +2426,68 @@ void LLAgent::endAnimationUpdateUI()
 	//---------------------------------------------------------------------
 	if (gAgentCamera.getCameraMode() == CAMERA_MODE_MOUSELOOK)
 	{
-//MK
-		// Don't hide the UI while in Mouselook mode, we can do this through
-		// another command already (Ctrl+Alt+F1). Hiding the UI renders
-		// Mouselook pretty useless, if you ask me.
-/*
-//mk
-		// clean up UI
-		// first show anything hidden by UI toggle
-		gViewerWindow->setUIVisibility(TRUE);
-
-		// then hide stuff we want hidden for mouselook 
-		gToolBarView->setToolBarsVisible(false);
-		gMenuBarView->setVisible(FALSE);
-		LLNavigationBar::getInstance()->setVisible(FALSE);
-		gStatusBar->setVisibleForMouselook(false);
-
-		LLPanelTopInfoBar::getInstance()->setVisible(FALSE);
-
-		LLChicletBar::getInstance()->setVisible(FALSE);
-
-		LLPanelStandStopFlying::getInstance()->setVisible(FALSE);
-
-		// clear out camera lag effect
-		gAgentCamera.clearCameraLag();
-
-		// JC - Added for always chat in third person option
-		gFocusMgr.setKeyboardFocus(NULL);
-
-		LLToolMgr::getInstance()->setCurrentToolset(gMouselookToolset);
-
-		mViewsPushed = TRUE;
-
-		if (mMouselookModeInSignal)
+		if (!gRRenabled) //closing } inside preprocessing conditionals below
 		{
-			(*mMouselookModeInSignal)();
-		}
+	//MK
+			// Don't hide the UI while in Mouselook mode, we can do this through
+    		// another command already (Ctrl+Alt+F1) or (Ctrl-Shift-U). 
+			// Hiding the UI renders Mouselook pretty useless, if you ask me.
 
-		// hide all floaters except the mini map
 
-#if 0 // Use this once all floaters are registered
-		std::set<std::string> exceptions;
-		exceptions.insert("mini_map");
-		LLFloaterReg::hideVisibleInstances(exceptions);
-#else // Use this for now
-		LLFloaterView::skip_list_t skip_list;
-		skip_list.insert(LLFloaterReg::findInstance("mini_map"));
-		gFloaterView->pushVisibleAll(FALSE, skip_list);
-#endif
-//MK
-*/
-//mk
-		if( gMorphView )
-		{
-			gMorphView->setVisible(FALSE);
-		}
+	//mk
+			// clean up UI
+			// first show anything hidden by UI toggle
+			gViewerWindow->setUIVisibility(TRUE);
 
-		gConsole->setVisible( TRUE );
+			// then hide stuff we want hidden for mouselook 
+			gToolBarView->setToolBarsVisible(false);
+			gMenuBarView->setVisible(FALSE);
+			LLNavigationBar::getInstance()->setVisible(FALSE);
+			gStatusBar->setVisibleForMouselook(false);
+
+			LLPanelTopInfoBar::getInstance()->setVisible(FALSE);
+
+			LLChicletBar::getInstance()->setVisible(FALSE);
+
+			LLPanelStandStopFlying::getInstance()->setVisible(FALSE);
+
+			// clear out camera lag effect
+			gAgentCamera.clearCameraLag();
+
+			// JC - Added for always chat in third person option
+			gFocusMgr.setKeyboardFocus(NULL);
+
+			LLToolMgr::getInstance()->setCurrentToolset(gMouselookToolset);
+
+			mViewsPushed = TRUE;
+
+			if (mMouselookModeInSignal)
+			{
+				(*mMouselookModeInSignal)();
+			}
+
+			// hide all floaters except the mini map
+
+	#if 0 // Use this once all floaters are registered
+			std::set<std::string> exceptions;
+			exceptions.insert("mini_map");
+			LLFloaterReg::hideVisibleInstances(exceptions);
+			} //if (!gRRenabled)
+	#else // Use this for now
+			LLFloaterView::skip_list_t skip_list;
+			skip_list.insert(LLFloaterReg::findInstance("mini_map"));
+			gFloaterView->pushVisibleAll(FALSE, skip_list);
+			} //if (!gRRenabled)
+	#endif
+	//MK
+
+	//mk
+			if( gMorphView )
+			{
+				gMorphView->setVisible(FALSE);
+			}
+
+			gConsole->setVisible( TRUE );
 
 		if (isAgentAvatarValid())
 		{
