@@ -3238,8 +3238,7 @@ bool enable_object_edit()
 	{
 		return false;
 	}
-//mk
-=======
+//mk 
 
 	if (!isAgentAvatarValid()) return false;
 	
