@@ -690,6 +690,16 @@ DeleteKeys:
 
 NoDelete:
 
+MessageBox MB_YESNO $(DeleteRegistryKeysMB) IDYES DeleteKeys IDNO NoDelete
+
+DeleteKeys:
+  DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Classes\x-grid-location-info"
+  DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Classes\secondlife"
+  DeleteRegKey HKEY_CLASSES_ROOT "x-grid-location-info"
+  DeleteRegKey HKEY_CLASSES_ROOT "secondlife"
+
+NoDelete:
+
 FunctionEnd
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
