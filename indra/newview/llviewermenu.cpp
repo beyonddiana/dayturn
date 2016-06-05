@@ -3232,6 +3232,8 @@ BOOL enable_object_build(void*)
 
 bool enable_object_edit()
 {
+	if (!isAgentAvatarValid()) return false;
+	
 //MK
 	LLViewerObject* obj = LLSelectMgr::getInstance()->getSelection()->getPrimaryObject();
 	if (gRRenabled && obj && !gAgent.mRRInterface.canEdit(obj))
@@ -3239,8 +3241,6 @@ bool enable_object_edit()
 		return false;
 	}
 //mk 
-
-	if (!isAgentAvatarValid()) return false;
 	
 	// *HACK:  The new "prelude" Help Islands have a build sandbox area,
 	// so users need the Edit and Create pie menu options when they are
