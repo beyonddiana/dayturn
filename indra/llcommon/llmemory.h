@@ -419,9 +419,13 @@ public:
 		{
 			bool operator()(const LLMemoryBlock* const& lhs, const LLMemoryBlock* const& rhs)
 			{
+#if (LL_LINUX) && defined(__amd64__)
 				//return (U32)lhs->getBuffer() < (U32)rhs->getBuffer();
 				//<ND/> 64 bit fix
 				return reinterpret_cast<unsigned char*>(lhs->getBuffer()) < reinterpret_cast<unsigned char*>(rhs->getBuffer());
+#else
+				return (U32)lhs->getBuffer() < (U32)rhs->getBuffer();
+#endif
 			}
 		};
 	};
@@ -452,8 +456,12 @@ public:
 		void dump() ;
 
 	private:
+#if (LL_LINUX) && defined(__amd64__)
 //		U32 getPageIndex(U32 addr) ;
 		U32 getPageIndex(void* addr) ; // <ND/> 64 bit fix
+#else
+		U32 getPageIndex(U32 addr) ;
+#endif
 		U32 getBlockLevel(U32 size) ;
 		U16 getPageLevel(U32 size) ;
 		LLMemoryBlock* addBlock(U32 blk_idx) ;
