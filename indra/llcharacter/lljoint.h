@@ -223,8 +223,8 @@ public:
     // Tracks the default position defined by the skeleton
 	void setDefaultPosition( const LLVector3& pos );
 	const LLVector3& getDefaultPosition() const;
-
-    // Tracks the default scale defined by the skeleton
+	
+	// Tracks the default scale defined by the skeleton
 	void setDefaultScale( const LLVector3& scale );
 	const LLVector3& getDefaultScale() const;
 
