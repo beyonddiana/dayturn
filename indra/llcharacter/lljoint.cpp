@@ -412,6 +412,13 @@ bool LLJoint::aboveJointScaleThreshold(const LLVector3& scale) const
 	return diff.lengthSquared() > max_joint_scale_offset * max_joint_scale_offset;
 }
 
+bool above_joint_scale_threshold(const LLVector3& diff)
+{
+	//return !diff.isNull();
+	const F32 max_joint_scale_offset = 0.0001f; // 0.1 mm
+	return diff.lengthSquared() > max_joint_scale_offset * max_joint_scale_offset;
+}
+
 //--------------------------------------------------------------------
 // addAttachmentPosOverride()
 //--------------------------------------------------------------------
@@ -738,6 +745,10 @@ void LLJoint::showAttachmentScaleOverrides(const std::string& av_info) const
         }
 	}
 }
+
+
+
+
 
 // init static
 LLJoint::debug_joint_name_t LLJoint::s_debugJointNames = debug_joint_name_t();
