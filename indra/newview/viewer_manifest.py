@@ -711,7 +711,7 @@ class Darwin_i386_Manifest(ViewerManifest):
 
     def construct(self):
         # copy over the build result (this is a no-op if run within the xcode script)
-        self.path(self.args['configuration'] + "/Kokua.app", dst="")
+        self.path(self.args['configuration'] + "/KokuaOS.app", dst="")
 
         pkgdir = os.path.join(self.args['build'], os.pardir, 'packages')
         relpkgdir = os.path.join(pkgdir, "lib", "release")
@@ -751,7 +751,7 @@ class Darwin_i386_Manifest(ViewerManifest):
                     self.path("kokua_icon.icns")
                     self.end_prefix(icon_path)
 
-                self.path("Kokua.nib")
+                self.path("KokuaOS.nib")
                 
                 # Translations
                 self.path("English.lproj/language.txt")
@@ -891,7 +891,7 @@ class Darwin_i386_Manifest(ViewerManifest):
 
                 self.end_prefix("Resources")
 
-                # CEF framework goes inside Kokua.app/Contents/Frameworks
+                # CEF framework goes inside KokuaOS.app/Contents/Frameworks
                 if self.prefix(src="", dst="Frameworks"):
                     frameworkfile="Chromium Embedded Framework.framework"
                     self.path2basename(relpkgdir, frameworkfile)
@@ -921,7 +921,7 @@ class Darwin_i386_Manifest(ViewerManifest):
             self.end_prefix("Contents")
 
         # fix up media_plugin.dylib so it knows where to look for CEF files it needs
-        self.run_command('install_name_tool -change "@executable_path/Chromium Embedded Framework" "@executable_path/../Frameworks/Chromium Embedded Framework.framework/Chromium Embedded Framework" "%(config)s/Kokua.app/Contents/Resources/llplugin/media_plugin_cef.dylib"' %
+        self.run_command('install_name_tool -change "@executable_path/Chromium Embedded Framework" "@executable_path/../Frameworks/Chromium Embedded Framework.framework/Chromium Embedded Framework" "%(config)s/KokuaOS.app/Contents/Resources/llplugin/media_plugin_cef.dylib"' %
                         { 'config' : self.args['configuration'] })
 
         # NOTE: the -S argument to strip causes it to keep enough info for
@@ -931,7 +931,7 @@ class Darwin_i386_Manifest(ViewerManifest):
         if ("package" in self.args['actions'] or 
             "unpacked" in self.args['actions']):
             self.run_command('strip -S %(viewer_binary)r' %
-                             { 'viewer_binary' : self.dst_path_of('Contents/MacOS/Kokua')})
+                             { 'viewer_binary' : self.dst_path_of('Contents/MacOS/KokuaOS')})
 
     def copy_finish(self):
         # Force executable permissions to be set for scripts
@@ -941,7 +941,7 @@ class Darwin_i386_Manifest(ViewerManifest):
 
     def package_finish(self):
         global CHANNEL_VENDOR_BASE
-        imagename="Kokua_" + '_'.join(self.args['version'])
+        imagename="Kokua_OS_" + '_'.join(self.args['version'])
         # MBW -- If the mounted volume name changes, it breaks the .DS_Store's background image and icon positioning.
         #  If we really need differently named volumes, we'll need to create multiple DS_Store file images, or use some other trick.
 

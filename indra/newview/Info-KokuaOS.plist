@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${MACOSX_BUNDLE_EXECUTABLE_NAME}</string>
 	<key>CFBundleGetInfoString</key>
-	<string>Kokua</string>
+	<string>Kokua OS Viewer</string>
 	<key>CFBundleIconFile</key>
 	<string>${MACOSX_BUNDLE_ICON_FILE}</string>
 	<key>CFBundleIdentifier</key>
@@ -17,7 +17,7 @@
 	<key>CFBundleLongVersionString</key>
 	<string>${MACOSX_BUNDLE_LONG_VERSION_STRING}</string>
 	<key>CFBundleName</key>
-	<string>Kokua</string>
+	<string>KokuaOS</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -40,13 +40,13 @@
 				<string>slurl</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>seconlife</string>
+			<string>KokuaOS</string>
 			<key>CFBundleTypeMIMETypes</key>
 			<array>
 				<string>application/x-grid-location-info</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>Kokua SLURL</string>
+			<string>Kokua OS SLURL</string>
 			<key>CFBundleTypeOSTypes</key>
 			<array>
 				<string>SLRL</string>
@@ -56,18 +56,19 @@
 			<key>LSTypeIsPackage</key>
 			<true/>
 			<key>NSDocumentClass</key>
-			<string>KokuaSLURL</string>
+			<string>KokuaOSSLURL</string>
 		</dict>
 	</array>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>Kokua URL</string>
+			<string>Kokua OS URL</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>secondlife</string>
 				<string>x-grid-location-info</string>
+				<string>hop</string>
+				<string>secondlife</string>
 			</array>
 			<key>LSIsAppleDefaultForScheme</key>
 			<true/>

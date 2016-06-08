@@ -6,8 +6,8 @@
 ## prior to 2.8, the add_custom_target commands used in setting the version did not work correctly
 cmake_minimum_required(VERSION 2.8.2 FATAL_ERROR)
 
-set(ROOT_PROJECT_NAME "Kokua" CACHE STRING
-    "The root project/makefile/solution name. Defaults to Kokua.")
+set(ROOT_PROJECT_NAME "KokuaOS" CACHE STRING
+    "The root project/makefile/solution name. Defaults to KokuaOS.")
 project(${ROOT_PROJECT_NAME})
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")

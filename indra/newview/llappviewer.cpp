@@ -365,11 +365,11 @@ BOOL gLogoutInProgress = FALSE;
 // Internal globals... that should be removed.
 static std::string gArgs;
 const int MAX_MARKER_LENGTH = 1024;
-const std::string MARKER_FILE_NAME("Kokua.exec_marker");
-const std::string START_MARKER_FILE_NAME("Kokua.start_marker");
-const std::string ERROR_MARKER_FILE_NAME("Kokua.error_marker");
-const std::string LLERROR_MARKER_FILE_NAME("Kokua.llerror_marker");
-const std::string LOGOUT_MARKER_FILE_NAME("Kokua.logout_marker");
+const std::string MARKER_FILE_NAME("KokuaOS.exec_marker");
+const std::string START_MARKER_FILE_NAME("KokuaOS.start_marker");
+const std::string ERROR_MARKER_FILE_NAME("KokuaOS.error_marker");
+const std::string LLERROR_MARKER_FILE_NAME("KokuaOS.llerror_marker");
+const std::string LOGOUT_MARKER_FILE_NAME("KokuaOS.logout_marker");
 static BOOL gDoDisconnect = FALSE;
 static std::string gLaunchFileOnQuit;
 
@@ -715,7 +715,7 @@ LLAppViewer::LLAppViewer()
 
 	// Need to do this initialization before we do anything else, since anything
 	// that touches files should really go through the lldir API
-	gDirUtilp->initAppDirs("Kokua");
+	gDirUtilp->initAppDirs("KokuaOS");
 	//
 	// IMPORTANT! Do NOT put anything that will write
 	// into the log files during normal startup until AFTER
@@ -790,7 +790,7 @@ bool LLAppViewer::init()
 	//initialize particle index pool
 	LLVOPartGroup::initClass();
 
-	gDirUtilp->initAppDirs("Kokua");// this is setting up $HOME/.kokua
+	gDirUtilp->initAppDirs("KokuaOS");// this is setting up $HOME/.kokua
 	// set skin search path to default, will be overridden later
 	// this allows simple skinned file lookups to work
 	gDirUtilp->setSkinFolder("default", "en");
@@ -2276,12 +2276,12 @@ void LLAppViewer::initLoggingAndGetLastDuration()
 
 	// Remove the last ".old" log file.
 	std::string old_log_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,
-							     "Kokua.old");
+							     "KokuaOS.old");
 	LLFile::remove(old_log_file);
 
 	// Get name of the log file
 	std::string log_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,
-							     "Kokua.log");
+							     "KokuaOS.log");
  	/*
 	 * Before touching any log files, compute the duration of the last run
 	 * by comparing the ctime of the previous start marker file with the ctime
@@ -3634,10 +3634,10 @@ void LLAppViewer::writeSystemInfo()
         gDebugInfo["Dynamic"] = LLSD::emptyMap();
     
 #if LL_WINDOWS
-	gDebugInfo["SLLog"] = gDirUtilp->getExpandedFilename(LL_PATH_DUMP,"Kokua.log");
+	gDebugInfo["SLLog"] = gDirUtilp->getExpandedFilename(LL_PATH_DUMP,"KokuaOS.log");
 #else
     //Not ideal but sufficient for good reporting.
-    gDebugInfo["SLLog"] = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"Kokua.old");  //LLError::logFileName();
+    gDebugInfo["SLLog"] = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"KokuaOS.old");  //LLError::logFileName();
 #endif
 
 	gDebugInfo["ClientInfo"]["Name"] = LLVersionInfo::getChannel();

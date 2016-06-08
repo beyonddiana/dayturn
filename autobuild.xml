@@ -3374,7 +3374,7 @@
                 <array>
                   <string>-DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo</string>
                   <string>-DWORD_SIZE:STRING=32</string>
-                  <string>-DROOT_PROJECT_NAME:STRING=Kokua</string>
+                  <string>-DROOT_PROJECT_NAME:STRING=KokuaOS</string>
                   <string>-DINSTALL_PROPRIETARY=TRUE</string>
                 </array>
               </map>
@@ -3395,7 +3395,7 @@
                 <array>
                   <string>-DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo</string>
                   <string>-DWORD_SIZE:STRING=32</string>
-                  <string>-DROOT_PROJECT_NAME:STRING=Kokua</string>
+                  <string>-DROOT_PROJECT_NAME:STRING=KokuaOS</string>
                   <string>-DINSTALL_PROPRIETARY=FALSE</string>
                 </array>
               </map>
@@ -3416,7 +3416,7 @@
                 <array>
                   <string>-DCMAKE_BUILD_TYPE:STRING=Release</string>
                   <string>-DWORD_SIZE:STRING=32</string>
-                  <string>-DROOT_PROJECT_NAME:STRING=Kokua</string>
+                  <string>-DROOT_PROJECT_NAME:STRING=KokuaOS</string>
                   <string>-DINSTALL_PROPRIETARY=TRUE</string>
                 </array>
               </map>
@@ -3437,7 +3437,7 @@
                 <array>
                   <string>-DCMAKE_BUILD_TYPE:STRING=Release</string>
                   <string>-DWORD_SIZE:STRING=32</string>
-                  <string>-DROOT_PROJECT_NAME:STRING=Kokua</string>
+                  <string>-DROOT_PROJECT_NAME:STRING=KokuaOS</string>
                   <string>-DINSTALL_PROPRIETARY=FALSE</string>
                 </array>
               </map>
@@ -3489,7 +3489,7 @@
                 <key>options</key>
                 <array>
                   <string>-configuration RelWithDebInfo</string>
-                  <string>-project Kokua.xcodeproj</string>
+                  <string>-project KokuaOS.xcodeproj</string>
                 </array>
               </map>
               <key>configure</key>
@@ -3514,7 +3514,7 @@
                 <key>options</key>
                 <array>
                   <string>-configuration RelWithDebInfo</string>
-                  <string>-project Kokua.xcodeproj</string>
+                  <string>-project KokuaOS.xcodeproj</string>
                 </array>
               </map>
               <key>configure</key>
@@ -3541,7 +3541,7 @@
                 <key>options</key>
                 <array>
                   <string>-configuration Release</string>
-                  <string>-project Kokua.xcodeproj</string>
+                  <string>-project KokuaOS.xcodeproj</string>
                   <string>-DENABLE_SIGNING:BOOL=YES</string>
                   <string>-DSIGNING_IDENTITY:STRING="Developer ID Application: Linden Research, Inc."</string>
                 </array>
@@ -3566,7 +3566,7 @@
                 <key>options</key>
                 <array>
                   <string>-configuration Release</string>
-                  <string>-project Kokua.xcodeproj</string>
+                  <string>-project KokuaOS.xcodeproj</string>
                   <string>-DENABLE_SIGNING:BOOL=YES</string>
                   <string>-DSIGNING_IDENTITY:STRING="Developer ID Application: Linden Research, Inc."</string>
                 </array>
@@ -3897,7 +3897,7 @@
               <map>
                 <key>arguments</key>
                 <array>
-                  <string>Kokua.sln</string>
+                  <string>KokuaOS.sln</string>
                 </array>
                 <key>command</key>
                 <string>devenv</string>
@@ -3915,11 +3915,11 @@
                   <string>&amp;&amp;</string>
                   <string>..\indra\tools\vstool\VSTool.exe</string>
                   <string>--solution</string>
-                  <string>Kokua.sln</string>
+                  <string>KokuaOS.sln</string>
                   <string>--config</string>
                   <string>RelWithDebInfo</string>
                   <string>--startup</string>
-                  <string>kokua-bin</string>
+                  <string>kokuaos-bin</string>
                 </array>
                 <key>options</key>
                 <array>
@@ -3938,7 +3938,7 @@
               <map>
                 <key>arguments</key>
                 <array>
-                  <string>Kokua.sln</string>
+                  <string>KokuaOS.sln</string>
                 </array>
                 <key>command</key>
                 <string>devenv</string>
@@ -3956,11 +3956,11 @@
                   <string>&amp;&amp;</string>
                   <string>..\indra\tools\vstool\VSTool.exe</string>
                   <string>--solution</string>
-                  <string>Kokua.sln</string>
+                  <string>KokuaOS.sln</string>
                   <string>--config</string>
                   <string>RelWithDebInfo</string>
                   <string>--startup</string>
-                  <string>kokua-bin</string>
+                  <string>kokuaos-bin</string>
                 </array>
                 <key>options</key>
                 <array>
@@ -3980,7 +3980,7 @@
               <map>
                 <key>arguments</key>
                 <array>
-                  <string>Kokua.sln</string>
+                  <string>KokuaOS.sln</string>
                 </array>
                 <key>command</key>
                 <string>devenv</string>
@@ -3998,11 +3998,11 @@
                   <string>&amp;&amp;</string>
                   <string>..\indra\tools\vstool\VSTool.exe</string>
                   <string>--solution</string>
-                  <string>Kokua.sln</string>
+                  <string>KokuaOS.sln</string>
                   <string>--config</string>
                   <string>Release</string>
                   <string>--startup</string>
-                  <string>kokua-bin</string>
+                  <string>kokuaos-bin</string>
                 </array>
                 <key>options</key>
                 <array>
@@ -4019,7 +4019,7 @@
               <map>
                 <key>arguments</key>
                 <array>
-                  <string>Kokua.sln</string>
+                  <string>KokuaOS.sln</string>
                 </array>
                 <key>command</key>
                 <string>devenv.com</string>
@@ -4037,11 +4037,11 @@
                   <string>&amp;&amp;</string>
                   <string>..\indra\tools\vstool\VSTool.exe</string>
                   <string>--solution</string>
-                  <string>Kokua.sln</string>
+                  <string>KokuaOS.sln</string>
                   <string>--config</string>
                   <string>Release</string>
                   <string>--startup</string>
-                  <string>kokua-bin</string>
+                  <string>kokuaos-bin</string>
                 </array>
                 <key>options</key>
                 <array>

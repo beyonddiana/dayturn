@@ -14,11 +14,11 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <menu title="Main Menu" systemMenu="main" id="29" userLabel="Main Menu">
             <items>
-                <menuItem title="Kokua" id="56">
+                <menuItem title="Kokua OS" id="56">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Kokua" systemMenu="apple" id="57">
+                    <menu key="submenu" title="Kokua OS" systemMenu="apple" id="57">
                         <items>
-                            <menuItem title="About Kokua" id="58">
+                            <menuItem title="About Kokua OS" id="58">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="orderFrontStandardAboutPanel:" target="-2" id="142"/>
@@ -36,7 +36,7 @@
                                 <menu key="submenu" title="Services" systemMenu="services" id="130"/>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="144"/>
-                            <menuItem title="Hide Kokua" keyEquivalent="h" id="134">
+                            <menuItem title="Hide Kokua OS" keyEquivalent="h" id="134">
                                 <connections>
                                     <action selector="hide:" target="-1" id="369"/>
                                 </connections>
@@ -54,7 +54,7 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="149"/>
-                            <menuItem title="Quit Kokua" keyEquivalent="q" id="136">
+                            <menuItem title="Quit Kokua OS" keyEquivalent="q" id="136">
                                 <connections>
                                     <action selector="terminate:" target="-3" id="823"/>
                                 </connections>
@@ -139,11 +139,11 @@
                 <outlet property="window" destination="828" id="850"/>
             </connections>
         </customObject>
-        <window title="Kokua" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" deferred="NO" oneShot="NO" showsToolbarButton="NO" frameAutosaveName="Kokua" animationBehavior="default" id="828" customClass="LLNSWindow">
+        <window title="Kokua OS" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" deferred="NO" oneShot="NO" showsToolbarButton="NO" frameAutosaveName="Kokua OS" animationBehavior="default" id="828" customClass="LLNSWindow">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
             <rect key="contentRect" x="196" y="240" width="1024" height="600"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <view key="contentView" id="829">
                 <rect key="frame" x="0.0" y="0.0" width="1024" height="600"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -153,14 +153,14 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="272" y="176" width="938" height="42"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <view key="contentView" id="942">
                 <rect key="frame" x="0.0" y="0.0" width="938" height="42"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="943">
                         <rect key="frame" x="-1" y="-1" width="940" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <clipView key="contentView" id="m1w-Yl-i7h">
                             <rect key="frame" x="1" y="1" width="923" height="42"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

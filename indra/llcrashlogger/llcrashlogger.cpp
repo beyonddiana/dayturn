@@ -524,11 +524,11 @@ bool LLCrashLogger::init()
 	LLCurl::initClass(false);
 
 	// We assume that all the logs we're looking for reside on the current drive
-	gDirUtilp->initAppDirs("Kokua");
+	gDirUtilp->initAppDirs("KokuaOS");
 
 	// Default to the product name "Kokua" (this is overridden by the -name argument)
 
-	mProductName = "Kokua";
+	mProductName = "KokuaOS";
 
 	// Rename current log file to ".old"
 	std::string old_log_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS, "crashreport.log.old");
