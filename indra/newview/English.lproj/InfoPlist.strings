@@ -1,7 +1,7 @@
 /* Localized versions of Info.plist keys */
 
-CFBundleName = "Kokua";
+CFBundleName = "KokuaOS";
 
-CFBundleShortVersionString = "Kokua version %%VERSION%%";
-CFBundleGetInfoString = "Kokua version %%VERSION%%, Copyright 2014 Nicky Perian, Kokua.";
+CFBundleShortVersionString = "Kokua OS version %%VERSION%%";
+CFBundleGetInfoString = "Kokua OS version %%VERSION%%, Copyright 2014 Nicky Perian, Kokua.";
 

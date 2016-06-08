@@ -1,6 +1,6 @@
 # -*- cmake -*-
 #
-# Definitions of variables used throughout the Kokua build
+# Definitions of variables used throughout the Kokua OS build
 # process.
 #
 # Platform variables:
@@ -165,12 +165,12 @@ endif (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 # Default deploy grid
 set(GRID agni CACHE STRING "Target Grid")
 
-set(VIEWER ON CACHE BOOL "Build Kokua viewer.")
+set(VIEWER ON CACHE BOOL "Build Kokua OS viewer.")
 # set(VIEWER_CHANNEL "Kokua Viewer" CACHE STRING "Viewer Channel Name")
 # Set the default channel always to "Kokua Release". Any other words set here will be included in the Windows installer.
 # For example, "Kokua Experimental" will create an installer string of Kokua_Experimental_[VERSION]_Setup.exe
 # and "Kokua Experimental [VERSION]: Installation Folder" -- MC
-set(VIEWER_CHANNEL "Kokua Test" CACHE STRING "Viewer Channel Name")
+set(VIEWER_CHANNEL "Kokua OS Test" CACHE STRING "Viewer Channel Name")
 
 set(ENABLE_SIGNING OFF CACHE BOOL "Enable signing the viewer")
 set(SIGNING_IDENTITY "" CACHE STRING "Specifies the signing identity to use, if necessary.")

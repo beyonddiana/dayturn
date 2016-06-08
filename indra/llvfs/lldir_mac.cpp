@@ -64,7 +64,7 @@ LLDir_Mac::LLDir_Mac()
 {
 	mDirDelimiter = "/";
 
-    const std::string     secondLifeString = "Kokua";
+    const std::string     secondLifeString = "KokuaOS";
     
     std::string *executablepathstr = getSystemExecutableFolder();
 
