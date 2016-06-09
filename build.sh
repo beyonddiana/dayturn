@@ -67,7 +67,7 @@ pre_build()
     && [ -r "$master_message_template_checkout/message_template.msg" ] \
     && template_verifier_master_url="-DTEMPLATE_VERIFIER_MASTER_URL=file://$master_message_template_checkout/message_template.msg"
 
-    "$autobuild" configure -c $variant -- \
+    "$autobuild" configure --quiet -c $variant -- \
      -DPACKAGE:BOOL=ON \
      -DRELEASE_CRASH_REPORTING:BOOL=OFF \
      -DVIEWER_CHANNEL:STRING="\"$viewer_channel\"" \
@@ -170,7 +170,7 @@ then
 fi
 
 # load autobuild provided shell functions and variables
-eval "$("$autobuild" source_environment)"
+eval "$("$autobuild" --quiet source_environment)"
 
 # dump environment variables for debugging
 begin_section "Environment"
