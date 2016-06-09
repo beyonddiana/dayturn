@@ -55,7 +55,7 @@ namespace
 {
 	boost::weak_ptr<LLUpdaterServiceImpl> gUpdater;
 
-	const std::string UPDATE_MARKER_FILENAME("KokuaUpdateReady.xml");
+	const std::string UPDATE_MARKER_FILENAME("KokuaOSUpdateReady.xml");
 	std::string update_marker_path()
 	{
 		return gDirUtilp->getExpandedFilename(LL_PATH_LOGS, 
@@ -504,7 +504,7 @@ void LLUpdaterServiceImpl::downloadComplete(LLSD const & data)
 { 
 	mIsDownloading = false;
 
-	// Save out the download data to the KokuaUpdateReady
+	// Save out the download data to the KokuaOSUpdateReady
 	// marker file. 
 	llofstream update_marker(update_marker_path().c_str());
 	LLSDSerialize::toPrettyXML(data, update_marker);

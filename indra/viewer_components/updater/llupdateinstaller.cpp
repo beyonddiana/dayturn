@@ -92,7 +92,7 @@ std::string const & ll_install_failed_marker_path(void)
 {
 	static std::string path;
 	if(path.empty()) {
-		path = gDirUtilp->getExpandedFilename(LL_PATH_LOGS, "KokuaInstallFailed.marker");
+		path = gDirUtilp->getExpandedFilename(LL_PATH_LOGS, "KokuaOSInstallFailed.marker");
 	}
 	return path;
 }

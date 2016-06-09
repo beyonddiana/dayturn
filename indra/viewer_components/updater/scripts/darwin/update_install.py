@@ -3,7 +3,7 @@
 @file   update_install.py
 @author Nat Goodspeed
 @date   2012-12-20
-@brief  Update the containing Kokua application bundle to the version in
+@brief  Update the containing Kokua OS application bundle to the version in
         the specified disk image file.
 
         This Python implementation is derived from the previous mac-updater
@@ -91,7 +91,7 @@ def fail(message):
     tkMessageBox.showerror(TITLE,
 """An error occurred while updating Kokua OS Viewer:
 %s
-Please download the latest viewer from http://wiki.kokuaviewer.org/wiki/Kokua/Downloads.""" % message,
+Please download the latest viewer from http://wiki.kokuaviewer.org/wiki/KokuaOS/Downloads.""" % message,
                            icon=tkMessageBox.WARNING)
     sys.exit(1)
 
@@ -174,7 +174,7 @@ def main(dmgfile, markerfile, markertext):
     try:
         # Starting with the Cocoafied viewer, we'll find viewer logs in
         # ~/Library/Application Support/$CFBundleIdentifier/logs rather than in
-        # ~/Library/Application Support/Kokua/logs as before. This could be
+        # ~/Library/Application Support/KokuaOS/logs as before. This could be
         # obnoxious -- but we Happen To Know that markerfile is a path specified
         # within the viewer's logs directory. Use that.
         logsdir = os.path.dirname(markerfile)
@@ -289,7 +289,7 @@ def main(dmgfile, markerfile, markertext):
 
             # This logic was changed to make Mac updates behave more like
             # Windows. Most of the time, the user doesn't change the name of
-            # the app bundle on our .dmg installer (e.g. "Kokua Beta
+            # the app bundle on our .dmg installer (e.g. "Kokua OS Beta
             # Viewer.app"). Most of the time, the version manager directs a
             # given viewer to update to another .dmg containing an app bundle
             # with THE SAME name. In that case, everything behaves as usual.
@@ -299,10 +299,10 @@ def main(dmgfile, markerfile, markertext):
             # name. This can happen, for instance, to a user who's downloaded
             # a "project beta" viewer, and the project subsequently publishes
             # a Release Candidate viewer. Say the project beta's app bundle
-            # name is something like "Kokua Beta Neato.app". Anyone
+            # name is something like "Kokua OS Beta Neato.app". Anyone
             # launching that viewer will be offered an update to the
             # corresponding Release Candidate viewer -- which will be built as
-            # a release viewer, with app bundle name "Kokua.app".
+            # a release viewer, with app bundle name "KokuaOS.app".
 
             # On Windows, we run the NSIS installer, which will update/replace
             # the embedded install directory name, e.g. Kokua OS Viewer.
@@ -310,7 +310,7 @@ def main(dmgfile, markerfile, markertext):
             # mounted .dmg file, then ignore that name, copying its contents
             # into the app bundle directory of the running viewer. That is,
             # we'd install the Release Candidate from the .dmg's "Second
-            # Life.app" into "/Applications/Kokua Beta Neato.app". This
+            # Life.app" into "/Applications/Kokua OS Beta Neato.app". This
             # is undesired behavior.
 
             # Instead, having found the app bundle name on the mounted .dmg,

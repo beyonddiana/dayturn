@@ -97,7 +97,7 @@ namespace {
 	};
 
 
-	const char * gSecondLifeUpdateRecord = "KokuaUpdateDownload.xml";
+	const char * gSecondLifeUpdateRecord = "KokuaOSUpdateDownload.xml";
 };
 
 
