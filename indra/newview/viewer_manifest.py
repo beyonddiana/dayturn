@@ -339,8 +339,8 @@ class Windows_i686_Manifest(ViewerManifest):
         debpkgdir = os.path.join(pkgdir, "lib", "debug")
 
         if self.is_packaging_viewer():
-            # Find kokua-bin.exe in the 'configuration' dir, then rename it to the result of final_exe.
-            self.path(src='%s/kokua-bin.exe' % self.args['configuration'], dst=self.final_exe())
+            # Find kokuaos-bin.exe in the 'configuration' dir, then rename it to the result of final_exe.
+            self.path(src='%s/kokuaos-bin.exe' % self.args['configuration'], dst=self.final_exe())
 
         # Plugin host application
         self.path2basename(os.path.join(os.pardir,
@@ -1070,7 +1070,7 @@ class Darwin_i386_Manifest(ViewerManifest):
                                 raise
                     self.run_command('spctl -a -texec -vv %(bundle)r' % { 'bundle': app_in_dmg })
 
-            imagename="SecondLife_" + '_'.join(self.args['version'])
+            imagename="Kokua_OS_" + '_'.join(self.args['version'])
 
 
         finally:
@@ -1105,7 +1105,7 @@ class LinuxManifest(ViewerManifest):
             self.end_prefix("linux_tools")
 
         if self.prefix(src="", dst="bin"):
-            self.path("kokua-bin","do-not-directly-run-kokua-bin")
+            self.path("kokuaos-bin","do-not-directly-run-kokuaos-bin")
             self.path("../linux_crash_logger/linux-crash-logger","linux-crash-logger.bin")
             self.path2basename("../llplugin/slplugin", "SLPlugin")
             self.path2basename("../viewer_components/updater/scripts/linux", "update_install")
@@ -1214,7 +1214,7 @@ class LinuxManifest(ViewerManifest):
     def copy_finish(self):
         # Force executable permissions to be set for scripts
         # see CHOP-223 and http://mercurial.selenic.com/bts/issue1802
-        for script in 'kokua', 'bin/update_install':
+        for script in 'kokuaos', 'bin/update_install':
             self.run_command("chmod +x %r" % os.path.join(self.get_dst_prefix(), script))
 
     def package_finish(self):
@@ -1388,7 +1388,7 @@ class Linux_x86_64_Manifest(LinuxManifest):
         super(Linux_x86_64_Manifest, self).construct()
 
         # support file for valgrind debug tool
-        self.path("secondlife-i686.supp")
+        self.path("kokuaos-i686.supp")
 
 	try:
             self.path("../llcommon/libllcommon.so", "lib64/libllcommon.so")
