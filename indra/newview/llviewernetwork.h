@@ -51,7 +51,7 @@ extern const char* DEFAULT_LOGIN_PAGE;
 #define GRID_IS_FAVORITE_VALUE "favorite"
 #define GRID_REGISTER_NEW_ACCOUNT "register"
 #define GRID_FORGOT_PASSWORD "password"
-#define MAINGRID "login.agni.lindenlab.com"
+#define MAINGRID "grid.3rdrockgrid.com:8002"
 #define GRID_LOGIN_IDENTIFIER_TYPES "login_identifier_types"
 // <FS:CR> Aurora Sim
 #define GRID_HELP "help"
