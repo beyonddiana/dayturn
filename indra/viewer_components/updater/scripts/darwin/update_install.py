@@ -30,9 +30,9 @@ from janitor import Janitor
 from messageframe import MessageFrame
 import Tkinter, tkMessageBox
 
-TITLE = "Kokua Viewer Updater"
-# Magic bundle identifier used by all Kokua Viewer viewer bundles
-BUNDLE_IDENTIFIER = "Kokua"
+TITLE = "Kokua OS Viewer Updater"
+# Magic bundle identifier used by all Kokua OS Viewer viewer bundles
+BUNDLE_IDENTIFIER = "KokuaOS"
 # Magic OS directory name that causes Cocoa viewer to crash on OS X 10.7.5
 # (see MAINT-3331)
 STATE_DIR = os.path.join(
@@ -89,7 +89,7 @@ def fail(message):
     # least WARNING has an exclamation in a yellow triangle, even though
     # overlaid by a smaller image of the rocket ship.
     tkMessageBox.showerror(TITLE,
-"""An error occurred while updating Kokua Viewer:
+"""An error occurred while updating Kokua OS Viewer:
 %s
 Please download the latest viewer from http://wiki.kokuaviewer.org/wiki/Kokua/Downloads.""" % message,
                            icon=tkMessageBox.WARNING)
@@ -282,7 +282,7 @@ def main(dmgfile, markerfile, markertext):
                 log("unrecognized CFBundleIdentifier: " + CFBundleIdentifier)
 
             else:
-                fail("Could not find Kokua Viewer " + dmgfile)
+                fail("Could not find Kokua OS Viewer " + dmgfile)
 
             # Here 'candidate' is the new viewer to install
             log("Found " + candidate)
@@ -305,7 +305,7 @@ def main(dmgfile, markerfile, markertext):
             # a release viewer, with app bundle name "Kokua.app".
 
             # On Windows, we run the NSIS installer, which will update/replace
-            # the embedded install directory name, e.g. Kokua Viewer.
+            # the embedded install directory name, e.g. Kokua OS Viewer.
             # But the Mac installer used to locate the app bundle name in the
             # mounted .dmg file, then ignore that name, copying its contents
             # into the app bundle directory of the running viewer. That is,
