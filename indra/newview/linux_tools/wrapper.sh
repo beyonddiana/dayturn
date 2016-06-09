@@ -172,7 +172,7 @@ if [ -n "$LL_RUN_ERR" ]; then
 		if [ "`uname -m`" = "x86_64" ]; then
 			echo
 			cat << EOFMARKER
-You are running the Kokua Viewer on a x86_64 platform.  The
+You are running the Kokua OS Viewer on a x86_64 platform.  The
 most common problems when launching the Viewer (particularly
 'bin/do-not-directly-run-kokua-bin: not found' and 'error while
 loading shared libraries') may be solved by installing your Linux
