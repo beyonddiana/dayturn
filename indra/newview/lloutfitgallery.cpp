@@ -657,6 +657,7 @@ void LLOutfitGalleryItem::draw()
 void LLOutfitGalleryItem::setOutfitName(std::string name)
 {
     mOutfitNameText->setText(name);
+    mOutfitNameText->setToolTip(name);
     mOutfitName = name;
 }
 
