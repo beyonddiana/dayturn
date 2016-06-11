@@ -2128,11 +2128,11 @@ endif (LINUX)
 
 if (DARWIN)
   # These all get set with PROPERTIES
-  set(product "Kokua OS")
+  set(product "KokuaOS")
   set(MACOSX_BUNDLE_INFO_STRING "Kokua OS Viewer")
   set(MACOSX_BUNDLE_ICON_FILE "kokua_icon.icns")
   set(MACOSX_BUNDLE_EXECUTABLE_NAME "KokuaOS")
-  set(MACOSX_BUNDLE_GUI_IDENTIFIER "KokuaOS")
+  set(MACOSX_BUNDLE_GUI_IDENTIFIER "org.kokuaviewer.KokuaOS")
   set(MACOSX_BUNDLE_LONG_VERSION_STRING "${VIEWER_CHANNEL} ${VIEWER_SHORT_VERSION}.${VIEWER_VERSION_REVISION}")
   set(MACOSX_BUNDLE_BUNDLE_NAME "KokuaOS")
   set(MACOSX_BUNDLE_SHORT_VERSION_STRING "${VIEWER_SHORT_VERSION}")
@@ -2140,6 +2140,7 @@ if (DARWIN)
   set(MACOSX_BUNDLE_COPYRIGHT "Copyright © Nicky Perian, Kokua Viewer Project, 2014")
   set(MACOSX_BUNDLE_NSMAIN_NIB_FILE "KokuaOS.nib")
   set(MACOSX_BUNDLE_NSPRINCIPAL_CLASS "NSApplication")
+  set(CMAKE_XCODE_ATTRIBUTE_PRODUCT_NAME “Kokua OS“)
   
   set_target_properties(
     ${VIEWER_BINARY_NAME}
