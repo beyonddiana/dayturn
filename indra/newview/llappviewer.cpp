@@ -126,9 +126,7 @@
 #include "llleap.h"
 #include "stringize.h"
 #include "llcoros.h"
-#if !LL_LINUX
 #include "cef/llceflib.h"
-#endif
 
 // Third party library includes
 #include <boost/bind.hpp>
