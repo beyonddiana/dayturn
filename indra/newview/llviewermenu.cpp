@@ -6539,7 +6539,7 @@ void show_debug_menus()
 	{
 		BOOL debug = gSavedSettings.getBOOL("UseDebugMenus");
 		BOOL qamode = gSavedSettings.getBOOL("QAMode");
-        BOOL rlvmode = gSavedSettings.getBOOL("ShowRlvMenu");
+                BOOL rlvmode = gSavedSettings.getBOOL("ShowRlvMenu");
 		if (rlvmode)
 		{
 			gSavedSettings.setBOOL("RestrainedLove", true );
