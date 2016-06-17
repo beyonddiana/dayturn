@@ -208,7 +208,7 @@ void LLPanelGroupGeneral::setupCtrls(LLPanel* panel_group)
 	mFounderName = getChild<LLTextBox>("founder_name");
 
 	mGroupNameEditor = panel_group->getChild<LLLineEditor>("group_name_editor");
-	mGroupNameEditor->setPrevalidate( LLTextValidate::validateASCII );
+	mGroupNameEditor->setPrevalidate( LLTextValidate::validateASCIINoLeadingSpace );
 	
 
 }
