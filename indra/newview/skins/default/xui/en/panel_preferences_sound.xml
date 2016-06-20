@@ -418,6 +418,17 @@
      top_delta ="0" 
      width="200" />
    </radio_group>
+   <check_box
+     control_name="ShowVoiceVisualizer"
+     follows="left|top"
+     height="15"
+     label="Show voice visualizers over avatars"
+     tool_tip="Shows Voice Indicator (white dot) over avatars"
+     layout="topleft"
+     left="44"
+     name="ShowVoiceVisualizer"
+     top_pad="5"
+     width="237"/>   
   <check_box
    control_name="LipSyncEnabled"
    follows="left|top"

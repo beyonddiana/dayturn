@@ -2248,7 +2248,11 @@ void LLVOAvatar::idleUpdateVoiceVisualizer(bool voice_enabled)
 			render_visualizer = false;
 		}
 	}
-	
+	static LLCachedControl<bool> showVoiceVisualizer(gSavedSettings, "ShowVoiceVisualizer");
+	if (!showVoiceVisualizer)
+	{
+		render_visualizer = false;
+	}	
 	mVoiceVisualizer->setVoiceEnabled(render_visualizer);
 	
 	if ( voice_enabled )
