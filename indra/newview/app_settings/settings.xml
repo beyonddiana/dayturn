@@ -17471,6 +17471,17 @@
       <key>Value</key>
       <integer>1</integer>
     </map>
+    <key>ShowVoiceVisualizer</key>
+    <map>
+      <key>Comment</key>
+      <string>Hides the voice dot over avatars if disabled.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>    
   </map>
 </llsd>
 
