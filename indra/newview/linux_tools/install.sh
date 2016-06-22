@@ -58,13 +58,13 @@ function homedir_install()
 	exit 0
     fi
 
-    install_to_prefix "$HOME/.kokua-install"
-    $HOME/.kokua-install/etc/refresh_desktop_app_entry.sh
+    install_to_prefix "$HOME/.kokuaos-install"
+    $HOME/.kokuaos-install/etc/refresh_desktop_app_entry.sh
 }
 
 function root_install()
 {
-    local default_prefix="/opt/kokua-install"
+    local default_prefix="/opt/kokuaos-install"
 
     echo -n "Enter the desired installation directory [${default_prefix}]: ";
     read
@@ -105,10 +105,10 @@ else
     homedir_install
 fi
 
-CEFSANDBOX="/opt/kokua-install/bin/chrome-sandbox"
+CEFSANDBOX="/opt/kokuaos-install/bin/chrome-sandbox"
 if [ "$UID" == "0" ]; then
 chown root:root $CEFSANDBOX
 chmod 4755 $CEFSANDBOX
 else
-echo -e "\e[1;33m YOU MUST!!!! command as root or sudo cd $HOME/.kokua-install/bin/ && chown root:root chrome-sandbox &&  chmod 4755 chrome-sandbox \e[0m"
+echo -e "\e[1;33m YOU MUST!!!! command as root or sudo cd $HOME/.kokuaos-install/bin/ && chown root:root chrome-sandbox &&  chmod 4755 chrome-sandbox \e[0m"
 fi
