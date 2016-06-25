@@ -502,17 +502,21 @@ void AOEngine::checkSitCancel()
 
 	if(foreignAnimations(seat))
 	{
-		LLUUID animation=mCurrentSet->getStateByRemapID(ANIM_AGENT_SIT)->mCurrentAnimationID;
-		if(animation.notNull())
+ 		AOSet::AOState* aoState = mCurrentSet->getStateByRemapID(ANIM_AGENT_SIT);
+		if (aoState)
 		{
-			LL_DEBUGS() << "Stopping sit animation due to foreign animations running" << LL_ENDL;
-			gAgent.sendAnimationRequest(animation,ANIM_REQUEST_STOP);
-			// remove cycle point cover-up
-			gAgent.sendAnimationRequest(ANIM_AGENT_SIT_GENERIC,ANIM_REQUEST_STOP);
-			gAgentAvatarp->LLCharacter::stopMotion(animation);
-			mSitCancelTimer.stop();
-			// stop cycle tiemr
-			mCurrentSet->stopTimer();
+			LLUUID animation = aoState->mCurrentAnimationID;
+			if (animation.notNull())
+			{
+				LL_DEBUGS("AOEngine") << "Stopping sit animation due to foreign animations running" << LL_ENDL;
+				gAgent.sendAnimationRequest(animation, ANIM_REQUEST_STOP);
+				// remove cycle point cover-up
+				gAgent.sendAnimationRequest(ANIM_AGENT_SIT_GENERIC, ANIM_REQUEST_STOP);
+				gAgentAvatarp->LLCharacter::stopMotion(animation);
+				mSitCancelTimer.stop();
+				// stop cycle tiemr
+				mCurrentSet->stopTimer();
+			}
 		}
 	}
 }
@@ -834,6 +838,10 @@ BOOL AOEngine::removeSet(AOSet* set)
 
 BOOL AOEngine::removeAnimation(const AOSet* set,AOSet::AOState* state,S32 index)
 {
+    if (index < 0)
+    {
+		return false;
+	}
 	S32 numOfAnimations=state->mAnimations.size();
 	if(numOfAnimations==0)
 		return FALSE;
@@ -1490,7 +1498,7 @@ BOOL AOEngine::importNotecard(const LLInventoryItem* item)
 
 		if(item->getAssetUUID().notNull())
 		{
-			mImportSet=new AOSet(item->getParentUUID());
+			mImportSet = new AOSet(item->getParentUUID());
 			if(!mImportSet)
 			{
 				LLNotificationsUtil::add("AOImportCreateSetFailed", LLSD());
@@ -1498,7 +1506,7 @@ BOOL AOEngine::importNotecard(const LLInventoryItem* item)
 			}
 			mImportSet->setName(item->getName());
 
-			LLUUID* newUUID=new LLUUID(item->getAssetUUID());
+			LLUUID* newUUID = new LLUUID(item->getAssetUUID());
 			const LLHost sourceSim=LLHost();
 
 			gAssetStorage->getInvItemAsset
@@ -1536,11 +1544,17 @@ void AOEngine::onNotecardLoadComplete(	LLVFS* vfs,const LLUUID& assetUUID,LLAsse
 	}
 	LL_DEBUGS() << "Downloading import notecard complete." << LL_ENDL;
 
-	S32 notecardSize=vfs->getSize(assetUUID,type);
-	char* buffer=new char[notecardSize];
-	vfs->getData(assetUUID,type,(U8*) buffer,0,notecardSize);
-
-	AOEngine::instance().parseNotecard(buffer);
+	S32 notecardSize = vfs->getSize(assetUUID,type);
+	char* buffer = new char[notecardSize];
+   	S32 ret = vfs->getData(assetUUID, type, reinterpret_cast<U8*>(buffer), 0, notecardSize);
+	if (ret > 0)
+	{
+		AOEngine::instance().parseNotecard(buffer);
+	}
+	else
+	{
+		delete[] buffer;
+	}
 }
 
 void AOEngine::parseNotecard(const char* buffer)
@@ -1554,13 +1568,13 @@ void AOEngine::parseNotecard(const char* buffer)
 		LL_WARNS() << "buffer==NULL - aborting import" << LL_ENDL;
 		// NOTE: cleanup is always the same, needs streamlining
 		delete mImportSet;
-		mImportSet=0;
+		mImportSet = 0;
 		mUpdatedSignal();
 		return;
 	}
 
 	std::string text(buffer);
-	delete buffer;
+	delete[] buffer;
 
 	std::vector<std::string> lines;
 	LLStringUtil::getTokens(text,lines,"\n");
