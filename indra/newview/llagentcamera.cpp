@@ -2214,6 +2214,14 @@ void LLAgentCamera::changeCameraToMouselook(BOOL animate)
 			gAgent.endAnimationUpdateUI();
 		}
 	}
+
+//MK
+	LLVector3 at_axis;
+	at_axis = gAgent.getFrameAgent().getAtAxis();
+	at_axis.mV[VZ] = 0.f;
+	at_axis.normalize();
+	gAgent.resetAxes(at_axis);
+//mk
 }
 
 
