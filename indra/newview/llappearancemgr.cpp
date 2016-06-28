@@ -1440,7 +1440,7 @@ void LLAppearanceMgr::wearItemsOnAvatar(const uuid_vec_t& item_ids_to_wear,
 //mk
 				}
 //MK
-				if (!gRRenabled || (gRRenabled && gAgent.mRRInterface.canWear(item_to_wear->getWearableType())))
+				if (!gRRenabled || (gRRenabled && gAgent.mRRInterface.canWear(item_to_wear)))
 				{
 //mk
 					items_to_link.push_back(item_to_wear);
