@@ -4190,8 +4190,8 @@ LLViewerObject* LLViewerWindow::cursorIntersect(S32 mouse_x, S32 mouse_y, F32 de
 		found = gPipeline.lineSegmentIntersectInHUD(mh_start, mh_end, pick_transparent,
 													face_hit, intersection, uv, normal, tangent);
 //MK
-		// HACK : don't allow focusing on HUDs unless we are in Mouselook mode
-		if (gRRenabled && gAgentCamera.getCameraMode() != CAMERA_MODE_MOUSELOOK)
+		// HACK : don't allow focusing on HUDs
+		if (gRRenabled)
 		{
 			MASK mask = gKeyboard->currentMask(TRUE);
 			if (mask & MASK_ALT)
