@@ -7362,7 +7362,9 @@ void process_script_question(LLMessageSystem *msg, void **user_data)
 	
 //MK
 	BOOL auto_acceptable_permission = FALSE;
-	if (gRRenabled && gAgent.mRRInterface.contains ("acceptpermission"))
+
+	// Manage @acceptpermission (careful not to accept any other permission in the same batch than the ones this RLV command handles)
+	if (gRRenabled && gAgent.mRRInterface.contains("acceptpermission"))
 	{
 		auto_acceptable_permission = (questions	&
 			(
@@ -7398,7 +7400,15 @@ void process_script_question(LLMessageSystem *msg, void **user_data)
 			}
 		}
 	}
-//mk
+
+	// Auto-accept attachment permission (and no other, hence the "==" instead of logical AND) if RestrainedLoveAutoTempAttach is TRUE
+	// We're moving it after the whole @acceptpermission management but this time we want to target one specific permission request, without
+	// caring whether this request comes from an owned object or not.
+	if (questions == SCRIPT_PERMISSIONS[SCRIPT_PERMISSION_ATTACH].permbit && gSavedSettings.getBOOL("RestrainedLoveAutoTempAttach"))
+	{
+		auto_acceptable_permission = TRUE;
+	}
+	//mk
 
 	// throttle excessive requests from any specific user's scripts
 	typedef LLKeyThrottle<std::string> LLStringThrottle;
