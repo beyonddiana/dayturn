@@ -109,7 +109,7 @@ const S32 SIM_STAT_WIDTH = 8;
 const LLColor4 SIM_OK_COLOR(0.f, 1.f, 0.f, 1.f);
 const LLColor4 SIM_WARN_COLOR(1.f, 1.f, 0.f, 1.f);
 const LLColor4 SIM_FULL_COLOR(1.f, 0.f, 0.f, 1.f);
-const F32 ICON_TIMER_EXPIRY		= 3.f; // How long the balance and health icons should flash after a change.
+const F32 ICON_TIMER_EXPIRY	= 3.f; // How long the balance and health icons should flash after a change.
 
 static void onClickVolume(void*);
 
@@ -135,7 +135,7 @@ private:
 //mk
 
 LLStatusBar::LLStatusBar(const LLRect& rect)
-:	LLPanel(),
+	: LLPanel(),
 	mTextTime(NULL),
 	mSGBandwidth(NULL),
 	mSGPacketLoss(NULL),
@@ -219,7 +219,7 @@ void LLStatusBar::draw()
 
 BOOL LLStatusBar::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
-	show_navbar_context_menu(this,x,y);
+	show_navbar_context_menu(this, x, y);
 	return TRUE;
 }
 
@@ -227,7 +227,7 @@ BOOL LLStatusBar::postBuild()
 {
 	gMenuBarView->setRightMouseDownCallback(boost::bind(&show_navbar_context_menu, _1, _2, _3));
 
-	mTextTime = getChild<LLTextBox>("TimeText" );
+	mTextTime = getChild<LLTextBox>("TimeText");
 	mPurchasePanel = getChild<LLLayoutPanel>("purchase_panel");
 	
 	//
@@ -242,14 +242,14 @@ BOOL LLStatusBar::postBuild()
 	}
 
 	mBoxBalance = getChild<LLTextBox>("balance");
-	mBoxBalance->setClickedCallback( &LLStatusBar::onClickBalance, this );
+	mBoxBalance->setClickedCallback( &LLStatusBar::onClickBalance, this);
 
 	mBtnVolume = getChild<LLButton>( "volume_btn" );
-	mBtnVolume->setClickedCallback( onClickVolume, this );
+	mBtnVolume->setClickedCallback( onClickVolume, this);
 	mBtnVolume->setMouseEnterCallback(boost::bind(&LLStatusBar::onMouseEnterVolume, this));
 
 	mMediaToggle = getChild<LLButton>("media_toggle_btn");
-	mMediaToggle->setClickedCallback( &LLStatusBar::onClickMediaToggle, this );
+	mMediaToggle->setClickedCallback( &LLStatusBar::onClickMediaToggle, this);
 	mMediaToggle->setMouseEnterCallback(boost::bind(&LLStatusBar::onMouseEnterNearbyMedia, this));
 
 	LLHints::registerHintTarget("linden_balance", getChild<LLView>("balance_bg")->getHandle());
@@ -278,18 +278,16 @@ BOOL LLStatusBar::postBuild()
 
 	mPanelVolumePulldown = new LLPanelVolumePulldown();
 	addChild(mPanelVolumePulldown);
-	mPanelVolumePulldown->setFollows(FOLLOWS_TOP|FOLLOWS_RIGHT);
+	mPanelVolumePulldown->setFollows(FOLLOWS_TOP | FOLLOWS_RIGHT);
 	mPanelVolumePulldown->setVisible(FALSE);
 
 	mPanelNearByMedia = new LLPanelNearByMedia();
 	addChild(mPanelNearByMedia);
-	mPanelNearByMedia->setFollows(FOLLOWS_TOP|FOLLOWS_RIGHT);
+	mPanelNearByMedia->setFollows(FOLLOWS_TOP | FOLLOWS_RIGHT);
 	mPanelNearByMedia->setVisible(FALSE);
 
 	mScriptOut = getChildView("scriptout");
 
-	LLUICtrl& mode_combo = getChildRef<LLUICtrl>("mode_combo");
-	mode_combo.setValue(gSavedSettings.getString("SessionSettingsFile"));
 
 //MK
 	mParcelInfoPanel = getChild<LLPanel>("parcel_info_panel");
@@ -377,7 +375,7 @@ void LLStatusBar::refresh()
 	mFPSPanel->setVisible(fps_stats_visible);
 
 	// update clock every 10 seconds
-	if(mClockUpdateTimer.getElapsedTimeF32() > 10.f)
+	if (mClockUpdateTimer.getElapsedTimeF32() > 10.f)
 	{
 		mClockUpdateTimer.reset();
 
@@ -388,13 +386,13 @@ void LLStatusBar::refresh()
 
 		std::string timeStr = getString("time");
 		LLSD substitution;
-		substitution["datetime"] = (S32) utc_time;
-		LLStringUtil::format (timeStr, substitution);
+		substitution["datetime"] = (S32)utc_time;
+		LLStringUtil::format(timeStr, substitution);
 		mTextTime->setText(timeStr);
 
 		// set the tooltip to have the date
 		std::string dtStr = getString("timeTooltip");
-		LLStringUtil::format (dtStr, substitution);
+		LLStringUtil::format(dtStr, substitution);
 //MK
 		if (gRRenabled)
 		{
@@ -405,7 +403,7 @@ void LLStatusBar::refresh()
 			}
 		}
 //mk
-		mTextTime->setToolTip (dtStr);
+		mTextTime->setToolTip(dtStr);
 	}
 
 	LLRect r;
@@ -430,13 +428,14 @@ void LLStatusBar::refresh()
 	
 	// Disable media toggle if there's no media, parcel media, and no parcel audio
 	// (or if media is disabled)
-	bool button_enabled = (gSavedSettings.getBOOL("AudioStreamingMusic")||gSavedSettings.getBOOL("AudioStreamingMedia")) && 
-						  (LLViewerMedia::hasInWorldMedia() || LLViewerMedia::hasParcelMedia() || LLViewerMedia::hasParcelAudio());
+	bool button_enabled = (gSavedSettings.getBOOL("AudioStreamingMusic") || gSavedSettings.getBOOL("AudioStreamingMedia")) &&
+			(LLViewerMedia::hasInWorldMedia() || LLViewerMedia::hasParcelMedia() || LLViewerMedia::hasParcelAudio());
+
 	mMediaToggle->setEnabled(button_enabled);
 	// Note the "sense" of the toggle is opposite whether media is playing or not
-	bool any_media_playing = (LLViewerMedia::isAnyMediaShowing() || 
-							  LLViewerMedia::isParcelMediaPlaying() ||
-							  LLViewerMedia::isParcelAudioPlaying());
+	bool any_media_playing = (LLViewerMedia::isAnyMediaShowing() ||
+		LLViewerMedia::isParcelMediaPlaying() ||
+		LLViewerMedia::isParcelAudioPlaying());
 	mMediaToggle->setValue(!any_media_playing);
 }
 
@@ -503,10 +502,10 @@ void LLStatusBar::setBalance(S32 balance)
 			make_ui_sound("UISndMoneyChangeUp");
 	}
 
-	if( balance != mBalance )
+	if ( balance != mBalance )
 	{
 		mBalanceTimer->reset();
-		mBalanceTimer->setTimerExpirySec( ICON_TIMER_EXPIRY );
+		mBalanceTimer->setTimerExpirySec(ICON_TIMER_EXPIRY );
 		mBalance = balance;
 	}
 }
@@ -521,7 +520,7 @@ void LLStatusBar::sendMoneyBalanceRequest()
 	msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
 	msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
 	msg->nextBlockFast(_PREHASH_MoneyData);
-	msg->addUUIDFast(_PREHASH_TransactionID, LLUUID::null );
+	msg->addUUIDFast(_PREHASH_TransactionID, LLUUID::null);
 	gAgent.sendReliableMessage();
 }
 
@@ -529,7 +528,7 @@ void LLStatusBar::sendMoneyBalanceRequest()
 void LLStatusBar::setHealth(S32 health)
 {
 	//LL_INFOS() << "Setting health to: " << buffer << LL_ENDL;
-	if( mHealth > health )
+	if ( mHealth > health)
 	{
 		if (mHealth > (health + gSavedSettings.getF32("UISndHealthReductionThreshold")))
 		{
@@ -547,7 +546,7 @@ void LLStatusBar::setHealth(S32 health)
 		}
 
 		mHealthTimer->reset();
-		mHealthTimer->setTimerExpirySec( ICON_TIMER_EXPIRY );
+		mHealthTimer->setTimerExpirySec(ICON_TIMER_EXPIRY);
 	}
 
 	mHealth = health;
@@ -608,7 +607,7 @@ void LLStatusBar::onClickBuyCurrency()
 
 void LLStatusBar::onMouseEnterVolume()
 {
-	LLButton* volbtn =  getChild<LLButton>( "volume_btn" );
+	LLButton* volbtn =  getChild<LLButton>("volume_btn");
 	LLRect volume_pulldown_rect = mPanelVolumePulldown->getRect();
 	LLRect vol_btn_rect;
 
@@ -634,7 +633,7 @@ void LLStatusBar::onMouseEnterNearbyMedia()
 {
 	LLView* popup_holder = gViewerWindow->getRootView()->getChildView("popup_holder");
 	LLRect nearby_media_rect = mPanelNearByMedia->getRect();
-	LLButton* nearby_media_btn =  getChild<LLButton>( "media_toggle_btn" );
+	LLButton* nearby_media_btn =  getChild<LLButton>("media_toggle_btn");
 	LLRect nearby_media_btn_rect;
 
 	nearby_media_btn->localRectToOtherView(nearby_media_btn->getLocalRect(), &nearby_media_btn_rect, this);
@@ -665,7 +664,7 @@ static void onClickVolume(void* data)
 }
 
 //static 
-void LLStatusBar::onClickBalance(void* )
+void LLStatusBar::onClickBalance(void*)
 {
 	// Force a balance request message:
 	LLStatusBar::sendMoneyBalanceRequest();
@@ -677,13 +676,13 @@ void LLStatusBar::onClickMediaToggle(void* data)
 {
 	LLStatusBar *status_bar = (LLStatusBar*)data;
 	// "Selected" means it was showing the "play" icon (so media was playing), and now it shows "pause", so turn off media
-	bool enable = ! status_bar->mMediaToggle->getValue();
+	bool enable = !status_bar->mMediaToggle->getValue();
 	LLViewerMedia::setAllMediaEnabled(enable);
 }
 
 BOOL can_afford_transaction(S32 cost)
 {
-	return((cost <= 0)||((gStatusBar) && (gStatusBar->getBalance() >=cost)));
+	return((cost <= 0) || ((gStatusBar) && (gStatusBar->getBalance() >= cost)));
 }
 
 void LLStatusBar::onVolumeChanged(const LLSD& newvalue)

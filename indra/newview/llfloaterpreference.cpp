@@ -1346,6 +1346,23 @@ void LLFloaterPreference::refreshEnabledState()
 	ctrl_deferred->setEnabled(enabled);
 	ctrl_deferred2->setEnabled(enabled);
 
+//MK
+	// If unable to change windlight or debug settings, make sure the Basic & Advanced
+	// Shaders checkboxes are ticked and disabled
+	if (gRRenabled && (gAgent.mRRInterface.mContainsSetenv || gAgent.mRRInterface.mContainsSetdebug))
+	{
+		gSavedSettings.setBOOL("VertexShaderEnable", TRUE);
+		gSavedSettings.setBOOL("WindLightUseAtmosShaders", TRUE);
+
+		ctrl_shader_enable->setEnabled(FALSE);
+		ctrl_shader_enable->setValue(TRUE);
+
+		ctrl_wind_light->setEnabled(FALSE);
+		ctrl_wind_light->setValue(TRUE);
+    }
+//mk
+
+
 	LLCheckBoxCtrl* ctrl_ssao = getChild<LLCheckBoxCtrl>("UseSSAO");
 	LLCheckBoxCtrl* ctrl_dof = getChild<LLCheckBoxCtrl>("UseDoF");
 	LLComboBox* ctrl_shadow = getChild<LLComboBox>("ShadowDetail");

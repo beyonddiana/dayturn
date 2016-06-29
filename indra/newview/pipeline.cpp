@@ -11383,16 +11383,7 @@ void LLPipeline::generateImpostor(LLVOAvatar* avatar)
 	bool visually_muted = avatar->isVisuallyMuted();		
 
 	pushRenderTypeMask();
-//MK
-	// Render everything
-	// For some reason, unrigged mesh objects do not render on silhouettes, but they don't render on regular
-	// impostors either.
-	////if (visually_muted)
-	////{
-	////	andRenderTypeMask(LLPipeline::RENDER_TYPE_AVATAR, END_RENDER_TYPES);
-	////}
-	////else
-//mk
+
 	{
 		andRenderTypeMask(LLPipeline::RENDER_TYPE_ALPHA,
 			LLPipeline::RENDER_TYPE_FULLBRIGHT,
