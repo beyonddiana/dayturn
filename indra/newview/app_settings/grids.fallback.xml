@@ -1,37 +1,5 @@
 <llsd>
     <map>
-    <key>grid.avacon.org:8002</key>
-        <map>
-        <key>LastModified</key>
-            <date>2015-03-19T02:52:55.25Z</date>
-        <key>gatekeeper</key>
-            <string>grid.avacon.org:8002</string>
-        <key>gridname</key>
-            <string>AvaCon Grid</string>
-        <key>gridnick</key>
-            <string>avacon</string>
-        <key>helperuri</key>
-            <string>http://grid.avacon.org/helper/</string>
-        <key>login_identifier_types</key>
-            <array>
-                <string>agent</string>
-                <string>account</string>
-            </array>
-        <key>loginpage</key>
-            <string>http://grid.avacon.org:8005/wifi/welcome.html</string>
-        <key>loginuri</key>
-            <array>
-                <string>http://grid.avacon.org:8002/</string>
-            </array>
-        <key>name</key>
-            <string>grid.avacon.org:8002</string>
-        <key>password</key>
-            <string>http://grid.avacon.org:8005/wifi/forgotpassword</string>
-        <key>register</key>
-            <string>http://grid.avacon.org:8005/wifi/user/account</string>
-        <key>slurl_base</key>
-            <string>hop://grid.avacon.org:8002/</string>
-        </map>
     <key>hg.sirinhgpole.com:8002</key>
         <map>
         <key>LastModified</key>
@@ -65,40 +33,6 @@
             <string>http://hg.sirinhgpole.com:8002/wifi/user/account</string>
         <key>slurl_base</key>
             <string>hop://hg.sirinhgpole.com:8002/</string>
-        </map>	
-    <key>login.greatcanadiangrid.ca:8002</key>
-        <map>
-        <key>LastModified</key>
-            <date>2014-09-30T21:31:35.39Z</date>
-        <key>about</key>
-            <string>http://www.greatcanadiangrid.ca/</string>
-        <key>gatekeeper</key>
-            <string>login.greatcanadiangrid.ca:8002</string>
-        <key>gridname</key>
-            <string>Great Canadian Grid</string>
-        <key>gridnick</key>
-            <string>GCG</string>
-        <key>help</key>
-            <string>http://www.greatcanadiangrid.ca/getting-started.html</string>
-        <key>helperuri</key>
-            <string>http://login.greatcanadiangrid.ca:8002/</string>
-        <key>login_identifier_types</key>
-            <array>
-                <string>agent</string>
-                <string>account</string>
-            </array>
-        <key>loginpage</key>
-            <string>http://www.greatcanadiangrid.ca/splash-page.html</string>
-        <key>loginuri</key>
-            <array>
-                <string>http://login.greatcanadiangrid.ca:8002/</string>
-            </array>
-        <key>name</key>
-            <string>login.greatcanadiangrid.ca:8002</string>
-        <key>register</key>
-            <string>http://www.greatcanadiangrid.ca/getting-started.html</string>
-        <key>slurl_base</key>
-            <string>hop://login.greatcanadiangrid.ca:8002/</string>
         </map>
     <key>127.0.0.1:8002</key>
       <map>
@@ -182,98 +116,6 @@
         <key>slurl_base</key>
             <string>hop://grid.kitely.com:8002/</string>
         </map>
-    <key>cc.opensimulator.org:8002</key>
-        <map>
-        <key>LastModified</key>
-            <date>2013-08-20T22:22:13.28Z</date>
-        <key>gatekeeper</key>
-            <string>cc.opensimulator.org:8002</string>
-        <key>gridname</key>
-            <string>OpenSim Community Conference</string>
-        <key>gridnick</key>
-            <string>opensimcc</string>
-        <key>helperuri</key>
-            <string>http://cc.opensimulator.org/helper/</string>
-        <key>login_identifier_types</key>
-            <array>
-                <string>agent</string>
-                <string>account</string>
-            </array>
-        <key>loginpage</key>
-            <string>http://cc.opensimulator.org:8005/wifi/welcome.html</string>
-        <key>loginuri</key>
-            <array>
-                <string>http://cc.opensimulator.org:8002/</string>
-            </array>
-        <key>name</key>
-            <string>cc.opensimulator.org:8002</string>
-        <key>password</key>
-            <string>http://cc.opensimulator.org:8005/wifi/forgotpassword</string>
-        <key>register</key>
-            <string>http://cc.opensimulator.org:8005/wifi/user/account</string>
-        <key>slurl_base</key>
-            <string>hop://cc.opensimulator.org:8002/</string>
-        </map>
-    <key>grid.jopensim.com:8002</key>
-        <map>
-        <key>LastModified</key>
-            <date>2013-07-02T22:36:08.06Z</date>
-        <key>about</key>
-            <string>http://www.jopensim.com</string>
-        <key>gridname</key>
-            <string>jOpenSimWorld</string>
-        <key>gridnick</key>
-            <string>jOpenSimWorld</string>
-        <key>help</key>
-            <string>http://grid.jopensim.com:9000/</string>
-        <key>helperuri</key>
-            <string>http://www.jopensim.com/components/com_opensim/</string>
-        <key>login_identifier_types</key>
-            <array>
-                <string>agent</string>
-                <string>account</string>
-            </array>
-        <key>loginpage</key>
-            <string>http://www.jopensim.com/index.php?option=com_opensim</string>
-        <key>loginuri</key>
-            <array>
-                <string>http://grid.jopensim.com:8002/</string>
-            </array>
-        <key>name</key>
-            <string>grid.jopensim.com:8002</string>
-        <key>password</key>
-            <string>http://www.jopensim.com</string>
-        <key>register</key>
-            <string>http://www.jopensim.com</string>
-        <key>slurl_base</key>
-            <string>hop://grid.jopensim.com:8002/</string>
-        </map>
-    <key>beta.3rdrockgrid.com:8007</key>
-        <map>
-        <key>LastModified</key>
-            <date>2013-11-17T21:10:57.13Z</date>
-        <key>gridname</key>
-            <string>3RG Beta</string>
-        <key>gridnick</key>
-            <string>3RGBeta</string>
-        <key>helperuri</key>
-            <string>http://betaeconomy.3rdrockgrid.com/</string>
-        <key>login_identifier_types</key>
-            <array>
-                <string>agent</string>
-                <string>account</string>
-            </array>
-        <key>loginpage</key>
-            <string>http://3rdrockgrid.com/betasite/3rgbetasplash.html</string>
-        <key>loginuri</key>
-            <array>
-                <string>http://beta.3rdrockgrid.com:8007/</string>
-            </array>
-        <key>name</key>
-            <string>beta.3rdrockgrid.com:8007</string>
-        <key>slurl_base</key>
-            <string>hop://beta.3rdrockgrid.com:8007/</string>
-        </map>
     <key>craft-world.org:8002</key>
         <map>
         <key>LastModified</key>
@@ -338,42 +180,6 @@
         <key>slurl_base</key>
             <string>hop://grid.3rdrockgrid.com:8002/</string>
         </map>
-    <key>hypergrid.org:8002</key>
-        <map>
-        <key>LastModified</key>
-            <date>2013-02-06T00:12:06.49Z</date>
-        <key>about</key>
-            <string>http://www.hypergrid.org/metropolis/wiki</string>
-        <key>gatekeeper</key>
-            <string>hypergrid.org:8002</string>
-        <key>gridname</key>
-            <string>Metropolis Metaversum</string>
-        <key>gridnick</key>
-            <string>Metropolis</string>
-        <key>help</key>
-            <string>http://metropolis.hypergrid.org</string>
-        <key>helperuri</key>
-            <string>http://metropolis.hypergrid.org/currency/helper/</string>
-        <key>login_identifier_types</key>
-            <array>
-                <string>agent</string>
-                <string>account</string>
-            </array>
-        <key>loginpage</key>
-            <string>http://metropolis.hypergrid.org</string>
-        <key>loginuri</key>
-            <array>
-                <string>http://hypergrid.org:8002/</string>
-            </array>
-        <key>name</key>
-            <string>hypergrid.org:8002</string>
-        <key>password</key>
-            <string>http://metropolis.hypergrid.org/oswi.php</string>
-        <key>register</key>
-            <string>http://www.hypergrid.org/metropolis/metro_rg.php</string>
-        <key>slurl_base</key>
-            <string>hop://hypergrid.org:8002/</string>
-        </map>
 	<key>inworldz.com:8002</key>
         <map>
         <key>LastModified</key>
@@ -407,40 +213,6 @@
             <string>http://inworldz.com/register.php</string>
         <key>slurl_base</key>
             <string>hop://inworldz.com:8002/</string>
-        </map>
-    <key>islandoasisgrid.biz:8002</key>
-        <map>
-        <key>LastModified</key>
-            <date>2013-02-07T00:32:08.19Z</date>
-        <key>about</key>
-            <string>http://www.islandoasis.biz/GridStats.aspx</string>
-        <key>gridname</key>
-            <string>Island Oasis</string>
-        <key>gridnick</key>
-            <string>Island_Oasis</string>
-        <key>help</key>
-            <string>http://www.islandoasis.biz/Support.aspx</string>
-        <key>helperuri</key>
-            <string>http://islandoasisgrid.biz:8020/OsCurrency/</string>
-        <key>login_identifier_types</key>
-            <array>
-                <string>agent</string>
-                <string>account</string>
-            </array>
-        <key>loginpage</key>
-            <string>http://www.islandoasis.biz/welcome.aspx</string>
-        <key>loginuri</key>
-            <array>
-                <string>http://islandoasisgrid.biz:8002/</string>
-            </array>
-        <key>name</key>
-            <string>islandoasisgrid.biz:8002</string>
-        <key>password</key>
-            <string>http://www.islandoasis.biz/Login.aspx</string>
-        <key>register</key>
-            <string>http://www.islandoasis.biz/verification.aspx</string>
-        <key>slurl_base</key>
-            <string>hop://islandoasisgrid.biz:8002/</string>
         </map>
     <key>127.0.0.1:9000</key>
         <map>
@@ -492,38 +264,6 @@
         <key>slurl_base</key>
             <string>hop://localhost:9100/</string>
         </map>
-    <key>login.avination.net</key>
-        <map>
-        <key>LastModified</key>
-            <date>2012-04-01T13:37:13.37Z</date>
-        <key>about</key>
-            <string>http://login.avination.net</string>
-        <key>gridname</key>
-            <string>Avination</string>
-        <key>gridnick</key>
-            <string>Avination</string>
-        <key>helperuri</key>
-            <string>https://secure.3dhosting.de/</string>
-        <key>login_identifier_types</key>
-            <array>
-                <string>agent</string>
-                <string>account</string>
-            </array>
-        <key>loginpage</key>
-            <string>https://www.avination.com/welcome.php</string>
-        <key>loginuri</key>
-            <array>
-                <string>https://login.avination.com</string>
-            </array>
-        <key>name</key>
-            <string>login.avination.net</string>
-        <key>password</key>
-            <string>https://www.avination.com/pwrecover.php</string>
-        <key>register</key>
-            <string>https://www.avination.com/join.php</string>
-        <key>slurl_base</key>
-            <string>hop://login.avination.net/</string>
-        </map>
     <key>login.francogrid.org</key>
         <map>
         <key>LastModified</key>
@@ -557,36 +297,6 @@
             <string>http://francogrid.org/user/register</string>
         <key>slurl_base</key>
             <string>hop://login.francogrid.org/</string>
-		</map>
-    <key>3d.newworldgrid.com:8002</key>
-			<map>
-			<key>LastModified</key>
-				<date>2013-06-04T21:20:00.77Z</date>
-			<key>about</key>
-				<string>http://www.newworldgrid.com</string>
-			<key>gridname</key>
-				<string>NewWorldGrid</string>
-			<key>gridnick</key>
-				<string>newworldgrid</string>
-			<key>login_identifier_types</key>
-				<array>
-					<string>agent</string>
-					<string>account</string>
-				</array>
-			<key>loginpage</key>
-				<string>http://www.newworldgrid.com</string>
-			<key>loginuri</key>
-				<array>
-					<string>http://3d.newworldgrid.com:8002/</string>
-				</array>
-			<key>name</key>
-				<string>3d.newworldgrid.com:8002</string>
-			<key>password</key>
-				<string>http://3d.newworldgrid.com:8002/site/login</string>
-			<key>register</key>
-				<string>http://3d.newworldgrid.com:8002/site/register</string>
-			<key>slurl_base</key>
-				<string>hop://3d.newworldgrid.com:8002/</string>
 		</map>
     <key>login.osgrid.org</key>
         <map>
@@ -623,38 +333,6 @@
             <string>http://www.osgrid.org/</string>
         <key>slurl_base</key>
             <string>hop://login.osgrid.org/</string>
-        </map>
-    <key>login.virtualhighway.us:8002</key>
-        <map>
-        <key>LastModified</key>
-            <date>2013-02-07T03:14:36.74Z</date>
-        <key>about</key>
-            <string>http://www.virtualhighway.us/about.php</string>
-        <key>gridname</key>
-            <string>Virtual Highway</string>
-        <key>gridnick</key>
-            <string>VirtualHighway</string>
-        <key>helperuri</key>
-            <string>http://www.virtualhighway.us/griddal/</string>
-        <key>login_identifier_types</key>
-            <array>
-                <string>agent</string>
-                <string>account</string>
-            </array>
-        <key>loginpage</key>
-            <string>http://www.virtualhighway.us/welcome.php</string>
-        <key>loginuri</key>
-            <array>
-                <string>http://login.virtualhighway.us:8002/</string>
-            </array>
-        <key>name</key>
-            <string>login.virtualhighway.us:8002</string>
-        <key>password</key>
-            <string>http://www.virtualhighway.us/users/lostPassword</string>
-        <key>register</key>
-            <string>http://www.virtualhighway.us/users/register</string>
-        <key>slurl_base</key>
-            <string>hop://login.virtualhighway.us:8002/</string>
         </map>
      <key>grid.spellscape.co.uk</key>
         <map>
