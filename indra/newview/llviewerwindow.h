@@ -421,6 +421,10 @@ public:
 	void			setTitle(const std::string& win_title);
 //-TT
 
+//MK
+	BOOL			mPickThroughHuds; // if TRUE, don't pick HUD objects under the mouse cursor
+//mk
+
 private:
 	bool                    shouldShowToolTipFor(LLMouseHandler *mh);
 

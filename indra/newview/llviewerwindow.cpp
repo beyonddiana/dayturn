@@ -1676,6 +1676,9 @@ LLViewerWindow::LLViewerWindow(const Params& p)
 	mStatesDirty(false),
 	mCurrResolutionIndex(0),
 	mProgressView(NULL)
+//MK
+	, mPickThroughHuds(FALSE)
+//mk
 {
 	// gKeyboard is still NULL, so it doesn't do LLWindowListener any good to
 	// pass its value right now. Instead, pass it a nullary function that
@@ -4190,8 +4193,8 @@ LLViewerObject* LLViewerWindow::cursorIntersect(S32 mouse_x, S32 mouse_y, F32 de
 		found = gPipeline.lineSegmentIntersectInHUD(mh_start, mh_end, pick_transparent,
 													face_hit, intersection, uv, normal, tangent);
 //MK
-		// HACK : don't allow focusing on HUDs
-		if (gRRenabled)
+		/// HACK : don't allow focusing on HUDs when we're right-clicking on something
+		if (gRRenabled && mPickThroughHuds)
 		{
 			MASK mask = gKeyboard->currentMask(TRUE);
 			if (mask & MASK_ALT)
@@ -4592,6 +4595,25 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 	// Hide all the UI widgets first and draw a frame
 	BOOL prev_draw_ui = gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_UI) ? TRUE : FALSE;
 
+////MK
+//	// HACK : It seems we have a weird bug when the vision is restricted. I know this is not a good place to fix it, let alone with such a hack,
+//	// but I don't see what the real reason lies behind this strange occurrence. When taking a snapshot with the vision restricted, any HUD with
+//	// hovertext will show a double of the hovertext placed exactly in the South direction of the avatar, but only if we are rather low above the ground.
+//	// As a result, the text shows on the pictures and it looks silly. However this does not happen when showing the UI.
+//	// The hack is to force showing the UI... without showing the UI. And to try and hide the name of the avatars on the picture.
+//	BOOL force_hide_ui = FALSE;
+//	BOOL ui_was_showing = gSavedSettings.getBOOL("HideUIControls");
+//	if (gRRenabled && gAgent.mRRInterface.mCamDistDrawMax < EXTREMUM)
+//	{
+//		if (!show_ui)
+//		{
+//			gViewerWindow->setUIVisibility(FALSE);
+//			force_hide_ui = TRUE;
+//			show_ui = TRUE;
+//		}
+//	}
+////mk
+
 	if ( prev_draw_ui != show_ui)
 	{
 		LLPipeline::toggleRenderDebugFeature((void*)LLPipeline::RENDER_DEBUG_FEATURE_UI);
@@ -4889,6 +4911,18 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 		send_agent_resume();
 	}
 	gStatusBar->hideBalance(false);	
+////MK
+//	// Restore the original UI state
+//	if (force_hide_ui)
+//	{
+//		gViewerWindow->setUIVisibility(ui_was_showing);
+//		// These two don't need to be set back to their original values, but let's be tidy anyway, we never know
+//		// some code could be added after this spot.
+//		force_hide_ui = FALSE;
+//		show_ui = FALSE;
+//	}
+////mk
+
 	return ret;
 }
 
