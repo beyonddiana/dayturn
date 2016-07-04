@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <strings>
+    <string name="SECOND_LIFE">
+		[CURRENT_GRID]
+	</string>
+	<string name="APP_NAME">
+		KokuaOS
+	</string>
+	<string name="CAPITALIZED_APP_NAME">
+		KOKUAOS
+	</string>
 	<string name="SUPPORT_SITE">
 		Portal Pomocy Second Life
 	</string>
