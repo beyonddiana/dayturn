@@ -8,6 +8,35 @@
  top="724"
  visible="false"
  width="128">
+	<menu_item_call
+     label="Zoom Close"
+     name="Zoom Close">
+        <menu_item_call.on_click
+         function="Minimap.Zoom"
+         parameter="close" />
+    </menu_item_call>
+    <menu_item_call
+     label="Zoom Medium"
+     name="Zoom Medium">
+        <menu_item_call.on_click
+         function="Minimap.Zoom"
+         parameter="medium" />
+    </menu_item_call>
+    <menu_item_call
+     label="Zoom Far"
+     name="Zoom Far">
+        <menu_item_call.on_click
+         function="Minimap.Zoom"
+         parameter="far" />
+    </menu_item_call>
+	<menu_item_call
+     label="Zoom Default"
+     name="Zoom Default">
+		<menu_item_call.on_click
+         function="Minimap.Zoom"
+         parameter="default" />
+	</menu_item_call>
+	<menu_item_separator />
     <menu_item_check
        label="Chat Range Rings"
        name="Show Chat Range">
@@ -111,51 +140,19 @@
         <menu_item_check.on_enable
           control="MiniMapPropertyLines" />
     </menu_item_check>
-    <menu_item_separator />
-    <menu
-       label="Zoom"
-       name="Zoom">
-       <menu_item_call
-         label="Zoom Close"
-         name="Zoom Close">
-           <menu_item_call.on_click
-             function="Minimap.Zoom"
-             parameter="close" />
-       </menu_item_call>
-       <menu_item_call
-         label="Zoom Medium"
-         name="Zoom Medium">
-           <menu_item_call.on_click
-             function="Minimap.Zoom"
-             parameter="medium" />
-       </menu_item_call>
-       <menu_item_call
-         label="Zoom Far"
-         name="Zoom Far">
-             <menu_item_call.on_click
-               function="Minimap.Zoom"
-               parameter="far" />
-       </menu_item_call>
-       <menu_item_call
-         label="Zoom Default"
-         name="Zoom Default">
-           <menu_item_call.on_click
-             function="Minimap.Zoom"
-             parameter="default" />
-       </menu_item_call>
-    </menu>
     <menu_item_call
-      label="Stop Tracking"
-      name="Stop Tracking">
+     label="Stop Tracking"
+     name="Stop Tracking">
         <menu_item_call.on_click
-          function="Minimap.Tracker"
-          parameter="task_properties" />
+         function="Minimap.Tracker"
+         parameter="task_properties" />
     </menu_item_call>
+    <menu_item_separator />
     <menu_item_call
-      label="Open World Map"
-      name="Open World Map">
+     label="World Map"
+     name="World Map">
         <menu_item_call.on_click
-          function="Floater.Show"
-          parameter="world_map" />
-     </menu_item_call>
+         function="Floater.Show"
+         parameter="world_map" />
+    </menu_item_call>
 </menu>
