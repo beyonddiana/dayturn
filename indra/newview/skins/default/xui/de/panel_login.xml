@@ -28,7 +28,7 @@
 				Benutzernamen oder Kennwort vergessen?
 			</text>
 			<button label="Anmelden" name="connect_btn"/>
-			<check_box label="Kennwort speichern" name="remember_check"/>
+			<check_box label="Details speichern" name="remember_check"/>
 		</layout_panel>
 		<layout_panel name="links">
 			<text name="create_account_text">

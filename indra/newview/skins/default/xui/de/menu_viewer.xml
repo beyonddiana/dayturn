@@ -38,6 +38,9 @@
 		<menu_item_check label="Chat in der Nähe..." name="Nearby Chat"/>
 		<menu_item_check label="Sprechen" name="Speak"/>
 		<menu_item_check label="Unterhaltungsprotokoll..." name="Conversation Log..."/>
+		<menu_item_call label="Facebook..." name="Facebook"/>
+		<menu_item_call label="Twitter..." name="Twitter"/>
+		<menu_item_call label="Flickr..." name="Flickr"/>
 		<menu label="Voice-Morphing" name="VoiceMorphing">
 			<menu_item_check label="Kein Voice-Morphing" name="NoVoiceMorphing"/>
 			<menu_item_check label="Vorschau..." name="Preview"/>
@@ -152,7 +155,8 @@
 			<menu_item_check label="An Raster ausrichten" name="Snap to Grid"/>
 			<menu_item_call label="Objekt-XY an Raster ausrichten" name="Snap Object XY to Grid"/>
 			<menu_item_call label="Auswahl für Raster verwenden" name="Use Selection for Grid"/>
-			<menu_item_call label="Rasteroptionen" name="Grid Options"/>
+			<menu_item_call label="Rasteroptionen..." name="Grid Options"/>
+			<menu_item_call label="Standard-Berechtigungen einstellen..." name="Set default permissions"/>
 		</menu>
 		<menu label="Hochladen" name="Upload">
 			<menu_item_call label="Bild ([COST])..." name="Upload Image"/>
@@ -177,6 +181,7 @@
 		<menu_item_call label="Fehler melden" name="Report Bug"/>
 		<menu_item_call label="Rempler, Stöße &amp; Schläge" name="Bumps, Pushes &amp;amp; Hits"/>
 		<menu_item_call label="INFO ÜBER [APP_NAME]" name="About Second Life"/>
+		<menu_item_call label="Nach Updates suchen" name="Check for Updates"/>
 	</menu>
 	<menu label="Erweitert" name="Advanced">
 		<menu_item_call label="Textur neu laden" name="Rebake Texture"/>
@@ -190,7 +195,7 @@
 			<menu_item_call label="Lag-Anzeige" name="Lag Meter"/>
 			<menu_item_check label="Statistikleiste" name="Statistics Bar"/>
 			<menu_item_call label="Statistiken zum Laden von Szenen" name="Scene Load Statistics"/>
-			<menu_item_check label="Zuggewicht für Avatare anzeigen" name="Avatar Rendering Cost"/>
+			<menu_item_check label="Informationen zur Avatarkomplexität anzeigen" name="Avatar Draw Info"/>
 		</menu>
 		<menu label="Hervorhebung und Sichtbarkeit" name="Highlighting and Visibility">
 			<menu_item_check label="Pulsierender Strahl" name="Cheesy Beacon"/>
@@ -229,7 +234,6 @@
 		<menu_item_check label="Weiche Mausbewegung" name="Mouse Smoothing"/>
 		<menu_item_call label="Tasten freigeben" name="Release Keys"/>
 		<menu label="Tastaturkürzel" name="Shortcuts">
-+			<menu_item_call label="Bild hochladen ([COST])..." name="Upload Image"/>		
 			<menu_item_check label="Erweitert-Menü anzeigen - veraltetet" name="Show Advanced Menu - legacy shortcut"/>
 			<menu_item_call label="Fenster schließen" name="Close Window"/>
 			<menu_item_call label="Alle Fenster schließen" name="Close All Windows"/>
@@ -309,12 +313,11 @@
 			<menu_item_check label="Detailstufeninfos" name="LOD Info"/>
 			<menu_item_check label="Konstruktionswarteschlange" name="Build Queue"/>
 			<menu_item_check label="Lichter" name="Lights"/>
+			<menu_item_check label="Partikel" name="Particles"/>
 			<menu_item_check label="Gelenkpunkte" name="Collision Skeleton"/>
 			<menu_item_check label="Gelenke" name="Joints"/>
 			<menu_item_check label="Raycast" name="Raycast"/>
 			<menu_item_check label="Windvektoren" name="Wind Vectors"/>
-			<menu_item_check label="Komplexität beim Rendern" name="rendercomplexity"/>
-			<menu_item_check label="Byte in Anhängen" name="attachment bytes"/>
 			<menu_item_check label="Formen" name="Sculpt"/>
 			<menu label="Texturdichte" name="Texture Density">
 				<menu_item_check label="Keine" name="None"/>
@@ -414,7 +417,6 @@
 			<menu_item_check label="Fehler für sichtbare Agenten beseitigen" name="Debug Character Vis"/>
 			<menu_item_check label="Gelenkpunkte anzeigen" name="Show Collision Skeleton"/>
 			<menu_item_check label="Agent-Ziel anzeigen" name="Display Agent Target"/>
-			--&gt;
 			<menu_item_call label="Anhänge ausgeben" name="Dump Attachments"/>
 			<menu_item_call label="Fehler in Avatar-Texturen beseitigen" name="Debug Avatar Textures"/>
 			<menu_item_call label="Lokale Texturen ausgeben" name="Dump Local Textures"/>

@@ -5,16 +5,16 @@
      that are returned from one component and may appear in many places-->
 <strings>
 	<string name="SECOND_LIFE">
-		Second Life
+		[CURRENT_GRID]
 	</string>
 	<string name="APP_NAME">
-		Second Life
+		KokuaOS
 	</string>
 	<string name="CAPITALIZED_APP_NAME">
-		SECOND LIFE
+		KOKUAOS
 	</string>
 	<string name="SECOND_LIFE_GRID">
-		Second Life-Grid:
+		Second Life-Grid
 	</string>
 	<string name="SUPPORT_SITE">
 		Second Life Support-Portal
@@ -331,6 +331,75 @@ Warten Sie kurz und versuchen Sie dann noch einmal, sich anzumelden.
 	<string name="TestingDisconnect">
 		Verbindungsabbruch wird getestet
 	</string>
+	<string name="SocialFlickrConnecting">
+		Verbinden mit Flickr...
+	</string>
+	<string name="SocialFlickrPosting">
+		Posten...
+	</string>
+	<string name="SocialFlickrDisconnecting">
+		Flickr-Verbindung wird getrennt...
+	</string>
+	<string name="SocialFlickrErrorConnecting">
+		Problem beim Verbinden mit Flickr
+	</string>
+	<string name="SocialFlickrErrorPosting">
+		Problem beim Posten auf Flickr
+	</string>
+	<string name="SocialFlickrErrorDisconnecting">
+		Problem beim Trennen der Flickr-Verbindung
+	</string>
+	<string name="SocialTwitterConnecting">
+		Verbinden mit Twitter...
+	</string>
+	<string name="SocialTwitterPosting">
+		Posten...
+	</string>
+	<string name="SocialTwitterDisconnecting">
+		Twitter-Verbindung wird getrennt...
+	</string>
+	<string name="SocialTwitterErrorConnecting">
+		Problem beim Verbinden mit Twitter
+	</string>
+	<string name="SocialTwitterErrorPosting">
+		Problem beim Posten auf Twitter
+	</string>
+	<string name="SocialTwitterErrorDisconnecting">
+		Problem beim Trennen der Twitter-Verbindung
+	</string>
+	<string name="BlackAndWhite">
+		Schwarzweiß
+	</string>
+	<string name="Colors1970">
+		Farben der Siebziger Jahre
+	</string>
+	<string name="Intense">
+		Intensiv
+	</string>
+	<string name="Newspaper">
+		Zeitungspapier
+	</string>
+	<string name="Sepia">
+		Sepia
+	</string>
+	<string name="Spotlight">
+		Spotlight
+	</string>
+	<string name="Video">
+		Video
+	</string>
+	<string name="Autocontrast">
+		Autokontrast
+	</string>
+	<string name="LensFlare">
+		Blendenfleck
+	</string>
+	<string name="Miniature">
+		Miniatur
+	</string>
+	<string name="Toycamera">
+		Spielzeugkamera
+	</string>
 	<string name="TooltipPerson">
 		Person
 	</string>
@@ -380,6 +449,9 @@ Warten Sie kurz und versuchen Sie dann noch einmal, sich anzumelden.
 		Sie können keinen Ordner tragen, der mehr als [AMOUNT] Elemente enthält.  Sie können diesen Höchstwert unter „Erweitert“ &gt; „Debug-Einstellungen anzeigen“ &gt; „WearFolderLimit“ ändern.
 	</string>
 	<string name="TooltipPrice" value="[AMOUNT] L$"/>
+	<string name="TooltipSLIcon">
+		Führt zu einer Seite in der offiziellen Domäne SecondLife.com oder LindenLab.com.
+	</string>
 	<string name="TooltipOutboxDragToWorld">
 		Sie können keine Objekte aus dem Marktplatz-Auflistungsordner rezzen
 	</string>
@@ -399,7 +471,7 @@ Warten Sie kurz und versuchen Sie dann noch einmal, sich anzumelden.
 		Anzahl von Bestandsobjekten überschreitet [AMOUNT].
 	</string>
 	<string name="TooltipOutboxCannotDropOnRoot">
-		Sie können Objekte oder Ordner nur in der Registerkarte „Alle“ ablegen. Wählen Sie diese Registerkarte aus und verschieben Sie Ihre Objekte bzw. Ordner noch einmal.
+		Sie können Objekte oder Ordner nur in der Registerkarte „ALLE“ oder „NICHT VERKNüPFT“ ablegen. Klicken Sie auf eine dieser Registerkarten und versuchen Sie dann erneut, Ihre Objekte bzw. Ordner zu verschieben.
 	</string>
 	<string name="TooltipOutboxNoTransfer">
 		Mindestens eines dieser Objekte kann nicht verkauft oder übertragen werden
@@ -483,6 +555,9 @@ Warten Sie kurz und versuchen Sie dann noch einmal, sich anzumelden.
 		Anklicken, um Befehl secondlife:// auszuführen
 	</string>
 	<string name="CurrentURL" value=" CurrentURL: [CurrentURL]"/>
+	<string name="TooltipEmail">
+		Klicken, um eine E-Mail zu verfassen
+	</string>
 	<string name="SLurlLabelTeleport">
 		Teleportieren nach
 	</string>
@@ -906,6 +981,12 @@ Warten Sie kurz und versuchen Sie dann noch einmal, sich anzumelden.
 	<string name="use_texture">
 		Textur verwenden
 	</string>
+	<string name="manip_hint1">
+		Zum Einrasten Mauscursor
+	</string>
+	<string name="manip_hint2">
+		über Lineal bewegen
+	</string>
 	<string name="texture_loading">
 		Wird geladen...
 	</string>
@@ -1005,7 +1086,7 @@ Warten Sie kurz und versuchen Sie dann noch einmal, sich anzumelden.
 	<string name="AgentNameSubst">
 		(Sie)
 	</string>
-	<string name="JoinAnExperience"/><!-- intentionally blank -->
+	<string name="JoinAnExperience"/>
 	<string name="SilentlyManageEstateAccess">
 		Beim Verwalten von Grundbesitzzugangslisten Warnhinweise unterdrücken
 	</string>
@@ -1337,13 +1418,13 @@ Warten Sie kurz und versuchen Sie dann noch einmal, sich anzumelden.
 		Einkäufe aus dem Marktplatz erscheinen hier. Sie können diese dann zur Verwendung in Ihr Inventar ziehen.
 	</string>
 	<string name="MarketplaceURL">
-		http://marketplace.[MARKETPLACE_DOMAIN_NAME]
+		https://marketplace.[MARKETPLACE_DOMAIN_NAME]/
 	</string>
 	<string name="MarketplaceURL_CreateStore">
-		http://marketplace.[MARKETPLACE_DOMAIN_NAME]/create_store
+		http://community.secondlife.com/t5/English-Knowledge-Base/Selling-in-the-Marketplace/ta-p/700193#Section_.3
 	</string>
 	<string name="MarketplaceURL_Dashboard">
-		http://marketplace.[MARKETPLACE_DOMAIN_NAME]/learn_more
+		https://marketplace.[MARKETPLACE_DOMAIN_NAME]/merchants/store/dashboard
 	</string>
 	<string name="MarketplaceURL_Imports">
 		https://marketplace.[MARKETPLACE_DOMAIN_NAME]/merchants/store/imports
@@ -1784,6 +1865,21 @@ Warten Sie kurz und versuchen Sie dann noch einmal, sich anzumelden.
 	<string name="TodayOld">
 		Seit heute Mitglied
 	</string>
+	<string name="av_render_everyone_now">
+		Jetzt kann jeder Sie sehen.
+	</string>
+	<string name="av_render_not_everyone">
+		Sie sind u. U. nicht für alle Leute in Ihrer Nähe sichtbar.
+	</string>
+	<string name="av_render_over_half">
+		Sie sind u. U. für mehr als die Hälfte der Leute in Ihrer Nähe nicht sichtbar.
+	</string>
+	<string name="av_render_most_of">
+		Sie sind u. U. für die meisten Leuten in Ihrer Nähe nicht sichtbar.
+	</string>
+	<string name="av_render_anyone">
+		Sie sind u. U. für niemanden in Ihrer Nähe sichtbar.
+	</string>
 	<string name="AgeYearsA">
 		[COUNT] Jahr
 	</string>
@@ -1901,6 +1997,9 @@ Warten Sie kurz und versuchen Sie dann noch einmal, sich anzumelden.
 	<string name="CompileQueueUnknownFailure">
 		Unbekannter Fehler beim Herunterladen
 	</string>
+	<string name="CompileNoExperiencePerm">
+		Skript „[SCRIPT]“ mit Erlebnis „[EXPERIENCE]“ wird übersprungen.
+	</string>
 	<string name="CompileQueueTitle">
 		Rekompilierung
 	</string>
@@ -1945,9 +2044,6 @@ Warten Sie kurz und versuchen Sie dann noch einmal, sich anzumelden.
 	</string>
 	<string name="GroupsNone">
 		keine
-	</string>
-	<string name="CompileNoExperiencePerm">
-		Skript „[SCRIPT]“ mit Erlebnis „[EXPERIENCE]“ wird übersprungen.
 	</string>
 	<string name="Group" value=" (Gruppe)"/>
 	<string name="Unknown">
@@ -4196,6 +4292,12 @@ Falls diese Meldung weiterhin angezeigt wird, wenden Sie sich bitte an [SUPPORT_
 	<string name="share_alert">
 		Objekte aus dem Inventar hier her ziehen
 	</string>
+	<string name="flickr_post_success">
+		Sie haben auf Flickr gepostet.
+	</string>
+	<string name="twitter_post_success">
+		Sie haben auf Twitter gepostet.
+	</string>
 	<string name="no_session_message">
 		(IM-Session nicht vorhanden)
 	</string>
@@ -4652,8 +4754,8 @@ Missbrauchsbericht
 	<string name="LocalEstimateUSD">
 		[AMOUNT] US$
 	</string>
-	<string name="free">
-		kostenlos
+	<string name="Group Ban">
+		Gruppenverbannung
 	</string>
 <!--  FS:AW opensim currency support -->
 	<string name="free">
@@ -5082,6 +5184,12 @@ Setzen Sie den Editorpfad in Anführungszeichen
 	<string name="Command_Destinations_Label">
 		Ziele
 	</string>
+	<string name="Command_Facebook_Label">
+		Facebook
+	</string>
+	<string name="Command_Flickr_Label">
+		Flickr
+	</string>
 	<string name="Command_Gestures_Label">
 		Gesten
 	</string>
@@ -5133,6 +5241,9 @@ Setzen Sie den Editorpfad in Anführungszeichen
 	<string name="Command_Speak_Label">
 		Sprechen
 	</string>
+	<string name="Command_Twitter_Label">
+		Twitter
+	</string>
 	<string name="Command_View_Label">
 		Kamerasteuerungen
 	</string>
@@ -5162,6 +5273,12 @@ Setzen Sie den Editorpfad in Anführungszeichen
 	</string>
 	<string name="Command_Destinations_Tooltip">
 		Ziele von Interesse
+	</string>
+	<string name="Command_Facebook_Tooltip">
+		Auf Facebook posten
+	</string>
+	<string name="Command_Flickr_Tooltip">
+		Auf Flickr hochladen
 	</string>
 	<string name="Command_Gestures_Tooltip">
 		Gesten für Ihren Avatar
@@ -5213,6 +5330,9 @@ Setzen Sie den Editorpfad in Anführungszeichen
 	</string>
 	<string name="Command_Speak_Tooltip">
 		Über Ihr Mikrofon mit Leuten in der Nähe sprechen
+	</string>
+	<string name="Command_Twitter_Tooltip">
+		Twitter
 	</string>
 	<string name="Command_View_Tooltip">
 		Kamerawinkel ändern
@@ -5295,18 +5415,6 @@ Setzen Sie den Editorpfad in Anführungszeichen
 	<string name="UserDictionary">
 		[Benutzer]
 	</string>
-	<string name="logging_calls_disabled_log_empty">
-		Unterhaltungen werden nicht protokolliert. Um ein Protokoll zu starten, wählen Sie „Speichern: nur Protokoll“ oder „Speichern: Protokoll und Transkripte“ unter „Einstellungen“ &gt; „Chat“.
-	</string>
-	<string name="logging_calls_disabled_log_not_empty">
-		Es werden keine Unterhaltungen mehr protokolliert. Um weiterhin ein Protokoll zu führen, wählen Sie „Speichern: nur Protokoll“ oder „Speichern: Protokoll und Transkripte“ unter „Einstellungen“ &gt; „Chat“.
-	</string>
-	<string name="logging_calls_enabled_log_empty">
-		Keine protokollierten Unterhaltungen verfügbar. Hier erscheint ein Protokolleintrag, wenn Sie eine Person kontaktieren oder von einer Person kontaktiert werden.
-	</string>
-	<string name="loading_chat_logs">
-		Laden...
-	</string>
 	<string name="experience_tools_experience">
 		Erlebnis
 	</string>
@@ -5323,7 +5431,7 @@ Setzen Sie den Editorpfad in Anführungszeichen
 		Gridumfang
 	</string>
 	<string name="Allowed_Experiences_Tab">
-		ZULÄSSIG
+		ZULäSSIG
 	</string>
 	<string name="Blocked_Experiences_Tab">
 		BLOCKIERT
@@ -5387,5 +5495,38 @@ Setzen Sie den Editorpfad in Anführungszeichen
 	</string>
 	<string name="ExperiencePermissionShort12">
 		Berechtigung
+	</string>
+	<string name="logging_calls_disabled_log_empty">
+		Unterhaltungen werden nicht protokolliert. Um ein Protokoll zu starten, wählen Sie „Speichern: nur Protokoll“ oder „Speichern: Protokoll und Transkripte“ unter „Einstellungen“ &gt; „Chat“.
+	</string>
+	<string name="logging_calls_disabled_log_not_empty">
+		Es werden keine Unterhaltungen mehr protokolliert. Um weiterhin ein Protokoll zu führen, wählen Sie „Speichern: nur Protokoll“ oder „Speichern: Protokoll und Transkripte“ unter „Einstellungen“ &gt; „Chat“.
+	</string>
+	<string name="logging_calls_enabled_log_empty">
+		Keine protokollierten Unterhaltungen verfügbar. Hier erscheint ein Protokolleintrag, wenn Sie eine Person kontaktieren oder von einer Person kontaktiert werden.
+	</string>
+	<string name="loading_chat_logs">
+		Laden...
+	</string>
+	<string name="preset_combo_label">
+		-Leere Liste-
+	</string>
+	<string name="Default">
+		Standard
+	</string>
+	<string name="none_paren_cap">
+		(Keine)
+	</string>
+	<string name="no_limit">
+		Keine Begrenzung
+	</string>
+	<string name="Mav_Details_MAV_FOUND_DEGENERATE_TRIANGLES">
+		Die Physikform enthält Dreiecke, die zu klein sind. Versuchen Sie, das Physikmodell zu vereinfachen.
+	</string>
+	<string name="Mav_Details_MAV_CONFIRMATION_DATA_MISMATCH">
+		Die Physikform enthält ungültige Bestätigungsdaten. Versuchen Sie, das Physikmodell zu korrigieren.
+	</string>
+	<string name="Mav_Details_MAV_UNKNOWN_VERSION">
+		Die Physikform hat keine korrekte Version. Legen Sie die korrekte Version für das Physikmodell fest.
 	</string>
 </strings>
