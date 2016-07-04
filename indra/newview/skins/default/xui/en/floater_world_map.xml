@@ -499,6 +499,19 @@
 		<button.commit_callback
 		function="WMap.Location" />
     </button>
+   <button
+     image_overlay="Refresh_Off"
+     follows="top|right"
+     height="23"
+     layout="topleft"
+     left="0"
+     name="Clear"
+     tool_tip="Clear tracking lines and reset map"
+     top_pad="5"
+     width="23">
+		<button.commit_callback
+		function="WMap.Clear" />
+    </button>
     <scroll_list
      draw_stripes="false"
      bg_writeable_color="MouseGray"
