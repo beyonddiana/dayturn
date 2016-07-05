@@ -75,9 +75,9 @@ bool LLCoros::cleanup(const LLSD&)
             if ((previousCount < 5) || !(previousCount % 50))
             {
                 if (previousCount < 5)
-                    LL_INFOS("LLCoros") << "LLCoros: cleaning up coroutine " << mi->first << LL_ENDL;
+                    LL_DEBUGS("LLCoros") << "LLCoros: cleaning up coroutine " << mi->first << LL_ENDL;
                 else
-                    LL_INFOS("LLCoros") << "LLCoros: cleaning up coroutine " << mi->first << "("<< previousCount << ")" << LL_ENDL;
+                    LL_DEBUGS("LLCoros") << "LLCoros: cleaning up coroutine " << mi->first << "("<< previousCount << ")" << LL_ENDL;
 
             }            // The erase() call will invalidate its passed iterator value --
             // so increment mi FIRST -- but pass its original value to
@@ -128,9 +128,9 @@ std::string LLCoros::generateDistinctName(const std::string& prefix) const
             if ((previousCount < 5) || !(previousCount % 50))
             {
                 if (previousCount < 5)
-                    LL_INFOS("LLCoros") << "LLCoros: launching coroutine " << name << LL_ENDL;
+                    LL_DEBUGS("LLCoros") << "LLCoros: launching coroutine " << name << LL_ENDL;
                 else
-                    LL_INFOS("LLCoros") << "LLCoros: launching coroutine " << name << "(" << previousCount << ")" << LL_ENDL;
+                    LL_DEBUGS("LLCoros") << "LLCoros: launching coroutine " << name << "(" << previousCount << ")" << LL_ENDL;
 
             }
             return name;
@@ -170,7 +170,7 @@ std::string LLCoros::getNameByID(const void* self_id) const
 
 void LLCoros::setStackSize(S32 stacksize)
 {
-    LL_INFOS("LLCoros") << "Setting coroutine stack size to " << stacksize << LL_ENDL;
+    LL_DEBUGS("LLCoros") << "Setting coroutine stack size to " << stacksize << LL_ENDL;
     mStackSize = stacksize;
 }
 
