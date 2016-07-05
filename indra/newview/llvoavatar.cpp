@@ -3825,6 +3825,12 @@ BOOL LLVOAvatar::updateCharacter(LLAgent &agent)
 			mTimeInAir.reset();
 		}
 		mInAir = in_air;
+		
+        // SL-402: with the ability to animate the position of joints
+        // that affect the body size calculation, computed body size
+        // can get stale much more easily. Simplest fix is to update
+        // it frequently.
+        computeBodySize();
 
 		// correct for the fact that the pelvis is not necessarily the center 
 		// of the agent's physical representation
@@ -4226,16 +4232,7 @@ void LLVOAvatar::debugBodySize() const
 void LLVOAvatar::postPelvisSetRecalc()
 {		
 	mRoot->updateWorldMatrixChildren();
-    // BENTO extra tracing around computeBodySize()
-    LLVector3 body_size = mBodySize;
-    LLVector3 avatar_offset = mAvatarOffset;			
 	computeBodySize();
-    if (mBodySize != body_size || mAvatarOffset != avatar_offset)
-    {
-        debugBodySize();
-        LL_DEBUGS("Avatar") << avString() << "old mBodySize " << body_size << " old mAvatarOffset " << avatar_offset << LL_ENDL;
-        LL_DEBUGS("Avatar") << avString() << "new mBodySize " << mBodySize << " new mAvatarOffset " << mAvatarOffset << LL_ENDL;
-    }	
 	dirtyMesh(2);
 }
 //------------------------------------------------------------------------
@@ -6301,16 +6298,7 @@ void LLVOAvatar::updateVisualParams()
 
 	if (mLastSkeletonSerialNum != mSkeletonSerialNum)
 	{
-        // BENTO extra tracing around computeBodySize()
-        LLVector3 body_size = mBodySize;
-        LLVector3 avatar_offset = mAvatarOffset;	
 		computeBodySize();
-        if (mBodySize != body_size || mAvatarOffset != avatar_offset)
-        {
-            debugBodySize();
-            LL_DEBUGS("Avatar") << avString() << "old mBodySize " << body_size << " old mAvatarOffset " << avatar_offset << LL_ENDL;
-            LL_DEBUGS("Avatar") << avString() << "new mBodySize " << mBodySize << " new mAvatarOffset " << mAvatarOffset << LL_ENDL;
-        }		
 		mLastSkeletonSerialNum = mSkeletonSerialNum;
 		mRoot->updateWorldMatrixChildren();
 	}
@@ -8737,6 +8725,13 @@ void LLVOAvatar::dumpArchetypeXML(const std::string& prefix, bool group_by_weara
 				}
 			}
 		}
+		
+		// Root joint
+        const LLVector3& pos = mRoot->getPosition();
+        const LLVector3& scale = mRoot->getScale();
+        apr_file_printf( file, "\t\t<root name=\"%s\" position=\"%f %f %f\" scale=\"%f %f %f\"/>\n", 
+                         mRoot->getName().c_str(), pos[0], pos[1], pos[2], scale[0], scale[1], scale[2]);
+		
 		avatar_joint_list_t::iterator iter = mSkeleton.begin();
 		avatar_joint_list_t::iterator end  = mSkeleton.end();
 		for (; iter != end; ++iter)
