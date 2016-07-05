@@ -322,7 +322,6 @@ void LLHUDEffectPointAt::render()
 {
 	//MK
 	if (gRRenabled && gAgent.mRRInterface.mCamDistDrawMax < EXTREMUM)
-		static LLUICachedControl<bool> pointat_limited("ShowPointAtLimited", false);
 	{
 		return;
 	}
