@@ -453,6 +453,15 @@ public:
 
 	bool isNonFriendSessionNotified(const LLUUID& session_id);
 
+//MK
+	// LLIMMgr::addSession() is supposed to only be called when the user starts an IM session
+	// (normal IM, group, inventory offer, teleport...), and is restricted by @startim.
+	// But it just so happens that LLHandlerUtil::spawnIMSession(), which is used when someone else
+	// starts an IM session with the user by an inventory offer or a teleport (NOT an IM), calls it too.
+	// So we have to distinguish the caller of LLIMMgr::addSession() to decide whether to restrict it or not.
+	BOOL mIgnoreStartIm = FALSE;
+//mk
+
 private:
 
 	/**

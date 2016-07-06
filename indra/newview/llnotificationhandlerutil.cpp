@@ -198,7 +198,14 @@ LLUUID LLHandlerUtil::spawnIMSession(const std::string& name, const LLUUID& from
 			session_id);
 	if (session == NULL)
 	{
+//MK
+		// Ignore @startim
+		LLIMMgr::instance().mIgnoreStartIm = TRUE;
+//mk
 		session_id = LLIMMgr::instance().addSession(name, IM_NOTHING_SPECIAL, from_id);
+//MK
+		LLIMMgr::instance().mIgnoreStartIm = FALSE;
+//mk
 	}
 
 	return session_id;
