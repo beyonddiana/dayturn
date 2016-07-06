@@ -218,7 +218,7 @@
 			audio
 		</widgettype>
 		<impl>
-      media_plugin_quicktime
+			media_plugin_quicktime
 		</impl>
 	</mimetype>
 	<mimetype name="application/pdf">
@@ -295,7 +295,7 @@
 			audio
 		</widgettype>
 		<impl>
-      media_plugin_quicktime
+			media_plugin_quicktime
 		</impl>
 	</mimetype>
 	<mimetype name="audio/mpeg">
@@ -306,7 +306,7 @@
 			audio
 		</widgettype>
 		<impl>
-      media_plugin_quicktime
+			media_plugin_quicktime
 		</impl>
 	</mimetype>
 	<mimetype name="audio/x-aiff">
@@ -317,7 +317,7 @@
 			audio
 		</widgettype>
 		<impl>
-      media_plugin_quicktime
+			media_plugin_quicktime
 		</impl>
 	</mimetype>
 	<mimetype name="audio/x-wav">
@@ -328,7 +328,7 @@
 			audio
 		</widgettype>
 		<impl>
-      media_plugin_quicktime
+			media_plugin_quicktime
 		</impl>
 	</mimetype>
 	<mimetype menu="1" name="image/bmp">

@@ -61,7 +61,7 @@
         <menu_item_call.on_click
          function="Self.SitDown"
          parameter="" />
-        <menu_item_call.on_visible
+        <menu_item_call.on_enable
          function="Self.EnableSitDown" />
     </menu_item_call>
 
@@ -72,7 +72,7 @@ name="Stand Up">
     <menu_item_call.on_click
      function="Self.StandUp"
      parameter="" />
-    <menu_item_call.on_visible
+    <menu_item_call.on_enable
      function="Self.EnableStandUp" />
   </menu_item_call>
   <menu_item_call
@@ -99,11 +99,9 @@ name="Edit Outfit">
     <menu_item_call.on_enable
      function="Edit.EnableEditShape" />
   </menu_item_call>
-  <menu_item_call 
-     label="Hover Height"
+  <menu_item_call label="Hover Height"
      layout="topleft"
-     name="Hover Height"
-	 only_in_sl="true">
+     name="Hover Height">
      <menu_item_call.on_click
       function="HoverHeight" />
      <menu_item_call.on_enable

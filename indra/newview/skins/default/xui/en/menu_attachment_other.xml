@@ -11,12 +11,12 @@
          parameter="hit object" />
     </menu_item_call>
    <menu_item_call
-     visible="false"
+     enabled="false"
      label="Add Friend"
      name="Add Friend">
         <menu_item_call.on_click
          function="Avatar.AddFriend" />
-        <menu_item_call.on_visible
+        <menu_item_call.on_enable
          function="Avatar.EnableAddFriend" />
     </menu_item_call>
    <menu_item_call
@@ -42,9 +42,9 @@
         <menu_item_call.on_enable
          function="Avatar.EnableCall" />
     </menu_item_call>
-    <menu_item_call
-      label="Invite to Group"
-      name="Invite...">
+      <menu_item_call
+         label="Invite to Group"
+         name="Invite...">
       <menu_item_call.on_click
         function="Avatar.InviteToGroup" />
     </menu_item_call>
@@ -195,7 +195,7 @@
         <menu_item_call.on_click
            function="Tools.LookAtSelection"
            parameter="zoom" />
-   </menu_item_call>
+    </menu_item_call>
    <menu_item_call
      label="Share"
      name="Share">
@@ -210,7 +210,7 @@
          function="PayObject" />
         <menu_item_call.on_enable
          function="EnablePayAvatar" />
-   </menu_item_call>
+    </menu_item_call>
    <menu_item_separator />
    <menu_item_call
        label="Object Profile"
