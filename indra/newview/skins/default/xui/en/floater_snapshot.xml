@@ -423,7 +423,7 @@
     height="14"
     layout="topleft"
     left="220"
-	  right="-20"
+	right="-20"
     halign="left"
     name="image_res_text"
     top_delta="5"
