@@ -534,6 +534,7 @@ set(viewer_SOURCE_FILES
     llplacesfolderview.cpp
     llpopupview.cpp
     llpostcard.cpp
+#   llpresetsmanager.cpp
     llpreview.cpp
     llpreviewanim.cpp
     llpreviewgesture.cpp
@@ -1169,7 +1170,8 @@ set(viewer_HEADER_FILES
     llplacesinventorypanel.h
     llplacesfolderview.h
     llpopupview.h
-    llpostcard.h
+    llpostcard.h    
+#   llpresetsmanager.h
     llpreview.h
     llpreviewanim.h
     llpreviewgesture.h
