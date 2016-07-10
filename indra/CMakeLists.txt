@@ -93,7 +93,7 @@ elseif (SOLARIS)
 endif (LINUX)
 
 add_subdirectory(${VIEWER_PREFIX}newview)
-  add_dependencies(viewer kokua-bin)
+  add_dependencies(viewer kokuaos-bin)
 
 add_subdirectory(${VIEWER_PREFIX}doxygen EXCLUDE_FROM_ALL)
 
