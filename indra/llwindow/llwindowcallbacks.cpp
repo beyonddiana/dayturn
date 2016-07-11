@@ -126,7 +126,7 @@ void LLWindowCallbacks::handleResize(LLWindow *window, const S32 width, const S3
 
 void LLWindowCallbacks::handleFocus(LLWindow *window)
 {
-    LL_WARNS("COCOA") << "Called handleFocus proto" << LL_ENDL;
+	 LL_WARNS("COCOA") << "Called handleFocus proto" << LL_ENDL;
 }
 
 void LLWindowCallbacks::handleFocusLost(LLWindow *window)

@@ -188,7 +188,7 @@ protected:
 	U32             mGrabbyKeyFlags;
 	int			mReallyCapturedCount;
 	SDL_Surface *	mWindow;
-	std::string	mWindowTitle;
+	std::string mWindowTitle;
 	double		mOriginalAspectRatio;
 	BOOL		mNeedsResize;		// Constructor figured out the window is too big, it needs a resize.
 	LLCoordScreen   mNeedsResizeSize;
