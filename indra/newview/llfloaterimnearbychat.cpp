@@ -1043,20 +1043,36 @@ void send_chat_from_viewer(const std::string& utf8_out_text, EChatType type, S32
 	}
 //mk
 	LLMessageSystem* msg = gMessageSystem;
-	msg->newMessageFast(_PREHASH_ChatFromViewer);
-	msg->nextBlockFast(_PREHASH_AgentData);
-	msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
-	msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
-	msg->nextBlockFast(_PREHASH_ChatData);
-////	msg->addStringFast(_PREHASH_Message, utf8_out_text);
-//MK	
-	msg->addStringFast(_PREHASH_Message, crunchedText);
+	
+	if (channel >= 0)
+	{
+		msg->newMessageFast(_PREHASH_ChatFromViewer);
+		msg->nextBlockFast(_PREHASH_AgentData);
+		msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
+		msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
+		msg->nextBlockFast(_PREHASH_ChatData);
+//MK
+		msg->addStringFast(_PREHASH_Message, crunchedText);
 //mk
-	msg->addU8Fast(_PREHASH_Type, type);
-	msg->addS32("Channel", channel);
+		msg->addU8Fast(_PREHASH_Type, type);
+		msg->addS32("Channel", channel);
+	}
+	else
+	{
+		// Hack: ChatFromViewer doesn't allow negative channels
+		msg->newMessage("ScriptDialogReply");
+        msg->nextBlock("AgentData");
+        msg->addUUID("AgentID", gAgentID);
+        msg->addUUID("SessionID", gAgentSessionID);
+        msg->nextBlock("Data");
+        msg->addUUID("ObjectID", gAgentID);
+        msg->addS32("ChatChannel", channel);
+        msg->addS32("ButtonIndex", 0);
+        msg->addString("ButtonLabel", utf8_out_text);
+	}
+	
 
 	gAgent.sendReliableMessage();
-
 	add(LLStatViewer::CHAT_COUNT, 1);
 }
 
