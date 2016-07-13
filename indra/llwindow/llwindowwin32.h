@@ -117,6 +117,8 @@ public:
 //-TT
 
 
+	/*virtual*/ F32 getSystemUISize();
+
 	LLWindowCallbacks::DragNDropResult completeDragNDropRequest( const LLCoordGL gl_coord, const MASK mask, LLWindowCallbacks::DragNDropAction action, const std::string url );
 
 	static std::vector<std::string> getDynamicFallbackFontList();
