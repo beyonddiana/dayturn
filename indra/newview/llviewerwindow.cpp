@@ -236,7 +236,7 @@ LLViewerObject*  gDebugRaycastObject = NULL;
 LLVOPartGroup* gDebugRaycastParticle = NULL;
 LLVector4a       gDebugRaycastIntersection;
 LLVector4a		gDebugRaycastParticleIntersection;
-LLVector2       gDebugRaycastTexCoord;
+LLVector2        gDebugRaycastTexCoord;
 LLVector4a       gDebugRaycastNormal;
 LLVector4a       gDebugRaycastTangent;
 S32				gDebugRaycastFaceHit;
@@ -1682,8 +1682,9 @@ LLViewerWindow::LLViewerWindow(const Params& p)
 	mResDirty(false),
 	mStatesDirty(false),
 	mCurrResolutionIndex(0),
-	mProgressView(NULL)
-//MK
+	mProgressView(NULL),
+	mSystemUIScaleFactorChanged(false)
+/MK
 	, mPickThroughHuds(FALSE)
 //mk
 {
@@ -1772,6 +1773,16 @@ LLViewerWindow::LLViewerWindow(const Params& p)
 		gSavedSettings.setS32("FullScreenWidth",scr.mX);
 		gSavedSettings.setS32("FullScreenHeight",scr.mY);
     }
+
+
+	F32 system_scale_factor = mWindow->getSystemUISize();
+	if (p.first_run || gSavedSettings.getF32("LastSystemUIScaleFactor") != system_scale_factor)
+	{
+		mSystemUIScaleFactorChanged = true;
+		gSavedSettings.setF32("LastSystemUIScaleFactor", system_scale_factor);
+		gSavedSettings.setF32("UIScaleFactor", system_scale_factor);
+	}
+
 
 	// Get the real window rect the window was created with (since there are various OS-dependent reasons why
 	// the size of a window or fullscreen context may have been adjusted slightly...)
@@ -1867,6 +1878,28 @@ LLViewerWindow::LLViewerWindow(const Params& p)
 
 	mWorldViewRectScaled = calcScaledRect(mWorldViewRectRaw, mDisplayScale);
 }
+
+//static
+void LLViewerWindow::showSystemUIScaleFactorChanged()
+{
+	LLNotificationsUtil::add("SystemUIScaleFactorChanged", LLSD(), LLSD(), onSystemUIScaleFactorChanged);
+}
+
+//static
+bool LLViewerWindow::onSystemUIScaleFactorChanged(const LLSD& notification, const LLSD& response)
+{
+	S32 option = LLNotificationsUtil::getSelectedOption(notification, response);
+	if(option == 0)
+	{
+		LLFloaterReg::toggleInstanceOrBringToFront("preferences");
+		LLFloater* pref_floater = LLFloaterReg::getInstance("preferences");
+		LLTabContainer* tab_container = pref_floater->getChild<LLTabContainer>("pref core");
+		tab_container->selectTabByName("advanced1");
+
+	}
+	return false; 
+}
+
 
 void LLViewerWindow::initGLDefaults()
 {
@@ -2492,25 +2525,25 @@ void LLViewerWindow::setMenuBackgroundColor(bool god_mode, bool dev_grid)
     if(god_mode && !LLGridManager::getInstance()->isInSLBeta())
     {
 		if ( LLGridManager::getInstance()->isInSLMain() )
-    {
-        new_bg_color = LLUIColorTable::instance().getColor( "MenuBarGodBgColor" );
-    }
+		{
+			new_bg_color = LLUIColorTable::instance().getColor( "MenuBarGodBgColor" );
+		}
 	
 		else if(god_mode && LLGridManager::getInstance()->isInSLBeta())
-    {
-        new_bg_color = LLUIColorTable::instance().getColor( "MenuNonProductionGodBgColor" );
-    }
+		{
+			new_bg_color = LLUIColorTable::instance().getColor( "MenuNonProductionGodBgColor" );
+		}
     }
     else
-	{
+    {
         switch (LLVersionInfo::getViewerMaturity())
-	{
+        {
         case LLVersionInfo::TEST_VIEWER:
             new_bg_color = LLUIColorTable::instance().getColor( "MenuBarTestBgColor" );
             break;
 
         case LLVersionInfo::PROJECT_VIEWER:
-		new_bg_color = LLUIColorTable::instance().getColor( "MenuBarProjectBgColor" );
+            new_bg_color = LLUIColorTable::instance().getColor( "MenuBarProjectBgColor" );
             break;
             
         case LLVersionInfo::BETA_VIEWER:
@@ -2519,18 +2552,17 @@ void LLViewerWindow::setMenuBackgroundColor(bool god_mode, bool dev_grid)
             
         case LLVersionInfo::RELEASE_VIEWER:
             if(!LLGridManager::getInstance()->isInSLBeta())
-    {
-        new_bg_color = LLUIColorTable::instance().getColor( "MenuNonProductionBgColor" );
-    }
-    else 
-    {
-        new_bg_color = LLUIColorTable::instance().getColor( "MenuBarBgColor" );
-    }
+            {
+                new_bg_color = LLUIColorTable::instance().getColor( "MenuNonProductionBgColor" );
+            }
+            else 
+            {
+                new_bg_color = LLUIColorTable::instance().getColor( "MenuBarBgColor" );
+            }
             break;
         }
     }
-
-
+    
 
     if(gMenuBarView)
     {
@@ -3769,12 +3801,6 @@ void LLViewerWindow::renderSelections( BOOL for_gl_pick, BOOL pick_parcel_walls,
 		LLSelectMgr::getInstance()->updateSilhouettes();
 	}
 	
-////MK
-//	if (gRRenabled && gAgent.mRRInterface.mCamDistDrawMax < EXTREMUM && !for_hud)
-//	{
-//		return;
-//	}
-////mk
 	// Draw fence around land selections
 	if (for_gl_pick)
 	{
@@ -4070,7 +4096,7 @@ LLPickInfo LLViewerWindow::pickImmediate(S32 x, S32 y_from_bot, BOOL pick_transp
 		// "Show Debug Alpha" means no object actually transparent
 		pick_transparent = TRUE;
 	}
-
+	
 	// shortcut queueing in mPicks and just update mLastPick in place
 	MASK	key_mask = gKeyboard->currentMask(TRUE);
 	mLastPick = LLPickInfo(LLCoordGL(x, y_from_bot), key_mask, pick_transparent, pick_rigged, pick_particle, TRUE, FALSE, NULL);
@@ -4101,7 +4127,7 @@ LLHUDIcon* LLViewerWindow::cursorIntersectIcon(S32 mouse_x, S32 mouse_y, F32 dep
 	LLVector4a start, end;
 	start.load3(mouse_world_start.mV);
 	end.load3(mouse_world_end.mV);
-
+	
 	return LLHUDIcon::lineSegmentIntersectAll(start, end, intersection);
 }
 
@@ -5603,6 +5629,7 @@ void LLPickInfo::fetchResults()
 		delta.setSub(intersection, origin);
 		icon_dist = delta.getLength3().getF32();
 	}
+
 	LLViewerObject* hit_object = gViewerWindow->cursorIntersect(mMousePt.mX, mMousePt.mY, 512.f,
 									NULL, -1, mPickTransparent, mPickRigged, &face_hit,
 									&intersection, &uv, &normal, &tangent, &start, &end);
@@ -5622,7 +5649,7 @@ void LLPickInfo::fetchResults()
 			particle_end = end;
 		}
 	}
-	
+
 	LLViewerObject* objectp = hit_object;
 
 
@@ -5637,6 +5664,7 @@ void LLPickInfo::fetchResults()
 		mHUDIcon = hit_icon;
 		mPickType = PICK_ICON;
 		mPosGlobal = mHUDIcon->getPositionGlobal();
+
 	}
 	else if (objectp)
 	{
