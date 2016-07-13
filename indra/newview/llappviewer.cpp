@@ -237,6 +237,8 @@
 
 #include "llviewereventrecorder.h"
 
+#include <stdexcept>
+
 //MK
 #include "llappearancemgr.h"
 //mk
@@ -5900,8 +5902,7 @@ void LLAppViewer::forceErrorInfiniteLoop()
 void LLAppViewer::forceErrorSoftwareException()
 {
    	LL_WARNS() << "Forcing a deliberate exception" << LL_ENDL;
-    // *FIX: Any way to insure it won't be handled?
-    throw; 
+    throw std::runtime_error("User selected Force Software Exception"); 
 }
 
 void LLAppViewer::forceErrorDriverCrash()
