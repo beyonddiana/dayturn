@@ -765,7 +765,8 @@ BOOL LLPanelRegionGeneralInfo::postBuild()
 	}
 
 	refresh();
-	return TRUE;
+	return LLPanelRegionInfo::postBuild();
+	//return TRUE;
 }
 
 void LLPanelRegionGeneralInfo::onBtnSet()
@@ -1566,11 +1567,10 @@ BOOL LLPanelRegionTerrainInfo::sendUpdate()
 	// Assemble and send texturedetail message
 
 	// Make sure user hasn't chosen wacky textures.
-	// allow wacky textures on aurora-sim
-	//if (!validateTextureSizes())
-	//{
-	//	return FALSE;
-	//}
+	if (!validateTextureSizes())
+	{
+		return FALSE;
+	}
 
 	// Check if terrain Elevation Ranges are correct
 	if (gSavedSettings.getBOOL("RegionCheckTextureHeights") && !validateTextureHeights())
