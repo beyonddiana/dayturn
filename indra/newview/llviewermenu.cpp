@@ -419,32 +419,10 @@ void set_underclothes_menu_options()
 
 void set_merchant_SLM_menu()
 {
-    // DD-170 : SLM Alpha and Beta program : for the moment, we always show the SLM menu and 
-    // tools so that all merchants can try out the UI, even if not migrated.
-    // *TODO : Keep SLM UI hidden for non migrated merchant in released viewer
-    
-    //if (LLMarketplaceData::instance().getSLMStatus() == MarketplaceStatusCodes::MARKET_PLACE_NOT_MIGRATED_MERCHANT)
-    //{
-        // Merchant not migrated: show only the old Merchant Outbox menu
-    //    gMenuHolder->getChild<LLView>("MerchantOutbox")->setVisible(TRUE);
-    //}
-    //else
-    //{
-        // All other cases (new merchant, not merchant, migrated merchant): show the new Marketplace Listings menu and enable the tool
-        gMenuHolder->getChild<LLView>("MarketplaceListings")->setVisible(TRUE);
-        LLCommand* command = LLCommandManager::instance().getCommand("marketplacelistings");
-		gToolBarView->enableCommand(command->id(), true);
-    //}
-}
-
-void set_merchant_outbox_menu(U32 status, const LLSD& content)
-{
-    // If the merchant is fully migrated, the API is disabled (503) and we won't show the old menu item.
-    // In all other cases, we show it.
-    if (status != MarketplaceErrorCodes::IMPORT_SERVER_API_DISABLED)
-    {
-        gMenuHolder->getChild<LLView>("MerchantOutbox")->setVisible(TRUE);
-    }
+    // All other cases (new merchant, not merchant, migrated merchant): show the new Marketplace Listings menu and enable the tool
+    gMenuHolder->getChild<LLView>("MarketplaceListings")->setVisible(TRUE);
+    LLCommand* command = LLCommandManager::instance().getCommand("marketplacelistings");
+	gToolBarView->enableCommand(command->id(), true);
 }
 
 void check_merchant_status()
@@ -463,17 +441,6 @@ void check_merchant_status()
         
         // Launch an SLM test connection to get the merchant status
         LLMarketplaceData::instance().initializeSLM(boost::bind(&set_merchant_SLM_menu));
-
-        // Do the Merchant Outbox init only once per session
-        if (LLMarketplaceInventoryImporter::instance().getMarketPlaceStatus() == MarketplaceStatusCodes::MARKET_PLACE_NOT_INITIALIZED)
-        {
-            // Hide merchant outbox related menu item
-            gMenuHolder->getChild<LLView>("MerchantOutbox")->setVisible(FALSE);
-            
-            // Launch a Merchant Outbox test connection to get the migration status
-            LLMarketplaceInventoryImporter::instance().setStatusReportCallback(boost::bind(&set_merchant_outbox_menu,_1, _2));
-            LLMarketplaceInventoryImporter::instance().initialize();
-        }
     }
 }
 
@@ -893,7 +860,7 @@ class LLAdvancedToggleRenderType : public view_listener_t
 		U32 render_type = render_type_from_string( userdata.asString() );
 		if ( render_type != 0 )
 		{
-			LLPipeline::toggleRenderTypeControl( (void*)(ptrdiff_t)render_type );
+			LLPipeline::toggleRenderTypeControl( (void*)render_type );
 		}
 		return true;
 	}
@@ -909,7 +876,7 @@ class LLAdvancedCheckRenderType : public view_listener_t
 
 		if ( render_type != 0 )
 		{
-			new_value = LLPipeline::hasRenderTypeControl( (void*)(ptrdiff_t)render_type );
+			new_value = LLPipeline::hasRenderTypeControl( (void*)render_type );
 		}
 
 		return new_value;
@@ -968,7 +935,7 @@ class LLAdvancedToggleFeature : public view_listener_t
 		U32 feature = feature_from_string( userdata.asString() );
 		if ( feature != 0 )
 		{
-			LLPipeline::toggleRenderDebugFeature( (void*)(ptrdiff_t)feature );
+			LLPipeline::toggleRenderDebugFeature( (void*)feature );
 		}
 		return true;
 	}
@@ -983,7 +950,7 @@ class LLAdvancedCheckFeature : public view_listener_t
 
 	if ( feature != 0 )
 	{
-		new_value = LLPipeline::toggleRenderDebugFeatureControl( (void*)(ptrdiff_t)feature );
+		new_value = LLPipeline::toggleRenderDebugFeatureControl( (void*)feature );
 	}
 
 	return new_value;
@@ -1181,6 +1148,7 @@ U32 info_display_from_string(std::string info_display)
 	}
 	else
 	{
+		LL_WARNS() << "unrecognized feature name '" << info_display << "'" << LL_ENDL;
 		return 0;
 	}
 };
@@ -1195,7 +1163,7 @@ class LLAdvancedToggleInfoDisplay : public view_listener_t
 		
 		if ( info_display != 0 )
 		{
-			LLPipeline::toggleRenderDebug( (void*)(ptrdiff_t)info_display );
+			LLPipeline::toggleRenderDebug( (void*)info_display );
 		}
 
 		return true;
@@ -1212,7 +1180,7 @@ class LLAdvancedCheckInfoDisplay : public view_listener_t
 
 		if ( info_display != 0 )
 		{
-			new_value = LLPipeline::toggleRenderDebugControl( (void*)(ptrdiff_t)info_display );
+			new_value = LLPipeline::toggleRenderDebugControl( (void*)info_display );
 		}
 
 		return new_value;
@@ -4138,6 +4106,8 @@ BOOL is_agent_mappable(const LLUUID& agent_id)
 		);
 }
 
+
+// Enable a menu item when you don't have someone's card.
 class LLAvatarEnableAddFriend : public view_listener_t
 {
 	bool handleEvent(const LLSD& userdata)
@@ -4212,7 +4182,7 @@ class LLEnableHoverHeight : public view_listener_t
 {
 	bool handleEvent(const LLSD& userdata)
 	{
-		return (gAgent.getRegion() && gAgent.getRegion()->avatarHoverHeightEnabled()) || (isAgentAvatarValid() && !gAgentAvatarp->isUsingServerBakes());
+		return gAgent.getRegion() && gAgent.getRegion()->avatarHoverHeightEnabled();
 	}
 };
 
@@ -6765,7 +6735,6 @@ class LLShowSidetrayPanel : public view_listener_t
 				LLFloaterReg::getInstance(floater_name)->openFloater();
 			}
 		}
-
 		return true;
 	}
 };
@@ -7755,9 +7724,6 @@ void handle_test_female(void*)
 	//gGestureList.requestResetFromServer( FALSE );
 }
 
-/*	if(LLWorld::getInstance()->getEnableTeenMode()) {
-	}
-*/
 void handle_dump_attachments(void*)
 {
 	if(!isAgentAvatarValid()) return;
@@ -8036,9 +8002,7 @@ class LLToggleHowTo : public view_listener_t
 	{
 		LLFloaterWebContent::Params p;
 		std::string url = gSavedSettings.getString("HowToHelpURL");
-		std::string url_expanded = LLWeb::expandURLSubstitutions(url, LLSD());
-		LL_DEBUGS("WebApi") << "HowToHelpURL \"" << url_expanded << "\"" << LL_ENDL;
-		p.url = url_expanded;
+		p.url = LLWeb::expandURLSubstitutions(url, LLSD());
 		p.show_chrome = false;
 		p.target = "__help_how_to";
 		p.show_page_title = false;
@@ -8546,6 +8510,7 @@ void handle_buy_currency_test(void*)
 	LLFloaterReg::showInstance("buy_currency_html", LLSD(url));
 }
 
+// SUNSHINE CLEANUP - is only the request update at the end needed now?
 void handle_rebake_textures(void*)
 {
 	if (!isAgentAvatarValid()) return;
@@ -9665,6 +9630,7 @@ void initialize_menus()
 	commit.add("Avatar.OpenMarketplace", boost::bind(&LLWeb::loadURLExternal, gSavedSettings.getString("MarketplaceURL")));
 	
 	view_listener_t::addMenu(new LLAvatarEnableAddFriend(), "Avatar.EnableAddFriend");
+	enable.add("Avatar.EnableFreezeEject", boost::bind(&enable_freeze_eject, _2));
 	view_listener_t::addMenu(new LLAvatarEnableRemoveFriend(), "Avatar.EnableRemoveFriend");
 
 	// Object pie menu
