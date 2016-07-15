@@ -860,7 +860,11 @@ class LLAdvancedToggleRenderType : public view_listener_t
 		U32 render_type = render_type_from_string( userdata.asString() );
 		if ( render_type != 0 )
 		{
+#if (LL_LINUX) && defined(__amd64__)
+			LLPipeline::toggleRenderTypeControl( (void*)(ptrdiff_t)render_type );
+#else
 			LLPipeline::toggleRenderTypeControl( (void*)render_type );
+#endif
 		}
 		return true;
 	}
@@ -876,7 +880,11 @@ class LLAdvancedCheckRenderType : public view_listener_t
 
 		if ( render_type != 0 )
 		{
+#if (LL_LINUX) && defined(__amd64__)
+			new_value = LLPipeline::hasRenderTypeControl( (void*)(ptrdiff_t)render_type );
+#else
 			new_value = LLPipeline::hasRenderTypeControl( (void*)render_type );
+#endif
 		}
 
 		return new_value;
@@ -935,7 +943,11 @@ class LLAdvancedToggleFeature : public view_listener_t
 		U32 feature = feature_from_string( userdata.asString() );
 		if ( feature != 0 )
 		{
+#if (LL_LINUX) && defined(__amd64__)
+			LLPipeline::toggleRenderDebugFeature( (void*)(ptrdiff_t)feature );
+#else
 			LLPipeline::toggleRenderDebugFeature( (void*)feature );
+#endif
 		}
 		return true;
 	}
@@ -950,7 +962,11 @@ class LLAdvancedCheckFeature : public view_listener_t
 
 	if ( feature != 0 )
 	{
+#if (LL_LINUX) && defined(__amd64__)
+		new_value = LLPipeline::toggleRenderDebugFeatureControl( (void*)(ptrdiff_t)feature );
+#else
 		new_value = LLPipeline::toggleRenderDebugFeatureControl( (void*)feature );
+#endif
 	}
 
 	return new_value;
@@ -1163,7 +1179,11 @@ class LLAdvancedToggleInfoDisplay : public view_listener_t
 		
 		if ( info_display != 0 )
 		{
+#if (LL_LINUX) && defined(__amd64__)
+			LLPipeline::toggleRenderDebug( (void*)(ptrdiff_t)info_display );
+#else
 			LLPipeline::toggleRenderDebug( (void*)info_display );
+#endif
 		}
 
 		return true;
@@ -1180,7 +1200,11 @@ class LLAdvancedCheckInfoDisplay : public view_listener_t
 
 		if ( info_display != 0 )
 		{
+#if (LL_LINUX) && defined(__amd64__)
+			new_value = LLPipeline::toggleRenderDebugControl( (void*)(ptrdiff_t)info_display );
+#else
 			new_value = LLPipeline::toggleRenderDebugControl( (void*)info_display );
+#endif
 		}
 
 		return new_value;
@@ -4182,7 +4206,7 @@ class LLEnableHoverHeight : public view_listener_t
 {
 	bool handleEvent(const LLSD& userdata)
 	{
-		return gAgent.getRegion() && gAgent.getRegion()->avatarHoverHeightEnabled();
+		return (gAgent.getRegion() && gAgent.getRegion()->avatarHoverHeightEnabled()) || (isAgentAvatarValid() && !gAgentAvatarp->isUsingServerBakes());
 	}
 };
 
@@ -8510,7 +8534,6 @@ void handle_buy_currency_test(void*)
 	LLFloaterReg::showInstance("buy_currency_html", LLSD(url));
 }
 
-// SUNSHINE CLEANUP - is only the request update at the end needed now?
 void handle_rebake_textures(void*)
 {
 	if (!isAgentAvatarValid()) return;
