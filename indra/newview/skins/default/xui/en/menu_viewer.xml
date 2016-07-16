@@ -168,14 +168,6 @@
          function="BuyCurrency" />
       </menu_item_call>
       <menu_item_call
-         label="Merchant Outbox..."
-         name="MerchantOutbox"
-         only_in_sl="true">
-        <menu_item_call.on_click
-         function="Floater.ToggleOrBringToFront"
-         parameter="outbox" />
-      </menu_item_call>
-        <menu_item_call
             label="Marketplace Listings..."
             name="MarketplaceListings">
             <menu_item_call.on_click
