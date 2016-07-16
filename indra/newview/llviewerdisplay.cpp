@@ -934,8 +934,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		{
 			LLViewerCamera::sCurCameraID = LLViewerCamera::CAMERA_WORLD;
 
-			static LLCachedControl<bool> render_depth_pre_pass(gSavedSettings, "RenderDepthPrePass", false);
-			if (render_depth_pre_pass && LLGLSLShader::sNoFixedFunction)
+			if (gSavedSettings.getBOOL("RenderDepthPrePass") && LLGLSLShader::sNoFixedFunction)
 			{
 				gGL.setColorMask(false, false);
 
@@ -1093,9 +1092,7 @@ void render_hud_attachments()
 		hud_cam.setAxes(LLVector3(1,0,0), LLVector3(0,1,0), LLVector3(0,0,1));
 		LLViewerCamera::updateFrustumPlanes(hud_cam, TRUE);
 
-		static LLCachedControl<bool> render_hud_particles(gSavedSettings, "RenderHUDParticles", false);
-
-		bool render_particles = gPipeline.hasRenderType(LLPipeline::RENDER_TYPE_PARTICLES) && render_hud_particles;
+		bool render_particles = gPipeline.hasRenderType(LLPipeline::RENDER_TYPE_PARTICLES) && gSavedSettings.getBOOL("RenderHUDParticles");
 		
 		//only render hud objects
 		gPipeline.pushRenderTypeMask();
@@ -1449,9 +1446,8 @@ void render_ui_3d()
 	}
 
 	// Coordinate axes
-	static LLCachedControl<bool> show_axes(gSavedSettings, "ShowAxes", false);
-
-	if (show_axes) {
+	if (gSavedSettings.getBOOL("ShowAxes"))
+	{
 		draw_axes();
 	}
 
@@ -1506,9 +1502,7 @@ void render_ui_2d()
 	}
 	
 
-	static LLCachedControl<bool> render_ui_buffer(gSavedSettings, "RenderUIBuffer", false);
-
-	if (render_ui_buffer)
+	if (gSavedSettings.getBOOL("RenderUIBuffer"))
 	{
 		if (LLUI::sDirty)
 		{
