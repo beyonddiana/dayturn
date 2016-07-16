@@ -2021,7 +2021,7 @@ void inventory_offer_handler(LLOfferInfo* info)
 		if( !bAutoAccept ) // if we auto accept, do not pester the user
 		{
 			// Inform user that there is a script floater via toast system
-		    payload["give_inventory_notification"] = TRUE;
+			payload["give_inventory_notification"] = TRUE;
 			p.payload = payload;
 			LLPostponedNotification::add<LLPostponedOfferNotification>(p, info->mFromID, false);
 		}
@@ -2172,26 +2172,25 @@ static bool parse_lure_bucket(const std::string& bucket,
 	tokenizer::iterator iter = tokens.begin();
     LL_WARNS() << "Lure bucket from region " << bucket << LL_ENDL; 
 
-	U32 gx,gy,rx,ry,rz,lx,ly,lz;
+	S32 gx,gy,rx,ry,rz,lx,ly,lz;
 	try
 	{
-		gx = boost::lexical_cast<U32>((*(iter)).c_str());
-		gy = boost::lexical_cast<U32>((*(++iter)).c_str());
-		rx = boost::lexical_cast<U32>((*(++iter)).c_str());
-		ry = boost::lexical_cast<U32>((*(++iter)).c_str());
-		rz = boost::lexical_cast<U32>((*(++iter)).c_str());
-		lx = boost::lexical_cast<U32>((*(++iter)).c_str());
-		ly = boost::lexical_cast<U32>((*(++iter)).c_str());
-		lz = boost::lexical_cast<U32>((*(++iter)).c_str());
+		gx = boost::lexical_cast<S32>((*(iter)).c_str());
+		gy = boost::lexical_cast<S32>((*(++iter)).c_str());
+		rx = boost::lexical_cast<S32>((*(++iter)).c_str());
+		ry = boost::lexical_cast<S32>((*(++iter)).c_str());
+		rz = boost::lexical_cast<S32>((*(++iter)).c_str());
+		lx = boost::lexical_cast<S32>((*(++iter)).c_str());
+		ly = boost::lexical_cast<S32>((*(++iter)).c_str());
+		lz = boost::lexical_cast<S32>((*(++iter)).c_str());
 	}
-    catch( boost::bad_lexical_cast& )
+	catch( boost::bad_lexical_cast& )
 	{
 		LL_WARNS("parse_lure_bucket")
 			<< "Couldn't parse lure bucket."
 			<< LL_ENDL;
 		return false;
 	}
-
 	// Grab region access
 	region_access = SIM_ACCESS_MIN;
 	if (++iter != tokens.end())
@@ -2462,7 +2461,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 
 			buffer = message;
 	
-			LL_INFOS("Messaging") << "process_improved_im: session_id( " << session_id << " ), from_id( " << from_id << " )" << LL_ENDL;
+			LL_DEBUGS("Messaging") << "session_id( " << session_id << " ), from_id( " << from_id << " )" << LL_ENDL;
 
 			// add to IM panel, but do not bother the user
 			gIMMgr->addMessage(
@@ -2511,7 +2510,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 			}
 			buffer = saved + message;
 
-			LL_INFOS("Messaging") << "process_improved_im: session_id( " << session_id << " ), from_id( " << from_id << " )" << LL_ENDL;
+			LL_DEBUGS("Messaging") << "session_id( " << session_id << " ), from_id( " << from_id << " )" << LL_ENDL;
 
 			bool mute_im = is_muted;
 			if(accept_im_from_only_friend && !is_friend && !is_linden)
@@ -2976,7 +2975,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 
 			buffer = message;
 	
-			LL_INFOS("Messaging") << "process_improved_im: session_id( " << session_id << " ), from_id( " << from_id << " )" << LL_ENDL;
+			LL_DEBUGS("Messaging") << "message in dnd; session_id( " << session_id << " ), from_id( " << from_id << " )" << LL_ENDL;
 
 			// add to IM panel, but do not bother the user
 			gIMMgr->addMessage(
@@ -3003,7 +3002,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 
 			buffer = saved + message;
 
-			LL_INFOS("Messaging") << "process_improved_im: session_id( " << session_id << " ), from_id( " << from_id << " )" << LL_ENDL;
+			LL_DEBUGS("Messaging") << "standard message session_id( " << session_id << " ), from_id( " << from_id << " )" << LL_ENDL;
 
 			gIMMgr->addMessage(
 				session_id,
@@ -4159,6 +4158,7 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 	msg->getVector3Fast(_PREHASH_Data, _PREHASH_LookAt, look_at);
 	U64 region_handle;
 	msg->getU64Fast(_PREHASH_Data, _PREHASH_RegionHandle, region_handle);
+	
 	std::string version_channel;
 	msg->getString("SimData", "ChannelVersion", version_channel);
 	//! gSimulatorType is set first in Grid Manager
@@ -4244,10 +4244,6 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 		gAgentCamera.updateCamera();
 
 		gAgent.setTeleportState( LLAgent::TELEPORT_START_ARRIVAL );
-
-		// set the appearance on teleport since the new sim does not
-		// know what you look like.
-		gAgent.sendAgentSetAppearance();
 
 		if (isAgentAvatarValid())
 		{
@@ -4832,9 +4828,7 @@ void process_sound_trigger(LLMessageSystem *msg, void **)
 {
 	if (!gAudiop)
 	{
-#if !LL_LINUX
 		LL_WARNS("AudioEngine") << "LLAudioEngine instance doesn't exist!" << LL_ENDL;
-#endif
 		return;
 	}
 
@@ -4896,9 +4890,7 @@ void process_preload_sound(LLMessageSystem *msg, void **user_data)
 {
 	if (!gAudiop)
 	{
-#if !LL_LINUX
 		LL_WARNS("AudioEngine") << "LLAudioEngine instance doesn't exist!" << LL_ENDL;
-#endif
 		return;
 	}
 
