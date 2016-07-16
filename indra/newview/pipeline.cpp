@@ -1250,14 +1250,12 @@ void LLPipeline::createGLBuffers()
 	bool materials_in_water = false;
 
 #if MATERIALS_IN_REFLECTIONS
-	static LLCachedControl<S32> render_water_materials(gSavedSettings, "RenderWaterMaterials", 0);
-	materials_in_water = (bool)render_water_materials;
+	materials_in_water = gSavedSettings.getS32("RenderWaterMaterials");
 #endif
 
 	if (LLPipeline::sWaterReflections)
 	{ //water reflection texture
-		static LLCachedControl<S32> render_water_ref_resolution(gSavedSettings, "RenderWaterRefResolution", 512);
-		U32 res = llmax((S32)render_water_ref_resolution, 512);
+		U32 res = (U32) llmax(gSavedSettings.getS32("RenderWaterRefResolution"), 512);
 			
 		// Set up SRGB targets if we're doing deferred-path reflection rendering
 		//
@@ -1284,8 +1282,8 @@ void LLPipeline::createGLBuffers()
 	
 	if (LLPipeline::sRenderGlow)
 	{ //screen space glow buffers
-		static LLCachedControl<S32> render_glow_resolution_pow(gSavedSettings, "RenderGlowResolutionPow", 9);
-		const U32 glow_res = llmax(1, llmin(512, 1 << render_glow_resolution_pow));
+		const U32 glow_res = llmax(1, 
+			llmin(512, 1 << gSavedSettings.getS32("RenderGlowResolutionPow")));
 
 		for (U32 i = 0; i < 3; i++)
 		{
@@ -1305,8 +1303,7 @@ void LLPipeline::createGLBuffers()
 			const U32 noiseRes = 128;
 			LLVector3 noise[noiseRes*noiseRes];
 
-			static LLCachedControl<F32> render_deferred_noise(gSavedSettings, "RenderDeferredNoise", 4.f);
-			F32 scaler = render_deferred_noise / 100.f;
+			F32 scaler = gSavedSettings.getF32("RenderDeferredNoise")/100.f;
 
 			for (U32 i = 0; i < noiseRes*noiseRes; ++i)
 			{
@@ -1354,11 +1351,8 @@ void LLPipeline::createLUTBuffers()
 	{
 		if (!mLightFunc)
 		{
-			static LLCachedControl<U32> render_specular_res_x(gSavedSettings, "RenderSpecularResX", 1024);
-			static LLCachedControl<U32> render_specular_res_y(gSavedSettings, "RenderSpecularResY", 256);
-
-			const U32 lightResX = render_specular_res_x;
-			const U32 lightResY = render_specular_res_y;
+			U32 lightResX = gSavedSettings.getU32("RenderSpecularResX");
+			U32 lightResY = gSavedSettings.getU32("RenderSpecularResY");
 
 			F32* ls = new F32[lightResX*lightResY];
 			F32 specExp = gSavedSettings.getF32("RenderSpecularExponent");
@@ -7446,7 +7440,6 @@ void LLPipeline::doResetVertexBuffers(bool forced)
 		LL_WARNS() << "VBO wipe failed -- " << LLVertexBuffer::sGLCount << " buffers remaining." << LL_ENDL;
 	}
 
-	//llassert(LLVertexBuffer::sGLCount == 0);
 	LLVertexBuffer::unbind();
 
 	updateRenderBump();
@@ -8976,7 +8969,7 @@ void LLPipeline::renderDeferredLighting()
 		
 		gDeferredPostGammaCorrectProgram.uniform2f(LLShaderMgr::DEFERRED_SCREEN_RES, mScreen.getWidth(), mScreen.getHeight());
 		
-		static LLCachedControl<F32> gamma(gSavedSettings, "RenderDeferredDisplayGamma", 2.2f);
+		F32 gamma = gSavedSettings.getF32("RenderDeferredDisplayGamma");
 
 		gDeferredPostGammaCorrectProgram.uniform1f(LLShaderMgr::DISPLAY_GAMMA, (gamma > 0.1f) ? 1.0f / gamma : (1.0f/2.2f));
 		
@@ -9525,7 +9518,7 @@ void LLPipeline::renderDeferredLightingToRT(LLRenderTarget* target)
 		
 		gDeferredPostGammaCorrectProgram.uniform2f(LLShaderMgr::DEFERRED_SCREEN_RES, target->getWidth(), target->getHeight());
 		
-		static LLCachedControl<F32> gamma(gSavedSettings, "RenderDeferredDisplayGamma", 2.2f);
+		F32 gamma = gSavedSettings.getF32("RenderDeferredDisplayGamma");
 
 		gDeferredPostGammaCorrectProgram.uniform1f(LLShaderMgr::DISPLAY_GAMMA, (gamma > 0.1f) ? 1.0f / gamma : (1.0f/2.2f));
 		
@@ -9837,8 +9830,7 @@ void LLPipeline::generateWaterReflection(LLCamera& camera_in)
 		bool materials_in_water = false;
 
 #if MATERIALS_IN_REFLECTIONS
-		static LLCachedControl<S32> render_water_materials(gSavedSettings, "RenderWaterMaterials", 0);
-		materials_in_water = (bool)render_water_materials;
+		materials_in_water = gSavedSettings.getS32("RenderWaterMaterials");
 #endif
 
 		if (!LLViewerCamera::getInstance()->cameraUnderWater())
@@ -11375,8 +11367,10 @@ void LLPipeline::generateImpostor(LLVOAvatar* avatar)
 	
 	if (!avatar || !avatar->mDrawable)
 	{
+	    LL_WARNS_ONCE("AvatarRenderPipeline") << "Avatar is " << (avatar ? "not drawable" : "null") << LL_ENDL;
 		return;
 	}
+	LL_DEBUGS_ONCE("AvatarRenderPipeline") << "Avatar " << avatar->getID() << " is drawable" << LL_ENDL;
 
 	assertInitialized();
 
