@@ -11443,6 +11443,18 @@ Creating animation link for animation "[NAME]" failed!
      yestext="OK"/>
   </notification>
   
+  
+  <notification
+   icon="alert.tga"
+   name="ImageLoadError"
+   type="alertmodal">
+   [REASON]
+    <tag>fail</tag>
+    <usetemplate
+     name="okbutton"
+     yestext="OK"/>
+  </notification>
+
   <notification
    icon="alert.tga"
    name="ChatHistoryIsBusyAlert"
