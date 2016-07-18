@@ -57,6 +57,8 @@ public:
 
 	/*virtual*/ bool postBuild();
 
+	/*virtual*/ void draw();
+
 	/*virtual*/ void onOpen(const LLSD& info);
 
 	/*virtual*/ void setFilterSubString(const std::string& string);
@@ -67,10 +69,13 @@ public:
 
 	/*virtual*/ void copyToClipboard();
 
+	void startUpdateTimer();
+	void updateAttachmentsList();
+
 	boost::signals2::connection setSelectionChangeCallback(commit_callback_t cb);
 
 	bool hasItemSelected();
-	
+
 	bool populateAttachmentsList(bool update = false);
  	void onAccordionTabStateChanged();
  	void setAttachmentDetails(LLSD content);
@@ -93,7 +98,13 @@ private:
 	LLAccordionCtrlTab* 			mWearablesTab;
 	LLAccordionCtrlTab* 			mAttachmentsTab;
 	LLAccordionCtrl*				mAccordionCtrl;
-	
+
+	std::map<LLUUID, LLViewerObject*> mAttachmentsMap;
+
+	std::map<LLUUID, std::string> 	mObjectNames;
+
+	boost::signals2::connection 	mAttachmentsChangedConnection;
+	LLFrameTimer					mUpdateTimer;
 
 	bool							mIsInitialized;
 };
