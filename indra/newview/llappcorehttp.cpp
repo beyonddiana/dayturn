@@ -512,7 +512,7 @@ LLCore::HttpStatus LLAppCoreHttp::sslVerify(const std::string &url,
 		// somewhat clumsy, as we may run into errors that do not map directly to curl
 		// error codes.  Should be refactored with login refactoring, perhaps.
 		result = LLCore::HttpStatus(LLCore::HttpStatus::EXT_CURL_EASY, CURLE_SSL_CACERT);
-		result.setMessage(cert_exception.getMessage());
+		result.setMessage(cert_exception.what());
 		LLPointer<LLCertificate> cert = cert_exception.getCert();
 		cert->ref(); // adding an extra ref here
 		result.setErrorData(cert.get());
@@ -522,7 +522,7 @@ LLCore::HttpStatus LLAppCoreHttp::sslVerify(const std::string &url,
 	catch (LLCertException &cert_exception)
 	{
 		result = LLCore::HttpStatus(LLCore::HttpStatus::EXT_CURL_EASY, CURLE_SSL_PEER_CERTIFICATE);
-		result.setMessage(cert_exception.getMessage());
+		result.setMessage(cert_exception.what());
 		LLPointer<LLCertificate> cert = cert_exception.getCert();
 		cert->ref(); // adding an extra ref here
 		result.setErrorData(cert.get());

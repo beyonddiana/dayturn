@@ -347,7 +347,6 @@ public:
 	}
 	virtual ~LLCertException() throw() {}
 	LLPointer<LLCertificate> getCert() const { return mCert; }
-	std::string getMessage() const { return what(); }
 protected:
 	LLPointer<LLCertificate> mCert;
 };
