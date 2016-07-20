@@ -97,7 +97,7 @@
                  layout="topleft"
                  left="5"
                  name="view_options_btn"
-                 tool_tip="View/sort options"
+         tool_tip="View/sort options + P2P RLV commands"
                  top="1"
                  width="31" />
                 <menu_button

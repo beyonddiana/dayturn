@@ -46,4 +46,36 @@
          function="IMSession.Menu.ShowModes.Enable"
          parameter="IMShowNamesForP2PConv" />    
     </menu_item_check>      
+<!-- MK -->
+<!-- RLV IM commands here -->
+    <menu_item_separator layout="topleft" />
+    <menu_item_call
+     label="RLV: Get Other Party Version ('@version')"
+     layout="topleft"
+     name="RLV: Get Version">
+        <on_click function="IMSession.Menu.Action" parameter="rlv_get_version" />
+        <on_enable function="IMSession.Menu.ShowModes.Enable" parameter="rlv_get_version" />
+    </menu_item_call>
+    <menu_item_call
+     label="RLV: Get Other Party Blacklist ('@getblacklist')"
+     layout="topleft"
+     name="RLV: Get Blacklist">
+        <on_click function="IMSession.Menu.Action" parameter="rlv_get_blacklist" />
+        <on_enable function="IMSession.Menu.ShowModes.Enable" parameter="rlv_get_blacklist" />
+    </menu_item_call>
+    <menu_item_call
+     label="RLV: List Other Party Restrictions ('@list')"
+     layout="topleft"
+     name="RLV: List Restrictions">
+        <on_click function="IMSession.Menu.Action" parameter="rlv_get_restrictions" />
+        <on_enable function="IMSession.Menu.ShowModes.Enable" parameter="rlv_get_restrictions" />
+    </menu_item_call>
+    <menu_item_call
+     label="RLV: Stop Other Party IM Session ('@stopim')"
+     layout="topleft"
+     name="RLV: Stop IM Session">
+        <on_click function="IMSession.Menu.Action" parameter="rlv_stop_im" />
+        <on_enable function="IMSession.Menu.ShowModes.Enable" parameter="rlv_stop_im" />
+    </menu_item_call>
+<!-- mk -->
 </toggleable_menu>

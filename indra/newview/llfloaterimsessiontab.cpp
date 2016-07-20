@@ -44,6 +44,10 @@
 #include "lltoolbarview.h"
 #include "llfloaterimnearbychat.h"
 
+//MK
+#include "llagentui.h"
+//mk
+
 const F32 REFRESH_INTERVAL = 1.0f;
 
 LLFloaterIMSessionTab::LLFloaterIMSessionTab(const LLSD& session_id)
@@ -654,6 +658,49 @@ void LLFloaterIMSessionTab::onIMSessionMenuItemClicked(const LLSD& userdata)
 	{
 		gSavedSettings.setBOOL("PlainTextChatHistory", item == "compact_view");
 	}
+//MK
+	else if (item == "rlv_get_version"
+		|| item == "rlv_get_blacklist"
+		|| item == "rlv_get_restrictions"
+		|| item == "rlv_stop_im"
+		)
+	{
+		std::string msg;
+		std::string my_name;
+		LLAgentUI::buildFullname(my_name);
+		if (mSession && mIsP2PChat)
+		{
+			if (item == "rlv_get_version")
+			{
+				msg = "@version";
+			}
+			else if (item == "rlv_get_blacklist")
+			{
+				msg = "@getblacklist";
+			}
+			else if (item == "rlv_get_restrictions")
+			{
+				msg = "@list";
+			}
+			else if (item == "rlv_stop_im")
+			{
+				msg = "@stopim";
+			}
+			pack_instant_message(
+				gMessageSystem,
+				gAgent.getID(),
+				FALSE,
+				gAgent.getSessionID(),
+				mSession->mOtherParticipantID,
+				my_name.c_str(),
+				msg.c_str(),
+				IM_ONLINE,
+				IM_NOTHING_SPECIAL,
+				mSession->mSessionID);
+			gAgent.sendReliableMessage();
+		}
+	}
+//mk
 	else
 	{
 		bool prev_value = gSavedSettings.getBOOL(item);
@@ -683,6 +730,18 @@ bool LLFloaterIMSessionTab::onIMShowModesMenuItemEnable(const LLSD& userdata)
 	std::string item = userdata.asString();
 	bool plain_text = gSavedSettings.getBOOL("PlainTextChatHistory");
 	bool is_not_names = (item != "IMShowNamesForP2PConv");
+//MK
+	// Disable RLV P2P commands if we are not in a P2P chat
+	if (!mIsP2PChat && (
+		item == "rlv_get_version"
+		|| item == "rlv_get_blacklist"
+		|| item == "rlv_get_restrictions"
+		|| item == "rlv_stop_im"
+		))
+	{
+		return false;
+	}
+//mk
 	return (plain_text && (is_not_names || mIsP2PChat));
 }
 

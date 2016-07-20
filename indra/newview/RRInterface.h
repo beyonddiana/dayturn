@@ -30,8 +30,8 @@
 
 #define RR_VIEWER_NAME "RestrainedLife"
 #define RR_VIEWER_NAME_NEW "RestrainedLove"
-#define RR_VERSION_NUM "2091802"
-#define RR_VERSION "2.09.18.02"
+#define RR_VERSION_NUM "2091900"
+#define RR_VERSION "2.09.19.00"
 #define RR_SLV_VERSION "4.0.5.36541"
 
 #define RR_PREFIX "@"
@@ -246,6 +246,7 @@ public:
 
 	void printOnChat (std::string message);
 	void listRlvRestrictions(std::string substr = "");
+	std::string getRlvRestrictions(std::string substr = "");
 
 	BOOL checkCameraLimits (BOOL and_correct = FALSE);
 	BOOL updateCameraLimits ();

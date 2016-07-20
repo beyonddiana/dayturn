@@ -4284,6 +4284,8 @@ bool RRInterface::canTouch(LLViewerObject* object, LLVector3 pick_intersection /
 	LLViewerObject* root = object->getRootEdit();
 	if (!root) return true;
 
+	if (!isAllowed (object->getRootEdit()->getID(), "touchme")) return true; // to check the presence of "touchme" on this object, which means that we can touch it
+
 	if (!root->isHUDAttachment() && contains ("touchall")) return false;
 
 //	if (!root->isHUDAttachment() && contains ("touchallnonhud")) return false;
@@ -4291,8 +4293,6 @@ bool RRInterface::canTouch(LLViewerObject* object, LLVector3 pick_intersection /
 //	if (root->isHUDAttachment() && contains ("touchhud")) return false;
 
 	if (contains ("touchthis:"+object->getRootEdit()->getID().asString())) return false;
-
-	if (!isAllowed (object->getRootEdit()->getID(), "touchme")) return true; // to check the presence of "touchme" on this object, which means that we can touch it
 
 	if (!canTouchFar (object, pick_intersection)) return false;
 
@@ -4359,10 +4359,16 @@ void RRInterface::printOnChat (std::string message)
 
 void RRInterface::listRlvRestrictions(std::string substr /*= ""*/)
 {
+	printOnChat(getRlvRestrictions(substr));
+}
+
+std::string RRInterface::getRlvRestrictions(std::string substr /*= ""*/)
+{
 	RRMAP::iterator it = mSpecialObjectBehaviours.begin();
 	std::string object_name = "";
 	std::string old_object_name = "";
-	printOnChat ("### RLV RESTRICTIONS #####################");
+	std::string res = "";
+	res += ("\n### RLV RESTRICTIONS #####################");
 	while (it != mSpecialObjectBehaviours.end())
 	{
 		old_object_name = object_name;
@@ -4373,16 +4379,17 @@ void RRInterface::listRlvRestrictions(std::string substr /*= ""*/)
 		if (substr == "" || object_name.find(substr) != -1) {
 			// print the name of the object
 			if (object_name != old_object_name) {
-				printOnChat ("### "+object_name+" #####################");
+				res += ("\n### " + object_name + " #####################");
 			}
-			printOnChat ("-------- "+it->second);
+			res += ("\n-------- " + it->second);
 		}
 		it++;
 	}
-	printOnChat ("##########################################");
+	res += ("\n##########################################");
+	return res;
 }
 
-BOOL RRInterface::checkCameraLimits (BOOL and_correct /* = FALSE*/)
+BOOL RRInterface::checkCameraLimits(BOOL and_correct /* = FALSE*/)
 {
 	// Check that we are within the imposed limits
 	// Force the camera back into the limits when not

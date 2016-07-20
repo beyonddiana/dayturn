@@ -123,6 +123,11 @@
 #include "llnotificationmanager.h" //
 #include "tea.h"
 #include "llexperiencecache.h"
+
+//MK
+#include "llfloaterimsession.h"
+//mk
+
 #if LL_MSVC
 // disable boost::lexical_cast warning
 #pragma warning (disable:4702)
@@ -2609,6 +2614,96 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 				IM_DO_NOT_DISTURB_AUTO_RESPONSE,
 				session_id);
 			gAgent.sendReliableMessage();
+
+			// remove the "XXX is typing..." label from the IM window
+			LLPointer<LLIMInfo> im_info = new LLIMInfo(gMessageSystem);
+			gIMMgr->processIMTypingStop(im_info);
+		}
+		else if (gRRenabled && message == "@list")
+		{
+			// return the list of restrictions
+			std::string my_name;
+			LLAgentUI::buildFullname(my_name);
+			std::string response = gAgent.mRRInterface.getRlvRestrictions();
+
+			// The message may be very long, so we might need to chop in chunks of 1023 characters 
+			// and send several IMs in a row or else it will be truncated by the server.
+			while (response.length() > 1023)
+			{
+				std::string chunk = response.substr(0, 1023);
+				response = response.substr(1023);
+				pack_instant_message(
+					gMessageSystem,
+					gAgent.getID(),
+					FALSE,
+					gAgent.getSessionID(),
+					from_id,
+					my_name.c_str(),
+					chunk.c_str(),
+					IM_ONLINE,
+					IM_DO_NOT_DISTURB_AUTO_RESPONSE,
+					session_id);
+				gAgent.sendReliableMessage();
+			}
+
+			pack_instant_message(
+				gMessageSystem,
+				gAgent.getID(),
+				FALSE,
+				gAgent.getSessionID(),
+				from_id,
+				my_name.c_str(),
+				response.c_str(),
+				IM_ONLINE,
+				IM_DO_NOT_DISTURB_AUTO_RESPONSE,
+				session_id);
+			gAgent.sendReliableMessage();
+
+			// remove the "XXX is typing..." label from the IM window
+			LLPointer<LLIMInfo> im_info = new LLIMInfo(gMessageSystem);
+			gIMMgr->processIMTypingStop(im_info);
+		}
+		else if (gRRenabled && message == "@stopim")
+		{
+			// close this IM session if we are under @startim (globally or for this person)
+			bool close_session = false;
+			std::string response = "*** The other party is not under a @startim restriction.";
+
+			if (gAgent.mRRInterface.containsWithoutException("startim", from_id.asString())
+				|| gAgent.mRRInterface.contains("startimto:" + from_id.asString()))
+			{
+				close_session = true;
+				response = "*** Session has been ended for the other party.";
+			}
+
+			// We need to send feedback to the other party
+			std::string my_name;
+			LLAgentUI::buildFullname(my_name);
+			pack_instant_message(
+				gMessageSystem,
+				gAgent.getID(),
+				FALSE,
+				gAgent.getSessionID(),
+				from_id,
+				my_name.c_str(),
+				response.c_str(),
+				IM_ONLINE,
+				IM_DO_NOT_DISTURB_AUTO_RESPONSE,
+				session_id);
+			gAgent.sendReliableMessage();
+
+
+			if (close_session)
+			{
+				//gIMMgr->leaveSession(session_id);
+
+				LLFloaterIMSession* floater = LLFloaterIMSession::findInstance(session_id);
+				if (floater)
+				{
+					gAgent.mRRInterface.printOnChat("*** IM session with " + name + " has been ended remotely.");
+					floater->closeFloater(false);
+				}
+			}
 
 			// remove the "XXX is typing..." label from the IM window
 			LLPointer<LLIMInfo> im_info = new LLIMInfo(gMessageSystem);
