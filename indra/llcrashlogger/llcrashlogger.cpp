@@ -207,7 +207,7 @@ void LLCrashLogger::gatherFiles()
         mergeLogs(dynamic_sd);
 		mCrashInPreviousExec = mDebugLog["CrashNotHandled"].asBoolean();
 
-		mFileMap["KokuaLog"] = mDebugLog["KLog"].asString();
+		mFileMap["KokuaOSLog"] = mDebugLog["KOSLog"].asString();
 		mFileMap["SettingsXml"] = mDebugLog["SettingsFilename"].asString();
 		if(mDebugLog.has("CAFilename"))
 		{
@@ -218,7 +218,7 @@ void LLCrashLogger::gatherFiles()
 			LLCurl::setCAFile(gDirUtilp->getCAFile());
 		}
 
-		LL_INFOS() << "Using log file from debug log " << mFileMap["SecondLifeLog"] << LL_ENDL;
+		LL_INFOS() << "Using log file from debug log " << mFileMap["KokuaOSLog"] << LL_ENDL;
 		LL_INFOS() << "Using settings file from debug log " << mFileMap["SettingsXml"] << LL_ENDL;
 	}
 	else
@@ -226,13 +226,13 @@ void LLCrashLogger::gatherFiles()
 		// Figure out the filename of the second life log
 		LLCurl::setCAFile(gDirUtilp->getCAFile());
         
-		mFileMap["KokuaLog"] = gDirUtilp->getExpandedFilename(LL_PATH_DUMP,"Kokua.log");
+		mFileMap["KokuaOSLog"] = gDirUtilp->getExpandedFilename(LL_PATH_DUMP,"KokuaOS.log");
         mFileMap["SettingsXml"] = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS,"settings.xml");
 	}
 
-    if (!gDirUtilp->fileExists(mFileMap["KokuaLog"]) ) //We would prefer to get this from the per-run but here's our fallback.
+    if (!gDirUtilp->fileExists(mFileMap["KokuaOSLog"]) ) //We would prefer to get this from the per-run but here's our fallback.
     {
-        mFileMap["KokuaLog"] = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"Kokua.old");
+        mFileMap["KokuaOSLog"] = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"KokuaOS.old");
     }
 
 	gatherPlatformSpecificFiles();
@@ -280,7 +280,7 @@ void LLCrashLogger::gatherFiles()
 		s << f.rdbuf();
 
 		std::string crash_info = s.str();
-		if(itr->first == "KokuaLog")
+		if(itr->first == "KokuaOSLog")
 		{
 			if(!mCrashInfo["DebugLog"].has("StartupState"))
 			{
@@ -415,7 +415,7 @@ bool LLCrashLogger::sendCrashLog(std::string dump_dir)
     gDirUtilp->setDumpDir( dump_dir );
     
     std::string dump_path = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,
-                                                           "KokuaCrashReport");
+                                                           "KokuaOSCrashReport");
     std::string report_file = dump_path + ".log";
    
 	gatherFiles();
@@ -526,7 +526,7 @@ bool LLCrashLogger::init()
 	// We assume that all the logs we're looking for reside on the current drive
 	gDirUtilp->initAppDirs("KokuaOS");
 
-	// Default to the product name "Kokua" (this is overridden by the -name argument)
+	// Default to the product name "KokuaOS" (this is overridden by the -name argument)
 
 	mProductName = "KokuaOS";
 
