@@ -2745,7 +2745,7 @@ void LLVivoxVoiceClient::connectorCreateResponse(int statusCode, std::string &st
 {	
 	if(statusCode != 0)
 	{
-		LL_WARNS("Voice") << "Connector.Create response failure: " << statusString << LL_ENDL;
+		LL_WARNS("Voice") << "Connector.Create response failure ("<< statusCode << "): " << statusString << LL_ENDL;
 		setState(stateConnectorFailed);
 		LLSD args;
 		std::stringstream errs;

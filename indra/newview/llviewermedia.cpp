@@ -800,7 +800,7 @@ void LLViewerMedia::updateMedia(void *dummy_arg)
 
 	// Enable/disable the plugin read thread
 	LLPluginProcessParent::setUseReadThread(gSavedSettings.getBOOL("PluginUseReadThread"));
-
+	
 	// HACK: we always try to keep a spare running cef plugin around to improve launch times.
 	createSpareBrowserMediaSource();
 
@@ -1175,7 +1175,7 @@ void LLViewerMedia::clearAllCookies()
 
 	// HACK: Look for cookie files in all possible places and delete them.
 	// NOTE: this assumes knowledge of what happens inside the cef plugin (it's what adds 'browser_profile' to the path and names the cookie file)
-
+	
 	// Places that cookie files can be:
 	// <getOSUserAppDir>/browser_profile/cookies
 	// <getOSUserAppDir>/first_last/browser_profile/cookies  (note that there may be any number of these!)
@@ -1897,7 +1897,7 @@ LLPluginClassMedia* LLViewerMediaImpl::newSourceFromMediaType(std::string media_
 {
 	std::string plugin_basename = LLMIMETypes::implType(media_type);
 	LLPluginClassMedia* media_source = NULL;
-
+	
 	// HACK: we always try to keep a spare running cef plugin around to improve launch times.
 	// If a spare was already created before PluginAttachDebuggerToPlugins was set, don't use it.
     // Do not use a spare if launching with full viewer control (e.g. Facebook, Twitter and few others)
@@ -2063,11 +2063,9 @@ bool LLViewerMediaImpl::initializePlugin(const std::string& media_type)
 			media_source->ignore_ssl_cert_errors(true);
 		}
 
-		// the correct way to deal with certs it to load ours from CA.pem and append them to the ones
+		// the correct way to deal with certs it to load ours from ca-bundle.crt and append them to the ones
 		// media plugin for web loads from your system location.
-		// Note: This needs the new CA.pem file with the Equifax Secure Certificate Authority
-		// cert at the bottom: (MIIDIDCCAomgAwIBAgIENd70zzANBg)
-		std::string ca_path = gDirUtilp->getExpandedFilename( LL_PATH_APP_SETTINGS, "CA.pem" );
+		std::string ca_path = gDirUtilp->getExpandedFilename( LL_PATH_APP_SETTINGS, "ca-bundle.crt" );
 		media_source->addCertificateFilePath( ca_path );
 
 		media_source->proxy_setup(gSavedSettings.getBOOL("BrowserProxyEnabled"), gSavedSettings.getString("BrowserProxyAddress"), gSavedSettings.getS32("BrowserProxyPort"));
