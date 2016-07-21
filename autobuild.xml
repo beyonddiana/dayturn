@@ -3055,11 +3055,11 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>fc20b7a69bf4b3ed0152c569f51f614d</string>
+              <string>bb48383ba0d0f26be1ba0fa943c5c9aa</string>
               <key>hash_algorithm</key>
               <string>md5</string>
               <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-slvoice/downloads/slvoice-4.5.0009.17865.201506251848-linux-201506251848.tar.bz2</string>
+              <string>https://bitbucket.org/kokua/3p-slvoice/downloads/slvoice-3.2.0002.10426.298329.201607192017-linux-201607192017.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux</string>
@@ -3069,11 +3069,11 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>8fe64c0ec45c9ab46d65389fea451251</string>
+              <string>86d3150b2505ee11da14fdcc956b80fd</string>
               <key>hash_algorithm</key>
               <string>md5</string>
               <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-slvoice/downloads/slvoice-4.5.0009.17865.201506081519-linux64-201506081519.tar.bz2</string>
+              <string>https://bitbucket.org/kokua/3p-slvoice/downloads/slvoice-3.2.0002.10426.298329.201607192012-linux64-201607192012.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux64</string>
@@ -3083,9 +3083,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>399afab7047e6fa62e7b2fb1768059ea</string>
+              <string>dd3ea2ef3813441ab7f723e547b9fd12</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/slvoice_3p-update-slvoice/rev/298329/arch/CYGWIN/installer/slvoice-4.6.0017.21209.298329-windows-298329.tar.bz2</string>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/oz-426-slvoice/rev/317975/arch/CYGWIN/installer/slvoice-4.7.0004.23800.317975-windows-317975.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
