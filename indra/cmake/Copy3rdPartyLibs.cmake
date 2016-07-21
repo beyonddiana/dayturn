@@ -174,9 +174,6 @@ elseif(DARWIN)
     set(vivox_src_dir "${ARCH_PREBUILT_DIRS_RELEASE}")
     set(vivox_files
         SLVoice
-        ca-bundle.crt
-        libsndfile.dylib
-        libvivoxoal.dylib
         libortp.dylib
         libvivoxplatform.dylib
         libvivoxsdk.dylib
