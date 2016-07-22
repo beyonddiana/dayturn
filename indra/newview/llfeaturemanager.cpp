@@ -788,10 +788,6 @@ void LLFeatureManager::applyBaseMasks()
 
 #if LL_DARWIN
 	const LLOSInfo& osInfo = LLAppViewer::instance()->getOSInfo();
-	if (osInfo.mMajorVer == 10 && osInfo.mMinorVer < 7)
-	{
-		maskFeatures("OSX_10_6_8");
-        }
 #endif
 
 	// now mask by gpu string
@@ -814,12 +810,7 @@ void LLFeatureManager::applyBaseMasks()
 		maskFeatures("RAM256MB");
 	}
 	
-#if LL_SOLARIS && defined(__sparc) 	//  even low MHz SPARCs are fast
-#error The 800 is hinky. Would something like a LL_MIN_MHZ make more sense here?
-	if (gSysCPU.getMHz() < 800)
-#else
 	if (gSysCPU.getMHz() < 1100)
-#endif
 	{
 		maskFeatures("CPUSlow");
 	}

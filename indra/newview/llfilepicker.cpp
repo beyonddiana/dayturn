@@ -936,7 +936,7 @@ BOOL LLFilePicker::getSaveFile(ESaveFilter filter, const std::string& filename)
 }
 //END LL_DARWIN
 
-#elif LL_LINUX || LL_SOLARIS
+#elif LL_LINUX
 
 # if LL_GTK
 
@@ -1535,4 +1535,4 @@ BOOL LLFilePicker::getMultipleOpenFiles( ELoadFilter filter )
 	return FALSE;
 }
 
-#endif // LL_LINUX || LL_SOLARIS
+#endif // LL_LINUX

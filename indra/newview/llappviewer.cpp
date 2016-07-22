@@ -248,9 +248,9 @@
 // define a self-registering event API object
 #include "llappviewerlistener.h"
 
-#if (LL_LINUX || LL_SOLARIS) && LL_GTK
+#if (LL_LINUX && LL_GTK)
 #include "glib.h"
-#endif // (LL_LINUX || LL_SOLARIS) && LL_GTK
+#endif // (LL_LINUX && LL_GTK)
 
 #if LL_MSVC
 // disable boost::lexical_cast warning
@@ -291,8 +291,6 @@ S32 gLastExecDuration = -1; // (<0 indicates unknown)
 #   define LL_PLATFORM_KEY "mac"
 #elif LL_LINUX
 #   define LL_PLATFORM_KEY "lnx"
-#elif LL_SOLARIS
-#   define LL_PLATFORM_KEY "sol"
 #else
 #   error "Unknown Platform"
 #endif
@@ -5923,7 +5921,7 @@ void LLAppViewer::launchUpdater()
 	// Run the auto-updater.
 	system(LLAppViewer::sUpdaterInfo->mUpdateExePath.c_str()); /* Flawfinder: ignore */
 
-#elif (LL_LINUX || LL_SOLARIS) && LL_GTK
+#elif (LL_LINUX && LL_GTK)
 	// we tell the updater where to find the xml containing string
 	// translations which it can use for its own UI
 	std::string xml_strings_file = "strings.xml";
