@@ -104,7 +104,8 @@ void LLPresetsManager::loadPresetNamesFromDir(const std::string& dir, preset_nam
 		if (found)
 		{
 			std::string path = gDirUtilp->add(dir, file);
-			std::string name = LLURI::unescape(gDirUtilp->getBaseFileName(path, /*strip_exten = */ true));
+			std::string name = gDirUtilp->getBaseFileName(LLURI::unescape(path), /*strip_exten = */ true);
+
             LL_DEBUGS() << "  Found preset '" << name << "'" << LL_ENDL;
 
 			if (PRESETS_DEFAULT != name)
@@ -162,7 +163,7 @@ bool LLPresetsManager::savePreset(const std::string& subdirectory, std::string n
     else if(PRESETS_CAMERA == subdirectory)
 	{
 		name_list = boost::assign::list_of
-			("Placeholder");
+			("Placeholder").to_container(name_list);
 	}
     else
     {
