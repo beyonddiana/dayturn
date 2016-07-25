@@ -117,6 +117,8 @@
 #include "llvieweraudio.h"
 #include "llviewermedia.h"
 #include "llviewermedia_streamingaudio.h"
+#include "llviewertexturelist.h"
+#include "llpresetsmanager.h"
 
 const F32 BANDWIDTH_UPDATER_TIMEOUT = 0.5f;
 char const* const VISIBILITY_DEFAULT = "default";
@@ -1780,6 +1782,7 @@ void LLFloaterPreference::setPersonalInfo(const std::string& visibility, bool im
 	getChildView("favorites_on_login_check")->setEnabled(TRUE);
 	getChildView("log_path_button")->setEnabled(TRUE);
 	getChildView("chat_font_size")->setEnabled(TRUE);
+	getChildView("conversation_log_combo")->setEnabled(TRUE);
 }
 
 
