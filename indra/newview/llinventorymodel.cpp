@@ -1063,7 +1063,6 @@ void LLInventoryModel::updateCategory(const LLViewerInventoryCategory* cat, U32 
 	if(old_cat)
 	{
 		// We already have an old category, modify its values
-		U32 mask = LLInventoryObserver::NONE;
 		LLUUID old_parent_id = old_cat->getParentUUID();
 		LLUUID new_parent_id = cat->getParentUUID();
 		if(old_parent_id != new_parent_id)
@@ -1118,7 +1117,8 @@ void LLInventoryModel::updateCategory(const LLViewerInventoryCategory* cat, U32 
 		item_array_t* itemsp = new item_array_t;
 		mParentChildCategoryTree[new_cat->getUUID()] = catsp;
 		mParentChildItemTree[new_cat->getUUID()] = itemsp;
-		addChangedMask(LLInventoryObserver::ADD, cat->getUUID());
+		mask |= LLInventoryObserver::ADD;
+		addChangedMask(mask, cat->getUUID());
 	}
 }
 
