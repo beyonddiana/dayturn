@@ -451,9 +451,9 @@ class Windows_i686_Manifest(ViewerManifest):
             self.end_prefix()
 
         # Media plugins - QuickTime
-        # if self.prefix(src='../media_plugins/quicktime/%s' % self.args['configuration'], dst="llplugin"):
-        #    self.path("media_plugin_quicktime.dll")
-        #    self.end_prefix()
+        if self.prefix(src='../media_plugins/quicktime/%s' % self.args['configuration'], dst="llplugin"):
+           self.path("media_plugin_quicktime.dll")
+           self.end_prefix()
 
         # Media plugins - CEF
         if self.prefix(src='../media_plugins/cef/%s' % self.args['configuration'], dst="llplugin"):

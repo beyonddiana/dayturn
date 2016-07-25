@@ -2993,7 +2993,7 @@
       <key>quicktime</key>
       <map>
         <key>copyright</key>
-        <string>2010 Apple</string>
+        <string>2010 - 2015 Apple Inc</string>
         <key>description</key>
         <string>QuickTime 7.3 SDK for Windows</string>
         <key>license</key>
@@ -3009,9 +3009,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>78650a79bda6435e623a940ad425a593</string>
+              <string>89e03ecedbaa251684f80a9f2ab32936</string>
               <key>url</key>
-              <string>http://s3-proxy.lindenlab.com/private-builds-secondlife-com/hg/repo/quicktime_3p-update-quicktime/rev/300073/arch/CYGWIN/installer/quicktime-7.3-windows-300073.tar.bz2</string>
+              <string>http://bitbucket.org/NickyP/3p-quicktime/downloads/quicktime-7.3.0.201607250904-windows-201607250904.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
