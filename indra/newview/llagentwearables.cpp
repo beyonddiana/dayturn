@@ -283,6 +283,7 @@ void LLAgentWearables::AddWearableToAgentInventoryCallback::fire(const LLUUID& i
 	{
 		LLAppearanceMgr::instance().addCOFItemLink(inv_item, 
 			new LLUpdateAppearanceAndEditWearableOnDestroy(inv_item), mDescription);
+		editWearable(inv_item);
 	}
 }
 void LLAgentWearables::addWearabletoAgentInventoryDone(const LLWearableType::EType type,
@@ -418,7 +419,7 @@ void LLAgentWearables::saveWearable(const LLWearableType::EType type, const U32 
 		// old_wearable may still be referred to by other inventory items. Revert
 		// unsaved changes so other inventory items aren't affected by the changes
 		// that were just saved.
-		old_wearable->revertValues();
+		old_wearable->revertValues(false);
 
 		LLInventoryItem* item = gInventory.getItem(old_item_id);
 		if (item)
