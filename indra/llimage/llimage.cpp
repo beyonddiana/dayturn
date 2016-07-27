@@ -792,7 +792,8 @@ const U8* LLImageBase::getData() const
 { 
 	if(mBadBufferAllocation)
 	{
-		LL_ERRS() << "Bad memory allocation for the image buffer!" << LL_ENDL ;
+		LL_WARNS() << "Bad memory allocation for the image buffer!" << LL_ENDL ;
+		return NULL;
 	}
 
 	return mData; 
@@ -802,7 +803,8 @@ U8* LLImageBase::getData()
 { 
 	if(mBadBufferAllocation)
 	{
-		LL_ERRS() << "Bad memory allocation for the image buffer!" << LL_ENDL ;
+		LL_WARNS() << "Bad memory allocation for the image buffer!" << LL_ENDL;
+		return NULL;
 	}
 
 	return mData; 
