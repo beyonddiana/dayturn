@@ -917,14 +917,6 @@ void LLPanelLogin::onClickConnect(void *)
 {
 	if (sInstance && sInstance->mCallback)
 	{
-//MK
-		// If the RLV is active, force logging at the last location, always.
-		if (gSavedSettings.getBOOL("RestrainedLove"))
-		{
-			std::string location = LLSLURL::SIM_LOCATION_LAST;
-			LLStartUp::setStartSLURL(location);
-		}
-//mk
 		// JC - Make sure the fields all get committed.
 		sInstance->setFocus(FALSE);
 
