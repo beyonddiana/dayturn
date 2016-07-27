@@ -191,7 +191,7 @@ BOOL LLToolGrab::handleObjectHit(const LLPickInfo& info)
 	mGrabPick = info;
 	LLViewerObject* objectp = mGrabPick.getObject();
 //MK
-	if (gRRenabled && !gAgent.mRRInterface.canTouch (objectp, mGrabPick.mIntersection))
+	if (gRRenabled && !gAgent.mRRInterface.canTouch(objectp, mGrabPick.mIntersection))
 	{
 		// hide grab tool immediately
 		if (gGrabTransientTool)
