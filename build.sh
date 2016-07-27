@@ -43,7 +43,7 @@ pre_build()
     && [ -r "$master_message_template_checkout/message_template.msg" ] \
     && template_verifier_master_url="-DTEMPLATE_VERIFIER_MASTER_URL=file://$master_message_template_checkout/message_template.msg"
 
-    "$autobuild" configure --quiet -c $variant -- \
+    "$autobuild" configure "${autobuild_configure_verbosity:---quiet}" -c $variant -- \
      -DPACKAGE:BOOL=ON \
      -DRELEASE_CRASH_REPORTING:BOOL=OFF \
      -DVIEWER_CHANNEL:STRING="\"$viewer_channel\"" \
@@ -66,7 +66,7 @@ package_llphysicsextensions_tpv()
       # capture the package file name for use in upload later...
       PKGTMP=`mktemp -t pgktpv.XXXXXX`
       trap "rm $PKGTMP* 2>/dev/null" 0
-      "$autobuild" package --quiet --config-file $llpetpvcfg --results-file "$(native_path $PKGTMP)"
+      "$autobuild" build "${autobuild_build_verbosity:---quiet}" --config-file $llpetpvcfg -c Tpv
       tpv_status=$?
       if [ -r "${PKGTMP}" ]
       then
