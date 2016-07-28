@@ -1750,11 +1750,12 @@
   </menu>
 <!-- END OF BUILD MENU -->   
   
+<!-- START OF COMMANDS MENU -->  
   <menu
-  create_jum_keys="true"
-  label="Commands"
-  name="Commands"
-  tear_off="true">
+    create_jum_keys="true"
+    label="Commands"
+    name="Commands"
+    tear_off="true">
        <menu_item_call
          label="Rebake Textures"
          name="Rebake Texture"
@@ -2143,6 +2144,9 @@
 		<menu_item_separator/>
 		
   </menu>
+<!-- END OF COMMANDS MENU -->
+  
+<!-- START OF HELP MENU -->  
   <menu
      create_jump_keys="true"
      label="Help"
@@ -2216,6 +2220,9 @@
              parameter="sl_about" />
         </menu_item_call>
     </menu>
+<!-- END OF HELP MENU -->    
+ 
+<!-- START OF ADVANCED MENU -->    
     <menu
      create_jump_keys="true"
      label="Advanced"
@@ -3006,6 +3013,9 @@
         </menu_item_check>
     
     </menu>
+<!-- END OF ADVANCED MENU -->     
+    
+<!-- START OF DEVELOP MENU --> 
     <menu
      create_jump_keys="true"
      label="Develop"
@@ -4413,6 +4423,9 @@
              function="Advanced.LeaveAdminStatus" />
         </menu_item_call>
     </menu>
+<!-- END OF DEVELOP MENU -->    
+ 
+<!-- START OF ADMIN MENU -->     
     <menu
      create_jump_keys="true"
      label="Admin"
@@ -4422,10 +4435,11 @@
         <menu
          create_jump_keys="true"
          label="Object"
+         name="AdminObject"
          tear_off="true">
             <menu_item_call
              label="Take Copy"
-             name="Take Copy"
+             name="Admin Take Copy"
              shortcut="control|alt|shift|O">
                 <menu_item_call.on_click
                  function="Admin.ForceTakeCopy" />
@@ -4539,6 +4553,9 @@
              function="IsGodCustomerService" />
         </menu_item_call>
     </menu>
+<!-- END OF ADMIN MENU -->     
+    
+<!-- START OF ADMIN DEPRECATED MENU -->    
     <menu
      create_jump_keys="true"
      label="Admin"
@@ -4753,4 +4770,5 @@
             </menu>
         </menu>
     </menu>
+    
 </menu_bar>
