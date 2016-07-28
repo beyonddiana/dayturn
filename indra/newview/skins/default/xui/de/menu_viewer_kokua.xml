@@ -102,7 +102,7 @@
 <!-- END OF VIEW MENU --> 
     
 <!-- START OF WORLD MENU -->     
-  <menu label="Welt"  name="World">
+    <menu label="Welt"  name="World">
     <menu_item_call label="Landmarke für diesen Ort setzen"  name="Create Landmark Here"/>
     <menu_item_check label="Karte"  name="World Map"/>
     <menu_item_check label="Minikarte"  name="Mini-Map"/>
@@ -155,7 +155,7 @@
 <!-- END OF WORLD MENU -->
 
 <!-- START OF BUILD MENU -->
-  <menu label="Bauen"  name="BuildTools">
+    <menu label="Bauen"  name="BuildTools">
     <menu_item_check label="Bauen"  name="Show Build Tools"/>
     <menu label="Bauwerkzeug auswählen"  name="Select Tool">
         <menu_item_call label="Fokus"  name="Focus"/>
@@ -226,12 +226,8 @@
 <!-- END OF BUILD MENU -->
 
 
-
-  <menu
-  create_jum_keys="true"
-  label="Commands"
-  name="Commands"
-  tear_off="true">
+<!-- START OF COMMANDS MENU -->
+    <menu label="Commands"  name="Commands">
        <menu_item_call
          label="Rebake Textures"
          name="Rebake Texture"
@@ -620,11 +616,10 @@
 		<menu_item_separator/>
 		
   </menu>
-  <menu
-     create_jump_keys="true"
-     label="Help"
-     name="Help"
-     tear_off="true">
+<!-- END OF COMMANDS MENU -->
+  
+<!-- START OF HELP MENU -->   
+    <menu label="Help"  name="Help">
         <menu_item_call
          label="[APP_NAME] Help"
          name="Second Life Help"
@@ -693,12 +688,10 @@
              parameter="sl_about" />
         </menu_item_call>
     </menu>
-    <menu
-     create_jump_keys="true"
-     label="Advanced"
-     name="Advanced"
-     tear_off="true"
-     visible="false">
+<!-- END OF HELP MENU -->    
+    
+<!-- START OF ADVANCED MENU -->    
+    <menu label="Advanced"  name="Advanced">
         <menu_item_call
          label="Rebake Textures"
          name="Rebake Texture"
@@ -1483,12 +1476,10 @@
         </menu_item_check>
     
     </menu>
-    <menu
-     create_jump_keys="true"
-     label="Develop"
-     name="Develop"
-     tear_off="true"
-     visible="false">
+<!-- END OF ADVANCED MENU -->    
+    
+<!-- START OF DEVELOP MENU -->  
+    <menu label="Develop"  name="Develop">
         <menu
          create_jump_keys="true"
          label="Consoles"
@@ -2890,344 +2881,61 @@
              function="Advanced.LeaveAdminStatus" />
         </menu_item_call>
     </menu>
-    <menu
-     create_jump_keys="true"
-     label="Admin"
-     name="Admin"
-     tear_off="true"
-     visible="false">
-        <menu
-         create_jump_keys="true"
-         label="Object"
-         tear_off="true">
-            <menu_item_call
-             label="Take Copy"
-             name="Take Copy"
-             shortcut="control|alt|shift|O">
-                <menu_item_call.on_click
-                 function="Admin.ForceTakeCopy" />
-                <menu_item_call.on_enable
-                 function="IsGodCustomerService" />
-            </menu_item_call>
-            <menu_item_call
-             label="Force Owner To Me"
-             name="Force Owner To Me">
-                <menu_item_call.on_click
-                 function="Admin.HandleObjectOwnerSelf" />
-                <menu_item_call.on_enable
-                 function="IsGodCustomerService" />
-            </menu_item_call>
-            <menu_item_call
-             label="Force Owner Permissive"
-             name="Force Owner Permissive">
-                <menu_item_call.on_click
-                 function="Admin.HandleObjectOwnerPermissive" />
-                <menu_item_call.on_enable
-                 function="IsGodCustomerService" />
-            </menu_item_call>
-            <menu_item_call
-             label="Delete"
-             name="Delete"
-             shortcut="control|alt|shift|Del">
-                <menu_item_call.on_click
-                 function="Admin.HandleForceDelete" />
-                <menu_item_call.on_enable
-                 function="IsGodCustomerService" />
-            </menu_item_call>
-            <menu_item_call
-             label="Lock"
-             name="Lock"
-             shortcut="control|alt|shift|L">
-                <menu_item_call.on_click
-                 function="Admin.HandleObjectLock" />
-                <menu_item_call.on_enable
-                 function="IsGodCustomerService" />
-            </menu_item_call>
-            <menu_item_call
-             label="Get Assets IDs"
-             name="Get Assets IDs"
-             shortcut="control|alt|shift|I">
-                <menu_item_call.on_click
-                 function="Admin.HandleObjectAssetIDs" />
-                <menu_item_call.on_enable
-                 function="IsGodCustomerService" />
-            </menu_item_call>
-        </menu>
-        <menu
-         create_jump_keys="true"
-         label="Parcel"
-         name="Parcel"
-         tear_off="true">
-            <menu_item_call
-             label="Force Owner To Me"
-             name="Owner To Me">
-                <menu_item_call.on_click
-                 function="Admin.HandleForceParcelOwnerToMe" />
-                <menu_item_call.on_enable
-                 function="IsGodCustomerService" />
-            </menu_item_call>
-            <menu_item_call
-             label="Set to Linden Content"
-             name="Set to Linden Content"
-             shortcut="control|alt|shift|C">
-                <menu_item_call.on_click
-                 function="Admin.HandleForceParcelToContent" />
-                <menu_item_call.on_enable
-                 function="IsGodCustomerService" />
-            </menu_item_call>
-            <menu_item_call
-             label="Claim Public Land"
-             name="Claim Public Land">
-                <menu_item_call.on_click
-                 function="Admin.HandleClaimPublicLand" />
-                <menu_item_call.on_enable
-                 function="IsGodCustomerService" />
-            </menu_item_call>
-        </menu>
-        <menu
-         create_jump_keys="true"
-         label="Region"
-         name="Region"
-         tear_off="true">
-            <menu_item_call
-             label="Dump Temp Asset Data"
-             name="Dump Temp Asset Data">
-                <menu_item_call.on_click
-                 function="Admin.HandleRegionDumpTempAssetData" />
-                <menu_item_call.on_enable
-                 function="IsGodCustomerService" />
-            </menu_item_call>
-            <menu_item_call
-             label="Save Region State"
-             name="Save Region State">
-                <menu_item_call.on_click
-                 function="Admin.OnSaveState" />
-                <menu_item_call.on_enable
-                 function="IsGodCustomerService" />
-            </menu_item_call>
-        </menu>
-        <menu_item_call
-         label="God Tools"
-         name="God Tools">
-            <menu_item_call.on_click
-             function="Floater.Show"
-             parameter="god_tools" />
-            <menu_item_call.on_enable
-             function="IsGodCustomerService" />
-        </menu_item_call>
-    </menu>
-    <menu
-     create_jump_keys="true"
-     label="Admin"
-     name="Deprecated"
-     tear_off="true"
-     visible="false">
-        <menu
-         create_jump_keys="true"
-         label="Attach Object"
-         mouse_opaque="false"
-         name="Attach Object"
-         tear_off="true" />
-        <menu
-         create_jump_keys="true"
-         label="Detach Object"
-         mouse_opaque="false"
-         name="Detach Object"
-         tear_off="true" />
-        <menu
-         create_jump_keys="true"
-         label="Take Off Clothing"
-         mouse_opaque="false"
-         name="Take Off Clothing"
-         tear_off="true">
-            <menu_item_call
-             label="Shirt"
-             name="Shirt">
-                <menu_item_call.on_click
-                 function="Edit.TakeOff"
-                 parameter="shirt" />
-                <menu_item_call.on_enable
-                 function="Edit.EnableTakeOff"
-                 parameter="shirt" />
-            </menu_item_call>
-            <menu_item_call
-             label="Pants"
-             name="Pants">
-                <menu_item_call.on_click
-                 function="Edit.TakeOff"
-                 parameter="pants" />
-                <menu_item_call.on_enable
-                 function="Edit.EnableTakeOff"
-                 parameter="pants" />
-            </menu_item_call>
-            <menu_item_call
-             label="Shoes"
-             name="Shoes">
-                <menu_item_call.on_click
-                 function="Edit.TakeOff"
-                 parameter="shoes" />
-                <menu_item_call.on_enable
-                 function="Edit.EnableTakeOff"
-                 parameter="shoes" />
-            </menu_item_call>
-            <menu_item_call
-             label="Socks"
-             name="Socks">
-                <menu_item_call.on_click
-                 function="Edit.TakeOff"
-                 parameter="socks" />
-                <menu_item_call.on_enable
-                 function="Edit.EnableTakeOff"
-                 parameter="socks" />
-            </menu_item_call>
-            <menu_item_call
-             label="Jacket"
-             name="Jacket">
-                <menu_item_call.on_click
-                 function="Edit.TakeOff"
-                 parameter="jacket" />
-                <menu_item_call.on_enable
-                 function="Edit.EnableTakeOff"
-                 parameter="jacket" />
-            </menu_item_call>
-            <menu_item_call
-             label="Gloves"
-             name="Gloves">
-                <menu_item_call.on_click
-                 function="Edit.TakeOff"
-                 parameter="gloves" />
-                <menu_item_call.on_enable
-                 function="Edit.EnableTakeOff"
-                 parameter="gloves" />
-            </menu_item_call>
-            <menu_item_call
-             label="Undershirt"
-             name="Menu Undershirt">
-                <menu_item_call.on_click
-                 function="Edit.TakeOff"
-                 parameter="undershirt" />
-                <menu_item_call.on_enable
-                 function="Edit.EnableTakeOff"
-                 parameter="undershirt" />
-            </menu_item_call>
-            <menu_item_call
-             label="Underpants"
-             name="Menu Underpants">
-                <menu_item_call.on_click
-                 function="Edit.TakeOff"
-                 parameter="underpants" />
-                <menu_item_call.on_enable
-                 function="Edit.EnableTakeOff"
-                 parameter="underpants" />
-            </menu_item_call>
-            <menu_item_call
-             label="Skirt"
-             name="Skirt">
-                <menu_item_call.on_click
-                 function="Edit.TakeOff"
-                 parameter="skirt" />
-                <menu_item_call.on_enable
-                 function="Edit.EnableTakeOff"
-                 parameter="skirt" />
-            </menu_item_call>
-            <menu_item_call
-             label="Alpha"
-             name="Alpha">
-                <menu_item_call.on_click
-                 function="Edit.TakeOff"
-                 parameter="alpha" />
-                <menu_item_call.on_enable
-                 function="Edit.EnableTakeOff"
-                 parameter="alpha" />
-            </menu_item_call>
-            <menu_item_call
-             label="Tattoo"
-             name="Tattoo">
-                <menu_item_call.on_click
-                 function="Edit.TakeOff"
-                 parameter="tattoo" />
-                <menu_item_call.on_enable
-                 function="Edit.EnableTakeOff"
-                 parameter="tattoo" />
-            </menu_item_call>
-            <menu_item_call
-             label="All Clothes"
-             name="All Clothes">
-                <menu_item_call.on_click
-                 function="Edit.TakeOff"
-                 parameter="all" />
-            </menu_item_call>
-        </menu>
-        <menu
-         create_jump_keys="true"
-         label="Help"
-         name="Help"
-         tear_off="true">
-            <menu_item_call
-             label="Official Linden Blog"
-             name="Official Linden Blog">
-                <menu_item_call.on_click
-                 function="PromptShowURL"
-                 name="OfficialLindenBlog_url"
-                 parameter="WebLaunchSupportWiki,http://blog.secondlife.com/" />
-            </menu_item_call>
-            <menu_item_call
-             label="Scripting Portal"
-             name="Scripting Portal">
-                <menu_item_call.on_click
-                 function="PromptShowURL"
-                 name="ScriptingPortal_url"
-                 parameter="WebLaunchLSLWiki,http://wiki.secondlife.com/wiki/LSL_Portal" />
-            </menu_item_call>
-            <menu
-             create_jump_keys="true"
-             label="Bug Reporting"
-             name="Bug Reporting"
-             tear_off="true">
-                <menu_item_call
-                 label="Public Issue Tracker"
-                 name="Public Issue Tracker">
-                    <menu_item_call.on_click
-                     function="PromptShowURL"
-                     name="PublicIssueTracker_url"
-                     parameter="WebLaunchPublicIssue,http://jira.secondlife.com" />
-                </menu_item_call>
-                <menu_item_call
-                 label="Public Issue Tracker Help"
-                 name="Publc Issue Tracker Help">
-                    <menu_item_call.on_click
-                     function="PromptShowURL"
-                     name="PublicIssueTrackerHelp_url"
-                     parameter="WebLaunchPublicIssueHelp,http://wiki.secondlife.com/wiki/Issue_tracker" />
-                </menu_item_call>
-
-                <menu_item_separator/>
-
-                <menu_item_call
-                 label="Bug Reporting 101"
-                 name="Bug Reporing 101">
-                    <menu_item_call.on_click
-                     function="PromptShowURL"
-                     name="BugReporting101_url"
-                     parameter="WebLaunchBugReport101,http://wiki.secondlife.com/wiki/Bug_Reporting_101" />
-                </menu_item_call>
-                <menu_item_call
-                 label="Security Issues"
-                 name="Security Issues">
-                    <menu_item_call.on_click
-                     function="PromptShowURL"
-                     name="SecurityIssues_url"
-                     parameter="WebLaunchSecurityIssues,http://wiki.secondlife.com/wiki/Security_issues" />
-                </menu_item_call>
-                <menu_item_call
-                 label="QA Wiki"
-                 name="QA Wiki">
-                    <menu_item_call.on_click
-                     function="PromptShowURL"
-                     name="QAWiki_url"
-                     parameter="WebLaunchQAWiki,http://wiki.secondlife.com/wiki/QA_Portal" />
-                </menu_item_call>
-            </menu>
-        </menu>
-    </menu>
+<!-- END OF DEVELOP MENU -->    
+  
+<!-- START OF ADMIN MENU -->   
+    <menu label="Admin" name="Admin">
+		<menu label="Objekt" name="AdminObject">
+			<menu_item_call label="Kopie nehmen" name="Admin Take Copy"/>
+			<menu_item_call label="Mich zum Besitzer machen" name="Force Owner To Me"/>
+			<menu_item_call label="Besitzererlaubnis erzwingen" name="Force Owner Permissive"/>
+			<menu_item_call label="Löschen" name="Delete"/>
+			<menu_item_call label="Sperren" name="Lock"/>
+			<menu_item_call label="Asset-IDs abrufen" name="Get Assets IDs"/>
+		</menu>
+		<menu label="Parzelle" name="Parcel">
+			<menu_item_call label="Besitzer zu mir zwingen" name="Owner To Me"/>
+			<menu_item_call label="Auf Linden-Inhalt festlegen" name="Set to Linden Content"/>
+			<menu_item_call label="Öffentiches Land in Besitz nehmen" name="Claim Public Land"/>
+		</menu>
+		<menu label="Region" name="Region">
+			<menu_item_call label="Temp-Asset-Daten ausgeben" name="Dump Temp Asset Data"/>
+			<menu_item_call label="Regions-Status speichern" name="Save Region State"/>
+		</menu>
+		<menu_item_call label="Gott-Werkzeuge" name="God Tools"/>
+	</menu>
+<!-- END OF ADMIN MENU -->    
+    
+<!-- START OF ADMIN DEPRECATED MENU -->    
+    <menu label="Admin" name="Deprecated">
+		<menu label="Objekt anhängen" name="Attach Object"/>
+		<menu label="Objekt abnehmen" name="Detach Object"/>
+		<menu label="Kleider ausziehen" name="Take Off Clothing">
+			<menu_item_call label="Hemd" name="Shirt"/>
+			<menu_item_call label="Hose" name="Pants"/>
+			<menu_item_call label="Schuhe" name="Shoes"/>
+			<menu_item_call label="Socken" name="Socks"/>
+			<menu_item_call label="Jacke" name="Jacket"/>
+			<menu_item_call label="Handschuhe" name="Gloves"/>
+			<menu_item_call label="Unterhemd" name="Menu Undershirt"/>
+			<menu_item_call label="Unterhose" name="Menu Underpants"/>
+			<menu_item_call label="Rock" name="Skirt"/>
+			<menu_item_call label="Alpha" name="Alpha"/>
+			<menu_item_call label="Tätowierung" name="Tattoo"/>
+			<menu_item_call label="Physik" name="Physics"/>
+			<menu_item_call label="Alle Kleider" name="All Clothes"/>
+		</menu>
+		<menu label="Hilfe" name="DeprecatedHelp">
+			<menu_item_call label="Offizielles Linden-Blog" name="Official Linden Blog"/>
+			<menu_item_call label="Scripting-Portal" name="Scripting Portal"/>
+			<menu label="Fehlermeldungen" name="Bug Reporting">
+				<menu_item_call label="Allgemeiner Probleme-Tracker" name="Public Issue Tracker"/>
+				<menu_item_call label="Hilfe zum Allgemeinen Probleme-Tracker" name="Publc Issue Tracker Help"/>
+				<menu_item_call label="Fehlermeldungs-1x1" name="Bug Reporing 101"/>
+				<menu_item_call label="Sicherheitsprobleme" name="Security Issues"/>
+				<menu_item_call label="QA-Wiki" name="QA Wiki"/>
+			</menu>
+		</menu>
+	</menu>
+<!-- END OF ADMIN DEPRECATED MENU -->
 </menu_bar>
