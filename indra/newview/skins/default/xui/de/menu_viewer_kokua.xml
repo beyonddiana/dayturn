@@ -18,6 +18,8 @@
             <menu_item_call label="Admin-Status verlassen"  name="Leave Admin Options"/>
             <menu_item_call label="Shließen [APP_NAME]"  name="Quit"/>
     </menu>
+    
+<!-- START OF EDIT MENU -->    
     <menu label="Bearbeiten" name="Edit">
             <menu_item_call label="Suchen"  name="Search"/>
             <menu_item_call label="Kontoübersicht..."  name="Manage My Account"/>
@@ -36,8 +38,9 @@
             <menu_item_call label="Gruppen"  name="My Groups"/>
 	        <menu_item_call label="Einstellungen..."  name="Preferences"/>
     </menu>
+<!-- END OF EDIT MENU -->
     
-     <!-- START OF VIEW MENU --> 
+<!-- START OF VIEW MENU --> 
     <menu label="Ansicht"  name="View">
             <menu_item_call label="Mouselook"  name="Mouselook"/>
             <menu_item_check label="Joystick Flycam"  name="Joystick Flycam"/>
@@ -96,407 +99,63 @@
             <menu_item_check label="Menü „Erweitert“"  name="Show Advanced Menu"/>
             <menu_item_check label="Menü „Erweitert“ Linux"  name="Show Advanced Menu"/>
         </menu>
-  </menu>
- <!-- END OF VIEW MENU --> 
-  
-  <menu
-   create_jump_keys="true"
-   label="World"
-   name="World"
-   tear_off="true">
-    <menu_item_call
-     label="Landmark This Place"
-     name="Create Landmark Here"
-	 shortcut="control|shift|D">
-      <menu_item_call.on_click
-       function="World.CreateLandmark" />
-      <menu_item_call.on_enable
-       function="World.EnableCreateLandmark" />
-    </menu_item_call>
-    <menu_item_call
-     label="Destinations..."
-     name="Destinations">
-      <menu_item_call.on_click
-       function="Floater.ToggleOrBringToFront"
-       parameter="destinations" />
-    </menu_item_call>
-    <menu_item_check
-     label="World map"
-     name="World Map"
-     shortcut="control|M"
-     use_mac_ctrl="true">
-      <menu_item_check.on_check
-       function="Floater.Visible"
-       parameter="world_map" />
-      <menu_item_check.on_click
-       function="Floater.Toggle"
-       parameter="world_map" />
-    </menu_item_check>
-    <menu_item_check
- label="Mini-map"
- name="Mini-Map"
- shortcut="control|shift|M">
-      <menu_item_check.on_check
-       function="Floater.Visible"
-       parameter="mini_map" />
-      <menu_item_check.on_click
-       function="Floater.Toggle"
-       parameter="mini_map" />
-    </menu_item_check>
-        <menu_item_check
-        label="Search"
-        name="Search"
-        shortcut="control|F">
-            <menu_item_check.on_check
-             function="Floater.Visible"
-             parameter="search" />
-            <menu_item_check.on_click
-             function="Floater.Toggle"
-             parameter="search" />
-            </menu_item_check>
-        <menu_item_check
-			label="Legacy Search"
-			name="Legacy Search"
-      shortcut="control|alt|F">
-            <menu_item_check.on_check
-			function="Floater.Visible"
-			parameter="search_legacy" />
-            <menu_item_check.on_click
-			function="Floater.Toggle"
-			parameter="search_legacy" />
-		</menu_item_check>
-       <menu_item_call
-         label="Area Search"
-         name="area_search"
-         shortcut="alt|A">
-            <menu_item_call.on_click
-             function="Floater.Toggle"
-             parameter="area_search" />
-        </menu_item_call>
-    <menu_item_separator/>
-    <menu_item_call
-     label="Teleport Home"
-     name="Teleport Home"
-     shortcut="control|shift|H">
-      <menu_item_call.on_click
-       function="World.TeleportHome" />
-      <menu_item_call.on_enable
-       function="World.EnableTeleportHome" />
-    </menu_item_call>
-    <menu_item_call
-     label="Set Home to Here"
-     name="Set Home to Here">
-      <menu_item_call.on_click
-       function="World.SetHomeLocation" />
-      <menu_item_call.on_enable
-       function="World.EnableSetHomeLocation" />
-    </menu_item_call>
-    <menu_item_separator/>
-    <menu_item_call
-     label="Snapshot"
-     name="Take Snapshot"
-     shortcut="control|shift|S">
-      <menu_item_call.on_click
-       function="Floater.Show"
-       parameter="snapshot" />
-    </menu_item_call>
-    <menu_item_separator/>
-    <menu_item_call
-     label="Place profile"
-     layout="topleft"
-     name="Place Profile">
-      <menu_item_call.on_click
-       function="World.PlaceProfile" />
-    </menu_item_call>
-    <menu_item_call
-     label="About land"
-     name="About Land">
-      <menu_item_call.on_click
-       function="Floater.Show"
-       parameter="about_land" />
-    </menu_item_call>
-    <menu_item_call
-     label="Region / Estate"
-     name="Region/Estate">
-      <menu_item_call.on_click
-       function="Floater.Show"
-       parameter="region_info" />
-    </menu_item_call>
-    <menu_item_call
-     label="My Land Holdings..."
-     name="My Land">
-      <menu_item_call.on_click
-       function="Floater.Show"
-       parameter="land_holdings" />
-    </menu_item_call>
-    <menu_item_call
-     label="Buy This Land"
-     name="Buy Land">
-      <menu_item_call.on_click
-       function="Land.Buy" />
-      <menu_item_call.on_enable
-       function="World.EnableBuyLand" />
-    </menu_item_call>
-
-    <menu_item_separator/>
-
-    <menu
-       create_jump_keys="true"
-       label="Show"
-       name="LandShow"
-       tear_off="true">
-      <menu_item_check
-         label="Ban Lines"
-         name="Ban Lines">
-        <menu_item_check.on_check
-           control="ShowBanLines" />
-        <menu_item_check.on_click
-           function="ToggleControl"
-           parameter="ShowBanLines" />
-      </menu_item_check>
-      <menu_item_check
-            label="Beacons"
-            name="beacons"
-            shortcut="control|alt|shift|N">
-        <menu_item_check.on_check
-         function="Floater.Visible"
-         parameter="beacons" />
-        <menu_item_check.on_click
-         function="Floater.Toggle"
-         parameter="beacons" />
-      </menu_item_check>
-      <menu_item_check
-         label="Property Lines"
-         name="Property Lines"
-         shortcut="control|alt|shift|P">
-        <menu_item_check.on_check
-           control="ShowPropertyLines" />
-        <menu_item_check.on_click
-           function="ToggleControl"
-           parameter="ShowPropertyLines" />
-      </menu_item_check>
-      <menu_item_check
-         label="Land Owners"
-         name="Land Owners">
-        <menu_item_check.on_check
-           control="ShowParcelOwners" />
-        <menu_item_check.on_click
-           function="ToggleControl"
-           parameter="ShowParcelOwners" />
-      </menu_item_check>
-      <menu_item_check
-         label="Coordinates"
-         name="Coordinates">
-        <menu_item_check.on_click
-           function="ToggleControl"
-           parameter="NavBarShowCoordinates" />
-        <menu_item_check.on_check
-           control="NavBarShowCoordinates" />
-      </menu_item_check>
-      <menu_item_check
-         label="Parcel Properties"
-         name="Parcel Properties">
-        <menu_item_check.on_click
-           function="ToggleControl"
-           parameter="NavBarShowParcelProperties" />
-        <menu_item_check.on_check
-           control="NavBarShowParcelProperties" />
-      </menu_item_check>
-      <menu_item_separator />
-      <menu_item_check
-         label="Advanced Menu"
-         name="Show Advanced Menu"
-         shortcut="control|alt|shift|D">
-        <on_check
-           function="CheckControl"
-           parameter="UseDebugMenus" />
-        <on_click
-           function="ToggleControl"
-           parameter="UseDebugMenus" />
-      </menu_item_check>
+<!-- END OF VIEW MENU --> 
+    
+<!-- START OF WORLD MENU -->     
+  <menu label="Welt"  name="World">
+    <menu_item_call label="Landmarke für diesen Ort setzen"  name="Create Landmark Here"/>
+    <menu_item_check label="Karte"  name="World Map"/>
+    <menu_item_check label="Minikarte"  name="Mini-Map"/>
+    <menu_item_check label="Suchen"  name="Search"/>
+    <menu_item_check label="Ursprünglich suchen"  name="Legacy Search"/>
+    <menu_item_call label="Nähe suchen"  name="area_search"/>
+    <menu_item_call label="Nach Hause teleportieren"  name="Teleport Home"/>
+    <menu_item_call label="Hier als Zuhause wählen"  name="Set Home to Here"/>
+    <menu_item_call label="Foto"  name="Take Snapshot"/>
+    <menu_item_call label="Ortsprofil"  name="Place Profile"/>
+    <menu_item_call label="Landinformationen"  name="About Land"/>
+    <menu_item_call label="Region/Grundbesitz"  name="Region/Estate"/>
+    <menu_item_call label="Mein Landbesitz..."  name="My Land"/>
+    <menu_item_call label="Dieses Land kaufen"  name="Buy Land"/>
+    <menu label="Anzeigen"  name="LandShow">
+        <menu_item_check label="Bannlinien"  name="Ban Lines"/>
+        <menu_item_check label="Strahlen"  name="beacons"/>
+        <menu_item_check label="Grundstücksgrenzen"  name="Property Lines"/>
+        <menu_item_check label="Landeigentümer"  name="Land Owners"/>
+        <menu_item_check label="Koordinaten"  name="Coordinates"/>
+        <menu_item_check label="Parzelleneigenschaften"  name="Parcel Properties"/>
+        <menu_item_check label="Menü „Erweitert“"  name="Show Advanced Menu"/>
     </menu>
-
-    <menu_item_separator/>
-    <!--    <menu_item_check
-         label="Show Navigation Bar"
-         name="ShowNavbarNavigationPanel">
-           <menu_item_check.on_click
-             function="ToggleControl"
-             parameter="ShowNavbarNavigationPanel" />
-             <menu_item_check.on_check
-             function="CheckControl"
-             parameter="ShowNavbarNavigationPanel" />
-        </menu_item_check>
-       <menu_item_check
-         label="Show Favorites Bar"
-         name="ShowNavbarFavoritesPanel">
-           <menu_item_check.on_click
-             function="ToggleControl"
-             parameter="ShowNavbarFavoritesPanel" />
-             <menu_item_check.on_check
-             function="CheckControl"
-             parameter="ShowNavbarFavoritesPanel" />
-        </menu_item_check>
-        <menu_item_separator/>-->
-
-    <menu
-     create_jump_keys="true"
-     label="Sun"
-     name="Sun"
-     tear_off="true">
-      <menu_item_call
-       label="Sunrise"
-       name="Sunrise">
-        <menu_item_call.on_click
-         function="World.EnvSettings"
-         parameter="sunrise" />
-      </menu_item_call>
-      <menu_item_separator/>
-       <menu_item_call
-       label="Midday"
-       name="Noon"
-       shortcut="control|shift|Y">
-        <menu_item_call.on_click
-         function="World.EnvSettings"
-         parameter="noon" />
-      </menu_item_call>
-      <menu_item_call
-       label="Sunset"
-       name="Sunset"
-       shortcut="control|shift|N">
-        <menu_item_call.on_click
-         function="World.EnvSettings"
-         parameter="sunset" />
-      </menu_item_call>
-      <menu_item_call
-       label="Midnight"
-       name="Midnight">
-        <menu_item_call.on_click
-         function="World.EnvSettings"
-         parameter="midnight" />
-      </menu_item_call>
-      <menu_item_separator/>
-      <menu_item_call
-       label="Use Region Settings"
-       name="Use Region Settings">
-        <menu_item_call.on_click
-         function="World.EnvSettings"
-         parameter="region" />
-      </menu_item_call>
+    <menu label="Sonne"  name="Sun">
+        <menu_item_call label="Sonnenaufgang"  name="Sunrise"/>
+        <menu_item_call label="Mittag"  name="Noon"/>
+        <menu_item_call label="Sonnenuntergang"  name="Sunset"/>
+        <menu_item_call label="Mitternacht"  name="Midnight"/>
+        <menu_item_call label="Regionseinstellungen verwenden"  name="Use Region Settings"/>
     </menu>
-
-
-    <menu
-     create_jump_keys="true"
-     label="Environment Editor"
-     name="Environment Editor"
-     tear_off="true">
-
-      <menu_item_call
-       label="Environment Settings..."
-       name="Environment Settings">
-        <menu_item_call.on_click
-         function="World.EnvSettings"
-               parameter="editor"/>
-      </menu_item_call>
-
-      <menu_item_separator/>
-
-      <menu
-       name="Water Presets"
-       label="Water Presets">
-        <menu_item_call
-         label="New preset..."
-         name="new_water_preset">
-          <menu_item_call.on_click
-          function="World.EnvPreset"
-          parameter="new_water"/>
-        </menu_item_call>
-        <menu_item_call
-         label="Edit preset..."
-         name="edit_water_preset">
-          <menu_item_call.on_click
-          function="World.EnvPreset"
-          parameter="edit_water"/>
-        </menu_item_call>
-        <menu_item_call
-         label="Delete preset..."
-         name="delete_water_preset">
-          <menu_item_call.on_click
-          function="World.EnvPreset"
-          parameter="delete_water"/>
-          <menu_item_call.on_enable
-          function="World.EnableEnvPreset"
-          parameter="delete_water"/>
-        </menu_item_call>
-      </menu>
-
-      <menu
-       name="Sky Presets"
-       label="Sky Presets">
-        <menu_item_call
-         label="New preset..."
-         name="new_sky_preset">
-          <menu_item_call.on_click
-          function="World.EnvPreset"
-          parameter="new_sky"/>
-        </menu_item_call>
-        <menu_item_call
-         label="Edit preset..."
-         name="edit_sky_preset">
-          <menu_item_call.on_click
-          function="World.EnvPreset"
-          parameter="edit_sky"/>
-        </menu_item_call>
-        <menu_item_call
-         label="Delete preset..."
-         name="delete_sky_preset">
-          <menu_item_call.on_click
-          function="World.EnvPreset"
-          parameter="delete_sky"/>
-          <menu_item_call.on_enable
-          function="World.EnableEnvPreset"
-          parameter="delete_sky"/>
-        </menu_item_call>
-      </menu>
-
-      <menu
-       name="Day Presets"
-       label="Day Presets">
-        <menu_item_call
-         label="New preset..."
-         name="new_day_preset">
-          <menu_item_call.on_click
-          function="World.EnvPreset"
-          parameter="new_day_cycle"/>
-        </menu_item_call>
-        <menu_item_call
-         label="Edit preset..."
-         name="edit_day_preset">
-          <menu_item_call.on_click
-          function="World.EnvPreset"
-          parameter="edit_day_cycle"/>
-        </menu_item_call>
-        <menu_item_call
-         label="Delete preset..."
-         name="delete_day_preset">
-          <menu_item_call.on_click
-          function="World.EnvPreset"
-          parameter="delete_day_cycle"/>
-          <menu_item_call.on_enable
-          function="World.EnableEnvPreset"
-          parameter="delete_day_cycle"/>
-        </menu_item_call>
-      </menu>
+    <menu label="Umwelt-Editor"  name="Environment Editor">
+        <menu_item_call label="Umwelt-Einstellungen..."  name="Environment Settings"/>
+        <menu label="Wasser-Voreinstellungen"  name="Water Presets">
+            <menu_item_call label="Neue Voreinstellung..."  name="new_water_preset"/>
+            <menu_item_call label="Voreinstellung bearbeiten..."  name="edit_water_preset"/>
+            <menu_item_call label="Voreinstellung löschen..."  name="delete_water_preset"/>
+        </menu>
+        <menu label="Himmel-Voreinstellungen"  name="Sky Presets">
+            <menu_item_call label="Neue Voreinstellung..."  name="new_sky_preset"/>
+            <menu_item_call label="Voreinstellung bearbeiten..."  name="edit_sky_preset"/>
+            <menu_item_call label="Voreinstellung löschen..."  name="delete_sky_preset"/>
+        </menu>
+        <menu label="Tag-Voreinstellunge"  name="Day Presets">
+            <menu_item_call label="Neue Voreinstellung..."  name="new_day_preset"/>
+            <menu_item_call label="Voreinstellung bearbeitent..."  name="edit_day_preset"/>
+            <menu_item_call label="Voreinstellung löschen..."  name="delete_day_preset"/>
+        </menu>
     </menu>
   </menu>
+<!-- END OF WORLD MENU -->
 
-  <menu
-   create_jump_keys="true"
-   label="Build"
-   name="BuildTools"
-   tear_off="true"
-   visible="true">
+<!-- START OF BUILD MENU -->
+  <menu label="Build"  name="BuildTools">
     <menu_item_check
       label="Build"
       name="Show Build Tools"
@@ -1065,6 +724,10 @@
        function="Edit.EnableRedo" />
     </menu_item_call>
   </menu>
+<!-- END OF BUILD MENU -->
+
+
+
   <menu
   create_jum_keys="true"
   label="Commands"

@@ -3,6 +3,7 @@
  bg_visible="false"
  follows="left|top|right"
  name="Main Menu">
+<!-- START OF FILE MENU -->
     <menu
      create_jump_keys="true"
      label="File"
@@ -159,6 +160,9 @@
              function="File.Quit" />
         </menu_item_call>
     </menu>
+<!-- END OF FILE MENU -->
+    
+<!-- START OF EDIT MENU -->
     <menu
      create_jump_keys="true"
      label="Edit"
@@ -299,6 +303,9 @@
              parameter="preferences" />
         </menu_item_call>
     </menu>
+<!-- END OF EDIT MENU -->
+    
+<!-- START OF VIEW MENU -->    
     <menu
      create_jump_keys="true"
      label="View"
@@ -770,6 +777,9 @@
                  parameter="UseDebugMenus" />
         </menu_item_check>
     </menu>
+<!-- END OF VIEW MENU -->
+
+<!-- START OF WORLD MENU -->    
   <menu
    create_jump_keys="true"
    label="World"
@@ -1074,8 +1084,8 @@
       <menu_item_separator/>
 
       <menu
-       name="Water Presets"
-       label="Water Presets">
+       label="Water Presets"
+       name="Water Presets">
         <menu_item_call
          label="New preset..."
          name="new_water_preset">
@@ -1103,8 +1113,8 @@
       </menu>
 
       <menu
-       name="Sky Presets"
-       label="Sky Presets">
+       label="Sky Presets"
+       name="Sky Presets">
         <menu_item_call
          label="New preset..."
          name="new_sky_preset">
@@ -1132,8 +1142,8 @@
       </menu>
 
       <menu
-       name="Day Presets"
-       label="Day Presets">
+       label="Day Presets"
+       name="Day Presets">
         <menu_item_call
          label="New preset..."
          name="new_day_preset">
@@ -1161,7 +1171,9 @@
       </menu>
     </menu>
   </menu>
+<!-- END OF WORLD MENU -->   
 
+<!-- START OF BUILD MENU -->   
   <menu
    create_jump_keys="true"
    label="Build"
@@ -1736,6 +1748,8 @@
        function="Edit.EnableRedo" />
     </menu_item_call>
   </menu>
+<!-- END OF BUILD MENU -->   
+  
   <menu
   create_jum_keys="true"
   label="Commands"
