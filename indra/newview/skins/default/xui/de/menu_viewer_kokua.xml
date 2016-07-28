@@ -1,775 +1,104 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<menu_bar
- bg_visible="false"
- follows="left|top|right"
- name="Main Menu">
-    <menu
-     create_jump_keys="true"
-     label="File"
-     name="File"
-     tear_off="true">
-        <menu
-         create_jump_keys="true"
-         label="Upload"
-         layout="topleft"
-         name="Upload"
-         tear_off="true">
-            <menu_item_call
-             label="Image ([COST])..."
-             layout="topleft"
-             name="Upload Image"
-             shortcut="control|U">
-                <menu_item_call.on_click
-                 function="File.UploadImage"
-                 parameter="" />
-                <menu_item_call.on_enable
-                 function="File.EnableUpload" />
-                <menu_item_call.on_visible
-                 function="Upload.CalculateCosts"
-                 parameter="Upload Image" />
-            </menu_item_call>
-            <menu_item_call
-             label="Sound ([COST])..."
-             layout="topleft"
-             name="Upload Sound">
-                <menu_item_call.on_click
-                 function="File.UploadSound"
-                 parameter="" />
-                <menu_item_call.on_enable
-                 function="File.EnableUpload" />
-                <menu_item_call.on_visible
-                 function="Upload.CalculateCosts"
-                 parameter="Upload Sound" />
-            </menu_item_call>
-            <menu_item_call
-             label="Animation ([COST])..."
-             layout="topleft"
-             name="Upload Animation">
-                <menu_item_call.on_click
-                 function="File.UploadAnim"
-                 parameter="" />
-                <menu_item_call.on_enable
-                 function="File.EnableUpload" />
-                <menu_item_call.on_visible
-                 function="Upload.CalculateCosts"
-                 parameter="Upload Animation" />
-            </menu_item_call>
-                      <menu_item_call
-           label="Mesh Model..."
-           layout="topleft"
-           name="Upload Model"
-           shortcut="control|alt|U">
-            <menu_item_call.on_click
-             function="File.UploadModel"
-             parameter="" />
-            <menu_item_call.on_enable
-             function="File.EnableUploadModel" />
-            <menu_item_call.on_visible
-            function="File.VisibleUploadModel"/>
-            </menu_item_call>
-            <menu_item_call
-             label="Bulk ([COST] per file)..."
-             layout="topleft"
-             name="Bulk Upload">
-                <menu_item_call.on_click
-                 function="File.UploadBulk"
-                 parameter="" />
-              <menu_item_call.on_enable
-                 function="File.EnableUpload" /> 
-				      <menu_item_call.on_visible
-                 function="Upload.CalculateCosts"
-                 parameter="Bulk Upload" />
-            </menu_item_call>
-			<menu_item_call
-			   label="Set Default Permissions..."
-			   name="Set default permissions">
-				<menu_item_call.on_click
-				 function="Floater.ToggleOrBringToFront"
-				 parameter="perms_default" />
-			</menu_item_call>
-            <menu_item_call
-             label="Import Linkset"
-             visibility_control="FSEnableObjectExports"
-             name="import linkset">
-                <menu_item_call.on_click
-                 function="Floater.Toggle"
-                 parameter="fs_import" />
-               <menu_item_call.on_enable
-                 function="File.EnableUpload" />
-            </menu_item_call>			
-        </menu>
-        <menu_item_separator/>
-        <menu_item_call
-         label="Close Window"
-         name="Close Window"
-         shortcut="control|W">
-            <menu_item_call.on_click
-             function="File.CloseWindow" />
-            <menu_item_call.on_enable
-             function="File.EnableCloseWindow" />
-        </menu_item_call>
-        <menu_item_call
-         label="Close All Windows"
-         name="Close All Windows"
-         shortcut="control|shift|W">
-           <menu_item_call.on_click
-            function="File.CloseAllWindows" />
-           <menu_item_call.on_enable
-            function="File.EnableCloseAllWindows" />
-        </menu_item_call>
-        <menu_item_separator/>
-        <menu_item_call
-         label="Snapshot"
-         name="Take Snapshot"
-         shortcut="control|shift|S">
-            <menu_item_call.on_click
-             function="Floater.Show"
-             parameter="snapshot" />
-        </menu_item_call>
-        <menu_item_call
-         label="Snapshot to Disk"
-         name="Snapshot to Disk"
-         shortcut="control|`"
-         use_mac_ctrl="true">
-            <menu_item_call.on_click
-             function="File.TakeSnapshotToDisk" />
-        <menu_item_separator/>
-        </menu_item_call>
-	        <menu_item_call
-         label="Request Admin Status"
-         name="Request Admin Options"
-         shortcut="control|alt|G"
-		 visible="false">
-            <menu_item_call.on_click
-             function="Advanced.RequestAdminStatus" />
-        </menu_item_call>
-        <menu_item_call
-         label="Leave Admin Status"
-         name="Leave Admin Options"
-         shortcut="control|alt|shift|G"
-		 visible="false">
-            <menu_item_call.on_click
-             function="Advanced.LeaveAdminStatus" />
-        </menu_item_call>
-        <menu_item_call
-         label="Quit [APP_NAME]"
-         name="Quit"
-         shortcut="control|Q">
-            <menu_item_call.on_click
-             function="File.Quit" />
-        </menu_item_call>
+<menu_bar name="Main Menu">
+    <menu label="Ablage"  name="File">
+            <menu label="Hinaufladen"  name="Upload">
+                <menu_item_call label="Bild ([COST])..."   name="Upload Image"/>
+                <menu_item_call label="Sound ([COST])..."   name="Upload Sound"/>
+                <menu_item_call label="Animation ([COST])..."  name="Upload Animation"/>
+                <menu_item_call label="Mesh Modell..."  name="Upload Model"/>
+                <menu_item_call label="Mehrfach-Upload ([COST] pro Datei)..."  name="Bulk Upload"/>
+			    <menu_item_call label="Standard-Berechtigungen einstellen..."  name="Set default permissions"/>
+                <menu_item_call label="Linkset importieren"  name="import linkset"/>
+            </menu>
+            <menu_item_call label="Fenster schließen"  name="Close Window"/>
+            <menu_item_call label="Alle Fenster schließen"  name="Close All Windows"/>
+            <menu_item_call label="Foto"  name="Take Snapshot"/>
+            <menu_item_call label="Foto auf Datenträger"  name="Snapshot to Disk"/>
+            <menu_item_call label="Admin-Status anfordern"  name="Request Admin Options"/>
+            <menu_item_call label="Admin-Status verlassen"  name="Leave Admin Options"/>
+            <menu_item_call label="Shließen [APP_NAME]"  name="Quit"/>
     </menu>
-    <menu
-     create_jump_keys="true"
-     label="Edit"
-     name="Edit"
-     tear_off="true">
-         <menu_item_check
-               label="Search"
-               name="Search"
-               shortcut="control|F">
-            <menu_item_check.on_check
-             function="Floater.Visible"
-             parameter="search" />
-            <menu_item_check.on_click
-             function="Floater.Toggle"
-             parameter="search" />
-         </menu_item_check>
-         <menu_item_separator/>
-         <menu_item_call
-           label="Account dashboard..."
-           name="Manage My Account"
-           only_in_sl="true">
-                <menu_item_call.on_click
-                 function="PromptShowURL"
-                 name="ManageMyAccount_url"
-                 parameter="WebLaunchJoinNow,http://secondlife.com/account/" />
-      </menu_item_call>
-        <menu_item_call
-         label="Buy L$"
-         name="Buy and Sell L$">
-            <menu_item_call.on_click
-             function="BuyCurrency" />
-        </menu_item_call>
-
-        <menu_item_separator/>
-
-        <menu_item_call
-         label="My Profile"
-         name="Profile">
-            <menu_item_call.on_click
-             function="ShowAgentProfile"
-             parameter="agent" />
-        </menu_item_call>
-	<menu_item_call
-            label="Rebake Textures"
-            name="Rebake Texture"
-            shortcut="control|alt|R">
-            <menu_item_call.on_click
-             function="Advanced.RebakeTextures" />
-        </menu_item_call>
-        <menu_item_call
-         label="Appearance..."
-         name="ChangeOutfit">
-            <menu_item_call.on_click
-             function="CustomizeAvatar" />
-            <menu_item_call.on_enable
-             function="Edit.EnableCustomizeAvatar" />
-        </menu_item_call>
-        <menu_item_check
-         label="My Inventory"
-         name="Inventory"
-         shortcut="control|I"
-         visible="false">
-            <menu_item_check.on_check
-             function="Floater.Visible"
-             parameter="inventory" />
-            <menu_item_check.on_click
-             function="Floater.Toggle"
-             parameter="inventory" />
-        </menu_item_check>
-        <menu_item_check
-         label="My Gestures"
-         name="Gestures"
-         shortcut="control|G">
-            <menu_item_check.on_check
-             function="Floater.Visible"
-             parameter="gestures" />
-            <menu_item_check.on_click
-             function="Floater.Toggle"
-             parameter="gestures" />
-        </menu_item_check>
-	<menu
-	create_jump_keys="true"
-	label="Communication"
-	name="Status"
-	tear_off="true">
-	        <menu_item_check
-		label="My Voice"
-		name="ShowVoice"
-		visibility_control="VoiceMorphingEnabled">
-		<menu_item_check.on_check
-		function="Floater.Visible"
-		parameter="voice_effect" />
-		<menu_item_check.on_click
-		function="Floater.Toggle"
-		parameter="voice_effect" />
-		</menu_item_check>
-		<menu_item_call
-		label="Away"
-		name="Set Away">
-			<menu_item_call.on_click
-			function="World.SetAway" />
-		</menu_item_call>
-    <menu_item_check
-     label="Do Not Disturb"
-     name="Do Not Disturb">
-      <menu_item_check.on_check
-       function="View.Status.CheckDoNotDisturb" />
-      <menu_item_check.on_click
-       function="World.SetDoNotDisturb"/>
-    </menu_item_check>
-	</menu>
-
-
-        <menu_item_separator/>
-        <menu_item_call
-         label="Friends"
-         name="My Friends"
-         shortcut="control|shift|F">
-            <menu_item_call.on_click
-             function="SideTray.PanelPeopleTab"
-             parameter="friends_panel" />
-            </menu_item_call>
-        <menu_item_call
-         label="Groups"
-         name="My Groups"
-         shortcut="control|shift|G">
-            <menu_item_call.on_click
-             function="SideTray.PanelPeopleTab"
-             parameter="groups_panel" />
-        </menu_item_call>
-        <menu_item_separator/>	
-	      <menu_item_call
-         label="Preferences"
-         name="Preferences"
-         shortcut="control|P">
-            <menu_item_call.on_click
-             function="Floater.Show"
-             parameter="preferences" />
-        </menu_item_call>
+    <menu label="Bearbeiten" name="Edit">
+            <menu_item_call label="Suchen"  name="Search"/>
+            <menu_item_call label="Kontoübersicht..."  name="Manage My Account"/>
+            <menu_item_call label="L$ kaufen"  name="Buy and Sell L$"/>
+            <menu_item_call label="Profil"  name="Profile"/>
+	        <menu_item_call label="Textur neu laden"  name="Rebake Texture"/>
+            <menu_item_call label="Aussehen..."  name="ChangeOutfit"/>
+            <menu_item_check label="Inventar"  name="Inventory"/>
+            <menu_item_check label="Gesten"  name="Gestures"/>
+            <menu label="Status" name="Status">
+                <menu_item_check label="My Voice"  name="ShowVoice"/>
+                <menu_item_call label="Abwesend"  name="Set Away"/>
+                <menu_item_check label="Nicht stören"  name="Do Not Disturb"/>
+            </menu>
+            <menu_item_call label="Freunde"  name="My Friends"/>
+            <menu_item_call label="Gruppen"  name="My Groups"/>
+	        <menu_item_call label="Einstellungen..."  name="Preferences"/>
     </menu>
-    <menu
-     create_jump_keys="true"
-     label="View"
-     name="View"
-     tear_off="true">
-            <menu_item_call
-             label="Mouselook"
-             name="Mouselook"
-             shortcut="M">
-                <menu_item_call.on_click
-                 function="View.Mouselook" />
-                <menu_item_call.on_enable
-                 function="View.EnableMouselook" />
-            </menu_item_call>
-            <menu_item_check
-             label="Joystick Flycam"
-             name="Joystick Flycam"
-             shortcut="alt|shift|F">
-                <menu_item_check.on_check
-                 function="View.CheckJoystickFlycam" />
-                <menu_item_check.on_click
-                 function="View.JoystickFlycam" />
-                <menu_item_check.on_enable
-                 function="View.EnableJoystickFlycam" />
-            </menu_item_check>
-            <menu_item_call
-             label="Reset View"
-             name="Reset View"
-             shortcut="Esc">
-                <menu_item_call.on_click
-                 function="View.ResetView" />
-            </menu_item_call>
-            <menu_item_call
-             label="Look at Last Chatter"
-             name="Look at Last Chatter"
-             shortcut="control|\">
-                <menu_item_call.on_click
-                 function="View.LookAtLastChatter" />
-                <menu_item_call.on_enable
-                 function="View.EnableLastChatter" />
-            </menu_item_call>
-           <menu_item_call
-           label="Toolbar buttons..."
-           name="Toolbars">
-              <menu_item_call.on_click
-              function="Floater.Toggle"
-              parameter="toybox" />
-           </menu_item_call>
-          <menu_item_call
-          label="Hide All Controls"
-          name="Hide UI"
-          shortcut="control|shift|U">
-             <menu_item_call.on_click
-               function="View.ToggleUI" />
-          </menu_item_call>
-          <menu_item_check
-          label="Show HUD Attachments"
-          name="Show HUD Attachments"
-          shortcut="alt|shift|H">
-             <menu_item_check.on_check
-                 function="View.CheckHUDAttachments" />
-             <menu_item_check.on_click
-                 function="View.ShowHUDAttachments" />
-          </menu_item_check>
-      <menu_item_separator
-        only_in_sl="true"/>
-
-          <menu_item_call
-          label="Buy L$..."
-          name="Buy and Sell L$"
-          only_in_sl="true">
-              <menu_item_call.on_click
-                 function="BuyCurrency" />
-          </menu_item_call>
-         <menu_item_call
-            label="Marketplace Listings..."
-            name="MarketplaceListings"
-            only_in_sl="true">
-            <menu_item_call.on_click
-            function="Floater.ToggleOrBringToFront"
-            parameter="marketplace_listings" />
-        </menu_item_call> 
-
-          <menu_item_separator/>
-      
-
-
-
-        <!--menu_item_call
-         label="Chat"
-         name="Chat">
-            <menu_item_call.on_click
-             function="World.Chat" />
-        </menu_item_call-->
-	<menu_item_check
-         label="Conversations..."
-         name="Conversations"
-         shortcut="control|T">
-            <menu_item_check.on_check
-             function="Floater.IsOpen"
-             parameter="im_container" />
-            <menu_item_check.on_click
-             function="Floater.ToggleOrBringToFront"
-             parameter="im_container" />
-	</menu_item_check>
-    <menu_item_separator/>
-      <menu_item_call
-        label="Facebook..."
-        name="Facebook">
-        <menu_item_call.on_click
-          function="Floater.Toggle"
-          parameter="facebook"/>
-      </menu_item_call>
-      <menu_item_call
-        label="Twitter..."
-        name="Twitter">
-        <menu_item_call.on_click
-          function="Floater.Toggle"
-          parameter="twitter"/>
-      </menu_item_call>
-      <menu_item_call
-        label="Flickr..."
-        name="Flickr">
-        <menu_item_call.on_click
-          function="Floater.Toggle"
-          parameter="flickr"/>
-      </menu_item_call>
-    <menu_item_separator/>
-        <menu_item_check
-         label="Nearby Chat"
-         name="Nearby Chat"
-         shortcut="control|H"
-         use_mac_ctrl="true">
-            <menu_item_check.on_check
-             function="Floater.Visible"
-             parameter="nearby_chat" />
-            <menu_item_check.on_click
-             function="Floater.Toggle"
-             parameter="nearby_chat" />
-        </menu_item_check>
-        <menu_item_call
-         label="Nearby People"
-         name="Active Speakers"
-         shortcut="control|shift|A">
-            <menu_item_call.on_click
-             function="SideTray.PanelPeopleTab"
-             parameter="nearby_panel" />
-            </menu_item_call>
-        <menu_item_separator/>
-      <menu_item_call
-       label="Choose an avatar..."
-       name="Avatar Picker">
-        <menu_item_call.on_click
-         function="Floater.ToggleOrBringToFront"
-         parameter="avatar" />
-      </menu_item_call>
-      <menu_item_separator/>
-      <menu_item_check
-         label="Inventory..."
-         name="Inventory"
-         shortcut="control|I"
-		     visible="true">
-        <menu_item_check.on_check
-         function="Floater.Visible"
-         parameter="inventory" />
-        <menu_item_check.on_click
-         function="Floater.Toggle"
-         parameter="inventory" />
-      </menu_item_check>
-      <menu_item_call
-       label="New Inventory Window"
-       name="NewInventoryWindow"
-       shortcut="control|shift|I"
-       visible="false">
-        <menu_item_call.on_click
-         function="Inventory.NewWindow"
-         parameter="" />
-      </menu_item_call>
-      <menu_item_call
-       label="Places..."
-       name="Places">
-        <menu_item_call.on_click
-         function="Floater.ToggleOrBringToFront"
-         parameter="places" />
-      </menu_item_call>
-      <menu_item_call
-        label="Experiences..."
-        name="Experiences"
-        only_in_sl="true">
-        <menu_item_call.on_click
-          function="Floater.ToggleOrBringToFront"
-          parameter="experiences"/>
-      </menu_item_call>
-      <menu_item_call
-       label="Picks..."
-       name="Picks">
-        <menu_item_call.on_click
-         function="Floater.ToggleOrBringToFront"
-         parameter="picks" />
-      </menu_item_call>
-      <menu_item_separator/>
-      <menu_item_call
-       label="Camera Controls..."
-       name="Camera Controls">
-        <menu_item_call.on_click
-         function="Floater.ToggleOrBringToFront"
-         parameter="camera" />
-      </menu_item_call>
-      <menu_item_call
-         label="Movement Controls..."
-         name="Walk / run / fly">
-          <menu_item_call.on_click
-           function="Floater.ToggleOrBringToFront"
-           parameter="moveview" />
-      </menu_item_call>
-      <!-- MK -->
-      <menu_item_call
-       label="Restart All Animations"
-       name="Restart All Animations"
-       shortcut="control|alt|shift|A">
-        <menu_item_call.on_click
-         function="Tools.RestartAllAnimations" />
-      </menu_item_call>
-      <!-- mk -->	  
-      <menu
-       create_jump_keys="true"
-       label="Movement"
-       name="Movement"
-       tear_off="true">
-        <menu_item_check
-         label="Sit Down"
-         name="Sit Down Here"
-         layout="topleft"
-         shortcut="alt|shift|S">
-          <menu_item_check.on_check
-           function="Self.EnableStandUp" />
-          <menu_item_check.on_click
-           function="Self.ToggleSitStand" />
-          <menu_item_check.on_enable
-           function="Self.EnableSitStand" />
-        </menu_item_check>
-        <menu_item_check
-         label="Fly"
-         name="Fly"
-         shortcut="Home">
-          <menu_item_check.on_check
-           function="Agent.getFlying" />
-          <menu_item_check.on_click
-           function="Agent.toggleFlying" />
-          <menu_item_check.on_enable
-           function="Agent.enableFlying" />
-        </menu_item_check>
-        <menu_item_check
-         label="Always Run"
-         name="Always Run"
-         shortcut="control|R">
-          <menu_item_check.on_check
-           function="World.CheckAlwaysRun" />
-          <menu_item_check.on_click
-           function="World.AlwaysRun" />
-        </menu_item_check>
-        <menu_item_call
-         label="Stop Animating Me"
-         name="Stop Animating My Avatar"
-		 shortcut="shift|S">
-          <menu_item_call.on_click
-           function="Tools.StopAllAnimations" />
-        </menu_item_call>
-        <menu_item_call
-         label="Walk / run / fly..."
-         name="WalkRunFly">
-          <menu_item_call.on_click
-           function="Floater.ToggleOrBringToFront"
-           parameter="moveview" />
-        </menu_item_call>
-      </menu>
-
-      <menu
-       create_jump_keys="true"
-       label="Status"
-       name="Status"
-       tear_off="true">
-        <menu_item_check
-         name="Away"
-         label="Away">
-          <menu_item_check.on_check
-           function="View.Status.CheckAway" />
-          <menu_item_check.on_click
-           function="World.SetAway" />
-        </menu_item_check>
-        <menu_item_check
-         name="Do Not Disturb"
-         label="Do Not Disturb">
-          <menu_item_check.on_check
-           function="View.Status.CheckDoNotDisturb" />
-          <menu_item_check.on_click
-           function="World.SetDoNotDisturb"/>
-        </menu_item_check>
-      </menu>
-        <menu_item_separator/>
-            <menu_item_check
-             label="Statistics Bar"
-             name="Statistics Bar"
-             shortcut="control|shift|1">
-                <menu_item_check.on_check
-                 function="Floater.Visible"
-                 parameter="stats" />
-                <menu_item_check.on_click
-                 function="Floater.Toggle"
-                 parameter="stats" />
-          </menu_item_check>
-            <menu_item_separator/>
-		<menu
-		create_jump_keys="true"
-		label="Zoom Level"
-		name="Zoom Level"
-		tear_off="true">
-			<menu_item_call
-			label="Zoom In"
-			name="Zoom In"
-			shortcut="control|0">
-				<menu_item_call.on_click
-				function="View.ZoomIn" />
-			</menu_item_call>
-			<menu_item_call
-			label="Zoom Default"
-			name="Zoom Default"
-			shortcut="control|9">
-				<menu_item_call.on_click
-				function="View.ZoomDefault" />
-			</menu_item_call>
-			<menu_item_call
-			label="Zoom Out"
-			name="Zoom Out"
-			shortcut="control|8">
-				<menu_item_call.on_click
-				function="View.ZoomOut" />
-			</menu_item_call>
-		</menu>
-        <menu
-         create_jump_keys="true"
-         label="Highlighting and Visibility"
-         name="Highlighting and Visibility"
-         tear_off="true">
-         <menu_item_check
-                 label="Cheesy Beacon"
-                 name="Cheesy Beacon">
-                    <menu_item_check.on_check
-                     function="CheckControl"
-                     parameter="CheesyBeacon" />
-                    <menu_item_check.on_click
-                     function="ToggleControl"
-                     parameter="CheesyBeacon" />
-                </menu_item_check>
-            <menu_item_check
-             label="Hide Particles"
-             name="Hide Particles"
-             shortcut="control|alt|shift|=">
-                <menu_item_check.on_check
-                 function="View.CheckRenderType"
-                 parameter="hideparticles" />
-                <menu_item_check.on_click
-                 function="View.ToggleRenderType"
-                 parameter="hideparticles" />
-            </menu_item_check>
-            <menu_item_check
-             label="Hide Selected"
-             name="Hide Selected">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="HideSelectedObjects" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="HideSelectedObjects" />
-            </menu_item_check>
-            <menu_item_check
-             label="Highlight Transparent"
-             name="Highlight Transparent"
-             shortcut="control|alt|T">
-                <menu_item_check.on_check
-                 function="View.CheckHighlightTransparent" />
-                <menu_item_check.on_click
-                 function="View.HighlightTransparent" />
-            </menu_item_check>
-            <menu_item_check
-             label="Show HUD Attachments"
-             name="Show HUD Attachments"
-             shortcut="alt|shift|H">
-                <menu_item_check.on_check
-                 function="View.CheckHUDAttachments" />
-                <menu_item_check.on_click
-                 function="View.ShowHUDAttachments" />
-            </menu_item_check>
-            <menu_item_check
-             label="Show Mouselook Crosshairs"
-             name="ShowCrosshairs">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="ShowCrosshairs" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="ShowCrosshairs" />
-            </menu_item_check>
- <menu
-         create_jump_keys="true"
-         label="Hover Tips"
-         name="Hover Tips"
-         tear_off="true">
-            <menu_item_check
-             label="Show Tips"
-             name="Show Tips"
-             shortcut="control|shift|T">
-                <menu_item_check.on_check
-                 function="View.CheckShowHoverTips" />
-                <menu_item_check.on_click
-                 function="View.ShowHoverTips" />
-            </menu_item_check>
-
-            <menu_item_separator/>
-
-            <menu_item_check
-             label="Show Land Tooltips"
-             name="Land Tips">
-                <menu_item_check.on_check
-                 control="ShowLandHoverTip" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="ShowLandHoverTip" />
-                <menu_item_check.on_enable
-                 function="View.CheckShowHoverTips" />
-            </menu_item_check>
-           <menu_item_check
-             label="Show Tips On All Objects"
-             name="Tips On All Objects">
-                <menu_item_check.on_check
-                 control="ShowAllObjectHoverTip" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="ShowAllObjectHoverTip" />
-                <menu_item_check.on_enable
-                 function="View.CheckShowHoverTips" />
-            </menu_item_check>
+    
+     <!-- START OF VIEW MENU --> 
+    <menu label="Ansicht"  name="View">
+            <menu_item_call label="Mouselook"  name="Mouselook"/>
+            <menu_item_check label="Joystick Flycam"  name="Joystick Flycam"/>
+            <menu_item_call label="Ansicht zurücksetzen"  name="Reset View"/>
+            <menu_item_call label="Letzten Chatter ansehen"  name="Look at Last Chatter"/>
+            <menu_item_call label="Symbolleistenschaltflächen..."  name="Toolbars"/>
+            <menu_item_call label="Alle Steuerelemente ausblenden"  name="Hide UI"/>
+            <menu_item_check label="HUD-Anhänge anzeigen"  name="Show HUD Attachments"/>
+            <menu_item_call label="L$ kaufen..."  name="Buy and Sell L$"/>
+            <menu_item_call label="Marktplatz-Auflistungen..."  name="MarketplaceListings"/>
+            <menu_item_check label="Unterhaltungen..."  name="Conversations"/>
+            <menu_item_call label="Facebook..."  name="Facebook"/>
+            <menu_item_call label="Twitter..."  name="Twitter"/>
+            <menu_item_call label="Flickr..."  name="Flickr"/>
+            <menu_item_check label="Chat in der Nähe"  name="Nearby Chat"/>
+            <menu_item_call label="Leute in der Nähe"  name="Active Speakers"/>
+            <menu_item_call label="Avatar auswählen..."  name="Avatar Picker"/>
+            <menu_item_check label="Inventar..."  name="Inventory"/>
+            <menu_item_call label="Neues Inventarfenster"  name="NewInventoryWindow"/>
+            <menu_item_call label="Orte..."  name="Places"/>
+            <menu_item_call label="Erlebnisse..."  name="Experiences"/>
+            <menu_item_call label="Auswahlen..."  name="Picks"/>
+            <menu_item_call label="Kamerasteuerungen..."  name="Camera Controls"/>
+            <menu_item_call label="Gehen/Rennen/Fliegen..."  name="Walk / run / fly"/>
+            <menu_item_call label="Restart All Animations"  name="Restart All Animations"/>
+            <menu label="Bewegung"  name="Movement">
+                <menu_item_check label="Hinsetzen"  name="Sit Down Here"/>
+                <menu_item_check label="Fliegen"  name="Fly"/>
+                <menu_item_check label="Immer rennen"  name="Always Run"/>
+                <menu_item_call label="Animation meines Avatars stoppen"  name="Stop Animating My Avatar"/>
+                <menu_item_call label="Gehen/Rennen/Fliegen..." name="WalkRunFly"/>
+            </menu>
+            <menu label="Status"  name="Status">
+                <menu_item_check name="Abwesend"  label="Away"/>
+                <menu_item_check name="Nicht stören"  label="Do Not Disturb"/>
+            </menu>
+            <menu_item_check label="Statistikleiste"  name="Statistics Bar"/>
+		    <menu label="Zoom-Stufe"  name="Zoom Level">
+			    <menu_item_call label="Hineinzoomen" name="Zoom In"/>
+			    <menu_item_call label="Zoom-Standard"  name="Zoom Default"/>
+			    <menu_item_call label="Wegzoomen"  name="Zoom Out"/>
+		    </menu>
+            <menu label="Hervorhebung und Sichtbarkeit"  name="Highlighting and Visibility">
+                <menu_item_check label="Pulsierender Strahl"  name="Cheesy Beacon"/>
+                <menu_item_check label="Partikel ausblenden"  name="Hide Particles"/>
+                <menu_item_check label="Auswahl ausblenden"  name="Hide Selected"/>
+                <menu_item_check label="Durchsichtig hervorheben"  name="Highlight Transparent"/>
+                <menu_item_check label="HUD-Anhänge anzeigen"  name="Show HUD Attachments"/>
+                <menu_item_check label="Fadenkreuz für Mouselook anzeigen" name="ShowCrosshairs"/>
+            </menu>
+            <menu label="Hover Tips"  name="Hover Tips">
+                <menu_item_check label="Show Tips"  name="Show Tips"/>
+                <menu_item_check label="Show Land Tooltips"  name="Land Tips"/>
+                <menu_item_check label="Show Tips On All Objects"  name="Tips On All Objects"/>
+            </menu>
+            <menu_item_check label="Menü „Erweitert“"  name="Show Advanced Menu"/>
+            <menu_item_check label="Menü „Erweitert“ Linux"  name="Show Advanced Menu"/>
         </menu>
-
-        </menu>
-          <menu_item_separator/>
-            <menu_item_check
-             label="Show Advanced Menu"
-             name="Show Advanced Menu"
-             shortcut="control|alt|D"
-             visible="true">
-                <on_check
-                 function="CheckControl"
-                 parameter="UseDebugMenus" />
-                <on_click
-                 function="ToggleControl"
-                 parameter="UseDebugMenus" />
-        </menu_item_check>
-	<menu_item_check
-             label="Show Advanced Menu Linux"
-             name="Show Advanced Menu"
-             shortcut="control|alt|shift|D"
-             visible="false">
-                <on_check
-                 function="CheckControl"
-                 parameter="UseDebugMenus" />
-                <on_click
-                 function="ToggleControl"
-                 parameter="UseDebugMenus" />
-        </menu_item_check>
-    </menu>
+  </menu>
+ <!-- END OF VIEW MENU --> 
+  
   <menu
    create_jump_keys="true"
    label="World"
