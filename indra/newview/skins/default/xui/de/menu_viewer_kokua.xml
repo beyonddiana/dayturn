@@ -717,1408 +717,195 @@
 <!-- END OF ADVANCED MENU -->    
     
 <!-- START OF DEVELOP MENU -->  
-    <menu label="Develop"  name="Develop">
-        <menu
-         create_jump_keys="true"
-         label="Consoles"
-         name="Consoles"
-         tear_off="true">
-            <menu_item_check
-             label="Texture Console"
-             name="Texture Console"
-             shortcut="control|shift|3"
-             use_mac_ctrl="true">
-                <menu_item_check.on_check
-                 function="Advanced.CheckConsole"
-                 parameter="texture" />
-                <menu_item_check.on_click
-                 function="Advanced.ToggleConsole"
-                 parameter="texture" />
-            </menu_item_check>
-            <menu_item_check
-             label="Debug Console"
-             name="Debug Console"
-             shortcut="control|shift|4"
-             use_mac_ctrl="true">
-                <menu_item_check.on_check
-                 function="Advanced.CheckConsole"
-                 parameter="debug" />
-                <menu_item_check.on_click
-                 function="Advanced.ToggleConsole"
-                 parameter="debug" />
-            </menu_item_check>
-            <menu_item_call
-             label="Notifications Console"
-             name="Notifications"
-             shortcut="control|shift|5">
-              <menu_item_call.on_click
-               function="Floater.Toggle"
-               parameter="notifications_console" />
-            </menu_item_call>
-            <menu_item_check
-               label="Texture Size Console"
-               name="Texture Size"
-               shortcut="control|shift|6">
-              <menu_item_check.on_check
-               function="Advanced.CheckConsole"
-               parameter="texture size" />
-              <menu_item_check.on_click
-               function="Advanced.ToggleConsole"
-               parameter="texture size" />
-            </menu_item_check>
-            <menu_item_check
-               label="Texture Category Console"
-               name="Texture Category"
-               shortcut="control|shift|7">
-              <menu_item_check.on_check
-               function="Advanced.CheckConsole"
-               parameter="texture category" />
-              <menu_item_check.on_click
-               function="Advanced.ToggleConsole"
-               parameter="texture category" />
-            </menu_item_check>
-            <menu_item_check
-             label="Fast Timers"
-             name="Fast Timers"
-             shortcut="control|shift|9"
-             use_mac_ctrl="true">
-                <menu_item_check.on_check
-                 function="Advanced.CheckConsole"
-                 parameter="fast timers" />
-                <menu_item_check.on_click
-                 function="Advanced.ToggleConsole"
-                 parameter="fast timers" />
-            </menu_item_check>
-            <menu_item_check
-             label="Memory"
-             name="Memory"
-             shortcut="control|shift|0"
-             use_mac_ctrl="true">
-                <menu_item_check.on_check
-                 function="Advanced.CheckConsole"
-                 parameter="memory view" />
-                <menu_item_check.on_click
-                 function="Advanced.ToggleConsole"
-                 parameter="memory view" />
-            </menu_item_check>
-
-            <menu_item_separator/>
-
-            <menu_item_call
-             label="Region Info to Debug Console"
-             name="Region Info to Debug Console">
-                <menu_item_call.on_click
-                 function="Advanced.DumpInfoToConsole"
-                 parameter="region" />
-            </menu_item_call>
-            <menu_item_call
-             label="Group Info to Debug Console"
-             name="Group Info to Debug Console">
-                <menu_item_call.on_click
-                 function="Advanced.DumpInfoToConsole"
-                 parameter="group" />
-            </menu_item_call>
-            <menu_item_call
-             label="Capabilities Info to Debug Console"
-             name="Capabilities Info to Debug Console">
-                <menu_item_call.on_click
-                 function="Advanced.DumpInfoToConsole"
-                 parameter="capabilities" />
-            </menu_item_call>
-
-            <menu_item_separator/>
-
-            <menu_item_check
-             label="Camera"
-             name="Camera">
-                <menu_item_check.on_check
-                 function="Advanced.CheckHUDInfo"
-                 parameter="camera" />
-                <menu_item_check.on_click
-                 function="Advanced.ToggleHUDInfo"
-                 parameter="camera" />
-            </menu_item_check>
-            <menu_item_check
-             label="Wind"
-             name="Wind">
-                <menu_item_check.on_check
-                 function="Advanced.CheckHUDInfo"
-                 parameter="wind" />
-                <menu_item_check.on_click
-                 function="Advanced.ToggleHUDInfo"
-                 parameter="wind" />
-            </menu_item_check>
-            <menu_item_check
-             label="FOV"
-             name="FOV">
-                <menu_item_check.on_check
-                 function="Advanced.CheckHUDInfo"
-                 parameter="fov" />
-                <menu_item_check.on_click
-                 function="Advanced.ToggleHUDInfo"
-                 parameter="fov" />
-            </menu_item_check>
-            <menu_item_check
-             label="Badge"
-             name="Badge"
-			 shortcut="alt|control|shift|h">
-                <menu_item_check.on_check
-                 function="Advanced.CheckHUDInfo"
-                 parameter="badge" />
-                <menu_item_check.on_click
-                 function="Advanced.ToggleHUDInfo"
-                 parameter="badge" />
-            </menu_item_check>
-        </menu>
-        <menu
-         create_jump_keys="true"
-         label="Show Info"
-         name="Display Info"
-         tear_off="true">
-            <menu_item_check
-             label="Show Time"
-             name="Show Time">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="DebugShowTime" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="DebugShowTime" />
-            </menu_item_check>
-            <menu_item_check
-             label="Show Render Info"
-             name="Show Render Info">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="DebugShowRenderInfo" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="DebugShowRenderInfo" />
-            </menu_item_check>
-            <menu_item_check
-             label="Show Matrices"
-             name="Show Matrices">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="DebugShowRenderMatrices" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="DebugShowRenderMatrices" />
-            </menu_item_check>
-            <menu_item_check
-             label="Show Color Under Cursor"
-             name="Show Color Under Cursor">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="DebugShowColor" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="DebugShowColor" />
-            </menu_item_check>
-
-            <menu_item_separator/>
-
-            <menu_item_check
-             label="Show Updates to Objects"
-             name="Show Updates"
-             shortcut="control|alt|shift|U">
-                <menu_item_check.on_check
-                 function="Advanced.CheckShowObjectUpdates"
-                 parameter="ObjectUpdates" />
-                <menu_item_check.on_click
-                 function="Advanced.ToggleShowObjectUpdates" />
-            </menu_item_check>
-        </menu>
-
-        <menu_item_separator/>
-
-        <menu
-         create_jump_keys="true"
-         label="Force an Error"
-         name="Force Errors"
-         tear_off="true">
-            <menu_item_call
-             label="Force Breakpoint"
-             name="Force Breakpoint"
-             shortcut="control|alt|shift|B">
-                <menu_item_call.on_click
-                 function="Advanced.ForceErrorBreakpoint" />
-            </menu_item_call>
-            <menu_item_call
-             label="Force LLError And Crash"
-             name="Force LLError And Crash">
-                <menu_item_call.on_click
-                 function="Advanced.ForceErrorLlerror" />
-            </menu_item_call>
-            <menu_item_call
-             label="Force Bad Memory Access"
-             name="Force Bad Memory Access">
-                <menu_item_call.on_click
-                 function="Advanced.ForceErrorBadMemoryAccess" />
-            </menu_item_call>
-            <menu_item_call
-             label="Force Infinite Loop"
-             name="Force Infinite Loop">
-                <menu_item_call.on_click
-                 function="Advanced.ForceErrorInfiniteLoop" />
-            </menu_item_call>
-            <menu_item_call
-             label="Force Driver Crash"
-             name="Force Driver Carsh">
-                <menu_item_call.on_click
-                 function="Advanced.ForceErrorDriverCrash" />
-            </menu_item_call>
-            <menu_item_call
-             label="Force Software Exception"
-             name="Force Software Exception">
-                <menu_item_call.on_click
-                 function="Advanced.ForceErrorSoftwareException" />
-            </menu_item_call>
-            <menu_item_call
-             label="Force Disconnect Viewer"
-             name="Force Disconnect Viewer">
-                <menu_item_call.on_click
-                 function="Advanced.ForceErrorDisconnectViewer" />
-            </menu_item_call>
-            <menu_item_call
-             label="Simulate a Memory Leak"
-             name="Memory Leaking Simulation">
-               <menu_item_call.on_click
-                function="Floater.Show"
-                parameter="mem_leaking" />
-               </menu_item_call>
-        </menu>
-        <menu
-         create_jump_keys="true"
-         label="Render Tests"
-         name="Render Tests"
-         tear_off="true">
-            <menu_item_check
-             label="Camera Offset"
-             name="Camera Offset">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="CameraOffset" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="CameraOffset" />
-            </menu_item_check>
-            <menu_item_check
-             label="Randomize Framerate"
-             name="Randomize Framerate">
-                <menu_item_check.on_check
-                 function="Advanced.CheckRandomizeFramerate"
-                 parameter="Randomize Framerate" />
-                <menu_item_check.on_click
-                 function="Advanced.ToggleRandomizeFramerate" />
-            </menu_item_check>
-            <menu_item_check
-             label="Periodic Slow Frame"
-             name="Periodic Slow Frame">
-                <menu_item_check.on_check
-                 function="Advanced.CheckPeriodicSlowFrame"
-                 parameter="points" />
-                <menu_item_check.on_click
-                 function="Advanced.TogglePeriodicSlowFrame"
-                 parameter="points" />
-            </menu_item_check>
-            <menu_item_check
-             label="Frame Test"
-             name="Frame Test">
-                <menu_item_check.on_check
-                 function="Advanced.CheckFrameTest"
-                 parameter="Frame Test" />
-                <menu_item_check.on_click
-                 function="Advanced.ToggleFrameTest" />
-            </menu_item_check>
-        </menu>
-      <menu
-        create_jump_keys="true"
-        label="Render Metadata"
-        name="Render Metadata"
-        tear_off="true">
-        <menu_item_check
-         label="Bounding Boxes"
-         name="Bounding Boxes">
-        <menu_item_check.on_check
-         function="Advanced.CheckInfoDisplay"
-         parameter="bboxes" />
-        <menu_item_check.on_click
-         function="Advanced.ToggleInfoDisplay"
-         parameter="bboxes" />
-        </menu_item_check>
-        <menu_item_check
-         label="Octree"
-         name="Octree">
-          <menu_item_check.on_check
-           function="Advanced.CheckInfoDisplay"
-           parameter="octree" />
-          <menu_item_check.on_click
-           function="Advanced.ToggleInfoDisplay"
-           parameter="octree" />
-        </menu_item_check>
-        <menu_item_check
-         label="Shadow Frusta"
-         name="Shadow Frusta">
-          <menu_item_check.on_check
-           function="Advanced.CheckInfoDisplay"
-           parameter="shadow frusta" />
-          <menu_item_check.on_click
-           function="Advanced.ToggleInfoDisplay"
-           parameter="shadow frusta" />
-        </menu_item_check>
-        <menu_item_check
-         label="Occlusion"
-         name="Occlusion">
-          <menu_item_check.on_check
-           function="Advanced.CheckInfoDisplay"
-           parameter="occlusion" />
-          <menu_item_check.on_click
-           function="Advanced.ToggleInfoDisplay"
-           parameter="occlusion" />
-        </menu_item_check>
-        <menu_item_check
-         label="Render Batches"
-         name="Render Batches">
-          <menu_item_check.on_check
-           function="Advanced.CheckInfoDisplay"
-           parameter="render batches" />
-          <menu_item_check.on_click
-           function="Advanced.ToggleInfoDisplay"
-           parameter="render batches" />
-        </menu_item_check>
-        <menu_item_check
-         label="Texture Anim"
-         name="Texture Anim">
-          <menu_item_check.on_check
-           function="Advanced.CheckInfoDisplay"
-           parameter="texture anim" />
-          <menu_item_check.on_click
-           function="Advanced.ToggleInfoDisplay"
-           parameter="texture anim" />
-        </menu_item_check>
-        <menu_item_check
-         label="Texture Priority"
-         name="Texture Priority">
-          <menu_item_check.on_check
-           function="Advanced.CheckInfoDisplay"
-           parameter="texture priority" />
-          <menu_item_check.on_click
-           function="Advanced.ToggleInfoDisplay"
-           parameter="texture priority" />
-        </menu_item_check>
-        <menu_item_check
-         label="Texture Area"
-         name="Texture Area">
-          <menu_item_check.on_check
-           function="Advanced.CheckInfoDisplay"
-           parameter="texture area" />
-          <menu_item_check.on_click
-           function="Advanced.ToggleInfoDisplay"
-           parameter="texture area" />
-        </menu_item_check>
-        <menu_item_check
-         label="Face Area"
-         name="Face Area">
-          <menu_item_check.on_check
-           function="Advanced.CheckInfoDisplay"
-           parameter="face area" />
-          <menu_item_check.on_click
-           function="Advanced.ToggleInfoDisplay"
-           parameter="face area" />
-        </menu_item_check>
-        <menu_item_check
-         label="Lights"
-         name="Lights">
-          <menu_item_check.on_check
-           function="Advanced.CheckInfoDisplay"
-           parameter="lights" />
-          <menu_item_check.on_click
-           function="Advanced.ToggleInfoDisplay"
-           parameter="lights" />
-        </menu_item_check>
-        <menu_item_check
-         label="Collision Skeleton"
-         name="Collision Skeleton">
-          <menu_item_check.on_check
-           function="Advanced.CheckInfoDisplay"
-           parameter="collision skeleton" />
-          <menu_item_check.on_click
-           function="Advanced.ToggleInfoDisplay"
-           parameter="collision skeleton" />
-        </menu_item_check>
-       <menu_item_check
-         label="Joints"
-         name="Joints">
-          <menu_item_check.on_check
-           function="Advanced.CheckInfoDisplay"
-           parameter="joints" />
-          <menu_item_check.on_click
-           function="Advanced.ToggleInfoDisplay"
-           parameter="joints" />
-        </menu_item_check>
-        <menu_item_check
-         label="Raycast"
-         name="Raycast">
-          <menu_item_check.on_check
-           function="Advanced.CheckInfoDisplay"
-           parameter="raycast" />
-          <menu_item_check.on_click
-           function="Advanced.ToggleInfoDisplay"
-           parameter="raycast" />
-        </menu_item_check>
-      </menu>
-        <menu
-         create_jump_keys="true"
-         label="Rendering"
-         name="Rendering"
-         tear_off="true">
-            <menu_item_check
-             label="Axes"
-             name="Axes">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="ShowAxes" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="ShowAxes" />
-            </menu_item_check>
-            <menu_item_check
-             label="Tangent Basis"
-             name="Tangent Basis">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="ShowTangentBasis" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="ShowTangentBasis" />
-            </menu_item_check>
-            <menu_item_call
-             label="Selected Texture Info Basis"
-             name="Selected Texture Info Basis"
-             shortcut="control|alt|shift|T">
-                <menu_item_call.on_click
-                 function="Advanced.SelectedTextureInfo" />
-            </menu_item_call>
-            <menu_item_check
-             label="Wireframe"
-             name="Wireframe"
-             shortcut="control|shift|R">
-                <menu_item_check.on_check
-                 function="Advanced.CheckWireframe"
-                 parameter="Wireframe" />
-                <menu_item_check.on_click
-                 function="Advanced.ToggleWireframe" />
-            </menu_item_check>
-            <menu_item_check
-             label="Object-Object Occlusion"
-             name="Object-Object Occlusion"
-             shortcut="control|shift|O">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="UseOcclusion" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="UseOcclusion" />
-                <menu_item_check.on_enable
-                 function="Advanced.EnableObjectObjectOcclusion" />
-            </menu_item_check>
-          <menu_item_check
-             label="Framebuffer Objects"
-             name="Framebuffer Objects">
-            <menu_item_check.on_check
-             function="CheckControl"
-             parameter="RenderUseFBO" />
-            <menu_item_check.on_click
-             function="ToggleControl"
-             parameter="RenderUseFBO" />
-            <menu_item_check.on_enable
-                 function="Advanced.EnableRenderFBO" />
-           </menu_item_check>
-
-          <menu_item_separator />
-
-          <menu_item_check
-                       label="Lighting and Shadows"
-                       name="Lighting and Shadows">
-            <menu_item_check.on_check
-             function="CheckControl"
-             parameter="RenderDeferred" />
-            <menu_item_check.on_click
-             function="ToggleControl"
-             parameter="RenderDeferred" />
-            <menu_item_check.on_enable
-                 function="Advanced.EnableRenderDeferred" />
-          </menu_item_check>
-          <menu_item_check
-                       label="   Shadows from Sun/Moon/Projectors"
-                       name="Shadows from Sun/Moon/Projectors">
-            <menu_item_check.on_check
-             function="Advanced.CheckRenderShadowOption"
-             parameter="RenderShadowDetail" />
-            <menu_item_check.on_click
-             function="Advanced.ClickRenderShadowOption"
-             parameter="RenderShadowDetail" />
-            <menu_item_check.on_enable
-                 function="Advanced.EnableRenderDeferredOptions" />
-          </menu_item_check>
-          <menu_item_check
-                   label="   SSAO and Shadow Smoothing"
-                   name="SSAO and Shadow Smoothing">
-            <menu_item_check.on_check
-             function="CheckControl"
-             parameter="RenderDeferredSSAO" />
-            <menu_item_check.on_click
-             function="ToggleControl"
-             parameter="RenderDeferredSSAO" />
-            <menu_item_check.on_enable
-                 function="Advanced.EnableRenderDeferredOptions" />
-          </menu_item_check>
-          <menu_item_check
-                   label="   Global Illumination (experimental)"
-                   name="Global Illumination">
-            <menu_item_check.on_check
-             function="CheckControl"
-             parameter="RenderDeferredGI" />
-            <menu_item_check.on_click
-             function="ToggleControl"
-             parameter="RenderDeferredGI" />
-            <menu_item_check.on_enable
-                 function="Advanced.EnableRenderDeferredOptions" />
-          </menu_item_check>
-
-          <menu_item_separator />
-
-          <menu_item_check
-             label="Debug GL"
-             name="Debug GL">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="RenderDebugGL" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="RenderDebugGL" />
-            </menu_item_check>
-            <menu_item_check
-             label="Debug Pipeline"
-             name="Debug Pipeline">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="RenderDebugPipeline" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="RenderDebugPipeline" />
-            </menu_item_check>
-            <menu_item_check
-             label="Automatic Alpha Masks (deferred)"
-             name="Automatic Alpha Masks (deferred)">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="RenderAutoMaskAlphaDeferred" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="RenderAutoMaskAlphaDeferred" />
-            </menu_item_check>
-            <menu_item_check
-             label="Automatic Alpha Masks (non-deferred)"
-             name="Automatic Alpha Masks (non-deferred)">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="RenderAutoMaskAlphaNonDeferred" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="RenderAutoMaskAlphaNonDeferred" />
-            </menu_item_check>
-            <menu_item_check
-             label="Animation Textures"
-             name="Animation Textures">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="AnimateTextures" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="AnimateTextures" />
-            </menu_item_check>
-            <menu_item_check
-             label="Disable Textures"
-             name="Disable Textures">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="TextureDisable" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="TextureDisable" />
-            </menu_item_check>
-            <menu_item_check
-              label="Full Res Textures"
-             name="Rull Res Textures">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="TextureLoadFullRes" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="TextureLoadFullRes" />
-            </menu_item_check>
-            <menu_item_check
-               label="Audit Textures"
-               name="Audit Textures">
-              <menu_item_check.on_check
-               function="CheckControl"
-               parameter="AuditTexture" />
-              <menu_item_check.on_click
-               function="ToggleControl"
-               parameter="AuditTexture" />
-            </menu_item_check>
-            <menu_item_check
-             label="Texture Atlas (experimental)"
-             name="Texture Atlas">
-              <menu_item_check.on_check
-               function="CheckControl"
-               parameter="EnableTextureAtlas" />
-              <menu_item_check.on_click
-               function="ToggleControl"
-               parameter="EnableTextureAtlas" />
-            </menu_item_check>
-              <menu_item_check
-             label="Render Attached Lights"
-             name="Render Attached Lights">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="RenderAttachedLights" />
-                <menu_item_check.on_click
-                 function="Advanced.HandleAttachedLightParticles"
-                 parameter="RenderAttachedLights" />
-            </menu_item_check>
-            <menu_item_check
-             label="Render Attached Particles"
-             name="Render Attached Particles">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="RenderAttachedParticles" />
-                <menu_item_check.on_click
-                 function="Advanced.HandleAttachedLightParticles"
-                 parameter="RenderAttachedParticles" />
-            </menu_item_check>
-            <menu_item_check
-             label="Hover Glow Objects"
-             name="Hover Glow Objects">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="RenderHoverGlowEnable" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="RenderHoverGlowEnable" />
-            </menu_item_check>
-        </menu>
-
-        <menu
-         create_jump_keys="true"
-         label="Network"
-         name="Network"
-         tear_off="true">
-            <menu_item_check
-             label="Pause Agent"
-             name="AgentPause">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="AgentPause" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="AgentPause" />
-            </menu_item_check>
-
-            <menu_item_separator/>
-
-            <menu_item_call
-             label="Enable Message Log"
-             name="Enable Message Log">
-                <menu_item_call.on_click
-                 function="Advanced.EnableMessageLog" />
-            </menu_item_call>
-            <menu_item_call
-             label="Disable Message Log"
-             name="Disable Message Log">
-                <menu_item_call.on_click
-                 function="Advanced.DisableMessageLog" />
-            </menu_item_call>
-
-            <menu_item_separator/>
-
-            <menu_item_check
-             label="Velocity Interpolate Objects"
-             name="Velocity Interpolate Objects">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="VelocityInterpolate" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="VelocityInterpolate" />
-            </menu_item_check>
-            <menu_item_check
-             label="Ping Interpolate Object Positions"
-             name="Ping Interpolate Object Positions">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="PingInterpolate" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="PingInterpolate" />
-            </menu_item_check>
-
-            <menu_item_separator/>
-
-            <menu_item_call
-             label="Drop a Packet"
-             name="Drop a Packet"
-             shortcut="control|alt|L">
-                <menu_item_call.on_click
-                 function="Advanced.DropPacket" />
-            </menu_item_call>
-        </menu>
-        <menu_item_call
-         label="Dump Scripted Camera"
-         name="Dump Scripted Camera">
-            <menu_item_call.on_click
-             function="Advanced.DumpScriptedCamera" />
-        </menu_item_call>
-        <menu_item_call
-             label="Bumps, Pushes &amp; Hits"
-             name="Bumps, Pushes &amp;amp; Hits">
-                <menu_item_call.on_click
-                 function="Floater.Show"
-                 parameter="bumps" />
-            </menu_item_call>
-
-        <menu
-         create_jump_keys="true"
-         label="Recorder"
-         name="Recorder"
-         tear_off="true">
-            <menu_item_call
-             label="Start Playback"
-             name="Start Playback">
-                <menu_item_call.on_click
-                 function="Advanced.AgentPilot"
-                 parameter="start playback" />
-            </menu_item_call>
-            <menu_item_call
-             label="Stop Playback"
-             name="Stop Playback">
-                <menu_item_call.on_click
-                 function="Advanced.AgentPilot"
-                 parameter="stop playback" />
-            </menu_item_call>
-            <menu_item_check
-             label="Loop Playback"
-             name="Loop Playback">
-                <menu_item_check.on_check
-                 function="Advanced.CheckAgentPilotLoop"
-                 parameter="loopPlayback" />
-                <menu_item_check.on_click
-                 function="Advanced.ToggleAgentPilotLoop" />
-            </menu_item_check>
-            <menu_item_call
-             label="Start Record"
-             name="Start Record">
-                <menu_item_call.on_click
-                 function="Advanced.AgentPilot"
-                 parameter="start record" />
-            </menu_item_call>
-            <menu_item_call
-             label="Stop Record"
-             name="Stop Record">
-                <menu_item_call.on_click
-                 function="Advanced.AgentPilot"
-                 parameter="stop record" />
-            </menu_item_call>
-        </menu>
-
-        <menu
-         create_jump_keys="true"
-         label="World"
-         name="World"
-         tear_off="true">
-            <menu_item_check
-             label="Sim Sun Override"
-             name="Sim Sun Override">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="SkyOverrideSimSunPosition" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="SkyOverrideSimSunPosition" />
-            </menu_item_check>
-            <menu_item_check
-             label="Cheesy Beacon"
-             name="Cheesy Beacon">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="CheesyBeacon" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="CheesyBeacon" />
-            </menu_item_check>
-            <menu_item_check
-             label="Fixed Weather"
-             name="Fixed Weather">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="FixedWeather" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="FixedWeather" />
-            </menu_item_check>
-            <menu_item_call
-             label="Dump Region Object Cache"
-             name="Dump Region Object Cache">
-                <menu_item_call.on_click
-                 function="Advanced.DumpRegionObjectCache" />
-            </menu_item_call>
-        </menu>
-        <menu
-         create_jump_keys="true"
-         label="UI"
-         name="UI"
-         tear_off="true">
-         <!--   <menu_item_check
-             label="New Bottom Bar"
-             name="New Bottom Bar">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="BottomPanelNew" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="BottomPanelNew" />
-            </menu_item_check>-->
-            <menu_item_call
-             label="Web Browser Test"
-             name="Web Browser Test">
-                <menu_item_call.on_click
-                 function="Advanced.WebBrowserTest"
-                 parameter="http://secondlife.com/app/search/slurls.html"/>
-            </menu_item_call>
-            <menu_item_call
-             label="Dump SelectMgr"
-             name="Dump SelectMgr">
-                <menu_item_call.on_click
-                 function="Advanced.DumpSelectMgr" />
-            </menu_item_call>
-            <menu_item_call
-             label="Dump Inventory"
-             name="Dump Inventory">
-                <menu_item_call.on_click
-                 function="Advanced.DumpInventory" />
-            </menu_item_call>
-            <menu_item_call
-             label="Dump Timers"
-             name="Dump Timers">
-                <menu_item_call.on_click
-                 function="Advanced.DumpTimers" />
-            </menu_item_call>
-            <menu_item_call
-             label="Dump Focus Holder"
-             name="Dump Focus Holder">
-                <menu_item_call.on_click
-                 function="Advanced.DumpFocusHolder" />
-            </menu_item_call>
-            <menu_item_call
-             label="Print Selected Object Info"
-             name="Print Selected Object Info"
-             shortcut="control|shift|P">
-                <menu_item_call.on_click
-                 function="Advanced.PrintSelectedObjectInfo" />
-            </menu_item_call>
-            <menu_item_call
-             label="Print Agent Info"
-             name="Print Agent Info"
-             shortcut="shift|P">
-                <menu_item_call.on_click
-                 function="Advanced.PrintAgentInfo" />
-            </menu_item_call>
-            <menu_item_call
-             label="Memory Stats"
-             name="Memory Stats"
-             shortcut="control|alt|shift|M">
-                <menu_item_call.on_click
-                 function="Advanced.PrintTextureMemoryStats" />
-            </menu_item_call>
-            <menu_item_check
-             label="Double-Click Auto-Pilot"
-             name="Double-Click Auto-Pilot">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="DoubleClickAutoPilot" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="DoubleClickAutoPilot" />
-            </menu_item_check>
-            <menu_item_check
-             label="Double-Click Teleport"
-             name="DoubleClick Teleport">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="DoubleClickTeleport" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="DoubleClickTeleport" />
-            </menu_item_check>
-
-            <menu_item_separator />
-
-            <menu_item_check
-             label="Debug SelectMgr"
-             name="Debug SelectMgr">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="DebugSelectMgr" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="DebugSelectMgr" />
-            </menu_item_check>
-            <menu_item_check
-             label="Debug Clicks"
-             name="Debug Clicks">
-                <menu_item_check.on_check
-                 function="Advanced.CheckDebugClicks"
-                 parameter="DebugClicks" />
-                <menu_item_check.on_click
-                 function="Advanced.ToggleDebugClicks"
-                 parameter="DebugClicks" />
-            </menu_item_check>
-            <menu_item_check
-             label="Debug Views"
-             name="Debug Views">
-                <menu_item_check.on_check
-                 function="Advanced.CheckDebugViews" />
-                <menu_item_check.on_click
-                 function="Advanced.ToggleDebugViews" />
-            </menu_item_check>
-            <menu_item_check
-             label="Debug Name Tooltips"
-             name="Debug Name Tooltips">
-                <menu_item_check.on_check
-                 function="Advanced.CheckXUINameTooltips"
-                 parameter="XUINameTooltips" />
-                <menu_item_check.on_click
-                 function="Advanced.ToggleXUINameTooltips" />
-            </menu_item_check>
-            <menu_item_check
-             label="Debug Mouse Events"
-             name="Debug Mouse Events">
-                <menu_item_check.on_check
-                 function="Advanced.CheckDebugMouseEvents"
-                 parameter="MouseEvents" />
-                <menu_item_check.on_click
-                 function="Advanced.ToggleDebugMouseEvents" />
-            </menu_item_check>
-            <menu_item_check
-             label="Debug Keys"
-             name="Debug Keys">
-                <menu_item_check.on_check
-                 function="Advanced.CheckDebugKeys"
-                 parameter="DebugKeys" />
-                <menu_item_check.on_click
-                 function="Advanced.ToggleDebugKeys" />
-            </menu_item_check>
-            <menu_item_check
-             label="Debug WindowProc"
-             name="Debug WindowProc">
-                <menu_item_check.on_check
-                 function="Advanced.CheckDebugWindowProc"
-                 parameter="DebugWindowProc" />
-                <menu_item_check.on_click
-                 function="Advanced.ToggleDebugWindowProc"
-                 parameter="DebugWindowProc" />
-            </menu_item_check>
-        </menu>
-        <menu
-         create_jump_keys="true"
-         label="XUI"
-         name="XUI"
-         tear_off="true">
-            <menu_item_call
-               label="Reload Color Settings"
-               name="Reload Color Settings">
-              <menu_item_call.on_click
-               function="Advanced.ReloadColorSettings" />
-            </menu_item_call>
-            <menu_item_call
-             label="Show Font Test"
-             name="Show Font Test">
-                <menu_item_call.on_click
-                 function="Floater.Show"
-                 parameter="font_test" />
-            </menu_item_call>
-            <menu_item_call
-             label="Load from XML"
-             name="Load from XML">
-                <menu_item_call.on_click
-                 function="Advanced.LoadUIFromXML" />
-            </menu_item_call>
-            <menu_item_call
-             label="Save to XML"
-             name="Save to XML">
-                <menu_item_call.on_click
-                 function="Advanced.SaveUIToXML" />
-            </menu_item_call>
-            <menu_item_check
-             label="Show XUI Names"
-             name="Show XUI Names">
-                <menu_item_check.on_check
-                 function="Advanced.CheckXUINames"
-                 parameter="showUIname" />
-                <menu_item_check.on_click
-                 function="Advanced.ToggleXUINames" />
-            </menu_item_check>
-          <menu_item_call
-           label="Send Test IMs"
-           name="Send Test IMs">
-            <menu_item_call.on_click
-             function="Advanced.SendTestIMs" />
-          </menu_item_call>
-        </menu>
-        <menu
-         create_jump_keys="true"
-         label="Avatar"
-         name="Character"
-         tear_off="true">
-            <menu
-             create_jump_keys="true"
-             label="Grab Baked Texture"
-             name="Grab Baked Texture"
-             tear_off="true">
-                <menu_item_call
-                 label="Iris"
-                 name="Iris">
-                    <menu_item_call.on_click
-                     function="Advanced.GrabBakedTexture"
-                     parameter="iris" />
-                    <menu_item_call.on_enable
-                     function="Advanced.EnableGrabBakedTexture"
-					 parameter="iris" />
-                </menu_item_call>
-                <menu_item_call
-                 label="Head"
-                 name="Head">
-                    <menu_item_call.on_click
-                     function="Advanced.GrabBakedTexture"
-                     parameter="head" />
-                    <menu_item_call.on_enable
-                     function="Advanced.EnableGrabBakedTexture"
-					 parameter="head" />
-                </menu_item_call>
-                <menu_item_call
-                 label="Upper Body"
-                 name="Upper Body">
-                    <menu_item_call.on_click
-                     function="Advanced.GrabBakedTexture"
-                     parameter="upper" />
-                    <menu_item_call.on_enable
-                     function="Advanced.EnableGrabBakedTexture"
-					 parameter="upper" />
-                </menu_item_call>
-                <menu_item_call
-                 label="Lower Body"
-                 name="Lower Body">
-                    <menu_item_call.on_click
-                     function="Advanced.GrabBakedTexture"
-                     parameter="lower" />
-                    <menu_item_call.on_enable
-                     function="Advanced.EnableGrabBakedTexture"
-					 parameter="lower" />
-                </menu_item_call>
-                <menu_item_call
-                 label="Skirt"
-                 name="Skirt">
-                    <menu_item_call.on_click
-                     function="Advanced.GrabBakedTexture"
-                     parameter="skirt" />
-                    <menu_item_call.on_enable
-                     function="Advanced.EnableGrabBakedTexture"
-					 parameter="skirt" />
-                </menu_item_call>
-            </menu>
-            <menu
-             create_jump_keys="true"
-             label="Character Tests"
-             name="Character Tests"
-             tear_off="true">
-                <menu_item_call
-                 label="Appearance To XML"
-                 name="Appearance To XML">
-                    <menu_item_call.on_click
-                     function="Advanced.AppearanceToXML" />
-                </menu_item_call>
-                <menu_item_call
-                 label="Toggle Character Geometry"
-                 name="Toggle Character Geometry">
-                    <menu_item_call.on_click
-                     function="Advanced.ToggleCharacterGeometry" />
-                    <menu_item_call.on_enable
-                     function="IsGodCustomerService" />
-                </menu_item_call>
-                <menu_item_call
-                 label="Test Male"
-                 name="Test Male">
-                    <menu_item_call.on_click
-                     function="Advanced.TestMale" />
-                </menu_item_call>
-                <menu_item_call
-                 label="Test Female"
-                 name="Test Female">
-                    <menu_item_call.on_click
-                     function="Advanced.TestFemale" />
-                </menu_item_call>
-                <menu_item_call
-                 label="Toggle PG"
-                 name="Toggle PG">
-                    <menu_item_call.on_click
-                     function="Advanced.TogglePG" />
-                </menu_item_call>
-                <menu_item_check
-                 label="Allow Select Avatar"
-                 name="Allow Select Avatar">
-                    <menu_item_check.on_check
-                     function="CheckControl"
-                     parameter="AllowSelectAvatar" />
-                    <menu_item_check.on_click
-                     function="ToggleControl"
-                     parameter="AllowSelectAvatar" />
-                </menu_item_check>
-            </menu>
-            <menu_item_call
-             label="Force Params to Default"
-             name="Force Params to Default">
-                <menu_item_call.on_click
-                 function="Advanced.ForceParamsToDefault" />
-            </menu_item_call>
-            <menu_item_check
-             label="Animation Info"
-             name="Animation Info">
-                <menu_item_check.on_check
-                 function="Advanced.CheckAnimationInfo"
-                 parameter="AnimationInfo" />
-                <menu_item_check.on_click
-                 function="Advanced.ToggleAnimationInfo"
-                 parameter="" />
-            </menu_item_check>
-            <menu_item_check
-             label="Slow Motion Animations"
-             name="Slow Motion Animations">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="SlowMotionAnimation" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="SlowMotionAnimation" />
-            </menu_item_check>
-            <menu_item_check
-		label="Show Look-At">
-		name="Show Look-At"
-		<menu_item_check.on_check
-		    function="CheckControl"
-		    parameter="ShowLookAt" />
-		<menu_item_check.on_click
-		    function="ToggleControl"
-		    parameter="ShowLookAt" />
-            </menu_item_check>
-	    <menu_item_check
-		label="Show Point-At">
-		name="Show Point-At"
-		<menu_item_check.on_check
-		    function="CheckControl"
-		    parameter="ShowPointAt" />
-		<menu_item_check.on_click
-		    function="ToggleControl"
-		    parameter="ShowPointAt" />
-            </menu_item_check>
-            <menu_item_check
-	     label="Private Look At"
-	     name="Private Look At">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="PrivateLookAtTarget" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="PrivateLookAtTarget" />
-            </menu_item_check>
-            <menu_item_check
-	     label="Private Point At"
-	     name="Private Point At">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="PrivatePointAtTarget" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="PrivatePointAtTarget" />
-            </menu_item_check>
-			<menu_item_check name="Cat Mode"
-			label="Cat Mode (head follows mouse)">
-			<menu_item_check.on_check
-			function="CheckControl"
-			parameter="CatMode" />
-			<menu_item_check.on_click
-			function="ToggleControl"
-			parameter="CatMode" />
-			</menu_item_check>
-            <menu_item_check
-             label="Debug Joint Updates"
-             name="Debug Joint Updates">
-                <menu_item_check.on_check
-                 function="Advanced.CheckDebugJointUpdates"
-                 parameter="DebugJointUpdates" />
-                <menu_item_check.on_click
-                 function="Advanced.ToggleDebugJointUpdates" />
-            </menu_item_check>
-            <menu_item_check
-             label="Disable LOD"
-             name="Disable LOD">
-                <menu_item_check.on_check
-                 function="Advanced.CheckDisableLOD"
-                 parameter="DisableLOD" />
-                <menu_item_check.on_click
-                 function="Advanced.ToggleDisableLOD" />
-            </menu_item_check>
-            <menu_item_check
-             label="Debug Character Vis"
-             name="Debug Character Vis">
-                <menu_item_check.on_check
-                 function="Advanced.CheckDebugCharacterVis"
-                 parameter="DebugCharacterVis" />
-                <menu_item_check.on_click
-                 function="Advanced.ToggleDebugCharacterVis" />
-            </menu_item_check>
-            <menu_item_check
-             label="Show Collision Skeleton"
-             name="Show Collision Skeleton">
-                <menu_item_check.on_check
-                 function="Advanced.CheckInfoDisplay"
-                 parameter="collision skeleton" />
-                <menu_item_check.on_click
-                 function="Advanced.ToggleInfoDisplay"
-                 parameter="collision skeleton" />
-            </menu_item_check>
-            <menu_item_check
-             label="Display Agent Target"
-             name="Display Agent Target">
-                <menu_item_check.on_check
-                 function="Advanced.CheckInfoDisplay"
-                 parameter="agent target" />
-                <menu_item_check.on_click
-                 function="Advanced.ToggleInfoDisplay"
-                 parameter="agent target" />
-            </menu_item_check>
-<!-- Appears not to exist anymore
-            <menu_item_check
-             label="Debug Rotation"
-             name="Debug Rotation">
-                <menu_item_check.on_check
-                 function="CheckControl"
-                 parameter="DebugAvatarRotation" />
-                <menu_item_check.on_click
-                 function="ToggleControl"
-                 parameter="DebugAvatarRotation" />
-            </menu_item_check> -->
--->
-            <menu_item_call
-             label="Dump Attachments"
-             name="Dump Attachments">
-                <menu_item_call.on_click
-                 function="Advanced.DumpAttachments" />
-            </menu_item_call>
-            <menu_item_call
-             label="Debug Avatar Textures"
-             name="Debug Avatar Textures"
-             shortcut="control|alt|shift|A">
-                <menu_item_call.on_click
-                 function="Advanced.DebugAvatarTextures" />
-            </menu_item_call>
-            <menu_item_call
-             label="Dump Local Textures"
-             name="Dump Local Textures"
-             shortcut="alt|shift|M">
-                <menu_item_call.on_click
-                 function="Advanced.DumpAvatarLocalTextures" />
-            </menu_item_call>
-        </menu>
-
-        <menu_item_separator/>
-
-        <menu_item_check
-         label="HTTP Textures"
-         name="HTTP Textures"
-         enabled="true">
-            <menu_item_check.on_check
-             function="CheckControl"
-             parameter="ImagePipelineUseHTTP" />
-            <menu_item_check.on_click
-             function="ToggleControl"
-             parameter="ImagePipelineUseHTTP" />
-        </menu_item_check>
-       <menu_item_check
-         label="HTTP Inventory"
-         name="HTTP Inventory"
-         enabled="false">
-            <menu_item_check.on_check
-             function="CheckControl"
-             parameter="UseHTTPInventory" />
-            <menu_item_check.on_click
-             function="ToggleControl"
-             parameter="UseHTTPInventory" />
-        </menu_item_check>
-        <menu_item_call
-         label="Compress Images"
-         name="Compress Images">
-            <menu_item_call.on_click
-             function="Advanced.CompressImage" />
-        </menu_item_call>
-        <menu_item_check
-         label="Output Debug Minidump"
-         name="Output Debug Minidump">
-            <menu_item_check.on_check
-             function="CheckControl"
-             parameter="SaveMinidump" />
-            <menu_item_check.on_click
-             function="ToggleControl"
-             parameter="SaveMinidump" />
-        </menu_item_check>
-        <menu_item_check
-         label="Console Window on next Run"
-         name="Console Window">
-            <menu_item_check.on_check
-             function="CheckControl"
-             parameter="ShowConsoleWindow" />
-            <menu_item_check.on_click
-             function="ToggleControl"
-             parameter="ShowConsoleWindow" />
-        </menu_item_check>
-
-        <menu_item_separator/>
-
-        <menu_item_check
-         label="Show Admin Menu"
-         name="View Admin Options">
-            <menu_item_check.on_check
-             function="Advanced.CheckViewAdminOptions"
-             parameter="ViewAdminOptions" />
-            <menu_item_check.on_click
-             function="Advanced.ToggleViewAdminOptions" />
-        </menu_item_check>
-        <menu_item_call
-         label="Request Admin Status"
-         name="Request Admin Options"
-         shortcut="control|alt|G">
-            <menu_item_call.on_click
-             function="Advanced.RequestAdminStatus" />
-        </menu_item_call>
-        <menu_item_call
-         label="Leave Admin Status"
-         name="Leave Admin Options"
-         shortcut="control|alt|shift|G">
-            <menu_item_call.on_click
-             function="Advanced.LeaveAdminStatus" />
-        </menu_item_call>
-    </menu>
+<menu label="Entwickler" name="Develop">
+		<menu label="Konsolen" name="Consoles">
+			<menu_item_check label="Textur" name="Texture Console"/>
+			<menu_item_check label="Fehler beseitigen" name="Debug Console"/>
+			<menu_item_call label="Meldungen" name="Notifications"/>
+			<menu_item_check label="Regions-Debug-Konsole" name="Region Debug Console"/>
+			<menu_item_check label="Schnelle Timer" name="Fast Timers"/>
+			<menu_item_check label="Speicher" name="Memory"/>
+			<menu_item_check label="Szenestatistiken" name="Scene Statistics"/>
+			<menu_item_check label="Monitor zum Laden von Szenen" name="Scene Loading Monitor"/>
+			<menu_item_call label="Debug-Konsole für Texturabruffehler" name="Texture Fetch Debug Console"/>
+			<menu_item_call label="Info zu Region in Fenster Fehler beseitigen" name="Region Info to Debug Console"/>
+			<menu_item_call label="Gruppeninfo in Fenster Fehler beseitigen" name="Group Info to Debug Console"/>
+			<menu_item_call label="Info zu Fähigkeiten in Fenster Fehler beseitigen" name="Capabilities Info to Debug Console"/>
+			<menu_item_check label="Kamera" name="Camera"/>
+			<menu_item_check label="Wind" name="Wind"/>
+			<menu_item_check label="FOV" name="FOV"/>
+			<menu_item_check label="Gütesiegel" name="Badge"/>
+		</menu>
+		<menu label="Info anzeigen" name="Display Info">
+			<menu_item_check label="Zeit anzeigen" name="Show Time"/>
+			<menu_item_check label="Kosten für Hochladen anzeigen" name="Show Upload Cost"/>
+			<menu_item_check label="Render-Info anzeigen" name="Show Render Info"/>
+			<menu_item_check label="Texturinfos anzeigen" name="Show Texture Info"/>
+			<menu_item_check label="Matrizen anzeigen" name="Show Matrices"/>
+			<menu_item_check label="Farbe unter Cursor anzeigen" name="Show Color Under Cursor"/>
+			<menu_item_check label="Speicher anzeigen" name="Show Memory"/>
+			<menu_item_check label="Info über privaten Speicher anzeigen" name="Show Private Mem Info"/>
+			<menu_item_check label="Akutalisierungen an Objekten anzeigen" name="Show Updates"/>
+		</menu>
+		<menu label="Fehler erzwingen" name="Force Errors">
+			<menu_item_call label="Haltepunkt erzwingen" name="Force Breakpoint"/>
+			<menu_item_call label="LLError erzwingen und abstürzen" name="Force LLError And Crash"/>
+			<menu_item_call label="Erzwinge fehlerhaften Speicherzugriff" name="Force Bad Memory Access"/>
+			<menu_item_call label="Endlosschleife erzwingen" name="Force Infinite Loop"/>
+			<menu_item_call label="Treiber-Crash erzwingen" name="Force Driver Carsh"/>
+			<menu_item_call label="Softwareausnahme erzwingen" name="Force Software Exception"/>
+			<menu_item_call label="Verbindungsabbruch erzwingen" name="Force Disconnect Viewer"/>
+			<menu_item_call label="Speicherverlust simulieren" name="Memory Leaking Simulation"/>
+		</menu>
+		<menu label="Render-Tests" name="Render Tests">
+			<menu_item_check label="Kamera-Versatz" name="Camera Offset"/>
+			<menu_item_check label="Framerate randomisieren" name="Randomize Framerate"/>
+			<menu_item_check label="Periodic Slow Frame" name="Periodic Slow Frame"/>
+			<menu_item_check label="Frame-Test" name="Frame Test"/>
+			<menu_item_call label="Rahmenprofil" name="Frame Profile"/>
+			<menu_item_call label="Benchmark" name="Benchmark"/>
+		</menu>
+		<menu label="Metadaten darstellen" name="Render Metadata">
+			<menu_item_check label="Bonding Boxes" name="Bounding Boxes"/>
+			<menu_item_check label="Normalen" name="Normals"/>
+			<menu_item_check label="Octree" name="Octree"/>
+			<menu_item_check label="Shadow Frusta" name="Shadow Frusta"/>
+			<menu_item_check label="Physische Formen" name="Physics Shapes"/>
+			<menu_item_check label="Okklusion" name="Occlusion"/>
+			<menu_item_check label="Bündel rendern" name="Render Batches"/>
+			<menu_item_check label="Typ aktualisieren" name="Update Type"/>
+			<menu_item_check label="Texture-Anim" name="Texture Anim"/>
+			<menu_item_check label="Textur-Priorität" name="Texture Priority"/>
+			<menu_item_check label="Texturbereich" name="Texture Area"/>
+			<menu_item_check label="Oberflächenbereich" name="Face Area"/>
+			<menu_item_check label="Detailstufeninfos" name="LOD Info"/>
+			<menu_item_check label="Konstruktionswarteschlange" name="Build Queue"/>
+			<menu_item_check label="Lichter" name="Lights"/>
+			<menu_item_check label="Partikel" name="Particles"/>
+			<menu_item_check label="Gelenkpunkte" name="Collision Skeleton"/>
+			<menu_item_check label="Gelenke" name="Joints"/>
+			<menu_item_check label="Raycast" name="Raycast"/>
+			<menu_item_check label="Windvektoren" name="Wind Vectors"/>
+			<menu_item_check label="Formen" name="Sculpt"/>
+			<menu label="Texturdichte" name="Texture Density">
+				<menu_item_check label="Keine" name="None"/>
+				<menu_item_check label="Aktuelle" name="Current"/>
+				<menu_item_check label="Gewünschte" name="Desired"/>
+				<menu_item_check label="Volle" name="Full"/>
+			</menu>
+		</menu>
+		<menu label="Rendering" name="Rendering">
+			<menu_item_check label="Achsen" name="Axes"/>
+			<menu_item_check label="Tangentenbasis" name="Tangent Basis"/>
+			<menu_item_call label="Texturinfo für ausgewähltes Objekt" name="Selected Texture Info Basis"/>
+			<menu_item_call label="Ausgewählte Materialinfos" name="Selected Material Info"/>
+			<menu_item_check label="Wireframe" name="Wireframe"/>
+			<menu_item_check label="Objekt-Objekt Okklusion" name="Object-Object Occlusion"/>
+			<menu_item_check label="Erweitertes Beleuchtungsmodell" name="Advanced Lighting Model"/>
+			<menu_item_check label="Schatten von Sonne-/Mond-Projektoren" name="Shadows from Sun/Moon/Projectors"/>
+			<menu_item_check label="SSAO und Schattenglättung" name="SSAO and Shadow Smoothing"/>
+			<menu_item_check label="Fehler in GL beseitigen" name="Debug GL"/>
+			<menu_item_check label="Fehler in Pipeline beseitigen" name="Debug Pipeline"/>
+			<menu_item_check label="Automatische Alpha-Masken (aufgeschoben)" name="Automatic Alpha Masks (deferred)"/>
+			<menu_item_check label="Automatische Alpha-Masken (nicht aufgeschoben)" name="Automatic Alpha Masks (non-deferred)"/>
+			<menu_item_check label="Animationstexturen" name="Animation Textures"/>
+			<menu_item_check label="Texturen deaktivieren" name="Disable Textures"/>
+			<menu_item_check label="Voll-Res-Texturen" name="Rull Res Textures"/>
+			<menu_item_check label="Angehängte Lichter rendern" name="Render Attached Lights"/>
+			<menu_item_check label="Angehängte Partikel rendern" name="Render Attached Particles"/>
+			<menu_item_check label="Leucht-Objekte schweben lassen" name="Hover Glow Objects"/>
+			<menu_item_call label="Cache sofort leeren" name="Cache Clear"/>
+		</menu>
+		<menu label="Netzwerk" name="Network">
+			<menu_item_check label="Agent pausieren" name="AgentPause"/>
+			<menu_item_call label="Meldungsprotokoll aktivieren" name="Enable Message Log"/>
+			<menu_item_call label="Meldungsprotokoll deaktivieren" name="Disable Message Log"/>
+			<menu_item_check label="Objektposition laut Geschwindigkeit interpolieren" name="Velocity Interpolate Objects"/>
+			<menu_item_check label="Positionen der interpolierten Objekte anfragen" name="Ping Interpolate Object Positions"/>
+			<menu_item_call label="Ein Paket fallenlassen" name="Drop a Packet"/>
+		</menu>
+		<menu_item_call label="Geskriptete Kamera ausgeben" name="Dump Scripted Camera"/>
+		<menu label="Rekorder" name="Recorder">
+			<menu_item_call label="Wiedergabe starten" name="Start Playback"/>
+			<menu_item_call label="Wiedergabe stoppen" name="Stop Playback"/>
+			<menu_item_check label="Wiedergabeschleife" name="Loop Playback"/>
+			<menu_item_call label="Aufnahme starten" name="Start Record"/>
+			<menu_item_call label="Aufnahme stoppen" name="Stop Record"/>
+		</menu>
+		<menu label="Welt" name="DevelopWorld">
+			<menu_item_check label="Sonnen-Override für Sim" name="Sim Sun Override"/>
+			<menu_item_check label="Festgelegtes Wetter" name="Fixed Weather"/>
+			<menu_item_call label="Regionsobjekt-Cache ausgeben" name="Dump Region Object Cache"/>
+		</menu>
+		<menu label="UI" name="UI">
+			<menu_item_call label="Test Medienbrowser" name="Web Browser Test"/>
+			<menu_item_call label="Webinhaltsbrowser" name="Web Content Browser"/>
+			<menu_item_call label="SelectMgr ausgeben" name="Dump SelectMgr"/>
+			<menu_item_call label="Inventarinfo ausgeben" name="Dump Inventory"/>
+			<menu_item_call label="Timer ausgeben" name="Dump Timers"/>
+			<menu_item_call label="Fokus ausgeben" name="Dump Focus Holder"/>
+			<menu_item_call label="Ausgewählte Objektinfo drucken" name="Print Selected Object Info"/>
+			<menu_item_call label="Agent-Info drucken" name="Print Agent Info"/>
+			<menu_item_check label="Fehler in SelectMgr beseitigen" name="Debug SelectMgr"/>
+			<menu_item_check label="Fehler in Klicks beseitigen" name="Debug Clicks"/>
+			<menu_item_check label="Debug-Ansichten" name="Debug Views"/>
+			<menu_item_check label="Kurzinfos: Debug-Namen" name="Debug Name Tooltips"/>
+			<menu_item_check label="Fehler in Maus-Events beseitigen" name="Debug Mouse Events"/>
+			<menu_item_check label="Fehler in Keys beseitigen" name="Debug Keys"/>
+			<menu_item_check label="Fehler in WindowProc beseitigen" name="Debug WindowProc"/>
+		</menu>
+		<menu label="XUI" name="XUI">
+			<menu_item_call label="Farbeinstellungen neu laden" name="Reload Color Settings"/>
+			<menu_item_call label="Schriftarttest anzeigen" name="Show Font Test"/>
+			<menu_item_check label="XUI-Namen anzeigen" name="Show XUI Names"/>
+			<menu_item_call label="Test-IMs senden" name="Send Test IMs"/>
+			<menu_item_call label="Namen-Cache leeren" name="Flush Names Caches"/>
+		</menu>
+		<menu label="Avatar" name="Character">
+			<menu label="Geladene Textur nehmen" name="Grab Baked Texture">
+				<menu_item_call label="Iris" name="Grab Iris"/>
+				<menu_item_call label="Kopf" name="Grab Head"/>
+				<menu_item_call label="Oberkörper" name="Grab Upper Body"/>
+				<menu_item_call label="Unterkörper" name="Grab Lower Body"/>
+				<menu_item_call label="Rock" name="Grab Skirt"/>
+			</menu>
+			<menu label="Avatar-Tests" name="Character Tests">
+				<menu_item_call label="Aussehen als XML speichern" name="Appearance To XML"/>
+				<menu_item_call label="Avatargeometry ein-/ausschalten" name="Toggle Character Geometry"/>
+				<menu_item_call label="Männlich testen" name="Test Male"/>
+				<menu_item_call label="Weiblich testen" name="Test Female"/>
+				<menu_item_check label="Avatarauswahl zulassen" name="Allow Select Avatar"/>
+			</menu>
+			<menu_item_call label="Param auf Standard erzwingen" name="Force Params to Default"/>
+			<menu_item_check label="Animations-Info" name="Animation Info"/>
+			<menu_item_check label="Kamerafokus anzeigen" name="Show Look At"/>
+			<menu_item_check label="Klickpunkt anzeigen??" name="Show Point At"/>
+			<menu_item_check label="Fehler in Landaktualisierung beseitigen" name="Debug Joint Updates"/>
+			<menu_item_check label="LOD deaktiveren" name="Disable LOD"/>
+			<menu_item_check label="Fehler für sichtbare Agenten beseitigen" name="Debug Character Vis"/>
+			<menu_item_check label="Gelenkpunkte anzeigen" name="Show Collision Skeleton"/>
+			<menu_item_check label="Agent-Ziel anzeigen" name="Display Agent Target"/>
+			<menu_item_call label="Anhänge ausgeben" name="Dump Attachments"/>
+			<menu_item_call label="Fehler in Avatar-Texturen beseitigen" name="Debug Avatar Textures"/>
+			<menu_item_call label="Lokale Texturen ausgeben" name="Dump Local Textures"/>
+		</menu>
+		<menu_item_check label="HTTP-Texturen" name="HTTP Textures"/>
+		<menu_item_check label="HTTP-Inventar" name="HTTP Inventory"/>
+		<menu_item_call label="Bilder komprimieren" name="Compress Images"/>
+		<menu_item_call label="Visual Leak Detector aktivieren" name="Enable Visual Leak Detector"/>
+		<menu_item_check label="Ausgabe Fehlerbeseitigung ausgeben" name="Output Debug Minidump"/>
+		<menu_item_check label="Bei nächster Ausführung Fenster öffnen" name="Console Window"/>
+		<menu label="Protokollierungsstufe festlegen" name="Set Logging Level">
+			<menu_item_check label="Debug" name="Debug"/>
+			<menu_item_check label="Info" name="Info"/>
+			<menu_item_check label="Warnung" name="Warning"/>
+			<menu_item_check label="Fehler" name="Error"/>
+			<menu_item_check label="Keine" name="None"/>
+		</menu>
+		<menu_item_call label="Admin-Status anfordern" name="Request Admin Options"/>
+		<menu_item_call label="Admin-Status verlassen" name="Leave Admin Options"/>
+		<menu_item_check label="Admin-Menü anzeigen" name="View Admin Options"/>
+	</menu>
 <!-- END OF DEVELOP MENU -->    
   
 <!-- START OF ADMIN MENU -->   
