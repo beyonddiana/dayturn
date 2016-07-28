@@ -4217,8 +4217,8 @@
                  parameter="SlowMotionAnimation" />
             </menu_item_check>
             <menu_item_check
-		label="Show Look-At">
-		name="Show Look-At"
+		label="Show Look-At"
+		name="Show Look-At">
 		<menu_item_check.on_check
 		    function="CheckControl"
 		    parameter="ShowLookAt" />
@@ -4227,8 +4227,8 @@
 		    parameter="ShowLookAt" />
             </menu_item_check>
 	    <menu_item_check
-		label="Show Point-At">
-		name="Show Point-At"
+		label="Show Point-At"
+		name="Show Point-At">
 		<menu_item_check.on_check
 		    function="CheckControl"
 		    parameter="ShowPointAt" />
@@ -4770,5 +4770,6 @@
             </menu>
         </menu>
     </menu>
+<!-- END OF ADMIN DEPRECATED MENU -->     
     
 </menu_bar>
