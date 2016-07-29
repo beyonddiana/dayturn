@@ -17,10 +17,13 @@ include(OpenGL)
 
 include(CEFPlugin)
 
+if (!DARWIN)
+# We don't want PulseAudio on DARWIN. Geir Nøklebye
 # <FS:ND> Linux volume catcher
 include(PulseAudio)
 include_directories( ${PULSEAUDIO_INCLUDE_DIRS} )
 # </FS:ND>
+endif (DARWIN)
 
 include_directories(
     ${LLPLUGIN_INCLUDE_DIRS}
