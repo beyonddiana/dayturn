@@ -2125,9 +2125,6 @@ Hvis fejlen stadig bliver ved, kan det være nødvendigt at afinstallere [APP_NA
 	<string name="MBFatalError">
 		Fatal fejl
 	</string>
-	<string name="MBRequiresAltiVec">
-		[APP_NAME] kræver en processor med AltiVec (G4 eller nyere).
-	</string>
 	<string name="MBAlreadyRunning">
 		[APP_NAME] kører allerede.
 Undersøg din &quot;task bar&quot; for at se efter minimeret version af programmet.

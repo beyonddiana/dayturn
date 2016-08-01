@@ -2525,9 +2525,6 @@ Si le problème persiste, vous devrez peut-être complètement désinstaller pui
 	<string name="MBFatalError">
 		Erreur fatale
 	</string>
-	<string name="MBRequiresAltiVec">
-		[APP_NAME] nécessite un microprocesseur AltiVec (version G4 ou antérieure).
-	</string>
 	<string name="MBAlreadyRunning">
 		[APP_NAME] est déjà en cours d&apos;exécution.
 Vérifiez si une version minimisée du programme apparaît dans votre barre de tâches.

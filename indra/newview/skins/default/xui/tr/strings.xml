@@ -2522,9 +2522,6 @@ Sorun devam ederse [APP_NAME] uygulamasını tümüyle kaldırmanız ve tekrar y
 	<string name="MBFatalError">
 		Önemli Hata
 	</string>
-	<string name="MBRequiresAltiVec">
-		[APP_NAME], AltiVec (G4 veya üzeri) bir işlemciye ihtiyaç duyuyor.
-	</string>
 	<string name="MBAlreadyRunning">
 		[APP_NAME] zaten çalışıyor.
 Programın simge durumuna küçültülmüş bir kopyası için görev çubuğunuza bakın.

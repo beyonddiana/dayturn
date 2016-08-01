@@ -2520,9 +2520,6 @@ http://secondlife.com/viewer-access-faq
 	<string name="MBFatalError">
 		致命錯誤
 	</string>
-	<string name="MBRequiresAltiVec">
-		[APP_NAME] 需要有 AltiVec（G4 或更新版）的處理器。
-	</string>
 	<string name="MBAlreadyRunning">
 		[APP_NAME] 已經在執行中。
 請檢查你的工作列裡是否已有最小化的相同程式。

@@ -2523,9 +2523,6 @@ support@secondlife.com にお問い合わせください。
 	<string name="MBFatalError">
 		致命的なエラー
 	</string>
-	<string name="MBRequiresAltiVec">
-		[APP_NAME] は、AltiVec搭載のプロセッサが必要です。（G4 以降）
-	</string>
 	<string name="MBAlreadyRunning">
 		[APP_NAME] はすでに実行中です。
 最小化されたプログラムのコピーをタスクバーで確認してください。

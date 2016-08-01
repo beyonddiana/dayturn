@@ -2521,9 +2521,6 @@ support@secondlife.com.
 	<string name="MBFatalError">
 		Неустранимая ошибка
 	</string>
-	<string name="MBRequiresAltiVec">
-		Для работы [APP_NAME] необходим процессор с поддержкой AltiVec (версии G4 или более поздней).
-	</string>
 	<string name="MBAlreadyRunning">
 		[APP_NAME] уже выполняется.
 Поищите значок программы на панели задач.

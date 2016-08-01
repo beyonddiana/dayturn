@@ -2402,9 +2402,6 @@ Jeżeli problem nadal występuje, proponujemy całkowite odinstalowanie aplikacj
 	<string name="MBFatalError">
 		Błąd krytyczny
 	</string>
-	<string name="MBRequiresAltiVec">
-		Aplikacja [APP_NAME] wymaga procesora z AltiVec (wersja G4 lub nowsza).
-	</string>
 	<string name="MBAlreadyRunning">
 		Aplikacja [APP_NAME] została już uruchomiona.
 Sprawdź czy Twój pasek aplikacji nie ma zminimalizowanych okien programu.

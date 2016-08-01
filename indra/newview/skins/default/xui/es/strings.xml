@@ -2466,9 +2466,6 @@ Si aun así sigue apareciendo el mensaje, debes desinstalar completamente [APP_N
 	<string name="MBFatalError">
 		Error fatal
 	</string>
-	<string name="MBRequiresAltiVec">
-		[APP_NAME] requiere un procesador con AltiVec (G4 o posterior).
-	</string>
 	<string name="MBAlreadyRunning">
 		[APP_NAME] ya se está ejecutando.
 Revisa tu barra de tareas para encontrar una copia minimizada del programa.
