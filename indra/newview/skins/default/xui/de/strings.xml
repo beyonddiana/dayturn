@@ -2628,9 +2628,6 @@ Falls der Fehler dann weiterhin auftritt, müssen Sie [APP_NAME] von Ihrem Syste
 	<string name="MBFatalError">
 		Unbehebbarer Fehler
 	</string>
-	<string name="MBRequiresAltiVec">
-		[APP_NAME] erfordert einen Prozessor mit AltiVec (G4 oder später).
-	</string>
 	<string name="MBAlreadyRunning">
 		[APP_NAME] läuft bereits.
 Bitte sehen Sie in Ihrer Menüleiste nach, dort sollte ein Symbol für das Programm angezeigt werden.

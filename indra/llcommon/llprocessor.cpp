@@ -135,7 +135,6 @@ namespace
 		eMONTIOR_MWAIT=33,
 		eCPLDebugStore=34,
 		eThermalMonitor2=35,
-		eAltivec=36
 	};
 
 	const char* cpu_feature_names[] =
@@ -177,8 +176,6 @@ namespace
 		"MONITOR/MWAIT", 
 		"CPL Qualified Debug Store",
 		"Thermal Monitor 2",
-
-		"Altivec"
 	};
 
 	std::string intel_CPUFamilyName(int composed_family) 
@@ -256,11 +253,6 @@ public:
 	bool hasSSE2() const
 	{ 
 		return hasExtension(cpu_feature_names[eSSE2_Ext]);
-	}
-
-	bool hasAltivec() const 
-	{
-		return hasExtension("Altivec"); 
 	}
 
 	std::string getCPUFamilyName() const { return getInfo(eFamilyName, "Unknown").asString(); }
@@ -868,7 +860,6 @@ LLProcessorInfo::~LLProcessorInfo() {}
 F64MegahertzImplicit LLProcessorInfo::getCPUFrequency() const { return mImpl->getCPUFrequency(); }
 bool LLProcessorInfo::hasSSE() const { return mImpl->hasSSE(); }
 bool LLProcessorInfo::hasSSE2() const { return mImpl->hasSSE2(); }
-bool LLProcessorInfo::hasAltivec() const { return mImpl->hasAltivec(); }
 std::string LLProcessorInfo::getCPUFamilyName() const { return mImpl->getCPUFamilyName(); }
 std::string LLProcessorInfo::getCPUBrandName() const { return mImpl->getCPUBrandName(); }
 std::string LLProcessorInfo::getCPUFeatureDescription() const { return mImpl->getCPUFeatureDescription(); }

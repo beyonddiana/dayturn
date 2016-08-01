@@ -49,7 +49,6 @@ namespace tut
 		F64 freq =  pi.getCPUFrequency();
 		//bool sse =  pi.hasSSE();
 		//bool sse2 = pi.hasSSE2();
-		//bool alitvec = pi.hasAltivec();
 		std::string family = pi.getCPUFamilyName();
 		std::string brand =  pi.getCPUBrandName();
 		//std::string steam =  pi.getCPUFeatureDescription();

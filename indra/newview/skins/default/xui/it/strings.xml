@@ -2468,9 +2468,6 @@ Se il problema continua ancora, dovresti completamente disinstallare l&apos;appl
 	<string name="MBFatalError">
 		Errore critico
 	</string>
-	<string name="MBRequiresAltiVec">
-		Il programma [APP_NAME] richiede un processore con AltiVec (G4 o superiore).
-	</string>
 	<string name="MBAlreadyRunning">
 		Il programma [APP_NAME] è già attivo.
 Controlla che il programma non sia minimizzato nella tua barra degli strumenti.
