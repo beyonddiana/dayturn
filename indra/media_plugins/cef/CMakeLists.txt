@@ -23,7 +23,7 @@ if (!DARWIN)
 include(PulseAudio)
 include_directories( ${PULSEAUDIO_INCLUDE_DIRS} )
 # </FS:ND>
-endif (DARWIN)
+endif (!DARWIN)
 
 include_directories(
     ${LLPLUGIN_INCLUDE_DIRS}
