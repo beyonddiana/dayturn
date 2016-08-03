@@ -486,7 +486,6 @@ clicking on their names.
      max_length_bytes="20"
      name="role_name"
      top_pad="0"
-         background_image_disabled="TextField_Plain"
      width="300">
     </line_editor>
     <text
@@ -511,7 +510,6 @@ clicking on their names.
      max_length_bytes="20"
      name="role_title"
      top_pad="0"
-         background_image_disabled="TextField_Plain"
      width="300">
     </line_editor>
     <text
@@ -628,7 +626,6 @@ clicking on their names.
             top_pad="0"
             left="3"
             width="180"
-            background_image_disabled="TextField_Plain"
             enabled="false">
         </line_editor>
         <button
