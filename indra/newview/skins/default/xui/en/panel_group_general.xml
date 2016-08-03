@@ -271,7 +271,6 @@ Hover your mouse over the options for more help.
         top_pad="0"
         left="10"
         width="175"
-        background_image_disabled="TextField_Plain"
         enabled="false">
     </line_editor>
     <button
