@@ -142,7 +142,7 @@ top="10"
           max_chars="128"
           top_pad="0"
           name="start_location_combo"
-          width="165">
+          width="190">
         <combo_box.item
             label="My last location"
             name="MyLastLocation"
@@ -164,7 +164,7 @@ top="10"
           layout="topleft"
           top_pad="2"
           name="server_combo"
-          width="180"
+          width="186"
   visible="true" >
 </combo_box>
 <button
@@ -220,7 +220,7 @@ top="10"
           top_pad="12"
           right="-10"
           width="200">
-        Forgot your username or password?
+        Forgot your SecondLife username or password?
       </text>
       <text
           follows="right|bottom"
@@ -232,7 +232,7 @@ top="10"
           top_pad="2"
           right="-10"
           width="200">
-      Need help logging in?   </text>
+      Need help logging in to SecondLife?   </text>
     </layout_panel>
   </layout_stack>
 </panel>
