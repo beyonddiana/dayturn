@@ -1032,8 +1032,8 @@
              name="checkbox share with group"
              tool_tip="Allow all members of the set group to share your modify permissions for this object. You must Deed to enable role restrictions."
              top_pad="5"
-             left="100"
-             width="87" />
+             left="7"
+             width="180" />
             <button
              follows="top|left"
              height="23"
@@ -1053,7 +1053,7 @@
              top_pad="10"
              left="10"
              name="label click action"
-             width="82">
+             width="60">
                 Click to:
             </text>
             <combo_box
@@ -1094,7 +1094,7 @@
              layout="topleft"
              name="checkbox for sale"
              left="7"
-             width="97" />
+             width="75" />
   <!-- NEW PRICE SPINNER
 Objects are allowed to be for sale for L$0 to invoke buy UI behavior
 even though the user gets a free copy.
@@ -1107,12 +1107,11 @@ even though the user gets a free copy.
       control_name="Edit Cost"
       name="Edit Cost"
       label="L$"
-      label_width="15"
+      label_width="30"
       label_text.valign="center"
-      valign="center"
-      width="85"
+      width="105"
       min_val="0"
-      height="20"
+      height="23"
       max_val="999999999" />
   <!-- NEW SALE TYPE COMBO BOX -->
       <combo_box
