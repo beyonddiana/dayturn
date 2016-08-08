@@ -425,7 +425,7 @@ LLOSInfo::LLOSInfo() :
 	// Initialize mOSStringSimple to something like:
 	// "Mac OS X 10.6.7"
 	{
-		const char * DARWIN_PRODUCT_NAME = "Mac OS X";
+		const char * DARWIN_PRODUCT_NAME = "macOS";
 		
 		SInt32 major_version, minor_version, bugfix_version;
 		OSErr r1 = Gestalt(gestaltSystemVersionMajor, &major_version);
