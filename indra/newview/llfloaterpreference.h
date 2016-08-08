@@ -91,6 +91,7 @@ public:
 	void saveAvatarProperties( void );
 	void selectPrivacyPanel();
 	void selectChatPanel();
+    void getControlNames(std::vector<std::string>& names);
 
 protected:	
 	void		onBtnOK();
