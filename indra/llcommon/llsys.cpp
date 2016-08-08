@@ -427,7 +427,7 @@ LLOSInfo::LLOSInfo() :
 	// "Mac OS X 10.6.7"
 	{
 		// <AV:CR>
-		const char * DARWIN_PRODUCT_NAME = "Mac OS X";
+		const char * DARWIN_PRODUCT_NAME = "macOS";
 		
 		S32 major_version, minor_version, bugfix_version = 0;
 
