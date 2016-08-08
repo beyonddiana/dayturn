@@ -23,6 +23,11 @@ include_directories(
     ${BREAKPAD_INCLUDE_DIRECTORIES}
     ${URIPARSER_INCLUDE_DIRS}
     )
+    
+include_directories(
+    SYSTEM
+    ${LLCOMMON_SYSTEM_INCLUDE_DIRS}
+    )    
 
 # add_executable(lltreeiterators lltreeiterators.cpp)
 # 
@@ -244,6 +249,13 @@ if (HAS_OPENSIM_SUPPORT)
     )
 endif (HAS_OPENSIM_SUPPORT)
 # </FS:CR>
+
+# <AV:CR>
+if (DARWIN)
+  list(APPEND llcommon_HEADER_FILES llsys_objc.h)
+  list(APPEND llcommon_SOURCE_FILES llsys_objc.mm)
+endif (DARWIN)
+# </AV:CR>
 
 set_source_files_properties(${llcommon_HEADER_FILES}
                             PROPERTIES HEADER_FILE_ONLY TRUE)
