@@ -934,7 +934,45 @@ void LLFloaterPreference::setHardwareDefaults()
 			panel->setHardwareDefaults();
 	}
 }
+void LLFloaterPreference::getControlNames(std::vector<std::string>& names)
+{
+	LLView* view = findChild<LLView>("display");
+	LLFloater* advanced = LLFloaterReg::findTypedInstance<LLFloater>("prefs_graphics_advanced");
+	if (view && advanced)
+	{
+		std::list<LLView*> stack;
+		stack.push_back(view);
+		stack.push_back(advanced);
+		while(!stack.empty())
+		{
+			// Process view on top of the stack
+			LLView* curview = stack.front();
+			stack.pop_front();
 
+			LLUICtrl* ctrl = dynamic_cast<LLUICtrl*>(curview);
+			if (ctrl)
+			{
+				LLControlVariable* control = ctrl->getControlVariable();
+				if (control)
+				{
+					std::string control_name = control->getName();
+					if (std::find(names.begin(), names.end(), control_name) == names.end())
+					{
+						names.push_back(control_name);
+					}
+				}
+			}
+
+			for (child_list_t::const_iterator iter = curview->getChildList()->begin();
+				iter != curview->getChildList()->end(); ++iter)
+			{
+				stack.push_back(*iter);
+			}
+		}
+	}
+}
+
+//virtual
 //virtual
 void LLFloaterPreference::onClose(bool app_quitting)
 {
