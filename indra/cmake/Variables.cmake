@@ -170,8 +170,8 @@ set(VIEWER ON CACHE BOOL "Build Kokua OS viewer.")
 # and "Kokua Experimental [VERSION]: Installation Folder" -- MC
 set(VIEWER_CHANNEL "Kokua OS Test" CACHE STRING "Viewer Channel Name")
 
-set(ENABLE_SIGNING OFF CACHE BOOL "Enable signing the viewer")
-set(SIGNING_IDENTITY "" CACHE STRING "Specifies the signing identity to use, if necessary.")
+set(ENABLE_SIGNING ON CACHE BOOL "Enable signing the viewer")
+set(SIGNING_IDENTITY "Developer ID Application: Geir Noklebye" CACHE STRING "Specifies the signing identity to use, if necessary.")
 
 set(VERSION_BUILD "0" CACHE STRING "Revision number passed in from the outside")
 set(USESYSTEMLIBS OFF CACHE BOOL "Use libraries from your system rather than Linden-supplied prebuilt libraries.")
