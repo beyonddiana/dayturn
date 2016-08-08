@@ -221,7 +221,7 @@ if (DARWIN)
   set(CMAKE_CXX_FLAGS_RELEASE "-O3 ${CMAKE_CXX_FLAGS_RELEASE}")
   set(CMAKE_C_FLAGS_RELEASE "-O3 ${CMAKE_C_FLAGS_RELEASE}")  
   set(ENABLE_SIGNING TRUE)
-  set(SIGNING_IDENTITY "Developer ID Application: Linden Research, Inc.")
+  set(SIGNING_IDENTITY "Developer ID Application: Geir Noklebye")
 endif (DARWIN)
 
 
