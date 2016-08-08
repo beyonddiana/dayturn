@@ -2,7 +2,7 @@
 <panel
     border="true"
     follows="left|top|right|bottom"
-    height="408"
+    height="418"
     label="Communication"
     layout="topleft"
     left="102"
@@ -16,7 +16,7 @@
   </panel.string>
 
   <button
-      follows="left|bottom"
+      follows="left|top"
       height="23"
       label="Clear History"
       tool_tip="Clear login image, last location, teleport history, web, and texture cache"

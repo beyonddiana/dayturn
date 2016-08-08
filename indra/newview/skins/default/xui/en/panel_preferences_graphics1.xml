@@ -9,6 +9,28 @@
  name="Display panel"
  top="1"
  width="517">
+
+  <text
+    follows="top|left|right"
+    height="16"
+    layout="topleft"
+    left="5"
+    top="5"
+    width="100">
+      Preset in use:
+  </text>
+
+  <text
+    follows="top|left|right"
+    height="16"
+    layout="topleft"
+    left_delta="110"
+    name="preset_text"
+    top="5"
+    width="120">
+      (None)
+  </text>
+
     <text
      type="string"
      length="1"
@@ -17,7 +39,7 @@
      layout="topleft"
      left="30"
      name="QualitySpeed"
-     top="10" 
+    top_delta="20" 
      width="400">
         Quality and speed:
     </text>
@@ -190,7 +212,7 @@
    left="30"
    name="AvatarMeshDetail2"
    show_text="false"
-   top="72"
+   top_delta="24"
    width="300">
     <slider.commit_callback
      function="Pref.UpdateSliderText"
@@ -225,7 +247,7 @@
    min_val="0"
    name="ObjectMeshDetail2"
    show_text="false"
-   top="100"
+   top_delta="24"
    width="300" >
     <slider.commit_callback
      function="Pref.UpdateSliderText"
@@ -270,10 +292,26 @@
    layout="topleft"
    left_delta="330"
    name="DrawDistanceMeterText2"
-   top_delta="0"
+   top_delta="2"
    width="128">
     m
   </text>
+
+  <check_box
+    control_name="WindLightUseAtmosShaders"
+	invisiblity_control="ShowAdvancedGraphicsSettings"
+    height="16"
+    initial_value="true"
+    label="Atmospheric shaders"
+    layout="topleft"
+    left="30"
+    name="WindLightUseAtmosShaders"
+    top_delta="24"
+    width="280">
+    <check_box.commit_callback
+      function="Pref.VertexShaderEnable" />
+  </check_box>
+
   <check_box
 		 control_name="RenderDeferred"
          invisiblity_control="ShowAdvancedGraphicsSettings"
@@ -283,7 +321,7 @@
 		 layout="topleft"
 		 left="30"
 		 name="UseLightShaders2"
-		 top="168"
+		 top_delta="24"
 		 width="256">
     <check_box.commit_callback
       function="Pref.VertexShaderEnable" />
@@ -293,7 +331,7 @@
       control_name="RenderGeometryOverloadProtection"
       invisiblity_control="ShowAdvancedGraphicsSettings"
       layout="topleft"
-      top_pad="5"
+      top_delta="24"
       left="30"
       height="16"
       width="256"
@@ -920,6 +958,52 @@
 	</panel>
 	
     <button
+	follows="top|left"
+    height="23"
+    label="Save Preset..."
+    layout="topleft"
+    enabled="false"
+    left="10"
+    name="PrefSaveButton"
+    top="418"
+    width="115">
+    <button.commit_callback
+      function="Pref.PrefSave"
+      parameter="graphic" />
+  </button>
+
+  <button
+    follows="top|left"
+    height="23"
+    label="Load Preset..."
+    layout="topleft"
+    enabled="false"
+    left_pad="3"
+    name="PrefLoadButton"
+    top_delta="0"
+    width="115">
+    <button.commit_callback
+      function="Pref.PrefLoad"
+	  parameter="graphic"/>
+  </button>
+         min_val="0.125"
+
+  <button
+    follows="top|left"
+    height="23"
+    label="Delete Preset..."
+    layout="topleft"
+    enabled="false"
+    left_pad="3"
+    name="PrefDeleteButton"
+    top_delta="0"
+    width="115">
+    <button.commit_callback
+      function="Pref.PrefDelete"
+	  parameter="graphic"/>
+  </button>
+
+	<button
      follows="left|bottom"
      height="23"
      label="Apply"
@@ -927,7 +1011,7 @@
      layout="topleft"
      left="10"
      name="Apply"
-     top="390"
+     top="355"
      width="115">
         <button.commit_callback
          function="Pref.Apply" />
@@ -939,7 +1023,7 @@
      layout="topleft"
      left_pad="3"
      name="Defaults"
-     top="390"
+     top="355"
      width="115">
         <button.commit_callback
          function="Pref.HardwareDefaults" />

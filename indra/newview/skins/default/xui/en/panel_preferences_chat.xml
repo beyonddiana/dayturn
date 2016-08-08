@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel
     border="true"
-    has_border="true"
-    height="408"
+    follows="left|top|right|bottom"    
+    height="418"
     label="Text Chat"
     layout="topleft"
     left="102"
@@ -39,6 +39,7 @@
         name="plain_test_chat_history"
         width="330">
     </check_box>
+
     <check_box
         enabled="false"
         height="16"
@@ -111,15 +112,6 @@
       left="13"
       width="517">
 
-    <text
-        layout="topleft"
-        height="12"
-        name="notifications"
-        left="0"
-        width="120"
-        top_pad="13">
-      Notifications
-    </text>
     <text
         layout="topleft"
         height="12"
@@ -453,14 +445,8 @@
 
   </panel>
 
-  <view_border
-      bevel_style="none"
-      height="0"
-      layout="topleft"
-      left="13"
-      name="cost_text_border"
-      top_pad="5"
-      width="495"/>
+
+ 
 
   <panel
       height="50"
@@ -471,6 +457,7 @@
       width="505">
 
     <text
+        name="logging_label"
         layout="topleft"
         left="0"
         text_color="White"
@@ -486,16 +473,19 @@
         height="23"
         layout="topleft"
         left_pad="5"
-        name="chat_font_size"
+        name="conversation_log_combo"
         top="0"
         width="165">
         <item
+            name="log_and_transcripts"
             label="Log and transcripts"
             value="2"/>
         <item
+            name="log_only"
             label="Log only"
             value="1"/>
         <item
+            name="no_log_or_transcript"
             label="No log or transcripts"
             value="0"/>
     </combo_box>
@@ -527,6 +517,7 @@
     </button>
   
     <text
+        name="log_location_label"
         layout="topleft"
         left="0"
         text_color="White"
@@ -561,7 +552,8 @@
         name="log_path_button"
         top_delta="0"
         width="112">
-      <commit_callback function="Pref.LogPath" />
+      <button.commit_callback 
+       function="Pref.LogPath" />
     </button>
 
   </panel>
@@ -572,30 +564,34 @@
       layout="topleft"
       left="9"
       name="ok_btn"
-      top="-29"
+      top="-39"
       width="170">
-    <commit_callback
-        function="Pref.TranslationSettings" />
+    <button.commit_callback
+      function="Pref.TranslationSettings" />
   </button>
+
   <button
       height="23"
       layout="topleft"
       top_pad="-23"
       left_pad="5"
       name="autoreplace_showgui"
-      commit_callback.function="Pref.AutoReplace"
       label="Auto-Replace..."
       width="150">
+     <button.commit_callback
+      function="Pref.AutoReplace" />
   </button>
+
   <button
       height="23"
       layout="topleft"
       top_pad="-23"
       left_pad="5"
       name="spellcheck_showgui"
-      commit_callback.function="Pref.SpellChecker"
       label="Spell Checking..."
       width="150">
+    <button.commit_callback
+     function="Pref.SpellChecker" />
   </button>
 
 </panel>
