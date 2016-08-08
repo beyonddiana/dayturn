@@ -2,7 +2,7 @@
 <panel
  border="true"
  follows="all"
- height="408"
+ height="418"
  label="Sounds"
  layout="topleft"
  left="102"
@@ -319,17 +319,17 @@
 		control_name="ParcelMediaAutoPlayEnable"
 		enabled_control="AudioStreamingMedia"
 		value="true"
-		follows="left|bottom|right"
+		follows="left|top|right"
 		height="15"
 		tool_tip="Check this to let media auto-play if it wants"
 		label="Allow Media to auto-play"
-		top_pad="1"
+		top_pad="10"
 		left="25"/>
  	<check_box
 		name="media_show_on_others_btn"
 		control_name="MediaShowOnOthers"
 		value="true"
-		follows="left|bottom|right"
+		follows="left|top|right"
 		height="15"
 		tool_tip="Uncheck this to hide media attached to other avatars nearby"
 		label="Play media attached to other avatars"
@@ -340,7 +340,7 @@
 		control_name="EnableGestureSounds"
         disabled_control="MuteAudio"
 		value="true"
-		follows="left|bottom|right"
+		follows="left|top|right"
 		height="15"
 		tool_tip="Check this to hear sounds from gestures"
 		label="Play sounds from gestures"
@@ -355,7 +355,7 @@
      left="25"
      name="voice_chat_settings"
      width="200"
-     top_pad="7">
+     top_pad="15">
 	  Voice Chat Settings
     </text>
     <text
@@ -498,7 +498,7 @@
    label="Input/Output devices"
    layout="topleft"
    left="20"
-   top_pad="6"
+   top_pad="20"
    name="device_settings_btn"
    width="190">
   </button>
