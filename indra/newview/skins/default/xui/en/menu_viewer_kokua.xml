@@ -1451,7 +1451,8 @@
        create_jump_keys="true"
        label="Pathfinding"
        name="Pathfinding"
-       tear_off="true">
+       tear_off="true"
+       only_in_sl="true">
       <menu_item_call
           label="Linksets..."
           name="pathfinding_linksets_menu_item">
