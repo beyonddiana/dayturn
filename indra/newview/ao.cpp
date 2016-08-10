@@ -38,7 +38,7 @@
 #include "llviewerinventory.h"
 
 FloaterAO::FloaterAO(const LLSD& key)
-:	LLTransientDockableFloater(NULL,true,key),LLEventTimer(10.0),
+:	LLTransientDockableFloater(NULL, true, key), LLEventTimer(10.f),
 	mSetList(0),
 	mSelectedSet(0),
 	mSelectedState(0),
@@ -69,7 +69,7 @@ void FloaterAO::reloading(bool yes)
 bool FloaterAO::tick()
 {
 	// reloading took too long, probably missed the signal, so we hide the reload cover
-	LL_WARNS() << "AO reloading timeout." << LL_ENDL;
+	LL_WARNS("AO") << "AO reloading timeout." << LL_ENDL;
 	updateList();
 	return false;
 }
@@ -100,7 +100,7 @@ void FloaterAO::updateAnimationList()
 		return;
 	}
 
-	for(U32 index=0;index<mSelectedSet->mStateNames.size();index++)
+	for (U32 index = 0; index < mSelectedSet->mStateNames.size(); ++index)
 	{
 		std::string stateName=mSelectedSet->mStateNames[index];
 		AOSet::AOState* state=mSelectedSet->getStateByName(stateName);
@@ -149,7 +149,7 @@ void FloaterAO::updateList()
 
 	if(mSetList.empty())
 	{
-		LL_DEBUGS() << "empty set list" << LL_ENDL;
+		LL_DEBUGS("AO") << "empty set list" << LL_ENDL;
 		mSetSelector->add(getString("ao_no_sets_loaded"));
 		mSetSelectorSmall->add(getString("ao_no_sets_loaded"));
 		mSetSelector->selectNthItem(0);
@@ -158,7 +158,7 @@ void FloaterAO::updateList()
 		return;
 	}
 
-	for(U32 index=0;index<mSetList.size();index++)
+	for (U32 index = 0; index < mSetList.size(); ++index)
 	{
 		std::string setName=mSetList[index]->getName();
 		mSetSelector->add(setName,&mSetList[index],ADD_BOTTOM,TRUE);
@@ -337,7 +337,7 @@ void FloaterAO::onRenameSet()
 {
 	if(!mSelectedSet)
 	{
-		LL_WARNS() << "Rename AO set without set selected." << LL_ENDL;
+		LL_WARNS("AO") << "Rename AO set without set selected." << LL_ENDL;
 		return;
 	}
 
@@ -410,7 +410,7 @@ void FloaterAO::onSelectState()
 	mSelectedState=(AOSet::AOState*) mStateSelector->getCurrentUserdata();
 	if(mSelectedState->mAnimations.size())
 	{
-		for(U32 index=0;index<mSelectedState->mAnimations.size();index++)
+		for (U32 index = 0; index < mSelectedState->mAnimations.size(); ++index)
 		{
 			LLScrollListItem* item=addAnimation(mSelectedState->mAnimations[index].mName);
 			if(item)
@@ -551,7 +551,7 @@ void FloaterAO::onCheckDisableStands()
 void FloaterAO::onChangeAnimationSelection()
 {
 	std::vector<LLScrollListItem*> list=mAnimationList->getAllSelected();
-	LL_DEBUGS() << "Selection count: " << list.size() << LL_ENDL;
+	LL_DEBUGS("AO") << "Selection count: " << list.size() << LL_ENDL;
 
 	bool resortEnable=false;
 	bool trashEnable=false;
@@ -562,7 +562,7 @@ void FloaterAO::onChangeAnimationSelection()
 	if(!mCanDragAndDrop)
 	{
 		mAnimationList->deselectAllItems();
-		LL_DEBUGS() << "Selection count now: " << list.size() << LL_ENDL;
+		LL_DEBUGS("AO") << "Selection count now: " << list.size() << LL_ENDL;
 	}
 	else if(list.size()>0)
 	{
@@ -619,7 +619,7 @@ void FloaterAO::onClickTrash()
 	if(list.size()==0)
 		return;
 
-	for(S32 index=list.size()-1;index!=-1;index--)
+	for(S32 index=list.size()-1;index!=-1; --index)
 		AOEngine::instance().removeAnimation(mSelectedSet,mSelectedState,mAnimationList->getItemIndex(list[index]));
 
 	mAnimationList->deleteSelectedItems();
@@ -669,11 +669,6 @@ void FloaterAO::onClickNext()
 void FloaterAO::onClickMore()
 {
 	LLRect fullSize=gSavedPerAccountSettings.getRect("floater_rect_animation_overrider_full");
-/*
-//ao.cpp:646:9: error: variable ‘smallSize’ set but not used [-Werror=unused-
-//but-set-variable] cc1plus: all warnings being treated as errors
-	LLRect smallSize=getRect();
-*/
 
 	if(fullSize.getHeight()<getMinHeight())
 		fullSize.setOriginAndSize(fullSize.mLeft,fullSize.mBottom,fullSize.getWidth(),getRect().getHeight());
@@ -758,7 +753,7 @@ BOOL FloaterAO::handleDragAndDrop(S32 x,S32 y,MASK mask,BOOL drop,EDragAndDropTy
 	// no drag & drop on small interface
 	if(!mMore)
 	{
-		tooltipMsg="ao_dnd_only_on_full_interface";
+		tooltipMsg = getString("ao_dnd_only_on_full_interface");
 		*accept=ACCEPT_NO;
 		return TRUE;
 	}
