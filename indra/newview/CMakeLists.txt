@@ -1431,20 +1431,33 @@ if (DARWIN)
     ${COREAUDIO_LIBRARY}
     )
 
-  # Add resource files to the project.
-  set(viewer_RESOURCE_FILES
-    kokua_icon.icns
-    Info-KokuaOS.plist
-    KokuaOS.xib
-    # CMake doesn't seem to support Xcode language variants well just yet
-    English.lproj/InfoPlist.strings
-    English.lproj/language.txt
-    German.lproj/language.txt
-    Japanese.lproj/language.txt
-    Korean.lproj/language.txt
-    )
-  set_source_files_properties(
-    ${viewer_RESOURCE_FILES}
+   # Add resource files to the project.
+   set(viewer_RESOURCE_FILES
+     kokua_icon.icns
+    Base.lproj/Info-KokuaOS.plist
+    Base.lproj/KokuaOS.xib
+    Base.lproj/Main.storyboard
+     # CMake doesn't seem to support Xcode language variants well just yet
+    da.lproj/KokuaOS.strings
+    en.lproj/InfoPlist.strings
+    en.lproj/KokuaOS.strings
+    es.lproj/KokuaOS.strings
+    fr.lproj/KokuaOS.strings
+    ge.lproj/KokuaOS.strings
+    hu-HU.lproj/KokuaOS.strings
+    it.lproj/KokuaOS.strings
+    ja.lproj/KokuaOS.strings
+    ko.lproj/KokuaOS.strings
+    nl.lproj/KokuaOS.strings
+    pl.lproj/KokuaOS.strings
+    pt-PT.lproj/KokuaOS.strings
+    ru.lproj/KokuaOS.strings
+    tr.lproj/KokuaOS.strings
+    en-GB.lproj/KokuaOS.strings
+    zh-Hans.lproj/KokuaOS.strings
+     )
+   set_source_files_properties(
+     ${viewer_RESOURCE_FILES}
     PROPERTIES
     HEADER_FILE_ONLY TRUE
     #MACOSX_PACKAGE_LOCATION Resources #don't do this! this tells cmake to copy the files.
@@ -2149,11 +2162,11 @@ if (DARWIN)
     PROPERTIES
     OUTPUT_NAME "${product}"
     MACOSX_BUNDLE_INFO_PLIST
-    "${CMAKE_CURRENT_SOURCE_DIR}/Info-KokuaOS.plist"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Base.lproj/Info-KokuaOS.plist"
     )
 
   configure_file(
-     "${CMAKE_CURRENT_SOURCE_DIR}/Info-KokuaOS.plist"
+     "${CMAKE_CURRENT_SOURCE_DIR}/Base.lproj/Info-KokuaOS.plist"
      "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/${product}.app/Contents/Info.plist"
     )
 

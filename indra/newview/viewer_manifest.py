@@ -751,29 +751,29 @@ class Darwin_i386_Manifest(ViewerManifest):
                     self.path("kokua_icon.icns")
                     self.end_prefix(icon_path)
 
-                self.path("KokuaOS.nib")
+                self.path("Base.lproj/KokuaOS.nib")
                 
                 # Translations
-                self.path("English.lproj/language.txt")
-                self.replace_in(src="English.lproj/InfoPlist.strings",
-                                dst="English.lproj/InfoPlist.strings",
+                self.path("en.lproj/KokuaOS.strings")
+                self.replace_in(src="en.lproj/InfoPlist.strings",
+                                dst="en.lproj/InfoPlist.strings",
                                 searchdict={'%%VERSION%%':'.'.join(self.args['version'])}
                                 )
-                self.path("German.lproj")
-                self.path("Japanese.lproj")
-                self.path("Korean.lproj")
-                self.path("da.lproj")
-                self.path("es.lproj")
-                self.path("fr.lproj")
-                self.path("hu.lproj")
-                self.path("it.lproj")
-                self.path("nl.lproj")
-                self.path("pl.lproj")
-                self.path("pt.lproj")
-                self.path("ru.lproj")
-                self.path("tr.lproj")
-                self.path("uk.lproj")
-                self.path("zh-Hans.lproj")
+                self.path("de.lproj/KokuaOS.strings")
+                self.path("ja.lproj/KokuaOS.strings")
+                self.path("ko.lproj/KokuaOS.strings")
+                self.path("da.lproj/KokuaOS.strings")
+                self.path("es.lproj/KokuaOS.strings")
+                self.path("fr.lproj/KokuaOS.strings")
+                self.path("hu-HU.lproj/KokuaOS.strings")
+                self.path("it.lproj/KokuaOS.strings")
+                self.path("nl.lproj/KokuaOS.strings")
+                self.path("pl.lproj/KokuaOS.strings")
+                self.path("pt-PT.lproj/KokuaOS.strings")
+                self.path("ru.lproj/KokuaOS.strings")
+                self.path("tr.lproj/KokuaOS.strings")
+                self.path("en-GB.lproj/KokuaOS.strings")
+                self.path("zh-Hans.lproj/KokuaOS.strings")
 
                 def path_optional(src, dst):
                     """
