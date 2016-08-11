@@ -25,7 +25,7 @@
  */
 
 #ifdef LL_DARWIN
-#import <Cocoa/Cocoa.h>
+#import <AppKit/AppKit.h>
 #include <iostream>
 #include "llfilepicker_mac.h"
 
