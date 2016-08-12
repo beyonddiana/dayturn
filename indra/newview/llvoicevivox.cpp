@@ -200,6 +200,119 @@ class LLVivoxVoiceClientMuteListObserver : public LLMuteListObserver
 	/* virtual */ void onChange()  { LLVivoxVoiceClient::getInstance()->muteListChanged();}
 };
 
+class LLVivoxVoiceStats
+{
+private:
+    LOG_CLASS(LLVivoxVoiceStats);
+    
+    F64SecondsImplicit mStartTime;
+
+    U32 mConnectCycles;
+
+    F64 mConnectTime;
+    U32 mConnectAttempts;
+    
+    F64 mProvisionTime;
+    U32 mProvisionAttempts;
+
+    F64 mEstablishTime;
+    U32 mEstablishAttempts;
+
+public:
+    void reset()
+        {
+            mStartTime = -1.0f;
+            mConnectCycles = 0;
+            mConnectTime = -1.0f;
+            mConnectAttempts = 0;
+            mProvisionTime = -1.0f;
+            mProvisionAttempts = 0;
+            mEstablishTime = -1.0f;
+            mEstablishAttempts = 0;
+        }
+    
+    LLVivoxVoiceStats()
+        {
+            reset();
+        }
+    
+    void connectionAttemptStart()
+        {
+            if (!mConnectAttempts)
+            {
+                mStartTime = LLTimer::getTotalTime();
+                mConnectCycles++;
+            }
+            mConnectAttempts++;
+        }
+
+    void connectionAttemptEnd(bool success)
+        {
+            if ( success )
+            {
+                mConnectTime = (LLTimer::getTotalTime() - mStartTime) / USEC_PER_SEC;
+            }
+        }
+
+    void provisionAttemptStart()
+        {
+            if (!mProvisionAttempts)
+            {
+                mStartTime = LLTimer::getTotalTime();
+            }
+            mProvisionAttempts++;
+        }
+
+    void provisionAttemptEnd(bool success)
+        {
+            if ( success )
+            {
+                mProvisionTime = (LLTimer::getTotalTime() - mStartTime) / USEC_PER_SEC;
+            }
+        }
+
+    void establishAttemptStart()
+        {
+            if (!mEstablishAttempts)
+            {
+                mStartTime = LLTimer::getTotalTime();
+            }
+            mEstablishAttempts++;
+        }
+
+    void establishAttemptEnd(bool success)
+        {
+            if ( success )
+            {
+                mEstablishTime = (LLTimer::getTotalTime() - mStartTime) / USEC_PER_SEC;
+            }
+        }
+
+    void log()
+        {
+            LLSD stats(LLSD::emptyMap());
+            stats["cycles"] = LLSD::Integer(mConnectCycles);
+
+            LLSD connect(LLSD::emptyMap());
+            connect["attempts"] = LLSD::Integer(mConnectAttempts);
+            connect["time"] = LLSD::Real(mConnectTime);
+            stats["connect"] = connect;
+
+            LLSD provision(LLSD::emptyMap());
+            provision["attempts"] = LLSD::Integer(mProvisionAttempts);
+            provision["time"] = LLSD::Real(mProvisionTime);
+            stats["provision"] = provision;
+
+            LLSD establish(LLSD::emptyMap());
+            establish["attempts"] = LLSD::Integer(mEstablishAttempts);
+            establish["time"] = LLSD::Real(mEstablishTime);
+            stats["establish"] = establish;
+
+            LL_INFOS("Voice") << "Setup stats " << ll_stream_notation_sd(stats) << LL_ENDL;
+        }
+};
+
+LLVivoxVoiceStats Stats;
 
 static LLVivoxVoiceClientMuteListObserver mutelist_listener;
 static bool sMuteListListener_listening = false;
@@ -458,7 +571,7 @@ bool LLVivoxVoiceClient::writeString(const std::string &str)
 		apr_size_t written = size;
 	
 		//MARK: Turn this on to log outgoing XML
-//		LL_DEBUGS("Voice") << "sending: " << str << LL_ENDL;
+        // LL_DEBUGS("Voice") << "sending: " << str << LL_ENDL;
 
 		// check return code - sockets will fail (broken, etc.)
 		err = apr_socket_send(
@@ -609,9 +722,8 @@ void LLVivoxVoiceClient::login(
 	}
 	else if ( account_name != mAccountName )
 	{
-		//TODO: error?
-		LL_WARNS("Voice") << "Wrong account name! " << account_name
-				<< " instead of " << mAccountName << LL_ENDL;
+		LL_WARNS("Voice") << "Mismatched account name! " << account_name
+                          << " instead of " << mAccountName << LL_ENDL;
 	}
 	else
 	{
@@ -622,6 +734,8 @@ void LLVivoxVoiceClient::login(
 	
 	if( !debugSIPURIHostName.empty() )
 	{
+        LL_INFOS("Voice") << "Overriding account server based on VivoxDebugSIPURIHostName: "
+                          << debugSIPURIHostName << LL_ENDL;
 		mVoiceSIPURIHostName = debugSIPURIHostName;
 	}
 	
@@ -640,12 +754,17 @@ void LLVivoxVoiceClient::login(
 			// Use the development account server
 			mVoiceSIPURIHostName = "bhd.vivox.com";
 		}
+        LL_INFOS("Voice") << "Defaulting SIP URI host: "
+                          << mVoiceSIPURIHostName << LL_ENDL;
+
 	}
 	
 	std::string debugAccountServerURI = gSavedSettings.getString("VivoxDebugVoiceAccountServerURI");
 
 	if( !debugAccountServerURI.empty() )
 	{
+        LL_INFOS("Voice") << "Overriding account server based on VivoxDebugVoiceAccountServerURI: "
+                          << debugAccountServerURI << LL_ENDL;
 		mVoiceAccountServerURI = debugAccountServerURI;
 	}
 	
@@ -653,6 +772,8 @@ void LLVivoxVoiceClient::login(
 	{
 		// If the account server URI isn't specified, construct it from the SIP URI hostname
 		mVoiceAccountServerURI = "https://www." + mVoiceSIPURIHostName + "/api2/";		
+        LL_INFOS("Voice") << "Inferring account server based on SIP URI Host name: "
+                          << mVoiceAccountServerURI << LL_ENDL;
 	}
 }
 
@@ -3281,7 +3402,7 @@ void LLVivoxVoiceClient::mediaCompletionEvent(std::string &sessionGroupHandle, s
 	}
 	else
 	{
-		LL_DEBUGS("Voice") << "Unknown MediaCompletionType: " << mediaCompletionType << LL_ENDL;
+		LL_WARNS("Voice") << "Unknown MediaCompletionType: " << mediaCompletionType << LL_ENDL;
 	}
 }
 
@@ -5820,11 +5941,11 @@ void LLVivoxVoiceClient::addVoiceFont(const S32 font_index,
 
 		if (font_type < VOICE_FONT_TYPE_NONE || font_type >= VOICE_FONT_TYPE_UNKNOWN)
 		{
-			LL_DEBUGS("Voice") << "Unknown voice font type: " << font_type << LL_ENDL;
+			LL_WARNS("Voice") << "Unknown voice font type: " << font_type << LL_ENDL;
 		}
 		if (font_status < VOICE_FONT_STATUS_NONE || font_status >= VOICE_FONT_STATUS_UNKNOWN)
 		{
-			LL_DEBUGS("Voice") << "Unknown voice font status: " << font_status << LL_ENDL;
+			LL_WARNS("Voice") << "Unknown voice font status: " << font_status << LL_ENDL;
 		}
 	}
 }
