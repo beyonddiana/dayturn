@@ -6275,7 +6275,7 @@ void LLVOAvatar::initAttachmentPoints(bool ignore_hud_joints)
         attachment->setVisibleInFirstPerson(info->mVisibleFirstPerson);
         attachment->setIsHUDAttachment(info->mIsHUDAttachment);
         // attachment can potentially be animated, needs a number.
-        attachment->setJointNum(mSkeleton.size() + attachmentID - 1);
+        attachment->setJointNum(mNextJointNum++);
 
         if (newly_created)
         {
