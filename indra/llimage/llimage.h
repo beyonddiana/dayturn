@@ -284,6 +284,9 @@ protected:
 public:
 	static S32 sGlobalRawMemory;
 	static S32 sRawImageCount;
+	// <FS:Techwolf Lupindo> texture comment metadata reader
+	std::string mComment;
+	// </FS:Techwolf Lupindo>
 
 private:
 	bool validateSrcAndDst(std::string func, LLImageRaw* src, LLImageRaw* dst);
