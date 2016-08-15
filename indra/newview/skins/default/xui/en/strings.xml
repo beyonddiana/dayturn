@@ -4512,6 +4512,12 @@ Expected .wav, .tga, .bmp, .jpg, .jpeg, or .bvh
 	<string name="Audio Stream">Audio Stream</string>
 	<string name="StreamtitleNowPlaying">Now playing:</string>
 
+	<!-- Drivers support/update pages -->
+	<string name="IntelDriverPage">http://www.intel.com/p/en_US/support/detect/graphics</string>
+	<string name="NvidiaDriverPage">http://www.nvidia.com/Download/index.aspx?lang=en-us</string>
+	<string name="AMDDriverPage">http://support.amd.com/us/Pages/AMDSupportHub.aspx</string>
+
+
 	<!-- OSMessageBox messages -->
 	<string name="MBCmdLineError">
 		An error was found parsing the command line.
