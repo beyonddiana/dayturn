@@ -521,22 +521,16 @@ RRInterface::RRInterface():
 	//, mContainsMoveStrafeRight(FALSE)
 	, mLaunchTimestamp(LLDate::now().secondsSinceEpoch())
 {
-	mAllowedS32 = ",";
+	mAllowedGetDebug.clear();
+	mAllowedGetDebug.push_back("AvatarSex"); // 0 female, 1 male
+	mAllowedGetDebug.push_back("RenderResolutionDivisor"); // simulate blur, default is 1
+	mAllowedGetDebug.push_back("RestrainedLoveForbidGiveToRLV");
+	mAllowedGetDebug.push_back("RestrainedLoveNoSetEnv");
+	mAllowedGetDebug.push_back("WindLightUseAtmosShaders");
 
-	mAllowedU32 = 
-	",AvatarSex"			// 0 female, 1 male
-	",RenderResolutionDivisor"	// simulate blur, default is 1
-	",";
-
-	mAllowedF32 = ",";
-	mAllowedBOOLEAN = ",";
-	mAllowedSTRING = ",";
-	mAllowedVEC3 = ",";
-	mAllowedVEC3D = ",";
-	mAllowedRECT = ",";
-	mAllowedCOL4 = ",";
-	mAllowedCOL3 = ",";
-	mAllowedCOL4U = ",";
+	mAllowedSetDebug.clear();
+	mAllowedSetDebug.push_back("AvatarSex"); // 0 female, 1 male
+	mAllowedSetDebug.push_back("RenderResolutionDivisor"); // simulate blur, default is 1
 
 	mParcelName = "";
 
@@ -3597,36 +3591,152 @@ BOOL RRInterface::forceDebugSetting (std::string command, std::string option)
 	int length = 9; // size of "setdebug_"
 	command = command.substr (length);
 	LLStringUtil::toLower(command);
-	std::string allowed;
+
+	// Find the index of the command in the list of allowed commands, ignoring the case
+	int ind = -1;
+	std::string real_command = "";
 	std::string tmp;
-	int ind;
-	
-	allowed = mAllowedU32;
-	tmp = allowed;
-	LLStringUtil::toLower(tmp);
-	if ((ind = tmp.find (","+command+",")) != -1) {
-		gSavedSettings.setU32 (allowed.substr(++ind, command.length()), atoi(option.c_str()));
+	int nb = mAllowedSetDebug.size();
+	for (int i = 0; i < nb; i++)
+	{
+		tmp = mAllowedSetDebug.at(i);
+		LLStringUtil::toLower(tmp);
+		if (tmp == command)
+		{
+			real_command = mAllowedSetDebug.at(i);
+			ind = i;
+			break;
+		}
+	}
+
+	if (ind != -1) {
+		if (gSavedSettings.controlExists(real_command))
+		{
+			switch (gSavedSettings.getControl(real_command)->type())
+			{
+			case TYPE_U32:
+				gSavedSettings.setU32(real_command, atoi(option.c_str()));
+				break;
+
+			case TYPE_S32:
+				gSavedSettings.setS32(real_command, atoi(option.c_str()));
+				break;
+
+			case TYPE_F32:
+				gSavedSettings.setF32(real_command, atoi(option.c_str()));
+				break;
+
+			case TYPE_BOOLEAN:
+				gSavedSettings.setBOOL(real_command, atoi(option.c_str()));
+				break;
+
+			case TYPE_STRING:
+				gSavedSettings.setString(real_command, option.c_str());
+				break;
+
+			case TYPE_VEC3:
+				//gSavedSettings.setVector3(real_command, atoi(option.c_str()));
+				break;
+
+			case TYPE_VEC3D:
+				//gSavedSettings.setVector3d(real_command, atoi(option.c_str()));
+				break;
+
+			case TYPE_RECT:
+				//gSavedSettings.setRect(real_command, atoi(option.c_str()));
+				break;
+
+			case TYPE_COL4:
+				//gSavedSettings.setColor4(real_command, atoi(option.c_str()));
+				break;
+
+			case TYPE_COL3:
+				//gSavedSettings.setColor4(real_command, atoi(option.c_str()));
+				break;
+
+			default:
+				break;
+			}
+		}
 		return TRUE;
 	}
 	
-	return TRUE;
+	return FALSE;
 }
 
 std::string RRInterface::getDebugSetting (std::string command)
 {
 	std::stringstream res;
-	int length = 9; // size of "getdebug_"
-	command = command.substr (length);
+	int length = 9; // size of "setdebug_"
+	command = command.substr(length);
 	LLStringUtil::toLower(command);
-	std::string allowed;
+
+	// Find the index of the command in the list of allowed commands, ignoring the case
+	int ind = -1;
+	std::string real_command = "";
 	std::string tmp;
-	int ind;
-	
-	allowed = mAllowedU32;
-	tmp = allowed;
-	LLStringUtil::toLower(tmp);
-	if ((ind = tmp.find (","+command+",")) != -1) {
-		res << gSavedSettings.getU32 (allowed.substr(++ind, command.length()));
+	int nb = mAllowedGetDebug.size();
+	for (int i = 0; i < nb; i++)
+	{
+		tmp = mAllowedGetDebug.at(i);
+		LLStringUtil::toLower(tmp);
+		if (tmp == command)
+		{
+			real_command = mAllowedGetDebug.at(i);
+			ind = i;
+			break;
+		}
+	}
+
+	if (ind != -1) {
+		if (gSavedSettings.controlExists(real_command))
+		{
+			switch (gSavedSettings.getControl(real_command)->type())
+			{
+			case TYPE_U32:
+				res << gSavedSettings.getU32(real_command);
+				break;
+
+			case TYPE_S32:
+				res << gSavedSettings.getS32(real_command);
+				break;
+
+			case TYPE_F32:
+				res << gSavedSettings.getF32(real_command);
+				break;
+
+			case TYPE_BOOLEAN:
+				res << gSavedSettings.getBOOL(real_command);
+				break;
+
+			case TYPE_STRING:
+				res << gSavedSettings.getString(real_command);
+				break;
+
+			case TYPE_VEC3:
+				res << gSavedSettings.getVector3(real_command);
+				break;
+
+			case TYPE_VEC3D:
+				res << gSavedSettings.getVector3d(real_command);
+				break;
+
+			case TYPE_RECT:
+				res << gSavedSettings.getRect(real_command);
+				break;
+
+			case TYPE_COL4:
+				res << gSavedSettings.getColor4(real_command);
+				break;
+
+			case TYPE_COL3:
+				res << gSavedSettings.getColor3(real_command);
+				break;
+
+			default:
+				break;
+			}
+		}
 	}
 	
 	return res.str();

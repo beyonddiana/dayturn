@@ -319,17 +319,8 @@ public:
 	static BOOL sRenderLimitRenderedThisFrame; // true when already rendered the vision spheres during this rendering frame
 
 	// Allowed debug settings (initialized in the ctor)
-	std::string mAllowedU32;
-	std::string mAllowedS32;
-	std::string mAllowedF32;
-	std::string mAllowedBOOLEAN;
-	std::string mAllowedSTRING;
-	std::string mAllowedVEC3;
-	std::string mAllowedVEC3D;
-	std::string mAllowedRECT;
-	std::string mAllowedCOL4;
-	std::string mAllowedCOL3;
-	std::string mAllowedCOL4U;
+	std::deque<std::string> mAllowedGetDebug;
+	std::deque<std::string> mAllowedSetDebug;
 
 	// These should be private but we may want to browse them from the outside world, so let's keep them public
 	RRMAP mSpecialObjectBehaviours;
