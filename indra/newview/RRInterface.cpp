@@ -205,6 +205,7 @@ void refreshCachedVariable (std::string var)
 	else if (var == "showinv")				gAgent.mRRInterface.mContainsShowinv = contained;
 	else if (var == "unsit")				gAgent.mRRInterface.mContainsUnsit = contained;
 	else if (var == "fartouch")				gAgent.mRRInterface.mContainsFartouch = contained;
+	else if (var == "interact")				gAgent.mRRInterface.mContainsInteract = contained;
 	else if (var == "touchfar")				gAgent.mRRInterface.mContainsFartouch = contained;
 	else if (var == "showworldmap")			gAgent.mRRInterface.mContainsShowworldmap = contained;
 	else if (var == "showminimap")			gAgent.mRRInterface.mContainsShowminimap = contained;
@@ -485,6 +486,7 @@ RRInterface::RRInterface():
 	, mContainsShowinv(FALSE)
 	, mContainsUnsit(FALSE)
 	, mContainsFartouch(FALSE)
+	, mContainsInteract(FALSE)
 	, mContainsShowworldmap(FALSE)
 	, mContainsShowminimap(FALSE)
 	, mContainsShowloc(FALSE)
@@ -1316,7 +1318,19 @@ BOOL RRInterface::handleCommand (LLUUID uuid, std::string command)
 		else if (behav=="getsitid") return answerOnChat (param, getSitTargetId ().asString());
 		else if (behav=="getpath") return answerOnChat (param, getFullPath (getItem(uuid), option, false)); // option can be empty (=> find path to object) or the name of an attach pt or the name of a clothing layer
 		else if (behav=="getpathnew") return answerOnChat (param, getFullPath (getItem(uuid), option)); // option can be empty (=> find path to object) or the name of an attach pt or the name of a clothing layer
-		else if (behav=="findfolder") return answerOnChat (param, getFullPath (findCategoryUnderRlvShare (option)));
+		else if (behav == "findfolder") return answerOnChat(param, getFullPath(findCategoryUnderRlvShare(option)));
+		else if (behav == "findfolders") {
+			std::deque<std::string> options = parse(option, ";");
+			std::string folder_to_find = options.at(0);
+			std::string separator = (options.size() > 1) ? options.at(1) : ",";
+			std::deque<LLInventoryCategory*> cats = findCategoriesUnderRlvShare(folder_to_find);
+			std::string response = "";
+			for (int i = 0; i < cats.size(); i++) {
+				if (i > 0) response += separator;
+				response += getFullPath(cats.at(i));
+			}
+			return answerOnChat(param, response);
+		}
 		else if (behav.find ("getenv_") == 0) return answerOnChat (param, getEnvironment (behav));
 		else if (behav.find ("getdebug_") == 0) return answerOnChat (param, getDebugSetting (behav));
 		else if (behav=="getgroup") {
@@ -2529,10 +2543,14 @@ LLInventoryCategory* RRInterface::findCategoryUnderRlvShare (std::string catName
 			{
 				cat = cats->at(i);
 				
-				// search deeper first
-				LLInventoryCategory* found = findCategoryUnderRlvShare (catName, cat);
-				if (found != NULL) return found;
-				
+				std::string name = cat->getName();
+				LLStringUtil::toLower(name);
+				// We can't find invisible folders ('.') and dropped folders ('~')
+				if (name != "" && name[0] != '.' && name[0] != '~') {
+					// search deeper first
+					LLInventoryCategory* found = findCategoryUnderRlvShare(catName, cat);
+					if (found != NULL) return found;
+				}
 			}
 		}
 		// return this category if it matches
@@ -2545,7 +2563,52 @@ LLInventoryCategory* RRInterface::findCategoryUnderRlvShare (std::string catName
 	return NULL;
 }
 
-std::string RRInterface::findAttachmentNameFromPoint (LLViewerJointAttachment* attachpt)
+std::deque<LLInventoryCategory*> RRInterface::findCategoriesUnderRlvShare(std::string catName, LLInventoryCategory* root)
+{
+	if (root == NULL) root = getRlvShare();
+	LLStringUtil::toLower(catName);
+	std::deque<std::string> tokens = parse(catName, "&&");
+	std::deque<LLInventoryCategory*> res;
+
+	if (root) {
+		LLInventoryModel::cat_array_t* cats;
+		LLInventoryModel::item_array_t* items;
+		gInventory.getDirectDescendentsOf(root->getUUID(), cats, items);
+
+		if (cats)
+		{
+			S32 count = cats->size();
+			LLInventoryCategory* cat = NULL;
+
+			for (S32 i = 0; i < count; ++i)
+			{
+				cat = cats->at(i);
+
+				std::string name = cat->getName();
+				LLStringUtil::toLower(name);
+				// We can't find invisible folders ('.') and dropped folders ('~')
+				if (name != "" && name[0] != '.' && name[0] != '~') {
+					// search deeper first
+					std::deque<LLInventoryCategory*> found = findCategoriesUnderRlvShare(catName, cat);
+					for (int i = 0; i < found.size(); i++) {
+						res.push_back(found.at(i));
+					}
+				}
+
+			}
+		}
+
+		// add this category if it matches
+		std::string name = root->getName();
+		LLStringUtil::toLower(name);
+		// We can't find invisible folders ('.') and dropped folders ('~')
+		if (name != "" && name[0] != '.' && name[0] != '~' && findMultiple(tokens, name)) res.push_back(root);
+	}
+
+	return res;
+}
+
+std::string RRInterface::findAttachmentNameFromPoint(LLViewerJointAttachment* attachpt)
 {
 	// return the lowercased name of the attachment, or empty if null
 	if (attachpt == NULL) return "";
@@ -4384,6 +4447,7 @@ bool RRInterface::canEdit(LLViewerObject* object)
 	if (!object || !object->getRootEdit()) return false;
 	if (containsWithoutException ("edit", object->getRootEdit()->getID().asString())) return false;
 	if (contains ("editobj:"+object->getRootEdit()->getID().asString())) return false;
+	if (!object->isHUDAttachment() && mContainsInteract) return false;
 	return true;
 }
 
@@ -4400,7 +4464,7 @@ bool RRInterface::canTouch(LLViewerObject* object, LLVector3 pick_intersection /
 
 //	if (!root->isHUDAttachment() && contains ("touchallnonhud")) return false;
 
-//	if (root->isHUDAttachment() && contains ("touchhud")) return false;
+	if (root->isHUDAttachment() && containsWithoutException("touchhud", object->getRootEdit()->getID().asString())) return false;
 
 	if (contains ("touchthis:"+object->getRootEdit()->getID().asString())) return false;
 
@@ -4432,6 +4496,11 @@ bool RRInterface::canTouch(LLViewerObject* object, LLVector3 pick_intersection /
 bool RRInterface::canTouchFar(LLViewerObject* object, LLVector3 pick_intersection /* = LLVector3::zero */)
 {
 	if (!object) return true;
+
+	if (mContainsInteract && !object->isHUDAttachment())
+	{
+		return false;
+	}
 
 	LLVector3 pos = object->getPositionRegion ();
 	if (pick_intersection != LLVector3::zero) pos = pick_intersection;

@@ -178,7 +178,8 @@ public:
 //	void renameAttachment (LLInventoryItem* item, LLViewerJointAttachment* attachment); // DEPRECATED
 	LLInventoryCategory* getCategoryUnderRlvShare (std::string catName, LLInventoryCategory* root = NULL);
 	LLInventoryCategory* findCategoryUnderRlvShare (std::string catName, LLInventoryCategory* root = NULL);
-	std::string findAttachmentNameFromPoint (LLViewerJointAttachment* attachpt);
+	std::deque<LLInventoryCategory*> findCategoriesUnderRlvShare(std::string catName, LLInventoryCategory* root = NULL);
+	std::string findAttachmentNameFromPoint(LLViewerJointAttachment* attachpt);
 	LLViewerJointAttachment* findAttachmentPointFromName (std::string objectName, BOOL exactName = FALSE);
 	LLViewerJointAttachment* findAttachmentPointFromParentName (LLInventoryItem* item);
 	S32 findAttachmentPointNumber (LLViewerJointAttachment* attachment);
@@ -261,6 +262,7 @@ public:
 	BOOL mContainsShowinv;
 	BOOL mContainsUnsit;
 	BOOL mContainsFartouch;
+	BOOL mContainsInteract;
 	BOOL mContainsShowworldmap;
 	BOOL mContainsShowminimap;
 	BOOL mContainsShowloc;

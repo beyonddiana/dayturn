@@ -70,6 +70,13 @@ const F32 PARCEL_POST_HEIGHT = 0.666f;
 // Returns true if you got at least one object
 void LLToolSelectRect::handleRectangleSelection(S32 x, S32 y, MASK mask)
 {
+//MK from KB
+	if (gRRenabled && gAgent.mRRInterface.mContainsInteract)
+	{
+		return;
+	}
+//mk from KB
+
 	LLVector3 av_pos = gAgent.getPositionAgent();
 	F32 select_dist_squared = gSavedSettings.getF32("MaxSelectDistance");
 	select_dist_squared = select_dist_squared * select_dist_squared;

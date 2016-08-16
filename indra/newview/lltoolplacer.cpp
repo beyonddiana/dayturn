@@ -534,7 +534,7 @@ BOOL LLToolPlacer::placeObject(S32 x, S32 y, MASK mask)
 	BOOL added = TRUE;
 
 //MK
-	if (gRRenabled && (gAgent.mRRInterface.mContainsEdit || gAgent.mRRInterface.mContainsRez))
+	if (gRRenabled && (gAgent.mRRInterface.mContainsEdit || gAgent.mRRInterface.mContainsRez || gAgent.mRRInterface.mContainsInteract))
 	{
 		return TRUE;
 	}

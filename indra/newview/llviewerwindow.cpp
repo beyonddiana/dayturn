@@ -4193,6 +4193,12 @@ LLViewerObject* LLViewerWindow::cursorIntersect(S32 mouse_x, S32 mouse_y, F32 de
 			{
 				found = this_object;
 			}
+//MK
+			if (gRRenabled && gAgent.mRRInterface.mContainsInteract)
+			{
+				found = NULL;
+			}
+//mk
 		}
 	}
 	else // check ALL objects
