@@ -8027,6 +8027,13 @@ void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
 		// RequestAgentUpdateAppearanceResponder::onRequestRequested()
 		// assumes that cof version is only updated with server-bake
 		// appearance messages.
+		LL_INFOS("Avatar") << "Processing appearance message version " << thisAppearanceVersion << LL_ENDL;
+		
+        // Note:
+        // locally the COF is maintained via LLInventoryModel::accountForUpdate
+        // which is called from various places.  This should match the simhost's 
+        // idea of what the COF version is.  AIS however maintains its own version
+        // of the COF that should be considered canonical.		
 		mLastUpdateReceivedCOFVersion = this_update_cof_version;
 	}
 		
