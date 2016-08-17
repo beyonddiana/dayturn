@@ -2412,6 +2412,10 @@ void translate_if_needed(std::string& message)
 	}
 }
 
+//MK
+void send_lures(const LLSD& notification, const LLSD& response);
+//mk
+
 void process_improved_im(LLMessageSystem *msg, void **user_data)
 {
 	LLUUID from_id;
@@ -3436,11 +3440,19 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 				return;
 			}
 //MK
+			bool auto_accept = gRRenabled;
+			if (dialog == IM_LURE_USER)
+			{
+				auto_accept &= (gAgent.mRRInterface.contains("accepttp:" + from_id.asString()) || gAgent.mRRInterface.contains("accepttp"));
+			}
+			else if (dialog == IM_TELEPORT_REQUEST)
+			{
+				auto_accept &= (gAgent.mRRInterface.contains("accepttprequest:" + from_id.asString()) || gAgent.mRRInterface.contains("accepttprequest"));
+			}
 ////			else if (is_do_not_disturb) 
-			// Accept the TP if we are forced to accept TPs from this avatar or from everyone,
+			// Accept the TP or TP request if we are forced to accept it from this avatar or from everyone,
 			// even in busy mode
-			else if (is_do_not_disturb && (!gRRenabled || (!gAgent.mRRInterface.contains ("accepttp:"+from_id.asString())
-									&& !gAgent.mRRInterface.contains ("accepttp")))) 
+			if (is_do_not_disturb && !auto_accept) 
 //mk
 			{
 				send_do_not_disturb_message(msg, from_id);
@@ -3523,7 +3535,25 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 					return;
 				}
 				
-				if (gRRenabled && (gAgent.mRRInterface.containsWithoutException ("recvim", from_id.asString())
+				if (gRRenabled && dialog == IM_TELEPORT_REQUEST
+					&& (gAgent.mRRInterface.containsWithoutException("tprequest", from_id.asString())))
+				{
+					std::string response = "The Resident you invited is prevented from accepting teleport requests. Please try again later.";
+					pack_instant_message(
+						gMessageSystem,
+						gAgent.getID(),
+						FALSE,
+						gAgent.getSessionID(),
+						from_id,
+						SYSTEM_FROM,
+						response.c_str(),
+						IM_ONLINE,
+						IM_DO_NOT_DISTURB_AUTO_RESPONSE);
+					gAgent.sendReliableMessage();
+					return;
+				}
+
+				if (gRRenabled && (gAgent.mRRInterface.containsWithoutException("recvim", from_id.asString())
 					|| gAgent.mRRInterface.contains ("recvimfrom:"+from_id.asString())))
 				{
 					message = "(Hidden)";
@@ -3550,8 +3580,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 					message = "(Hidden)";
 				}
 
-				if (gRRenabled && dialog == IM_LURE_USER && (gAgent.mRRInterface.contains("accepttp:" + from_id.asString())
-									|| gAgent.mRRInterface.contains ("accepttp")))
+				if (gRRenabled && dialog == IM_LURE_USER && auto_accept)
 				{
 					// accepttp => the viewer acts like it was teleported by a god
 					gAgent.mRRInterface.setAllowCancelTp (FALSE);
@@ -3561,6 +3590,17 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 					payload["godlike"] = TRUE;
 					// do not show a message box, because you're about to be teleported.
 					LLNotifications::instance().forceResponse(LLNotification::Params("TeleportOffered").payload(payload), 0);
+				}
+				else if (gRRenabled && dialog == IM_TELEPORT_REQUEST && auto_accept)
+				{
+					// accepttprequest => the viewer automaticallys ends the TP (code copied from teleport_request_callback())
+					LLSD dummy_notification;
+					dummy_notification["payload"]["ids"][0] = from_id;
+
+					LLSD dummy_response;
+					dummy_response["message"] = "Automatic teleport offer";
+
+					send_lures(dummy_notification, dummy_response);
 				}
 				else
 				{
