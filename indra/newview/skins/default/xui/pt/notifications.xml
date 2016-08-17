@@ -450,6 +450,9 @@ Ele ultrapassa o limite de anexos, de [MAX_ATTACHMENTS] objetos. Remova um objet
 	<notification name="CannotWearInfoNotComplete">
 		Você não pode vestir este item porque ele ainda não carregou. Tente novamente em um minuto.
 	</notification>
+	<notification name="MustEnterPasswordToLogIn">
+		Informe sua senha para fazer o login.
+	</notification>
 	<notification name="MustHaveAccountToLogIn">
 		Opa! Alguma coisa ficou em branco.
 Digite o nome de usuário de seu avatar.
@@ -517,6 +520,9 @@ Nota: Este procedimento limpa o cache.
 	</notification>
 	<notification name="ChangeConnectionPort">
 		Reinicie o [APP_NAME] para ativar a reconfiguração da porta.
+	</notification>
+	<notification name="ChangeDeferredDebugSetting">
+		Essa alteração nas configurações de depuração será aplicada depois que você reiniciar o [APP_NAME].
 	</notification>
 	<notification name="ChangeSkin">
 		Reinicie o [APP_NAME] para ativar a pele nova.
@@ -1448,6 +1454,10 @@ Substituir textura [TEXTURE_NUM], com uma imagem de 24-bit 1024 x 1024 ou menor 
 		Você realmente deseja nivelar o terreno selecionado a partir do centro elevando/reduzindo os limites e o padrão para a ferramenta ´Reverter´?
 		<usetemplate name="okcancelbuttons" notext="Cancelar" yestext="Executar"/>
 	</notification>
+	<notification name="ConfirmTextureHeights">
+		Você está prestes a usar valores baixos maiores que os valores altos para os intervalos de elevação. Deseja prosseguir?
+		<usetemplate canceltext="Não perguntar" name="yesnocancelbuttons" notext="Cancelar" yestext="Ok"/>
+	</notification>
 	<notification name="MaxAllowedAgentOnRegion">
 		Você pode ter somente [MAX_AGENTS] residentes permitidos.
 	</notification>
@@ -2324,6 +2334,10 @@ Deseja desativar o Não perturbe antes de concluir esta transação?
 		Tem certeza de que deseja excluir o conteúdo da Lixeira? Para sempre?
 		<usetemplate ignoretext="Confirmar antes de esvaziar a pasta Lixeira" name="okcancelignore" notext="Não" yestext="Sim"/>
 	</notification>
+	<notification name="TrashIsFull">
+		Sua lixeira está transbordando. Isso pode causar problemas no logon.
+		<usetemplate name="okcancelbuttons" notext="Esvaziarei a lixeira mais tarde" yestext="Esvaziar lixeira agora"/>
+	</notification>
 	<notification name="ConfirmClearBrowserCache">
 		Tem certeza de que quer apagar todo o histórico de viagens, web e buscas?
 		<usetemplate name="okcancelbuttons" notext="Não" yestext="OK"/>
@@ -3168,6 +3182,16 @@ Para sua segurança, os SLurls serão bloqueados por alguns instantes.
 	<notification name="AttachmentSaved">
 		Anexo salvo.
 	</notification>
+	<notification name="AppearanceToXMLSaved">
+		A aparência foi salva como XML em [PATH]
+	</notification>
+	<notification name="AppearanceToXMLFailed">
+		Falha ao salvar a aparência como XML.
+    icon=&quot;notifytip.tga&quot;
+	name=&quot;PresetNotDeleted&quot;
+    type=&quot;notifytip&quot;&gt;
+Erro ao excluir a predefinição [NAME].
+	</notification>	
 	<notification name="UnableToFindHelpTopic">
 		Nenhum tópico de ajuda foi encontrado com relação a este elemento.
 	</notification>
@@ -3979,6 +4003,9 @@ Tente novamente em instantes.
 	</notification>
 	<notification name="CantAttachNotEnoughScriptResources">
 		Não há recursos de script disponíveis suficientes para anexar objeto!
+	</notification>
+	<notification name="IllegalAttachment">
+		O anexo solicitou um ponto não existente no avatar. Ele foi anexado ao peito.
 	</notification>
 	<notification name="CantDropItemTrialUser">
 		Não é possível largar objetos aqui. Tente a área de Avaliação grátis.
