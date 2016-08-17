@@ -794,7 +794,9 @@ bool RRInterface::isFolderLocked(LLInventoryCategory* cat)
 //	const LLFolderType::EType folder_type = cat->getPreferredType();
 //	if (LLFolderType::lookupIsProtectedType(folder_type)) return false;
 
-	if (contains ("unsharedwear") && !isUnderRlvShare(cat)) return true;
+	bool shared = isUnderRlvShare(cat);
+	if (!shared && contains("unsharedwear")) return true;
+	if (shared && contains("sharedwear")) return true;
 	if (isFolderLockedWithoutException(cat, "attach") != FolderLock_unlocked) return true;
 	if (isFolderLockedWithoutException(cat, "detach") != FolderLock_unlocked) return true;
 	return false;
@@ -4005,9 +4007,13 @@ bool RRInterface::canAttachCategory(LLInventoryCategory* folder, bool with_excep
 	LLVOAvatarSelf* avatar = gAgentAvatarp;
 	if (!avatar) return true;
 	LLInventoryCategory* rlvShare = getRlvShare();
-	if (!rlvShare || !isUnderRlvShare(folder)) {
+	bool shared = isUnderRlvShare(folder);
+	if (!rlvShare || !shared) {
 		if (contains ("unsharedwear")) return false;
 		else return true;
+	}
+	else {
+		if (contains("sharedwear")) return false;
 	}
 	return canAttachCategoryAux(folder, false, false, with_exceptions);
 }
@@ -4108,9 +4114,13 @@ bool RRInterface::canDetachCategory(LLInventoryCategory* folder, bool with_excep
 	LLVOAvatarSelf* avatar = gAgentAvatarp;
 	if (!avatar) return true;
 	LLInventoryCategory* rlvShare = getRlvShare();
-	if (!rlvShare || !isUnderRlvShare(folder)) {
+	bool shared = isUnderRlvShare(folder);
+	if (!rlvShare || !shared) {
 		if (contains ("unsharedunwear")) return false;
 		else return true;
+	}
+	else {
+		if (contains("sharedunwear")) return false;
 	}
 	return canDetachCategoryAux(folder, false, false, with_exceptions);
 }
