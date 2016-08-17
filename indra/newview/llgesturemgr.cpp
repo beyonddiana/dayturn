@@ -527,6 +527,13 @@ void LLGestureMgr::playGesture(LLMultiGesture* gesture)
 {
 	if (!gesture) return;
 
+//MK
+	if (gRRenabled && gAgent.mRRInterface.contains ("sendgesture"))
+	{
+		return;
+	}
+//mk
+
 	// Reset gesture to first step
 	gesture->mCurrentStep = 0;
 
