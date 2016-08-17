@@ -36,15 +36,16 @@
 #include "kdu_block_coding.h"
 
 #include "llexception.h"
-
-#include <iostream>
+#include <boost/exception/diagnostic_information.hpp>
+#include <sstream>
+#include <iomanip>
 
 namespace {
-// exception used to keep KDU from terminating entire program -- see comments
-// in LLKDUMessageError::flush()
-struct KDUError: public std::runtime_error
+// Failure to load an image shouldn't crash the whole viewer.
+struct KDUError: public LLContinueError
+
 {
-	KDUError(const std::string& msg): std::runtime_error(msg) {}
+	    KDUError(const std::string& msg): LLContinueError(msg) {}
 };
 } // anonymous namespace
 
