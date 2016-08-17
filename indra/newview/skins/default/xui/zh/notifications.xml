@@ -453,6 +453,9 @@
 	<notification name="CannotWearInfoNotComplete">
 		無法穿戴該物件，它尚未完成載入。 請稍候再試。
 	</notification>
+	<notification name="MustEnterPasswordToLogIn">
+		請輸入密碼以便登入。
+	</notification>
 	<notification name="MustHaveAccountToLogIn">
 		糟糕！ 發現有內容留白。
 你必須為化身輸入一個使用者名稱。
@@ -520,6 +523,9 @@
 	</notification>
 	<notification name="ChangeConnectionPort">
 		重新啟動 [APP_NAME] 後將啟用新的埠設定。
+	</notification>
+	<notification name="ChangeDeferredDebugSetting">
+		這個除錯設定將在重新啟動 [APP_NAME] 後啟用。
 	</notification>
 	<notification name="ChangeSkin">
 		重新啟動 [APP_NAME] 後將顯現新的皮膚。
@@ -1449,6 +1455,10 @@ Replace texture [TEXTURE_NUM] with a 24-bit 1024 x 1024 or smaller image then cl
 		你真的要確定產出目前地形，使其成為地形升/降極限的中間值，並設為「復原」工具的預設值？
 		<usetemplate name="okcancelbuttons" notext="取消" yestext="確定"/>
 	</notification>
+	<notification name="ConfirmTextureHeights">
+		你設的海拔範圍值，低值大於高值。　 繼續？
+		<usetemplate canceltext="不要問" name="yesnocancelbuttons" notext="取消" yestext="確定"/>
+	</notification>
 	<notification name="MaxAllowedAgentOnRegion">
 		你最多只能有 [MAX_AGENTS] 位允許居民。
 	</notification>
@@ -2322,6 +2332,10 @@ Replace texture [TEXTURE_NUM] with a 24-bit 1024 x 1024 or smaller image then cl
 		你確定你要對你垃圾筒中的內容進行刪除？
 		<usetemplate ignoretext="在我清空收納區垃圾筒資料夾前確認" name="okcancelignore" notext="取消" yestext="確定"/>
 	</notification>
+	<notification name="TrashIsFull">
+		你的垃圾桶快滿了。 這可能會造成登入的問題。
+		<usetemplate name="okcancelbuttons" notext="我稍後再清空垃圾桶" yestext="現在清空垃圾桶"/>
+	</notification>
 	<notification name="ConfirmClearBrowserCache">
 		你確定要刪除你的旅行、網頁及搜尋歷史紀錄嗎？
 		<usetemplate name="okcancelbuttons" notext="取消" yestext="確定"/>
@@ -3169,6 +3183,16 @@ Replace texture [TEXTURE_NUM] with a 24-bit 1024 x 1024 or smaller image then cl
 	<notification name="AttachmentSaved">
 		附件已儲存。
 	</notification>
+	<notification name="AppearanceToXMLSaved">
+		外觀已經存成位於[PATH]的XML
+	</notification>
+	<notification name="AppearanceToXMLFailed">
+		將外觀存為XML失敗。
+    icon=&quot;notifytip.tga&quot;
+	name=&quot;PresetNotDeleted&quot;
+    type=&quot;notifytip&quot;&gt;
+刪除預設名稱[NAME]時出錯。
+	</notification>	
 	<notification name="UnableToFindHelpTopic">
 		找不到這個元件的幫助主題。
 	</notification>
@@ -3982,6 +4006,9 @@ Replace texture [TEXTURE_NUM] with a 24-bit 1024 x 1024 or smaller image then cl
 	</notification>
 	<notification name="CantAttachNotEnoughScriptResources">
 		腳本資源不足，無法附著物件！
+	</notification>
+	<notification name="IllegalAttachment">
+		這個附件要求了化身上不存在的點。 因此已將該附件附著到胸部。
 	</notification>
 	<notification name="CantDropItemTrialUser">
 		你無法在此卸除物件，請到「自由嘗試」區域再試。
