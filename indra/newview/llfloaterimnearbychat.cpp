@@ -665,7 +665,9 @@ void LLFloaterIMNearbyChat::sendChat( EChatType type )
 //MK
 				std::ostringstream stream;
 				stream << "" << channel;
-				if (gRRenabled && gAgent.mRRInterface.containsWithoutException ("sendchannel", stream.str()))
+				if (gRRenabled && 
+					(gAgent.mRRInterface.containsWithoutException("sendchannel", stream.str()) || gAgent.mRRInterface.contains("sendchannel_except:" + stream.str()))
+					)
 				{
 					utf8_revised_text = "";
 				}
@@ -991,7 +993,7 @@ void send_chat_from_viewer(const std::string& utf8_out_text, EChatType type, S32
 					S32 ch = atoi (behav.substr (restriction.length()).c_str());
 					std::ostringstream stream;
 					stream << "" << ch;
-					if (!gAgent.mRRInterface.containsWithoutException ("sendchannel", stream.str()))
+					if (!gAgent.mRRInterface.containsWithoutException("sendchannel", stream.str()) && !gAgent.mRRInterface.contains("sendchannel_except:" + stream.str()))
 					{
 						if (ch > 0 && ch < 2147483647)
 						{

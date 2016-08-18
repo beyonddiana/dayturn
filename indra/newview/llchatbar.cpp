@@ -453,7 +453,7 @@ void LLChatBar::sendChat( EChatType type )
 				std::ostringstream stream;
 				stream << "" << channel;
 				if (gRRenabled && 
-					(gAgent.mRRInterface.containsWithoutException ("sendchannel", stream.str())
+					(gAgent.mRRInterface.containsWithoutException("sendchannel", stream.str()) || gAgent.mRRInterface.contains ("sendchannel_except:" + stream.str()))
 					)
 				{
 					utf8_revised_text = "";
