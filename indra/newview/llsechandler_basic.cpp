@@ -35,6 +35,8 @@
 #include "llfile.h"
 #include "lldir.h"
 #include "llviewercontrol.h"
+#include "llexception.h"
+#include "stringize.h"
 #include <vector>
 #include <ios>
 #include <openssl/ossl_typ.h>
@@ -1424,10 +1426,11 @@ void LLSecAPIBasicHandler::_writeProtectedData()
 		//throw LLProtectedDataException("Error writing Protected Data Store");
 	}
 
+
     try
     {
         // move the temporary file to the specified file location.
-        if(((   (LLFile::isfile(mProtectedDataFilename) != 0)
+        if(((    (LLFile::isfile(mProtectedDataFilename) != 0)
              && (LLFile::remove(mProtectedDataFilename) != 0)))
            || (LLFile::rename(tmp_filename, mProtectedDataFilename)))
         {
@@ -1436,16 +1439,16 @@ void LLSecAPIBasicHandler::_writeProtectedData()
 
             // EXP-1825 crash in LLSecAPIBasicHandler::_writeProtectedData()
             // Decided throwing an exception here was overkill until we figure out why this happens
-            //throw LLProtectedDataException("Could not overwrite protected data store");
+            //LLTHROW(LLProtectedDataException("Could not overwrite protected data store"));
         }
 	}
 	catch (...)
 	{
-		LL_WARNS() << "LLProtectedDataException(Error renaming '" << tmp_filename
-                   << "' to '" << mProtectedDataFilename << "')" << LL_ENDL;
-		// it's good practice to clean up any secure information on error
+        LOG_UNHANDLED_EXCEPTION(STRINGIZE("renaming '" << tmp_filename << "' to '"
+                                          << mProtectedDataFilename << "'"));
+        // it's good practice to clean up any secure information on error
 		// (even though this file isn't really secure.  Perhaps in the future
-		// it may be, however.
+		// it may be, however).
 		LLFile::remove(tmp_filename);
 
 		//crash in LLSecAPIBasicHandler::_writeProtectedData()
@@ -1453,7 +1456,7 @@ void LLSecAPIBasicHandler::_writeProtectedData()
 		//throw LLProtectedDataException("Error writing Protected Data Store");
 	}
 }
-		
+
 // instantiate a certificate from a pem string
 LLPointer<LLCertificate> LLSecAPIBasicHandler::getCertificate(const std::string& pem_cert)
 {

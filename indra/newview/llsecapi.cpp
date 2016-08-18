@@ -30,6 +30,7 @@
 #include "llsecapi.h"
 #include "llsechandler_basic.h"
 #include "llexception.h"
+#include "stringize.h"
 #include <openssl/evp.h>
 #include <openssl/err.h>
 #include <map>
@@ -143,6 +144,7 @@ int secapiSSLCertVerifyCallback(X509_STORE_CTX *ctx, void *param)
 LLSD LLCredential::getLoginParams()
 {
 	LLSD result = LLSD::emptyMap();
+	std::string username;
 	try 
 	{
 		if (mIdentifier["type"].asString() == "agent")
@@ -151,17 +153,21 @@ LLSD LLCredential::getLoginParams()
 			result["passwd"] = "$1$" + mAuthenticator["secret"].asString();
 			result["first"] = mIdentifier["first_name"];
 			result["last"] = mIdentifier["last_name"];
+            username = result["first"].asString() + " " + result["last"].asString();
 		
 		}
 		else if (mIdentifier["type"].asString() == "account")
 		{
 			result["username"] = mIdentifier["account_name"];
 			result["passwd"] = mAuthenticator["secret"];
+            username = result["username"].asString();
 										
 		}
 	}
 	catch (...)
 	{
+        // nat 2016-08-18: not clear what exceptions the above COULD throw?!
+        LOG_UNHANDLED_EXCEPTION(STRINGIZE("for '" << username << "'"));
 		// we could have corrupt data, so simply return a null login param if so
 		LL_WARNS("AppInit") << "Invalid credential" << LL_ENDL;
 	}
