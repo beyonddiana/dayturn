@@ -1526,15 +1526,26 @@ BOOL RRInterface::force (LLUUID object_uuid, std::string command, std::string op
 		}
 	}
 	else if (command=="detach" || command=="remattach") { // detach:chest=force OR detach:restraints/cuffs=force (@remattach is a synonym)
-		LLViewerJointAttachment* attachpt = findAttachmentPointFromName (option, TRUE); // exact name
-		if (attachpt != NULL || option == "") return forceDetach (option); // remove by attach pt
-		else forceDetachByName (option, FALSE);
+		if (LLUUID::validate (option)) { // if option is a UUID, detach this object only
+			return forceDetachByUuid(option); // remove by uuid
+		}
+		else {
+			LLViewerJointAttachment* attachpt = findAttachmentPointFromName(option, TRUE); // exact name
+			if (attachpt != NULL || option == "") return forceDetach(option); // remove by attach pt
+			else forceDetachByName(option, FALSE);
+		}
 	}
 	else if (command=="detachme") { // detachme=force to detach this object specifically
 		return forceDetachByUuid (object_uuid.asString()); // remove by uuid
 	}
 	else if (command=="detachthis") { // detachthis=force to detach the folder containing this object
-		std::string pathes_str = getFullPath (getItem(object_uuid), option);
+		std::string pathes_str;
+		if (LLUUID::validate(option)) { // if option is a UUID, we're not detaching the folder contain the calling object, but the referenced object
+			pathes_str = getFullPath(getItem(LLUUID (option)));
+		}
+		else {
+			pathes_str = getFullPath(getItem(object_uuid), option);
+		}
 		std::deque<std::string> pathes = parse (pathes_str, ",");
 		BOOL res = TRUE;
 		for (unsigned int i = 0; i < pathes.size(); ++i) {
@@ -1552,8 +1563,14 @@ BOOL RRInterface::force (LLUUID object_uuid, std::string command, std::string op
 		return res;
 	}
 	else if (command=="detachallthis") { // detachallthis=force to detach the folder containing this object and also its subfolders
-		std::string pathes_str = getFullPath (getItem(object_uuid), option);
-		std::deque<std::string> pathes = parse (pathes_str, ",");
+		std::string pathes_str;
+		if (LLUUID::validate(option)) { // if option is a UUID, we're not detaching the folder contain the calling object, but the referenced object
+			pathes_str = getFullPath(getItem(LLUUID(option)));
+		}
+		else {
+			pathes_str = getFullPath(getItem(object_uuid), option);
+		}
+		std::deque<std::string> pathes = parse(pathes_str, ",");
 		BOOL res = TRUE;
 		for (unsigned int i = 0; i < pathes.size(); ++i) {
 			res &= forceDetachByName (pathes.at(i), TRUE);
