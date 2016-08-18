@@ -436,7 +436,7 @@ BOOL LLTaskInvFVBridge::isItemRemovable() const
 //MK
 	// can't edit objects that someone is sitting on,
 	// when prevented from sit-tping
-	if (gRRenabled && object && (gAgent.mRRInterface.contains ("sittp")
+	if (gRRenabled && object && (gAgent.mRRInterface.mSittpMax < EXTREMUM
 		|| gAgent.mRRInterface.mContainsUnsit))
 	{
 		if (object->isSeat())

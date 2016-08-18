@@ -171,7 +171,7 @@ void LLPanelContents::onClickNewScript(void *userdata)
 		{
 			// can't edit objects that someone is sitting on,
 			// when prevented from sit-tping
-			if (gAgent.mRRInterface.contains ("sittp") || gAgent.mRRInterface.mContainsUnsit)
+			if (gAgent.mRRInterface.mSittpMax < EXTREMUM || gAgent.mRRInterface.mContainsUnsit)
 			{
 				if (object->isSeat())
 				{

@@ -142,7 +142,7 @@ void LLToolSelectRect::handleRectangleSelection(S32 x, S32 y, MASK mask)
 		LLViewerCamera::getInstance()->setNear(new_near);
 	}
 //MK
-	if (gRRenabled && gAgent.mRRInterface.mContainsFartouch)
+	if (gRRenabled && gAgent.mRRInterface.mFartouchMax < EXTREMUM)
 	{
 		// don't allow select by rectangle while under fartouch
 		LLViewerCamera::getInstance()->setFar(0.0f);

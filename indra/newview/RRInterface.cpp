@@ -204,9 +204,7 @@ void refreshCachedVariable (std::string var)
 	}
 	else if (var == "showinv")				gAgent.mRRInterface.mContainsShowinv = contained;
 	else if (var == "unsit")				gAgent.mRRInterface.mContainsUnsit = contained;
-	else if (var == "fartouch")				gAgent.mRRInterface.mContainsFartouch = contained;
 	else if (var == "interact")				gAgent.mRRInterface.mContainsInteract = contained;
-	else if (var == "touchfar")				gAgent.mRRInterface.mContainsFartouch = contained;
 	else if (var == "showworldmap")			gAgent.mRRInterface.mContainsShowworldmap = contained;
 	else if (var == "showminimap")			gAgent.mRRInterface.mContainsShowminimap = contained;
 	else if (var == "showloc")				gAgent.mRRInterface.mContainsShowloc = contained;
@@ -485,7 +483,6 @@ RRInterface::RRInterface():
 	, mContainsDetach(FALSE)
 	, mContainsShowinv(FALSE)
 	, mContainsUnsit(FALSE)
-	, mContainsFartouch(FALSE)
 	, mContainsInteract(FALSE)
 	, mContainsShowworldmap(FALSE)
 	, mContainsShowminimap(FALSE)
@@ -546,6 +543,7 @@ RRInterface::RRInterface():
 	sLastAvatarZOffsetCommit = 1.f; // So a first shape update will be done shortly after the viewer has started
 	sLastOutfitChange = -1000.f;
 	updateCameraLimits();
+	updateLimits();
 
 	// Calling gSavedSettings here crashes the viewer when compiled with VS2005.
 	// OK under Linux. Moved this initialization to llstartup.cpp as a consequence.
@@ -668,6 +666,9 @@ F32 RRInterface::getMax (std::string action, F32 dflt /*= EXTREMUM*/)
 		if (parseCommand (command+"=n", behav, option, param)) {
 			if (behav == action) {
 				tmp = atof (option.c_str());
+				if (option == "") {
+					tmp = 1.5;
+				}
 				if (tmp > res) {
 					res = tmp;
 					found_one = TRUE;
@@ -697,6 +698,9 @@ F32 RRInterface::getMin (std::string action, F32 dflt /*= -EXTREMUM*/)
 		if (parseCommand (command+"=n", behav, option, param)) {
 			if (behav == action) {
 				tmp = atof (option.c_str());
+				if (option == "") {
+					tmp = 1.5;
+				}
 				if (tmp < res) {
 					res = tmp;
 					found_one = TRUE;
@@ -1007,6 +1011,13 @@ BOOL RRInterface::add (LLUUID object_uuid, std::string action, std::string optio
 		else if (canon_action.find ("cam") == 0) {
 			updateCameraLimits ();
 		}
+		else if (canon_action == "fartouch"
+			|| canon_action == "touchfar"
+			|| canon_action == "sittp"
+			|| canon_action == "tplocal"
+			) {
+			updateLimits();
+		}
 
 		// Check if we can see wireframe or not, deactivate if our vision is restricted (we have locked HUDs or mCamDistDrawMax is not infinite)
 		if (gAgent.mRRInterface.hasLockedHuds() || gAgent.mRRInterface.mCamDistDrawMax < EXTREMUM)
@@ -1082,6 +1093,13 @@ BOOL RRInterface::remove (LLUUID object_uuid, std::string action, std::string op
 			else if (canon_action.find ("cam") == 0) {
 				updateCameraLimits ();
 			}
+			else if (canon_action == "fartouch"
+				|| canon_action == "touchfar"
+				|| canon_action == "sittp"
+				|| canon_action == "tplocal"
+				) {
+				updateLimits();
+			}
 			else if (action == "standtp" && gAgentAvatarp && !gAgentAvatarp->isSitting()) { // If we are not sitting, then we can remove the @standtp restriction normally
 				gAgent.mRRInterface.mLastStandingLocation.clear();
 				gSavedPerAccountSettings.setVector3d("RestrainedLoveLastStandingLocation", gAgent.mRRInterface.mLastStandingLocation);
@@ -1126,6 +1144,7 @@ BOOL RRInterface::clear (LLUUID object_uuid, std::string command)
 	}
 	updateAllHudTexts();
 	updateCameraLimits();
+	updateLimits();
 	if (gAgentAvatarp && !gAgentAvatarp->isSitting()) { // If we are not sitting, then we can remove the @standtp restriction normally
 		gAgent.mRRInterface.mLastStandingLocation.clear();
 		gSavedPerAccountSettings.setVector3d("RestrainedLoveLastStandingLocation", gAgent.mRRInterface.mLastStandingLocation);
@@ -1393,15 +1412,6 @@ static void force_sit(LLUUID object_uuid)
 		{
 			return;
 		}
-		//if (gAgent.mRRInterface.contains ("sittp")) {
-		//	// Do not allow a script to force the avatar to sit somewhere far when under @sittp
-		//	LLVector3 pos = object->getPositionRegion();
-		//	pos -= gAgent.getPositionAgent ();
-		//	if (pos.magVec () >= 1.5)
-		//	{
-		//		return;
-		//	}
-		//}
 
 		if (gAgentAvatarp && !gAgentAvatarp->mIsSitting)
 		{
@@ -4517,7 +4527,7 @@ bool RRInterface::canTouchFar(LLViewerObject* object, LLVector3 pick_intersectio
 	pos -= gAgent.getPositionAgent ();
 	F32 dist = pos.magVec();
 	if (!object->isHUDAttachment()) {
-		if (mContainsFartouch && dist >= 1.5) return false;
+		if (dist > mFartouchMax) return false;
 		if (dist > mCamDistDrawMax) return false; // don't allow touching or selecting something that is obstructed
 	}
 
@@ -4903,3 +4913,22 @@ std::deque<std::string> RRInterface::getBlacklist (std::string filter /* = ""*/)
 	return res;
 }
 
+void RRInterface::updateLimits() {
+	// Update all the min and max that are not related to camera and vision restrictions
+	// For example, tplocal, fartouch, sittp etc
+
+	// fartouch/touchfar
+	// First we need to find the lowest betwen 
+	float fartouch_max = getMin("fartouch", EXTREMUM);
+	float touchfar_max = getMin("touchfar", EXTREMUM);
+	if (fartouch_max > touchfar_max){
+		fartouch_max = touchfar_max;
+	}
+	mFartouchMax = fartouch_max;
+
+	// sittp
+	mSittpMax = getMin("sittp", EXTREMUM);
+
+	// tplocal
+	mTplocalMax = getMin("tplocal", EXTREMUM);
+}

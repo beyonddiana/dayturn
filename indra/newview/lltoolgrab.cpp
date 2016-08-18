@@ -418,18 +418,6 @@ void LLToolGrab::startGrab()
 	{
 		return;
 	}
-//	if (gRRenabled && gAgent.mRRInterface.mContainsFartouch
-//		&& !objectp->isHUDAttachment())
-//	{
-////		LLVector3 pos = objectp->getPositionRegion ();
-//		LLVector3 pos = mGrabPick.mIntersection;
-//		pos -= gAgent.getPositionAgent ();
-//		if (pos.magVec () >= 1.5)
-//		{
-//			return;
-//		}
-//	}
-//mk
 
 	// Where the grab starts, relative to the center of the root object of the set.
 	// JC - This code looks wonky, but I believe it does the right thing.

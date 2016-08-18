@@ -254,6 +254,8 @@ public:
 	void drawRenderLimit ();
 	void drawSphere (LLVector3 center, F32 scale, LLColor3 color, F32 alpha);
 
+	void updateLimits();
+
 	LLJoint* getCamDistDrawFromJoint ();
 
 	// Some cache variables to accelerate common checks
@@ -261,7 +263,6 @@ public:
 	BOOL mContainsDetach;
 	BOOL mContainsShowinv;
 	BOOL mContainsUnsit;
-	BOOL mContainsFartouch;
 	BOOL mContainsInteract;
 	BOOL mContainsShowworldmap;
 	BOOL mContainsShowminimap;
@@ -305,6 +306,9 @@ public:
 	F32 mCamDistDrawAlphaMin;
 	F32 mCamDistDrawAlphaMax;
 	F32 mShowavsDistMax;
+	F32 mTplocalMax;
+	F32 mSittpMax;
+	F32 mFartouchMax;
 
 	std::string mParcelName; // for convenience (gAgent does not retain the name of the current parcel)
 	LLParcel::ELandingType mParcelLandingType; // for convenience

@@ -3898,7 +3898,7 @@ void LLViewerWindow::renderSelections( BOOL for_gl_pick, BOOL pick_parcel_walls,
 							// can't edit objects that someone is sitting on,
 							// when prevented from sit-tping
 							LLVOAvatar* avatar = gAgentAvatarp;
-							if (gRRenabled && (gAgent.mRRInterface.contains ("sittp")
+							if (gRRenabled && (gAgent.mRRInterface.mSittpMax < EXTREMUM
 									|| (gAgent.mRRInterface.mContainsUnsit && avatar && avatar->mIsSitting)))
 							{
 								if (object->isSeat())
