@@ -32,6 +32,7 @@
 #include "llagentwearables.h"
 #include "llappearancemgr.h"
 #include "llavatarnamecache.h"
+#include "llcamera.h"
 #include "lldrawpoolalpha.h"
 //#include "llfloaterenvsettings.h"
 #include "llfloatereditsky.h"
@@ -226,7 +227,6 @@ void refreshCachedVariable (std::string var)
 	else if (var == "permissive")			gAgent.mRRInterface.mContainsPermissive = contained;
 	else if (var == "temprun")					gAgent.mRRInterface.mContainsRun = contained;
 	else if (var == "alwaysrun")				gAgent.mRRInterface.mContainsAlwaysRun = contained;
-	else if (var == "camtextures")				gAgent.mRRInterface.mContainsCamTextures = contained;
 	//else if (var == "moveup")					gAgent.mRRInterface.mContainsMoveUp = contained;
 	//else if (var == "movedown")				gAgent.mRRInterface.mContainsMoveDown = contained;
 	//else if (var == "moveleft")			gAgent.mRRInterface.mContainsMoveStrafeLeft = contained;
@@ -237,6 +237,8 @@ void refreshCachedVariable (std::string var)
 	//else if (var == "moveturndown")			gAgent.mRRInterface.mContainsMoveTurnDown = contained;
 	//else if (var == "moveturnleft")			gAgent.mRRInterface.mContainsMoveTurnLeft = contained;
 	//else if (var == "moveturnright")			gAgent.mRRInterface.mContainsMoveTurnRight = contained;
+
+	gAgent.mRRInterface.mContainsCamTextures = (gAgent.mRRInterface.containsSubstr("camtextures") || gAgent.mRRInterface.containsSubstr("setcam_textures"));
 
 	if (var == "showinv") {
 		if (gAgent.mRRInterface.mContainsShowinv) {
@@ -366,7 +368,7 @@ void refreshCachedVariable (std::string var)
 			}
 		}
 	}
-	else if (var == "camtextures") {
+	else if (var == "camtextures" || var == "setcam_textures") {
 		// silly hack, but we need to force all textures in world to be updated
 		S32 i;
 		for (i=0; i<gObjectList.getNumObjects(); ++i) {
@@ -376,12 +378,18 @@ void refreshCachedVariable (std::string var)
 			}
 		}
 	}
-	else if (var == "camunlock") {
+	else if (var == "camunlock" || var == "setcam_unlock") {
 		gAgentCamera.resetView(TRUE, TRUE);
 	}
-	else if (var == "camzoommax" || var == "camzoommin") {
-		LLViewerCamera::getInstance()->setDefaultFOV(gSavedSettings.getF32("CameraAngle"));
-	}
+	//else if (var.find ("camzoommax") == 0 || var.find ("camzoommin") == 0) {
+	//	LLViewerCamera::getInstance()->setDefaultFOV(gSavedSettings.getF32("CameraAngle"));
+	//	gSavedSettings.setF32("CameraAngle", LLViewerCamera::getInstance()->getView()); // setView may have clamped it.
+	//}
+
+	//else if (var.find("setcam_fovmin") == 0 || var.find("setcam_fovmax") == 0) {
+	//	LLViewerCamera::getInstance()->setDefaultFOV(gSavedSettings.getF32("CameraAngle"));
+	//	gSavedSettings.setF32("CameraAngle", LLViewerCamera::getInstance()->getView()); // setView may have clamped it.
+	//}
 
 	if (gAgent.mRRInterface.contains("tplm")
 	|| gAgent.mRRInterface.contains("tploc")
@@ -656,7 +664,9 @@ BOOL RRInterface::containsSubstr (std::string action)
 
 F32 RRInterface::getMax (std::string action, F32 dflt /*= EXTREMUM*/)
 {
+	// action can be a list of behavs separated by commas
 	LLStringUtil::toLower(action);
+	action = "," + action + ",";
 	F32 res = -EXTREMUM;
 	F32 tmp;
 	std::string command;
@@ -668,7 +678,7 @@ F32 RRInterface::getMax (std::string action, F32 dflt /*= EXTREMUM*/)
 		command = it->second;
 		LLStringUtil::toLower(command);
 		if (parseCommand (command+"=n", behav, option, param)) {
-			if (behav == action) {
+			if (action.find ("," + behav + ",") != -1) {
 				tmp = atof (option.c_str());
 				if (option == "") {
 					tmp = 1.5;
@@ -688,7 +698,9 @@ F32 RRInterface::getMax (std::string action, F32 dflt /*= EXTREMUM*/)
 
 F32 RRInterface::getMin (std::string action, F32 dflt /*= -EXTREMUM*/)
 {
+	// action can be a list of behavs separated by commas
 	LLStringUtil::toLower(action);
+	action = "," + action + ",";
 	F32 res = EXTREMUM;
 	F32 tmp;
 	std::string command;
@@ -700,8 +712,8 @@ F32 RRInterface::getMin (std::string action, F32 dflt /*= -EXTREMUM*/)
 		command = it->second;
 		LLStringUtil::toLower(command);
 		if (parseCommand (command+"=n", behav, option, param)) {
-			if (behav == action) {
-				tmp = atof (option.c_str());
+			if (action.find("," + behav + ",") != -1) {
+				tmp = atof(option.c_str());
 				if (option == "") {
 					tmp = 1.5;
 				}
@@ -720,7 +732,9 @@ F32 RRInterface::getMin (std::string action, F32 dflt /*= -EXTREMUM*/)
 
 LLColor3 RRInterface::getMixedColors (std::string action, LLColor3 dflt /*= LLColor3::black*/)
 {
+	// action can be a list of behavs separated by commas
 	LLStringUtil::toLower(action);
+	action = "," + action + ",";
 	LLColor3 res = dflt;
 	LLColor3 tmp;
 	std::string command;
@@ -735,8 +749,8 @@ LLColor3 RRInterface::getMixedColors (std::string action, LLColor3 dflt /*= LLCo
 		command = it->second;
 		LLStringUtil::toLower(command);
 		if (parseCommand (command+"=n", behav, option, param)) {
-			if (behav == action) {
-				tokens = parse (option, ";");
+			if (action.find("," + behav + ",") != -1) {
+				tokens = parse(option, ";");
 				tmp.mV[0] = atof (tokens[0].c_str());
 				tmp.mV[1] = atof (tokens[1].c_str());
 				tmp.mV[2] = atof (tokens[2].c_str());
@@ -1012,8 +1026,13 @@ BOOL RRInterface::add (LLUUID object_uuid, std::string action, std::string optio
 		else if (canon_action == "showhovertext") {
 			updateOneHudText(LLUUID(option));
 		}
-		else if (canon_action.find ("cam") == 0) {
+		else if (canon_action.find("cam") == 0 || canon_action.find("setcam") == 0) {
 			updateCameraLimits ();
+			// Force an update of the zoom if necessary
+			if (canon_action == "camzoommax" || canon_action == "camzoommin" || canon_action == "setcam_fovmin" || canon_action == "setcam_fovmax") {
+				LLViewerCamera::getInstance()->setDefaultFOV(gSavedSettings.getF32("CameraAngle"));
+				gSavedSettings.setF32("CameraAngle", LLViewerCamera::getInstance()->getView()); // setView may have clamped it.
+			}
 		}
 		else if (canon_action == "fartouch"
 			|| canon_action == "touchfar"
@@ -1094,7 +1113,7 @@ BOOL RRInterface::remove (LLUUID object_uuid, std::string action, std::string op
 			if (canon_action == "showhovertext") {
 				updateOneHudText(LLUUID(option));
 			}
-			else if (canon_action.find ("cam") == 0) {
+			else if (canon_action.find("cam") == 0 || canon_action.find("setcam") == 0) {
 				updateCameraLimits ();
 			}
 			else if (canon_action == "fartouch"
@@ -1796,6 +1815,11 @@ BOOL RRInterface::force (LLUUID object_uuid, std::string command, std::string op
 			LLGroupActions::activate(LLUUID::null);
 		}
 		// not found => do nothing
+	}
+	else if (command == "setcam_fov") {
+		F32 new_fov_rad = atof(option.c_str());
+		LLViewerCamera::getInstance()->setDefaultFOV(new_fov_rad);
+		gSavedSettings.setF32("CameraAngle", LLViewerCamera::getInstance()->getView()); // setView may have clamped it.
 	}
 	return TRUE;
 }
@@ -4727,8 +4751,22 @@ BOOL RRInterface::updateCameraLimits ()
 
 	mCamZoomMax = getMin ("camzoommax", EXTREMUM);
 	mCamZoomMin = getMax ("camzoommin", -EXTREMUM);
-	mCamDistMax = getMin ("camdistmax", EXTREMUM);
-	mCamDistMin = getMax ("camdistmin", -EXTREMUM);
+
+	// setcam_fovmin and setcam_fovmax set the FOV, i.e. 60°/multiplier
+	// in other words, they are equivalent to camzoommin and camzoommax
+	F32 fovmax = getMin("setcam_fovmax", EXTREMUM);
+	F32 fovmin = getMax("setcam_fovmin", 0.001);
+	F32 zoommax_from_fovmin = DEFAULT_FIELD_OF_VIEW / fovmin;
+	F32 zoommin_from_fovmax = DEFAULT_FIELD_OF_VIEW / fovmax;
+	if (zoommax_from_fovmin < mCamZoomMax) {
+		mCamZoomMax = zoommax_from_fovmin;
+	}
+	if (zoommin_from_fovmax > mCamZoomMin) {
+		mCamZoomMin = zoommin_from_fovmax;
+	}
+
+	mCamDistMax = getMin ("camdistmax,setcam_avdistmax", EXTREMUM);
+	mCamDistMin = getMax ("camdistmin,setcam_avdistmin", -EXTREMUM);
 
 	mCamDistDrawMax = getMin ("camdrawmax", EXTREMUM);
 	mCamDistDrawMin = getMin ("camdrawmin", EXTREMUM);
