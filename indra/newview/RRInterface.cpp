@@ -1382,6 +1382,46 @@ BOOL RRInterface::handleCommand (LLUUID uuid, std::string command)
 			if (gAgent.getGroupID() == LLUUID::null) group_name = "none"; // "none" is not localized here because a script should not have to bother about viewer language
 			return answerOnChat (param, group_name);
 		}
+		else if (behav=="getcam_avdistmin") {
+			std::stringstream str;
+			str << std::fixed << mCamDistMin;
+			return answerOnChat(param, str.str());
+		}
+		else if (behav == "getcam_avdistmax") {
+			std::stringstream str;
+			str << std::fixed << mCamDistMax;
+			return answerOnChat(param, str.str());
+		}
+		else if (behav == "getcam_zoommin") {
+			std::stringstream str;
+			str << std::fixed << mCamZoomMin;
+			return answerOnChat(param, str.str());
+		}
+		else if (behav == "getcam_zoommax") {
+			std::stringstream str;
+			str << std::fixed << mCamZoomMax;
+			return answerOnChat(param, str.str());
+		}
+		else if (behav == "getcam_fovmin") {
+			std::stringstream str;
+			str << std::fixed << DEFAULT_FIELD_OF_VIEW / mCamZoomMax;
+			return answerOnChat(param, str.str());
+		}
+		else if (behav == "getcam_fovmax") {
+			std::stringstream str;
+			str << std::fixed << DEFAULT_FIELD_OF_VIEW / mCamZoomMin;
+			return answerOnChat(param, str.str());
+		}
+		else if (behav == "getcam_zoom") {
+			std::stringstream str;
+			str << std::fixed << DEFAULT_FIELD_OF_VIEW / LLViewerCamera::getInstance()->getView();
+			return answerOnChat(param, str.str());
+		}
+		else if (behav == "getcam_fov") {
+			std::stringstream str;
+			str << std::fixed << LLViewerCamera::getInstance()->getView();
+			return answerOnChat(param, str.str());
+		}
 
 		else {
 			if (param=="n" || param=="add") add (uuid, behav, option);
@@ -4751,11 +4791,15 @@ BOOL RRInterface::updateCameraLimits ()
 
 	mCamZoomMax = getMin ("camzoommax", EXTREMUM);
 	mCamZoomMin = getMax ("camzoommin", -EXTREMUM);
+	if (mCamZoomMax == 0.0) mCamZoomMax = EXTREMUM;
+	if (mCamZoomMin == 0.0) mCamZoomMin = -EXTREMUM;
 
 	// setcam_fovmin and setcam_fovmax set the FOV, i.e. 60°/multiplier
 	// in other words, they are equivalent to camzoommin and camzoommax
 	F32 fovmax = getMin("setcam_fovmax", EXTREMUM);
 	F32 fovmin = getMax("setcam_fovmin", 0.001);
+	if (fovmax == 0.0) fovmax = EXTREMUM;
+	if (fovmin == 0.0) fovmin = 0.001;
 	F32 zoommax_from_fovmin = DEFAULT_FIELD_OF_VIEW / fovmin;
 	F32 zoommin_from_fovmax = DEFAULT_FIELD_OF_VIEW / fovmax;
 	if (zoommax_from_fovmin < mCamZoomMax) {
