@@ -152,7 +152,7 @@ public:
 	BOOL handleCommand (LLUUID uuid, std::string command);
 	BOOL fireCommands (); // execute commands buffered while the viewer was initializing (mostly useful for force-sit as when the command is sent the object is not necessarily rezzed yet)
 	BOOL force (LLUUID object_uuid, std::string command, std::string option);
-	void removeItemFromAvatar (LLViewerInventoryItem* item);
+	void removeItemFromAvatar(LLViewerInventoryItem* item);
 
 	BOOL answerOnChat (std::string channel, std::string msg);
 	std::string crunchEmote (std::string msg, unsigned int truncateTo = 0);
@@ -198,7 +198,8 @@ public:
 	bool getScriptsEnabledOnce () { return mScriptsEnabledOnce; }
 	void setScriptsEnabledOnce (bool newval) { mScriptsEnabledOnce = newval; }
 
-	BOOL forceTeleport (std::string location);
+	BOOL forceTeleport(std::string location, const LLVector3& vecLookAt);
+	static void forceTeleportCallback(U64 hRegion, const LLVector3& posRegion, const LLVector3& vecLookAt);
 
 	std::string stringReplace (std::string s, std::string what, std::string by, BOOL caseSensitive = FALSE);
 

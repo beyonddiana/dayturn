@@ -56,6 +56,7 @@
 #include "llnotifications.h"
 #include "llpanelmaininventory.h"
 #include "llpaneltopinfobar.h"
+#include "llregionhandle.h"
 #include "llrendersphere.h"
 #include "llselectmgr.h"
 #include "llspeakers.h"
@@ -78,7 +79,10 @@
 #include "llviewerregion.h"
 #include "llviewermessage.h"
 #include "llviewerparcelmgr.h"
+#include "llworldmapmessage.h"
 #include "pipeline.h"
+
+#include <boost/algorithm/string.hpp>
 
 #include <cstdlib>
 
@@ -1577,8 +1581,17 @@ BOOL RRInterface::force (LLUUID object_uuid, std::string command, std::string op
 		}
 		return res;
 	}
-	else if (command=="tpto") { // tpto:X/Y/Z=force (X, Y, Z are GLOBAL coordinates)
-		BOOL allowed_to_tploc=TRUE;
+	else if (command=="tpto") { // tpto:[region/]X/Y/Z[;lookat]=force (X, Y, Z are local or global coordinates, depending on the existence of the region)
+		size_t ind = option.find(";"); // lookat present ? (FIXME : broken at the moment because gAgent.teleportViaLocationLookAt () does not take a "lookat" parameter (to add it we have to change a whole lot of calls all over the code)
+		LLVector3 vecLookAt = LLVector3::zero;
+		if (ind != std::string::npos && ind + 1 < option.length()) {
+			F32 lookat = (F32)atof(option.substr(ind + 1).c_str());
+			vecLookAt = LLVector3::x_axis;
+			vecLookAt.rotVec(lookat, LLVector3::z_axis);
+			vecLookAt.normalize();
+			option = option.substr(0, ind); // keep the coordinates only
+		}
+		BOOL allowed_to_tploc = TRUE;
 		BOOL allowed_to_unsit=TRUE;
 		BOOL allowed_to_sittp=TRUE;
 		BOOL res;
@@ -1594,7 +1607,7 @@ BOOL RRInterface::force (LLUUID object_uuid, std::string command, std::string op
 			allowed_to_sittp=FALSE;
 			remove (object_uuid, "sittp", "");
 		}
-		res = forceTeleport (option);
+		res = forceTeleport(option, vecLookAt);
 		if (!allowed_to_tploc) add (object_uuid, "tploc", "");
 		if (!allowed_to_unsit) add (object_uuid, "unsit", "");
 		if (!allowed_to_sittp) add (object_uuid, "sittp", "");
@@ -1787,7 +1800,7 @@ BOOL RRInterface::force (LLUUID object_uuid, std::string command, std::string op
 	return TRUE;
 }
 
-void RRInterface::removeItemFromAvatar (LLViewerInventoryItem* item)
+void RRInterface::removeItemFromAvatar(LLViewerInventoryItem* item)
 {
 	if (!item) return;
 	std::string name = item->getName();
@@ -3173,19 +3186,26 @@ BOOL RRInterface::forceDetachByName (std::string category, BOOL recursive)
 	return TRUE;
 }
 
-BOOL RRInterface::forceTeleport (std::string location)
+BOOL RRInterface::forceTeleport(std::string location, const LLVector3& vecLookAt)
 {
 	// location must be X/Y/Z where X, Y and Z are ABSOLUTE coordinates => use a script in-world to translate from local to global
+	// OR it can be Region/X/Y/Z where X, Y and Z are LOCAL coordinates => no need to use a script in-world
 	std::string loc (location);
-	std::string region_name;
-	S32 x = 128;
-	S32 y = 128;
-	S32 z = 0;
+	std::string region_name = "";
+	S64 x = 128;
+	S64 y = 128;
+	S64 z = 0;
 	std::deque<std::string> tokens=parse (location, "/");
 	if (tokens.size()==3) {
 		x=atoi (tokens.at(0).c_str());
 		y=atoi (tokens.at(1).c_str());
 		z=atoi (tokens.at(2).c_str());
+	}
+	else if (tokens.size() == 4) {
+		region_name = tokens.at(0);
+		x = atoi(tokens.at(1).c_str());
+		y = atoi(tokens.at(2).c_str());
+		z = atoi(tokens.at(3).c_str());
 	}
 	else {
 		return FALSE;
@@ -3194,18 +3214,48 @@ BOOL RRInterface::forceTeleport (std::string location)
 	if (sRestrainedLoveDebug) {
 		LL_INFOS() << tokens.at(0) << "," << tokens.at(1) << "," << tokens.at(2) << "     " << x << "," << y << "," << z << LL_ENDL;
 	}
-	LLVector3d pos_global;
-	pos_global.mdV[VX] = (F32)x;
-	pos_global.mdV[VY] = (F32)y;
-	pos_global.mdV[VZ] = (F32)z;
-	
+
 	mAllowCancelTp = FALSE; // will be checked once receiving the tp order from the sim, then set to TRUE again
 
-	gAgent.teleportViaLocation (pos_global);
+	if (region_name == "")
+	{
+		LLVector3d pos_global;
+		pos_global.mdV[VX] = (F64)x;
+		pos_global.mdV[VY] = (F64)y;
+		pos_global.mdV[VZ] = (F64)z;
+
+		gAgent.teleportViaLocation(pos_global);
+	}
+	else {
+		LLVector3 pos_local;
+		pos_local.mV[VX] = (F32)x;
+		pos_local.mV[VY] = (F32)y;
+		pos_local.mV[VZ] = (F32)z;
+
+		LLWorldMapMessage::url_callback_t cb = boost::bind(&RRInterface::forceTeleportCallback, _1, pos_local, vecLookAt);
+		LLWorldMapMessage::getInstance()->sendNamedRegionRequest(region_name, cb, std::string(""), true);
+	}
+
 	return TRUE;
 }
 
-std::string RRInterface::stringReplace (std::string s, std::string what, std::string by, BOOL caseSensitive /* = FALSE */)
+// From KB
+void RRInterface::forceTeleportCallback(U64 hRegion, const LLVector3& posRegion, const LLVector3& vecLookAt)
+{
+	if (hRegion)
+	{
+		const LLVector3d posGlobal = from_region_handle(hRegion) + (LLVector3d)posRegion;
+		if (vecLookAt.isExactlyZero()) {
+			gAgent.teleportViaLocation(posGlobal);
+		}
+		else {
+			gAgent.teleportViaLocationLookAt(posGlobal);
+		}
+	}
+}
+// from KB
+
+std::string RRInterface::stringReplace(std::string s, std::string what, std::string by, BOOL caseSensitive /* = FALSE */)
 {
 //	LL_INFOS() << "trying to replace <" << what << "> in <" << s << "> by <" << by << ">" << LL_ENDL;
 	if (what == "" || what == " ") return s; // avoid an infinite loop
@@ -3289,6 +3339,27 @@ std::string RRInterface::getDummyName (std::string name, EChatAudible audible /*
 
 std::string RRInterface::getCensoredMessage (std::string str)
 {
+	// First we need to build a list of all the exceptions to @shownames and @shownametags
+	// Each avatar object which UUID is contained in this list should not be censored
+	std::string command;
+	std::string behav;
+	std::string option;
+	std::string param;
+	std::deque<LLUUID> exceptions;
+	RRMAP::iterator it = mSpecialObjectBehaviours.begin();
+	while (it != mSpecialObjectBehaviours.end()) {
+		command = it->second;
+		LLStringUtil::toLower(command);
+		if (command.find("shownames:") == 0 || command.find("shownametags:") == 0) {
+			if (parseCommand(command, behav, option, param)) {
+				LLUUID uuid;
+				uuid.set(option, FALSE);
+				exceptions.push_back(uuid);
+			}
+		}
+		it++;
+	}
+
 	// Hide every occurrence of the name of anybody around (found in cache, so not completely accurate nor completely immediate)
 	S32 i;
 	for (i=0; i<gObjectList.getNumObjects(); ++i) {
@@ -3301,20 +3372,23 @@ std::string RRInterface::getCensoredMessage (std::string str)
 			std::string dummy_name;
 			
 			if (object->isAvatar()) {
-				if (LLAvatarNameCache::get(object->getID(), &av_name))
+				if (std::find(exceptions.begin(), exceptions.end(), object->getID()) != exceptions.end()) // ignore exceptions
 				{
-					user_name = av_name.getUserName();
-					clean_user_name = LLCacheName::cleanFullName(user_name);
-					display_name = av_name.mDisplayName; // not "getDisplayName()" because we need this whether we use display names or user names
+					if (LLAvatarNameCache::get(object->getID(), &av_name))
+					{
+						user_name = av_name.getUserName();
+						clean_user_name = LLCacheName::cleanFullName(user_name);
+						display_name = av_name.mDisplayName; // not "getDisplayName()" because we need this whether we use display names or user names
 
-					dummy_name = getDummyName(clean_user_name);
-					str = stringReplace(str, clean_user_name, dummy_name);
+						dummy_name = getDummyName(clean_user_name);
+						str = stringReplace(str, clean_user_name, dummy_name);
 
-					dummy_name = getDummyName(user_name);
-					str = stringReplace(str, user_name, dummy_name);
+						dummy_name = getDummyName(user_name);
+						str = stringReplace(str, user_name, dummy_name);
 
-					dummy_name = getDummyName(display_name);
-					str = stringReplace(str, display_name, dummy_name);
+						dummy_name = getDummyName(display_name);
+						str = stringReplace(str, display_name, dummy_name);
+					}
 				}
 			}
 		}

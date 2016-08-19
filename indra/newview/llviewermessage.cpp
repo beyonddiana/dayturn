@@ -4284,7 +4284,12 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 					// also scramble the name of the chatter (replace with a dummy name)
 					if (chatter && chatter->isAvatar ())
 					{
-						from_name = gAgent.mRRInterface.getDummyName (from_name, chat.mAudible);
+						std::string uuid_str = chatter->getID().asString();
+						LLStringUtil::toLower(uuid_str);
+						if (gAgent.mRRInterface.containsWithoutException("shownames", uuid_str))
+						{
+							from_name = gAgent.mRRInterface.getDummyName(from_name, chat.mAudible);
+						}
 					}
 					else
 					{
