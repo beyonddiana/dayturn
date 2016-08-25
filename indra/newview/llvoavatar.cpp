@@ -3992,7 +3992,7 @@ BOOL LLVOAvatar::updateCharacter(LLAgent &agent)
         // can get stale much more easily. Simplest fix is to update
         // it frequently.
         // SL-427: this appears to be too frequent, moving to only do on animation state change.
-        // computeBodySize();
+        //computeBodySize();
 
 		// correct for the fact that the pelvis is not necessarily the center 
 		// of the agent's physical representation
@@ -9160,16 +9160,6 @@ void LLVOAvatar::startAppearanceAnimation()
 		mAppearanceAnimating = TRUE;
 		mAppearanceMorphTimer.reset();
 		mLastAppearanceBlendTime = 0.f;
-	}
-}
-
-//virtual
-void LLVOAvatar::bodySizeChanged()
-{
-	if (isSelf() && !LLAppearanceMgr::instance().isInUpdateAppearanceFromCOF())
-	{	// notify simulator of change in size
-		// but not if we are in the middle of updating appearance
-		gAgent.sendAgentSetAppearance();
 	}
 }
 
