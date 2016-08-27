@@ -70,6 +70,24 @@ struct LLContinueError: public LLException
 // LLTHROW() in case we ever want to revisit that implementation decision.
 #define LLTHROW(x) BOOST_THROW_EXCEPTION(x)
 
+/**
+ * Please use LLTHROW() to throw viewer exceptions whenever possible. This
+ * enriches the exception's diagnostic_information() with the source file,
+ * line and containing function of the LLTHROW() macro.
+ */
+// Currently we implement that using BOOST_THROW_EXCEPTION(). Wrap it in
+// LLTHROW() in case we ever want to revisit that implementation decision.
+#define LLTHROW(x) BOOST_THROW_EXCEPTION(x)
+
+/**
+ * Please use LLTHROW() to throw viewer exceptions whenever possible. This
+ * enriches the exception's diagnostic_information() with the source file,
+ * line and containing function of the LLTHROW() macro.
+ */
+// Currently we implement that using BOOST_THROW_EXCEPTION(). Wrap it in
+// LLTHROW() in case we ever want to revisit that implementation decision.
+#define LLTHROW(x) BOOST_THROW_EXCEPTION(x)
+
 /// Call this macro from a catch (...) clause
 #define CRASH_ON_UNHANDLED_EXCEPTION() \
      crash_on_unhandled_exception_(__FILE__, __LINE__, BOOST_CURRENT_FUNCTION)
