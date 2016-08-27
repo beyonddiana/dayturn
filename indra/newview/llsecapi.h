@@ -32,6 +32,7 @@
 #include <openssl/x509.h>
 #include <ostream>
 #include "llpointer.h"
+#include "llexception.h"
 
 #ifdef LL_WINDOWS
 #pragma warning(disable:4250)
@@ -116,17 +117,13 @@
 
 
 
-class LLProtectedDataException
+struct LLProtectedDataException: public LLException
 {
-public:
-	LLProtectedDataException(const char *msg) 
+	LLProtectedDataException(const std::string& msg):
+		LLException(msg) 
 	{
-		LL_WARNS("SECAPI") << "Protected Data Error: " << (std::string)msg << LL_ENDL;
-		mMsg = (std::string)msg;
+		LL_WARNS("SECAPI") << "Protected Data Error: " << msg << LL_ENDL;
 	}
-	std::string getMessage() { return mMsg; }
-protected:
-	std::string mMsg;
 };
 
 // class LLCertificate

@@ -125,6 +125,7 @@
 #include "llleap.h"
 #include "stringize.h"
 #include "llcoros.h"
+#include "llexception.h"
 #include "cef/llceflib.h"
 #if !LL_DARWIN
 	#include "vlc/libvlc_version.h"
@@ -135,6 +136,7 @@
 #include <boost/foreach.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/regex.hpp>
+#include <boost/throw_exception.hpp>
 
 #if LL_WINDOWS
 #	include <share.h> // For _SH_DENYWR in processMarkerFiles
@@ -5646,7 +5648,7 @@ void LLAppViewer::forceErrorInfiniteLoop()
 void LLAppViewer::forceErrorSoftwareException()
 {
    	LL_WARNS() << "Forcing a deliberate exception" << LL_ENDL;
-    throw std::runtime_error("User selected Force Software Exception"); 
+    BOOST_THROW_EXCEPTION(LLException("User selected Force Software Exception")); 
 }
 
 void LLAppViewer::forceErrorDriverCrash()

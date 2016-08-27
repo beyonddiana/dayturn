@@ -36,7 +36,6 @@
 #include <boost/optional.hpp>
 #include <boost/noncopyable.hpp>
 #include <iosfwd>                   // std::ostream
-#include <stdexcept>
 
 #if LL_WINDOWS
 #include "llwin32headerslean.h"	// for HANDLE
@@ -502,9 +501,9 @@ public:
 
 	/// Exception thrown by getWritePipe(), getReadPipe() if you didn't ask to
 	/// create a pipe at the corresponding FILESLOT.
-	struct NoPipe: public std::runtime_error
+	struct NoPipe: public LLException
 	{
-		NoPipe(const std::string& what): std::runtime_error(what) {}
+		NoPipe(const std::string& what): LLException(what) {}
 	};
 
 	/**
