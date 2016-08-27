@@ -36,7 +36,6 @@
 #include "kdu_block_coding.h"
 
 #include "llexception.h"
-#include <boost/throw_exception.hpp>
 
 #include <iostream>
 
@@ -197,7 +196,7 @@ struct LLKDUMessageError : public LLKDUMessage
 		// shutdown will NOT engage the behavior described above.
 		if (end_of_message) 
 		{
-	 		BOOST_THROW_EXCEPTION(KDUError("LLKDUMessageError::flush()"));
+	 		LLTHROW(KDUError("LLKDUMessageError::flush()"));
 		}
 	}
 };
