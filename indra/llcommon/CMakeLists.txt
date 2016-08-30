@@ -45,6 +45,7 @@ set(llcommon_SOURCE_FILES
     llbase64.cpp
     llbitpack.cpp
     llcallbacklist.cpp
+    llcleanup.cpp
     llcommon.cpp
     llcommonutils.cpp
     llcoro_get_id.cpp
@@ -74,6 +75,7 @@ set(llcommon_SOURCE_FILES
     llheartbeat.cpp
     llheteromap.cpp
     llinitparam.cpp
+    llinitdestroyclass.cpp
     llinstancetracker.cpp
     llleap.cpp
     llleaplistener.cpp
@@ -142,6 +144,7 @@ set(llcommon_HEADER_FILES
     llbitpack.h
     llboost.h
     llcallbacklist.h
+    llcleanup.h
     llcommon.h
     llcommonutils.h
     llcoro_get_id.cpp
