@@ -127,6 +127,9 @@
 #include "stringize.h"
 #include "llcoros.h"
 #include "cef/llceflib.h"
+#if LL_WINDOWS
+	#include "vlc/libvlc_version.h"
+#endif  // Ll_WINDOWS
 
 // Third party library includes
 #include <boost/bind.hpp>

@@ -95,6 +95,7 @@ set(cmake_SOURCE_FILES
     Prebuilt.cmake
     PulseAudio.cmake
     Python.cmake
+    QuickTimePlugin.cmake
     TemplateCheck.cmake
     Teapot.cmake
     Tut.cmake
