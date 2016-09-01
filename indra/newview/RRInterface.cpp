@@ -71,6 +71,7 @@
 #include "llviewercontrol.h"
 #include "llviewermenu.h"
 #include "llviewerobjectlist.h"
+#include "llviewertexturelist.h"
 #include "llviewerwindow.h"
 #include "llwaterparammanager.h"
 #include "llwlparammanager.h"
@@ -368,7 +369,7 @@ void refreshCachedVariable (std::string var)
 			}
 		}
 	}
-	else if (var == "camtextures" || var == "setcam_textures") {
+	else if (var.find ("camtextures") == 0 || var.find ("setcam_textures") == 0) {
 		// silly hack, but we need to force all textures in world to be updated
 		S32 i;
 		for (i=0; i<gObjectList.getNumObjects(); ++i) {
@@ -376,6 +377,25 @@ void refreshCachedVariable (std::string var)
 			if (object) {
 				object->setSelected(FALSE);
 			}
+		}
+
+		// Is there a uuid specified ?
+		int ind = var.find(":");
+		if (ind != -1) {
+			std::string uuid_str = var.substr(ind + 1);
+			LLUUID uuid;
+			if (uuid.set(uuid_str)) {
+				//if (gAgent.mRRInterface.mCamTexturesCustom != LLViewerFetchedTexture::sDefaultImagep) {
+				//	delete (gAgent.mRRInterface.mCamTexturesCustom);
+				//}
+				gAgent.mRRInterface.mCamTexturesCustom = LLViewerTextureManager::getFetchedTexture(uuid, FTT_DEFAULT, MIPMAP_TRUE, LLGLTexture::BOOST_NONE, LLViewerTexture::LOD_TEXTURE);
+			}
+		}
+		else {
+			//if (gAgent.mRRInterface.mCamTexturesCustom != LLViewerFetchedTexture::sDefaultImagep) {
+			//	delete (gAgent.mRRInterface.mCamTexturesCustom);
+			//}
+			gAgent.mRRInterface.mCamTexturesCustom = LLViewerFetchedTexture::sDefaultImagep;
 		}
 	}
 	else if (var == "camunlock" || var == "setcam_unlock") {
@@ -531,6 +551,7 @@ RRInterface::RRInterface():
 	//, mContainsMoveStrafeLeft(FALSE)
 	//, mContainsMoveStrafeRight(FALSE)
 	, mLaunchTimestamp(LLDate::now().secondsSinceEpoch())
+	, mCamTexturesCustom(LLViewerFetchedTexture::sDefaultImagep)
 {
 	mAllowedGetDebug.clear();
 	mAllowedGetDebug.push_back("AvatarSex"); // 0 female, 1 male
@@ -1421,6 +1442,9 @@ BOOL RRInterface::handleCommand (LLUUID uuid, std::string command)
 			std::stringstream str;
 			str << std::fixed << LLViewerCamera::getInstance()->getView();
 			return answerOnChat(param, str.str());
+		}
+		else if (behav == "getcam_textures") {
+			return answerOnChat(param, mCamTexturesCustom->getID().asString());
 		}
 
 		else {
@@ -3436,7 +3460,7 @@ std::string RRInterface::getCensoredMessage (std::string str)
 			std::string dummy_name;
 			
 			if (object->isAvatar()) {
-				if (std::find(exceptions.begin(), exceptions.end(), object->getID()) != exceptions.end()) // ignore exceptions
+				if (std::find(exceptions.begin(), exceptions.end(), object->getID()) == exceptions.end()) // ignore exceptions
 				{
 					if (LLAvatarNameCache::get(object->getID(), &av_name))
 					{

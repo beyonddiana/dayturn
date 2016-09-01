@@ -80,6 +80,7 @@
 #include "llinventorymodel.h"
 #include "llviewermenu.h"
 #include "llviewerjointattachment.h"
+#include "llviewertexture.h"
 #include "llwearable.h"
 #include "llwearabletype.h"
 
@@ -310,6 +311,8 @@ public:
 	F32 mTplocalMax;
 	F32 mSittpMax;
 	F32 mFartouchMax;
+
+	LLViewerFetchedTexture* mCamTexturesCustom;
 
 	std::string mParcelName; // for convenience (gAgent does not retain the name of the current parcel)
 	LLParcel::ELandingType mParcelLandingType; // for convenience

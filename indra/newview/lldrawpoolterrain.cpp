@@ -889,10 +889,14 @@ void LLDrawPoolTerrain::renderSimple()
 //MK
 	if (gRRenabled && gAgent.mRRInterface.mContainsCamTextures)
 	{
-		gGL.getTexUnit(0)->bind(LLViewerFetchedTexture::sDefaultImagep);
-		gGL.getTexUnit(1)->bind(LLViewerFetchedTexture::sDefaultImagep);
-		gGL.getTexUnit(2)->bind(LLViewerFetchedTexture::sDefaultImagep);
-		gGL.getTexUnit(3)->bind(LLViewerFetchedTexture::sDefaultImagep);
+		//gGL.getTexUnit(0)->bind(LLViewerFetchedTexture::sDefaultImagep);
+		//gGL.getTexUnit(1)->bind(LLViewerFetchedTexture::sDefaultImagep);
+		//gGL.getTexUnit(2)->bind(LLViewerFetchedTexture::sDefaultImagep);
+		//gGL.getTexUnit(3)->bind(LLViewerFetchedTexture::sDefaultImagep);
+		gGL.getTexUnit(0)->bind(gAgent.mRRInterface.mCamTexturesCustom);
+		gGL.getTexUnit(1)->bind(gAgent.mRRInterface.mCamTexturesCustom);
+		gGL.getTexUnit(2)->bind(gAgent.mRRInterface.mCamTexturesCustom);
+		gGL.getTexUnit(3)->bind(gAgent.mRRInterface.mCamTexturesCustom);
 	}
 	else
 //mk
