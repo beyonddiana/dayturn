@@ -212,12 +212,12 @@ bool LLDate::fromStream(std::istream& s)
 	
 	s >> tm_part;
 	exp_time.tm_hour = tm_part;
-	c = s.get(); // skip the :
-	if (c != ':') { return false; }
+	c = s.get(); // skip the : or .
+	if (!(c == ':' || c == '.')) { return false; }
 	s >> tm_part;
 	exp_time.tm_min = tm_part;
-	c = s.get(); // skip the :
-	if (c != ':') { return false; }
+	c = s.get(); // skip the : or .
+	if (!(c == ':' || c == '.')) { return false; }
 	s >> tm_part;
 	exp_time.tm_sec = tm_part;
 
