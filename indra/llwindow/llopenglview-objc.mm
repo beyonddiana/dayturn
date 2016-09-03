@@ -230,10 +230,11 @@ attributedStringInfo getSegments(NSAttributedString *str)
 	NSOpenGLPixelFormatAttribute attrs[] = {
         NSOpenGLPFANoRecovery,
 		NSOpenGLPFADoubleBuffer,
-		NSOpenGLPFAClosestPolicy,
+		NSOpenGLPFAMinimumPolicy,
 		NSOpenGLPFAAccelerated,
-		NSOpenGLPFASampleBuffers, (samples > 0 ? 1 : 0),
+		NSOpenGLPFASampleBuffers, 1,
 		NSOpenGLPFASamples, samples,
+		NSOpenGLPFASupersample,
 		NSOpenGLPFAStencilSize, 8,
 		NSOpenGLPFADepthSize, 24,
 		NSOpenGLPFAAlphaSize, 8,

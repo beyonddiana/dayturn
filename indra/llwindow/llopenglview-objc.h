@@ -32,6 +32,7 @@
 #import <CoreFoundation/CFBase.h>
 #import <CoreFoundation/CFNumber.h>
 #include <string>
+#import <AppKit/AppKit.h>
 
 @interface LLOpenGLView : NSOpenGLView <NSTextInputClient>
 {
