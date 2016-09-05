@@ -63,6 +63,10 @@
 #include "llviewerregion.h"
 #include "llviewerwindow.h"
 #include "llviewerinventory.h"
+//MK
+#include "llvoavatar.h"
+#include "llvoavatarself.h"
+//mk
 #include "llvovolume.h"
 #include "llworld.h"
 #include "pipeline.h"
