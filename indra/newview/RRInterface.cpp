@@ -4026,9 +4026,25 @@ std::string RRInterface::getFullPath (LLInventoryItem* item, std::string option,
 	// Returns the path from the shared root to this object, or to the object worn at the attach point or clothing layer pointed by option if any
 	if (option != "") {
 		item = NULL; // an option is specified => we don't want to check the item that issued the command, but something else that is currently worn (object or clothing)
-		
-		LLWearableType::EType wearable_type = gAgent.mRRInterface.getOutfitLayerAsType (option);
-		if (wearable_type != LLWearableType::WT_INVALID) { // this is a clothing layer => replace item with the piece clothing
+		LLWearableType::EType wearable_type;
+
+		if (LLUUID::validate(option)) { // if option is a UUID, get the path of the viewer object which has this UUID
+			std::deque<std::string> res;
+			LLUUID id;
+			id.set(option, FALSE);
+			item = getItem(id); // we want the viewer object from the UUID, no the inventory object
+			if (item != NULL && !gAgent.mRRInterface.isUnderRlvShare(item)) item = NULL; // security : we would return the path even if the item was not shared otherwise
+			else {
+				// We have found the inventory item => add its path to the list
+				// it appears to be a recursive call but the level of recursivity is only 2, we won't execute this instruction again in the called method since "option" will be empty
+				res.push_back(getFullPath(item, ""));
+				if (sRestrainedLoveDebug) {
+					LL_INFOS() << "res=" << dumpList2String(res, ", ") << LL_ENDL;
+				}
+			}
+			return dumpList2String(res, ",");
+		}
+		else if ((wearable_type = gAgent.mRRInterface.getOutfitLayerAsType(option)) != LLWearableType::WT_INVALID) { // this is a clothing layer => replace item with the piece clothing
 			std::deque<std::string> res;
 			for (unsigned int i = 0; i < LLAgentWearables::MAX_CLOTHING_PER_TYPE; ++i) {
 				LLUUID id = gAgentWearables.getWearableItemID (wearable_type, i);
