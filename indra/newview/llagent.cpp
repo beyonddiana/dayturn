@@ -1453,7 +1453,11 @@ LLVector3d LLAgent::getPosGlobalFromAgent(const LLVector3 &pos_agent) const
 void LLAgent::sitDown()
 {
 //MK
-	if (gRRenabled && gAgent.mRRInterface.contains ("sit"))
+	if (gRRenabled && gAgent.mRRInterface.mContainsInteract)
+	{
+		return;
+	}
+	if (gRRenabled && gAgent.mRRInterface.contains("sit"))
 	{
 		return;
 	}

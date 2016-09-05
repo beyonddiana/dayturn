@@ -4426,6 +4426,10 @@ bool is_object_sittable()
 	if (!object) {
 		return false;
 	}
+	if (gRRenabled && gAgent.mRRInterface.mContainsInteract)
+	{
+		return false;
+	}
 	if (gRRenabled && gAgent.mRRInterface.contains ("sit"))
 	{
 		return false;
@@ -4485,6 +4489,10 @@ void handle_object_sit_or_stand()
 	if (object && object->getPCode() == LL_PCODE_VOLUME)
 	{
 //MK
+		if (gRRenabled && gAgent.mRRInterface.mContainsInteract)
+		{
+			return;
+		}
 		if (gRRenabled && gAgent.mRRInterface.contains ("sit"))
 		{
 			return;
@@ -4544,6 +4552,10 @@ void near_sit_down_point(BOOL success, void *)
 	{
 		gAgent.setFlying(FALSE);
 //MK
+		if (gRRenabled && gAgent.mRRInterface.mContainsInteract)
+		{
+			return;
+		}
 		if (gRRenabled && gAgent.mRRInterface.contains ("sit"))
 		{
 			return;
@@ -7120,7 +7132,11 @@ bool enable_object_sit(LLUICtrl* ctrl)
 
 		if(dest_object)
 		{
-			if (gRRenabled && gAgent.mRRInterface.contains ("sit"))
+			if (gRRenabled && gAgent.mRRInterface.mContainsInteract)
+			{
+				return false;
+			}
+			if (gRRenabled && gAgent.mRRInterface.contains("sit"))
 			{
 				return false;
 			}

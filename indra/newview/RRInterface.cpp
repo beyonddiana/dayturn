@@ -1495,7 +1495,13 @@ static void force_sit(LLUUID object_uuid)
 			// Do not allow a script to force the avatar to sit somewhere if already forced to stay sitting here
 			return;
 		}
-		if (gAgent.mRRInterface.contains ("sit"))
+
+		if (gAgent.mRRInterface.mContainsInteract)
+		{
+			return;
+		}
+
+		if (gAgent.mRRInterface.contains("sit"))
 		{
 			return;
 		}
