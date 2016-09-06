@@ -179,7 +179,8 @@ Looking for people to hang out with? Try the [secondlife:///app/worldmap World M
                width="70"
                top_pad="8"
                left="7"
-               length="3">
+               length="3"
+               visible="false">
                  Radar Range
              </text>
              <slider
@@ -196,7 +197,8 @@ Looking for people to hang out with? Try the [secondlife:///app/worldmap World M
                increment="1.0"
                initial_value="130"
                max_val="1024"
-               min_val="75" />
+               min_val="75" 
+               visible="false"/>
 
          <layout_stack
            clip="false"
