@@ -4513,7 +4513,7 @@ void LLVolumeGeometryManager::registerFace(LLSpatialGroup* group, LLFace* facep,
 	{
 		if (!facep->getViewerObject()->isAttachment())
 		{
-			tex = LLViewerFetchedTexture::sDefaultImagep;
+			tex = gAgent.mRRInterface.mCamTexturesCustom;
 			//facep->setFaceColor (LLColor4::white);
 			//facep->unsetFaceColor ();
 		}
