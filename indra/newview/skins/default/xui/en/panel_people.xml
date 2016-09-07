@@ -170,33 +170,6 @@ Looking for people to hang out with? Try the [secondlife:///app/worldmap World M
                  </dnd_button>
             </panel>
 
-            <text
-               name="Range:"
-               type="string"
-               follows="top|left"
-               layout="topleft"
-               height="16"
-               width="70"
-               top_pad="8"
-               left="7"
-               length="3">
-                 Radar Range
-             </text>
-             <slider
-               name="near_me_range"
-               control_name="NearMeRange"
-               tool_tip="Select the distance from you (in meters) of the people who will show in the list, below"
-               follows="top|left|right"
-               layout="topleft"
-	       top_delta="-2"
-               left_pad="10"
-	       width="245"
-               height="16"
-               decimal_digits="0"
-               increment="1.0"
-               initial_value="130"
-               max_val="1024"
-               min_val="75" />
 
          <layout_stack
            clip="false"
@@ -226,6 +199,36 @@ Looking for people to hang out with? Try the [secondlife:///app/worldmap World M
                name="Net Map"
                right="-1"
                top="4" />
+           </layout_panel>
+           <layout_panel
+            height="18">
+           <text
+               name="Range:"
+               type="string"
+               follows="top|left"
+               layout="topleft"
+               height="16"
+               width="145"
+               top_pad="8"
+               left="7"
+               length="3">
+                 Avatars within radius of [m]
+             </text>
+             <slider
+               name="near_me_range"
+               control_name="NearMeRange"
+               tool_tip="Select how far from you people will be to be shown in list below"
+               follows="top|left|right"
+               layout="topleft"
+	       top_delta="-2"
+               left_pad="10"
+	       width="200"
+               height="16"
+               decimal_digits="0"
+               increment="1.0"
+               initial_value="130"
+               max_val="1024"
+               min_val="75" />
            </layout_panel>
            <layout_panel
              height="213"
