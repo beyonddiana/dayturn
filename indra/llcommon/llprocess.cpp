@@ -507,40 +507,6 @@ LLProcessPtr LLProcess::create(const LLSDOrParams& params)
 	}
 }
 
-// <FS:ND> Annoying preload hack to make tcmalloc in libcef.so play nicely.
-std::string installPreloadHack( std::string const &preload )
-{
-	std::string strOldPreload;
-#ifdef LL_LINUX
-	if( preload.size() )
-	{
-		std::string strPreload = preload;
-		if( getenv( "LD_PRELOAD" ) )
-		{
-			strOldPreload = getenv( "PRELOAD" );
-			strPreload = ":" + strOldPreload;
-		}
-
-		setenv( "LD_PRELOAD", strPreload.c_str(), 1 );
-	}
-#endif
-	return strOldPreload;
-}
-
-void uninstallPreloadHack( std::string const &preload, std::string const &strOldPreload )
-{
-#ifdef LL_LINUX
-	if( preload.empty() )
-		return;
-
-	if( strOldPreload.size() )
-		setenv( "LD_PRELOAD", strOldPreload.c_str(), 1 );
-	else
-		unsetenv( "LD_PRELOAD" );
-#endif	
-}
-// </FS:ND>
-
 /// Call an apr function returning apr_status_t. On failure, log warning and
 /// throw LLProcessError mentioning the function call that produced that
 /// result.
@@ -705,8 +671,6 @@ LLProcess::LLProcess(const LLSDOrParams& params):
 
 	// terminate with a null pointer
 	argv.push_back(NULL);
-	
-	std::string strOldPreload = installPreloadHack( params.preload ); // FS:ND/> Install preload hack (if needed)
 
 	// Launch! The NULL would be the environment block, if we were passing
 	// one. Hand-expand chkapr() macro so we can fill in the actual command
@@ -778,11 +742,11 @@ LLProcess::LLProcess(const LLSDOrParams& params):
 			mPipes.replace(i, new ReadPipeImpl(desc, pipe, FILESLOT(i)));
 		}
 		// Removed temporaily for Xcode 7 build tests: error was:
-		// "error: expression with side effects will be evaluated despite
+		// "error: expression with side effects will be evaluated despite 
 		// being used as an operand to 'typeid' [-Werror,-Wpotentially-evaluated-expression]""
 		//LL_DEBUGS("LLProcess") << "Instantiating " << typeid(mPipes[i]).name()
 		//					   << "('" << desc << "')" << LL_ENDL;
-    }
+	}
 }
 
 // Helper to obtain a description string, given a Params block
