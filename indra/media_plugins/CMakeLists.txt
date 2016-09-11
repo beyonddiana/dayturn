@@ -8,6 +8,7 @@ endif (LINUX)
 
 if (DARWIN)
     add_subdirectory(quicktime)
+    add_subdirectory(cef)
 endif (DARWIN)
 
 if( LINUX )

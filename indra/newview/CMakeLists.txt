@@ -1864,6 +1864,7 @@ if (WINDOWS)
       SLPlugin
       media_plugin_quicktime
       media_plugin_cef
+      media_plugin_libvlc
 #      media_plugin_gstreamer010
       winmm_shim
       windows-crash-logger
@@ -2155,7 +2156,7 @@ if (DARWIN)
   set(MACOSX_BUNDLE_COPYRIGHT "Copyright © Nicky Perian, Kokua Viewer Project, 2014")
   set(MACOSX_BUNDLE_NSMAIN_NIB_FILE "KokuaOS.nib")
   set(MACOSX_BUNDLE_NSPRINCIPAL_CLASS "NSApplication")
-  set(CMAKE_XCODE_ATTRIBUTE_PRODUCT_NAME “Kokua OS“)
+  set(CMAKE_XCODE_ATTRIBUTE_PRODUCT_NAME “KokuaOS“)
   
   set_target_properties(
     ${VIEWER_BINARY_NAME}
@@ -2246,7 +2247,6 @@ if (PACKAGE)
     # *TODO: Generate these search dirs in the cmake files related to each binary.
     list(APPEND SYMBOL_SEARCH_DIRS "${CMAKE_BINARY_DIR}/llplugin/slplugin/${CMAKE_CFG_INTDIR}")
     list(APPEND SYMBOL_SEARCH_DIRS "${CMAKE_BINARY_DIR}/mac_crash_logger/${CMAKE_CFG_INTDIR}")
-    list(APPEND SYMBOL_SEARCH_DIRS "${CMAKE_BINARY_DIR}/media_plugins/gstreamer010/${CMAKE_CFG_INTDIR}")
     list(APPEND SYMBOL_SEARCH_DIRS "${CMAKE_BINARY_DIR}/media_plugins/quicktime/${CMAKE_CFG_INTDIR}")
     set(VIEWER_SYMBOL_FILE "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/kokuaos-symbols-darwin.tar.bz2")
     set(VIEWER_EXE_GLOBS "'KokuaOS' SLPlugin mac-crash-logger")
@@ -2283,6 +2283,10 @@ if (PACKAGE)
         VERBATIM)
 
   add_custom_target(generate_breakpad_symbols DEPENDS "${VIEWER_SYMBOL_FILE}" "${VIEWER_BINARY_NAME}" "${VIEWER_COPY_MANIFEST}")
+  add_dependencies(generate_breakpad_symbols "${VIEWER_BINARY_NAME}")
+  if (WINDOWS OR LINUX)
+    add_dependencies(generate_breakpad_symbols "${VIEWER_COPY_MANIFEST}")
+  endif (WINDOWS OR LINUX)
   add_dependencies(llpackage generate_breakpad_symbols)
   endif(RELEASE_CRASH_REPORTING OR NON_RELEASE_CRASH_REPORTING)
 endif (PACKAGE)
@@ -2314,6 +2318,7 @@ if (LL_TESTS)
   )
 
   set(test_libs
+    ${LLCOMMON_LIBRARIES}
     ${JSONCPP_LIBRARIES}
     ${CURL_LIBRARIES}
     )
