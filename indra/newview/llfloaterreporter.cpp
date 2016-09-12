@@ -394,6 +394,7 @@ void LLFloaterReporter::onClickSend(void *userdata)
 		if(!url.empty() || !sshot_url.empty())
 		{
 			self->sendReportViaCaps(url, sshot_url, self->gatherReport());
+			LLNotificationsUtil::add("HelpReportAbuseConfirm");
 			self->closeFloater();
 		}
 		else
@@ -862,6 +863,7 @@ void LLFloaterReporter::uploadDoneCallback(const LLUUID &uuid, void *user_data, 
 		self->mScreenID = uuid;
 		LL_INFOS() << "Got screen shot " << uuid << LL_ENDL;
 		self->sendReportViaLegacy(self->gatherReport());
+		LLNotificationsUtil::add("HelpReportAbuseConfirm");
 		self->closeFloater();
 	}
 }
