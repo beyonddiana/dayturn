@@ -460,6 +460,11 @@ class Windows_i686_Manifest(ViewerManifest):
             self.path("media_plugin_cef.dll")
             self.end_prefix()
 
+        # Media plugins - VLC
+        if self.prefix(src='../media_plugins/libvlc/%s' % self.args['configuration'], dst="llplugin"):
+            self.path("media_plugin_libvlc.dll")
+            self.end_prefix()
+            
         # winmm.dll shim
         if self.prefix(src='../media_plugins/winmmshim/%s' % self.args['configuration'], dst=""):
             self.path("winmm.dll")
@@ -565,6 +570,12 @@ class Windows_i686_Manifest(ViewerManifest):
             self.path("zh-CN.pak")
             self.path("zh-TW.pak")
             self.end_prefix()
+            
+            if self.prefix(src=os.path.join(os.pardir, 'packages', 'bin', 'release'), dst="llplugin"):
+                self.path("libvlc.dll")
+                self.path("libvlccore.dll")
+                self.path("plugins/")
+                self.end_prefix()           
 
         # pull in the crash logger and updater from other projects
         # tag:"crash-logger" here as a cue to the exporter
