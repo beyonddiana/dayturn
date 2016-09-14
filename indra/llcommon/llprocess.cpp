@@ -678,11 +678,9 @@ LLProcess::LLProcess(const LLSDOrParams& params):
 	if (ll_apr_warn_status(apr_proc_create(&mProcess, argv[0], &argv[0], NULL, procattr,
 										   gAPRPoolp)))
 	{
-		uninstallPreloadHack( params.preload, strOldPreload ); // <FS:ND/> Remove preload hack
 		throw LLProcessError(STRINGIZE(params << " failed"));
 	}
 	
-	uninstallPreloadHack( params.preload, strOldPreload ); // <FS:ND/> Remove preload hack
 
 	// arrange to call status_callback()
 	apr_proc_other_child_register(&mProcess, &LLProcess::status_callback, this, mProcess.in,
