@@ -36,7 +36,8 @@ class LLMessageSystem;
  */
 class LLEstateInfoModel : public LLSingleton<LLEstateInfoModel>
 {
-	LOG_CLASS(LLEstateInfoModel);
+	LLSINGLETON(LLEstateInfoModel);
+    LOG_CLASS(LLEstateInfoModel);
 
 public:
 	typedef boost::signals2::signal<void()> update_signal_t;
@@ -71,11 +72,8 @@ public:
 protected:
 	typedef std::vector<std::string> strings_t;
 
-	friend class LLSingleton<LLEstateInfoModel>;
 	friend class LLDispatchEstateUpdateInfo;
 	friend class LLEstateChangeInfoResponder;
-
-	LLEstateInfoModel();
 
 	/// refresh model with data from the incoming server message
 	void update(const strings_t& strings);

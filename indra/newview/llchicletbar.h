@@ -38,8 +38,9 @@ class LLChicletBar
 	: public LLSingleton<LLChicletBar>
 	, public LLPanel
 {
-	LOG_CLASS(LLChicletBar);
-	friend class LLSingleton<LLChicletBar>;
+	LLSINGLETON(LLChicletBar);
+    LOG_CLASS(LLChicletBar);
+    
 public:
 
 	BOOL postBuild();
@@ -82,8 +83,6 @@ private:
 	void fitWithTopInfoBar();
 
 protected:
-	LLChicletBar(const LLSD& key = LLSD());
-
 	LLChicletPanel* 	mChicletPanel;
 	LLLayoutStack*		mToolbarStack;
 };

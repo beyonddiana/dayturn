@@ -43,9 +43,10 @@ class RequestAgentUpdateAppearanceResponder;
 
 class LLAppearanceMgr: public LLSingleton<LLAppearanceMgr>
 {
+    LLSINGLETON(LLAppearanceMgr);
+    ~LLAppearanceMgr();
 	LOG_CLASS(LLAppearanceMgr);
 
-	friend class LLSingleton<LLAppearanceMgr>;
 	friend class LLOutfitUnLockTimer;
 	
 public:
@@ -255,11 +256,6 @@ private:
 	LLCore::HttpRequest::policy_t	mHttpPolicy;
 	LLCore::HttpRequest::priority_t	mHttpPriority;
 	
-
-protected:
-	LLAppearanceMgr();
-	~LLAppearanceMgr();
-
 private:
 
 	void filterWearableItems(LLInventoryModel::item_array_t& items, S32 max_per_type, S32 max_total);

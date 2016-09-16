@@ -44,7 +44,7 @@ namespace
 
 }
 
-LLChicletBar::LLChicletBar(const LLSD&)
+LLChicletBar::LLChicletBar()
 :	mChicletPanel(NULL),
 	mToolbarStack(NULL)
 {

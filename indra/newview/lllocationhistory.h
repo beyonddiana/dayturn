@@ -103,7 +103,8 @@ public:
 
 class LLLocationHistory: public LLSingleton<LLLocationHistory>
 {
-	LOG_CLASS(LLLocationHistory);
+	LLSINGLETON(LLLocationHistory);
+    LOG_CLASS(LLLocationHistory);
 
 public:
 	enum EChangeType
@@ -116,9 +117,7 @@ public:
 	typedef std::vector<LLLocationHistoryItem>	location_list_t;
 	typedef boost::function<void(EChangeType event)>			history_changed_callback_t;
 	typedef boost::signals2::signal<void(EChangeType event)>	history_changed_signal_t;
-	
-	LLLocationHistory();
-	
+		
 	void					addItem(const LLLocationHistoryItem& item);
 	bool					touchItem(const LLLocationHistoryItem& item);
 	void                    removeItems();
