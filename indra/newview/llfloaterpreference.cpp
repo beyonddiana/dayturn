@@ -2392,7 +2392,7 @@ void LLPanelPreferenceGraphics::setHardwareDefaults()
 }
 
 //<FS:AW  opensim preferences>
-static LLRegisterPanelClassWrapper<LLPanelPreferenceOpensim> t_pref_opensim("panel_preference_opensim");
+static LLPanelInjector<LLPanelPreferenceOpensim> t_pref_opensim("panel_preference_opensim");
 
 LLPanelPreferenceOpensim::LLPanelPreferenceOpensim() : LLPanelPreference(),
 	mGridListControl(NULL)
