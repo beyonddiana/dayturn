@@ -258,7 +258,8 @@ public:
 
 	class LLTextInputFilter : public LLQueryFilter, public LLSingleton<LLTextInputFilter>
 	{
-		/*virtual*/ filterResult_t operator() (const LLView* const view, const viewList_t & children) const 
+        LLSINGLETON_EMPTY_CTOR(LLTextInputFilter);
+        /*virtual*/ filterResult_t operator() (const LLView* const view, const viewList_t & children) const
 		{
 			return filterResult_t(view->isCtrl() && static_cast<const LLUICtrl *>(view)->acceptsTextInput(), TRUE);
 		}
@@ -267,10 +268,16 @@ public:
 	template <typename F, typename DERIVED> class CallbackRegistry : public LLRegistrySingleton<std::string, F, DERIVED >
 	{};	
 
-	class CommitCallbackRegistry : public CallbackRegistry<commit_callback_t, CommitCallbackRegistry>{};
-	// the enable callback registry is also used for visiblity callbacks
-	class EnableCallbackRegistry : public CallbackRegistry<enable_callback_t, EnableCallbackRegistry>{};
-		
+    class CommitCallbackRegistry : public CallbackRegistry<commit_callback_t, CommitCallbackRegistry>
+    {
+        LLSINGLETON_EMPTY_CTOR(CommitCallbackRegistry);
+    };
+    // the enable callback registry is also used for visiblity callbacks
+    class EnableCallbackRegistry : public CallbackRegistry<enable_callback_t, EnableCallbackRegistry>
+    {
+        LLSINGLETON_EMPTY_CTOR(EnableCallbackRegistry);
+    };
+    
 protected:
 
 	static bool controlListener(const LLSD& newvalue, LLHandle<LLUICtrl> handle, std::string type);
