@@ -182,6 +182,9 @@ public:
 class LLCommandManager
 :	public LLSingleton<LLCommandManager>
 {
+    LLSINGLETON(LLCommandManager);
+    ~LLCommandManager();
+
 public:
 	struct Params : public LLInitParam::Block<Params>
 	{
@@ -192,9 +195,6 @@ public:
 		{
 		}
 	};
-
-	LLCommandManager();
-	~LLCommandManager();
 
 	U32 commandCount() const;
 	LLCommand * getCommand(U32 commandIndex);
