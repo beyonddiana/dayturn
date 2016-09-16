@@ -72,7 +72,7 @@ class LLWearableDictionary : public LLSingleton<LLWearableDictionary>,
 							 public LLDictionary<LLWearableType::EType, WearableEntry>
 {
 public:
-	LLWearableDictionary();
+	LLSINGLETON(LLWearableDictionary);
 };
 
 LLWearableDictionary::LLWearableDictionary()

@@ -41,7 +41,13 @@
  * Derive your class from LLSingleton, passing your subclass name as
  * LLSingleton's template parameter, like so:
  *
- *   class Foo: public LLSingleton<Foo>{};
+ *   class Foo: public LLSingleton<Foo>
+ *   {
+ *       // use this macro at start of every LLSingleton subclass
+ *       LLSINGLETON(Foo);
+ *   public:
+ *       // ...
+ *   }; 
  *
  *   Foo& instance = Foo::instance();
  *

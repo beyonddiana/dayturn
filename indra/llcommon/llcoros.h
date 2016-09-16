@@ -79,6 +79,8 @@
  */
 class LL_COMMON_API LLCoros: public LLSingleton<LLCoros>
 {
+    LLSINGLETON(LLCoros);
+
 public:
     /// Canonical boost::dcoroutines::coroutine signature we use
     typedef boost::dcoroutines::coroutine<void()> coro;
@@ -158,8 +160,6 @@ public:
     void setStackSize(S32 stacksize);
 
 private:
-    friend class LLSingleton<LLCoros>;
-    LLCoros();
     friend llcoro::id llcoro::get_id();
     std::string launchImpl(const std::string& prefix, coro* newCoro);
     std::string generateDistinctName(const std::string& prefix) const;
