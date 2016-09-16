@@ -115,6 +115,10 @@ protected:
  **/
 class LLGridManager : public LLSingleton<LLGridManager>
 {
+    /// Instantiate the grid manager, load default grids, selects the default grid
+    LLSINGLETON(LLGridManager);
+    ~LLGridManager();
+
   public:
 	typedef enum 
 	{
@@ -132,8 +136,6 @@ public:
 	
 	/// when the grid manager is instantiated, the default grids are automatically
 	/// loaded, and the grids favorites list is loaded from the xml file.
-	LLGridManager();
-	~LLGridManager();
 	
     void initGrids();
 	void initSystemGrids();
