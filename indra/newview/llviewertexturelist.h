@@ -237,6 +237,8 @@ private:
 
 class LLUIImageList : public LLImageProviderInterface, public LLSingleton<LLUIImageList>
 {
+    LLSINGLETON_EMPTY_CTOR(LLUIImageList);
+
 public:
 	// LLImageProviderInterface
 	/*virtual*/ LLPointer<LLUIImage> getUIImageByID(const LLUUID& id, S32 priority);

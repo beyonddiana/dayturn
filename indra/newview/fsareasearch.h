@@ -152,9 +152,9 @@ public:
 
 	class ContextMenu : public LLListContextMenu, public LLSingleton<ContextMenu>
 	{
-	public:
-		ContextMenu();
+        LLSINGLETON(ContextMenu);
 
+	public:
 		/*virtual*/ void show(LLView *view, const uuid_vec_t &uuids, S32 x, S32 y);
 		/*virtual*/ LLContextMenu *createMenu();
 

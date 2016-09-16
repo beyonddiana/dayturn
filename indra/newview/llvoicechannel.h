@@ -163,9 +163,9 @@ private:
 
 class LLVoiceChannelProximal : public LLVoiceChannel, public LLSingleton<LLVoiceChannelProximal>
 {
-public:
-	LLVoiceChannelProximal();
+    LLSINGLETON(LLVoiceChannelProximal);
 
+public:
 	/*virtual*/ void onChange(EStatusType status, const std::string &channelURI, bool proximal);
 	/*virtual*/ void handleStatusChange(EStatusType status);
 	/*virtual*/ void handleError(EStatusType status);

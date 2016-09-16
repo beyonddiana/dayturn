@@ -135,9 +135,9 @@ protected:
 
 class LLViewerPartSim : public LLSingleton<LLViewerPartSim>
 {
+    LLSINGLETON(LLViewerPartSim);
+
 public:
-	LLViewerPartSim();
-	virtual ~LLViewerPartSim(){}
 	void destroyClass();
 
 	typedef std::vector<LLViewerPartGroup *> group_list_t;

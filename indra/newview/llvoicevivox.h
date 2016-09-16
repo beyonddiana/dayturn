@@ -54,12 +54,11 @@ class LLVivoxVoiceClient :	public LLSingleton<LLVivoxVoiceClient>,
 							virtual public LLVoiceModuleInterface,
 							virtual public LLVoiceEffectInterface
 {
-	LOG_CLASS(LLVivoxVoiceClient);
+    LLSINGLETON(LLVivoxVoiceClient);
+    LOG_CLASS(LLVivoxVoiceClient);
+    virtual ~LLVivoxVoiceClient();
+
 public:
-	LLVivoxVoiceClient();	
-	virtual ~LLVivoxVoiceClient();
-	
-	
 	/// @name LLVoiceModuleInterface virtual implementations
 	///  @see LLVoiceModuleInterface
 	//@{

@@ -43,6 +43,9 @@ void audio_update_wind(bool force_update = true);
 
 class LLViewerAudio : public LLSingleton<LLViewerAudio>
 {
+    LLSINGLETON(LLViewerAudio);
+    virtual ~LLViewerAudio();
+
 public:
 
 	enum EFadeState
@@ -51,9 +54,6 @@ public:
 		FADE_IN,
 		FADE_OUT,
 	};
-
-	LLViewerAudio();
-	virtual ~LLViewerAudio();
 	
 	void startInternetStreamWithAutoFade(std::string streamURI);
 	void stopInternetStreamWithAutoFade();
