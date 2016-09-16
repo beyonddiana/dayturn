@@ -46,11 +46,10 @@ class LLToast;
  */
 class LLNotificationManager : public LLSingleton<LLNotificationManager>
 {
+    LLSINGLETON(LLNotificationManager);
+    virtual ~LLNotificationManager();
 	typedef std::pair<std::string, LLEventHandler*> eventhandlers;
 public:	
-	LLNotificationManager();	
-	virtual ~LLNotificationManager();
-
 	//TODO: make private
 	// this method initialize handlers' map for different types of notifications
 	void init(void);

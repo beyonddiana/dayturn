@@ -88,11 +88,10 @@ namespace MarketplaceFetchCodes
 class LLMarketplaceInventoryImporter
 	: public LLSingleton<LLMarketplaceInventoryImporter>
 {
+    LLSINGLETON(LLMarketplaceInventoryImporter);
 public:
 	static void update();
-	
-	LLMarketplaceInventoryImporter();
-	
+
 	typedef boost::signals2::signal<void (bool)> status_changed_signal_t;
 	typedef boost::signals2::signal<void (U32, const LLSD&)> status_report_signal_t;
 
@@ -181,10 +180,13 @@ class LLSLMAssociateListingsResponder;
 class LLSLMDeleteListingsResponder;
 
 class LLMarketplaceData
-    : public LLSingleton<LLMarketplaceData>
+: public LLSingleton<LLMarketplaceData>
 {
+    LLSINGLETON(LLMarketplaceData);
+    virtual ~LLMarketplaceData();
+
 public:
-	friend class LLSLMGetMerchantResponder;
+    friend class LLSLMGetMerchantResponder;
     friend class LLSLMGetListingsResponder;
     friend class LLSLMCreateListingsResponder;
     friend class LLSLMGetListingResponder;
@@ -192,8 +194,7 @@ public:
     friend class LLSLMAssociateListingsResponder;
     friend class LLSLMDeleteListingsResponder;
 
-	LLMarketplaceData();
-    virtual ~LLMarketplaceData();
+    static LLSD getMarketplaceStringSubstitutions();
     
     // Public SLM API : Initialization and status
 	typedef boost::signals2::signal<void ()> status_updated_signal_t;

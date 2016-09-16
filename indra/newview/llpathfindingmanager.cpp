@@ -275,8 +275,7 @@ private:
 // LLPathfindingManager
 //---------------------------------------------------------------------------
 
-LLPathfindingManager::LLPathfindingManager()
-	: LLSingleton<LLPathfindingManager>(),
+LLPathfindingManager::LLPathfindingManager():
 	mNavMeshMap(),
 	mAgentStateSignal()
 {

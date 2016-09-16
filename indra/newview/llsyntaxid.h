@@ -36,7 +36,7 @@ class fetchKeywordsFileResponder;
 
 class LLSyntaxIdLSL : public LLSingleton<LLSyntaxIdLSL>
 {
-	friend class LLSingleton<LLSyntaxIdLSL>;
+    LLSINGLETON(LLSyntaxIdLSL);
 	friend class fetchKeywordsFileResponder;
 	
 private:
@@ -64,7 +64,6 @@ private:
 	bool 			mInitialized;
 	
 public:
-	LLSyntaxIdLSL();
 	void initialize();
 	bool keywordFetchInProgress();
 	LLSD getKeywordsXML() const { return mKeywordsXml; };

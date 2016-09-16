@@ -50,7 +50,9 @@ class LLDate;
  */
 class LLRecentPeople: public LLSingleton<LLRecentPeople>, public LLOldEvents::LLSimpleListener
 {
+    LLSINGLETON_EMPTY_CTOR(LLRecentPeople);
 	LOG_CLASS(LLRecentPeople);
+    
 public:
 	typedef boost::signals2::signal<void ()> signal_t;
 	

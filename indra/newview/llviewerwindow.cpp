@@ -2271,7 +2271,7 @@ void LLViewerWindow::shutdownViews()
 	// *TODO: Make LLNavigationBar part of gViewerWindow
 	if (LLNavigationBar::instanceExists())
 	{
-		delete LLNavigationBar::getInstance();
+        LLNavigationBar::deleteSingleton();
 	}
 	LL_INFOS() << "LLNavigationBar destroyed." << LL_ENDL ;
 	

@@ -39,10 +39,10 @@ class LLPickInfo;
 
 class LLToolIndividual : public LLTool, public LLSingleton<LLToolIndividual>
 {
+    LLSINGLETON(LLToolIndividual);
+    virtual ~LLToolIndividual();
+    
 public:
-	LLToolIndividual();
-	virtual ~LLToolIndividual();
-
 	virtual BOOL handleMouseDown(S32 x, S32 y, MASK mask);
 	virtual BOOL handleDoubleClick(S32 x, S32 y, MASK mask);
 	virtual void handleSelect();

@@ -36,11 +36,11 @@
  */
 class LLOutfitObserver: public LLInventoryObserver, public LLSingleton<LLOutfitObserver>
 {
+	LLSINGLETON(LLOutfitObserver);
+    virtual ~LLOutfitObserver();
+    
 public:
-	virtual ~LLOutfitObserver();
-
-	friend class LLSingleton<LLOutfitObserver>;
-
+    
 	virtual void changed(U32 mask);
 
 	void notifyOutfitLockChanged() { mOutfitLockChanged();  }
@@ -58,7 +58,6 @@ public:
 	void addOutfitLockChangedCallback(const signal_t::slot_type& cb) { mOutfitLockChanged.connect(cb); }
 
 protected:
-	LLOutfitObserver();
 
 	/** Get a version of an inventory category specified by its UUID */
 	static S32 getCategoryVersion(const LLUUID& cat_id);
