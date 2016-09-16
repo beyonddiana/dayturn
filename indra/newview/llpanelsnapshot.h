@@ -37,6 +37,14 @@ class LLSideTrayPanelContainer;
 class LLPanelSnapshot: public LLPanel
 {
 public:
+    enum ESnapshotType
+    {
+        SNAPSHOT_POSTCARD,
+        SNAPSHOT_TEXTURE,
+        SNAPSHOT_LOCAL,
+        SNAPSHOT_WEB
+    };
+
 	/*virtual*/ BOOL postBuild();
 	/*virtual*/ void onOpen(const LLSD& key);
 
@@ -51,8 +59,9 @@ public:
 	virtual LLSpinCtrl* getWidthSpinner();
 	virtual LLSpinCtrl* getHeightSpinner();
 	virtual void enableAspectRatioCheckbox(BOOL enable);
-	virtual LLFloaterSnapshot::ESnapshotFormat getImageFormat() const;
-	virtual void updateControls(const LLSD& info) = 0; ///< Update controls from saved settings
+    virtual LLFloaterSnapshotBase::ESnapshotFormat getImageFormat() const;
+    virtual ESnapshotType getSnapshotType();	
+    virtual void updateControls(const LLSD& info) = 0; ///< Update controls from saved settings
 	void enableControls(BOOL enable);
 
 protected:
