@@ -37,6 +37,7 @@
  */
 class LLSearchHistory : public LLSingleton<LLSearchHistory>, private LLDestroyClass<LLSearchHistory>
 {
+    LLSINGLETON(LLSearchHistory);
 	friend class LLDestroyClass<LLSearchHistory>;
 public:
 
@@ -71,8 +72,6 @@ public:
 	 * If entry is already in list, it will be deleted and added to front.
 	 */
 	void addEntry(const std::string& search_text);
-
-	LLSearchHistory();
 
 	/**
 	 * Class for storing data about single search request.

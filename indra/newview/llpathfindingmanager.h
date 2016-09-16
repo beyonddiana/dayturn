@@ -44,10 +44,14 @@ class LLViewerRegion;
 
 class LLPathfindingManager : public LLSingleton<LLPathfindingManager>
 {
+    LLSINGLETON(LLPathfindingManager);
+    virtual ~LLPathfindingManager();
+
 	friend class LLNavMeshSimStateChangeNode;
 	friend class NavMeshStatusResponder;
 	friend class LLAgentStateChangeNode;
 	friend class AgentStateResponder;
+    
 public:
 	typedef enum {
 		kRequestStarted,
@@ -55,9 +59,6 @@ public:
 		kRequestNotEnabled,
 		kRequestError
 	} ERequestStatus;
-
-	LLPathfindingManager();
-	virtual ~LLPathfindingManager();
 
 	void initSystem();
 	void quitSystem();

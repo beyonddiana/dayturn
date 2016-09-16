@@ -39,10 +39,11 @@ class LLViewerTexture;
 
 class LLSceneMonitor : public LLSingleton<LLSceneMonitor>
 {
+    LLSINGLETON(LLSceneMonitor);
+    ~LLSceneMonitor();
 	LOG_CLASS(LLSceneMonitor);
+    
 public:
-	LLSceneMonitor();
-	~LLSceneMonitor();
 
 	void freezeAvatar(LLCharacter* avatarp);
 	void setDebugViewerVisible(bool visible);
