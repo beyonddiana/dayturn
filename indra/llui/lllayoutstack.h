@@ -51,8 +51,10 @@ public:
 	};
 
 	struct LayoutStackRegistry : public LLChildRegistry<LayoutStackRegistry>
-	{};
-
+    {
+        LLSINGLETON_EMPTY_CTOR(LayoutStackRegistry);
+    };
+    
 	struct Params : public LLInitParam::Block<Params, LLView::Params>
 	{
 		Mandatory<ELayoutOrientation, OrientationNames >	orientation;
