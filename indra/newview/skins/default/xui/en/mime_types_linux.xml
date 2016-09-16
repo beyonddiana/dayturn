@@ -1,4 +1,4 @@
-Faudio<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <mimetypes name="default">
 	<defaultlabel>
 		(Unknown)
@@ -130,7 +130,7 @@ Faudio<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 			movie
 		</widgettype>
 		<impl>
-			media_plugin_cef
+			media_plugin_vlc
 		</impl>
 	</scheme>
 	<mimetype name="blank">
@@ -163,7 +163,7 @@ Faudio<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 			audio
 		</widgettype>
 		<impl>
-			media_plugin_gstreamer
+			media_plugin_vlc
 		</impl>
 	</mimetype>
 	<mimetype name="video/*">
@@ -174,7 +174,7 @@ Faudio<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 			movie
 		</widgettype>
 		<impl>
-			media_plugin_cef
+			media_plugin_vlc
 		</impl>
 	</mimetype>
 	<mimetype name="image/*">
@@ -196,7 +196,7 @@ Faudio<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 			movie
 		</widgettype>
 		<impl>
-			media_plugin_cef
+			media_plugin_vlc
 		</impl>
 	</mimetype>
 	<mimetype name="application/javascript">
@@ -218,7 +218,7 @@ Faudio<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 			audio
 		</widgettype>
 		<impl>
-			media_plugin_cef
+			media_plugin_vlc
 		</impl>
 	</mimetype>
 	<mimetype name="application/pdf">
@@ -328,7 +328,7 @@ Faudio<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 			audio
 		</widgettype>
 		<impl>
-			media_plugin_cef
+			media_plugin_vlc
 		</impl>
 	</mimetype>
 	<mimetype menu="1" name="image/bmp">
@@ -438,7 +438,7 @@ Faudio<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 			movie
 		</widgettype>
 		<impl>
-			media_plugin_cef
+			media_plugin_vlc
 		</impl>
 	</mimetype>
 	<mimetype name="video/mp4">
@@ -460,7 +460,7 @@ Faudio<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 			movie
 		</widgettype>
 		<impl>
-			media_plugin_cef
+			media_plugin_vlc
 		</impl>
 	</mimetype>
 	<mimetype name="video/x-ms-asf">
@@ -471,7 +471,7 @@ Faudio<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 			movie
 		</widgettype>
 		<impl>
-			media_plugin_cef
+			media_plugin_vlc
 		</impl>
 	</mimetype>
 	<mimetype name="video/x-ms-wmv">
@@ -482,7 +482,7 @@ Faudio<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 			movie
 		</widgettype>
 		<impl>
-			media_plugin_cef
+			media_plugin_vlc
 		</impl>
 	</mimetype>
 	<mimetype menu="1" name="video/x-msvideo">
@@ -493,7 +493,7 @@ Faudio<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 			movie
 		</widgettype>
 		<impl>
-			media_plugin_cef
+			media_plugin_vlc
 		</impl>
 	</mimetype>
 </mimetypes>
