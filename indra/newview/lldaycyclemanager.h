@@ -40,7 +40,8 @@
  */
 class LLDayCycleManager : public LLSingleton<LLDayCycleManager>
 {
-	LOG_CLASS(LLDayCycleManager);
+	LLSINGLETON_EMPTY_CTOR(LLDayCycleManager);
+    LOG_CLASS(LLDayCycleManager);
 
 public:
 	typedef std::list<std::string> preset_name_list_t;
@@ -66,7 +67,6 @@ public:
 	boost::signals2::connection setModifyCallback(const modify_signal_t::slot_type& cb);
 
 private:
-	friend class LLSingleton<LLDayCycleManager>;
 	/*virtual*/ void initSingleton();
 
 	void loadAllPresets();

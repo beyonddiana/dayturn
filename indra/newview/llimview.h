@@ -59,6 +59,7 @@ private:
  */
 class LLIMModel :  public LLSingleton<LLIMModel>
 {
+    LLSINGLETON(LLIMModel);
 public:
 
 	struct LLIMSession : public boost::signals2::trackable
@@ -148,8 +149,6 @@ public:
 		boost::signals2::connection mAvatarNameCacheConnection;
 	};
 	
-
-	LLIMModel();
 
 	/** Session id to session object */
 	std::map<LLUUID, LLIMSession*> mId2SessionMap;
@@ -309,7 +308,8 @@ public:
 
 class LLIMMgr : public LLSingleton<LLIMMgr>
 {
-	friend class LLIMModel;
+	LLSINGLETON(LLIMMgr);
+    friend class LLIMModel;
 
 public:
 	enum EInvitationType
@@ -318,9 +318,6 @@ public:
 		INVITATION_TYPE_VOICE = 1,
 		INVITATION_TYPE_IMMEDIATE = 2
 	};
-
-	LLIMMgr();
-	virtual ~LLIMMgr() {};
 
 	// Add a message to a session. The session can keyed to sesion id
 	// or agent id.

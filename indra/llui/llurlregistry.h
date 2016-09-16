@@ -62,8 +62,9 @@ void LLUrlRegistryNullCallback(const std::string &url,
 ///
 class LLUrlRegistry : public LLSingleton<LLUrlRegistry>
 {
+    LLSINGLETON(LLUrlRegistry);
+    ~LLUrlRegistry();
 public:
-	~LLUrlRegistry();
 
 	/// add a new Url handler to the registry (will be freed on destruction)
 	/// optionally force it to the front of the list, making it take
@@ -89,9 +90,6 @@ public:
 	bool isUrl(const LLWString &text);
 
 private:
-	LLUrlRegistry();
-	friend class LLSingleton<LLUrlRegistry>;
-
 	std::vector<LLUrlEntryBase *> mUrlEntry;
 	LLUrlEntryBase*	mUrlEntryTrusted;
 	LLUrlEntryBase*	mUrlEntryIcon;

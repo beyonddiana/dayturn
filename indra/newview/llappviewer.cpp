@@ -400,6 +400,7 @@ const F32 OUTFIT_CLEANUP_DELAY = 1.f;	// in seconds
  */
 class LLDeferredTaskList: public LLSingleton<LLDeferredTaskList>
 {
+    LLSINGLETON_EMPTY_CTOR(LLDeferredTaskList);
 	LOG_CLASS(LLDeferredTaskList);
 
 	friend class LLAppViewer;
@@ -746,8 +747,8 @@ LLAppViewer::LLAppViewer()
 LLAppViewer::~LLAppViewer()
 {
 	delete mSettingsLocationList;
-	LLViewerEventRecorder::instance().~LLViewerEventRecorder();
-	
+	LLViewerEventRecorder::deleteSingleton();
+    	
 	destroyMainloopTimeout();
     
 	// If we got to this destructor somehow, the app didn't hang.
