@@ -133,15 +133,9 @@ void append_to_last_message(std::list<LLSD>& messages, const std::string& line)
 
 class LLLogChatTimeScanner: public LLSingleton<LLLogChatTimeScanner>
 {
+    LLSINGLETON(LLLogChatTimeScanner);
+    
 public:
-	LLLogChatTimeScanner()
-	{
-		// Note, date/time facets will be destroyed by string streams
-		mDateStream.imbue(std::locale(mDateStream.getloc(), new date_input_facet(DATE_FORMAT)));
-		mTimeStream.imbue(std::locale(mTimeStream.getloc(), new time_facet(TIME_FORMAT)));
-		mTimeStream.imbue(std::locale(mTimeStream.getloc(), new time_input_facet(DATE_FORMAT)));
-	}
-
 	date getTodayPacificDate()
 	{
 		typedef	boost::date_time::local_adjustor<ptime, -8, no_dst> pst;
@@ -205,6 +199,16 @@ private:
 	std::stringstream mDateStream;
 	std::stringstream mTimeStream;
 };
+
+inline
+LLLogChatTimeScanner::LLLogChatTimeScanner()
+{
+    // Note, date/time facets will be destroyed by string streams
+    mDateStream.imbue(std::locale(mDateStream.getloc(), new date_input_facet(DATE_FORMAT)));
+    mTimeStream.imbue(std::locale(mTimeStream.getloc(), new time_facet(TIME_FORMAT)));
+    mTimeStream.imbue(std::locale(mTimeStream.getloc(), new time_input_facet(DATE_FORMAT)));
+}
+
 
 LLLogChat::save_history_signal_t * LLLogChat::sSaveHistorySignal = NULL;
 

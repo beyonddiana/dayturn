@@ -64,7 +64,7 @@ class LLAssetDictionary : public LLSingleton<LLAssetDictionary>,
 						  public LLDictionary<LLAssetType::EType, AssetEntry>
 {
 public:
-	LLAssetDictionary();
+	LLSINGLETON(LLAssetDictionary);
 };
 
 LLAssetDictionary::LLAssetDictionary()
