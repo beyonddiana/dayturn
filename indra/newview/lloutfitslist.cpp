@@ -1093,6 +1093,7 @@ LLOutfitListGearMenuBase::LLOutfitListGearMenuBase(LLOutfitListBase* olist)
     registrar.add("Gear.UploadPhoto", boost::bind(&LLOutfitListGearMenuBase::onUploadFoto, this));
     registrar.add("Gear.SelectPhoto", boost::bind(&LLOutfitListGearMenuBase::onSelectPhoto, this));
     registrar.add("Gear.TakeSnapshot", boost::bind(&LLOutfitListGearMenuBase::onTakeSnapshot, this));
+    registrar.add("Gear.RemovePhoto", boost::bind(&LLOutfitListGearMenuBase::onRemovePhoto, this));
 
     enable_registrar.add("Gear.OnEnable", boost::bind(&LLOutfitListGearMenuBase::onEnable, this, _2));
     enable_registrar.add("Gear.OnVisible", boost::bind(&LLOutfitListGearMenuBase::onVisible, this, _2));
@@ -1242,6 +1243,10 @@ void LLOutfitListGearMenuBase::onTakeSnapshot()
 }
 
 
+void LLOutfitListGearMenuBase::onRemovePhoto()
+{
+
+}
 LLOutfitListGearMenu::LLOutfitListGearMenu(LLOutfitListBase* olist)
     : LLOutfitListGearMenuBase(olist)
 {}
@@ -1257,6 +1262,7 @@ void LLOutfitListGearMenu::onUpdateItemsVisibility()
     mMenu->setItemVisible("upload_photo", FALSE);
     mMenu->setItemVisible("select_photo", FALSE);
     mMenu->setItemVisible("take_snapshot", FALSE);
+    mMenu->setItemVisible("remove_photo", FALSE);
     LLOutfitListGearMenuBase::onUpdateItemsVisibility();
 }
 
