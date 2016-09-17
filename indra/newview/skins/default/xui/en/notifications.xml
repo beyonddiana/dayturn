@@ -11446,9 +11446,9 @@ Creating animation link for animation "[NAME]" failed!
   
   <notification
    icon="alert.tga"
-   name="ImageLoadError"
+   name="OutfitPhotoLoadError"
    type="alertmodal">
-   [REASON]
+    [REASON]
     <tag>fail</tag>
     <usetemplate
      name="okbutton"
