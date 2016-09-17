@@ -120,7 +120,8 @@ LLFloaterTexturePicker::LLFloaterTexturePicker(
 	mPreviewSettingChanged(false),
 	mOnFloaterCommitCallback(NULL),
 	mOnFloaterCloseCallback(NULL),
-	mSetImageAssetIDCallback(NULL)
+	mSetImageAssetIDCallback(NULL),
+	mOnUpdateImageStatsCallback(NULL)
 {
 	buildFromFile("floater_texture_ctrl.xml");
 	mCanApplyImmediately = can_apply_immediately;
@@ -198,6 +199,10 @@ void LLFloaterTexturePicker::updateImageStats()
 			std::string formatted_dims = llformat("%d x %d", mTexturep->getFullWidth(),mTexturep->getFullHeight());
 			mResolutionLabel->setTextArg("[DIMENSIONS]", formatted_dims);
 			mResolutionLabel->setTextArg("[ALPHA]", LLTrans::getString(mTexturep->getComponents() == 4 ? "Alpha" : "Opaque"));
+			if (mOnUpdateImageStatsCallback)
+			{
+				mOnUpdateImageStatsCallback(mTexturep);
+			}
 		}
 		else
 		{
