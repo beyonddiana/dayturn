@@ -84,6 +84,8 @@ BOOL LLPanelOutfitsInventory::postBuild()
 	{
 		LLInventoryModelBackgroundFetch::instance().start(outfits_cat);
 	}
+	
+	mSaveComboBtn.reset(new LLSaveOutfitComboBtn(this, true));
 
 	return TRUE;
 }
@@ -166,14 +168,22 @@ void LLPanelOutfitsInventory::onSearchEdit(const std::string& string)
 
 void LLPanelOutfitsInventory::onWearButtonClick()
 {
-	if (mMyOutfitsPanel->hasItemSelected())
+	if(isOutfitsListPanelActive())
 	{
-		mMyOutfitsPanel->wearSelectedItems();
+		if (mMyOutfitsPanel->hasItemSelected())
+		{
+			mMyOutfitsPanel->wearSelectedItems();
+		}
+		else
+		{
+			mMyOutfitsPanel->performAction("replaceoutfit");
+		}
 	}
-	else
+	else if(isOutfitsGalleryPanelActive())
 	{
-		mMyOutfitsPanel->performAction("replaceoutfit");
+		mOutfitGalleryPanel->wearSelectedOutfit();
 	}
+
 }
 
 bool LLPanelOutfitsInventory::onSaveCommit(const LLSD& notification, const LLSD& response)
@@ -247,7 +257,7 @@ void LLPanelOutfitsInventory::initListCommandsHandlers()
 	mListCommands->childSetAction("save_as_btn", boost::bind(&LLPanelOutfitsInventory::onSaveAs, this));
 	mListCommands->childSetAction("wear_btn", boost::bind(&LLPanelOutfitsInventory::onWearButtonClick, this));
 	mMyOutfitsPanel->childSetAction("trash_btn", boost::bind(&LLPanelOutfitsInventory::onTrashButtonClick, this));
-	mOutfitGalleryPanel->childSetAction("trash_btn", boost::bind(&LLPanelOutfitsInventory::onGalleryTrashButtonClick, this));
+	mOutfitGalleryPanel->childSetAction("trash_btn", boost::bind(&LLPanelOutfitsInventory::onTrashButtonClick, this));
 }
 
 void LLPanelOutfitsInventory::updateListCommands()
@@ -262,18 +272,20 @@ void LLPanelOutfitsInventory::updateListCommands()
 	mOutfitGalleryPanel->childSetEnabled("trash_btn", trash_enabled);
 	wear_btn->setEnabled(wear_enabled);
 	wear_btn->setVisible(wear_visible);
-
-	wear_btn->setToolTip(getString(mMyOutfitsPanel->hasItemSelected() ? "wear_items_tooltip" : "wear_outfit_tooltip"));
+	mSaveComboBtn->setMenuItemEnabled("save_outfit", make_outfit_enabled);
+	wear_btn->setToolTip(getString((!isOutfitsGalleryPanelActive() && mMyOutfitsPanel->hasItemSelected()) ? "wear_items_tooltip" : "wear_outfit_tooltip"));
 }
 
 void LLPanelOutfitsInventory::onTrashButtonClick()
 {
-	mMyOutfitsPanel->removeSelected();
-}
-
-void LLPanelOutfitsInventory::onGalleryTrashButtonClick()
-{
-	mOutfitGalleryPanel->removeSelected();
+	if(isOutfitsListPanelActive())
+	{
+		mMyOutfitsPanel->removeSelected();
+	}
+	else if(isOutfitsGalleryPanelActive())
+	{
+		mMyOutfitsPanel->removeSelected();
+	}
 }
 
 bool LLPanelOutfitsInventory::isActionEnabled(const LLSD& userdata)
@@ -319,6 +331,22 @@ bool LLPanelOutfitsInventory::isCOFPanelActive() const
 
 	return mActivePanel->getName() == COF_TAB_NAME;
 }
+
+bool LLPanelOutfitsInventory::isOutfitsListPanelActive() const
+{
+	if (!mActivePanel) return false;
+
+	return mActivePanel->getName() == OUTFITS_TAB_NAME;
+}
+
+bool LLPanelOutfitsInventory::isOutfitsGalleryPanelActive() const
+{
+	if (!mActivePanel) return false;
+
+	return mActivePanel->getName() == OUTFIT_GALLERY_TAB_NAME;
+}
+
+
 
 void LLPanelOutfitsInventory::setWearablesLoading(bool val)
 {

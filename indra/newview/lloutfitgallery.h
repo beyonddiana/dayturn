@@ -89,6 +89,9 @@ public:
     void onSelectPhoto(LLUUID selected_outfit_id);
     void onTakeSnapshot(LLUUID selected_outfit_id);
     
+    void wearSelectedOutfit();
+
+    
 
     /*virtual*/ void setFilterSubString(const std::string& string);
 
@@ -188,7 +191,6 @@ private:
     typedef std::map<LLOutfitGalleryItem*, int>         item_num_map_t;
     typedef item_num_map_t::value_type                  item_numb_map_value_t;
     item_num_map_t                                      mItemIndexMap;
-
 
     LLInventoryCategoriesObserver* 	mTexturesObserver;
     LLInventoryCategoriesObserver* 	mOutfitsObserver;
