@@ -30,6 +30,7 @@ import sys
 import os.path
 import shutil
 import errno
+import json
 import re
 import tarfile
 import time
@@ -176,9 +177,16 @@ class ViewerManifest(LLManifest):
                 self.path("*.tga")
                 self.end_prefix("local_assets")
 
-            # Files in the newview/ directory
+            # File in the newview/ directory
             self.path("gpu_table.txt")
-            # The summary.json file gets left in the build directory by newview/CMakeLists.txt.
+
+            #summary.json.  Standard with exception handling is fine.  If we can't open a new file for writing, we have worse problems
+            summary_dict = {"Type":"viewer","Version":'.'.join(self.args['version']),"Channel":self.channel_with_pkg_suffix()}
+            with open(os.path.join(os.pardir,'summary.json'), 'w') as summary_handle:
+                json.dump(summary_dict,summary_handle)
+
+            #we likely no longer need the test, since we will throw an exception above, but belt and suspenders and we get the
+            #return code for free.
             if not self.path2basename(os.pardir, "summary.json"):
                 print "No summary.json file"
 
@@ -407,6 +415,11 @@ class Windows_i686_Manifest(ViewerManifest):
             self.path("libsndfile-1.dll")
             self.path("vivoxoal.dll")
             self.path("ca-bundle.crt")
+            self.path("vivoxplatform.dll")
+            try:
+                self.path("zlib1.dll")
+            except:
+                print "Skipping zlib1.dll"
 
 				# Security
             self.path("ssleay32.dll")
@@ -458,6 +471,11 @@ class Windows_i686_Manifest(ViewerManifest):
         # Media plugins - CEF
         if self.prefix(src='../media_plugins/cef/%s' % self.args['configuration'], dst="llplugin"):
             self.path("media_plugin_cef.dll")
+            self.end_prefix()
+
+        # Media plugins - LibVLC
+        if self.prefix(src='../media_plugins/libvlc/%s' % self.args['configuration'], dst="llplugin"):
+            self.path("media_plugin_libvlc.dll")
             self.end_prefix()
 
         # winmm.dll shim
@@ -565,6 +583,12 @@ class Windows_i686_Manifest(ViewerManifest):
             self.path("zh-CN.pak")
             self.path("zh-TW.pak")
             self.end_prefix()
+
+            if self.prefix(src=os.path.join(os.pardir, 'packages', 'bin', 'release'), dst="llplugin"):
+                self.path("libvlc.dll")
+                self.path("libvlccore.dll")
+                self.path("plugins/")
+                self.end_prefix()
 
         # pull in the crash logger and updater from other projects
         # tag:"crash-logger" here as a cue to the exporter
@@ -1129,9 +1153,18 @@ class LinuxManifest(ViewerManifest):
         # plugins
         if self.prefix(src="", dst="bin/llplugin"):
             self.path("../media_plugins/gstreamer010/libmedia_plugin_gstreamer010.so", "libmedia_plugin_gstreamer.so")
+            self.path("../media_plugins/libvlc/libmedia_plugin_libvlc.so", "libmedia_plugin_libvlc.so")
             self.path( "../media_plugins/cef/libmedia_plugin_cef.so", "libmedia_plugin_cef.so" )
             self.end_prefix("bin/llplugin")
 
+        if self.prefix(src=os.path.join(os.pardir, 'packages', 'lib', 'vlc', 'plugins'), dst="bin/llplugin/vlc/plugins"):
+            self.path( "plugins.dat" )
+            self.path( "*/*.so" )
+            self.end_prefix()
+
+        if self.prefix(src=os.path.join(os.pardir, 'packages', 'lib' ), dst="lib"):
+            self.path( "libvlc*.so*" )
+            self.end_prefix()
 
         if self.prefix(src=os.path.join(os.pardir, 'packages', 'bin', 'release'), dst="bin"):
             self.path( "chrome-sandbox" )
@@ -1319,7 +1352,7 @@ class Linux_i686_Manifest(LinuxManifest):
             self.path("libhunspell-1.3.so.0.0.0")
             self.path("libalut.so.0")
             self.path("libalut.so.0.0.0")
-            self.path("libopenal.so*")
+            #self.path("libopenal.so*") #Our archive has 1.15.1 which is a breaker for all sounds. At least for Ubuntu 14.04 the syatem libopenal version 1.14 works 
             self.path("libopenal.so", "libvivoxoal.so.1") # vivox's sdk expects this soname
             self.path("libfontconfig.so*")
             self.path("libpng15.so.15") 
@@ -1367,6 +1400,7 @@ class Linux_i686_Manifest(LinuxManifest):
             # Vivox runtimes
             if self.prefix(src=relpkgdir, dst="bin"):
                 self.path("SLVoice")
+                self.path("win32")
                 self.end_prefix()
             if self.prefix(src=relpkgdir, dst="lib"):
                 self.path("libortp.so")
@@ -1470,6 +1504,7 @@ class Linux_x86_64_Manifest(LinuxManifest):
             # Vivox runtimes
             if self.prefix(src="../packages/lib/release", dst="bin"):
                     self.path("SLVoice")
+                    self.path("win32")
                     self.end_prefix()
             if self.prefix(src="../packages/lib/release", dst="lib32"):
                     self.path("libortp.so")
@@ -1492,6 +1527,7 @@ class Linux_x86_64_Manifest(LinuxManifest):
 	if self.args['buildtype'].lower() == 'debug':
     	 if self.prefix("../packages/lib/debug", dst="lib64"):
              self.path("libapr-1.so*")
+
              self.path("libaprutil-1.so*")
              self.path("libboost_context-mt-d.so.*")
              self.path("libboost_program_options-mt-d.so.*")
