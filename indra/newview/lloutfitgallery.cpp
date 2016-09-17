@@ -545,6 +545,11 @@ void LLOutfitGallery::onChangeOutfitSelection(LLWearableItemsList* list, const L
     }
 }
 
+void LLOutfitGallery::wearSelectedOutfit()
+{
+    LLAppearanceMgr::instance().replaceCurrentOutfit(getSelectedOutfitUUID());
+}
+
 bool LLOutfitGallery::hasItemSelected()
 {
     return false;
