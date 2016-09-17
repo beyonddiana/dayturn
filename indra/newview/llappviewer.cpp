@@ -127,7 +127,7 @@
 #include "stringize.h"
 #include "llcoros.h"
 #include "cef/llceflib.h"
-#if LL_WINDOWS
+#if !LL_DARWIN
 	#include "vlc/libvlc_version.h"
 #endif  // Ll_WINDOWS
 
@@ -3471,6 +3471,18 @@ LLSD LLAppViewer::getViewerInfo() const
 	info["LLCEFLIB_VERSION"] = LLCEFLIB_VERSION;
 #else
 	info["LLCEFLIB_VERSION"] = "Undefined";
+#endif
+
+#if LL_DARWIN
+	info["LIBVLC_VERSION"] = "Unsupported";
+#else
+	std::ostringstream ver_codec;
+	ver_codec << LIBVLC_VERSION_MAJOR;
+	ver_codec << ".";
+	ver_codec << LIBVLC_VERSION_MINOR;
+	ver_codec << ".";
+	ver_codec << LIBVLC_VERSION_REVISION;
+	info["LIBVLC_VERSION"] = ver_codec.str();
 #endif
 
 	S32 packets_in = LLViewerStats::instance().getRecording().getSum(LLStatViewer::PACKETS_IN);
