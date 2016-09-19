@@ -45,6 +45,7 @@ FloaterAO::FloaterAO(const LLSD& key)
 	mSelectedState(0),
 	mCanDragAndDrop(FALSE),
 	mImportRunning(FALSE),
+	mCurrentBoldItem(NULL),
 	mMore(TRUE)
 {
 	mEventTimer.stop();
@@ -133,6 +134,7 @@ void FloaterAO::updateList()
 	mSetSelectorSmall->clear();
 
 	mAnimationList->deleteAllItems();
+	mCurrentBoldItem=NULL;
 	reloading(FALSE);
 
 	if(mSetList.empty())
@@ -234,6 +236,7 @@ BOOL FloaterAO::postBuild()
 	updateSmart();
 
 	AOEngine::instance().setReloadCallback(boost::bind(&FloaterAO::updateList,this));
+	AOEngine::instance().setAnimationChangedCallback(boost::bind(&FloaterAO::onAnimationChanged,this,_1));
 
 	onChangeAnimationSelection();
 	mMainInterfacePanel->setVisible(TRUE);
@@ -376,6 +379,7 @@ LLScrollListItem* FloaterAO::addAnimation(const std::string& name)
 void FloaterAO::onSelectState()
 {
 	mAnimationList->deleteAllItems();
+	mCurrentBoldItem=NULL;
 	mAnimationList->setCommentText(getString("ao_no_animations_loaded"));
 	mAnimationList->setEnabled(FALSE);
 
@@ -480,6 +484,7 @@ BOOL FloaterAO::removeSetCallback(const LLSD& notification,const LLSD& response)
 			mSetSelector->clear();
 			mSetSelectorSmall->clear();
 			mAnimationList->deleteAllItems();
+			mCurrentBoldItem=NULL;
 			return TRUE;
 		}
 	}
@@ -598,6 +603,7 @@ void FloaterAO::onClickTrash()
 		AOEngine::instance().removeAnimation(mSelectedSet,mSelectedState,mAnimationList->getItemIndex(list[index]));
 
 	mAnimationList->deleteSelectedItems();
+	mCurrentBoldItem=NULL;
 }
 
 void FloaterAO::updateCycleParameters()
@@ -686,6 +692,43 @@ void FloaterAO::onClickLess()
 
 	// save current size and position
 	gSavedPerAccountSettings.setRect("floater_rect_animation_overrider_full",fullSize);
+}
+
+void FloaterAO::onAnimationChanged(const LLUUID& animation)
+{
+	LL_DEBUGS("AOEngine") << "Received animation change to " << animation << LL_ENDL;
+
+	if(mCurrentBoldItem)
+	{
+		LLScrollListText* column=(LLScrollListText*) mCurrentBoldItem->getColumn(1);
+		column->setFontStyle(LLFontGL::NORMAL);
+
+		mCurrentBoldItem=NULL;
+	}
+
+	if(animation.isNull())
+	{
+		return;
+	}
+
+	// why do we have no LLScrollListCtrl::getItemByUserdata() ? -Zi
+	std::vector<LLScrollListItem*> item_list=mAnimationList->getAllData();
+	std::vector<LLScrollListItem*>::const_iterator iter;
+	for(iter=item_list.begin();iter!=item_list.end();iter++)
+	{
+		LLScrollListItem* item=*iter;
+		LLUUID* id=(LLUUID*) item->getUserdata();
+
+		if(id==&animation)
+		{
+			mCurrentBoldItem=item;
+
+			LLScrollListText* column=(LLScrollListText*) mCurrentBoldItem->getColumn(1);
+			column->setFontStyle(LLFontGL::BOLD);
+
+			return;
+		}
+	}
 }
 
 // virtual
