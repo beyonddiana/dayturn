@@ -89,6 +89,8 @@ class FloaterAO
 		void onClickMore();
 		void onClickLess();
 
+		void onAnimationChanged(const LLUUID& animation);
+
 		void reloading(BOOL yes);
 
 		void updateSmart();
@@ -123,6 +125,7 @@ class FloaterAO
 
 		LLComboBox* mStateSelector;
 		LLScrollListCtrl* mAnimationList;
+		LLScrollListItem* mCurrentBoldItem;
 		LLButton* mMoveUpButton;
 		LLButton* mMoveDownButton;
 		LLButton* mTrashButton;
