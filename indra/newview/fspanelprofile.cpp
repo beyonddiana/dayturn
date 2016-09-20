@@ -841,6 +841,10 @@ void FSPanelProfileWeb::onAvatarNameCache(const LLUUID& agent_id, const LLAvatar
     {
         username = LLCacheName::buildUsername(av_name.mDisplayName);
     }
+	else
+	{
+		LLStringUtil::replaceChar(username, ' ', '.');
+	}    
 
     //[ADD: FIRE-2266: SJ] Adding link to webprofiles on profile which opens Web Profiles in browser
     std::string url;
