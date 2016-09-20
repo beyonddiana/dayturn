@@ -1244,6 +1244,7 @@ void LLOutfitGallery::onSelectPhoto(LLUUID selected_outfit_id)
                 texture_floaterp->setTextureSelectedCallback(boost::bind(&LLOutfitGallery::onTextureSelectionChanged, this, _1));
                 texture_floaterp->setOnFloaterCommitCallback(boost::bind(&LLOutfitGallery::onTexturePickerCommit, this, _1, _2));
                 texture_floaterp->setOnUpdateImageStatsCallback(boost::bind(&LLOutfitGallery::onTexturePickerUpdateImageStats, this, _1));
+                texture_floaterp->setLocalTextureEnabled(FALSE);
             }
 
             floaterp->openFloater();
@@ -1255,8 +1256,12 @@ void LLOutfitGallery::onSelectPhoto(LLUUID selected_outfit_id)
 void LLOutfitGallery::onTakeSnapshot(LLUUID selected_outfit_id)
 {
     LLFloaterReg::toggleInstanceOrBringToFront("outfit_snapshot");
-    LLFloaterOutfitSnapshot::getInstance()->setOutfitID(selected_outfit_id);
-    LLFloaterOutfitSnapshot::getInstance()->setGallery(this);
+    LLFloaterOutfitSnapshot* snapshot_floater = LLFloaterOutfitSnapshot::getInstance();
+    if (snapshot_floater)
+    {
+        snapshot_floater->setOutfitID(selected_outfit_id);
+        snapshot_floater->getInstance()->setGallery(this);
+    }
 }
 
 void LLOutfitGallery::onBeforeOutfitSnapshotSave()
