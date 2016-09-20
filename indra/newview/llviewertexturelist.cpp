@@ -171,7 +171,7 @@ void LLViewerTextureList::doPreloadImages()
 		mImagePreloads.insert(image);
 	}
 	image = LLViewerTextureManager::getFetchedTextureFromFile("transparent.j2c", FTT_LOCAL_FILE, MIPMAP_YES, LLViewerFetchedTexture::BOOST_UI, LLViewerTexture::FETCHED_TEXTURE,
-		0,0,LLUUID("IMG_TRANSPARENT"));
+		0,0,IMG_TRANSPARENT);
 	if (image) 
 	{
 		image->setAddressMode(LLTexUnit::TAM_WRAP);
