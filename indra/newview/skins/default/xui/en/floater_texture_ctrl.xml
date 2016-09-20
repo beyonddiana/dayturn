@@ -115,8 +115,6 @@ Size: [DIMENSIONS]
      top_pad="5"
      width="73" />
     <button
-     enabled="false"
-     visible="false"
      follows="left|top"
      height="20"
      label="Trans"
