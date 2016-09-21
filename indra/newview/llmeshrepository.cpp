@@ -3025,23 +3025,12 @@ void LLMeshHeaderHandler::processData(LLCore::BufferArray * /* body */, S32 /* b
 	}
 	else if (data && data_size > 0)
 	{
-		// header was successfully retrieved from sim and parsed, cache in vfs
-		S32 header_bytes = 0;
-		LLSD header;
+		// header was successfully retrieved from sim, cache in vfs
+		LLSD header = gMeshRepo.mThread->mMeshHeader[mesh_id];
 
-		gMeshRepo.mThread->mHeaderMutex->lock();
-		LLMeshRepoThread::mesh_header_map::iterator iter = gMeshRepo.mThread->mMeshHeader.find(mesh_id);
-		if (iter != gMeshRepo.mThread->mMeshHeader.end())
-		{
-			header_bytes = (S32)gMeshRepo.mThread->mMeshHeaderSize[mesh_id];
-			header = iter->second;
-		}
-		gMeshRepo.mThread->mHeaderMutex->unlock();
+		S32 version = header["version"].asInteger();
 
-		if (header_bytes > 0
-			&& !header.has("404")
-			&& header.has("version")
-			&& header["version"].asInteger() <= MAX_MESH_VERSION)
+		if (version <= MAX_MESH_VERSION)
 		{
 			std::stringstream str;
 
@@ -3088,17 +3077,6 @@ void LLMeshHeaderHandler::processData(LLCore::BufferArray * /* body */, S32 /* b
 				{
 					file.write(block, remaining);
 				}
-			}
-		}
-		else
-		{
-			LL_WARNS(LOG_MESH) << "Trying to cache nonexistent mesh, mesh id: " << mesh_id << LL_ENDL;
-
-			// headerReceived() parsed header, but header's data is invalid so none of the LODs will be available
-			LLMutexLock lock(gMeshRepo.mThread->mMutex);
-			for (int i(0); i < 4; ++i)
-			{
-				gMeshRepo.mThread->mUnavailableQ.push(LLMeshRepoThread::LODRequest(mMeshParams, i));
 			}
 		}
 	}
