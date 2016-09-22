@@ -1877,6 +1877,56 @@ class LLAdvancedCheckAnimationInfo : public view_listener_t
 };
 
 
+//////////////////
+// SHOW LOOK AT //
+//////////////////
+
+
+class LLAdvancedToggleShowLookAt : public view_listener_t
+{
+	bool handleEvent(const LLSD& userdata)
+	{
+		LLHUDEffectLookAt::sDebugLookAt = !(LLHUDEffectLookAt::sDebugLookAt);
+		return true;
+	}
+};
+
+class LLAdvancedCheckShowLookAt : public view_listener_t
+{
+	bool handleEvent(const LLSD& userdata)
+	{
+		bool new_value = LLHUDEffectLookAt::sDebugLookAt;
+		return new_value;
+	}
+};
+
+
+
+///////////////////
+// SHOW POINT AT //
+///////////////////
+
+
+class LLAdvancedToggleShowPointAt : public view_listener_t
+{
+	bool handleEvent(const LLSD& userdata)
+	{
+		LLHUDEffectPointAt::sDebugPointAt = !(LLHUDEffectPointAt::sDebugPointAt);
+		return true;
+	}
+};
+
+class LLAdvancedCheckShowPointAt : public view_listener_t
+{
+	bool handleEvent(const LLSD& userdata)
+	{
+		bool new_value = LLHUDEffectPointAt::sDebugPointAt;
+		return new_value;
+	}
+};
+
+
+
 /////////////////////////
 // DEBUG JOINT UPDATES //
 /////////////////////////
@@ -9568,6 +9618,10 @@ void initialize_menus()
 	view_listener_t::addMenu(new LLAdvancedReloadVertexShader(), "Advanced.ReloadVertexShader");
 	view_listener_t::addMenu(new LLAdvancedToggleAnimationInfo(), "Advanced.ToggleAnimationInfo");
 	view_listener_t::addMenu(new LLAdvancedCheckAnimationInfo(), "Advanced.CheckAnimationInfo");
+	view_listener_t::addMenu(new LLAdvancedToggleShowLookAt(), "Advanced.ToggleShowLookAt");
+	view_listener_t::addMenu(new LLAdvancedCheckShowLookAt(), "Advanced.CheckShowLookAt");
+	view_listener_t::addMenu(new LLAdvancedToggleShowPointAt(), "Advanced.ToggleShowPointAt");
+	view_listener_t::addMenu(new LLAdvancedCheckShowPointAt(), "Advanced.CheckShowPointAt");
 	view_listener_t::addMenu(new LLAdvancedToggleDebugJointUpdates(), "Advanced.ToggleDebugJointUpdates");
 	view_listener_t::addMenu(new LLAdvancedCheckDebugJointUpdates(), "Advanced.CheckDebugJointUpdates");
 	view_listener_t::addMenu(new LLAdvancedToggleDisableLOD(), "Advanced.ToggleDisableLOD");
