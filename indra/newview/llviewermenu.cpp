@@ -5976,6 +5976,8 @@ class LLToolsRestartAllAnimations : public view_listener_t
 		return true;
 	}
 };
+//mk
+
 
 class LLToolsRefreshVisibility : public view_listener_t
 {
@@ -10298,6 +10300,8 @@ void initialize_menus()
 	commit.add("Tools.Unlink", boost::bind(&LLSelectMgr::unlinkObjects, LLSelectMgr::getInstance()));
 	view_listener_t::addMenu(new LLToolsStopAllAnimations(), "Tools.StopAllAnimations");
 //MK
+	view_listener_t::addMenu(new LLToolsRestartAllAnimations(), "Tools.RestartAllAnimations");
+//mk
 	view_listener_t::addMenu(new LLGridModeWorld(), "Tools.GridModeWorld");
 	view_listener_t::addMenu(new LLGridModeLocal(), "Tools.GridModeLocal");
 	view_listener_t::addMenu(new LLGridModeReference(), "Tools.GridModeReference");
