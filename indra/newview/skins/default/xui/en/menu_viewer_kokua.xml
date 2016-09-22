@@ -1746,7 +1746,6 @@
   
 <!-- START OF COMMANDS MENU -->  
   <menu
-    create_jum_keys="true"
     label="Commands"
     name="Commands"
     tear_off="true">
