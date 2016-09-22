@@ -100,9 +100,6 @@ const outfit_accordion_tab_params& get_accordion_tab_params()
 }
 
 
-//MK
-			gAgent.mRRInterface.mUserUpdateAttachmentsCalledManually = TRUE;
-//mk
 static LLPanelInjector<LLOutfitsList> t_outfits_list("outfits_list");
 
 LLOutfitsList::LLOutfitsList()
@@ -289,14 +286,14 @@ void LLOutfitListBase::performAction(std::string action)
 	if ("replaceoutfit" == action)
 	{
 //MK
-		gAgent.mRRInterface.mUserUpdateAttachmentsCalledManually = TRUE;
+//		gAgent.mRRInterface.mUserUpdateAttachmentsCalledManually = TRUE;
 //mk
 		LLAppearanceMgr::instance().wearInventoryCategory( cat, FALSE, FALSE );
 	}
 	else if ("addtooutfit" == action)
 	{
 //MK
-		gAgent.mRRInterface.mUserUpdateAttachmentsCalledManually = TRUE;
+//		gAgent.mRRInterface.mUserUpdateAttachmentsCalledManually = TRUE;
 //mk
 		LLAppearanceMgr::instance().wearInventoryCategory( cat, FALSE, TRUE );
 	}
@@ -1254,7 +1251,6 @@ void LLOutfitListGearMenuBase::onTakeSnapshot()
 {
 
 }
-
 
 void LLOutfitListGearMenuBase::onRemovePhoto()
 {
