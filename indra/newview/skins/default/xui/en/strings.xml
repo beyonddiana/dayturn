@@ -4052,8 +4052,6 @@ This feature is currently in Beta. Please add your name to this [http://goo.gl/f
 	<string name="InvFolder Sounds">Sounds</string>
 	<string name="InvFolder Calling Cards">Calling Cards</string>
 	<string name="InvFolder Landmarks">Landmarks</string>
-	<string name="InvFolder OpenSim Library">OpenSim Library</string>
-	<string name="InvFolder OpenSim Specific Scripts">OpenSim-Specific Scripts</string>
 	<string name="InvFolder Scripts">Scripts</string>
 	<string name="InvFolder Texture Library">Texture Library</string>
 	<string name="InvFolder Clothing">Clothing</string>
@@ -4071,6 +4069,28 @@ This feature is currently in Beta. Please add your name to this [http://goo.gl/f
 	<string name="InvFolder Animations">Animations</string>
 	<string name="InvFolder Gestures">Gestures</string>
 	<string name="InvFolder Favorite">My Favorites</string>
+	<!-- inventory folder Opensim Standard folders -->
+	<string name="InvFolder OpenSim Library">OpenSim Library</string>
+	<string name="InvFolder OpenSim Specific Scripts">OpenSim-Specific Scripts</string>
+	<string name="InvFolder Scripts Library">Scripts Library</string>
+	<string name="InvFolder A">A</string>
+	<string name="InvFolder B">B</string>
+	<string name="InvFolder C">C</string>
+	<string name="InvFolder D">D</string>
+	<string name="InvFolder D">R</string>
+	<string name="InvFolder S">S</string>
+	<string name="InvFolder .Kan-ED Scripts">.Kan-ED Scripts</string>
+	<string name="InvFolder .Other testing scripts">.other testing scripts</string>
+	<string name="InvFolder Notecards Library">Notecards Library</string>
+	<string name="InvFolder Landmarks Library">Landmarks Library</string>
+	<string name="InvFolder Gestures Library">Gestures Library</string>
+	<string name="InvFolder Clothing Library">Clothing Library</string>
+	<string name="InvFolder Sounds Library">Sounds Library</string>
+	<string name="InvFolder Scripts Library">Scripts Library</string>
+	<string name="InvFolder Photos Library">Photos Library</string>
+	<string name="InvFolder BodyParts Library">BodyParts Library</string>
+	<string name="InvFolder Animations Library">Animations Library</string>	
+
   <!-- historically default name of the Favorites folder can start from either "f" or "F" letter.
       Also, it can be written as "Favorite" or "Favorites".
   We should localize all variants of them with the same value -->
