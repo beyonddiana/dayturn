@@ -85,7 +85,7 @@ LLContextMenu* PeopleContextMenu::createMenu()
 		registrar.add("Avatar.InviteToGroup",	boost::bind(&LLAvatarActions::inviteToGroup,			id));
 		registrar.add("Avatar.TeleportRequest",	boost::bind(&PeopleContextMenu::requestTeleport,		this));
 		registrar.add("Avatar.Calllog",			boost::bind(&LLAvatarActions::viewChatHistory,			id));
-		registrar.add("Avatar.Freeze",			boost::bind(&LLAvatarActions::freezeAvatar,					id));
+		registrar.add("Avatar.Freeze",			boost::bind(&LLAvatarActions::freezeAvatar,				id));
 		registrar.add("Avatar.Eject",			boost::bind(&PeopleContextMenu::eject,					this));
 
 
@@ -98,7 +98,6 @@ LLContextMenu* PeopleContextMenu::createMenu()
 
 		enable_registrar.add("Avatar.EnableItem", boost::bind(&PeopleContextMenu::enableContextMenuItem, this, _2));
 		enable_registrar.add("Avatar.CheckItem",  boost::bind(&PeopleContextMenu::checkContextMenuItem,	this, _2));
-		enable_registrar.add("Avatar.EnableFreezeEject", boost::bind(&PeopleContextMenu::enableFreezeEject, this, _2));
 
 
 		// create the context menu from the XUI
