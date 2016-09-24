@@ -65,7 +65,6 @@
 #include "llagentui.h"
 
 #include "llmenuoptionpathfindingrebakenavmesh.h"
-#include "llpathfindingmanager.h"
 
 
 //============================================================================
