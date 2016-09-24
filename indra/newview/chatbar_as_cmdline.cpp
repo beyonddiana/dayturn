@@ -709,7 +709,7 @@ bool cmd_line_chat(std::string revised_text, EChatType type, bool from_gesture)
             }
             else if (command == std::string(sFSCmdLineRezPlatform))
             {
-                if ((!gRRenabled)  || (gRRenabled && !gAgent.mRRInterface.mContainsRez))
+            if ((!gRRenabled)  || (gRRenabled && (!gAgent.mRRInterface.mContainsInteract)))
                 {
                     F32 width;
                     if (i >> width) cmdline_rezplat(false, width);
