@@ -152,13 +152,14 @@ private:
 
 	U8 mStyle;
 
-	F32 mPointSize;
-	F32 mAscender;			
-	F32 mDescender;
-	F32 mLineHeight;
+	F32 	mPointSize;
+	F32 	mAscender;			
+	F32 	mDescender;
+	F32 	mLineHeight;
+	F32**	mKerningCache;
 
 	LLFT_Face mFTFace;
-
+	
 	BOOL mIsFallback;
 	font_vector_t mFallbackFonts; // A list of fallback fonts to look for glyphs in (for Unicode chars)
 
