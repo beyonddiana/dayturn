@@ -516,6 +516,11 @@ namespace LLError
 		SettingsConfigPtr newSettingsConfig(dynamic_cast<SettingsConfig *>(pSettingsStorage.get()));
 		mSettingsConfig = newSettingsConfig;
 	}
+
+	bool is_available()
+	{
+		return Settings::instanceExists() && Globals::instanceExists();
+	}
 }
 
 namespace LLError
