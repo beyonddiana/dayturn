@@ -113,6 +113,11 @@ LLFontFreetype::LLFontFreetype()
 	mStyle(0),
 	mPointSize(0)
 {
+	mKerningCache = new F32*[256];
+	for (S32 i = 0; i < 256; ++i)
+	{
+		mKerningCache[i] = NULL;
+	}
 }
 
 
@@ -129,6 +134,12 @@ LLFontFreetype::~LLFontFreetype()
 
 	delete mFontBitmapCachep;
 	// mFallbackFonts cleaned up by LLPointer destructor
+	
+	for (S32 i = 0; i < 256; ++i)
+	{
+		delete[] mKerningCache[i];
+	}
+	delete[] mKerningCache;
 }
 
 BOOL LLFontFreetype::loadFace(const std::string& filename, F32 point_size, F32 vert_dpi, F32 horz_dpi, S32 components, BOOL is_fallback)
@@ -290,12 +301,33 @@ F32 LLFontFreetype::getXKerning(llwchar char_left, llwchar char_right) const
 	// Kern this puppy.
 	LLFontGlyphInfo* right_glyph_info = getGlyphInfo(char_right);
 	U32 right_glyph = right_glyph_info ? right_glyph_info->mGlyphIndex : 0;
+	if (right_glyph < 256 && left_glyph < 256 &&
+		mKerningCache[left_glyph] &&
+		mKerningCache[left_glyph][right_glyph] < F32_MAX)
+		{
+			return mKerningCache[left_glyph][right_glyph];
+		}
 
 	FT_Vector  delta;
 
 	llverify(!FT_Get_Kerning(mFTFace, left_glyph, right_glyph, ft_kerning_unfitted, &delta));
 
-	return delta.x*(1.f/64.f);
+	F32 ret = (1.f / 64.f) * delta.x;
+	
+	if (right_glyph < 256 && left_glyph < 256)
+	{
+		if (!mKerningCache[left_glyph])
+		{
+			mKerningCache[left_glyph] = new F32[256];
+			for (S32 i = 0; i < 256; ++i)
+			{
+				mKerningCache[left_glyph][i] = F32_MAX;
+			}
+			mKerningCache[left_glyph][right_glyph] = ret;
+		}
+	}
+	
+	return ret;
 }
 
 F32 LLFontFreetype::getXKerning(const LLFontGlyphInfo* left_glyph_info, const LLFontGlyphInfo* right_glyph_info) const
@@ -305,12 +337,34 @@ F32 LLFontFreetype::getXKerning(const LLFontGlyphInfo* left_glyph_info, const LL
 
 	U32 left_glyph = left_glyph_info ? left_glyph_info->mGlyphIndex : 0;
 	U32 right_glyph = right_glyph_info ? right_glyph_info->mGlyphIndex : 0;
+	if (right_glyph < 256 && left_glyph < 256 &&
+		mKerningCache[left_glyph] &&
+		mKerningCache[left_glyph][right_glyph] < F32_MAX)
+		{
+			return mKerningCache[left_glyph][right_glyph];
+		}
+
 
 	FT_Vector  delta;
 
 	llverify(!FT_Get_Kerning(mFTFace, left_glyph, right_glyph, ft_kerning_unfitted, &delta));
 
-	return delta.x*(1.f/64.f);
+	F32 ret = (1.f / 64.f) * delta.x;
+	
+	if (right_glyph < 256 && left_glyph < 256)
+	{
+		if (!mKerningCache[left_glyph])
+		{
+			mKerningCache[left_glyph] = new F32[256];
+			for (S32 i = 0; i < 256; ++i)
+			{
+				mKerningCache[left_glyph][i] = F32_MAX;
+			}
+			mKerningCache[left_glyph][right_glyph] = ret;
+		}
+	}
+	
+	return ret;
 }
 
 BOOL LLFontFreetype::hasGlyph(llwchar wch) const
