@@ -3043,10 +3043,20 @@ void LLFloaterView::popVisibleAll(const skip_list_t& skip_list)
 
 void LLFloaterView::setToolbarRect(LLToolBarEnums::EToolBarLocation tb, const LLRect& toolbar_rect)
 {
-	if (tb < LLToolBarEnums::TOOLBAR_COUNT)
+	switch (tb)
 	{
-		mToolbarRects[tb] = toolbar_rect;
+	case LLToolBarEnums::TOOLBAR_LEFT:
+		mToolbarLeftRect = toolbar_rect;
+		break;
+	case LLToolBarEnums::TOOLBAR_BOTTOM:
+		mToolbarBottomRect = toolbar_rect;
+		break;
+	case LLToolBarEnums::TOOLBAR_RIGHT:
+		mToolbarRightRect = toolbar_rect;
+		break;
+	default:	
 		LL_WARNS() << "setToolbarRect() passed odd toolbar number " << (S32) tb << LL_ENDL;
+		break;
 	}
 }
 
