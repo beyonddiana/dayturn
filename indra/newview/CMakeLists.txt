@@ -297,6 +297,7 @@ set(viewer_SOURCE_FILES
     llfloaternamedesc.cpp
     llfloaternotificationsconsole.cpp
     llfloaternotificationstabbed.cpp
+    llfloateroutfitphotopreview.cpp 
     llfloateroutfitsnapshot.cpp 
     llfloaterobjectweights.cpp
     llfloateropenobject.cpp
@@ -950,6 +951,7 @@ set(viewer_HEADER_FILES
     llfloaternamedesc.h
     llfloaternotificationsconsole.h
     llfloaternotificationstabbed.h
+    llfloateroutfitphotopreview.h
     llfloateroutfitsnapshot.h 
     llfloaterobjectweights.h
     llfloateropenobject.h
