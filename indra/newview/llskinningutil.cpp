@@ -203,6 +203,7 @@ void LLSkinningUtil::remapSkinInfoJoints(LLVOAvatar *avatar, LLMeshSkinInfo* ski
     
     // Apply the remap to mJointNames, mInvBindMatrix, and mAlternateBindMatrix
     std::vector<std::string> new_joint_names;
+    std::vector<S32> new_joint_nums;
     std::vector<LLMatrix4> new_inv_bind_matrix;
     std::vector<LLMatrix4> new_alternate_bind_matrix;
 
@@ -211,6 +212,7 @@ void LLSkinningUtil::remapSkinInfoJoints(LLVOAvatar *avatar, LLMeshSkinInfo* ski
         if (j_proxy[j] == j && new_joint_names.size() < max_joints)
         {
             new_joint_names.push_back(skin->mJointNames[j]);
+            new_joint_nums.push_back(-1);
             new_inv_bind_matrix.push_back(skin->mInvBindMatrix[j]);
             if (!skin->mAlternateBindMatrix.empty())
             {
@@ -243,7 +245,19 @@ void LLSkinningUtil::initSkinningMatrixPalette(
 {
     for (U32 j = 0; j < count; ++j)
     {
-        LLJoint* joint = avatar->getJoint(skin->mJointNames[j]);
+        LLJoint *joint = NULL;
+        if (skin->mJointNums[j] == -1)
+        {
+            joint = avatar->getJoint(skin->mJointNames[j]);
+            if (joint)
+            {
+                skin->mJointNums[j] = joint->getJointNum();
+            }
+        }
+		else
+		{
+			joint = avatar->getJoint(skin->mJointNums[j]);
+		}
         if (joint)
         {
 #define MAT_USE_SSE
@@ -260,11 +274,11 @@ void LLSkinningUtil::initSkinningMatrixPalette(
         }
         else
         {
-             mat[j] = skin->mInvBindMatrix[j];
+            mat[j] = skin->mInvBindMatrix[j];
             // This  shouldn't  happen   -  in  mesh  upload,  skinned
             // rendering  should  be disabled  unless  all joints  are
             // valid.  In other  cases of  skinned  rendering, invalid
-            // joints should already have  been removed during remap.
+            // joints should already have  been removed during scrubInvalidJoints().
             LL_WARNS_ONCE("Avatar") << "Rigged to invalid joint name " << skin->mJointNames[j] << LL_ENDL;
         }
     }

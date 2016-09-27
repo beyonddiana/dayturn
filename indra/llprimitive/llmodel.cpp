@@ -1401,6 +1401,7 @@ void LLMeshSkinInfo::fromLLSD(LLSD& skin)
 		for (U32 i = 0; i < skin["joint_names"].size(); ++i)
 		{
 			mJointNames.push_back(skin["joint_names"][i]);
+            mJointNums.push_back(-1);
 		}
 	}
 
