@@ -720,7 +720,7 @@ void HttpRequestTestObjectType::test<7>()
 #if 0 // defined(WIN32)
 		// Can't do this on any platform anymore, the LL logging system holds
 		// on to memory and produces what looks like memory leaks...
-	
+
 		// printf("Old mem:  %d, New mem:  %d\n", mMemTotal, GetMemTotal());
 		ensure("Memory usage back to that at entry", mMemTotal == GetMemTotal());
 #endif
@@ -1540,10 +1540,9 @@ void HttpRequestTestObjectType::test<14>()
 
 		ensure("Two handler calls on the way out", 2 == mHandlerCalls);
 
-#if defined(WIN32)
-		// Can only do this memory test on Windows. On other platforms,
-		// the LL logging system holds on to memory and produces what looks
-		// like memory leaks...
+#if 0 // defined(WIN32)
+		// Can't do this on any platform anymore, the LL logging system holds
+		// on to memory and produces what looks like memory leaks...
 
 		// printf("Old mem:	 %d, New mem:  %d\n", mMemTotal, GetMemTotal());
 		ensure("Memory usage back to that at entry", mMemTotal == GetMemTotal());
@@ -3152,12 +3151,11 @@ void HttpRequestTestObjectType::test<22>()
 
 		// Shut down service
 		HttpRequest::destroyService();
-	
-#if defined(WIN32)
-		// Can only do this memory test on Windows.  On other platforms,
-		// the LL logging system holds on to memory and produces what looks
-		// like memory leaks...
-	
+
+#if 0 // defined(WIN32)
+		// Can't do this on any platform anymore, the LL logging system holds
+		// on to memory and produces what looks like memory leaks...
+
 		// printf("Old mem:  %d, New mem:  %d\n", mMemTotal, GetMemTotal());
 		ensure("Memory usage back to that at entry", mMemTotal == GetMemTotal());
 #endif
@@ -3282,12 +3280,11 @@ void HttpRequestTestObjectType::test<23>()
 
 		// Shut down service
 		HttpRequest::destroyService();
-	
-#if defined(WIN32)
-		// Can only do this memory test on Windows.  On other platforms,
-		// the LL logging system holds on to memory and produces what looks
-		// like memory leaks...
-	
+
+#if 0 // defined(WIN32)
+		// Can't do this on any platform anymore, the LL logging system holds
+		// on to memory and produces what looks like memory leaks...
+
 		// printf("Old mem:  %d, New mem:  %d\n", mMemTotal, GetMemTotal());
 		ensure("Memory usage back to that at entry", mMemTotal == GetMemTotal());
 #endif
