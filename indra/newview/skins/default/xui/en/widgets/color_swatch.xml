@@ -2,8 +2,8 @@
 <color_swatch alpha_background_image="color_swatch_alpha.tga"
               border_color="ColorSwatchBorderColor"
               name="colorswatch">
-  <color_swatch.caption_text name="caption"
-                             halign="center"
-                             follows="left|right|bottom"
-                             v_pad="2"/>
+<color_swatch.caption_text name="caption"
+			 halign="center"
+			 follows="left|right|bottom"
+			 v_pad="2"/>
 </color_swatch>
