@@ -11,16 +11,16 @@
   name="notification_panel"
   chrome="true"
   top="0"
-  	height="140"
+  height="140"
   translate="false"
   width="305">
   <!-- THIS PANEL CONTROLS TOAST HEIGHT? -->
   <panel
-      border_visible="false"
- bevel_style="none"
+    border_visible="false"
+ 	bevel_style="none"
     background_visible="true"
-  bg_alpha_color="ToastBackground"
-  bg_opaque_color="ToastBackground"
+  	bg_alpha_color="ToastBackground"
+  	bg_opaque_color="ToastBackground"
     follows="left|right|top"
     height="100"
     label="info_panel"
@@ -57,8 +57,8 @@
       width="285"
       wrap="true"/>
     <text_editor
-    	h_pad="0"
-	v_pad="0"
+      h_pad="0"
+	  v_pad="0"
       bg_readonly_color="Transparent"
       border_visible="false"
       embedded_items="false"
