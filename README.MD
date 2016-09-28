@@ -23,7 +23,7 @@ Kokua repositories use mercurial bookmarks instead of branches. Reference mercur
 
 Work Flow:
 
-On bitbucket fork kokua-dev to your Bitbucket account. The repository name will default to kokua-dev, but can be named as desired.
+On bitbucket fork kokua-os to your Bitbucket account. The repository name will default to kokua-os, but can be named as desired.
 
 Open the repository and notice bookmark icons that are named Kokua_MKRLV and KokuaNT; these represent our current working default branches
 
@@ -31,17 +31,17 @@ that are assigned to bookmarks. If the bookmarks where not there two (2) default
 
 to each default branch mercurial hash. 
 
-Using mercurial command hg clone place you forked kokua-dev repository on your local file system. Example: 
+Using mercurial command hg clone place you forked kokua-os repository on your local file system. Example: 
 
-hg clone https://bitucket.org/nickyp/kokua-dev
+hg clone https://bitucket.org/nickyp/kokua-os
 
 An important step is to pull and update Bookmarks from your respository. This allows the bookmarks to advance to the tip with each commit.
 
-A bookmark pull is hg pull -B KokuaNT https://bitucket.org/nickyp/kokua-dev --Notice that it is a capital B. Now repeat with Kokua-MKRLV bookmark.
+A bookmark pull is hg pull -B KokuaNT https://bitucket.org/nickyp/kokua-os --Notice that it is a capital B. Now repeat with Kokua-MKRLV bookmark.
 
 If your bitbucket repository's bookmarks have fallen behind or do not show up then push the bookmark name. For example:
 
-hg push -B KokuaNT https://bitucket.org/nickyp/kokua-dev notice the capital B again. Capital B is for bookmark exchange only. No changes are made to
+hg push -B KokuaNT https://bitucket.org/nickyp/kokua-os notice the capital B again. Capital B is for bookmark exchange only. No changes are made to
 
 the working tree.
 
