@@ -4720,6 +4720,10 @@ Missbrauchsbericht
 	<string name="texture_load_dimensions_error">
 		Bilder, die größer sind als [WIDTH]*[HEIGHT] können nicht geladen werden
 	</string>
+	<string name="outfit_photo_load_dimensions_error">Max Outfit Fotogröße ist [WIDTH]*[HEIGHT]. Bitte ändern Sie die Größe oder ein anderes Bild verwenden.</string>
+    <string name="outfit_photo_select_dimensions_error">Max Outfit Fotogröße ist [WIDTH]*[HEIGHT]. Please select another texture</string>
+    <string name="outfit_photo_verify_dimensions_error">Foto-Dimensionen nicht überprüft werden. Bitte warten Sie, bis Fotogröße im Auswahltool angezeigt wird</string>
+
 	<string name="words_separator" value=","/>
 	<string name="server_is_down">
 		Trotz all unserer Bemühungen ist ein unerwarteter Fehler aufgetreten.

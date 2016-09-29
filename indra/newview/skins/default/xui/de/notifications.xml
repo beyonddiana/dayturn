@@ -4334,6 +4334,10 @@ Wählen Sie eine kleinere Landfläche aus.
 	</notification>
 	<notification name="DefaultObjectPermissions">
 		Problem beim Speichern der standardmäßigen Objektberechtigungen: [REASON].  Versuchen Sie später, die Standardberechtigungen einzustellen.
+	<notification name="OutfitPhotoLoadError">
+        [REASON]
+        <usetemplate name="okbutton" yestext="OK"/>
+    </notification>
 	<notification name="ChatHistoryIsBusyAlert">
 		Chatverlaufsdatei ist noch mit vorheriger Operation beschäftigt. Versuchen Sie es in ein paar Minuten noch einmal oder chatten Sie mit einer anderen Person.
 		<usetemplate name="okbutton" yestext="OK"/>
