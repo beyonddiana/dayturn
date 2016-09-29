@@ -187,7 +187,6 @@ LLAvatarAppearance::LLAvatarAppearance(LLWearableData* wearable_data) :
 	mHeadOffset(),
 	mRoot(NULL),
 	mWearableData(wearable_data),
-    mNextJointNum(0),
     mNumBones(0),
     mNumCollisionVolumes(0),
     mCollisionVolumes(NULL),
@@ -677,7 +676,6 @@ BOOL LLAvatarAppearance::setupBone(const LLAvatarBoneInfo* info, LLJoint* parent
         joint->setJointNum(mNumBones+volume_num);
 		volume_num++;
 	}
-    mNextJointNum++;
 
 
 	// setup children
