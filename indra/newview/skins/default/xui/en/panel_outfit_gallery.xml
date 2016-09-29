@@ -14,10 +14,10 @@
     Photo of "[OUTFIT_NAME]" outfit
   </string>
   <string name="no_outfits_msg">
-    You don't have any outfits yet. Try [secondlife:///app/search/all/ Search]
+    You don't have any outfits yet. Create one by saving your current worn items.
   </string>
   <string name="no_matched_outfits_msg">
-    Didn't find what you're looking for? Try [secondlife:///app/search/all/[SEARCH_TERM] Search].
+    Could not find any matching outfits.
   </string>
   <text
     type="string"
@@ -34,9 +34,12 @@
     Searching...
   </text> 
   <scroll_container
+   border="true"
+   bevel_style="none"
    follows="all"
    height="400"
    width="312"
+   min_width="312"
    layout="topleft"
    left="4"
    top="0"
