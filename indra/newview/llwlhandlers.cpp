@@ -117,7 +117,7 @@ LLEnvironmentRequestResponder::LLEnvironmentRequestResponder()
 		LL_WARNS("WindlightCaps") << "Not in the region from where this data was received (wanting "
 			<< regionId << " but got " << unvalidated_content[0]["regionID"].asUUID()
 			<< ") - ignoring..." << LL_ENDL;
-		return;
+		//return; //This appears to be unneeded as this return causes region windlight to not apply when loggiing directly to a region that has region windlight selected in Estate tools.
 	}
 
 	LLEnvManagerNew::getInstance()->onRegionSettingsResponse(unvalidated_content);
