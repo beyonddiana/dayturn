@@ -33,12 +33,15 @@ LLViewerEventRecorder::LLViewerEventRecorder() {
   clear(UNDEFINED);
   logEvents = false;
   // Remove any previous event log file
-  std::string old_log_ui_events_to_llsd_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS, "KokuaOS_Events_log.old");
-  LLFile::remove(old_log_ui_events_to_llsd_file);
+  if (logEvents)
+  {
+  	std::string old_log_ui_events_to_llsd_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS, "KokuaOS_Events_log.old");
+  	LLFile::remove(old_log_ui_events_to_llsd_file);
   
 
-  mLogFilename = gDirUtilp->getExpandedFilename(LL_PATH_LOGS, "KokuaOS_Events_log.llsd");
-  LLFile::rename(mLogFilename, old_log_ui_events_to_llsd_file);
+  	mLogFilename = gDirUtilp->getExpandedFilename(LL_PATH_LOGS, "KokuaOS_Events_log.llsd");
+  	LLFile::rename(mLogFilename, old_log_ui_events_to_llsd_file);
+  }
 
 }
 
