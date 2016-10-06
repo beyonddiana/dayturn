@@ -94,7 +94,7 @@
    name="current_url_reset_btn" 
    width="110" > 
    <button.commit_callback
-	     function="Media.ResetCurrentUrl"/>
+	function="Media.ResetCurrentUrl"/>
   </button>
   <check_box 
    bottom_delta="-25" 
