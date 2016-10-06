@@ -9741,7 +9741,6 @@ void initialize_menus()
 	commit.add("Avatar.OpenMarketplace", boost::bind(&LLWeb::loadURLExternal, gSavedSettings.getString("MarketplaceURL")));
 	
 	view_listener_t::addMenu(new LLAvatarEnableAddFriend(), "Avatar.EnableAddFriend");
-	enable.add("Avatar.EnableFreezeEject", boost::bind(&enable_freeze_eject, _2));
 	view_listener_t::addMenu(new LLAvatarEnableRemoveFriend(), "Avatar.EnableRemoveFriend");
 
 	// Object pie menu
