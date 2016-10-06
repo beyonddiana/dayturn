@@ -300,7 +300,7 @@ bool LLUpdaterServiceImpl::forceCheck()
 				else
 				{
 					LL_WARNS("UpdaterService")
-						<< "No updater service defined for grid '" << LLGridManager::getInstance()->getGrid() << LL_ENDL;
+						<< "No updater service defined for grid '" << LLGridManager::getInstance()->getGridNick() << LL_ENDL;
 				}
 			}
 		}
@@ -645,11 +645,17 @@ bool LLUpdaterServiceImpl::onMainLoop(LLSD const & event)
 				if ( grid_nickname.empty() )
 				{
 					mCheckPeriod = 20; //give the viewer time to get grid data
-				}
-				LL_WARNS("UpdaterService")
+					LL_WARNS("UpdaterService")
+					<< "We don't have a grid name yet, will check again in " << mCheckPeriod << " seconds"
+					<< LL_ENDL;
+				} 
+				else 
+				{
+					LL_WARNS("UpdaterService")
 					<< "No updater service defined for grid '" << LLGridManager::getInstance()->getGridNick()
 					<< "' will check again in " << mCheckPeriod << " seconds"
 					<< LL_ENDL;
+				}
 				// Because the grid can be changed after the viewer is started (when the first check takes place)
 				// but before the user logs in, the next check may be on a different grid, so set the retry timer
 				// even though this check did not happen.  The default time is once an hour, and if we're not
