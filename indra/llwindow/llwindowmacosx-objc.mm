@@ -49,14 +49,12 @@ void setupCocoa()
 	
 	if(!inited)
 	{
-		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		
 		// The following prevents the Cocoa command line parser from trying to open 'unknown' arguements as documents.
 		// ie. running './secondlife -set Language fr' would cause a pop-up saying can't open document 'fr'
 		// when init'ing the Cocoa App window.
 		[[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"NSTreatUnknownArgumentsAsOpen"];
 		
-		[pool release];
 
 		inited = true;
 	}
@@ -64,12 +62,10 @@ void setupCocoa()
 
 bool copyToPBoard(const unsigned short *str, unsigned int len)
 {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc]init];
 	NSPasteboard *pboard = [NSPasteboard generalPasteboard];
 	[pboard clearContents];
 	
 	NSArray *contentsToPaste = [[NSArray alloc] initWithObjects:[NSString stringWithCharacters:str length:len], nil];
-	[pool release];
 	return [pboard writeObjects:contentsToPaste];
 }
 
@@ -81,7 +77,6 @@ bool pasteBoardAvailable()
 
 const unsigned short *copyFromPBoard()
 {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc]init];
 	NSPasteboard *pboard = [NSPasteboard generalPasteboard];
 	NSArray *classArray = [NSArray arrayWithObject:[NSString class]];
 	NSString *str = NULL;
@@ -93,13 +88,11 @@ const unsigned short *copyFromPBoard()
 	}
 	unichar* temp = (unichar*)calloc([str length]+1, sizeof(unichar));
 	[str getCharacters:temp];
-	[pool release];
 	return temp;
 }
 
 CursorRef createImageCursor(const char *fullpath, int hotspotX, int hotspotY)
 {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	// extra retain on the NSCursor since we want it to live for the lifetime of the app.
 	NSCursor *cursor =
@@ -111,7 +104,6 @@ CursorRef createImageCursor(const char *fullpath, int hotspotX, int hotspotY)
 	  hotSpot:NSMakePoint(hotspotX, hotspotY)
 	  ]retain];
 	
-	[pool release];
 	
 	return (CursorRef)cursor;
 }
@@ -178,10 +170,8 @@ OSErr releaseImageCursor(CursorRef ref)
 {
 	if( ref != NULL )
 	{
-		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		NSCursor *cursor = (NSCursor*)ref;
 		[cursor release];
-		[pool release];
 	}
 	else
 	{
@@ -195,10 +185,8 @@ OSErr setImageCursor(CursorRef ref)
 {
 	if( ref != NULL )
 	{
-		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		NSCursor *cursor = (NSCursor*)ref;
 		[cursor set];
-		[pool release];
 	}
 	else
 	{
