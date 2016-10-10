@@ -232,6 +232,7 @@ attributedStringInfo getSegments(NSAttributedString *str)
 		NSOpenGLPFADoubleBuffer,
 		NSOpenGLPFAMinimumPolicy,
 		NSOpenGLPFAAccelerated,
+		NSOpenGLPFABackingStore,
 		NSOpenGLPFASampleBuffers, 1,
 		NSOpenGLPFASamples, samples,
 		NSOpenGLPFASupersample,
