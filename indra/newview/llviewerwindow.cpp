@@ -378,12 +378,12 @@ public:
 			}
 			
 			{
-			F32 time = gFrameTimeSeconds;
-			S32 hours = (S32)(time / (60*60));
-			S32 mins = (S32)((time - hours*(60*60)) / 60);
-			S32 secs = (S32)((time - hours*(60*60) - mins*60));
-			addText(xpos, ypos, llformat("Time: %d:%02d:%02d", hours,mins,secs)); ypos += y_inc;
-		}
+				F32 time = gFrameTimeSeconds;
+				S32 hours = (S32)(time / (60*60));
+				S32 mins = (S32)((time - hours*(60*60)) / 60);
+				S32 secs = (S32)((time - hours*(60*60) - mins*60));
+				addText(xpos, ypos, llformat("Time: %d:%02d:%02d", hours,mins,secs)); ypos += y_inc;
+			}
 		}
 		
 #if LL_WINDOWS
@@ -1757,16 +1757,6 @@ LLViewerWindow::LLViewerWindow(const Params& p)
 		gSavedSettings.setS32("FullScreenWidth",scr.mX);
 		gSavedSettings.setS32("FullScreenHeight",scr.mY);
     }
-
-
-	F32 system_scale_factor = mWindow->getSystemUISize();
-	if (p.first_run || gSavedSettings.getF32("LastSystemUIScaleFactor") != system_scale_factor)
-	{
-		mSystemUIScaleFactorChanged = true;
-		gSavedSettings.setF32("LastSystemUIScaleFactor", system_scale_factor);
-		gSavedSettings.setF32("UIScaleFactor", system_scale_factor);
-	}
-
 
 	// Get the real window rect the window was created with (since there are various OS-dependent reasons why
 	// the size of a window or fullscreen context may have been adjusted slightly...)

@@ -181,8 +181,7 @@ protected:
 	virtual BOOL setSizeImpl(LLCoordScreen size) = 0;
 	virtual BOOL setSizeImpl(LLCoordWindow size) = 0;
 
-	// Get system UI size based on DPI (for 96 DPI UI size should be 1.0)
-	virtual F32 getSystemUISize() { return 1.0; }
+
 protected:
 	LLWindowCallbacks*	mCallbacks;
 
