@@ -1684,7 +1684,7 @@ LLViewerWindow::LLViewerWindow(const Params& p)
 	mCurrResolutionIndex(0),
 	mProgressView(NULL),
 	mSystemUIScaleFactorChanged(false)
-/MK
+//MK
 	, mPickThroughHuds(FALSE)
 //mk
 {

@@ -3364,8 +3364,7 @@ bool LLAppViewer::initWindow()
 		.min_width(gSavedSettings.getU32("MinWindowWidth"))
 		.min_height(gSavedSettings.getU32("MinWindowHeight"))
 		.fullscreen(gSavedSettings.getBOOL("FullScreen"))
-		.ignore_pixel_depth(ignorePixelDepth)
-		.first_run(mIsFirstRun);
+		.ignore_pixel_depth(ignorePixelDepth);
 
 	gViewerWindow = new LLViewerWindow(window_params);
 
