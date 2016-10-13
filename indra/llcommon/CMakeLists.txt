@@ -71,6 +71,7 @@ set(llcommon_SOURCE_FILES
     llformat.cpp
     llframetimer.cpp
     llheartbeat.cpp
+    llheteromap.cpp
     llinitparam.cpp
     llinstancetracker.cpp
     llleap.cpp
@@ -173,6 +174,7 @@ set(llcommon_HEADER_FILES
     llhandle.h
     llhash.h
     llheartbeat.h
+    llheteromap.h
     llindexedvector.h
     llinitparam.h
     llinstancetracker.h
@@ -352,6 +354,7 @@ if (LL_TESTS)
   LL_ADD_INTEGRATION_TEST(llprocess "" "${test_libs}")
   LL_ADD_INTEGRATION_TEST(llleap "" "${test_libs}")
   LL_ADD_INTEGRATION_TEST(llstreamqueue "" "${test_libs}")
+  LL_ADD_INTEGRATION_TEST(llheteromap "" "${test_libs}")
   
 ## llexception_test.cpp isn't a regression test, and doesn't need to be run
 ## every build. It's to help a developer make implementation choices about
