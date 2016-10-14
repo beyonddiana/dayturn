@@ -3133,6 +3133,14 @@ void LLAgent::sendAnimationRequests(const std::vector<LLUUID> &anim_ids, EAnimRe
 	{
 		sendReliableMessage();
 	}
+	else
+	{
+		// Nothing to send: we *must* clear the message (else, the next message
+		// will retain our unsent message header, resulting in a crash in
+		// LLTemplateMessageBuilder::nextBlock() at some point, due to invalid
+		// block name/data). - From Cool VL Viewer, Henri Beauchamp
+		msg->clearMessage();
+	}
 }
 
 void LLAgent::sendAnimationRequest(const LLUUID &anim_id, EAnimRequest request)
