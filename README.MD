@@ -79,14 +79,12 @@ Development system:
 
 
 
-3.19.0-47-generic #53~14.04.1-Ubuntu SMP Mon Jan 18 16:09:14 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
 
 Development system is UBUNTU 14.04 LTS (testing). The compiler is gcc-4.8. If starting with a new Stretch you will need to install
 Library archives for the most part are built with gcc-4.6.4.  except Boost gcc-4.7 
 
 3.19.0-47-generic #53~14.04.1-Ubuntu SMP Mon Jan 18 16:09:14 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
 
---------------
 
 Preprations to build:
 
@@ -98,6 +96,8 @@ sudo apt-get upgrade
 libX11-dev libxinerama-dev libxml2-dev libxrender-dev libpulse-dev libalut-dev 
 
 sudo apt-get install --install-recommends bison bzip2 cmake curl flex g++-4.8 m4 mercurial python2.7 python2.7-dev python-pip
+
+sudo apt-get install --install-recommends pulseaudio
 gcc --version
 gcc (Ubuntu 4.8.4-2ubuntu1~14.04) 4.8.4
 
@@ -141,7 +141,7 @@ Voice 32 bit libraries are not needed to build the viewer but, are needed to tes
 sudo dpkg --add-architecture i386
 
 sudo apt-get update
- 
+
 sudo apt-get install --install-recommends libasound2:i386 libasound2-plugins:i386 libasyncns0:i386 libattr1:i386 libc6:i386 libc6-i686:i386 libcap2:i386 libdbus-1-3:i386 libflac8:i386 libgcc1:i386 libice6:i386 libidn11:i386 libjson0:i386 libogg0:i386 libpulse0:i386 libsm6:i386 libsndfile1:i386 libstdc++6:i386 libvorbis0a:i386 libvorbisenc2:i386 libwrap0:i386 libuuid1:i386 libx11-6:i386 libx11-xcb1:i386 libxau6:i386 libxcb1:i386 libxdmcp6:i386 libxext6:i386 libxi6:i386 libxtst6:i386 zlib1g:i386 
 
 ubuntu-14.04.3-desktop-i386.iso
@@ -225,7 +225,6 @@ eol = auto
 [hooks]
 
  #pretxncommit = python:~/hg-tools/coding_policy.py:hook
-As an options add this to you bash history file ~/.bashrc
 
  #pretxnchangegroup = python:~/hg-tools/coding_policy.py:hook
 
@@ -275,12 +274,248 @@ This places the viewer in /opt/kokua-install and places a Kokua menu entry under
 
 sudo is the perferred method as the chrome-sandbox a part of Chrome Embedded Framework requies root permissions.
 
-To be published
 
 Windows
 
-To be published
+Reference: https://wiki.secondlife.com/wiki/Visual_Studio_2013_Viewer_Builds
 
+You will need these items before you begin:
+
+-  An installer for Windows 7 Pro 64bit
+
+-  A valid Windows Product key
+
+-  An installer for Visual Studio 2013
+
+-  A valid license for Visual Studio 2013
+
+- Install Windows 7 Pro 64bit using your own product key
+
+- Keep running Windows Update (Start Menu -> All Programs -> Windows Update) until clicking on "Check for Updates" there tells you everything is up to date.
+
+- Depending on the age of the install media you started with, this could take a really long time and many, many iterations.
+
+==Microsoft Visual Studio 2013 Pro==
+
+- Install VS 2013 Pro
+
+- Note: If you don't own a copy of VS 2013 Pro, you might consider installing the 
+
+- [http://www.visualstudio.com/en-us/news/vs2013-community-vs.aspx Community Version]
+
+- Run the installer as Administrator (right click, "Run as administrator")
+
+- Uncheck all the "Optional features to install:" - they are not required
+
+- Download and install VS2013 Service Packs and updates
+
+- [http://www.visualstudio.com/en-us/downloads/download-visual-studio-vs#DownloadFamilies_5 Update 4 ] 
+
+- is the most recent '''released''' version at time of writing (2015-01)
+
+- Run the installer as Administrator (right click, "Run as administrator")
+
+==DirectX SDK==
+
+- Download and install [http://www.microsoft.com/en-us/download/details.aspx?id=6812 DirectX SDK (June 2010)]
+
+- Run the installer as Administrator (right click, "Run as administrator")
+
+- At the Installation Options screen, set everything except the DirectX Headers and Libs to "This feature will not be installed"
+
+==Tortoise Hg==
+
+- Download and install [http://tortoisehg.bitbucket.org/download/ TortoiseHg 3.2.3] (64bit)
+
+- Note: No option available to install as Administrator
+
+- Use default options (path, components etc.)
+
+==CMake==
+
+- Download and install [http://www.cmake.org/download/ CMake 3.1.0] (32bit is only option)
+
+- Run the installer as Administrator (right click, "Run as administrator")
+
+- At the "Install options" screen, select "Add CMake to the system PATH for all users"
+
+- For everything else, use the default options (path, etc.)
+
+==Cygwin==
+
+- Cygwin is not required for current builds. If you want to build older version of Kokua you may want to install it. Or, if you need the unix/linux tools.
+
+- Download and install [http://cygwin.com/install.html Cygwin 64] (64bit)
+
+- Run the installer as Administrator (right click, "Run as administrator")
+
+- Use default options (path, components etc.) *until* you get to the "Select Packages" screen
+
+- Add additional packages:
+
+- Devel/bison
+
+- Devel/flex
+
+- Devel/patch
+
+- Use default options for everything else
+
+==Python==
+- Download and install [https://www.python.org/ftp/python/2.7.8/python-2.7.8.msi Python 2.7.8 (32bit)] Do not install version 2.7.9
+
+- it doesn't work for our setup currently
+
+- Note: No option available to install as Administrator
+
+- Use default options (path, components etc.) *until* you get to the "Customize Python" screen
+
+- Change "Add python.exe to Path" to "Will be installed on local hard drive"
+
+==Intermediate check==
+
+- Confirm things are installed properly so far|
+
+- Open a Cygwin terminal and type:
+
+-  bison --version
+
+-  cmake --version
+
+-  flex --version
+
+-  hg --version
+
+-  python --version
+
+- If they all report sensible values and not "Command not found" errors, then you are in good shape}}
+
+==Set up Autobuild and Python==
+
+-  This section only works inside the Windows Command Prompt. 
+
+- Bootstrap pip 
+
+-   Download (Save As) https://bootstrap.pypa.io/get-pip.py get-pip.py and copy to a temp folder
+
+-   Open Windows Command Prompt
+
+-   Switch to that temp folder and execute it <code>python get-pip.py</code>
+
+-   Pip will be installed
+
+- Bootstrap easy_install 
+
+-   Download (Save As) https://bootstrap.pypa.io/ez_setup.py ez_setup.py and copy to a temp folder
+
+-   Remain in Windows Command Prompt
+
+-   Switch to that temp folder and execute it python ez_setup.py
+
+-   easy_install will be installed
+
+- Install Autobuild
+
+-   Remain in Windows Command Prompt
+
+-   Change to the Python Scripts folder that was just created
+
+-   Typically cd \Python27\Scripts
+
+-   Run pip install hg+http://bitbucket.org/lindenlab/autobuild-1.0#egg=autobuild
+
+-   Autobuild will be installed.  Earlier versions of autobuild could be made to work by just putting the source files
+
+-  into your path correctly; this is no longer true - autobuild must be installed as described here.
+
+- Update system PATH
+
+-  Add Python Scripts folder to PATH environment variable via the Control Panel
+
+-  Typically C:\Python27\Scripts
+
+==NSIS (Unicode)==
+
+-  You must install the Unicode version http://www.scratchpaper.com/ and not the one from the NSIS page
+
+-  Not strictly required for developers (although it's useful)
+
+==Check Paths in VS 2013==
+
+Open Developer Command Prompt for VS2013 C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\Tools\VsDevCmd.bat
+
+This command prompt is kinda hard to find on newer windows versions. Use File Explorer to locate VsDevCmd.bat then,
+
+right click and send shortcut to Desktop.
+
+In Developer Command Prompt for VS2013
+
+Verify that these version request.
+
+-  cmake --version
+
+-  hg --version
+
+-  python --version
+
+-  autobuild --version
+
+==Get source and compile==
+
+-  Stable source code repositories
+
+-   OpenSim https://bitbucket.org/kokua/kokua-os
+
+-   SecondLife https://bitbucket.org/kokua/kokua-sl
+
+-  Development source code repositories
+
+-   OpenSim https://bitbucket.org/nickyp/kokua-os
+
+-   SecondLife https://bitbucket.org/nickyp/kokua-sl
+
+-   Use mercurial to clone one of the above respostories to your local machine. For example: 
+
+-   hg clone https://bitbucket.org/kokua/kokua-os
+
+-   This will place a folder with the source code typically in /Users/xxxx/kokua-os
+
+-   cd kokua-os 
+
+-   hg update -rKokua-MKRLV
+
+-   autobuild configure -c ReleaseOS -- -DCMAKE_VERBOSE_MAKEFILE:BOOL=FALSE -DLL_TESTS:BOOL=OFF \
+    -DPACKAGE:BOOL=FALSE  -DOPENAL:BOOL=FALSE -DFMODEX:BOOL=ON
+    
+    autobuild build -c ReleaseOS
+ 
+-  The above will produce a command line build without an install program.
+
+-  In folder /Users/xxxx/kokua-os/build-vc120/newview/Release find an right click on file kokuaos-bin.exe and select Send to->Desktop (create shortcut)
+
+-  Select Desktop and right click the kokuaos-bin.exe shortcut and click Properties.
+
+-  Edit Start in to "C:\Users\xxxx\kokua-os\indra\newview". This allows use of working tree skin and settings files.
+
+-  Click on the kokuaos-bin.exe shortcut and the viewer should startup and run.
+
+-  Optionally, Visual Studio 2013 program may be used to build the viewer.
+
+-  After the autobuild configure step, start Visual Studio 2013 and open the solution from C:\Users\xxxx\Kokua-OS\build-vc120\KokuaOS.sln
+
+-  Follow the steps below to confirm or set the Start up project and Debugging working directory...
+
+-  In the Solution Exployer click on kokua-bin, then from the main menu Project select Set as startup project.    
+
+-  From main menu Project open kokuaos-bin Properties, then in kokuaos-bin Properties window chose Debugging, then Working directory.
+
+-  At the right side a down arrow expanders. From there use Browse or Edit and set to /Users/xxxx/kokua-os/build-vc120/newview/Release
+
+-  And Apply to write the property page to memory.
+
+-  Under main menu DEBUG is a right pointing green arrow with text 'Local Windows Debugger' click to start building...
+
+-  Once the build competes the viewer should be at the start page waiting to logon.
 --------
 
 Mac
