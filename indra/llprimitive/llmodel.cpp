@@ -1345,7 +1345,6 @@ bool LLModel::matchMaterialOrder(LLModel* ref, int& refFaceCnt, int& modelFaceCn
 	return true;
 }
 
-
 bool LLModel::loadSkinInfo(LLSD& header, std::istream &is)
 {
 	S32 offset = header["skin"]["offset"].asInteger();
@@ -1388,8 +1387,15 @@ bool LLModel::loadDecomposition(LLSD& header, std::istream& is)
 	return true;
 }
 
+LLMeshSkinInfo::LLMeshSkinInfo():
+    mPelvisOffset(0.0),
+    mLockScaleIfJointPosition(false)
+{
+}
 
-LLMeshSkinInfo::LLMeshSkinInfo(LLSD& skin)
+LLMeshSkinInfo::LLMeshSkinInfo(LLSD& skin):
+    mPelvisOffset(0.0),
+    mLockScaleIfJointPosition(false)
 {
 	fromLLSD(skin);
 }
@@ -1505,7 +1511,7 @@ LLSD LLMeshSkinInfo::asLLSD(bool include_joints, bool lock_scale_if_joint_positi
 
         if (lock_scale_if_joint_position)
         {
-            ret["lock_scale_if_joint_position"] = mLockScaleIfJointPosition;
+            ret["lock_scale_if_joint_position"] = lock_scale_if_joint_position;
         }
 
 		ret["pelvis_offset"] = mPelvisOffset;
