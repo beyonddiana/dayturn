@@ -2034,8 +2034,7 @@
       <key>llca</key>
       <map>
         <key>copyright</key>
-        <string>Copyright (c) 2016, Linden Research, Inc.
-from the data provided by the Mozilla NSS Project.
+        <string>Copyright (c) 2016, Linden Research, Inc.; data provided by the Mozilla NSS Project.
       </string>
         <key>license</key>
         <string>mit</string>
@@ -2050,28 +2049,16 @@ from the data provided by the Mozilla NSS Project.
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>d22e7794691d1f44e400369ae1eb397f</string>
+              <string>06dc4674d296ce6cfc8abaebbda4c7b3</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/llca/rev/318103/arch/Linux/installer/llca-2016.07.26.318103-common-318103.tar.bz2</string>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/ct2/377/938/llca-201610201459.500372-common-500372.tar.bz2</string>
             </map>
             <key>name</key>
             <string>common</string>
           </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>835f82535a6356c67a73cc557bb16f4f</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/ct2/354/883/llca-201610191702.500349-linux64-500349.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
         </map>
         <key>version</key>
-        <string>201610191702.500349</string>
+        <string>201610201459.500372.500349</string>
       </map>
       <key>llceflib</key>
       <map>
