@@ -75,8 +75,7 @@ LLFloaterWebContent::LLFloaterWebContent( const Params& params )
 	mShowPageTitle(params.show_page_title),
     mAllowNavigation(true),
     mCurrentURL(""),
-    mDisplayURL(""),
-    mDevelopMode(params.dev_mode) // if called from "Develop" Menu, set a flag and change things to be more useful for devs
+    mDisplayURL("")
 {
 	mCommitCallbackRegistrar.add( "WebContent.Back", boost::bind( &LLFloaterWebContent::onClickBack, this ));
 	mCommitCallbackRegistrar.add( "WebContent.Forward", boost::bind( &LLFloaterWebContent::onClickForward, this ));
