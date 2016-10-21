@@ -7247,7 +7247,9 @@ U32 LLObjectSelection::getSelectedObjectTriangleCount(S32* vcount)
 		
 		if (object)
 		{
-			count += object->getTriangleCount(vcount);
+			S32 vt = 0;
+			count += object->getTriangleCount(&vt);
+			*vcount += vt;
 		}
 	}
 
