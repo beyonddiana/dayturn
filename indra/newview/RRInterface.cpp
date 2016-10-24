@@ -3433,6 +3433,14 @@ std::string RRInterface::getDummyName (std::string name, EChatAudible audible /*
 
 std::string RRInterface::getCensoredMessage (std::string str)
 {
+	// HACK: if the message is under the form secondlife:///app/agent/UUID/about, clear it
+	// (we could just as well clear just the first part, or return a bogus message, 
+	// the purpose here is to avoid showing the profile of an avatar and displaying their name on the chat)
+	if (str.find("secondlife:///app/agent/") == 0)
+	{
+		return "";
+	}
+
 	// First we need to build a list of all the exceptions to @shownames and @shownametags
 	// Each avatar object which UUID is contained in this list should not be censored
 	std::string command;
