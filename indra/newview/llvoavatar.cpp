@@ -6237,6 +6237,7 @@ void LLVOAvatar::resetJointsOnDetach(LLViewerObject *vo)
     if (vo->getAvatar() != this)
 	{
 		LL_WARNS("Avatar") << "called with invalid avatar" << LL_ENDL;
+        return;
 	}
 		
 	// Process all children
