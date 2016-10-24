@@ -804,6 +804,17 @@ void LLFloaterIMNearbyChat::sendChatFromViewer(const LLWString &wtext, EChatType
 			animate = false;
 		}
 	}
+	else if (gRRenabled && channel != 0)
+	{
+		std::ostringstream stream;
+		stream << "" << channel;
+		if (gRRenabled &&
+			(gAgent.mRRInterface.containsWithoutException("sendchannel", stream.str()) || gAgent.mRRInterface.contains("sendchannel_except:" + stream.str()))
+			)
+		{
+			return;
+		}
+	}
 //mk
 
 	// Don't animate for chats people can't hear (chat to scripts)
