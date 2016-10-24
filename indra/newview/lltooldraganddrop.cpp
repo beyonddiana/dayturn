@@ -1577,6 +1577,20 @@ EAcceptance LLToolDragAndDrop::willObjectAcceptInventory(LLViewerObject* obj, LL
 {
 	// check the basics
 	if (!item || !obj) return ACCEPT_NO;
+
+//MK
+	// If the origin folder is locked, do not allow to drop an item from it, into the inventory of an object.
+	// We need this because that object could later send us its contents into a #RLV/~temp_folder, potentially 
+	// bypassing the lock and allowing to wear that inventory.
+	if (gRRenabled)
+	{
+		if (gAgent.mRRInterface.isFolderLocked(gInventory.getCategory(item->getParentUUID())))
+		{
+			return ACCEPT_NO;
+		}
+	}
+//mk
+
 	// HACK: downcast
 	LLViewerInventoryItem* vitem = (LLViewerInventoryItem*)item;
 //MK
