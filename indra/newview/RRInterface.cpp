@@ -4835,28 +4835,34 @@ BOOL RRInterface::updateCameraLimits ()
 	F32 old_mCamDistDrawAlphaMax = mCamDistDrawAlphaMax;
 	F32 old_mCamDistDrawAlphaMin = mCamDistDrawAlphaMin;
 
-	mCamZoomMax = getMin ("camzoommax", EXTREMUM);
-	mCamZoomMin = getMax ("camzoommin", -EXTREMUM);
-	if (mCamZoomMax == 0.0) mCamZoomMax = EXTREMUM;
-	if (mCamZoomMin == 0.0) mCamZoomMin = -EXTREMUM;
+    mCamZoomMax = getMin("camzoommax", EXTREMUM);
+    if (mCamZoomMax == 0.f) mCamZoomMax = EXTREMUM;
+    mCamZoomMin = getMax("camzoommin", -EXTREMUM);
+    if (mCamZoomMin == 0.f) mCamZoomMin = -EXTREMUM;
 
-	// setcam_fovmin and setcam_fovmax set the FOV, i.e. 60°/multiplier
-	// in other words, they are equivalent to camzoommin and camzoommax
-	F32 fovmax = getMin("setcam_fovmax", EXTREMUM);
-	F32 fovmin = getMax("setcam_fovmin", 0.001);
-	if (fovmax == 0.0) fovmax = EXTREMUM;
-	if (fovmin == 0.0) fovmin = 0.001;
-	F32 zoommax_from_fovmin = DEFAULT_FIELD_OF_VIEW / fovmin;
-	F32 zoommin_from_fovmax = DEFAULT_FIELD_OF_VIEW / fovmax;
-	if (zoommax_from_fovmin < mCamZoomMax) {
-		mCamZoomMax = zoommax_from_fovmin;
-	}
-	if (zoommin_from_fovmax > mCamZoomMin) {
-		mCamZoomMin = zoommin_from_fovmax;
-	}
+    // setcam_fovmin and setcam_fovmax set the FOV, i.e. 60°/multiplier;
+    // in other words, they are equivalent to camzoommin and camzoommax.
+    F32 fovmin = getMax("setcam_fovmin", 0.001f);
+    if (fovmin != 0.f && fovmin != 0.001f)
+    {
+        F32 zoommax_from_fovmin = DEFAULT_FIELD_OF_VIEW / fovmin;
+        if (zoommax_from_fovmin < mCamZoomMax)
+        {
+            mCamZoomMax = zoommax_from_fovmin;
+        }
+    }
+    F32 fovmax = getMin("setcam_fovmax", EXTREMUM);
+    if (fovmax != 0.f && fovmax != EXTREMUM)
+    {
+        F32 zoommin_from_fovmax = DEFAULT_FIELD_OF_VIEW / fovmax;
+        if (zoommin_from_fovmax > mCamZoomMin)
+        {
+            mCamZoomMin = zoommin_from_fovmax;
+        }
+    }
 
-	mCamDistMax = getMin ("camdistmax,setcam_avdistmax", EXTREMUM);
-	mCamDistMin = getMax ("camdistmin,setcam_avdistmin", -EXTREMUM);
+    mCamDistMax = getMin("camdistmax,setcam_avdistmax", EXTREMUM);
+    mCamDistMin = getMax("camdistmin,setcam_avdistmin", -EXTREMUM);
 
 	mCamDistDrawMax = getMin ("camdrawmax", EXTREMUM);
 	mCamDistDrawMin = getMin ("camdrawmin", EXTREMUM);
