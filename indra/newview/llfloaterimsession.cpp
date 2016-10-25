@@ -296,7 +296,7 @@ void LLFloaterIMSession::sendMsgFromInputEditor()
 			}
 		}
 		// Convert MU*s style poses into IRC emotes here.
-//		if (gSavedSettings.getBOOL("AllowMUpose"))
+		if (gSavedSettings.getBOOL("AllowMUpose"))
 		{
 			if (utf8_text.find(":") == 0 && utf8_text.length() > 3)
 			{

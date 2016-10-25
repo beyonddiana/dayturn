@@ -632,7 +632,7 @@ void LLFloaterIMNearbyChat::sendChat( EChatType type )
 				}
 
 				// Convert MU*s style poses into IRC emotes here.
-//				if (gSavedSettings.getBOOL("AllowMUpose"))
+				if (gSavedSettings.getBOOL("AllowMUpose"))
 				{
 					if (utf8text.find(":") == 0 && utf8text.length() > 3)
 					{
