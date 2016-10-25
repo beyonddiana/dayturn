@@ -6466,12 +6466,18 @@ void LLVOAvatar::getOffObject()
 	{
 		return;
 	}
-	
+
+//MK
+	// Save the sit target UUID in case we are going to have to sit down again immediately after standing up.
+	LLUUID saved_uuid = LLUUID::null;
+//mk
+
 	LLViewerObject* sit_object = (LLViewerObject*)getParent();
 
 	if (sit_object) 
 	{
 //MK
+		saved_uuid = sit_object->getID();
 		if (gRRenabled && isSelf())
 		{
 			gAgent.mRRInterface.setSitTargetId (LLUUID::null);
@@ -6518,6 +6524,7 @@ void LLVOAvatar::getOffObject()
 	mRoot->setRotation(cur_rotation_world);
 	mRoot->getXform()->update();
 
+
 	startMotion(ANIM_AGENT_BODY_NOISE);
 
 	if (isSelf())
@@ -6534,6 +6541,27 @@ void LLVOAvatar::getOffObject()
 
 		gAgentCamera.setSitCamera(LLUUID::null);
 	}
+
+//MK
+	// If we were sitting and prevented from standing up, if we're here we've probably received a message from the sim
+	// after a call to llUnSit() in a LSL script. In this case, we can't ignore the sim message, but we have to immediately
+	// sit down again.
+	if (gRRenabled && isSelf() && gAgent.mRRInterface.mContainsUnsit)
+	{
+		if (sit_object)
+		{
+			gMessageSystem->newMessageFast(_PREHASH_AgentRequestSit);
+			gMessageSystem->nextBlockFast(_PREHASH_AgentData);
+			gMessageSystem->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
+			gMessageSystem->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
+			gMessageSystem->nextBlockFast(_PREHASH_TargetObject);
+			gMessageSystem->addUUIDFast(_PREHASH_TargetID, sit_object->mID);
+			gMessageSystem->addVector3Fast(_PREHASH_Offset,
+				gAgentCamera.calcFocusOffset(sit_object, gAgent.getPositionAgent(), (S32)0.0f, (S32)0.0f));
+			sit_object->getRegion()->sendReliableMessage();
+		}
+	}
+//mk
 }
 
 //-----------------------------------------------------------------------------
