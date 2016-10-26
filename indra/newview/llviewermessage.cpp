@@ -4545,9 +4545,8 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 			const std::string to_lang = LLTranslate::getTranslateLanguage();
 
 			LLTranslate::TranslationReceiverPtr result = ChatTranslationReceiver::build(from_lang, to_lang, mesg, chat, args);
-			LLTranslate::translateMessage(result, from_lang, to_lang, mesg,
-				boost::bind(&translateSuccess, chat, args, mesg, from_lang, _1, _2),
-				boost::bind(&translateFailure, chat, args, _1, _2));            
+			LLTranslate::translateMessage(result, from_lang, to_lang, mesg);
+          
 		}
 		else
 		{
