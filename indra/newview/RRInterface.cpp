@@ -4907,14 +4907,19 @@ BOOL RRInterface::updateCameraLimits ()
 		mCamDistMin = mCamDistMax;
 	}
 
-	if (gRRenabled) // RLV_108 : don't toggle flycam if RLV is disabled since we call this method at startup
-	{
-		LLViewerJoystick::getInstance()->getOverrideCamera();
-		if (mCamDistMax < EXTREMUM * 0.75f)
-		{
-			handle_toggle_flycam();
-		}
-	}
+// DKO
+// read "gRRenabled" below has never been tested or it would not be there. flycam is broken and will not work even when RLV is enabled
+// only time this should happen when it is set by RLV user sets the limit. Obviously that is broken. 
+// note the command "handle_toggle_flycam" is used for another purpose. here it is always part of RRInterface.o object file
+//DKO
+//	if (gRRenabled) // RLV_108 : don't toggle flycam if RLV is disabled since we call this method at startup
+//	{
+//		LLViewerJoystick::getInstance()->getOverrideCamera();
+//		if (mCamDistMax < EXTREMUM * 0.75f)
+//		{
+//			handle_toggle_flycam();
+//		}
+//	}
 
 	// silly hack, but we need to force all textures in world to be updated (code copied from camtextures above)
 	// Do so only when the camera limits have changed, though, because this method is called every time a new RLV restriction
