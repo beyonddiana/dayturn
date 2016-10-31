@@ -202,7 +202,7 @@ void LLViewerTextureList::doPreloadImages()
 
 static std::string get_texture_list_name()
 {
-	return gDirUtilp->getExpandedFilename(LL_PATH_CACHE, "texture_list_" + gSavedSettings.getString("LoginLocation") + "." + gDirUtilp->getUserName() + ".xml");
+	return gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, "texture_list_" + gSavedSettings.getString("LoginLocation") + ".xml");
 }
 
 void LLViewerTextureList::doPrefetchImages()
@@ -307,7 +307,7 @@ void LLViewerTextureList::shutdown()
 			break;
 	}
 	
-	if (count > 0 && !gDirUtilp->getExpandedFilename(LL_PATH_CACHE, "").empty())
+	if (count > 0 && !gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, "").empty())
 	{
 		std::string filename = get_texture_list_name();
 		llofstream file;
@@ -475,7 +475,6 @@ LLViewerFetchedTexture* LLViewerTextureList::getImageFromUrl(const std::string& 
 				imagep->dontDiscard();
 				imagep->forceActive();
 			}
-
 			imagep->setBoostLevel(boost_priority);
 		}
 	}
@@ -1713,11 +1712,8 @@ LLUIImagePtr LLUIImageList::loadUIImage(LLViewerFetchedTexture* imagep, const st
 		imagep->getBoostLevel() != LLGLTexture::BOOST_PREVIEW)
 	{
 		// Don't add downloadable content into this list
-	//all UI images are non-deletable, except downloadable icons
-	if (imagep->getBoostLevel() != LLGLTexture::BOOST_ICON)
-	{
+		// all UI images are non-deletable and list does not support deletion
 		imagep->setNoDelete();
-	}
 		mUIImages.insert(std::make_pair(name, new_imagep));
 		mUITextureList.push_back(imagep);
 	}
