@@ -59,6 +59,9 @@
   <font name="Monospace"
 	comment="Name of monospace font">
     <file>DejaVuSansMono.ttf</file>
+        <os name="Mac">
+      <file>Menlo.ttc</file>
+      </os>
   </font>
 
   <font name="DejaVu"
@@ -91,7 +94,7 @@
       <file>arial.ttf</file>
       </os>
     <os name="Mac">
-      <file>arial.ttf</file>
+      <file>Helvetica.dfont</file>
       </os>
   </font>
 
@@ -103,7 +106,7 @@
       <file>arialbd.ttf</file>
       </os>
     <os name="Mac">
-      <file>arialbd.ttf</file>
+      <file>Helvetica.dfont</file>
       </os>
   </font>
 
@@ -115,7 +118,7 @@
       <file>ariali.ttf</file>
       </os>
     <os name="Mac">
-      <file>ariali.ttf</file>
+      <file>Helvetica.dfont</file>
       </os>
   </font>
 
@@ -127,7 +130,7 @@
       <file>arialbi.ttf</file>
       </os>
     <os name="Mac">
-      <file>arialbi.ttf</file>
+      <file>Helvetica.dfont</file>
       </os>
   </font>
 
