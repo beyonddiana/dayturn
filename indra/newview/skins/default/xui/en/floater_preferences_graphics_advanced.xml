@@ -509,7 +509,7 @@
     label_width="185"
     layout="topleft"
     left="420"
-    max_val="2"
+    max_val="8"
     name="ObjectMeshDetail"
     show_text="false"
     top_delta="16"
