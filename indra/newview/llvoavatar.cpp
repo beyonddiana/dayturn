@@ -5811,15 +5811,11 @@ void LLVOAvatar::clearAttachmentOverrides()
 {
     LLScopedContextString str("clearAttachmentOverrides " + getFullname());
 
-	//Subsequent joints are relative to pelvis
-	avatar_joint_list_t::iterator iter = mSkeleton.begin();
-	avatar_joint_list_t::iterator end  = mSkeleton.end();
-
-	for (; iter != end; ++iter)
-	{
-		LLJoint* pJoint = (*iter);
-		if (pJoint)
-		{
+    for (S32 i=0; i<LL_CHARACTER_MAX_ANIMATED_JOINTS; i++)
+    {
+        LLJoint *pJoint = getJoint(i);
+        if (pJoint)
+        {
 			pJoint->clearAttachmentScaleOverrides();
         }
     }
