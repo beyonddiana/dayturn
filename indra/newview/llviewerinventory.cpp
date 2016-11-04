@@ -1424,13 +1424,19 @@ void update_inventory_item(
 		if (updates.has("asset_id"))
 		{
 			updates.erase("asset_id");
-			updates["hash_id"] = update_item->getTransactionID();
-		}
+        	if (update_item->getTransactionID().notNull())
+        	{
+            	updates["hash_id"] = update_item->getTransactionID();
+        	}		
+        }
 		if (updates.has("shadow_id"))
 		{
 			updates.erase("shadow_id");
-			updates["hash_id"] = update_item->getTransactionID();
-		}
+        	if (update_item->getTransactionID().notNull())
+        	{
+            	updates["hash_id"] = update_item->getTransactionID();
+        	}		
+        }
 		LLPointer<AISCommand> cmd_ptr = new UpdateItemCommand(item_id, updates, cb);
 		ais_ran = cmd_ptr->run_command();
 	}
