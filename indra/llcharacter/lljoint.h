@@ -113,8 +113,6 @@ protected:
 	// explicit transformation members
 	LLXformMatrix		mXform;
 
-	LLUUID				mId;
-
     LLVector3       mDefaultPosition;
     LLVector3       mDefaultScale;
     
