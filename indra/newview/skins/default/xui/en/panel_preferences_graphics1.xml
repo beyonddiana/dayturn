@@ -326,17 +326,6 @@
     <check_box.commit_callback
       function="Pref.VertexShaderEnable" />
   </check_box>
-  <check_box
-      name="RenderGeometryOverloadProtection2"
-      control_name="RenderGeometryOverloadProtection"
-      invisiblity_control="ShowAdvancedGraphicsSettings"
-      layout="topleft"
-      top_delta="24"
-      left="30"
-      height="16"
-      width="256"
-      label="Geometry Overload Protection"
-      tool_tip="Protect against excessive geometry overloading your graphics card" />
     <panel
 	   visiblity_control="ShowAdvancedGraphicsSettings"
      border="false"
@@ -568,17 +557,6 @@
         width="128">
            Low
         </text>
-
-        <check_box
-            name="RenderGeometryOverloadProtection"
-            control_name="RenderGeometryOverloadProtection"
-            layout="topleft"
-            top_pad="12"
-            left="5"
-            height="16"
-            width="256"
-            label="Geometry Overload Protection"
-            tool_tip="Protect against excessive geometry overloading your graphics card" />
 
 		<slider
 		 control_name="RenderFarClip"
