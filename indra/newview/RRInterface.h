@@ -260,6 +260,10 @@ public:
 
 	LLJoint* getCamDistDrawFromJoint ();
 
+	bool isInventoryItemNew(LLInventoryItem* item); // Return true if the item or its parent category has been received during this session
+	bool IsInventoryFolderNew(LLInventoryCategory* folder); // Return true if the folder has been received during this session
+
+
 	// Some cache variables to accelerate common checks
 	BOOL mHasLockedHuds;
 	BOOL mContainsDetach;

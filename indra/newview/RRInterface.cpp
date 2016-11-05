@@ -456,43 +456,6 @@ void updateOneHudText (LLUUID uuid)
 	}
 }
 
-bool is_inventory_item_new (LLInventoryItem* item)
-{
-	// Return true if the item or its parent category has been received during this session
-	if (!item) return false; // just in case
-	std::string name = item->getName();
-	std::string parent_name = "";
-	LLUUID parent_uuid = item->getParentUUID();
-	LLInventoryCategory* parent = gInventory.getCategory (parent_uuid);
-	if (parent) {
-		parent_name = parent->getName();
-	}
-	size_t size = gAgent.mRRInterface.mReceivedInventoryObjects.size();
-	for (size_t i = 0; i < size; i++) {
-		if (gAgent.mRRInterface.mReceivedInventoryObjects[i] == name
-		|| gAgent.mRRInterface.mReceivedInventoryObjects[i] == parent_name) {
-			return true;
-		}
-	}
-	
-	return false;
-}
-
-bool is_inventory_folder_new (LLInventoryCategory* folder)
-{
-	// Return true if the folder has been received during this session
-	if (!folder) return false; // just in case
-	std::string name = folder->getName();
-	size_t size = gAgent.mRRInterface.mReceivedInventoryObjects.size();
-	for (size_t i = 0; i < size; i++) {
-		if (gAgent.mRRInterface.mReceivedInventoryObjects[i] == name) {
-			return true;
-		}
-	}
-	
-	return false;
-}
-
 // --
 
 
@@ -4222,7 +4185,7 @@ bool RRInterface::canAttachCategory(LLInventoryCategory* folder, bool with_excep
 	// - at least one piece of clothing in this folder is to be worn on a @attachthis:layer restriction
 	// - any parent folder returns false with @attachallthis
 	if (!folder) return true;
-	if (is_inventory_folder_new (folder)) return true;
+	if (IsInventoryFolderNew(folder)) return true;
 	LLVOAvatarSelf* avatar = gAgentAvatarp;
 	if (!avatar) return true;
 	LLInventoryCategory* rlvShare = getRlvShare();
@@ -4329,7 +4292,7 @@ bool RRInterface::canDetachCategory(LLInventoryCategory* folder, bool with_excep
 	// - at least one worn piece of clothing in this folder is worn on a @detachthis:layer restriction
 	// - any parent folder returns false with @detachallthis
 	if (!folder) return true;
-	if (is_inventory_folder_new (folder)) return true;
+	if (IsInventoryFolderNew(folder)) return true;
 	LLVOAvatarSelf* avatar = gAgentAvatarp;
 	if (!avatar) return true;
 	LLInventoryCategory* rlvShare = getRlvShare();
@@ -4473,7 +4436,7 @@ bool RRInterface::canWear(LLInventoryItem* item)
 	}
 	if (item) {
 		// If the item was just received, let the user wear it
-		if (is_inventory_item_new (item)) {
+		if (isInventoryItemNew(item)) {
 			return true;
 		}
 		LLInventoryCategory* parent = gInventory.getCategory (item->getParentUUID());
@@ -4593,7 +4556,7 @@ bool RRInterface::canDetach(LLViewerObject* attached_object)
 
 	if (item) {
 		// If the item has just been received, let the user detach it (we know it has not issued a @detach restriction already)
-		if (is_inventory_item_new (item)) return true;
+		if (isInventoryItemNew(item)) return true;
 
 		LLInventoryCategory* cat_parent = gInventory.getCategory (item->getParentUUID());
 		if (cat_parent && !canDetachCategory(cat_parent, true)) return false;
@@ -4644,7 +4607,7 @@ bool RRInterface::canAttach(LLViewerObject* object_to_attach, std::string attach
 		LLInventoryItem* item = getItem(object_to_attach->getRootEdit()->getID());
 		if (item) {
 			// If the item has just been received, let the user attach it
-			if (is_inventory_item_new (item)) return true;
+			if (isInventoryItemNew(item)) return true;
 
 			LLInventoryCategory* cat_parent = gInventory.getCategory (item->getParentUUID());
 			if (cat_parent && !canAttachCategory(cat_parent)) return false;
@@ -4660,7 +4623,7 @@ bool RRInterface::canAttach(LLInventoryItem* item, bool from_server /* = false *
 	if (from_server) return true;
 
 	// If the item has just been received, let the user attach it
-	if (is_inventory_item_new (item)) return true;
+	if (isInventoryItemNew(item)) return true;
 
 	if (contains("addattach")) return false;
 	if (!item) return true;
@@ -4742,6 +4705,45 @@ bool RRInterface::canTouchFar(LLViewerObject* object, LLVector3 pick_intersectio
 
 	return true;
 }
+
+bool RRInterface::isInventoryItemNew(LLInventoryItem* item)
+{
+	// Return true if the item or its parent category has been received during this session
+	if (!item) return false; // just in case
+	std::string name = item->getName();
+	std::string parent_name = "";
+	LLUUID parent_uuid = item->getParentUUID();
+	LLInventoryCategory* parent = gInventory.getCategory(parent_uuid);
+	if (parent) {
+		parent_name = parent->getName();
+	}
+	size_t size = gAgent.mRRInterface.mReceivedInventoryObjects.size();
+	for (size_t i = 0; i < size; i++) {
+		if (gAgent.mRRInterface.mReceivedInventoryObjects[i] == name
+			|| gAgent.mRRInterface.mReceivedInventoryObjects[i] == parent_name) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool RRInterface::IsInventoryFolderNew(LLInventoryCategory* folder)
+{
+	// Return true if the folder has been received during this session
+	if (!folder) return false; // just in case
+	std::string name = folder->getName();
+	size_t size = gAgent.mRRInterface.mReceivedInventoryObjects.size();
+	for (size_t i = 0; i < size; i++) {
+		if (gAgent.mRRInterface.mReceivedInventoryObjects[i] == name) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+
 
 
 bool RRInterface::scriptsEnabled()

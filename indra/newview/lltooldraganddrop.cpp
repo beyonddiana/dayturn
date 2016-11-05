@@ -1931,6 +1931,7 @@ EAcceptance LLToolDragAndDrop::dad3dRezObjectOnLand(
 	{
 		return ACCEPT_NO_LOCKED;
 	}
+
 //mk
 
 	if (mSource == SOURCE_WORLD)
@@ -1943,6 +1944,13 @@ EAcceptance LLToolDragAndDrop::dad3dRezObjectOnLand(
 	LLViewerInventoryCategory* cat;
 	locateInventory(item, cat);
 	if (!item || !item->isFinished()) return ACCEPT_NO;
+
+//MK
+	if (gRRenabled && gAgent.mRRInterface.isFolderLocked(cat) && !gAgent.mRRInterface.isInventoryItemNew(item))
+	{
+		return ACCEPT_NO_LOCKED;
+	}
+//mk
 
 	LLVOAvatarSelf* my_avatar = gAgentAvatarp;
 	if( !my_avatar || my_avatar->isWearingAttachment( item->getUUID() ) )
@@ -2013,6 +2021,15 @@ EAcceptance LLToolDragAndDrop::dad3dRezObjectOnObject(
 	LLViewerInventoryCategory* cat;
 	locateInventory(item, cat);
 	if (!item || !item->isFinished()) return ACCEPT_NO;
+
+//MK
+	if (gRRenabled && gAgent.mRRInterface.isFolderLocked(cat) && !gAgent.mRRInterface.isInventoryItemNew(item))
+	{
+		return ACCEPT_NO_LOCKED;
+	}
+//mk
+
+
 	LLVOAvatarSelf* my_avatar = gAgentAvatarp;
 	if( !my_avatar || my_avatar->isWearingAttachment( item->getUUID() ) )
 	{
