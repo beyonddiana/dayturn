@@ -742,11 +742,11 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>c7a04e14382bc3627782f6f8a28a4ba8</string>
+              <string>a02a01a3aaf25100241a1dfd3834b4f2</string>
               <key>hash_algorithm</key>
               <string>md5</string>
               <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-fmodex/downloads/fmodex-4.44.61-linux-201601311850.tar.bz2</string>
+              <string>https://bitbucket.org/kokua/3p-fmodex/downloads/fmodex-4.44.61-darwin-201602010951.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux</string>
@@ -2212,11 +2212,11 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>fddb51f74eea947d538f018e0c420551</string>
+              <string>4691ed0d746c27a9f5fb2345dab3d2bc</string>
               <key>hash_algorithm</key>
               <string>md5</string>
               <key>url</key>
-              <string>https://bitbucket.org/kokua/llceflib-1.5.3.201611051709-kokua-linux-201611051709.tar.bz2</string>
+              <string>https://bitbucket.org/kokua/3p-llceflib-dko/downloads/llceflib-1.5.3.201611052240-kokua-linux-201611052240.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux</string>
