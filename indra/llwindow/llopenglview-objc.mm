@@ -228,14 +228,15 @@ attributedStringInfo getSegments(NSAttributedString *str)
 	// Any specialized pixel formats, i.e. a core profile pixel format, should be initialized through rebuildContextWithFormat.
 	// 10.7 and 10.8 don't really care if we're defining a profile or not.  If we don't explicitly request a core or legacy profile, it'll always assume a legacy profile (for compatibility reasons).
 	NSOpenGLPixelFormatAttribute attrs[] = {
-        NSOpenGLPFANoRecovery,
+		NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersionLegacy,
+		NSOpenGLPFANoRecovery,
 		NSOpenGLPFADoubleBuffer,
 		NSOpenGLPFAMinimumPolicy,
 		NSOpenGLPFAAccelerated,
 		NSOpenGLPFABackingStore,
 		NSOpenGLPFASampleBuffers, 1,
 		NSOpenGLPFASamples, samples,
-		NSOpenGLPFASupersample,
+        NSOpenGLPFASupersample,
 		NSOpenGLPFAStencilSize, 8,
 		NSOpenGLPFADepthSize, 24,
 		NSOpenGLPFAAlphaSize, 8,
