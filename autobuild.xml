@@ -2212,11 +2212,11 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>b8d1d965e660d73108f44d8f7a51229d</string>
+              <string>fddb51f74eea947d538f018e0c420551</string>
               <key>hash_algorithm</key>
               <string>md5</string>
               <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-llceflib-dko/downloads/llceflib-1.5.3.201602240836-kokua-linux-201602240836.tar.bz2</string>
+              <string>https://bitbucket.org/kokua/llceflib-1.5.3.201611051709-kokua-linux-201611051709.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux</string>
@@ -2226,11 +2226,11 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>6fa28e43e7ebd9c5dd4239a03e7e414f</string>
+              <string>73b26f574b4531c0a831b1c149ec8e56</string>
               <key>hash_algorithm</key>
               <string>md5</string>
               <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-llceflib-dko/downloads/llceflib-1.5.3.201602240841-kokua-linux64-201602240841.tar.bz2</string>
+              <string>https://bitbucket.org/kokua/3p-llceflib-dko/downloads/llceflib-1.5.3.201611051707-kokua-linux64-201611051707.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux64</string>
