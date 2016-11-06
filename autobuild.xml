@@ -742,11 +742,11 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>a02a01a3aaf25100241a1dfd3834b4f2</string>
+              <string>c7a04e14382bc3627782f6f8a28a4ba8</string>
               <key>hash_algorithm</key>
               <string>md5</string>
               <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-fmodex/downloads/fmodex-4.44.61-darwin-201602010951.tar.bz2</string>
+              <string>https://bitbucket.org/kokua/3p-fmodex/downloads/fmodex-4.44.61-linux-201601311850.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux</string>
