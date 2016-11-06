@@ -3544,6 +3544,8 @@
                 <array>
                   <string>-configuration RelWithDebInfo</string>
                   <string>-project KokuaOS.xcodeproj</string>
+                  <string>-DENABLE_SIGNING:BOOL=YES</string>
+                  <string>-DSIGNING_IDENTITY:STRING="Developer ID Application: Geir Noklebye"</string>
                 </array>
               </map>
               <key>configure</key>

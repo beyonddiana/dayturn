@@ -1059,18 +1059,9 @@ class Darwin_i386_Manifest(ViewerManifest):
                 if identity == '':
                     identity = 'Developer ID Application'
 
-                # Look for an environment variable set via build.sh when running in Team City.
-                try:
-                    build_secrets_checkout = os.environ['build_secrets_checkout']
-                except KeyError:
-                    pass
-                else:
-                    # variable found so use it to unlock keychain followed by codesign
-                    home_path = os.environ['HOME']
-                    keychain_pwd_path = os.path.join(build_secrets_checkout,'code-signing-osx','password.txt')
-                    keychain_pwd = open(keychain_pwd_path).read().rstrip()
-
-                    self.run_command('security unlock-keychain -p "%s" "%s/Library/Keychains/viewer.keychain"' % ( keychain_pwd, home_path ) )
+                home_path = os.environ['HOME']
+                if 'VIEWER_SIGNING_PWD' in os.environ:
+                    self.run_command('security unlock-keychain -p "%s" "%s/Library/Keychains/login.keychain"' % (os.environ['VIEWER_SIGNING_PWD'], home_path ) )
                     signed=False
                     sign_attempts=3
                     sign_retry_wait=15
@@ -1078,11 +1069,11 @@ class Darwin_i386_Manifest(ViewerManifest):
                         try:
                             sign_attempts-=1;
                             self.run_command(
-                               'codesign --verbose --deep --force --keychain "%(home_path)s/Library/Keychains/viewer.keychain" --sign %(identity)r %(bundle)r' % {
-                                   'home_path' : home_path,
-                                   'identity': identity,
-                                   'bundle': app_in_dmg
-                                   })
+                                'codesign --verbose --deep --force --keychain "%(home_path)s/Library/Keychains/login.keychain" --sign %(identity)r %(bundle)r' % {
+                                    'home_path' : home_path,
+                                    'identity': identity,
+                                    'bundle': app_in_dmg
+                                    })
                             signed=True # if no exception was raised, the codesign worked
                         except ManifestError, err:
                             if sign_attempts:
@@ -1093,7 +1084,6 @@ class Darwin_i386_Manifest(ViewerManifest):
                                 print >> sys.stderr, "Maximum codesign attempts exceeded; giving up"
                                 raise
                     self.run_command('spctl -a -texec -vv %(bundle)r' % { 'bundle': app_in_dmg })
-
             imagename="Kokua_OS_" + '_'.join(self.args['version'])
 
 
