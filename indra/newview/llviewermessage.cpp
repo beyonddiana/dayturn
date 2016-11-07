@@ -4210,64 +4210,68 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 		//MK
 		if (gRRenabled && chat.mChatType != CHAT_TYPE_DIRECT) // don't crunch llRegionSayTo messages
 		{
-			if (gAgent.mRRInterface.containsWithoutException("recvchat", from_id.asString())
-				|| gAgent.mRRInterface.contains("recvchatfrom:" + from_id.asString())
-				|| gAgent.mRRInterface.contains("recvchatfrom:" + owner_id.asString())
-				)
+			bool is_rlv_command = (chat.mChatType == CHAT_TYPE_DIRECT && mesg.length() > 0 && mesg.at(0) == '@');
+			if (!is_rlv_command)
 			{
-				chat.mFromName = from_name;
-				chat.mText = gAgent.mRRInterface.crunchEmote(mesg, 20); // + '\0';
-				if (!gSavedSettings.getBOOL("RestrainedLoveShowEllipsis") && chat.mText == "...") {
-					chat.mText = "";
-				}
-				mesg = chat.mText;
-			}
-
-			if (gAgent.mRRInterface.containsWithoutException("recvemote", from_id.asString())
-				|| gAgent.mRRInterface.contains("recvemotefrom:" + from_id.asString())
-				|| gAgent.mRRInterface.contains("recvemotefrom:" + owner_id.asString())
-				)
-			{
-				// If we have an emote in this message, even if not at the very beginning (for example, a llOwnerSay() transmitting
-				// the name of the chatter, followed by the message which could be an emote), then discard the emote entirely.
-				int ind1 = mesg.find("/me ");
-				int ind2 = mesg.find("/me'");
-				if (ind1 != -1 || ind2 != -1)
+				if (gAgent.mRRInterface.containsWithoutException("recvchat", from_id.asString())
+					|| gAgent.mRRInterface.contains("recvchatfrom:" + from_id.asString())
+					|| gAgent.mRRInterface.contains("recvchatfrom:" + owner_id.asString())
+					)
 				{
-					int ind;
-					if (ind1 != -1 && ind2 == -1)
-					{
-						ind = ind1;
+					chat.mFromName = from_name;
+					chat.mText = gAgent.mRRInterface.crunchEmote(mesg, 20); // + '\0';
+					if (!gSavedSettings.getBOOL("RestrainedLoveShowEllipsis") && chat.mText == "...") {
+						chat.mText = "";
 					}
-					else if (ind1 == -1 && ind2 != -1)
+					mesg = chat.mText;
+				}
+
+				if (gAgent.mRRInterface.containsWithoutException("recvemote", from_id.asString())
+					|| gAgent.mRRInterface.contains("recvemotefrom:" + from_id.asString())
+					|| gAgent.mRRInterface.contains("recvemotefrom:" + owner_id.asString())
+					)
+				{
+					// If we have an emote in this message, even if not at the very beginning (for example, a llOwnerSay() transmitting
+					// the name of the chatter, followed by the message which could be an emote), then discard the emote entirely.
+					int ind1 = mesg.find("/me ");
+					int ind2 = mesg.find("/me'");
+					if (ind1 != -1 || ind2 != -1)
 					{
-						ind = ind2;
-					}
-					else
-					{
-						if (ind1 < ind2)
+						int ind;
+						if (ind1 != -1 && ind2 == -1)
 						{
 							ind = ind1;
 						}
-						else
+						else if (ind1 == -1 && ind2 != -1)
 						{
 							ind = ind2;
 						}
-					}
+						else
+						{
+							if (ind1 < ind2)
+							{
+								ind = ind1;
+							}
+							else
+							{
+								ind = ind2;
+							}
+						}
 
-					chat.mFromName = from_name;
-					if (ind > 0)
-					{
-						chat.mText = mesg.substr(0, ind - 1);
+						chat.mFromName = from_name;
+						if (ind > 0)
+						{
+							chat.mText = mesg.substr(0, ind - 1);
+						}
+						else
+						{
+							chat.mText = "";
+						}
+						if (gSavedSettings.getBOOL("RestrainedLoveShowEllipsis")) {
+							chat.mText += "/me ...";
+						}
+						mesg = chat.mText;
 					}
-					else
-					{
-						chat.mText = "";
-					}
-					if (gSavedSettings.getBOOL("RestrainedLoveShowEllipsis")) {
-						chat.mText += "/me ...";
-					}
-					mesg = chat.mText;
 				}
 			}
 
@@ -4322,6 +4326,10 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 				else
 				{
 					from_name = gAgent.mRRInterface.getCensoredMessage(from_name);
+						if (!is_rlv_command)
+						{
+							mesg = gAgent.mRRInterface.getCensoredMessage(mesg);
+						}
 				}
 				chat.mFromName = from_name;
 			}
