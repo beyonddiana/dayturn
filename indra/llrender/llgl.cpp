@@ -977,8 +977,8 @@ void LLGLManager::initExtensions()
 	mHasSync = ExtensionExists("GL_ARB_sync", gGLHExts.mSysExts);
 	mHasMapBufferRange = ExtensionExists("GL_ARB_map_buffer_range", gGLHExts.mSysExts);
 	mHasFlushBufferRange = ExtensionExists("GL_APPLE_flush_buffer_range", gGLHExts.mSysExts);
-	//mHasDepthClamp = ExtensionExists("GL_ARB_depth_clamp", gGLHExts.mSysExts) || ExtensionExists("GL_NV_depth_clamp", gGLHExts.mSysExts);
-	mHasDepthClamp = FALSE;
+	mHasDepthClamp = ExtensionExists("GL_ARB_depth_clamp", gGLHExts.mSysExts) || ExtensionExists("GL_NV_depth_clamp", gGLHExts.mSysExts);
+	//mHasDepthClamp = FALSE;
 	// mask out FBO support when packed_depth_stencil isn't there 'cause we need it for LLRenderTarget -Brad
 #ifdef GL_ARB_framebuffer_object
 	mHasFramebufferObject = ExtensionExists("GL_ARB_framebuffer_object", gGLHExts.mSysExts);
@@ -1008,6 +1008,8 @@ void LLGLManager::initExtensions()
 	mHasTransformFeedback = mGLVersion >= 4.f ? TRUE : FALSE;
 #if !LL_DARWIN
 	mHasPointParameters = !mIsATI && ExtensionExists("GL_ARB_point_parameters", gGLHExts.mSysExts);
+#else
+	mHasPointParameters = ExtensionExists("GL_ARB_point_parameters", gGLHExts.mSysExts);	
 #endif
 	mHasShaderObjects = ExtensionExists("GL_ARB_shader_objects", gGLHExts.mSysExts) && (LLRender::sGLCoreProfile || ExtensionExists("GL_ARB_shading_language_100", gGLHExts.mSysExts));
 	mHasVertexShader = ExtensionExists("GL_ARB_vertex_program", gGLHExts.mSysExts) && ExtensionExists("GL_ARB_vertex_shader", gGLHExts.mSysExts)
