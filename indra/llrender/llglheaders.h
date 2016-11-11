@@ -567,9 +567,9 @@ extern PFNGLGETDEBUGMESSAGELOGARBPROC glGetDebugMessageLogARB;
 
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
-
-#define GL_EXT_separate_specular_color 1
 #include <OpenGL/glext.h>
+#include <OpenGL/OpenGLAvailability.h>
+
 
 #include "GL/glh_extensions.h"
 
