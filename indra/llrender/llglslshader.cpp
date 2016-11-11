@@ -437,7 +437,7 @@ BOOL LLGLSLShader::createShader(std::vector<LLStaticHashedString> * attributes,
         mFeatures.mIndexedTextureChannels = llmin(mFeatures.mIndexedTextureChannels, 1);
     }
 
-#ifdef GL_INTERLEAVED_ATTRIBS
+#ifdef GL_INTERLEAVED_ATTRIBS && !LL_DARWIN
     if (varying_count > 0 && varyings)
     {
         glTransformFeedbackVaryings(mProgramObject, varying_count, varyings, GL_INTERLEAVED_ATTRIBS);
