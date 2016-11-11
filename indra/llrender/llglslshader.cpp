@@ -437,11 +437,13 @@ BOOL LLGLSLShader::createShader(std::vector<LLStaticHashedString> * attributes,
         mFeatures.mIndexedTextureChannels = llmin(mFeatures.mIndexedTextureChannels, 1);
     }
 
-#ifdef GL_INTERLEAVED_ATTRIBS && !LL_DARWIN
+#if !LL_DARWIN
+#ifdef GL_INTERLEAVED_ATTRIBS
     if (varying_count > 0 && varyings)
     {
         glTransformFeedbackVaryings(mProgramObject, varying_count, varyings, GL_INTERLEAVED_ATTRIBS);
     }
+#endif
 #endif
 
     // Map attributes and uniforms
