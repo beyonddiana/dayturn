@@ -284,8 +284,8 @@ public:
 	void drawArrays(U32 mode, U32 offset, U32 count) const;
 	void drawRange(U32 mode, U32 start, U32 end, U32 count, U32 indices_offset) const;
 
-	//for debugging, validate data in given range is valid
-	void validateRange(U32 start, U32 end, U32 count, U32 offset) const;
+	// for debugging, checks range validity and validates data in given range
+	bool validateRange(U32 start, U32 end, U32 count, U32 offset) const;
 
 	
 

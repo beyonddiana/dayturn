@@ -649,20 +649,21 @@ void LLVertexBuffer::drawElements(U32 mode, const LLVector4a* pos, const LLVecto
 	LLGLSLShader::stopProfile(num_indices, mode);
 }
 
-void LLVertexBuffer::validateRange(U32 start, U32 end, U32 count, U32 indices_offset) const
+bool LLVertexBuffer::validateRange(U32 start, U32 end, U32 count, U32 indices_offset) const
 {
-	if (start >= (U32) mNumVerts ||
-	    end >= (U32) mNumVerts)
+	if ((S32)start >= mNumVerts || (S32)end >= mNumVerts)
 	{
-		LL_ERRS() << "Bad vertex buffer draw range: [" << start << ", " << end << "] vs " << mNumVerts << LL_ENDL;
+		LL_WARNS() << "Bad vertex buffer draw range: [" << start << ", " << end	<< "] vs " << mNumVerts << LL_ENDL;
+		return false;
 	}
 
 	llassert(mNumIndices >= 0);
 
-	if (indices_offset >= (U32) mNumIndices ||
-	    indices_offset + count > (U32) mNumIndices)
+	if ((S32)indices_offset >= mNumIndices ||
+	    (S32)(indices_offset + count) > mNumIndices)
 	{
-		LL_ERRS() << "Bad index buffer draw range: [" << indices_offset << ", " << indices_offset+count << "]" << LL_ENDL;
+		LL_WARNS() << "Bad index buffer draw range: [" << indices_offset << ", " << indices_offset + count << "] vs " << mNumIndices << LL_ENDL;
+		return false;
 	}
 
 	if (gDebugGL && !useVBOs())
