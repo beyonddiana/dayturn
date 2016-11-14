@@ -36,7 +36,6 @@
 #include "lldndbutton.h"
 #include "lleconomy.h"
 #include "llfilepicker.h"
-#include "llfloaterinventory.h"
 #include "llinventorybridge.h"
 #include "llinventoryfunctions.h"
 #include "llinventorymodelbackgroundfetch.h"

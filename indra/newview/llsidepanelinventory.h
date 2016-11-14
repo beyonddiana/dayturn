@@ -86,6 +86,8 @@ public:
 
 	void updateVerbs();
 
+	static void cleanup();
+
 protected:
 	// Tracks highlighted (selected) item in inventory panel.
 	LLInventoryItem *getSelectedItem();
