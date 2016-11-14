@@ -284,7 +284,6 @@ set(viewer_SOURCE_FILES
     llfloaterimsession.cpp
     llfloaterimcontainer.cpp
     llfloaterinspect.cpp
-    llfloaterinventory.cpp
     llfloaterjoystick.cpp
     llfloaterlagmeter.cpp
     llfloaterland.cpp
@@ -938,7 +937,6 @@ set(viewer_HEADER_FILES
     llfloaterimsession.h
     llfloaterimcontainer.h
     llfloaterinspect.h
-    llfloaterinventory.h
     llfloaterjoystick.h
     llfloaterlagmeter.h
     llfloaterland.h
