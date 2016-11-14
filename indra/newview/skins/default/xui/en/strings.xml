@@ -46,8 +46,20 @@ Graphics Card Vendor: [GRAPHICS_CARD_VENDOR]
 Graphics Card: [GRAPHICS_CARD]
 	</string>
 	<string name="AboutDriver">Windows Graphics Driver Version: [GRAPHICS_DRIVER_VERSION]</string>
+	<string name="AboutOGL">OpenGL Version: [OPENGL_VERSION]</string>
+	<string name="AboutSettings">
+Window size: [WINDOW_WIDTH]x[WINDOW_HEIGHT]
+Font Size Adjustment: [FONT_SIZE_ADJUSTMENT]pt
+UI Scaling: [UI_SCALE]
+Draw distance: [DRAW_DISTANCE]m
+Bandwidth: [NET_BANDWITH]kbit/s
+LOD factor: [LOD_FACTOR]
+Render quality: [RENDER_QUALITY] / 7
+Advanced Lighting Model: [GPU_SHADERS]
+Texture memory: [TEXTURE_MEMORY]MB
+VFS (cache) creation time: [VFS_TIME]
+	</string>	
 	<string name="AboutLibs">
-OpenGL Version: [OPENGL_VERSION]
 
 RestrainedLove API: [RLV_VERSION]
 J2C Decoder Version: [J2C_VERSION]
@@ -385,9 +397,6 @@ Please try logging in again in a minute.</string>
 	<string name="AvatarEditingAppearance">(Editing Appearance)</string>
 	<string name="AvatarAway">Away</string>
 	<string name="AvatarDoNotDisturb">Do Not Disturb</string>
-//MK
-    <string name="AvatarTyping">Typing</string>
-//mk	
 	<string name="AvatarMuted">Blocked</string>
 
 	<!-- animations -->
@@ -4165,12 +4174,9 @@ This feature is currently in Beta. Please add your name to this [http://goo.gl/f
 	<string name="Stomach">Stomach</string>
 	<string name="Left Pec">Left Pec</string>
 	<string name="Right Pec">Right Pec</string>
-    <string name="Neck">Neck</string>
-    <string name="Avatar Center">Avatar Center</string>
-//MK
-    <string name="Root">Root</string>
-//mk
-  <string name="Invalid Attachment">Invalid Attachment Point</string>
+        <string name="Neck">Neck</string>
+        <string name="Avatar Center">Avatar Center</string>
+	<string name="Invalid Attachment">Invalid Attachment Point</string>
 	<string name="ATTACHMENT_MISSING_ITEM">Error: missing item</string>
 	<string name="ATTACHMENT_MISSING_BASE_ITEM">Error: missing base item</string>
 	<string name="ATTACHMENT_NOT_ATTACHED">Error: object is in current outfit but not attached</string>
@@ -4444,7 +4450,6 @@ This feature is currently in Beta. Please add your name to this [http://goo.gl/f
 	<string name="GroupMoneyCredits">Credits</string>
 	<string name="GroupMoneyDebits">Debits</string>
 	<string name="GroupMoneyDate">[weekday,datetime,utc] [mth,datetime,utc] [day,datetime,utc], [year,datetime,utc]</string>
-
 
 	<!-- Viewer menu -->
 	<string name="AcquiredItems">Acquired Items</string>
@@ -5262,7 +5267,7 @@ If you continue to receive this message, contact the [SUPPORT_SITE].
 	<string name="you_started_call">You started a voice call</string>
 	<string name="you_joined_call">You joined the voice call</string>
   <string name="you_auto_rejected_call-im">You automatically rejected the voice call while &apos;Do Not Disturb&apos; was on.</string>
-	<string name="name_started_call">[NAME] started a voice call</string>
+  <string name="name_started_call">[NAME] started a voice call</string>
 
   <string name="ringing-im">
     Joining voice call...
@@ -5826,6 +5831,7 @@ Try enclosing path to the editor with double quotes.
   <string name="UserDictionary">[User]</string>
   <!--Draw distance set from command line dd x response chat-->
   <string name="FSCmdLineDrawDistanceSet">Draw Distance set to [DISTANCE]m.</string>  
+  
   <!-- Experience Tools strings -->
   <string name="experience_tools_experience">Experience</string>
   <string name="ExperienceNameNull">(no experience)</string>
