@@ -54,7 +54,7 @@ public:
 		LLModelLoader::texture_load_func_t	texture_load_func,
 		LLModelLoader::state_callback_t		state_cb,
 		void*								opaque_userdata,
-		JointTransformMap&					JointTransformMap,
+		JointTransformMap&					jointTransformMap,
 		JointNameSet&						jointsFromNodes,
         std::map<std::string, std::string>& jointAliasMap,
 		U32									maxJointsPerMesh,
@@ -108,5 +108,6 @@ protected:
 private:
 	U32 mGeneratedModelLimit; // Attempt to limit amount of generated submodels
 	bool mPreprocessDAE;
+
 };
 #endif  // LL_LLDAELLOADER_H
