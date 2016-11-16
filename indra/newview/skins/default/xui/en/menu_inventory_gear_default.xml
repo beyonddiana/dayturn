@@ -198,9 +198,6 @@
         <on_enable
          function="Inventory.GearDefault.Enable"
          parameter="empty_lostnfound" />
-        <on_enable
-         function="Inventory.GearDefault.Enable"
-         parameter="not_empty" />
     </menu_item_call>
     <menu_item_separator
      layout="topleft" />
@@ -295,8 +292,5 @@
         <on_enable
          function="Inventory.GearDefault.Enable"
          parameter="empty_trash" />
-        <on_enable
-         function="Inventory.GearDefault.Enable"
-         parameter="not_empty" />
     </menu_item_call>
 </toggleable_menu>
