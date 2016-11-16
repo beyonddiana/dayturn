@@ -5914,18 +5914,7 @@ void LLAppViewer::launchUpdater()
 			<< " dest: " << LLAppViewer::sUpdaterInfo->mUpdateExePath
 			<< LL_ENDL;
 
-/**
-* Check if user is running a new version of the viewer.
-* Display the Release Notes if it's not overriden by the "UpdaterShowReleaseNotes" setting.
-*/
-void LLAppViewer::showReleaseNotesIfRequired()
-{
-	if (LLVersionInfo::getChannelAndVersion() != gLastRunVersion && gSavedSettings.getBOOL("UpdaterShowReleaseNotes"))
-	{
-		LLSD info(getViewerInfo());
-		LLWeb::loadURLInternal(info["VIEWER_RELEASE_NOTES_URL"]);
-	}
-}
+
 
 	if (!CopyFileA(updater_source.c_str(), LLAppViewer::sUpdaterInfo->mUpdateExePath.c_str(), FALSE))
 	{
@@ -6060,6 +6049,20 @@ void LLAppViewer::metricsUpdateRegion(U64 region_handle)
 		LLViewerAssetStatsFF::set_region(region_handle);
 	}
 }
+
+/**
+* Check if user is running a new version of the viewer.
+* Display the Release Notes if it's not overriden by the "UpdaterShowReleaseNotes" setting.
+*/
+void LLAppViewer::showReleaseNotesIfRequired()
+{
+	if (LLVersionInfo::getChannelAndVersion() != gLastRunVersion && gSavedSettings.getBOOL("UpdaterShowReleaseNotes"))
+	{
+		LLSD info(getViewerInfo());
+		LLWeb::loadURLInternal(info["VIEWER_RELEASE_NOTES_URL"]);
+	}
+}
+
 
 
 /**
