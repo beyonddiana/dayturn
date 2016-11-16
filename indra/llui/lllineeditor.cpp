@@ -163,6 +163,9 @@ LLLineEditor::LLLineEditor(const LLLineEditor::Params& p)
 {
 	llassert( mMaxLengthBytes > 0 );
 
+	LLUICtrl::setEnabled(TRUE);
+	setEnabled(p.enabled);
+
 	mScrollTimer.reset();
 	mTripleClickTimer.reset();
 	setText(p.default_text());
