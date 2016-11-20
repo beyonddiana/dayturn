@@ -8,5 +8,9 @@
 	<string>6.0</string>
 	<key>LSUIElement</key>
 	<string>1</string>
+	<key>NSSupportsSuddenTermination</key>
+	<string>1</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>10.9.0</string>
 </dict>
 </plist>
