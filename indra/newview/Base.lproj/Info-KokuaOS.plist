@@ -78,5 +78,7 @@
 	<string>${MACOSX_BUNDLE_NSPRINCIPAL_CLASS}</string>
 	<key>NSMainNibFile</key>
 	<string>${MACOSX_BUNDLE_NSMAIN_NIB_FILE}</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>10.9.0</string>
 </dict>
 </plist>
