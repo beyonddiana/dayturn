@@ -201,7 +201,7 @@ void LLModel::normalizeModels(std::vector<LLPointer<LLModel > > model_list)
     {
         LLPointer<LLModel> model = *iter++;
 
-        if (model.get() && model->mVolumeFaces.empty())
+        if (model.notNull() && !model->mVolumeFaces.empty())
         {
             // For all of the volume faces
             // in the model, loop over
@@ -286,7 +286,7 @@ void LLModel::normalizeModels(std::vector<LLPointer<LLModel > > model_list)
     {
         LLPointer<LLModel> model = *iter++;
 
-        if (model->mVolumeFaces.empty())
+        if (model.isNull() || model->mVolumeFaces.empty())
         {
             continue;
         }
