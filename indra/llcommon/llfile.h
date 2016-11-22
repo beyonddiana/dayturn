@@ -45,8 +45,7 @@ typedef FILE	LLFILE;
 typedef struct _stat	llstat;
 #else
 typedef struct stat		llstat;
-#include <ext/stdio_filebuf.h>
-#include <bits/postypes.h>
+#include <sys/types.h>
 #endif
 
 #ifndef S_ISREG
