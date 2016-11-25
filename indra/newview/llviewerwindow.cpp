@@ -253,6 +253,13 @@ BOOL				gDisplayBadge = FALSE;
 static const U8 NO_FACE = 255;
 BOOL gQuietSnapshot = FALSE;
 
+// Minimum value for UIScaleFactor, also defined in preferences, ui_scale_slider
+static const F32 MIN_UI_SCALE = 0.75f;
+// 4.0 in preferences, but win10 supports larger scaling and value is used more as
+// sanity check, so leaving space for larger values from DPI updates.
+static const F32 MAX_UI_SCALE = 7.0f;
+static const F32 MIN_DISPLAY_SCALE = 0.75f;
+
 static const F32 MIN_DISPLAY_SCALE = 0.75f;
 
 std::string	LLViewerWindow::sSnapshotBaseName;
@@ -1614,12 +1621,22 @@ BOOL LLViewerWindow::handleDeviceChange(LLWindow *window)
 	return FALSE;
 }
 
-void LLViewerWindow::handleDPIChanged(LLWindow *window, F32 ui_scale_factor, S32 window_width, S32 window_height)
+BOOL LLViewerWindow::handleDPIChanged(LLWindow *window, F32 ui_scale_factor, S32 window_width, S32 window_height)
 {
-    gSavedSettings.setF32("UIScaleFactor", ui_scale_factor);
-    LLViewerWindow::reshape(window_width, window_height);
-    mResDirty = true;
+    if (ui_scale_factor >= MIN_UI_SCALE && ui_scale_factor <= MAX_UI_SCALE)
+    {
+        gSavedSettings.setF32("UIScaleFactor", ui_scale_factor);
+        LLViewerWindow::reshape(window_width, window_height);
+        mResDirty = true;
+        return TRUE;
+    }
+    else
+    {
+        LL_WARNS() << "DPI change caused UI scale to go out of bounds: " << ui_scale_factor << LL_ENDL;
+        return FALSE;
+    }    
 }
+
 
 void LLViewerWindow::handlePingWatchdog(LLWindow *window, const char * msg)
 {
@@ -1774,10 +1791,23 @@ LLViewerWindow::LLViewerWindow(const Params& p)
 		gSavedSettings.setS32("FullScreenWidth",scr.mX);
 		gSavedSettings.setS32("FullScreenHeight",scr.mY);
     }
+    
+ 	F32 system_scale_factor = mWindow->getSystemUISize();
+	if (system_scale_factor < MIN_UI_SCALE || system_scale_factor > MAX_UI_SCALE)
+	{
+		// reset to default;
+		system_scale_factor = 1.f;
+	}
+ 	if (p.first_run || gSavedSettings.getF32("LastSystemUIScaleFactor") != system_scale_factor)
+ 	{
+ 		mSystemUIScaleFactorChanged = !p.first_run;
+ 		gSavedSettings.setF32("LastSystemUIScaleFactor", system_scale_factor);
+ 		gSavedSettings.setF32("UIScaleFactor", system_scale_factor);
+ 	}    
 
-	// Get the real window rect the window was created with (since there are various OS-dependent reasons why
+    // Get the real window rect the window was created with (since there are various OS-dependent reasons why
 	// the size of a window or fullscreen context may have been adjusted slightly...)
-	F32 ui_scale_factor = gSavedSettings.getF32("UIScaleFactor");
+	F32 ui_scale_factor = llclamp(gSavedSettings.getF32("UIScaleFactor"), MIN_UI_SCALE, MAX_UI_SCALE);
 	
 	mDisplayScale.setVec(llmax(1.f / mWindow->getPixelAspectRatio(), 1.f), llmax(mWindow->getPixelAspectRatio(), 1.f));
 	mDisplayScale *= ui_scale_factor;
@@ -1791,7 +1821,7 @@ LLViewerWindow::LLViewerWindow(const Params& p)
 	}
 	
 	LLFontManager::initClass();
-
+	
 	//
 	// We want to set this stuff up BEFORE we initialize the pipeline, so we can turn off
 	// stuff like AGP if we think that it'll crash the viewer.
