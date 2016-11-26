@@ -110,10 +110,14 @@ public:
 	/*virtual*/ void interruptLanguageTextInput();
 	/*virtual*/ void spawnWebBrowser(const std::string& escaped_url, bool async);
 
+	/*virtual*/ F32 getSystemUISize();
 	
 //-TT Window Title Access
 	/*virtual*/ void setTitle(const std::string& win_title);
 //-TT
+
+
+	/*virtual*/ F32 getSystemUISize();
 
 	LLWindowCallbacks::DragNDropResult completeDragNDropRequest( const LLCoordGL gl_coord, const MASK mask, LLWindowCallbacks::DragNDropAction action, const std::string url );
 
