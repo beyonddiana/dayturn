@@ -1430,46 +1430,17 @@ BOOL LLViewerFetchedTexture::createTexture(S32 usename/*= 0*/)
 	if (mRawImage.isNull())
 	{
 		LL_ERRS() << "LLViewerTexture trying to create texture with no Raw Image" << LL_ENDL;
-		setIsMissingAsset();
+	}
+	if (mRawImage->isBufferInvalid())
+	{
+		LL_WARNS() << "Can't create a texture: invalid image data" << LL_ENDL;
+		destroyRawImage();
 		return FALSE;
 	}
- 	LL_DEBUGS("Texture") << llformat("IMAGE Creating (%d) [%d x %d] Bytes: %d ",
- 						mRawDiscardLevel, 
- 						mRawImage->getWidth(), mRawImage->getHeight(),mRawImage->getDataSize())
- 			<< mID.getString() << LL_ENDL;
-
-/*	// <FS:Techwolf Lupindo> texture comment metadata reader
-	if (!mRawImage->mComment.empty())
-	{
-		std::string comment = mRawImage->mComment;
-		mComment["comment"] = comment;
-		std::size_t position = 0;
-		std::size_t length = comment.length();
-		while (position < length)
-		{
-			std::size_t equals_position = comment.find("=", position);
-			if (equals_position != std::string::npos)
-			{
-				std::string type = comment.substr(position, equals_position - position);
-				position = comment.find("&", position);
-				if (position != std::string::npos)
-				{
-					mComment[type] = comment.substr(equals_position + 1, position - (equals_position + 1));
-					position++;
-				}
-				else
-				{
-					mComment[type] = comment.substr(equals_position + 1, length - (equals_position + 1));
-				}
-			}
-			else
-			{
-				position = equals_position;
-			}
-		}
-	}
-	// </FS:Techwolf Lupindo>
-*/
+// 	LL_INFOS() << llformat("IMAGE Creating (%d) [%d x %d] Bytes: %d ",
+// 						mRawDiscardLevel, 
+// 						mRawImage->getWidth(), mRawImage->getHeight(),mRawImage->getDataSize())
+// 			<< mID.getString() << LL_ENDL;
 	BOOL res = TRUE;
 
 	// store original size only for locally-sourced images
