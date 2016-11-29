@@ -1309,14 +1309,15 @@ class LLAdvancedToggleWireframe : public view_listener_t
 	bool handleEvent(const LLSD& userdata)
 	{
 		gUseWireframe = !(gUseWireframe);
+		gWindowResized = TRUE;
+
+		LLPipeline::updateRenderDeferred();
 
 		if (gUseWireframe)
 		{
 			gInitialDeferredModeForWireframe = LLPipeline::sRenderDeferred;
 		}
 
-		gWindowResized = TRUE;
-		LLPipeline::updateRenderDeferred();
 		gPipeline.resetVertexBuffers();
 
 		if (!gUseWireframe && !gInitialDeferredModeForWireframe && LLPipeline::sRenderDeferred != gInitialDeferredModeForWireframe && gPipeline.isInit())
