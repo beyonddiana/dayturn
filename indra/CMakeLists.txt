@@ -28,6 +28,14 @@ if (HAS_OPENSIM_SUPPORT)
   add_definitions(-DHAS_OPENSIM_SUPPORT=1)
   message("compiling with OpenSim support")
 endif (HAS_OPENSIM_SUPPORT)
+#<FS:Ansariel> Support for test builds
+option(TESTBUILD "Generating test build" OFF)
+if(TESTBUILD AND TESTBUILDPERIOD)
+  add_definitions(-DTESTBUILD=1 -DTESTBUILDPERIOD=${TESTBUILDPERIOD})
+  message("creating test build version; test period: ${TESTBUILDPERIOD} days")
+endif(TESTBUILD AND TESTBUILDPERIOD)
+#</FS:Ansariel>
+
 add_definitions(-DLL_SEND_CRASH_REPORTS=1)
 add_subdirectory(cmake)
 
