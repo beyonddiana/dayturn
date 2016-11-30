@@ -11632,4 +11632,13 @@ Shape import failed. Are you sure [FILENAME] is an avatar file?
 
 [ARTIST_TITLE]
     </notification>
+    <notification
+    icon="alertmodal.tga"
+    name="TestversionExpired"
+    type="alertmodal">
+     This test version of [APP_NAME] has expired and cannot be used any further. Please go [https://sourceforge.net/projects/kokua.team-purple.p/files/  to download the newer version] of Kokua
+     <usetemplate
+      name="okbutton"
+      yestext="OK"/>
+   </notification>   
 </notifications>

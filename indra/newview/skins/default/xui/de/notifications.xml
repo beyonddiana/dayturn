@@ -4442,6 +4442,12 @@ Import-Ordner für Animationsset [NAME] konnte nicht erstellt werden. Import wir
   <notification name="AOImportLinkFailed">
 Erstellung der Verknüpfung zur Animation [NAME] ist fehlgeschlagen!
   </notification>
+  <notification name="TestversionExpired">
+    Diese Testversion von [APP_NAME] is abgelaufen und kann nicht weiter verwendet werden.
+    <usetemplate
+     name="okbutton"
+     yestext="OK"/>
+  </notification>
 
 <!-- ## Zi: Animation Overrider -->
 
