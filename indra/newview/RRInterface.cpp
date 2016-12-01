@@ -1901,6 +1901,14 @@ BOOL RRInterface::answerOnChat (std::string channel, std::string msg)
 }
 
 std::string RRInterface::crunchEmote (std::string msg, unsigned int truncateTo) {
+	// Don't treat text before "/me" if there is any, we want to crunch only the emote part of the message (everything after "/me").
+	int	ind = msg.find("/me");
+	std::string prefix = "";
+	if (ind > 0) {
+		prefix = msg.substr(0, ind);
+		msg = msg.substr(ind);
+	}
+
 	std::string crunched = msg;
 
 	if (msg.find ("/me ") == 0
@@ -1940,7 +1948,7 @@ std::string RRInterface::crunchEmote (std::string msg, unsigned int truncateTo) 
 		// Only allow OOC chat, starting with "((" and ending with "))".
 		crunched = "...";
 	}
-	return crunched;
+	return prefix + crunched;
 }
 
 std::string RRInterface::getOutfitLayerAsString (LLWearableType::EType layer)
@@ -4292,7 +4300,8 @@ bool RRInterface::canDetachCategory(LLInventoryCategory* folder, bool with_excep
 	// - at least one worn piece of clothing in this folder is worn on a @detachthis:layer restriction
 	// - any parent folder returns false with @detachallthis
 	if (!folder) return true;
-	if (IsInventoryFolderNew(folder)) return true;
+	std::string name = folder->getName();
+	if (IsInventoryFolderNew(folder) && name.length() > 0 && name.at(0) != '~') return true; // if folder is new and it is not a temporary RLV folder
 	LLVOAvatarSelf* avatar = gAgentAvatarp;
 	if (!avatar) return true;
 	LLInventoryCategory* rlvShare = getRlvShare();
@@ -4555,10 +4564,15 @@ bool RRInterface::canDetach(LLViewerObject* attached_object)
 	LLInventoryItem* item = getItem (attached_object->getRootEdit()->getID());
 
 	if (item) {
-		// If the item has just been received, let the user detach it (we know it has not issued a @detach restriction already)
-		if (isInventoryItemNew(item)) return true;
-
 		LLInventoryCategory* cat_parent = gInventory.getCategory (item->getParentUUID());
+		std::string cat_parent_name = "";
+		if (cat_parent) {
+			cat_parent_name = cat_parent->getName();
+		}
+
+		// If the item has just been received, let the user detach it (we know it has not issued a @detach restriction already)
+		if (isInventoryItemNew(item) && cat_parent_name.length() > 0 && cat_parent_name.at(0) != '~') return true; // we must check for temp RLV folders here too, not only in canDetachCategory(), because we can't know which one we will check first
+
 		if (cat_parent && !canDetachCategory(cat_parent, true)) return false;
 
 		if (mHandleNoStrip) {

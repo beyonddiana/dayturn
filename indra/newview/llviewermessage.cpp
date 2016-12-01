@@ -4208,10 +4208,14 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 
 		BOOL ircstyle = FALSE;
 		//MK
-		if (gRRenabled && chat.mChatType != CHAT_TYPE_DIRECT) // don't crunch llRegionSayTo messages
+		bool is_rlv_msg = (mesg.length() > 0 && mesg.at(0) == '@');
+		if (gRRenabled 
+			&& (chat.mChatType != CHAT_TYPE_OWNER || !is_rlv_msg) // crunch llOwnerSay but leave RLV commands alone
+			&& chat.mChatType != CHAT_TYPE_DIRECT // don't crunch llRegionSayTo messages
+		) 
 		{
-			bool is_rlv_command = (chat.mChatType == CHAT_TYPE_DIRECT && mesg.length() > 0 && mesg.at(0) == '@');
-			if (!is_rlv_command)
+			if ((chatter && (chatter->isAvatar() || !chatter->isAttachment() || !chatter->permYouOwner()))  // avatar, object or attachment that doesn't belong to me
+				|| !chatter) // or this may be a HUD (visible only to the other party) or an unrezzed avatar or object
 			{
 				if (gAgent.mRRInterface.containsWithoutException("recvchat", from_id.asString())
 					|| gAgent.mRRInterface.contains("recvchatfrom:" + from_id.asString())
@@ -4231,84 +4235,36 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 					|| gAgent.mRRInterface.contains("recvemotefrom:" + owner_id.asString())
 					)
 				{
-					// If we have an emote in this message, even if not at the very beginning (for example, a llOwnerSay() transmitting
-					// the name of the chatter, followed by the message which could be an emote), then discard the emote entirely.
-					int ind1 = mesg.find("/me ");
-					int ind2 = mesg.find("/me'");
-					if (ind1 != -1 || ind2 != -1)
-					{
-						int ind;
-						if (ind1 != -1 && ind2 == -1)
-						{
-							ind = ind1;
-						}
-						else if (ind1 == -1 && ind2 != -1)
-						{
-							ind = ind2;
-						}
-						else
-						{
-							if (ind1 < ind2)
-							{
-								ind = ind1;
-							}
-							else
-							{
-								ind = ind2;
-							}
-						}
-
+					int	ind = mesg.find("/me");
+					std::string clear_part = "";
+					if (ind != -1) {
+						clear_part = mesg.substr(0, ind);
 						chat.mFromName = from_name;
-						if (ind > 0)
-						{
-							chat.mText = mesg.substr(0, ind - 1);
-						}
-						else
-						{
-							chat.mText = "";
-						}
-						if (gSavedSettings.getBOOL("RestrainedLoveShowEllipsis")) {
-							chat.mText += "/me ...";
+						chat.mText = clear_part + "/me ...";
+						if (!gSavedSettings.getBOOL("RestrainedLoveShowEllipsis")) {
+							chat.mText = clear_part;
 						}
 						mesg = chat.mText;
 					}
 				}
-			}
 
-			if (gAgent.mRRInterface.containsWithoutException("recvemote", from_id.asString())
-				|| gAgent.mRRInterface.contains("recvemotefrom:" + from_id.asString())
-				|| gAgent.mRRInterface.contains("recvemotefrom:" + owner_id.asString())
-				)
-			{
-				std::string prefix = mesg.substr(0, 4);
-				if (prefix == "/me " || prefix == "/me'")
+				if (from_id != gAgent.getID() && gAgent.mRRInterface.mContainsShownames)
 				{
-					chat.mFromName = from_name;
-					chat.mText = "/me ...";
-					if (!gSavedSettings.getBOOL("RestrainedLoveShowEllipsis")) {
-						chat.mText = "";
-					}
-					mesg = chat.mText;
-				}
-			}
-
-			if (from_id != gAgent.getID() && gAgent.mRRInterface.mContainsShownames)
-			{
-				// Special case : if the object is an attachment and imitates the name of its owner, scramble its name as if it were an agent
-				if (chatter && !chatter->isAvatar())
-				{
-					if (chatter->isAttachment())
+					// Special case : if the object is an attachment and imitates the name of its owner, scramble its name as if it were an agent
+					if (chatter && !chatter->isAvatar())
 					{
-						LLAvatarName av_name;
-						if (LLAvatarNameCache::get(owner_id, &av_name))
+						if (chatter->isAttachment())
 						{
-							if (from_name == av_name.mDisplayName
-								|| from_name == av_name.mLegacyFirstName + " " + av_name.mLegacyLastName
-								|| from_name == av_name.mLegacyFirstName
-								|| from_name == av_name.mLegacyLastName
-								)
+							LLAvatarName av_name;
+							if (LLAvatarNameCache::get(owner_id, &av_name))
 							{
-								from_name = gAgent.mRRInterface.getDummyName(from_name, chat.mAudible);
+								if (from_name == av_name.mDisplayName
+									|| from_name == av_name.mLegacyFirstName + " " + av_name.mLegacyLastName
+									|| from_name == av_name.mLegacyFirstName
+									|| from_name == av_name.mLegacyLastName
+									)
+							{
+									from_name = gAgent.mRRInterface.getDummyName(from_name, chat.mAudible);
 							}
 						}
 					}
@@ -4325,11 +4281,7 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 				}
 				else
 				{
-					from_name = gAgent.mRRInterface.getCensoredMessage(from_name);
-						if (!is_rlv_command)
-						{
-							mesg = gAgent.mRRInterface.getCensoredMessage(mesg);
-						}
+						from_name = gAgent.mRRInterface.getCensoredMessage(from_name);
 				}
 				chat.mFromName = from_name;
 			}
@@ -4578,6 +4530,7 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 			msg_notify["source_type"] = chat.mSourceType;
 			on_new_message(msg_notify);
 		}
+	}
 	}
 }
 
