@@ -431,8 +431,8 @@ LLCurl::Easy* LLCurl::Easy::getEasy()
 	// id.secondlife.com is such a server, when greeted with a SSL HELLO and a session id, it immediatly returns a RST packet and closes
 	// the connections.
 	// Fixes: FIRE-5368, FIRE-5756, VWR-28039, VWR-28629
-	result = curl_easy_setopt(easy->mCurlEasyHandle, CURLOPT_SSL_SESSIONID_CACHE, 0);
-	check_curl_code(result);
+	//result = curl_easy_setopt(easy->mCurlEasyHandle, CURLOPT_SSL_SESSIONID_CACHE, 0);
+	//check_curl_code(result);
 	// </FS:ND>
 
 
