@@ -104,31 +104,6 @@ typedef HRESULT(STDAPICALLTYPE *GetDpiForMonitorType)(
 	_Out_ UINT *dpiX,
 	_Out_ UINT *dpiY);
 
-#ifndef DPI_ENUMS_DECLARED
-
-typedef enum PROCESS_DPI_AWARENESS {
-	PROCESS_DPI_UNAWARE = 0,
-	PROCESS_SYSTEM_DPI_AWARE = 1,
-	PROCESS_PER_MONITOR_DPI_AWARE = 2
-} PROCESS_DPI_AWARENESS;
-
-typedef enum MONITOR_DPI_TYPE {
-	MDT_EFFECTIVE_DPI = 0,
-	MDT_ANGULAR_DPI = 1,
-	MDT_RAW_DPI = 2,
-	MDT_DEFAULT = MDT_EFFECTIVE_DPI
-} MONITOR_DPI_TYPE;
-
-#endif
-
-typedef HRESULT(STDAPICALLTYPE *SetProcessDpiAwarenessType)(_In_ PROCESS_DPI_AWARENESS value);
-
-typedef HRESULT(STDAPICALLTYPE *GetDpiForMonitorType)(
-	_In_ HMONITOR hmonitor,
-	_In_ MONITOR_DPI_TYPE dpiType,
-	_Out_ UINT *dpiX,
-	_Out_ UINT *dpiY);
-
 //
 // LLWindowWin32
 //
@@ -2648,7 +2623,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
 		case WM_DPICHANGED:
 			{
 				LPRECT lprc_new_scale;
-				F32 new_scale = F32(LOWORD(w_param)) / F32(USER_DEFAULT_SCREEN_DPI);
+				F32 new_scale = LOWORD(w_param) / USER_DEFAULT_SCREEN_DPI;
 				lprc_new_scale = (LPRECT)l_param;
 				S32 new_width = lprc_new_scale->right - lprc_new_scale->left;
 				S32 new_height = lprc_new_scale->bottom - lprc_new_scale->top;
@@ -3190,7 +3165,6 @@ void LLSplashScreenWin32::showImpl()
 	ShowWindow(mWindow, SW_SHOW);
 }
 
-
 void LLSplashScreenWin32::updateImpl(const std::string& mesg)
 {
 	if (!mWindow) return;
@@ -3326,8 +3300,8 @@ void LLWindowWin32::spawnWebBrowser(const std::string& escaped_url, bool async)
 }
 
 /*
-	Make the raw keyboard data available - used to poke through to LLQtWebKit so
-	that Qt/Webkit has access to the virtual keycodes etc. that it needs
+	Make the raw keyboard data available - used to poke through to media plugin
+	so it has access to the virtual keycodes etc. that it needs
 */
 LLSD LLWindowWin32::getNativeKeyData()
 {
@@ -4024,7 +3998,7 @@ F32 LLWindowWin32::getSystemUISize()
 				hr = pGDFM(hMonitor, MDT_EFFECTIVE_DPI, &dpix, &dpiy);
 				if (hr == S_OK)
 				{
-					scale_value = F32(dpix) / F32(USER_DEFAULT_SCREEN_DPI);
+					scale_value = dpix / USER_DEFAULT_SCREEN_DPI;
 				}
 				else
 				{
@@ -4043,47 +4017,7 @@ F32 LLWindowWin32::getSystemUISize()
 	else
 	{
 		LL_WARNS() << "Could not load shcore.dll library (included by <ShellScalingAPI.h> from Win 8.1 SDK). Using legacy DPI awareness API of Win XP/7" << LL_ENDL;
-		scale_value = F32(GetDeviceCaps(hdc, LOGPIXELSX)) / F32(USER_DEFAULT_SCREEN_DPI);
-	}
-
-	ReleaseDC(hWnd, hdc);
-	return scale_value;
-}
-
-F32 LLWindowWin32::getSystemUISize()
-{
-	float scale_value = 0;
-	HWND hWnd = (HWND)getPlatformWindow();
-	HDC hdc = GetDC(hWnd);
-	HMONITOR hMonitor;
-
-	HMODULE hShcore = LoadLibrary(L"shcore.dll");
-
-	if (hShcore != NULL)
-	{
-		SetProcessDpiAwarenessType pSPDA;
-		pSPDA = (SetProcessDpiAwarenessType)GetProcAddress(hShcore, "SetProcessDpiAwareness");
-		GetDpiForMonitorType pGDFM;
-		pGDFM = (GetDpiForMonitorType)GetProcAddress(hShcore, "GetDpiForMonitor");
-		if (pSPDA != NULL && pGDFM != NULL)
-		{
-			pSPDA(PROCESS_PER_MONITOR_DPI_AWARE);
-			POINT    pt;
-			UINT     dpix = 0, dpiy = 0;
-			HRESULT  hr = E_FAIL;
-
-			// Get the DPI for the main monitor, and set the scaling factor
-			pt.x = 1;
-			pt.y = 1;
-			hMonitor = MonitorFromPoint(pt, MONITOR_DEFAULTTONEAREST);
-			hr = pGDFM(hMonitor, MDT_EFFECTIVE_DPI, &dpix, &dpiy);
-			scale_value = dpix / 96.0f;
-		}
-	}
-	else
-	{
-		LL_WARNS() << "Could not load shcore.dll library (included by <ShellScalingAPI.h> from Win 8.1 SDK). Using legacy DPI awareness API of Win XP/7" << LL_ENDL;
-		scale_value = GetDeviceCaps(hdc, LOGPIXELSX) / 96.0f;
+		scale_value = GetDeviceCaps(hdc, LOGPIXELSX) / USER_DEFAULT_SCREEN_DPI;
 	}
 
 	ReleaseDC(hWnd, hdc);
