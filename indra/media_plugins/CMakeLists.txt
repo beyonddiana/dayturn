@@ -10,7 +10,6 @@ endif (LINUX)
 
 if (WINDOWS)
 	add_subdirectory(cef)
-    add_subdirectory(winmmshim)
     add_subdirectory(libvlc)
 endif (WINDOWS)
 
