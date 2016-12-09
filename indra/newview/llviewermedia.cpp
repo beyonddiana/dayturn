@@ -1007,7 +1007,7 @@ void LLViewerMedia::updateMedia(void *dummy_arg)
 				sAnyMediaShowing = true;
 			}
 			
-			if (!pimpl->getUsedInUI() && pimpl->hasMedia() && (pimpl->isMediaPlaying() || !pimpl->isMediaTimeBased()))
+			if (!pimpl->getUsedInUI() && pimpl->hasMedia() && pimpl->isMediaPlaying())
  			{
 				// consider visible non-timebased media as playing
  				sAnyMediaPlaying = true;
@@ -1075,12 +1075,28 @@ void LLViewerMedia::setAllMediaEnabled(bool val)
 
 	for(; iter != end; iter++)
 	{
-		LLViewerMediaImpl* pimpl = *iter;
-		if (!pimpl->getUsedInUI())
-		{
-			pimpl->setDisabled(!val);
-		}
-	}
+         LLViewerMediaImpl* pimpl = *iter;
+         if (!pimpl->getUsedInUI())
+         {
+             // upause/pause time based media, enable/disable any other
+             if (!val)
+             {
+                 pimpl->setDisabled(val);
+                 if (pimpl->isMediaTimeBased() && pimpl->isMediaPaused())
+                 {
+                     pimpl->play();
+                 }
+             }
+             else if (pimpl->isMediaTimeBased() && pimpl->mMediaSource)
+             {
+                 pimpl->pause();
+             }
+             else
+             {
+                 pimpl->setDisabled(val);
+             }
+         }
+     }
 
 	// Also do Parcel Media and Parcel Audio
 	if (val)
