@@ -712,11 +712,11 @@
       <key>fmodex</key>
       <map>
         <key>copyright</key>
-        <string>Copyright c 2005-2015 Firelight Technologies Pty, Ltd.</string>
+        <string>FMOD Sound System, copyright © Firelight Technologies Pty, Ltd., 1994-2014.</string>
         <key>description</key>
-        <string>FMOD Ex Programmer's API</string>
+        <string>FMOD Ex audio system library</string>
         <key>license</key>
-        <string>FMOD NON-COMMERCIAL LICENSE</string>
+        <string>fmodex</string>
         <key>license_file</key>
         <string>LICENSES/fmodex.txt</string>
         <key>name</key>
@@ -728,11 +728,11 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>a02a01a3aaf25100241a1dfd3834b4f2</string>
+              <string>69eb4c2a793f077c30f82af7ea38112e</string>
               <key>hash_algorithm</key>
               <string>md5</string>
               <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-fmodex/downloads/fmodex-4.44.61-darwin-201602010951.tar.bz2</string>
+              <string>https://bitbucket.org/kokua/3p-fmodex/downloads/fmodex-4.44.64-darwin-201612111122.tar.bz2</string>
             </map>
             <key>name</key>
             <string>darwin</string>
@@ -742,11 +742,11 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>c7a04e14382bc3627782f6f8a28a4ba8</string>
+              <string>6eea87a1d6f5ce90217daef97c12d05e</string>
               <key>hash_algorithm</key>
               <string>md5</string>
               <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-fmodex/downloads/fmodex-4.44.61-linux-201601311850.tar.bz2</string>
+              <string>https://bitbucket.org/kokua/3p-fmodex/downloads/fmodex-4.44.64-linux-201612101845.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux</string>
@@ -756,11 +756,11 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>de1cce516394f7f072389c117e93c609</string>
+              <string>b6126650242ed8dd03d5469a017d7d33</string>
               <key>hash_algorithm</key>
               <string>md5</string>
               <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-fmodex/downloads/fmodex-4.44.61-linux64-201601311524.tar.bz2</string>
+              <string>https://bitbucket.org/kokua/3p-fmodex/downloads/fmodex-4.44.64-linux64-201612101748.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux64</string>
@@ -770,18 +770,18 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>4459a5e970f0a1fc10c04a353581ddcb</string>
+              <string>424711b406046faf9e4bf6a2b6602ca2</string>
               <key>hash_algorithm</key>
               <string>md5</string>
               <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-fmodex/downloads/fmodex-4.44.61-windows-201601310754.tar.bz2</string>
+              <string>https://bitbucket.org/kokua/3p-fmodex/downloads/fmodex-4.44.64-windows-201612090445.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
           </map>
         </map>
         <key>version</key>
-        <string>4.44.61</string>
+        <string>4.44.64</string>
       </map>
       <key>fontconfig</key>
       <map>
