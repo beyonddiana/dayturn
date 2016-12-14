@@ -3481,7 +3481,7 @@
         <key>darwin</key>
         <map>
           <key>build_directory</key>
-          <string>build-darwin-i386</string>
+          <string>build-darwin</string>
           <key>configurations</key>
           <map>
             <key>Doxygen</key>

@@ -24,17 +24,7 @@ check_for()
 
 build_dir_Darwin()
 {
-  echo build-darwin-i386
-}
-
-build_dir_Linux()
-{
-  echo build-linux-i686
-}
-
-build_dir_CYGWIN()
-{
-  echo build-vc120
+  echo build-darwin
 }
 
 viewer_channel_suffix()
@@ -54,7 +44,7 @@ installer_Darwin()
 {
   local package_name="$1"
   local package_dir="$(build_dir_Darwin ${last_built_variant:-Release})/newview/"
-  local pattern=".*$(viewer_channel_suffix ${package_name})_[0-9]+_[0-9]+_[0-9]+_[0-9]+_i386\\.dmg\$"
+  local pattern=".*$(viewer_channel_suffix ${package_name})_[0-9]+_[0-9]+_[0-9]+_[0-9]+\\.dmg\$"
   # since the additional packages are built after the base package,
   # sorting oldest first ensures that the unqualified package is returned
   # even if someone makes a qualified name that duplicates the last word of the base name
@@ -62,36 +52,7 @@ installer_Darwin()
   test "$package"x != ""x && echo "$package_dir/$package"
 }
 
-installer_Linux()
-{
-  local package_name="$1"
-  local package_dir="$(build_dir_Linux ${last_built_variant:-Release})/newview/"
-  local pattern=".*$(viewer_channel_suffix ${package_name})_[0-9]+_[0-9]+_[0-9]+_[0-9]+_i686\\.tar\\.bz2\$"
-  # since the additional packages are built after the base package,
-  # sorting oldest first ensures that the unqualified package is returned
-  # even if someone makes a qualified name that duplicates the last word of the base name
-  package=$(ls -1tr "$package_dir" 2>/dev/null | grep -E "$pattern" | head -n 1)
-  test "$package"x != ""x && echo "$package_dir/$package"
-}
 
-installer_CYGWIN()
-{
-  local package_name="$1"
-  local variant=${last_built_variant:-Release}
-  local build_dir=$(build_dir_CYGWIN ${variant})
-  local package_dir
-  if [ "$package_name"x = ""x ]
-  then
-      package_dir="${build_dir}/newview/${variant}"
-  else
-      package_dir="${build_dir}/newview/${package_name}/${variant}"
-  fi
-  if [ -r "${package_dir}/touched.bat" ]
-  then
-    local package_file=$(sed 's:.*=::' "${package_dir}/touched.bat")
-    echo "${package_dir}/${package_file}"
-  fi
-}
 
 pre_build()
 {
