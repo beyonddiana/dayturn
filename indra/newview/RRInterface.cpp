@@ -1923,7 +1923,7 @@ std::string RRInterface::crunchEmote (std::string msg, unsigned int truncateTo) 
 		    || msg.find (" -") != -1 || msg.find ("- ") != -1
 		    || msg.find ("*")  != -1 || msg.find ("=")  != -1
 		    || msg.find ("^")  != -1 || msg.find ("_")  != -1
-		    || msg.find ("?")  != -1 || msg.find ("~")  != -1)
+		    || msg.find ("~")  != -1)
 		{
 			crunched = "...";
 		}
