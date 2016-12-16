@@ -1055,6 +1055,11 @@ class Darwin_i386_Manifest(ViewerManifest):
             if 'signature' in self.args:
                 app_in_dmg=os.path.join(volpath,self.app_name()+".app")
                 print "Attempting to sign '%s'" % app_in_dmg
+                slplugin_in_dmg=os.path.join(volpath,self.app_name()+".app/Contents/Resources/SLPlugin.app")
+                print "Attempting to sign '%s'" % slplugin_in_dmg
+                crashlogger_in_dmg=os.path.join(volpath,self.app_name()+".app/Contents/Resources/mac-crash-logger.app")
+                print "Attempting to sign '%s'" % crashlogger_in_dmg
+
                 identity = self.args['signature']
                 if identity == '':
                     identity = 'Developer ID Application'
@@ -1072,6 +1077,18 @@ class Darwin_i386_Manifest(ViewerManifest):
                                 'codesign --verbose --deep --force --keychain "%(home_path)s/Library/Keychains/login.keychain" --sign %(identity)r %(bundle)r' % {
                                     'home_path' : home_path,
                                     'identity': identity,
+                                    'bundle': slplugin_in_dmg
+                                    })
+                            self.run_command(
+                                'codesign --verbose --deep --force --keychain "%(home_path)s/Library/Keychains/login.keychain" --sign %(identity)r %(bundle)r' % {
+                                    'home_path' : home_path,
+                                    'identity': identity,
+                                    'bundle': crashlogger_in_dmg
+                                    })
+                            self.run_command(
+                                'codesign --verbose --deep --force --keychain "%(home_path)s/Library/Keychains/login.keychain" --sign %(identity)r %(bundle)r' % {
+                                    'home_path' : home_path,
+                                    'identity': identity,                                    
                                     'bundle': app_in_dmg
                                     })
                             signed=True # if no exception was raised, the codesign worked
