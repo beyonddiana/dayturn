@@ -348,6 +348,7 @@ S32 LLVertexBuffer::sTypeSize[LLVertexBuffer::TYPE_MAX] =
 	sizeof(LLVector4), // TYPE_WEIGHT4,
 	sizeof(LLVector4), // TYPE_CLOTHWEIGHT,
 	sizeof(LLVector4), // TYPE_TEXTURE_INDEX (actually exists as position.w), no extra data, but stride is 16 bytes
+	sizeof(U16),       // TYPE_INDEX
 };
 
 static std::string vb_type_name[] =
@@ -365,8 +366,8 @@ static std::string vb_type_name[] =
 	"TYPE_WEIGHT4",
 	"TYPE_CLOTHWEIGHT",
 	"TYPE_TEXTURE_INDEX",
+	"TYPE_INDEX",
 	"TYPE_MAX",
-	"TYPE_INDEX",	
 };
 
 U32 LLVertexBuffer::sGLMode[LLRender::NUM_MODES] = 
@@ -1405,6 +1406,7 @@ void LLVertexBuffer::setupVertexArray()
 		4, //TYPE_WEIGHT4,
 		4, //TYPE_CLOTHWEIGHT,
 		1, //TYPE_TEXTURE_INDEX
+		1, //TYPE_INDEX
 	};
 
 	U32 attrib_type[] =
@@ -1422,6 +1424,7 @@ void LLVertexBuffer::setupVertexArray()
 		GL_FLOAT, //TYPE_WEIGHT4,
 		GL_FLOAT, //TYPE_CLOTHWEIGHT,
 		GL_UNSIGNED_INT, //TYPE_TEXTURE_INDEX
+		GL_UNSIGNED_INT, //TYPE_INDEX
 	};
 
 	bool attrib_integer[] = 
@@ -1439,6 +1442,7 @@ void LLVertexBuffer::setupVertexArray()
 		false, //TYPE_WEIGHT4,
 		false, //TYPE_CLOTHWEIGHT,
 		true, //TYPE_TEXTURE_INDEX
+		true, //TYPE_INDEX
 	};
 
 	U32 attrib_normalized[] =
@@ -1456,6 +1460,7 @@ void LLVertexBuffer::setupVertexArray()
 		GL_FALSE, //TYPE_WEIGHT4,
 		GL_FALSE, //TYPE_CLOTHWEIGHT,
 		GL_FALSE, //TYPE_TEXTURE_INDEX
+		GL_FALSE, //TYPE_INDEX
 	};
 
 	bindGLBuffer(true);
