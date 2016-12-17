@@ -141,6 +141,10 @@ private:
 
 		F32 mValue;
 		LLUIColor mColor;
+		bool operator <(const Threshold& other) const
+ 		{
+ 			return mValue < other.mValue;
+ 		}
 	};
 	typedef std::vector<Threshold> threshold_vec_t;
 	threshold_vec_t mThresholds;
