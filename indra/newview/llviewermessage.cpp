@@ -1806,6 +1806,12 @@ bool LLOfferInfo::inventory_task_offer_callback(const LLSD& notification, const 
 	std::string folder_name = mDesc;
 	unsigned int ind = folder_name.rfind ("'");
 	if (ind != -1) folder_name = folder_name.substr (1, ind -1); // get rid of the first quote too
+
+	// If under @showloc, we don't want the slurl to show, so use the folder name only for the message
+	if (gRRenabled && gAgent.mRRInterface.mContainsShowloc)
+	{
+		mDesc = folder_name;
+	}
 //mk
 	
 	switch(button)
