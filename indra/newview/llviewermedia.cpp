@@ -1114,7 +1114,7 @@ void LLViewerMedia::setAllMediaEnabled(bool val)
                      pimpl->play();
                  }
              }
-             else if (pimpl->isMediaTimeBased() && pimpl->mMediaSource)
+             else if (pimpl->isMediaTimeBased() && pimpl->mMediaSource && (pimpl->isMediaPlaying() || pimpl->isMediaPaused()))
              {
                  pimpl->pause();
              }
