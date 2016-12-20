@@ -304,7 +304,7 @@ void LLFloaterIMNearbyChat::onTearOffClicked()
 	LLFloaterIMSessionTab::onTearOffClicked();
 
 	// see CHUI-170: Save torn-off state of the nearby chat between sessions
-	BOOL in_the_multifloater = (ptrdiff_t)getHost();
+	bool in_the_multifloater(getHost());
 	gSavedPerAccountSettings.setBOOL("NearbyChatIsNotTornOff", in_the_multifloater);
 }
 
