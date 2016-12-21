@@ -1286,7 +1286,7 @@ class LLAdvancedToggleWireframe : public view_listener_t
 		LLPipeline::updateRenderDeferred();
 		gPipeline.resetVertexBuffers();
 
-		if (!gUseWireframe && !gInitialDeferredModeForWireframe && LLPipeline::sRenderDeferred != gInitialDeferredModeForWireframe && gPipeline.isInit())
+		if (!gUseWireframe && !gInitialDeferredModeForWireframe && LLPipeline::sRenderDeferred != bool(gInitialDeferredModeForWireframe) && gPipeline.isInit())
 		{
 			LLPipeline::refreshCachedSettings();
 			gPipeline.releaseGLBuffers();
