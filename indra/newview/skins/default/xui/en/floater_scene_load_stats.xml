@@ -7,7 +7,8 @@
          save_rect="true"
          save_visibility="true"
          title="SCENE LOAD STATISTICS"
-         width="260">
+         min_width="250"
+         width="400">
     <button follows="top|left"
             top="20"
             bottom="60"
