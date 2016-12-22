@@ -266,6 +266,7 @@ boost::scoped_ptr<LLViewerStats::PhaseMap> LLStartUp::sPhases(new LLViewerStats:
 
 void login_show();
 void login_callback(S32 option, void* userdata);
+void show_release_notes_if_required();
 void show_first_run_dialog();
 bool first_run_dialog_callback(const LLSD& notification, const LLSD& response);
 void set_startup_status(const F32 frac, const std::string& string, const std::string& msg);
@@ -843,13 +844,14 @@ bool idle_startup()
 	
 	if (STATE_BROWSER_INIT == LLStartUp::getStartupState())
 	{
-		LL_DEBUGS("AppInit") << "STATE_BROWSER_INIT" << LL_ENDL;
-		std::string msg = LLTrans::getString("LoginInitializingBrowser");
-		set_startup_status(0.03f, msg.c_str(), gAgent.mMOTD.c_str());
-		display_startup();
-		// LLViewerMedia::initBrowser();
+//		LL_DEBUGS("AppInit") << "STATE_BROWSER_INIT" << LL_ENDL;
+//		std::string msg = LLTrans::getString("LoginInitializingBrowser");
+//		set_startup_status(0.03f, msg.c_str(), gAgent.mMOTD.c_str());
+//		display_startup();
+//		// LLViewerMedia::initBrowser();
+		show_release_notes_if_required();
 		LLStartUp::setStartupState( STATE_LOGIN_SHOW );
-		return FALSE;
+//		return FALSE;
 	}
 
 
@@ -1413,7 +1415,7 @@ bool idle_startup()
 		// Pre-load floaters, like the world map, that are slow to spawn
 		// due to XML complexity.
 		gViewerWindow->initWorldUI();
-
+		
 		display_startup();
 
 		// This is where we used to initialize gWorldp. Original comment said:
@@ -2471,6 +2473,21 @@ void login_callback(S32 option, void *userdata)
 	}
 }
 
+/**
+* Check if user is running a new version of the viewer.
+* Display the Release Notes if it's not overriden by the "UpdaterShowReleaseNotes" setting.
+*/
+void show_release_notes_if_required()
+{
+    if (LLVersionInfo::getChannelAndVersion() != gLastRunVersion
+        && gSavedSettings.getBOOL("UpdaterShowReleaseNotes")
+        && !gSavedSettings.getBOOL("FirstLoginThisInstall"))
+    {
+        LLSD info(LLAppViewer::instance()->getViewerInfo());
+        LLWeb::loadURLInternal(info["VIEWER_RELEASE_NOTES_URL"]);
+    }
+}
+
 void show_first_run_dialog()
 {
 	LLNotificationsUtil::add("FirstRun", LLSD(), LLSD(), first_run_dialog_callback);
@@ -3063,12 +3080,12 @@ void LLStartUp::cleanupNameCache()
 bool LLStartUp::dispatchURL()
 {
 	// ok, if we've gotten this far and have a startup URL
-        if (!getStartSLURL().isValid())
+    if (!getStartSLURL().isValid())
 	{
 	  return false;
 	}
-        if(getStartSLURL().getType() != LLSLURL::APP)
-	  {
+    if(getStartSLURL().getType() != LLSLURL::APP)
+	{
 	    
 		// If we started with a location, but we're already
 		// at that location, don't pop dialogs open.
@@ -3092,31 +3109,23 @@ bool LLStartUp::dispatchURL()
 
 void LLStartUp::setStartSLURL(const LLSLURL& slurl) 
 {
-  LL_DEBUGS("AppInit")<<slurl.asString()<<LL_ENDL;
-
-  if (slurl.isSpatial())
+  sStartSLURL = slurl;
+  switch(slurl.getType())
   {
-	  std::string new_start = slurl.getSLURLString();
-	  LL_DEBUGS("AppInit") << new_start << LL_ENDL;
-	  sStartSLURL = slurl;
-	  switch (slurl.getType())
-	  {
-	  case LLSLURL::HOME_LOCATION:
-	  {
+    case LLSLURL::HOME_LOCATION:
+	{
 		  gSavedSettings.setString("LoginLocation", LLSLURL::SIM_LOCATION_HOME);
-		  break;
-	  }
-	  case LLSLURL::LAST_LOCATION:
-	  {
-		  gSavedSettings.setString("LoginLocation", LLSLURL::SIM_LOCATION_LAST);
-		  break;
-	  }
-	  default:
-		  LLGridManager::getInstance()->setGridChoice(slurl.getGrid());
-		  gSavedSettings.setString("NextLoginLocation", slurl.getSLURLString());
-		  break;
-
-	  }
+	break;
+	}
+    case LLSLURL::LAST_LOCATION:
+	{
+	gSavedSettings.setString("LoginLocation", LLSLURL::SIM_LOCATION_LAST);
+	break;
+	}
+    default:
+			LLGridManager::getInstance()->setGridChoice(slurl.getGrid());
+			gSavedSettings.setString("NextLoginLocation", slurl.getSLURLString());
+			break;
   }
 }
 
@@ -3124,7 +3133,7 @@ void LLStartUp::setStartSLURL(const LLSLURL& slurl)
 LLSLURL& LLStartUp::getStartSLURL()
 {
 	return sStartSLURL;
-}
+} 
 
 /**
  * Read all proxy configuration settings and set up both the HTTP proxy and
@@ -3610,6 +3619,7 @@ bool process_login_success_response(U32 &first_sim_size_x, U32 &first_sim_size_y
 		LLVector3 position = ll_vector3_from_sd(sd["position"]);
 		gAgent.setHomePosRegion(region_handle, position);
 	}
+
 	gAgent.mMOTD.assign(response["message"]);
 
 //MK
