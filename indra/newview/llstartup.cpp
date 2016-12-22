@@ -2488,6 +2488,21 @@ void show_release_notes_if_required()
     }
 }
 
+/**
+* Check if user is running a new version of the viewer.
+* Display the Release Notes if it's not overriden by the "UpdaterShowReleaseNotes" setting.
+*/
+void show_release_notes_if_required()
+{
+    if (LLVersionInfo::getChannelAndVersion() != gLastRunVersion
+        && gSavedSettings.getBOOL("UpdaterShowReleaseNotes")
+        && !gSavedSettings.getBOOL("FirstLoginThisInstall"))
+    {
+        LLSD info(LLAppViewer::instance()->getViewerInfo());
+        LLWeb::loadURLInternal(info["VIEWER_RELEASE_NOTES_URL"]);
+    }
+}
+
 void show_first_run_dialog()
 {
 	LLNotificationsUtil::add("FirstRun", LLSD(), LLSD(), first_run_dialog_callback);
