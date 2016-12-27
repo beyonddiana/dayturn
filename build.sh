@@ -64,7 +64,7 @@ pre_build()
 
     "$autobuild" configure -c $variant -- \
      -DPACKAGE:BOOL=ON \
-     -DRELEASE_CRASH_REPORTING:BOOL=ON \
+     -DRELEASE_CRASH_REPORTING:BOOL=OFF \
      -DVIEWER_CHANNEL:STRING="\"$viewer_channel\"" \
      -DGRID:STRING="\"$viewer_grid\"" \
      -DLL_TESTS:BOOL="$run_tests" \
@@ -339,11 +339,15 @@ then
 
       case "$last_built_variant" in
       Release)
-        # Upload crash reporter files
-        for symbolfile in $symbolfiles
-        do
-          upload_item symbolfile "$build_dir/$symbolfile" binary/octet-stream
-        done
+      # nat 2016-12-22: without RELEASE_CRASH_REPORTING, we have no symbol file.
+      if [ "${RELEASE_CRASH_REPORTING:-}" != "OFF" ]
+      then
+        	# Upload crash reporter files
+        	for symbolfile in $symbolfiles
+        	do
+          	upload_item symbolfile "$build_dir/$symbolfile" binary/octet-stream
+        	done
+      fi
 
         # Upload the actual dependencies used
         if [ -r "$build_dir/packages/installed-packages.xml" ]
