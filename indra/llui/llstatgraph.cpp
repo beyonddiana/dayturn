@@ -37,6 +37,7 @@
 #include "lltracerecording.h"
 #include "lltracethreadrecorder.h"
 #include "llwindow.h"
+//#include "llviewercontrol.h"
 
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -72,15 +73,15 @@ void LLStatGraph::draw()
 	range = mMax - mMin;
 	if (mNewStatFloatp)
 	{
-		LLTrace::PeriodicRecording &frame_recording = LLTrace::get_frame_recording();
+		LLTrace::Recording& recording = LLTrace::get_frame_recording().getLastRecording();
 
 		if (mPerSec)
 		{
-			mValue = frame_recording.getPeriodMeanPerSec(*mNewStatFloatp, 20);
+			mValue = recording.getPerSec(*mNewStatFloatp);
 		}
 		else
 		{
-			mValue = frame_recording.getPeriodMean(*mNewStatFloatp, 20);
+			mValue = recording.getSum(*mNewStatFloatp);
 		}
 	}
 
@@ -88,7 +89,7 @@ void LLStatGraph::draw()
 	frac = llmax(0.f, frac);
 	frac = llmin(1.f, frac);
 
-	if (mUpdateTimer.getElapsedTimeF32() > 1.f)
+	if (mUpdateTimer.getElapsedTimeF32() > 0.5f)
 	{
 		std::string format_str;
 		std::string tmp_str;
