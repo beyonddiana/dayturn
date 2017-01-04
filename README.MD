@@ -1,17 +1,9 @@
-## ** Kokua OpenSim ** ##
-This repository is a baseline of the combined Linden Lab 4.0.2 SecondLife Viewer and Kokua 4.0.2 releases with select commits from the following Linden code base with the aim of providing a starting point for development of an OpenSim specific version of Kokua or derived viewers.
+New Tools Update
 
-The reason for this is that the http changes in the Linden 4.0.3 release are interoperable with OpenSim core in Standalone mode or in Grid mode without assets served over http. Assets over http is still largely experimental in OpenSim and currently requires both more hardware and configuration skills than many small grids are willing or able to invest in. 
+================
+Contributing Code to Kokua
 
-A pure-play OpenSim viewer will also over time evolve to a simpler code base removing functionality not supported by OpenSim, removing similar functionality with different implementations across the two environments, and adding better support for OpenSim specific functionality such as Hypergrid Teleports, variable size regions, NPCs, the OSSL scripting language and different physics engines. 
-
-It will also remove the code for SecondLife specific functionality such as Pathfinding, a unified marketplace, experience keys, avatar complexity and information that is not directly relevant to OpenSim grids. 
-
-There are two active branches KokuaNT and Kokua-MKRLV. 
-
-
-### Contributing Code to Kokua OpenSim ###
-----------------------------------
+--------------------------
 
 Contributing one patch with less than 3 files touched can be submitted as a diff or patch file. Please open a ticket and attach the file to a ticket.
 
@@ -23,31 +15,37 @@ Kokua repositories use mercurial bookmarks instead of branches. Reference mercur
 
 Work Flow:
 
-On bitbucket fork kokua-os to your Bitbucket account. The repository name will default to kokua-os, but can be named as desired.
+On bitbucket fork kokua-sl to your Bitbucket account. The repository name will default to kokua-sl, but can be named as desired.
 
-Open the repository and notice bookmark icons that are named Kokua_MKRLV and KokuaNT; these represent our current working default branches
+Open the repository and notice bookmark icons that are named Kokua-MKRLV and KokuaSL-NORLV; these represent our current working default branches
 
 that are assigned to bookmarks. If the bookmarks where not there two (2) default branches would be present. The bookmarks tie the bookmark names
 
 to each default branch mercurial hash. 
 
-Using mercurial command hg clone place you forked kokua-os repository on your local file system. Example: 
+Using mercurial command hg clone place you forked kokua repository on your local file system. Example: 
 
-hg clone https://bitucket.org/nickyp/kokua-os
+For OpenSim version:
+
+hg clone https://bitucket.org/kokua/kokua-os
+
+Or SecondLife version:
+
+hg clone https://bitucket.org/kokua/kokua-sl 
 
 An important step is to pull and update Bookmarks from your respository. This allows the bookmarks to advance to the tip with each commit.
 
-A bookmark pull is hg pull -B KokuaNT https://bitucket.org/nickyp/kokua-os --Notice that it is a capital B. Now repeat with Kokua-MKRLV bookmark.
+A bookmark pull is hg pull -B KokuaNT https://bitucket.org/kokua/kokua-os --Notice that it is a capital B. Now repeat with Kokua-MKRLV bookmark.
 
 If your bitbucket repository's bookmarks have fallen behind or do not show up then push the bookmark name. For example:
 
-hg push -B KokuaNT https://bitucket.org/nickyp/kokua-os notice the capital B again. Capital B is for bookmark exchange only. No changes are made to
+hg push -B KokuaNT https://bitucket.org/xxxxx/kokua-os notice the capital B again. Capital B is for bookmark exchange only. No changes are made to
 
 the working tree.
 
-Next use hg update to activate the bookmarks. "hg update KokuaNT" and then "hg update Kokua-MKRLV". Your working tree is now at Kokua-MKRLV.
+Next use hg update to activate the bookmarks. "hg update KokuaSL-NORLV" and then "hg update Kokua-MKRLV". Your working tree is now at Kokua-MKRLV.
 
-If you want to work on KokuaNT just "hg update KokuaNT". In a terminal enter "hg bookmarks" and terminal response will be a list of all bookmarks
+If you want to work on KokuaSL-NORLV just "hg update KokuaSL-NORLV". In a terminal enter "hg bookmarks" and terminal response will be a list of all bookmarks
 
 with an * next to the active bookmark.
  
@@ -79,9 +77,7 @@ Development system:
 
 
 
-
-Development system is UBUNTU 14.04 LTS (testing). The compiler is gcc-4.8. If starting with a new Stretch you will need to install
-Library archives for the most part are built with gcc-4.6.4.  except Boost gcc-4.7 
+Development system: Ubuntu 14.04.3 
 
 3.19.0-47-generic #53~14.04.1-Ubuntu SMP Mon Jan 18 16:09:14 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
 
@@ -93,13 +89,10 @@ Preprations to build:
 sudo apt-get update
 
 sudo apt-get upgrade
-libX11-dev libxinerama-dev libxml2-dev libxrender-dev libpulse-dev libalut-dev 
 
 sudo apt-get install --install-recommends bison bzip2 cmake curl flex g++-4.8 m4 mercurial python2.7 python2.7-dev python-pip
 
 sudo apt-get install --install-recommends pulseaudio
-gcc --version
-gcc (Ubuntu 4.8.4-2ubuntu1~14.04) 4.8.4
 
 sudo apt-get install --install-recommends libgl1-mesa-dev libglu1-mesa-dev libstdc++6 \
 libX11-dev libxinerama-dev libxml2-dev libxrender-dev libpulse-dev libalut-dev 
@@ -110,7 +103,13 @@ gcc (Ubuntu 4.8.4-2ubuntu1~14.04) 4.8.4
 
 Install autobuild into python
 
-sudo pip install hg+https://bitbucket.org/lindenlab/autobuild-1.0#egg=autobuild
+-   If building lindenlab viewer64 code base use autobuild-1.1
+
+-       sudo pip install hg+http://bitbucket.org/lindenlab/autobuild-1.1#egg=autobuild
+
+-   Otherwise use autobuild-1.0
+
+-       sudo pip install hg+http://bitbucket.org/lindenlab/autobuild-1.0#egg=autobuild
 
 Install optional tools
 
@@ -144,7 +143,6 @@ sudo apt-get update
 
 sudo apt-get install --install-recommends libasound2:i386 libasound2-plugins:i386 libasyncns0:i386 libattr1:i386 libc6:i386 libc6-i686:i386 libcap2:i386 libdbus-1-3:i386 libflac8:i386 libgcc1:i386 libice6:i386 libidn11:i386 libjson0:i386 libogg0:i386 libpulse0:i386 libsm6:i386 libsndfile1:i386 libstdc++6:i386 libvorbis0a:i386 libvorbisenc2:i386 libwrap0:i386 libuuid1:i386 libx11-6:i386 libx11-xcb1:i386 libxau6:i386 libxcb1:i386 libxdmcp6:i386 libxext6:i386 libxi6:i386 libxtst6:i386 zlib1g:i386 
 
-ubuntu-14.04.3-desktop-i386.iso
  
 Following applies to building 32 bit kokua by using a 32 bit virtual machine(vm). If building on 32 bit hardware -- follow 64 bit instructions from above.
 
@@ -224,9 +222,9 @@ eol = auto
 
 [hooks]
 
- #pretxncommit = python:~/hg-tools/coding_policy.py:hook
+#pretxncommit = python:~/hg-tools/coding_policy.py:hook
 
- #pretxnchangegroup = python:~/hg-tools/coding_policy.py:hook
+#pretxnchangegroup = python:~/hg-tools/coding_policy.py:hook
 
 ----------------------
 As an options add this to you bash history file ~/.bashrc
@@ -237,21 +235,20 @@ Skip the export for 32 bit builds.
 
 export AUTOBUILD_PLATFORM_OVERRIDE='linux64'
 
-  KokuaNT can be built with opensource or properity audio engine. The opensource solution uses openal for sounds and gstreamer for streaming music and audio visual files like mp4's. Use of the properity FMOD Ex library for sounds and streaming audio is supported but, the FMOD Ex library must be provided separately.
 
--  hg clone https://NickyP@bitbucket.org/NickyP/kokuant
+-  hg clone https://bitbucket.org/kokua/kokua-os
 
-  KokuaNT can be built with opensource or properity audio engine. The opensource solution uses openal for sounds and gstreamer for streaming music and audio visual files like mp4's. Use of the properity FMOD Ex library for sounds and streaming audio is supported but, the FMOD Ex library must be provided separately.
+  KokuaSL-NORLV can be built with opensource or properity audio engine. The opensource solution uses openal for sounds and gstreamer for streaming music and audio visual files like mp4's. Use of the properity FMOD Ex library for sounds and streaming audio is supported but, the FMOD Ex library must be provided separately.
 
 -  Configure for an openal and gstreamer build:
 
 Following assumes a clean build tree.
 
-cd kokuant
+cd Kokua-SL
 
-Update the source tree to KokuaNT. This is a build without RLV or if you want RLV it would be hg update Kokua-MKRLV
+Update the source tree to KokuaSL-NORLV. This is a build without RLV or if you want RLV it would be hg update Kokua-MKRLV
 
-hg update KokuaNT
+hg update KokuaSL-NORLV
 
 
 autobuild configure -c ReleaseOS -- -DLL_TESTS:BOOL=OFF -DFMODEX:BOOL=OFF -DOPENAL:BOOL=ON -DPACKAGE:BOOL=ON 2>&1 |tee configure.log
@@ -422,7 +419,13 @@ You will need these items before you begin:
 
 -   Typically cd \Python27\Scripts
 
--   Run pip install hg+http://bitbucket.org/lindenlab/autobuild-1.0#egg=autobuild
+-   If building lindenlab viewer64 code base use autobuild-1.1
+
+-       Run pip install hg+http://bitbucket.org/lindenlab/autobuild-1.1#egg=autobuild
+
+-   Otherwise use autobuild-1.0
+
+-       Run pip install hg+http://bitbucket.org/lindenlab/autobuild-1.0#egg=autobuild
 
 -   Autobuild will be installed.  Earlier versions of autobuild could be made to work by just putting the source files
 
@@ -470,9 +473,9 @@ Verify that these version request.
 
 -  Development source code repositories
 
--   OpenSim https://bitbucket.org/nickyp/kokua-os
+-   OpenSim https://bitbucket.org/kokua/kokua-os
 
--   SecondLife https://bitbucket.org/nickyp/kokua-sl
+-   SecondLife https://bitbucket.org/kokua/kokua-sl
 
 -   Use mercurial to clone one of the above respostories to your local machine. For example: 
 
@@ -522,17 +525,17 @@ Mac
 
 --------
 
-The current development environment is XCode 7.3 running on OS X 10.11.5 where the viewer is built 32-bit with OS X SDK 10.11 and Deployment Target of OS X 10.9.
+The current development environment is XCode 7.3 running on OS X 10.11.4 where the viewer is built 32-bit with OS X SDK 10.11 and Deployment Target of OS X 10.9.
 
-We are still building for i386 as there are dependencies in the LL code to old Carbon framework that prevents successful 64-bit build. A 32-bit build is not such a big issue on OS X as the application can use the full 32-bit address space of 4 GB which should be sufficient unless you run in an OpenSim grid with very large VAR regions.
+Still building for i386 as there are dependencies in the LL code to old Carbon framework that prevents successfull 64-bit build. A 32-bit build is not such a big issue on OS X as the application can use the full 32-bit address space of 4 GB which should be sufficient unless you run in an OpenSim grid with very large VAR regions.
 
-You can both build from the command line in terminal or build the Xcode project that is generated during configuration. 
+You can both build from the command line in terminal or build the XCode project that is generatedduing configuration.
 
 NOTE: On Upgrading XCode to a new version you probably should delete the Derived Data folder that is found in Development/XCode as it may contain links to old system library locations preventing your build from linking.
+	
+    -- 
 
-	-- 
-
-Linden’s version of autobuild requires a different version of Python than the system installed so the best way to get it installed is to first install MacPorts from https://www.macports.org with the latest current release (2.3.4).
+Linden’s version of autobuild requires a different version of Python than the system installed so the best way to get it installed is to first install MacPorts from https://www.macports.org with the latest current release (2.3.3).
 
 With MacPorts installed, in terminal install the following ports:
 
@@ -544,17 +547,19 @@ With MacPorts installed, in terminal install the following ports:
 
 When prompted by the installer run python_select to use the version you just installed. It will be installed in /opt/local/bin
 
-If you have beta versions of Xcode installed then you also need to run code-select to make sure you use 7.3 for your build
+If you have newer versions of Xcode installed then you also need to run xcode-select to make sure you use 6.4 for your build
 
 --
+
 Xcode should have created the directory ~/Library/Developer during installation. If not create it (or use the location of your choice) and shortcut it to the Finder sidebar. 
+
 In terminal cd to the above directory and type the command:
 
-hg clone https://bitbucket.org/lindenlab/autobuild
+hg clone https://bitbucket.org/lindenlab/autobuild-1.1
 
 Pip Install auto build python dependencies by typing:
 
-sudo pip install ‘hg+https://bitbucket.org/oz_linden/autobuild-metadata#egg=autobuild'
+sudo pip install ‘hg+https://bitbucket.org/lindenlab/autobuild-1.1#egg=autobuild'
 
 If everything goes well it should be installed in /opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/autobuild
 
@@ -582,7 +587,13 @@ The root cause of this is that it tries to run autobuild by spawning a shell fro
 
 To build Kokua first download the Kokua source code with the following command in terminal:
 
-hg clone https://NickyP@bitbucket.org/NickyP/kokuant 
+For the OpenSim version:
+
+hg clone https://bitbucket.org/kokua/kokua-os
+
+For the SecondLife version:
+
+hg clone https://bitbucket.org/kokua/kokua-sl 
 
 You can configure the build with:
 
@@ -599,3 +610,10 @@ Disclaimer
 -----
 
 -      This software is not provided nor supported by Linden Lab, the makers of Second Life.
+
+
+
+
+
+
+
