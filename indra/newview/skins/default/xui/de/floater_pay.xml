@@ -4,6 +4,7 @@
 	<string name="payee_resident">Einwohner bezahlen</string>
 	<text name="paying_text">Sie zahlen:</text>
 	<text left="130" name="payee_name">Extrem langen Namen testen, um zu prüfen, ob er abgeschnitten wird</text>
+	<text name="payment_message_label">Beschreibung (optional):</text>
 	<panel label="Suchen" name="PatternsPanel">
 		<button label="L$ 1 zahlen" label_selected="L$ 1 zahlen" name="fastpay 1"/>
 		<button label="L$ 5 zahlen" label_selected="L$ 5 zahlen" name="fastpay 5"/>

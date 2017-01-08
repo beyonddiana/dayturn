@@ -4,6 +4,7 @@
 	<string name="payee_resident">支付居民</string>
 	<text name="paying_text">你正在支付：</text>
 	<text name="payee_name">測試一個長度非常非常非常長的名稱，檢查是否被切斷</text>
+	<text name="payment_message_label">說明（可留空）：</text>
 	<panel label="搜尋" name="PatternsPanel">
 		<button label="支付 L$ 1" label_selected="支付 L$ 1" name="fastpay 1"/>
 		<button label="支付 L$ 5" label_selected="支付 L$ 5" name="fastpay 5"/>

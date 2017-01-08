@@ -4,6 +4,7 @@
 	<string name="payee_resident">Заплатить жителю</string>
 	<text name="paying_text">Вы платите:</text>
 	<text name="payee_name">Слишком длинное тестовое имя для проверки обрезания</text>
+	<text name="payment_message_label">Описание (не обязательно):</text>
 	<panel label="Поиск" name="PatternsPanel">
 		<button label="Оплатить L$ 1" label_selected="Оплатить L$ 1" name="fastpay 1"/>
 		<button label="Оплатить L$ 5" label_selected="Оплатить L$ 5" name="fastpay 5"/>
