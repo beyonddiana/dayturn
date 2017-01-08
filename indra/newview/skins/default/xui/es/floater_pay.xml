@@ -4,6 +4,7 @@
 	<string name="payee_resident">Pagar al residente</string>
 	<text name="paying_text">Vas a pagar:</text>
 	<text left="115" name="payee_name">Nombre de prueba demasiado largo para comprobar la función de recorte</text>
+	<text name="payment_message_label">Descripción (opcional):</text>
 	<panel label="Buscar" name="PatternsPanel">
 		<button label="Pagar 1 L$" label_selected="Pagar 1 L$" name="fastpay 1"/>
 		<button label="Pagar 5 L$" label_selected="Pagar 5 L$" name="fastpay 5"/>

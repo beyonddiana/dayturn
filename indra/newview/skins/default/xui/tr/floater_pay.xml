@@ -4,6 +4,7 @@
 	<string name="payee_resident">Sakine Öde</string>
 	<text name="paying_text">Ödeyeceğiniz miktar:</text>
 	<text name="payee_name">Kırpmayı Kontrol İçin Test Adı Çok Uzun</text>
+	<text name="payment_message_label">Açıklama (isteğe bağlı):</text>
 	<panel label="Ara" name="PatternsPanel">
 		<button label="1 L$ Öde" label_selected="1 L$ Öde" name="fastpay 1"/>
 		<button label="5 L$ Öde" label_selected="5 L$ Öde" name="fastpay 5"/>

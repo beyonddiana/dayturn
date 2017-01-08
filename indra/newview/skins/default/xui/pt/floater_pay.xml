@@ -4,6 +4,7 @@
 	<string name="payee_resident">Pagar residente</string>
 	<text name="paying_text">Você está pagando:</text>
 	<text name="payee_name">Test Name That Is Extremely Long To Check Clipping</text>
+	<text name="payment_message_label">Descrição (opcional):</text>
 	<panel label="Buscar" name="PatternsPanel">
 		<button label="Pagar L$ 1" label_selected="Pagar L$ 1" name="fastpay 1"/>
 		<button label="Pagar L$ 5" label_selected="Pagar L$ 5" name="fastpay 5"/>
