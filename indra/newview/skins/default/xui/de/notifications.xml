@@ -336,6 +336,9 @@ Wenn diese Rolle nicht mehr diese Fähigkeiten haben soll, deaktivieren Sie sie 
 		Sie sind dabei, [COUNT] Mitglieder aus der Gruppe zu verbannen.
 		<usetemplate ignoretext="Verbannen mehrerer Gruppenmitglieder bestätigen" name="okcancelignore" notext="Abbrechen" yestext="Verbannen"/>
 	</notification>
+	<notification name="GroupBanUserOnBanlist">
+		Manchen Einwohnern wurde keine Einladung gesendet, weil sie aus der Gruppe ausgeschlossen sind.
+	</notification>
 	<notification name="AttachmentDrop">
 		Sie möchten Ihren Anhang wirklich fallen lassen?
 Möchten Sie fortfahren?
@@ -464,6 +467,12 @@ Um Medien nur auf einer Fläche einzufügen, wählen Sie „Oberfläche auswähl
 	<notification name="ErrorEncodingSnapshot">
 		Fehler beim Erstellen des Fotos!
 	</notification>
+	<notification name="ErrorPhotoCannotAfford">
+		Es kostet L$[COST], um ein Foto in Ihrem Inventar zu speichern. Sie können entweder L$ kaufen oder das Foto auf Ihrem Computer speichern.
+	</notification>
+	<notification name="ErrorTextureCannotAfford">
+		Es kostet L$[COST], um eine Textur in Ihrem Inventar zu speichern. Sie können entweder L$ kaufen oder das Foto auf Ihrem Computer speichern.
+	</notification>
 	<notification name="ErrorUploadingPostcard">
 		Ein Foto konnte aus folgendem Grund nicht gesendet werden: [REASON]
 	</notification>
@@ -576,6 +585,10 @@ Hinweis: Der Cache wird dabei gelöscht/geleert.
 		Notizkarte löschen?
 		<usetemplate name="okcancelbuttons" notext="Abbrechen" yestext="OK"/>
 	</notification>
+	<notification name="LoadPreviousReportScreenshot">
+		Möchten Sie den vorherigen Screenshot für Ihren Bericht verwenden?
+		<usetemplate name="okcancelbuttons" notext="Abbrechen" yestext="OK"/>
+	</notification>
 	<notification name="GestureSaveFailedTooManySteps">
 		Speichern der Geste fehlgeschlagen.
 Die Geste besteht aus zu vielen Schritten.
@@ -636,30 +649,12 @@ Weitere Informationen finden Sie auf [_URL].
 		</url>
 		<usetemplate ignoretext="Meine Hardware wird nicht unterstützt" name="okcancelignore" notext="Nein" yestext="Ja"/>
 	</notification>
-	<notification name="IntelOldDriver">
-		Wahrscheinlich gibt es einen neueren Treiber für Ihren Grafikchip. Durch Aktualisieren der Grafiktreiber lässt sich die Leistung u. U. beträchtlich verbessern.
-
-    Unter [_URL] nach aktualisierten Treibern suchen?
-		<url name="url">
-			http://www.intel.com/p/de_DE/support/detect/graphics
-		</url>
-		<usetemplate ignoretext="Mein Grafiktreiber ist veraltet" name="okcancelignore" notext="Nein" yestext="Ja"/>
-	</notification>
-	<notification name="AMDOldDriver">
+	<notification name="OldGPUDriver">
 		Wahrscheinlich gibt es einen neueren Treiber für Ihren Grafikchip.  Durch Aktualisieren der Grafiktreiber lässt sich die Leistung u. U. beträchtlich verbessern.
 
-    Unter [_URL] nach aktualisierten Treibern suchen?
+    Unter [URL] nach aktualisierten Treibern suchen?
 		<url name="url">
-			http://support.amd.com/de/Pages/AMDSupportHub.aspx
-		</url>
-		<usetemplate ignoretext="Mein Grafiktreiber ist veraltet" name="okcancelignore" notext="Nein" yestext="Ja"/>
-	</notification>
-	<notification name="NVIDIAOldDriver">
-		Wahrscheinlich gibt es einen neueren Treiber für Ihren Grafikchip.  Durch Aktualisieren der Grafiktreiber lässt sich die Leistung u. U. beträchtlich verbessern.
-
-    Unter [_URL] nach aktualisierten Treibern suchen?
-		<url name="url">
-			http://www.nvidia.com/Download/index.aspx?lang=de-de
+			[URL]
 		</url>
 		<usetemplate ignoretext="Mein Grafiktreiber ist veraltet" name="okcancelignore" notext="Nein" yestext="Ja"/>
 	</notification>
@@ -749,6 +744,9 @@ Verschieben Sie alle betreffenden Objekte in dieselbe Region.
 			http://secondlife.com/app/currency/?lang=de-DE
 		</url>
 		<usetemplate name="okcancelbuttons" notext="Abbrechen" yestext="OK"/>
+	</notification>
+	<notification name="MuteLimitReached">
+		Sie können keinen weiteren Eintrag zur Liste der ignorierten Einwohner hinzufügen, weil der Höchstwert ([MUTE_LIMIT] Einträge) erreicht ist.
 	</notification>
 	<notification name="UnableToLinkObjects">
 		Verknüpfung dieser [COUNT] Objekte nicht möglich.
@@ -1478,6 +1476,10 @@ Wählen Sie ein einzelnes Objekt aus und versuchen Sie es erneut.
 		Alle Einwohner in dieser Region nach Hause teleportieren?
 		<usetemplate name="okcancelbuttons" notext="Abbrechen" yestext="OK"/>
 	</notification>
+	<notification name="ChangeObjectBonusFactor">
+		Wenn Sie den Objektbonus heruntersetzen, nachdem in einer Region Bauwerke errichtet wurden, können Objekte möglicherweise zurückgegeben oder gelöscht werden. Möchten Sie den Objektbonus wirklich ändern?
+		<usetemplate ignoretext="Änderung des Objektbonusfaktors bestätigen" name="okcancelignore" notext="Abbrechen" yestext="OK"/>
+	</notification>
 	<notification name="EstateObjectReturn">
 		Möchten Sie wirklich alle Objekte zurückgeben, die [USER_NAME] gehören?
 		<usetemplate name="okcancelbuttons" notext="Abbrechen" yestext="OK"/>
@@ -1520,6 +1522,9 @@ Ersetzen Sie die Textur [TEXTURE_NUM] mit einer Bilddatei von maximal 1024 x 102
 	</notification>
 	<notification name="OwnerCanNotBeDenied">
 		Der Eigentümer des Grundbesitzes kann nicht zur Liste der „Verbannten Einwohner“ hinzugefügt werden.
+	</notification>
+	<notification name="ProblemAddingEstateManagerBanned">
+		Verbannter Einwohner kann nicht zur Grundbesitzverwalterliste hinzugefügt werden.
 	</notification>
 	<notification name="CanNotChangeAppearanceUntilLoaded">
 		Das Aussehen lässt sich erst ändern, wenn Kleider und Form/Gestalt geladen sind.
@@ -1692,6 +1697,10 @@ Wenn Sie die neuesten Features und Fixes ausprobieren möchten, gehen Sie zur Se
 		Möchten Sie Ihren Internetbrowser öffnen, um diesen Inhalt anzuzeigen?
 		<usetemplate ignoretext="Meinen Browser starten, um eine Webseite anzuzeigen" name="okcancelignore" notext="Abbrechen" yestext="OK"/>
 	</notification>
+	<notification name="SystemUIScaleFactorChanged">
+		Der UI-Größenfaktor des Systems hat sich seit der letzten Ausführung geändert. Möchten Sie die Seite mit den UI-Größeneinstellungen öffnen?
+		<usetemplate name="okcancelbuttons" notext="Abbrechen" yestext="OK"/>
+	</notification>
 	<notification name="WebLaunchJoinNow">
 		Möchten Sie Ihre [http://secondlife.com/account/ Startseite] aufrufen, um Ihr Konto zu verwalten?
 		<usetemplate ignoretext="Meinen Browser starten, um mein Konto zu verwalten" name="okcancelignore" notext="Abbrechen" yestext="OK"/>
@@ -1730,6 +1739,9 @@ Wenn Sie die neuesten Features und Fixes ausprobieren möchten, gehen Sie zur Se
 		Sie sind gegenwärtig Mitglied der Gruppe &lt;nolink&gt;[GROUP]&lt;/nolink&gt;.
 Diese Gruppe verlassen?
 		<usetemplate name="okcancelbuttons" notext="Abbrechen" yestext="OK"/>
+	</notification>
+	<notification name="GroupDepart">
+		Sie haben die Gruppe „[group_name]“ verlassen.
 	</notification>
 	<notification name="OwnerCannotLeaveGroup">
 		Sie können die Gruppe nicht verlassen, da Sie der letzte Besitzer der Gruppe sind. Weisen Sie die Besitzerrolle zuerst einem anderen Mitglied zu.
@@ -2142,6 +2154,10 @@ Tausende Regionen werden verändert und der Spaceserver wird dadurch stark belas
 		Zu viele Prims wurden ausgewählt.  Bitte wählen Sie höchstens [MAX_PRIM_COUNT] Prims aus und versuchen Sie es erneut.
 		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
+	<notification name="TooManyScriptsSelected">
+		Zu viele Skripts in den Objekten ausgewählt.  Bitte wählen Sie weniger Objekte aus und versuchen Sie es erneut.
+		<usetemplate name="okbutton" yestext="OK"/>
+	</notification>
 	<notification name="ProblemImportingEstateCovenant">
 		Problem beim Import des Grundbesitzvertrags.
 		<usetemplate name="okbutton" yestext="OK"/>
@@ -2311,6 +2327,10 @@ Inventarobjekt(e) verschieben?
 		Zahlung fehlgeschlagen: Objekt nicht gefunden.
 		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
+	<notification name="PaymentBlockedButtonMismatch">
+		Zahlung gestoppt:  Der bezahlte Preis stimmt nicht mit den für dieses Objekt definierten Zahlungsschaltflächen überein.
+		<usetemplate name="okbutton" yestext="OK"/>
+	</notification>
 	<notification name="OpenObjectCannotCopy">
 		Sie haben keine Berechtigung zum Kopieren von Elementen in diesem Objekt.
 	</notification>
@@ -2345,6 +2365,11 @@ Diese Aktion kann nicht rückgängig gemacht werden.
 	<notification name="ConfirmUnlink">
 		Dies ist eine große Auswahl mit Linksets. Wenn Sie die Verknüpfung auflösen, kann sie möglicherweise nicht erneut hergestellt werden. Als Vorsichtsmaßnahme empfiehlt es sich, Kopien von Linksets in Ihr Inventar aufzunehmen.
 		<usetemplate ignoretext="Auflösen der Verknüpfung eines Linksets bestätigen" name="okcancelignore" notext="Abbrechen" yestext="Verknüpfung auflösen"/>
+	</notification>
+	<notification name="HelpReportAbuseConfirm">
+		Vielen Dank, dass Sie uns über dieses Problem informiert haben. 
+Wir untersuchen Ihre Meldung, um zu bestimmen, ob ein Missbrauch vorliegt, und werden dann die entsprechende Maßnahme ergreifen.
+		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
 	<notification name="HelpReportAbuseSelectCategory">
 		Wählen Sie eine Missbrauchskategorie aus.
@@ -2768,6 +2793,10 @@ Fliegen ist hier nicht möglich.
 	</notification>
 	<notification name="PathfindingDirty">
 		Diese Region weist ausstehende Pathfinding-Änderungen auf. Wenn Sie Baurechte besitzen, können Sie die Region durch Klicken auf die Schaltfläche „Region neu formen“ neu formen.
+	</notification>
+	<notification name="PathfindingDirtyRebake">
+		Diese Region weist ausstehende Pathfinding-Änderungen auf.  Wenn Sie Baurechte besitzen, können Sie die Region durch Klicken auf die Schaltfläche „Region neu formen“ neu formen.
+		<usetemplate name="okbutton" yestext="Region neu formen"/>
 	</notification>
 	<notification name="DynamicPathfindingDisabled">
 		Dynamisches Pathfinding ist in dieser Region nicht aktiviert. Geskriptete Objekte, die Pathfinding-LSL-Aufrufe verwenden, funktionieren in dieser Region u. U. nicht wie erwartet.
@@ -3485,13 +3514,6 @@ Durch Ausblenden der Schaltfläche „Sprechen“ wird die Sprechfunktion deakti
 	<notification name="ForceQuitDueToLowMemory">
 		SL wird wegen Speichermangel in 30 Sekunden beendet.
 	</notification>
-	<notification name="PopupAttempt">
-		Ein Popup konnte nicht geöffnet werden.
-		<form name="form">
-			<ignore name="ignore" text="Alle Popups aktivieren"/>
-			<button name="open" text="Popup-Fenster öffnen"/>
-		</form>
-	</notification>
 	<notification name="SOCKS_NOT_PERMITTED">
 		SOCKS 5-Proxy „[HOST]:[PORT]“ hat Verbindungsverbindung abgewiesen, da laut Regelsatz nicht zulässig.
 		<usetemplate name="okbutton" yestext="OK"/>
@@ -3866,6 +3888,9 @@ Warten Sie kurz und versuchen Sie es noch einmal.
 		Objekt „[OBJECT_NAME]“ kann nicht nach
 [OBJ_POSITION] in Region [REGION_NAME] verschoben werden, da nicht genügend Ressourcen für dieses Objekt auf dieser Parzelle vorhanden sind.
 	</notification>
+	<notification name="NoParcelPermsNoObject">
+		Kopiervorgang fehlgeschlagen, da Sie keinen Zugriff auf diese Parzelle haben.
+	</notification>
 	<notification name="CantMoveObjectRegionVersion">
 		Objekt „[OBJECT_NAME]“ kann nicht nach
 [OBJ_POSITION] in Region [REGION_NAME] verschoben werden, da die andere Region eine ältere Version verwendet, die das Empfangen dieses Objekts per Regionswechsel nicht unterstützt.
@@ -3880,6 +3905,10 @@ Warten Sie kurz und versuchen Sie es noch einmal.
 	</notification>
 	<notification name="NoPermModifyObject">
 		Ihnen fehlt die Berechtigung zum Modifizieren dieses Objekts.
+	</notification>
+	<notification name="TooMuchObjectInventorySelected">
+		Zu viele Objekte mit umfangreichem Inventar ausgewählt. Bitte wählen Sie weniger Objekte aus und versuchen Sie es erneut.
+		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
 	<notification name="CantEnablePhysObjContributesToNav">
 		Physik kann nicht für ein Objekt aktiviert werden, das zum Navmesh beiträgt.
@@ -3916,6 +3945,12 @@ Warten Sie kurz und versuchen Sie es noch einmal.
 	</notification>
 	<notification name="CantSaveModifyAttachment">
 		Kein Speichern in Objektinhalt möglich: Dadurch würden die Anhängeberechtigungen geändert.
+	</notification>
+	<notification name="AttachmentHasTooMuchInventory">
+		Ihre Anhänge enthalten zu viele Inventarobjekte. Sie können keine weiteren hinzufügen.
+	</notification>
+	<notification name="IllegalAttachment">
+		Der Anhang hat einen nicht vorhandenen Punkt auf dem Avatar angefordert. Der Anhang wurde stattdessen auf der Brust angebracht.
 	</notification>
 	<notification name="TooManyScripts">
 		Zu viele Skripts.
@@ -4008,6 +4043,12 @@ Warten Sie kurz und versuchen Sie es noch einmal.
 	</notification>
 	<notification name="TeleportedByObjectUnknownUser">
 		Sie wurden von Objekt „[OBJECT_NAME]“, das einem unbekannten Benutzer gehört, teleportiert.
+	</notification>
+	<notification name="StandDeniedByObject">
+		„[OBJECT_NAME]“ lässt zur Zeit nicht zu, dass Sie stehen.
+	</notification>
+	<notification name="ResitDeniedByObject">
+		„[OBJECT_NAME]“ lässt zur Zeit nicht zu, dass Sie sich woanders hinsetzen.
 	</notification>
 	<notification name="CantCreateObjectRegionFull">
 		Angefordertes Objekt kann nicht erstellt werden. Die Region ist voll.
@@ -4305,6 +4346,9 @@ Wählen Sie eine kleinere Landfläche aus.
 	<notification name="CantTransfterMoneyRegionDisabled">
 		Geldüberweisungen an Objekte sind in dieser Region gegenwärtig deaktiviert.
 	</notification>
+	<notification name="DroppedMoneyTransferRequest">
+		Zahlung konnte aufgrund der Systembelastung nicht durchgeführt werden.
+	</notification>
 	<notification name="CantPayNoAgent">
 		Nicht ersichtlich, wer bezahlt werden muss.
 	</notification>
@@ -4342,7 +4386,12 @@ Wählen Sie eine kleinere Landfläche aus.
 		Chatverlaufsdatei ist noch mit vorheriger Operation beschäftigt. Versuchen Sie es in ein paar Minuten noch einmal oder chatten Sie mit einer anderen Person.
 		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
-	<!-- ## Zi: Animation Overrider -->
+	<notification name="OutfitPhotoLoadError">
+		[REASON]
+		<usetemplate name="okbutton" yestext="OK"/>
+	</notification>
+
+<!-- ## Zi: Animation Overrider -->
   <notification name="NewAOSet">
 Bitte einen Namen für das neue Animationsset eingeben:
 (Der Name darf kein ":" oder "|" enthalten)
