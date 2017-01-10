@@ -606,6 +606,9 @@ Spróbuj zalogować się ponownie za minutę.
 	<string name="AvatarNameMultiple">
 		(kilka)
 	</string>
+	<string name="AvatarNameMultiple">
+		(kilka)
+	</string>
 	<string name="GroupNameNone">
 		(brak danych)
 	</string>
@@ -938,6 +941,18 @@ Spróbuj zalogować się ponownie za minutę.
 	</string>
 	<string name="anim_yes_head">
 		Tak
+	</string>
+	<string name="multiple_textures">
+		Wiele
+	</string>
+	<string name="use_texture">
+		Użyj tekstury
+	</string>
+	<string name="manip_hint1">
+		Przesuń kursor nad linijkę
+	</string>
+	<string name="manip_hint2">
+		by przyciągać do siatki
 	</string>
 	<string name="multiple_textures">
 		Wiele
@@ -2152,6 +2167,12 @@ Spróbuj zalogować się ponownie za minutę.
 	</string>
 	<string name="Public">
 		Publiczny
+	</string>
+	<string name="LocalSettings">
+		Ustawienia lokalne
+	</string>
+	<string name="RegionSettings">
+		Ustawienia regionu
 	</string>
 	<string name="LocalSettings">
 		Ustawienia lokalne
@@ -3929,6 +3950,27 @@ Jeżeli nadal otrzymujesz ten komunikat, skontaktuj się z [SUPPORT_SITE].
 	<string name="LocationCtrlDamageTooltip">
 		Zdrowie
 	</string>
+	<string name="LocationCtrlForSaleTooltip">
+		Kup tą działkę
+	</string>
+	<string name="LocationCtrlVoiceTooltip">
+		Głos niedostępny w tym miejscu
+	</string>
+	<string name="LocationCtrlFlyTooltip">
+		Latanie zabronione
+	</string>
+	<string name="LocationCtrlPushTooltip">
+		Popychanie zabronione
+	</string>
+	<string name="LocationCtrlBuildTooltip">
+		Budowanie/rezzowanie zabronione
+	</string>
+	<string name="LocationCtrlScriptsTooltip">
+		Skrypty niedozwolone
+	</string>
+	<string name="LocationCtrlDamageTooltip">
+		Zdrowie
+	</string>
 	<string name="LocationCtrlAdultIconTooltip">
 		Region Adult
 	</string>
@@ -4012,6 +4054,15 @@ Jeżeli nadal otrzymujesz ten komunikat, skontaktuj się z [SUPPORT_SITE].
 	</string>
 	<string name="Saved_message">
 		(Zapisano [LONG_TIMESTAMP])
+	</string>
+	<string name="IM_unblock_only_groups_friends">
+		Aby zobaczyć tą wiadomość musisz odznaczyć &apos;Tylko znajomi i grupy mogą wysyłać mi wiad. prywatne (IM) oraz rozmowy głosowe&apos; w Ustawieniach/Prywatności.
+	</string>
+	<string name="OnlineStatus">
+		dostępny/a
+	</string>
+	<string name="OfflineStatus">
+		niedostępny/a
 	</string>
 	<string name="IM_unblock_only_groups_friends">
 		Aby zobaczyć tą wiadomość musisz odznaczyć &apos;Tylko znajomi i grupy mogą wysyłać mi wiad. prywatne (IM) oraz rozmowy głosowe&apos; w Ustawieniach/Prywatności.
