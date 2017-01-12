@@ -9,12 +9,12 @@
  reuse_instance="false"
  title="REGION RESTARTING">
     <string name="RegionName">
-The region you are in now ([NAME]) is about to restart.
+    The region you are in now ([NAME]) is about to restart.
 
 If you stay in this region you will be logged out.
     </string>
     <string name="RestartCountdown">
-Time remaining until the region restarts:
+	Time remaining until the region restarts:
 
 [COUNTDOWN]
     </string>
@@ -54,7 +54,7 @@ Time remaining until the region restarts:
      top="10"
      left="55"
      width="375">
-The region you are in now (-The longest region name-) is about to restart.
+	The region you are in now (-The longest region name-) is about to restart.
 
 If you stay in this region you will be logged out.
     </text>
@@ -70,7 +70,7 @@ If you stay in this region you will be logged out.
      top_pad="20"
      left_delta="0"
      width="375">
-Time remaining until the region restarts:
+	Time remaining until the region restarts:
 
 [COUNTDOWN]
     </text>
