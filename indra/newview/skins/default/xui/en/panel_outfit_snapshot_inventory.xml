@@ -67,7 +67,7 @@
     <button
      follows="left|bottom"
      height="23"
-     label="UPLOAD COST"
+     label="UPLOAD"
      layout="topleft"
      left="10"
      name="save_btn"
