@@ -2693,9 +2693,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>2adb5b8bd2493d576c5d02b992d8f819</string>
+              <string>06c0e4acd42fd2f3f5fd401ca919d4d4</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/openjpeg_3p-update-openjpeg/rev/297018/arch/Darwin/installer/openjpeg-1.4.297018-darwin-297018.tar.bz2</string>
+              <string>https://bitbucket.org/dayturn/p64_3p-openjpeg/downloads/openjpeg-1.5.201701161332-darwin-201701161332.tar.bz2</string>
             </map>
             <key>name</key>
             <string>darwin</string>
@@ -2738,7 +2738,7 @@
           </map>
         </map>
         <key>version</key>
-        <string>1.4.297018</string>
+        <string>1.5.0</string>
       </map>
       <key>openssl</key>
       <map>
