@@ -2479,6 +2479,7 @@ void login_callback(S32 option, void *userdata)
 void show_release_notes_if_required()
 {
     if (LLVersionInfo::getChannelAndVersion() != gLastRunVersion
+        && LLVersionInfo::getChannel() != "KokuaOS Test" // don't show Release Notes for the test builds
         && gSavedSettings.getBOOL("UpdaterShowReleaseNotes")
         && !gSavedSettings.getBOOL("FirstLoginThisInstall"))
     {
