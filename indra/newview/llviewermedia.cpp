@@ -350,6 +350,7 @@ static bool sForceUpdate = false;
 static LLUUID sOnlyAudibleTextureID = LLUUID::null;
 static F64 sLowestLoadableImplInterest = 0.0f;
 static bool sAnyMediaShowing = false;
+static bool sAnyMediaPlaying = false;
 static boost::signals2::connection sTeleportFinishConnection;
 static std::string sUpdatedCookies;
 static const char *PLUGIN_COOKIE_FILE_NAME = "plugin_cookies.txt";
@@ -1005,6 +1006,12 @@ void LLViewerMedia::updateMedia(void *dummy_arg)
 			{
 				sAnyMediaShowing = true;
 			}
+			
+			if (!pimpl->getUsedInUI() && pimpl->hasMedia() && (pimpl->isMediaPlaying() || !pimpl->isMediaTimeBased()))
+ 			{
+				// consider visible non-timebased media as playing
+ 				sAnyMediaPlaying = true;
+ 			}
 
 		}
 	}
