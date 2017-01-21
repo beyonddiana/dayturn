@@ -244,12 +244,6 @@ ATI Technologies Inc. AMD M860G with ATI Mobility Radeon 4100                   
 ATI Technologies Inc. AMD M880G with ATI Mobility Radeon HD 4200                                         supported      1     1     4      ATI Mobility Radeon HD 4200
 ATI Technologies Inc. AMD M880G with ATI Mobility Radeon HD 4225                                         supported      1     1     4      ATI Mobility Radeon HD 4200
 ATI Technologies Inc. AMD M880G with ATI Mobility Radeon HD 4250                                         supported      1     1     4      ATI Mobility Radeon HD 4200
-ATI Technologies Inc. AMD RADEON HD 6350                                                                 supported      1     1     4.2    ATI Radeon HD 6300
-ATI Technologies Inc. AMD RADEON HD 6450                                                                 supported      3     1     4.2    ATI Radeon HD 6400
-ATI Technologies Inc. AMD RADEON HD 6450A                                                                supported      3     1     4.2    ATI Radeon HD 6400
-ATI Technologies Inc. AMD RADEON HD 6670                                                                 supported      3     1     4.2    ATI Radeon HD 6600
-ATI Technologies Inc. AMD RADEON HD 7450                                                                 supported      2     0     4.2    ATI Radeon HD 7400
-ATI Technologies Inc. AMD RADEON HD6370D Graphics                                                        supported      3     1     4.2    ATI Radeon HD 6300D/G/M
 ATI Technologies Inc. AMD RADEON HD6410D Graphics                                                        supported      3     0     4.2    ATI Radeon HD 6400D/G/M
 ATI Technologies Inc. AMD RADEON HD6530D Graphics                                                        supported      4     1     4.2    ATI Radeon HD 6500D/G/M
 ATI Technologies Inc. AMD RADEON HD6550D Graphics                                                        supported      4     1     4.2    ATI Radeon HD 6500D/G/M
@@ -332,7 +326,6 @@ ATI Technologies Inc. AMD Radeon HD 6650M                                       
 ATI Technologies Inc. AMD Radeon HD 6670                                                                 supported      3     1     4.2    ATI Radeon HD 6600
 ATI Technologies Inc. AMD Radeon HD 6670 (Microsoft Corporation - WDDM v1.2)                             supported      3     1     4.2    ATI Radeon HD 6600
 ATI Technologies Inc. AMD Radeon HD 6670 (Microsoft Corporation - WDDM v1.20)                            supported      3     1     4.2    ATI Radeon HD 6600
-ATI Technologies Inc. AMD Radeon HD 6700 Series                                                          supported      3     1     4.2    ATI Radeon HD 6700
 ATI Technologies Inc. AMD Radeon HD 6700 series                                                          supported      3     1     4.2    ATI Radeon HD 6700
 ATI Technologies Inc. AMD Radeon HD 6700M Series                                                         supported      4     0     4.2    ATI Radeon HD 6700D/G/M
 ATI Technologies Inc. AMD Radeon HD 6700M Series (Microsoft Corporation - WDDM v1.20)                    supported      4     0     4.2    ATI Radeon HD 6700D/G/M
@@ -546,7 +539,6 @@ ATI Technologies Inc. ASUS EAH4350 series                                       
 ATI Technologies Inc. ASUS EAH4550 series                                                                supported      2     1     3.3    ATI Radeon HD 4500
 ATI Technologies Inc. ASUS EAH4650 series                                                                supported      3     1     4      ATI Radeon HD 4600
 ATI Technologies Inc. ASUS EAH4670 series                                                                supported      3     1     4      ATI Radeon HD 4600
-ATI Technologies Inc. ASUS EAH4770 Series                                                                supported      3     1     3.3    ATI Radeon HD 4700
 ATI Technologies Inc. ASUS EAH4770 series                                                                supported      3     1     3.3    ATI Radeon HD 4700
 ATI Technologies Inc. ASUS EAH4850 series                                                                supported      3     1     4      ATI Radeon HD 4800
 ATI Technologies Inc. ASUS EAH4870 series                                                                supported      3     1     4      ATI Radeon HD 4800
@@ -653,22 +645,8 @@ ATI Technologies Inc. ATI MOBILITY RADEON 9600 Series                           
 ATI Technologies Inc. ATI MOBILITY RADEON 9600/9700                                                      supported      1     1     2.1    ATI Mobility Radeon 9600
 ATI Technologies Inc. ATI MOBILITY RADEON 9600/9700 Series                                               supported      1     1     2.1    ATI Mobility Radeon 9600
 ATI Technologies Inc. ATI MOBILITY RADEON 9600/9700 Series (Omega 3                                      supported      1     1     2.1    ATI Mobility Radeon 9600
-ATI Technologies Inc. ATI MOBILITY RADEON HD 2300                                                        supported      0     1     2.1    ATI Mobility Radeon HD 2300
-ATI Technologies Inc. ATI MOBILITY RADEON HD 2400                                                        supported      1     1     3.3    ATI Mobility Radeon HD 2400
-ATI Technologies Inc. ATI MOBILITY RADEON HD 2600                                                        supported      1     1     3.3    ATI Mobility Radeon HD 2600
-ATI Technologies Inc. ATI MOBILITY RADEON HD 3430                                                        supported      1     1     4      ATI Mobility Radeon HD 3400
-ATI Technologies Inc. ATI MOBILITY RADEON HD 3450                                                        supported      1     1     4      ATI Mobility Radeon HD 3400
-ATI Technologies Inc. ATI MOBILITY RADEON HD 3650                                                        supported      1     1     4      ATI Mobility Radeon HD 3600
 ATI Technologies Inc. ATI MOBILITY RADEON HD 4530 / 4570                                                 supported      1     1     4      ATI Mobility Radeon HD 4500
-ATI Technologies Inc. ATI MOBILITY RADEON X1300                                                          supported      2     1     2.1    ATI Radeon X1300
-ATI Technologies Inc. ATI MOBILITY RADEON X1350                                                          supported      2     1     2.1    ATI Radeon X1300
-ATI Technologies Inc. ATI MOBILITY RADEON X1400                                                          supported      2     1     2.1    ATI Radeon X1400
-ATI Technologies Inc. ATI MOBILITY RADEON X1600                                                          supported      2     1     2.1    ATI Radeon X1600
-ATI Technologies Inc. ATI MOBILITY RADEON X1700                                                          supported      2     1     2.1    ATI Radeon X1700
 ATI Technologies Inc. ATI MOBILITY RADEON X1800                                                          supported      3     1     2.1    ATI Radeon X1800
-ATI Technologies Inc. ATI MOBILITY RADEON X1900                                                          supported      2     1     2.1    ATI Radeon X1900
-ATI Technologies Inc. ATI MOBILITY RADEON X2300                                                          supported      2     0     2.1    ATI Mobility Radeon X2300
-ATI Technologies Inc. ATI MOBILITY RADEON X2300 x86/MMX/3DNow!/SSE2                                      supported      2     0     2.1    ATI Mobility Radeon X2300
 ATI Technologies Inc. ATI MOBILITY RADEON X300                                                           supported      1     1     2.1    ATI Radeon X300
 ATI Technologies Inc. ATI MOBILITY RADEON X300 x86/SSE2                                                  supported      1     1     2.1    ATI Radeon X300
 ATI Technologies Inc. ATI MOBILITY RADEON X600                                                           supported      1     1     2.1    ATI Radeon X600
@@ -676,7 +654,6 @@ ATI Technologies Inc. ATI MOBILITY RADEON X600 SE                               
 ATI Technologies Inc. ATI MOBILITY RADEON X700                                                           supported      2     1     2.1    ATI Radeon X700
 ATI Technologies Inc. ATI MOBILITY RADEON XPRESS 200                                                     supported      0     1     2.1    ATI Radeon Xpress
 ATI Technologies Inc. ATI MOBILITY RADEON XPRESS 200 x86/MMX/3DNow!/SSE2                                 supported      0     1     2.1    ATI Radeon Xpress
-ATI Technologies Inc. ATI MOBILITY Radeon HD 4650                                                        supported      2     1     3.3    ATI Mobility Radeon HD 4600
 ATI Technologies Inc. ATI Mobility FireGL V5700                                                          supported      2     1     3.3    ATI FireGL 5xxx
 ATI Technologies Inc. ATI Mobility FireGL V5725                                                          supported      2     1     3.3    ATI FireGL 5xxx
 ATI Technologies Inc. ATI Mobility Radeon 4100                                                           supported      1     1     3.3    ATI Mobility Radeon 4100
@@ -802,16 +779,11 @@ ATI Technologies Inc. ATI Mobility Radeon. HD 5470                              
 ATI Technologies Inc. ATI RADEON 9600 Series                                                             supported      0     1     2.1    ATI Radeon 9600
 ATI Technologies Inc. ATI RADEON 9600/X1050 Series                                                       supported      0     1     2.1    ATI Radeon 9600
 ATI Technologies Inc. ATI RADEON E4690                                                                   supported      3     1     4      ATI RADEON E4690
-ATI Technologies Inc. ATI RADEON HD 3200 Graphics                                                        supported      1     1     4      ATI Radeon HD 3200
-ATI Technologies Inc. ATI RADEON XPRESS 1100                                                             supported      0     1     2.1    ATI Radeon Xpress
 ATI Technologies Inc. ATI RADEON XPRESS 1100 Series                                                      supported      0     1     2.1    ATI Radeon Xpress
-ATI Technologies Inc. ATI RADEON XPRESS 1100 x86/SSE2                                                    supported      0     1     2.1    ATI Radeon Xpress
-ATI Technologies Inc. ATI RADEON XPRESS 1200 Series                                                      supported      0     1     2.1    ATI Radeon Xpress
 ATI Technologies Inc. ATI RADEON XPRESS 200                                                              supported      0     1     2.1    ATI Radeon Xpress
 ATI Technologies Inc. ATI RADEON XPRESS 200 Series                                                       supported      0     1     2.1    ATI Radeon Xpress
 ATI Technologies Inc. ATI RADEON XPRESS 200 Series x86/SSE2                                              supported      0     1     2.1    ATI Radeon Xpress
 ATI Technologies Inc. ATI RADEON XPRESS 200 x86/MMX/3DNow!/SSE2                                          supported      0     1     2.1    ATI Radeon Xpress
-ATI Technologies Inc. ATI RADEON XPRESS 200M SERIES                                                      supported      0     1     2.1    ATI Radeon Xpress
 ATI Technologies Inc. ATI RADEON XPRESS 200M Series                                                      supported      0     1     2.1    ATI Radeon Xpress
 ATI Technologies Inc. ATI RADEON XPRESS 200M Series (Microsoft Corporation)                              supported      0     1     2.1    ATI Radeon Xpress
 ATI Technologies Inc. ATI RADEON XPRESS 200M Series (Omega 3.8.421) x86/SSE2                             supported      0     1     2.1    ATI Radeon Xpress
@@ -844,7 +816,6 @@ ATI Technologies Inc. ATI Radeon HD 2350                                        
 ATI Technologies Inc. ATI Radeon HD 2400                                                                 supported      1     1     4      ATI Radeon HD 2400
 ATI Technologies Inc. ATI Radeon HD 2400 OpenGL Engine                                                   supported      1     1     4      ATI Radeon HD 2400
 ATI Technologies Inc. ATI Radeon HD 2400 PCI                                                             supported      1     1     4      ATI Radeon HD 2400
-ATI Technologies Inc. ATI Radeon HD 2400 PRO                                                             supported      1     1     4      ATI Radeon HD 2400
 ATI Technologies Inc. ATI Radeon HD 2400 PRO AGP                                                         supported      1     1     4      ATI Radeon HD 2400
 ATI Technologies Inc. ATI Radeon HD 2400 Pro                                                             supported      1     1     4      ATI Radeon HD 2400
 ATI Technologies Inc. ATI Radeon HD 2400 Series                                                          supported      1     1     4      ATI Radeon HD 2400
@@ -852,7 +823,6 @@ ATI Technologies Inc. ATI Radeon HD 2400 Series AGP                             
 ATI Technologies Inc. ATI Radeon HD 2400 XT                                                              supported      1     1     4      ATI Radeon HD 2400
 ATI Technologies Inc. ATI Radeon HD 2400 XT OpenGL Engine                                                supported      1     1     4      ATI Radeon HD 2400
 ATI Technologies Inc. ATI Radeon HD 2600 OpenGL Engine                                                   supported      2     1     4      ATI Radeon HD 2600
-ATI Technologies Inc. ATI Radeon HD 2600 PRO                                                             supported      2     1     4      ATI Radeon HD 2600
 ATI Technologies Inc. ATI Radeon HD 2600 PRO OpenGL Engine                                               supported      2     1     4      ATI Radeon HD 2600
 ATI Technologies Inc. ATI Radeon HD 2600 Pro                                                             supported      2     1     4      ATI Radeon HD 2600
 ATI Technologies Inc. ATI Radeon HD 2600 Pro AGP                                                         supported      2     1     4      ATI Radeon HD 2600
@@ -1105,25 +1075,21 @@ ATI Technologies Inc. MSI Radeon X1550                                          
 ATI Technologies Inc. Mobility Radeon X2300 HD                                                           supported      2     0     2.1    ATI Mobility Radeon X2300
 ATI Technologies Inc. Mobility Radeon X2300 HD x86/SSE2                                                  supported      2     0     2.1    ATI Mobility Radeon X2300
 ATI Technologies Inc. RADEON 7000 DDR x86/MMX/3DNow!/SSE2                                                supported      0     1     2      ATI Radeon 7xxx
-ATI Technologies Inc. RADEON 7000 DDR x86/SSE2                                                           supported      0     1     2      ATI Radeon 7xxx
 ATI Technologies Inc. RADEON 7000 SDR x86                                                                supported      0     1     2      ATI Radeon 7xxx
 ATI Technologies Inc. RADEON 7000 SW TCL x86/SSE2                                                        supported      0     1     2      ATI Radeon 7xxx
 ATI Technologies Inc. RADEON 7200 DDR x86/MMX/3DNow!/SSE2                                                supported      0     1     2      ATI Radeon 7xxx
 ATI Technologies Inc. RADEON 7200 DDR x86/SSE2                                                           supported      0     1     2      ATI Radeon 7xxx
 ATI Technologies Inc. RADEON 7200 SDR x86/SSE2                                                           supported      0     1     2      ATI Radeon 7xxx
-ATI Technologies Inc. RADEON 7500 DDR x86/SSE2                                                           supported      0     1     2      ATI Radeon 7xxx
 ATI Technologies Inc. RADEON 8500 DDR x86/MMX/3DNow!/SSE2                                                supported      0     0     0      ATI Radeon 8xxx
 ATI Technologies Inc. RADEON 8500 DDR x86/SSE2                                                           supported      0     0     0      ATI Radeon 8xxx
 ATI Technologies Inc. RADEON 9000 DDR x86/MMX/3DNow!/SSE2                                                supported      0     1     1.3    ATI Radeon 9000
 ATI Technologies Inc. RADEON 9000 DDR x86/SSE2                                                           supported      0     1     1.3    ATI Radeon 9000
 ATI Technologies Inc. RADEON 9000 PRO DDR x86/SSE2                                                       supported      0     1     1.3    ATI Radeon 9000
 ATI Technologies Inc. RADEON 9000 XT IGPRADEON 9100 XT IGP DDR x86/SSE2                                  supported      0     1     1.3    ATI Radeon 9000
-ATI Technologies Inc. RADEON 9100 DDR x86/MMX/3DNow!/SSE2                                                supported      0     0     0      ATI Radeon 9100
 ATI Technologies Inc. RADEON 9100 DDR x86/SSE2                                                           supported      0     0     0      ATI Radeon 9100
 ATI Technologies Inc. RADEON 9100 IGP DDR x86                                                            supported      0     0     0      ATI Radeon 9100
 ATI Technologies Inc. RADEON 9100 IGP DDR x86/SSE2                                                       supported      0     0     0      ATI Radeon 9100
 ATI Technologies Inc. RADEON 9200 DDR x86/MMX/3DNow!/SSE2                                                supported      0     1     1.3    ATI Radeon 9200
-ATI Technologies Inc. RADEON 9200 DDR x86/SSE2                                                           supported      0     1     1.3    ATI Radeon 9200
 ATI Technologies Inc. RADEON 9200 LE DDR x86/SSE2                                                        supported      0     1     1.3    ATI Radeon 9200
 ATI Technologies Inc. RADEON 9200 PRO DDR x86/SSE2                                                       supported      0     1     1.3    ATI Radeon 9200
 ATI Technologies Inc. RADEON 9200 Series DDR x86                                                         supported      0     1     1.3    ATI Radeon 9200
@@ -1159,9 +1125,6 @@ ATI Technologies Inc. RADEON 9800 XT                                            
 ATI Technologies Inc. RADEON 9800 XT x86/SSE2                                                            supported      1     1     2.1    ATI Radeon 9800
 ATI Technologies Inc. RADEON 9800 x86/SSE2                                                               supported      1     1     2.1    ATI Radeon 9800
 ATI Technologies Inc. RADEON IGP 340M DDR x86/SSE2                                                       unsupported    0     0     1.3    ATI IGP 340M
-ATI Technologies Inc. RADEON Radeon X300/X550/X1050 Series x86/SSE2                                      supported      1     1     2.1    ATI Radeon X300
-ATI Technologies Inc. RADEON X1600 Series x86/MMX/3DNow!/SSE2                                            supported      2     1     2.1    ATI Radeon X1600
-ATI Technologies Inc. RADEON X1600 Series x86/SSE2                                                       supported      2     1     2.1    ATI Radeon X1600
 ATI Technologies Inc. RADEON X300 SE 128MB HyperMemory x86/SSE2                                          supported      1     1     2.1    ATI Radeon X300
 ATI Technologies Inc. RADEON X300 SE x86/MMX/3DNow!/SSE2                                                 supported      1     1     2.1    ATI Radeon X300
 ATI Technologies Inc. RADEON X300 Series                                                                 supported      1     1     2.1    ATI Radeon X300
@@ -1217,7 +1180,6 @@ ATI Technologies Inc. RADEON X850 XT Platinum Edition x86/SSE2                  
 ATI Technologies Inc. RADEON X850 XT x86/SSE2                                                            supported      1     1     2.1    ATI Radeon X800
 ATI Technologies Inc. RADEON XPRESS 200 Series SW TCL x86                                                supported      0     1     2.1    ATI Radeon Xpress
 ATI Technologies Inc. RADEON XPRESS 200 Series SW TCL x86/MMX/3DNow!                                     supported      0     1     2.1    ATI Radeon Xpress
-ATI Technologies Inc. RADEON XPRESS 200 Series SW TCL x86/MMX/3DNow!/SSE2                                supported      0     1     2.1    ATI Radeon Xpress
 ATI Technologies Inc. RADEON XPRESS 200 Series SW TCL x86/SSE2                                           supported      0     1     2.1    ATI Radeon Xpress
 ATI Technologies Inc. RADEON XPRESS 200 Series x86/MMX/3DNow!/SSE2                                       supported      0     1     2.1    ATI Radeon Xpress
 ATI Technologies Inc. RADEON XPRESS 200 Series x86/SSE2                                                  supported      0     1     2.1    ATI Radeon Xpress
@@ -2274,8 +2236,6 @@ NVIDIA Corporation GeForce GTX 590/PCI/SSE2                                     
 NVIDIA Corporation GeForce GTX 590/PCIe/SSE2                                                             supported      5     1     4.3    NVIDIA GTX 590
 NVIDIA Corporation GeForce GTX 590/PCIe/SSE2/3DNOW!                                                      supported      5     1     4.3    NVIDIA GTX 590
 NVIDIA Corporation GeForce GTX 645/PCIe/SSE2                                                             supported      3     1     4.3    NVIDIA GTX 64x
-NVIDIA Corporation GeForce GTX 650 Ti BOOST/PCIe/SSE2                                                    supported      3     1     4.3    NVIDIA GTX 65x
-NVIDIA Corporation GeForce GTX 650 Ti BOOST/PCIe/SSE2/3DNOW!                                             supported      3     1     4.3    NVIDIA GTX 65x
 NVIDIA Corporation GeForce GTX 650 Ti Boost/PCIe/SSE2                                                    supported      3     1     4.3    NVIDIA GTX 65x
 NVIDIA Corporation GeForce GTX 650 Ti Boost/PCIe/SSE2/3DNOW!                                             supported      3     1     4.3    NVIDIA GTX 65x
 NVIDIA Corporation GeForce GTX 650 Ti/PCIe/SSE2                                                          supported      3     1     4.3    NVIDIA GTX 65x
@@ -2307,7 +2267,6 @@ NVIDIA Corporation GeForce GTX 770/PCIe/SSE2/3DNOW!                             
 NVIDIA Corporation GeForce GTX 770M/PCIe/SSE2                                                            supported      5     0     4.3    NVIDIA GTX 770M
 NVIDIA Corporation GeForce GTX 780/PCIe/SSE2                                                             supported      5     0     4.3    NVIDIA GTX 78x
 NVIDIA Corporation GeForce GTX 780M/PCIe/SSE2                                                            supported      5     0     4.3    NVIDIA GTX 780M
-NVIDIA Corporation GeForce GTX TITAN/PCIe/SSE2                                                           supported      5     0     4.3    NVIDIA GTX TITAN
 NVIDIA Corporation GeForce GTX TITAN/PCIe/SSE2/3DNOW!                                                    supported      5     0     4.3    NVIDIA GTX TITAN
 NVIDIA Corporation GeForce GTX Titan/PCIe/SSE2                                                           supported      5     0     4.3    NVIDIA GTX TITAN
 NVIDIA Corporation GeForce Go 6100/PCI/SSE2                                                              supported      0     1     2.1    NVIDIA GeForce Go 6100
