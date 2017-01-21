@@ -4,6 +4,19 @@ AMD CAYMAN (HD 6900)
 AMD CEDAR (HD 5450)
 AMD JUNIPER (HD 5700)
 AMD PARK
+AMD Radeon HD - FirePro D300
+AMD Radeon HD - FirePro D500
+AMD Radeon HD - FirePro D700
+AMD Radeon Pro 450
+AMD Radeon Pro 455
+AMD Radeon Pro 460
+AMD Radeon R9 M290
+AMD Radeon R9 M290X
+AMD Radeon R9 M295X
+AMD Radeon R9 M380
+AMD Radeon R9 M390
+AMD Radeon R9 M395
+AMD Radeon R9 M395X
 AMD REDWOOD (HD 5500/5600)
 AMD RS780 (HD 3200)
 AMD RS880 (HD 4200)
@@ -1357,6 +1370,14 @@ Intel HD Graphics
 Intel HD Graphics 2000
 Intel HD Graphics 3000
 Intel HD Graphics 4000
+Intel HD Graphics 5000
+Intel HD Graphics 6000
+Intel HD Graphics 530 OpenGL Engine
+Intel HD Graphics 2000 OpenGL Engine
+Intel HD Graphics 3000 OpenGL Engine
+Intel HD Graphics 4000 OpenGL Engine
+Intel HD Graphics 5000 OpenGL Engine
+Intel HD Graphics 6000 OpenGL Engine 
 Intel Inc. Intel GMA 950 OpenGL Engine
 Intel Inc. Intel GMA X3100 OpenGL Engine
 Intel Inc. Intel HD Graphics 3000 OpenGL Engine
@@ -1378,6 +1399,7 @@ Intel Intel Cantiga
 Intel Intel Eaglelake
 Intel Intel Grantsdale-G
 Intel Intel Iris Pro Graphics 5200
+Intel Intel Iris Pro Graphics 6200
 Intel Intel Montara-GM
 Intel Intel Pineview Platform
 Intel Intel Springdale-G
@@ -1405,6 +1427,12 @@ Intel Intel(R) HD Graphics P3000
 Intel Intel(R) HD Graphics P4000
 Intel Intel(R) Q45/Q43 Express Chipset
 Intel Iris OpenGL Graphics Engine
+Intel Iris Graphics 540
+Intel Iris Graphics 550
+Intel Iris Graphics 5100
+Intel Iris Graphics 6100
+Intel Iris Pro Graphics 5200
+Intel Iris Pro Graphics 6200
 Intel Mobile 4 Series
 Intel Mobile Intel(R) 4 Series Express Chipset Family
 Intel Mobile Intel(R) 4 Series Express Chipset Family v2
