@@ -131,30 +131,34 @@ std::string HttpStatus::toString() const
 	{
 		return std::string("");
 	}
-	switch (mDetails->mType)
+	switch (getType())
 	{
 	case EXT_CURL_EASY:
-		return std::string(curl_easy_strerror(CURLcode(mDetails->mStatus)));
+		return std::string(curl_easy_strerror(CURLcode(getStatus())));
 
 	case EXT_CURL_MULTI:
-		return std::string(curl_multi_strerror(CURLMcode(mDetails->mStatus)));
+		return std::string(curl_multi_strerror(CURLMcode(getStatus())));
 
 	case LLCORE:
-		if (mDetails->mStatus >= 0 && mDetails->mStatus < llcore_errors_count)
+		if (getStatus() >= 0 && getStatus() < llcore_errors_count)
 		{
-			return std::string(llcore_errors[mDetails->mStatus]);
+			return std::string(llcore_errors[getStatus()]);
 		}
 		break;
 
 	default:
 		if (isHttpStatus())
 		{
+			// special handling for status 499 "Linden Catchall"
+			if ((getType() == 499) && (!getMessage().empty()))
+				return getMessage();
+				
 			// Binary search for the error code and string
 			int bottom(0), top(http_errors_count);
 			while (true)
 			{
 				int at((bottom + top) / 2);
-				if (mDetails->mType == http_errors[at].mCode)
+				if (getType() == http_errors[at].mCode)
 				{
 					return std::string(http_errors[at].mText);
 				}
@@ -162,7 +166,7 @@ std::string HttpStatus::toString() const
 				{
 					break;
 				}
-				else if (mDetails->mType < http_errors[at].mCode)
+				else if (getType() < http_errors[at].mCode)
 				{
 					top = at;
 				}
@@ -182,9 +186,9 @@ std::string HttpStatus::toTerseString() const
 {
 	std::ostringstream result;
 
-	unsigned int error_value((unsigned short)mDetails->mStatus);
+	unsigned int error_value((unsigned short)getStatus());
 	
-	switch (mDetails->mType)
+	switch (getType())
 	{
 	case EXT_CURL_EASY:
 		result << "Easy_";
@@ -202,7 +206,7 @@ std::string HttpStatus::toTerseString() const
 		if (isHttpStatus())
 		{
 			result << "Http_";
-			error_value = mDetails->mType;
+			error_value = getType();
 		}
 		else
 		{
@@ -244,7 +248,7 @@ bool HttpStatus::isRetryable() const
 	// Disable the '*this == inv_status' test and look for 'Core_9'
 	// failures in log files.
 
-	return ((isHttpStatus() && mDetails->mType >= 499 && mDetails->mType <= 599) ||	// Include special 499 in retryables
+	return ((isHttpStatus() && getType() >= 499 && getType() <= 599) ||	// Include special 499 in retryables
 			*this == cant_connect ||	// Connection reset/endpoint problems
 			*this == cant_res_proxy ||	// DNS problems
 			*this == cant_res_host ||	// DNS problems

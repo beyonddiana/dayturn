@@ -288,6 +288,9 @@ enum HttpError
 /// 5.  Construct an HTTP 301 status code to be treated as success:
 ///				HttpStatus(301, HE_SUCCESS);
 ///
+/// 6.	Construct a failed status of HTTP Status 499 with a custom error message
+///				HttpStatus(499, "Failed LLSD Response");
+
 
 struct HttpStatus
 {
