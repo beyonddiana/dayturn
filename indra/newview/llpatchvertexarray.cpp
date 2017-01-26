@@ -75,13 +75,7 @@ void LLPatchVertexArray::create(U32 surface_width, U32 patch_width, F32 meters_p
 		power_of_two *= 2;
 		surface_order += 1;
 	}
-// <FS:CR> FIRE-8063 - Aurora non power of two regions
-	//if (power_of_two == (surface_width-1))
-	if (power_of_two != (surface_width-1))
-	{
-		surface_width = power_of_two + 1;
-	}
-// </FS:CR>
+
 
 	mSurfaceWidth = surface_width;
 
@@ -98,38 +92,16 @@ void LLPatchVertexArray::create(U32 surface_width, U32 patch_width, F32 meters_p
 			power_of_two *= 2;
 			patch_order += 1;
 		}
-// <FS:CR> FIRE-8063 - Aurora non power of two regions
-		//if (power_of_two == patch_width)
-		if (power_of_two != patch_width)
-		{
-			patch_width = power_of_two;
-		}
-// </FS:CR>
 
 		mPatchWidth = patch_width;
 		mPatchOrder = patch_order;
 
-// <FS:CR> FIRE-8063 - Aurora non power of two regions
-		//else // patch_width is not a power of two...
-		//{
-		//	mPatchWidth = 0;
-		//	mPatchOrder = 0;
-		//}
-// </FS:CR>
 	}
 	else // patch_width is not a factor of (surface_width - 1)...
 	{
 		mPatchWidth = 0;
 		mPatchOrder = 0;
 	}
-// <FS:CR> FIRE-8063 - Aurora non power of two regions
-	//else // surface_width is not a power of two...
-	//{
-	//	mSurfaceWidth = 0;
-	//	mPatchWidth = 0;
-	//	mPatchOrder = 0;
-	//}
-// </FS:CR>
 
 	// PART 2 -- Allocate memory for the render level table
 	if (mPatchWidth > 0) 

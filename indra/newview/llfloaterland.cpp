@@ -2179,14 +2179,6 @@ S32 LLPanelLandOptions::getDirectoryFee()
 	{
 		fee = LLGridManager::getInstance()->getDirectoryFee();
 	}
-/*
-	if (LLGridManager::getInstance()->isInAuroraSim())
-	{
-		LLSD grid_info;
-		LLGridManager::getInstance()->getGridData(grid_info);
-		fee = grid_info[GRID_DIRECTORY_FEE].asInteger();
-	}
-*/
 #endif // OPENSIM
 	return fee;
 }
