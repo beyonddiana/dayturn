@@ -2476,17 +2476,6 @@ void login_callback(S32 option, void *userdata)
 * Check if user is running a new version of the viewer.
 * Display the Release Notes if it's not overriden by the "UpdaterShowReleaseNotes" setting.
 */
-void show_release_notes_if_required()
-{
-    if (LLVersionInfo::getChannelAndVersion() != gLastRunVersion
-        && LLVersionInfo::getChannel() != "KokuaOS Test" // don't show Release Notes for the test builds
-        && gSavedSettings.getBOOL("UpdaterShowReleaseNotes")
-        && !gSavedSettings.getBOOL("FirstLoginThisInstall"))
-    {
-        LLSD info(LLAppViewer::instance()->getViewerInfo());
-        LLWeb::loadURLInternal(info["VIEWER_RELEASE_NOTES_URL"]);
-    }
-}
 
 /**
 * Check if user is running a new version of the viewer.
