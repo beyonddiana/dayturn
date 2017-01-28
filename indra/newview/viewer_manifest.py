@@ -45,6 +45,11 @@ try:
     from llbase import llsd
 except ImportError:
     from indra.base import llsd
+    
+    
+global home_path
+from os.path import expanduser
+home_path = expanduser("~")
 
 class ViewerManifest(LLManifest):
     def is_packaging_viewer(self):
@@ -1064,7 +1069,6 @@ class Darwin_i386_Manifest(ViewerManifest):
                 if identity == '':
                     identity = 'Developer ID Application'
 
-                home_path = os.environ['HOME']
                 if 'VIEWER_SIGNING_PWD' in os.environ:
                     self.run_command('security unlock-keychain -p "%s" "%s/Library/Keychains/login.keychain"' % (os.environ['VIEWER_SIGNING_PWD'], home_path ) )
                     signed=False
@@ -1114,6 +1118,13 @@ class Darwin_i386_Manifest(ViewerManifest):
         # get rid of the temp file
         self.package_file = finalname
         self.remove(sparsename)
+        self.run_command(
+        	'codesign --verbose --keychain "%(home_path)s/Library/Keychains/login.keychain" --sign %(identity)r %(final)r' % {
+            	'home_path' : home_path,
+                'identity': identity,
+       	 		'final': finalname
+       	 		})
+
 
 class LinuxManifest(ViewerManifest):
     def construct(self):
