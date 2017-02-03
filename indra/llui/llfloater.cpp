@@ -647,7 +647,22 @@ void LLFloater::openFloater(const LLSD& key)
 		&& !getFloaterHost()
 		&& (!getVisible() || isMinimized()))
 	{
-		make_ui_sound("UISndWindowOpen");
+		// gSavedSettings is a global instance of LLControlGroup, but since
+		// LLControlGroup is derived from LLInstanceTracker, we can also look
+		// it up by name.
+		LLControlGroup* gSavedSettingsp = LLControlGroup::getInstance("Global");
+		//Play a sound for incoming voice call based upon chat preference setting.
+		//If it's not an incoming call, play it anyway.
+		//If we can't find gSavedSettings, play it anyway.
+		//If the setting is ON, play it anyway.
+		bool playSound = (getName() != "incoming call" ||
+						  (! gSavedSettingsp) ||
+						  gSavedSettingsp->getBOOL("PlaySoundIncomingVoiceCall"));
+
+		if(playSound)
+		{
+			make_ui_sound("UISndWindowOpen");
+		}	
 	}
 
 	//RN: for now, we don't allow rehosting from one multifloater to another
