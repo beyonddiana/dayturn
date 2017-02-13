@@ -3458,17 +3458,18 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 ////			else if (is_do_not_disturb) 
 			// Accept the TP or TP request if we are forced to accept it from this avatar or from everyone,
 			// even in busy mode
-			if (is_do_not_disturb && !auto_accept) 
 //mk
-			{
-				send_do_not_disturb_message(msg, from_id);
-			}
 			else if (gSavedSettings.getBOOL("VoiceCallsFriendsOnly") && (LLAvatarTracker::instance().getBuddyInfo(from_id) == NULL))
 			{
 				return;
 			}
 			else
 			{
+				if (is_do_not_disturb)
+				{
+					send_do_not_disturb_message(msg, from_id);
+				}
+
 				LLVector3 pos, look_at;
 				U64 region_handle(0);
 				U8 region_access(SIM_ACCESS_MIN);
