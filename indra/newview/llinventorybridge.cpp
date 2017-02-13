@@ -280,8 +280,10 @@ BOOL LLInvFVBridge::cutToClipboard()
         if (cut_from_marketplacelistings && (LLMarketplaceData::instance().isInActiveFolder(mUUID) ||
                                              LLMarketplaceData::instance().isListedAndActive(mUUID)))
         {
-            // Prompt the user if cutting from a marketplace active listing
-            LLNotificationsUtil::add("ConfirmMerchantActiveChange", LLSD(), LLSD(), boost::bind(&LLInvFVBridge::callback_cutToClipboard, this, _1, _2));
+            LLUUID parent_uuid = obj->getParentUUID();
+            BOOL result = perform_cutToClipboard();
+            gInventory.addChangedMask(LLInventoryObserver::STRUCTURE, parent_uuid);
+            return result;
         }
         else
         {
@@ -308,11 +310,7 @@ BOOL LLInvFVBridge::callback_cutToClipboard(const LLSD& notification, const LLSD
     S32 option = LLNotificationsUtil::getSelectedOption(notification, response);
     if (option == 0) // YES
     {
-		const LLInventoryObject* obj = gInventory.getObject(mUUID);
-		LLUUID parent_uuid = obj->getParentUUID();
-		BOOL result = perform_cutToClipboard();
-		gInventory.addChangedMask(LLInventoryObserver::STRUCTURE, parent_uuid);
-		return result;
+		return perform_cutToClipboard();
     }
     return FALSE;
 }
@@ -3581,7 +3579,24 @@ void LLFolderBridge::pasteFromClipboard()
         const LLUUID &marketplacelistings_id = model->findCategoryUUIDForType(LLFolderType::FT_MARKETPLACE_LISTINGS, false);
         const BOOL paste_into_marketplacelistings = model->isObjectDescendentOf(mUUID, marketplacelistings_id);
         
-        if (paste_into_marketplacelistings && !LLMarketplaceData::instance().isListed(mUUID) && LLMarketplaceData::instance().isInActiveFolder(mUUID))
+        BOOL cut_from_marketplacelistings = FALSE;
+        if (LLClipboard::instance().isCutMode())
+        {
+            //Items are not removed from folder on "cut", so we need update listing folder on "paste" operation
+            std::vector<LLUUID> objects;
+            LLClipboard::instance().pasteFromClipboard(objects);
+            for (std::vector<LLUUID>::const_iterator iter = objects.begin(); iter != objects.end(); ++iter)
+            {
+                const LLUUID& item_id = (*iter);
+                if(gInventory.isObjectDescendentOf(item_id, marketplacelistings_id) && (LLMarketplaceData::instance().isInActiveFolder(item_id) ||
+                    LLMarketplaceData::instance().isListedAndActive(item_id)))
+                {
+                    cut_from_marketplacelistings = TRUE;
+                    break;
+                }
+            }
+        }
+        if (cut_from_marketplacelistings || (paste_into_marketplacelistings && !LLMarketplaceData::instance().isListed(mUUID) && LLMarketplaceData::instance().isInActiveFolder(mUUID)))
         {
             // Prompt the user if pasting in a marketplace active version listing (note that pasting right under the listing folder root doesn't need a prompt)
             LLNotificationsUtil::add("ConfirmMerchantActiveChange", LLSD(), LLSD(), boost::bind(&LLFolderBridge::callback_pasteFromClipboard, this, _1, _2));
@@ -3600,7 +3615,20 @@ void LLFolderBridge::callback_pasteFromClipboard(const LLSD& notification, const
     S32 option = LLNotificationsUtil::getSelectedOption(notification, response);
     if (option == 0) // YES
     {
+        std::vector<LLUUID> objects;
+        std::set<LLUUID> parent_folders;
+        LLClipboard::instance().pasteFromClipboard(objects);
+        for (std::vector<LLUUID>::const_iterator iter = objects.begin(); iter != objects.end(); ++iter)
+        {
+            const LLInventoryObject* obj = gInventory.getObject(*iter);
+            parent_folders.insert(obj->getParentUUID());
+        }
         perform_pasteFromClipboard();
+        for (std::set<LLUUID>::const_iterator iter = parent_folders.begin(); iter != parent_folders.end(); ++iter)
+        {
+            gInventory.addChangedMask(LLInventoryObserver::STRUCTURE, *iter);
+        }
+
     }
 }
 
