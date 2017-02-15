@@ -38,6 +38,8 @@ class LLInventoryPanel;
 class LLFolderView;
 class LLFolderBridge;
 class LLViewerInventoryCategory;
+class LLInventoryCallback;
+class LLAvatarName;
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Class LLViewerInventoryItem
@@ -157,7 +159,7 @@ public:
 	PermissionMask getPermissionMask() const;
 
 	// callback
-	void onCallingCardNameLookup(const LLUUID& id, const std::string& name, bool is_group);
+	void onCallingCardNameLookup(const LLUUID& id, const LLAvatarName& name);
 
 	// If this is a broken link, try to fix it and any other identical link.
 	BOOL regenerateLink();
