@@ -960,28 +960,39 @@ BOOL LLToolPie::handleTooltipLand(std::string line, std::string tooltip_msg)
 				{
 					name = gAgent.mRRInterface.getDummyName (name);
 				}
+                else
+                {
+				    line.append(name);
+				    line.append(LLTrans::getString("TooltipIsGroup"));
+    			}
 //mk
-				line.append(name);
-				line.append(LLTrans::getString("TooltipIsGroup"));
 			}
 			else
 			{
 				line.append(LLTrans::getString("RetrievingData"));
 			}
 		}
-		else if(gCacheName->getFullName(owner, name))
-		{
-//MK
-			if (gRRenabled && (gAgent.mRRInterface.mContainsShownames || gAgent.mRRInterface.mContainsShownametags))
-			{
-				name = gAgent.mRRInterface.getDummyName (name);
-			}
-//mk
-			line.append(name);
-		}
 		else
 		{
-			line.append(LLTrans::getString("RetrievingData"));
+		    LLAvatarName av_name;
+            if (LLAvatarNameCache::get(owner, &av_name))
+            {
+//MK            
+				if (gRRenabled && (gAgent.mRRInterface.mContainsShownames || gAgent.mRRInterface.mContainsShownametags))
+				{
+					name = gAgent.mRRInterface.getDummyName (name);
+				}
+                else
+                {
+				    name = av_name.getUserName();
+				    line.append(name);
+    			}
+//mk    			
+            }
+    		else
+		    {
+                line.append(LLTrans::getString("RetrievingData"));
+		    }
 		}
 	}
 	else

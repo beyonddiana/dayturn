@@ -36,6 +36,7 @@
 
 class LLPanelScriptLimitsInfo;
 class LLTabContainer;
+class LLAvatarName;
 
 class LLPanelScriptLimitsRegionMemory;
 
@@ -165,6 +166,8 @@ public:
 	void checkButtonsEnabled();
 
 private:
+	void onAvatarNameCache(const LLUUID& id,
+						 const LLAvatarName& av_name);
 	void onNameCache(const LLUUID& id,
 						 const std::string& name);
 
