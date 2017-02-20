@@ -432,6 +432,7 @@ private:
 	static void		showProfile(LLUUID &id, bool is_group);
 	static void		sendIM(LLUUID &id);
 	static void		addFriend(LLUUID &id);
+	static void		removeFriend(LLUUID &id);
 	static void		showNameDetails(LLUUID &id, bool is_group);
 	static void		copyNameToClipboard(LLUUID &id, bool is_group);
 	static void		copySLURLToClipboard(LLUUID &id, bool is_group);
