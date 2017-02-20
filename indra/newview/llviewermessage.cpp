@@ -3613,6 +3613,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 				{
 //mk
 					LLSD args;
+					args["TO_NAME"] = LLSLURL("agent", target_id, "completename").getSLURLString();;
 					// *TODO: Translate -> [FIRST] [LAST] (maybe)
 					args["NAME_SLURL"] = LLSLURL("agent", from_id, "about").getSLURLString();
 					args["MESSAGE"] = message;
