@@ -558,13 +558,9 @@ void init_menus()
   
     gViewerWindow->setMenuBackgroundColor(false, 
         !LLGridManager::getInstance()->isInSLBeta());
-// <FS:AW opensim currency support>
-//	// Assume L$10 for now, the server will tell us the real cost at login
-//	// *TODO:Also fix cost in llfolderview.cpp for Inventory menus
-//	const std::string upload_cost("10");
-	// \0/ Copypasta! See llviewermessage, llviewermenu and llpanelmaininventory
-	S32 cost = LLGlobalEconomy::Singleton::getInstance()->getPriceUpload();
+	S32 cost = LLGlobalEconomy::getInstance()->getPriceUpload();
 	std::string upload_cost;
+
 #ifdef HAS_OPENSIM_SUPPORT // <FS:AW optional opensim support>
 	bool in_opensim = LLGridManager::getInstance()->isInOpenSim();
 	if(in_opensim)
@@ -576,7 +572,6 @@ void init_menus()
 	{
 		upload_cost = cost > 0 ? llformat("%s%d", "L$", cost) : llformat("%d", gSavedSettings.getU32("DefaultUploadCost"));
 	}
-// </FS:AW opensim currency support>
 	gMenuHolder->childSetLabelArg("Upload Image", "[COST]", upload_cost);
 	gMenuHolder->childSetLabelArg("Upload Sound", "[COST]", upload_cost);
 	gMenuHolder->childSetLabelArg("Upload Animation", "[COST]", upload_cost);
@@ -10094,8 +10089,8 @@ class LLToggleUIHints : public view_listener_t
 
 void LLUploadCostCalculator::calculateCost()
 {
-    S32 upload_cost = LLGlobalEconomy::getInstance()->getPriceUpload();
-    std::string upload_cost;
+	S32 cost = LLGlobalEconomy::getInstance()->getPriceUpload();
+	std::string upload_cost;
 #ifdef HAS_OPENSIM_SUPPORT // <FS:AW optional opensim support>
 	bool in_opensim = LLGridManager::getInstance()->isInOpenSim();
 	if(in_opensim)

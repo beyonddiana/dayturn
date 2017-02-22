@@ -7179,8 +7179,10 @@ void process_economy_data(LLMessageSystem *msg, void** /*user_data*/)
 {
 	LLGlobalEconomy::processEconomyData(msg, LLGlobalEconomy::getInstance());
 
-	S32 upload_cost = LLGlobalEconomy::getInstance()->getPriceUpload();
+	S32 cost = LLGlobalEconomy::getInstance()->getPriceUpload();
 	std::string upload_cost;
+
+
 #ifdef HAS_OPENSIM_SUPPORT // <FS:AW optional opensim support>
 	bool in_opensim = LLGridManager::getInstance()->isInOpenSim();
 	if(in_opensim)

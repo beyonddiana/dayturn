@@ -359,7 +359,7 @@ bool LLPanelGroupGeneral::apply(std::string& mesg)
 
 // <FS:AW FIRE-7091 group creation cost inaccurate on opensim>
 			LLSD args;
-			S32 cost =  LLGlobalEconomy::Singleton::getInstance()->getPriceGroupCreate();
+			S32 cost =  LLGlobalEconomy::getInstance()->getPriceGroupCreate();
 			args["[COST]"] = llformat("%d", cost);
 			LLNotificationsUtil::add("CreateGroupCost",  args, LLSD(), boost::bind(&LLPanelGroupGeneral::createGroupCallback, this, _1, _2));
 // </FS:AW FIRE-7091 group creation cost inaccurate on opensim>
