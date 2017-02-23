@@ -3613,9 +3613,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 				{
 //mk
 					LLSD args;
-					args["TO_NAME"] = LLSLURL("agent", target_id, "completename").getSLURLString();;
 					// *TODO: Translate -> [FIRST] [LAST] (maybe)
-					args["NAME_SLURL"] = LLSLURL("agent", from_id, "about").getSLURLString();
 					args["MESSAGE"] = message;
 					args["MATURITY_STR"] = region_access_str;
 					args["MATURITY_ICON"] = region_access_icn;
@@ -8051,7 +8049,7 @@ void send_lures(const LLSD& notification, const LLSD& response)
 				std::string target_name;
 				gCacheName->getFullName(target_id, target_name);  // for im log filenames
 				LLSD args;
-				args["TO_NAME"] = LLSLURL("agent", target_id, "displayname").getSLURLString();;
+				args["TO_NAME"] = LLSLURL("agent", target_id, "completename").getSLURLString();;
 	
 				LLSD payload;
 				
