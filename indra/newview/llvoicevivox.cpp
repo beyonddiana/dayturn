@@ -88,11 +88,19 @@ const F32 CONNECT_THROTTLE_SECONDS = 1.0f;
 // Don't send positional updates more frequently than this:
 const F32 UPDATE_THROTTLE_SECONDS = 0.5f;
 
+const F32 LOGIN_ATTEMPT_TIMEOUT = 5.0f;
+const int LOGIN_RETRY_MAX = 5;
+const F32 LOGIN_RETRY_TIMEOUT = 4.0f;
+ 
+const int PROVISION_RETRY_MAX = 5;
+const F32 PROVISION_RETRY_TIMEOUT = 2.0;
+
 const F32 LOGIN_RETRY_SECONDS = 10.0f;
 const int MAX_LOGIN_RETRIES = 12;
 
 // Cosine of a "trivially" small angle
-const F32 MINUSCULE_ANGLE_COS = 0.999f;
+const F32 FOUR_DEGREES = 4.0f * (F_PI / 180.0f);
+const F32 MINUSCULE_ANGLE_COS = (F32) cos(0.5f * FOUR_DEGREES);
 
 // Defines the maximum number of times(in a row) "stateJoiningSession" case for spatial channel is reached in stateMachine()
 // which is treated as normal. The is the number of frames to wait for a channel join before giving up.  This was changed 
@@ -2485,12 +2493,13 @@ void LLVivoxVoiceClient::sendPositionalUpdate(void)
 				<< "<Y>" << u.mV[VY] << "</Y>"
 				<< "<Z>" << u.mV[VZ] << "</Z>"
 			<< "</UpOrientation>"
-			<< "<LeftOrientation>"
-				<< "<X>" << l.mV [VX] << "</X>"
-				<< "<Y>" << l.mV [VY] << "</Y>"
-				<< "<Z>" << l.mV [VZ] << "</Z>"
-			<< "</LeftOrientation>";
-
+  			<< "<LeftOrientation>"
+  				<< "<X>" << l.mV [VX] << "</X>"
+  				<< "<Y>" << l.mV [VY] << "</Y>"
+  				<< "<Z>" << l.mV [VZ] << "</Z>"
+  			<< "</LeftOrientation>"
+            ;
+        
 		stream << "</SpeakerPosition>";
 
 		stream << "<ListenerPosition>";
@@ -2528,7 +2537,6 @@ void LLVivoxVoiceClient::sendPositionalUpdate(void)
         pos = earPosition;
 		vel = earVelocity;
 
-//		LL_DEBUGS("Voice") << "Sending listener position " << earPosition << LL_ENDL;
 		
 		oldSDKTransform(l, u, a, pos, vel);
 		
@@ -2561,12 +2569,12 @@ void LLVivoxVoiceClient::sendPositionalUpdate(void)
 				<< "<Y>" << u.mV[VY] << "</Y>"
 				<< "<Z>" << u.mV[VZ] << "</Z>"
 			<< "</UpOrientation>"
-			<< "<LeftOrientation>"
-				<< "<X>" << l.mV [VX] << "</X>"
-				<< "<Y>" << l.mV [VY] << "</Y>"
-				<< "<Z>" << l.mV [VZ] << "</Z>"
-			<< "</LeftOrientation>";
-
+  			<< "<LeftOrientation>"
+  				<< "<X>" << l.mV [VX] << "</X>"
+  				<< "<Y>" << l.mV [VY] << "</Y>"
+  				<< "<Z>" << l.mV [VZ] << "</Z>"
+  			<< "</LeftOrientation>"
+            ;
 
 		stream << "</ListenerPosition>";
 
@@ -2640,10 +2648,11 @@ void LLVivoxVoiceClient::sendPositionalUpdate(void)
 	}
 
 	//sendLocalAudioUpdates();  obsolete, used to send volume setting on position updates
-	
-	if(!stream.str().empty())
+    std::string update(stream.str());
+	if(!update.empty())
 	{
-		writeString(stream.str());
+        LL_DEBUGS("VoiceUpdate") << "sending update " << update << LL_ENDL;
+		writeString(update);
 	}
 
 }
@@ -4664,9 +4673,12 @@ void LLVivoxVoiceClient::setAvatarPosition(const LLVector3d &position, const LLV
 		mSpatialCoordsDirty = true;
 	}
 	
-    if ((mAvatarRot != rot) && (llabs(dot(mAvatarRot, rot)) > MINUSCULE_ANGLE_COS))
-	{   // if the two rotations are not exactly equal test their dot product
-        // to get the cos of the angle between them.  If it is minuscule don't update.
+    // If the two rotations are not exactly equal test their dot product
+    // to get the cos of the angle between them.
+    // If it is too small, don't update.
+    F32 rot_cos_diff = llabs(dot(mAvatarRot, rot));
+    if ((mAvatarRot != rot) && (rot_cos_diff < MINUSCULE_ANGLE_COS))
+	{   
 		mAvatarRot = rot;
 		mSpatialCoordsDirty = true;
 	}
