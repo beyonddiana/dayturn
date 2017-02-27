@@ -54,9 +54,10 @@
 class LLViewerAssetRequest : public LLAssetRequest
 {
 public:
-    LLViewerAssetRequest(const LLUUID &uuid, const LLAssetType::EType type)
+    LLViewerAssetRequest(const LLUUID &uuid, const LLAssetType::EType type, bool with_http)
         : LLAssetRequest(uuid, type),
-          mMetricsStartTime(0)
+          mMetricsStartTime(0),
+          mWithHTTP(with_http)
     {
     }
     
@@ -76,8 +77,8 @@ protected:
         {
             // Okay, it appears this request was used for useful things.  Record
             // the expected dequeue and duration of request processing.
-            LLViewerAssetStatsFF::record_dequeue(mType, false, false);
-            LLViewerAssetStatsFF::record_response(mType, false, false,
+            LLViewerAssetStatsFF::record_dequeue(mType, mWithHTTP, false);
+            LLViewerAssetStatsFF::record_response(mType, mWithHTTP, false,
                                                   (LLViewerAssetStatsFF::get_timestamp()
                                                    - mMetricsStartTime));
             mMetricsStartTime = (U32Seconds)0;
@@ -86,6 +87,7 @@ protected:
     
 public:
     LLViewerAssetStats::duration_t      mMetricsStartTime;
+    bool mWithHTTP;
 };
 
 ///----------------------------------------------------------------------------
@@ -347,7 +349,8 @@ void LLViewerAssetStorage::_queueDataRequest(
     if (mUpstreamHost.isOk())
     {
         // stash the callback info so we can find it after we get the response message
-        LLViewerAssetRequest *req = new LLViewerAssetRequest(uuid, atype);
+		bool with_http = false;
+        LLViewerAssetRequest *req = new LLViewerAssetRequest(uuid, atype, with_http);
         req->mDownCallback = callback;
         req->mUserData = user_data;
         req->mIsPriority = is_priority;
@@ -376,7 +379,9 @@ void LLViewerAssetStorage::_queueDataRequest(
             LLTransferTargetChannel *ttcp = gTransferManager.getTargetChannel(mUpstreamHost, LLTCT_ASSET);
             ttcp->requestTransfer(spa, tpvf, 100.f + (is_priority ? 1.f : 0.f));
 
-            LLViewerAssetStatsFF::record_enqueue(atype, false, false);
+            bool with_http = false;
+            bool is_temp = false;
+            LLViewerAssetStatsFF::record_enqueue(atype, with_http, is_temp);
         }
     }
     else
