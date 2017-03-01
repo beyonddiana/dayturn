@@ -61,6 +61,7 @@
 #include "llviewernetwork.h"
 #include "llmeshrepository.h" //for LLMeshRepository::sBytesReceived
 #include "llsdserialize.h"
+#include "llvoicevivox.h"
 
 namespace LLStatViewer
 {
@@ -585,6 +586,8 @@ void send_stats()
 	fail["failed_resends"] = (S32) gMessageSystem->mFailedResendPackets;
 	fail["off_circuit"] = (S32) gMessageSystem->mOffCircuitPackets;
 	fail["invalid"] = (S32) gMessageSystem->mInvalidOnCircuitPackets;
+
+	body["stats"]["voice"] = LLVoiceVivoxStats::getInstance()->read();
 
 	// Misc stats, two strings and two ints
 	// These are not expecticed to persist across multiple releases

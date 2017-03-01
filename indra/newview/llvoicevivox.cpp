@@ -88,9 +88,10 @@ const F32 CONNECT_THROTTLE_SECONDS = 1.0f;
 // Don't send positional updates more frequently than this:
 const F32 UPDATE_THROTTLE_SECONDS = 0.5f;
 
-const F32 LOGIN_ATTEMPT_TIMEOUT = 5.0f;
-const int LOGIN_RETRY_MAX = 5;
-const F32 LOGIN_RETRY_TIMEOUT = 4.0f;
+const F32 LOGIN_ATTEMPT_TIMEOUT = 30.0f;
+const int LOGIN_RETRY_MAX = 3;
+const F32 LOGIN_RETRY_BACKOFF = 10.0f;
+
  
 const int PROVISION_RETRY_MAX = 5;
 const F32 PROVISION_RETRY_TIMEOUT = 2.0;
@@ -200,119 +201,96 @@ class LLVivoxVoiceClientMuteListObserver : public LLMuteListObserver
 	/* virtual */ void onChange()  { LLVivoxVoiceClient::getInstance()->muteListChanged();}
 };
 
-class LLVivoxVoiceStats
+
+void LLVoiceVivoxStats::reset()
 {
-private:
-    LOG_CLASS(LLVivoxVoiceStats);
-    
-    F64SecondsImplicit mStartTime;
+    mStartTime = -1.0f;
+    mConnectCycles = 0;
+    mConnectTime = -1.0f;
+    mConnectAttempts = 0;
+    mProvisionTime = -1.0f;
+    mProvisionAttempts = 0;
+    mEstablishTime = -1.0f;
+    mEstablishAttempts = 0;
+}
 
-    U32 mConnectCycles;
+LLVoiceVivoxStats::LLVoiceVivoxStats()
+{
+    reset();
+}
 
-    F64 mConnectTime;
-    U32 mConnectAttempts;
-    
-    F64 mProvisionTime;
-    U32 mProvisionAttempts;
+LLVoiceVivoxStats::~LLVoiceVivoxStats()
+{
+}
 
-    F64 mEstablishTime;
-    U32 mEstablishAttempts;
+void LLVoiceVivoxStats::connectionAttemptStart()
+{
+    if (!mConnectAttempts)
+    {
+        mStartTime = LLTimer::getTotalTime();
+        mConnectCycles++;
+    }
+    mConnectAttempts++;
+}
 
-public:
-    void reset()
-        {
-            mStartTime = -1.0f;
-            mConnectCycles = 0;
-            mConnectTime = -1.0f;
-            mConnectAttempts = 0;
-            mProvisionTime = -1.0f;
-            mProvisionAttempts = 0;
-            mEstablishTime = -1.0f;
-            mEstablishAttempts = 0;
-        }
-    
-    LLVivoxVoiceStats()
-        {
-            reset();
-        }
-    
-    void connectionAttemptStart()
-        {
-            if (!mConnectAttempts)
-            {
-                mStartTime = LLTimer::getTotalTime();
-                mConnectCycles++;
-            }
-            mConnectAttempts++;
-        }
+void LLVoiceVivoxStats::connectionAttemptEnd(bool success)
+{
+    if ( success )
+    {
+        mConnectTime = (LLTimer::getTotalTime() - mStartTime) / USEC_PER_SEC;
+    }
+}
 
-    void connectionAttemptEnd(bool success)
-        {
-            if ( success )
-            {
-                mConnectTime = (LLTimer::getTotalTime() - mStartTime) / USEC_PER_SEC;
-            }
-        }
+void LLVoiceVivoxStats::provisionAttemptStart()
+{
+    if (!mProvisionAttempts)
+    {
+        mStartTime = LLTimer::getTotalTime();
+    }
+    mProvisionAttempts++;
+}
 
-    void provisionAttemptStart()
-        {
-            if (!mProvisionAttempts)
-            {
-                mStartTime = LLTimer::getTotalTime();
-            }
-            mProvisionAttempts++;
-        }
+void LLVoiceVivoxStats::provisionAttemptEnd(bool success)
+{
+    if ( success )
+    {
+        mProvisionTime = (LLTimer::getTotalTime() - mStartTime) / USEC_PER_SEC;
+    }
+}
 
-    void provisionAttemptEnd(bool success)
-        {
-            if ( success )
-            {
-                mProvisionTime = (LLTimer::getTotalTime() - mStartTime) / USEC_PER_SEC;
-            }
-        }
+void LLVoiceVivoxStats::establishAttemptStart()
+{
+    if (!mEstablishAttempts)
+    {
+        mStartTime = LLTimer::getTotalTime();
+    }
+    mEstablishAttempts++;
+}
 
-    void establishAttemptStart()
-        {
-            if (!mEstablishAttempts)
-            {
-                mStartTime = LLTimer::getTotalTime();
-            }
-            mEstablishAttempts++;
-        }
+void LLVoiceVivoxStats::establishAttemptEnd(bool success)
+{
+    if ( success )
+    {
+        mEstablishTime = (LLTimer::getTotalTime() - mStartTime) / USEC_PER_SEC;
+    }
+}
 
-    void establishAttemptEnd(bool success)
-        {
-            if ( success )
-            {
-                mEstablishTime = (LLTimer::getTotalTime() - mStartTime) / USEC_PER_SEC;
-            }
-        }
+LLSD LLVoiceVivoxStats::read()
+{
+    LLSD stats(LLSD::emptyMap());
 
-    void log()
-        {
-            LLSD stats(LLSD::emptyMap());
-            stats["cycles"] = LLSD::Integer(mConnectCycles);
+    stats["connect_cycles"] = LLSD::Integer(mConnectCycles);
+    stats["connect_attempts"] = LLSD::Integer(mConnectAttempts);
+    stats["connect_time"] = LLSD::Real(mConnectTime);
 
-            LLSD connect(LLSD::emptyMap());
-            connect["attempts"] = LLSD::Integer(mConnectAttempts);
-            connect["time"] = LLSD::Real(mConnectTime);
-            stats["connect"] = connect;
+    stats["provision_attempts"] = LLSD::Integer(mProvisionAttempts);
+    stats["provision_time"] = LLSD::Real(mProvisionTime);
 
-            LLSD provision(LLSD::emptyMap());
-            provision["attempts"] = LLSD::Integer(mProvisionAttempts);
-            provision["time"] = LLSD::Real(mProvisionTime);
-            stats["provision"] = provision;
+    stats["establish_attempts"] = LLSD::Integer(mEstablishAttempts);
+    stats["establish_time"] = LLSD::Real(mEstablishTime);
 
-            LLSD establish(LLSD::emptyMap());
-            establish["attempts"] = LLSD::Integer(mEstablishAttempts);
-            establish["time"] = LLSD::Real(mEstablishTime);
-            stats["establish"] = establish;
-
-            LL_INFOS("Voice") << "Setup stats " << ll_stream_notation_sd(stats) << LL_ENDL;
-        }
-};
-
-LLVivoxVoiceStats Stats;
+    return stats;
+}
 
 static LLVivoxVoiceClientMuteListObserver mutelist_listener;
 static bool sMuteListListener_listening = false;
