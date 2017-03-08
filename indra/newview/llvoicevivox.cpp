@@ -1935,10 +1935,10 @@ void LLVivoxVoiceClient::sessionCreateSendMessage(sessionState *session, bool st
 
 void LLVivoxVoiceClient::sessionGroupAddSessionSendMessage(sessionState *session, bool startAudio, bool startText)
 {
-	LL_DEBUGS("Voice") << "Requesting create: " << session->mSIPURI << LL_ENDL;
-
 	S32 font_index = getVoiceFontIndex(session->mVoiceFontID);
-	LL_DEBUGS("Voice") << "With voice font: " << session->mVoiceFontID << " (" << font_index << ")" << LL_ENDL;
+	LL_DEBUGS("Voice") << "Requesting create: " << session->mSIPURI
+                       << " with voice font: " << session->mVoiceFontID << " (" << font_index << ")"
+                       << LL_ENDL;
 
 	session->mCreateInProgress = true;
 	if(startAudio)
@@ -1976,10 +1976,10 @@ void LLVivoxVoiceClient::sessionGroupAddSessionSendMessage(sessionState *session
 
 void LLVivoxVoiceClient::sessionMediaConnectSendMessage(sessionState *session)
 {
-	LL_DEBUGS("Voice") << "Connecting audio to session handle: " << session->mHandle << LL_ENDL;
-
 	S32 font_index = getVoiceFontIndex(session->mVoiceFontID);
-	LL_DEBUGS("Voice") << "With voice font: " << session->mVoiceFontID << " (" << font_index << ")" << LL_ENDL;
+	LL_DEBUGS("Voice") << "Connecting audio to session handle: " << session->mHandle
+                       << " with voice font: " << session->mVoiceFontID << " (" << font_index << ")"
+                       << LL_ENDL;
 
 	session->mMediaConnectInProgress = true;
 	
@@ -5841,7 +5841,7 @@ void LLVivoxVoiceClient::addVoiceFont(const S32 font_index,
 
 	if (has_expired)
 	{
-		LL_DEBUGS("Voice") << "Expired " << (template_font ? "Template " : "")
+		LL_DEBUGS("VoiceFont") << "Expired " << (template_font ? "Template " : "")
 		<< expiration_date.asString() << " " << font_id
 		<< " (" << font_index << ") " << name << LL_ENDL;
 
@@ -5904,7 +5904,7 @@ void LLVivoxVoiceClient::addVoiceFont(const S32 font_index,
 			}
 		}
 
-		LL_DEBUGS("Voice") << (template_font ? "Template " : "")
+		LL_DEBUGS("VoiceFont") << (template_font ? "Template " : "")
 			<< font->mExpirationDate.asString() << " " << font->mID
 			<< " (" << font->mFontIndex << ") " << name << LL_ENDL;
 
@@ -5920,11 +5920,11 @@ void LLVivoxVoiceClient::addVoiceFont(const S32 font_index,
 
 		if (font_type < VOICE_FONT_TYPE_NONE || font_type >= VOICE_FONT_TYPE_UNKNOWN)
 		{
-			LL_WARNS("Voice") << "Unknown voice font type: " << font_type << LL_ENDL;
+			LL_WARNS("VoiceFont") << "Unknown voice font type: " << font_type << LL_ENDL;
 		}
 		if (font_status < VOICE_FONT_STATUS_NONE || font_status >= VOICE_FONT_STATUS_UNKNOWN)
 		{
-			LL_WARNS("Voice") << "Unknown voice font status: " << font_status << LL_ENDL;
+			LL_WARNS("VoiceFont") << "Unknown voice font status: " << font_status << LL_ENDL;
 		}
 	}
 }
@@ -5968,7 +5968,7 @@ void LLVivoxVoiceClient::expireVoiceFonts()
 		// Check for voice fonts that will expire in less that the warning time
 		if (warning_timer.getStarted() && warning_timer.hasExpired())
 		{
-			LL_DEBUGS("Voice") << "Voice Font " << voice_font->mName << " will expire soon." << LL_ENDL;
+			LL_DEBUGS("VoiceFont") << "Voice Font " << voice_font->mName << " will expire soon." << LL_ENDL;
 			will_expire = true;
 			warning_timer.stop();
 		}
@@ -6011,7 +6011,7 @@ void LLVivoxVoiceClient::deleteVoiceFont(const LLUUID& id)
 	{
 		if (list_iter->second == id)
 		{
-			LL_DEBUGS("Voice") << "Removing " << id << " from the voice font list." << LL_ENDL;
+			LL_DEBUGS("VoiceFont") << "Removing " << id << " from the voice font list." << LL_ENDL;
 			mVoiceFontList.erase(list_iter++);
 			mVoiceFontListDirty = true;
 		}
@@ -6068,7 +6068,7 @@ S32 LLVivoxVoiceClient::getVoiceFontIndex(const LLUUID& id) const
 		}
 		else
 		{
-			LL_DEBUGS("Voice") << "Selected voice font " << id << " is not available." << LL_ENDL;
+			LL_WARNS("VoiceFont") << "Selected voice font " << id << " is not available." << LL_ENDL;
 		}
 	}
 	return result;
@@ -6086,7 +6086,7 @@ S32 LLVivoxVoiceClient::getVoiceFontTemplateIndex(const LLUUID& id) const
 		}
 		else
 		{
-			LL_DEBUGS("Voice") << "Selected voice font template " << id << " is not available." << LL_ENDL;
+			LL_WARNS("VoiceFont") << "Selected voice font template " << id << " is not available." << LL_ENDL;
 		}
 	}
 	return result;
@@ -6098,7 +6098,7 @@ void LLVivoxVoiceClient::accountGetSessionFontsSendMessage()
 	{
 		std::ostringstream stream;
 
-		LL_DEBUGS("Voice") << "Requesting voice font list." << LL_ENDL;
+		LL_DEBUGS("VoiceFont") << "Requesting voice font list." << LL_ENDL;
 
 		stream
 		<< "<Request requestId=\"" << mCommandCookie++ << "\" action=\"Account.GetSessionFonts.1\">"
@@ -6116,7 +6116,7 @@ void LLVivoxVoiceClient::accountGetTemplateFontsSendMessage()
 	{
 		std::ostringstream stream;
 
-		LL_DEBUGS("Voice") << "Requesting voice font template list." << LL_ENDL;
+		LL_DEBUGS("VoiceFont") << "Requesting voice font template list." << LL_ENDL;
 
 		stream
 		<< "<Request requestId=\"" << mCommandCookie++ << "\" action=\"Account.GetTemplateFonts.1\">"
@@ -6131,7 +6131,7 @@ void LLVivoxVoiceClient::accountGetTemplateFontsSendMessage()
 void LLVivoxVoiceClient::sessionSetVoiceFontSendMessage(sessionState *session)
 {
 	S32 font_index = getVoiceFontIndex(session->mVoiceFontID);
-	LL_DEBUGS("Voice") << "Requesting voice font: " << session->mVoiceFontID << " (" << font_index << "), session handle: " << session->mHandle << LL_ENDL;
+	LL_DEBUGS("VoiceFont") << "Requesting voice font: " << session->mVoiceFontID << " (" << font_index << "), session handle: " << session->mHandle << LL_ENDL;
 
 	std::ostringstream stream;
 
@@ -6266,7 +6266,7 @@ void LLVivoxVoiceClient::updateVoiceMorphingMenu()
 }
 void LLVivoxVoiceClient::notifyVoiceFontObservers()
 {
-	LL_DEBUGS("Voice") << "Notifying voice effect observers. Lists changed: " << mVoiceFontListDirty << LL_ENDL;
+	    LL_DEBUGS("VoiceFont") << "Notifying voice effect observers. Lists changed: " << mVoiceFontListDirty << LL_ENDL;
 
 	updateVoiceMorphingMenu();
 
