@@ -1485,6 +1485,7 @@ void LLVivoxVoiceClient::stateMachine()
 			}
 			else if(sessionNeedsRelog(mNextAudioSession))
 			{
+                LL_DEBUGS("Voice") << "Session requesting reprovision and login." << LL_ENDL;				
 				requestRelog();
 				setState(stateSessionTerminated);
 			}
@@ -6471,7 +6472,6 @@ void LLVivoxProtocolParser::reset()
 	isModeratorMuted = false;
 	isSpeaking = false;
 	participantType = 0;
-	squelchDebugOutput = false;
 	returnCode = -1;
 	state = 0;
 	statusCode = 0;
@@ -6524,12 +6524,7 @@ LLIOPipe::EStatus LLVivoxProtocolParser::process_impl(
 		XML_SetUserData(parser, this);	
 		XML_Parse(parser, mInput.data() + start, delim - start, false);
 		
-		// If this message isn't set to be squelched, output the raw XML received.
-		if(!squelchDebugOutput)
-		{
-			LL_DEBUGS("Voice") << "parsing: " << mInput.substr(start, delim - start) << LL_ENDL;
-		}
-		
+        LL_DEBUGS("VivoxProtocolParser") << "parsing: " << mInput.substr(start, delim - start) << LL_ENDL;
 		start = delim + 3;
 	}
 	
@@ -6914,7 +6909,7 @@ void LLVivoxProtocolParser::processResponse(std::string tag)
 		if (!stricmp(eventTypeCstr, "ParticipantUpdatedEvent"))
 		{
 			// These happen so often that logging them is pretty useless.
-			squelchDebugOutput = true;
+			LL_DEBUGS("LOW Voice") << "Updated Params: " << sessionHandle << ", " << sessionGroupHandle << ", " << uriString << ", " << alias << ", " << isModeratorMuted << ", " << isSpeaking << ", " << volume << ", " << energy << LL_ENDL;
 			LLVivoxVoiceClient::getInstance()->participantUpdatedEvent(sessionHandle, sessionGroupHandle, uriString, alias, isModeratorMuted, isSpeaking, volume, energy);
 		}
 		else if (!stricmp(eventTypeCstr, "AccountLoginStateChangeEvent"))
@@ -7000,7 +6995,6 @@ void LLVivoxProtocolParser::processResponse(std::string tag)
 		else if (!stricmp(eventTypeCstr, "AuxAudioPropertiesEvent"))
 		{
 			// These are really spammy in tuning mode
-			squelchDebugOutput = true;
 			LLVivoxVoiceClient::getInstance()->auxAudioPropertiesEvent(energy);
 		}
 		else if (!stricmp(eventTypeCstr, "MessageEvent"))  
@@ -7063,8 +7057,7 @@ void LLVivoxProtocolParser::processResponse(std::string tag)
 		const char *actionCstr = actionString.c_str();
 		if (!stricmp(actionCstr, "Session.Set3DPosition.1"))
 		{
-			// We don't need to process these, but they're so spammy we don't want to log them.
-			squelchDebugOutput = true;
+			// We don't need to process these
 		}
 		else if (!stricmp(actionCstr, "Connector.Create.1"))
 		{
