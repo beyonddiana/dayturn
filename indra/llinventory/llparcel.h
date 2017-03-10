@@ -509,6 +509,9 @@ public:
 	bool	getRegionDenyAgeUnverifiedOverride() const
 					{ return mRegionDenyAgeUnverifiedOverride; }
 
+    BOOL    getRegionAllowAccessOverride() const
+                    { return mRegionAllowAccessoverride; }
+
 	bool	getAllowGroupAVSounds()	const	{ return mAllowGroupAVSounds;	}
 	bool	getAllowAnyAVSounds()	const	{ return mAllowAnyAVSounds;		}
 
@@ -576,6 +579,7 @@ public:
 	void	setRegionPushOverride(bool override) {mRegionPushOverride = override; }
 	void	setRegionDenyAnonymousOverride(bool override)	{ mRegionDenyAnonymousOverride = override; }
 	void	setRegionDenyAgeUnverifiedOverride(bool override)	{ mRegionDenyAgeUnverifiedOverride = override; }
+    void    setRegionAllowAccessOverride(BOOL override) { mRegionAllowAccessoverride = override; }
 
 	// Accessors for parcel sellWithObjects
 	void	setPreviousOwnerID(LLUUID prev_owner)	{ mPreviousOwnerID = prev_owner; }
@@ -657,6 +661,7 @@ protected:
 	bool				mRegionPushOverride;
 	bool				mRegionDenyAnonymousOverride;
 	bool				mRegionDenyAgeUnverifiedOverride;
+    BOOL                mRegionAllowAccessoverride;
 	bool				mAllowGroupAVSounds;
 	bool				mAllowAnyAVSounds;
 	
