@@ -91,7 +91,7 @@ InstProgressFlags smooth colored		# New colored smooth look
 SetOverwrite on							# Overwrite files by default
 AutoCloseWindow true					# After all files install, close window
 
-InstallDir "$PROGRAMFILES\${INSTNAME}"
+InstallDir "%%$PROGRAMFILES%%\${INSTNAME}"
 InstallDirRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Dayturn\${INSTNAME}" ""
 UninstallText $(UninstallTextMsg)
 DirText $(DirectoryChooseTitle) $(DirectoryChooseSetup)
