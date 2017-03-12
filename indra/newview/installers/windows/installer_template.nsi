@@ -92,6 +92,7 @@ SetOverwrite on							# Overwrite files by default
 AutoCloseWindow true					# After all files install, close window
 
 InstallDir "%%$PROGRAMFILES%%\${INSTNAME}"
+%%REGISTRY%%
 InstallDirRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Dayturn\${INSTNAME}" ""
 UninstallText $(UninstallTextMsg)
 DirText $(DirectoryChooseTitle) $(DirectoryChooseSetup)
