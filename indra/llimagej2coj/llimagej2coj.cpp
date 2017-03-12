@@ -31,7 +31,6 @@
 #include "openjpeg.h"
 
 #include "lltimer.h"
-//#include "llmemory.h"
 
 // Factory function: see declaration in llimagej2c.cpp
 LLImageJ2CImpl* fallbackCreateLLImageJ2CImpl()
@@ -126,10 +125,10 @@ bool LLImageJ2COJ::decodeImpl(LLImageJ2C &base, LLImageRaw &raw_image, F32 decod
 
 	opj_dparameters_t parameters;	/* decompression parameters */
 	opj_event_mgr_t event_mgr;		/* event manager */
-	opj_image_t *image = NULL;
+	opj_image_t* image = NULL;
 
 	opj_dinfo_t* dinfo = NULL;	/* handle to a decompressor */
-	opj_cio_t *cio = NULL;
+	opj_cio_t* cio = NULL;
 
 
 	/* configure the event callbacks (not required) */
@@ -320,7 +319,7 @@ bool LLImageJ2COJ::encodeImpl(LLImageJ2C &base, const LLImageRaw &raw_image, con
 	//
 	OPJ_COLOR_SPACE color_space = CLRSPC_SRGB;
 	opj_image_cmptparm_t cmptparm[MAX_COMPS];
-	opj_image_t * image = NULL;
+	opj_image_t* image = NULL;
 	S32 numcomps = raw_image.getComponents();
 	S32 width = raw_image.getWidth();
 	S32 height = raw_image.getHeight();
@@ -407,21 +406,54 @@ bool LLImageJ2COJ::encodeImpl(LLImageJ2C &base, const LLImageRaw &raw_image, con
 	return true;
 }
 
-bool LLImageJ2COJ::getMetadata(LLImageJ2C &base)
+bool LLImageJ2COJ::getMetadataFast(LLImageJ2C &base, S32& width, S32& height, S32&comps)
 {
-	//
-	// FIXME: We get metadata by decoding the ENTIRE image.
-	//
+	const int J2K_HEADER_LENGTH = 42;
+	if (base.getDataSize() < J2K_HEADER_LENGTH)
+	{
+		return false;
+	}
+	
+	const U8* rawp = base.getData();
+	if (!rawp || *rawp != 0xff || rawp[1] != 0x4f || rawp[2] != 0xff || rawp[3] != 0x51)
+	{
+		return false;
+	}
+	
+	width = (rawp[8] << 24) + (rawp[9] << 16) + (rawp[10] << 8) + rawp[11] -
+			(rawp[16] << 24) - (rawp[17] << 16) - (rawp[18] << 8) - rawp[19];
+			
+	height = (rawp[12] << 24) + (rawp[13] << 16) + (rawp[14] << 8) + rawp[15] -
+			 (rawp[20] << 24) - (rawp[21] << 16) - (rawp[22] << 8) - rawp[23];
+	comps = (rawp[40] << 8) + rawp[41];
+	
+	return true;
+}	
 
+bool LLImageJ2COJ::getMetadata(LLImageJ2C& base)
+{
 	// Update the raw discard level
 	base.updateRawDiscardLevel();
-
+	
+	S32 width = 0;
+	S32 height = 0;
+	S32 img_components = 0;
+	
+	// Try the fast way first...
+	
+	if (getMetadataFast(base, width, height, img_components));
+	{
+		base.setSize(width, height, img_components);
+		return TRUE;
+	}
+	
+	// *FIMXME: We get metadata by decoding the ENTIRE image.
 	opj_dparameters_t parameters;	/* decompression parameters */
 	opj_event_mgr_t event_mgr;		/* event manager */
-	opj_image_t *image = NULL;
+	opj_image_t* image = NULL;
 
 	opj_dinfo_t* dinfo = NULL;	/* handle to a decompressor */
-	opj_cio_t *cio = NULL;
+	opj_cio_t* cio = NULL;
 
 
 	/* configure the event callbacks (not required) */
@@ -434,7 +466,7 @@ bool LLImageJ2COJ::getMetadata(LLImageJ2C &base)
 	opj_set_default_decoder_parameters(&parameters);
 
 	// Only decode what's required to get the size data.
-	parameters.cp_limit_decoding=LIMIT_TO_MAIN_HEADER;
+	parameters.cp_limit_decoding = LIMIT_TO_MAIN_HEADER;
 
 	//parameters.cp_reduce = mRawDiscardLevel;
 
@@ -474,10 +506,7 @@ bool LLImageJ2COJ::getMetadata(LLImageJ2C &base)
 	}
 
 	// Copy image data into our raw image format (instead of the separate channel format
-	S32 width = 0;
-	S32 height = 0;
-
-	S32 img_components = image->numcomps;
+ 	img_components = image->numcomps;
 	width = image->x1 - image->x0;
 	height = image->y1 - image->y0;
 	base.setSize(width, height, img_components);
