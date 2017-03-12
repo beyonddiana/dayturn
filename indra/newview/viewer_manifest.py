@@ -673,10 +673,10 @@ class Windows_i686_Manifest(ViewerManifest):
             """
             
         if(self.args['arch'].lower() == 'x86_64'):
-            registry="SetRegView 64"        
+            engage_registry="SetRegView 64"
             program_files="$PROGRAMFILES64"
         else:
-            registry="SetRegView 32"
+            engage_registry="SetRegView 32"
             program_files="$PROGRAMFILES32"
 
         tempfile = "dayturn_setup_tmp.nsi"
@@ -688,7 +688,7 @@ class Windows_i686_Manifest(ViewerManifest):
                 "%%INST_VARS%%":inst_vars_template % substitution_strings,
                 "%%INSTALL_FILES%%":self.nsi_file_commands(True),
                 "%%$PROGRAMFILES%%":program_files,
-                "%%REGISTRY%%":registry,                                
+                "%%ENGAGEREGISTRY%%":engage_registry,
                 "%%DELETE_FILES%%":self.nsi_file_commands(False)})
 
         # We use the Unicode version of NSIS, available from
