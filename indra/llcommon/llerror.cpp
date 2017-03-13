@@ -1062,7 +1062,15 @@ namespace LLError
 		{
 			return false;
 		}
-		
+
+		// If we hit a logging request very late during shutdown processing,
+		// when either of the relevant LLSingletons has already been deleted,
+		// DO NOT resurrect them.
+		if (Settings::wasDeleted() || Globals::wasDeleted())
+		{
+			return false;
+		}
+
 		SettingsConfigPtr s = Settings::getInstance()->getSettingsConfig();
 		
 		s->mShouldLogCallCounter++;
@@ -1101,7 +1109,10 @@ namespace LLError
 	std::ostringstream* Log::out()
 	{
 		LogLock lock;
-		if (lock.ok())
+		// If we hit a logging request very late during shutdown processing,
+		// when either of the relevant LLSingletons has already been deleted,
+		// DO NOT resurrect them.
+		if (lock.ok() && ! (Settings::wasDeleted() || Globals::wasDeleted()))
 		{
 			Globals* g = Globals::getInstance();
 
@@ -1111,41 +1122,49 @@ namespace LLError
 				return &g->messageStream;
 			}
 		}
-		
+
 		return new std::ostringstream;
 	}
-	
+
 	void Log::flush(std::ostringstream* out, char* message)
-    {
-       LogLock lock;
-       if (!lock.ok())
-       {
-           return;
-       }
-       
-	   if(strlen(out->str().c_str()) < 128)
-	   {
-		   strcpy(message, out->str().c_str());
-	   }
-	   else
-	   {
-		   strncpy(message, out->str().c_str(), 127);
-		   message[127] = '\0' ;
-	   }
-	   
-	   Globals* g = Globals::getInstance();
-       if (out == &g->messageStream)
-       {
-           g->messageStream.clear();
-           g->messageStream.str("");
-           g->messageStreamInUse = false;
-       }
-       else
-       {
-           delete out;
-       }
-	   return ;
-    }
+	{
+		LogLock lock;
+		if (!lock.ok())
+		{
+			return;
+		}
+
+		// If we hit a logging request very late during shutdown processing,
+		// when either of the relevant LLSingletons has already been deleted,
+		// DO NOT resurrect them.
+		if (Settings::wasDeleted() || Globals::wasDeleted())
+		{
+			return;
+		}
+
+		if(strlen(out->str().c_str()) < 128)
+		{
+			strcpy(message, out->str().c_str());
+		}
+		else
+		{
+			strncpy(message, out->str().c_str(), 127);
+			message[127] = '\0' ;
+		}
+
+		Globals* g = Globals::getInstance();
+		if (out == &g->messageStream)
+		{
+			g->messageStream.clear();
+			g->messageStream.str("");
+			g->messageStreamInUse = false;
+		}
+		else
+		{
+			delete out;
+		}
+		return ;
+	}
 
 	void Log::flush(std::ostringstream* out, const CallSite& site)
 	{
@@ -1154,7 +1173,15 @@ namespace LLError
 		{
 			return;
 		}
-		
+
+		// If we hit a logging request very late during shutdown processing,
+		// when either of the relevant LLSingletons has already been deleted,
+		// DO NOT resurrect them.
+		if (Settings::wasDeleted() || Globals::wasDeleted())
+		{
+			return;
+		}
+
 		Globals* g = Globals::getInstance();
 		SettingsConfigPtr s = Settings::getInstance()->getSettingsConfig();
 
