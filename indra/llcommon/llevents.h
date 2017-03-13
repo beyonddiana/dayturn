@@ -590,6 +590,9 @@ private:
         return this->listen_impl(name, listener, after, before);
     }
 
+    // must precede mName; see LLEventPump::LLEventPump()
+    LLHandle<LLEventPumps> mRegistry;
+
     std::string mName;
 
 protected:
