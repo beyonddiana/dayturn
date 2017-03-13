@@ -313,6 +313,14 @@ public:
 		return sData.mInitState == INITIALIZED;
 	}
 
+    // Has this singleton been deleted? This can be useful during shutdown
+    // processing to avoid "resurrecting" a singleton we thought we'd already
+    // cleaned up.
+    static bool wasDeleted()
+    {
+        return sData.mInitState == DELETED;
+    }
+
 private:
 
 	virtual void initSingleton() {}
