@@ -2390,6 +2390,7 @@ void LLVivoxVoiceClient::daemonDied()
 void LLVivoxVoiceClient::giveUp()
 {
 	// All has failed.  Clean up and stop trying.
+	LL_WARNS("Voice") << "Terminating Voice Service" << LL_ENDL;
 	closeSocket();
 	cleanUp();
 	
@@ -4850,8 +4851,9 @@ void LLVivoxVoiceClient::setVoiceEnabled(bool enabled)
 
 bool LLVivoxVoiceClient::voiceEnabled()
 {
-	return gSavedSettings.getBOOL("EnableVoiceChat") && !gSavedSettings.getBOOL("CmdLineDisableVoice");
-}
+    static LLUICachedControl<bool> enable_voice("EnableVoiceChat", true);
+    static LLUICachedControl<bool> override_disable_voice("CmdLineDisableVoice", false);
+    return enable_voice && ! override_disable_voice;}
 
 void LLVivoxVoiceClient::setLipSyncEnabled(BOOL enabled)
 {
