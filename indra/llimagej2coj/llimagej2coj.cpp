@@ -441,7 +441,7 @@ bool LLImageJ2COJ::getMetadata(LLImageJ2C& base)
 	
 	// Try the fast way first...
 	
-	if (getMetadataFast(base, width, height, img_components));
+	if (getMetadataFast(base, width, height, img_components))
 	{
 		base.setSize(width, height, img_components);
 		return TRUE;
