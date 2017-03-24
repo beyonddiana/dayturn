@@ -86,8 +86,7 @@ LLNetMap::LLNetMap (const Params & p)
 :	LLUICtrl (p),
 	mBackgroundColor (p.bg_color()),
 	mScale( MAP_SCALE_MID ),
-	//mPixelsPerMeter( MAP_SCALE_MID / REGION_WIDTH_METERS ),
-	mPixelsPerMeter( MAP_SCALE_MID / LLWorld::getInstance()->getRegionWidthInMeters()),
+	mPixelsPerMeter( MAP_SCALE_MID / REGION_WIDTH_METERS ),
 	mObjectMapTPM(0.f),
 	mObjectMapPixels(0.f),
 	mTargetPan(0.f, 0.f),
@@ -144,13 +143,13 @@ void LLNetMap::setScale( F32 scale )
 		F32 height = (F32)(getRect().getHeight());
 		F32 diameter = sqrt(width * width + height * height);
 		F32 region_widths = diameter / mScale;
-		F32 meters = region_widths * LLWorld::getInstance()->getRegionWidthInMeters();
+		F32 meters = region_widths * REGION_WIDTH_METERS;
 		F32 num_pixels = (F32)mObjectImagep->getWidth();
 		mObjectMapTPM = num_pixels / meters;
 		mObjectMapPixels = diameter;
 	}
 
-	mPixelsPerMeter = mScale / LLWorld::getInstance()->getRegionWidthInMeters();
+	mPixelsPerMeter = mScale / REGION_WIDTH_METERS;
 	mDotRadius = llmax(DOT_SCALE * mPixelsPerMeter, MIN_DOT_RADIUS);
 
 	gSavedSettings.setF32("MiniMapScale", mScale);
@@ -234,7 +233,7 @@ void LLNetMap::draw()
 		}
 
 		// figure out where agent is
-		S32 region_width = ll_round(LLWorld::getInstance()->getRegionWidthInMeters());
+		S32 region_width = ll_round(REGION_WIDTH_METERS);
 
 		for (LLWorld::region_list_t::const_iterator iter = LLWorld::getInstance()->getRegionList().begin();
 			 iter != LLWorld::getInstance()->getRegionList().end(); ++iter)
