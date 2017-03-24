@@ -1163,6 +1163,17 @@
         </menu_item_call>
       </menu>
     </menu>
+    
+    <menu_item_check
+         label="LightShare"
+         name="Toggle LightShare On or Off">
+            <menu_item_check.on_check
+             function="CheckControl"
+             parameter="EnableLightShare" />
+            <menu_item_check.on_click
+             function="ToggleControl"
+             parameter="EnableLightShare" />
+    </menu_item_check>
   </menu>
 <!-- END OF WORLD MENU -->   
 
