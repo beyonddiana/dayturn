@@ -4205,72 +4205,71 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 
 	if (is_audible)
 	{
-		//MK
+//MK
 		std::string verb;
-		//mk
+//mk
 
-		color.setVec(1.f, 1.f, 1.f, 1.f);
+		color.setVec(1.f,1.f,1.f,1.f);
 		msg->getStringFast(_PREHASH_ChatData, _PREHASH_Message, mesg);
 
 		BOOL ircstyle = FALSE;
-		//MK
+//MK
 		bool is_rlv_msg = (mesg.length() > 0 && mesg.at(0) == '@');
 		if (gRRenabled 
 			&& (chat.mChatType != CHAT_TYPE_OWNER || !is_rlv_msg) // crunch llOwnerSay but leave RLV commands alone
 			&& chat.mChatType != CHAT_TYPE_DIRECT // don't crunch llRegionSayTo messages
-			) 
+		) {
+			if ((chatter && (chatter->isAvatar() || !chatter->isAttachment() || !chatter->permYouOwner()))  // avatar, object or attachment that doesn't belong to me
+				|| !chatter) // or this may be a HUD (visible only to the other party) or an unrezzed avatar or object
 			{
-				if ((chatter && (chatter->isAvatar() || !chatter->isAttachment() || !chatter->permYouOwner()))  // avatar, object or attachment that doesn't belong to me
-					|| !chatter) // or this may be a HUD (visible only to the other party) or an unrezzed avatar or object
+				if (gAgent.mRRInterface.containsWithoutException("recvchat", from_id.asString())
+					|| gAgent.mRRInterface.contains("recvchatfrom:" + from_id.asString())
+					|| gAgent.mRRInterface.contains("recvchatfrom:" + owner_id.asString())
+					)
 				{
-					if (gAgent.mRRInterface.containsWithoutException("recvchat", from_id.asString())
-						|| gAgent.mRRInterface.contains("recvchatfrom:" + from_id.asString())
-						|| gAgent.mRRInterface.contains("recvchatfrom:" + owner_id.asString())
-						)
-					{
+					chat.mFromName = from_name;
+					chat.mText = gAgent.mRRInterface.crunchEmote(mesg, 20); // + '\0';
+					if (!gSavedSettings.getBOOL("RestrainedLoveShowEllipsis") && chat.mText == "...") {
+						chat.mText = "";
+					}
+					mesg = chat.mText;
+				}
+
+				if (gAgent.mRRInterface.containsWithoutException("recvemote", from_id.asString())
+					|| gAgent.mRRInterface.contains("recvemotefrom:" + from_id.asString())
+					|| gAgent.mRRInterface.contains("recvemotefrom:" + owner_id.asString())
+					)
+				{
+					int	ind = mesg.find("/me");
+					std::string clear_part = "";
+					if (ind != -1) {
+						clear_part = mesg.substr(0, ind);
 						chat.mFromName = from_name;
-						chat.mText = gAgent.mRRInterface.crunchEmote(mesg, 20); // + '\0';
-						if (!gSavedSettings.getBOOL("RestrainedLoveShowEllipsis") && chat.mText == "...") {
-							chat.mText = "";
+						chat.mText = clear_part + "/me ...";
+						if (!gSavedSettings.getBOOL("RestrainedLoveShowEllipsis")) {
+							chat.mText = clear_part;
 						}
 						mesg = chat.mText;
 					}
+				}
 
-					if (gAgent.mRRInterface.containsWithoutException("recvemote", from_id.asString())
-						|| gAgent.mRRInterface.contains("recvemotefrom:" + from_id.asString())
-						|| gAgent.mRRInterface.contains("recvemotefrom:" + owner_id.asString())
-						)
+				if (from_id != gAgent.getID() && gAgent.mRRInterface.mContainsShownames)
+				{
+					// Special case : if the object is an attachment and imitates the name of its owner, scramble its name as if it were an agent
+					if (chatter && !chatter->isAvatar())
 					{
-						int	ind = mesg.find("/me");
-						std::string clear_part = "";
-						if (ind != -1) {
-							clear_part = mesg.substr(0, ind);
-							chat.mFromName = from_name;
-							chat.mText = clear_part + "/me ...";
-							if (!gSavedSettings.getBOOL("RestrainedLoveShowEllipsis")) {
-								chat.mText = clear_part;
-							}
-							mesg = chat.mText;
-						}
-					}
-
-					if (from_id != gAgent.getID() && gAgent.mRRInterface.mContainsShownames)
-					{
-						// Special case : if the object is an attachment and imitates the name of its owner, scramble its name as if it were an agent
-						if (chatter && !chatter->isAvatar())
+						if (chatter->isAttachment())
 						{
-							if (chatter->isAttachment())
+							LLAvatarName av_name;
+							if (LLAvatarNameCache::get(owner_id, &av_name))
 							{
-								LLAvatarName av_name;
-								if (LLAvatarNameCache::get(owner_id, &av_name))
+								if (from_name == av_name.mDisplayName
+									|| from_name == av_name.mLegacyFirstName + " " + av_name.mLegacyLastName
+									|| from_name == av_name.mLegacyFirstName
+									|| from_name == av_name.mLegacyLastName
+									)
 								{
-									if (from_name == av_name.mDisplayName
-										|| from_name == av_name.mLegacyFirstName + " " + av_name.mLegacyLastName
-										|| from_name == av_name.mLegacyFirstName
-										|| from_name == av_name.mLegacyLastName
-										)
-								{
-										from_name = gAgent.mRRInterface.getDummyName(from_name, chat.mAudible);
+									from_name = gAgent.mRRInterface.getDummyName(from_name, chat.mAudible);
 								}
 							}
 						}
@@ -4287,402 +4286,257 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 					}
 					else
 					{
-							from_name = gAgent.mRRInterface.getCensoredMessage(from_name);
+						from_name = gAgent.mRRInterface.getCensoredMessage(from_name);
 					}
 					chat.mFromName = from_name;
 				}
 			}
-			//mk
-			// Look for IRC-style emotes here so chatbubbles work
-			std::string prefix = mesg.substr(0, 4);
-			if (prefix == "/me " || prefix == "/me'")
-			{
-				ircstyle = TRUE;
-			}
-			chat.mText = mesg;
+		}
+//mk
+		// Look for IRC-style emotes here so chatbubbles work
+		std::string prefix = mesg.substr(0, 4);
+		if (prefix == "/me " || prefix == "/me'")
+		{
+			ircstyle = TRUE;
+		}
+		chat.mText = mesg;
 
-			// Look for the start of typing so we can put "..." in the bubbles.
-			if (CHAT_TYPE_START == chat.mChatType)
-			{
-				LLLocalSpeakerMgr::getInstance()->setSpeakerTyping(from_id, TRUE);
+		// Look for the start of typing so we can put "..." in the bubbles.
+		if (CHAT_TYPE_START == chat.mChatType)
+		{
+			LLLocalSpeakerMgr::getInstance()->setSpeakerTyping(from_id, TRUE);
 
-				// Might not have the avatar constructed yet, eg on login.
-				if (chatter && chatter->isAvatar())
-				{
-					//MK
-					//		if (!gRRenabled || !gAgent.mRRInterface.containsSubstr ("redirchat:"))
-					//mk
-					((LLVOAvatar*)chatter)->startTyping();
-				}
-				return;
-			}
-			else if (CHAT_TYPE_STOP == chat.mChatType)
-			{
-				LLLocalSpeakerMgr::getInstance()->setSpeakerTyping(from_id, FALSE);
-
-				// Might not have the avatar constructed yet, eg on login.
-				if (chatter && chatter->isAvatar())
-				{
-					((LLVOAvatar*)chatter)->stopTyping();
-				}
-				return;
-			}
-
-			// Look for IRC-style emotes
-			if (ircstyle)
-			{
-				// set CHAT_STYLE_IRC to avoid adding Avatar Name as author of message. See EXT-656
-				chat.mChatStyle = CHAT_STYLE_IRC;
-
-				// Do nothing, ircstyle is fixed above for chat bubbles
-			}
-			else
-			{
-				chat.mText = "";
-				switch (chat.mChatType)
-				{
-				case CHAT_TYPE_WHISPER:
-					chat.mText = LLTrans::getString("whisper") + " ";
-					break;
-				case CHAT_TYPE_DEBUG_MSG:
-				case CHAT_TYPE_OWNER:
-					//MK
-					// This is the actual handling of the commands sent by owned objects.
-				{
-					std::string mesg_str(mesg);
-					if (gRRenabled && mesg_str.substr(0, 1) == RR_PREFIX)
-					{
-						std::string command = mesg_str.substr(1, mesg_str.length());
-						LLStringUtil::toLower(command);
-						LLUUID obj_id = from_id;
-						//LLViewerObject* object = gObjectList.findObject(from_id);
-						//if (object && object->getRootEdit())
-						//{
-						//	obj_id = object->getRootEdit()->getID();
-						//}
-						if (gAgent.mRRInterface.handleCommand(obj_id, command))
-						{
-							if (!gSavedSettings.getBOOL("RestrainedLoveDebug"))
-							{
-								return;
-							}
-							verb = " executes command: ";
-						}
-						else
-						{
-							verb = " fails command: ";
-						}
-					}
-					//				else if (gRRenabled && mesg_str.length() >= 2 && mesg_str.substr (0, 2) == "\t") // this is a remark, only visible to non-RLV users
-					//				{
-					//					return;
-					//				}
-					else
-					{
-						if (gRRenabled && gAgent.mRRInterface.mContainsShowloc)
-						{
-							// hide every occurrence of the Parcel name if the location restriction is active
-							mesg = gAgent.mRRInterface.stringReplace(mesg,
-								gAgent.mRRInterface.mParcelName, "(Parcel hidden)");
-							// hide every occurrence of the Region name if the location restriction is active
-							if (gAgent.getRegion()) mesg = gAgent.mRRInterface.stringReplace(mesg, gAgent.getRegion()->getName(), "(Region hidden)");
-						}
-
-						if (gRRenabled && gAgent.mRRInterface.mContainsShownames)
-						{
-							mesg = gAgent.mRRInterface.getCensoredMessage(mesg);
-							from_name = gAgent.mRRInterface.getCensoredMessage(from_name);
-							chat.mFromName = from_name;
-						}
-
-						verb = ": ";
-					}
-					break;
-				}
-				//mk
-				case CHAT_TYPE_NORMAL:
-				case CHAT_TYPE_DIRECT:
-					break;
-				case CHAT_TYPE_SHOUT:
-					chat.mText = LLTrans::getString("shout") + " ";
-					break;
-				case CHAT_TYPE_START:
-				case CHAT_TYPE_STOP:
-					LL_WARNS("Messaging") << "Got chat type start/stop in main chat processing." << LL_ENDL;
-					break;
-				default:
-					LL_WARNS("Messaging") << "Unknown type " << chat.mChatType << " in chat!" << LL_ENDL;
-					break;
-				}
-
-
-				//MK
-				if (gRRenabled)
-				{
-					// censor object chat but not avatar chat
-					if (!chatter || (chatter && !chatter->isAvatar()))
-					{
-						if (gAgent.mRRInterface.mContainsShowloc)
-						{
-							//						if (chat.mChatType == CHAT_TYPE_NORMAL || chat.mChatType == CHAT_TYPE_SHOUT
-							//							|| chat.mChatType == CHAT_TYPE_WHISPER)
-							{
-								// hide every occurrence of the Parcel name if the location restriction is active
-								mesg = gAgent.mRRInterface.stringReplace(mesg,
-									gAgent.mRRInterface.mParcelName, "(Parcel hidden)");
-								// hide every occurrence of the Region name if the location restriction is active
-								if (gAgent.getRegion()) mesg = gAgent.mRRInterface.stringReplace(mesg, gAgent.getRegion()->getName(), "(Region hidden)");
-							}
-						}
-
-						if (gAgent.mRRInterface.mContainsShownames)
-						{
-							mesg = gAgent.mRRInterface.getCensoredMessage(mesg);
-						}
-					}
-				}
-				////			chat.mText = "";
-				//mk
-				chat.mText += verb;
-				chat.mText += mesg;
-			}
-
-			//MK
-			if (twirly)
-			{
-				LLPointer<LLViewerPartSourceChat> psc = new LLViewerPartSourceChat(chatter->getPositionAgent());
-				psc->setSourceObject(chatter);
-				psc->setColor(color);
-				//We set the particles to be owned by the object's owner, 
-				//just in case they should be muted by the mute list
-				psc->setOwnerUUID(owner_id);
-				LLViewerPartSim::getInstance()->addPartSource(psc);
-			}
-			//mk		
-
-			// We have a real utterance now, so can stop showing "..." and proceed.
+			// Might not have the avatar constructed yet, eg on login.
 			if (chatter && chatter->isAvatar())
 			{
-				LLLocalSpeakerMgr::getInstance()->setSpeakerTyping(from_id, FALSE);
+//MK
+//		if (!gRRenabled || !gAgent.mRRInterface.containsSubstr ("redirchat:"))
+//mk
+				((LLVOAvatar*)chatter)->startTyping();
+			}
+			return;
+		}
+		else if (CHAT_TYPE_STOP == chat.mChatType)
+		{
+			LLLocalSpeakerMgr::getInstance()->setSpeakerTyping(from_id, FALSE);
+
+			// Might not have the avatar constructed yet, eg on login.
+			if (chatter && chatter->isAvatar())
+			{
 				((LLVOAvatar*)chatter)->stopTyping();
-
-				if (!is_muted && !is_do_not_disturb)
-				{
-					//visible_in_chat_bubble = gSavedSettings.getBOOL("UseChatBubbles");
-					std::string formated_msg = "";
-					LLViewerChat::formatChatMsg(chat, formated_msg);
-					LLChat chat_bubble = chat;
-					chat_bubble.mText = formated_msg;
-					((LLVOAvatar*)chatter)->addChat(chat_bubble);
-				}
 			}
+			return;
+		}
 
-			if (chatter)
-			{
-				chat.mPosAgent = chatter->getPositionAgent();
-			}
+		// Look for IRC-style emotes
+		if (ircstyle)
+		{
+			// set CHAT_STYLE_IRC to avoid adding Avatar Name as author of message. See EXT-656
+			chat.mChatStyle = CHAT_STYLE_IRC;
 
-			// truth table:
-			// LINDEN	BUSY	MUTED	OWNED_BY_YOU	TASK		DISPLAY		STORE IN HISTORY
-			// F		F		F		F				*			Yes			Yes
-			// F		F		F		T				*			Yes			Yes
-			// F		F		T		F				*			No			No
-			// F		F		T		T				*			No			No
-			// F		T		F		F				*			No			Yes
-			// F		T		F		T				*			Yes			Yes
-			// F		T		T		F				*			No			No
-			// F		T		T		T				*			No			No
-			// T		*		*		*				F			Yes			Yes
-
-			chat.mMuted = is_muted && !is_linden;
-
-			// pass owner_id to chat so that we can display the remote
-			// object inspect for an object that is chatting with you
-			LLSD args;
-			chat.mOwnerID = owner_id;
-
-			if (gSavedSettings.getBOOL("TranslateChat") && chat.mSourceType != CHAT_SOURCE_SYSTEM)
-			{
-				if (chat.mChatStyle == CHAT_STYLE_IRC)
-				{
-					mesg = mesg.substr(4, std::string::npos);
-				}
-				const std::string from_lang = ""; // leave empty to trigger autodetect
-				const std::string to_lang = LLTranslate::getTranslateLanguage();
-
-				LLTranslate::TranslationReceiverPtr result = ChatTranslationReceiver::build(from_lang, to_lang, mesg, chat, args);
-				LLTranslate::translateMessage(result, from_lang, to_lang, mesg);
-		  
-			}
-			else
-			{
-				LLNotificationsUI::LLNotificationManager::instance().onChat(chat, args);
-			}
-
-			// don't call notification for debug messages from not owned objects
-			if (chat.mChatType == CHAT_TYPE_DEBUG_MSG)
-			{
-				if (gAgentID != chat.mOwnerID)
-				{
-					return;
-				}
-			}
-
-			if (mesg != "")
-			{
-				LLSD msg_notify = LLSD(LLSD::emptyMap());
-				msg_notify["session_id"] = LLUUID();
-				msg_notify["from_id"] = chat.mFromID;
-				msg_notify["source_type"] = chat.mSourceType;
-				on_new_message(msg_notify);
-			}
-		} 
+			// Do nothing, ircstyle is fixed above for chat bubbles
+		}
 		else
 		{
-					// Look for IRC-style emotes here so chatbubbles work
-			std::string prefix = mesg.substr(0, 4);
-			if (prefix == "/me " || prefix == "/me'")
+			chat.mText = "";
+			switch(chat.mChatType)
 			{
-				ircstyle = TRUE;
-			}
-			chat.mText = mesg;
-
-			// Look for the start of typing so we can put "..." in the bubbles.
-			if (CHAT_TYPE_START == chat.mChatType)
+			case CHAT_TYPE_WHISPER:
+				chat.mText = LLTrans::getString("whisper") + " ";
+				break;
+			case CHAT_TYPE_DEBUG_MSG:
+			case CHAT_TYPE_OWNER:
+//MK
+			// This is the actual handling of the commands sent by owned objects.
 			{
-				LLLocalSpeakerMgr::getInstance()->setSpeakerTyping(from_id, TRUE);
-
-				// Might not have the avatar constructed yet, eg on login.
-				if (chatter && chatter->isAvatar())
+				std::string mesg_str(mesg);
+				if (gRRenabled && mesg_str.substr (0, 1) == RR_PREFIX)
 				{
-					((LLVOAvatar*)chatter)->startTyping();
+					std::string command = mesg_str.substr(1, mesg_str.length());
+					LLStringUtil::toLower(command);
+					LLUUID obj_id = from_id;
+					//LLViewerObject* object = gObjectList.findObject(from_id);
+					//if (object && object->getRootEdit())
+					//{
+					//	obj_id = object->getRootEdit()->getID();
+					//}
+					if (gAgent.mRRInterface.handleCommand (obj_id, command))
+					{
+						if (!gSavedSettings.getBOOL("RestrainedLoveDebug"))
+						{
+							return;
+						}
+						verb = " executes command: ";
+					}
+					else
+					{
+						verb = " fails command: ";
+					}
 				}
-				return;
-			}
-			else if (CHAT_TYPE_STOP == chat.mChatType)
-			{
-				LLLocalSpeakerMgr::getInstance()->setSpeakerTyping(from_id, FALSE);
-
-				// Might not have the avatar constructed yet, eg on login.
-				if (chatter && chatter->isAvatar())
+//				else if (gRRenabled && mesg_str.length() >= 2 && mesg_str.substr (0, 2) == "\t") // this is a remark, only visible to non-RLV users
+//				{
+//					return;
+//				}
+				else
 				{
-					((LLVOAvatar*)chatter)->stopTyping();
+					if (gRRenabled && gAgent.mRRInterface.mContainsShowloc)
+					{
+						// hide every occurrence of the Parcel name if the location restriction is active
+						mesg = gAgent.mRRInterface.stringReplace (mesg, 
+								gAgent.mRRInterface.mParcelName, "(Parcel hidden)");
+						// hide every occurrence of the Region name if the location restriction is active
+						if (gAgent.getRegion()) mesg = gAgent.mRRInterface.stringReplace (mesg, gAgent.getRegion()->getName(), "(Region hidden)");
+					}
+					
+					if (gRRenabled && gAgent.mRRInterface.mContainsShownames)
+					{
+						mesg = gAgent.mRRInterface.getCensoredMessage (mesg);
+						from_name = gAgent.mRRInterface.getCensoredMessage (from_name);
+						chat.mFromName = from_name;				
+					}
+
+					verb = ": ";
 				}
-				return;
+				break;
+			}
+//mk
+			case CHAT_TYPE_NORMAL:
+			case CHAT_TYPE_DIRECT:
+				break;
+			case CHAT_TYPE_SHOUT:
+				chat.mText = LLTrans::getString("shout") + " ";
+				break;
+			case CHAT_TYPE_START:
+			case CHAT_TYPE_STOP:
+				LL_WARNS("Messaging") << "Got chat type start/stop in main chat processing." << LL_ENDL;
+				break;
+			default:
+				LL_WARNS("Messaging") << "Unknown type " << chat.mChatType << " in chat!" << LL_ENDL;
+				break;
 			}
 
-			// Look for IRC-style emotes
-			if (ircstyle)
-			{
-				// set CHAT_STYLE_IRC to avoid adding Avatar Name as author of message. See EXT-656
-				chat.mChatStyle = CHAT_STYLE_IRC;
 
-				// Do nothing, ircstyle is fixed above for chat bubbles
-			}
-			else
+//MK
+			if (gRRenabled)
 			{
-				chat.mText = "";
-				switch(chat.mChatType)
+				// censor object chat but not avatar chat
+				if (!chatter || (chatter && !chatter->isAvatar()))
 				{
-				case CHAT_TYPE_WHISPER:
-					chat.mText = LLTrans::getString("whisper") + " ";
-					break;
-				case CHAT_TYPE_DEBUG_MSG:
-				case CHAT_TYPE_OWNER:
-				case CHAT_TYPE_NORMAL:
-				case CHAT_TYPE_DIRECT:
-					break;
-				case CHAT_TYPE_SHOUT:
-					chat.mText = LLTrans::getString("shout") + " ";
-					break;
-				case CHAT_TYPE_START:
-				case CHAT_TYPE_STOP:
-					LL_WARNS("Messaging") << "Got chat type start/stop in main chat processing." << LL_ENDL;
-					break;
-				default:
-					LL_WARNS("Messaging") << "Unknown type " << chat.mChatType << " in chat!" << LL_ENDL;
-					break;
-				}
+					if (gAgent.mRRInterface.mContainsShowloc)
+					{
+//						if (chat.mChatType == CHAT_TYPE_NORMAL || chat.mChatType == CHAT_TYPE_SHOUT
+//							|| chat.mChatType == CHAT_TYPE_WHISPER)
+						{
+							// hide every occurrence of the Parcel name if the location restriction is active
+							mesg = gAgent.mRRInterface.stringReplace (mesg, 
+									gAgent.mRRInterface.mParcelName, "(Parcel hidden)");
+							// hide every occurrence of the Region name if the location restriction is active
+							if (gAgent.getRegion()) mesg = gAgent.mRRInterface.stringReplace (mesg, gAgent.getRegion()->getName(), "(Region hidden)");
+						}
+					}
 
-				chat.mText += mesg;
+					if (gAgent.mRRInterface.mContainsShownames)
+					{
+						mesg = gAgent.mRRInterface.getCensoredMessage (mesg);
+					}
+				}
 			}
+////			chat.mText = "";
+//mk
+			chat.mText += verb;
+			chat.mText += mesg;
+		}
 		
-			// We have a real utterance now, so can stop showing "..." and proceed.
-			if (chatter && chatter->isAvatar())
-			{
-				LLLocalSpeakerMgr::getInstance()->setSpeakerTyping(from_id, FALSE);
-				((LLVOAvatar*)chatter)->stopTyping();
+//MK
+		if (twirly)
+		{
+			LLPointer<LLViewerPartSourceChat> psc = new LLViewerPartSourceChat(chatter->getPositionAgent());
+			psc->setSourceObject(chatter);
+			psc->setColor(color);
+			//We set the particles to be owned by the object's owner, 
+			//just in case they should be muted by the mute list
+			psc->setOwnerUUID(owner_id);
+			LLViewerPartSim::getInstance()->addPartSource(psc);
+		}
+//mk		
+
+		// We have a real utterance now, so can stop showing "..." and proceed.
+		if (chatter && chatter->isAvatar())
+		{
+			LLLocalSpeakerMgr::getInstance()->setSpeakerTyping(from_id, FALSE);
+			((LLVOAvatar*)chatter)->stopTyping();
 			
-				if (!is_muted && !is_do_not_disturb)
-				{
-					//visible_in_chat_bubble = gSavedSettings.getBOOL("UseChatBubbles");
-					std::string formated_msg = "";
-					LLViewerChat::formatChatMsg(chat, formated_msg);
-					LLChat chat_bubble = chat;
-					chat_bubble.mText = formated_msg;
-					((LLVOAvatar*)chatter)->addChat(chat_bubble);
-				}
-			}
-		
-			if (chatter)
+			if (!is_muted && !is_do_not_disturb)
 			{
-				chat.mPosAgent = chatter->getPositionAgent();
-			}
-
-			// truth table:
-			// LINDEN	BUSY	MUTED	OWNED_BY_YOU	TASK		DISPLAY		STORE IN HISTORY
-			// F		F		F		F				*			Yes			Yes
-			// F		F		F		T				*			Yes			Yes
-			// F		F		T		F				*			No			No
-			// F		F		T		T				*			No			No
-			// F		T		F		F				*			No			Yes
-			// F		T		F		T				*			Yes			Yes
-			// F		T		T		F				*			No			No
-			// F		T		T		T				*			No			No
-			// T		*		*		*				F			Yes			Yes
-
-			chat.mMuted = is_muted && !is_linden;
-
-			// pass owner_id to chat so that we can display the remote
-			// object inspect for an object that is chatting with you
-			LLSD args;
-			chat.mOwnerID = owner_id;
-
-			if (gSavedSettings.getBOOL("TranslateChat") && chat.mSourceType != CHAT_SOURCE_SYSTEM)
-			{
-				if (chat.mChatStyle == CHAT_STYLE_IRC)
-				{
-					mesg = mesg.substr(4, std::string::npos);
-				}
-				const std::string from_lang = ""; // leave empty to trigger autodetect
-				const std::string to_lang = LLTranslate::getTranslateLanguage();
-
-				LLTranslate::TranslationReceiverPtr result = ChatTranslationReceiver::build(from_lang, to_lang, mesg, chat, args);
-				LLTranslate::translateMessage(result, from_lang, to_lang, mesg);
-			}
-			else
-			{
-				LLNotificationsUI::LLNotificationManager::instance().onChat(chat, args);
-			}
-
-			// don't call notification for debug messages from not owned objects
-			if (chat.mChatType == CHAT_TYPE_DEBUG_MSG)
-			{
-				if (gAgentID != chat.mOwnerID)
-				{
-					return;
-				}
-			}
-
-			if (mesg != "")
-			{
-				LLSD msg_notify = LLSD(LLSD::emptyMap());
-				msg_notify["session_id"] = LLUUID();
-				msg_notify["from_id"] = chat.mFromID;
-				msg_notify["source_type"] = chat.mSourceType;
-				on_new_message(msg_notify);
+				//visible_in_chat_bubble = gSavedSettings.getBOOL("UseChatBubbles");
+				std::string formated_msg = "";
+				LLViewerChat::formatChatMsg(chat, formated_msg);
+				LLChat chat_bubble = chat;
+				chat_bubble.mText = formated_msg;
+				((LLVOAvatar*)chatter)->addChat(chat_bubble);
 			}
 		}
+		
+		if (chatter)
+		{
+			chat.mPosAgent = chatter->getPositionAgent();
+		}
+
+		// truth table:
+		// LINDEN	BUSY	MUTED	OWNED_BY_YOU	TASK		DISPLAY		STORE IN HISTORY
+		// F		F		F		F				*			Yes			Yes
+		// F		F		F		T				*			Yes			Yes
+		// F		F		T		F				*			No			No
+		// F		F		T		T				*			No			No
+		// F		T		F		F				*			No			Yes
+		// F		T		F		T				*			Yes			Yes
+		// F		T		T		F				*			No			No
+		// F		T		T		T				*			No			No
+		// T		*		*		*				F			Yes			Yes
+
+		chat.mMuted = is_muted && !is_linden;
+
+		// pass owner_id to chat so that we can display the remote
+		// object inspect for an object that is chatting with you
+		LLSD args;
+		chat.mOwnerID = owner_id;
+
+		if (gSavedSettings.getBOOL("TranslateChat") && chat.mSourceType != CHAT_SOURCE_SYSTEM)
+		{
+			if (chat.mChatStyle == CHAT_STYLE_IRC)
+			{
+				mesg = mesg.substr(4, std::string::npos);
+			}
+			const std::string from_lang = ""; // leave empty to trigger autodetect
+			const std::string to_lang = LLTranslate::getTranslateLanguage();
+
+			LLTranslate::TranslationReceiverPtr result = ChatTranslationReceiver::build(from_lang, to_lang, mesg, chat, args);
+			LLTranslate::translateMessage(result, from_lang, to_lang, mesg);
+
+		}
+		else
+		{
+			LLNotificationsUI::LLNotificationManager::instance().onChat(chat, args);
+		}
+
+		// don't call notification for debug messages from not owned objects
+		if (chat.mChatType == CHAT_TYPE_DEBUG_MSG)
+		{
+			if (gAgentID != chat.mOwnerID)
+			{
+				return;
+			}
+		}
+
+		if (mesg != "")
+		{
+			LLSD msg_notify = LLSD(LLSD::emptyMap());
+			msg_notify["session_id"] = LLUUID();
+			msg_notify["from_id"] = chat.mFromID;
+			msg_notify["source_type"] = chat.mSourceType;
+			on_new_message(msg_notify);
+		}
+
 	}
 }
 
