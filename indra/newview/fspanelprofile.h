@@ -271,7 +271,6 @@ private:
     LLMediaCtrl*        mWebBrowser;
     LLFrameTimer        mPerformanceTimer;
     bool                mFirstNavigate;
-    bool                mCompleted;
 };
 
 /**
