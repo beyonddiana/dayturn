@@ -48,10 +48,6 @@
 #include "llvoavatarself.h"
 #include "llworld.h"
 
-// MAX ITEMS is based on (sizeof(uuid)+2) * count must be < MTUBYTES
-// or 18 * count < 1200 => count < 1200/18 => 66. I've cut it down a
-// bit from there to give some pad.
-const S32 MAX_ITEMS = 42;
 
 class LLGiveable : public LLInventoryCollectFunctor
 {
