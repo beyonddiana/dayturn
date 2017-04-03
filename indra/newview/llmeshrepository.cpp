@@ -3626,8 +3626,11 @@ void LLMeshRepository::notifyLoadedMeshes()
 	//popup queued error messages from background threads
 	while (!mUploadErrorQ.empty())
 	{
-		LLNotificationsUtil::add("MeshUploadError", mUploadErrorQ.front());
-		mUploadErrorQ.pop();
+			LLSD substitutions(mUploadErrorQ.front());
+			if (substitutions.has("DETAILS"))
+			{
+				LLNotificationsUtil::add("MeshUploadErrorDetails", substitutions);
+			}		mUploadErrorQ.pop();
 	}
 
 		S32 active_count = LLMeshRepoThread::sActiveHeaderRequests + LLMeshRepoThread::sActiveLODRequests;
