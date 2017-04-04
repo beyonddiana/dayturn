@@ -21,7 +21,7 @@ if (NOT DEFINED VIEWER_SHORT_VERSION) # will be true in indra/, false in indra/n
                        PATH_SUFFIXES Mercurial)
           mark_as_advanced(MERCURIAL)
           if (MERCURIAL)
-            execute_process(COMMAND ${MERCURIAL} identify --num --rev tip
+            execute_process(COMMAND ${MERCURIAL} identify --num
                             WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
                             RESULT_VARIABLE hg_id_result
                             ERROR_VARIABLE hg_id_error
