@@ -3039,10 +3039,32 @@ void LLAppearanceMgr::removeAllAttachmentsFromAvatar()
 	removeItemsFromAvatar(ids_to_remove);
 }
 
+class LLUpdateOnCOFLinkRemove : public LLInventoryCallback
+{
+public:
+	LLUpdateOnCOFLinkRemove(const LLUUID& remove_item_id, LLPointer<LLInventoryCallback> cb = NULL):
+		mItemID(remove_item_id),
+		mCB(cb)
+	{
+	}
+
+	/* virtual */ void fire(const LLUUID& item_id)
+	{
+		// just removed cof link, "(wear)" suffix depends on presence of link, so update label
+		gInventory.addChangedMask(LLInventoryObserver::LABEL, mItemID);
+		if (mCB.notNull())
+		{
+			mCB->fire(item_id);
+		}
+	}
+
+private:
+	LLUUID mItemID;
+	LLPointer<LLInventoryCallback> mCB;
+};
+
 void LLAppearanceMgr::removeCOFItemLinks(const LLUUID& item_id, LLPointer<LLInventoryCallback> cb)
 {
-	gInventory.addChangedMask(LLInventoryObserver::LABEL, item_id);
-
 	LLInventoryModel::cat_array_t cat_array;
 	LLInventoryModel::item_array_t item_array;
 	gInventory.collectDescendents(LLAppearanceMgr::getCOF(),
@@ -3062,29 +3084,20 @@ void LLAppearanceMgr::removeCOFItemLinks(const LLUUID& item_id, LLPointer<LLInve
 				continue;
 			}
 //mk
-			bool immediate_delete = false;
 			if (item->getType() == LLAssetType::AT_OBJECT)
 			{
-				immediate_delete = true;
+				// Immediate_delete
+				remove_inventory_item(item->getUUID(), cb, true);
+				gInventory.addChangedMask(LLInventoryObserver::LABEL, item_id);
 			}
-			remove_inventory_item(item->getUUID(), cb, immediate_delete);
-//MK
-			// This piece of code has been moved to LLAgentWearables::removeWearableFinal()
-			//if (gRRenabled)
-			//{
-			//	// Notify that this layer has been unworn
-			//	const LLViewerInventoryItem* vitem = dynamic_cast<const LLViewerInventoryItem*>(item);
-			//	LLViewerInventoryItem* vitem_non_const = const_cast<LLViewerInventoryItem*>(vitem);
-			//	if (vitem_non_const)
-			//	{
-			//		std::string layer = gAgent.mRRInterface.getOutfitLayerAsString(vitem_non_const->getWearableType());
-			//		if (layer != "")
-			//		{
-			//			gAgent.mRRInterface.notify (LLUUID::null, "unworn legally " + layer, "");
-			//		}
-			//	}
-			//}
-//mk
+			else
+			{
+				// Delayed delete
+				// Pointless to update item_id label here since link still exists and first notifyObservers
+				// call will restore (wear) suffix, mark for update after deletion
+				LLPointer<LLUpdateOnCOFLinkRemove> cb_label = new LLUpdateOnCOFLinkRemove(item_id, cb);
+				remove_inventory_item(item->getUUID(), cb_label, false);
+			}
 		}
 	}
 }
