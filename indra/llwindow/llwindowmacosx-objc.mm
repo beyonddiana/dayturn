@@ -38,11 +38,6 @@
  * linden headers with any objective-C++ source.
  */
 
-int createNSApp(int argc, const char *argv[])
-{
-	return NSApplicationMain(argc, argv);
-}
-
 void setupCocoa()
 {
 	static bool inited = false;

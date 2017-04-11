@@ -76,7 +76,6 @@ void handleUrl(const char* url);
 void dispatchUrl(std::string url);
 
 /* Defined in llwindowmacosx-objc.mm: */
-int createNSApp(int argc, const char **argv);
 void setupCocoa();
 bool pasteBoardAvailable();
 bool copyToPBoard(const unsigned short *str, unsigned int len);
