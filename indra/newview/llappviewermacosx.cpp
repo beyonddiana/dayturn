@@ -60,10 +60,6 @@ class LLMediaCtrl;		// for LLURLDispatcher
 
 namespace 
 {
-	// The command line args stored.
-	// They are not used immediately by the app.
-	int gArgC;
-	char** gArgV;
 	LLAppViewerMacOSX* gViewerAppPtr = NULL;
 
     void (*gOldTerminateHandler)() = NULL;
@@ -144,14 +140,6 @@ void cleanupViewer()
 	gViewerAppPtr = NULL;
 }
 
-int main( int argc, char **argv ) 
-{
-	// Store off the command line args for use later.
-	gArgC = argc;
-	gArgV = argv;
-	return createNSApp(argc, (const char**)argv);
-}
-
 LLAppViewerMacOSX::LLAppViewerMacOSX()
 {
 }
@@ -199,11 +187,6 @@ bool LLAppViewerMacOSX::initParseCommandLine(LLCommandLineParser& clp)
 	clp.addOptionDesc("psn", NULL, 1, "MacOSX process serial number");
 	clp.setCustomParser(parse_psn);
 
-	// parse the user's command line
-	if(clp.parseCommandLine(gArgC, gArgV) == false)
-	{
-		return false;
-	}
 
 	std::string lang(LLSysDarwin::getPreferredLanguage());
 	LLControlVariable* c = gSavedSettings.getControl("SystemLanguage");
