@@ -49,6 +49,8 @@
 
 - (void) applicationDidFinishLaunching:(NSNotification *)notification
 {
+	[[LLAppDelegate alloc] init];
+	
 	frameTimer = nil;
 	
 	[self languageUpdated];
@@ -176,6 +178,8 @@
 
 - (void)applicationWillTerminate:(NSNotification *)notification
 {
+		[LLAppDelegate release];
+		
 		// do nothing for now
 		// clean up the last bits here 
 }
