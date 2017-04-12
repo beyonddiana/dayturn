@@ -67,13 +67,15 @@
 }
 
 - (void) handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
-    NSString    *url= nil;
+    NSString    *url;
+    url = nil;
     url = [[[[NSAppleEventManager sharedAppleEventManager]// 1
                       currentAppleEvent]// 2
                      paramDescriptorForKeyword:keyDirectObject]// 3
                     stringValue];// 4
 
-    const char* url_utf8 = [url UTF8String];
+    const char* url_utf8;
+    url_utf8 = [url UTF8String];
    handleUrl(url_utf8);
 }
 
@@ -149,28 +151,27 @@
 
 - (void) languageUpdated
 {
-	TISInputSourceRef currentInput = TISCopyCurrentKeyboardInputSource();
-	CFArrayRef languages = (CFArrayRef)TISGetInputSourceProperty(currentInput, kTISPropertyInputSourceLanguages);
+    TISInputSourceRef currentInput;
+    currentInput = TISCopyCurrentKeyboardInputSource();
+    CFArrayRef languages;
+    languages = (CFArrayRef)TISGetInputSourceProperty(currentInput, kTISPropertyInputSourceLanguages);
 	
 #if 0 // In the event of ever needing to add new language sources, change this to 1 and watch the terminal for "languages:"
 	NSLog(@"languages: %@", TISGetInputSourceProperty(currentInput, kTISPropertyInputSourceLanguages));
 #endif
 	
 	// Typically the language we want is going to be the very first result in the array.
-	currentInputLanguage = (NSString*)CFArrayGetValueAtIndex(languages, 0);
+    currentInputLanguage = (NSString*)CFArrayGetValueAtIndex(languages, 0);
 }
 
 - (bool) romanScript
 {
 	// How to add support for new languages with the input window:
 	// Simply append this array with the language code (ja for japanese, ko for korean, zh for chinese, etc.)
-	NSArray *nonRomanScript = [[NSArray alloc] initWithObjects:@"ja", @"ko", @"zh-Hant", @"zh-Hans", nil];
-	if ([nonRomanScript containsObject:currentInputLanguage])
-    {
-        return false;
-    }
-    
-    return true;
+	NSArray *nonRomanScript;
+	nonRomanScript = @[@"ja", @"ko", @"zh-Hant", @"zh-Hans"];
+	return ![nonRomanScript containsObject:self.currentInputLanguage];
+
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification

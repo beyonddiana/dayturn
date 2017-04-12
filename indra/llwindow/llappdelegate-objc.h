@@ -41,8 +41,22 @@
 
 @property (retain) NSString *currentInputLanguage;
 
+- (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent;
+
+- (void)applicationDidBecomeActive:(NSNotification *)notification;
+
+- (void)applicationDidResignActive:(NSNotification *)notification;
+
+- (void)applicationDidHide:(NSNotification *)notification;
+
+- (void)applicationDidUnhide:(NSNotification *)notification;
+
+- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender;
+
 - (void) mainLoop;
 - (void) showInputWindow:(bool)show withEvent:(NSEvent*)textEvent;
 - (void) languageUpdated;
 - (bool) romanScript;
+
+- (void)applicationWillTerminate:(NSNotification *)notification;
 @end
