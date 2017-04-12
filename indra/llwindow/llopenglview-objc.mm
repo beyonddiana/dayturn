@@ -221,7 +221,7 @@ attributedStringInfo getSegments(NSAttributedString *str)
 
 - (id) initWithFrame:(NSRect)frame withSamples:(NSUInteger)samples andVsync:(BOOL)vsync
 {
-	[self registerForDraggedTypes:[NSArray arrayWithObject:NSURLPboardType]];
+    [self registerForDraggedTypes:@[NSURLPboardType]];
 	[self initWithFrame:frame];
 	
 	// Initialize with a default "safe" pixel format that will work with versions dating back to OS X 10.6.
@@ -280,8 +280,9 @@ attributedStringInfo getSegments(NSAttributedString *str)
 	}
 	
     mOldResize = false;
-    
-	return self;
+
+    [glContext release];
+    return self;
 }
 
 - (BOOL) rebuildContext
