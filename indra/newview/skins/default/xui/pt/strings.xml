@@ -1328,7 +1328,8 @@ Pessoas com contas gratuitas não poderão acessar o Second Life no momento para
 		A loja [[MARKETPLACE_CREATE_STORE_URL] no Marketplace] está retornando erros.
 	</string>
 	<string name="InventoryMarketplaceError">
-		Esse recurso está em beta. Inscreva-se neste [http://goo.gl/forms/FCQ7UXkakz formulário do Google] se você deseja participar.
+		Erro ao abrir as listagens do Marketplace.
+Se você continuar a receber essa mensagem, entre em contato com o suporte do Second Life para obter ajuda em http://support.secondlife.com
 	</string>
 	<string name="InventoryMarketplaceListingsNoItemsTitle">
 		Sua pasta Listagens do Marketplace está vazia.
@@ -4061,7 +4062,10 @@ If you continue to receive this message, contact the [SUPPORT_SITE].
 		Conversa com [AGENT_NAME]
 	</string>
 	<string name="inventory_item_offered-im">
-		Oferta de item de inventário
+		Item do inventário &apos;[ITEM_NAME]&apos; oferecido
+	</string>
+	<string name="inventory_folder_offered-im">
+		Pasta do inventário &apos;[ITEM_NAME]&apos; oferecida
 	</string>
 	<string name="no_session_message">
 		(Sessão de MI inexistente)
@@ -4139,7 +4143,10 @@ If you continue to receive this message, contact the [SUPPORT_SITE].
 		Posição inicial definida.
 	</string>
 	<string name="voice_morphing_url">
-		http://secondlife.com/landing/voicemorphing
+		https://secondlife.com/destination/voice-island
+	</string>
+	<string name="premium_voice_morphing_url">
+		https://secondlife.com/destination/voice-morphing-premium
 	</string>
 	<string name="paid_you_ldollars">
 		[NAME] lhe pagou L$ [AMOUNT] [REASON].
@@ -4492,7 +4499,7 @@ Denunciar abuso
 	<string name="server_is_down">
 		Aconteceu algo inesperado, apesar de termos tentado impedir isso.
 
-	Cheque secondlifegrid.net para saber se foi detectado um problema com o serviço.
+Visite http://status.secondlifegrid.net para saber se foi detectado um problema com o serviço.
         Se o problema persistir, cheque a configuração da sua rede e firewall.
 	</string>
 	<string name="dateTimeWeekdaysNames">
@@ -4944,6 +4951,9 @@ Tente colocar o caminho do editor entre aspas.
 	<string name="Command_Gestures_Label">
 		Gestos
 	</string>
+	<string name="Command_Grid_Status_Label">
+		Status da grade
+	</string>
 	<string name="Command_HowTo_Label">
 		Como
 	</string>
@@ -5024,6 +5034,9 @@ Tente colocar o caminho do editor entre aspas.
 	</string>
 	<string name="Command_Gestures_Tooltip">
 		Gestos para seu avatar
+	</string>
+	<string name="Command_Grid_Status_Tooltip">
+		Mostrar status da grade atual
 	</string>
 	<string name="Command_HowTo_Tooltip">
 		Como executar tarefas comuns
