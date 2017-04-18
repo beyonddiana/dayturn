@@ -144,8 +144,7 @@ La inicialización del mercado ha fallado por un error del sistema o de la red. 
 	<notification name="MerchantTransactionFailed">
 		La transacción con el Mercado ha fallado por el siguiente error:
         
-        Motivo: &apos;[ERROR_REASON]&apos;
-        [ERROR_DESCRIPTION]
+        [ERROR_REASON][ERROR_DESCRIPTION]
 		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
 	<notification name="MerchantUnprocessableEntity">
@@ -731,6 +730,9 @@ todos los objetos.
 Por favor, asegúrate de que no hay ninguno bloqueado, y de que eres el propietario de todos.
 	</notification>
 	<notification name="CannotLinkPermanent">
+		No se pueden vincular objetos a través de límites de región.
+	</notification>
+	<notification name="CannotLinkAcrossRegions">
 		No se pueden vincular objetos a través de límites de región.
 	</notification>
 	<notification name="CannotLinkDifferentOwners">
@@ -1707,10 +1709,9 @@ Consulta [[INFO_URL] Información sobre esta actualización].
 		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
 	<notification name="DoNotDisturbModeSet">
-		Está activado No molestar. No obtendrás un aviso cuando recibas comunicaciones.
+		Está activado No molestar.  No obtendrás un aviso cuando recibas comunicaciones.
 
 - Los otros residentes recibirán tu respuesta de No molestar (se configura en Preferencias &gt; General).
-- Se rehusarán los ofrecimientos de teleporte.
 - Se rechazarán las llamadas de voz.
 		<usetemplate ignoretext="Cambio mi estado al modo No molestar" name="okignore" yestext="OK"/>
 	</notification>
@@ -2450,9 +2451,6 @@ Publícala en una página web para que otros puedan acceder fácilmente a esta p
 	</notification>
 	<notification name="Cancelled">
 		Cancelado
-	</notification>
-	<notification name="CancelledSit">
-		Cancelado el sentarte
 	</notification>
 	<notification name="CancelledAttach">
 		Cancelado el anexar

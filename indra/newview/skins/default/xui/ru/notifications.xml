@@ -144,8 +144,7 @@
 	<notification name="MerchantTransactionFailed">
 		Не удалось выполнить транзакцию с торговым центром, ошибка:
         
-        Причина: &apos;[ERROR_REASON]&apos;
-        [ERROR_DESCRIPTION]
+        [ERROR_REASON][ERROR_DESCRIPTION]
 		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
 	<notification name="MerchantUnprocessableEntity">
@@ -732,6 +731,9 @@
 Убедитесь, что все объекты разблокированы и что вы владеете всеми ими.
 	</notification>
 	<notification name="CannotLinkPermanent">
+		Объекты нельзя связывать через границу региона.
+	</notification>
+	<notification name="CannotLinkAcrossRegions">
 		Объекты нельзя связывать через границу региона.
 	</notification>
 	<notification name="CannotLinkDifferentOwners">
@@ -1703,7 +1705,6 @@ http://secondlife.com/download.
 		Режим «Не беспокоить» включен.  Вы не будете получать уведомлений о входящих вызовах.
 
 - Другие жители будут получать ваш ответ, установленный для режима «Не беспокоить» (Настройки &gt; Общие).
-- Предложения телепортации будут отклоняться.
 - Голосовые вызовы будут отклоняться.
 		<usetemplate ignoretext="Смена моего статуса на режим «Не беспокоить»" name="okignore" yestext="OK"/>
 	</notification>
@@ -2441,9 +2442,6 @@ http://secondlife.com/download.
 	</notification>
 	<notification name="Cancelled">
 		Отменено
-	</notification>
-	<notification name="CancelledSit">
-		Отмененная посадка
 	</notification>
 	<notification name="CancelledAttach">
 		Отмененное присоединение

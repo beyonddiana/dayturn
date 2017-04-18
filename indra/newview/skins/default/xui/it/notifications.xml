@@ -144,8 +144,7 @@ L&apos;inizializzazione con il Marketplace non ha avuto successo a causa di un e
 	<notification name="MerchantTransactionFailed">
 		La transazione in Marketplace non è riuscita a causa dell&apos;errore seguente:
         
-        Motivo: &apos;[ERROR_REASON]&apos;
-        [ERROR_DESCRIPTION]
+        [ERROR_REASON][ERROR_DESCRIPTION]
 		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
 	<notification name="MerchantUnprocessableEntity">
@@ -730,6 +729,9 @@ Puoi unire al massimo [MAX] oggetti.
 Accertati che nessuno sia bloccato e che li possiedi tutti.
 	</notification>
 	<notification name="CannotLinkPermanent">
+		Gli oggetti non possono essere collegati attraverso i confini.
+	</notification>
+	<notification name="CannotLinkAcrossRegions">
 		Gli oggetti non possono essere collegati attraverso i confini.
 	</notification>
 	<notification name="CannotLinkDifferentOwners">
@@ -1702,11 +1704,10 @@ Vuoi cancellare quell&apos;elemento?
 		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
 	<notification name="DoNotDisturbModeSet">
-		Non disturbare è attivo.  Non riceverai la notifica delle comunicazioni in arrivo.
+		La funzione Non disturbare è attiva. Non riceverai nessuna comunicazione.
 
-- Gli altri residenti riceveranno la tua risposta Non disturbare (impostata in Preferenze &gt; Generali).
-- Le offerte di teleport verranno rifiutate.
-- Le chiamate voce verranno rifiutate.
+- Gli altri residenti riceveranno la risposta che hai impostato per la funzione &quot;Non disturbare&quot; in Preferenze &gt; Generali.
+- Le chiamate vocali verranno rifiutate.
 		<usetemplate ignoretext="Io cambio il mio stato alla modalità Non disturbare." name="okignore" yestext="OK"/>
 	</notification>
 	<notification name="JoinedTooManyGroupsMember">
@@ -2447,9 +2448,6 @@ Inseriscilo in una pagina web per dare ad altri un accesso facile a questa ubica
 	</notification>
 	<notification name="Cancelled">
 		Annullato
-	</notification>
-	<notification name="CancelledSit">
-		Seduta annullata
 	</notification>
 	<notification name="CancelledAttach">
 		Attaccamento annullato

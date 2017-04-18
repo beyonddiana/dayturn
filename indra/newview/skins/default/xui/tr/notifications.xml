@@ -144,8 +144,7 @@ Bir sistem veya ağ hatası nedeniyle Pazaryeri başlatılamadı.  Daha sonra te
 	<notification name="MerchantTransactionFailed">
 		Pazaryerinde yapılan işlem başarısız oldu. Hata kodu:
         
-        Neden: &quot;[ERROR_REASON]&quot;
-        [ERROR_DESCRIPTION]
+        [ERROR_REASON][ERROR_DESCRIPTION]
 		<usetemplate name="okbutton" yestext="Tamam"/>
 	</notification>
 	<notification name="MerchantUnprocessableEntity">
@@ -732,6 +731,9 @@ En fazla [MAX] nesneyi birbirine bağlayabilirsiniz.
 Lütfen hiçbirinin kilitli olmadığından ve hepsine sahip olduğunuzdan emin olun.
 	</notification>
 	<notification name="CannotLinkPermanent">
+		Nesneler bölge sınırları üzerinden bağlantılandırılamaz.
+	</notification>
+	<notification name="CannotLinkAcrossRegions">
 		Nesneler bölge sınırları üzerinden bağlantılandırılamaz.
 	</notification>
 	<notification name="CannotLinkDifferentOwners">
@@ -1700,11 +1702,10 @@ Gruptan ayrılmak istiyor musunuz?
 		<usetemplate name="okbutton" yestext="Tamam"/>
 	</notification>
 	<notification name="DoNotDisturbModeSet">
-		Rahatsız Etme açık.  Gelen iletişimlerle ilgili size bilgi verilmeyecek.
+		Rahatsız Etme işlevi etkin.  Gelen mesajlar için bildirim almazsınız.
 
-- Diğer sakinlere sizin Rahatsız Etmeyin yanıtı iletilecektir (Tercihler &gt; Genel içerisinde ayarlanır).
-- Işınlanma teklifleri reddedilecektir.
-- Sesli aramalar reddedilecektir.
+- Diğer sakinler sizin Rahatsız Etme yanıtınızı alır (Tercihler &gt; Genel altında ayarlanır).
+- Sesli aramalar reddedilir.
 		<usetemplate ignoretext="Durumumu Rahatsız Etme moduna değiştiriyorum" name="okignore" yestext="Tamam"/>
 	</notification>
 	<notification name="JoinedTooManyGroupsMember">
@@ -2441,9 +2442,6 @@ Diğer kişilerin bu konuma kolayca erişmesini sağlamak için bu adrese bir we
 	</notification>
 	<notification name="Cancelled">
 		İptal Edildi
-	</notification>
-	<notification name="CancelledSit">
-		Oturma İptal Edildi
 	</notification>
 	<notification name="CancelledAttach">
 		Takma İptal Edildi
