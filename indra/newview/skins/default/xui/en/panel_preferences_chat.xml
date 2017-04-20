@@ -2,7 +2,7 @@
 <panel
     border="true"
     follows="left|top|right|bottom"    
-    height="418"
+    height="438"
     label="Text Chat"
     layout="topleft"
     left="102"
@@ -10,17 +10,7 @@
     top="1"
     width="517">
     
-  <check_box
-      control_name="ChatAutocompleteGestures"
-      height="16"
-      initial_value="true"
-      label="Auto-complete gestures in nearby chat"
-      layout="topleft"
-      top="17"
-      left="13"
-      name="auto_complete_gestures"
-      width="330">
-  </check_box>
+
 
   <panel
       border="false"
@@ -32,12 +22,23 @@
       width="517">
 
     <check_box
+        control_name="ChatAutocompleteGestures"
+        height="16"
+        initial_value="true"
+        label="Auto-complete gestures in nearby chat"
+        layout="topleft"
+        top="0"
+        left="13"
+        name="auto_complete_gestures"
+        width="330">
+    </check_box>
+    <check_box
         control_name="PlayTypingAnim"
         height="16"
         initial_value="true"
         label="Play typing animation when chatting"
         layout="topleft"
-        top="0"
+        top_pad="2"
         name="play_typing_animation"
         width="330">
     </check_box>
@@ -118,8 +119,9 @@
 
   <panel
       border="false"
-      height="165"
+      height="167"
       layout="topleft"
+      top_pad="25"
       name="im_notification_settings" 	
       left="13"
       width="517">
@@ -165,7 +167,7 @@
         layout="topleft"
         name="play_sound_friend_im"
         left_pad="7"
-        top_delta="-3"
+        top_delta="-6"
         width="28">
     </check_box>
     <text
@@ -454,6 +456,15 @@
         top_pad="6"
         name="inventory_offer"
         width="150" />
+        
+    <view_border
+        bevel_style="none"
+        height="0"
+        layout="topleft"
+        left="0"
+        name="cost_text_border"
+        top_pad="6"
+        width="492"/>
 
   </panel>
 
