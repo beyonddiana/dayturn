@@ -511,6 +511,7 @@ void send_stats()
 	system["ram"] = (S32) gSysMemory.getPhysicalMemoryKB().value();
 	system["os"] = LLOSInfo::instance().getOSStringSimple();
 	system["cpu"] = gSysCPU.getCPUString();
+	system["address_size"] = ADDRESS_SIZE;
 	unsigned char MACAddress[MAC_ADDRESS_BYTES];
 	LLUUID::getNodeID(MACAddress);
 	std::string macAddressString = llformat("%02x-%02x-%02x-%02x-%02x-%02x",
