@@ -27,8 +27,11 @@
 
 #include "llerror.h"	// *TODO: eliminate this
 
-#include <typeinfo>
 #include <boost/noncopyable.hpp>
+#include <boost/unordered_set.hpp>
+#include <list>
+#include <vector>
+#include <typeinfo>
 
 /**
  * LLSingleton implements the getInstance() method part of the Singleton
@@ -44,6 +47,146 @@
  *
  * As currently written, LLSingleton is not thread-safe.
  */
+ 
+class LLSingletonBase: private boost::noncopyable
+{
+public:
+    class MasterList;
+
+private:
+    // All existing LLSingleton instances are tracked in this master list.
+    typedef std::list<LLSingletonBase*> list_t;
+    static list_t& get_master();
+    // This, on the other hand, is a stack whose top indicates the LLSingleton
+    // currently being initialized.
+    static list_t& get_initializing();
+    static list_t& get_initializing_from(MasterList*);
+    // Produce a vector<LLSingletonBase*> of master list, in dependency order.
+    typedef std::vector<LLSingletonBase*> vec_t;
+    static vec_t dep_sort();
+
+    bool mCleaned;                  // cleanupSingleton() has been called
+    // we directly depend on these other LLSingletons
+    typedef boost::unordered_set<LLSingletonBase*> set_t;
+    set_t mDepends;
+
+protected:
+    typedef enum e_init_state
+    {
+        UNINITIALIZED = 0,          // must be default-initialized state
+        CONSTRUCTING,
+        INITIALIZING,
+        INITIALIZED,
+        DELETED
+    } EInitState;
+
+    // Define tag<T> to pass to our template constructor. You can't explicitly
+    // invoke a template constructor with ordinary template syntax:
+    // http://stackoverflow.com/a/3960925/5533635
+    template <typename T>
+    struct tag
+    {
+        typedef T type;
+    };
+
+    // Base-class constructor should only be invoked by the DERIVED_TYPE
+    // constructor, which passes tag<DERIVED_TYPE> for various purposes.
+    template <typename DERIVED_TYPE>
+    LLSingletonBase(tag<DERIVED_TYPE>);
+    virtual ~LLSingletonBase();
+
+    // Every new LLSingleton should be added to/removed from the master list
+    void add_master();
+    void remove_master();
+    // with a little help from our friends.
+    template <class T> friend struct LLSingleton_manage_master;
+
+    // Maintain a stack of the LLSingleton subclass instance currently being
+    // initialized. We use this to notice direct dependencies: we want to know
+    // if A requires B. We deduce a dependency if while initializing A,
+    // control reaches B::getInstance().
+    // We want &A to be at the top of that stack during both A::A() and
+    // A::initSingleton(), since a call to B::getInstance() might occur during
+    // either.
+    // Unfortunately the desired timespan does not correspond neatly with a
+    // single C++ scope, else we'd use RAII to track it. But we do know that
+    // LLSingletonBase's constructor definitely runs just before
+    // LLSingleton's, which runs just before the specific subclass's.
+    void push_initializing(const char*);
+    // LLSingleton is, and must remain, the only caller to initSingleton().
+    // That being the case, we control exactly when it happens -- and we can
+    // pop the stack immediately thereafter.
+    void pop_initializing();
+private:
+    // logging
+    static void log_initializing(const char* verb, const char* name);
+protected:
+    // If a given call to B::getInstance() happens during either A::A() or
+    // A::initSingleton(), record that A directly depends on B.
+    void capture_dependency(list_t& initializing, EInitState);
+
+    // delegate LL_ERRS() logging to llsingleton.cpp
+    static void logerrs(const char* p1, const char* p2="",
+                        const char* p3="", const char* p4="");
+    // delegate LL_WARNS() logging to llsingleton.cpp
+    static void logwarns(const char* p1, const char* p2="",
+                         const char* p3="", const char* p4="");
+    static std::string demangle(const char* mangled);
+
+    // Default methods in case subclass doesn't declare them.
+    virtual void initSingleton() {}
+    virtual void cleanupSingleton() {}
+
+    // deleteSingleton() isn't -- and shouldn't be -- a virtual method. It's a
+    // class static. However, given only Foo*, deleteAll() does need to be
+    // able to reach Foo::deleteSingleton(). Make LLSingleton (which declares
+    // deleteSingleton()) store a pointer here. Since we know it's a static
+    // class method, a classic-C function pointer will do.
+    void (*mDeleteSingleton)();
+
+public:
+    /**
+     * Call this to call the cleanupSingleton() method for every LLSingleton
+     * constructed since the start of the last cleanupAll() call. (Any
+     * LLSingleton constructed DURING a cleanupAll() call won't be cleaned up
+     * until the next cleanupAll() call.) cleanupSingleton() neither deletes
+     * nor destroys its LLSingleton; therefore it's safe to include logic that
+     * might take significant realtime or even throw an exception.
+     *
+     * The most important property of cleanupAll() is that cleanupSingleton()
+     * methods are called in dependency order, leaf classes last. Thus, given
+     * two LLSingleton subclasses A and B, if A's dependency on B is properly
+     * expressed as a B::getInstance() or B::instance() call during either
+     * A::A() or A::initSingleton(), B will be cleaned up after A.
+     *
+     * If a cleanupSingleton() method throws an exception, the exception is
+     * logged, but cleanupAll() attempts to continue calling the rest of the
+     * cleanupSingleton() methods.
+     */
+    static void cleanupAll();
+    /**
+     * Call this to call the deleteSingleton() method for every LLSingleton
+     * constructed since the start of the last deleteAll() call. (Any
+     * LLSingleton constructed DURING a deleteAll() call won't be cleaned up
+     * until the next deleteAll() call.) deleteSingleton() deletes and
+     * destroys its LLSingleton. Any cleanup logic that might take significant
+     * realtime -- or throw an exception -- must not be placed in your
+     * LLSingleton's destructor, but rather in its cleanupSingleton() method.
+     *
+     * The most important property of deleteAll() is that deleteSingleton()
+     * methods are called in dependency order, leaf classes last. Thus, given
+     * two LLSingleton subclasses A and B, if A's dependency on B is properly
+     * expressed as a B::getInstance() or B::instance() call during either
+     * A::A() or A::initSingleton(), B will be cleaned up after A.
+     *
+     * If a deleteSingleton() method throws an exception, the exception is
+     * logged, but deleteAll() attempts to continue calling the rest of the
+     * deleteSingleton() methods.
+     */
+    static void deleteAll();
+}; 
+ 
+ 
 template <typename DERIVED_TYPE>
 class LLSingleton : private boost::noncopyable
 {
