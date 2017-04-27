@@ -291,6 +291,7 @@ set(viewer_SOURCE_FILES
     llfloaterlagmeter.cpp
     llfloaterland.cpp
     llfloaterlandholdings.cpp
+    llfloaterlinkreplace.cpp
     llfloatermarketplacelistings.cpp
     llfloatermap.cpp
     llfloatermediasettings.cpp
@@ -946,6 +947,7 @@ set(viewer_HEADER_FILES
     llfloaterlagmeter.h
     llfloaterland.h
     llfloaterlandholdings.h
+    llfloaterlinkreplace.h
     llfloatermap.h
     llfloatermarketplacelistings.h
     llfloatermediasettings.h
