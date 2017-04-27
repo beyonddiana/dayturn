@@ -35,9 +35,9 @@ class LLWinDebug:
 	public LLSingleton<LLWinDebug>
 {
 public:
-	static void initSingleton();
+	void initSingleton();
 	static void generateMinidump(struct _EXCEPTION_POINTERS *pExceptionInfo = NULL);
-	static void cleanupSingleton();
+	void cleanupSingleton();
 private:
 	static void writeDumpToFile(MINIDUMP_TYPE type, MINIDUMP_EXCEPTION_INFORMATION *ExInfop, const std::string& filename);
 };
