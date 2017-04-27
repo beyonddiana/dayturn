@@ -284,6 +284,34 @@
     name="update_show_release_notes"
     width="400"
     top_pad="5"/>
+    
+   <text
+     type="string"
+     length="1"
+     follows="left|top"
+     height="10"
+     layout="topleft"
+     left="30"
+     name="Proxy Settings:"
+     mouse_opaque="false"
+     top_pad="5"
+     width="300">
+		Http:
+  </text>
+    <check_box
+    top_delta="4"
+    enabled="true"
+    follows="left|top"
+    height="16"
+    control_name="ImagePipelineUseHTTP"
+    label="Fetch Textures with HTTP"
+    left_delta="50"
+    mouse_opaque="true"
+    name="ImagePipelineUseHTTP"
+    width="400"           
+    top_pad="5"/>
+  
+  
   <text
      type="string"
      length="1"

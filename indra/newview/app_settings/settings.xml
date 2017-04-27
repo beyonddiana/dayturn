@@ -7302,7 +7302,7 @@
   <key>MeshUploadTimeOut</key>
   <map>
     <key>Comment</key>
-    <string>Maximum time in seconds for llcurl to execute a mesh uoloading request</string>
+    <string>Maximum time in seconds for llcurl to execute a mesh uploading request</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
@@ -17083,17 +17083,6 @@
     <string>U32</string>
     <key>Value</key>
     <integer>100</integer>
-  </map>
-  <key>FSMeshRequestTimeout</key>
-  <map>
-    <key>Comment</key>
-    <string>The timeout in seconds for a mesh request to complete before it will be issued again.</string>
-    <key>Persist</key>
-    <integer>1</integer>
-    <key>Type</key>
-    <string>S32</string>
-    <key>Value</key>
-    <real>60</real>
   </map>
   <key>FSMeshUploadPossible</key>
   <map>
