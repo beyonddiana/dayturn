@@ -13,7 +13,7 @@ syntax: glob
 LICENSES
 indra/.distcc
 build-linux-*
-build-darwin-*
+build-darwin*
 build-vc80/
 build-vc100/
 build-vc120/
@@ -92,3 +92,4 @@ indra/newview/skins/default/xui/pt/mime_types_mac.xml.orig
 indra/newview/skins/default/xui/ru/mime_types_mac.xml.orig
 indra/newview/skins/default/xui/tr/mime_types_mac.xml.orig
 indra/newview/skins/default/xui/zh/mime_types_mac.xml.orig
+
