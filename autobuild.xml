@@ -1101,11 +1101,11 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>71e678d70e276fc42a56926fc28a7abd</string>
+              <string>e4503d5860a01bf4d2ad30373399edee</string>
               <key>hash_algorithm</key>
               <string>md5</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/glod_3p-update-glod/rev/296895/arch/Darwin/installer/glod-1.0pre4.296895-darwin-296895.tar.bz2</string>
+              <string>https://bitbucket.org/dayturn/p64_3p-glod/downloads/glod-1.0pre4.201704261506-darwin-201704261506.tar.bz2</string>
             </map>
             <key>name</key>
             <string>darwin</string>
