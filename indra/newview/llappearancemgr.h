@@ -237,9 +237,23 @@ public:
 
 	void setAppearanceServiceURL(const std::string& url) { mAppearanceServiceURL = url; }
 	std::string getAppearanceServiceURL() const;
+	
+
+	bool testCOFRequestVersion() const;
+    void decrementInFlightCounter()
+    {
+		mInFlightCounter = llmax(mInFlightCounter - 1, 0);
+	}
+
 
 private:
 	std::string		mAppearanceServiceURL;
+
+	LLCore::HttpRequest::ptr_t		mHttpRequest;
+	LLCore::HttpHeaders::ptr_t		mHttpHeaders;
+	LLCore::HttpOptions::ptr_t		mHttpOptions;
+	LLCore::HttpRequest::policy_t	mHttpPolicy;
+	LLCore::HttpRequest::priority_t	mHttpPriority;
 	
 
 protected:
@@ -271,6 +285,8 @@ private:
 								   LLInventoryModel::item_array_t& gest_items);
 
 	static void onOutfitRename(const LLSD& notification, const LLSD& response);
+	
+	bool onIdle();
 
 	bool mAttachmentInvLinkEnabled;
 	bool mOutfitIsDirty;
@@ -283,6 +299,9 @@ private:
 	 * to avoid unsynchronized outfit state or performing duplicate operations.
 	 */
 	bool mOutfitLocked;
+	S32  mInFlightCounter;
+	LLTimer mInFlightTimer;
+	static bool mActive;
 
 	LLUUID mCOFImageID;
 
