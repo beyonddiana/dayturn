@@ -2410,8 +2410,15 @@ void LLVivoxVoiceClient::setHidden(bool hidden)
 {
     mHidden = hidden;
     
-    sendPositionalUpdate();
-    return;
+    if (mHidden && inSpatialChannel())
+    {
+        // get out of the channel entirely 
+        leaveAudioSession();
+    }
+    else
+    {
+        sendPositionalUpdate();
+    }
 }
 
 void LLVivoxVoiceClient::sendPositionalUpdate(void)
@@ -2628,7 +2635,7 @@ void LLVivoxVoiceClient::sendPositionalUpdate(void)
 			}
 		}
 	}
-			
+
 	//sendLocalAudioUpdates();  obsolete, used to send volume setting on position updates
 	
 	if(!stream.str().empty())
@@ -4532,8 +4539,10 @@ bool LLVivoxVoiceClient::inSpatialChannel(void)
 	bool result = false;
 	
 	if(mAudioSession)
+    {
 		result = mAudioSession->mIsSpatial;
-		
+    }
+    
 	return result;
 }
 
