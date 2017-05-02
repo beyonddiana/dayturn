@@ -123,12 +123,12 @@ int secapiSSLCertVerifyCallback(X509_STORE_CTX *ctx, void *param)
 	}
 	catch (LLCertValidationTrustException& cert_exception)
 	{
-		LL_WARNS("AppInit") << "Cert not trusted: " << cert_exception.getMessage() << LL_ENDL;
+		LL_WARNS("AppInit") << "Cert not trusted: " << cert_exception.what() << LL_ENDL;
 		return 0;		
 	}
 	catch (LLCertException& cert_exception)
 	{
-		LL_WARNS("AppInit") << "cert error " << cert_exception.getMessage() << LL_ENDL;
+		LL_WARNS("AppInit") << "cert error " << cert_exception.what() << LL_ENDL;
 		return 0;
 	}
 	catch (...)
