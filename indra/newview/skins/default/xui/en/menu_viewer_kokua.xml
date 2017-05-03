@@ -1316,6 +1316,17 @@
          function="Tools.EnableSelectNextPart" />
       </menu_item_call>
     </menu>
+    <menu_item_call
+     label="Region Objects"
+     name="pathfinding_linkset_menu_item"
+     only_in_sl="true">
+        <menu_item_call.on_click
+         function="Floater.ToggleOrBringToFront"
+         parameter="pathfinding_linksets" />
+        <menu_item_call.on_enable
+         function="Tools.EnablePathfinding" />
+    </menu_item_call> 
+    
     <menu_item_separator/>
 
     <menu_item_call
@@ -1467,7 +1478,7 @@
        tear_off="true"
        only_in_sl="true">
       <menu_item_call
-          label="Linksets..."
+          label="Region Objects"
           name="pathfinding_linksets_menu_item">
         <menu_item_call.on_click
             function="Floater.ToggleOrBringToFront"
