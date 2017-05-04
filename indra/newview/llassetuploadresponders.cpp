@@ -231,15 +231,19 @@ void LLAssetUploadResponder::httpFailure()
 	// *TODO: Add adaptive retry policy?
 	LL_WARNS() << dumpResponse() << LL_ENDL;
 	std::string reason;
-	if (isHttpClientErrorStatus(getStatus()))
+	switch (isHttpClientErrorStatus(getStatus()))
 	{
-		reason = "Error in upload request.  Please visit "
-			"http://secondlife.com/support for help fixing this problem.";
-	}
-	else
-	{
-		reason = "The server is experiencing unexpected "
-			"difficulties.";
+		case 404:
+            reason = LLTrans::getString("AssetUploadServerUnreacheble");
+            break;
+        case 499:
+            reason = LLTrans::getString("AssetUploadServerDifficulties");
+            break;
+        case 503:
+            reason = LLTrans::getString("AssetUploadServerUnavaliable");
+            break;
+        default:
+            reason = LLTrans::getString("AssetUploadRequestInvalid");
 	}
 	LLSD args;
 	args["FILE"] = (mFileName.empty() ? mVFileID.asString() : mFileName);
