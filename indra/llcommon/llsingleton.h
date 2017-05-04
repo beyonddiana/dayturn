@@ -187,4 +187,54 @@ private:
 template<typename T>
 typename LLSingleton<T>::SingletonData LLSingleton<T>::sData;
 
+/**
+ * Use LLSINGLETON(Foo); at the start of an LLSingleton<Foo> subclass body
+ * when you want to declare an out-of-line constructor:
+ *
+ * @code
+ *   class Foo: public LLSingleton<Foo>
+ *   {
+ *       // use this macro at start of every LLSingleton subclass
+ *       LLSINGLETON(Foo);
+ *   public:
+ *       // ...
+ *   };
+ *   // ...
+ *   [inline]
+ *   Foo::Foo() { ... }
+ * @endcode
+ *
+ * Unfortunately, this mechanism does not permit you to define even a simple
+ * (but nontrivial) constructor within the class body. If it's literally
+ * trivial, use LLSINGLETON_EMPTY_CTOR(); if not, use LLSINGLETON() and define
+ * the constructor outside the class body. If you must define it in a header
+ * file, use 'inline' (unless it's a template class) to avoid duplicate-symbol
+ * errors at link time.
+ */
+#define LLSINGLETON(DERIVED_CLASS)                                      \
+private:                                                                \
+    /* implement LLSingleton pure virtual method whose sole purpose */  \
+    /* is to remind people to use this macro */                         \
+    virtual void you_must_use_LLSINGLETON_macro() {}                    \
+    friend class LLSingleton<DERIVED_CLASS>;                            \
+    DERIVED_CLASS()
+
+/**
+ * Use LLSINGLETON_EMPTY_CTOR(Foo); at the start of an LLSingleton<Foo>
+ * subclass body when the constructor is trivial:
+ *
+ * @code
+ *   class Foo: public LLSingleton<Foo>
+ *   {
+ *       // use this macro at start of every LLSingleton subclass
+ *       LLSINGLETON_EMPTY_CTOR(Foo);
+ *   public:
+ *       // ...
+ *   };
+ * @endcode
+ */
+#define LLSINGLETON_EMPTY_CTOR(DERIVED_CLASS)                           \
+    /* LLSINGLETON() is carefully implemented to permit exactly this */ \
+    LLSINGLETON(DERIVED_CLASS) {}
+    
 #endif
