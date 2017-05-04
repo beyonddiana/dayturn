@@ -50,7 +50,6 @@
 #include "llagent.h"
 #include "llviewerregion.h"
 
-#include "llenvmanager.h"
 #include "llwlparamset.h"
 #include "llpostprocess.h"
 
@@ -60,9 +59,6 @@
 #include "curl/curl.h"
 #include "llstreamtools.h"
 
-//MK
-#include "llagent.h"
-//mk
 
 LLWLParamManager::LLWLParamManager() :
 
@@ -255,13 +251,13 @@ void LLWLParamManager::addAllSkies(const LLWLParamKey::EScope scope, const LLSD&
 	}
 }
 
-void LLWLParamManager::refreshRegionPresets()
+void LLWLParamManager::refreshRegionPresets(const LLSD& region_sky_presets)
 {
 	// Remove all region sky presets because they may belong to a previously visited region.
 	clearParamSetsOfScope(LLEnvKey::SCOPE_REGION);
 
 	// Add all sky presets belonging to the current region.
-	addAllSkies(LLEnvKey::SCOPE_REGION, LLEnvManagerNew::instance().getRegionSettings().getSkyMap());
+	addAllSkies(LLEnvKey::SCOPE_REGION, region_sky_presets);
 	}
 
 void LLWLParamManager::loadAllPresets()
@@ -500,7 +496,6 @@ bool LLWLParamManager::applyDayCycleParams(const LLSD& params, LLEnvKey::EScope 
 void LLWLParamManager::setDefaultDay()
 {
 	mDay.loadDayCycleFromFile("Default.xml");
-	resetAnimator(0.5, LLEnvManagerNew::getInstance()->getUseDayCycle());
 }
 
 bool LLWLParamManager::applySkyParams(const LLSD& params)
@@ -508,6 +503,11 @@ bool LLWLParamManager::applySkyParams(const LLSD& params)
 	mAnimator.deactivate();
 	mCurParams.setAll(params);
 	return true;
+}
+
+void LLWLParamManager::setDefaultSky()
+{
+	getParamSet(LLWLParamKey("Default", LLWLParamKey::SCOPE_LOCAL), mCurParams);
 }
 
 void LLWLParamManager::resetAnimator(F32 curTime, bool run)
@@ -709,19 +709,6 @@ void LLWLParamManager::initSingleton()
 	LL_DEBUGS("Windlight") << "Initializing sky" << LL_ENDL;
 
 	loadAllPresets();
-
-		// *HACK - sets cloud scrolling to what we want... fix this better in the future
-	std::string sky = LLEnvManagerNew::instance().getSkyPresetName();
-	if (!getParamSet(LLWLParamKey(sky, LLWLParamKey::SCOPE_LOCAL), mCurParams))
-	{
-		LL_WARNS() << "No sky preset named " << sky << ", falling back to defaults" << LL_ENDL;
-		getParamSet(LLWLParamKey("Default", LLWLParamKey::SCOPE_LOCAL), mCurParams);
-
-		// *TODO: Fix user preferences accordingly.
-	}
-
-		// set it to noon
-	resetAnimator(0.5, LLEnvManagerNew::instance().getUseDayCycle());
 
 		// but use linden time sets it to what the estate is
 	mAnimator.setTimeType(LLWLAnimator::TIME_LINDEN);
