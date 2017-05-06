@@ -37,6 +37,8 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/iteration/local.hpp>
 #include <stdexcept>
+#include "llcoro_get_id.h"          // for friend declaration
+
 
 /**
  * Registry of named Boost.Coroutine instances
@@ -158,6 +160,7 @@ public:
 private:
     friend class LLSingleton<LLCoros>;
     LLCoros();
+    friend llcoro::id llcoro::get_id();
     std::string launchImpl(const std::string& prefix, coro* newCoro);
     std::string generateDistinctName(const std::string& prefix) const;
     bool cleanup(const LLSD&);

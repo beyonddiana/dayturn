@@ -47,6 +47,7 @@ set(llcommon_SOURCE_FILES
     llcallbacklist.cpp
     llcommon.cpp
     llcommonutils.cpp
+    llcoro_get_id.cpp
     llcoros.cpp
     llcrc.cpp
     llcriticaldamp.cpp
@@ -143,6 +144,7 @@ set(llcommon_HEADER_FILES
     llcallbacklist.h
     llcommon.h
     llcommonutils.h
+    llcoro_get_id.cpp
     llcoros.h
     llcrc.h
     llcriticaldamp.h
