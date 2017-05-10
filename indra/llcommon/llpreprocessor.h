@@ -194,6 +194,11 @@
 #define LL_TYPEOF(exp) typeof(exp)
 #endif
 
+// With C++11, decltype() is standard. We no longer need a platform-dependent
+// macro to get the type of an expression.
+//#define LL_TYPEOF(expr) decltype(expr)
+
+
 #define LL_TO_STRING_HELPER(x) #x
 #define LL_TO_STRING(x) LL_TO_STRING_HELPER(x)
 #define LL_FILE_LINENO_MSG(msg) __FILE__ "(" LL_TO_STRING(__LINE__) ") : " msg
