@@ -67,7 +67,7 @@ const int LL_ERR_NOERR = 0;
 #endif
 
 #ifdef RELEASE_SHOW_ASSERT
-#define SHOW_ASSERT
+// #define SHOW_ASSERT
 #endif
 
 #endif // !_DEBUG
