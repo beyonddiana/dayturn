@@ -1195,7 +1195,7 @@ void LLAvatarActions::toggleBlock(const LLUUID& id)
 }
 
 // static
-void LLAvatarActions::toggleMuteVoice(const LLUUID& id)
+void LLAvatarActions::toggleMute(const LLUUID& id, U32 flags)
 {
 	std::string name;
 	gCacheName->getFullName(id, name); // needed for mute
@@ -1206,12 +1206,18 @@ void LLAvatarActions::toggleMuteVoice(const LLUUID& id)
 	LLMute mute(id, name, LLMute::AGENT);
 	if (!is_muted)
 	{
-		mute_list->add(mute, LLMute::flagVoiceChat);
+		mute_list->add(mute, flags);
 	}
 	else
 	{
-		mute_list->remove(mute, LLMute::flagVoiceChat);
+		mute_list->remove(mute, flags);
 	}
+}
+
+// static
+void LLAvatarActions::toggleMuteVoice(const LLUUID& id)
+{
+	toggleMute(id, LLMute::flagVoiceChat);
 }
 
 // static
