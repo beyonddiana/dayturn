@@ -96,15 +96,6 @@
 			value="2"
 			width="80" />
 		<radio_item
-			label="Classifieds"
-			name="classifieds"
-			top_delta="0"
-			layout="topleft"
-			height="16"
-			left_pad="1"
-			value="5"
-			width="80"/>
-		<radio_item
 			label="Land"
 			name="land"
 			top_delta="0"
@@ -115,6 +106,15 @@
 			width="80"
 			enabled="false"
 			visible="false"/>
+		<radio_item
+			label="Classifieds"
+			name="classifieds"
+			top_delta="0"
+			layout="topleft"
+			height="16"
+			left_pad="1"
+			value="5"
+			width="80"/>
 		 <radio_item
 			label="Events"
 			name="events"
@@ -397,7 +397,7 @@
 		top="30"
 		left="10"
 		height="23"
-		width="575"
+		width="475"
 		text_readonly_color="DkGray"
 		select_on_focus="false"
 		commit_on_focus_lost="false"
@@ -479,7 +479,7 @@
 		height="16"
 		label="Price:"
 		layout="topleft"
-		left="538"
+		left="548"
 		name="price_check"
 		top="10"
 		width="20"/>
@@ -489,7 +489,7 @@
 		height="16"
 		label="Area:"
 		layout="topleft"
-		left="538"
+		left="548"
 		name="area_check"
 		top_pad="2"
 		width="20"/>
@@ -501,7 +501,7 @@
 		commit_on_focus_lost="false"
 		follows="left|top"
 		height="18"
-		left="592"
+		left="602"
 		name="edit_price"
 		top="7"
 		width="40" />
@@ -513,7 +513,7 @@
 		commit_on_focus_lost="false"
 		follows="left|top"
 		height="18"
-		left="592"
+		left="602"
 		name="edit_area"
 		top_pad="1"
 		width="40" />
