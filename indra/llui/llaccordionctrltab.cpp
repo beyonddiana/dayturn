@@ -822,6 +822,11 @@ BOOL LLAccordionCtrlTab::handleKey(KEY key, MASK mask, BOOL called_from_parent)
 
 void LLAccordionCtrlTab::showAndFocusHeader()
 {
+	if (!mHeader)
+	{
+		return;
+	}
+
 	mHeader->setFocus(true);
 	mHeader->setSelected(mSelectionEnabled);
 
