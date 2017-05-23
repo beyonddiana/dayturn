@@ -1043,7 +1043,7 @@ LLFontGL* LLFontGL::getFontByName(const std::string& name)
 	{
 		return getFontSansSerifBig();
 	}
-	else if (name == "SMALL" || name == "OCRA")
+	else if (name == "SMALL" || name == "MONOSPACE")
 	{
 		// *BUG: Should this be "MONOSPACE"?  Do we use "OCRA" anymore?
 		// Does "SMALL" mean "SERIF"?

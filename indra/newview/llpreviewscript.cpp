@@ -1554,7 +1554,7 @@ void LLPreviewLSL::callbackLSLCompileFailed(const LLSD& compile_errors)
 		std::string error_message = line->asString();
 		LLStringUtil::stripNonprintable(error_message);
 		row["columns"][0]["value"] = error_message;
-		row["columns"][0]["font"] = "OCRA";
+		row["columns"][0]["font"] = "MONOSPACE";
 		mScriptEd->mErrorList->addElement(row);
 	}
 	mScriptEd->selectFirstError();
@@ -1944,7 +1944,7 @@ void LLLiveLSLEditor::callbackLSLCompileFailed(const LLSD& compile_errors)
 		LLStringUtil::stripNonprintable(error_message);
 		row["columns"][0]["value"] = error_message;
 		// *TODO: change to "MONOSPACE" and change llfontgl.cpp?
-		row["columns"][0]["font"] = "OCRA";
+		row["columns"][0]["font"] = "MONOSPACE";
 		mScriptEd->mErrorList->addElement(row);
 	}
 	mScriptEd->selectFirstError();
