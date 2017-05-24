@@ -8643,11 +8643,30 @@ Attachment has been saved.
 Appearance has been saved to XML to [PATH]
   </notification>
   
-    <notification icon="notifytip.tga"
+  <notification icon="notifytip.tga"
 		name="AppearanceToXMLFailed" type="notifytip">
 Failed to save appearance to XML.
   </notification>
 
+  <notification icon="notifytip.tga"
+    name="SnapshotToComputerFailed" type="notifytip">
+Failed to save snapshot to [PATH]: Disk is full. [NEED_MEMORY]KB is required but only [FREE_MEMORY]KB is free.
+  </notification>
+  
+  <notification
+    icon="notifytip.tga"
+    name="PresetNotSaved"
+    type="notifytip">
+Error saving preset [NAME].
+  </notification>
+
+  <notification
+    icon="notifytip.tga"
+    name="PresetNotDeleted"
+    type="notifytip">
+Error deleting preset [NAME].
+  </notification>
+  
   <notification
     icon="alertmodal.tga"
     name="UnableToFindHelpTopic"
