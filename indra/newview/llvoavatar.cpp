@@ -6550,15 +6550,17 @@ void LLVOAvatar::getOffObject()
 	{
 		if (sit_object)
 		{
-			gMessageSystem->newMessageFast(_PREHASH_AgentRequestSit);
-			gMessageSystem->nextBlockFast(_PREHASH_AgentData);
-			gMessageSystem->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
-			gMessageSystem->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
-			gMessageSystem->nextBlockFast(_PREHASH_TargetObject);
-			gMessageSystem->addUUIDFast(_PREHASH_TargetID, sit_object->mID);
-			gMessageSystem->addVector3Fast(_PREHASH_Offset,
-				gAgentCamera.calcFocusOffset(sit_object, gAgent.getPositionAgent(), (S32)0.0f, (S32)0.0f));
-			sit_object->getRegion()->sendReliableMessage();
+			// Commenting this code for now because it causes issues when the RLV relay hasn't released the user yet when being unsat.
+			// Will think this through some more.
+			//gMessageSystem->newMessageFast(_PREHASH_AgentRequestSit);
+			//gMessageSystem->nextBlockFast(_PREHASH_AgentData);
+			//gMessageSystem->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
+			//gMessageSystem->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
+			//gMessageSystem->nextBlockFast(_PREHASH_TargetObject);
+			//gMessageSystem->addUUIDFast(_PREHASH_TargetID, sit_object->mID);
+			//gMessageSystem->addVector3Fast(_PREHASH_Offset,
+			//	gAgentCamera.calcFocusOffset(sit_object, gAgent.getPositionAgent(), (S32)0.0f, (S32)0.0f));
+			//sit_object->getRegion()->sendReliableMessage();
 		}
 	}
 //mk
