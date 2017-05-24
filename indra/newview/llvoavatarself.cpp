@@ -282,13 +282,7 @@ void LLVOAvatarSelf::setHoverIfRegionEnabled()
 	{
 		if (getRegion()->avatarHoverHeightEnabled())
 		{
-//MK from HB
-////			F32 hover_z = gSavedPerAccountSettings.getF32("AvatarHoverOffsetZ");
-			F32 ptf = gAgentAvatarp->getPelvisToFoot();
-			F32 ahh_dividor = ptf > 0.f ? gAgentAvatarp->mBodySize.mV[VZ] / ptf
-										: 1.f;
-			F32 hover_z = gSavedSettings.getF32("AvatarOffsetZ") / ahh_dividor;
-//mk from hb
+			F32 hover_z = gSavedPerAccountSettings.getF32("AvatarHoverOffsetZ");
 			setHoverOffset(LLVector3(0.0, 0.0, llclamp(hover_z,MIN_HOVER_Z,MAX_HOVER_Z)));
 			LL_INFOS("Avatar") << avString() << " set hover height from debug setting " << hover_z << LL_ENDL;
 		}
