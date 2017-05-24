@@ -37,7 +37,6 @@
 //#include "llfloaterenvsettings.h"
 #include "llfloatereditsky.h"
 #include "llfloaterimnearbychat.h"
-#include "llfloaterinventory.h"
 #include "llfloatermap.h"
 #include "llfloaterpostprocess.h"
 #include "llfloaterreg.h"
@@ -2132,6 +2131,7 @@ BOOL RRInterface::forceDetachByUuid (std::string object_uuid)
 	if (!avatar) return res;
 	LLViewerObject* object = gObjectList.findObject(LLUUID (object_uuid));
 	if (object) {
+		object = object->getRootEdit();
 		for (LLVOAvatar::attachment_map_t::iterator iter = avatar->mAttachmentPoints.begin(); 
 			 iter != avatar->mAttachmentPoints.end(); iter++)
 		{
