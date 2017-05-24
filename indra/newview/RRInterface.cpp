@@ -1037,7 +1037,7 @@ BOOL RRInterface::add (LLUUID object_uuid, std::string action, std::string optio
 				LLPipeline::updateRenderDeferred();
 				gPipeline.resetVertexBuffers();
 
-				if (!gUseWireframe && !gInitialDeferredModeForWireframe && LLPipeline::sRenderDeferred != gInitialDeferredModeForWireframe && gPipeline.isInit())
+				if (!gUseWireframe && !gInitialDeferredModeForWireframe && LLPipeline::sRenderDeferred != ((bool)gInitialDeferredModeForWireframe && gPipeline.isInit()))
 				{
 					LLPipeline::refreshCachedSettings();
 					gPipeline.releaseGLBuffers();
