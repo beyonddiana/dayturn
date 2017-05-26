@@ -8,14 +8,14 @@
  help_topic="floater_about"
  save_rect="true"
  title="ABOUT [CAPITALIZED_APP_NAME]"
- width="500">
+ width="510">
   
   <tab_container
     follows="all" 
     top="25"
-    left="10"
+    left="12"
     height="405" 
-    width="496" 
+    width="486" 
     name="about_tab"
     tab_position="top">
     <panel
@@ -33,7 +33,7 @@
        max_length="65536"
        name="support_editor"
        top="5"
-       width="435"
+       width="466"
        word_wrap="true" />
       <button
         follows="left|top" 
