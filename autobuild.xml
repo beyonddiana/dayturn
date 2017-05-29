@@ -442,11 +442,11 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>e5d1b0439235f5f3829662a45e566743</string>
+              <string>ab183bf38d32b017a0bb937622a18e13</string>
               <key>hash_algorithm</key>
               <string>md5</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/ct2/1075/2484/curl-7.47.0.501064-linux64-501064.tar.bz2</string>
+              <string>https://bitbucket.org/kokua/3p-curl/downloads/curl-7.38.0.201505290832-linux64-201505290832.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux64</string>
@@ -465,7 +465,7 @@
           </map>
         </map>
         <key>version</key>
-        <string>7.47.0.501064</string>
+        <string>7.42.1.301717</string>
       </map>
       <key>db</key>
       <map>
@@ -3097,8 +3097,8 @@
               <key>hash</key>
               <string>76a27f11377a5437ee373efb1ebca6d5</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/ct2/3544/9121/slvoice-4.7.0005.25982.503529-windows-503529.tar.bz2</string>
-            </map>
+                <string>http://automated-builds-secondlife-com.s3.amazonaws.com/ct2/3544/9121/slvoice-4.7.0005.25982.503529-windows-503529.tar.bz2</string>
+              </map>
             <key>name</key>
             <string>windows</string>
           </map>
