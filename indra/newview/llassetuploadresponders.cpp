@@ -231,7 +231,7 @@ void LLAssetUploadResponder::httpFailure()
 	// *TODO: Add adaptive retry policy?
 	LL_WARNS() << dumpResponse() << LL_ENDL;
 	std::string reason;
-	switch (isHttpClientErrorStatus(getStatus()))
+	switch (HttpClientErrorStatus(getStatus()))
 	{
 		case 404:
             reason = LLTrans::getString("AssetUploadServerUnreacheble");

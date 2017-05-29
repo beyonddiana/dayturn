@@ -122,6 +122,7 @@ bool isHttpGoodStatus(S32 status);
 bool isHttpRedirectStatus(S32 status);
 bool isHttpClientErrorStatus(S32 status);
 bool isHttpServerErrorStatus(S32 status);
+S32 HttpClientErrorStatus(S32 status);
 
 // Parses 'Retry-After' header contents and returns seconds until retry should occur.
 bool getSecondsUntilRetryAfter(const std::string& retry_after, F32& seconds_to_wait);
