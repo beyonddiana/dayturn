@@ -430,9 +430,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>de9e0c855ff6ee30c9e027a70bbef032</string>
+              <string>f49d4ed203b03852a3f6b01b18319f7a</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/curl_3p-update-curl/rev/301717/arch/Linux/installer/curl-7.42.1.301717-linux-301717.tar.bz2</string>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/3p-curl/rev/312763/arch/Linux/installer/curl-7.47.0.312763-linux-312763.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux</string>
@@ -456,16 +456,16 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>98d15713de8c439b7f54cc14f2df07ac</string>
+              <string>5e0d4f4a5a5bbcba610aafbb91c30b2b</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/curl_3p-update-curl/rev/301717/arch/CYGWIN/installer/curl-7.42.1.301717-windows-301717.tar.bz2</string>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/3p-curl/rev/312763/arch/CYGWIN/installer/curl-7.47.0.312763-windows-312763.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
           </map>
         </map>
         <key>version</key>
-        <string>7.42.1.301717</string>
+        <string>7.47.0.312763</string>
       </map>
       <key>db</key>
       <map>
