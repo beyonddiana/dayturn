@@ -184,7 +184,18 @@ bool isHttpClientErrorStatus(S32 status)
 	// Check for status 5xx.
 	return((400 <= status) && (status < 500));
 }
+S32 HttpClientErrorStatus(S32 status)
+{
+    // Status 499 is sometimes used for re-interpreted status 2xx errors
+    // based on body content.  Treat these as potentially retryable 'server' status errors,
+    // since we do not have enough context to know if this will always fail.
+    // This is an S32 implementation of isHttpClientErrorStatus.
+    // the calling command switch... uses return processing via case to report errors.
+    if (HTTP_INTERNAL_ERROR == status) return 0;
 
+    // Check for status 5xx.
+    return( status );
+}
 bool isHttpServerErrorStatus(S32 status)
 {
 	// Status 499 is sometimes used for re-interpreted status 2xx errors.
