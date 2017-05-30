@@ -2051,6 +2051,7 @@ bool LLLightImageParams::fromLLSD(LLSD& sd)
 
 LLExtendedMeshParams::LLExtendedMeshParams()
 {
+    mType = PARAMS_EXTENDED_MESH;
 	mFlags = 0;
 }
 
