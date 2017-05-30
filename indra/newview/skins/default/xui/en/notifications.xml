@@ -8920,24 +8920,6 @@ Please check your network and firewall setup.
 
   <notification
    icon="alertmodal.tga"
-   name="NoVoiceConnect"
-   type="alertmodal">
-We're having trouble connecting to your voice server:
-
-[HOSTID]
-
-Voice communications will not be available.
-Please check your network and firewall setup.
-    <tag>voice</tag>
-  <tag>fail</tag>
-    <usetemplate
-     ignoretext="Warn me when the viewer can't connect to the voice server"
-     name="okignore"
-     yestext="OK" />
-  </notification>
-
-  <notification
-   icon="alertmodal.tga"
    name="NoVoiceConnect-GIAB"
    type="alertmodal">
 We're having trouble connecting to your voice server:
