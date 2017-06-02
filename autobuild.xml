@@ -430,9 +430,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>de9e0c855ff6ee30c9e027a70bbef032</string>
+              <string>f49d4ed203b03852a3f6b01b18319f7a</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/curl_3p-update-curl/rev/301717/arch/Linux/installer/curl-7.42.1.301717-linux-301717.tar.bz2</string>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/3p-curl/rev/312763/arch/Linux/installer/curl-7.47.0.312763-linux-312763.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux</string>
@@ -456,16 +456,16 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>98d15713de8c439b7f54cc14f2df07ac</string>
+              <string>5e0d4f4a5a5bbcba610aafbb91c30b2b</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/curl_3p-update-curl/rev/301717/arch/CYGWIN/installer/curl-7.42.1.301717-windows-301717.tar.bz2</string>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/3p-curl/rev/312763/arch/CYGWIN/installer/curl-7.47.0.312763-windows-312763.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
           </map>
         </map>
         <key>version</key>
-        <string>7.42.1.301717</string>
+        <string>7.47.0.312763</string>
       </map>
       <key>db</key>
       <map>
@@ -2172,28 +2172,28 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>0a336cc09ab757feb560b9e3fab2e0ec</string>
+              <string>d22e7794691d1f44e400369ae1eb397f</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/ll-ca/rev/317913/arch/Linux/installer/llca-2016.07.20.317913-common-317913.tar.bz2</string>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/llca/rev/318103/arch/Linux/installer/llca-2016.07.26.318103-common-318103.tar.bz2</string>
             </map>
             <key>name</key>
             <string>common</string>
           </map>
-          <key>darwin</key>
+          <key>linux64</key>
           <map>
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>6d4d8efee8b7a5893b693c8f06a5d17b</string>
+              <string>835f82535a6356c67a73cc557bb16f4f</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/llca/rev/317939/arch/Darwin/installer/llca-2016.07.21.317939-darwin-317939.tar.bz2</string>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/ct2/354/883/llca-201610191702.500349-linux64-500349.tar.bz2</string>
             </map>
             <key>name</key>
-            <string>darwin</string>
+            <string>linux64</string>
           </map>
         </map>
         <key>version</key>
-        <string>2016.07.21.317939</string>
+        <string>201610191702.500349</string>
       </map>
       <key>llceflib</key>
       <map>
@@ -2267,7 +2267,7 @@
           </map>
         </map>
         <key>version</key>
-        <string>1.5.3.201611052240-kokua</string>
+        <string>1.5.3.317959</string>
       </map>
       <key>llphysicsextensions_source</key>
       <map>
@@ -3067,11 +3067,11 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>fc20b7a69bf4b3ed0152c569f51f614d</string>
+              <string>bb48383ba0d0f26be1ba0fa943c5c9aa</string>
               <key>hash_algorithm</key>
               <string>md5</string>
               <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-slvoice/downloads/slvoice-4.5.0009.17865.201506251848-linux-201506251848.tar.bz2</string>
+              <string>https://bitbucket.org/kokua/3p-slvoice/downloads/slvoice-3.2.0002.10426.298329.201607192017-linux-201607192017.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux</string>
@@ -3081,11 +3081,11 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>8fe64c0ec45c9ab46d65389fea451251</string>
+              <string>86d3150b2505ee11da14fdcc956b80fd</string>
               <key>hash_algorithm</key>
               <string>md5</string>
               <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-slvoice/downloads/slvoice-4.5.0009.17865.201506081519-linux64-201506081519.tar.bz2</string>
+              <string>https://bitbucket.org/kokua/3p-slvoice/downloads/slvoice-3.2.0002.10426.298329.201607192012-linux64-201607192012.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux64</string>
