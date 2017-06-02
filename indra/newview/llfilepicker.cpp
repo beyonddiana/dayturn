@@ -579,7 +579,12 @@ BOOL LLFilePicker::getSaveFile(ESaveFilter filter, const std::string& filename)
 		}
 		catch (...)
 		{
-			LOG_UNHANDLED_EXCEPTION("");
+			//LOG_UNHANDLED_EXCEPTION("");
+            //Not sure if this try catch block is needed
+            //it is not in viewer-release
+            //much of the logging marco that are in viewer-release are not yet in kokua-opensim
+            //Replacing with a debug log entry for now.
+            LL_WARNS() << "Window focus for file dialog dropped into catch ..." << LL_ENDL;
 		}
 		gKeyboard->resetKeys();
 	}
