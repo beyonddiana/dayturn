@@ -1136,7 +1136,7 @@ class Darwin_i386_Manifest(ViewerManifest):
                         print >> sys.stderr, "codesign failed, waiting %d seconds before retrying" % sign_retry_wait
                         time.sleep(sign_retry_wait)
                         sign_retry_wait*=2
-                        else:
+                    else:
                             print >> sys.stderr, "Maximum codesign attempts exceeded; giving up"
                             raise
 
