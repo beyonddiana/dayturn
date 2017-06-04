@@ -1116,13 +1116,29 @@ class Darwin_i386_Manifest(ViewerManifest):
         # get rid of the temp file
         self.package_file = finalname
         self.remove(sparsename)
-        self.run_command(
-        	'codesign --verbose --keychain "%(home_path)s/Library/Keychains/login.keychain" --sign %(identity)r %(final)r' % {
-            	'home_path' : home_path,
-                'identity': identity,
-       	 		'final': finalname
-       	 		})
-
+        if 'VIEWER_SIGNING_PWD' in os.environ:
+            self.run_command('security unlock-keychain -p "%s" "%s/Library/Keychains/login.keychain"' % (os.environ['VIEWER_SIGNING_PWD'], home_path ) )
+            signed=False
+            sign_attempts=3
+            sign_retry_wait=15
+            while (not signed) and (sign_attempts > 0):
+                try:
+                    sign_attempts-=1;
+                    self.run_command(
+                        'codesign --verbose --keychain "%(home_path)s/Library/Keychains/login.keychain" --sign %(identity)r %(final)r' % {
+                            'home_path' : home_path,
+                            'identity': identity,
+                            'final': finalname
+                            })
+                    signed=True # if no exception was raised, the codesign worked
+                except ManifestError, err:
+                    if sign_attempts:
+                        print >> sys.stderr, "codesign failed, waiting %d seconds before retrying" % sign_retry_wait
+                        time.sleep(sign_retry_wait)
+                        sign_retry_wait*=2
+                        else:
+                            print >> sys.stderr, "Maximum codesign attempts exceeded; giving up"
+                            raise
 
 class LinuxManifest(ViewerManifest):
     def construct(self):
