@@ -7322,10 +7322,6 @@ version 2.0
                 { AnimID                LLUUID }
                 { AnimSequenceID S32 }
         }
-        {
-                AnimationSourceList Variable
-                { ObjectID              LLUUID }
-        }
 }
 
 // *************************************************************************
