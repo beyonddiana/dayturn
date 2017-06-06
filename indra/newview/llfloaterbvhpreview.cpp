@@ -282,7 +282,7 @@ BOOL LLFloaterBvhPreview::postBuild()
 		// pass animation data through memory buffer
 		loaderp->serialize(dp);
 		dp.reset();
-		BOOL success = motionp && motionp->deserialize(dp);
+		BOOL success = motionp && motionp->deserialize(dp, mMotionID);
 
 		delete []buffer;
 
