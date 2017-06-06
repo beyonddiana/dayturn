@@ -1450,7 +1450,7 @@ void LLImageRaw::copyScaled( LLImageRaw* src )
 bool LLImageRaw::scale( S32 new_width, S32 new_height, bool scale_image_data )
 {
     S32 components = getComponents();
-	if (! ((1 == components) || (3 == components) || (4 == components) ))
+    if (components != 1 && components != 3 && components != 4)
     {
         LL_WARNS() << "Invalid getComponents value (" << components << ")" << LL_ENDL;
         return false;
@@ -1521,41 +1521,51 @@ bool LLImageRaw::scale( S32 new_width, S32 new_height, bool scale_image_data )
 
 LLPointer<LLImageRaw> LLImageRaw::scaled(S32 new_width, S32 new_height)
 {
-	LLPointer<LLImageRaw> result;
+    LLPointer<LLImageRaw> result;
 
-	S32 components = getComponents();
-	if (!((1 == components) || (3 == components) || (4 == components)))
-	{
-		LL_WARNS() << "Invalid getComponents value (" << components << ")" << LL_ENDL;
-		return result;
-	}
+    S32 components = getComponents();
+    if (components != 1 && components != 3 && components != 4)
+    {
+        LL_WARNS() << "Invalid getComponents value (" << components << ")" << LL_ENDL;
+        return result;
+    }
 
-	if (isBufferInvalid())
-	{
-		LL_WARNS() << "Invalid image buffer" << LL_ENDL;
-		return result;
-	}
+    if (isBufferInvalid())
+    {
+        LL_WARNS() << "Invalid image buffer" << LL_ENDL;
+        return result;
+    }
 
-	S32 old_width = getWidth();
-	S32 old_height = getHeight();
+    S32 old_width = getWidth();
+    S32 old_height = getHeight();
 
-	if ((old_width == new_width) && (old_height == new_height))
-	{
-		result = new LLImageRaw(old_width, old_height, components);
-		memcpy(result->getData(), getData(), getDataSize());
-	}
-	else
-	{
-		S32 new_data_size = new_width * new_height * components;
+    if ((old_width == new_width) && (old_height == new_height))
+    {
+        result = new LLImageRaw(old_width, old_height, components);
+        if (!result)
+        {
+            LL_WARNS() << "Failed to allocate new image" << LL_ENDL;
+            return result;
+        }
+        memcpy(result->getData(), getData(), getDataSize());
+    }
+    else
+    {
+        S32 new_data_size = new_width * new_height * components;
 
-		if (new_data_size > 0)
-		{
-			result = new LLImageRaw(new_width, new_height, components);
-			bilinear_scale(getData(), old_width, old_height, components, old_width*components, result->getData(), new_width, new_height, components, new_width*components);
-		}
-	}
+        if (new_data_size > 0)
+        {
+            result = new LLImageRaw(new_width, new_height, components);
+            if (!result)
+            {
+                LL_WARNS() << "Failed to allocate new image" << LL_ENDL;
+                return result;
+            }
+            bilinear_scale(getData(), old_width, old_height, components, old_width*components, result->getData(), new_width, new_height, components, new_width*components);
+        }
+    }
 
-	return result;
+    return result;
 }
 
 void LLImageRaw::copyLineScaled( U8* in, U8* out, S32 in_pixel_len, S32 out_pixel_len, S32 in_pixel_step, S32 out_pixel_step )
