@@ -25,6 +25,7 @@
 [APP_NAME] [VIEWER_VERSION_0].[VIEWER_VERSION_1].[VIEWER_VERSION_2] ([VIEWER_VERSION_3]) [BUILD_DATE] [BUILD_TIME] ([CHANNEL])
 [[VIEWER_RELEASE_NOTES_URL] [ReleaseNotes]]
 	</string>
+	<string name="BuildConfig">Build Configuration [BUILD_CONFIG]</string>
 	<string name = "SupportGroup">[APP_NAME] support group on [GRID_NAME]: [SUPPORT_GROUP_SLURL]</string>
 	<string name="AboutCompiler">Built with [COMPILER] version [COMPILER_VERSION]</string>
 	<string name="AboutPosition">
