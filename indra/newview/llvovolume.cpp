@@ -75,8 +75,13 @@
 #include "lldatapacker.h"
 #include "llviewershadermgr.h"
 #include "llvoavatar.h"
+#include "llcontrolavatar.h"
+#include "llvoavatarself.h"
 #include "llvocache.h"
 #include "llmaterialmgr.h"
+#include "llanimationstates.h"
+#include "llinventorytype.h"
+#include "llviewerinventory.h"
 #include "llsculptidsize.h"
 
 const F32 FORCE_SIMPLE_RENDER_AREA = 512.f;
@@ -3459,7 +3464,7 @@ void LLVOVolume::updateRadius()
 
 BOOL LLVOVolume::isAttachment() const
 {
-	return mState != 0 ;
+	return mAttachmentState != 0 ;
 }
 
 BOOL LLVOVolume::isHUDAttachment() const
@@ -3467,7 +3472,7 @@ BOOL LLVOVolume::isHUDAttachment() const
 	// *NOTE: we assume hud attachment points are in defined range
 	// since this range is constant for backwards compatibility
 	// reasons this is probably a reasonable assumption to make
-	S32 attachment_id = ATTACHMENT_ID_FROM_STATE(mState);
+	S32 attachment_id = ATTACHMENT_ID_FROM_STATE(mAttachmentState);
 	return ( attachment_id >= 31 && attachment_id <= 38 );
 }
 
@@ -4992,9 +4997,29 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 			bool rigged = vobj->isAttachment() && 
                           vobj->isMesh() && 
 						  gMeshRepo.getSkinInfo(vobj->getVolume()->getParams().getSculptID(), vobj);
+						
+            bool rigged_non_attachment = !vobj->isAttachment() &&
+                                         vobj->isMesh() && 
+                                         gMeshRepo.getSkinInfo(vobj->getVolume()->getParams().getSculptID(), vobj);
 
+            if (rigged_non_attachment)
+            {
+                if (!vobj->mControlAvatar)
+                {
+                    vobj->mControlAvatar = LLControlAvatar::createControlAvatar(vobj);
+                    // vobj->mControlAvatar->addAttachmentOverridesForObject(vobj); GN This line most likely originates in the jelly dolls code
+                    vobj->requestInventory();
+                }
+                if (vobj->mControlAvatar)
+                {
+                    pAvatarVO = vobj->mControlAvatar;
+                }
+            }
+						
 			bool bake_sunlight = LLPipeline::sBakeSunlight && drawablep->isStatic();
 
+            // TRIF why this variable? Only different from rigged if
+            // there are no LLFaces associated with the drawable.
 			bool is_rigged = false;
 			
 			if (rigged && pAvatarVO)
@@ -5006,6 +5031,8 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 					pAvatarVO->showAttachmentOverrides(verbose);
 				}
             }
+            
+            // TRIF handle NPC case  GN code section missing here that most likely are the dummys
 
 			//for each face
 			for (S32 i = 0; i < drawablep->getNumFaces(); i++)
@@ -5025,7 +5052,7 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 			
 			
 
-				if (rigged) 
+				if (rigged || (vobj->mControlAvatar && vobj->mControlAvatar->mPlaying)) 
 				{
 					if (!facep->isState(LLFace::RIGGED))
 					{ //completely reset vertex buffer
