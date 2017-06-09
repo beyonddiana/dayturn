@@ -87,8 +87,8 @@
      name="unknown"
      top_pad="4"
      width="">
-Size: [DIMENSIONS]
-([ALPHA])
+ [DIMENSIONS]
+ [ALPHA]
     </text>
     
 <!--  middle: inventory mode -->

@@ -10,7 +10,7 @@
 		Описание:
 	</text>
 	<text name="dimensions">
-		[WIDTH]x[HEIGHT] пикселей
+		[WIDTH] x [HEIGHT]  ([ALPHA])
 	</text>
 	<text name="aspect_ratio">
 		Соотношение сторон
