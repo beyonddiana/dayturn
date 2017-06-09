@@ -2004,7 +2004,9 @@ void LLVOAvatar::resetSkeleton(bool reset_animations)
 //-----------------------------------------------------------------------------
 void LLVOAvatar::releaseMeshData()
 {
-	if (sInstances.size() < AVATAR_RELEASE_THRESHOLD)// || mIsDummy)
+    // AXON what should we be doing here for control avs? Why are
+    // dummies treated differently in the first place?
+	if (sInstances.size() < AVATAR_RELEASE_THRESHOLD || mIsDummy)	
 	{
 		return;
 	}
@@ -2840,9 +2842,11 @@ void LLVOAvatar::idleUpdateLoadingEffect()
 																 LLPartData::LL_PART_EMISSIVE_MASK | // LLPartData::LL_PART_FOLLOW_SRC_MASK |
 																 LLPartData::LL_PART_TARGET_POS_MASK );
 			
-            // TRIF skip cloud effects for dummy avs as well
-			if (!mIsDummy && !isTooComplex()) // do not generate particles for overly-complex avatars			{
+            // AXON skip cloud effects for dummy avs as well
+			if (!mIsDummy && !isTooComplex()) // do not generate particles for overly-complex avatars
+			{
 				setParticleSource(particle_parameters, getID());
+			}
 		}
 	}
 }	
@@ -3754,8 +3758,9 @@ BOOL LLVOAvatar::updateCharacter(LLAgent &agent)
 	}
 
 	// change animation time quanta based on avatar render load
-	if (!isSelf())// && !mIsDummy)
-	{
+    // AXON how should control avs be handled here?
+    bool is_pure_dummy = mIsDummy && !isControlAvatar();
+	if (!isSelf() && !is_pure_dummy)	{
 		F32 time_quantum = clamp_rescale((F32)sInstances.size(), 10.f, 35.f, 0.f, 0.25f);
 		F32 pixel_area_scale = clamp_rescale(mPixelArea, 100, 5000, 1.f, 0.f);
 		F32 time_step = time_quantum * pixel_area_scale;
@@ -3876,8 +3881,8 @@ BOOL LLVOAvatar::updateCharacter(LLAgent &agent)
 		//--------------------------------------------------------------------
 		// Propagate viewer object rotation to root of avatar
 		//--------------------------------------------------------------------
-		if (!isAnyAnimationSignaled(AGENT_NO_ROTATE_ANIMS, NUM_AGENT_NO_ROTATE_ANIMS))
-		{
+        // AXON - also skip for control avatars
+		if (!isControlAvatar() && !isAnyAnimationSignaled(AGENT_NO_ROTATE_ANIMS, NUM_AGENT_NO_ROTATE_ANIMS))		{
 			LLQuaternion iQ;
 			LLVector3 upDir( 0.0f, 0.0f, 1.0f );
 			
@@ -4573,13 +4578,14 @@ U32 LLVOAvatar::renderSkinned()
 		}
 		
 		BOOL first_pass = TRUE;
+        bool is_pure_dummy = mIsDummy && !isControlAvatar();		
 		if (!LLDrawPoolAvatar::sSkipOpaque)
 		{
 			bool visually_muted = isVisuallyMuted();
 
 			if (!isSelf() || gAgent.needsRenderHead() || LLPipeline::sShadowRender)
 			{
-                if (isTextureVisible(TEX_HEAD_BAKED) || visually_muted)
+				if (isTextureVisible(TEX_HEAD_BAKED) || is_pure_dummy || visually_muted)
                 {
 					LLViewerJoint* head_mesh = getViewerJoint(MESH_ID_HEAD);
 					if (head_mesh)
@@ -4589,7 +4595,7 @@ U32 LLVOAvatar::renderSkinned()
 					first_pass = FALSE;
 				}
 			}
-			if (isTextureVisible(TEX_UPPER_BAKED) || visually_muted)
+			if (isTextureVisible(TEX_UPPER_BAKED) || is_pure_dummy || visually_muted)
 			{
 				LLViewerJoint* upper_mesh = getViewerJoint(MESH_ID_UPPER_BODY);
 				if (upper_mesh)
@@ -4599,7 +4605,7 @@ U32 LLVOAvatar::renderSkinned()
 				first_pass = FALSE;
 			}
 			
-			if (isTextureVisible(TEX_LOWER_BAKED) || visually_muted)
+			if (isTextureVisible(TEX_LOWER_BAKED) || is_pure_dummy || visually_muted)
 			{
 				LLViewerJoint* lower_mesh = getViewerJoint(MESH_ID_LOWER_BODY);
 				if (lower_mesh)
@@ -4656,20 +4662,14 @@ U32 LLVOAvatar::renderTransparent(BOOL first_pass)
 			}
 			first_pass = FALSE;
 		}
-		// Can't test for baked hair being defined, since that won't always be the case (not all viewers send baked hair)
-		// TODO: 1.25 will be able to switch this logic back to calling isTextureVisible();
-        if (!mIsDummy)
+		if (isTextureVisible(TEX_HAIR_BAKED))
         {
-            if ( ( getImage(TEX_HAIR_BAKED, 0) && 
-                 getImage(TEX_HAIR_BAKED, 0)->getID() != IMG_INVISIBLE ) || LLDrawPoolAlpha::sShowDebugAlpha)		
+            LLViewerJoint* hair_mesh = getViewerJoint(MESH_ID_HAIR);
+            if (hair_mesh)
             {
-                LLViewerJoint* hair_mesh = getViewerJoint(MESH_ID_HAIR);
-                if (hair_mesh)
-                {
-                    num_indices += hair_mesh->render(mAdjustedPixelArea, first_pass, mIsDummy);
-                }
-                first_pass = FALSE;
+                num_indices += hair_mesh->render(mAdjustedPixelArea, first_pass, mIsDummy);
             }
+            first_pass = FALSE;
 		}
 		if (LLPipeline::sImpostorRender)
 		{
@@ -4710,8 +4710,9 @@ U32 LLVOAvatar::renderRigid()
 		gGL.setAlphaRejectSettings(LLRender::CF_GREATER, 0.5f);
 	}
 
-	if (isTextureVisible(TEX_EYES_BAKED)  || mIsDummy)
-	{
+    bool is_pure_dummy = mIsDummy && !isControlAvatar();
+
+	if (isTextureVisible(TEX_EYES_BAKED)  || is_pure_dummy)	{
 		LLViewerJoint* eyeball_left = getViewerJoint(MESH_ID_EYEBALL_LEFT);
 		LLViewerJoint* eyeball_right = getViewerJoint(MESH_ID_EYEBALL_RIGHT);
 		if (eyeball_left)
@@ -5831,7 +5832,7 @@ void LLVOAvatar::rebuildAttachmentOverrides()
 void LLVOAvatar::addAttachmentOverridesForObject(LLViewerObject *vo)
 {
     bool non_attached_case = false;
-    // FIXME TRIF - will this work if vo has child objects?
+    // AXON TRIF - will this work if vo has child objects?
     if (vo->mControlAvatar)
     {
         non_attached_case = true;
@@ -6121,7 +6122,7 @@ void LLVOAvatar::resetJointsOnDetach(const LLUUID& mesh_id)
  //-----------------------------------------------------------------------------
  // resetJointsOnDetach
  //-----------------------------------------------------------------------------
-// TRIF handle NPC case
+// AXON handle NPC case
  void LLVOAvatar::resetJointsOnDetach(LLViewerObject *vo)
  {
  	LLVOAvatar *av = vo->getAvatarAncestor();
@@ -6150,7 +6151,7 @@ void LLVOAvatar::resetJointsOnDetach(const LLUUID& mesh_id)
  //-----------------------------------------------------------------------------
  // resetJointsOnDetach
  //-----------------------------------------------------------------------------
-// TRIF handle NPC case
+// AXON handle NPC case
  void LLVOAvatar::resetJointsOnDetach(const LLUUID& mesh_id)
  {	
  	//Subsequent joints are relative to pelvis
@@ -6230,6 +6231,7 @@ void LLVOAvatar::getGround(const LLVector3 &in_pos_agent, LLVector3 &out_pos_age
 	LLVector3d z_vec(0.0f, 0.0f, 1.0f);
 	LLVector3d p0_global, p1_global;
 
+   // AXON update for control avs?
 	if (mIsDummy)
 	{
 		outNorm.setVec(z_vec);
@@ -6259,6 +6261,7 @@ F32 LLVOAvatar::getTimeDilation()
 //-----------------------------------------------------------------------------
 F32 LLVOAvatar::getPixelArea() const
 {
+    // AXON update for control avatars
 	if (mIsDummy)
 	{
 		return 100000.f;
@@ -7229,6 +7232,7 @@ void LLVOAvatar::onGlobalColorChanged(const LLTexGlobalColor* global_color, BOOL
 
 BOOL LLVOAvatar::isVisible() const
 {
+    // AXON should we flag control avs as invisible?
 	return mDrawable.notNull()
 		&& (!mOrphaned || isSelf())
 		&& (mDrawable->isVisible() || mIsDummy);
