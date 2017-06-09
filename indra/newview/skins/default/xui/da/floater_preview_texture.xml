@@ -10,7 +10,7 @@
 		Beskrivelse:
 	</text>
 	<text name="dimensions">
-		[WIDTH]px x [HEIGHT]px
+		[WIDTH] x [HEIGHT]  ([ALPHA])
 	</text>
 	<text name="aspect_ratio">
 		Vis aspekt forhold
