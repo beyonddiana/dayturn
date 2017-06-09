@@ -7,7 +7,8 @@
 		Wiele tekstur
 	</text>
 	<text name="unknown">
-		Rozmiar: [DIMENSIONS]
+[DIMENSIONS]
+[ALPHA]
 	</text>
 	<button label="Domyślna" label_selected="Domyślna" name="Default"/>
 	<button label="Żadna" label_selected="Żadna" name="None"/>

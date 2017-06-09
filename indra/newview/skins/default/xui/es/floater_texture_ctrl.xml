@@ -14,7 +14,8 @@
 		<radio_item label="Local" name="local" value="1"/>
 	</radio_group>
 	<text name="unknown">
-		Tamaño: [DIMENSIONS]
+[DIMENSIONS]
+[ALPHA]
 	</text>
 	<button label="Por defecto" label_selected="Por defecto" name="Default" width="84"/>
 	<button label="Blanca" label_selected="Blanca" name="Blank"/>

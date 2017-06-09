@@ -14,7 +14,8 @@
 		<radio_item label="Local" name="local" value="1"/>
 	</radio_group>
 	<text name="unknown">
-		Taille : [DIMENSIONS]
+[DIMENSIONS]
+[ALPHA]
 	</text>
 	<button label="Défaut" label_selected="Défaut" name="Default" width="60"/>
 	<button label="Vierge" label_selected="Vierge" name="Blank" width="60"/>
