@@ -95,7 +95,6 @@ extern S32 MENU_BAR_HEIGHT;
 
 
 // TODO: these values ought to be in the XML too
-const S32 SIM_STAT_WIDTH = 8;
 const LLColor4 SIM_OK_COLOR(0.f, 1.f, 0.f, 1.f);
 const LLColor4 SIM_WARN_COLOR(1.f, 1.f, 0.f, 1.f);
 const LLColor4 SIM_FULL_COLOR(1.f, 0.f, 0.f, 1.f);
