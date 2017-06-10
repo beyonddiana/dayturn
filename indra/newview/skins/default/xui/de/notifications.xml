@@ -266,7 +266,7 @@ Möchten Sie den ausgewählten Einwohnern Änderungsrechte gewähren?
 	<notification name="PanelGroupApply">
 		[NEEDS_APPLY_MESSAGE]
 [WANT_APPLY_MESSAGE]
-		<usetemplate canceltext="Abbrechen" name="yesnocancelbuttons" notext="Änderungen verwerfen" yestext="Änderungen übernehmen"/>
+		<usetemplate canceltext="Abbrechen" name="yesnocancelbuttons" notext="Änderungen wegwerfen" yestext="Änderungen übernehmen"/>
 	</notification>
 	<notification name="MustSpecifyGroupNoticeSubject">
 		Geben Sie einen Betreff für die Gruppenmitteilung ein.
@@ -2898,7 +2898,7 @@ Versuchen Sie es in einigen Minuten erneut.
 &lt;nolink&gt;[ITEM_SLURL]&lt;/nolink&gt;
 		<form name="form">
 			<button name="Keep" text="Behalten"/>
-			<button name="Discard" text="Verwerfen"/>
+			<button name="Discard" text="Wegwerfen"/>
 			<button name="Mute" text="Eigentümer blockieren"/>
 		</form>
 	</notification>
@@ -2907,7 +2907,7 @@ Versuchen Sie es in einigen Minuten erneut.
 &lt;nolink&gt;[ITEM_SLURL]&lt;/nolink&gt;
 		<form name="form">
 			<button name="Keep" text="Beibehalten"/>
-			<button name="Discard" text="Verwerfen"/>
+			<button name="Discard" text="Wegwerfen"/>
 		</form>
 	</notification>
 	<notification name="UserGiveItem">
@@ -2915,7 +2915,7 @@ Versuchen Sie es in einigen Minuten erneut.
 [ITEM_SLURL]
 		<form name="form">
 			<button name="Show" text="Anzeigen"/>
-			<button name="Discard" text="Verwerfen"/>
+			<button name="Discard" text="Wegwerfen"/>
 			<button name="Mute" text="Blockieren"/>
 		</form>
 	</notification>
