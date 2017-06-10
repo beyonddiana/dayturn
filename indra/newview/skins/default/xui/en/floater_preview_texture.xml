@@ -94,7 +94,7 @@
     <button
      follows="right|bottom"
      height="22"
-     label="Discard"
+     label="Delete"
      layout="topleft"
      left_pad="3"
      name="Discard"

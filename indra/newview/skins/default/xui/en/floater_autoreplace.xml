@@ -274,7 +274,7 @@
    scale_image="true"
    name="autoreplace_cancel"
    label="Cancel"
-   tool_tip="Discard all changes."/>
+   tool_tip="Forget all changes."/>
 </floater>
 <!--
   <text 
