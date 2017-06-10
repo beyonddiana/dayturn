@@ -31,6 +31,35 @@
 #include "llerrorcontrol.h"         // LLError::is_available()
 #include "lldependencies.h"
 
+namespace {
+    void log(LLError::ELevel level,
+             const char* p1, const char* p2, const char* p3, const char* p4);
+    
+    void logdebugs(const char* p1="", const char* p2="", const char* p3="", const char* p4="");
+    
+    bool oktolog();
+}
+
+
+//static
+void LLSingletonBase::log_initializing(const char* verb, const char* name)
+{
+    if (oktolog())
+    {
+        LL_DEBUGS("LLSingleton") << verb << ' ' << demangle(name) << ';';
+        list_t& list(get_initializing());
+        for (list_t::const_reverse_iterator ri(list.rbegin()), rend(list.rend());
+             ri != rend; ++ri)
+        {
+            LLSingletonBase* sb(*ri);
+            LL_CONT << ' ' << demangle(typeid(*sb).name());
+        }
+        LL_ENDL;
+    }
+}
+
+
+
 /*---------------------------- Logging helpers -----------------------------*/
 namespace {
 bool oktolog()
@@ -82,7 +111,10 @@ void log(LLError::ELevel level,
      // https://www.youtube.com/watch?v=OMG7paGJqhQ (emphasis on OMG)
      LLError::crashAndLoop(std::string());
  }
- 
+
+
+
+
  std::string LLSingletonBase::demangle(const char* mangled)
  {
      return LLError::Log::demangle(mangled);
