@@ -668,67 +668,70 @@ LLModel::EModelStatus load_face_from_dom_polygons(std::vector<LLVolumeFace>& fac
 
 	domP_Array& ps = poly->getP_array();
 
-	//make a triangle list in <verts>
-	for (U32 i = 0; i < ps.getCount(); ++i)
-	{ //for each polygon
-		domListOfUInts& idx = ps[i]->getValue();
-		for (U32 j = 0; j < idx.getCount()/stride; ++j)
-		{ //for each vertex
-			if (j > 2)
-			{
-				U32 size = verts.size();
-				LLVolumeFace::VertexData v0 = verts[size-3];
-				LLVolumeFace::VertexData v1 = verts[size-1];
+    if (stride != 0)
+    {
+        //make a triangle list in <verts>
+        for (U32 i = 0; i < ps.getCount(); ++i)
+        { //for each polygon
+            domListOfUInts& idx = ps[i]->getValue();
+            for (U32 j = 0; j < idx.getCount()/stride; ++j)
+            { //for each vertex
+                if (j > 2)
+                {
+                    U32 size = verts.size();
+                    LLVolumeFace::VertexData v0 = verts[size-3];
+                    LLVolumeFace::VertexData v1 = verts[size-1];
 
-				verts.push_back(v0);
-				verts.push_back(v1);
-			}
+                    verts.push_back(v0);
+                    verts.push_back(v1);
+                }
 
-			LLVolumeFace::VertexData vert;
+                LLVolumeFace::VertexData vert;
 
 
-			if (v)
-			{
-				U32 v_idx = idx[j*stride+v_offset]*3;
-				v_idx = llclamp(v_idx, (U32) 0, (U32) v->getCount());
-				vert.getPosition().set(v->get(v_idx),
-								v->get(v_idx+1),
-								v->get(v_idx+2));
-			}
-			
-			//bounds check n and t lookups because some FBX to DAE converters
-			//use negative indices and empty arrays to indicate data does not exist
-			//for a particular channel
-			if (n && n->getCount() > 0)
-			{
-				U32 n_idx = idx[j*stride+n_offset]*3;
-				n_idx = llclamp(n_idx, (U32) 0, (U32) n->getCount());
-				vert.getNormal().set(n->get(n_idx),
-								n->get(n_idx+1),
-								n->get(n_idx+2));
-			}
-			else
-			{
-				vert.getNormal().clear();
-			}
+                if (v)
+                {
+                    U32 v_idx = idx[j*stride+v_offset]*3;
+                    v_idx = llclamp(v_idx, (U32) 0, (U32) v->getCount());
+                    vert.getPosition().set(v->get(v_idx),
+                                    v->get(v_idx+1),
+                                    v->get(v_idx+2));
+                }
+                
+                //bounds check n and t lookups because some FBX to DAE converters
+                //use negative indices and empty arrays to indicate data does not exist
+                //for a particular channel
+                if (n && n->getCount() > 0)
+                {
+                    U32 n_idx = idx[j*stride+n_offset]*3;
+                    n_idx = llclamp(n_idx, (U32) 0, (U32) n->getCount());
+                    vert.getNormal().set(n->get(n_idx),
+                                    n->get(n_idx+1),
+                                    n->get(n_idx+2));
+                }
+                else
+                {
+                    vert.getNormal().clear();
+                }
 
-			
-			if (t && t->getCount() > 0)
-			{
-				U32 t_idx = idx[j*stride+t_offset]*2;
-				t_idx = llclamp(t_idx, (U32) 0, (U32) t->getCount());
-				vert.mTexCoord.setVec(t->get(t_idx),
-								t->get(t_idx+1));								
-			}
-			else
-			{
-				vert.mTexCoord.clear();
-			}
+                
+                if (t && t->getCount() > 0)
+                {
+                    U32 t_idx = idx[j*stride+t_offset]*2;
+                    t_idx = llclamp(t_idx, (U32) 0, (U32) t->getCount());
+                    vert.mTexCoord.setVec(t->get(t_idx),
+                                    t->get(t_idx+1));								
+                }
+                else
+                {
+                    vert.mTexCoord.clear();
+                }
 
-						
-			verts.push_back(vert);
-		}
-	}
+                            
+                verts.push_back(vert);
+            }
+        }
+    }
 
 	if (verts.empty())
 	{
