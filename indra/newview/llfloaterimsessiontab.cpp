@@ -50,7 +50,7 @@
 
 const F32 REFRESH_INTERVAL = 1.0f;
 
-void cb_do_nothing()
+void cb_group_do_nothing()
 {
 }
 
@@ -90,7 +90,7 @@ LLFloaterIMSessionTab::LLFloaterIMSessionTab(const LLSD& session_id)
     mEnableCallbackRegistrar.add("Avatar.CheckItem",  boost::bind(&LLFloaterIMSessionTab::checkContextMenuItem,	this, _2));
     mEnableCallbackRegistrar.add("Avatar.EnableItem", boost::bind(&LLFloaterIMSessionTab::enableContextMenuItem, this, _2));
     mCommitCallbackRegistrar.add("Avatar.DoToSelected", boost::bind(&LLFloaterIMSessionTab::doToSelected, this, _2));
-    mCommitCallbackRegistrar.add("Group.DoToSelected", boost::bind(&cb_do_nothing));
+    mCommitCallbackRegistrar.add("Group.DoToSelected", boost::bind(&cb_group_do_nothing));
 }
 
 LLFloaterIMSessionTab::~LLFloaterIMSessionTab()
