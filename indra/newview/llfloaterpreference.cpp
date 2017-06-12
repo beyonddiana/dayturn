@@ -528,11 +528,6 @@ BOOL LLFloaterPreference::postBuild()
 		getChild<LLUICtrl>("WindowTitleGridName")->setEnabled(TRUE);
 	}	
 	
-// ## Zi: Pie menu
-	gSavedSettings.getControl("OverridePieColors")->getSignal()->connect(boost::bind(&LLFloaterPreference::onPieColorsOverrideChanged, this));
-	// make sure pie color controls are enabled or greyed out properly
-	onPieColorsOverrideChanged();
-// ## Zi: Pie menu
 
 	gSavedSettings.getControl("StreamMetadataAnnounceToChat")->getSignal()->connect(boost::bind(&LLFloaterPreference::onStreamMetadataAnnounceChanged, this));
 	gSavedSettings.getControl("MiniMapChatRing")->getSignal()->connect(boost::bind(&LLFloaterPreference::onMiniMapChatRingChanged, this));
@@ -562,17 +557,6 @@ BOOL LLFloaterPreference::postBuild()
 	return TRUE;
 }
 
-// ## Zi: Pie menu
-void LLFloaterPreference::onPieColorsOverrideChanged()
-{
-	BOOL enable=gSavedSettings.getBOOL("OverridePieColors");
-
-	getChild<LLColorSwatchCtrl>("pie_bg_color_override")->setEnabled(enable);
-	getChild<LLColorSwatchCtrl>("pie_selected_color_override")->setEnabled(enable);
-	getChild<LLSliderCtrl>("pie_menu_opacity")->setEnabled(enable);
-	getChild<LLSliderCtrl>("pie_menu_fade_out")->setEnabled(enable);
-}
-// ## Zi: Pie menu
 
 void LLFloaterPreference::onStreamMetadataAnnounceChanged()
 {
