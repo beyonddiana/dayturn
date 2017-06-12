@@ -131,9 +131,6 @@ void PieMenu::show(S32 x, S32 y, LLView* spawning_view)
 	if(getVisible())
 		return;
 
-	// play a sound
-	make_ui_sound("UISndPieMenuAppear");
-
 	LL_DEBUGS() << "PieMenu::show(): " << x << " " << y << LL_ENDL;
 
 	// make sure the menu is always the correct size
@@ -185,8 +182,6 @@ void PieMenu::hide()
 	if(!getVisible())
 		return;
 
-	// make a sound when hiding
-	make_ui_sound("UISndPieMenuHide");
 
 	LL_DEBUGS() << "Clearing selections" << LL_ENDL;
 
@@ -257,13 +252,6 @@ void PieMenu::draw( void )
 	LLColor4 bgColor=LLUIColorTable::instance().getColor("PieMenuBgColor");
 	LLColor4 borderColor=bgColor % (F32)0.3;
 
-	// if the user wants their own colors, apply them here
-	if(gSavedSettings.getBOOL("OverridePieColors"))
-	{
-		bgColor=LLUIColorTable::instance().getColor("PieMenuBgColorOverride") % gSavedSettings.getF32("PieMenuOpacity");
-		borderColor=bgColor % (1.f-gSavedSettings.getF32("PieMenuFade"));
-		selectedColor=LLUIColorTable::instance().getColor("PieMenuSelectedColorOverride");
-	}
 
 	// on first click, make the menu fade out to indicate "borderless" operation
 	if(mFirstClick)
@@ -513,8 +501,7 @@ BOOL PieMenu::handleMouseButtonUp(S32 x,S32 y,MASK mask)
 				mPopupTimer.reset();
 				mPopupTimer.start();
 #endif
-				// make a sound
-				make_ui_sound("UISndPieMenuAppear");
+
 			}
 		}
 		// show or hide the menu, as needed
