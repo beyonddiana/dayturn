@@ -1559,14 +1559,6 @@ If an avatar is seated on the sit target, returns the avatar&apos;s key, otherwi
 llAddToLandPassList(key avatar, float hours)
 Adds avatar to the land pass list for hours, or indefinitely if hours is 0
 	</string>
-	<string name="LSLTipText_llSetTouchText" translate="false">
-llSetTouchText(string text)
-Displays text rather than the default &apos;Touch&apos; in the pie menu
-	</string>
-	<string name="LSLTipText_llSetSitText" translate="false">
-llSetSitText(string text)
-Displays text rather than the default &apos;Sit Here&apos; in the pie menu
-	</string>
 	<string name="LSLTipText_llSetCameraEyeOffset" translate="false">
 llSetCameraEyeOffset(vector offset)
 Sets the camera eye offset for avatars that sit on the object
