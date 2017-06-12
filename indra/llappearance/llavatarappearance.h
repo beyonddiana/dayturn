@@ -394,7 +394,7 @@ protected:
 		struct LLAvatarAttachmentInfo
 		{
 			LLAvatarAttachmentInfo()
-				: mGroup(-1), mAttachmentID(-1), mPieMenuSlice(-1), mVisibleFirstPerson(FALSE),
+				: mGroup(-1), mAttachmentID(-1), mVisibleFirstPerson(FALSE),
 				  mIsHUDAttachment(FALSE), mHasPosition(FALSE), mHasRotation(FALSE) {}
 			std::string mName;
 			std::string mJointName;
@@ -402,7 +402,6 @@ protected:
 			LLVector3 mRotationEuler;
 			S32 mGroup;
 			S32 mAttachmentID;
-			S32 mPieMenuSlice;
 			BOOL mVisibleFirstPerson;
 			BOOL mIsHUDAttachment;
 			BOOL mHasPosition;

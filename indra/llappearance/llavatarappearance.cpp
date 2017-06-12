@@ -1690,9 +1690,6 @@ BOOL LLAvatarAppearance::LLAvatarXmlInfo::parseXmlSkeletonNode(LLXmlTreeNode* ro
 			delete info;
 			continue;
 		}
-
-		static LLStdStringHandle slot_string = LLXmlTree::addAttributeString("pie_slice");
-		child->getFastAttributeS32(slot_string, info->mPieMenuSlice);
 			
 		static LLStdStringHandle visible_in_first_person_string = LLXmlTree::addAttributeString("visible_in_first_person");
 		child->getFastAttributeBOOL(visible_in_first_person_string, info->mVisibleFirstPerson);

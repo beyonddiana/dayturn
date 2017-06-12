@@ -48,7 +48,6 @@
 #include "llmediaentry.h"
 #include "llmenugl.h"
 #include "llmutelist.h"
-#include "piemenu.h"	// ## Zi: Pie menu
 #include "llresmgr.h"  // getMonetaryString
 #include "llselectmgr.h"
 #include "lltoolfocus.h"
@@ -1739,11 +1738,6 @@ BOOL LLToolPie::handleRightClickPick()
 	{
 		LLParcelSelectionHandle selection = LLViewerParcelMgr::getInstance()->selectParcelAt( mPick.mPosGlobal );
 		gMenuHolder->setParcelSelection(selection);
-		// ## Zi: Pie menu
-		if(gSavedPerAccountSettings.getBOOL("UsePieMenu"))
-			gPieMenuLand->show(x, y);
-		// ## Zi: Pie menu
-		else
 		gMenuLand->show(x, y);
 
 		showVisualContextMenuEffect();
@@ -1751,21 +1745,6 @@ BOOL LLToolPie::handleRightClickPick()
 	}
 	else if (mPick.mObjectID == gAgent.getID() )
 	{
-		// ## Zi: Pie menu
-		if(gSavedPerAccountSettings.getBOOL("UsePieMenu"))
-		{
-			if(!gPieMenuAvatarSelf)
-			{
-				//either at very early startup stage or at late quitting stage,
-				//this event is ignored.
-				return TRUE ;
-			}
-
-			gPieMenuAvatarSelf->show(x, y);
-		}
-		// ## Zi: Pie menu
-		else
-		{
 			if(!gMenuAvatarSelf)
 			{
 				//either at very early startup stage or at late quitting stage,
@@ -1774,7 +1753,6 @@ BOOL LLToolPie::handleRightClickPick()
 			}
 
 			gMenuAvatarSelf->show(x, y);
-		}
 	}
 	else if (object)
 	{
@@ -1812,25 +1790,16 @@ BOOL LLToolPie::handleRightClickPick()
 			if (is_other_attachment)
 			{
 				gMenuAttachmentOther->getChild<LLUICtrl>("Avatar Mute")->setValue(mute_msg);
-					if(gSavedPerAccountSettings.getBOOL("UsePieMenu"))
-						gPieMenuAttachmentOther->show(x, y);
-					else
 				gMenuAttachmentOther->show(x, y);
 			}
 			else
 			{
 				gMenuAvatarOther->getChild<LLUICtrl>("Avatar Mute")->setValue(mute_msg);
-					if(gSavedPerAccountSettings.getBOOL("UsePieMenu"))
-						gPieMenuAvatarOther->show(x, y);
-					else
 				gMenuAvatarOther->show(x, y);
 			}
 		}
 		else if (object->isAttachment())
 		{
-			if(gSavedPerAccountSettings.getBOOL("UsePieMenu"))
-				gPieMenuAttachmentSelf->show(x, y);
-			else
 			gMenuAttachmentSelf->show(x, y);
 		}
 		else
@@ -1843,9 +1812,6 @@ BOOL LLToolPie::handleRightClickPick()
 				name = node->mName;
 			}
 
-				if(gSavedPerAccountSettings.getBOOL("UsePieMenu"))
-					gPieMenuObject->show(x, y);
-				else
 			gMenuObject->show(x, y);
 
 			showVisualContextMenuEffect();
