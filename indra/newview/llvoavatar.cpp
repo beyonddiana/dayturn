@@ -5824,7 +5824,6 @@ BOOL LLVOAvatar::loadSkeletonNode ()
 				continue;
 			}
 
-			attachment->setPieSlice(info->mPieMenuSlice);
 			attachment->setVisibleInFirstPerson(info->mVisibleFirstPerson);
 			attachment->setIsHUDAttachment(info->mIsHUDAttachment);
 
