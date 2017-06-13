@@ -4159,8 +4159,7 @@ void LLFolderBridge::buildContextMenuFolderOptions(U32 flags,   menuentry_vec_t&
 	LLFolderType::EType type = category->getPreferredType();
 	const bool is_system_folder = LLFolderType::lookupIsProtectedType(type);
 	// BAP change once we're no longer treating regular categories as ensembles.
-	const bool is_ensemble = (type == LLFolderType::FT_NONE ||
-		LLFolderType::lookupIsEnsembleType(type));
+	const bool is_agent_inventory = isAgentInventory();
 
 	// Only enable calling-card related options for non-system folders.
 	if (!is_system_folder)
@@ -4211,14 +4210,14 @@ void LLFolderBridge::buildContextMenuFolderOptions(U32 flags,   menuentry_vec_t&
 
 			items.push_back(std::string("Replace Outfit"));
 		}
-		if (is_ensemble)
+		if (is_agent_inventory)
 		{
-			items.push_back(std::string("Wear As Ensemble"));
-		}
-		items.push_back(std::string("Remove From Outfit"));
-		if (!LLAppearanceMgr::getCanRemoveFromCOF(mUUID))
-		{
-			disabled_items.push_back(std::string("Remove From Outfit"));
+			items.push_back(std::string("Folder Wearables Separator"));
+			items.push_back(std::string("Remove From Outfit"));
+			if (!LLAppearanceMgr::getCanRemoveFromCOF(mUUID))
+			{
+					disabled_items.push_back(std::string("Remove From Outfit"));
+			}
 		}
 		if (!LLAppearanceMgr::instance().getCanReplaceCOF(mUUID))
 		{
