@@ -87,7 +87,7 @@
       left="50"
       name="grid_list"
       draw_heading="true"
-      top_pad="35"
+      top_pad="15"
       width="370">
         <scroll_list.columns
           label="Grid name"
