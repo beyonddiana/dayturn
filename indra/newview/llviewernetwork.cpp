@@ -1170,63 +1170,7 @@ std::string LLGridManager::getLoginPage()
 
 std::string LLGridManager::getUpdateServiceURL()
 {
-	std::string update_url_base = gSavedSettings.getString("CmdLineUpdateService");
-		LL_INFOS("UpdaterService","GridManager")
-			<< "Update URL base overridden from command line: " << update_url_base
-			<< LL_ENDL;
-	std::string last_known_grid = gSavedSettings.getString("CurrentGrid");
-/**
-* The requirement to not have update checking on non-sl grids is implemented by looking at
-* current grid saved setting which will also have the last grid value at system start.
-* There is a not 100 % way to unsure that non - sl grids check for updates.
-* This approach uses the last known grid and if it was an sl grid sets the update url.
-* If not it retains a blank grid_nick and that allows a failure mode. After return to
-* caller in failure mode there will be a one time reset of 20 seconds, this is the case
-* where the last known grid was not an sl grid but the user has selected 
-* an sl gird at current log in.
-*/
-	std::string grid_nick = getGridNick();
-	if (grid_nick.empty())
-	{
-		if (last_known_grid == MAINGRID)
-		{
-			grid_nick = "agni";
-		}
-		else if (last_known_grid == "util.aditi.lindenlab.com")
-		{
-			grid_nick = "aditi";
-		}
-	}
-		LL_INFOS("UpdaterService","GridManager")
-			<< "The grid nick: " << grid_nick
-			<< LL_ENDL;
-	if (  update_url_base.empty() && (grid_nick == "agni" || grid_nick == "aditi")) 
-	{
-		update_url_base = "https://update.secondlife.com/update";
-				LL_INFOS("UpdaterService","GridManager")
-			<< "Update URL base is using SecondLife default: " << update_url_base
-			<< LL_ENDL;
-		return update_url_base;
-	}
-	if ( !update_url_base.empty()  )
-	{
-		LL_INFOS("UpdaterService","GridManager")
-			<< "Update URL base overridden from command line: " << update_url_base
-			<< LL_ENDL;
-	}
-	else if ( mGridList[mGrid].has(GRID_UPDATE_SERVICE_URL) )
-	{
-		update_url_base = mGridList[mGrid][GRID_UPDATE_SERVICE_URL].asString();
-	}
-	else 
-	{
-		LL_WARNS("UpdaterService","GridManager")
-			<< "The grid property '" << GRID_UPDATE_SERVICE_URL
-			<< "' is not defined for the grid '" << mGrid << "'"
-			<< LL_ENDL;
-		
-	}
-
+	std::string update_url_base =  "https://bitbucket.org/dayturn/dayturn/downloads/";
 	return update_url_base;
 }
 
