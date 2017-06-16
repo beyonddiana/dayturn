@@ -2416,7 +2416,12 @@
            function="Floater.Show"
            parameter="window_size" />
         </menu_item_call>
-
+        <menu_item_call
+        label="Check for Updates"
+        name="Check for Updates">
+        <menu_item_call.on_click
+        function="Advanced.CheckViewerUpdates"/>
+        </menu_item_call>
         <menu_item_separator/>
 
         <menu_item_check
