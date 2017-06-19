@@ -713,7 +713,8 @@ LLVOAvatar::LLVOAvatar(const LLUUID& id,
 	mLastUpdateReceivedCOFVersion(-1),
 	mCachedMuteListUpdateTime(0),
 	mCachedInMuteList(false),
-	mIsControlAvatar(false)
+	mIsControlAvatar(false),
+    mEnableDefaultMotions(true)	
 {
 	//VTResume();  // VTune
 	setHoverOffset(LLVector3(0.0, 0.0, 0.0));
@@ -1857,8 +1858,12 @@ void LLVOAvatar::buildCharacter()
 		mAahMorph = getVisualParam( "Express_Open_Mouth" );
 	}
 
-	startDefaultMotions();
-
+    // Currently disabled for control avatars (animated objects), enabled for all others.
+    if (mEnableDefaultMotions)
+    {
+        startDefaultMotions();
+    }
+    
 	//-------------------------------------------------------------------------
 	// restart any currently active motions
 	//-------------------------------------------------------------------------
@@ -3634,6 +3639,7 @@ void LLVOAvatar::updateDebugText()
 			addDebugText(mBakedTextureDebugText);
 	}
 
+    // Develop -> Avatar -> Animation Info
 	if (LLVOAvatar::sShowAnimationDebug)
 	{
 		for (LLMotionController::motion_list_t::iterator iter = mMotionController.getActiveMotions().begin();
@@ -5308,8 +5314,11 @@ void LLVOAvatar::processAnimationStateChanges()
 	else if (mInAir && !mIsSitting)
 	{
 		stopMotion(ANIM_AGENT_WALK_ADJUST);
-		startMotion(ANIM_AGENT_FLY_ADJUST);
-	}
+        if (mEnableDefaultMotions)
+        {
+            startMotion(ANIM_AGENT_FLY_ADJUST);
+        }	
+    }
 	else
 	{
 		stopMotion(ANIM_AGENT_WALK_ADJUST);
@@ -5318,14 +5327,19 @@ void LLVOAvatar::processAnimationStateChanges()
 
 	if ( isAnyAnimationSignaled(AGENT_GUN_AIM_ANIMS, NUM_AGENT_GUN_AIM_ANIMS) )
 	{
-		startMotion(ANIM_AGENT_TARGET);
-		stopMotion(ANIM_AGENT_BODY_NOISE);
+        if (mEnableDefaultMotions)
+        {
+            startMotion(ANIM_AGENT_TARGET);
+        }		stopMotion(ANIM_AGENT_BODY_NOISE);
 	}
 	else
 	{
 		stopMotion(ANIM_AGENT_TARGET);
-		startMotion(ANIM_AGENT_BODY_NOISE);
-	}
+        if (mEnableDefaultMotions)
+        {
+            startMotion(ANIM_AGENT_BODY_NOISE);
+        }	
+    }
 	
 	// clear all current animations
 	AnimIterator anim_it;
@@ -7072,8 +7086,11 @@ void LLVOAvatar::getOffObject()
 	mRoot->setRotation(cur_rotation_world);
 	mRoot->getXform()->update();
 
-	startMotion(ANIM_AGENT_BODY_NOISE);
-
+    if (mEnableDefaultMotions)
+    {
+        startMotion(ANIM_AGENT_BODY_NOISE);
+    }
+    
 	if (isSelf())
 	{
 		LLQuaternion av_rot = gAgent.getFrameAgent().getQuaternion();

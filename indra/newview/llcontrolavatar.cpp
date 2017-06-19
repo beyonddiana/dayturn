@@ -30,6 +30,8 @@
 #include "llviewerobjectlist.h"
 #include "pipeline.h"
 #include "llanimationstates.h"
+#include "llviewercontrol.h"
+
 
 LLControlAvatar::LLControlAvatar(const LLUUID& id, const LLPCode pcode, LLViewerRegion* regionp) :
     LLVOAvatar(id, pcode, regionp),
@@ -37,6 +39,7 @@ LLControlAvatar::LLControlAvatar(const LLUUID& id, const LLPCode pcode, LLViewer
     mGlobalScale(1.0f)
 {
     mIsControlAvatar = true;
+    mEnableDefaultMotions = false;
 }
 
 // virtual
@@ -150,7 +153,7 @@ LLControlAvatar *LLControlAvatar::createControlAvatar(LLVOVolume *obj)
 	cav->mSpecialRenderMode = 1;
 	cav->updateJointLODs();
 	cav->updateGeometry(cav->mDrawable);
-	cav->startMotion(ANIM_AGENT_STAND, 5.0f);
+	//cav->startMotion(ANIM_AGENT_STAND, 5.0f);
 	cav->hideSkirt();
 
 	// stop extraneous animations
