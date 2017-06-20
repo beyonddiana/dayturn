@@ -10,7 +10,7 @@
     <menu
      create_jump_keys="true"
      label="File"
-     tear_off="true"
+     tear_off="false"
      name="File">
        <menu_item_call
         label="Close Window"
@@ -33,7 +33,7 @@
     <menu
      create_jump_keys="true"
      label="Edit"
-     tear_off="true"
+     tear_off="false"
      name="Edit">
         <menu_item_call
          label="Preferences"
@@ -47,7 +47,7 @@
     <menu
      create_jump_keys="true"
      label="Help"
-     tear_off="true"
+     tear_off="false"
      name="Help">
         <menu_item_call
          label="[APP_NAME] Help"
@@ -127,7 +127,7 @@
      visible="false"
      label="Debug"
      name="Debug"
-     tear_off="true">
+     tear_off="false">
       <menu_item_call
          label="Show Debug Settings"
          name="Debug Settings">
@@ -149,7 +149,7 @@
        create_jump_keys="true"
        label="UI Tests"
        name="UI Tests"
-       tear_off="true">
+       tear_off="false">
         <menu_item_call
          label="Textbox"
          name="Textbox"
@@ -230,7 +230,7 @@
        create_jump_keys="true"
        label="Set Logging Level"
        name="Set Logging Level"
-       tear_off="true">
+       tear_off="false">
         <menu_item_check
          name="Debug"
          label="Debug">
