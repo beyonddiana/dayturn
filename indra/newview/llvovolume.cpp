@@ -5039,7 +5039,6 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
                 {
                     vobj->mControlAvatar = LLControlAvatar::createControlAvatar(vobj);
                     // vobj->mControlAvatar->addAttachmentOverridesForObject(vobj); GN This line most likely originates in the jelly dolls code
-                    vobj->requestInventory();
                 }
                 if (vobj->mControlAvatar)
                 {
