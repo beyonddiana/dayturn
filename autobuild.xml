@@ -22,16 +22,16 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>7d97a3788ea4f89eccb7789e4f015bb3</string>
+              <string>dc80eca3d113b038b469003da8cd6638</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/ct2/747/1540/apr_suite-1.4.5.500735-windows-500735.tar.bz2</string>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/ct2/4813/15290/apr_suite-1.4.5.504800-windows-504800.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
           </map>
         </map>
         <key>version</key>
-        <string>1.4.5.500735</string>
+        <string>1.4.5.504800</string>
       </map>
       <key>ares</key>
       <map>
@@ -140,16 +140,16 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>bda9f237d3e8238440bc5bedc2657547</string>
+              <string>eb2508dd444ac885b7fdf7d89cd2e010</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/ct2/1078/2487/curl-7.47.0.501064-windows-501064.tar.bz2</string>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/ct2/6823/24516/curl-7.54.1.506810-windows-506810.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
           </map>
         </map>
         <key>version</key>
-        <string>7.47.0.501064</string>
+        <string>7.54.1.506810</string>
       </map>
       <key>dictionaries</key>
       <map>
