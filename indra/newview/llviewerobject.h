@@ -697,6 +697,17 @@ public:
 	bool getPhysicsShapeUnknown () { return mPhysicsShapeUnknown; }
 	// </FS:Techwolf Lupindo>
 
+public:
+    // Returns mControlAvatar for the edit root prim of this linkset
+    LLControlAvatar *getControlAvatar();
+    LLControlAvatar *getControlAvatar() const;
+
+    // Create or connect to an existing control av as applicable
+    void linkControlAvatar();
+    // Remove any reference to control av for this prim
+    void unlinkControlAvatar();
+    
+private:
     LLPointer<LLControlAvatar> mControlAvatar;
 
 protected:
