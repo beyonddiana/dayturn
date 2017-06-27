@@ -45,6 +45,7 @@ public:
 
     LLFloaterSnapshotBase(const LLSD& key);
     virtual ~LLFloaterSnapshotBase();
+    void inventorySaveFailed();
 
     ///*virtual*/ S32 notify(const LLSD& info);
 

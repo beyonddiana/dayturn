@@ -36,6 +36,8 @@
 #include "llpanelsnapshot.h"
 #include "llsnapshotlivepreview.h"
 #include "llviewercontrol.h" // gSavedSettings
+#include "llstatusbar.h"     // can_afford_transaction()
+#include "llnotificationsutil.h"
 
 /**
  * The panel provides UI for saving snapshot as an inventory texture.
