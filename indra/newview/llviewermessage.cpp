@@ -5375,7 +5375,7 @@ void process_object_animation(LLMessageSystem *mesgsys, void **user_data)
         return;
     }
 
-    LLControlAvatar *avatarp = volp->mControlAvatar;
+    LLControlAvatar *avatarp = volp->getControlAvatar();
     if (!avatarp)
     {
         LL_WARNS() << "AXON no control avatar, ignoring" << LL_ENDL;
