@@ -316,8 +316,6 @@ F32SecondsImplicit gFrameIntervalSeconds = 0.f;
 F32 gFPSClamped = 10.f;						// Pretend we start at target rate.
 F32 gFrameDTClamped = 0.f;					// Time between adjacent checks to network for packets
 U64MicrosecondsImplicit	gStartTime = 0; // gStartTime is "private", used only to calculate gFrameTimeSeconds
-U32 gFrameStalls = 0;
-const F64 FRAME_STALL_THRESHOLD = 1.0;
 
 LLTimer gRenderStartTime;
 LLFrameTimer gForegroundTime;
@@ -707,6 +705,7 @@ LLAppViewer::LLAppViewer()
 	mPeriodicSlowFrame(LLCachedControl<bool>(gSavedSettings,"Periodic Slow Frame", FALSE)),
 	mFastTimerLogThread(NULL),
 	mSettingsLocationList(NULL),
+    mMinMicroSecPerFrame(0.f),	
 	mIsFirstRun(false)
 {
 	if(NULL != sInstance)
@@ -1223,6 +1222,9 @@ bool LLAppViewer::init()
 	// TODO: consider moving proxy initialization here or LLCopocedureManager after proxy initialization, may be implement
 	// some other protection to make sure we don't use network before initializng proxy
 
+	gSavedSettings.getControl("FramePerSecondLimit")->getSignal()->connect(boost::bind(&LLAppViewer::onChangeFrameLimit, this, _2));
+	onChangeFrameLimit(gSavedSettings.getLLSD("FramePerSecondLimit"));
+
 	return true;
 }
 
@@ -1324,6 +1326,8 @@ bool LLAppViewer::mainLoop()
 		
 		joystick = LLViewerJoystick::getInstance();
 		joystick->setNeedsReset(true);
+        
+
 		
 #ifdef LL_DARWIN
 		// Ensure that this section of code never gets called again on OS X.
@@ -1413,14 +1417,6 @@ bool LLAppViewer::mainLoop()
 				gViewerWindow->getWindow()->gatherInput();
 			}
 
-#if 1 && !LL_RELEASE_FOR_DOWNLOAD
-			// once per second debug info
-			if (debugTime.getElapsedTimeF32() > 1.f)
-			{
-				debugTime.reset();
-			}
-			
-#endif
 			//memory leaking simulation
 			LLFloaterMemLeak* mem_leak_instance =
 				LLFloaterReg::findTypedInstance<LLFloaterMemLeak>("mem_leaking");
@@ -1477,6 +1473,8 @@ bool LLAppViewer::mainLoop()
 						}
 					}
 					
+					frameTimer.reset();
+					
 					resumeMainloopTimeout();
 				}
  
@@ -1494,7 +1492,25 @@ bool LLAppViewer::mainLoop()
 				{
 					pingMainloopTimeout("Main:Display");
 					gGLActive = TRUE;
+
+                    static U64 last_call = 0;
+                    if (LLStartUp::getStartupState() == STATE_STARTED
+                                                && !gTeleportDisplay)
+                    {
+                        // Frame/draw throttling
+                        U64 elapsed_time = LLTimer::getTotalTime() - last_call;
+                        if (elapsed_time < mMinMicroSecPerFrame)
+                        {
+                            LL_RECORD_BLOCK_TIME(FTM_SLEEP);
+                            // llclamp for when time function gets funky
+                            U64 sleep_time = llclamp(mMinMicroSecPerFrame - elapsed_time, (U64)1, (U64)1e6);
+                            micro_sleep(sleep_time, 0);
+                        }
+                    }
+                    last_call = LLTimer::getTotalTime();
+                    
 					display();
+                    
 					pingMainloopTimeout("Main:Snapshot");
 					LLFloaterSnapshot::update(); // take snapshots
                     //TODO: Make one call by moving LLFloaterOutfitSnapshot::update() to LLFloaterSnapshotBase class
@@ -1524,7 +1540,8 @@ bool LLAppViewer::mainLoop()
 						|| !gFocusMgr.getAppHasFocus())
 				{
 					// Sleep if we're not rendering, or the window is minimized.
-					S32 milliseconds_to_sleep = llclamp(gSavedSettings.getS32("BackgroundYieldTime"), 0, 1000);
+					static LLCachedControl<S32> s_bacground_yeild_time(gSavedSettings, "BackgroundYieldTime", 40);
+                    S32 milliseconds_to_sleep = llclamp((S32)s_bacground_yeild_time, 0, 1000);
 					// don't sleep when BackgroundYieldTime set to 0, since this will still yield to other threads
 					// of equal priority on Windows
 					if (milliseconds_to_sleep > 0)
@@ -1605,13 +1622,7 @@ bool LLAppViewer::mainLoop()
 						tex_fetch_debugger_instance->idle() ;				
 					}
 				}
-
-				if ((LLStartUp::getStartupState() >= STATE_CLEANUP) &&
-					(frameTimer.getElapsedTimeF64() > FRAME_STALL_THRESHOLD))
-				{
-					gFrameStalls++;
-				}
-
+				
 				frameTimer.reset();
 
 				resumeMainloopTimeout();
@@ -5454,6 +5465,20 @@ void LLAppViewer::disconnectViewer()
 	// parcel info requests while disconnected.
 	LLUrlEntryParcel::setDisconnected(gDisconnected);
 }
+
+bool LLAppViewer::onChangeFrameLimit(LLSD const & evt)
+{
+	if (evt.asInteger() > 0)
+	{
+		mMinMicroSecPerFrame = 1000000 / evt.asInteger();
+	}
+	else
+	{
+		mMinMicroSecPerFrame = 0;
+	}
+	return false;
+}
+
 
 void LLAppViewer::forceErrorLLError()
 {
