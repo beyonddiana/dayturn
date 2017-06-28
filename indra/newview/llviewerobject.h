@@ -707,7 +707,7 @@ public:
     // Remove any reference to control av for this prim
     void unlinkControlAvatar();
     
-private:
+protected:
     LLPointer<LLControlAvatar> mControlAvatar;
 
 protected:
