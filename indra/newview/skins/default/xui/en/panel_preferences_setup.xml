@@ -2,7 +2,7 @@
 <panel
  border="true"
  follows="left|top|right|bottom"
- height="408"
+ height="418"
  label="Setup"
  layout="topleft"
  left="102"
@@ -267,7 +267,7 @@
     height="14"
     control_name="UpdaterWillingToTest"
     label="Willing to update to release candidates"
-    left_delta="0"
+    left_delta="1"
     mouse_opaque="true"
     name="update_willing_to_test"
     width="400"           
@@ -305,12 +305,22 @@
     height="16"
     control_name="ImagePipelineUseHTTP"
     label="Fetch Textures with HTTP"
-    left_delta="50"
+    left_delta="51"
     mouse_opaque="true"
     name="ImagePipelineUseHTTP"
     width="400"           
     top_pad="5"/>
-  
+    <check_box
+    top_delta="4"
+    enabled="true"
+    follows="left|top"
+    height="16"
+    control_name="HttpPipelining"
+    label="Pipeline HTTP Requests"
+    mouse_opaque="true"
+    name="HttpPipelining"
+    width="400"           
+    top_pad="5"/>
   
   <text
      type="string"
@@ -321,7 +331,7 @@
      left="30"
      name="Proxy Settings:"
      mouse_opaque="false"
-     top_pad="5"
+     top_pad="7"
      width="300">
 		Proxy Settings:
   </text>
