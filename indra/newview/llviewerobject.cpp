@@ -376,17 +376,19 @@ void LLViewerObject::markDead()
 		//LL_INFOS() << "Marking self " << mLocalID << " as dead." << LL_ENDL;
 		
 		// Root object of this hierarchy unlinks itself.
-		LLVOAvatar *av = getAvatarAncestor();
 		if (getParent())
 		{
 			((LLViewerObject *)getParent())->removeChild(this);
 		}
 		LLUUID mesh_id;
-		if (av && LLVOAvatar::getRiggedMeshID(this,mesh_id))
-		{
-			// This case is needed for indirectly attached mesh objects.
-			av->resetJointsOnDetach(mesh_id);
-		}		
+        {
+            LLVOAvatar *av = getAvatar();
+            if (av && LLVOAvatar::getRiggedMeshID(this,mesh_id))
+            {
+                // This case is needed for indirectly attached mesh objects.
+                av->addAttachmentPosOverridesForObject(this);
+            }
+        }
         if (getControlAvatar())
         {
             unlinkControlAvatar();
@@ -2997,7 +2999,7 @@ void LLViewerObject::unlinkControlAvatar()
 {
     if (getControlAvatar())
     {
-        getControlAvatar()->resetJointsOnDetach(this);
+        getControlAvatar()->addAttachmentPosOverridesForObject(this);
     }
     if (isRootEdit())
     {
@@ -5281,6 +5283,7 @@ LLVOAvatar* LLViewerObject::asAvatar()
 // If this object is directly or indirectly parented by an avatar, return it.
 LLVOAvatar* LLViewerObject::getAvatarAncestor()
 {
+    LL_ERRS("AXON") << "this method has been targetted for termination. Use getAvatar()." << LL_ENDL;
 	LLViewerObject *pobj = (LLViewerObject*) getParent();
 	while (pobj)
 	{
