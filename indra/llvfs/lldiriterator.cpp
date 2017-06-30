@@ -113,7 +113,7 @@ LLDirIterator::Impl::~Impl()
 
 bool LLDirIterator::Impl::next(std::string &fname)
 {
-	fname = "";
+	fname.clear();
 
 	if (!mIsValid)
 	{
