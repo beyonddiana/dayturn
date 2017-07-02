@@ -35,7 +35,6 @@
 #define OCT_ERRS LL_WARNS("OctreeErrors")
 
 
-extern BOOL gIsInSecondLife; //Opensim or SecondLife
 extern U32 gOctreeMaxCapacity;
 extern float gOctreeMinSize;
 
@@ -401,25 +400,7 @@ public:
 								
 				child->insert(data);
 			}
-		}
-			else
-			if (gIsInSecondLife)
-			{
-				{
-					//it's not in here, give it to the root
-			OCT_ERRS << "Octree insertion failed, starting over from root!" << LL_ENDL;
-
-					oct_node* node = this;
-
-					while (parent)
-					{
-						node = parent;
-						parent = node->getOctParent();
-					}
-
-					node->insert(data);
-				}
-			}
+        }
 
 		return false;
 	}
@@ -744,15 +725,9 @@ public:
 		}
 		
 		LLVector4a MAX_MAG;
-		if (gIsInSecondLife)
-		{
-			MAX_MAG.splat(1024.f * 1024.f);
-		}
-		else
-		{
-			MAX_MAG.splat(1024.f * 1024.f); //setting same leaving simulator selection structure in place
-		}
-		const LLVector4a& v = data->getPositionGroup();
+        MAX_MAG.splat(1024.f * 1024.f);
+
+        const LLVector4a& v = data->getPositionGroup();
 
 		LLVector4a val;
 		val.setSub(v, BaseType::mCenter);
