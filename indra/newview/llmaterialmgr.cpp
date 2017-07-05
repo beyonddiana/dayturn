@@ -814,7 +814,7 @@ void LLMaterialMgr::processPutQueue()
 					boost::bind(&LLMaterialMgr::onPutResponse, this, _1, _2)
 					);
 
-			LLCore::HttpHandle handle = LLCoreHttpUtil::requestPutWithLLSD(
+			LLCore::HttpHandle handle = LLCoreHttpUtil::requestPostWithLLSD(
 				mHttpRequest, mHttpPolicy, mHttpPriority, capURL,
 				putData, mHttpOptions, mHttpHeaders, handler);
 
