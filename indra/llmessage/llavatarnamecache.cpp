@@ -34,11 +34,16 @@
 #include "llsd.h"
 #include "llsdserialize.h"
 #include "httpresponse.h"
+#include "llhttpsdhandler.h"
 #include <boost/tokenizer.hpp>
 
 #include "httpcommon.h"
 #include "httprequest.h"
 #include "httpheaders.h"
+#include "httpoptions.h"
+#include "llcoros.h"
+#include "lleventcoro.h"
+#include "llcorehttputil.h"
 
 
 #include <map>
@@ -94,6 +99,13 @@ namespace LLAvatarNameCache
 
 	// Time-to-live for a temp cache entry.
 	const F64 TEMP_CACHE_ENTRY_LIFETIME = 60.0;
+    
+    LLCore::HttpRequest::ptr_t		sHttpRequest;
+    LLCore::HttpHeaders::ptr_t		sHttpHeaders;
+    LLCore::HttpOptions::ptr_t		sHttpOptions;
+    LLCore::HttpRequest::policy_t	sHttpPolicy;
+    LLCore::HttpRequest::priority_t	sHttpPriority;
+
 
 	//-----------------------------------------------------------------------
 	// Internal methods
@@ -424,11 +436,20 @@ void LLAvatarNameCache::initClass(bool running, bool usePeopleAPI)
 {
 	sRunning = running;
 	sUsePeopleAPI = usePeopleAPI;
+    
+    sHttpRequest = LLCore::HttpRequest::ptr_t(new LLCore::HttpRequest());
+    sHttpHeaders = LLCore::HttpHeaders::ptr_t(new LLCore::HttpHeaders());
+    sHttpOptions = LLCore::HttpOptions::ptr_t(new LLCore::HttpOptions());
+    sHttpPolicy = LLCore::HttpRequest::DEFAULT_POLICY_ID;
+    sHttpPriority = 0;
 }
 
 void LLAvatarNameCache::cleanupClass()
 {
-	sCache.clear();
+    sHttpRequest.reset();
+    sHttpHeaders.reset();
+    sHttpOptions.reset();
+    sCache.clear();
 }
 
 bool LLAvatarNameCache::importFile(std::istream& istr)
