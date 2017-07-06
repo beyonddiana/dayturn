@@ -768,6 +768,7 @@ LLVOAvatar::LLVOAvatar(const LLUUID& id,
 	mAahMorph      = NULL;
 
 	mCurrentGesticulationLevel = 0;
+    
 
 	mRuthTimer.reset();
 	mRuthDebugTimer.reset();
