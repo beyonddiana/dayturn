@@ -16666,17 +16666,6 @@
       <key>Value</key>
       <string>http://www.duckduckgo.com/</string>
     </map>
-  <key>FSMaxMeshRequestsPerSecond</key>
-  <map>
-    <key>Comment</key>
-    <string>The maximum number of mesh requests per second.</string>
-    <key>Persist</key>
-    <integer>1</integer>
-    <key>Type</key>
-    <string>U32</string>
-    <key>Value</key>
-    <integer>100</integer>
-  </map>
   <key>FSMeshUploadPossible</key>
   <map>
     <key>Comment</key>
@@ -16839,28 +16828,6 @@
       <string>Boolean</string>
       <key>Value</key>
       <integer>1</integer>
-    </map>
-	    <key>FSDestroyGLTexturesImmediately</key>
-    <map>
-      <key>Comment</key>
-      <string>If enabled, GL textures will be removed from memory immediately when its fetched texture is removed. This might result in textures behind you being unloaded.</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>0</integer>
-    </map>
-    <key>FSDestroyGLTexturesThreshold</key>
-    <map>
-      <key>Comment</key>
-      <string>Threshold, at what texture memory load level GL textures will be removed from memory if FSDestroyGLTexturesImmediately is set to TRUE.</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>F32</string>
-      <key>Value</key>
-      <real>0.9</real>
     </map>
 	    <key>FSEnableObjectExports</key>
     <map>
@@ -17393,17 +17360,6 @@
       <string>Boolean</string>
       <key>Value</key>
       <integer>0</integer>
-    </map>
-    <key>FSFlipCEFY</key>
-    <map>
-      <key>Comment</key>
-      <string>Let CEF internally flip the generated image rather than do it on the GPU. More memory and CPU intensive if enabled. Requires restart.</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>1</integer>
     </map>
     <key>InventoryFilterTransfer</key>
     <map>
