@@ -3397,10 +3397,13 @@ bool LLVOVolume::canBeAnimatedObject() const
     {
         return false;
     }
+// AXON remove this check if animated object attachments are allowed
+#if 0
     if (isAttachment())
     {
         return false;
     }
+#endif
 	if (!getVolume())
 	{
 		return false;
@@ -3473,7 +3476,9 @@ void LLVOVolume::updateAnimatedObjectState(LLViewerObject *old_parent, LLViewerO
     LLVOVolume *old_volp = dynamic_cast<LLVOVolume*>(old_parent);
     LLVOVolume *new_volp = dynamic_cast<LLVOVolume*>(new_parent);
 
-    if (new_parent)
+    // AXON - depending on whether animated objects can be attached,
+    // we may want to include or remove the isAvatar() check.
+    if (new_parent && !new_parent->isAvatar())
     {
         // Object should inherit control avatar and animated mesh flag
         // from parent, so clear them out from our own state
@@ -3488,7 +3493,7 @@ void LLVOVolume::updateAnimatedObjectState(LLViewerObject *old_parent, LLViewerO
             av->markForDeath();
         }
         // If this succeeds now, it's because the new_parent is an animated object
-        if (isAnimatedObject())
+        if (isAnimatedObject() && getControlAvatar())
         {
             getControlAvatar()->addAttachmentOverridesForObject(this);
         }
