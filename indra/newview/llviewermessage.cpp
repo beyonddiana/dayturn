@@ -3599,7 +3599,7 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 		LLAvatarName av_name;
 		if (LLAvatarNameCache::get(from_id, &av_name))
 		{
-			chat.mFromName = av_name.getDisplayName();
+			chat.mFromName = av_name.getCompleteName();
 		}
 		else
 		{
