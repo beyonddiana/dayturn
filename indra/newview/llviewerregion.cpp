@@ -2810,6 +2810,7 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
 	capabilityNames.append("MeshUploadFlag");	
 
 	capabilityNames.append("NewFileAgentInventory");
+	capabilityNames.append("ObjectAnimation");
 	capabilityNames.append("ObjectMedia");
 	capabilityNames.append("ObjectMediaNavigate");
 
