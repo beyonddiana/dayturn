@@ -56,6 +56,8 @@ public:
 
 	void			setSiteIsAlive( bool alive );
 
+	void			updateAgreeEnabled(bool enabled);
+
 	// inherited from LLViewerMediaObserver
 	/*virtual*/ void handleMediaEvent(LLPluginClassMedia* self, EMediaEvent event);
 
