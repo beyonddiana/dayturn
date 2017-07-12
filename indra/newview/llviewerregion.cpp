@@ -2768,7 +2768,7 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
 	capabilityNames.append("AvatarPickerSearch");
 	capabilityNames.append("AvatarRenderInfo");
 	capabilityNames.append("CharacterProperties");
-	capabilityNames.append("ChatSessionRequest");
+    capabilityNames.append("ChatSessionRequest");
 	capabilityNames.append("CopyInventoryFromNotecard");
 	capabilityNames.append("CreateInventoryCategory");
 	capabilityNames.append("DispatchRegionInfo");
@@ -2793,7 +2793,7 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
 	}
 
 	
-	
+	capabilityNames.append("GetDisplayNames");
 	capabilityNames.append("GetMesh");
 	capabilityNames.append("GetMesh2");
 	capabilityNames.append("GetMetadata");
@@ -2852,7 +2852,6 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
     if(gIsInSecondLife)
     {
         capabilityNames.append("DirectDelivery");
-        capabilityNames.append("GetDisplayNames");
         capabilityNames.append("GetExperiences");
         capabilityNames.append("AgentExperiences");
         capabilityNames.append("FindExperienceByName");
