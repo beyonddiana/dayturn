@@ -79,7 +79,8 @@
 #include "llviewerdisplay.h"
 #include "llviewerwindow.h"
 #include "llprogressview.h"
-#include "llviewernetwork.h" //SecondLife or Opensim -- Server or client bake
+extern BOOL gIsInSecondLife; //Opensim or SecondLife
+
 #ifdef LL_WINDOWS
 	#pragma warning(disable:4355)
 #endif
@@ -2642,7 +2643,7 @@ void LLViewerRegion::unpackRegionHandshake()
 		mProductSKU = productSKU;
 		mProductName = productName;
 	}
-	if (LLGridManager::getInstance()->isInSecondLife())
+	if (gIsInSecondLife)
 	{
 		mCentralBakeVersion = region_protocols & 1; // was (S32)gSavedSettings.getBOOL("UseServerTextureBaking");
 	}
@@ -2759,7 +2760,9 @@ void LLViewerRegion::unpackRegionHandshake()
 
 void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
 {
-	capabilityNames.append("AgentPreferences");
+	
+    // Capabilities common to both SecondLife and OpenSim
+    capabilityNames.append("AgentPreferences");
 	capabilityNames.append("AgentState");
 	capabilityNames.append("AttachmentResources");
 	capabilityNames.append("AvatarPickerSearch");
@@ -2769,7 +2772,7 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
 	capabilityNames.append("CopyInventoryFromNotecard");
 	capabilityNames.append("CreateInventoryCategory");
 	capabilityNames.append("DispatchRegionInfo");
-	capabilityNames.append("DirectDelivery");
+    
 	capabilityNames.append("EnvironmentSettings");
 	capabilityNames.append("DispatchOpenRegionSettings");
 	//capabilityNames.append("DispatchWindLightSettings"); // now using EnvironmentSettings for windlight settings
@@ -2789,19 +2792,8 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
 		AISCommand::getCapabilityNames(capabilityNames);
 	}
 
-	capabilityNames.append("GetDisplayNames");
-	capabilityNames.append("GetExperiences");
-	capabilityNames.append("AgentExperiences");
-	capabilityNames.append("FindExperienceByName");
-	capabilityNames.append("GetExperienceInfo");
-	capabilityNames.append("GetAdminExperiences");
-	capabilityNames.append("GetCreatorExperiences");
-	capabilityNames.append("ExperiencePreferences");
-	capabilityNames.append("GroupExperiences");
-	capabilityNames.append("UpdateExperience");
-	capabilityNames.append("IsExperienceAdmin");
-	capabilityNames.append("IsExperienceContributor");
-	capabilityNames.append("RegionExperiences");
+	
+	
 	capabilityNames.append("GetMesh");
 	capabilityNames.append("GetMesh2");
 	capabilityNames.append("GetMetadata");
@@ -2817,11 +2809,11 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
 	capabilityNames.append("MapLayer");
 	capabilityNames.append("MapLayerGod");
 	capabilityNames.append("MeshUploadFlag");	
-	capabilityNames.append("NavMeshGenerationStatus");
+
 	capabilityNames.append("NewFileAgentInventory");
 	capabilityNames.append("ObjectMedia");
 	capabilityNames.append("ObjectMediaNavigate");
-	capabilityNames.append("ObjectNavMeshProperties");
+
 	capabilityNames.append("ParcelPropertiesUpdate");
 	capabilityNames.append("ParcelVoiceInfoRequest");
 	capabilityNames.append("ProductInfoRequest");
@@ -2830,8 +2822,8 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
 	capabilityNames.append("RenderMaterials");
 	capabilityNames.append("RequestTextureDownload");
 	capabilityNames.append("ResourceCostSelected");
-	capabilityNames.append("RetrieveNavMeshSrc");
-	capabilityNames.append("SearchStatRequest");
+
+    capabilityNames.append("SearchStatRequest");
 	capabilityNames.append("SearchStatTracking");
 	capabilityNames.append("SendPostcard");
 	capabilityNames.append("SendUserReport");
@@ -2841,7 +2833,6 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
 	capabilityNames.append("SimConsoleAsync");
 	capabilityNames.append("SimulatorFeatures");
 	capabilityNames.append("StartGroupProposal");
-	capabilityNames.append("TerrainNavMeshProperties");
 	capabilityNames.append("TextureStats");
 	capabilityNames.append("UntrustedSimulatorMessage");
 	capabilityNames.append("UpdateAgentInformation");
@@ -2855,8 +2846,39 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
 	capabilityNames.append("UpdateScriptTask");
 	capabilityNames.append("UploadBakedTexture");
 	capabilityNames.append("ViewerMetrics");
-	capabilityNames.append("ViewerStartAuction");
-	capabilityNames.append("ViewerStats");
+	
+    
+    // Capabilities unique to SecondLife
+    if(gIsInSecondLife)
+    {
+        capabilityNames.append("DirectDelivery");
+        capabilityNames.append("GetDisplayNames");
+        capabilityNames.append("GetExperiences");
+        capabilityNames.append("AgentExperiences");
+        capabilityNames.append("FindExperienceByName");
+        capabilityNames.append("GetExperienceInfo");
+        capabilityNames.append("GetAdminExperiences");
+        capabilityNames.append("GetCreatorExperiences");
+        capabilityNames.append("ExperiencePreferences");
+        capabilityNames.append("GroupExperiences");
+        capabilityNames.append("UpdateExperience");
+        capabilityNames.append("IsExperienceAdmin");
+        capabilityNames.append("IsExperienceContributor");
+        capabilityNames.append("RegionExperiences");
+        capabilityNames.append("NavMeshGenerationStatus");
+        capabilityNames.append("ObjectNavMeshProperties");
+        capabilityNames.append("RetrieveNavMeshSrc");
+        capabilityNames.append("TerrainNavMeshProperties");
+        capabilityNames.append("ViewerStartAuction");
+        capabilityNames.append("ViewerStats");
+
+    }
+    
+    // Capabilities unique to OpenSim
+    if(!gIsInSecondLife)
+    {
+        
+    }
 
 	// Please add new capabilities alphabetically to reduce
 	// merge conflicts.
