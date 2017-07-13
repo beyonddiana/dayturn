@@ -5778,7 +5778,7 @@
       <key>Type</key>
       <string>S32</string>
       <key>Value</key>
-      <integer>512</integer>
+      <integer>1024</integer>
     </map>
     <key>LastSnapshotToInventoryWidth</key>
     <map>
