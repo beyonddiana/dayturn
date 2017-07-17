@@ -1675,6 +1675,11 @@ BOOL LLVOAvatar::lineSegmentIntersect(const LLVector4a& start, const LLVector4a&
 	{
 		return FALSE;
 	}
+    
+    if (isControlAvatar())
+    {
+        return FALSE;
+    }
 
 	if (lineSegmentBoundingBox(start, end))
 	{
