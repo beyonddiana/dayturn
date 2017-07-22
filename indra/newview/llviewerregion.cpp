@@ -2876,7 +2876,7 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
     // Capabilities unique to OpenSim
     if(!gIsInSecondLife)
     {
-        
+        // capabilityNames.append("CustomMenuAction"); OnLook specific   
     }
 
 	// Please add new capabilities alphabetically to reduce
