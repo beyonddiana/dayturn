@@ -39,6 +39,8 @@ HttpOptions::HttpOptions() : RefCounted(true),
 	mTimeout(HTTP_REQUEST_TIMEOUT_DEFAULT),
 	mTransferTimeout(HTTP_REQUEST_XFER_TIMEOUT_DEFAULT),
 	mRetries(HTTP_RETRY_COUNT_DEFAULT),
+    mMinRetryBackoff(HTTP_RETRY_BACKOFF_MIN_DEFAULT),
+	mMaxRetryBackoff(HTTP_RETRY_BACKOFF_MAX_DEFAULT),
 	mUseRetryAfter(HTTP_USE_RETRY_AFTER_DEFAULT),
 	mFollowRedirects(false),
 	mVerifyPeer(false),
@@ -78,6 +80,16 @@ void HttpOptions::setTransferTimeout(unsigned int timeout)
 void HttpOptions::setRetries(unsigned int retries)
 {
 	mRetries = retries;
+}
+
+void HttpOptions::setMinBackoff(HttpTime delay)
+{
+	mMinRetryBackoff = delay;
+}
+
+void HttpOptions::setMaxBackoff(HttpTime delay)
+{
+	mMaxRetryBackoff = delay;
 }
 
 void HttpOptions::setUseRetryAfter(bool use_retry)
