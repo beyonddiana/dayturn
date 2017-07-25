@@ -226,15 +226,18 @@ void LLPanelClassifiedInfo::onOpen(const LLSD& key)
 	LLAvatarPropertiesProcessor::getInstance()->sendClassifiedInfoRequest(getClassifiedId());
 	gGenericDispatcher.addHandler("classifiedclickthrough", &sClassifiedClickThrough);
 
-	// While we're at it let's get the stats from the new table if that
-	// capability exists.
-	std::string url = gAgent.getRegionCapability("SearchStatRequest");
-	if (!url.empty())
+	if (gAgent.getRegion())
 	{
-		LL_INFOS() << "Classified stat request via capability" << LL_ENDL;
-		LLSD body;
-		body["classified_id"] = getClassifiedId();
-		LLHTTPClient::post(url, body, new LLClassifiedStatsResponder(getClassifiedId()));
+		// While we're at it let's get the stats from the new table if that
+	    // capability exists.
+	    std::string url = gAgent.getRegion()->getCapability("SearchStatRequest");
+        if (!url.empty())
+        {
+            LL_INFOS() << "Classified stat request via capability" << LL_ENDL;
+            LLSD body;
+            body["classified_id"] = getClassifiedId();
+            LLHTTPClient::post(url, body, new LLClassifiedStatsResponder(getClassifiedId()));
+        }
 	}
 
 	// Update classified click stats.
@@ -539,20 +542,23 @@ void LLPanelClassifiedInfo::sendClickMessage(
 		const LLVector3d& global_pos,
 		const std::string& sim_name)
 {
-	// You're allowed to click on your own ads to reassure yourself
-	// that the system is working.
-	LLSD body;
-	body["type"]			= type;
-	body["from_search"]		= from_search;
-	body["classified_id"]	= classified_id;
-	body["parcel_id"]		= parcel_id;
-	body["dest_pos_global"]	= global_pos.getValue();
-	body["region_name"]		= sim_name;
+    if (gAgent.getRegion())
+    {
+        // You're allowed to click on your own ads to reassure yourself
+        // that the system is working.
+        LLSD body;
+        body["type"]			= type;
+        body["from_search"]		= from_search;
+        body["classified_id"]	= classified_id;
+        body["parcel_id"]		= parcel_id;
+        body["dest_pos_global"]	= global_pos.getValue();
+        body["region_name"]		= sim_name;
 
-	std::string url = gAgent.getRegionCapability("SearchStatTracking");
-	LL_INFOS() << "Sending click msg via capability (url=" << url << ")" << LL_ENDL;
-	LL_INFOS() << "body: [" << body << "]" << LL_ENDL;
-	LLHTTPClient::post(url, body, new LLClassifiedClickMessageResponder());
+        std::string url = gAgent.getRegion()->getCapability("SearchStatTracking");
+        LL_INFOS() << "Sending click msg via capability (url=" << url << ")" << LL_ENDL;
+        LL_INFOS() << "body: [" << body << "]" << LL_ENDL;
+        LLHTTPClient::post(url, body, new LLClassifiedClickMessageResponder());
+	}
 }
 
 void LLPanelClassifiedInfo::sendClickMessage(const std::string& type)
