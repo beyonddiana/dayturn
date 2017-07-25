@@ -339,7 +339,7 @@ bool LLUrlEntryInvalidSLURL::isSLURLvalid(const std::string &url) const
 	LLURI uri(url);
 	LLSD path_array = uri.pathArray();
 	S32 path_parts = path_array.size();
-	S32 x,y,z;
+	S32 x = 0, y = 0, z = 0;
 
 	if (path_parts == actual_parts)
 	{
