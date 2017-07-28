@@ -2352,6 +2352,7 @@ void LLLiveLSLEditor::saveIfNeeded(bool sync /*= true*/)
 		mScriptEd->sync();
 	}
 	
+	if (!gAgent.getRegion()) return;
 	// save it out to asset server
 	std::string url = object->getRegion()->getCapability("UpdateScriptTask");
 	getWindow()->incBusyCount();
