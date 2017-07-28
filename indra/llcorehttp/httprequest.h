@@ -679,7 +679,20 @@ private:
 	/// @}
 	// End Global State
 	// ====================================
-	
+
+    struct Statistics
+    {
+        Statistics():
+            mTotalRequests(0),
+            mCurrentRequests(0)
+        {}
+
+        S32 mTotalRequests;
+        S32 mCurrentRequests;
+    };
+
+    static Statistics mStatistics;
+
 };  // end class HttpRequest
 
 

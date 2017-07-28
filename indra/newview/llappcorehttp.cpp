@@ -36,6 +36,8 @@
 #include "llsecapi.h"
 #include <curl/curl.h>
 
+#include "httpstats.h"
+
 // Here is where we begin to get our connection usage under control.
 // This establishes llcorehttp policy classes that, among other
 // things, limit the maximum number of connections to outside
@@ -290,6 +292,8 @@ void LLAppCoreHttp::requestStop()
 
 void LLAppCoreHttp::cleanup()
 {
+    LLCore::HTTPStats::instance().dumpStats();
+
 	if (LLCORE_HTTP_HANDLE_INVALID == mStopHandle)
 	{
 		// Should have been started already...
