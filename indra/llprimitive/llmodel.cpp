@@ -94,7 +94,7 @@ void LLModel::offsetMesh( const LLVector3& pivotPoint )
 	{
 		std::vector<LLVolumeFace>:: iterator currentFaceIt = faceIt++;
 		LLVolumeFace& face = *currentFaceIt;
-		LLVector4a *pos = (LLVector4a*) face.mPositions;
+		LLVector4a *pos = face.mPositions;
 		
 		for (U32 i=0; i<face.mNumVertices; ++i )
 		{
@@ -284,8 +284,8 @@ void LLModel::normalizeVolumeFaces()
 
 			// For all the positions, we scale
 			// the positions to fit within the unit cube.
-			LLVector4a* pos = (LLVector4a*) face.mPositions;
-			LLVector4a* norm = (LLVector4a*) face.mNormals;
+			LLVector4a* pos = face.mPositions;
+			LLVector4a* norm = face.mNormals;
 
 			for (U32 j = 0; j < face.mNumVertices; ++j)
 			{
@@ -440,7 +440,7 @@ void LLModel::generateNormals(F32 angle_cutoff)
 		//create faceted copy of current face with no texture coordinates (step 1)
 		LLVolumeFace faceted;
 
-		LLVector4a* src_pos = (LLVector4a*) vol_face.mPositions;
+		LLVector4a* src_pos = vol_face.mPositions;
 		//LLVector4a* src_norm = (LLVector4a*) vol_face.mNormals;
 
 
@@ -722,7 +722,7 @@ LLSD LLModel::writeModel(
 				U32 norm_idx = 0;
 				U32 tc_idx = 0;
 			
-				LLVector2* ftc = (LLVector2*) face.mTexCoords;
+				LLVector2* ftc = face.mTexCoords;
 				LLVector2 min_tc;
 				LLVector2 max_tc;
 
@@ -950,19 +950,19 @@ LLSD LLModel::writeModelToStream(std::ostream& ostr, LLSD& mdl, bool nowrite, bo
 
 		if (!skin.empty())
 		{ //write skin block
-			ostr.write((const char*) skin.data(), header["skin"]["size"].asInteger());
+			ostr.write(skin.data(), header["skin"]["size"].asInteger());
 		}
 
 		if (!decomposition.empty())
 		{ //write decomposition block
-			ostr.write((const char*) decomposition.data(), header["physics_convex"]["size"].asInteger());
+			ostr.write(decomposition.data(), header["physics_convex"]["size"].asInteger());
 		}
 
 		for (S32 i = 0; i < MODEL_NAMES_LENGTH; i++)
 		{
 			if (!out[i].empty())
 			{
-				ostr.write((const char*) out[i].data(), header[model_names[i]]["size"].asInteger());
+				ostr.write(out[i].data(), header[model_names[i]]["size"].asInteger());
 			}
 		}
 	}
