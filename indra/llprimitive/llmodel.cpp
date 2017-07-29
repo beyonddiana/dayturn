@@ -27,15 +27,12 @@
 #include "linden_common.h"
 
 #include "llmodel.h"
-#include "llmemory.h"
 #include "llconvexdecomposition.h"
 #include "llsdserialize.h"
-#include "llvector4a.h"
 
 #ifdef LL_USESYSTEMLIBS
 # include <zlib.h>
 #else
-# include "zlib/zlib.h"
 #endif
 
 std::string model_names[] =

@@ -27,7 +27,6 @@
 #include "linden_common.h"
 
 #include "llprimtexturelist.h"
-#include "llmaterialid.h"
 #include "lltextureentry.h"
 
 // static 

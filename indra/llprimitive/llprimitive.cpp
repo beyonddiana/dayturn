@@ -27,18 +27,12 @@
 #include "linden_common.h"
 
 #include "material_codes.h"
-#include "llerror.h"
 #include "message.h"
 #include "llprimitive.h"
-#include "llvolume.h"
 #include "legacy_object_types.h"
-#include "v4coloru.h"
 #include "llvolumemgr.h"
-#include "llstring.h"
 #include "lldatapacker.h"
 #include "llsdutil_math.h"
-#include "llprimtexturelist.h"
-#include "llmaterialid.h"
 
 /**
  * exported constants
