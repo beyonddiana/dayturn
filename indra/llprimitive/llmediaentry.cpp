@@ -26,7 +26,6 @@
 
 #include "linden_common.h"
 #include "llmediaentry.h"
-#include "lllslconstants.h"
 
 #include <boost/regex.hpp>
 

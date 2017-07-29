@@ -33,21 +33,8 @@
 #include "dom/domBind_material.h"
 #include "dom/domCOLLADA.h"
 #include "dom/domConstants.h"
-#include "dom/domController.h"
-#include "dom/domEffect.h"
-#include "dom/domGeometry.h"
-#include "dom/domInstance_geometry.h"
-#include "dom/domInstance_material.h"
-#include "dom/domInstance_node.h"
-#include "dom/domInstance_effect.h"
-#include "dom/domMaterial.h"
-#include "dom/domMatrix.h"
-#include "dom/domNode.h"
 #include "dom/domProfile_COMMON.h"
-#include "dom/domRotate.h"
-#include "dom/domScale.h"
-#include "dom/domTranslate.h"
-#include "dom/domVisual_scene.h"
+
 #if LL_MSVC
 #pragma warning (default : 4263)
 #pragma warning (default : 4264)
@@ -56,11 +43,9 @@
 #include <boost/lexical_cast.hpp>
 
 #include "lldaeloader.h"
-#include "llsdserialize.h"
 #include "lljoint.h"
 
 #include "glh/glh_linear.h"
-#include "llmatrix4a.h"
 
 #include <boost/regex.hpp>
 #include <boost/algorithm/string/replace.hpp>

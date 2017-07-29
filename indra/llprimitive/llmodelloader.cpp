@@ -26,11 +26,8 @@
 
 #include "llmodelloader.h"
 #include "llsdserialize.h"
-#include "lljoint.h"
 #include "llcallbacklist.h"
 
-#include "glh/glh_linear.h"
-#include "llmatrix4a.h"
 #include <boost/bind.hpp>
 
 std::list<LLModelLoader*> LLModelLoader::sActiveLoaderList;
