@@ -254,7 +254,7 @@ public:
 	void			moveResizeHandlesToFront();
 	void			addDependentFloater(LLFloater* dependent, BOOL reposition = TRUE);
 	void			addDependentFloater(LLHandle<LLFloater> dependent_handle, BOOL reposition = TRUE);
-	LLFloater*		getDependee() { return (LLFloater*)mDependeeHandle.get(); }
+	LLFloater*		getDependee() { return mDependeeHandle.get(); }
 	void		removeDependentFloater(LLFloater* dependent);
 	BOOL			isMinimized() const				{ return mMinimized; }
 	/// isShown() differs from getVisible() in that isShown() also considers

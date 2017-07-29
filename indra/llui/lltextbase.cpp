@@ -1286,7 +1286,7 @@ void LLTextBase::setWriteableColor(const LLColor4 &c)
 //virtual
 void LLTextBase::onVisibilityChange( BOOL new_visibility )
 {
-	LLContextMenu* menu = static_cast<LLContextMenu*>(mPopupMenuHandle.get());
+	LLContextMenu* menu = mPopupMenuHandle.get();
 	if(!new_visibility && menu)
 	{
 		menu->hide();
@@ -1988,7 +1988,7 @@ void LLTextBase::createUrlContextMenu(S32 x, S32 y, const std::string &in_url)
 
 	// create and return the context menu from the XUI file
 
-    LLContextMenu* menu = static_cast<LLContextMenu*>(mPopupMenuHandle.get());
+    LLContextMenu* menu = mPopupMenuHandle.get();
     if (menu)
     {
         menu->die();

@@ -481,7 +481,7 @@ BOOL LLToolBar::handleRightMouseDown(S32 x, S32 y, MASK mask)
 
 		createContextMenu();
 
-		LLContextMenu * menu = (LLContextMenu *) mPopupMenuHandle.get();
+		LLContextMenu * menu = mPopupMenuHandle.get();
 
 		if (menu)
 		{

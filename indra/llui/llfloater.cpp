@@ -715,7 +715,7 @@ void LLFloater::closeFloater(bool app_quitting)
 	{
 		if (getHost())
 		{
-			((LLMultiFloater*)getHost())->removeFloater(this);
+			getHost()->removeFloater(this);
 			gFloaterView->addChild(this);
 		}
 
