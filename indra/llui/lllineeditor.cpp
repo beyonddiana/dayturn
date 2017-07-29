@@ -210,7 +210,7 @@ LLLineEditor::~LLLineEditor()
 	mCommitOnFocusLost = FALSE;
     
     // Make sure no context menu linger around once the widget is deleted
-	LLContextMenu* menu = static_cast<LLContextMenu*>(mContextMenuHandle.get());
+	LLContextMenu* menu = mContextMenuHandle.get();
 	if (menu)
 	{
         menu->hide();
@@ -2608,7 +2608,7 @@ LLWString LLLineEditor::getConvertedText() const
 
 void LLLineEditor::showContextMenu(S32 x, S32 y)
 {
-	LLContextMenu* menu = static_cast<LLContextMenu*>(mContextMenuHandle.get());
+	LLContextMenu* menu = mContextMenuHandle.get();
 
 	if (menu)
 	{
@@ -2653,7 +2653,7 @@ void LLLineEditor::showContextMenu(S32 x, S32 y)
 
 void LLLineEditor::setContextMenu(LLContextMenu* new_context_menu)
 {
-    LLContextMenu* menu = static_cast<LLContextMenu*>(mContextMenuHandle.get());
+    LLContextMenu* menu = mContextMenuHandle.get();
     if (menu)
     {
         menu->die();
