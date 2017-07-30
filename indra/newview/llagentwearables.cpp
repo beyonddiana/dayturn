@@ -975,7 +975,7 @@ void LLAgentWearables::recoverMissingWearableDone()
 
 void LLAgentWearables::addLocalTextureObject(const LLWearableType::EType wearable_type, const LLAvatarAppearanceDefines::ETextureIndex texture_type, U32 wearable_index)
 {
-	LLViewerWearable* wearable = getViewerWearable((LLWearableType::EType)wearable_type, wearable_index);
+	LLViewerWearable* wearable = getViewerWearable(wearable_type, wearable_index);
 	if (!wearable)
 	{
 		LL_ERRS() << "Tried to add local texture object to invalid wearable with type " << wearable_type << " and index " << wearable_index << LL_ENDL;

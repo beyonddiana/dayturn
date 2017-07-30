@@ -2094,7 +2094,7 @@ BOOL LLFace::getGeometryVolume(const LLVolume& volume,
 				{	
 					mat_vert.affineTransform(*src++, res0);
 					tmp.setSelectWithMask(mask, texIdx, res0);
-					tmp.store4a((F32*) dst);
+					tmp.store4a(dst);
 					dst += 4;
 				}
 			}
@@ -2103,7 +2103,7 @@ BOOL LLFace::getGeometryVolume(const LLVolume& volume,
 				//LL_RECORD_TIME_BLOCK(FTM_FACE_POSITION_PAD);
 				while (dst < end_f32)
 				{
-					res0.store4a((F32*) dst);
+					res0.store4a(dst);
 					dst += 4;
 				}
 			}

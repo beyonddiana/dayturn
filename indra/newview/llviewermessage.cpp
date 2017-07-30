@@ -1571,11 +1571,11 @@ bool LLOfferInfo::inventory_offer_callback(const LLSD& notification, const LLSD&
 
 	LLInventoryObserver* opener = NULL;
 	LLViewerInventoryCategory* catp = NULL;
-	catp = (LLViewerInventoryCategory*)gInventory.getCategory(mObjectID);
+	catp = gInventory.getCategory(mObjectID);
 	LLViewerInventoryItem* itemp = NULL;
 	if(!catp)
 	{
-		itemp = (LLViewerInventoryItem*)gInventory.getItem(mObjectID);
+		itemp = gInventory.getItem(mObjectID);
 	}
 	 
 	LLNotificationPtr notification_ptr = LLNotifications::instance().find(notification["id"].asUUID());

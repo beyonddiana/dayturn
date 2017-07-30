@@ -184,7 +184,7 @@ public:
 				// HACK: force recalculation of pixel area if interest is the "magic default" of 1024.
 				if (interest == 1024.f)
 				{
-					const_cast<LLVOVolume*>(static_cast<LLVOVolume*>(mObject))->setPixelAreaAndAngle(gAgent);
+					(static_cast<LLVOVolume*>(mObject))->setPixelAreaAndAngle(gAgent);
 					interest = mObject->getPixelArea();
 				}
 			}
@@ -2265,7 +2265,7 @@ S32 LLVOVolume::setTEMaterialID(const U8 te, const LLMaterialID& pMaterialID)
 {
 	S32 res = LLViewerObject::setTEMaterialID(te, pMaterialID);
 	LL_DEBUGS("MaterialTEs") << "te "<< (S32)te << " materialid " << pMaterialID.asString() << " res " << res
-								<< ( LLSelectMgr::getInstance()->getSelection()->contains(const_cast<LLVOVolume*>(this), te) ? " selected" : " not selected" )
+								<< ( LLSelectMgr::getInstance()->getSelection()->contains(this, te) ? " selected" : " not selected" )
 								<< LL_ENDL;
 		
 	LL_DEBUGS("MaterialTEs") << " " << pMaterialID.asString() << LL_ENDL;
@@ -2521,7 +2521,7 @@ S32 LLVOVolume::setTEMaterialParams(const U8 te, const LLMaterialPtr pMaterialPa
 	S32 res = LLViewerObject::setTEMaterialParams(te, pMaterial);
 
 	LL_DEBUGS("MaterialTEs") << "te " << (S32)te << " material " << ((pMaterial) ? pMaterial->asLLSD() : LLSD("null")) << " res " << res
-							 << ( LLSelectMgr::getInstance()->getSelection()->contains(const_cast<LLVOVolume*>(this), te) ? " selected" : " not selected" )
+							 << ( LLSelectMgr::getInstance()->getSelection()->contains(this, te) ? " selected" : " not selected" )
 							 << LL_ENDL;
 	setChanged(ALL_CHANGED);
 	if (!mDrawable.isNull())
