@@ -586,7 +586,7 @@
 		 follows="left|top"
 		 height="16"
 		 increment="8"
-		 initial_value="160"
+		 initial_value="128"
 		 label="Draw distance:"
 		 label_width="185"
 		 layout="topleft"
@@ -595,14 +595,15 @@
 		 min_val="0"
 		 name="DrawDistance"
 		 top="3"
-		 width="296" />
+		 width="296"
+		 can_edit_text="true" />
 		<text
 		 type="string"
 		 length="1"
 		 follows="left|top"
 		 height="12"
 		 layout="topleft"
-		 left_delta="291"
+		 left_delta="297"
 		 name="DrawDistanceMeterText2"
 		 top_delta="0"
 		 width="128">
