@@ -1399,7 +1399,7 @@ void FSFloaterImport::uploadAsset(LLUUID asset_id, LLUUID inventory_item)
 	tid.generate();
 	LLAssetID new_asset_id = tid.makeAssetID(gAgent.getSecureSessionID());
 
-	LLVFile::writeFile((U8*)&asset_data[0], (S32)asset_data.size(), gVFS, new_asset_id, asset_type);
+	LLVFile::writeFile(&asset_data[0], (S32)asset_data.size(), gVFS, new_asset_id, asset_type);
 
 	LLResourceData* data = new LLResourceData;
 	data->mAssetInfo.mTransactionID = tid;
@@ -1559,7 +1559,7 @@ void FSFloaterImport::onAssetUploadComplete(const LLUUID& uuid, void* userdata, 
 		{
 			// Saving into user inventory
 			LLViewerInventoryItem* item;
-			item = (LLViewerInventoryItem*)gInventory.getItem(fs_data->inventory_item);
+			item = gInventory.getItem(fs_data->inventory_item);
 			if(item)
 			{
 				LLPointer<LLViewerInventoryItem> new_item = new LLViewerInventoryItem(item);
@@ -1737,7 +1737,7 @@ FSCreateItemCallback::FSCreateItemCallback(FSResourceData* data) :
 
 void FSCreateItemCallback::fire(const LLUUID& inv_item)
 {
-	FSResourceData* data = (FSResourceData*)mData;
+	FSResourceData* data = mData;
 	FSFloaterImport* self = (FSFloaterImport*)data->user_data;
 
 	if (inv_item.isNull())
@@ -1788,7 +1788,7 @@ void FSAssetResponder::uploadComplete(const LLSD& content)
 
 	LL_DEBUGS("import")  << "result: " << result << " new_id: " << new_id << LL_ENDL;
 
-	LLResourceData* data = (LLResourceData*)mData;
+	LLResourceData* data = mData;
 	FSResourceData* fs_data = (FSResourceData*)data->mUserData;
 	FSFloaterImport* self = (FSFloaterImport*)fs_data->user_data;
 
@@ -1914,7 +1914,7 @@ void FSAssetResponder::uploadComplete(const LLSD& content)
 	}
 	else
 	{
-		LLViewerInventoryItem* item = (LLViewerInventoryItem*)gInventory.getItem(item_id);
+		LLViewerInventoryItem* item = gInventory.getItem(item_id);
 		if(!item)
 		{
 			LL_WARNS("import") << "Inventory item for " << mVFileID << " is no longer in agent inventory. Skipping to next asset upload." << LL_ENDL;
@@ -1948,7 +1948,7 @@ void FSAssetResponder::uploadComplete(const LLSD& content)
 void FSAssetResponder::error(U32 statusNum, const std::string& reason)
 {
 	LL_WARNS("import")  << "Error " << statusNum << " reason: " << reason << LL_ENDL;
-	LLResourceData* data = (LLResourceData*)mData;
+	LLResourceData* data = mData;
 	FSResourceData* fs_data = (FSResourceData*)data->mUserData;
 	FSFloaterImport* self = (FSFloaterImport*)fs_data->user_data;
 	LL_WARNS("import")  << "Skipping " << fs_data->uuid.asString() << " due to upload error." << LL_ENDL;

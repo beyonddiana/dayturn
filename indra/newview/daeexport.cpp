@@ -272,7 +272,7 @@ void DAESaver::add_polygons(daeElement *mesh, const char *geomID, const char *ma
 	S32 num_tris = 0;
 
 	for (S32 face_num = 0; face_num < obj->getVolume()->getNumVolumeFaces(); face_num++) {
-		const LLVolumeFace *face = (LLVolumeFace*)&obj->getVolume()->getVolumeFace(face_num);
+		const LLVolumeFace *face = &obj->getVolume()->getVolumeFace(face_num);
 
 		if (face_to_include == ANY_FACE || face_to_include == face_num) {
 			for (S32 i = 0; i < face->mNumIndices; i++) {
@@ -364,7 +364,7 @@ bool DAESaver::save_collada_dae(std::string filename)
 		S32 num_faces = obj->getVolume()->getNumVolumeFaces();
 
 		for (S32 face_num = 0; face_num < num_faces; face_num++) {
-			const LLVolumeFace *face = (LLVolumeFace*)&obj->getVolume()->getVolumeFace(face_num);
+			const LLVolumeFace *face = &obj->getVolume()->getVolumeFace(face_num);
 			total_num_vertices += face->mNumVertices;
 
 			v4adapt verts(face->mPositions);

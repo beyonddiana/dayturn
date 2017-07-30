@@ -932,7 +932,7 @@ void LLFastTimerView::outputAllMetrics()
 		for (LLMetricPerformanceTesterBasic::name_tester_map_t::iterator iter = LLMetricPerformanceTesterBasic::sTesterMap.begin(); 
 			iter != LLMetricPerformanceTesterBasic::sTesterMap.end(); ++iter)
 		{
-			LLMetricPerformanceTesterBasic* tester = ((LLMetricPerformanceTesterBasic*)iter->second);	
+			LLMetricPerformanceTesterBasic* tester = iter->second;
 			tester->outputTestResults();
 		}
 	}

@@ -292,7 +292,7 @@ BOOL LLFloaterLand::postBuild()
 	
 	LLTabContainer* tab = getChild<LLTabContainer>("landtab");
 
-	mTabLand = (LLTabContainer*) tab;
+	mTabLand = tab;
 
 	if (tab)
 	{

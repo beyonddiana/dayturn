@@ -1839,14 +1839,14 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 					sp_size = 1;
 					delete [] mData;
 					mData = new U8[1];
-					dp->unpackU8(((U8*)mData)[0], "TreeData");
+					dp->unpackU8(mData[0], "TreeData");
 				}
 				else if (value & 0x1)
 				{
 					dp->unpackU32(size, "ScratchPadSize");
 					delete [] mData;
 					mData = new U8[size];
-					dp->unpackBinaryData((U8 *)mData, sp_size, "PartData");
+					dp->unpackBinaryData(mData, sp_size, "PartData");
 				}
 				else
 				{
@@ -2023,7 +2023,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 				
 				if (sent_parentp && (sent_parentp != this) && !sent_parentp->isDead())
 				{
-                    if (((LLViewerObject*)sent_parentp)->isAvatar())
+                    if (sent_parentp->isAvatar())
                     {
                         //LL_DEBUGS("Avatar") << "ATT got object update for attachment " << LL_ENDL; 
                     }
@@ -5406,7 +5406,7 @@ LLBBox LLViewerObject::getBoundingBoxAgent() const
 	LLVector3 position_agent;
 	LLQuaternion rot;
 	LLViewerObject* avatar_parent = NULL;
-	LLViewerObject* root_edit = (LLViewerObject*)getRootEdit();
+	LLViewerObject* root_edit = getRootEdit();
 	if (root_edit)
 	{
 		avatar_parent = (LLViewerObject*)root_edit->getParent();

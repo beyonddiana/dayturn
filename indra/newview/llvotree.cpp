@@ -301,7 +301,7 @@ U32 LLVOTree::processUpdateMessage(LLMessageSystem *mesgsys,
 	//
 	if (mData)
 	{
-		mSpecies = ((U8 *)mData)[0];
+		mSpecies = mData[0];
 	}
 	
 	if (!sSpeciesTable.count(mSpecies))
