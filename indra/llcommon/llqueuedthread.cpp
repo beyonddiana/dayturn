@@ -176,7 +176,7 @@ S32 LLQueuedThread::getPending()
 // MAIN thread
 void LLQueuedThread::waitOnPending()
 {
-	while(1)
+	while(true)
 	{
 		update(0);
 
@@ -405,7 +405,7 @@ S32 LLQueuedThread::processNextRequest()
 	// Get next request from pool
 	lockData();
 	
-	while(1)
+	while(true)
 	{
 		req = NULL;
 		if (mRequestQueue.empty())

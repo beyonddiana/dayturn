@@ -81,7 +81,7 @@ const int LL_ERR_NOERR = 0;
 #define llverify(func)			llassert_always_msg(func, #func)
 #else
 #define llassert(func)
-#define llverify(func)			do {if (func) {}} while(0)
+#define llverify(func)			do {if (func) {}} while(false)
 #endif
 
 #ifdef LL_WINDOWS
@@ -360,7 +360,7 @@ typedef LLError::NoClassInfo _LL_CLASS_TO_LOG;
 			LLError::End();                   \
 			LLError::Log::flush(_out, _site); \
 		}                                     \
-	} while(0)
+	} while(false)
 
 // NEW Macros for debugging, allow the passing of a string tag
 

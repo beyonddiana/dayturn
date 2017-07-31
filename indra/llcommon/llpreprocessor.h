@@ -148,7 +148,7 @@
 
 // level 4 warnings that we need to disable:
 #pragma warning (disable : 4100) // unreferenced formal parameter
-#pragma warning (disable : 4127) // conditional expression is constant (e.g. while(1) )
+#pragma warning (disable : 4127) // conditional expression is constant (e.g. while(true) )
 #pragma warning (disable : 4244) // possible loss of data on conversions
 #pragma warning (disable : 4396) // the inline specifier cannot be used when a friend declaration refers to a specialization of a function template
 #pragma warning (disable : 4512) // assignment operator could not be generated

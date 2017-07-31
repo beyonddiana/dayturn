@@ -104,7 +104,7 @@ private:
 // Example Usage:
 //  LLMyWorkerClass* foo = new LLMyWorkerClass();
 //  foo->fetchData(); // calls addWork()
-//  while(1) // main loop
+//  while(true) // main loop
 //  {
 //     if (foo->hasData()) // calls checkWork()
 //        foo->processData();

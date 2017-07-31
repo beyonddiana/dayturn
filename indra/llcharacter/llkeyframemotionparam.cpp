@@ -417,7 +417,7 @@ BOOL LLKeyframeMotionParam::loadMotions()
 	BOOL isFirstMotion = TRUE;
 	num = sscanf(p, "%79s %79s %f", strA, strB, &floatA);	/* Flawfinder: ignore */
 
-	while(1)
+	while(true)
 	{
 		if (num == 0 || num == EOF) break;
 		if ((num != 3))
