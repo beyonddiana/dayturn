@@ -2844,7 +2844,7 @@ LLMenuItemGL* LLMenuGL::highlightNextItem(LLMenuItemGL* cur_item, BOOL skip_disa
 		}
 	}
 
-	while(1)
+	while(true)
 	{
 		// skip separators and disabled/invisible items
 		if ((*next_item_iter)->getEnabled() && (*next_item_iter)->getVisible() && !dynamic_cast<LLMenuItemSeparatorGL*>(*next_item_iter))
@@ -2938,7 +2938,7 @@ LLMenuItemGL* LLMenuGL::highlightPrevItem(LLMenuItemGL* cur_item, BOOL skip_disa
 		}
 	}
 
-	while(1)
+	while(true)
 	{
 		// skip separators and disabled/invisible items
 		if ((*prev_item_iter)->getEnabled() && (*prev_item_iter)->getVisible() && (*prev_item_iter)->getName() != SEPARATOR_NAME)

@@ -106,7 +106,7 @@ void LLRefCount::ref() const
 
 		if(mCrashAtUnlock)
 		{
-			while(1); //crash here.
+			while(true); //crash here.
 		}
 		mMutexp->unlock() ;
 	}
@@ -135,7 +135,7 @@ S32 LLRefCount::unref() const
 		{
 			if(mCrashAtUnlock)
 			{
-				while(1); //crash here.
+				while(true); //crash here.
 			}
 			mMutexp->unlock() ;
 
@@ -145,7 +145,7 @@ S32 LLRefCount::unref() const
 
 		if(mCrashAtUnlock)
 		{
-			while(1); //crash here.
+			while(true); //crash here.
 		}
 		mMutexp->unlock() ;
 		return mRef;

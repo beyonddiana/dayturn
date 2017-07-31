@@ -1530,7 +1530,7 @@ std::string LLCurl::strerror(CURLcode errorcode)
 // 		LLMutexLock lock(&mMutex);
 // 		iter = mCachedRequests.begin();
 // 	}
-// 	while(1)
+// 	while(true)
 // 	{
 // 		request_t* request = *iter;
 // 		if(request->mStartTime < cur_time)
@@ -1807,7 +1807,7 @@ bool LLCurlEasyRequest::getResult(CURLcode* result, LLCurl::TransferInfo* info)
 	// In theory, info_read might return a message with a status other than CURLMSG_DONE
 	// In practice for all messages returned, msg == CURLMSG_DONE
 	// Ignore other messages just in case
-	while(1)
+	while(true)
 	{
 		S32 q;
 		CURLMsg* curlmsg = info_read(&q, info);
@@ -1908,7 +1908,7 @@ void LLCurl::cleanupClass()
 	sNotQuitting = false; //set quitting
 
 	//shut down curl thread
-	while(1)
+	while(true)
 	{
 		if(!sCurlThread->update(1)) //finish all tasks
 		{

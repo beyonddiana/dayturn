@@ -2054,7 +2054,7 @@ bool LLAppViewer::cleanup()
 	LLTimer idleTimer;
 	idleTimer.reset();
 	const F64 max_idle_time = 5.f; // 5 seconds
-	while(1)
+	while(true)
 	{
 		S32 pending = 0;
 		pending += LLAppViewer::getTextureCache()->update(1); // unpauses the worker thread
