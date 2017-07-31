@@ -424,7 +424,7 @@ public:
 				//<ND/> 64 bit fix
 				return reinterpret_cast<unsigned char*>(lhs->getBuffer()) < reinterpret_cast<unsigned char*>(rhs->getBuffer());
 #else
-				return (U32)lhs->getBuffer() < (U32)rhs->getBuffer();
+				return (int)(size_t)lhs->getBuffer() < (int)(size_t)rhs->getBuffer();
 #endif
 			}
 		};
