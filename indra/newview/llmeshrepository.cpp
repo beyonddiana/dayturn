@@ -1339,7 +1339,12 @@ bool LLMeshRepoThread::fetchMeshDecomposition(const LLUUID& mesh_id)
 				++LLMeshRepository::sCacheReads;
 
 				file.seek(offset);
-				U8* buffer = new U8[size];
+                U8* buffer = new(std::nothrow) U8[size];
+                if (!buffer)
+                {
+                    LL_WARNS(LOG_MESH) << "Could not allocate " << size << " bytes of memory for mesh." << LL_ENDL;
+                    return false;
+                }
 				file.read(buffer, size);
 
 				//make sure buffer isn't all 0's by checking the first 1KB (reserved block but not written)
