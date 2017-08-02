@@ -735,7 +735,7 @@ void LLPrivateMemoryPool::LLMemoryChunk::freeMem(void* addr)
 #if (LL_LINUX) && defined(__amd64__)
 		U32 blk_idx = getPageIndex(/*<ND/> 64 bit fix (U32)*/addr) ;
 #else
-		U32 blk_idx = getPageIndex((U32)addr) ;
+		int blk_idx = getPageIndex((int)(size_t)addr) ;
 #endif
 	LLMemoryBlock* blk = (LLMemoryBlock*)(mMetaBuffer + blk_idx * sizeof(LLMemoryBlock)) ;
 	blk = blk->mSelf ;
@@ -770,7 +770,7 @@ bool LLPrivateMemoryPool::LLMemoryChunk::containsAddress(const char* addr) const
 	return pBuffer <= pAddr && pBuffer + mBufferSize > pAddr ;
 	//</ND>
 #else
-	return (U32)mBuffer <= (U32)addr && (U32)mBuffer + mBufferSize > (U32)addr ;
+    return (int)(size_t)mBuffer <= (int)(size_t)addr && (int)(size_t)mBuffer + mBufferSize > (int)(size_t)addr ;
 #endif
 }
 
@@ -1492,7 +1492,7 @@ U16 LLPrivateMemoryPool::findHashKey(const char* addr)
 	return ( nAddr / CHUNK_SIZE) % mHashFactor ;
 	//</ND>
 #else
-	return (((U32)addr) / CHUNK_SIZE) % mHashFactor ;
+    return (((int)(size_t)addr) / CHUNK_SIZE) % mHashFactor ;
 #endif
 }
 
