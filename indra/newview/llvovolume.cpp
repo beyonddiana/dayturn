@@ -5170,8 +5170,17 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 				}
             }
             
-            // AXON handle NPC case  GN code section missing here that most likely are the dummys
-
+            // AXON handle NPC case
+            if (rigged && pAvatarVO && !vobj->isAnimatedObject())
+            {
+                pAvatarVO->addAttachmentOverridesForObject(vobj);
+				if (!LLApp::isExiting() && pAvatarVO->isSelf() && debugLoggingEnabled("AvatarAttachments"))
+                {
+                    bool verbose = true;
+					pAvatarVO->showAttachmentOverrides(verbose);
+				}
+            }
+            
 			//for each face
 			for (S32 i = 0; i < drawablep->getNumFaces(); i++)
 			{
