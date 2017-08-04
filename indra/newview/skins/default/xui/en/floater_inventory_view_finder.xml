@@ -257,12 +257,37 @@
      width="260"/>
     <check_box
      height="16"
-     top="364"
+     label="Created by me"
+     layout="topleft"
+     left="8"
+     name="check_created_by_me"
+     top_delta="8"
+     width="130" />
+    <check_box
+     height="16"
+     label="Created by others"
+     layout="topleft"
+     left_pad="0"
+     name="check_created_by_others"
+     top_delta="0"
+     width="70" />
+   <view_border
+     bevel_style="none"
+     follows="top|left"
+     height="0"
+     layout="topleft"
+     left="10"
+     name="horiz_separator2"
+     top_pad="16"
+     width="260"/>
+    <check_box
+     height="16"
+     top="358"     
      label="Since Logoff"
      layout="topleft"
-     left_delta="0"
+     left="8"
      name="check_since_logoff"
-     top_pad="4"
+     top_pad="6"
      width="144" />
     <text
      type="string"
