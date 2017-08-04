@@ -29,6 +29,7 @@
 #include "llinventoryfilter.h"
 
 // viewer includes
+#include "llagent.h"
 #include "llfolderviewmodel.h"
 #include "llfolderviewitem.h"
 #include "llinventorymodel.h"
@@ -79,7 +80,9 @@ LLInventoryFilter::LLInventoryFilter(const Params& p)
 	mFilterSubString(p.substring),
 	mCurrentGeneration(0),
 	mFirstRequiredGeneration(0),
-	mFirstSuccessGeneration(0)
+	mFirstSuccessGeneration(0),
+	mSearchType(SEARCHTYPE_NAME),
+	mFilterCreatorType(FILTERCREATOR_ALL)	
 {
 
 
@@ -90,6 +93,8 @@ LLInventoryFilter::LLInventoryFilter(const Params& p)
 
 	// copy mFilterOps into mDefaultFilterOps
 	markDefault();
+	mUsername = gAgentUsername;
+	LLStringUtil::toUpper(mUsername);	
 }
 // ## Zi: Extended Inventory Search
 void LLInventoryFilter::setFilterSubStringTarget(const std::string& targetName)
@@ -183,10 +188,29 @@ bool LLInventoryFilter::check(const LLFolderViewModelItem* item)
 	}
 	//	End Multi-substring inventory search
 
-	BOOL passed = (mFilterSubString.size() == 0 || string_offset != std::string::npos);
+	std::string desc = listener->getSearchableCreatorName();
+	switch(mSearchType)
+	{
+		case SEARCHTYPE_CREATOR:
+			desc = listener->getSearchableCreatorName();
+			break;
+		case SEARCHTYPE_DESCRIPTION:
+			desc = listener->getSearchableDescription();
+			break;
+		case SEARCHTYPE_UUID:
+			desc = listener->getSearchableUUIDString();
+			break;
+		case SEARCHTYPE_NAME:
+		default:
+			desc = listener->getSearchableName();
+			break;
+	}
+
+	bool passed = (mFilterSubString.size() ? desc.find(mFilterSubString) != std::string::npos : true);
 	passed = passed && checkAgainstFilterType(listener);
 	passed = passed && checkAgainstPermissions(listener);
 	passed = passed && checkAgainstFilterLinks(listener);
+	passed = passed && checkAgainstCreator(listener);
 
 	return passed;
 }
@@ -342,6 +366,14 @@ bool LLInventoryFilter::checkAgainstFilterType(const LLFolderViewModelItemInvent
 		}
 	}
 	
+	if(filterTypes & FILTERTYPE_WORN)
+	{
+		if (!get_is_item_worn(object_id))
+		{
+			return FALSE;
+		}
+	}
+
 	////////////////////////////////////////////////////////////////////////////////
 	// FILTERTYPE_UUID
 	// Pass if this item is the target UUID or if it links to the target UUID
@@ -576,6 +608,24 @@ bool LLInventoryFilter::checkAgainstFilterLinks(const LLFolderViewModelItemInven
 	return TRUE;
 }
 
+bool LLInventoryFilter::checkAgainstCreator(const LLFolderViewModelItemInventory* listener) const
+{
+	if (!listener) return TRUE;
+	const BOOL is_folder = listener->getInventoryType() == LLInventoryType::IT_CATEGORY;
+	switch(mFilterCreatorType)
+	{
+		case FILTERCREATOR_SELF:
+			if(is_folder) return FALSE;
+			return (listener->getSearchableCreatorName() == mUsername);
+		case FILTERCREATOR_OTHERS:
+			if(is_folder) return FALSE;
+			return (listener->getSearchableCreatorName() != mUsername);
+		case FILTERCREATOR_ALL:
+		default:
+			return TRUE;
+	}
+}
+
 const std::string& LLInventoryFilter::getFilterSubString(BOOL trim) const
 {
 	return mFilterSubString;
@@ -583,7 +633,14 @@ const std::string& LLInventoryFilter::getFilterSubString(BOOL trim) const
 
 std::string::size_type LLInventoryFilter::getStringMatchOffset(LLFolderViewModelItem* item) const
 {
-	return mFilterSubString.size() ? item->getSearchableName().find(mFilterSubString) : std::string::npos;
+	if (mSearchType == SEARCHTYPE_NAME)
+	{
+		return mFilterSubString.size() ? item->getSearchableName().find(mFilterSubString) : std::string::npos;
+	}
+	else
+	{
+		return std::string::npos;
+	}
 }
 
 bool LLInventoryFilter::isDefault() const
@@ -656,6 +713,24 @@ void LLInventoryFilter::updateFilterTypes(U64 types, U64& current_types)
 	}
 }
 
+void LLInventoryFilter::setSearchType(ESearchType type)
+{
+	if(mSearchType != type)
+	{
+		mSearchType = type;
+		setModified();
+	}
+}
+
+void LLInventoryFilter::setFilterCreator(EFilterCreatorType type)
+{
+	if(mFilterCreatorType != type)
+	{
+		mFilterCreatorType = type;
+		setModified();
+	}
+}
+
 void LLInventoryFilter::setFilterObjectTypes(U64 types)
 {
 	updateFilterTypes(types, mFilterOps.mFilterObjectTypes);
@@ -677,6 +752,11 @@ void LLInventoryFilter::setFilterWearableTypes(U64 types)
 void LLInventoryFilter::setFilterEmptySystemFolders()
 {
 	mFilterOps.mFilterTypes |= FILTERTYPE_EMPTYFOLDERS;
+}
+
+void LLInventoryFilter::setFilterWorn()
+{
+    mFilterOps.mFilterTypes |= FILTERTYPE_WORN;
 }
 
 void LLInventoryFilter::setFilterMarketplaceActiveFolders()

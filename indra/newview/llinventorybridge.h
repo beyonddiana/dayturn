@@ -95,6 +95,7 @@ public:
 	virtual const std::string& getDisplayName() const;
 	const std::string& getSearchableName() const { return mSearchableName; }
 	
+	std::string getSearchableDescription() const;
 	std::string getSearchableCreatorName() const;
 	std::string getSearchableUUIDString() const;
 
@@ -199,7 +200,6 @@ protected:
 	// <FS:ND> Reintegrate search by uuid/creator/descripting from Zi Ree after CHUI Merge
 public:
 	virtual std::string getSearchableCreator( void ) const;
-	virtual std::string getSearchableDescription( void ) const;
 	virtual std::string getSearchableUUID( void ) const;
 	virtual std::string getSearchableAll( void ) const;
 	// </FS:ND>

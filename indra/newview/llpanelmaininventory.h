@@ -35,6 +35,7 @@
 
 #include "llfolderview.h"
 
+class LLComboBox;
 class LLFolderViewItem;
 class LLInventoryPanel;
 class LLSaveFolderState;
@@ -77,6 +78,8 @@ public:
 
 	LLInventoryPanel* getPanel() { return mActivePanel; }
 	LLInventoryPanel* getActivePanel() { return mActivePanel; }
+	LLInventoryPanel* getAllItemsPanel();
+	void selectAllItemsPanel();
 	const LLInventoryPanel* getActivePanel() const { return mActivePanel; }
 
 	const std::string& getFilterText() const { return mFilterText; }
@@ -121,6 +124,8 @@ protected:
 	void updateItemcountText();
 
 	void onFocusReceived();
+	void onSelectSearchType();
+	void updateSearchTypeCombo();
 
 private:
 	LLFloaterInventoryFinder* getFinder();
@@ -130,12 +135,14 @@ private:
     LLUICtrl*                   mCounterCtrl;
 	LLHandle<LLFloater>			mFinderHandle;
 	LLInventoryPanel*			mActivePanel;
+	LLInventoryPanel*			mWornItemsPanel;
 	bool						mResortActivePanel;
 	LLSaveFolderState*			mSavedFolderState;
 	std::string					mFilterText;
 	std::string					mFilterSubString;
 	S32							mItemCount;
 	std::string 				mItemCountString;
+	LLComboBox*					mSearchTypeCombo;
 
 
 	//////////////////////////////////////////////////////////////////////////////////
