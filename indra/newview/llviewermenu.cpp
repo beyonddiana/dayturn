@@ -1127,6 +1127,10 @@ U32 info_display_from_string(std::string info_display)
 	{
 		return LLPipeline::RENDER_DEBUG_TRIANGLE_COUNT;
 	}
+	else if ("triangle count" == info_display)
+	{
+		return LLPipeline::RENDER_DEBUG_TRIANGLE_COUNT;
+	}
 	else
 	{
 		LL_WARNS() << "unrecognized feature name '" << info_display << "'" << LL_ENDL;
