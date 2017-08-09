@@ -178,6 +178,8 @@ public:
         virtual bool    wantsKeyUpKeyDown() const;
         virtual bool    wantsReturnKey() const;
 
+        virtual BOOL	acceptsTextInput() const {return TRUE;}
+
 	protected:
 		void convertInputCoords(S32& x, S32& y);
 
