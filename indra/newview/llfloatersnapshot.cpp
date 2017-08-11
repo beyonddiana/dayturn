@@ -404,7 +404,7 @@ void LLFloaterSnapshot::Impl::updateControls(LLFloaterSnapshot* floater)
 			{
 				width_ctrl->setIncrement(w >> 1);
 			}
-	}
+	    }
 		if (height_ctrl->getValue().asInteger() == 0)
 		{
 			S32 h = gViewerWindow->getWindowHeightRaw();
@@ -417,29 +417,29 @@ void LLFloaterSnapshot::Impl::updateControls(LLFloaterSnapshot* floater)
 		}
 
 		// Clamp snapshot resolution to window size when showing UI or HUD in snapshot.
-	if (gSavedSettings.getBOOL("RenderUIInSnapshot") || gSavedSettings.getBOOL("RenderHUDInSnapshot"))
-		{
-		S32 width = gViewerWindow->getWindowWidthRaw();
-		S32 height = gViewerWindow->getWindowHeightRaw();
+        if (gSavedSettings.getBOOL("RenderUIInSnapshot") || gSavedSettings.getBOOL("RenderHUDInSnapshot"))
+        {
+            S32 width = gViewerWindow->getWindowWidthRaw();
+            S32 height = gViewerWindow->getWindowHeightRaw();
 
-		width_ctrl->setMaxValue(width);
-		
-		height_ctrl->setMaxValue(height);
+            width_ctrl->setMaxValue(width);
+    
+            height_ctrl->setMaxValue(height);
 
-		if (width_ctrl->getValue().asInteger() > width)
-		{
-			width_ctrl->forceSetValue(width);
-		}
-		if (height_ctrl->getValue().asInteger() > height)
-		{
-			height_ctrl->forceSetValue(height);
-		}
-	}
-	else
-	{ 
-			width_ctrl->setMaxValue(6016);
-			height_ctrl->setMaxValue(6016);
-	}
+            if (width_ctrl->getValue().asInteger() > width)
+            {
+                width_ctrl->forceSetValue(width);
+            }
+            if (height_ctrl->getValue().asInteger() > height)
+            {
+                height_ctrl->forceSetValue(height);
+            }
+        }
+        else
+        { 
+                width_ctrl->setMaxValue(MAX_SNAPSHOT_IMAGE_SIZE);
+                height_ctrl->setMaxValue(MAX_SNAPSHOT_IMAGE_SIZE);
+        }
 	}
 		
 	LLSnapshotLivePreview* previewp = getPreviewView(floater);
