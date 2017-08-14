@@ -263,6 +263,9 @@ void HttpOpRequest::visitNotifier(HttpRequest * request)
 		response->setBody(mReplyBody);
 		response->setHeaders(mReplyHeaders);
 		response->setRequestURL(mReqURL);
+		
+		response->setRequestMethod(methodToString(mReqMethod));
+		
 		if (mReplyOffset || mReplyLength)
 		{
 			// Got an explicit offset/length in response
@@ -392,6 +395,18 @@ HttpStatus HttpOpRequest::setupCopy(HttpRequest::policy_t policy_id,
 	mReqMethod = HOR_COPY;
 	
 	return HttpStatus();
+}
+
+HttpStatus HttpOpRequest::setupMove(HttpRequest::policy_t policy_id,
+                                HttpRequest::priority_t priority,
+                                const std::string & url,
+								HttpOptions * options,
+								HttpHeaders * headers)
+{
+    setupCommon(policy_id, priority, url, NULL, options, headers);
+    mReqMethod = HOR_MOVE;
+
+    return HttpStatus();
 }
 
 void HttpOpRequest::setupCommon(HttpRequest::policy_t policy_id,
@@ -1094,6 +1109,25 @@ int HttpOpRequest::debugCallback(CURL * handle, curl_infotype info, char * buffe
 	return 0;
 }
 
+std::string HttpOpRequest::methodToString(const HttpOpRequest::EMethod &e)
+{
+    if (e == HOR_COPY)
+        return "COPY";
+    else if (e == HOR_DELETE)
+        return  "DELETE";
+    else if (e == HOR_GET)
+        return "GET";
+    else if (e == HOR_MOVE)
+        return "MOVE";
+    else if (e == HOR_PATCH)
+        return "PATCH";
+    else if (e == HOR_POST)
+        return "POST";
+    else if (e == HOR_PUT)
+        return "PUT";
+
+    return "UNKNOWN";
+}
 
 }   // end namespace LLCore
 

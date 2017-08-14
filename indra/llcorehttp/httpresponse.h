@@ -194,15 +194,25 @@ public:
 		return mStats;
 	}
 		
-void setRequestURL(const std::string &url)
-{
-	mRequestUrl = url;
-}
+    void setRequestURL(const std::string &url)
+    {
+        mRequestUrl = url;
+    }
 
-const std::string &getRequestURL() const
-{
-	return mRequestUrl;
-}
+    const std::string &getRequestURL() const
+    {
+        return mRequestUrl;
+    }
+    
+    void setRequestMethod(const std::string &method)
+    {
+        mRequestMethod = method;
+    }
+
+    const std::string &getRequestMethod() const
+    {
+        return mRequestMethod;
+    }
 
 
 
@@ -218,6 +228,7 @@ protected:
 	unsigned int		mRetries;
 	unsigned int		m503Retries;
 	std::string			mRequestUrl;
+	std::string         mRequestMethod;
 	
 	TransferStats::ptr_t mStats;
 };
