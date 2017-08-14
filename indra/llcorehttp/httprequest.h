@@ -538,6 +538,25 @@ public:
             HttpHeaders * headers,
             HttpHandler * user_handler);
  
+    /// Queue a full HTTP MOVE.  Query arguments and body may
+    /// be provided.  Caller is responsible for escaping and
+    /// encoding and communicating the content types.
+    ///
+    /// @param	policy_id		@see requestGet()
+    /// @param	priority		"
+    /// @param	url				"
+    /// @param	options			@see requestGet()K(optional)
+    /// @param	headers			"
+    /// @param	handler			"
+    /// @return					"
+    ///
+    HttpHandle requestMove(policy_t policy_id,
+            priority_t priority,
+            const std::string & url,
+            HttpOptions * options,
+            HttpHeaders * headers,
+            HttpHandler * user_handler);
+
 
 	/// Queue a NoOp request.
 	/// The request is queued and serviced by the working thread which

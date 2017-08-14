@@ -84,8 +84,11 @@ public:
 		HOR_PUT,
 		HOR_DELETE,
 		HOR_PATCH,
-		HOR_COPY
+		HOR_COPY,
+		HOR_MOVE
 	};
+	
+	static std::string methodToString(const EMethod &);
 	
 	virtual void stageFromRequest(HttpService *);
 	virtual void stageFromReady(HttpService *);
@@ -147,6 +150,12 @@ public:
 						HttpRequest::priority_t priority,
 						const std::string & url,
 						HttpOptions * options,
+						HttpHeaders * headers);
+						
+	HttpStatus setupMove(HttpRequest::policy_t policy_id,
+                        HttpRequest::priority_t priority,
+                        const std::string & url,
+                        HttpOptions * options,
 						HttpHeaders * headers);
 
 	// Internal method used to setup the libcurl options for a request.
