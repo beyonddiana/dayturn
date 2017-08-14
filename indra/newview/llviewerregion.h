@@ -392,6 +392,30 @@ public:
 	S32  getLastUpdate() const {return mLastUpdate;}
 
 	static BOOL isNewObjectCreationThrottleDisabled() {return sNewObjectCreationThrottle < 0;}
+	
+	/* ================================================================
+	 * @name OpenSimExtras Simulator Features capability
+	 * @{
+	 */
+	/// Get region allows export
+	bool getRegionAllowsExport() const;
+	/// Avatar picker url
+	std::string getAvatarPickerURL() const;
+	/// Destination guide url
+	std::string getDestinationGuideURL() const;
+	/// Hypergrid map server url
+	std::string getMapServerURL() const;
+	/// Hypergrid search server url
+	std::string getSearchServerURL() const;
+	/// Buy currency server url
+	std::string getBuyCurrencyServerURL() const;
+	/// Grid login/gateway authority (0.8.1)
+	std::string getHGGrid() const;
+	/// Grid name (0.8.1)
+	std::string getHGGridName() const;
+	/// "God names" surname and full account names map
+	std::set<std::string> getGods() const { return mGodNames; };
+	//@}
 
 private:
 	void addToVOCacheTree(LLVOCacheEntry* entry);
@@ -534,6 +558,7 @@ private:
 	orphan_list_t mOrphanMap;
 
 	mutable tex_matrix_t mWorldMapTiles;
+	std::set<std::string> mGodNames;
 
 	class CacheMissItem
 	{
