@@ -1493,6 +1493,7 @@ void LLTextureCache::readHeaderCache()
 	{
 		if (!mReadOnly)
 		{
+			LL_INFOS() << "Texture Cache version mismatch, Purging." << LL_ENDL;
 			purgeAllTextures(false);
 		}
 	}
