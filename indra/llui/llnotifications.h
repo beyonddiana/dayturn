@@ -965,6 +965,7 @@ public:
 	void setIgnoreAllNotifications(bool ignore);
 	bool getIgnoreAllNotifications();
 
+	void setIgnored(const std::string& name, bool ignored);
 	bool isVisibleByRules(LLNotificationPtr pNotification);
 	
 private:
