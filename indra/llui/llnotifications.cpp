@@ -1794,6 +1794,12 @@ bool LLNotifications::getIgnoreAllNotifications()
 {
 	return mIgnoreAllNotifications; 
 }
+	
+void LLNotifications::setIgnored(const std::string& name, bool ignored)
+{
+	LLNotificationTemplatePtr templatep = getTemplate(name);
+	templatep->mForm->setIgnored(ignored);
+}
 													
 bool LLNotifications::isVisibleByRules(LLNotificationPtr n)
 {
