@@ -605,6 +605,14 @@ void LLScriptEdCore::setScriptText(const std::string& text, BOOL is_valid)
 	}
 }
 
+void LLScriptEdCore::makeEditorPristine()
+{
+	if (mEditor)
+	{
+		mEditor->makePristine();
+	}
+}
+
 bool LLScriptEdCore::loadScriptText(const std::string& filename)
 {
 	if (filename.empty())
@@ -2112,7 +2120,7 @@ void LLLiveLSLEditor::loadScriptText(LLVFS *vfs, const LLUUID &uuid, LLAssetType
 	buffer[file_length] = '\0';
 
 	mScriptEd->setScriptText(LLStringExplicit(&buffer[0]), TRUE);
-	mScriptEd->mEditor->makePristine();
+	mScriptEd->makeEditorPristine();
 	mScriptEd->setScriptName(getItem()->getName());
 }
 
