@@ -739,7 +739,7 @@ LLAppViewer::LLAppViewer()
 	// OK to write stuff to logs now, we've now crash reported if necessary
 	//
 	
-	LLLoginInstance::instance().setPlatformInfo(gPlatform, LLOSInfo::instance().getOSVersionString());
+	LLLoginInstance::instance().setPlatformInfo(gPlatform, LLOSInfo::instance().getOSVersionString(), LLOSInfo::instance().getOSStringSimple());
 }
 
 LLAppViewer::~LLAppViewer()
