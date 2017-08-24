@@ -344,7 +344,7 @@ namespace tut
 			accountCredential->setCredentialData(identifier, authenticator);
 
 			logininstance->setNotificationsInterface(&notifications);
-			logininstance->setPlatformInfo("win", "1.3.5");
+			logininstance->setPlatformInfo("win", "1.3.5", "Windows Bogus Version 100.6.6.6");
 		}
 
 		LLLoginInstance* logininstance;
@@ -428,7 +428,7 @@ namespace tut
 		// Start again.
 		logininstance->connect(test_uri, agentCredential);
 		gTestPump.post(response); // Fail for tos again.
-		gTOSReplyPump->post(true); // Accept tos, should reconnect w/ agree_to_tos.
+		gTOSReplyPump->post(true); // s tos, should reconnect w/ agree_to_tos.
 		ensure_equals("Accepted agree to tos", gLoginCreds["params"]["agree_to_tos"].asBoolean(), true);
 		ensure("Incomplete login status", !logininstance->authFailure() && !logininstance->authSuccess());
 
