@@ -63,6 +63,7 @@ public:
 	// accessors
 	//
 
+    void setPieSlice(S32 pie_slice) { mPieSlice = pie_slice; }
 	void setVisibleInFirstPerson(BOOL visibility) { mVisibleInFirst = visibility; }
 	BOOL getVisibleInFirstPerson() const { return mVisibleInFirst; }
 	void setGroup(S32 group) { mGroup = group; }
@@ -74,6 +75,7 @@ public:
 	BOOL isAnimatable() const { return FALSE; }
 
 	S32 getGroup() const { return mGroup; }
+	S32 getPieSlice() const { return mPieSlice; }
 	S32	getNumObjects() const { return mAttachedObjects.size(); }
 
 	void clampObjectPosition();
@@ -109,6 +111,7 @@ private:
 	LLVector3		mOriginalPos;
 	S32				mGroup;
 	BOOL			mIsHUDAttachment;
+    S32				mPieSlice;
 };
 
 #endif // LL_LLVIEWERJOINTATTACHMENT_H
