@@ -874,7 +874,7 @@ void LLPanelLogin::loadLoginPage()
 	curl_free(curl_grid);
 
 	// add OS info
-	char * os_info = curl_escape(LLAppViewer::instance()->getOSInfo().getOSStringSimple().c_str(), 0);
+	char * os_info = curl_escape(LLOSInfo::instance().getOSStringSimple().c_str(), 0);
 	oStr << "&os=" << os_info;
 	curl_free(os_info);
 
