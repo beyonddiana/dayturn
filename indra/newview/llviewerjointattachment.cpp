@@ -53,7 +53,8 @@ extern LLPipeline gPipeline;
 LLViewerJointAttachment::LLViewerJointAttachment() :
 	mVisibleInFirst(FALSE),
 	mGroup(0),
-	mIsHUDAttachment(FALSE)
+	mIsHUDAttachment(FALSE),
+	mPieSlice(-1)
 {
 	mValid = FALSE;
 	mUpdateXform = FALSE;

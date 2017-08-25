@@ -625,6 +625,12 @@ BOOL LLVOAvatarSelf::buildMenus()
 			 ++iter)
 		{
 			LLViewerJointAttachment* attachment = iter->second;
+			if(attachment && attachment->getGroup() == group)
+			{
+				// use multimap to provide a partial order off of the pie slice key
+				S32 pie_index = attachment->getPieSlice();
+				attachment_pie_menu_map.insert(std::make_pair(pie_index, iter->first));
+			}
 		}
 
 		// add in requested order to pie menu, inserting separators as necessary
