@@ -149,8 +149,8 @@ std::string getStartupStateFromLog(std::string& sllog)
 
 bool LLCrashLogger::readFromXML(LLSD& dest, const std::string& filename )
 {
-    std::string db_file_name = gDirUtilp->getExpandedFilename(LL_PATH_DUMP,filename);
-    std::ifstream log_file(db_file_name.c_str());
+	std::string db_file_name = gDirUtilp->getExpandedFilename(LL_PATH_DUMP,filename);
+	llifstream log_file(db_file_name.c_str());
     
 	// Look for it in the given file
 	if (log_file.is_open())
@@ -176,7 +176,7 @@ bool LLCrashLogger::readMinidump(std::string minidump_path)
 {
 	size_t length=0;
 
-	std::ifstream minidump_stream(minidump_path.c_str(), std::ios_base::in | std::ios_base::binary);
+	llifstream minidump_stream(minidump_path.c_str(), std::ios_base::in | std::ios_base::binary);
 	if(minidump_stream.is_open())
 	{
 		minidump_stream.seekg(0, std::ios::end);
@@ -255,51 +255,63 @@ void LLCrashLogger::gatherFiles()
     }
 
 	//default to agni, per product
-	mAltCrashHost = "http://viewercrashreport.agni.lindenlab.com/cgi-bin/viewercrashreceiver.py";
-
-	mCrashInfo["DebugLog"] = mDebugLog;
-	mFileMap["StatsLog"] = gDirUtilp->getExpandedFilename(LL_PATH_DUMP,"stats.log");
-	
-	updateApplication("Encoding files...");
-
-	for(std::map<std::string, std::string>::iterator itr = mFileMap.begin(); itr != mFileMap.end(); ++itr)
-	{
-		std::ifstream f((*itr).second.c_str());
-		if(!f.is_open())
-		{
-			LL_INFOS("CRASHREPORT") << "Can't find file " << (*itr).second << LL_ENDL;
-			continue;
-		}
-		std::stringstream s;
-		s << f.rdbuf();
-
-		std::string crash_info = s.str();
-		if(itr->first == "KokuaOSLog")
-		{
-			if(!mCrashInfo["DebugLog"].has("StartupState"))
-			{
-				mCrashInfo["DebugLog"]["StartupState"] = getStartupStateFromLog(crash_info);
-			}
-			trimSLLog(crash_info);
-		}
-
-		mCrashInfo[(*itr).first] = LLStringFn::strip_invalid_xml(rawstr_to_utf8(crash_info));
-	}
-	
-	std::string minidump_path;
-	// Add minidump as binary.
-    bool has_minidump = mDebugLog.has("MinidumpPath");
+	 	mAltCrashHost = "http://viewercrashreport.agni.lindenlab.com/cgi-bin/viewercrashreceiver.py";
+ 
+ 	mCrashInfo["DebugLog"] = mDebugLog;
+ 	mFileMap["StatsLog"] = gDirUtilp->getExpandedFilename(LL_PATH_DUMP,"stats.log");
+ 	
+ 	updateApplication("Encoding files...");
+ 
+ 	for(std::map<std::string, std::string>::iterator itr = mFileMap.begin(); itr != mFileMap.end(); ++itr)
+ 	{
+         std::string file = (*itr).second;
+         if (!file.empty())
+         {
+             LL_DEBUGS("CRASHREPORT") << "trying to read " << itr->first << ": " << file << LL_ENDL;
+            llifstream f(file.c_str());
+             if(f.is_open())
+             {
+                 std::stringstream s;
+                 s << f.rdbuf();
+ 
+                 std::string crash_info = s.str();
+                 if(itr->first == "SecondLifeLog")
+                 {
+                     if(!mCrashInfo["DebugLog"].has("StartupState"))
+                     {
+                         mCrashInfo["DebugLog"]["StartupState"] = getStartupStateFromLog(crash_info);
+                     }
+                     trimSLLog(crash_info);
+                 }
+ 
+                 mCrashInfo[(*itr).first] = LLStringFn::strip_invalid_xml(rawstr_to_utf8(crash_info));
+             }
+             else
+             {
+                 LL_WARNS("CRASHREPORT") << "Failed to open file " << file << LL_ENDL;
+             }
+         }
+         else
+         {
+             LL_DEBUGS("CRASHREPORT") << "empty file in list for " << itr->first << LL_ENDL;
+         }
+ 	}
+ 	
+ 	std::string minidump_path;
+ 	// Add minidump as binary.
+     bool has_minidump = mDebugLog.has("MinidumpPath");
+     
+ 	if (has_minidump)
+ 	{
+ 		minidump_path = mDebugLog["MinidumpPath"].asString();
+ 		has_minidump = readMinidump(minidump_path);
+ 	}
+     else
+     {
+         LL_WARNS("CRASHREPORT") << "DebugLog does not have MinidumpPath" << LL_ENDL;
+     }
+     
     
-	if (has_minidump)
-	{
-		minidump_path = mDebugLog["MinidumpPath"].asString();
-	}
-
-	if (has_minidump)
-	{
-		has_minidump = readMinidump(minidump_path);
-	}
-
     if (!has_minidump)  //Viewer was probably so hosed it couldn't write remaining data.  Try brute force.
     {
        //Look for a filename at least 30 characters long in the dump dir which contains the characters MDMP as the first 4 characters in the file.
@@ -311,7 +323,7 @@ void LLCrashLogger::gatherFiles()
             if ( ( iter->length() > 30 ) && (iter->rfind(".dmp") == (iter->length()-4) ) )
             {
                 std::string fullname = pathname + *iter;
-                std::ifstream fdat( fullname.c_str(), std::ifstream::binary);
+                llifstream fdat(fullname.c_str(), std::ifstream::binary);
                 if (fdat)
                 {
                     char buf[5];
