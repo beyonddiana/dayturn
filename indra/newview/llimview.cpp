@@ -3751,8 +3751,7 @@ public:
 			}
 
 			//K now we want to accept the invitation
-			std::string url = gAgent.getRegionCapability(
-				"ChatSessionRequest");
+			std::string url = gAgent.getRegionCapability("ChatSessionRequest");
 
 			if ( url != "" )
 			{
