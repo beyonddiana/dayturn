@@ -793,7 +793,7 @@ private:
 	};
 
 	/*virtual*/ LLMetricPerformanceTesterWithSession::LLTestSession* loadTestSession(LLSD* log) ;
-	/*virtual*/ void compareTestSessions(std::ofstream* os) ;
+	/*virtual*/ void compareTestSessions(llofstream* os) ;
 };
 
 #endif
