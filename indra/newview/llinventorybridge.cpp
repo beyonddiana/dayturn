@@ -206,6 +206,22 @@ const std::string& LLInvFVBridge::getDisplayName() const
 	return mDisplayName;
 }
 
+std::string LLInvFVBridge::getSearchableUUIDString() const
+ {
+ 	const LLInventoryModel* model = getInventoryModel();
+ 	if (model)
+ 	{
+		const LLViewerInventoryItem *item = model->getItem(mUUID);
+		if(item && (item->getIsFullPerm() || gAgent.isGodlikeWithoutAdminMenuFakery()))
+ 		{
+ 			std::string uuid = item->getAssetUUID().asString();
+ 			LLStringUtil::toUpper(uuid);
+ 			return uuid;
+ 		}
+ 	}
+ 	return LLStringUtil::null;
+ }
+
 // Folders have full perms
 PermissionMask LLInvFVBridge::getPermissionMask() const
 {
