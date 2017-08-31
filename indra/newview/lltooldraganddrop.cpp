@@ -1571,7 +1571,22 @@ EAcceptance LLToolDragAndDrop::willObjectAcceptInventory(LLViewerObject* obj, LL
 	{
 		if (gAgent.mRRInterface.isFolderLocked(gInventory.getCategory(item->getParentUUID())))
 		{
-			return ACCEPT_NO;
+			// Only check for objects, scripts, notecards, bodyparts and pieces of clothing.
+			// The other types are not wearable and cannot create mesh body appliers so they can't be used to cheat around a restriction.
+			LLAssetType::EType type = item->getType();
+			switch (type)
+			{
+			case LLAssetType::AT_OBJECT:
+			case LLAssetType::AT_BODYPART:
+			case LLAssetType::AT_CLOTHING:
+			case LLAssetType::AT_SCRIPT:
+			case LLAssetType::AT_LSL_TEXT:
+			case LLAssetType::AT_LSL_BYTECODE:
+			case LLAssetType::AT_NOTECARD:
+				return ACCEPT_NO;
+			default:
+				break;
+			}
 		}
 	}
 //mk
@@ -1931,7 +1946,7 @@ EAcceptance LLToolDragAndDrop::dad3dRezObjectOnLand(
 	if (!item || !item->isFinished()) return ACCEPT_NO;
 
 //MK
-	if (gRRenabled && gAgent.mRRInterface.isFolderLocked(cat) && !gAgent.mRRInterface.isInventoryItemNew(item))
+	if (gRRenabled && gAgent.mRRInterface.isFolderLocked(gInventory.getCategory(item->getParentUUID())) && !gAgent.mRRInterface.isInventoryItemNew(item))
 	{
 		return ACCEPT_NO_LOCKED;
 	}
@@ -2008,7 +2023,7 @@ EAcceptance LLToolDragAndDrop::dad3dRezObjectOnObject(
 	if (!item || !item->isFinished()) return ACCEPT_NO;
 
 //MK
-	if (gRRenabled && gAgent.mRRInterface.isFolderLocked(cat) && !gAgent.mRRInterface.isInventoryItemNew(item))
+	if (gRRenabled && gAgent.mRRInterface.isFolderLocked(gInventory.getCategory(item->getParentUUID())) && !gAgent.mRRInterface.isInventoryItemNew(item))
 	{
 		return ACCEPT_NO_LOCKED;
 	}
