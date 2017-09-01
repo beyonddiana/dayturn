@@ -6,6 +6,10 @@
 	<text name="UI Size:">
 		UI størrelse:
 	</text>
+	<spinner label="Cache-størrelse (256 – 9.984 MB)" name="cachesizespinner"/>
+	 	<text name="text_box5">
+ 		MB
+ 	</text>
 	<check_box label="Vis script fejl i:" name="show_script_errors"/>
 	<radio_group name="show_location">
 		<radio_item label="Chat" name="0"/>

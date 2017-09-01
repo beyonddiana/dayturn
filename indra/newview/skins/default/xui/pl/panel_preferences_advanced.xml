@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <panel label="Zaawansowane" name="advanced">
+ 	<text name="Cache:">
+ 		Pamięć podręczna:
+ 	</text>
+	<spinner label="Rozmiar (256 - 9984 MB)" name="cachesizespinner" />
+	<button label="Wyczyść" label_selected="Wyczyść" name="clear_cache" />
+	<text name="Cache location">
+ 		Położenie buforu pamięci podręcznej:
+ 	</text>
+ 	<button label="Przeglądaj" label_selected="Przeglądaj" name="set_cache" />
+ 	<button label="Domyślne" label_selected="Domyślne" name="default_cache_location" />
+ 	<text name="UI Size:">
+ 		Rozmiar interfejsu:
+ 	</text>
 	<panel.string name="aspect_ratio_text">
 		[NUM]:[DEN]
 	</panel.string>
