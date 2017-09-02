@@ -14,6 +14,7 @@ include(LLAddBuildTest)
 include(Python)
 include(Tut)
 include(Python)
+include(JsonCpp)
 
 include_directories (${CMAKE_CURRENT_SOURCE_DIR})
 
@@ -23,6 +24,7 @@ include_directories(
     ${LLMATH_INCLUDE_DIRS}
     ${LLMESSAGE_INCLUDE_DIRS}
     ${LLVFS_INCLUDE_DIRS}
+    ${JSONCPP_INCLUDE_DIRS}
     )
 
 set(llmessage_SOURCE_FILES
@@ -48,7 +50,6 @@ set(llmessage_SOURCE_FILES
     llhttpassetstorage.cpp
     llhttpclient.cpp
     llhttpclientadapter.cpp
-    llhttpconstants.cpp
     llhttpnode.cpp
     llhttpsdhandler.cpp
     llhttpsender.cpp
@@ -144,7 +145,6 @@ set(llmessage_HEADER_FILES
     llhttpclient.h
     llhttpclientinterface.h
     llhttpclientadapter.h
-    llhttpconstants.h
     llhttpnode.h
     llhttpnodeadapter.h
     llhttpsdhandler.h
@@ -230,10 +230,12 @@ target_link_libraries(
   ${LLCOMMON_LIBRARIES}
   ${LLVFS_LIBRARES}
   ${LLMATH_LIBRARIES}
+  ${JSONCPP_LIBRARIES}
   ${CARES_LIBRARIES}
   ${OPENSSL_LIBRARIES}
   ${CRYPTO_LIBRARIES}
   ${XMLRPCEPI_LIBRARIES}
+  ${LLCOREHTTP_LIBRARIES}
   )
 
 # tests

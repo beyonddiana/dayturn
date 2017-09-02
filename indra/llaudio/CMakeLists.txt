@@ -7,6 +7,7 @@ include(LLAudio)
 include(FMODEX)
 include(OPENAL)
 include(LLCommon)
+include(LLCoreHttp)
 include(LLMath)
 include(LLMessage)
 include(LLVFS)
@@ -14,6 +15,7 @@ include(LLVFS)
 include_directories(
     ${LLAUDIO_INCLUDE_DIRS}
     ${LLCOMMON_INCLUDE_DIRS}
+    ${LLCOREHTTP_INCLUDE_DIRS}
     ${LLMATH_INCLUDE_DIRS}
     ${LLMESSAGE_INCLUDE_DIRS}
     ${LLVFS_INCLUDE_DIRS}

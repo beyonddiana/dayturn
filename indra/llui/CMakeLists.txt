@@ -4,6 +4,7 @@ project(llui)
 
 include(00-Common)
 include(LLCommon)
+include(LLCoreHttp)
 include(LLImage)
 include(LLInventory)
 include(LLMath)
@@ -16,6 +17,7 @@ include(Teapot)
 
 include_directories(
     ${LLCOMMON_INCLUDE_DIRS}
+    ${LLCOREHTTP_INCLUDE_DIRS}
     ${LLIMAGE_INCLUDE_DIRS}
     ${LLINVENTORY_INCLUDE_DIRS}
     ${LLMATH_INCLUDE_DIRS}
