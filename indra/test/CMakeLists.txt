@@ -4,6 +4,7 @@ project (lltest)
 
 include(00-Common)
 include(LLCommon)
+include(LLCoreHttp)
 include(LLInventory)
 include(LLMath)
 include(LLMessage)
@@ -19,6 +20,7 @@ include(LLAddBuildTest)
 
 include_directories(
     ${LLCOMMON_INCLUDE_DIRS}
+    ${LLCOREHTTP_INCLUDE_DIRS}
     ${LLDATABASE_INCLUDE_DIRS}
     ${LLMATH_INCLUDE_DIRS}
     ${LLMESSAGE_INCLUDE_DIRS}
