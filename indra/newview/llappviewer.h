@@ -1,6 +1,18 @@
 /** 
- * @file llappviewer.h
- * @brief The LLAppViewer class declaration
+ * @mainpage
+ *
+ * This is the sources for the Second Life Viewer;
+ * information on the open source project is at 
+ * https://wiki.secondlife.com/wiki/Open_Source_Portal
+ *
+ * The Mercurial repository for the trunk version is at
+ * https://bitbucket.org/lindenlab/viewer-release
+ *
+ * @section source-license Source License
+ * @verbinclude LICENSE-source.txt
+ *
+ * @section artwork-license Artwork License
+ * @verbinclude LICENSE-logos.txt
  *
  * $LicenseInfo:firstyear=2007&license=viewerlgpl$
  * Second Life Viewer Source Code
@@ -22,6 +34,9 @@
  * 
  * Linden Research, Inc., 945 Battery Street, San Francisco, CA  94111  USA
  * $/LicenseInfo$
+ *
+ * @file llappviewer.h
+ * @brief The LLAppViewer class declaration
  */
 
 #ifndef LL_LLAPPVIEWER_H
@@ -40,7 +55,6 @@ class LLTextureCache;
 class LLImageDecodeThread;
 class LLTextureFetch;
 class LLWatchdogTimeout;
-class LLUpdaterService;
 class LLViewerJoystick;
 
 extern LLTrace::BlockTimerStatHandle FTM_FRAME;
@@ -213,7 +227,6 @@ private:
 	bool initThreads(); // Initialize viewer threads, return false on failure.
 	bool initConfiguration(); // Initialize settings from the command line/config file.
 	void initStrings();       // Initialize LLTrans machinery
-	void initUpdater(); // Initialize the updater service.
 	bool initCache(); // Initialize local client cache.
 	void checkMemory() ;
 
@@ -238,7 +251,7 @@ private:
 
     void sendLogoutRequest();
     void disconnectViewer();
-
+	
 	// *FIX: the app viewer class should be some sort of singleton, no?
 	// Perhaps its child class is the singleton and this should be an abstract base.
 	static LLAppViewer* sInstance; 
@@ -295,30 +308,15 @@ private:
 
 	LLFrameTimer mMemCheckTimer;
 	
-	boost::scoped_ptr<LLUpdaterService> mUpdater;
 
 	// llcorehttp library init/shutdown helper
 	LLAppCoreHttp mAppCoreHttp;
 
 	bool mIsFirstRun;
-	//---------------------------------------------
-	//*NOTE: Mani - legacy updater stuff
-	// Still useable?
+
 public:
-
-	//some information for updater
-	typedef struct
-	{
-		std::string mUpdateExePath;
-		std::ostringstream mParams;
-	}LLUpdaterInfo ;
-	static LLUpdaterInfo *sUpdaterInfo ;
-
-	void launchUpdater();
-
 	static void setViewerWindowTitle();
 
-	//---------------------------------------------
 };
 
 // consts from viewer.h
@@ -399,6 +397,7 @@ extern BOOL gPrintMessagesThisFrame;
 
 extern LLUUID gSunTextureID;
 extern LLUUID gMoonTextureID;
+extern LLUUID gBlackSquareID;
 
 extern BOOL gRandomizeFramerate;
 extern BOOL gPeriodicSlowFrame;
