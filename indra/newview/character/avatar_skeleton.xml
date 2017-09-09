@@ -59,6 +59,7 @@
 				<collision_volume name="R_FOOT"  pos = "0.077 0.0 -0.041" rot="0.000000 10.00000 0.000000" scale="0.13 0.05 0.05"/>
 				<bone name="mFootRight" pos="0.112 -0.000 -0.061" rot="0.000000 0.000000 0.000000" scale="1.000 1.000 1.000" pivot="0.111956 -0.000000 -0.060637" aliases="rFoot avatar_mFootRight">
                     <bone name="mToeRight" pos="0.109 0.000 0.000" rot="0.000000 0.000000 0.000000" scale="1.000 1.000 1.000" pivot="0.105399 -0.010408 -0.000104" aliases="avatar_mToeRight">
+                    </bone>
 				</bone>
 			</bone>
 		</bone>
