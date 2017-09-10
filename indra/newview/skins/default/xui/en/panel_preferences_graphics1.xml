@@ -882,7 +882,7 @@
          layout="topleft"
          left_delta="-230"
          name="AvatarRenderingText"
-         top_pad="18"
+         top_pad="12"
          width="128">
         Avatar Rendering:
       </text>
@@ -938,10 +938,9 @@
        follows="left|top"
        height="12"
        layout="topleft"
-       left="407"
-       left_pad="-60"
+       left="398"
        name="TerrainDetailText"
-        top="250"
+        top="223"
        width="155">
           Terrain detail:
       </text>
@@ -1024,7 +1023,7 @@
      layout="topleft"
      left="10"
      name="Apply"
-     top="365"
+     top="385"
      width="115">
         <button.commit_callback
          function="Pref.Apply" />
@@ -1036,7 +1035,7 @@
      layout="topleft"
      left_pad="3"
      name="Defaults"
-     top="365"
+     top="385"
      width="115">
         <button.commit_callback
          function="Pref.HardwareDefaults" />
