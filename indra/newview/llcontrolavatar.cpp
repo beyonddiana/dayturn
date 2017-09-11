@@ -211,7 +211,6 @@ void LLControlAvatar::markForDeath()
     mMarkedForDeath = true;
 }
 
-// static
 void LLControlAvatar::idleUpdate(LLAgent &agent, const F64 &time)
 {
     if (mMarkedForDeath)
@@ -223,6 +222,11 @@ void LLControlAvatar::idleUpdate(LLAgent &agent, const F64 &time)
     {
         LLVOAvatar::idleUpdate(agent,time);
     }
+}
+
+BOOL LLControlAvatar::updateCharacter(LLAgent &agent)
+{
+    return LLVOAvatar::updateCharacter(agent);
 }
 
 //virtual
