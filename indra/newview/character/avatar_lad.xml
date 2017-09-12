@@ -1203,7 +1203,7 @@
          scale="0 0 0"
          offset="0 0 .004" />
 
-      <bone
+        <bone
          name="mFaceEyeLidUpperRight"
          scale="0 0 0"
          offset="0 0 -.004" />
@@ -1927,7 +1927,8 @@
          scale="0 0 .5" />
       </param_skeleton>
     </param>
-                          <param
+    
+    <param
      id="11001"
      group="0"
      name="Hover"
@@ -1956,7 +1957,7 @@
      group="1"
      name="Hair_Volume"
      label="Hair Volume"
-   show_simple="true"
+     show_simple="true"
      wearable="hair"
      clothing_morph="true"
      edit_group="hair_style"
@@ -1975,7 +1976,7 @@
      group="1"
      name="Hair_Volume_Small"
      label="Hair Volume"
-   show_simple="true"
+     show_simple="true"
      wearable="hair"
      edit_group="hair_style"
      label_min="Less"
@@ -2051,7 +2052,7 @@
      group="0"
      name="Hair_Spiked"
      label="Spiked Hair"
-   show_simple="true"
+     show_simple="true"
      wearable="hair"
      clothing_morph="true"
      edit_group="hair_style"
@@ -2125,7 +2126,7 @@
      group="0"
      name="Hair_Sides_Full"
      label="Full Hair Sides"
-   show_simple="true"
+     show_simple="true"
      wearable="hair"
      edit_group="hair_style"
      edit_group_order="11"
@@ -2353,7 +2354,7 @@
      group="0"
      name="Hair_Rumpled"
      label="Rumpled Hair"
-   show_simple="true"
+     show_simple="true"
      wearable="hair"
      clothing_morph="true"
      edit_group="hair_style"
@@ -2577,7 +2578,7 @@
      edit_group="hair_style"
      edit_group_order="11.8"
      label="Shear Front"
-   show_simple="true"
+     show_simple="true"
      label_min="Full Front"
      label_max="Sheared Front"
      value_min="0"
@@ -2713,7 +2714,7 @@
 
   <mesh
    type="hairMesh"
- lod="1"
+   lod="1"
    file_name="avatar_hair_1.llm"
    min_pixel_width="160"
    reference="avatar_hair.llm">
@@ -2721,7 +2722,7 @@
 
   <mesh
    type="hairMesh"
- lod="2"
+   lod="2"
    file_name="avatar_hair_2.llm"
    min_pixel_width="80"
    reference="avatar_hair.llm">
@@ -2729,7 +2730,7 @@
 
   <mesh
    type="hairMesh"
- lod="3"
+   lod="3"
    file_name="avatar_hair_3.llm"
    min_pixel_width="40"
    reference="avatar_hair.llm">
@@ -2737,23 +2738,23 @@
 
   <mesh
    type="hairMesh"
- lod="4"
+   lod="4"
    file_name="avatar_hair_4.llm"
- min_pixel_width="20"
+   min_pixel_width="20"
    reference="avatar_hair.llm">
   </mesh>
 
   <mesh
    type="hairMesh"
- lod="5"
+   lod="5"
    file_name="avatar_hair_5.llm"
- min_pixel_width="0"
+   min_pixel_width="0"
    reference="avatar_hair.llm">
   </mesh>
 
   <mesh
    type="headMesh"
- lod="0"
+   lod="0"
    file_name="avatar_head.llm"
    min_pixel_width="320">
     <!-- 
@@ -3224,7 +3225,7 @@
      label_max="Wide"
      value_min="-1.5"
      value_max="2"
-   show_simple="true"
+     show_simple="true"
      camera_elevation=".1"
      camera_distance=".35">
       <param_morph />
@@ -3348,7 +3349,7 @@
      group="1"
      name="Lower_Eyebrows"
      label="Eyebrow Height"
-   show_simple="true"
+     show_simple="true"
      wearable="hair"
      edit_group="hair_eyebrows"
      edit_group_order="2.5"
@@ -3515,7 +3516,7 @@
      name="Mouth_Height"
      wearable="shape"
      label="Mouth Position"
-   show_simple="true"
+     show_simple="true"
      edit_group="shape_mouth"
      edit_group_order="4"
      label_min="High"
@@ -3609,7 +3610,7 @@
      name="Tall_Lips"
      wearable="shape"
      label="Lip Fullness"
-   show_simple="true"
+     show_simple="true"
      edit_group="shape_mouth"
      edit_group_order="2"
      label_min="Less Full"
@@ -4163,7 +4164,7 @@
 
   <mesh
    type="headMesh"
- lod="1"
+   lod="1"
    file_name="avatar_head_1.llm"
    min_pixel_width="160"
    reference="avatar_head.llm">
@@ -4171,7 +4172,7 @@
 
   <mesh
    type="headMesh"
- lod="2"
+   lod="2"
    file_name="avatar_head_2.llm"
    min_pixel_width="80"
    reference="avatar_head.llm">
@@ -4179,7 +4180,7 @@
 
   <mesh
    type="headMesh"
- lod="3"
+   lod="3"
    file_name="avatar_head_3.llm"
    min_pixel_width="40"
    reference="avatar_head.llm">
@@ -4187,15 +4188,15 @@
 
   <mesh
    type="headMesh"
- lod="4"
+   lod="4"
    file_name="avatar_head_4.llm"
- min_pixel_width="0"
+   min_pixel_width="0"
    reference="avatar_head.llm">
   </mesh>
 
   <mesh
    type="eyelashMesh"
- lod="0"
+   lod="0"
    file_name="avatar_eyelashes.llm"
    min_pixel_width="320">
     <param
@@ -4403,7 +4404,7 @@
      label_max="Anime Eyes"
      value_min="-2"
      value_max="2"
-   show_simple="true"
+     show_simple="true"
      value_default="0">
       <param_morph />
     </param>
@@ -4647,7 +4648,7 @@
       -->
   <mesh
    type="upperBodyMesh"
- lod="0"
+   lod="0"
    file_name="avatar_upper_body.llm"
    min_pixel_width="320">
     <!--
@@ -4761,7 +4762,7 @@
      name="Muscular_Torso"
      label="Torso Muscles"
      sex="male"
-   show_simple="true"
+     show_simple="true"
      wearable="shape"
      edit_group="shape_torso"
      label_min="Regular"
@@ -4804,7 +4805,7 @@
      name="Muscular_Torso"
      label="Torso Muscles"
      sex="female"
-	   show_simple="true"
+	 show_simple="true"
      wearable="shape"
      edit_group="shape_torso"
      label_min="Regular"
@@ -4847,7 +4848,7 @@
      sex="female"
      name="Scrawny_Torso"
      label="Torso Muscles"
-   show_simple="true"
+     show_simple="true"
      wearable="shape"
      edit_group="shape_torso"
      label_min="Regular"
@@ -5076,7 +5077,7 @@
      group="0"
      name="Shirtsleeve_flair"
      label="Sleeve Looseness"
-   show_simple="true"
+     show_simple="true"
      wearable="shirt"
      edit_group="shirt"
      edit_group_order="6"
@@ -5179,7 +5180,7 @@
      id="100"
      group="1"
      name="Male_Torso"
-    wearable="shape"
+     wearable="shape"
      edit_group="driven"
      label_min="Male_Torso"
      value_min="0"
@@ -5452,7 +5453,7 @@
 
   <mesh
    type="upperBodyMesh"
- lod="1"
+   lod="1"
    file_name="avatar_upper_body_1.llm"
    min_pixel_width="160"
    reference="avatar_upper_body.llm">
@@ -5460,7 +5461,7 @@
 
   <mesh
    type="upperBodyMesh"
- lod="2"
+   lod="2"
    file_name="avatar_upper_body_2.llm"
    min_pixel_width="80"
    reference="avatar_upper_body.llm">
@@ -5468,7 +5469,7 @@
 
   <mesh
    type="upperBodyMesh"
- lod="3"
+   lod="3"
    file_name="avatar_upper_body_3.llm"
    min_pixel_width="40"
    reference="avatar_upper_body.llm">
@@ -5476,9 +5477,9 @@
 
   <mesh
    type="upperBodyMesh"
- lod="4"
+   lod="4"
    file_name="avatar_upper_body_4.llm"
- min_pixel_width="0"
+   min_pixel_width="0"
    reference="avatar_upper_body.llm">
   </mesh>
 
@@ -5488,7 +5489,7 @@
       -->
   <mesh
    type="lowerBodyMesh"
- lod="0"
+   lod="0"
    file_name="avatar_lower_body.llm"
    min_pixel_width="320">
     <!--
@@ -5556,7 +5557,7 @@
      group="1"
      name="Muscular_Legs"
      label="Leg Muscles"
-   show_simple="true"
+     show_simple="true"
      wearable="shape"
      edit_group="shape_legs"
      label_min="Regular Muscles"
@@ -5820,7 +5821,7 @@
      group="0"
      name="Leg_Pantflair"
      label="Cuff Flare"
-   show_simple="true"
+     show_simple="true"
      wearable="pants"
      edit_group="pants"
      edit_group_order="3"
@@ -6011,7 +6012,7 @@
 
   <mesh
    type="lowerBodyMesh"
- lod="1"
+   lod="1"
    file_name="avatar_lower_body_1.llm"
    min_pixel_width="160"
    reference="avatar_lower_body.llm">
@@ -6019,7 +6020,7 @@
 
   <mesh
    type="lowerBodyMesh"
- lod="2"
+   lod="2"
    file_name="avatar_lower_body_2.llm"
    min_pixel_width="80"
    reference="avatar_lower_body.llm">
@@ -6027,7 +6028,7 @@
 
   <mesh
    type="lowerBodyMesh"
- lod="3"
+   lod="3"
    file_name="avatar_lower_body_3.llm"
    min_pixel_width="40"
    reference="avatar_lower_body.llm">
@@ -6035,9 +6036,9 @@
 
   <mesh
    type="lowerBodyMesh"
- lod="4"
+   lod="4"
    file_name="avatar_lower_body_4.llm"
- min_pixel_width="0"
+   min_pixel_width="0"
    reference="avatar_lower_body.llm">
   </mesh>
 
@@ -6050,7 +6051,7 @@
       -->
   <mesh
    type="eyeBallLeftMesh"
- lod="0"
+   lod="0"
    file_name="avatar_eye.llm"
    min_pixel_width="320">
     <!-- begin morph_params -->
@@ -6085,7 +6086,7 @@
 
   <mesh
    type="eyeBallLeftMesh"
- lod="1"
+   lod="1"
    file_name="avatar_eye_1.llm"
    min_pixel_width="80">
     <!-- begin morph_params -->
@@ -6123,7 +6124,7 @@
       -->
   <mesh
    type="eyeBallRightMesh"
- lod="0"
+   lod="0"
    file_name="avatar_eye.llm"
    min_pixel_width="320">
     <!-- begin morph_params -->
@@ -6156,7 +6157,7 @@
 
   <mesh
    type="eyeBallRightMesh"
- lod="1"
+   lod="1"
    file_name="avatar_eye_1.llm"
    min_pixel_width="80">
     <!-- begin morph_params -->
@@ -6191,7 +6192,7 @@
 
   <mesh
    type="skirtMesh"
- lod="0"
+   lod="0"
    file_name="avatar_skirt.llm"
    min_pixel_width="320">
     <param
@@ -6398,7 +6399,7 @@
 
   <mesh
    type="skirtMesh"
- lod="1"
+   lod="1"
    file_name="avatar_skirt_1.llm"
    min_pixel_width="160"
    reference="avatar_skirt.llm">
@@ -6406,7 +6407,7 @@
 
   <mesh
    type="skirtMesh"
- lod="2"
+   lod="2"
    file_name="avatar_skirt_2.llm"
    min_pixel_width="80"
    reference="avatar_skirt.llm">
@@ -6414,7 +6415,7 @@
 
   <mesh
    type="skirtMesh"
- lod="3"
+   lod="3"
    file_name="avatar_skirt_3.llm"
    min_pixel_width="40"
    reference="avatar_skirt.llm">
@@ -6422,9 +6423,9 @@
 
   <mesh
    type="skirtMesh"
- lod="4"
+   lod="4"
    file_name="avatar_skirt_4.llm"
- min_pixel_width="0"
+   min_pixel_width="0"
    reference="avatar_skirt.llm">
   </mesh>
 
@@ -6438,7 +6439,7 @@
      edit_group="skin_color"
      edit_group_order="1"
      name="Pigment"
-   show_simple="true"
+     show_simple="true"
      label_min="Light"
      label_max="Dark"
      value_min="0"
@@ -6485,7 +6486,7 @@
      edit_group="skin_color"
      edit_group_order="3"
      name="Rainbow Color"
-   show_simple="true"
+     show_simple="true"
      label_min="None"
      label_max="Wild"
      value_min="0"
@@ -6530,7 +6531,7 @@
      edit_group="hair_color"
      edit_group_order="3"
      name="Blonde Hair"
-   show_simple="true"
+     show_simple="true"
      label_min="Black"
      label_max="Blonde"
      value_min="0"
@@ -6581,7 +6582,7 @@
      edit_group="hair_color"
      edit_group_order="4"
      name="Red Hair"
-   show_simple="true"
+     show_simple="true"
      label_min="No Red"
      label_max="Very Red"
      value_min="0"
@@ -6604,7 +6605,7 @@
      edit_group="hair_color"
      edit_group_order="1"
      name="White Hair"
-   show_simple="true"
+     show_simple="true"
      label_min="No White"
      label_max="All White"
      value_min="0"
@@ -6627,7 +6628,7 @@
      edit_group="hair_color"
      edit_group_order="2"
      name="Rainbow Color"
-   show_simple="true"
+     show_simple="true"
      label_min="None"
      label_max="Wild"
      value_min="0"
@@ -6672,7 +6673,7 @@
      edit_group="eyes"
      edit_group_order="1"
      name="Eye Color"
-   show_simple="true"
+     show_simple="true"
      label_min="Natural"
      label_max="Unnatural"
      value_min="0"
@@ -6752,7 +6753,7 @@
      edit_group="eyes"
      edit_group_order="2"
      name="Eye Lightness"
-   show_simple="true"
+     show_simple="true"
      label_min="Darker"
      label_max="Lighter"
      value_min="0"
@@ -7006,8 +7007,8 @@ domain="0.5" />
       </param>
     </layer>
     <layer
-name="eyebrowsbump"
-render_pass="bump">
+     name="eyebrowsbump"
+     render_pass="bump">
       <texture
        tga_file="head_hair.tga"
        file_is_mask="false" />
@@ -7056,7 +7057,7 @@ render_pass="bump">
        wearable="hair"
        edit_group="hair_eyebrows"
        name="Eyebrow Size"
-   show_simple="true"
+       show_simple="true"
        value_min="0"
        value_max="1"
        value_default="0.5">
@@ -10163,14 +10164,14 @@ render_pass="bump">
        edit_group="skirt"
        edit_group_order="1"
        name="Skirt Length"
-   show_simple="true"
+       show_simple="true"
        label_min="Short"
        label_max="Long"
        value_min=".01"
        value_max="1"
        value_default=".4"
-   simple_percent_min="40"
-   simple_percent_max="100"
+       simple_percent_min="40"
+       simple_percent_max="100"
        camera_distance="1.3"
        camera_elevation="-.5"
        camera_angle="30">
@@ -10304,7 +10305,7 @@ render_pass="bump">
      group="0"
      name="Loose Lower Clothing"
      label="Pants Fit"
-   show_simple="true"
+     show_simple="true"
      wearable="pants"
      edit_group="pants"
      edit_group_order="2.5"
@@ -10369,14 +10370,14 @@ render_pass="bump">
      edit_group="pants"
      edit_group_order="1"
      name="Pants Length"
-   show_simple="true"
+     show_simple="true"
      label_min="Short"
      label_max="Long"
      value_min="0"
      value_max="1"
      value_default=".8"
-   simple_percent_min="20"
-   simple_percent_max="100"
+     simple_percent_min="20"
+     simple_percent_max="100"
      camera_distance="1.8"
      camera_angle="30"
      camera_elevation="-.3">
@@ -10425,14 +10426,14 @@ render_pass="bump">
      edit_group="shirt"
      edit_group_order="1"
      name="Sleeve Length"
-   show_simple="true"
+     show_simple="true"
      label_min="Short"
      label_max="Long"
      value_min="0"
      value_max="1"
      value_default=".89"
-   simple_percent_min="15"
-   simple_percent_max="100"
+     simple_percent_min="15"
+     simple_percent_max="100"
      camera_distance="1.2"
      camera_angle="30"
      camera_elevation=".2">
@@ -10496,14 +10497,14 @@ render_pass="bump">
      edit_group="shirt"
      edit_group_order="3"
      name="Collar Front"
-   show_simple="true"
+     show_simple="true"
      label_min="Low"
      label_max="High"
      value_min="0"
      value_max="1"
      value_default=".78"
-   simple_percent_min="40"
-   simple_percent_max="100"
+     simple_percent_min="40"
+     simple_percent_max="100"
      camera_distance="1.2"
      camera_angle="15"
      camera_elevation=".2">
@@ -10704,8 +10705,8 @@ render_pass="bump">
      edit_group="shape_mouth"
      edit_group_order="3.2"
      name="Lip Ratio"
-   label="Lip Ratio"
-   show_simple="true"
+     label="Lip Ratio"
+     show_simple="true"
      label_min="More Upper Lip"
      label_max="More Lower Lip"
      value_min="0"
@@ -10738,7 +10739,7 @@ render_pass="bump">
      edit_group="shape_mouth"
      edit_group_order="1"
      name="Lip Width"
-   label="Lip Width"
+     label="Lip Width"
      label_min="Narrow Lips"
      label_max="Wide Lips"
      show_simple="true"
@@ -10763,7 +10764,7 @@ render_pass="bump">
      edit_group="shape_eyes"
      edit_group_order="2"
      name="Eye Spacing"
-   label="Eye Spacing"
+     label="Eye Spacing"
      label_min="Close Set Eyes"
      label_max="Far Set Eyes"
      show_simple="true"
@@ -10925,7 +10926,7 @@ render_pass="bump">
      edit_group="shape_head"
      edit_group_order="3"
      name="Head Shape"
-   label="Head Shape"
+     label="Head Shape"
      label_min="More Square"
      label_max="More Round"
      show_simple="true"
@@ -11188,7 +11189,7 @@ render_pass="bump">
      edit_group="hair_style"
      edit_group_order="4"
      name="Hair Back"
-   show_simple="true"
+     show_simple="true"
      label_min="Short"
      label_max="Long"
      value_min="0"
@@ -11498,8 +11499,8 @@ render_pass="bump">
      edit_group="shape_torso"
      edit_group_order="1.1"
      name="Torso Muscles"
-   label="Torso Muscles"
-   show_simple="true"
+     label="Torso Muscles"
+     show_simple="true"
      label_min="Less Muscular"
      label_max="More Muscular"
      value_min="0"
@@ -11534,7 +11535,7 @@ render_pass="bump">
      edit_group_order="1"
      name="Torso Muscles"
      show_simple="true"
-   label_min="Less Muscular"
+     label_min="Less Muscular"
      label_max="More Muscular"
      value_min="0"
      value_max="1"
@@ -11709,7 +11710,7 @@ render_pass="bump">
      edit_group="shape_head"
      edit_group_order="1"
      name="Head Size"
-   label="Head Size"
+     label="Head Size"
      label_min="Small Head"
      label_max="Big Head"
      show_simple="true"
@@ -11743,13 +11744,13 @@ render_pass="bump">
      edit_group="shape_eyes"
      edit_group_order="1"
      name="Eye Size"
-   label="Eye Size"
+     label="Eye Size"
      label_min="Beady Eyes"
      label_max="Anime Eyes"
      value_min="0"
      value_max="1"
      value_default=".5"
-   show_simple="true"
+     show_simple="true"
      camera_elevation=".1"
      camera_distance=".35">
       <param_driver>
@@ -11819,7 +11820,7 @@ render_pass="bump">
      edit_group="hair_style"
      edit_group_order="1"
      name="Hair Volume"
-   show_simple="true"
+     show_simple="true"
      label_min="Less Volume"
      label_max="More Volume"
      value_min="0"
@@ -11930,7 +11931,7 @@ render_pass="bump">
      edit_group="hair_style"
      edit_group_order="14.6"
      name="Pigtails"
-   show_simple="true"
+     show_simple="true"
      label_min="Short Pigtails"
      label_max="Long Pigtails"
      value_min="0"
@@ -12132,7 +12133,7 @@ render_pass="bump">
      group="0"
      name="skirt_looseness"
      label="Skirt Fit"
-   show_simple="true"
+     show_simple="true"
      clothing_morph="true"
      wearable="skirt"
      edit_group_order="2"
@@ -12175,7 +12176,7 @@ render_pass="bump">
      edit_group="hair_eyebrows"
      edit_group_order="1"
      name="Eyebrow Size"
-   show_simple="true"
+     show_simple="true"
      label_min="Thin Eyebrows"
      label_max="Bushy Eyebrows"
      value_min="0"
@@ -12223,7 +12224,7 @@ render_pass="bump">
      edit_group="hair_facial"
      edit_group_order="2"
      name="Sideburns"
-   show_simple="true"
+     show_simple="true"
      label_min="Short Sideburns"
      label_max="Mutton Chops"
      value_min="0"
@@ -12249,7 +12250,7 @@ render_pass="bump">
      edit_group="hair_facial"
      edit_group_order="3"
      name="Moustache"
-   show_simple="true"
+     show_simple="true"
      label_min="Chaplin"
      label_max="Handlebars"
      value_min="0"
@@ -12275,7 +12276,7 @@ render_pass="bump">
      edit_group="hair_facial"
      edit_group_order="5"
      name="Soulpatch"
-   show_simple="true"
+     show_simple="true"
      label_min="Less soul"
      label_max="More soul"
      value_min="0"
@@ -12301,7 +12302,7 @@ render_pass="bump">
      edit_group="hair_facial"
      edit_group_order="4"
      name="Chin Curtains"
-   show_simple="true"
+     show_simple="true"
      label_min="Less Curtains"
      label_max="More Curtains"
      value_min="0"
@@ -12662,7 +12663,7 @@ render_pass="bump">
      group="0"
      name="Lower_Eyebrows"
      label="Eyebrow Height"
-   show_simple="true"
+     show_simple="true"
      wearable="hair"
      edit_group="hair_eyebrows"
      edit_group_order="2.5"
