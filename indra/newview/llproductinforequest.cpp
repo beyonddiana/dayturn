@@ -62,7 +62,7 @@ LLProductInfoRequestManager::LLProductInfoRequestManager() : mSkuDescriptions()
 
 void LLProductInfoRequestManager::initSingleton()
 {
-	std::string url = gAgent.getRegion()->getCapability("ProductInfoRequest");
+	std::string url = gAgent.getRegionCapability("ProductInfoRequest");
 	if (!url.empty())
 	{
 		LLHTTPClient::get(url, new LLProductInfoRequestResponder());
