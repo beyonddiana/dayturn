@@ -59,7 +59,7 @@ bool LLAgentLanguage::update()
 
 	if (gAgent.getRegion())
 	{
-		url = gAgent.getRegion()->getCapability("UpdateAgentLanguage");
+		url = gAgent.getRegionCapability("UpdateAgentLanguage");
 	}
 
 	if (!url.empty())

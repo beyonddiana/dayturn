@@ -233,7 +233,7 @@ void fetch_items_from_llsd(const LLSD& items_llsd)
 			continue;
 		}
 
-		std::string url = gAgent.getRegion()->getCapability(body[i]["cap_name"].asString());
+		std::string url = gAgent.getRegionCapability(body[i]["cap_name"].asString());
 		if (!url.empty())
 		{
 			body[i]["agent_id"]	= gAgent.getID();

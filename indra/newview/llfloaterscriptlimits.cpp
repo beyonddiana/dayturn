@@ -561,7 +561,7 @@ LLPanelScriptLimitsRegionMemory::~LLPanelScriptLimitsRegionMemory()
 BOOL LLPanelScriptLimitsRegionMemory::getLandScriptResources()
 {
 	LLSD body;
-	std::string url = gAgent.getRegion()->getCapability("LandResources");
+	std::string url = gAgent.getRegionCapability("LandResources");
 	if (!url.empty())
 	{
 		body["parcel_id"] = mParcelId;
@@ -1201,7 +1201,7 @@ void LLPanelScriptLimitsRegionMemory::onClickReturn(void* userdata)
 BOOL LLPanelScriptLimitsAttachment::requestAttachmentDetails()
 {
 	LLSD body;
-	std::string url = gAgent.getRegion()->getCapability("AttachmentResources");
+	std::string url = gAgent.getRegionCapability("AttachmentResources");
 	if (!url.empty())
 	{
 		LLHTTPClient::get(url, body, new fetchScriptLimitsAttachmentInfoResponder());

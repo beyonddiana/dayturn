@@ -1074,8 +1074,8 @@ void LLPreviewGesture::saveIfNeeded()
 		LLViewerInventoryItem* item = (LLViewerInventoryItem*) getItem();
 		if (item)
 		{
-			std::string agent_url = gAgent.getRegion()->getCapability("UpdateGestureAgentInventory");
-			std::string task_url = gAgent.getRegion()->getCapability("UpdateGestureTaskInventory");
+			std::string agent_url = gAgent.getRegionCapability("UpdateGestureAgentInventory");
+			std::string task_url = gAgent.getRegionCapability("UpdateGestureTaskInventory");
 			if (mObjectUUID.isNull() && !agent_url.empty())
 			{
 				//need to disable the preview floater so item

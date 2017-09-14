@@ -149,7 +149,7 @@ bool AISCommand::getLibCap(std::string& cap)
 {
 	if (gAgent.getRegion())
 	{
-		cap = gAgent.getRegion()->getCapability("LibraryAPIv3");
+		cap = gAgent.getRegionCapability("LibraryAPIv3");
 	}
 	if (!cap.empty())
 	{

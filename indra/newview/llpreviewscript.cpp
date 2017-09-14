@@ -1692,7 +1692,7 @@ void LLPreviewLSL::saveIfNeeded(bool sync /*= true*/)
 
 	const LLInventoryItem *inv_item = getItem();
 	// save it out to asset server
-	std::string url = gAgent.getRegion()->getCapability("UpdateScriptAgent");
+	std::string url = gAgent.getRegionCapability("UpdateScriptAgent");
 	if(inv_item)
 	{
 		getWindow()->incBusyCount();
