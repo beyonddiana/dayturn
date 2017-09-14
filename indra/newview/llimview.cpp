@@ -2515,7 +2515,7 @@ void LLIncomingCallDialog::processCallResponse(S32 response, const LLSD &payload
 			
 			LLUUID new_session_id = gIMMgr->addSession(correct_session_name, type, session_id, true);
 
-			std::string url = gAgent.getRegion()->getCapability(
+			std::string url = gAgent.getRegionCapability(
 				"ChatSessionRequest");
 
 			if (voice)
@@ -2557,7 +2557,7 @@ void LLIncomingCallDialog::processCallResponse(S32 response, const LLSD &payload
 		}
 		else
 		{
-			std::string url = gAgent.getRegion()->getCapability(
+			std::string url = gAgent.getRegionCapability(
 				"ChatSessionRequest");
 
 			LLSD data;
@@ -2610,7 +2610,7 @@ bool inviteUserResponse(const LLSD& notification, const LLSD& response)
 					type,
 					session_id, true);
 
-				std::string url = gAgent.getRegion()->getCapability(
+				std::string url = gAgent.getRegionCapability(
 					"ChatSessionRequest");
 
 				LLSD data;
@@ -2645,7 +2645,7 @@ bool inviteUserResponse(const LLSD& notification, const LLSD& response)
 		}
 		else
 		{
-			std::string url = gAgent.getRegion()->getCapability(
+			std::string url = gAgent.getRegionCapability(
 				"ChatSessionRequest");
 
 			LLSD data;

@@ -3490,7 +3490,7 @@ void RequestAgentUpdateAppearanceResponder::sendRequest()
 	{
 		LL_WARNS() << "Region does not support baking" << LL_ENDL;
 	}
-	std::string url = gAgent.getRegion()->getCapability("UpdateAvatarAppearance");	
+	std::string url = gAgent.getRegionCapability("UpdateAvatarAppearance");	
 	if (url.empty())
 	{
 		LL_WARNS() << "No cap for UpdateAvatarAppearance." << LL_ENDL;
@@ -3795,7 +3795,7 @@ void LLAppearanceMgr::incrementCofVersion(LLHTTPClient::ResponderPtr responder_p
 		return;
 	}
 
-	std::string url = gAgent.getRegion()->getCapability("IncrementCofVersion");
+	std::string url = gAgent.getRegionCapability("IncrementCofVersion");
 	if (url.empty())
 	{
 		LL_WARNS() << "No cap for IncrementCofVersion." << LL_ENDL;

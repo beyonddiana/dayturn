@@ -684,7 +684,7 @@ void FSFloaterSearchLegacy::processProperties(void* data, EAvatarProcessorType t
 			mParcelGlobal = c_info->pos_global;
 			setLoadingProgress(FALSE);
 			LLAvatarPropertiesProcessor::getInstance()->removeObserver(c_info->classified_id, this);
-			std::string url = gAgent.getRegion()->getCapability("SearchStatRequest");
+			std::string url = gAgent.getRegionCapability("SearchStatRequest");
 			if (!url.empty())
 			{
 				LL_INFOS() << "Classified stat request via capability" << LL_ENDL;

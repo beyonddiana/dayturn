@@ -3611,8 +3611,8 @@ void LLMeshRepository::notifyLoadedMeshes()
 			{
 				region_name = gAgent.getRegion()->getName();
 				const bool use_v1(gSavedSettings.getBOOL("MeshUseGetMesh1"));
-				const std::string mesh1(gAgent.getRegion()->getCapability("GetMesh"));
-				const std::string mesh2(gAgent.getRegion()->getCapability("GetMesh2"));
+				const std::string mesh1(gAgent.getRegionCapability("GetMesh"));
+				const std::string mesh2(gAgent.getRegionCapability("GetMesh2"));
 				mGetMeshVersion = (mesh2.empty() || use_v1) ? 1 : 2;
 				mThread->setGetMeshCaps(mesh1, mesh2, mGetMeshVersion);
 				LL_DEBUGS(LOG_MESH) << "Retrieving caps for region '" << region_name

@@ -276,7 +276,7 @@ void LLFloaterPermsDefault::updateCap()
         LL_WARNS("Avatar") << "Region not set, cannot request capability update" << LL_ENDL;
         return;
     }
-	std::string object_url = gAgent.getRegion()->getCapability("AgentPreferences");
+	std::string object_url = gAgent.getRegionCapability("AgentPreferences");
 
 	if(!object_url.empty())
 	{

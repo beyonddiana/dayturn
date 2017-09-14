@@ -1160,7 +1160,7 @@ void upload_new_resource(
 	LL_DEBUGS() << "Folder: " << gInventory.findCategoryUUIDForType((destination_folder_type == LLFolderType::FT_NONE) ? LLFolderType::assetTypeToFolderType(asset_type) : destination_folder_type) << LL_ENDL;
 	LL_DEBUGS() << "Asset Type: " << LLAssetType::lookup(asset_type) << LL_ENDL;
 
-	std::string url = gAgent.getRegion()->getCapability(
+	std::string url = gAgent.getRegionCapability(
 		"NewFileAgentInventory");
 
 	if ( !url.empty() )

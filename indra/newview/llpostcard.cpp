@@ -131,7 +131,7 @@ void LLPostCard::send(LLPointer<LLImageFormatted> image, const LLSD& postcard_da
 	LLVFile::writeFile(image->getData(), image->getDataSize(), gVFS, asset_id, LLAssetType::AT_IMAGE_JPEG);
 
 	// upload the image
-	std::string url = gAgent.getRegion()->getCapability("SendPostcard");
+	std::string url = gAgent.getRegionCapability("SendPostcard");
 	if (!url.empty())
 	{
 		LL_INFOS() << "Sending postcard via capability" << LL_ENDL;

@@ -674,7 +674,7 @@ bool LLViewerInventoryCategory::fetch()
 		std::string url;
 		if (gAgent.getRegion())
 		{
-			url = gAgent.getRegion()->getCapability("FetchInventoryDescendents2");
+			url = gAgent.getRegionCapability("FetchInventoryDescendents2");
 		}
 		else
 		{

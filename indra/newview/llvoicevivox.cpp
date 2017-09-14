@@ -4016,7 +4016,7 @@ bool LLVivoxVoiceClient::requestParcelVoiceInfo()
 	}
 
 	// grab the cap.
-	std::string url = gAgent.getRegion()->getCapability("ParcelVoiceInfoRequest");
+	std::string url = gAgent.getRegionCapability("ParcelVoiceInfoRequest");
 	if (url.empty())
 	{
 		// Region dosn't have the cap. Stop probing.
