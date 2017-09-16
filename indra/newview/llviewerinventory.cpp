@@ -667,7 +667,7 @@ bool LLViewerInventoryCategory::fetch()
 		U32 sort_order = gSavedSettings.getU32(LLInventoryPanel::DEFAULT_SORT_ORDER) & 0x1;
 
 		// *NOTE: For bug EXT-2879, originally commented out
-		// gAgent.getRegion()->getCapability in order to use the old
+		// gAgent.getRegionCapability in order to use the old
 		// message-based system.  This has been uncommented now that
 		// AIS folks are aware of the issue and have a fix in process.
 		// see ticket for details.

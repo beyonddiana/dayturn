@@ -563,7 +563,7 @@ void LLViewerWearable::saveNewAsset() const
 	if( gAssetStorage )
 	{
 		 /*
-		std::string url = gAgent.getRegion()->getCapability("NewAgentInventory");
+		std::string url = gAgent.getRegionCapability("NewAgentInventory");
 		if (!url.empty())
 		{
 			LL_INFOS() << "Update Agent Inventory via capability" << LL_ENDL;
