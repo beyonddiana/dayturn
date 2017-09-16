@@ -228,7 +228,7 @@ void LLPanelClassifiedInfo::onOpen(const LLSD& key)
 
 	// While we're at it let's get the stats from the new table if that
 	// capability exists.
-	std::string url = gAgent.getRegion()->getCapability("SearchStatRequest");
+	std::string url = gAgent.getRegionCapability("SearchStatRequest");
 	if (!url.empty())
 	{
 		LL_INFOS() << "Classified stat request via capability" << LL_ENDL;
@@ -549,7 +549,7 @@ void LLPanelClassifiedInfo::sendClickMessage(
 	body["dest_pos_global"]	= global_pos.getValue();
 	body["region_name"]		= sim_name;
 
-	std::string url = gAgent.getRegion()->getCapability("SearchStatTracking");
+	std::string url = gAgent.getRegionCapability("SearchStatTracking");
 	LL_INFOS() << "Sending click msg via capability (url=" << url << ")" << LL_ENDL;
 	LL_INFOS() << "body: [" << body << "]" << LL_ENDL;
 	LLHTTPClient::post(url, body, new LLClassifiedClickMessageResponder());
