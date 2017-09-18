@@ -80,6 +80,8 @@
 
 #include <boost/bind.hpp>
 
+#include "llvoavatarself.h"
+
 // "Features" Tab
 
 BOOL	LLPanelVolume::postBuild()
@@ -364,6 +366,12 @@ void LLPanelVolume::getState( )
     if (root_volobjp && root_volobjp == volobjp)
     {
         enabled_animated_object_box = single_root_volume && root_volobjp && root_volobjp->canBeAnimatedObject() && editable; 
+        if (enabled_animated_object_box && !is_animated_mesh && 
+            root_volobjp->isAttachment() && !gAgentAvatarp->canAttachMoreAnimatedObjects())
+        {
+            // Turning this attachment animated would cause us to exceed the limit.
+            enabled_animated_object_box = false;
+        }
     }
     getChildView("Animated Mesh Checkbox Ctrl")->setEnabled(enabled_animated_object_box);
 
