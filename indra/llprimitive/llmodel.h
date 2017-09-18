@@ -54,6 +54,8 @@ public:
 	LLSD asLLSD(bool include_joints) const;
 	LLMatrix4 mBindShapeMatrix;
 	float mPelvisOffset;
+    bool mLockScaleIfJointPosition;
+    bool mInvalidJointsScrubbed;	
 };
 
 class LLModel : public LLVolume

@@ -1638,7 +1638,6 @@ void LLVOAvatar::renderJoints()
 		ostr << jointp->getName() << ", ";
 
 		jointp->updateWorldMatrix();
-		//LLJoint::SupportCategory sc = jointp->getSupport();
 
 		gGL.pushMatrix();
 		gGL.multMatrix( &jointp->getXform()->getWorldMatrix().mMatrix[0][0] );
@@ -1946,7 +1945,7 @@ void LLVOAvatar::resetSkeleton()
     // Stop all animations
 
     // Clear all attachment pos overrides
-    clearAttachmentPosOverrides();
+    clearAttachmentOverrides();
 
     // Preserve state of tweakable params
     
@@ -1977,9 +1976,7 @@ void LLVOAvatar::resetSkeleton()
 #endif
 
     // Restore attachment pos overrides
-    rebuildAttachmentPosOverrides();
-
-    // Restart animations
+    rebuildAttachmentOverrides();
 }
 
 //-----------------------------------------------------------------------------
@@ -5768,7 +5765,7 @@ bool LLVOAvatar::jointIsRiggedTo(const std::string& joint_name, const LLViewerOb
     return false;
 }
 
-void LLVOAvatar::clearAttachmentPosOverrides()
+void LLVOAvatar::clearAttachmentOverrides()
 {
 	//Subsequent joints are relative to pelvis
 	avatar_joint_list_t::iterator iter = mSkeleton.begin();
@@ -5779,28 +5776,48 @@ void LLVOAvatar::clearAttachmentPosOverrides()
 		LLJoint* pJoint = (*iter);
 		if (pJoint)
 		{
-			pJoint->clearAttachmentPosOverrides();
-		}
-	}
+			pJoint->clearAttachmentScaleOverrides();
+        }
+    }
 }
 
-bool above_joint_pos_threshold(const LLVector3& diff)
+//-----------------------------------------------------------------------------
+// rebuildAttachmentOverrides
+//-----------------------------------------------------------------------------
+void LLVOAvatar::rebuildAttachmentOverrides()
 {
-    //return !diff.isNull();
-    const F32 max_joint_pos_offset = 0.0001f; // 0.1 mm
-    return diff.lengthSquared() > max_joint_pos_offset * max_joint_pos_offset;
+    LLScopedContextString str("rebuildAttachmentOverrides " + getFullname());
+
+    // Attachment points
+	for (attachment_map_t::iterator iter = mAttachmentPoints.begin();
+		 iter != mAttachmentPoints.end();
+		 ++iter)
+	{
+		LLViewerJointAttachment *attachment_pt = (*iter).second;
+        if (attachment_pt)
+        {
+            for (LLViewerJointAttachment::attachedobjs_vec_t::iterator at_it = attachment_pt->mAttachedObjects.begin();
+				 at_it != attachment_pt->mAttachedObjects.end(); ++at_it)
+            {
+                addAttachmentOverridesForObject(*at_it);
+            }
+        }
+    }
 }
 
 //-----------------------------------------------------------------------------
 // addAttachmentPosOverridesForObject
 //-----------------------------------------------------------------------------
-void LLVOAvatar::addAttachmentPosOverridesForObject(LLViewerObject *vo)
+void LLVOAvatar::addAttachmentOverridesForObject(LLViewerObject *vo)
 {
 	LLVOAvatar *av = vo->getAvatarAncestor();
 	if (!av || (av != this))
 	{
 		LL_WARNS("Avatar") << "called with invalid avatar" << LL_ENDL;
+        return;
 	}
+
+    LLScopedContextString str("addAttachmentOverridesForObject " + av->getFullname());
 		
 	// Process all children
 	LLViewerObject::const_child_list_t& children = vo->getChildren();
@@ -5808,7 +5825,7 @@ void LLVOAvatar::addAttachmentPosOverridesForObject(LLViewerObject *vo)
 		 it != children.end(); ++it)
 	{
 		LLViewerObject *childp = *it;
-		addAttachmentPosOverridesForObject(childp);
+		addAttachmentOverridesForObject(childp);
 	}
 
 	LLVOVolume *vobj = dynamic_cast<LLVOVolume*>(vo);
@@ -5845,38 +5862,31 @@ void LLVOAvatar::addAttachmentPosOverridesForObject(LLViewerObject *vo)
 				{
 					std::string lookingForJoint = pSkinData->mJointNames[i].c_str();
 					LLJoint* pJoint = getJoint( lookingForJoint );
-					if ( pJoint && pJoint->getId() != currentId )
+					if (pJoint)
 					{   									
-						pJoint->setId( currentId );
 						const LLVector3& jointPos = pSkinData->mAlternateBindMatrix[i].getTranslation();									
-                        if (!above_joint_pos_threshold(jointPos-pJoint->getDefaultPosition()))
+                        if (pJoint->aboveJointPosThreshold(jointPos))
                         {
-                            LL_DEBUGS("Avatar") << "Attachment pos override ignored for " << pJoint->getName()
-                                                << ", pos " << jointPos << " is same as default pos" << LL_ENDL;
+                            bool override_changed;
+                            pJoint->addAttachmentPosOverride( jointPos, mesh_id, avString(), override_changed );
+                            
+                            if (override_changed)
+                            {
+                                //If joint is a pelvis then handle old/new pelvis to foot values
+                                if ( lookingForJoint == "mPelvis" )
+                                {	
+                                    pelvisGotSet = true;											
+                                }										
+                            }
+                            if (pSkinData->mLockScaleIfJointPosition)
+                            {
+                                // Note that unlike positions, there's no threshold check here,
+                                // just a lock at the default value.
+                                pJoint->addAttachmentScaleOverride(pJoint->getDefaultScale(), mesh_id, avString());
+                            }
                         }
-                        else
-                        {
-                            //Set the joint position
-                            LLUUID curr_mesh_id;
-                            LLVector3 joint_pos_before;
-                            bool has_pos_before = pJoint->hasAttachmentPosOverride( joint_pos_before, curr_mesh_id );
-
-                            pJoint->addAttachmentPosOverride( jointPos, mesh_id, avString() );
-
-                            LLVector3 joint_pos_after;
-                            pJoint->hasAttachmentPosOverride( joint_pos_after, curr_mesh_id );
-                        
-                            if (!has_pos_before || joint_pos_before != joint_pos_after)
-                                {
-                                    //If joint is a pelvis then handle old/new pelvis to foot values
-                                    if ( lookingForJoint == "mPelvis" )
-                                    {	
-                                        pelvisGotSet = true;											
-                                    }										
-                                }
-                            }                            
-					    }										
-				    }																
+					}										
+				}																
 				if (pelvisZOffset != 0.0F)
 				{
                     F32 pelvis_fixup_before;
@@ -5897,22 +5907,16 @@ void LLVOAvatar::addAttachmentPosOverridesForObject(LLViewerObject *vo)
 	if ( pelvisGotSet ) 
 	{
 		postPelvisSetRecalc();
-	}
-	
-    if (isSelf())
-    {
-        showAttachmentPosOverrides();
-    }
+	}		
 }
 
 //-----------------------------------------------------------------------------
-// showAttachmentPosOverrides
+// getAttachmentOverrideNames
 //-----------------------------------------------------------------------------
-void LLVOAvatar::showAttachmentPosOverrides() const
+void LLVOAvatar::getAttachmentOverrideNames(std::set<std::string>& pos_names, std::set<std::string>& scale_names) const
 {
-    LLVector3 pos;
+    LLVector3 scale;
     LLUUID mesh_id;
-    S32 count = 0;
     
     // Bones
 	for (avatar_joint_list_t::const_iterator iter = mSkeleton.begin();
@@ -5921,9 +5925,82 @@ void LLVOAvatar::showAttachmentPosOverrides() const
 		const LLJoint* pJoint = (*iter);
 		if (pJoint && pJoint->hasAttachmentPosOverride(pos,mesh_id))
 		{
+            pos_names.insert(pJoint->getName());
+		}
+		if (pJoint && pJoint->hasAttachmentScaleOverride(scale,mesh_id))
+		{
+            scale_names.insert(pJoint->getName());
+		}
+	}
+
+    // Attachment points
+	for (attachment_map_t::const_iterator iter = mAttachmentPoints.begin();
+		 iter != mAttachmentPoints.end();
+		 ++iter)
+	{
+		const LLViewerJointAttachment *attachment_pt = (*iter).second;
+        if (attachment_pt && attachment_pt->hasAttachmentPosOverride(pos,mesh_id))
+        {
+            pos_names.insert(attachment_pt->getName());
+        }
+        // Attachment points don't have scales.
+    }
+
+}
+
+//-----------------------------------------------------------------------------
+// showAttachmentOverrides
+//-----------------------------------------------------------------------------
+void LLVOAvatar::showAttachmentOverrides(bool verbose) const
+{
+    std::set<std::string> pos_names, scale_names;
+    getAttachmentOverrideNames(pos_names, scale_names);
+    if (pos_names.size())
+    {
+        std::stringstream ss;
+        std::copy(pos_names.begin(), pos_names.end(), std::ostream_iterator<std::string>(ss, ","));
+        LL_INFOS() << getFullname() << " attachment positions defined for joints: " << ss.str() << "\n" << LL_ENDL;
+    }
+    else
+    {
+        LL_DEBUGS("Avatar") << getFullname() << " no attachment positions defined for any joints" << "\n" << LL_ENDL;
+    }
+    if (scale_names.size())
+    {
+        std::stringstream ss;
+        std::copy(scale_names.begin(), scale_names.end(), std::ostream_iterator<std::string>(ss, ","));
+        LL_INFOS() << getFullname() << " attachment scales defined for joints: " << ss.str() << "\n" << LL_ENDL;
+    }
+    else
+    {
+        LL_INFOS() << getFullname() << " no attachment scales defined for any joints" << "\n" << LL_ENDL;
+    }
+
+    if (!verbose)
+    {
+        return;
+    }
+
+    LLVector3 pos, scale;
+    LLUUID mesh_id;
+    S32 count = 0;
+
+    // Bones
+	for (avatar_joint_list_t::const_iterator iter = mSkeleton.begin();
+         iter != mSkeleton.end(); ++iter)
+	{
+		const LLJoint* pJoint = (*iter);
+		if (pJoint && pJoint->hasAttachmentPosOverride(pos,mesh_id))
+		{
+		
 			pJoint->showAttachmentPosOverrides(getFullname());
             count++;
 		}
+		if (pJoint && pJoint->hasAttachmentScaleOverride(scale,mesh_id))
+		{
+			pJoint->showAttachmentScaleOverrides(getFullname());
+            count++;
+        }		
 	}
 
     // Attachment points
@@ -5941,15 +6018,15 @@ void LLVOAvatar::showAttachmentPosOverrides() const
 
     if (count)
     {
-        LL_DEBUGS("Avatar") << avString() << " end of pos overrides" << LL_ENDL;
+        LL_DEBUGS("Avatar") << avString() << " end of pos, scale overrides" << LL_ENDL;
         LL_DEBUGS("Avatar") << "=================================" << LL_ENDL;
     }
 }
 
 //-----------------------------------------------------------------------------
-// resetJointPositionsOnDetach
+// resetJointsOnDetach
 //-----------------------------------------------------------------------------
-void LLVOAvatar::resetJointPositionsOnDetach(LLViewerObject *vo)
+void LLVOAvatar::resetJointsOnDetach(LLViewerObject *vo)
 {
 	LLVOAvatar *av = vo->getAvatarAncestor();
 	if (!av || (av != this))
@@ -5963,57 +6040,21 @@ void LLVOAvatar::resetJointPositionsOnDetach(LLViewerObject *vo)
 		 it != children.end(); ++it)
 	{
 		LLViewerObject *childp = *it;
-		resetJointPositionsOnDetach(childp);
+        LLViewerObject *childp = *it;
 	}
 
 	// Process self.
 	LLUUID mesh_id;
 	if (getRiggedMeshID(vo,mesh_id))
-{
-		resetJointPositionsOnDetach(mesh_id);
+    {
+		resetJointsOnDetach(mesh_id);
 	}
-
-    // Attachment points
-	for (attachment_map_t::const_iterator iter = mAttachmentPoints.begin();
-		 iter != mAttachmentPoints.end();
-		 ++iter)
-	{
-		LLViewerJointAttachment *attachment_pt = (*iter).second;
-        if (attachment_pt)
-        {
-            attachment_pt->clearAttachmentPosOverrides();
-        }
-    }
 }
 
 //-----------------------------------------------------------------------------
-// rebuildAttachmentPosOverrides
+// resetJointsOnDetach
 //-----------------------------------------------------------------------------
-void LLVOAvatar::rebuildAttachmentPosOverrides()
-{
-    LLScopedContextString str("rebuildAttachmentPosOverrides " + getFullname());
-
-    // Attachment points
-	for (attachment_map_t::iterator iter = mAttachmentPoints.begin();
-		 iter != mAttachmentPoints.end();
-		 ++iter)
-	{
-		LLViewerJointAttachment *attachment_pt = (*iter).second;
-        if (attachment_pt)
-        {
-            for (LLViewerJointAttachment::attachedobjs_vec_t::iterator at_it = attachment_pt->mAttachedObjects.begin();
-				 at_it != attachment_pt->mAttachedObjects.end(); ++at_it)
-            {
-                addAttachmentPosOverridesForObject(*at_it);
-            }
-        }
-    }
-}
-
-//-----------------------------------------------------------------------------
-// resetJointPositionsOnDetach
-//-----------------------------------------------------------------------------
-void LLVOAvatar::resetJointPositionsOnDetach(const LLUUID& mesh_id)
+void LLVOAvatar::resetJointsOnDetach(const LLUUID& mesh_id)
 {	
 	//Subsequent joints are relative to pelvis
 	avatar_joint_list_t::iterator iter = mSkeleton.begin();
@@ -6027,10 +6068,10 @@ void LLVOAvatar::resetJointPositionsOnDetach(const LLUUID& mesh_id)
 		//Reset joints except for pelvis
 		if ( pJoint )
 		{
-
-			pJoint->setId( LLUUID::null );
-			pJoint->removeAttachmentPosOverride(mesh_id, avString());
-			}
+            bool dummy; // unused
+			pJoint->removeAttachmentPosOverride(mesh_id, avString(),dummy);
+			pJoint->removeAttachmentScaleOverride(mesh_id, avString());
+		}
 		if ( pJoint && pJoint == pJointPelvis)
 		{
 			removePelvisFixup( mesh_id );
