@@ -5810,14 +5810,13 @@ void LLVOAvatar::rebuildAttachmentOverrides()
 //-----------------------------------------------------------------------------
 void LLVOAvatar::addAttachmentOverridesForObject(LLViewerObject *vo)
 {
-	LLVOAvatar *av = vo->getAvatarAncestor();
-	if (!av || (av != this))
+	if (vo->getAvatar() != this)
 	{
 		LL_WARNS("Avatar") << "called with invalid avatar" << LL_ENDL;
         return;
 	}
 
-    LLScopedContextString str("addAttachmentOverridesForObject " + av->getFullname());
+    LLScopedContextString str("addAttachmentOverridesForObject " + vo->getAvatar()->getFullname());
 		
 	// Process all children
 	LLViewerObject::const_child_list_t& children = vo->getChildren();
@@ -6028,8 +6027,7 @@ void LLVOAvatar::showAttachmentOverrides(bool verbose) const
 //-----------------------------------------------------------------------------
 void LLVOAvatar::resetJointsOnDetach(LLViewerObject *vo)
 {
-	LLVOAvatar *av = vo->getAvatarAncestor();
-	if (!av || (av != this))
+    if (vo->getAvatar() != this)
 	{
 		LL_WARNS("Avatar") << "called with invalid avatar" << LL_ENDL;
 	}
