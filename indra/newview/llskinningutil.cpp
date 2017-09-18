@@ -236,7 +236,6 @@ void LLSkinningUtil::initSkinningMatrixPalette(
     for (U32 j = 0; j < count; ++j)
     {
         LLJoint* joint = avatar->getJoint(skin->mJointNames[j]);
-        mat[j] = skin->mInvBindMatrix[j];
         if (joint)
         {
 #define MAT_USE_SSE
@@ -248,8 +247,8 @@ void LLSkinningUtil::initSkinningMatrixPalette(
             memcpy(mat[j].mMatrix,res.mMatrix,16*sizeof(float));
 #else
             mat[j] = skin->mInvBindMatrix[j];
-#endif
             mat[j] *= joint->getWorldMatrix();
+#endif
         }
         else
         {
