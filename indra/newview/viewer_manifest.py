@@ -35,6 +35,8 @@ import re
 import tarfile
 import time
 import random
+import subprocess
+
 viewer_dir = os.path.dirname(__file__)
 # Add indra/lib/python to our path so we don't have to muck with PYTHONPATH.
 # Put it FIRST because some of our build hosts have an ancient install of
@@ -333,9 +335,9 @@ class Windows_i686_Manifest(ViewerManifest):
                     else:
                         test_assembly_binding(src, "Microsoft.VC80.CRT", "")
                     raise Exception("Unknown condition")
-                except NoManifestException, err:
+                except NoManifestException as err:
                     pass
-                except NoMatchingAssemblyException, err:
+                except NoMatchingAssemblyException as err:
                     pass
                     
                 self.ccopy(src,dst)
@@ -371,14 +373,14 @@ class Windows_i686_Manifest(ViewerManifest):
                 self.path('libaprutil-1.dll')
                 self.path('libapriconv-1.dll')
                 
-            except RuntimeError, err:
+            except RuntimeError as err:
                 print err.message
                 print "Skipping llcommon.dll (assuming llcommon was linked statically)"
 
             # Mesh 3rd party libs needed for auto LOD and collada reading
             try:
                 self.path("glod.dll")
-            except RuntimeError, err:
+            except RuntimeError as err:
                 print err.message
                 print "Skipping GLOD library (assumming linked statically)"
 
@@ -1173,7 +1175,7 @@ def symlinkf(src, dst):
     """
     try:
         os.symlink(src, dst)
-    except OSError, err:
+    except OSError as err:
         if err.errno != errno.EEXIST:
             raise
         # We could just blithely attempt to remove and recreate the target
