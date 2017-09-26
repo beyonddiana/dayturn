@@ -3388,6 +3388,14 @@ void LLVOVolume::setExtendedMeshFlags(U32 flags)
             param_block->setFlags(flags);
         }
         parameterChanged(LLNetworkData::PARAMS_EXTENDED_MESH, true);
+        if (isAttachment() && getAvatarAncestor())
+        {
+            if (flags & LLExtendedMeshParams::ANIMATED_MESH_ENABLED_FLAG)
+            {
+                // Making a rigged mesh into an animated object
+                getAvatarAncestor()->removeAttachmentOverridesForObject(this);
+            }
+        }        
     }
 }
 
