@@ -6028,7 +6028,7 @@ void LLVOAvatar::rebuildAttachmentOverrides()
 //-----------------------------------------------------------------------------
 void LLVOAvatar::addAttachmentOverridesForObject(LLViewerObject *vo)
 {
-    if (vo->getAvatar() != this)
+    if (vo->getAvatar() != this && vo->getAvatarAncestor() != this)
     {
             LL_WARNS("Avatar") << "called with invalid avatar" << LL_ENDL;
             return;
@@ -6247,7 +6247,7 @@ void LLVOAvatar::showAttachmentOverrides(bool verbose) const
 // AXON handle NPC case
 void LLVOAvatar::removeAttachmentOverridesForObject(LLViewerObject *vo)
 {
-    if (vo->getAvatar() != this)
+    if (vo->getAvatar() != this && vo->getAvatarAncestor() != this)
 	{
 		LL_WARNS("Avatar") << "called with invalid avatar" << LL_ENDL;
         return;

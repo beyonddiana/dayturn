@@ -3390,6 +3390,11 @@ void LLVOVolume::setExtendedMeshFlags(U32 flags)
                 // Making a rigged mesh into an animated object
                 getAvatarAncestor()->removeAttachmentOverridesForObject(this);
             }
+            else
+            {
+                // Making an animated object into a rigged mesh
+                getAvatarAncestor()->addAttachmentOverridesForObject(this);
+            }            
         }        
     }
 }
