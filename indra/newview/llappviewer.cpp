@@ -3435,7 +3435,8 @@ LLSD LLAppViewer::getViewerInfo() const
 
 	if (gRRenabled && gAgent.mRRInterface.mContainsShowloc)
 	{
-		info["POSITION"] = ll_sd_from_vector3d (LLVector3d::zero);
+		info["POSITION"] = ll_sd_from_vector3d(LLVector3d::zero);
+		info["POSITION_LOCAL"] = ll_sd_from_vector3d(LLVector3d::zero);
 		info["REGION"] = LLSD::String( "(Region hidden)");
 		info["HOSTNAME"] =  LLSD::String("(Server info hidden)");
 		info["HOSTIP"] = LLSD::String("IP address hidden");
