@@ -515,6 +515,9 @@ class Windows_i686_Manifest(ViewerManifest):
             self.path("ssleay32.dll")
             self.path("libeay32.dll")
 
+            # HTTP/2
+            self.path("nghttp2.dll")
+
             # Hunspell
             self.path("libhunspell.dll")
 
