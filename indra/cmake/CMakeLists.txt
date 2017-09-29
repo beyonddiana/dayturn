@@ -25,7 +25,6 @@ set(cmake_SOURCE_FILES
     DirectX.cmake
     DragDrop.cmake
     EXPAT.cmake
-##  ExamplePlugin.cmake
     FindAPR.cmake
     FindAutobuild.cmake
     FindBerkeleyDB.cmake
@@ -48,8 +47,6 @@ set(cmake_SOURCE_FILES
     GLH.cmake
     GLOD.cmake
 ##  GStreamer010Plugin.cmake
-    GetPrerequisites_2_8.cmake
-##  Glui.cmake
     Glut.cmake
     GoogleBreakpad.cmake
     Havok.cmake
@@ -145,7 +142,6 @@ set(cmake_SOURCE_FILES
     GLEXT.cmake
     GLH.cmake
     GLOD.cmake
-    GetPrerequisites_2_8.cmake
     Glut.cmake
     GoogleBreakpad.cmake
     Havok.cmake
