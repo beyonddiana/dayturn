@@ -7587,7 +7587,7 @@ bool LLObjectSelection::checkAnimatedObjectEstTris()
         {
             anim_count++;
         }
-        est_tris += object->recursiveGetEstTrianglesHigh();
+        est_tris += object->recursiveGetEstTrianglesMax();
         max_tris = llmax((F32)max_tris,(F32)object->getAnimatedObjectMaxTris());
 	}
 	return anim_count==0 || est_tris <= max_tris;
