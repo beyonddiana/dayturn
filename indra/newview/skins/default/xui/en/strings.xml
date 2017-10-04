@@ -3837,6 +3837,7 @@ botRemoveBotsWithTag(tag)
 Where tag = tag string to match.  Removes bot's matching the tag.
 </string>
 <!-- END FS:CR OSSL/AA function tooltip help texts -->
+
   <!-- Wearable Types -->
 	<string name="shape">Shape</string>
 	<string name="skin">Skin</string>
@@ -4382,6 +4383,21 @@ If you continue to receive this message, please contact Second Life support for 
 	<string name="ATTACH_HUD_BOTTOM_RIGHT">HUD Bottom Right</string>
 	<string name="ATTACH_NECK">Neck</string>
 	<string name="ATTACH_AVATAR_CENTER">Avatar Center</string>
+    <string name="ATTACH_LHAND_RING1">Left Ring Finger</string>
+    <string name="ATTACH_RHAND_RING1">Right Ring Finger</string>
+    <string name="ATTACH_TAIL_BASE">Tail Base</string>
+    <string name="ATTACH_TAIL_TIP">Tail Tip</string>
+    <string name="ATTACH_LWING">Left Wing</string>
+    <string name="ATTACH_RWING">Right Wing</string>
+    <string name="ATTACH_FACE_JAW">Jaw</string>
+    <string name="ATTACH_FACE_LEAR">Alt Left Ear</string>
+    <string name="ATTACH_FACE_REAR">Alt Right Ear</string>
+    <string name="ATTACH_FACE_LEYE">Alt Left Eye</string>
+    <string name="ATTACH_FACE_REYE">Alt Right Eye</string>
+    <string name="ATTACH_FACE_TONGUE">Tongue</string>
+    <string name="ATTACH_GROIN">Groin</string>
+    <string name="ATTACH_HIND_LFOOT">Left Hind Foot</string>
+    <string name="ATTACH_HIND_RFOOT">Right Hind Foot</string>
 
 	<!-- script editor -->
 	<string name="CursorPos">Line [LINE], Column [COLUMN]</string>
@@ -5304,9 +5320,6 @@ If you continue to receive this message, contact the [SUPPORT_SITE].
   <string name="inventory_folder_offered-im">
     Inventory folder '[ITEM_NAME]' offered
   </string>
-  <string name="inventory_item_offered_rlv">
-    Inventory item offered to [NAME]
-  </string>
   <string name="share_alert">
     Drag items from inventory here
   </string>
@@ -5747,6 +5760,7 @@ Try enclosing path to the editor with double quotes.
   <string name="Command_Destinations_Label">Destinations</string>
   <string name="Command_Flickr_Label">Flickr</string>
   <string name="Command_Gestures_Label">Gestures</string>
+  <string name="Command_Grid_Status_Label">Grid status</string>
   <string name="Command_HowTo_Label">How to</string>
   <string name="Command_Inventory_Label">Inventory</string>
   <string name="Command_Map_Label">World map</string>
@@ -5780,6 +5794,7 @@ Try enclosing path to the editor with double quotes.
   <string name="Command_Destinations_Tooltip">Destinations of interest</string>
   <string name="Command_Flickr_Tooltip">Upload to Flickr</string>
   <string name="Command_Gestures_Tooltip">Gestures for your avatar</string>
+  <string name="Command_Grid_Status_Tooltip">Show current Grid status</string>
   <string name="Command_HowTo_Tooltip">How to do common tasks</string>
   <string name="Command_Inventory_Tooltip">View and use your belongings</string>
   <string name="Command_Map_Tooltip">Map of the world</string>
@@ -5872,6 +5887,7 @@ Try enclosing path to the editor with double quotes.
   <string name="ExperiencePermissionShort11">Teleport</string>
   <string name="ExperiencePermissionShort12">Permission</string>
   <string name="ExperiencePermissionShortUnknown">Unknown: [Permission]</string>
+  
   <!-- Conversation log messages -->
   <string name="logging_calls_disabled_log_empty">
     Conversations are not being logged. To begin keeping a log, choose "Save: Log only" or "Save: Log and transcripts" under Preferences > Chat.
@@ -5889,14 +5905,18 @@ Try enclosing path to the editor with double quotes.
   <!-- Statistics -->
   <string name="na">n/a</string>
 
+  <!-- Presets graphic/camera -->
+  <string name="preset_combo_label">-Empty list-</string>
+  <string name="Default">Default</string>
+  <string name="none_paren_cap">(None)</string>
+  <string name="no_limit">No Limit</string>
+  
   <string name="Mav_Details_MAV_FOUND_DEGENERATE_TRIANGLES">
       The physics shape contains triangles which are too small. Try simplifying the physics model.
   </string>
-
   <string name="Mav_Details_MAV_CONFIRMATION_DATA_MISMATCH">
       The physics shape contains bad confirmation data. Try to correct the physics model.
   </string>
-
   <string name="Mav_Details_MAV_UNKNOWN_VERSION">
       The physics shape does not have correct version. Set the correct version for the physics model.
   </string>
