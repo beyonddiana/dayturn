@@ -697,7 +697,6 @@ LLAppViewer::LLAppViewer()
 	mSavePerAccountSettings(false),		// don't save settings on logout unless login succeeded.
 	mQuitRequested(false),
 	mLogoutRequestSent(false),
-	mYieldTime(-1),
 	mLastAgentControlFlags(0),
 	mLastAgentForceUpdate(0),
 	mMainloopTimeout(NULL),
@@ -2809,8 +2808,6 @@ bool LLAppViewer::initConfiguration()
 			LLSpellChecker::instance().setSecondaryDictionaries(dict_list);
 		}
 	}
-
-    mYieldTime = gSavedSettings.getS32("YieldTime");
 
 
 	// Display splash screen.  Must be after above check for previous
