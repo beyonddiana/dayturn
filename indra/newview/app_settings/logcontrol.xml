@@ -44,9 +44,8 @@
 						<array>
 					<string>AXON</string>
 						<!-- sample entry for debugging specific items
-							<string>FmodEX</string>
-  							<string>Message</string> 
-   							<string>AppInit</string>          
+						     <string>AXON</string>
+							 <string>FmodEX</string>
 						     <string>Avatar</string>
 						     <string>Inventory</string>
 						     <string>SceneLoadTiming</string>
