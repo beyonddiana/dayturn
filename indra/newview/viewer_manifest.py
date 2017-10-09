@@ -68,7 +68,7 @@ class ViewerManifest(LLManifest):
         self.path(src="../../etc/message.xml", dst="app_settings/message.xml")
 
         if self.is_packaging_viewer():
-            if self.prefix(src="app_settings"):
+            with self.prefix(src="app_settings"):
                 self.exclude("logcontrol.xml")
                 self.exclude("logcontrol-dev.xml")
                 self.path("*.ini")
@@ -90,10 +90,9 @@ class ViewerManifest(LLManifest):
             
                 # ... and the included spell checking dictionaries
                 pkgdir = os.path.join(self.args['build'], os.pardir, 'packages')
-                if self.prefix(src=pkgdir,dst=""):
+                with self.prefix(src=pkgdir,dst=""):
                     self.path("dictionaries")
                     self.path("ca-bundle.crt")
-                    self.end_prefix(pkgdir)
 
                 # include the extracted packages information (see BuildPackagesInfo.cmake)
                 self.path(src=os.path.join(self.args['build'],"packages-info.txt"), dst="packages-info.txt")
@@ -136,25 +135,23 @@ class ViewerManifest(LLManifest):
                                  "settings_install.xml",
                                  src="environment")
 
-                self.end_prefix("app_settings")
 
-            if self.prefix(src="character"):
+
+            with self.prefix(src="character"):
                 self.path("*.llm")
                 self.path("*.xml")
                 self.path("*.tga")
-                self.end_prefix("character")
 
             # Include our fonts
-            if self.prefix(src="fonts"):
+            with self.prefix(src="fonts"):
                 self.path("*.ttf")
                 self.path("*.txt")
-                self.end_prefix("fonts")
 
             # skins
-            if self.prefix(src="skins"):
+            with self.prefix(src="skins"):
                     self.path("paths.xml")
                     # include the entire textures directory recursively
-                    if self.prefix(src="*/textures"):
+                    with self.prefix(src="*/textures"):
                             self.path("*/*.tga")
                             self.path("*/*.j2c")
                             self.path("*/*.jpg")
@@ -164,25 +161,26 @@ class ViewerManifest(LLManifest):
                             self.path("*.jpg")
                             self.path("*.png")
                             self.path("textures.xml")
-                            self.end_prefix("*/textures")
                     self.path("*/xui/*/*.xml")
                     self.path("*/xui/*/widgets/*.xml")
                     self.path("*/*.xml")
 
-                    # Local HTML files (e.g. loading screen)
-                    if self.prefix(src="*/html"):
+                    # The claim is that we never use local html files any
+                    # longer. But rather than commenting out this block, let's
+                    # rename every html subdirectory as html.old. That way, if
+                    # we're wrong, a user actually does have the relevant
+                    # files; s/he just needs to rename every html.old
+                    # directory back to html to recover them.
+                    with self.prefix(src="*/html", dst="*/html.old"):
                             self.path("*.png")
                             self.path("*/*/*.html")
                             self.path("*/*/*.gif")
-                            self.end_prefix("*/html")
 
-                    self.end_prefix("skins")
 
             # local_assets dir (for pre-cached textures)
-            if self.prefix(src="local_assets"):
+            with self.prefix(src="local_assets"):
                 self.path("*.j2c")
                 self.path("*.tga")
-                self.end_prefix("local_assets")
 
             # File in the newview/ directory
             self.path("gpu_table.txt")
@@ -363,7 +361,7 @@ class Windows_i686_Manifest(ViewerManifest):
                            "slplugin.exe")
         
         # Get shared libs from the shared libs staging directory
-        if self.prefix(src=os.path.join(os.pardir, 'sharedlibs', self.args['configuration']),
+        with self.prefix(src=os.path.join(os.pardir, 'sharedlibs', self.args['configuration']),
                        dst=""):
 
             # Get llcommon and deps. If missing assume static linkage and continue.
@@ -462,23 +460,16 @@ class Windows_i686_Manifest(ViewerManifest):
             self.end_prefix()
 
         # Media plugins - CEF
-        if self.prefix(src='../media_plugins/cef/%s' % self.args['configuration'], dst="llplugin"):
+        with self.prefix(src='../media_plugins/cef/%s' % self.args['configuration'], dst="llplugin"):        
             self.path("media_plugin_cef.dll")
-            self.end_prefix()
 
         # Media plugins - LibVLC
-        if self.prefix(src='../media_plugins/libvlc/%s' % self.args['configuration'], dst="llplugin"):
+        with self.prefix(src='../media_plugins/libvlc/%s' % self.args['configuration'], dst="llplugin"):
             self.path("media_plugin_libvlc.dll")
-            self.end_prefix()
-
-        # winmm.dll shim
-        if self.prefix(src='../media_plugins/winmmshim/%s' % self.args['configuration'], dst=""):
-            self.path("winmm.dll")
-            self.end_prefix()
 
         # CEF runtime files - debug
         if self.args['configuration'].lower() == 'debug':
-            if self.prefix(src=os.path.join(os.pardir, 'packages', 'bin', 'debug'), dst="llplugin"):
+            with self.prefix(src=os.path.join(os.pardir, 'packages', 'bin', 'debug'), dst="llplugin"):
                 self.path("d3dcompiler_43.dll")
                 self.path("d3dcompiler_47.dll")
                 self.path("libcef.dll")
@@ -489,10 +480,9 @@ class Windows_i686_Manifest(ViewerManifest):
                 self.path("snapshot_blob.bin")
                 self.path("widevinecdmadapter.dll")
                 self.path("wow_helper.exe")
-                self.end_prefix()
         else:
         # CEF runtime files - not debug (release, relwithdebinfo etc.)
-            if self.prefix(src=os.path.join(os.pardir, 'packages', 'bin', 'release'), dst="llplugin"):
+            with self.prefix(src=os.path.join(os.pardir, 'packages', 'bin', 'release'), dst="llplugin"):
                 self.path("d3dcompiler_43.dll")
                 self.path("d3dcompiler_47.dll")
                 self.path("libcef.dll")
@@ -503,25 +493,22 @@ class Windows_i686_Manifest(ViewerManifest):
                 self.path("snapshot_blob.bin")
                 self.path("widevinecdmadapter.dll")
                 self.path("wow_helper.exe")
-                self.end_prefix()
 
         # MSVC DLLs needed for CEF and have to be in same directory as plugin
-        if self.prefix(src=os.path.join(os.pardir, 'sharedlibs', 'Release'), dst="llplugin"):
+        with self.prefix(src=os.path.join(os.pardir, 'sharedlibs', 'Release'), dst="llplugin"):
             self.path("msvcp120.dll")
             self.path("msvcr120.dll")
-            self.end_prefix()
 
         # CEF files common to all configurations
-        if self.prefix(src=os.path.join(os.pardir, 'packages', 'resources'), dst="llplugin"):
+        with self.prefix(src=os.path.join(os.pardir, 'packages', 'resources'), dst="llplugin"):
             self.path("cef.pak")
             self.path("cef_100_percent.pak")
             self.path("cef_200_percent.pak")
             self.path("cef_extensions.pak")
             self.path("devtools_resources.pak")
             self.path("icudtl.dat")
-            self.end_prefix()
 
-        if self.prefix(src=os.path.join(os.pardir, 'packages', 'resources', 'locales'), dst=os.path.join('llplugin', 'locales')):
+        with self.prefix(src=os.path.join(os.pardir, 'packages', 'resources', 'locales'), dst=os.path.join('llplugin', 'locales')):
             self.path("am.pak")
             self.path("ar.pak")
             self.path("bg.pak")
@@ -575,13 +562,11 @@ class Windows_i686_Manifest(ViewerManifest):
             self.path("vi.pak")
             self.path("zh-CN.pak")
             self.path("zh-TW.pak")
-            self.end_prefix()
 
-            if self.prefix(src=os.path.join(os.pardir, 'packages', 'bin', 'release'), dst="llplugin"):
+            with self.prefix(src=os.path.join(os.pardir, 'packages', 'bin', 'release'), dst="llplugin"):
                 self.path("libvlc.dll")
                 self.path("libvlccore.dll")
                 self.path("plugins/")
-                self.end_prefix()
 
         # pull in the crash logger and updater from other projects
         # tag:"crash-logger" here as a cue to the exporter
@@ -738,7 +723,7 @@ class LinuxManifest(ViewerManifest):
         super(LinuxManifest, self).construct()
         self.path("licenses-linux.txt","licenses.txt")
         self.path("VivoxAUP.txt")
-        if self.prefix("linux_tools", dst=""):
+        with self.prefix("linux_tools", dst=""):
             self.path("client-readme.txt","README-linux.txt")
             self.path("client-readme-voice.txt","README-linux-voice.txt")
             self.path("client-readme-joystick.txt","README-linux-joystick.txt")
@@ -751,62 +736,53 @@ class LinuxManifest(ViewerManifest):
             self.path("refresh_desktop_app_entry.sh", "etc/refresh_desktop_app_entry.sh")
             self.path("launch_url.sh","etc/launch_url.sh")
             self.path("install.sh")
-            self.end_prefix("linux_tools")
 
-        if self.prefix(src="", dst="bin"):
+        with self.prefix(src="", dst="bin"):
             self.path("dayturn-bin","do-not-directly-run-dayturn-bin")
             self.path("../linux_crash_logger/linux-crash-logger","linux-crash-logger.bin")
             self.path2basename("../llplugin/slplugin", "SLPlugin")
-            self.end_prefix("bin")
 
-        if self.prefix("res-sdl"):
+        with self.prefix("res-sdl"):
             self.path("*")
             # recurse
-            self.end_prefix("res-sdl")
 
         # Get the icons based on the channel type
         icon_path = self.icon_path()
         print "DEBUG: icon_path '%s'" % icon_path
-        if self.prefix(src=icon_path, dst="") :
+        with self.prefix(src=icon_path, dst="") :
             self.path("dayturn_icon.png","dayturn_icon.png" )
             if self.prefix(src="", dst="res-sdl") :
                 self.path("dayturn_icon.bmp","dayturn_icon.bmp")
                 self.end_prefix("res-sdl")
-            self.end_prefix(icon_path)
 
         # plugins
-        if self.prefix(src="", dst="bin/llplugin"):
+        with self.prefix(src="", dst="bin/llplugin"):
             self.path("../media_plugins/gstreamer010/libmedia_plugin_gstreamer010.so", "libmedia_plugin_gstreamer.so")
             self.path("../media_plugins/libvlc/libmedia_plugin_libvlc.so", "libmedia_plugin_libvlc.so")
             self.path( "../media_plugins/cef/libmedia_plugin_cef.so", "libmedia_plugin_cef.so" )
-            self.end_prefix("bin/llplugin")
 
-        if self.prefix(src=os.path.join(os.pardir, 'packages', 'lib', 'vlc', 'plugins'), dst="bin/llplugin/vlc/plugins"):
+        with self.prefix(src=os.path.join(os.pardir, 'packages', 'lib', 'vlc', 'plugins'), dst="bin/llplugin/vlc/plugins"):
             self.path( "plugins.dat" )
             self.path( "*/*.so" )
-            self.end_prefix()
 
-        if self.prefix(src=os.path.join(os.pardir, 'packages', 'lib' ), dst="lib"):
+        with self.prefix(src=os.path.join(os.pardir, 'packages', 'lib' ), dst="lib"):
             self.path( "libvlc*.so*" )
-            self.end_prefix()
 
-        if self.prefix(src=os.path.join(os.pardir, 'packages', 'bin', 'release'), dst="bin"):
+        with self.prefix(src=os.path.join(os.pardir, 'packages', 'bin', 'release'), dst="bin"):
             self.path( "chrome-sandbox" )
             self.path( "llceflib_host" )
             self.path( "natives_blob.bin" )
             self.path( "snapshot_blob.bin" )
-            self.end_prefix()
 
-        if self.prefix(src=os.path.join(os.pardir, 'packages', 'resources'), dst="bin"):
+        with self.prefix(src=os.path.join(os.pardir, 'packages', 'resources'), dst="bin"):
             self.path( "cef.pak" )
             self.path( "cef_100_percent.pak" )
             self.path( "cef_200_percent.pak" )
             self.path( "cef_extensions.pak" )
             self.path( "devtools_resources.pak" )
             self.path( "icudtl.dat" )
-            self.end_prefix()
 
-        if self.prefix(src=os.path.join(os.pardir, 'packages', 'resources', 'locales'), dst=os.path.join('bin', 'locales')):
+        with self.prefix(src=os.path.join(os.pardir, 'packages', 'resources', 'locales'), dst=os.path.join('bin', 'locales')):
             self.path("am.pak")
             self.path("ar.pak")
             self.path("bg.pak")
@@ -860,7 +836,6 @@ class LinuxManifest(ViewerManifest):
             self.path("vi.pak")
             self.path("zh-CN.pak")
             self.path("zh-TW.pak")
-            self.end_prefix()
 
         # llcommon
         if not self.path("../llcommon/libllcommon.so", "lib/libllcommon.so"):
@@ -938,12 +913,11 @@ class Linux_i686_Manifest(LinuxManifest):
             print "Skipping llcommon.so (assuming llcommon was linked statically)"
 
         # Arch does not package libpng12 a dependency of Kokua's gtk+ libraries
-        if self.prefix("/lib/i386-linux-gnu", dst="lib"):
+        with self.prefix("/lib/i386-linux-gnu", dst="lib"):
             self.path("libpng12.so.0*")
-            self.end_prefix("lib") 
 
 
-        if self.prefix("../packages/lib/release", dst="lib"):
+        with self.prefix("../packages/lib/release", dst="lib"):
             self.path("libapr-1.so")
             self.path("libapr-1.so.0")
             self.path("libapr-1.so.0.4.5")
@@ -1017,24 +991,21 @@ class Linux_i686_Manifest(LinuxManifest):
             self.end_prefix("lib")
 
             # Vivox runtimes
-            if self.prefix(src=relpkgdir, dst="bin"):
+            with self.prefix(src=relpkgdir, dst="bin"):
                 self.path("SLVoice")
                 self.path("win32")
-                self.end_prefix()
-            if self.prefix(src=relpkgdir, dst="lib"):
+            with self.prefix(src=relpkgdir, dst="lib"):
                 self.path("libortp.so")
                 self.path("libsndfile.so.1")
                 self.path("libvivoxoal.so.1") # no - we'll re-use the viewer's own OpenAL lib
                 self.path("libvivoxsdk.so")
                 self.path("libvivoxplatform.so")
-                self.end_prefix("lib")
 
 
             #cef plugin
-            if self.prefix(src=os.path.join(os.pardir, 'packages', 'lib', 'release'), dst="lib"):
+            with self.prefix(src=os.path.join(os.pardir, 'packages', 'lib', 'release'), dst="lib"):
                 self.path( "libcef.so" )
                 self.path( "libllceflib.so" )
-                self.end_prefix()
 
 class Linux_x86_64_Manifest(LinuxManifest):
     def construct(self):
@@ -1050,12 +1021,11 @@ class Linux_x86_64_Manifest(LinuxManifest):
 
 
         # Arch does not package libpng12 a dependency of Kokua's gtk+ libraries
-        if self.prefix("/lib/x86_64-linux-gnu", dst="lib64"):
+        with self.prefix("/lib/x86_64-linux-gnu", dst="lib64"):
             self.path("libpng12.so.0*")
-            self.end_prefix("lib64") 
 
 
-        if self.prefix("../packages/lib/release", dst="lib64"):
+        with self.prefix("../packages/lib/release", dst="lib64"):
             self.path("libapr-1.so*")
             self.path("libaprutil-1.so*")
             self.path("libdb*.so")
@@ -1118,24 +1088,21 @@ class Linux_x86_64_Manifest(LinuxManifest):
            #cef plugin
             self.path( "libcef.so" )
             self.path( "libllceflib.so" )
-            self.end_prefix("lib64")
 
 
             # Vivox runtimes
-            if self.prefix(src="../packages/lib/release", dst="bin"):
+            with self.prefix(src="../packages/lib/release", dst="bin"):
                     self.path("SLVoice")
                     self.path("win32")
-                    self.end_prefix()
-            if self.prefix(src="../packages/lib/release", dst="lib32"):
+            with self.prefix(src="../packages/lib/release", dst="lib32"):
                     self.path("libortp.so")
                     self.path("libsndfile.so.1")
                     self.path("libvivoxsdk.so")
                     self.path("libvivoxplatform.so")
                     self.path("libvivoxoal.so.1") # vivox's sdk expects this soname 
-                    self.end_prefix("lib32")
 
             # 32bit libs needed for voice
-            if self.prefix("../packages/lib/release/32bit-compat", dst="lib32"):
+            with self.prefix("../packages/lib/release/32bit-compat", dst="lib32"):
                     self.path("32bit-libalut.so" , "libalut.so")
                     self.path("32bit-libalut.so.0" , "libalut.so.0")
                     self.path("32bit-libopenal.so" , "libopenal.so")
@@ -1143,9 +1110,8 @@ class Linux_x86_64_Manifest(LinuxManifest):
                     self.path("32bit-libalut.so.0.0.0" , "libalut.so.0.0.0")
                     self.path("32bit-libopenal.so.1.15.1" , "libopenal.so.1.15.1")
 
-                    self.end_prefix("lib32")
 	if self.args['buildtype'].lower() == 'debug':
-    	 if self.prefix("../packages/lib/debug", dst="lib64"):
+    	 with self.prefix("../packages/lib/debug", dst="lib64"):
              self.path("libapr-1.so*")
 
              self.path("libaprutil-1.so*")
@@ -1164,7 +1130,6 @@ class Linux_x86_64_Manifest(LinuxManifest):
              self.path("libz.so")
              self.path("libcollada14dom-d.so*")
              self.path("libGLOD.so")
-             self.end_prefix("lib64")
 
 
 ################################################################
