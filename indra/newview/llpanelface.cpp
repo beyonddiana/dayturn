@@ -2341,8 +2341,8 @@ void LLPanelFace::onClickPaste(void* userdata)
 void LLPanelFace::onTextureSelectionChanged(LLInventoryItem* itemp)
 {
 	LL_DEBUGS("Materials") << "item asset " << itemp->getAssetUUID() << LL_ENDL;
-	LLRadioGroup* radio_mat_type = getChild<LLRadioGroup>("radio_material_type");
-	if(radio_mat_type)
+	LLRadioGroup* radio_mat_type = findChild<LLRadioGroup>("radio_material_type");
+	if(!radio_mat_type)
 	{
 	    return;
 	}
