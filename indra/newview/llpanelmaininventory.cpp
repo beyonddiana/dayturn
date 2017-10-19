@@ -29,6 +29,7 @@
 
 #include "llagent.h"
 #include "llagentcamera.h"
+#include "llagentwearables.h"
 #include "llavataractions.h"
 #include "llcheckboxctrl.h"
 #include "llcombobox.h"
@@ -201,6 +202,8 @@ BOOL LLPanelMainInventory::postBuild()
 		worn_filter.setFilterCategoryTypes(worn_filter.getFilterCategoryTypes() | (1ULL << LLFolderType::FT_INBOX));
 		worn_filter.markDefault();
 		mWornItemsPanel->setSelectCallback(boost::bind(&LLPanelMainInventory::onSelectionChange, this, mWornItemsPanel, _1, _2));
+
+		gAgentWearables.addLoadedCallback(boost::bind(&LLPanelMainInventory::updateWornItemsPanel, this));
 	}
 	mSearchTypeCombo  = getChild<LLComboBox>("search_type");
 	if(mSearchTypeCombo)
@@ -366,6 +369,18 @@ BOOL LLPanelMainInventory::handleKeyHere(KEY key, MASK mask)
 
 	return LLPanel::handleKeyHere(key, mask);
 
+}
+
+void LLPanelMainInventory::updateWornItemsPanel()
+{
+	if (!mUpdateWornTimer.getStarted())
+	{
+		mUpdateWornTimer.start();
+	}
+	else
+	{
+		mUpdateWornTimer.reset();
+	}
 }
 
 //----------------------------------------------------------------------------
@@ -744,6 +759,11 @@ void LLPanelMainInventory::draw()
 	else
 	{
 		mActivePanel->setFilterPermMask(PERM_NONE);
+	}
+	if (mWornItemsPanel && mUpdateWornTimer.getStarted() && (mUpdateWornTimer.getElapsedTimeF32() > 1))
+	{
+		mUpdateWornTimer.stop();
+		mWornItemsPanel->getFilter().setModified(LLFolderViewFilter::FILTER_MORE_RESTRICTIVE);
 	}
 	LLPanel::draw();
 	updateItemcountText();
