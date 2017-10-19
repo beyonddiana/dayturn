@@ -113,7 +113,9 @@ protected:
 
 	const std::string getFilterSubString();
 	void setFilterSubString(const std::string& string);
-	
+
+	void updateWornItemsPanel();
+
 	// menu callbacks
 	void doToSelected(const LLSD& userdata);
 	void closeAllFolders();
@@ -144,6 +146,8 @@ private:
 	S32							mItemCount;
 	std::string 				mItemCountString;
 	LLComboBox*					mSearchTypeCombo;
+	LLFrameTimer				mUpdateWornTimer;
+
 
 
 	//////////////////////////////////////////////////////////////////////////////////
