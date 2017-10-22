@@ -5223,13 +5223,13 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 				group->mSurfaceArea += volume->getSurfaceArea() * llmax(llmax(scale.mV[0], scale.mV[1]), scale.mV[2]);
 			}
 
-            LL_DEBUGS("AXON") << vobj_name << " rebuilding, isAttachment: " << (U32) vobj->isAttachment()
+            /*LL_DEBUGS("AXON") << vobj_name << " rebuilding, isAttachment: " << (U32) vobj->isAttachment()
                        << " is_animated " << vobj->isAnimatedObject()
                        << " can_animate " << vobj->canBeAnimatedObject() 
                        << " cav " << vobj->getControlAvatar() 
                        << " playing " << (U32) (vobj->getControlAvatar() ? vobj->getControlAvatar()->mPlaying : false)
                        << " frame " << LLFrameTimer::getFrameCount()
-                       << LL_ENDL;
+                       << LL_ENDL; */
 
 			llassert_always(vobj);
 			vobj->updateTextureVirtualSize(true);
