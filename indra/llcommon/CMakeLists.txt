@@ -254,13 +254,6 @@ set(llcommon_HEADER_FILES
     StackWalker.h
     )
 
-# <FS:CR> Add OSSL constants for OpenSim builds
-if (HAS_OPENSIM_SUPPORT)
-    LIST(APPEND llcommon_HEADER_FILES
-    osslconstants.h
-    )
-endif (HAS_OPENSIM_SUPPORT)
-# </FS:CR>
 
 # <AV:CR>
 if (DARWIN)
