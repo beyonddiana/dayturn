@@ -78,6 +78,14 @@ LLPreviewNotecard::~LLPreviewNotecard()
 
 BOOL LLPreviewNotecard::postBuild()
 {
+//MK
+	if (gRRenabled && gAgent.mRRInterface.contains("viewnote"))
+	{
+		mForceClose = TRUE;
+		closeFloater();
+		return TRUE;
+	}
+//mk
 	LLViewerTextEditor *ed = getChild<LLViewerTextEditor>("Notecard Editor");
 	ed->setNotecardInfo(mItemUUID, mObjectID, getKey());
 	ed->makePristine();
