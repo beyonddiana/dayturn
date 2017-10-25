@@ -7214,6 +7214,15 @@ void handle_edit_physics()
 
 void handle_report_abuse()
 {
+//MK
+	// If we are unable to see the location, don't allow the user to send an AR because the location would appear in the window
+	// (or if we don't let it appear in the window, that decreases the quality of the AR, which in turn decreases the reputation
+	// of the user in LL's standpoint).
+	if (gRRenabled && gAgent.mRRInterface.mContainsShowloc)
+	{
+		return;
+	}
+//mk
 	// Prevent menu from appearing in screen shot.
 	gMenuHolder->hideMenus();
 	LLFloaterReporter::showFromMenu(COMPLAINT_REPORT);
@@ -9309,6 +9318,15 @@ void handle_show_group()
 
 void handle_report_bug(const LLSD& param)
 {
+//MK
+	// If we are unable to see the location, don't allow the user to send a bug report because the location would appear in the web page
+	// (or if we don't let it appear in the web page, that decreases the quality of the report, which in turn decreases the reputation
+	// of the user in LL's standpoint).
+	if (gRRenabled && gAgent.mRRInterface.mContainsShowloc)
+	{
+		return;
+	}
+//mk
 	LLUIString url(param.asString());
 	
 	LLStringUtil::format_map_t replace;
