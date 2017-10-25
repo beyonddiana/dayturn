@@ -1455,7 +1455,7 @@ BOOL LLVOVolume::setParent(LLViewerObject* parent)
 			gPipeline.markMoved(mDrawable);
 			gPipeline.markRebuild(mDrawable, LLDrawable::REBUILD_VOLUME, TRUE);
 		}
-        updateAnimatedObjectState(old_parent, parent);
+        updateAnimatedObjectStateOnReparent(old_parent, parent);
 	}
 
 	return ret ;
@@ -3419,29 +3419,18 @@ void LLVOVolume::setExtendedMeshFlags(U32 flags)
 
 bool LLVOVolume::canBeAnimatedObject() const
 {
-    if (!isMesh())
-    {
-        return false;
-    }
-	if (!getVolume())
-	{
-		return false;
-	}
-    if (!isRootEdit())
-    {
-        return false;
-    }
-	const LLMeshSkinInfo* skin = gMeshRepo.getSkinInfo(getVolume()->getParams().getSculptID(), this);
-    if (!skin)
-    {
-        return false;
-    }
+#if 0
+    // AXON: we used to enforce that root had to be mesh. Should we at
+    // least require that some element of the linkset is mesh? Only
+    // problem with this is failures while mesh header is still being
+    // loaded.
     F32 est_tris = recursiveGetEstTrianglesMax();
-    if (est_tris > getAnimatedObjectMaxTris())
+    if (est_tris <= 0 || est_tris > getAnimatedObjectMaxTris())
     {
-        LL_INFOS() << "est_tris " << est_tris << " exceeds limit " << getAnimatedObjectMaxTris() << LL_ENDL;
+        LL_INFOS() << "est_tris " << est_tris << " is outside limit of 1-" << getAnimatedObjectMaxTris() << LL_ENDL;
         return false;
     }
+#endif
     return true;
 }
 
@@ -3503,7 +3492,7 @@ bool LLVOVolume::isAnimatedObjectStateConsistent() const
 // Called any time parenting changes for a volume. Update flags and
 // control av accordingly.  This is called after parent has been
 // changed to new_parent.
-void LLVOVolume::updateAnimatedObjectState(LLViewerObject *old_parent, LLViewerObject *new_parent)
+void LLVOVolume::updateAnimatedObjectStateOnReparent(LLViewerObject *old_parent, LLViewerObject *new_parent)
 {
     LLVOVolume *old_volp = dynamic_cast<LLVOVolume*>(old_parent);
     LLVOVolume *new_volp = dynamic_cast<LLVOVolume*>(new_parent);
@@ -3917,7 +3906,7 @@ U32 LLVOVolume::getRenderCost(texture_cost_t &textures) const
 
 F32 LLVOVolume::getEstTrianglesMax() const
 {
-	if (isMesh())
+	if (isMesh() && getVolume())
 	{
 		return gMeshRepo.getEstTrianglesMax(getVolume()->getParams().getSculptID());
 	}
@@ -5156,7 +5145,8 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 		LL_RECORD_BLOCK_TIME(FTM_REBUILD_VOLUME_FACE_LIST);
 
 		//get all the faces into a list
-		for (LLSpatialGroup::element_iter drawable_iter = group->getDataBegin(); drawable_iter != group->getDataEnd(); ++drawable_iter)
+		for (LLSpatialGroup::element_iter drawable_iter = group->getDataBegin(); 
+             drawable_iter != group->getDataEnd(); ++drawable_iter)
 		{
 			LLDrawable* drawablep = (LLDrawable*)(*drawable_iter)->getDrawable();
 		
@@ -5172,12 +5162,12 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 
 			LLVOVolume* vobj = drawablep->getVOVolume();
             
-            std::string vobj_name = llformat("Vol%u", (U32) vobj);
-
 			if (!vobj)
 			{
 				continue;
 			}
+
+            std::string vobj_name = llformat("Vol%u", (U32) vobj);
 
 			if (vobj->isMesh() &&
 				((vobj->getVolume() && !vobj->getVolume()->isMeshAssetLoaded()) || !gMeshRepo.meshRezEnabled()))
@@ -5191,14 +5181,17 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 				const LLVector3& scale = vobj->getScale();
 				group->mSurfaceArea += volume->getSurfaceArea() * llmax(llmax(scale.mV[0], scale.mV[1]), scale.mV[2]);
 			}
+			
+            bool is_mesh = vobj->isMesh();
 
             /*LL_DEBUGS("AXON") << vobj_name << " rebuilding, isAttachment: " << (U32) vobj->isAttachment()
-                       << " is_animated " << vobj->isAnimatedObject()
-                       << " can_animate " << vobj->canBeAnimatedObject() 
-                       << " cav " << vobj->getControlAvatar() 
-                       << " playing " << (U32) (vobj->getControlAvatar() ? vobj->getControlAvatar()->mPlaying : false)
-                       << " frame " << LLFrameTimer::getFrameCount()
-                       << LL_ENDL; */
+                              << " is_mesh " << is_mesh
+                              << " is_animated " << vobj->isAnimatedObject()
+                              << " can_animate " << vobj->canBeAnimatedObject() 
+                              << " cav " << vobj->getControlAvatar() 
+                              << " playing " << (U32) (vobj->getControlAvatar() ? vobj->getControlAvatar()->mPlaying : false)
+                              << " frame " << LLFrameTimer::getFrameCount()
+                              << LL_ENDL; */
 
 			llassert_always(vobj);
 			vobj->updateTextureVirtualSize(true);
@@ -5220,6 +5213,7 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
                 if (vobj->getControlAvatar())
                 {
                     pAvatarVO = vobj->getControlAvatar();
+                    pAvatarVO->rebuildAttachmentOverrides();
                 }
             }
             else
