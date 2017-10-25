@@ -270,6 +270,7 @@ public:
 	virtual BOOL isFlexible() const;
 	virtual BOOL isSculpted() const;
 	virtual BOOL isMesh() const;
+	virtual BOOL isRiggedMesh() const;
 	virtual BOOL hasLightTexture() const;
 
     
@@ -277,6 +278,8 @@ public:
 	BOOL canBeFlexible() const;
 	BOOL setIsFlexible(BOOL is_flexible);
 
+    const LLMeshSkinInfo* getSkinInfo() const;
+    
     // Extended Mesh Properties
     U32 getExtendedMeshFlags() const;
     void onSetExtendedMeshFlags(U32 flags);
