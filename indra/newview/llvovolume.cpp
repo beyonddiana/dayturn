@@ -4459,12 +4459,13 @@ void LLVolumeGeometryManager::registerFace(LLSpatialGroup* group, LLFace* facep,
 		LL_WARNS_ONCE("RenderMaterials") << "Oh no! No binormals for this alpha blended face!" << LL_ENDL;
 	}
 
-//MK
-	////if (facep->getViewerObject()->isSelected() && LLSelectMgr::getInstance()->mHideSelectedObjects)
-	if (facep->getViewerObject()->isSelected() && LLSelectMgr::getInstance()->mHideSelectedObjects
-		&& (!gRRenabled || !gAgent.mRRInterface.mContainsEdit)
-		&& LLSelectMgr::getInstance()->mHideSelectedObjects)
-//mk
+	bool selected = facep->getViewerObject()->isSelected();
+
+	//if (selected && LLSelectMgr::getInstance()->mHideSelectedObjects)
+//MK (by CA)
+	if (selected && LLSelectMgr::getInstance()->mHideSelectedObjects
+	&& (!gRRenabled || !gAgent.mRRInterface.mContainsEdit))
+//mk (by ca)
 	{
 		return;
 	}
@@ -4583,7 +4584,7 @@ void LLVolumeGeometryManager::registerFace(LLSpatialGroup* group, LLFace* facep,
 			batchable = true;
 		}
 	}
-	
+
 	if (idx >= 0 && 
 		draw_vec[idx]->mVertexBuffer == facep->getVertexBuffer() &&
 		draw_vec[idx]->mEnd == facep->getGeomIndex()-1 &&
@@ -4599,7 +4600,8 @@ void LLVolumeGeometryManager::registerFace(LLSpatialGroup* group, LLFace* facep,
 		(!mat || (draw_vec[idx]->mShiny == shiny)) && // need to break batches when a material is shared, but legacy settings are different
 		draw_vec[idx]->mTextureMatrix == tex_mat &&
 		draw_vec[idx]->mModelMatrix == model_mat &&
-		draw_vec[idx]->mShaderMask == shader_mask)
+		draw_vec[idx]->mShaderMask == shader_mask &&
+		draw_vec[idx]->mSelected == selected)
 	{
 		draw_vec[idx]->mCount += facep->getIndicesCount();
 		draw_vec[idx]->mEnd += facep->getGeomCount();
@@ -4621,7 +4623,7 @@ void LLVolumeGeometryManager::registerFace(LLSpatialGroup* group, LLFace* facep,
 		U32 offset = facep->getIndicesStart();
 		U32 count = facep->getIndicesCount();
 		LLPointer<LLDrawInfo> draw_info = new LLDrawInfo(start,end,count,offset, tex, 
-			facep->getVertexBuffer(), fullbright, bump); 
+			facep->getVertexBuffer(), selected, fullbright, bump);
 		draw_info->mGroup = group;
 		draw_info->mVSize = facep->getVirtualSize();
 		draw_vec.push_back(draw_info);
@@ -4648,26 +4650,25 @@ void LLVolumeGeometryManager::registerFace(LLSpatialGroup* group, LLFace* facep,
 
 		if (mat)
 		{
-				draw_info->mMaterialID = mat_id;
+			draw_info->mMaterialID = mat_id;
 
-				// We have a material.  Update our draw info accordingly.
+			// We have a material.  Update our draw info accordingly.
 				
-				if (!mat->getSpecularID().isNull())
-				{
-					LLVector4 specColor;
-					specColor.mV[0] = mat->getSpecularLightColor().mV[0] * (1.f / 255.f);
-					specColor.mV[1] = mat->getSpecularLightColor().mV[1] * (1.f / 255.f);
-					specColor.mV[2] = mat->getSpecularLightColor().mV[2] * (1.f / 255.f);
-					specColor.mV[3] = mat->getSpecularLightExponent() * (1.f / 255.f);
-					draw_info->mSpecColor = specColor;
-					draw_info->mEnvIntensity = mat->getEnvironmentIntensity() * (1.f / 255.f);
-					draw_info->mSpecularMap = facep->getViewerObject()->getTESpecularMap(facep->getTEOffset());
-				}
+			if (!mat->getSpecularID().isNull())
+			{
+				LLVector4 specColor;
+				specColor.mV[0] = mat->getSpecularLightColor().mV[0] * (1.f / 255.f);
+				specColor.mV[1] = mat->getSpecularLightColor().mV[1] * (1.f / 255.f);
+				specColor.mV[2] = mat->getSpecularLightColor().mV[2] * (1.f / 255.f);
+				specColor.mV[3] = mat->getSpecularLightExponent() * (1.f / 255.f);
+				draw_info->mSpecColor = specColor;
+				draw_info->mEnvIntensity = mat->getEnvironmentIntensity() * (1.f / 255.f);
+				draw_info->mSpecularMap = facep->getViewerObject()->getTESpecularMap(facep->getTEOffset());
+			}
 
-				draw_info->mAlphaMaskCutoff = mat->getAlphaMaskCutoff() * (1.f / 255.f);
-				draw_info->mDiffuseAlphaMode = mat->getDiffuseAlphaMode();
-				draw_info->mNormalMap = facep->getViewerObject()->getTENormalMap(facep->getTEOffset());
-				
+			draw_info->mAlphaMaskCutoff = mat->getAlphaMaskCutoff() * (1.f / 255.f);
+			draw_info->mDiffuseAlphaMode = mat->getDiffuseAlphaMode();
+			draw_info->mNormalMap = facep->getViewerObject()->getTENormalMap(facep->getTEOffset());
 		}
 		else 
 		{
@@ -5960,6 +5961,13 @@ void LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, LLFac
 						if (mat->getEnvironmentIntensity() > 0 ||
 							te->getShiny() > 0)
 						{
+//MK
+							if (vision_restricted)
+							{
+								registerFace(group, facep, LLRenderPass::PASS_FULLBRIGHT);
+							}
+							else
+//mk
 							material_pass = true;
 						}
 						else
@@ -6121,7 +6129,7 @@ void LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, LLFac
 					}
 					else
 					{
-					registerFace(group, facep, LLRenderPass::PASS_FULLBRIGHT);
+						registerFace(group, facep, LLRenderPass::PASS_FULLBRIGHT);
 					}
 					if (LLPipeline::sRenderDeferred && !hud_group && LLPipeline::sRenderBump && use_legacy_bump)
 					{ //if this is the deferred render and a bump map is present, register in post deferred bump
