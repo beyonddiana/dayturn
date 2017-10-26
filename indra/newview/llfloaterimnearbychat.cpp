@@ -982,71 +982,73 @@ LLWString LLFloaterIMNearbyChat::stripChannelNumber(const LLWString &mesg, S32* 
 void send_chat_from_viewer(const std::string& utf8_out_text, EChatType type, S32 channel)
 {
 //MK
-	if (gRRenabled && channel >= 2147483647 && gAgent.mRRInterface.contains ("sendchat"))
+	if (type != CHAT_TYPE_START && type != CHAT_TYPE_STOP) // do not bother with redirections and channel restrictions if we're not actually chatting
 	{
-		// When prevented from talking, remove the ability to talk on the DEBUG_CHANNEL altogether, since it is a way of cheating
-		return;
-	}
-	
-	if (gRRenabled && channel == 0)
-	{
-		std::string restriction;
-
-		// We might want to redirect this chat or emote (and exit this function early on)
-		if (utf8_out_text.find ("/me ") == 0 // emote
-			|| utf8_out_text.find ("/me's") == 0) // emote
+		if (gRRenabled && channel >= 2147483647 && gAgent.mRRInterface.contains("sendchat"))
 		{
-			if (gAgent.mRRInterface.containsSubstr ("rediremote:"))
-			{
-				restriction = "rediremote:";
-			}
-		}
-		else if (utf8_out_text.find ("((") != 0 || utf8_out_text.find ("))") != utf8_out_text.length () - 2)
-		{
-			if (gAgent.mRRInterface.containsSubstr ("redirchat:"))
-			{
-				restriction = "redirchat:";
-			}
+			// When prevented from talking, remove the ability to talk on the DEBUG_CHANNEL altogether, since it is a way of cheating
+			return;
 		}
 
-		if (!restriction.empty())
+		if (gRRenabled && channel == 0)
 		{
-			// Public chat or emote redirected => for each redirection, send the same message on the target channel
-			RRMAP::iterator it = gAgent.mRRInterface.mSpecialObjectBehaviours.begin ();
-			std::string behav;
-			while (it != gAgent.mRRInterface.mSpecialObjectBehaviours.end())
+			std::string restriction;
+
+			// We might want to redirect this chat or emote (and exit this function early on)
+			if (utf8_out_text.find("/me ") == 0 // emote
+				|| utf8_out_text.find("/me's") == 0) // emote
 			{
-				behav = it->second;
-				if (behav.find (restriction) == 0)
+				if (gAgent.mRRInterface.containsSubstr("rediremote:"))
 				{
-					S32 ch = atoi (behav.substr (restriction.length()).c_str());
-					std::ostringstream stream;
-					stream << "" << ch;
-					if (!gAgent.mRRInterface.containsWithoutException("sendchannel", stream.str()) && !gAgent.mRRInterface.contains("sendchannel_except:" + stream.str()))
-					{
-						if (ch > 0 && ch < 2147483647)
-						{
-							LLMessageSystem* msg = gMessageSystem;
-							msg->newMessageFast(_PREHASH_ChatFromViewer);
-							msg->nextBlockFast(_PREHASH_AgentData);
-							msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
-							msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
-							msg->nextBlockFast(_PREHASH_ChatData);
-							msg->addStringFast(_PREHASH_Message, utf8_out_text);
-							msg->addU8Fast(_PREHASH_Type, type);
-							msg->addS32("Channel", ch);
+					restriction = "rediremote:";
+				}
+			}
+			else if (utf8_out_text.find("((") != 0 || utf8_out_text.find("))") != utf8_out_text.length() - 2)
+			{
+				if (gAgent.mRRInterface.containsSubstr("redirchat:"))
+				{
+					restriction = "redirchat:";
+				}
+			}
 
-							gAgent.sendReliableMessage();
+			if (!restriction.empty())
+			{
+				// Public chat or emote redirected => for each redirection, send the same message on the target channel
+				RRMAP::iterator it = gAgent.mRRInterface.mSpecialObjectBehaviours.begin();
+				std::string behav;
+				while (it != gAgent.mRRInterface.mSpecialObjectBehaviours.end())
+				{
+					behav = it->second;
+					if (behav.find(restriction) == 0)
+					{
+						S32 ch = atoi(behav.substr(restriction.length()).c_str());
+						std::ostringstream stream;
+						stream << "" << ch;
+						if (!gAgent.mRRInterface.containsWithoutException("sendchannel", stream.str()) && !gAgent.mRRInterface.contains("sendchannel_except:" + stream.str()))
+						{
+							if (ch > 0 && ch < 2147483647)
+							{
+								msg->newMessageFast(_PREHASH_ChatFromViewer);
+								msg->nextBlockFast(_PREHASH_AgentData);
+								msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
+								msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
+								msg->nextBlockFast(_PREHASH_ChatData);
+								msg->addStringFast(_PREHASH_Message, utf8_out_text);
+								msg->addU8Fast(_PREHASH_Type, type);
+								msg->addS32("Channel", ch);
+
+								gAgent.sendReliableMessage();
+							}
 						}
 					}
+					it++;					
 				}
-				it++;
+
+				//LLViewerStats::getInstance()->incStat(LLViewerStats::ST_CHAT_COUNT);
+
+				// We have redirected the chat message, don't send it on the original channel
+				return;
 			}
-
-			//LLViewerStats::getInstance()->incStat(LLViewerStats::ST_CHAT_COUNT);
-
-			// We have redirected the chat message, don't send it on the original channel
-			return;
 		}
 	}
 
