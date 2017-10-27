@@ -6151,13 +6151,36 @@ void process_object_animation(LLMessageSystem *mesgsys, void **user_data)
     }
     
 	S32 num_blocks = mesgsys->getNumberOfBlocksFast(_PREHASH_AnimationList);
-	LL_DEBUGS("AXON") << "handle object animation here, num_blocks " << num_blocks << LL_ENDL;
+	LL_DEBUGS("AXON") << "processing object animation requests, num_blocks " << num_blocks << LL_ENDL;
 
+#if 0 
     if (!avatarp->mPlaying)
     {
         avatarp->mPlaying = true;
 		avatarp->updateVolumeGeom();
+        avatarp->mRootVolp->recursiveMarkForUpdate(TRUE);
     }
+#else
+     if (num_blocks > 0 && !avatarp->mPlaying)
+     {
+         avatarp->mPlaying = true;
+ 		avatarp->updateVolumeGeom();
+         // AXON FIXME need to update all objects in the linkset, not just the one where animation is playing
+        avatarp->mRootVolp->recursiveMarkForUpdate(TRUE);
+     }
+     else if (num_blocks == 0 && avatarp->mPlaying)
+     {
+         // AXON this will cause meshes to go back to static when no
+         // animations are signalled. Probably don't want to leave this
+         // way but helpful for testing.
+         avatarp->mPlaying = false;
+ 		avatarp->updateVolumeGeom();
+         // AXON FIXME need to update all objects in the linkset, not just the one where animation is playing
+        avatarp->mRootVolp->recursiveMarkForUpdate(TRUE);
+     }
+ #endif
+
+
 
 	volp->mObjectSignaledAnimations.clear();
 	
