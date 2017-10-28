@@ -24728,7 +24728,61 @@
             <key>tooltip</key>
             <string>Returns active wind plugin name, as specified by the wind_plugin parameter in OpenSim.ini.</string>
          </map>  
-
+         <key>osVolumeDetect</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>detect</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>                              
+            </array>                
+            <key>tooltip</key>
+            <string>No description available.</string>
+         </map>
+         <key>osRevokeScriptPermissions</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>revoked_key</key>
+                  <map>
+                     <key>type</key>
+                     <string>key</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>                              
+               <map>
+                  <key>function</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>                
+            <key>tooltip</key>
+            <string>Dynamically allow/disallow ossl execution to owner/creator/group by function name.</string>
+         </map>
 
 		<!-- NPC specific -->
          <key>osNpcCreate</key>
