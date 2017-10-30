@@ -2809,7 +2809,6 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
 	capabilityNames.append("GroupProposalBallot");
 	capabilityNames.append("HomeLocation");
 	capabilityNames.append("LandResources");
-	capabilityNames.append("LSLSyntax");
 	capabilityNames.append("MapLayer");
 	capabilityNames.append("MapLayerGod");
 	capabilityNames.append("MeshUploadFlag");	
@@ -2867,6 +2866,7 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
         capabilityNames.append("UpdateExperience");
         capabilityNames.append("IsExperienceAdmin");
         capabilityNames.append("IsExperienceContributor");
+        capabilityNames.append("LSLSyntax");
         capabilityNames.append("RegionExperiences");
         capabilityNames.append("NavMeshGenerationStatus");
         capabilityNames.append("ObjectNavMeshProperties");
