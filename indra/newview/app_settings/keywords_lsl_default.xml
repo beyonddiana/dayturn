@@ -24783,6 +24783,68 @@
             <key>tooltip</key>
             <string>Dynamically allow/disallow ossl execution to owner/creator/group by function name.</string>
          </map>
+         <key>llGetObjectAnimationNames</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>list</string>
+            <key>arguments</key>
+            <array>            
+            <undef/>                              
+            </array>                
+            <key>tooltip</key>
+            <string>Returns a list of names of animations playing in the current object.</string>
+         </map>
+         <key>llStartObjectAnimation</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>anim</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>                              
+            </array>                
+            <key>tooltip</key>
+            <string>Starts animation anim for the current object. anim must be the name of an animation in the inventory of that object.</string>
+         </map>
+         <key>llStopObjectAnimation</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>anim</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>                              
+            </array>                
+            <key>tooltip</key>
+            <string>Stops animation anim for the current object. anim must be the name or the UUID of an animation in the inventory of that object.</string>
+         </map>
+
 
 		<!-- NPC specific -->
          <key>osNpcCreate</key>
