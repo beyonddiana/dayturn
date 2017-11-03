@@ -491,20 +491,19 @@
      reference="EmphasisColor" />
     <color
      name="Kokua"
-     value="0.749019607843140033942575 0.4666666666666700047372274 0.8078431372548999789273694 1" />
-    <!--191 119 206-->
+     value="0.642 0.803 0.999 1" />
     <color
      name="Kokua_11"
-     value="0.749019607843140033942575 0.4666666666666700047372274 0.8078431372548999789273694 .11" />
+     value="0.642 0.803 0.999 .11" />
     <color
      name="Kokua_13"
-     value="0.749019607843140033942575 0.4666666666666700047372274 0.8078431372548999789273694 .13" />
+     value="0.642 0.803 0.999 .13" />
     <color
      name="Kokua_23"
-     value="0.749019607843140033942575 0.4666666666666700047372274 0.8078431372548999789273694 .23" />
+     value="0.642 0.803 0.999 .23" />
     <color
      name="Kokua_42"
-     value="0.749019607843140033942575 0.4666666666666700047372274 0.8078431372548999789273694 .42" />
+     value="0.642 0.803 0.999 .42" />
     <color
      name="LabelDisabledColor"
 	 reference="White_25" />
@@ -1016,12 +1015,13 @@
     name="SyntaxLslStringLiteral"
     value="0.521569 0.74902 0.129412 1" />
     
-   <color
+  <!-- Outfit gallery colors -->    
+  <color
     name="OutfitGalleryItemSelected"
-    value="0.75 0.47 0.81  1" />
+    value="0.642 0.803 0.999 1" />
   <color
     name="OutfitGalleryItemWorn"
-    value="0.82 0.60 0.93 1" />
+    value="0.642 0.803 0.999 1" />
   <color
     name="OutfitGalleryItemUnselected"
     value="0.4 0.4 0.4 1" />
