@@ -506,7 +506,7 @@
      value="0.642 0.803 0.999 .42" />
     <color
      name="LabelDisabledColor"
-	 reference="White_25" />
+	 value="0.831 0.831 0.831 1" />
     <color
      name="LabelSelectedColor"
      reference="White" />

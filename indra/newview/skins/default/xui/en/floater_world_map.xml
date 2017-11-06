@@ -474,7 +474,7 @@
      follows="top|right"
   search_button_visible="false"
      height="22"
-  text_readonly_color="DkGray"
+  text_readonly_color="LabelDisabledColor"
      label="Regions by Name"
      layout="topleft"
      top_delta="-2"
