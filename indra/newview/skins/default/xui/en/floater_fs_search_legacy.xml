@@ -398,7 +398,7 @@
 		left="10"
 		height="23"
 		width="475"
-		text_readonly_color="DkGray"
+		text_readonly_color="LabelDisabledColor"
 		select_on_focus="false"
 		commit_on_focus_lost="false"
 		clear_button_visible="true">
