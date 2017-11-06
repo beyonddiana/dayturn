@@ -169,7 +169,7 @@ public:
 	/*virtual*/ F32  	getRadius() const						{ return mVObjRadius; };
 				const LLMatrix4& getWorldMatrix(LLXformMatrix* xform) const;
 
-				void	markForUpdate(bool priority)			{ LLViewerObject::markForUpdate(priority); mVolumeChanged = TRUE; }
+				void	markForUpdate(bool priority);
                 void    markForUnload()                         { LLViewerObject::markForUnload(true); mVolumeChanged = TRUE; }                
 				void    faceMappingChanged()                    { mFaceMappingChanged=TRUE; };
 
