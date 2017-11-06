@@ -90,6 +90,8 @@ public:
 
 	void setFocusFilterEditor();
 
+	void toggleFindOptions();
+
 protected:
 	//
 	// Misc functions
@@ -97,7 +99,6 @@ protected:
 	void setFilterTextFromFilter();
 	void startSearch();
 	
-	void toggleFindOptions();
 	void onSelectionChange(LLInventoryPanel *panel, const std::deque<LLFolderViewItem*>& items, BOOL user_action);
 
 	static BOOL filtersVisible(void* user_data);
