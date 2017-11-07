@@ -38,7 +38,8 @@
 		</menu>
 		<menu label="Hilfe" name="Help">
 			<menu_item_call label="Hilfe..." name="Help..."/>
-			<menu_item_call label="Schlüsselwort-Hilfe" name="Keyword Help..."/>
+			<menu_item_call label="LSL Schlüsselwort-Hilfe" name="Keyword Help..."/>
+			<menu_item_call label="OSSL Funktionen-Hilfe" name="wiki_osslscripting_url">
 		</menu>
 	</menu_bar>
 	<text_editor name="Script Editor">
