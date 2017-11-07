@@ -35,7 +35,8 @@
 		</menu>
 		<menu label="Hjælp" name="Help">
 			<menu_item_call label="Hjælp..." name="Help..."/>
-			<menu_item_call label="Hjælp med keywords..." name="Keyword Help..."/>
+			<menu_item_call label="Hjælp med LSL keywords..." name="Keyword Help..."/>
+			<menu_item_call label="Hjælp med OSSL funktioner..." name="wiki_osslscripting_url">
 		</menu>
 	</menu_bar>
 	<text_editor name="Script Editor">
