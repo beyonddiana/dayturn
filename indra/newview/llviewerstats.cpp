@@ -461,8 +461,6 @@ void send_stats()
 	}
 	
 	LLViewerStats::instance().getRecording().pause();
-
-	body["session_id"] = gAgentSessionID;
 	
 	LLSD &agent = body["agent"];
 	
@@ -616,9 +614,13 @@ void send_stats()
 	
 	body["MinimalSkin"] = false;
 
+	LL_INFOS("LogViewerStatsPacket") << "Sending viewer statistics: " << body << LL_ENDL;
+
+	// The session ID token must never appear in logs
+	body["session_id"] = gAgentSessionID;
+	
 	LLViewerStats::getInstance()->addToMessage(body);
 
-	LL_INFOS("LogViewerStatsPacket") << "Sending viewer statistics: " << body << LL_ENDL;
 	LLHTTPClient::post(url, body, new ViewerStatsResponder());
 
 	LLViewerStats::instance().getRecording().resume();
