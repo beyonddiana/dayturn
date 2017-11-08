@@ -3453,9 +3453,9 @@ void LLVOVolume::setExtendedMeshFlags(U32 flags)
 bool LLVOVolume::canBeAnimatedObject() const
 {
     F32 est_tris = recursiveGetEstTrianglesMax();
-    if (est_tris <= 0 || est_tris > getAnimatedObjectMaxTris())
+    if (est_tris < 0 || est_tris > getAnimatedObjectMaxTris())
     {
-        LL_DEBUGS("AXON") << "est_tris " << est_tris << " is outside limit of 1-" << getAnimatedObjectMaxTris() << LL_ENDL;
+        LL_DEBUGS("AXON") << "est_tris " << est_tris << " is outside limit of 0-" << getAnimatedObjectMaxTris() << LL_ENDL;
         return false;
     }
     return true;
@@ -5284,8 +5284,16 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
             {
                 if (!vobj->getControlAvatar())
                 {
-                    LL_DEBUGS("AXON") << vobj_name << " calling linkControlAvatar()" << LL_ENDL;
-                    vobj->linkControlAvatar();
+                    F32 tri_count = vobj->getRootEdit()->recursiveGetEstTrianglesMax();
+                    if (tri_count <= 0.f)
+                    {
+                        LL_DEBUGS("AXON") << vobj_name << " not calling linkControlAvatar(), because no tris" << LL_ENDL;
+                    }
+                    else
+                    {
+                        LL_DEBUGS("AXON") << vobj_name << " calling linkControlAvatar()" << LL_ENDL;
+                        vobj->linkControlAvatar();
+                    }
                 }
                 if (vobj->getControlAvatar())
                 {
