@@ -37,6 +37,7 @@
 #include "llviewerregion.h"
 #include "llvopartgroup.h"
 #include "llworld.h"
+#include "llmutelist.h"
 #include "pipeline.h"
 #include "llspatialpartition.h"
 #include "llvovolume.h"
@@ -710,6 +711,12 @@ void LLViewerPartSim::updateSimulation()
 			if (!LLPipeline::sRenderAttachedParticles)
 			{
 				LLViewerObject* vobj = mViewerPartSources[i]->mSourceObjectp;
+ 
+                if(vobj && vobj->isOwnerInMuteList())
+                {
+                    upd = FALSE;
+                }
+
 				if (vobj && (vobj->getPCode() == LL_PCODE_VOLUME))
 				{
 					LLVOVolume* vvo = (LLVOVolume *)vobj;
