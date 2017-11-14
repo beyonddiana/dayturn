@@ -1615,6 +1615,14 @@ void LLDrawPoolAvatar::updateRiggedFaceVertexBuffer(
 		}
 	}
 
+	if (buffer.isNull() ||
+		buffer->getNumVerts() != vol_face.mNumVertices ||
+		buffer->getNumIndices() != vol_face.mNumIndices)
+	{
+		// Allocation failed
+		return;
+	}
+
 	if (sShaderLevel <= 0 && face->mLastSkinTime < avatar->getLastSkinTime())
 	{
 		//perform software vertex skinning for this face
