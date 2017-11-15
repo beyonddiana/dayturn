@@ -44,6 +44,7 @@
 #include "llfloaterreg.h"
 #include "llmenubutton.h"
 #include "lloutfitobserver.h"
+#include "llpanelmarketplaceinbox.h"
 #include "llpreviewtexture.h"
 #include "llresmgr.h"
 #include "llscrollcontainer.h"
@@ -509,7 +510,7 @@ void LLPanelMainInventory::onClearSearch()
 	if (mActivePanel && (getActivePanel() != mWornItemsPanel))
 	{
 		initially_active = mActivePanel->getFilter().isNotDefault();
-		mActivePanel->setFilterSubString(LLStringUtil::null);
+		setFilterSubString(LLStringUtil::null);
 		mActivePanel->setFilterTypes(0xffffffffffffffffULL);
 
 		// ## Zi: Filter Links Menu
@@ -532,6 +533,16 @@ void LLPanelMainInventory::onClearSearch()
 		mActivePanel->getRootFolder()->scrollToShowSelection();
 	}
 	mFilterSubString = "";
+
+	LLSidepanelInventory * sidepanel_inventory = LLFloaterSidePanelContainer::getPanel<LLSidepanelInventory>("inventory");
+	if (sidepanel_inventory)
+	{
+		LLPanelMarketplaceInbox* inbox_panel = sidepanel_inventory->getChild<LLPanelMarketplaceInbox>("marketplace_inbox");
+		if (inbox_panel)
+		{
+			inbox_panel->onClearSearch();
+		}
+	}
 }
 
 void LLPanelMainInventory::onFilterEdit(const std::string& search_string )
@@ -563,6 +574,16 @@ void LLPanelMainInventory::onFilterEdit(const std::string& search_string )
 
 	// set new filter string
 	setFilterSubString(mFilterSubString);
+
+	LLSidepanelInventory * sidepanel_inventory = LLFloaterSidePanelContainer::getPanel<LLSidepanelInventory>("inventory");
+	if (sidepanel_inventory)
+	{
+		LLPanelMarketplaceInbox* inbox_panel = sidepanel_inventory->getChild<LLPanelMarketplaceInbox>("marketplace_inbox");
+		if (inbox_panel)
+		{
+			inbox_panel->onFilterEdit(search_string);
+		}
+	}
 }
 
 
@@ -886,7 +907,6 @@ void LLFloaterInventoryFinder::updateElementsFromFilter()
 
 	// Get data needed for filter display
 	U32 filter_types = mFilter->getFilterObjectTypes();
-	std::string filter_string = mFilter->getFilterSubString();
 	LLInventoryFilter::EFolderShow show_folders = mFilter->getShowFolderState();
 	U32 hours = mFilter->getHoursAgo();
 	U32 date_search_direction = mFilter->getDateSearchDirection();
