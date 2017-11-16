@@ -6166,8 +6166,7 @@ void process_object_animation(LLMessageSystem *mesgsys, void **user_data)
             avatarp->mRootVolp->recursiveMarkForUpdate(TRUE);
         }
     }
-#else
-    // AXON REMOVE BEFORE RELEASE?
+#else// AXON REMOVE BEFORE RELEASE?
     // In this block we switch back into static mode when no animations are
     // playing. This is mostly useful for debugging.
     if (num_blocks > 0 && !avatarp->mPlaying)
