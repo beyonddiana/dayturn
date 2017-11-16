@@ -345,7 +345,6 @@ public:
 	// returns TRUE is any node is currenly worn as an attachment
 	BOOL isAttachment();
 
-    // AXON validate a potential link against limits
     bool checkAnimatedObjectEstTris();
     bool checkAnimatedObjectLinkable();
     
