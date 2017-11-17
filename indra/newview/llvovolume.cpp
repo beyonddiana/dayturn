@@ -3483,7 +3483,6 @@ bool LLVOVolume::isAnimatedObject() const
 void LLVOVolume::updateAnimatedObjectStateOnReparent(LLViewerObject *old_parent, LLViewerObject *new_parent)
 {
     LLVOVolume *old_volp = dynamic_cast<LLVOVolume*>(old_parent);
-    LLVOVolume *new_volp = dynamic_cast<LLVOVolume*>(new_parent);
 
     // AXON - depending on whether animated objects can be attached,
     // we may want to include or remove the isAvatar() check.
