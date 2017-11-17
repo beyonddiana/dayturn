@@ -4079,7 +4079,6 @@ void LLVOAvatar::updateTimeStep()
         // fixed.
 		mMotionController.setTimeStep(time_step);
 	}
-
 }
 
 void LLVOAvatar::updateRootPositionAndRotation(LLAgent& agent, F32 speed, bool was_sit_ground_constrained) 
@@ -4269,7 +4268,8 @@ BOOL LLVOAvatar::updateCharacter(LLAgent &agent)
 	// change animation time quanta based on avatar render load
     // AXON how should control avs be handled here?
 	//--------------------------------------------------------------------
-    updateTimeStep();
+    // SL-763 the time step quantization does not currently work.
+    //updateTimeStep();
     
 	//--------------------------------------------------------------------
     // Update sitting state based on parent and active animation info.
