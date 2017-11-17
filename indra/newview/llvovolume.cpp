@@ -5070,14 +5070,6 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 		pAvatarVO = bridge->mAvatar;
 	}
 
-	if (pAvatarVO)
-	{
-		pAvatarVO->mAttachmentGeometryBytes -= group->mGeometryBytes;
-		pAvatarVO->mAttachmentGeometryBytes = llmax(pAvatarVO->mAttachmentGeometryBytes, 0);
-		pAvatarVO->mAttachmentSurfaceArea -= group->mSurfaceArea;
-		pAvatarVO->mAttachmentSurfaceArea = llmax(pAvatarVO->mAttachmentSurfaceArea, 0.f);
-	}
-
 	group->mGeometryBytes = 0;
 	group->mSurfaceArea = 0;
 	
@@ -5694,28 +5686,6 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 	{
 		group->setState(LLSpatialGroup::MESH_DIRTY | LLSpatialGroup::NEW_DRAWINFO);
 	}
-
-	mFaceList.clear();
-
-	if (pAvatarVO)
-	{
-		if (pAvatarVO->mAttachmentGeometryBytes < 0)
-		{	// First time through value is -1
-			pAvatarVO->mAttachmentGeometryBytes = group->mGeometryBytes;
-		}
-		else
-		{
-		pAvatarVO->mAttachmentGeometryBytes += group->mGeometryBytes;
-		}
-		if (pAvatarVO->mAttachmentSurfaceArea < 0.f)
-		{	// First time through value is -1
-			pAvatarVO->mAttachmentSurfaceArea = group->mSurfaceArea;
-		}
-		else
-		{
-		pAvatarVO->mAttachmentSurfaceArea += group->mSurfaceArea;
-	}
-}
 }
 
 static LLTrace::BlockTimerStatHandle FTM_REBUILD_MESH_FLUSH("Flush Mesh");
