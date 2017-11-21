@@ -892,7 +892,7 @@
      reference="LtGray" />
     <color
      name="UserChatColor"
-     reference="Yellow" />
+     value="0.95 0.95 0.95 1" />
     <color
      name="llOwnerSayChatColor"
      reference="LtYellow" />
