@@ -32,6 +32,7 @@
 #include "stdtypes.h"
 #include "llbool.h"
 #include "llpreprocessor.h"
+#include <boost/functional/hash.hpp>
 
 class LLMutex;
 
@@ -163,6 +164,25 @@ public:
 	
 	static const LLTransactionID tnull;
 	LLAssetID makeAssetID(const LLUUID& session) const;
+};
+
+// Generate a hash of an LLUUID object using the boost hash templates.
+template <>
+struct boost::hash<LLUUID>
+{
+    typedef LLUUID argument_type;
+    typedef std::size_t result_type;
+    result_type operator()(argument_type const& s) const
+    {
+        result_type seed(0);
+        
+        for (S32 i = 0; i < UUID_BYTES; ++i)
+        {
+            boost::hash_combine(seed, s.mData[i]);
+        }
+        
+        return seed;
+    }
 };
 
 #endif
