@@ -763,7 +763,11 @@ U8* LLImageBase::allocateData(S32 size)
 	{
 		size = 0;
 		mWidth = mHeight = 0;
-		mData = NULL;
+		if (mData)
+		{
+			deleteData(); // virtual
+			mData = NULL;
+		}
 	}
 	mDataSize = size;
 	claimMem(mDataSize);
@@ -790,6 +794,7 @@ U8* LLImageBase::reallocateData(S32 size)
 	disclaimMem(mDataSize);
 	mDataSize = size;
 	claimMem(mDataSize);
+	mBadBufferAllocation = false;
 	return mData;
 }
 
