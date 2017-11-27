@@ -44,8 +44,8 @@
 	<color
 	 name="DkGray"
 	 value="0.125 0.125 0.125 1" />
-        <color
-              name="DkGray_42"
+    <color
+     name="DkGray_42"
 	 value="0.125 0.125 0.125 .42" />
 	<color
 	 name="DkGray_66"
@@ -134,7 +134,7 @@
   the viewer generates many warnings on startup. -->
   <color
 	 name="Unused?"
-	 value=".831 1 0 1" />
+	 value="0.642 0.803 0.999 1" />
 
   <!-- UI Definitions -->
 
@@ -452,7 +452,7 @@
      reference="Yellow" />
     <color
      name="HighlightInspectColor"
-     value="1 0 1 1" />
+     value="1 0.533 0.291 1" />
     <color
      name="HighlightParentColor"
      value="0.67 0.83 0.96 1" />
