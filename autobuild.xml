@@ -2890,9 +2890,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>7f9cc8a054f69323ac552f3139c3ddf9</string>
+              <string>511a9c3fd4b6c76a8a737d06bba1c291</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/ct2/9058/39730/slvoice-4.9.0002.27193.509044-darwin-509044.tar.bz2</string>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/oz-426-slvoice/rev/330003/arch/Darwin/installer/slvoice-4.9.0002.27586.330003-darwin-330003.tar.bz2</string>
             </map>
             <key>name</key>
             <string>darwin</string>
@@ -2902,11 +2902,11 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>bb48383ba0d0f26be1ba0fa943c5c9aa</string>
+              <string>785c86999b56e1838cefb430f674cba7</string>
               <key>hash_algorithm</key>
               <string>md5</string>
               <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-slvoice/downloads/slvoice-3.2.0002.10426.298329.201607192017-linux-201607192017.tar.bz2</string>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/oz-426-slvoice/rev/330003/arch/Linux/installer/slvoice-3.2.0002.10426.330003-linux-330003.tar.bz2</string>
             </map>
             <key>name</key>
             <string>linux</string>
@@ -2930,16 +2930,16 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>e1e885f127de8ab403948b22b6146164</string>
+              <string>4db77b9dc84767bf1fda40dbe0ca62e3</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/ct2/9123/40194/slvoice-4.9.0002.27193.509044-windows-509044.tar.bz2</string>
-              </map>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/oz-426-slvoice/rev/330003/arch/CYGWIN/installer/slvoice-4.9.0002.27586.330003-windows-330003.tar.bz2</string>
+            </map>
             <key>name</key>
             <string>windows</string>
           </map>
         </map>
         <key>version</key>
-        <string>4.9.0002.27193.509044</string>
+        <string>4.9.0002.27586.33003</string>
       </map>
       <key>tut</key>
       <map>
