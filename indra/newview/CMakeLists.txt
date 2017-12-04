@@ -632,6 +632,7 @@ set(viewer_SOURCE_FILES
     lltransientfloatermgr.cpp
     lltranslate.cpp
     lltwitterconnect.cpp
+    lluiavatar.cpp
     lluilistener.cpp
     lluploaddialog.cpp
     lluploadfloaterobservers.cpp
@@ -1273,6 +1274,7 @@ set(viewer_HEADER_FILES
     lltranslate.h
     lltwitterconnect.h
     lluiconstants.h
+    lluiavatar.h
     lluilistener.h
     lluploaddialog.h
     lluploadfloaterobservers.h
