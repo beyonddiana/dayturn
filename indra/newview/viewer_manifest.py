@@ -31,11 +31,12 @@ import os.path
 import shutil
 import errno
 import json
+import random
 import re
+import stat
+import subprocess
 import tarfile
 import time
-import random
-import subprocess
 
 viewer_dir = os.path.dirname(__file__)
 # Add indra/lib/python to our path so we don't have to muck with PYTHONPATH.
@@ -274,6 +275,130 @@ class ViewerManifest(LLManifest):
         random.shuffle(names)
         return ', '.join(names)
 
+    def relsymlinkf(self, src, dst=None, catch=True):
+        """
+        relsymlinkf() is just like symlinkf(), but instead of requiring the
+        caller to pass 'src' as a relative pathname, this method expects 'src'
+        to be absolute, and creates a symlink whose target is the relative
+        path from 'src' to dirname(dst).
+        """
+        dstdir, dst = self._symlinkf_prep_dst(src, dst)
+
+        # Determine the relative path starting from the directory containing
+        # dst to the intended src.
+        src = self.relpath(src, dstdir)
+
+        self._symlinkf(src, dst, catch)
+        return dst
+
+    def symlinkf(self, src, dst=None, catch=True):
+        """
+        Like ln -sf, but uses os.symlink() instead of running ln. This creates
+        a symlink at 'dst' that points to 'src' -- see:
+        https://docs.python.org/2/library/os.html#os.symlink
+
+        If you omit 'dst', this creates a symlink with basename(src) at
+        get_dst_prefix() -- in other words: put a symlink to this pathname
+        here at the current dst prefix.
+
+        'src' must specifically be a *relative* symlink. It makes no sense to
+        create an absolute symlink pointing to some path on the build machine!
+
+        Also:
+        - We prepend 'dst' with the current get_dst_prefix(), so it has similar
+          meaning to associated self.path() calls.
+        - We ensure that the containing directory os.path.dirname(dst) exists
+          before attempting the symlink.
+
+        If you pass catch=False, exceptions will be propagated instead of
+        caught.
+        """
+        dstdir, dst = self._symlinkf_prep_dst(src, dst)
+        self._symlinkf(src, dst, catch)
+        return dst
+
+    def _symlinkf_prep_dst(self, src, dst):
+        # helper for relsymlinkf() and symlinkf()
+        if dst is None:
+            dst = os.path.basename(src)
+        dst = os.path.join(self.get_dst_prefix(), dst)
+        # Seems silly to prepend get_dst_prefix() to dst only to call
+        # os.path.dirname() on it again, but this works even when the passed
+        # 'dst' is itself a pathname.
+        dstdir = os.path.dirname(dst)
+        self.cmakedirs(dstdir)
+        return dstdir, dst
+
+    def _symlinkf(self, src, dst, catch):
+        # helper for relsymlinkf() and symlinkf()
+        # the passed src must be relative
+        if os.path.isabs(src):
+            raise ManifestError("Do not symlinkf(absolute %r, asis=True)" % src)
+
+        # The outer catch is the one that reports failure even after attempted
+        # recovery.
+        try:
+            # At the inner layer, recovery may be possible.
+            try:
+                os.symlink(src, dst)
+            except OSError as err:
+                if err.errno != errno.EEXIST:
+                    raise
+                # We could just blithely attempt to remove and recreate the target
+                # file, but that strategy doesn't work so well if we don't have
+                # permissions to remove it. Check to see if it's already the
+                # symlink we want, which is the usual reason for EEXIST.
+                elif os.path.islink(dst):
+                    if os.readlink(dst) == src:
+                        # the requested link already exists
+                        pass
+                    else:
+                        # dst is the wrong symlink; attempt to remove and recreate it
+                        os.remove(dst)
+                        os.symlink(src, dst)
+                elif os.path.isdir(dst):
+                    print "Requested symlink (%s) exists but is a directory; replacing" % dst
+                    shutil.rmtree(dst)
+                    os.symlink(src, dst)
+                elif os.path.exists(dst):
+                    print "Requested symlink (%s) exists but is a file; replacing" % dst
+                    os.remove(dst)
+                    os.symlink(src, dst)
+                else:
+                    # out of ideas
+                    raise
+        except Exception as err:
+            # report
+            print "Can't symlink %r -> %r: %s: %s" % \
+                  (dst, src, err.__class__.__name__, err)
+            # if caller asked us not to catch, re-raise this exception
+            if not catch:
+                raise
+
+    def relpath(self, path, base=None, symlink=False):
+        """
+        Return the relative path from 'base' to the passed 'path'. If base is
+        omitted, self.get_dst_prefix() is assumed. In other words: make a
+        same-name symlink to this path right here in the current dest prefix.
+
+        Normally we resolve symlinks. To retain symlinks, pass symlink=True.
+        """
+        if base is None:
+            base = self.get_dst_prefix()
+
+        # Since we use os.path.relpath() for this, which is purely textual, we
+        # must ensure that both pathnames are absolute.
+        if symlink:
+            # symlink=True means: we know path is (or indirects through) a
+            # symlink, don't resolve, we want to use the symlink.
+            abspath = os.path.abspath
+        else:
+            # symlink=False means to resolve any symlinks we may find
+            abspath = os.path.realpath
+
+        return os.path.relpath(abspath(path), abspath(base))
+
+
 class Windows_i686_Manifest(ViewerManifest):
     def final_exe(self):
         return self.app_name_oneword()+".exe"
@@ -404,31 +529,19 @@ class Windows_i686_Manifest(ViewerManifest):
             self.end_prefix()
 
         # CEF runtime files - debug
-        if self.args['configuration'].lower() == 'debug':
-            with self.prefix(src=os.path.join(os.pardir, 'packages', 'bin', 'debug'), dst="llplugin"):
-                self.path("d3dcompiler_43.dll")
-                self.path("d3dcompiler_47.dll")
-                self.path("libcef.dll")
-                self.path("libEGL.dll")
-                self.path("libGLESv2.dll")
-                self.path("llceflib_host.exe")
-                self.path("natives_blob.bin")
-                self.path("snapshot_blob.bin")
-                self.path("widevinecdmadapter.dll")
-                self.path("wow_helper.exe")
-        else:
         # CEF runtime files - not debug (release, relwithdebinfo etc.)
-            with self.prefix(src=os.path.join(os.pardir, 'packages', 'bin', 'release'), dst="llplugin"):
-                self.path("d3dcompiler_43.dll")
-                self.path("d3dcompiler_47.dll")
-                self.path("libcef.dll")
-                self.path("libEGL.dll")
-                self.path("libGLESv2.dll")
-                self.path("llceflib_host.exe")
-                self.path("natives_blob.bin")
-                self.path("snapshot_blob.bin")
-                self.path("widevinecdmadapter.dll")
-                self.path("wow_helper.exe")
+        config = 'debug' if self.args['configuration'].lower() == 'debug' else 'release'
+        with self.prefix(src=os.path.join(pkgdir, 'bin', config), dst="llplugin"):
+            self.path("d3dcompiler_43.dll")
+            self.path("d3dcompiler_47.dll")
+            self.path("libcef.dll")
+            self.path("libEGL.dll")
+            self.path("libGLESv2.dll")
+            self.path("llceflib_host.exe")
+            self.path("natives_blob.bin")
+            self.path("snapshot_blob.bin")
+            self.path("widevinecdmadapter.dll")
+            self.path("wow_helper.exe")
 
         # MSVC DLLs needed for CEF and have to be in same directory as plugin
         with self.prefix(src=os.path.join(os.pardir, 'sharedlibs', 'Release'), dst="llplugin"):
@@ -436,7 +549,7 @@ class Windows_i686_Manifest(ViewerManifest):
             self.path("msvcr120.dll")
 
         # CEF files common to all configurations
-        with self.prefix(src=os.path.join(os.pardir, 'packages', 'resources'), dst="llplugin"):
+        with self.prefix(src=os.path.join(pkgdir, 'resources'), dst="llplugin"):
             self.path("cef.pak")
             self.path("cef_100_percent.pak")
             self.path("cef_200_percent.pak")
@@ -444,7 +557,7 @@ class Windows_i686_Manifest(ViewerManifest):
             self.path("devtools_resources.pak")
             self.path("icudtl.dat")
 
-        with self.prefix(src=os.path.join(os.pardir, 'packages', 'resources', 'locales'), dst=os.path.join('llplugin', 'locales')):
+        with self.prefix(src=os.path.join(pkgdir, 'resources', 'locales'), dst=os.path.join('llplugin', 'locales')):
             self.path("am.pak")
             self.path("ar.pak")
             self.path("bg.pak")
@@ -499,11 +612,11 @@ class Windows_i686_Manifest(ViewerManifest):
             self.path("zh-CN.pak")
             self.path("zh-TW.pak")
 
-        with self.prefix(src=os.path.join(os.pardir, 'packages', 'bin', 'release'), dst="llplugin"):
-            self.path("libvlc.dll")
-            self.path("libvlccore.dll")
-            self.path("plugins/")
-            self.end_prefix()
+            with self.prefix(src=os.path.join(pkgdir, 'bin', 'release'), dst="llplugin"):
+            	self.path("libvlc.dll")
+            	self.path("libvlccore.dll")
+            	self.path("plugins/")
+            	self.end_prefix()
 
         if not self.is_packaging_viewer():
             self.package_file = "copied_deps"    
@@ -651,47 +764,6 @@ class Windows_i686_Manifest(ViewerManifest):
 
 
 ################################################################
-
-def symlinkf(src, dst):
-    """
-    Like ln -sf, but uses os.symlink() instead of running ln.
-    """
-    try:
-        os.symlink(src, dst)
-    except OSError as err:
-        if err.errno != errno.EEXIST:
-            raise
-        # We could just blithely attempt to remove and recreate the target
-        # file, but that strategy doesn't work so well if we don't have
-        # permissions to remove it. Check to see if it's already the
-        # symlink we want, which is the usual reason for EEXIST.
-        elif os.path.islink(dst):
-            if os.readlink(dst) == src:
-                # the requested link already exists
-                pass
-            else:
-                # dst is the wrong symlink; attempt to remove and recreate it
-                os.remove(dst)
-                os.symlink(src, dst)
-        elif os.path.isdir(dst):
-            print "Requested symlink (%s) exists but is a directory; replacing" % dst
-            shutil.rmtree(dst)
-            os.symlink(src, dst)
-        elif os.path.exists(dst):
-            print "Requested symlink (%s) exists but is a file; replacing" % dst
-            os.remove(dst)
-            os.symlink(src, dst)
-        else:
-            # see if the problem is that the parent directory does not exist
-            # and try to explain what is missing
-            (parent, tail) = os.path.split(dst)
-            while not os.path.exists(parent):
-                (parent, tail) = os.path.split(parent)
-            if tail:
-                raise Exception("Requested symlink (%s) cannot be created because %s does not exist"
-                                % os.path.join(parent, tail))
-            else:
-                raise
 
 if __name__ == "__main__":
     try:
