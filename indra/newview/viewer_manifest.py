@@ -1165,7 +1165,7 @@ class LinuxManifest(ViewerManifest):
             self.path("kokuaos-bin","do-not-directly-run-kokuaos-bin")
             self.path("../linux_crash_logger/linux-crash-logger","linux-crash-logger.bin")
             self.path2basename("../llplugin/slplugin", "SLPlugin")
-            self.path2basename("../viewer_components/updater/scripts/linux", "update_install")
+#            self.path2basename("../viewer_components/updater/scripts/linux", "update_install")
             self.end_prefix("bin")
 
         if self.prefix("res-sdl"):
@@ -1277,11 +1277,11 @@ class LinuxManifest(ViewerManifest):
 
         self.path("featuretable_linux.txt")
 
-    def copy_finish(self):
-        # Force executable permissions to be set for scripts
-        # see CHOP-223 and http://mercurial.selenic.com/bts/issue1802
-        for script in 'kokua', 'bin/update_install':
-            self.run_command("chmod +x %r" % os.path.join(self.get_dst_prefix(), script))
+#    def copy_finish(self): 
+#       # Force executable permissions to be set for scripts
+#        # see CHOP-223 and http://mercurial.selenic.com/bts/issue1802
+#        for script in 'kokua', 'bin/update_install':                                   #Drakeo someone took it out of indra
+#            self.run_command("chmod +x %r" % os.path.join(self.get_dst_prefix(), script))
 
     def package_finish(self):
         installer_name = self.installer_base_name()
