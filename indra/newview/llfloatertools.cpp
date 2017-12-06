@@ -1422,18 +1422,12 @@ void LLFloaterTools::getMediaState()
 			{
 				// initial media title is the media URL (until we get the name)
 				media_title = media_data_get.getHomeURL();
-				navigateToTitleMedia(media_title);
 			}
-			else
-			{
-				// all faces might be empty. Make sure we will navigate next time.
-				navigateToTitleMedia(std::string());
-			}
+			// else all faces might be empty. 
 		}
 		else // there' re Different Medias' been set on on the faces.
 		{
 			media_title = multi_media_info_str;
-			navigateToTitleMedia(media_title);
 		}
 		
 		getChildView("media_tex")->setEnabled(bool_has_media && editable);
@@ -1450,7 +1444,6 @@ void LLFloaterTools::getMediaState()
 		if(LLFloaterMediaSettings::getInstance()->mMultipleValidMedia)
 		{
 			media_title = multi_media_info_str;
-			navigateToTitleMedia(media_title);
 		}
 		else
 		{
@@ -1459,12 +1452,6 @@ void LLFloaterTools::getMediaState()
 			{
 				// initial media title is the media URL (until we get the name)
 				media_title = media_data_get.getHomeURL();
-				navigateToTitleMedia(media_title);
-			}
-			else
-			{
-				// Make sure we will navigate next time.
-				navigateToTitleMedia(std::string());
 			}
 		}
 		
@@ -1473,6 +1460,8 @@ void LLFloaterTools::getMediaState()
 		getChildView("delete_media")->setEnabled(TRUE);
 		getChildView("add_media")->setEnabled(editable);
 	}
+
+	navigateToTitleMedia(media_title);
 	media_info->setText(media_title);
 	
 	// load values for media settings
