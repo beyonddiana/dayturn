@@ -10596,6 +10596,14 @@ Unable to create requested object. The region is full.
 Unable to create requested animated object because it exceeds the size limit.
   </notification>
 
+   <notification
+    icon="alertmodal.tga"
+   name="CantCreateAnimatedObjectTooLarge"
+   type="notify">
+   <tag>fail</tag>
+Unable to create requested animated object because it exceeds the size limit.
+  </notification>
+
   <notification
    icon="alertmodal.tga"
    name="CantAttackMultipleObjOneSpot"
