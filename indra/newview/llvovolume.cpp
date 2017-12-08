@@ -3455,7 +3455,7 @@ bool LLVOVolume::canBeAnimatedObject() const
     F32 est_tris = recursiveGetEstTrianglesMax();
     if (est_tris < 0 || est_tris > getAnimatedObjectMaxTris())
     {
-        LL_DEBUGS("AXON") << "est_tris " << est_tris << " is outside limit of 0-" << getAnimatedObjectMaxTris() << LL_ENDL;
+        // LL_DEBUGS("AXON") << "est_tris " << est_tris << " is outside limit of 0-" << getAnimatedObjectMaxTris() << LL_ENDL;
         return false;
     }
     return true;
