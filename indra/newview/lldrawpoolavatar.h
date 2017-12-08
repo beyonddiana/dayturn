@@ -178,6 +178,8 @@ typedef enum
 	virtual S32 getVertexShaderLevel() const;
 
 	LLDrawPoolAvatar();
+    ~LLDrawPoolAvatar();
+    /*virtual*/ BOOL isDead();
 
 	static LLMatrix4& getModelView();
 
