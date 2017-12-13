@@ -304,6 +304,8 @@ public:
 	virtual std::string getLabelSuffix() const;
 	virtual LLFontGL::StyleFlags getLabelStyle() const;
 
+	void setShowDescendantsCount(bool show_count) {mShowDescendantsCount = show_count;}
+
 	virtual BOOL renameItem(const std::string& new_name);
 
 	virtual BOOL removeItem();
@@ -384,6 +386,7 @@ protected:
 	bool							mCallingCards;
 	bool							mWearables;
 	bool							mIsLoading;
+	bool							mShowDescendantsCount;
 	LLTimer							mTimeSinceRequestStart;
     std::string                     mMessage;
 	LLRootHandle<LLFolderBridge> mHandle;
