@@ -3696,7 +3696,10 @@ void LLVOAvatar::updateDebugText()
                         LLVOVolume *volp = control_av->mRootVolp;
                         if (volp)
                         {
-                            volp->requestInventory(); 
+                            if (volp->getInventorySerial()<=0)
+                            {
+                                volp->requestInventory(); 
+                            }
                             LLViewerInventoryItem* item = volp->getInventoryItemByAsset(motionp->getID());
                             if (item)
                             {
