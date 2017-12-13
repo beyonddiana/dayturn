@@ -766,8 +766,17 @@ void LLPanelMainInventory::updateItemcountText()
 		LLResMgr::getInstance()->getIntegerString(mItemCountString, mItemCount);
 	}
 
+	if(mCategoryCount != gInventory.getCategoryCount())
+	{
+		mCategoryCount = gInventory.getCategoryCount();
+		mCategoryCountString = "";
+		LLLocale locale(LLLocale::USER_LOCALE);
+		LLResMgr::getInstance()->getIntegerString(mCategoryCountString, mCategoryCount);
+	}
+
 	LLStringUtil::format_map_t string_args;
 	string_args["[ITEM_COUNT]"] = mItemCountString;
+	string_args["[CATEGORY_COUNT]"] = mCategoryCountString;
 	string_args["[FILTER]"] = getFilterText();
 
 	std::string text = "";
@@ -786,6 +795,7 @@ void LLPanelMainInventory::updateItemcountText()
 	}
 	
     mCounterCtrl->setValue(text);
+    mCounterCtrl->setToolTip(text);
 }
 
 void LLPanelMainInventory::onFocusReceived()
