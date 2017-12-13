@@ -301,10 +301,6 @@ void LLControlAvatar::updateDebugText()
         addDebugText(llformat("region %x %s skel %x %s",
                               mRootVolp->getRegion(), region_name.c_str(),
                               getRegion(), skel_region_name.c_str()));
-        //addDebugText(llformat("anim time %.1f (step %f factor %f)", 
-        //                      mMotionController.getAnimTime(),
-        //                      mMotionController.getTimeStep(), 
-        //                      mMotionController.getTimeFactor()));
     }
 
     LLVOAvatar::updateDebugText();
