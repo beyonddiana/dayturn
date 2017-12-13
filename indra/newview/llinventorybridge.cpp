@@ -2270,7 +2270,9 @@ std::string LLFolderBridge::getLabelSuffix() const
         {
             std::ostringstream oss;
             oss << count;
-            suffix = " ( " + oss.str() + " Items )";
+            LLStringUtil::format_map_t args;
+            args["[ITEMS_COUNT]"] = oss.str();
+            suffix = " " + LLTrans::getString("InventoryItemsCount", args);
         }
     }
 
