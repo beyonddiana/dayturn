@@ -913,7 +913,6 @@ bool idle_startup()
 //		set_startup_status(0.03f, msg.c_str(), gAgent.mMOTD.c_str());
 //		display_startup();
 //		// LLViewerMedia::initBrowser();
-		show_release_notes_if_required();
 		LLStartUp::setStartupState( STATE_LOGIN_SHOW );
 //		return FALSE;
 	}
@@ -947,7 +946,8 @@ bool idle_startup()
 			init_menus();
 //			display_startup();
 		}
-
+		show_release_notes_if_required();
+		
 		if (show_connect_box)
 		{
 			LL_DEBUGS("AppInit") << "show_connect_box on" << LL_ENDL;
