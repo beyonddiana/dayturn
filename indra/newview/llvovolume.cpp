@@ -222,6 +222,7 @@ LLVOVolume::LLVOVolume(const LLUUID &id, const LLPCode pcode, LLViewerRegion *re
 
 	mFaceMappingChanged = FALSE;
 	mLOD = MIN_LOD;
+	mLODAdjustedDistance = 0.0f;
 	mTextureAnimp = NULL;
 	mVolumeChanged = FALSE;
 	mVObjRadius = LLVector3(1,1,0.5f).length();
@@ -1308,49 +1309,49 @@ BOOL LLVOVolume::calcLOD()
 		lod_factor *= DEFAULT_FIELD_OF_VIEW / LLViewerCamera::getInstance()->getDefaultFOV();
 	}
 
-	cur_detail = computeLODDetail(ll_round(distance, 0.01f), 
-									ll_round(radius, 0.01f),
-									lod_factor);
+    mLODAdjustedDistance = distance;
+
+    if (isHUDAttachment())
+    {
+        // HUDs always show at highest detail
+        cur_detail = 3;
+    }
+    else
+    {
+        cur_detail = computeLODDetail(ll_round(distance, 0.01f), ll_round(radius, 0.01f), lod_factor);
+    }
+
+
 									
     if (gPipeline.hasRenderDebugMask(LLPipeline::RENDER_DEBUG_TRIANGLE_COUNT) && mDrawable->getFace(0))
     {
-        S32 my_tris = getTriangleCount();
-        if (isRootEdit() && getChildren().size()>0)
+        if (isRootEdit())
         {
-            S32 total_tris = my_tris;
-            LLViewerObject::const_child_list_t& child_list = getChildren();
-            for (LLViewerObject::const_child_list_t::const_iterator iter = child_list.begin();
-                 iter != child_list.end(); ++iter)
-            {
-                LLViewerObject* childp = *iter;
-                LLVOVolume *child_volp = dynamic_cast<LLVOVolume*>(childp);
-                if (child_volp)
-                {
-                    total_tris += child_volp->getTriangleCount();
-                }
-            }
-            setDebugText(llformat("TRIS %d TOTAL %d", my_tris, total_tris));
+            S32 total_tris = recursiveGetTriangleCount();
+            S32 est_max_tris = recursiveGetEstTrianglesMax();
+            setDebugText(llformat("TRIS SHOWN %d EST %d", total_tris, est_max_tris));
         }
-        else
-        {
-            setDebugText(llformat("TRIS %d", my_tris));
-        }
-	
     }
 									
 
 	if (gPipeline.hasRenderDebugMask(LLPipeline::RENDER_DEBUG_LOD_INFO) &&
 		mDrawable->getFace(0))
 	{
-		//setDebugText(llformat("%.2f:%.2f, %d", mDrawable->mDistanceWRTCamera, radius, cur_detail));
-
-		setDebugText(llformat("%d", mDrawable->getFace(0)->getTextureIndex()));
+        // This is a debug display for LODs. Please don't put the texture index here.
+        setDebugText(llformat("%d", cur_detail));
 	}
 
 	if (cur_detail != mLOD)
 	{
+        LL_DEBUGS("DynamicBox","CalcLOD") << "new LOD " << cur_detail << " change from " << mLOD 
+                             << " distance " << distance << " radius " << radius << " rampDist " << rampDist
+                             << " drawable rigged? " << (mDrawable ? (S32) mDrawable->isState(LLDrawable::RIGGED) : (S32) -1)
+							 << " mRiggedVolume " << (void*)getRiggedVolume()
+                             << " distanceWRTCamera " << (mDrawable ? mDrawable->mDistanceWRTCamera : -1.f)
+                             << LL_ENDL;
+        
 		mAppAngle = ll_round((F32) atan2( mDrawable->getRadius(), mDrawable->mDistanceWRTCamera) * RAD_TO_DEG, 0.01f);
-		mLOD = cur_detail;		
+		mLOD = cur_detail;						
 		return TRUE;
 	}
 
