@@ -217,6 +217,8 @@ public:
 	void updateShowInboxFolder(const LLSD &data);
 	static void idle(void* user_data);
 
+	void updateFolderLabel(const LLUUID& folder_id);
+
 	// DEBUG ONLY:
 	static void dumpSelectionInformation(void* user_data);
 
