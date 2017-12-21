@@ -5204,36 +5204,11 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
             // AXON this includes attached animeshes but leaves out standalone ones. Fix.
 			bool rigged = vobj->isRiggedMesh() && vobj->isAttachment();
 						
-            if (vobj->isAnimatedObject())
+            vobj->updateControlAvatar();
+            if (vobj->getControlAvatar())
             {
-                if (!vobj->getControlAvatar())
-                {
-                    F32 tri_count = vobj->getRootEdit()->recursiveGetEstTrianglesMax();
-                    if (tri_count <= 0.f)
-                    {
-                        LL_DEBUGS("AnimatedObjects") << vobj_name << " not calling linkControlAvatar(), because no tris" << LL_ENDL;
-                    }
-                    else
-                    {
-                        LL_DEBUGS("AnimatedObjects") << vobj_name << " calling linkControlAvatar()" << LL_ENDL;
-                        vobj->linkControlAvatar();
-                    }
-                }
-                if (vobj->getControlAvatar())
-                {
-                    pAvatarVO = vobj->getControlAvatar();
-                    pAvatarVO->rebuildAttachmentOverrides();
-                }
-            }
-            else
-            {
-                // Not animated but has a control avatar - probably
-                // the checkbox has changed since the last rebuild.
-                if (vobj->getControlAvatar())
-                {
-                    LL_DEBUGS("AnimatedObjects") << vobj_name << " calling unlinkControlAvatar()" << LL_ENDL;
-                    vobj->unlinkControlAvatar();
-                }
+                pAvatarVO = vobj->getControlAvatar();
+                pAvatarVO->rebuildAttachmentOverrides();
             }
 						
 			bool bake_sunlight = LLPipeline::sBakeSunlight && drawablep->isStatic();
