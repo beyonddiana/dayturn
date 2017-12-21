@@ -612,11 +612,10 @@ class Windows_i686_Manifest(ViewerManifest):
             self.path("zh-CN.pak")
             self.path("zh-TW.pak")
 
-            with self.prefix(src=os.path.join(pkgdir, 'bin', 'release'), dst="llplugin"):
-            	self.path("libvlc.dll")
-            	self.path("libvlccore.dll")
-            	self.path("plugins/")
-            	self.end_prefix()
+        with self.prefix(src=os.path.join(pkgdir, 'bin', 'release'), dst="llplugin"):
+            self.path("libvlc.dll")
+            self.path("libvlccore.dll")
+            self.path("plugins/")
 
         if not self.is_packaging_viewer():
             self.package_file = "copied_deps"    
