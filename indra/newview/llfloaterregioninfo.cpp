@@ -306,7 +306,7 @@ void LLFloaterRegionInfo::requestRegionInfo()
 void LLFloaterRegionInfo::processEstateOwnerRequest(LLMessageSystem* msg,void**)
 {
 	static LLDispatcher dispatch;
-	LLFloaterRegionInfo* floater = LLFloaterReg::getTypedInstance<LLFloaterRegionInfo>("region_info");
+	LLFloaterRegionInfo* floater = LLFloaterReg::findTypedInstance<LLFloaterRegionInfo>("region_info");
 	if(!floater)
 	{
 		return;
@@ -342,7 +342,7 @@ void LLFloaterRegionInfo::processEstateOwnerRequest(LLMessageSystem* msg,void**)
 void LLFloaterRegionInfo::processRegionInfo(LLMessageSystem* msg)
 {
 	LLPanel* panel;
-	LLFloaterRegionInfo* floater = LLFloaterReg::getTypedInstance<LLFloaterRegionInfo>("region_info");
+	LLFloaterRegionInfo* floater = LLFloaterReg::findTypedInstance<LLFloaterRegionInfo>("region_info");
 	if(!floater)
 	{
 		return;
