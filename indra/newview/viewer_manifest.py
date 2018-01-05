@@ -90,11 +90,11 @@ class ViewerManifest(LLManifest):
                 pkgdir = os.path.join(self.args['build'], os.pardir, 'packages')
                 if self.prefix(src=pkgdir,dst=""):
                     self.path("dictionaries")
-                    self.path("ca-bundle.crt")
                     self.end_prefix(pkgdir)
 
                 # include the extracted packages information (see BuildPackagesInfo.cmake)
                 self.path(src=os.path.join(self.args['build'],"packages-info.txt"), dst="packages-info.txt")
+
                 # CHOP-955: If we have "sourceid" or "viewer_channel" in the
                 # build process environment, generate it into
                 # settings_install.xml.
@@ -359,8 +359,6 @@ class Windows_i686_Manifest(ViewerManifest):
                                         'llplugin', 'slplugin', self.args['configuration']),
                            "slplugin.exe")
         
-        self.path(src="../viewer_components/updater/scripts/windows/update_install.bat", dst="update_install.bat")
-
         # Get shared libs from the shared libs staging directory
         if self.prefix(src=os.path.join(os.pardir, 'sharedlibs', self.args['configuration']),
                        dst=""):
@@ -398,18 +396,18 @@ class Windows_i686_Manifest(ViewerManifest):
             else:
                 self.path("openjpeg.dll")
 
-                # These need to be installed as a SxS assembly, currently a 'private' assembly.
-                # See http://msdn.microsoft.com/en-us/library/ms235291(VS.80).aspx
-                if self.args['configuration'].lower() == 'debug':
-                  self.path("msvcr120d.dll")
-                  self.path("msvcp120d.dll")
-                  self.path("msvcr100d.dll")
-                  self.path("msvcp100d.dll")
-                else:
-                  self.path("msvcr120.dll")
-                  self.path("msvcp120.dll")
-                  self.path("msvcr100.dll")
-                  self.path("msvcp100.dll")
+            # These need to be installed as a SxS assembly, currently a 'private' assembly.
+            # See http://msdn.microsoft.com/en-us/library/ms235291(VS.80).aspx
+            if self.args['configuration'].lower() == 'debug':
+                 self.path("msvcr120d.dll")
+                 self.path("msvcp120d.dll")
+                 self.path("msvcr100d.dll")
+                 self.path("msvcp100d.dll")
+            else:
+                 self.path("msvcr120.dll")
+                 self.path("msvcp120.dll")
+                 self.path("msvcr100.dll")
+                 self.path("msvcp100.dll")
 
             # Vivox runtimes
 #            self.path("wrap_oal.dll") no longer in archive
@@ -848,6 +846,7 @@ class Darwin_i386_Manifest(ViewerManifest):
                                 'libvivoxoal.dylib',
                                 'libvivoxsdk.dylib',
                                 'libvivoxplatform.dylib',
+                                'ca-bundle.crt',
                                 'SLVoice',
                                 ):
                      self.path2basename(relpkgdir, libfile)
@@ -960,13 +959,6 @@ class Darwin_i386_Manifest(ViewerManifest):
             "unpacked" in self.args['actions']):
             self.run_command('strip -S %(viewer_binary)r' %
                              { 'viewer_binary' : self.dst_path_of('Contents/MacOS/KokuaOS')})
-
-
-    def copy_finish(self):
-        # Force executable permissions to be set for scripts
-        # see CHOP-223 and http://mercurial.selenic.com/bts/issue1802
-        for script in 'Contents/MacOS/update_install.py',:
-            self.run_command("chmod +x %r" % os.path.join(self.get_dst_prefix(), script))
 
     def package_finish(self):
         global CHANNEL_VENDOR_BASE
@@ -1107,6 +1099,7 @@ class Darwin_i386_Manifest(ViewerManifest):
                     self.run_command('spctl -a -texec -vv %(bundle)r' % { 'bundle': app_in_dmg })
             imagename="Kokua_OS_" + '_'.join(self.args['version'])
 
+
         finally:
             # Unmount the image even if exceptions from any of the above 
             self.run_command('hdiutil detach -force %r' % devfile)
@@ -1165,7 +1158,6 @@ class LinuxManifest(ViewerManifest):
             self.path("kokuaos-bin","do-not-directly-run-kokuaos-bin")
             self.path("../linux_crash_logger/linux-crash-logger","linux-crash-logger.bin")
             self.path2basename("../llplugin/slplugin", "SLPlugin")
-#            self.path2basename("../viewer_components/updater/scripts/linux", "update_install")
             self.end_prefix("bin")
 
         if self.prefix("res-sdl"):
@@ -1277,12 +1269,6 @@ class LinuxManifest(ViewerManifest):
 
         self.path("featuretable_linux.txt")
 
-#    def copy_finish(self): 
-#       # Force executable permissions to be set for scripts
-#        # see CHOP-223 and http://mercurial.selenic.com/bts/issue1802
-#        for script in 'kokua', 'bin/update_install':                                   #Drakeo someone took it out of indra
-#            self.run_command("chmod +x %r" % os.path.join(self.get_dst_prefix(), script))
-
     def package_finish(self):
         installer_name = self.installer_base_name()
 
@@ -1324,7 +1310,7 @@ class LinuxManifest(ViewerManifest):
     def strip_binaries(self):
         if self.args['buildtype'].lower() == 'release' and self.is_packaging_viewer():
             print "* Going strip-crazy on the packaged binaries, since this is a RELEASE build"
-            self.run_command(r"find %(d)r/bin %(d)r/lib %(d)r/lib32 %(d)r/lib64 -type f \! -name update_install \! -name *.pak \! -name *.dat \! -name *.bin \! -path '*win32*'| xargs --no-run-if-empty strip -S" % {'d': self.get_dst_prefix()} ) # makes some small assumptions about our packaged dir structure
+            self.run_command(r"find %(d)r/bin %(d)r/lib %(d)r/lib32 %(d)r/lib64 -type f  \! -name *.pak \! -name *.dat \! -name *.bin \! -path '*win32*'| xargs --no-run-if-empty strip -S" % {'d': self.get_dst_prefix()} ) # makes some small assumptions about our packaged dir structure
 
 
 
