@@ -198,6 +198,10 @@ void MediaPluginCEF::onPageChangedCallback(unsigned char* pixels, int x, int y, 
 			{
 				memcpy(mPixels, pixels, mWidth * mHeight * mDepth);
 			}
+		    else
+		    {
+			    mLLCEFLib->setSize(mWidth, mHeight);
+		    }
 			if( mPopupBuffer && mPopupH && mPopupW )
 			{
 				U32 bufferSize = mWidth * mHeight * mDepth;
@@ -563,10 +567,10 @@ void MediaPluginCEF::receiveMessage(const char* message_string)
 
 						mTextureWidth = texture_width;
 						mTextureHeight = texture_height;
+						
+						mLLCEFLib->setSize(mWidth, mHeight);
 					};
 				};
-
-				mLLCEFLib->setSize(mWidth, mHeight);
 
 				LLPluginMessage message(LLPLUGIN_MESSAGE_CLASS_MEDIA, "size_change_response");
 				message.setValue("name", name);
