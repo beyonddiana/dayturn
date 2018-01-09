@@ -106,6 +106,8 @@ LLFontFreetype::LLFontFreetype()
 	mAscender(0.f),
 	mDescender(0.f),
 	mLineHeight(0.f),
+	pFontBuffer(NULL),
+	mBufferSize(0),
 	mIsFallback(FALSE),
 	mFTFace(NULL),
 	mRenderGlyphCount(0),
@@ -133,6 +135,8 @@ LLFontFreetype::~LLFontFreetype()
 	mCharGlyphInfoMap.clear();
 
 	delete mFontBitmapCachep;
+	delete pFontBuffer;
+	disclaimMem(mBufferSize);
 	// mFallbackFonts cleaned up by LLPointer destructor
 	
 	for (S32 i = 0; i < 256; ++i)
@@ -154,13 +158,17 @@ BOOL LLFontFreetype::loadFace(const std::string& filename, F32 point_size, F32 v
 	
 	int error;
 
+
 	error = FT_New_Face( gFTLibrary,
 						 filename.c_str(),
 						 0,
-						 &mFTFace );
+						 &mFTFace);
 
-    if (error)
+	if (error)
 	{
+		delete pFontBuffer;
+		pFontBuffer = NULL;
+		mBufferSize = 0;
 		return FALSE;
 	}
 
@@ -177,9 +185,14 @@ BOOL LLFontFreetype::loadFace(const std::string& filename, F32 point_size, F32 v
 	{
 		// Clean up freetype libs.
 		FT_Done_Face(mFTFace);
+		delete pFontBuffer;
+		pFontBuffer = NULL;
+		mBufferSize = 0;
 		mFTFace = NULL;
 		return FALSE;
 	}
+
+	claimMem(mBufferSize);
 
 	F32 y_max, y_min, x_max, x_min;
 	F32 ems_per_unit = 1.f/ mFTFace->units_per_EM;
