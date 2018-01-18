@@ -44,7 +44,7 @@ LLCoros::LLCoros():
     // Previously we used
     // boost::context::guarded_stack_allocator::default_stacksize();
     // empirically this is 64KB on Windows and Linux. Try quadrupling.
-    mStackSize(256*1024)
+    mStackSize(512*1024)
 {
     // Register our cleanup() method for "mainloop" ticks
     LLEventPumps::instance().obtain("mainloop").listen(
