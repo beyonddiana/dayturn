@@ -1484,7 +1484,7 @@ BOOL LLVOVolume::setParent(LLViewerObject* parent)
 			gPipeline.markMoved(mDrawable);
 			gPipeline.markRebuild(mDrawable, LLDrawable::REBUILD_VOLUME, TRUE);
 		}
-        updateAnimatedObjectStateOnReparent(old_parent, parent);
+        onReparent(old_parent, parent);
 	}
 
 	return ret ;
@@ -3481,8 +3481,10 @@ bool LLVOVolume::isAnimatedObject() const
 
 // Called any time parenting changes for a volume. Update flags and
 // control av accordingly.  This is called after parent has been
-// changed to new_parent.
-void LLVOVolume::updateAnimatedObjectStateOnReparent(LLViewerObject *old_parent, LLViewerObject *new_parent)
+// changed to new_parent, but before new_parent's mChildList has changed.
+
+// virtual
+void LLVOVolume::onReparent(LLViewerObject *old_parent, LLViewerObject *new_parent)
 {
     LLVOVolume *old_volp = dynamic_cast<LLVOVolume*>(old_parent);
 
@@ -3496,11 +3498,6 @@ void LLVOVolume::updateAnimatedObjectStateOnReparent(LLViewerObject *old_parent,
             mControlAvatar = NULL;
             av->markForDeath();
         }
-        // If this succeeds now, it's because the new_parent is an animated object
-        if (isAnimatedObject() && getControlAvatar())
-        {
-            getControlAvatar()->addAttachmentOverridesForObject(this);
-        }
     }
     if (old_volp && old_volp->isAnimatedObject())
     {
@@ -3508,7 +3505,22 @@ void LLVOVolume::updateAnimatedObjectStateOnReparent(LLViewerObject *old_parent,
         {
             // We have been removed from an animated object, need to do cleanup.
             old_volp->getControlAvatar()->rebuildAttachmentOverrides();
+            old_volp->getControlAvatar()->updateAnimations();
         }
+    }
+}
+
+// This needs to be called after onReparent(), because mChildList is
+// not updated until the end of LLViewerObject::addChild()
+
+// virtual
+void LLVOVolume::afterReparent()
+{
+    // If this succeeds now, it's because the new parent is an animated object
+    if (isAnimatedObject() && getControlAvatar())
+    {
+        getControlAvatar()->addAttachmentOverridesForObject(this);
+        getControlAvatar()->updateAnimations();
     }
 }
 

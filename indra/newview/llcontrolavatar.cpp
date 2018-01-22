@@ -366,8 +366,17 @@ void LLControlAvatar::updateAnimations()
             }
         }
     }
-    mSignaledAnimations = anims;
+    if (!mPlaying && anims.size()>0)
+    {
+        mPlaying = true;
+        if (!mRootVolp->isAnySelected())
+        {
+            updateVolumeGeom();
+            mRootVolp->recursiveMarkForUpdate(TRUE);
+        }
+    }
 
+    mSignaledAnimations = anims;
     processAnimationStateChanges();
 }
 

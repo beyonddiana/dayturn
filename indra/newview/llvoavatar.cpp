@@ -3601,145 +3601,220 @@ bool LLVOAvatar::isInMuteList()
 	return muted;
 }
 
-void LLVOAvatar::updateDebugText()
+void LLVOAvatar::updateAppearanceMessageDebugText()
 {
-    // Leave mDebugText uncleared here, in case a derived class has added some state first
-	static LLCachedControl<bool> debug_avatar_appearance_message(gSavedSettings, "DebugAvatarAppearanceMessage", false);
-	if (debug_avatar_appearance_message) {
-
-		S32 central_bake_version = -1;
-		if (getRegion())
-		{
-			central_bake_version = getRegion()->getCentralBakeVersion();
-		}
-		bool all_baked_downloaded = allBakedTexturesCompletelyDownloaded();
-		bool all_local_downloaded = allLocalTexturesCompletelyDownloaded();
-		std::string debug_line = llformat("%s%s - mLocal: %d, mEdit: %d, mUSB: %d, CBV: %d",
-										  isSelf() ? (all_local_downloaded ? "L" : "l") : "-",
-										  all_baked_downloaded ? "B" : "b",
-										  mUseLocalAppearance, mIsEditingAppearance,
-										  mUseServerBakes, central_bake_version);
-		std::string origin_string = bakedTextureOriginInfo();
-		debug_line += " [" + origin_string + "]";
-		S32 curr_cof_version = LLAppearanceMgr::instance().getCOFVersion();
-		S32 last_request_cof_version = mLastUpdateRequestCOFVersion;
-		S32 last_received_cof_version = mLastUpdateReceivedCOFVersion;
-		if (isSelf())
-		{
-			debug_line += llformat(" - cof: %d req: %d rcv:%d",
-								   curr_cof_version, last_request_cof_version, last_received_cof_version);
-			static LLCachedControl<bool> debug_force_appearance_request_failure(gSavedSettings, "DebugForceAppearanceRequestFailure", false);
-
-			if (debug_force_appearance_request_failure) {
-				debug_line += " FORCING ERRS";
-			}
-		}
-		else
-		{
-			debug_line += llformat(" - cof rcv:%d", last_received_cof_version);
-		}
-		debug_line += llformat(" bsz-z: %.3f", mBodySize[2]);
-        if (mAvatarOffset[2] != 0.0f)
+    S32 central_bake_version = -1;
+    if (getRegion())
+    {
+        central_bake_version = getRegion()->getCentralBakeVersion();
+    }
+    bool all_baked_downloaded = allBakedTexturesCompletelyDownloaded();
+    bool all_local_downloaded = allLocalTexturesCompletelyDownloaded();
+    std::string debug_line = llformat("%s%s - mLocal: %d, mEdit: %d, mUSB: %d, CBV: %d",
+                                      isSelf() ? (all_local_downloaded ? "L" : "l") : "-",
+                                      all_baked_downloaded ? "B" : "b",
+                                      mUseLocalAppearance, mIsEditingAppearance,
+                                      1, central_bake_version);
+    std::string origin_string = bakedTextureOriginInfo();
+    debug_line += " [" + origin_string + "]";
+    S32 curr_cof_version = LLAppearanceMgr::instance().getCOFVersion();
+    S32 last_request_cof_version = mLastUpdateRequestCOFVersion;
+    S32 last_received_cof_version = mLastUpdateReceivedCOFVersion;
+    if (isSelf())
+    {
+        debug_line += llformat(" - cof: %d req: %d rcv:%d",
+                               curr_cof_version, last_request_cof_version, last_received_cof_version);
+        if (gSavedSettings.getBOOL("DebugForceAppearanceRequestFailure"))
         {
-            debug_line += llformat("avofs-z: %.3f", mAvatarOffset[2]);
+            debug_line += " FORCING ERRS";
         }
-		bool hover_enabled = getRegion() && getRegion()->avatarHoverHeightEnabled();
-		debug_line += hover_enabled ? " H" : " h";
-		const LLVector3& hover_offset = getHoverOffset();
-		if (hover_offset[2] != 0.0)
-		{
-			debug_line += llformat(" hov_z: %.3f", hover_offset[2]);
-			debug_line += llformat(" %s", (isSitting() ? "S" : "T"));
-			debug_line += llformat("%s", (isMotionActive(ANIM_AGENT_SIT_GROUND_CONSTRAINED) ? "G" : "-"));
-		}
-        LLVector3 ankle_right_pos_agent = mFootRightp->getWorldPosition();
-		LLVector3 normal;
-        LLVector3 ankle_right_ground_agent = ankle_right_pos_agent;
-        resolveHeightAgent(ankle_right_pos_agent, ankle_right_ground_agent, normal);
-        F32 rightElev = llmax(-0.2f, ankle_right_pos_agent.mV[VZ] - ankle_right_ground_agent.mV[VZ]);
-        debug_line += llformat(" relev %.3f", rightElev);
+    bool hover_enabled = getRegion() && getRegion()->avatarHoverHeightEnabled();
+    debug_line += hover_enabled ? " H" : " h";
+    const LLVector3& hover_offset = getHoverOffset();
+    if (hover_offset[2] != 0.0)
+    {
+        debug_line += llformat(" hov_z: %.3f", hover_offset[2]);
+        debug_line += llformat(" %s", (isSitting() ? "S" : "T"));
+        debug_line += llformat("%s", (isMotionActive(ANIM_AGENT_SIT_GROUND_CONSTRAINED) ? "G" : "-"));
+    }
+    LLVector3 ankle_right_pos_agent = mFootRightp->getWorldPosition();
+    LLVector3 normal;
+    LLVector3 ankle_right_ground_agent = ankle_right_pos_agent;
+    resolveHeightAgent(ankle_right_pos_agent, ankle_right_ground_agent, normal);
+    F32 rightElev = llmax(-0.2f, ankle_right_pos_agent.mV[VZ] - ankle_right_ground_agent.mV[VZ]);
+    debug_line += llformat(" relev %.3f", rightElev);
+    
+    LLVector3 root_pos = mRoot->getPosition();
+    LLVector3 pelvis_pos = mPelvisp->getPosition();
+    debug_line += llformat(" rp %.3f pp %.3f", root_pos[2], pelvis_pos[2]);
+    
+    S32 is_visible = (S32) isVisible();
+    S32 is_m_visible = (S32) mVisible;
+    debug_line += llformat(" v %d/%d", is_visible, is_m_visible);
+    
+    addDebugText(debug_line);
+}
 
-        LLVector3 root_pos = mRoot->getPosition();
-        LLVector3 pelvis_pos = mPelvisp->getPosition();
-        debug_line += llformat(" rp %.3f pp %.3f", root_pos[2], pelvis_pos[2]);
+LLViewerInventoryItem* getObjectInventoryItem(LLViewerObject *vobj, LLUUID asset_id)
+{
+    LLViewerInventoryItem *item = NULL;
+    
+    if (vobj)
+    {
+        if (vobj->getInventorySerial()<=0)
+        {
+            vobj->requestInventory();
+        }
+        item = vobj->getInventoryItemByAsset(asset_id);
+    }
+    return item;
+}
 
-        S32 is_visible = (S32) isVisible();
-        S32 is_m_visible = (S32) mVisible;
-        debug_line += llformat(" v %d/%d", is_visible, is_m_visible);
+LLViewerInventoryItem* recursiveGetObjectInventoryItem(LLViewerObject *vobj, LLUUID asset_id)
+{
+    LLViewerInventoryItem *item = getObjectInventoryItem(vobj, asset_id);
+    if (!item)
+    {
+        LLViewerObject::const_child_list_t& children = vobj->getChildren();
+        for (LLViewerObject::const_child_list_t::const_iterator it = children.begin();
+             it != children.end(); ++it)
+        {
+            LLViewerObject *childp = *it;
+            item = getObjectInventoryItem(childp, asset_id);
+            if (item)
+            {
+                break;
+            }
+        }
+    }
+    return item;
+}
 
-		addDebugText(debug_line);
-	}
-	
-	static LLCachedControl<bool> debug_avatar_composite_baked(gSavedSettings, "DebugAvatarCompositeBaked", false);
-	if (debug_avatar_composite_baked) {
-		if (!mBakedTextureDebugText.empty())
-			addDebugText(mBakedTextureDebugText);
-	}
-
-    // Develop -> Avatar -> Animation Info
-	if (LLVOAvatar::sShowAnimationDebug)
-	{
-		for (LLMotionController::motion_list_t::iterator iter = mMotionController.getActiveMotions().begin();
-			 iter != mMotionController.getActiveMotions().end(); ++iter)
-		{
-			LLMotion* motionp = *iter;
-			if (motionp->getMinPixelArea() < getPixelArea())
-			{
-				std::string output;
-                std::string motion_name = motionp->getName();
-				if (motion_name.empty())				
-				{
-                    if (isControlAvatar())
+void LLVOAvatar::updateAnimationDebugText()
+{
+    for (LLMotionController::motion_list_t::iterator iter = mMotionController.getActiveMotions().begin();
+         iter != mMotionController.getActiveMotions().end(); ++iter)
+    {
+        LLMotion* motionp = *iter;
+        if (motionp->getMinPixelArea() < getPixelArea())
+        {
+            std::string output;
+            std::string motion_name = motionp->getName();
+            if (motion_name.empty())
+            {
+                if (isControlAvatar())
+                {
+                    LLControlAvatar *control_av = dynamic_cast<LLControlAvatar*>(this);
+                    // Try to get name from inventory of associated object
+                    LLVOVolume *volp = control_av->mRootVolp;
+                    LLViewerInventoryItem *item = recursiveGetObjectInventoryItem(volp,motionp->getID());
+                    if (item)
                     {
-                        LLControlAvatar *control_av = dynamic_cast<LLControlAvatar*>(this);
-                        // Try to get name from inventory of associated object
-                        LLVOVolume *volp = control_av->mRootVolp;
-                        if (volp)
+                        motion_name = item->getName();
+                    }
+                }
+            }
+            if (motion_name.empty())
+            {
+                std::string name;
+                if (gAgent.isGodlikeWithoutAdminMenuFakery() || isSelf())
+                {
+                    name = motionp->getID().asString();
+                    LLVOAvatar::AnimSourceIterator anim_it = mAnimationSources.begin();
+                    for (; anim_it != mAnimationSources.end(); ++anim_it)
+                    {
+                        if (anim_it->second == motionp->getID())
                         {
-                            if (volp->getInventorySerial()<=0)
+                            LLViewerObject* object = gObjectList.findObject(anim_it->first);
+                            if (!object)
                             {
-                                volp->requestInventory(); 
+                                break;
                             }
-                            LLViewerInventoryItem* item = volp->getInventoryItemByAsset(motionp->getID());
-                            if (item)
+                            if (object->isAvatar())
                             {
-                                motion_name = item->getName();
+                                if (mMotionController.mIsSelf)
+                                {
+                                    // Searching inventory by asset id is really long
+                                    // so just mark as inventory
+                                    // Also item is likely to be named by LLPreviewAnim
+                                    name += "(inventory)";
+                                }
                             }
+                            else
+                            {
+                                LLViewerInventoryItem* item = NULL;
+                                if (!object->isInventoryDirty())
+                                {
+                                    item = object->getInventoryItemByAsset(motionp->getID());
+                                }
+                                if (item)
+                                {
+                                    name = item->getName();
+                                }
+                                else if (object->isAttachment())
+                                {
+                                    name += "(" + getAttachmentItemName() + ")";
+                                }
+                                else
+                                {
+                                    // in-world object, name or content unknown
+                                    name += "(in-world)";
+                                }
+                            }
+                            break;
                         }
                     }
                 }
-                if (motion_name.empty())
+                else
                 {
-					output = llformat("%s - %d",
-							  gAgent.isGodlikeWithoutAdminMenuFakery() ?
-							  motionp->getID().asString().c_str() :
-							  LLUUID::null.asString().c_str(),
-							  (U32)motionp->getPriority());
-				}
-				else
-				{
-					output = llformat("%s - %d",
-                    motion_name.c_str(),
-                    (U32)motionp->getPriority());
-				}
-				addDebugText(output);
-			}
-		}
-	}
+                    name = LLUUID::null.asString();
+                }
+                output = llformat("%s - %d",
+                                  name.c_str(),
+                                  (U32)motionp->getPriority());
+            }
+            else
+            {
+                output = llformat("%s - %d",
+                                  motion_name.c_str(),
+                                  (U32)motionp->getPriority());
+            }
+            addDebugText(output);
+        }
+    }
+}
 
-	if (!mDebugText.size() && mText.notNull())
-	{
-		mText->markDead();
-		mText = NULL;
-	}
-	else if (mDebugText.size())
-	{
-		setDebugText(mDebugText);
-	}
+void LLVOAvatar::updateDebugText()
+{
+    // Leave mDebugText uncleared here, in case a derived class has added some state first
     
+    if (gSavedSettings.getBOOL("DebugAvatarAppearanceMessage"))
+    {
+        updateAppearanceMessageDebugText();
+    }
     
+    if (gSavedSettings.getBOOL("DebugAvatarCompositeBaked"))
+    {
+        if (!mBakedTextureDebugText.empty())
+            addDebugText(mBakedTextureDebugText);
+    }
+    
+    // Develop -> Avatar -> Animation Info
+    if (LLVOAvatar::sShowAnimationDebug)
+    {
+        updateAnimationDebugText();
+    }
+    
+    if (!mDebugText.size() && mText.notNull())
+    {
+        mText->markDead();
+        mText = NULL;
+    }
+    else if (mDebugText.size())
+    {
+        setDebugText(mDebugText);
+    }
     mDebugText.clear();
-
 }
 
 //------------------------------------------------------------------------
