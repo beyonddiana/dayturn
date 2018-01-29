@@ -128,21 +128,37 @@ void *APR_THREAD_FUNC LLThread::staticRun(apr_thread_t *apr_threadp, void *datap
 	threadp->mRecorder = new LLTrace::ThreadRecorder(*LLTrace::get_master_thread_recorder());
 
 	sThreadID = threadp->mID;
+	do
+	{
+	    try
+	    {
+	        threadp->run();
+	    }
+        catch (const LLContinueError &e)
+        {
+            LL_WARNS("THREAD") << "ContinueException on thread '" << threadp->mName <<
+                "' reentering run(). Error what is: '" << e.what() << "'" << LL_ENDL;
+            //output possible call stacks to log file.
+            LLError::LLCallStacks::print();
+            LOG_UNHANDLED_EXCEPTION("LLThread");
+            continue;
+        }
+        break;
 
-	// Run the user supplied function
-	threadp->run();
+    } while (true);
 
 	//LL_INFOS() << "LLThread::staticRun() Exiting: " << threadp->mName << LL_ENDL;
-	
-	delete threadp->mRecorder;
-	threadp->mRecorder = NULL;
 	
 	// We're done with the run function, this thread is done executing now.
 	//NB: we are using this flag to sync across threads...we really need memory barriers here
 	threadp->mStatus = STOPPED;
 
-	return NULL;
-}
+ 
+     delete threadp->mRecorder;
+     threadp->mRecorder = NULL;
+ 
+     return NULL;
+ }
 
 LLThread::LLThread(const std::string& name, apr_pool_t *poolp) :
 	mPaused(FALSE),
