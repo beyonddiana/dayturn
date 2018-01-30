@@ -102,7 +102,6 @@ U32 LLVertexBuffer::sCurVAOName = 1;
 U32 LLVertexBuffer::sAllocatedIndexBytes = 0;
 U32 LLVertexBuffer::sIndexCount = 0;
 
-LLPrivateMemoryPool* LLVertexBuffer::sPrivatePoolp = NULL;
 U32 LLVertexBuffer::sBindCount = 0;
 U32 LLVertexBuffer::sSetCount = 0;
 S32 LLVertexBuffer::sCount = 0;
@@ -925,11 +924,6 @@ void LLVertexBuffer::initClass(bool use_vbo, bool no_vbo_mapping)
 {
 	sEnableVBOs = use_vbo && gGLManager.mHasVertexBufferObject;
 	sDisableVBOMapping = sEnableVBOs && no_vbo_mapping;
-
-	if (!sPrivatePoolp)
-	{ 
-		sPrivatePoolp = LLPrivateMemoryPoolManager::getInstance()->newPool(LLPrivateMemoryPool::STATIC);
-	}
 }
 
 //static 
@@ -972,12 +966,6 @@ void LLVertexBuffer::cleanupClass()
 	sStreamVBOPool.cleanup();
 	sDynamicVBOPool.cleanup();
 	sDynamicCopyVBOPool.cleanup();
-
-	if(sPrivatePoolp)
-	{
-		LLPrivateMemoryPoolManager::getInstance()->deletePool(sPrivatePoolp);
-		sPrivatePoolp = NULL;
-	}
 }
 
 //----------------------------------------------------------------------------
@@ -1268,7 +1256,7 @@ bool LLVertexBuffer::createGLBuffer(U32 size)
 	{
 		static int gl_buffer_idx = 0;
 		mGLBuffer = ++gl_buffer_idx;
-		mMappedData = (U8*)ALLOCATE_MEM(sPrivatePoolp, size);
+		mMappedData = (U8*)ll_aligned_malloc_16(size);
 		disclaimMem(mSize);
 		mSize = size;
 		claimMem(mSize);
@@ -1310,7 +1298,7 @@ bool LLVertexBuffer::createGLIndices(U32 size)
 	}
 	else
 	{
-		mMappedIndexData = (U8*)ALLOCATE_MEM(sPrivatePoolp, size);
+		mMappedIndexData = (U8*)ll_aligned_malloc_16(size);
 		static int gl_buffer_idx = 0;
 		mGLIndices = ++gl_buffer_idx;
 		mIndicesSize = size;
@@ -1333,7 +1321,7 @@ void LLVertexBuffer::destroyGLBuffer()
 		}
 		else
 		{
-			FREE_MEM(sPrivatePoolp, (void*) mMappedData);
+			ll_aligned_free_16((void*)mMappedData);
 			mMappedData = NULL;
 			mEmpty = true;
 		}
@@ -1353,7 +1341,7 @@ void LLVertexBuffer::destroyGLIndices()
 		}
 		else
 		{
-			FREE_MEM(sPrivatePoolp, (void*) mMappedIndexData);
+			ll_aligned_free_16((void*)mMappedIndexData);
 			mMappedIndexData = NULL;
 			mEmpty = true;
 		}

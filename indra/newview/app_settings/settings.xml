@@ -3084,7 +3084,7 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
-    <key>DebugShowPrivateMem</key>
+    <key>DEPRECATED: DebugShowPrivateMem</key>  <!-- deprecated (see MAINT-8091) -->
     <map>
       <key>Comment</key>
       <string>Show Private Mem Info</string>
@@ -7089,10 +7089,10 @@
         <key>Value</key>
             <real>600.0</real>
         </map>
-    <key>MemoryPrivatePoolEnabled</key>
+    <key>MemoryPrivatePoolEnabled</key>  <!-- deprecated (see MAINT-8091) -->
     <map>
       <key>Comment</key>
-      <string>Enable the private memory pool management</string>
+      <string>DEPRECATED: Enable the private memory pool management</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
@@ -7100,10 +7100,10 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
-    <key>MemoryPrivatePoolSize</key>
+    <key>MemoryPrivatePoolSize</key>  <!-- deprecated (see MAINT-8091) -->
     <map>
       <key>Comment</key>
-      <string>Size of the private memory pool in MB (min. value is 256)</string>
+      <string>DEPRECATED: Size of the private memory pool in MB (min. value is 256)</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
