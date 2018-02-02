@@ -946,7 +946,7 @@ public:
  **/
 
 public:
-	std::string		getFullname() const; // Returns "FirstName LastName"
+	virtual std::string	getFullname() const; // Returns "FirstName LastName"
 	std::string		avString() const; // Frequently used string in log messages "Avatar '<full name'"
 	void			process_avatar_birthdate(const LLDate birthdate);
 
