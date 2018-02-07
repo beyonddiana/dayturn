@@ -5504,6 +5504,10 @@ LLUUID LLVOAvatar::remapMotionID(const LLUUID& id)
 		{
 			result = ANIM_AGENT_SIT_FEMALE;
 		}
+		else if (id == ANIM_AGENT_SIT)
+		{
+			result = ANIM_AGENT_SIT_FEMALE;
+		}
 	}
 	else
 	{
