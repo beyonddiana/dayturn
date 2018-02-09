@@ -745,7 +745,7 @@ void LLViewerPartSim::updateSimulation()
 		LLViewerObject* vobj = mViewerPartGroups[i]->mVOPartGroupp;
 
 		S32 visirate = 1;
-		if (vobj && vobj->mDrawable)
+		if (vobj && !vobj->isDead() && vobj->mDrawable && !vobj->mDrawable->isDead())
 		{
 			LLSpatialGroup* group = vobj->mDrawable->getSpatialGroup();
 			if (group && !group->isVisible()) // && !group->isState(LLSpatialGroup::OBJECT_DIRTY))
