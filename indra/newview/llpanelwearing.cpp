@@ -98,7 +98,7 @@ public:
 		registrar.add("Gear.TouchAttach", boost::bind(&LLWearingGearMenu::onTouchAttach, this));
 		registrar.add("Gear.EditItem", boost::bind(&LLWearingGearMenu::onEditItem, this));
 		registrar.add("Gear.EditOutfit", boost::bind(&edit_outfit));
-		registrar.add("Gear.TakeOff", boost::bind(&LLWearingGearMenu::onTakeOff, this));
+		registrar.add("Gear.TakeOff", boost::bind(&LLPanelWearing::onRemoveItem, mPanelWearing));
 		registrar.add("Gear.Copy", boost::bind(&LLPanelWearing::copyToClipboard, mPanelWearing));
 
 		enable_registrar.add("Gear.OnEnable", boost::bind(&LLPanelWearing::isActionEnabled, mPanelWearing, _2));
@@ -126,14 +126,6 @@ private:
 
 		mPanelWearing->getSelectedItemsUUIDs(selected_uuids);
 		edit_item(selected_uuids.front());
-	}
-
-	void onTakeOff()
-	{
-		uuid_vec_t selected_uuids;
-
-		mPanelWearing->getSelectedItemsUUIDs(selected_uuids);
-		LLAppearanceMgr::instance().removeItemsFromAvatar(selected_uuids);
 	}
 
 	LLToggleableMenu*		mMenu;
@@ -406,43 +398,61 @@ bool LLPanelWearing::isActionEnabled(const LLSD& userdata)
 		// allow save only if outfit isn't locked and is dirty
 		return !outfit_locked && outfit_dirty;
 	}
-	else if (command_name == "take_off") {
-		return hasItemSelected() && canTakeOffSelected();
+	
+	if (command_name == "take_off")
+	{
+		if (mWearablesTab->isExpanded())
+		{
+			return hasItemSelected() && canTakeOffSelected();
+		}
+		else
+		{
+			return mTempItemsList->hasSelectedItem();
+		}
 	}
-	else if (command_name == "touch_attach") {
+	
+	if (command_name == "touch_attach") 
+	{
 		uuid_vec_t selected;
 
 		getSelectedItemsUUIDs(selected);
 
-		if (selected.size() != 1) {
+		if (selected.size() != 1)
+		{
 			return false;
 		}
 
 		LLViewerInventoryItem *item = gInventory.getItem(selected.front());
 
-		if (!item) {
+		if (!item)
+		{
 			LL_WARNS("PanelWearing") << "Invalid item" << LL_ENDL;
 			return false;
 		}
 
 		LLAssetType::EType type = item->getType();
 
-		if (type == LLAssetType::AT_OBJECT) {
+		if (type == LLAssetType::AT_OBJECT)
+		{
 			return enable_attachment_touch(selected.front());
 		}
 	}
-	else if (command_name == "edit_item") {
+	
+	if (command_name == "edit_item") 
+	{
 		uuid_vec_t selected;
 
 		getSelectedItemsUUIDs(selected);
 
-		if (selected.size() != 1) {
+		if (selected.size() != 1)
+		{
 			return false;
 		}
 
 		LLViewerInventoryItem *item = gInventory.getItem(selected.front());
 
-		if (!item) {
+		if (!item)
+		{
 			LL_WARNS("PanelWearing") << "Invalid item" << LL_ENDL;
 			return false;
 		}
@@ -452,7 +462,8 @@ bool LLPanelWearing::isActionEnabled(const LLSD& userdata)
 		if (	type == LLAssetType::AT_CLOTHING ||
 			type == LLAssetType::AT_BODYPART ||
 			type == LLAssetType::AT_OBJECT
-		) {
+		) 
+		{
 			return true;
 		}
 	}
@@ -645,6 +656,20 @@ void LLPanelWearing::onRemoveAttachment()
 		LLSelectMgr::getInstance()->deselectAll();
 		LLSelectMgr::getInstance()->selectObjectAndFamily(mAttachmentsMap[item->getUUID()]);
 		LLSelectMgr::getInstance()->sendDropAttachment();
+	}
+}
+
+void LLPanelWearing::onRemoveItem()
+{
+	if (mWearablesTab->isExpanded())
+	{
+		uuid_vec_t selected_uuids;
+		getSelectedItemsUUIDs(selected_uuids);
+		LLAppearanceMgr::instance().removeItemsFromAvatar(selected_uuids);
+	}
+	else
+	{
+		onRemoveAttachment();
 	}
 }
 
