@@ -31,9 +31,14 @@
 
 // newview
 #include "llpanelappearancetab.h"
+#include "llselectmgr.h"
+#include "lltimer.h"
 
+class LLAccordionCtrl;
+class LLAccordionCtrlTab;
 class LLInventoryCategoriesObserver;
 class LLListContextMenu;
+class LLScrollListCtrl;
 class LLWearableItemsList;
 class LLWearingGearMenu;
 
@@ -65,14 +70,30 @@ public:
 	boost::signals2::connection setSelectionChangeCallback(commit_callback_t cb);
 
 	bool hasItemSelected();
+	
+	bool populateAttachmentsList(bool update = false);
+ 	void onAccordionTabStateChanged();
+ 	void setAttachmentDetails(LLSD content);
+ 	void requestAttachmentDetails();
+	void onRemoveItem();
+ 	void onEditAttachment();
+ 	void onRemoveAttachment();
 
 private:
 	void onWearableItemsListRightClick(LLUICtrl* ctrl, S32 x, S32 y);
+	void onTempAttachmentsListRightClick(LLUICtrl* ctrl, S32 x, S32 y);
 
 	LLInventoryCategoriesObserver* 	mCategoriesObserver;
 	LLWearableItemsList* 			mCOFItemsList;
+	LLScrollListCtrl*				mTempItemsList;
 	LLWearingGearMenu*				mGearMenu;
 	LLListContextMenu*				mContextMenu;
+	LLListContextMenu*				mAttachmentsMenu;
+
+	LLAccordionCtrlTab* 			mWearablesTab;
+	LLAccordionCtrlTab* 			mAttachmentsTab;
+	LLAccordionCtrl*				mAccordionCtrl;
+	
 
 	bool							mIsInitialized;
 };
