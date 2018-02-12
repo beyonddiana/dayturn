@@ -6181,6 +6181,7 @@ void LLVOAvatar::addAttachmentOverridesForObject(LLViewerObject *vo)
 	if (vobj->isMesh() &&
 		((vobj->getVolume() && !vobj->getVolume()->isMeshAssetLoaded()) || !gMeshRepo.meshRezEnabled()))
 	{
+        LL_DEBUGS("AnimatedObjects") << "failed to add attachment overrides for root object " << root_object->getID() << " mesh asset not loaded" << LL_ENDL;
 		return;
 	}
 	const LLMeshSkinInfo*  pSkinData = vobj->getSkinInfo();
@@ -6246,6 +6247,10 @@ void LLVOAvatar::addAttachmentOverridesForObject(LLViewerObject *vo)
 			}							
 		}
 	}
+    else
+    {
+        LL_DEBUGS("AnimatedObjects") << "failed to add attachment overrides for root object " << root_object->getID() << " not mesh or no pSkinData" << LL_ENDL;
+    }
 					
 	//Rebuild body data if we altered joints/pelvis
 	if ( pelvisGotSet ) 
