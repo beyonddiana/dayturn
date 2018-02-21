@@ -4447,12 +4447,8 @@ void LLAgent::teleportRequest(
 	const LLVector3& pos_local,
 	bool look_at_from_camera)
 {
-	LLViewerRegion* regionp = getRegion();
-//MK
-////	bool is_local = (region_handle == regionp->getHandle());
-	bool is_local = (regionp && (region_handle == regionp->getHandle()));
-//mk
-	if(regionp && teleportCore(is_local))
+    LLViewerRegion* regionp = getRegion();
+	if (regionp && teleportCore(region_handle == regionp->getHandle()))
 	{
 //MK
 		// This crashes when we are logging off
