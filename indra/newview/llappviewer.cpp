@@ -1820,7 +1820,10 @@ bool LLAppViewer::cleanup()
 	LLEventPumps::instance().reset();
 
 	//dump scene loading monitor results
-	LLSceneMonitor::instance().dumpToFile(gDirUtilp->getExpandedFilename(LL_PATH_LOGS, "scene_monitor_results.csv"));
+	if (LLSceneMonitor::instanceExists())
+	{
+		LLSceneMonitor::instance().dumpToFile(gDirUtilp->getExpandedFilename(LL_PATH_LOGS, "scene_monitor_results.csv"));
+	}
 
 	// There used to be an 'if (LLFastTimerView::sAnalyzePerformance)' block
 	// here, completely redundant with the one that occurs later in this same
@@ -1862,8 +1865,11 @@ bool LLAppViewer::cleanup()
     // Give any remaining SLPlugin instances a chance to exit cleanly.
     LLPluginProcessParent::shutdown();
 
-	LLVoiceClient::getInstance()->terminate();
-	
+	if (LLVoiceClient::instanceExists())
+	{
+		LLVoiceClient::getInstance()->terminate();
+	}
+
 	disconnectViewer();
 
 	LL_INFOS() << "Viewer disconnected" << LL_ENDL;
@@ -1918,7 +1924,10 @@ bool LLAppViewer::cleanup()
 
 	// Note: this is where gLocalSpeakerMgr and gActiveSpeakerMgr used to be deleted.
 
-	LLWorldMap::getInstance()->reset(); // release any images
+	if (LLWorldMap::instanceExists())
+	{
+		LLWorldMap::getInstance()->reset(); // release any images
+	}
 
 	LLCalc::cleanUp();
 
@@ -2088,10 +2097,16 @@ bool LLAppViewer::cleanup()
 	LLURLHistory::saveFile("url_history.xml");
 
 	// save mute list. gMuteList used to also be deleted here too.
-	LLMuteList::getInstance()->cache(gAgent.getID());
+	if (gAgent.isInitialized() && LLMuteList::instanceExists())
+	{
+		LLMuteList::getInstance()->cache(gAgent.getID());
+	}
 
 	//save call log list
-	LLConversationLog::instance().cache();
+	if (LLConversationLog::instanceExists())
+	{
+		LLConversationLog::instance().cache();
+	}
 
 	if (mPurgeOnExit)
 	{
