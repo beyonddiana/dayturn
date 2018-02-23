@@ -1296,11 +1296,21 @@ BOOL LLVOVolume::calcLOD()
 
 		distance = avatar->mDrawable->mDistanceWRTCamera;
 		radius = avatar->getBinRadius();
+        if (distance <= 0.f || radius <= 0.f)
+        {
+            LL_DEBUGS("CalcLOD") << "avatar distance/radius uninitialized, skipping" << LL_ENDL;
+            return FALSE;
+        }
 	}
 	else
 	{
 		distance = mDrawable->mDistanceWRTCamera;
 		radius = getVolume() ? getVolume()->mLODScaleBias.scaledVec(getScale()).length() : getScale().length();
+        if (distance <= 0.f || radius <= 0.f)
+        {
+            LL_DEBUGS("CalcLOD") << "non-avatar distance/radius uninitialized, skipping" << LL_ENDL;
+            return FALSE;
+        }
 	}
 	
 	//hold onto unmodified distance for debugging
