@@ -204,34 +204,11 @@ top="10"
           halign="right"
           height="16"
           top="12"
-          right="-10"
+          right="-20"
           name="create_new_account_text"
           width="200">
         Sign up
       </text>
-      <text
-          follows="right|bottom"
-          font="SansSerifSmall"
-          text_color="EmphasisColor"
-          halign="right"
-          height="16"
-          name="forgot_password_text"
-          top_pad="12"
-          right="-10"
-          width="200">
-        Forgot your SecondLife username or password?
-      </text>
-      <text
-          follows="right|bottom"
-          font="SansSerifSmall"
-          text_color="EmphasisColor"
-          halign="right"
-          height="16"
-          name="login_help"
-          top_pad="2"
-          right="-10"
-          width="200">
-      Need help logging in to SecondLife?   </text>
     </layout_panel>
   </layout_stack>
 </panel>
