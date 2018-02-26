@@ -44,7 +44,7 @@ LLFloaterHoverHeight::LLFloaterHoverHeight(const LLSD& key) : LLFloater(key)
 {
 }
 
-void LLFloaterHoverHeight::syncFromPreferenceSetting(void *user_data)
+void LLFloaterHoverHeight::syncFromPreferenceSetting(void *user_data, bool update_offset)
 {
 	F32 value = gSavedPerAccountSettings.getF32("AvatarHoverOffsetZ");
 
@@ -52,7 +52,13 @@ void LLFloaterHoverHeight::syncFromPreferenceSetting(void *user_data)
 	LLSliderCtrl* sldrCtrl = self->getChild<LLSliderCtrl>("HoverHeightSlider");
 	sldrCtrl->setValue(value,FALSE);
 
-
+	if (isAgentAvatarValid() && update_offset)
+ 	{
+ 		LLVector3 offset(0.0, 0.0, llclamp(value,MIN_HOVER_Z,MAX_HOVER_Z));
+ 		LL_INFOS("Avatar") << "setting hover from preference setting " << offset[2] << LL_ENDL;
+ 		gAgentAvatarp->setHoverOffset(offset);
+ 		//gAgentAvatarp->sendHoverHeight();
+ 	}
 }
 
 BOOL LLFloaterHoverHeight::postBuild()
@@ -69,7 +75,7 @@ BOOL LLFloaterHoverHeight::postBuild()
 	// Update slider on future pref changes.
 	if (gSavedPerAccountSettings.getControl("AvatarHoverOffsetZ"))
 	{
-		gSavedPerAccountSettings.getControl("AvatarHoverOffsetZ")->getCommitSignal()->connect(boost::bind(&syncFromPreferenceSetting, this));
+		gSavedPerAccountSettings.getControl("AvatarHoverOffsetZ")->getCommitSignal()->connect(boost::bind(&syncFromPreferenceSetting, this, false));
 	}
 	else
 	{
@@ -113,18 +119,14 @@ void LLFloaterHoverHeight::onSliderMoved(LLUICtrl* ctrl, void* userData)
 	}
 }
 
-// Do send-to-the-server work when slider drag completes, or new
-// value entered as text.
-void LLFloaterHoverHeight::onFinalCommit()
-{
-	LLSliderCtrl* sldrCtrl = getChild<LLSliderCtrl>("HoverHeightSlider");
-	F32 value = sldrCtrl->getValueF32();
-	LLVector3 offset(0.0, 0.0, llclamp(value,MIN_HOVER_Z,MAX_HOVER_Z));
-	gSavedPerAccountSettings.setF32("AvatarHoverOffsetZ",value);
-
-	LL_INFOS("Avatar") << "setting hover from slider final commit " << offset[2] << LL_ENDL;
-	gAgentAvatarp->setHoverOffset(offset, true); // will send update this time.
-}
+ // Do send-to-the-server work when slider drag completes, or new
+ // value entered as text.
+ void LLFloaterHoverHeight::onFinalCommit()
+ {
+ 	LLSliderCtrl* sldrCtrl = getChild<LLSliderCtrl>("HoverHeightSlider");
+ 	F32 value = sldrCtrl->getValueF32();
+ 	gSavedPerAccountSettings.setF32("AvatarHoverOffsetZ",value);
+ }
 
 void LLFloaterHoverHeight::onRegionChanged()
 {
