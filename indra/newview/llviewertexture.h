@@ -441,7 +441,12 @@ public:
 	void        loadFromFastCache();
 	void        setInFastCacheList(bool in_list) { mInFastCacheList = in_list; }
 	bool        isInFastCacheList() { return mInFastCacheList; }
-	/*virtual*/bool  isActiveFetching(); //is actively in fetching by the fetching pipeline.	
+
+	U8			getBakedTextureIndex() { return mBakedTextureIndex; }
+	void		setBakedTextureIndex(U8 index) { mBakedTextureIndex = index; }
+
+	/*virtual*/bool  isActiveFetching(); //is actively in fetching by the fetching pipeline.
+		
 	// <FS:Techwolf Lupindo> texture comment decoder
 	std::map<std::string,std::string> mComment;
 	// </FS:Techwolf Lupindo>
@@ -545,6 +550,8 @@ protected:
 
 	BOOL   mForSculpt ; //a flag if the texture is used as sculpt data.
 	BOOL   mIsFetched ; //is loaded from remote or from cache, not generated locally.
+
+	U8		mBakedTextureIndex; //for FTT_SERVER_BAKE fetched textures
 
 public:
 	static LLPointer<LLViewerFetchedTexture> sMissingAssetImagep;	// Texture to show for an image asset that is not in the database
