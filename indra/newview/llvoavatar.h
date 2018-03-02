@@ -694,6 +694,8 @@ public:
 	void 			updateSexDependentLayerSets(BOOL upload_bake);
 	virtual void	dirtyMesh(); // Dirty the avatar mesh
 	void 			updateMeshData();
+	void			updateMeshVisibility();
+
 protected:
 	void 			releaseMeshData();
 	virtual void restoreMeshData();
