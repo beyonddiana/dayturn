@@ -300,6 +300,11 @@ void LLAvatarNameCache::handleAgentError(const LLUUID& agent_id)
 
 void LLAvatarNameCache::processName(const LLUUID& agent_id, const LLAvatarName& av_name)
 {
+	if (agent_id.isNull())
+	{
+		return;
+	}
+
 	// Add to the cache
 	sCache[agent_id] = av_name;
 
