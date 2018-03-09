@@ -1,28 +1,28 @@
-/** 
- * @file llchathistory.cpp
- * @brief LLTextEditor base class
- *
- * $LicenseInfo:firstyear=2001&license=viewerlgpl$
- * Second Life Viewer Source Code
- * Copyright (C) 2010, Linden Research, Inc.
- * 
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation;
- * version 2.1 of the License only.
- * 
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
- * 
- * Linden Research, Inc., 945 Battery Street, San Francisco, CA  94111  USA
- * $/LicenseInfo$
- */
+/**
+* @file llchathistory.cpp
+* @brief LLTextEditor base class
+*
+* $LicenseInfo:firstyear=2001&license=viewerlgpl$
+* Second Life Viewer Source Code
+* Copyright (C) 2010, Linden Research, Inc.
+*
+* This library is free software; you can redistribute it and/or
+* modify it under the terms of the GNU Lesser General Public
+* License as published by the Free Software Foundation;
+* version 2.1 of the License only.
+*
+* This library is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* Lesser General Public License for more details.
+*
+* You should have received a copy of the GNU Lesser General Public
+* License along with this library; if not, write to the Free Software
+* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+*
+* Linden Research, Inc., 945 Battery Street, San Francisco, CA  94111  USA
+* $/LicenseInfo$
+*/
 
 #include "llviewerprecompiledheaders.h"
 
@@ -73,6 +73,18 @@
 #include "llviewermedia.h"
 #include "llviewermedia_streamingaudio.h"
 
+// additional Kokua headers
+#include "llviewermenu.h"
+#include "llwindow.h"
+#include "llmutelist.h"
+#include "lltabcontainer.h"
+#include "llviewermenu.h"
+#include "llaudioengine.h"
+#include "llvieweraudio.h"
+#include "llviewermedia.h"
+#include "llviewermedia_streamingaudio.h"
+#include "llfloaterreporter.h"
+
 static LLDefaultChildRegistry::Register<LLChatHistory> r("chat_history");
 
 const static std::string NEW_LINE(rawstr_to_utf8("\n"));
@@ -112,15 +124,16 @@ public:
 };
 LLObjectIMHandler gObjectIMHandler;
 
-class LLChatHistoryHeader: public LLPanel
+class LLChatHistoryHeader : public LLPanel
 {
 public:
 	LLChatHistoryHeader()
-	:	LLPanel(),
+		: LLPanel(),
 		mInfoCtrl(NULL),
 		mPopupMenuHandleAvatar(),
 		mPopupMenuHandleObject(),
 		mAvatarID(),
+		mZoomIntoID(),
 		mSourceType(CHAT_SOURCE_UNKNOWN),
 		mFrom(),
 		mSessionID(),
@@ -134,12 +147,15 @@ public:
 	static LLChatHistoryHeader* createInstance(const std::string& file_name)
 	{
 		LLChatHistoryHeader* pInstance = new LLChatHistoryHeader;
-		pInstance->buildFromFile(file_name);	
+		pInstance->buildFromFile(file_name);
 		return pInstance;
 	}
 
 	~LLChatHistoryHeader()
 	{
+		// Detach the info button so that it doesn't get destroyed (EXT-8463).
+		hideInfoCtrl();
+
 		if (mAvatarNameCacheConnection.connected())
 		{
 			mAvatarNameCacheConnection.disconnect();
@@ -148,13 +164,12 @@ public:
 
 	BOOL handleMouseUp(S32 x, S32 y, MASK mask)
 	{
-		return LLPanel::handleMouseUp(x,y,mask);
+		return LLPanel::handleMouseUp(x, y, mask);
 	}
 
 	void onObjectIconContextMenuItemClicked(const LLSD& userdata)
 	{
 		std::string level = userdata.asString();
-
 		if (level == "profile")
 		{
 			LLFloaterReg::showInstance("inspect_remote_object", mObjectData);
@@ -166,14 +181,16 @@ public:
 			LLFloaterSidePanelContainer::showPanel("people", "panel_people",
 				LLSD().with("people_panel_tab_name", "blocked_panel").with("blocked_to_select", getAvatarId()));
 		}
-				else if (level == "unblock")
-		{
-			LLMuteList::getInstance()->remove(LLMute(getAvatarId(), mFrom, LLMute::OBJECT));
-		}
 		else if (level == "unblock")
 		{
 			LLMuteList::getInstance()->remove(LLMute(getAvatarId(), mFrom, LLMute::OBJECT));
 		}
+		else if (level == "zoom" && mZoomIntoID.notNull()) {
+			handle_zoom_to_object(mZoomIntoID);
+		}
+		else if (level == "zoom" && mZoomIntoID.notNull()) {
+			handle_zoom_to_object(mZoomIntoID);
+		}		
 		else if (level == "map")
 		{
 			std::string url = "secondlife://" + mObjectData["slurl"].asString();
@@ -184,24 +201,26 @@ public:
 			std::string url = "secondlife://" + mObjectData["slurl"].asString();
 			LLUrlAction::teleportToLocation(url);
 		}
+		else if (level == "report_abuse")
+		{
+			LLFloaterReporter::showFromObject(mObjectData["object_id"]);
+		}
 
 	}
 	
-    bool onObjectIconContextMenuItemVisible(const LLSD& userdata)
-    {
-        std::string level = userdata.asString();
-        if (level == "is_blocked")
-        {
+	bool onObjectIconContextMenuItemVisible(const LLSD& userdata)
+	{
+		std::string level = userdata.asString();
+		if (level == "is_blocked")
+		{
 			return LLMuteList::getInstance()->isMuted(getAvatarId(), mFrom, LLMute::flagTextChat);
-        }
-        else if (level == "not_blocked")
-        {
-
-            return !LLMuteList::getInstance()->isMuted(getAvatarId(), mFrom, LLMute::flagTextChat);
-        }
-        return false;
-    }
-
+		}
+		else if (level == "not_blocked")
+		{
+			return !LLMuteList::getInstance()->isMuted(getAvatarId(), mFrom, LLMute::flagTextChat);
+		}
+		return false;
+	}
 
 	void banGroupMember(const LLUUID& participant_uuid)
 	{
@@ -305,7 +324,7 @@ public:
 		}
 
 		// Is session a group call/chat?
-		if(gAgent.isInGroup(mSessionID))
+		if (gAgent.isInGroup(mSessionID))
 		{
 			LLSpeaker * speakerp = speaker_mgr->findSpeaker(gAgentID).get();
 
@@ -361,7 +380,6 @@ public:
 	void onAvatarIconContextMenuItemClicked(const LLSD& userdata)
 	{
 		std::string level = userdata.asString();
-
 		if (level == "profile")
 		{
 			LLAvatarActions::showProfile(getAvatarId());
@@ -370,7 +388,7 @@ public:
 		{
 			LLAvatarActions::startIM(getAvatarId());
 		}
-		else if (level == "teleport")
+		else if (level == "offer_teleport")
 		{
 			LLAvatarActions::offerTeleport(getAvatarId());
 		}
@@ -398,10 +416,6 @@ public:
 		{
 			LLAvatarActions::inviteToGroup(getAvatarId());
 		}
-		else if (level == "zoom_in")
-		{
-			handle_zoom_to_object(getAvatarId());
-		}
 		else if (level == "map")
 		{
 			LLAvatarActions::showOnMap(getAvatarId());
@@ -414,20 +428,20 @@ public:
 		{
 			LLAvatarActions::pay(getAvatarId());
 		}
-		else if(level == "block_unblock")
+		else if (level == "block_unblock")
 		{
 			LLAvatarActions::toggleMute(getAvatarId(), LLMute::flagVoiceChat);
 		}
-		else if(level == "mute_unmute")
+		else if (level == "mute_unmute")
 		{
 			LLAvatarActions::toggleMute(getAvatarId(), LLMute::flagTextChat);
 		}
-		else if(level == "toggle_allow_text_chat")
+		else if (level == "toggle_allow_text_chat")
 		{
 			LLIMSpeakerMgr* speaker_mgr = LLIMModel::getInstance()->getSpeakerManager(mSessionID);
 			speaker_mgr->toggleAllowTextChat(getAvatarId());
 		}
-		else if(level == "group_mute")
+		else if (level == "group_mute")
 		{
 			LLIMSpeakerMgr* speaker_mgr = LLIMModel::getInstance()->getSpeakerManager(mSessionID);
 			if (speaker_mgr)
@@ -435,7 +449,7 @@ public:
 				speaker_mgr->moderateVoiceParticipant(getAvatarId(), false);
 			}
 		}
-		else if(level == "group_unmute")
+		else if (level == "group_unmute")
 		{
 			LLIMSpeakerMgr* speaker_mgr = LLIMModel::getInstance()->getSpeakerManager(mSessionID);
 			if (speaker_mgr)
@@ -443,9 +457,58 @@ public:
 				speaker_mgr->moderateVoiceParticipant(getAvatarId(), true);
 			}
 		}
-		else if(level == "ban_member")
+		else if (level == "ban_member")
 		{
 			banGroupMember(getAvatarId());
+		}
+		// below here are Kokua additions, keep the list above in the same order as LL!
+		else if (level == "togglefreeze")
+		{
+			handle_avatar_freeze(getAvatarId());
+		}
+		else if (level == "eject")
+		{
+			handle_avatar_eject(getAvatarId());
+		}
+		else if (level == "teleporthome")
+		{
+			LLAvatarActions::teleportHome(getAvatarId());
+		}
+		else if (level == "estateban")
+		{
+			LLAvatarActions::estateBan(getAvatarId());
+		}
+		else if (level == "report_abuse")
+		{
+			LLFloaterReporter::showFromAvatar(getAvatarId(), "name");
+		}
+		else if (level == "toggle_online_status")
+		{
+			LLAvatarActions::toggleAvatarRights(getAvatarId(), LLRelationship::GRANT_ONLINE_STATUS);
+		}
+		else if (level == "toggle_map_location")
+		{
+			LLAvatarActions::toggleAvatarRights(getAvatarId(), LLRelationship::GRANT_MAP_LOCATION);
+		}
+		else if (level == "toggle_modify_objects")
+		{
+			LLAvatarActions::toggleAvatarRights(getAvatarId(), LLRelationship::GRANT_MODIFY_OBJECTS);
+		}
+		else if (level == "copyname")
+		{
+			LLAvatarActions::copyName(getAvatarId());
+		}
+		else if (level == "copyuuid")
+		{
+			LLAvatarActions::copyUUID(getAvatarId());
+		}
+		else if (level == "copyprofileuri")
+		{
+			LLAvatarActions::copyProfileSLURL(getAvatarId());
+		}
+		else if (level == "zoom_in")
+		{
+			handle_zoom_to_object(getAvatarId());
 		}
 	}
 
@@ -466,7 +529,7 @@ public:
 			if (gAgent.isInGroup(mSessionID))
 			{
 				LLIMSpeakerMgr* speaker_mgr = LLIMModel::getInstance()->getSpeakerManager(mSessionID);
-				if(speaker_mgr)
+				if (speaker_mgr)
 				{
 					const LLSpeaker * speakerp = speaker_mgr->findSpeaker(getAvatarId());
 					if (NULL != speakerp)
@@ -477,6 +540,24 @@ public:
 			}
 			return false;
 		}
+		const LLRelationship *relationship = LLAvatarTracker::instance().getBuddyInfo(getAvatarId());
+
+		if (relationship) {
+			const S32 rights = relationship->getRightsGrantedTo();
+
+			if (level == "online_status" && (rights & LLRelationship::GRANT_ONLINE_STATUS)) {
+				return true;
+			}
+
+			if (level == "map_location" && (rights & LLRelationship::GRANT_MAP_LOCATION)) {
+				return true;
+			}
+
+			if (level == "modify_objects" && (rights & LLRelationship::GRANT_MODIFY_OBJECTS)) {
+				return true;
+			}
+		}
+
 		return false;
 	}
 
@@ -494,6 +575,8 @@ public:
 		}
 		return false;
 	}
+
+
 
 	bool onAvatarIconContextMenuItemVisible(const LLSD& userdata)
 	{
@@ -665,6 +748,7 @@ public:
 		floater->setFocus(TRUE);
 	}
 
+
 	BOOL postBuild()
 	{
 		LLUICtrl::CommitCallbackRegistry::ScopedRegistrar registrar;
@@ -692,6 +776,9 @@ public:
 		menu = LLUICtrlFactory::getInstance()->createFromFile<LLMenuGL>("menu_audio_stream_icon.xml", gMenuHolder, LLViewerMenuHolderGL::child_registry_t::instance());
 		mPopupMenuHandleAudioStream = menu->getHandle();
 
+		menu = LLUICtrlFactory::getInstance()->createFromFile<LLMenuGL>("menu_audio_stream_icon.xml", gMenuHolder, LLViewerMenuHolderGL::child_registry_t::instance());
+		mPopupMenuHandleAudioStream = menu->getHandle();
+
 		setDoubleClickCallback(boost::bind(&LLChatHistoryHeader::showInspector, this));
 
 		setMouseEnterCallback(boost::bind(&LLChatHistoryHeader::showInfoCtrl, this));
@@ -708,39 +795,39 @@ public:
 		return LLPanel::postBuild();
 	}
 
-	bool pointInChild(const std::string& name,S32 x,S32 y)
+	bool pointInChild(const std::string& name, S32 x, S32 y)
 	{
 		LLUICtrl* child = findChild<LLUICtrl>(name);
-		if(!child)
+		if (!child)
 			return false;
-		
+
 		LLView* parent = child->getParent();
-		if(parent!=this)
+		if (parent != this)
 		{
-			x-=parent->getRect().mLeft;
-			y-=parent->getRect().mBottom;
+			x -= parent->getRect().mLeft;
+			y -= parent->getRect().mBottom;
 		}
 
-		S32 local_x = x - child->getRect().mLeft ;
-		S32 local_y = y - child->getRect().mBottom ;
+		S32 local_x = x - child->getRect().mLeft;
+		S32 local_y = y - child->getRect().mBottom;
 		return 	child->pointInView(local_x, local_y);
 	}
 
 	BOOL handleRightMouseDown(S32 x, S32 y, MASK mask)
 	{
-		if(pointInChild("avatar_icon",x,y) || pointInChild("user_name",x,y))
+		if (pointInChild("avatar_icon", x, y) || pointInChild("user_name", x, y))
 		{
-			showContextMenu(x,y);
+			showContextMenu(x, y);
 			return TRUE;
 		}
 
-		return LLPanel::handleRightMouseDown(x,y,mask);
+		return LLPanel::handleRightMouseDown(x, y, mask);
 	}
 
 	void showInspector()
-	{
+	{      
 		if (mAvatarID.isNull() && CHAT_SOURCE_SYSTEM != mSourceType) return;
-		
+
 		if (mSourceType == CHAT_SOURCE_OBJECT)
 		{
 			LLFloaterReg::showInstance("inspect_remote_object", mObjectData);
@@ -756,14 +843,14 @@ public:
 	{
 		if (!info_ctrl) return;
 
-		LLChatHistoryHeader* header = dynamic_cast<LLChatHistoryHeader*>(info_ctrl->getParent());	
+		LLChatHistoryHeader* header = dynamic_cast<LLChatHistoryHeader*>(info_ctrl->getParent());
 		if (!header) return;
 
 		header->showInspector();
 	}
 
 
-	const LLUUID&		getAvatarId () const { return mAvatarID;}
+	const LLUUID&		getAvatarId() const { return mAvatarID; }
 
 	void setup(const LLChat& chat, const LLStyle::Params& style_params, const LLSD& args)
 	{
@@ -772,11 +859,12 @@ public:
 		mSourceType = chat.mSourceType;
 
 		//*TODO overly defensive thing, source type should be maintained out there
-		if((chat.mFromID.isNull() && chat.mFromName.empty()) || (chat.mFromName == SYSTEM_FROM && chat.mFromID.isNull()))
+		if ((chat.mFromID.isNull() && chat.mFromName.empty()) || (chat.mFromName == SYSTEM_FROM && chat.mFromID.isNull()))
 		{
 			mSourceType = CHAT_SOURCE_SYSTEM;
 		}  
-		else if (chat.mFromID == AUDIO_STREAM_FROM) {
+		else if (chat.mFromID == AUDIO_STREAM_FROM) 
+		{
 			mSourceType = CHAT_SOURCE_AUDIO_STREAM;
 		}
 
@@ -789,18 +877,19 @@ public:
 			|| mSourceType == CHAT_SOURCE_SYSTEM)
 		{
 			mFrom = LLTrans::getString("SECOND_LIFE");
-			if(!chat.mFromName.empty() && (mFrom != chat.mFromName))
+			if (!chat.mFromName.empty() && (mFrom != chat.mFromName))
 			{
 				mFrom += " (" + chat.mFromName + ")";
 			}
 			user_name->setValue(mFrom);
 			updateMinUserNameWidth();
 		}
-		else if (mSourceType == CHAT_SOURCE_AUDIO_STREAM) {
+		else if (mSourceType == CHAT_SOURCE_AUDIO_STREAM) 
+		{
 			mFrom = chat.mFromName;
 			user_name->setValue(mFrom);
 			updateMinUserNameWidth();
-	    	}
+	    }
 		else if (mSourceType == CHAT_SOURCE_AGENT
 				 && !mAvatarID.isNull()
 				 && chat.mChatStyle != CHAT_STYLE_HISTORY)
@@ -811,16 +900,16 @@ public:
 
 			// Start with blank so sample data from XUI XML doesn't
 			// flash on the screen
-			user_name->setValue( LLSD() );
+			user_name->setValue(LLSD());
 			fetchAvatarName();
 		}
 		else if (chat.mChatStyle == CHAT_STYLE_HISTORY ||
-				 mSourceType == CHAT_SOURCE_AGENT)
+			mSourceType == CHAT_SOURCE_AGENT)
 		{
 			//if it's an avatar name with a username add formatting
 			S32 username_start = chat.mFromName.rfind(" (");
 			S32 username_end = chat.mFromName.rfind(')');
-			
+
 			if (username_start != std::string::npos &&
 				username_end == (chat.mFromName.length() - 1))
 			{
@@ -880,17 +969,18 @@ public:
 				break;
 			case CHAT_SOURCE_UNKNOWN: 
 				icon->setValue(LLSD("Unknown_Icon"));
+				break;
 		}
 
 		// In case the message came from an object, save the object info
 		// to be able properly show its profile.
-		if ( chat.mSourceType == CHAT_SOURCE_OBJECT)
+		if (chat.mSourceType == CHAT_SOURCE_OBJECT)
 		{
 			std::string slurl = args["slurl"].asString();
 			if (slurl.empty())
 			{
 				LLViewerRegion *region = LLWorld::getInstance()->getRegionFromPosAgent(chat.mPosAgent);
-				if(region)
+				if (region)
 				{
 					LLSLURL region_slurl(region->getName(), chat.mPosAgent);
 					slurl = region_slurl.getLocationString();
@@ -898,10 +988,10 @@ public:
 			}
 
 			LLSD payload;
-			payload["object_id"]	= chat.mFromID;
-			payload["name"]			= chat.mFromName;
-			payload["owner_id"]		= chat.mOwnerID;
-			payload["slurl"]		= LLWeb::escapeURL(slurl);
+			payload["object_id"] = chat.mFromID;
+			payload["name"] = chat.mFromName;
+			payload["owner_id"] = chat.mOwnerID;
+			payload["slurl"] = LLWeb::escapeURL(slurl);
 
 			mObjectData = payload;
 		}
@@ -941,34 +1031,66 @@ public:
 protected:
 	static const S32 PADDING = 20;
 
-	void showContextMenu(S32 x,S32 y)
+	void showContextMenu(S32 x, S32 y)
 	{
-		if(mSourceType == CHAT_SOURCE_SYSTEM)
-			showSystemContextMenu(x,y);
+		if (mSourceType == CHAT_SOURCE_SYSTEM)
+			showSystemContextMenu(x, y);
 		else if (mAvatarID.notNull() && mSourceType == CHAT_SOURCE_AGENT)
-			showAvatarContextMenu(x,y);
+			showAvatarContextMenu(x, y);
 		else if (mAvatarID.notNull() && mSourceType == CHAT_SOURCE_OBJECT && SYSTEM_FROM != mFrom)
-			showObjectContextMenu(x,y);
+			showObjectContextMenu(x, y);
 		else if (mSourceType == CHAT_SOURCE_AUDIO_STREAM)
-			showAudioStreamContextMenu(x,y);
+			showAudioStreamContextMenu(x, y);
 	}
 
-	void showSystemContextMenu(S32 x,S32 y)
+	void showSystemContextMenu(S32 x, S32 y)
 	{
 	}
 	
-	void showObjectContextMenu(S32 x,S32 y)
+	void showObjectContextMenu(S32 x, S32 y)
 	{
-		LLMenuGL* menu = (LLMenuGL*)mPopupMenuHandleObject.get();
-		if(menu)
+		LLMenuGL *menu = (LLMenuGL *)mPopupMenuHandleObject.get();
+		
+		if (menu) 
+		{
+			LLViewerObject *object = gObjectList.findObject(mObjectData["object_id"]);
+
+			mZoomIntoID.setNull();
+
+			if (object) {
+				//
+				//	can't zoom in on your own HUD
+				//
+				if (!(object->isHUDAttachment() && object->flagObjectYouOwner())) {
+					mZoomIntoID = mObjectData["object_id"];
+				}
+			}
+			else 
+			{
+				//
+				//	can't find the object nearby, but if
+				//	the owner is nearby then the object
+				//	is most likely worn as a HUD
+				//	(either that or they only just deleted
+				//	the object)
+				//
+				if (gObjectList.findObject(mObjectData["owner_id"])) 
+				{
+					mZoomIntoID = mObjectData["owner_id"];
+				}
+			}
+
+			menu->setItemEnabled("zoom_in", mZoomIntoID.notNull());
+
 			LLMenuGL::showPopup(this, menu, x, y);
+        }
 	}
 	
-	void showAvatarContextMenu(S32 x,S32 y)
+	void showAvatarContextMenu(S32 x, S32 y)
 	{
 		LLMenuGL* menu = (LLMenuGL*)mPopupMenuHandleAvatar.get();
 
-		if(menu)
+		if (menu)
 		{
 			bool is_friend = LLAvatarActions::isFriend(mAvatarID);
 			bool is_group_session = gAgent.isInGroup(mSessionID);
@@ -980,73 +1102,95 @@ protected:
 			menu->setItemVisible("Group Ban Separator", is_group_session && canBanInGroup());
 			menu->setItemVisible("BanMember", is_group_session && canBanInGroup());
 
-			if(gAgentID == mAvatarID)
+			if (gAgentID == mAvatarID)
 			{
 				menu->setItemEnabled("Add Friend", false);
 				menu->setItemEnabled("Send IM", false);
 				menu->setItemEnabled("Remove Friend", false);
-				menu->setItemEnabled("Offer Teleport",false);
-				menu->setItemEnabled("Request Teleport",false);
+				menu->setItemEnabled("Offer Teleport", false);
+				menu->setItemEnabled("Request Teleport", false);
 				menu->setItemEnabled("Voice Call", false);
 				menu->setItemEnabled("Chat History", false);
-				menu->setItemEnabled("Invite Group", false);
 				menu->setItemEnabled("Zoom In", false);
+				menu->setItemEnabled("Invite To Group", false);
+				menu->setItemEnabled("Report Abuse", false);
 				menu->setItemEnabled("Share", false);
 				menu->setItemEnabled("Pay", false);
+				menu->setItemEnabled("Block", false);
+
+				menu->setItemEnabled("Remove Friend", false);
 				menu->setItemEnabled("Block Unblock", false);
 				menu->setItemEnabled("Mute Text", false);
+				menu->setItemVisible("freeze_eject_sep", false);
+				menu->setItemVisible("ToggleFreeze", false);
+				menu->setItemVisible("Eject", false);
+				menu->setItemVisible("Teleport Home", false);
+				menu->setItemVisible("Estate Ban", false);
 			}
 			else
 			{
 				LLUUID currentSessionID = LLIMMgr::computeSessionID(IM_NOTHING_SPECIAL, mAvatarID);
 				if (mSessionID == currentSessionID)
-			{
-				menu->setItemVisible("Send IM", false);
-			}
+				{
+					menu->setItemVisible("Send IM", false);
+				}
 				menu->setItemEnabled("Offer Teleport", LLAvatarActions::canOfferTeleport(mAvatarID));
 				menu->setItemEnabled("Request Teleport", LLAvatarActions::canOfferTeleport(mAvatarID));
 				menu->setItemEnabled("Voice Call", LLAvatarActions::canCall());
 
+				const bool is_friend = (LLAvatarTracker::instance().getBuddyInfo(mAvatarID) != NULL);
+				menu->setItemVisible("Add Friend", !is_friend);
+				menu->setItemVisible("Remove Friend", is_friend);
+				menu->setItemVisible("Permissions", is_friend);
+
 				// We should only show 'Zoom in' item in a nearby chat
 				bool should_show_zoom = !LLIMModel::getInstance()->findIMSession(currentSessionID);
-				menu->setItemVisible("Zoom In", should_show_zoom && gObjectList.findObject(mAvatarID));	
+				menu->setItemVisible("Zoom In", should_show_zoom && gObjectList.findObject(mAvatarID));
 				menu->setItemEnabled("Block Unblock", LLAvatarActions::canBlock(mAvatarID));
 				menu->setItemEnabled("Mute Text", LLAvatarActions::canBlock(mAvatarID));
 				menu->setItemEnabled("Chat History", LLLogChat::isTranscriptExist(mAvatarID));
+				menu->setItemVisible("Show On Map", (is_friend && LLAvatarTracker::instance().isBuddyOnline(mAvatarID) && is_agent_mappable(mAvatarID)) || gAgent.isGodlike());
+
+				const bool can_freeze_eject = enable_freeze_eject(mAvatarID);
+				menu->setItemVisible("freeze_eject_sep", can_freeze_eject);
+				menu->setItemVisible("ToggleFreeze", can_freeze_eject);
+				menu->setItemVisible("Eject", can_freeze_eject);
+
+				const bool is_on_your_land = LLAvatarActions::isOnYourLand(mAvatarID);
+				menu->setItemVisible("Teleport Home", is_on_your_land);
+				menu->setItemVisible("Estate Ban", is_on_your_land);
 			}
 
-			menu->setItemEnabled("Map", (LLAvatarTracker::instance().isBuddyOnline(mAvatarID) && is_agent_mappable(mAvatarID)) || gAgent.isGodlike() );
+			menu->setItemEnabled("Map", (LLAvatarTracker::instance().isBuddyOnline(mAvatarID) && is_agent_mappable(mAvatarID)) || gAgent.isGodlike());
 			menu->buildDrawLabels();
 			menu->updateParent(LLMenuGL::sMenuContainer);
 			LLMenuGL::showPopup(this, menu, x, y);
 		}
 	}
 
-	void showAudioStreamContextMenu(S32 x,S32 y)
+	void showAudioStreamContextMenu(S32 x, S32 y)
 	{
 		LLMenuGL *menu = (LLMenuGL*)mPopupMenuHandleAudioStream.get();
 
-		if (menu) 
-		{
+		if (menu) {
 			LLStreamingAudioInterface *stream = NULL;
 
 			static LLCachedControl<bool> audio_streaming_music(gSavedSettings, "AudioStreamingMusic", true);
 
-			if (gAudiop && audio_streaming_music && LLViewerMedia::hasParcelAudio()) 
-				{
-				if (LLViewerMedia::isParcelAudioPlaying()) 
-				{
+			if (gAudiop && audio_streaming_music && LLViewerMedia::hasParcelAudio()) {
+				if (LLViewerMedia::isParcelAudioPlaying()) {
 					stream = gAudiop->getStreamingAudioImpl();
 				}
 
 				menu->setItemVisible("start_stream", stream == NULL);
 				menu->setItemEnabled("start_stream", stream == NULL);
-		}
-		else 
-		{
+			}
+			else {
 				menu->setItemVisible("start_stream", true);
 				menu->setItemEnabled("start_stream", false);
-		}
+			}
+			menu->setItemEnabled("Offer Teleport", LLAvatarActions::canOfferTeleport(mAvatarID));
+			menu->setItemEnabled("Voice Call", LLAvatarActions::canCall());
 
 			menu->setItemVisible("stop_stream", stream != NULL);
 			menu->setItemEnabled("stop_stream", stream != NULL);
@@ -1056,7 +1200,7 @@ protected:
 			menu->setItemEnabled("visit_stream_website", stream && !stream->getCurrentStreamLocation().empty());
 
 			menu->setItemEnabled("Chat History", LLLogChat::isTranscriptExist(mAvatarID));
-			menu->setItemEnabled("Map", (LLAvatarTracker::instance().isBuddyOnline(mAvatarID) && is_agent_mappable(mAvatarID)) || gAgent.isGodlike() );
+			menu->setItemEnabled("Map", (LLAvatarTracker::instance().isBuddyOnline(mAvatarID) && is_agent_mappable(mAvatarID)) || gAgent.isGodlike());
 			menu->buildDrawLabels();
 			menu->updateParent(LLMenuGL::sMenuContainer);
 			LLMenuGL::showPopup(this, menu, x, y);
@@ -1065,12 +1209,12 @@ protected:
 
 	void showInfoCtrl()
 	{
-		const bool isVisible = !mAvatarID.isNull() && !mFrom.empty() && CHAT_SOURCE_SYSTEM != mSourceType;
+		const bool isVisible = !mAvatarID.isNull() && !mFrom.empty() && CHAT_SOURCE_SYSTEM != mSourceType && CHAT_SOURCE_AUDIO_STREAM != mSourceType;
 		if (isVisible)
 		{
 			const LLRect sticky_rect = mUserNameTextBox->getRect();
 			S32 icon_x = llmin(sticky_rect.mLeft + mUserNameTextBox->getTextBoundingRect().getWidth() + 7, sticky_rect.mRight - 3);
-			mInfoCtrl->setOrigin(icon_x, sticky_rect.getCenterY() - mInfoCtrl->getRect().getHeight() / 2 ) ;
+			mInfoCtrl->setOrigin(icon_x, sticky_rect.getCenterY() - mInfoCtrl->getRect().getHeight() / 2);
 		}
 		mInfoCtrl->setVisible(isVisible);
 	}
@@ -1081,6 +1225,8 @@ protected:
 	}
 
 private:
+	LLUUID mZoomIntoID;
+
 	void setTimeField(const LLChat& chat)
 	{
 		LLTextBox* time_box = getChild<LLTextBox>("time_box");
@@ -1124,10 +1270,10 @@ private:
 		mFrom = av_name.getDisplayName();
 
 		LLTextBox* user_name = getChild<LLTextBox>("user_name");
-		user_name->setValue( LLSD(av_name.getDisplayName() ) );
-		user_name->setToolTip( av_name.getUserName() );
+		user_name->setValue(LLSD(av_name.getDisplayName()));
+		user_name->setToolTip(av_name.getUserName());
 
-		if (gSavedSettings.getBOOL("NameTagShowUsernames") && 
+		if (gSavedSettings.getBOOL("NameTagShowUsernames") &&
 			av_name.useDisplayNames() &&
 			!av_name.isDisplayNameDefault())
 		{
@@ -1139,7 +1285,7 @@ private:
 			style_params_name.readonly_color(userNameColor);
 			user_name->appendText("  - " + av_name.getUserName(), FALSE, style_params_name);
 		}
-		setToolTip( av_name.getUserName() );
+		setToolTip(av_name.getUserName());
 		// name might have changed, update width
 		updateMinUserNameWidth();
 	}
@@ -1160,14 +1306,15 @@ protected:
 	S32					mMinUserNameWidth;
 	const LLFontGL*		mUserNameFont;
 	LLTextBox*			mUserNameTextBox;
-	LLTextBox*			mTimeBoxTextBox; 
+	LLTextBox*			mTimeBoxTextBox;
 
 private:
 	boost::signals2::connection mAvatarNameCacheConnection;
 };
 
+
 LLChatHistory::LLChatHistory(const LLChatHistory::Params& p)
-:	LLUICtrl(p),
+	: LLUICtrl(p),
 	mMessageHeaderFilename(p.message_header),
 	mMessageSeparatorFilename(p.message_separator),
 	mLeftTextPad(p.left_text_pad),
@@ -1194,10 +1341,10 @@ LLChatHistory::LLChatHistory(const LLChatHistory::Params& p)
 
 LLSD LLChatHistory::getValue() const
 {
-  LLSD* text=new LLSD(); 
-  text->assign(mEditor->getText());
-  return *text;
-    
+	LLSD* text = new LLSD();
+	text->assign(mEditor->getText());
+	return *text;
+
 }
 
 LLChatHistory::~LLChatHistory()
@@ -1207,7 +1354,7 @@ LLChatHistory::~LLChatHistory()
 
 void LLChatHistory::initFromParams(const LLChatHistory::Params& p)
 {
-	static LLUICachedControl<S32> scrollbar_size ("UIScrollbarSize", 0);
+	static LLUICachedControl<S32> scrollbar_size("UIScrollbarSize", 0);
 
 	LLRect stack_rect = getLocalRect();
 	stack_rect.mRight -= scrollbar_size;
@@ -1216,11 +1363,11 @@ void LLChatHistory::initFromParams(const LLChatHistory::Params& p)
 	layout_p.follows.flags = FOLLOWS_ALL;
 	layout_p.orientation = LLLayoutStack::VERTICAL;
 	layout_p.mouse_opaque = false;
-	
+
 	LLLayoutStack* stackp = LLUICtrlFactory::create<LLLayoutStack>(layout_p, this);
-	
+
 	const S32 NEW_TEXT_NOTICE_HEIGHT = 20;
-	
+
 	LLLayoutPanel::Params panel_p;
 	panel_p.name = "spacer";
 	panel_p.background_visible = false;
@@ -1243,7 +1390,7 @@ void LLChatHistory::initFromParams(const LLChatHistory::Params& p)
 	panel_p.auto_resize = false;
 	panel_p.user_resize = false;
 	mMoreChatPanel = LLUICtrlFactory::create<LLLayoutPanel>(panel_p);
-	
+
 	LLTextBox::Params text_p(p.more_chat_text);
 	text_p.rect = mMoreChatPanel->getLocalRect();
 	text_p.follows.flags = FOLLOWS_ALL;
@@ -1257,17 +1404,17 @@ void LLChatHistory::initFromParams(const LLChatHistory::Params& p)
 
 /*void LLChatHistory::updateTextRect()
 {
-	static LLUICachedControl<S32> texteditor_border ("UITextEditorBorder", 0);
+static LLUICachedControl<S32> texteditor_border ("UITextEditorBorder", 0);
 
-	LLRect old_text_rect = mVisibleTextRect;
-	mVisibleTextRect = mScroller->getContentWindowRect();
-	mVisibleTextRect.stretch(-texteditor_border);
-	mVisibleTextRect.mLeft += mLeftTextPad;
-	mVisibleTextRect.mRight -= mRightTextPad;
-	if (mVisibleTextRect != old_text_rect)
-	{
-		needsReflow();
-	}
+LLRect old_text_rect = mVisibleTextRect;
+mVisibleTextRect = mScroller->getContentWindowRect();
+mVisibleTextRect.stretch(-texteditor_border);
+mVisibleTextRect.mLeft += mLeftTextPad;
+mVisibleTextRect.mRight -= mRightTextPad;
+if (mVisibleTextRect != old_text_rect)
+{
+needsReflow();
+}
 }*/
 
 LLView* LLChatHistory::getSeparator()
@@ -1276,7 +1423,7 @@ LLView* LLChatHistory::getSeparator()
 	return separator;
 }
 
-LLView* LLChatHistory::getHeader(const LLChat& chat,const LLStyle::Params& style_params, const LLSD& args)
+LLView* LLChatHistory::getHeader(const LLChat& chat, const LLStyle::Params& style_params, const LLSD& args)
 {
 	LLChatHistoryHeader* header = LLChatHistoryHeader::createInstance(mMessageHeaderFilename);
 	header->setup(chat, style_params, args);
@@ -1344,10 +1491,10 @@ void LLChatHistory::appendMessage(const LLChat& chat, const LLSD &args, const LL
 	LLColor4 txt_color = LLUIColorTable::instance().getColor("White");
 	LLColor4 name_color(txt_color);
 
-	LLViewerChat::getChatColor(chat,txt_color);
-	LLFontGL* fontp = LLViewerChat::getChatFont();	
+	LLViewerChat::getChatColor(chat, txt_color);
+	LLFontGL* fontp = LLViewerChat::getChatFont();
 	std::string font_name = LLFontGL::nameFromFont(fontp);
-	std::string font_size = LLFontGL::sizeFromFont(fontp);	
+	std::string font_size = LLFontGL::sizeFromFont(fontp);
 
 	LLStyle::Params body_message_params;
 	body_message_params.color(txt_color);
@@ -1369,7 +1516,7 @@ void LLChatHistory::appendMessage(const LLChat& chat, const LLSD &args, const LL
 	std::string delimiter = ": ";
 	std::string shout = LLTrans::getString("shout");
 	std::string whisper = LLTrans::getString("whisper");
-	if (chat.mChatType == CHAT_TYPE_SHOUT || 
+	if (chat.mChatType == CHAT_TYPE_SHOUT ||
 		chat.mChatType == CHAT_TYPE_WHISPER ||
 		chat.mText.compare(0, shout.length(), shout) == 0 ||
 		chat.mText.compare(0, whisper.length(), whisper) == 0)
@@ -1384,11 +1531,11 @@ void LLChatHistory::appendMessage(const LLChat& chat, const LLSD &args, const LL
 		body_message_params.font.style = "ITALIC";
 	}
 
-	if(chat.mChatType == CHAT_TYPE_WHISPER)
+	if (chat.mChatType == CHAT_TYPE_WHISPER)
 	{
 		body_message_params.font.style = "ITALIC";
 	}
-	else if(chat.mChatType == CHAT_TYPE_SHOUT)
+	else if (chat.mChatType == CHAT_TYPE_SHOUT)
 	{
 		body_message_params.font.style = "BOLD";
 	}
@@ -1416,17 +1563,17 @@ void LLChatHistory::appendMessage(const LLChat& chat, const LLSD &args, const LL
 		// out of the timestamp
 		if (args["show_time"].asBoolean())
 		{
-		if (!message_from_log)
-		{
-			LLColor4 timestamp_color = LLUIColorTable::instance().getColor("ChatTimestampColor");
-			timestamp_style.color(timestamp_color);
-			timestamp_style.readonly_color(timestamp_color);
-		}
+			if (!message_from_log)
+			{
+				LLColor4 timestamp_color = LLUIColorTable::instance().getColor("ChatTimestampColor");
+				timestamp_style.color(timestamp_color);
+				timestamp_style.readonly_color(timestamp_color);
+			}
 			mEditor->appendText("[" + chat.mTimeStr + "] ", prependNewLineState, timestamp_style);
 			prependNewLineState = false;
 		}
 
-        // out the opening square bracket (if need)
+		// out the opening square bracket (if need)
 		if (square_brackets)
 		{
 			mEditor->appendText("[", prependNewLineState, body_message_params);
@@ -1437,7 +1584,7 @@ void LLChatHistory::appendMessage(const LLChat& chat, const LLSD &args, const LL
 		if (args["show_names_for_p2p_conv"].asBoolean() && utf8str_trim(chat.mFromName).size() != 0)
 		{
 			// Don't hotlink any messages from the system (e.g. "Second Life:"), so just add those in plain text.
-			if ( chat.mSourceType == CHAT_SOURCE_OBJECT && chat.mFromID.notNull())
+			if (chat.mSourceType == CHAT_SOURCE_OBJECT && chat.mFromID.notNull())
 			{
 				// for object IMs, create a secondlife:///app/objectim SLapp
 				std::string url = LLViewerChat::getSenderSLURL(chat, args);
@@ -1467,7 +1614,7 @@ void LLChatHistory::appendMessage(const LLChat& chat, const LLSD &args, const LL
 			else
 			{
 				mEditor->appendText("<nolink>" + chat.mFromName + "</nolink>" + delimiter,
-						prependNewLineState, body_message_params);
+					prependNewLineState, body_message_params);
 				prependNewLineState = false;
 			}
 		}
@@ -1483,9 +1630,9 @@ void LLChatHistory::appendMessage(const LLChat& chat, const LLSD &args, const LL
 
 		LLDate new_message_time = LLDate::now();
 
-		if (mLastFromName == chat.mFromName 
+		if (mLastFromName == chat.mFromName
 			&& mLastFromID == chat.mFromID
-			&& mLastMessageTime.notNull() 
+			&& mLastMessageTime.notNull()
 			&& (new_message_time.secondsSinceEpoch() - mLastMessageTime.secondsSinceEpoch()) < 60.0
 			&& mIsLastMessageFromLog == message_from_log)  //distinguish between current and previous chat session's histories
 		{
@@ -1501,7 +1648,7 @@ void LLChatHistory::appendMessage(const LLChat& chat, const LLSD &args, const LL
 			else
 				p.top_pad = mTopHeaderPad;
 			p.bottom_pad = mBottomHeaderPad;
-			
+
 		}
 		p.view = view;
 
@@ -1545,27 +1692,26 @@ void LLChatHistory::appendMessage(const LLChat& chat, const LLSD &args, const LL
 
 		if (create_toast)
 		{
-		LLNotificationPtr notification = LLNotificationsUtil::find(chat.mNotifId);
-		if (notification != NULL)
-		{
-			LLIMToastNotifyPanel* notify_box = new LLIMToastNotifyPanel(
+			LLNotificationPtr notification = LLNotificationsUtil::find(chat.mNotifId);
+			if (notification != NULL)
+			{
+				LLIMToastNotifyPanel* notify_box = new LLIMToastNotifyPanel(
 					notification, chat.mSessionID, LLRect::null, !use_plain_text_chat_history, mEditor);
+				//Prepare the rect for the view
+				LLRect target_rect = mEditor->getDocumentView()->getRect();
+				// squeeze down the widget by subtracting padding off left and right
+				target_rect.mLeft += mLeftWidgetPad + mEditor->getHPad();
+				target_rect.mRight -= mRightWidgetPad;
+				notify_box->reshape(target_rect.getWidth(), notify_box->getRect().getHeight());
+				notify_box->setOrigin(target_rect.mLeft, notify_box->getRect().mBottom);
 
-			//Prepare the rect for the view
-			LLRect target_rect = mEditor->getDocumentView()->getRect();
-			// squeeze down the widget by subtracting padding off left and right
-			target_rect.mLeft += mLeftWidgetPad + mEditor->getHPad();
-			target_rect.mRight -= mRightWidgetPad;
-			notify_box->reshape(target_rect.getWidth(),	notify_box->getRect().getHeight());
-			notify_box->setOrigin(target_rect.mLeft, notify_box->getRect().mBottom);
-
-			LLInlineViewSegment::Params params;
-			params.view = notify_box;
-			params.left_pad = mLeftWidgetPad;
-			params.right_pad = mRightWidgetPad;
-			mEditor->appendWidget(params, "\n", false);
+				LLInlineViewSegment::Params params;
+				params.view = notify_box;
+				params.left_pad = mLeftWidgetPad;
+				params.right_pad = mRightWidgetPad;        
+				mEditor->appendWidget(params, "\n", false);
+			}
 		}
-	}
 	}
 
 	// usual messages showing
@@ -1579,10 +1725,10 @@ void LLChatHistory::appendMessage(const LLChat& chat, const LLSD &args, const LL
 		if (use_plain_text_chat_history && !from_me && chat.mFromID.notNull())
 		{
 			std::string slurl_about = SLURL_APP_AGENT + chat.mFromID.asString() + SLURL_ABOUT;
-			if (message.length() > slurl_about.length() && 
+			if (message.length() > slurl_about.length() &&
 				message.compare(0, slurl_about.length(), slurl_about) == 0)
 			{
-				message = message.substr(slurl_about.length(), message.length()-1);
+				message = message.substr(slurl_about.length(), message.length() - 1);
 			}
 		}
 
@@ -1591,18 +1737,18 @@ void LLChatHistory::appendMessage(const LLChat& chat, const LLSD &args, const LL
 			std::string from_name = chat.mFromName;
 			LLAvatarName av_name;
 			if (!chat.mFromID.isNull() &&
-						LLAvatarNameCache::get(chat.mFromID, &av_name) &&
-						!av_name.isDisplayNameDefault())
+				LLAvatarNameCache::get(chat.mFromID, &av_name) &&
+				!av_name.isDisplayNameDefault())
 			{
 				from_name = av_name.getCompleteName();
 			}
 			message = from_name + message;
 		}
-		
+
 		if (square_brackets)
 		{
 			message += "]";
-	}
+		}
 
 		mEditor->appendText(message, prependNewLineState, body_message_params);
 		prependNewLineState = false;
