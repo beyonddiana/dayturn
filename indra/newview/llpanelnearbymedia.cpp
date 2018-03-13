@@ -1048,7 +1048,7 @@ void LLPanelNearByMedia::updateControls()
 			else {
 				showBasicControls(!impl->isMediaDisabled(), 
 								  ! impl->isParcelMedia(),  // include_zoom
-								  LLViewerMediaFocus::getInstance()->isZoomed(),
+								  LLViewerMediaFocus::getInstance()->isZoomedOnMedia(impl->getMediaTextureID()),
 								  impl->getVolume() == 0.0,
 								  impl->getVolume());
 			}
