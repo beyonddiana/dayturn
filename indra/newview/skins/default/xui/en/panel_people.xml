@@ -225,10 +225,10 @@ Looking for people to hang out with? Try the [secondlife:///app/worldmap World M
 	       width="200"
                height="16"
                decimal_digits="0"
-               increment="1.0"
+               increment="5.0"
                initial_value="130"
-               max_val="1024"
-               min_val="75" />
+               max_val="4200"
+               min_val="5" />
            </layout_panel>
            <layout_panel
              height="213"
