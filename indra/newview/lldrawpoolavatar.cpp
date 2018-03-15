@@ -1219,12 +1219,18 @@ void LLDrawPoolAvatar::renderAvatars(LLVOAvatar* single_avatar, S32 pass)
 		return;
 	}
 
-	if (mDrawFace.empty() && !single_avatar)
+//MK from HB
+	////if (mDrawFace.empty() && !single_avatar)
+	////{
+	////	return;
+	////}
+	bool rlvcam = gRRenabled && gAgent.mRRInterface.mCamDistDrawMax < EXTREMUM &&
+		gAgent.mRRInterface.mCamDistDrawMin < gAgent.mRRInterface.mCamDistDrawMax;
+	if (!rlvcam && mDrawFace.empty() && !single_avatar)
 	{
-//MK
-		////return;
-//mk
+		return;
 	}
+//mk from HB
 
 	LLVOAvatar *avatarp;
 
