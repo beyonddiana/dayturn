@@ -1120,8 +1120,7 @@ void LLMeshRepoThread::constructUrl(LLUUID mesh_id, std::string * url, int * ver
 	
 	if (gAgent.getRegion())
 	{
-		LLMutexLock lock(mMutex);
-
+	    LLMutexLock lock(mMutex);
 		// Get a consistent pair of (cap string, version).  The
 		// locking could be eliminated here without loss of safety
 		// by using a set of staging values in setGetMeshCaps().
@@ -1136,17 +1135,23 @@ void LLMeshRepoThread::constructUrl(LLUUID mesh_id, std::string * url, int * ver
 			res_url = mGetMeshCapability;
 			res_version = 1;
 		}
-	}
-
-	if (! res_url.empty())
-	{
-		res_url += "/?mesh_id=";
-		res_url += mesh_id.asString().c_str();
+		
+		if (!res_url.empty())
+		{
+			res_url += "/?mesh_id=";
+			res_url += mesh_id.asString().c_str();
+		}
+		else
+		{
+			LL_WARNS_ONCE(LOG_MESH) << "Current region does not have ViewerAsset capability!  Cannot load meshes. Region id: "
+									<< gAgent.getRegion()->getRegionID() << LL_ENDL;
+			LL_DEBUGS_ONCE(LOG_MESH) << "Cannot load mesh " << mesh_id << " due to missing capability." << LL_ENDL;
+		}
 	}
 	else
 	{
-		LL_WARNS_ONCE(LOG_MESH) << "Current region does not have GetMesh capability!  Cannot load "
-								<< mesh_id << ".mesh" << LL_ENDL;
+		LL_WARNS_ONCE(LOG_MESH) << "Current region is not loaded so there is no capability to load from! Cannot load meshes." << LL_ENDL;
+		LL_DEBUGS_ONCE(LOG_MESH) << "Cannot load mesh " << mesh_id << " due to missing capability." << LL_ENDL;
 	}
 
 	*url = res_url;
