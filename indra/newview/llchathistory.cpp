@@ -142,6 +142,9 @@ public:
 		mAvatarID(),
 		mZoomIntoID(),
 		mSourceType(CHAT_SOURCE_UNKNOWN),
+//CA
+		mType(CHAT_TYPE_NORMAL), // FS:LO FIRE-1439 - Clickable avatar names on local chat radar crossing reports
+//ca
 		mFrom(),
 		mSessionID(),
 		mMinUserNameWidth(0),
@@ -864,10 +867,16 @@ public:
 		{
 			LLFloaterReg::showInstance("inspect_remote_object", mObjectData);
 		}
-		else if (mSourceType == CHAT_SOURCE_AGENT)
+//CA import clickable names from FS
+//		else if (mSourceType == CHAT_SOURCE_AGENT)
+//		{
+//			LLFloaterReg::showInstance("inspect_avatar", LLSD().with("avatar_id", mAvatarID));
+//		}
+		else if (mSourceType == CHAT_SOURCE_AGENT || (mSourceType == CHAT_SOURCE_SYSTEM && mType == CHAT_TYPE_RADAR)) // FS:LO FIRE-1439 - Clickable avatar names on local chat radar crossing reports
 		{
-			LLFloaterReg::showInstance("inspect_avatar", LLSD().with("avatar_id", mAvatarID));
+			LLUrlAction::executeSLURL(LLSLURL("agent", mAvatarID, "inspect").getSLURLString());
 		}
+//ca
 		//if chat source is system, you may add "else" here to define behaviour.
 	}
 
@@ -889,7 +898,9 @@ public:
 		mAvatarID = chat.mFromID;
 		mSessionID = chat.mSessionID;
 		mSourceType = chat.mSourceType;
-
+//CA
+		mType = chat.mChatType; // FS:LO FIRE-1439 - Clickable avatar names on local chat radar crossing reports
+//ca
 		//*TODO overly defensive thing, source type should be maintained out there
 		if ((chat.mFromID.isNull() && chat.mFromName.empty()) || (chat.mFromName == SYSTEM_FROM && chat.mFromID.isNull()))
 		{
@@ -910,14 +921,36 @@ public:
 		user_name->setReadOnlyColor(style_params.readonly_color());
 		user_name->setColor(style_params.color());
 
+//CA
+//		if (chat.mFromName.empty()
+//			|| mSourceType == CHAT_SOURCE_SYSTEM)
+//
+//		{
+//			mFrom = LLTrans::getString("SECOND_LIFE");
+//			if (!chat.mFromName.empty() && (mFrom != chat.mFromName))
+//			{
+//				mFrom += " (" + chat.mFromName + ")";
+//			}
 		if (chat.mFromName.empty()
-			|| mSourceType == CHAT_SOURCE_SYSTEM)
+			//|| mSourceType == CHAT_SOURCE_SYSTEM
+			// FS:LO FIRE-1439 - Clickable avatar names on local chat radar crossing reports
+			|| (mSourceType == CHAT_SOURCE_SYSTEM && mType != CHAT_TYPE_RADAR)
+			|| mAvatarID.isNull())
 		{
-			mFrom = LLTrans::getString("SECOND_LIFE");
-			if (!chat.mFromName.empty() && (mFrom != chat.mFromName))
+			if (mSourceType == CHAT_SOURCE_UNKNOWN)
 			{
-				mFrom += " (" + chat.mFromName + ")";
+				// Avatar names may come up as CHAT_SOURCE_UNKNOWN - don't append the grid name in that case
+				mFrom = chat.mFromName;
 			}
+			else
+			{
+				mFrom = LLTrans::getString("SECOND_LIFE"); // Will automatically be substituted!
+				if (!chat.mFromName.empty() && (mFrom != chat.mFromName))
+				{
+					mFrom += " (" + chat.mFromName + ")";
+				}
+			}
+//ca
 			user_name->setValue(mFrom);
 			updateMinUserNameWidth();
 		}
@@ -927,8 +960,11 @@ public:
 			user_name->setValue(mFrom);
 			updateMinUserNameWidth();
 	    }
-		else if (mSourceType == CHAT_SOURCE_AGENT
-				 && !mAvatarID.isNull()
+//CA
+//		else if (mSourceType == CHAT_SOURCE_AGENT
+		else if ((mSourceType == CHAT_SOURCE_AGENT || (mSourceType == CHAT_SOURCE_SYSTEM && mType == CHAT_TYPE_RADAR))
+//ca
+		&& !mAvatarID.isNull()
 				 && chat.mChatStyle != CHAT_STYLE_HISTORY)
 		{
 			// ...from a normal user, lookup the name and fill in later.
@@ -941,7 +977,10 @@ public:
 			fetchAvatarName();
 		}
 		else if (chat.mChatStyle == CHAT_STYLE_HISTORY ||
-			mSourceType == CHAT_SOURCE_AGENT)
+//CA
+//			mSourceType == CHAT_SOURCE_AGENT)
+			(mSourceType == CHAT_SOURCE_AGENT || (mSourceType == CHAT_SOURCE_SYSTEM && mType == CHAT_TYPE_RADAR)))
+//ca
 		{
 			//if it's an avatar name with a username add formatting
 			S32 username_start = chat.mFromName.rfind(" (");
@@ -999,8 +1038,19 @@ public:
 				icon->setValue(LLSD("OBJECT_Icon"));
 				break;
 			case CHAT_SOURCE_SYSTEM:
+//CA
+//			icon->setValue(LLSD("Dayturn_Logo"));
+			// FS:LO FIRE-1439 - Clickable avatar names on local chat radar crossing reports
+			if (chat.mChatType == CHAT_TYPE_RADAR)
+			{
+				icon->setValue(chat.mFromID);
+			}
+			else
+			{
 				icon->setValue(LLSD("Dayturn_Logo"));
-				break;
+			}
+			// FS:LO FIRE-1439 - Clickable avatar names on local chat radar crossing reports
+//ca				break;
 			case CHAT_SOURCE_AUDIO_STREAM:
 				icon->setValue(LLSD("Sound_Icon"));
 				break;
@@ -1071,7 +1121,23 @@ protected:
 	void showContextMenu(S32 x, S32 y)
 	{
 		if (mSourceType == CHAT_SOURCE_SYSTEM)
-			showSystemContextMenu(x, y);
+//CA
+//			showSystemContextMenu(x, y);
+// FS:LO FIRE-1439 - Clickable avatar names on local chat radar crossing reports
+		{
+			// FS:LO FIRE-1439 - Clickable avatar names on local chat radar crossing reports
+			if (mType == CHAT_TYPE_RADAR)
+			{
+				showAvatarContextMenu(x, y);
+			}
+			else
+			{
+				showSystemContextMenu(x, y);
+			}
+		}
+		// FS:LO FIRE-1439 - Clickable avatar names on local chat radar crossing reports
+
+//ca
 		else if (mAvatarID.notNull() && mSourceType == CHAT_SOURCE_AGENT)
 			showAvatarContextMenu(x, y);
 		else if (mAvatarID.notNull() && mSourceType == CHAT_SOURCE_OBJECT && SYSTEM_FROM != mFrom)
@@ -1245,7 +1311,10 @@ protected:
 
 	void showInfoCtrl()
 	{
-		const bool isVisible = !mAvatarID.isNull() && !mFrom.empty() && CHAT_SOURCE_SYSTEM != mSourceType && CHAT_SOURCE_AUDIO_STREAM != mSourceType;
+//CA
+//		const bool isVisible = !mAvatarID.isNull() && !mFrom.empty() && CHAT_SOURCE_SYSTEM != mSourceType && CHAT_SOURCE_AUDIO_STREAM != mSourceType;
+		const bool isVisible = !mAvatarID.isNull() && !mFrom.empty() && (CHAT_SOURCE_SYSTEM != mSourceType || mType == CHAT_TYPE_RADAR) && CHAT_SOURCE_AUDIO_STREAM != mSourceType;
+//ca
 		if (isVisible)
 		{
 			const LLRect sticky_rect = mUserNameTextBox->getRect();
@@ -1336,6 +1405,9 @@ protected:
 	LLUUID			    mAvatarID;
 	LLSD				mObjectData;
 	EChatSourceType		mSourceType;
+//CA
+	EChatType			mType; // FS:LO FIRE-1439 - Clickable avatar names on local chat radar crossing reports
+//ca
 	std::string			mFrom;
 	LLUUID				mSessionID;
 
@@ -1553,6 +1625,11 @@ void LLChatHistory::appendMessage(const LLChat& chat, const LLSD &args, const LL
 	std::string whisper = LLTrans::getString("whisper");
 	if (chat.mChatType == CHAT_TYPE_SHOUT ||
 		chat.mChatType == CHAT_TYPE_WHISPER ||
+//CA
+// FS:TS FIRE-6049: No : in radar chat header
+		chat.mChatType == CHAT_TYPE_RADAR ||
+// FS:TS FIRE-6049: No : in radar chat header
+//ca
 		chat.mText.compare(0, shout.length(), shout) == 0 ||
 		chat.mText.compare(0, whisper.length(), whisper) == 0)
 	{
@@ -1591,7 +1668,9 @@ void LLChatHistory::appendMessage(const LLChat& chat, const LLSD &args, const LL
 	// compact mode: show a timestamp and name
 	if (use_plain_text_chat_history)
 	{
-		square_brackets = chat.mSourceType == CHAT_SOURCE_SYSTEM;
+//CA
+//		square_brackets = chat.mSourceType == CHAT_SOURCE_SYSTEM;
+		square_brackets = (chat.mSourceType == CHAT_SOURCE_SYSTEM && chat.mChatType != CHAT_TYPE_RADAR);
 
 		LLStyle::Params timestamp_style(body_message_params);
 
