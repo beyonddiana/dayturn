@@ -5962,7 +5962,7 @@ void LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, LLFac
 							te->getShiny() > 0)
 						{
 //MK
-							if (vision_restricted)
+							if (gRRenabled && gAgent.mRRInterface.mCamDistDrawMax < EXTREMUM)
 							{
 								registerFace(group, facep, LLRenderPass::PASS_FULLBRIGHT);
 							}
