@@ -5607,7 +5607,16 @@ void LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, LLFac
 	{
 		return;
 	}
-	LLVector3 joint_pos = gAgent.mRRInterface.getCamDistDrawFromJoint()->getWorldPosition();
+	bool vision_restricted = (gRRenabled && gAgent.mRRInterface.mCamDistDrawMax < EXTREMUM);
+	// Optimization : Rather than compare the distances for every face (which involves square roots, which are costly), we compare squared distances.
+	LLVector3 joint_pos = LLVector3::zero;
+	F32 cam_dist_draw_max_squared = EXTREMUM;
+	// We don't need to calculate all that stuff if the vision is not restricted.
+	if (vision_restricted)
+	{
+		joint_pos = gAgent.mRRInterface.getCamDistDrawFromJoint()->getWorldPosition();
+		cam_dist_draw_max_squared = gAgent.mRRInterface.mCamDistDrawMax * gAgent.mRRInterface.mCamDistDrawMax;
+	}
 //mk
 
 	while (face_iter != end_faces)
@@ -5616,7 +5625,21 @@ void LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, LLFac
 		LLFace* facep = *face_iter;
 		LLViewerTexture* tex = facep->getTexture();
 		LLMaterialPtr mat = facep->getTextureEntry()->getMaterialParams();
+//MK
+		LLVector3 face_pos = LLVector3::zero;
+		LLVector3 face_avatar_offset = LLVector3::zero;
+		F32 face_distance_to_avatar_squared = EXTREMUM;
 
+		// We don't need to calculate all that stuff if the vision is not restricted.
+		if (vision_restricted)
+		{
+			// We need the position of the face for later, as well as the square of the distance from this face to the avatar
+			face_pos = facep->getPositionAgent();
+			face_avatar_offset = face_pos - joint_pos;
+			face_distance_to_avatar_squared = (F32)face_avatar_offset.magVecSquared();
+		}
+//mk
+		
 		if (distance_sort)
 		{
 			tex = NULL;
@@ -5887,22 +5910,17 @@ void LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, LLFac
 			LLVOVolume* vobj = drawablep->getVOVolume();
 
 			// Due to a rendering bug, we must completely ignore the alpha and fullbright of any object (except our own attachments and 100% invisible objects) when the vision is restricted
-			if ((is_alpha || fullbright) && gRRenabled && gAgent.mRRInterface.mCamDistDrawMax < EXTREMUM && te->getColor().mV[3] > 0.f)
+			if ((is_alpha || fullbright) && vision_restricted && te->getColor().mV[3] > 0.f)
 			{
 				if (vobj && vobj->getAvatar() != gAgentAvatarp )
 				{
 					// If this is an attachment with materials and alpha, and its wearer is farther than the vision range, do not render it at all
 					if (vobj->isAttachment())
 					{
-						//if (mat && LLPipeline::sRenderDeferred)
+						if (face_distance_to_avatar_squared > cam_dist_draw_max_squared)
 						{
-							LLVector3 offset = vobj->getPositionRegion() - joint_pos;
-							F32 distance_to_avatar = (F32)offset.magVec() - vobj->getRadius();
-							if (distance_to_avatar > gAgent.mRRInterface.mCamDistDrawMax)
-							{
-								++face_iter;
-								continue;
-							}
+							++face_iter;
+							continue;
 						}
 					}
 					else
@@ -5925,7 +5943,7 @@ void LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, LLFac
 					}
 				}
 			}
-			else if (te->getColor().mV[3] == 0.f && gAgent.mRRInterface.mCamDistDrawMax < EXTREMUM && vobj && !vobj->isAttachment()) // completely transparent and not an attachment => don't bother rendering it at all (even when highlighting transparent)
+			else if (te->getColor().mV[3] == 0.f && vision_restricted && vobj && !vobj->isAttachment()) // completely transparent and not an attachment => don't bother rendering it at all (even when highlighting transparent)
 			{
 				++face_iter;
 				continue;
@@ -5962,7 +5980,7 @@ void LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, LLFac
 							te->getShiny() > 0)
 						{
 //MK
-							if (gRRenabled && gAgent.mRRInterface.mCamDistDrawMax < EXTREMUM)
+							if (vision_restricted)
 							{
 								registerFace(group, facep, LLRenderPass::PASS_FULLBRIGHT);
 							}
@@ -6180,6 +6198,13 @@ void LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, LLFac
 
 			if (!is_alpha && LLPipeline::sRenderGlow && te->getGlow() > 0.f)
 			{
+//MK
+				if (vision_restricted && face_distance_to_avatar_squared > cam_dist_draw_max_squared)
+				{
+					registerFace(group, facep, LLRenderPass::PASS_SIMPLE);
+				}
+				else
+//mk			
 				registerFace(group, facep, LLRenderPass::PASS_GLOW);
 			}
 						

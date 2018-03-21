@@ -1749,7 +1749,16 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 	{
 		return;
 	}
-	LLVector3 joint_pos = gAgent.mRRInterface.getCamDistDrawFromJoint()->getWorldPosition();
+	bool vision_restricted = (gRRenabled && gAgent.mRRInterface.mCamDistDrawMax < EXTREMUM);
+	// Optimization : Rather than compare the distances for every face (which involves square roots, which are costly), we compare squared distances.
+	LLVector3 joint_pos = LLVector3::zero;
+	F32 cam_dist_draw_max_squared = EXTREMUM;
+	// We don't need to calculate all that stuff if the vision is not restricted.
+	if (vision_restricted)
+	{
+		joint_pos = gAgent.mRRInterface.getCamDistDrawFromJoint()->getWorldPosition();
+		cam_dist_draw_max_squared = gAgent.mRRInterface.mCamDistDrawMax * gAgent.mRRInterface.mCamDistDrawMax;
+	}
 //mk
 
 	for (U32 i = 0; i < mRiggedFace[type].size(); ++i)
@@ -1769,8 +1778,18 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 		}
 
 //MK
-		LLVector3 offset = vobj->getPositionRegion() - joint_pos;
-		F32 distance_to_avatar = (F32)offset.magVec() - vobj->getRadius();
+		LLVector3 face_pos = LLVector3::zero;
+		LLVector3 face_avatar_offset = LLVector3::zero;
+		F32 face_distance_to_avatar_squared = EXTREMUM;
+
+		// We don't need to calculate all that stuff if the vision is not restricted.
+		if (vision_restricted)
+		{
+			// We need the position of the face for later, as well as the square of the distance from this face to the avatar
+			face_pos = face->getPositionAgent();
+			face_avatar_offset = face_pos - joint_pos;
+			face_distance_to_avatar_squared = (F32)face_avatar_offset.magVecSquared();
+		}
 //mk
 
 		LLVolume* volume = vobj->getVolume();
@@ -1907,7 +1926,7 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 				{
 //MK
 					// If the vision is restricted, rendering alpha rigged attachments may allow to cheat through the vision spheres.
-					if (gRRenabled && gAgent.mRRInterface.mCamDistDrawMax < EXTREMUM)
+					if (vision_restricted)
 					{
 						// Other avatars only
 						if (avatar != gAgentAvatarp)
@@ -1915,7 +1934,7 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 							// This rigged mesh is diffuse alpha blend with materials
 							if (mat->getDiffuseAlphaMode() == LLMaterial::DIFFUSE_ALPHA_MODE_BLEND)
 							{
-								if (distance_to_avatar > gAgent.mRRInterface.mCamDistDrawMax)
+								if (face_distance_to_avatar_squared > cam_dist_draw_max_squared)
 								{
 									continue;
 								}
@@ -1939,7 +1958,7 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 			{
 //MK
 				// If the vision is restricted, rendering alpha rigged attachments may allow to cheat through the vision spheres.
-				if (gRRenabled && gAgent.mRRInterface.mCamDistDrawMax < EXTREMUM)
+				if (vision_restricted)
 				{
 					// Other avatars only
 					if (avatar != gAgentAvatarp)
@@ -1947,7 +1966,7 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 						// This rigged mesh is diffuse alpha blend without materials
 						if (gPipeline.getPoolTypeFromTE(te, face->getTexture()) == LLDrawPool::POOL_ALPHA)
 						{
-							if (distance_to_avatar > gAgent.mRRInterface.mCamDistDrawMax)
+							if (face_distance_to_avatar_squared > cam_dist_draw_max_squared)
 							{
 								continue;
 							}
