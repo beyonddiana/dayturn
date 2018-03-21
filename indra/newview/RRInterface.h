@@ -30,9 +30,9 @@
 
 #define RR_VIEWER_NAME "RestrainedLife"
 #define RR_VIEWER_NAME_NEW "RestrainedLove"
-#define RR_VERSION_NUM "2092201"
-#define RR_VERSION "2.09.22.1"
-#define RR_SLV_VERSION "5.0.9.38226"
+#define RR_VERSION_NUM "2092300"
+#define RR_VERSION "2.09.23"
+#define RR_SLV_VERSION "5.0.9"
 
 #define RR_PREFIX "@"
 #define RR_SHARED_FOLDER "#RLV"
@@ -202,7 +202,8 @@ public:
 	BOOL forceTeleport(std::string location, const LLVector3& vecLookAt);
 	static void forceTeleportCallback(U64 hRegion, const LLVector3& posRegion, const LLVector3& vecLookAt);
 
-	std::string stringReplace (std::string s, std::string what, std::string by, BOOL caseSensitive = FALSE);
+	std::string stringReplace(std::string s, std::string what, std::string by, BOOL caseSensitive = FALSE);
+	std::string stringReplaceWholeWord(std::string s, std::string what, std::string by, BOOL caseSensitive = FALSE); // same as stringReplace, but checks for neighbors of the occurrences of "what", and replace only if these neighbors are NOT alphanum characters
 
 	std::string getDummyName (std::string name, EChatAudible audible = CHAT_AUDIBLE_FULLY); // return "someone", "unknown" etc according to the length of the name (when shownames is on)
 	std::string getCensoredMessage (std::string str); // replace names by dummy names

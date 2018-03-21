@@ -3353,7 +3353,50 @@ std::string RRInterface::stringReplace(std::string s, std::string what, std::str
 	
 }
 
-std::string RRInterface::getDummyName (std::string name, EChatAudible audible /* = CHAT_AUDIBLE_FULLY */)
+// same as stringReplace, but checks for neighbors of the occurrences of "what", and replace only if these neighbors are NOT alphanum characters
+std::string RRInterface::stringReplaceWholeWord(std::string s, std::string what, std::string by, BOOL caseSensitive /* = FALSE */)
+{
+	//	LL_INFOS() << "trying to replace <" << what << "> in <" << s << "> by <" << by << ">" << LL_ENDL;
+	if (what == "" || what == " ") return s; // avoid an infinite loop
+	int ind;
+	int old_ind = 0;
+	int len_what = what.length();
+	int len_by = by.length();
+	int len_s = s.length();
+	if (len_by == 0) len_by = 1; // avoid an infinite loop
+
+	while ((ind = s.find("%20")) != -1) // unescape
+	{
+		s = s.replace(ind, 3, " ");
+	}
+
+	std::string lower = s;
+	if (!caseSensitive) {
+		LLStringUtil::toLower(lower);
+		LLStringUtil::toLower(what);
+	}
+
+	while ((ind = lower.find(what, old_ind)) != -1)
+	{
+		//		LL_INFOS() << "ind=" << ind << "    old_ind=" << old_ind << LL_ENDL;
+		char prec = ' ';
+		char succ = ' ';
+		if (ind > 0) prec = s.at(ind - 1);
+		if (ind < len_s - len_what - 1) succ = s.at(ind + len_what);
+		if (!isalnum (prec) && prec != '\'' && !isalnum (succ) && succ != '\'')
+		{
+			s = s.replace(ind, len_what, by);
+			len_s = s.length();
+			lower = s;
+			if (!caseSensitive) LLStringUtil::toLower(lower);
+		}
+		old_ind = ind + len_by;
+	}
+	return s;
+
+}
+
+std::string RRInterface::getDummyName(std::string name, EChatAudible audible /* = CHAT_AUDIBLE_FULLY */)
 {
 	int len = name.length();
 	if (len == 0)
@@ -3454,13 +3497,13 @@ std::string RRInterface::getCensoredMessage (std::string str)
 						display_name = av_name.mDisplayName; // not "getDisplayName()" because we need this whether we use display names or user names
 
 						dummy_name = getDummyName(clean_user_name);
-						str = stringReplace(str, clean_user_name, dummy_name);
+						str = stringReplaceWholeWord(str, clean_user_name, dummy_name);
 
 						dummy_name = getDummyName(user_name);
-						str = stringReplace(str, user_name, dummy_name);
+						str = stringReplaceWholeWord(str, user_name, dummy_name);
 
 						dummy_name = getDummyName(display_name);
-						str = stringReplace(str, display_name, dummy_name);
+						str = stringReplaceWholeWord(str, display_name, dummy_name);
 					}
 				}
 			}
