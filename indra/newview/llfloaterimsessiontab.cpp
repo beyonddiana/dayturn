@@ -736,15 +736,16 @@ bool LLFloaterIMSessionTab::onIMShowModesMenuItemEnable(const LLSD& userdata)
 	bool plain_text = gSavedSettings.getBOOL("PlainTextChatHistory");
 	bool is_not_names = (item != "IMShowNamesForP2PConv");
 //MK
-	// Disable RLV P2P commands if we are not in a P2P chat
-	if (!mIsP2PChat && (
+	bool is_rlv_im_command = (
 		item == "rlv_get_version"
 		|| item == "rlv_get_blacklist"
 		|| item == "rlv_get_restrictions"
 		|| item == "rlv_stop_im"
-		))
+		);
+	// Disable RLV P2P commands if we are not in a P2P chat
+	if (is_rlv_im_command)
 	{
-		return false;
+		return (mIsP2PChat);
 	}
 //mk
 	return (plain_text && (is_not_names || mIsP2PChat));
