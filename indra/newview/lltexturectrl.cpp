@@ -492,9 +492,9 @@ void LLFloaterTexturePicker::draw()
 
 			if ((mImageAssetID == IMG_USE_BAKED_EYES) || (mImageAssetID == IMG_USE_BAKED_HAIR) || (mImageAssetID == IMG_USE_BAKED_HEAD) || (mImageAssetID == IMG_USE_BAKED_LOWER) || (mImageAssetID == IMG_USE_BAKED_SKIRT) || (mImageAssetID == IMG_USE_BAKED_UPPER))
 			{
-				if (LLSelectMgr::getInstance()->getSelection()->getObjectCount() == 1)
+				LLViewerObject* obj = LLSelectMgr::getInstance()->getSelection()->getFirstObject();
+				if (obj)
 				{
-					LLViewerObject* obj = LLSelectMgr::getInstance()->getSelection()->getFirstObject();
 					LLViewerTexture* viewerTexture = obj->getBakedTextureForMagicId(mImageAssetID);
 					texture = viewerTexture ? dynamic_cast<LLViewerFetchedTexture*>(viewerTexture) : NULL;
 				}
@@ -1004,9 +1004,23 @@ void LLFloaterTexturePicker::onBakeTextureSelect(LLUICtrl* ctrl, void *user_data
 
 	if (imageID.notNull())
 	{
-		self->setCanApply(true, true);
 		self->setImageID(imageID);
-		self->commitIfImmediateSet();
+		self->mViewModel->setDirty(); // *TODO: shouldn't we be using setValue() here?
+
+		if (!self->mPreviewSettingChanged)
+		{
+			self->mCanPreview = gSavedSettings.getBOOL("TextureLivePreview");
+		}
+		else
+		{
+			self->mPreviewSettingChanged = false;
+		}
+
+		if (self->mCanPreview)
+		{
+			// only commit intentional selections, not implicit ones
+			self->commitIfImmediateSet();
+		}
 	}
 	else
 	{
@@ -1081,6 +1095,8 @@ void LLFloaterTexturePicker::setLocalTextureEnabled(BOOL enabled)
 void LLFloaterTexturePicker::setBakeTextureEnabled(BOOL enabled)
 {
 	mModeSelector->setIndexEnabled(2, enabled);
+	mModeSelector->setSelectedIndex(mModeSelector->getSelectedIndex(), 0);
+	onModeSelect(0, this);
 }
 
 void LLFloaterTexturePicker::onTextureSelect( const LLTextureEntry& te )
@@ -1324,13 +1340,15 @@ void LLTextureCtrl::showPicker(BOOL take_focus)
 		{
 			texture_floaterp->setSetImageAssetIDCallback(boost::bind(&LLTextureCtrl::setImageAssetID, this, _1));
 		}
+		if (texture_floaterp)
+		{
+			texture_floaterp->setBakeTextureEnabled(mBakeTextureEnabled);
+		}
 
 		LLFloater* root_floater = gFloaterView->getParentFloater(this);
 		if (root_floater)
 			root_floater->addDependentFloater(floaterp);
 		floaterp->openFloater();
-
-		texture_floaterp->setBakeTextureEnabled(mBakeTextureEnabled);
 	}
 
 	LLFloaterTexturePicker* picker_floater = dynamic_cast<LLFloaterTexturePicker*>(floaterp);
@@ -1501,6 +1519,17 @@ void LLTextureCtrl::setImageAssetID( const LLUUID& asset_id )
 	}
 }
 
+void LLTextureCtrl::setBakeTextureEnabled(BOOL enabled)
+{
+	mBakeTextureEnabled = enabled;
+	LLFloaterTexturePicker* floaterp = (LLFloaterTexturePicker*)mFloaterHandle.get();
+	if (floaterp)
+	{
+		floaterp->setBakeTextureEnabled(enabled);
+		floaterp->resetDirty();
+	}
+}
+
 BOOL LLTextureCtrl::handleDragAndDrop(S32 x, S32 y, MASK mask,
 					  BOOL drop, EDragAndDropType cargo_type, void *cargo_data,
 					  EAcceptance *accept,
@@ -1559,12 +1588,13 @@ void LLTextureCtrl::draw()
 
 		if ((mImageAssetID == IMG_USE_BAKED_EYES) || (mImageAssetID == IMG_USE_BAKED_HAIR) || (mImageAssetID == IMG_USE_BAKED_HEAD) || (mImageAssetID == IMG_USE_BAKED_LOWER) || (mImageAssetID == IMG_USE_BAKED_SKIRT) || (mImageAssetID == IMG_USE_BAKED_UPPER))
 		{
-			if (LLSelectMgr::getInstance()->getSelection()->getObjectCount() == 1)
+			LLViewerObject* obj = LLSelectMgr::getInstance()->getSelection()->getFirstObject();
+			if (obj)
 			{
-				LLViewerObject* obj = LLSelectMgr::getInstance()->getSelection()->getFirstObject();
 				LLViewerTexture* viewerTexture = obj->getBakedTextureForMagicId(mImageAssetID);
 				texture = viewerTexture ? dynamic_cast<LLViewerFetchedTexture*>(viewerTexture) : NULL;
 			}
+			
 		}
 
 		if (texture.isNull())
