@@ -410,6 +410,13 @@ void set_flags_and_update_appearance()
 // true when all initialization done.
 bool idle_startup()
 {
+	if (gViewerWindow == NULL)
+	{
+		// We expect window to be initialized
+		LL_WARNS_ONCE() << "gViewerWindow is not initialized" << LL_ENDL;
+		return false; // No world yet
+	}
+
     // FIXME asset-http - this configuration stuff is temporary
     // construction; once it is always on for certain types
     // and we can remove the setting.
