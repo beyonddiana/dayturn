@@ -100,6 +100,7 @@
 #include "llviewernetwork.h"
 #include "llworld.h"
 #include "llglheaders.h"
+#include "llinventoryobserver.h"
 
 #include "fsareasearch.h"
 

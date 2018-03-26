@@ -7272,6 +7272,44 @@ const LLViewerJointAttachment *LLVOAvatar::attachObject(LLViewerObject *viewer_o
 		LLSelectMgr::getInstance()->updatePointAt();
 	}
 
+	const U32 MAX_TES = 32;
+
+	S32 last_face_index = llmin((U32)viewer_object->getNumTEs(), MAX_TES) - 1;
+
+	if (last_face_index > -1)
+	{
+		S8 face_index;
+		for (face_index = 0; face_index <= last_face_index; face_index++)
+		{
+			LLTextureEntry* texEntry = viewer_object->getTE(face_index);
+			if (texEntry && LLAvatarAppearanceDefines::LLAvatarAppearanceDictionary::isBakedImageId(texEntry->getID()))
+			{
+				viewer_object->setTEImage(face_index, viewer_object->getBakedTextureForMagicId(texEntry->getID()));
+			}
+		}
+	}
+
+	LLViewerObject::const_child_list_t& child_list = viewer_object->getChildren();
+	for (LLViewerObject::child_list_t::const_iterator iter = child_list.begin();
+		iter != child_list.end(); ++iter)
+	{
+		LLViewerObject* objectp = *iter;
+		if (objectp)
+		{
+			for (int face_index = 0; face_index < objectp->getNumTEs(); face_index++)
+			{
+				LLTextureEntry* tex_entry = objectp->getTE(face_index);
+				if (tex_entry && LLAvatarAppearanceDefines::LLAvatarAppearanceDictionary::isBakedImageId(tex_entry->getID()))
+				{
+					objectp->setTEImage(face_index, viewer_object->getBakedTextureForMagicId(tex_entry->getID()));
+				}
+			}
+		}
+	}
+
+
+	updateMeshVisibility();
+
 	return attachment;
 }
 
@@ -7479,7 +7517,6 @@ void LLVOAvatar::cleanupAttachedMesh( LLViewerObject* pVO )
 //-----------------------------------------------------------------------------
 BOOL LLVOAvatar::detachObject(LLViewerObject *viewer_object)
 {
-
 	for (attachment_map_t::iterator iter = mAttachmentPoints.begin(); 
 		 iter != mAttachmentPoints.end();
 		 ++iter)
@@ -7492,6 +7529,41 @@ BOOL LLVOAvatar::detachObject(LLViewerObject *viewer_object)
             bool is_animated_object = viewer_object->isAnimatedObject();			
 			cleanupAttachedMesh( viewer_object );		
 			attachment->removeObject(viewer_object);
+
+			const U32 MAX_TES = 32;
+			S32 last_face_index = llmin((U32)viewer_object->getNumTEs(), MAX_TES) - 1;
+			if (last_face_index > -1)
+			{
+				S8 face_index;
+				for (face_index = 0; face_index <= last_face_index; face_index++)
+				{
+					LLTextureEntry* texEntry = viewer_object->getTE(face_index);
+					if (texEntry && LLAvatarAppearanceDefines::LLAvatarAppearanceDictionary::isBakedImageId(texEntry->getID()))
+					{
+						viewer_object->setTEImage(face_index, LLViewerTextureManager::getFetchedTexture(texEntry->getID(), FTT_DEFAULT, TRUE, LLGLTexture::BOOST_NONE, LLViewerTexture::LOD_TEXTURE));
+					}
+				}
+			}			
+
+			LLViewerObject::const_child_list_t& child_list = viewer_object->getChildren();
+			for (LLViewerObject::child_list_t::const_iterator iter = child_list.begin();
+				iter != child_list.end(); ++iter)
+			{
+				LLViewerObject* objectp = *iter;
+				if (objectp)
+				{
+					for (int face_index = 0; face_index < objectp->getNumTEs(); face_index++)
+					{
+						LLTextureEntry* texEntry = viewer_object->getTE(face_index);
+						if (texEntry && LLAvatarAppearanceDefines::LLAvatarAppearanceDictionary::isBakedImageId(texEntry->getID()))
+						{
+							objectp->setTEImage(face_index, LLViewerTextureManager::getFetchedTexture(texEntry->getID(), FTT_DEFAULT, TRUE, LLGLTexture::BOOST_NONE, LLViewerTexture::LOD_TEXTURE));
+						}
+					}
+				}
+			}
+			updateMeshVisibility();
+			
             if (!is_animated_object)
             {
                 updateAttachmentOverrides();
@@ -8167,6 +8239,26 @@ void LLVOAvatar::updateMeshVisibility()
 						bake_flag[BAKED_LOWER] |= (tex_entry->getID() == IMG_USE_BAKED_LOWER);
 						bake_flag[BAKED_UPPER] |= (tex_entry->getID() == IMG_USE_BAKED_UPPER);
 						bake_flag[BAKED_SKIRT] |= (tex_entry->getID() == IMG_USE_BAKED_SKIRT);
+					}
+				}
+
+				LLViewerObject::const_child_list_t& child_list = objectp->getChildren();
+				for (LLViewerObject::child_list_t::const_iterator iter = child_list.begin();
+					iter != child_list.end(); ++iter)
+				{
+					LLViewerObject* objectp = *iter;
+					if (objectp)
+					{
+						for (int face_index = 0; face_index < objectp->getNumTEs(); face_index++)
+						{
+							LLTextureEntry* tex_entry = objectp->getTE(face_index);
+							bake_flag[BAKED_HEAD] |= (tex_entry->getID() == IMG_USE_BAKED_HEAD);
+							bake_flag[BAKED_EYES] |= (tex_entry->getID() == IMG_USE_BAKED_EYES);
+							bake_flag[BAKED_HAIR] |= (tex_entry->getID() == IMG_USE_BAKED_HAIR);
+							bake_flag[BAKED_LOWER] |= (tex_entry->getID() == IMG_USE_BAKED_LOWER);
+							bake_flag[BAKED_UPPER] |= (tex_entry->getID() == IMG_USE_BAKED_UPPER);
+							bake_flag[BAKED_SKIRT] |= (tex_entry->getID() == IMG_USE_BAKED_SKIRT);
+						}
 					}
 				}
 			}
@@ -9238,7 +9330,6 @@ void LLVOAvatar::applyParsedAppearanceMessage(LLAppearanceMessageContents& conte
 		}
 	}
 
-	updateMeshVisibility();
 }
 
 // static
