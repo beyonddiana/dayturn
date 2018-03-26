@@ -3747,6 +3747,11 @@ F32 LLViewerObject::getEstTrianglesMax() const
     return 0.f;
 }
 
+F32 LLViewerObject::getEstTrianglesStreamingCost() const
+{
+    return 0.f;
+}
+
 F32 LLViewerObject::getStreamingCost(S32* bytes, S32* visible_bytes, F32* unscaled_value) const
 {
 	return 0.f;
