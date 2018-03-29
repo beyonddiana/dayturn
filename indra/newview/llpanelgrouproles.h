@@ -186,6 +186,7 @@ public:
 	bool handleBanCallback(const LLSD& notification, const LLSD& response);
 	void confirmBanMembers();
 
+	void updateActionDescription();
 
 	void applyMemberChanges();
 	bool addOwnerCB(const LLSD& notification, const LLSD& response);
@@ -225,6 +226,8 @@ protected:
 	BOOL mChanged;
 	BOOL mPendingMemberUpdate;
 	BOOL mHasMatch;
+
+	LLTextEditor*	mActionDescription;
 
 	member_role_changes_map_t mMemberRoleChangeData;
 	U32 mNumOwnerAdditions;
@@ -275,6 +278,8 @@ public:
 
 	static void onCopyRoleUUID(void *data);
 
+	void updateActionDescription();
+
 	void saveRoleChanges(bool select_saved_role);
 
 	virtual void setGroupID(const LLUUID& id);
@@ -288,6 +293,7 @@ protected:
 	LLScrollListCtrl* mRolesList;
 	LLNameListCtrl* mAssignedMembersList;
 	LLScrollListCtrl* mAllowedActionsList;
+	LLTextEditor* mActionDescription;
 
 	LLLineEditor* mRoleName;
 	LLLineEditor* mRoleTitle;
