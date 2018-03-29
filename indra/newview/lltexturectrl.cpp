@@ -1026,7 +1026,10 @@ void LLFloaterTexturePicker::onBakeTextureSelect(LLUICtrl* ctrl, void *user_data
 	{
 		self->setCanApply(true, true);
 		self->setImageID(self->mDefaultImageAssetID);
-		self->commitIfImmediateSet();
+		if (self->mCanPreview)
+		{
+			self->commitIfImmediateSet();
+		}
 	}
 }
 
