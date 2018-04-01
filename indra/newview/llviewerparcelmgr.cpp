@@ -197,9 +197,6 @@ LLViewerParcelMgr::~LLViewerParcelMgr()
 	delete[] mHighlightSegments;
 	mHighlightSegments = NULL;
 
-	delete[] mCollisionBitmap;
-	mCollisionBitmap = NULL;
-
 	delete[] mCollisionSegments;
 	mCollisionSegments = NULL;
 
