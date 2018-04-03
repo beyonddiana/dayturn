@@ -1229,6 +1229,7 @@ void LLFloaterSnapshot::onOpen(const LLSD& key)
 	if(preview)
 	{
 		LL_DEBUGS() << "opened, updating snapshot" << LL_ENDL;
+		preview->setAllowFullScreenPreview(TRUE);
 		preview->updateSnapshot(TRUE);
 	}
 	focusFirstItem(FALSE);
@@ -1251,6 +1252,7 @@ void LLFloaterSnapshot::onClose(bool app_quitting)
 	LLSnapshotLivePreview* previewp = LLFloaterSnapshot::Impl::getPreviewView(this);
 	if (previewp)
 	{
+		previewp->setAllowFullScreenPreview(FALSE);
 		previewp->setVisible(FALSE);
 		previewp->setEnabled(FALSE);
 	}
