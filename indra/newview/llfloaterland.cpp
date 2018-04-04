@@ -83,6 +83,8 @@
 
 #include "llgroupactions.h"
 
+extern BOOL gIsInSecondLife; //Opensim or SecondLife
+
 const F64 COVENANT_REFRESH_TIME_SEC = 60.0f;
 
 static std::string OWNER_ONLINE 	= "0";
@@ -298,7 +300,7 @@ BOOL LLFloaterLand::postBuild()
 
 // <FS:Ansariel> FIRE-17280: Requesting Experience access allow and block list interferes with OpenSim landflags
 
-if (!LLGridManager::instance().isInSecondLife())
+if (!gIsInSecondLife)
 {
     mTabLand->removeTabPanel(mTabLand->getPanelByName("land_experiences_panel"));
 }
