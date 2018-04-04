@@ -2155,12 +2155,11 @@ void LLPanelLandOptions::refresh()
 S32 LLPanelLandOptions::getDirectoryFee()
 {
 	S32 fee = PARCEL_DIRECTORY_FEE;
-#ifdef OPENSIM
-	if (LLGridManager::getInstance()->isInOpenSim())
+
+	if (!gIsInSecondLife)
 	{
 		fee = LLGridManager::getInstance()->getDirectoryFee();
 	}
-#endif // OPENSIM
 	return fee;
 }
 
