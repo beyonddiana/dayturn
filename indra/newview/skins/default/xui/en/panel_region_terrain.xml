@@ -87,7 +87,7 @@
      top="95"
      width="300"
      word_wrap="true">
-       Terrain Textures (requires 512x512, 24 bit .tga files). OpenSim allows textures up to 1024x1024.
+       Terrain Textures can be up to 1024x1024 in 24 bit tga format. 
     </text>
     <texture_picker
      follows="left|top"

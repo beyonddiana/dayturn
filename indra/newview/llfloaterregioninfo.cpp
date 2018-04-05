@@ -1416,11 +1416,6 @@ BOOL LLPanelRegionTerrainInfo::validateTextureSizes()
 			return FALSE;
 		}
 
-		if(gIsInSecondLife)
-		{
-			maxSize = 512;
-		}
-
 		if (width > maxSize || height > maxSize)
 		{
 			LLSD args;
