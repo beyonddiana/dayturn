@@ -3587,7 +3587,7 @@ void LLVOVolume::afterReparent()
         // notifyMeshLoaded() not being called reliably enough.
         
         // was: getControlAvatar()->addAttachmentOverridesForObject(this);
-        getControlAvatar()->rebuildAttachmentOverrides();
+        //getControlAvatar()->rebuildAttachmentOverrides();
         getControlAvatar()->updateAnimations();
     }
     else
@@ -5303,24 +5303,24 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 
 			drawablep->clearState(LLDrawable::HAS_ALPHA);
 
-            // AXON this includes attached animeshes but leaves out standalone ones. Fix.
-			bool rigged = vobj->isRiggedMesh() && vobj->isAttachment();
+            if (vobj->isRiggedMesh() && vobj->getAvatar())
+            {
+                vobj->getAvatar()->addAttachmentOverridesForObject(vobj);
+            }
+            
+            // Standard rigged mesh attachments: 
+			bool rigged = !vobj->isAnimatedObject() && vobj->isRiggedMesh() && vobj->isAttachment();
+            // Animated objects. Have to check for isRiggedMesh() to
+            // exclude static objects in animated object linksets.
+			rigged = rigged || (vobj->isAnimatedObject() && vobj->isRiggedMesh() &&
+                vobj->getControlAvatar() && vobj->getControlAvatar()->mPlaying);
 						
             vobj->updateControlAvatar();
 						
 			bool bake_sunlight = LLPipeline::sBakeSunlight && drawablep->isStatic();
+
             bool any_rigged_face = false;
-            			
-			if (rigged && pAvatarVO)
-            {
-                pAvatarVO->addAttachmentOverridesForObject(vobj);
-                if (!LLApp::isExiting() && pAvatarVO->isSelf() && debugLoggingEnabled("AvatarAttachments"))
-				{
-                    bool verbose = true;
-					pAvatarVO->showAttachmentOverrides(verbose);
-				}
-            }
-            
+            			            
 			//for each face
 			for (S32 i = 0; i < drawablep->getNumFaces(); i++)
 			{
