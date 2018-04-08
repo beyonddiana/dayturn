@@ -93,9 +93,6 @@ protected:
     S32                         mLabelPaddingRight;
 	LLFolderViewFolder*			mParentFolder;
 	LLPointer<LLFolderViewModelItem> mViewModelItem;
-//	LLFolderViewEventListener*	mListener;
-//	BOOL						mIsCurSelection;
-//	BOOL						mSelectPending;
 	LLFontGL::StyleFlags		mLabelStyle;
 	std::string					mLabelSuffix;
 	LLUIImagePtr				mIcon,

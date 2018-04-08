@@ -444,7 +444,7 @@ void LLPluginProcessChild::receiveMessageRaw(const std::string &message)
 			}
 			else if(message_name == "sleep_time")
 			{
-				mSleepTime = parsed.getValueReal("time");
+				mSleepTime = llmax(parsed.getValueReal("time"), 1.0 / 100.0); // clamp to maximum of 100Hz
 			}
      		#if LL_WINDOWS
 			else if(message_name == "show_console")
