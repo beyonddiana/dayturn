@@ -369,11 +369,11 @@ void LLXMLRPCTransaction::Impl::init(XMLRPC_REQUEST request, bool useGzip, const
 		httpOpts->setRetries(httpParams["retries"].asInteger());
 	}
 
-	bool vefifySSLCert = !gSavedSettings.getBOOL("NoVerifySSLCert");
+	bool verifySSLCert = !gSavedSettings.getBOOL("NoVerifySSLCert");
 	mCertStore = gSavedSettings.getString("CertStore");
 
-	httpOpts->setSSLVerifyPeer( vefifySSLCert );
-	httpOpts->setSSLVerifyHost( vefifySSLCert ? 2 : 0);
+	httpOpts->setSSLVerifyPeer( verifySSLCert );
+	httpOpts->setSSLVerifyHost( verifySSLCert );
 
 	// LLRefCounted starts with a 1 ref, so don't add a ref in the smart pointer
 	httpHeaders = LLCore::HttpHeaders::ptr_t(new LLCore::HttpHeaders(), false);
