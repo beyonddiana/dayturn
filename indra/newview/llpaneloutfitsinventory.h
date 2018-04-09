@@ -57,13 +57,6 @@ public:
 	bool onSaveCommit(const LLSD& notification, const LLSD& response);
 
 	static LLSidepanelAppearance* getAppearanceSP();
-
-// [RLVa:KB] - Checked: 2010-08-24 (RLVa-1.4.0a) | Added: RLVa-1.2.1a
-	LLTabContainer* getAppearanceTabs()		{ return mAppearanceTabs; }
-	LLOutfitsList*  getMyOutfitsPanel()		{ return mMyOutfitsPanel; }
-	LLPanelWearing* getCurrentOutfitPanel()	{ return mCurrentOutfitPanel; }
-// [/RLVa:KB]
-
 	static LLPanelOutfitsInventory* findInstance();
 
 protected:
