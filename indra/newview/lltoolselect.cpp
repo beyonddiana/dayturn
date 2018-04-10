@@ -64,9 +64,9 @@ LLToolSelect::LLToolSelect( LLToolComposite* composite )
 BOOL LLToolSelect::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	// do immediate pick query
-	// AXON experimental feature
-    BOOL pick_rigged = gSavedSettings.getBOOL("AnimatedObjectsAllowLeftClick");
+    BOOL pick_rigged = false; //gSavedSettings.getBOOL("AnimatedObjectsAllowLeftClick");
 	mPick = gViewerWindow->pickImmediate(x, y, TRUE, pick_rigged);
+
 //MK
 	LLViewerObject* object = mPick.getObject();
 	if (object)
@@ -81,6 +81,7 @@ BOOL LLToolSelect::handleMouseDown(S32 x, S32 y, MASK mask)
 		}
 	}
 //mk
+
 	// Pass mousedown to agent
 	LLTool::handleMouseDown(x, y, mask);
 
@@ -96,19 +97,6 @@ LLObjectSelectionHandle LLToolSelect::handleObjectSelection(const LLPickInfo& pi
 	{
 		object = object->getRootEdit();
 	}
-//MK
-	if (object)
-	{
-		if (gRRenabled && !temp_select && !gAgent.mRRInterface.canEdit (object))
-		{
-			return FALSE;
-		}
-		if (gRRenabled && !gAgent.mRRInterface.canTouchFar (object))
-		{
-			return FALSE;
-		}
-	}
-//mk
 	BOOL select_owned = gSavedSettings.getBOOL("SelectOwnedOnly");
 	BOOL select_movable = gSavedSettings.getBOOL("SelectMovableOnly");
 	BOOL select_copyable = gSavedSettings.getBOOL("SelectCopyableOnly");
@@ -122,10 +110,7 @@ LLObjectSelectionHandle LLToolSelect::handleObjectSelection(const LLPickInfo& pi
 		LLSelectMgr::getInstance()->setForceSelection(TRUE);
 	}
 
-//MK
-////	BOOL extend_select = (pick.mKeyMask == MASK_SHIFT) || (pick.mKeyMask == MASK_CONTROL);
-	BOOL extend_select = (pick.mKeyMask & MASK_SHIFT);
-//mk
+	BOOL extend_select = (pick.mKeyMask == MASK_SHIFT) || (pick.mKeyMask == MASK_CONTROL);
 
 	// If no object, check for icon, then just deselect
 	if (!object)
