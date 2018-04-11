@@ -195,14 +195,14 @@
      type="string"
      length="1"
      follows="left|top"
-     height="10"
+     height="14"
      layout="topleft"
      left="30"
      name="Software updates:"
      mouse_opaque="false"
-     top_pad="5"
+     top_pad="10"
      width="300">
-    Software updates:
+    Software Updates:
   </text>
   <check_box
     top_delta="4"
@@ -215,7 +215,7 @@
     mouse_opaque="true"
     name="update_show_release_notes"
     width="400"
-    top_pad="10"/>
+    top_pad="12"/>
     
    <text
      type="string"
