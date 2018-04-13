@@ -1301,11 +1301,21 @@ BOOL LLVOVolume::calcLOD()
 
 		distance = avatar->mDrawable->mDistanceWRTCamera;
 		radius = avatar->getBinRadius();
+        if (distance <= 0.f || radius <= 0.f)
+        {
+            LL_DEBUGS("CalcLOD") << "avatar distance/radius uninitialized, skipping" << LL_ENDL;
+            return FALSE;
+        }
 	}
 	else
 	{
 		distance = mDrawable->mDistanceWRTCamera;
 		radius = getVolume() ? getVolume()->mLODScaleBias.scaledVec(getScale()).length() : getScale().length();
+        if (distance <= 0.f || radius <= 0.f)
+        {
+            LL_DEBUGS("CalcLOD") << "non-avatar distance/radius uninitialized, skipping" << LL_ENDL;
+            return FALSE;
+        }
 	}
 	
 	//hold onto unmodified distance for debugging
@@ -1559,14 +1569,29 @@ BOOL LLVOVolume::genBBoxes(BOOL force_global)
 
 	BOOL rebuild = mDrawable->isState(LLDrawable::REBUILD_VOLUME | LLDrawable::REBUILD_POSITION | LLDrawable::REBUILD_RIGGED);
 
-	//	bool rigged = false;
+    if (getRiggedVolume())
+    {
+        // MAINT-8264 - better to use the existing call in calling
+        // func LLVOVolume::updateGeometry() if we can detect when
+        // updates needed, set REBUILD_RIGGED accordingly.
+
+        // Without the flag, this will remove unused rigged volumes, which we are not currently very aggressive about.
+        updateRiggedVolume();
+    }
+    
 	LLVolume* volume = mRiggedVolume;
 	if (!volume)
 	{
 		volume = getVolume();
 	}
 
-	// There's no guarantee that getVolume()->getNumFaces() == mDrawable->getNumFaces()
+    bool any_valid_boxes = false;
+    
+    if (getRiggedVolume())
+    {
+        LL_DEBUGS("RiggedBox") << "rebuilding box, volume face count " << getVolume()->getNumVolumeFaces() << " drawable face count " << mDrawable->getNumFaces() << LL_ENDL;
+    }
+    // There's no guarantee that getVolume()->getNumFaces() == mDrawable->getNumFaces()
 	for (S32 i = 0;
 		 i < getVolume()->getNumVolumeFaces() && i < mDrawable->getNumFaces() && i < getNumTEs();
 		 i++)
@@ -1576,16 +1601,29 @@ BOOL LLVOVolume::genBBoxes(BOOL force_global)
 		{
 			continue;
 		}
-		res &= face->genVolumeBBoxes(*volume, i,
-										mRelativeXform, 
-										(mVolumeImpl && mVolumeImpl->isVolumeGlobal()) || force_global);
+
+        bool face_res = face->genVolumeBBoxes(*volume, i,
+                                              mRelativeXform,
+                                              (mVolumeImpl && mVolumeImpl->isVolumeGlobal()) || force_global);
+        res &= face_res; // note that this result is never used
+
+        // MAINT-8264 - ignore bboxes of ill-formed faces.
+        if (!face_res)
+        {
+            continue;
+        }
 		if (rebuild)
 		{
-			if (i == 0)
+            if (getRiggedVolume())
+            {
+                LL_DEBUGS("RiggedBox") << "rebuilding box, face " << i << " extents " << face->mExtents[0] << ", " << face->mExtents[1] << LL_ENDL;
+            }
+            if (!any_valid_boxes)
 			{
 				min = face->mExtents[0];
 				max = face->mExtents[1];
-			}
+                any_valid_boxes = true;
+            }
 			else
 			{
 				min.setMin(min, face->mExtents[0]);
@@ -1593,18 +1631,29 @@ BOOL LLVOVolume::genBBoxes(BOOL force_global)
 			}
 		}
 	}
-	
-	if (rebuild)
-	{
-		mDrawable->setSpatialExtents(min,max);
-		min.add(max);
-		min.mul(0.5f);
-		mDrawable->setPositionGroup(min);	
-	}
 
-	updateRadius();
-	mDrawable->movePartition();
-				
+    if (any_valid_boxes)
+    {
+        if (rebuild)
+        {
+            if (getRiggedVolume())
+            {
+                LL_DEBUGS("RiggedBox") << "rebuilding got extents " << min << ", " << max << LL_ENDL;
+            }
+            mDrawable->setSpatialExtents(min,max);
+            min.add(max);
+            min.mul(0.5f);
+            mDrawable->setPositionGroup(min);
+        }
+
+        updateRadius();
+        mDrawable->movePartition();
+    }
+    else
+    {
+        LL_DEBUGS("RiggedBox") << "genBBoxes failed to find any valid face boxes" << LL_ENDL;
+    }
+
 	return res;
 }
 
@@ -3440,12 +3489,12 @@ void LLVOVolume::onSetExtendedMeshFlags(U32 flags)
         if (flags & LLExtendedMeshParams::ANIMATED_MESH_ENABLED_FLAG)
         {
             // Making a rigged mesh into an animated object
-            getAvatarAncestor()->rebuildAttachmentOverrides();
+            getAvatarAncestor()->updateAttachmentOverrides();
         }
         else
         {
             // Making an animated object into a rigged mesh
-            getAvatarAncestor()->rebuildAttachmentOverrides();
+            getAvatarAncestor()->updateAttachmentOverrides();
         }
     }
 }
@@ -3514,7 +3563,7 @@ void LLVOVolume::onReparent(LLViewerObject *old_parent, LLViewerObject *new_pare
         if (old_volp->getControlAvatar())
         {
             // We have been removed from an animated object, need to do cleanup.
-            old_volp->getControlAvatar()->rebuildAttachmentOverrides();
+            old_volp->getControlAvatar()->updateAttachmentOverrides();
             old_volp->getControlAvatar()->updateAnimations();
         }
     }
@@ -3533,10 +3582,17 @@ void LLVOVolume::afterReparent()
                                                                                              
     if (isAnimatedObject() && getControlAvatar())
     {
-        LL_DEBUGS("AnimatedObjects") << "adding attachment overrides, parent is animated object" 
+        LL_DEBUGS("AnimatedObjects") << "adding attachment overrides, parent is animated object " 
             << ((LLViewerObject*)getParent())->getID() << LL_ENDL;
-        //getControlAvatar()->addAttachmentOverridesForObject(this);
-        getControlAvatar()->rebuildAttachmentOverrides();
+
+        // MAINT-8239 - doing a full rebuild whenever parent is set
+        // makes the joint overrides load more robustly. In theory,
+        // addAttachmentOverrides should be sufficient, but in
+        // practice doing a full rebuild helps compensate for
+        // notifyMeshLoaded() not being called reliably enough.
+        
+        // was: getControlAvatar()->addAttachmentOverridesForObject(this);
+        //getControlAvatar()->rebuildAttachmentOverrides();
         getControlAvatar()->updateAnimations();
     }
     else
@@ -3911,13 +3967,22 @@ F32 LLVOVolume::getEstTrianglesMax() const
     return 0.f;
 }
 
+F32 LLVOVolume::getEstTrianglesStreamingCost() const
+{
+	if (isMesh() && getVolume())
+	{
+		return gMeshRepo.getEstTrianglesStreamingCost(getVolume()->getParams().getSculptID());
+	}
+    return 0.f;
+}
+
 F32 LLVOVolume::getStreamingCost(S32* bytes, S32* visible_bytes, F32* unscaled_value) const
 {
 	F32 radius = getScale().length()*0.5f;
 
     // AXON make sure this is consistent with the final simulator-side values.
-    const F32 ANIMATED_OBJECT_BASE_COST = 15.0f; // placeholder
-    const F32 ANIMATED_OBJECT_COST_PER_KTRI = 1.5f; //placeholder
+    const F32 ANIMATED_OBJECT_BASE_COST = 15.0f;
+    const F32 ANIMATED_OBJECT_COST_PER_KTRI = 1.5f;
 
     F32 linkset_base_cost = 0.f;
     if (isAnimatedObject() && isRootEdit())
@@ -3927,7 +3992,14 @@ F32 LLVOVolume::getStreamingCost(S32* bytes, S32* visible_bytes, F32* unscaled_v
     }
 	if (isMesh())
 	{
-		return gMeshRepo.getStreamingCost(getVolume()->getParams().getSculptID(), radius, bytes, visible_bytes, mLOD, unscaled_value);
+        if (isAnimatedObject() && isRiggedMesh())
+        {
+            return linkset_base_cost + ANIMATED_OBJECT_COST_PER_KTRI * 0.001 * getEstTrianglesStreamingCost();
+        }
+        else
+        {
+            return linkset_base_cost + gMeshRepo.getStreamingCost(getVolume()->getParams().getSculptID(), radius, bytes, visible_bytes, mLOD, unscaled_value);
+        }
 	}
 	else
 	{
@@ -3941,7 +4013,7 @@ F32 LLVOVolume::getStreamingCost(S32* bytes, S32* visible_bytes, F32* unscaled_v
 		header["medium_lod"]["size"] = counts[2] * 10;
 		header["high_lod"]["size"] = counts[3] * 10;
 
-		return LLMeshRepository::getStreamingCost(header, radius, NULL, NULL, -1, unscaled_value);
+		return linkset_base_cost + LLMeshRepository::getStreamingCost(header, radius, NULL, NULL, -1, unscaled_value);
 	}	
 }
 
@@ -4580,6 +4652,7 @@ void LLRiggedVolume::update(const LLMeshSkinInfo* skin, LLVOAvatar* avatar, cons
 				}
 
 				//update bounding box
+				// VFExtents change
 				LLVector4a& min = dst_face.mExtents[0];
 				LLVector4a& max = dst_face.mExtents[1];
 
@@ -4596,6 +4669,7 @@ void LLRiggedVolume::update(const LLMeshSkinInfo* skin, LLVOAvatar* avatar, cons
 					min.setMin(min, pos[j]);
 					max.setMax(max, pos[j]);
 				}
+
                 box_min.setMin(min,box_min);
                 box_max.setMax(max,box_max);
 
@@ -5247,6 +5321,9 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
                                                 << " is_animated " << vobj->isAnimatedObject()
                                                 << " can_animate " << vobj->canBeAnimatedObject() 
                                                 << " cav " << vobj->getControlAvatar() 
+                                                << " lod " << vobj->getLOD()
+                                                << " drawable rigged " << (drawablep->isState(LLDrawable::RIGGED))
+                                                << " drawable state " << drawablep->getState()
                                                 << " playing " << (U32) (vobj->getControlAvatar() ? vobj->getControlAvatar()->mPlaying : false)
                                                 << " frame " << LLFrameTimer::getFrameCount()
                                                 << LL_ENDL;   
@@ -5257,24 +5334,26 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 
 			drawablep->clearState(LLDrawable::HAS_ALPHA);
 
-            // AXON this includes attached animeshes but leaves out standalone ones. Fix.
-			bool rigged = vobj->isRiggedMesh() && vobj->isAttachment();
+            if (vobj->isRiggedMesh() &&
+                ((vobj->isAnimatedObject() && vobj->getControlAvatar()) ||
+                 (!vobj->isAnimatedObject() && vobj->getAvatar())))
+            {
+                vobj->getAvatar()->addAttachmentOverridesForObject(vobj, NULL, false);
+            }
+            
+            // Standard rigged mesh attachments: 
+			bool rigged = !vobj->isAnimatedObject() && vobj->isRiggedMesh() && vobj->isAttachment();
+            // Animated objects. Have to check for isRiggedMesh() to
+            // exclude static objects in animated object linksets.
+			rigged = rigged || (vobj->isAnimatedObject() && vobj->isRiggedMesh() &&
+                vobj->getControlAvatar() && vobj->getControlAvatar()->mPlaying);
 						
             vobj->updateControlAvatar();
 						
 			bool bake_sunlight = LLPipeline::sBakeSunlight && drawablep->isStatic();
+
             bool any_rigged_face = false;
-            			
-			if (rigged && pAvatarVO)
-            {
-                pAvatarVO->addAttachmentOverridesForObject(vobj);
-                if (!LLApp::isExiting() && pAvatarVO->isSelf() && debugLoggingEnabled("AvatarAttachments"))
-				{
-                    bool verbose = true;
-					pAvatarVO->showAttachmentOverrides(verbose);
-				}
-            }
-            
+            			            
 			//for each face
 			for (S32 i = 0; i < drawablep->getNumFaces(); i++)
 			{
@@ -5981,7 +6060,7 @@ U32 LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, LLFace
 	//NEVER use more than 16 texture index channels (workaround for prevalent driver bug)
 	texture_index_channels = llmin(texture_index_channels, 16);
 
-	bool flexi = false;    
+	bool flexi = false;
 
 	while (face_iter != end_faces)
 	{
