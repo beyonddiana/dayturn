@@ -397,7 +397,7 @@ void LLViewerObject::markDead()
             if (av && LLVOAvatar::getRiggedMeshID(this,mesh_id))
             {
                 // This case is needed for indirectly attached mesh objects.
-                av->rebuildAttachmentOverrides();
+                av->updateAttachmentOverrides();
             }
         }
         if (getControlAvatar())
@@ -3041,7 +3041,7 @@ void LLViewerObject::linkControlAvatar()
     }
     if (getControlAvatar())
     {
-        getControlAvatar()->rebuildAttachmentOverrides();
+        getControlAvatar()->updateAttachmentOverrides();
         getControlAvatar()->updateAnimations();
         getControlAvatar()->mPlaying = true;
     }
@@ -3055,7 +3055,7 @@ void LLViewerObject::unlinkControlAvatar()
 {
     if (getControlAvatar())
     {
-        getControlAvatar()->rebuildAttachmentOverrides();
+        getControlAvatar()->updateAttachmentOverrides();
     }
     if (isRootEdit())
     {
