@@ -47,6 +47,7 @@
 #include "llviewercontrol.h"
 #include "llappviewer.h"	// for gDisconnected, gDisableVoice
 #include "llprocess.h"
+#include "llsdserialize.h"
 
 // Viewer includes
 #include "llmutelist.h"  // to check for muted avatars
@@ -1060,6 +1061,7 @@ void LLVivoxVoiceClient::stateMachine()
 					
 					if(mTuningSpeakerVolumeDirty)
 					{
+					    LL_INFOS("Voice") << "setting tuning speaker level to " << mTuningSpeakerVolume << LL_ENDL;
 						stream
 						<< "<Request requestId=\"" << mCommandCookie++ << "\" action=\"Aux.SetSpeakerLevel.1\">"
 						<< "<Level>" << mTuningSpeakerVolume << "</Level>"
@@ -2060,11 +2062,15 @@ void LLVivoxVoiceClient::clearCaptureDevices()
 	mCaptureDevices.clear();
 }
 
-void LLVivoxVoiceClient::addCaptureDevice(const std::string& name)
+void LLVivoxVoiceClient::addCaptureDevice(const std::string& display_name, const std::string& device_name)
 {
-	LL_DEBUGS("Voice") << name << LL_ENDL;
-
-	mCaptureDevices.push_back(name);
+	LL_DEBUGS("Voice") << "display: '" << display_name << "' device: '" << device_name << "'" << LL_ENDL;
+    LLSD device(LLSD::emptyMap());
+    device["display"]=display_name;
+    device["device"]=device_name;
+    std::ostringstream device_names;
+    LLSDSerialize::toNotation(device, device_names);
+    mCaptureDevices.push_back(device_names.str());
 }
 
 LLVoiceDeviceList& LLVivoxVoiceClient::getCaptureDevices()
@@ -2103,10 +2109,15 @@ void LLVivoxVoiceClient::clearRenderDevices()
 	mRenderDevices.clear();
 }
 
-void LLVivoxVoiceClient::addRenderDevice(const std::string& name)
+void LLVivoxVoiceClient::addRenderDevice(const std::string& display_name, const std::string& device_name)
 {
-	LL_DEBUGS("Voice") << name << LL_ENDL;
-	mRenderDevices.push_back(name);
+	LL_DEBUGS("Voice") << "display: '" << display_name << "' device: '" << device_name << "'" << LL_ENDL;
+    LLSD device(LLSD::emptyMap());
+    device["display"]=display_name;
+    device["device"]=device_name;
+    std::ostringstream device_names;
+    LLSDSerialize::toNotation(device, device_names);
+    mRenderDevices.push_back(device_names.str());
 }
 
 LLVoiceDeviceList& LLVivoxVoiceClient::getRenderDevices()
@@ -3718,7 +3729,7 @@ void LLVivoxVoiceClient::sessionNotificationEvent(std::string &sessionHandle, st
 
 void LLVivoxVoiceClient::auxAudioPropertiesEvent(F32 energy)
 {
-	LL_DEBUGS("Voice") << "got energy " << energy << LL_ENDL;
+	LL_DEBUGS("VoiceEnergy") << "got energy " << energy << LL_ENDL;
 	mTuningEnergy = energy;
 }
 
@@ -6672,16 +6683,20 @@ void LLVivoxProtocolParser::EndTag(const char *tag)
 		else if (!stricmp("Presence", tag))
 			statusString = string;
 		else if (!stricmp("CaptureDevices", tag))
+		{
 			LLVivoxVoiceClient::getInstance()->setDevicesListUpdated(true);
+		}
 		else if (!stricmp("RenderDevices", tag))
+		{
 			LLVivoxVoiceClient::getInstance()->setDevicesListUpdated(true);
+		}
 		else if (!stricmp("CaptureDevice", tag))
 		{
-			LLVivoxVoiceClient::getInstance()->addCaptureDevice(deviceString);
+			LLVivoxVoiceClient::getInstance()->addCaptureDevice(displayNameString, deviceString);
 		}
 		else if (!stricmp("RenderDevice", tag))
 		{
-			LLVivoxVoiceClient::getInstance()->addRenderDevice(deviceString);
+			LLVivoxVoiceClient::getInstance()->addRenderDevice(displayNameString, deviceString);
 		}
 		else if (!stricmp("BlockMask", tag))
 			blockMask = string;
