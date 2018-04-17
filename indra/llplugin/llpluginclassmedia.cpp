@@ -792,10 +792,9 @@ F64 LLPluginClassMedia::getCPUUsage()
 	return result;
 }
 
-void LLPluginClassMedia::sendPickFileResponse(const std::string &file)
+void LLPluginClassMedia::sendPickFileResponse(const std::vector<std::string> files)
 {
 	LLPluginMessage message(LLPLUGIN_MESSAGE_CLASS_MEDIA, "pick_file_response");
-	message.setValue("file", file);
 	if(mPlugin && mPlugin->isBlocked())
 	{
 		// If the plugin sent a blocking pick-file request, the response should unblock it.
@@ -1124,6 +1123,7 @@ void LLPluginClassMedia::receivePluginMessage(const LLPluginMessage &message)
 		}
 		else if(message_name == "pick_file")
 		{
+			mIsMultipleFilePick = message.getValueBoolean("multiple_files");		
 			mediaEvent(LLPluginClassMediaOwner::MEDIA_EVENT_PICK_FILE_REQUEST);
 		}
 		else if(message_name == "auth_request")
