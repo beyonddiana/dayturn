@@ -177,7 +177,7 @@ public:
 	
 	F64 getCPUUsage();
 	
-	void sendPickFileResponse(const std::string &file);
+	void sendPickFileResponse(const std::vector<std::string> files);
 
 	void sendAuthResponse(bool ok, const std::string &username, const std::string &password);
 
@@ -282,6 +282,9 @@ public:
 	// These are valid during MEDIA_EVENT_AUTH_REQUEST
 	std::string	getAuthURL() const { return mAuthURL; };
 	std::string	getAuthRealm() const { return mAuthRealm; };
+	
+	// These are valid during MEDIA_EVENT_PICK_FILE_REQUEST
+	bool getIsMultipleFilePick() const { return mIsMultipleFilePick; }	
 
 	// These are valid during MEDIA_EVENT_LINK_HOVERED
 	std::string	getHoverText() const { return mHoverText; };
@@ -324,6 +327,8 @@ public:
 	// Initialize the URL history of the plugin by sending
 	// "init_history" message 
 	void initializeUrlHistory(const LLSD& url_history);
+	
+	boost::shared_ptr<LLPluginClassMedia> getSharedPrt() { return boost::dynamic_pointer_cast<LLPluginClassMedia>(shared_from_this());} // due to enable_shared_from_this
 
 protected:
 
@@ -446,6 +451,7 @@ protected:
 	std::string		mHoverText;
 	std::string		mHoverLink;
 	std::string     mFileDownloadFilename;
+	bool			mIsMultipleFilePick;
 	
 	/////////////////////////////////////////
 	// media_time class
