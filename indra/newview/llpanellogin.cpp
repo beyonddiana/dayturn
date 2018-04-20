@@ -213,9 +213,6 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 
 	LLTextBox* create_new_account_text = getChild<LLTextBox>("create_new_account_text");
 	create_new_account_text->setClickedCallback(onClickNewAccount, NULL);
-
-	LLTextBox* need_help_text = getChild<LLTextBox>("login_help");
-	need_help_text->setClickedCallback(onClickHelp, NULL);
 	
 	// get the web browser control
 	LLMediaCtrl* web_browser = getChild<LLMediaCtrl>("login_html");
@@ -1072,15 +1069,6 @@ void LLPanelLogin::onClickForgotPassword(void*)
 
 }
 
-//static
-void LLPanelLogin::onClickHelp(void*)
-{
-	if (sInstance)
-	{
-		LLViewerHelp* vhelp = LLViewerHelp::getInstance();
-		vhelp->showTopic(vhelp->preLoginTopic());
-	}
-}
 
 // static
 void LLPanelLogin::onPassKey(LLLineEditor* caller, void* user_data)
