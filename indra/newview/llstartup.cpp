@@ -947,7 +947,6 @@ bool idle_startup()
 		{
 			LL_DEBUGS("AppInit") << "initializing menu bar" << LL_ENDL;
 //			display_startup();
-			initialize_edit_menu();
 			initialize_spellcheck_menu();
 //			display_startup();
 			init_menus();
