@@ -243,7 +243,10 @@ void LLControlAvatar::updateDebugText()
         std::string lod_string;
         S32 total_tris = 0;
         S32 total_verts = 0;
-        S32 est_tris = 0;
+        F32 est_tris = 0.f;
+        F32 est_streaming_tris = 0.f;
+        F32 streaming_cost = 0.f;
+        
         for (std::vector<LLVOVolume*>::iterator it = volumes.begin();
              it != volumes.end(); ++it)
         {
@@ -252,6 +255,8 @@ void LLControlAvatar::updateDebugText()
             total_tris += volp->getTriangleCount(&verts);
             total_verts += verts;
             est_tris += volp->getEstTrianglesMax();
+            est_streaming_tris += volp->getEstTrianglesStreamingCost();
+            streaming_cost += volp->getStreamingCost();
             lod_string += llformat("%d",volp->getLOD());
             if (volp && volp->mDrawable)
             {
@@ -285,11 +290,12 @@ void LLControlAvatar::updateDebugText()
                 type_string += "-";
             }
         }
-        addDebugText(llformat("CAV obj %d anim %d active %s impost %d",
-                              total_linkset_count, animated_volume_count, active_string.c_str(), (S32) isImpostor()));
+        addDebugText(llformat("CAV obj %d anim %d active %s impost %d strcst %f",
+                              total_linkset_count, animated_volume_count, 
+                              active_string.c_str(), (S32) isImpostor(), streaming_cost));
         addDebugText(llformat("types %s lods %s", type_string.c_str(), lod_string.c_str()));
-        addDebugText(llformat("tris %d (est %d), verts %d", total_tris, est_tris, total_verts));
-        addDebugText(llformat("pxarea %s", LLStringOps::getReadableNumber(getPixelArea()).c_str()));
+        addDebugText(llformat("tris %d (est %.1f, streaming %.1f), verts %d", total_tris, est_tris, est_streaming_tris, total_verts));
+        addDebugText(llformat("pxarea %s rank %d", LLStringOps::getReadableNumber(getPixelArea()).c_str(), getVisibilityRank()));
         std::string region_name = "no region";
         if (mRootVolp->getRegion())
         {
