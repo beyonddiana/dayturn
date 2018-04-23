@@ -265,9 +265,10 @@ void LLVOVolume::markDead()
 		{
 			mSculptTexture->removeVolume(LLRender::SCULPT_TEX, this);
 		}
-		if (hasLightTexture())
+
+		if (mLightTexture.notNull())
 		{
-			getLightTexture()->removeVolume(LLRender::LIGHT_TEX, this);
+			mLightTexture->removeVolume(LLRender::LIGHT_TEX, this);
 		}
 	}
 	
@@ -2887,8 +2888,8 @@ void LLVOVolume::setLightTextureID(LLUUID id)
 		{
 			setParameterEntryInUse(LLNetworkData::PARAMS_LIGHT_IMAGE, TRUE, true);
 		}
-		else
-		{
+		else if (old_texturep)
+		{	
 			old_texturep->removeVolume(LLRender::LIGHT_TEX, this);
 		}
 		LLLightImageParams* param_block = (LLLightImageParams*) getParameterEntry(LLNetworkData::PARAMS_LIGHT_IMAGE);
@@ -2897,17 +2898,25 @@ void LLVOVolume::setLightTextureID(LLUUID id)
 			param_block->setLightTexture(id);
 			parameterChanged(LLNetworkData::PARAMS_LIGHT_IMAGE, true);
 		}
-		getLightTexture()->addVolume(LLRender::LIGHT_TEX, this); // new texture
+		LLViewerTexture* tex = getLightTexture();
+		if (tex)
+		{
+			tex->addVolume(LLRender::LIGHT_TEX, this); // new texture
+		}
+		else
+		{
+			LL_WARNS() << "Can't get light texture for ID " << id.asString() << LL_ENDL;
+		}
 	}
-	else
+	else if (hasLightTexture())
 	{
-		if (hasLightTexture())
+		if (old_texturep)
 		{
 			old_texturep->removeVolume(LLRender::LIGHT_TEX, this);
-			setParameterEntryInUse(LLNetworkData::PARAMS_LIGHT_IMAGE, FALSE, true);
-			parameterChanged(LLNetworkData::PARAMS_LIGHT_IMAGE, true);
-			mLightTexture = NULL;
 		}
+		setParameterEntryInUse(LLNetworkData::PARAMS_LIGHT_IMAGE, FALSE, true);
+		parameterChanged(LLNetworkData::PARAMS_LIGHT_IMAGE, true);
+		mLightTexture = NULL;
 	}		
 }
 
