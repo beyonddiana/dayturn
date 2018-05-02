@@ -5347,6 +5347,7 @@ void process_avatar_animation(LLMessageSystem *mesgsys, void **user_data)
 	}
 }
 
+// AXON make logging less spammy after issues resolved, before release.
 void process_object_animation(LLMessageSystem *mesgsys, void **user_data)
 {
 	LLUUID	animation_id;
@@ -5355,25 +5356,25 @@ void process_object_animation(LLMessageSystem *mesgsys, void **user_data)
 	
 	mesgsys->getUUIDFast(_PREHASH_Sender, _PREHASH_ID, uuid);
 
-    LL_DEBUGS("AnimatedObjects") << "Received animation state for object " << uuid << LL_ENDL;
+    LL_INFOS("AnimatedObjects") << "Received animation state for object " << uuid << LL_ENDL;
     
     LLViewerObject *objp = gObjectList.findObject(uuid);
     if (!objp)
     {
-		LL_WARNS("Messaging") << "Received animation state for unknown object " << uuid << LL_ENDL;
+		LL_WARNS("AnimatedObjects") << "Received animation state for unknown object " << uuid << LL_ENDL;
         return;
     }
     
 	LLVOVolume *volp = dynamic_cast<LLVOVolume*>(objp);
     if (!volp)
     {
-		LL_WARNS("Messaging") << "Received animation state for non-volume object " << uuid << LL_ENDL;
+		LL_WARNS("AnimatedObjects") << "Received animation state for non-volume object " << uuid << LL_ENDL;
         return;
     }
 
     if (!volp->isAnimatedObject())
     {
-		LL_WARNS("Messaging") << "Received animation state for non-animated object " << uuid << LL_ENDL;
+		LL_WARNS("AnimatedObjects") << "Received animation state for non-animated object " << uuid << LL_ENDL;
         return;
     }
 
@@ -5381,12 +5382,12 @@ void process_object_animation(LLMessageSystem *mesgsys, void **user_data)
     LLControlAvatar *avatarp = volp->getControlAvatar();
     if (!avatarp)
     {
-        LL_WARNS("Messaging") << "Received animation request for object with no control avatar, ignoring" << LL_ENDL;
+        LL_WARNS("AnimatedObjects") << "Received animation request for object with no control avatar, ignoring " << uuid << LL_ENDL;
         return;
     }
     
 	S32 num_blocks = mesgsys->getNumberOfBlocksFast(_PREHASH_AnimationList);
-	LL_DEBUGS("AnimatedObjects") << "processing object animation requests, num_blocks " << num_blocks << LL_ENDL;
+	LL_INFOS("AnimatedObjects") << "processing object animation requests, num_blocks " << num_blocks << " uuid " << uuid << LL_ENDL;
 
     if (!avatarp->mPlaying)
     {
@@ -5405,8 +5406,8 @@ void process_object_animation(LLMessageSystem *mesgsys, void **user_data)
         mesgsys->getUUIDFast(_PREHASH_AnimationList, _PREHASH_AnimID, animation_id, i);
         mesgsys->getS32Fast(_PREHASH_AnimationList, _PREHASH_AnimSequenceID, anim_sequence_id, i);
         volp->mObjectSignaledAnimations[animation_id] = anim_sequence_id;
-        LL_DEBUGS("AnimatedObjects") << "got object animation request for object " 
-                                     << uuid << " animation id " << animation_id << LL_ENDL;
+        LL_INFOS("AnimatedObjects") << "added object animation request for object " 
+                                    << uuid << " animation id " << animation_id << LL_ENDL;
     }
 
     avatarp->updateAnimations();
