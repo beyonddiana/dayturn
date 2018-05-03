@@ -2696,10 +2696,6 @@ Daha küçük bir arazi parçası seçmeyi deneyin.
 		Aynı tetikleyiciye sahip mimikler devre dışı bırakıldı:
 [NAMES]
 	</notification>
-	<notification name="NoQuickTime">
-		Apple Quick Time yazılımı sisteminizde yüklü görünmüyor.
-Destekleyen parsellerde akış ortamını görüntülemek istiyorsanız [http://www.apple.com/quicktime QuickTime sitesine] gitmeli ve QuickTime Player&apos;ı yüklemelisiniz.
-	</notification>
 	<notification name="NoPlugin">
 		&quot;[MIME_TYPE]&quot; mime türüne uygun bir Ortam Eklentisi bulunamadı. Bu türdeki ortam dosyaları kullanılamayacak.
 	</notification>

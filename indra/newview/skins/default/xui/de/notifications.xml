@@ -2800,10 +2800,6 @@ Wählen Sie eine kleinere Landfläche.
 		Gesten mit demselben Trigger wurden deaktiviert:
 [NAMES]
 	</notification>
-	<notification name="NoQuickTime">
-		AppleQuickTime ist auf Ihrem System anscheinend nicht installiert.
-Laden Sie QuickTime von der [http://www.apple.com/quicktime QuickTime-Webseite]  herunter, um auf Parzellen, die diese Funktion unterstützen, Streaming-Inhalte wiederzugeben.
-	</notification>
 	<notification name="NoPlugin">
 		Es wurde kein Medien-Plugin gefunden, das &quot;[MIME_TYPE]&quot; ausführen kann.  Medien dieses Dateityps sind nicht verfügbar.
 	</notification>

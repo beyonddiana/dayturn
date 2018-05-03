@@ -111,15 +111,6 @@ Wersja serwera głosu (Voice Server): [VOICE_VERSION]
 	<string name="LoginDecodingImages">
 		Przetwarzanie obrazów...
 	</string>
-	<string name="LoginInitializingQuicktime">
-		Inicjalizacja QuickTime...
-	</string>
-	<string name="LoginQuicktimeNotFound">
-		QuickTime nie został znaleziony - inicjalizacja przerwana.
-	</string>
-	<string name="LoginQuicktimeOK">
-		QuickTime zainicjowany.
-	</string>
 	<string name="LoginRequestSeedCapGrant">
 		Sprawdzanie możliwości regionu...
 	</string>

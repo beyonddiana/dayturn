@@ -2741,10 +2741,6 @@ Web ページにリンクすると、他人がこの場所に簡単にアクセ�
 		同じトリガーでアクティブにしないジェスチャー：
 [NAMES]
 	</notification>
-	<notification name="NoQuickTime">
-		Apple の QuickTime ソフトウェアがお使いのシステムにインストールされていないようです。
-ストリーミングメディアをサポートする区画で見たい場合は、[http://www.apple.com/jp/quicktime QuickTime サイト] から QuickTime プレイヤーをインストールしてください。
-	</notification>
 	<notification name="NoPlugin">
 		「 [MIME_TYPE] 」の MIME タイプを扱うメディアプラグインが見つかりませんでした。  このタイプのメディアはご利用いただけません。
 	</notification>

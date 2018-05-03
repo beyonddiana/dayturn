@@ -143,15 +143,6 @@ Voice-Server-Version: [VOICE_VERSION]
 	<string name="LoginDecodingImages">
 		Bilder werden entpackt...
 	</string>
-	<string name="LoginInitializingQuicktime">
-		QuickTime wird initialisiert...
-	</string>
-	<string name="LoginQuicktimeNotFound">
-		QuickTime nicht gefunden - Initialisierung nicht möglich.
-	</string>
-	<string name="LoginQuicktimeOK">
-		QuickTime wurde initialisiert.
-	</string>
 	<string name="LoginRequestSeedCapGrant">
 		Regionsfähigkeiten anfordern...
 	</string>

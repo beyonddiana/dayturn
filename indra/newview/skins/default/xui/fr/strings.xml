@@ -127,15 +127,6 @@ Version serveur vocal : [VOICE_VERSION]
 	<string name="LoginDecodingImages">
 		Décodage des images en cours...
 	</string>
-	<string name="LoginInitializingQuicktime">
-		Quicktime en cours d&apos;initialisation
-	</string>
-	<string name="LoginQuicktimeNotFound">
-		Quicktime introuvable, impossible de procéder à l&apos;initialisation.
-	</string>
-	<string name="LoginQuicktimeOK">
-		Initialisation de Quicktime réussie.
-	</string>
 	<string name="LoginRequestSeedCapGrant">
 		Capacités de la région demandées...
 	</string>

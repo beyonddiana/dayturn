@@ -2702,10 +2702,6 @@ Inténtalo seleccionando un trozo más pequeño de terreno.
 		Desactivados los gestos que tienen el mismo botón:
 [NAMES]
 	</notification>
-	<notification name="NoQuickTime">
-		No parece que tu sistema tenga instalado el software QuickTime de Apple.
-Si quieres ver media en streaming en las parcelas que los tienen, deberías ir al [http://www.apple.com/quicktime sitio de QuickTime] e intalar el QuickTime Player.
-	</notification>
 	<notification name="NoPlugin">
 		No se ha encontrado el &apos;Media Plugin&apos; para manejar el &apos;mime type&apos; &quot;[MIME_TYPE]&quot;.  Los media de este tipo no estarán disponibles.
 	</notification>
