@@ -125,15 +125,6 @@ LLCEFLib/CEF バージョン: [LLCEFLIB_VERSION]
 	<string name="LoginDecodingImages">
 		画像をデコードしています...
 	</string>
-	<string name="LoginInitializingQuicktime">
-		QuickTime を初期化しています...
-	</string>
-	<string name="LoginQuicktimeNotFound">
-		QuickTime が見つかりません。初期化に失敗しました。
-	</string>
-	<string name="LoginQuicktimeOK">
-		QuickTime が正常に初期化されました。
-	</string>
 	<string name="LoginRequestSeedCapGrant">
 		リージョンの機能をリクエストしています...
 	</string>

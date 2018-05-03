@@ -2696,10 +2696,6 @@ Veuillez sélectionner un terrain plus petit.
 		Gestes désactivés ayant le même mot-clé :
 [NAMES]
 	</notification>
-	<notification name="NoQuickTime">
-		Le logiciel Apple QuickTime ne semble pas installé sur votre système.
-Pour voir les vidéos sur les terrains qui le permettent, allez sur le [http://www.apple.com/quicktime site de QuickTime] et installez le lecteur QuickTime.
-	</notification>
 	<notification name="NoPlugin">
 		Aucun Media Plugin n&apos;a été trouvé pour prendre en charge [MIME_TYPE].  Les médias de ce type ne sont pas disponibles.
 	</notification>

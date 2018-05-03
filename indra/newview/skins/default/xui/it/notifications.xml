@@ -2700,10 +2700,6 @@ Prova a selezionare una parte di terreno più piccola.
 		Usa lo stesso tasto per disattivare la gesture:
 [NAMES]
 	</notification>
-	<notification name="NoQuickTime">
-		Il software QuickTime di Apple sembra non essere installato sul tuo computer.
-Se vuoi vedere contenuto multimediale in streaming sui lotti che lo supportano, vai alla pagina [http://www.apple.com/quicktime QuickTime] e installa il Player QuickTime.
-	</notification>
 	<notification name="NoPlugin">
 		Non è stato trovato alcun plugin multimediale per gestire il tipo mime [MIME_TYPE].  Il media di questo tipo non è disponibile.
 	</notification>

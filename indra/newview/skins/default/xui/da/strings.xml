@@ -76,15 +76,6 @@
 	<string name="LoginDecodingImages">
 		Behandler billeder...
 	</string>
-	<string name="LoginInitializingQuicktime">
-		Initialiserer QuickTime...
-	</string>
-	<string name="LoginQuicktimeNotFound">
-		QuickTime ikke fundet- kunne derfor ikke initialisere.
-	</string>
-	<string name="LoginQuicktimeOK">
-		QuickTime initialiseret.
-	</string>
 	<string name="LoginWaitingForRegionHandshake">
 		Venter på svar fra region...
 	</string>

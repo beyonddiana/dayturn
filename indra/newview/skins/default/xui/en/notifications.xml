@@ -7059,16 +7059,6 @@ Deactivated gestures with same trigger:
 
   <notification
    icon="notify.tga"
-   name="NoQuickTime"
-   persist="true"
-   type="notify">
-Apple&apos;s QuickTime software does not appear to be installed on your system.
-If you want to view streaming media on parcels that support it you should go to the [http://www.apple.com/quicktime QuickTime site] and install the QuickTime Player.
-  <tag>fail</tag>
-  </notification>
-
-  <notification
-   icon="notify.tga"
    name="NoPlugin"
    persist="true"
    type="notify">
@@ -7123,21 +7113,6 @@ http://get.adobe.com/flashplayer/otherversions/
     text="When the browser plugin fails"/>
  </form>
 </notification>
-
-<notification
- icon="alert.tga"
- name="MediaPluginFailedQuickTime"
- type="alert">
-  The QuickTime Media Plugin has failed:
-  [PLUGIN]
-
-  If the error persists, reinstalling QuickTime might fix it.
-  <form name="form">
-    <ignore name="ignore"
-      text="When the QuickTime plugin fails"/>
-  </form>
-</notification>
-  
 
  <notification
    icon="notify.tga"

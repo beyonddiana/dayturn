@@ -2303,10 +2303,6 @@ Spróbuj wybrać mniejszy obszar.
 		Zablokowane gesty z jednakowym aktywowaniem:
 [NAMES]
 	</notification>
-	<notification name="NoQuickTime">
-		Wygląda na to, że Apple QuickTime nie jest zainstalowany na Twoim komputerze.
-Jeżeli chcesz odtwarzać media na tej działce, które używają QuickTime idź do [http://www.apple.com/quicktime strony QuickTime] i zainstaluj odtwarzacz.
-	</notification>
 	<notification name="NoPlugin">
 		Nie znaleziono wtyczki mediów dla typu mime "[MIME_TYPE]". Media tego typu będą niedostępne.
 	</notification>

@@ -1189,10 +1189,6 @@ Prøv at vælge mindre stykker land.
 	<notification name="DeactivatedGesturesTrigger">
 		Deaktiverede bevægelser med samme udløser: [NAMES]
 	</notification>
-	<notification name="NoQuickTime">
-		Det ser ikke ud til at Apples QuickTime software er installeret på dit system.
-Hvis du ønsker at se streaming media på parceller der understøtter dette skal du besøge siden [http://www.apple.com/quicktime QuickTime site] og installere QuickTime Player.
-	</notification>
 	<notification name="NoPlugin">
 		Ingen Media Plugin blev fundet til at håndtere mime af typen &quot;[MIME_TYPE]&quot;.  Media af denne type vil ikke være tilgængelig.
 	</notification>

@@ -130,15 +130,6 @@ LibVLC版本: [LIBVLC_VERSION]
 	<string name="LoginDecodingImages">
 		圖像解碼中...
 	</string>
-	<string name="LoginInitializingQuicktime">
-		QuickTime 初始化中...
-	</string>
-	<string name="LoginQuicktimeNotFound">
-		QuickTime 未發現 - 無法進行初始化。
-	</string>
-	<string name="LoginQuicktimeOK">
-		QuickTime 已成功初始化。
-	</string>
 	<string name="LoginRequestSeedCapGrant">
 		詢問地區負荷力…
 	</string>

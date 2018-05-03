@@ -127,15 +127,6 @@ Versión de Voice Server: [VOICE_VERSION]
 	<string name="LoginDecodingImages">
 		Decodificando las imágenes...
 	</string>
-	<string name="LoginInitializingQuicktime">
-		Iniciando QuickTime...
-	</string>
-	<string name="LoginQuicktimeNotFound">
-		No se ha encontrado QuickTime. Imposible iniciarlo.
-	</string>
-	<string name="LoginQuicktimeOK">
-		QuickTime se ha iniciado adecuadamente.
-	</string>
 	<string name="LoginRequestSeedCapGrant">
 		Solicitando capacidades de la región...
 	</string>

@@ -127,15 +127,6 @@ SLURL: &lt;nolink&gt;[SLURL]&lt;/nolink&gt;
 	<string name="LoginDecodingImages">
 		Декодирование изображений...
 	</string>
-	<string name="LoginInitializingQuicktime">
-		Инициализация QuickTime...
-	</string>
-	<string name="LoginQuicktimeNotFound">
-		QuickTime не найден – ошибка инициализации.
-	</string>
-	<string name="LoginQuicktimeOK">
-		Успешная инициализация QuickTime.
-	</string>
 	<string name="LoginRequestSeedCapGrant">
 		Запрос возможностей региона...
 	</string>

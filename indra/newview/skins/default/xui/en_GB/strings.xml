@@ -60,8 +60,6 @@ aaUpdateDatabase(Key, xmlDataToPutIntoTheDatabase, Token)
 Where Key = database field name, xmlDataToPutIntoTheDatabase = serialised XML data,  Token = data-password
     </string>
 
-    <string name="LoginQuicktimeNotFound">QuickTime not found.  Unable to initialise.</string>
-    <string name="LoginQuicktimeOK">QuickTime initialised successfully.</string>
     <string name="BUTTON_MINIMIZE">Minimise</string>
 
     <string name="Marketplace Error Folder Depth">Error: This item contains too many levels of nested folders.  Reorganise it to a maximum of 3 levels of nested folders.</string>

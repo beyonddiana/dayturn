@@ -2686,10 +2686,6 @@ Replace texture [TEXTURE_NUM] with a 24-bit 1024 x 1024 or smaller image then cl
 		以同一觸發停用的姿勢：
 [NAMES]
 	</notification>
-	<notification name="NoQuickTime">
-		你的系統似乎未安裝 Apple 的 QuickTime 軟體。
-如果你要在支援串流媒體的地段上觀看這類媒體，請到[http://www.apple.com/quicktime QuickTime 網站]安裝 QuickTime 播放器。
-	</notification>
 	<notification name="NoPlugin">
 		找不到媒體插件來處理「[MIME_TYPE]」mine 類型。  這類媒體將無法使用。
 	</notification>

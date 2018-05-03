@@ -2695,10 +2695,6 @@ http://secondlife.com/download.
 		Деактивированные жесты с тем же триггером:
 [NAMES]
 	</notification>
-	<notification name="NoQuickTime">
-		В вашей системе не установлено программное обеспечение Apple QuickTime.
-Для просмотра потокового медиа на участках, которые поддерживают его, перейдите на сайт [http://www.apple.com/quicktime QuickTime] и установите QuickTime Player.
-	</notification>
 	<notification name="NoPlugin">
 		Не найден медиа-плагин для обработки данных типа MIME «[MIME_TYPE]».  Медиа этого типа будет недоступно.
 	</notification>

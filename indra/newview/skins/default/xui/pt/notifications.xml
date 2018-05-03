@@ -2684,10 +2684,6 @@ Selecione só um objeto.
 		Gestos desativados com o mesmo comando:
 [NAMES]
 	</notification>
-	<notification name="NoQuickTime">
-		Aparentemente o QuickTime da Apple ainda não foi instalado no seu computador. 
-Para ver mídia em stream nas regiões que oferecem esse formato, vá ao [http://www.apple.com/quicktime site do QuickTime] e instale o QuickTime Player.
-	</notification>
 	<notification name="NoPlugin">
 		Nenhum plugin de mídia detectado para lidar com o tipo de mime &quot;[MIME_TYPE]&quot;.  Este tipo de mídia não poderão ser acessados.
 	</notification>

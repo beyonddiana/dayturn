@@ -127,15 +127,6 @@ Ses Sunucu Sürümü: [VOICE_VERSION]
 	<string name="LoginDecodingImages">
 		Görüntülerin kodu çözülüyor...
 	</string>
-	<string name="LoginInitializingQuicktime">
-		QuickTime Başlatılıyor...
-	</string>
-	<string name="LoginQuicktimeNotFound">
-		QuickTime bulunamadı - başlatılamadı.
-	</string>
-	<string name="LoginQuicktimeOK">
-		QuickTime başarıyla başlatıldı.
-	</string>
 	<string name="LoginRequestSeedCapGrant">
 		Bölge özellikleri talep ediliyor...
 	</string>
