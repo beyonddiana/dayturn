@@ -3362,11 +3362,7 @@ void LLViewerMediaImpl::handleMediaEvent(LLPluginClassMedia* plugin, LLPluginCla
 			// These should really be hardcoded in LLMimeTypes, if anywhere -- MC
 			std::string notification_name;
 			LLStringUtil::toLower(plugin_name);
-			if (plugin_name.find("quicktime") != std::string::npos)
-			{
-				notification_name = "MediaPluginFailedQuickTime";
-			}
-			else if (plugin_name.find("cef") != std::string::npos)
+			if (plugin_name.find("cef") != std::string::npos)
 			{
 				notification_name = "MediaPluginFailedcef";
 			}
