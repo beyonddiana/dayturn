@@ -3067,6 +3067,7 @@ void LLViewerObject::linkControlAvatar()
                 cav->mRootVolp->recursiveMarkForUpdate(TRUE);
             }
         }
+        cav->updateAnimations();
     }
     else
     {
