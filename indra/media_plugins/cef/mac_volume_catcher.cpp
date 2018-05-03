@@ -35,7 +35,6 @@
 
 #include "volume_catcher.h"
 
-#include <QuickTime/QuickTime.h>
 #include <AudioUnit/AudioUnit.h>
 #include <list>
 

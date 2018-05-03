@@ -2210,7 +2210,6 @@ if (PACKAGE)
     # *TODO: Generate these search dirs in the cmake files related to each binary.
     list(APPEND SYMBOL_SEARCH_DIRS "${CMAKE_BINARY_DIR}/llplugin/slplugin/${CMAKE_CFG_INTDIR}")
     list(APPEND SYMBOL_SEARCH_DIRS "${CMAKE_BINARY_DIR}/mac_crash_logger/${CMAKE_CFG_INTDIR}")
-    list(APPEND SYMBOL_SEARCH_DIRS "${CMAKE_BINARY_DIR}/media_plugins/quicktime/${CMAKE_CFG_INTDIR}")
     set(VIEWER_SYMBOL_FILE "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/dayturn-symbols-darwin.tar.bz2")
     set(VIEWER_EXE_GLOBS "'Dayturn' SLPlugin mac-crash-logger")
     set(VIEWER_LIB_GLOB "*.dylib")
