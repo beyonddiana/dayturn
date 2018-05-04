@@ -980,7 +980,7 @@ void LLMeshRepoThread::run()
                     // failed to load before, wait a bit
                     incomplete.push_front(req);
                 }
-                else if (!fetchMeshHeader(req.mMeshParams, req.getRetries()))
+                else if (!fetchMeshHeader(req.mMeshParams, req.canRetry()))
                 {
                     if (req.canRetry())
                     {
@@ -1069,14 +1069,14 @@ void LLMeshRepoThread::run()
                     mMutex->unlock();
                     if (req.isDelayed())
                     {
-                        incomplete.insert(req.mId);
+                        incomplete.insert(req);
                     }
                     else if (!fetchMeshDecomposition(req.mId))
                     {
                         if (req.canRetry())
                         {
                             req.updateTime();
-                            incomplete.insert(req.mId);
+                            incomplete.insert(req);
                         }
                         else
                         {
@@ -1095,7 +1095,7 @@ void LLMeshRepoThread::run()
             // holding lock, final list
             if (!mPhysicsShapeRequests.empty())
             {
-                std::set<LLUUID> incomplete;
+                std::set<UUIDBasedRequest> incomplete;
                 while (!mPhysicsShapeRequests.empty() && mHttpRequestSet.size() < sRequestHighWater)
                 {
                     mMutex->lock();
@@ -1105,14 +1105,14 @@ void LLMeshRepoThread::run()
                     mMutex->unlock();
                     if (req.isDelayed())
                     {
-                        incomplete.insert(req.mId);
+                        incomplete.insert(req);
                     }
                     else if (!fetchMeshPhysicsShape(req.mId))
                     {
                         if (req.canRetry())
                         {
                             req.updateTime();
-                            incomplete.insert(req.mId);
+                            incomplete.insert(req);
                         }
                         else
                         {
