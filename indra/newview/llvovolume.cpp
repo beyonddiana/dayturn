@@ -5348,6 +5348,8 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
             bool is_mesh = vobj->isMesh();
             F32 est_tris = vobj->getEstTrianglesMax();
 
+            vobj->updateControlAvatar();
+            
             LL_DEBUGS("AnimatedObjectsLinkset") << vobj_name << " rebuilding, isAttachment: " << (U32) vobj->isAttachment()
                                                 << " is_mesh " << is_mesh
                                                 << " est_tris " << est_tris
@@ -5380,11 +5382,8 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
             // exclude static objects in animated object linksets.
 			rigged = rigged || (vobj->isAnimatedObject() && vobj->isRiggedMesh() &&
                 vobj->getControlAvatar() && vobj->getControlAvatar()->mPlaying);
-						
-            vobj->updateControlAvatar();
-						
+												
 			bool bake_sunlight = LLPipeline::sBakeSunlight && drawablep->isStatic();
-
             bool any_rigged_face = false;
             			            
 			//for each face
