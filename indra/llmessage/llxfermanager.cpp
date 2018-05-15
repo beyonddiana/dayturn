@@ -126,10 +126,10 @@ void LLXferManager::setAckThrottleBPS(const F32 bps)
 
 	// Assuming we're running as slow as possible, this is the lowest ack
 	// rate we can use.
-	F32 min_bps = (1000.f * 8.f* mMaxIncomingXfers) / LL_PACKET_TIMEOUT;
+	F32 min_bps = 8000.f * mMaxIncomingXfers / LL_PACKET_TIMEOUT;
 
 	// Set
-	F32 actual_rate = llmax(min_bps*1.1f, bps);
+	F32 actual_rate = llmax(min_bps * 1.1f, bps);
 	LL_DEBUGS("AppInit") << "LLXferManager ack throttle min rate: " << min_bps << LL_ENDL;
 	LL_DEBUGS("AppInit") << "LLXferManager ack throttle actual rate: " << actual_rate << LL_ENDL;
 	mAckThrottle.setRate(actual_rate);
