@@ -4041,6 +4041,7 @@ void LLPanelEstateAccess::accessAddCore3(const uuid_vec_t& ids, void* data)
 	if (change_info->mOperationFlag & ESTATE_ACCESS_BANNED_AGENT_ADD)
 	{
 		LLNameListCtrl* name_list = panel->getChild<LLNameListCtrl>("banned_avatar_name_list");
+		LLNameListCtrl* em_list = panel->getChild<LLNameListCtrl>("estate_manager_name_list");
 		int currentCount = (name_list ? name_list->getItemCount() : 0);
 		if (ids.size() + currentCount > ESTATE_MAX_ACCESS_IDS)
 		{
@@ -4055,9 +4056,17 @@ void LLPanelEstateAccess::accessAddCore3(const uuid_vec_t& ids, void* data)
 		}
 
 		std::string already_banned;
+		std::string em_ban;
 		bool single = true;
 		for (uuid_vec_t::const_iterator it = ids.begin(); it != ids.end(); ++it)
 		{
+			LLScrollListItem* em_item = em_list->getNameItemByAgentId(*it);
+			if (em_item)
+			{
+				em_ban = em_item->getColumn(0)->getValue().asString();
+				break;
+			}
+
 			LLScrollListItem* item = name_list->getNameItemByAgentId(*it);
 			if (item)
 			{
@@ -4068,6 +4077,14 @@ void LLPanelEstateAccess::accessAddCore3(const uuid_vec_t& ids, void* data)
 				}
 				already_banned += item->getColumn(0)->getValue().asString();
 			}
+		}
+		if (!em_ban.empty())
+		{
+			LLSD args;
+			args["AGENT"] = em_ban;
+			LLNotificationsUtil::add("ProblemBanningEstateManager", args);
+			delete change_info;
+			return;
 		}
 		if (!already_banned.empty())
 		{
