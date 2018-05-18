@@ -489,10 +489,18 @@ void LLViewerWearable::revertValues()
 	}
 #endif
 	LLWearable::revertValues();
-
-
-	LLSidepanelAppearance *panel = dynamic_cast<LLSidepanelAppearance*>(LLFloaterSidePanelContainer::getPanel("appearance"));
-	if( panel )
+//MK
+	// It seems like it calls this method on startup while the panel is still not built, and crashes. We need to test
+	// the validity of the pointer.
+	LLPanel* tmp = LLFloaterSidePanelContainer::getPanel("appearance");
+	if (tmp == NULL)
+	{
+		return;
+	}
+////	LLSidepanelAppearance *panel = dynamic_cast<LLSidepanelAppearance*>(LLFloaterSidePanelContainer::getPanel("appearance"));
+	LLSidepanelAppearance *panel = dynamic_cast<LLSidepanelAppearance*>(tmp);
+//mk
+	if(panel)
 	{
 		panel->updateScrollingPanelList();
 	}
