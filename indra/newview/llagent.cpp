@@ -4599,7 +4599,7 @@ void LLAgent::doTeleportViaLocation(const LLVector3d& pos_global)
 {	
 //MK
 	LLVOAvatar* avatar = gAgentAvatarp;
-	if (gRRenabled && (LLStartUp::getStartupState() != STATE_STARTED || gViewerWindow->getShowProgress() 
+	if (gRRenabled && (LLStartUp::getStartupState() < STATE_CLEANUP || gViewerWindow->getShowProgress() 
 					  || gAgent.mRRInterface.contains ("tploc") 
 					  || (gAgent.mRRInterface.mContainsUnsit && avatar && avatar->mIsSitting)))
 	{
