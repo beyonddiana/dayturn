@@ -4394,13 +4394,12 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 			case CHAT_TYPE_WHISPER:
 				chat.mText = LLTrans::getString("whisper") + " ";
 				break;
-			case CHAT_TYPE_DEBUG_MSG:
 			case CHAT_TYPE_OWNER:
 //MK
 			// This is the actual handling of the commands sent by owned objects.
 			{
 				std::string mesg_str(mesg);
-				if (gRRenabled && mesg_str.substr (0, 1) == RR_PREFIX)
+				if (gRRenabled && mesg_str.substr(0, 1) == RR_PREFIX && chat.mChatType == CHAT_TYPE_OWNER) // we check this is a CHAT_TYPE_OWNER again here in case a faulty merge places another chat type above us and creates a loophole.
 				{
 					std::string command = mesg_str.substr(1, mesg_str.length());
 					LLStringUtil::toLower(command);
