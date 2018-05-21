@@ -234,7 +234,6 @@ set(viewer_SOURCE_FILES
     llfloaterabout.cpp
 	llfloateradvancedbuildoptions.cpp
     llfloaterbvhpreview.cpp
-    llfloaterauction.cpp
     llfloaterautoreplacesettings.cpp
     llfloateravatar.cpp
     llfloateravatarpicker.cpp
@@ -885,7 +884,6 @@ set(viewer_HEADER_FILES
     llfloaterabout.h
 	llfloateradvancedbuildoptions.h
     llfloaterbvhpreview.h
-    llfloaterauction.h
     llfloaterautoreplacesettings.h
     llfloateravatar.h
     llfloateravatarpicker.h
