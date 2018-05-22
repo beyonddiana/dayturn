@@ -396,7 +396,12 @@ void copy_inventory_category(LLInventoryModel* model,
                              bool move_no_copy_items )
 {
 	// Create the initial folder
-	LLUUID new_cat_uuid = gInventory.createNewCategory(parent_id, LLFolderType::FT_NONE, cat->getName());
+	inventory_func_type func = boost::bind(&copy_inventory_category_content, _1, model, cat, root_copy_id, move_no_copy_items);
+	gInventory.createNewCategory(parent_id, LLFolderType::FT_NONE, cat->getName(), func);
+}
+
+void copy_inventory_category_content(const LLUUID& new_cat_uuid, LLInventoryModel* model, LLViewerInventoryCategory* cat, const LLUUID& root_copy_id, bool move_no_copy_items)
+{
 	model->notifyObservers();
 
 	// We need to exclude the initial root of the copy to avoid recursively copying the copy, etc...
@@ -405,13 +410,13 @@ void copy_inventory_category(LLInventoryModel* model,
 	// Get the content of the folder
 	LLInventoryModel::cat_array_t* cat_array;
 	LLInventoryModel::item_array_t* item_array;
-	gInventory.getDirectDescendentsOf(cat->getUUID(),cat_array,item_array);
+	gInventory.getDirectDescendentsOf(cat->getUUID(), cat_array, item_array);
 
-    // If root_copy_id is null, tell the marketplace model we'll be waiting for new items to be copied over for this folder
-    if (root_copy_id.isNull())
-    {
-        LLMarketplaceData::instance().setValidationWaiting(root_id,count_descendants_items(cat->getUUID()));
-    }
+	// If root_copy_id is null, tell the marketplace model we'll be waiting for new items to be copied over for this folder
+	if (root_copy_id.isNull())
+	{
+		LLMarketplaceData::instance().setValidationWaiting(root_id, count_descendants_items(cat->getUUID()));
+	}
 
 	// Copy all the items
 	LLInventoryModel::item_array_t item_array_copy = *item_array;
@@ -420,33 +425,33 @@ void copy_inventory_category(LLInventoryModel* model,
 		LLInventoryItem* item = *iter;
         LLPointer<LLInventoryCallback> cb = new LLBoostFuncInventoryCallback(boost::bind(update_folder_cb, new_cat_uuid));
 
-        if (item->getIsLinkType())
-        {
-            link_inventory_object(new_cat_uuid, item->getLinkedUUID(), cb);
-        }
-        else if(!item->getPermissions().allowOperationBy(PERM_COPY, gAgent.getID(), gAgent.getGroupID()))
-        {
-            // If the item is nocopy, we do nothing or, optionally, move it
-            if (move_no_copy_items)
-            {
-                // Reparent the item
-                LLViewerInventoryItem * viewer_inv_item = (LLViewerInventoryItem *) item;
-                gInventory.changeItemParent(viewer_inv_item, new_cat_uuid, true);
-            }
-            // Decrement the count in root_id since that one item won't be copied over
-            LLMarketplaceData::instance().decrementValidationWaiting(root_id);
-        }
-        else
-        {
-		copy_inventory_item(
-							gAgent.getID(),
-							item->getPermissions().getOwner(),
-							item->getUUID(),
-							new_cat_uuid,
-							std::string(),
-                                cb);
-        }
-}
+		if (item->getIsLinkType())
+		{
+			link_inventory_object(new_cat_uuid, item->getLinkedUUID(), cb);
+		}
+		else if (!item->getPermissions().allowOperationBy(PERM_COPY, gAgent.getID(), gAgent.getGroupID()))
+		{
+			// If the item is nocopy, we do nothing or, optionally, move it
+			if (move_no_copy_items)
+			{
+				// Reparent the item
+				LLViewerInventoryItem * viewer_inv_item = (LLViewerInventoryItem *)item;
+				gInventory.changeItemParent(viewer_inv_item, new_cat_uuid, true);
+			}
+			// Decrement the count in root_id since that one item won't be copied over
+			LLMarketplaceData::instance().decrementValidationWaiting(root_id);
+		}
+		else
+		{
+			copy_inventory_item(
+				gAgent.getID(),
+				item->getPermissions().getOwner(),
+				item->getUUID(),
+				new_cat_uuid,
+				std::string(),
+				cb);
+		}
+    }
 
 	// Copy all the folders
 	LLInventoryModel::cat_array_t cat_array_copy = *cat_array;
