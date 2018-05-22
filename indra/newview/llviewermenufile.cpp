@@ -45,6 +45,7 @@
 #include "llimagetga.h"
 #include "llinventorymodel.h"	// gInventory
 #include "llresourcedata.h"
+#include "lltoast.h"
 #include "llfloaterperms.h"
 #include "llstatusbar.h"
 #include "llviewercontrol.h"	// gSavedSettings
@@ -481,7 +482,7 @@ class LLFileEnableCloseWindow : public view_listener_t
 		bool frontmost_fl_exists = (NULL != gFloaterView->getFrontmostClosableFloater());
 		bool frontmost_snapshot_fl_exists = (NULL != gSnapshotFloaterView->getFrontmostClosableFloater());
 
-		return frontmost_fl_exists || frontmost_snapshot_fl_exists;
+		return !LLNotificationsUI::LLToast::isAlertToastShown() && (frontmost_fl_exists || frontmost_snapshot_fl_exists);
 	}
 };
 
@@ -516,7 +517,7 @@ class LLFileEnableCloseAllWindows : public view_listener_t
 		LLFloaterSnapshot* floater_snapshot = LLFloaterSnapshot::findInstance();
 		bool is_floater_snapshot_opened = (floater_snapshot && floater_snapshot->isInVisibleChain());
 		bool open_children = (gFloaterView->allChildrenClosed() && !is_floater_snapshot_opened);
-		return !open_children;
+		return !open_children && !LLNotificationsUI::LLToast::isAlertToastShown();
 	}
 };
 
