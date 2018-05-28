@@ -195,6 +195,7 @@
 #include "boost/weak_ptr.hpp"
 #include "boost/function.hpp"
 #include <string>
+#include <curl/curl.h>
 
 namespace LLCore
 {
@@ -493,6 +494,20 @@ private:
 
 	
 }; // end struct HttpStatus
+
+///  A namespace for several free methods and low level utilities. 
+namespace LLHttp
+{
+    typedef boost::shared_ptr<CURL> CURL_ptr;
+
+    void initialize();
+    void cleanup();
+
+    CURL_ptr createEasyHandle();
+    std::string getCURLVersion();
+
+    void check_curl_code(CURLcode code, int curl_setopt_option);
+}
 
 }  // end namespace LLCore
 
