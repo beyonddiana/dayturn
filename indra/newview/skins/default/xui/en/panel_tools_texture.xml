@@ -11,14 +11,6 @@
          mouse_opaque="false"
          help_topic="toolbox_texture_tab"
          name="Texture">
-            <panel.string
-             name="string repeats per meter">
-                Repeats Per Meter
-            </panel.string>
-            <panel.string
-             name="string repeats per face">
-                Repeats Per Face
-            </panel.string>
             <text
              type="string"
              length="1"
