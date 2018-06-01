@@ -2238,6 +2238,15 @@ void LLViewerWindow::shutdownViews()
 	RecordToChatConsole::getInstance()->stopRecorder();
 	LL_INFOS() << "Warning logger is cleaned." << LL_ENDL ;
 
+	gFocusMgr.unlockFocus();
+	gFocusMgr.setMouseCapture(NULL);
+	gFocusMgr.setKeyboardFocus(NULL);
+	gFocusMgr.setTopCtrl(NULL);
+	if (mWindow)
+	{
+		mWindow->allowLanguageTextInput(NULL, FALSE);
+	}
+
 	delete mDebugText;
 	mDebugText = NULL;
 	
@@ -2273,7 +2282,11 @@ void LLViewerWindow::shutdownViews()
 
 	view_listener_t::cleanup();
 	LL_INFOS() << "view listeners destroyed." << LL_ENDL ;
-	
+
+	// Clean up pointers that are going to be invalid. (todo: check sMenuContainer)
+	mProgressView = NULL;
+	mPopupView = NULL;
+
 	// Delete all child views.
 	delete mRootView;
 	mRootView = NULL;
