@@ -243,12 +243,6 @@
       <string>NoPreload</string>
     </map>
 
-    <key>noprobe</key>
-    <map>
-      <key>map-to</key>
-      <string>NoHardwareProbe</string>
-    </map>
-
     <key>nosound</key>
     <map>
       <key>map-to</key>
