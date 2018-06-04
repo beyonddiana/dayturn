@@ -49,6 +49,7 @@
 #include "lldriverparam.h"
 #include "llviewertexlayer.h"
 #include "material_codes.h"		// LL_MCODE_END
+#include "llrigginginfo.h"
 #include "llviewerstats.h"
 
 extern const LLUUID ANIM_AGENT_BODY_NOISE;
@@ -214,7 +215,14 @@ public:
     void                    showAttachmentOverrides(bool verbose = false) const;
     void                    getAttachmentOverrideNames(std::set<std::string>& pos_names, 
                                                        std::set<std::string>& scale_names) const;
-	
+
+    // virtual
+    void 					updateRiggingInfo();
+
+    std::set<LLUUID>		mActiveOverrideMeshes;
+
+    
+    
 	/*virtual*/ const LLUUID&	getID() const;
 	/*virtual*/ void			addDebugText(const std::string& text);
 	/*virtual*/ F32				getTimeDilation();
@@ -437,10 +445,6 @@ public:
 
 	S32			mReportedVisualComplexity;			// Numbers as reported by the SL server
 
-//MK
-	BOOL 		getVisible() { return mVisible; }
-	BOOL		isSilhouette() { return mRenderAsSilhouette; }
-//mk
 private:
 	bool		shouldAlphaMask();
 
@@ -455,10 +459,6 @@ private:
 
 	bool		mCachedInMuteList;
 	F64			mCachedMuteListUpdateTime;
-
-//MK
-	BOOL		mRenderAsSilhouette; // TRUE when the avatar is farther than RRInterface::mShowavsDistMax, calculated once during each frame
-//mk
 
 	VisualMuteSettings		mVisuallyMuteSetting;			// Always or never visually mute this AV
 
@@ -821,14 +821,9 @@ protected:
 public:
 	BOOL 			isAnyAnimationSignaled(const LLUUID *anim_array, const S32 num_anims) const;
 	void 			processAnimationStateChanges();
-//MK
-	void 			resetAnimations();
-//mk
 protected:
 	BOOL 			processSingleAnimationStateChange(const LLUUID &anim_id, BOOL start);
-//MK
-////	void 			resetAnimations();
-//mk
+	void 			resetAnimations();
 private:
 	LLTimer			mAnimTimer;
 	F32				mTimeLast;	
@@ -853,9 +848,6 @@ public:
 	void	   		clearChat();
 	void	   		startTyping() { mTyping = TRUE; mTypingTimer.reset(); }
 	void			stopTyping() { mTyping = FALSE; }
-//MK
-	BOOL			getTyping() { return mTyping; }
-//mk
 private:
 	BOOL			mVisibleChat;
 
@@ -929,9 +921,7 @@ public:
 	BOOL			isSitting(){return mIsSitting;}
 	void 			sitOnObject(LLViewerObject *sit_object);
 	void 			getOffObject();
-//MK
-////private:
-//mk
+private:
 	// set this property only with LLVOAvatar::sitDown method
 	BOOL 			mIsSitting;
 	// position backup in case of missing data
@@ -959,9 +949,6 @@ private:
 	std::string  	mTitle;
 	bool	  		mNameAway;
 	bool	  		mNameDoNotDisturb;
-//MK
-	bool	  		mNameTyping;
-//mk
 	bool	  		mNameMute;
 	bool      		mNameAppearance;
 	bool			mNameFriend;

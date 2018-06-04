@@ -1415,17 +1415,23 @@ void LLVOAvatar::getSpatialExtents(LLVector4a& newMin, LLVector4a& newMax)
 	}
 
     // Stretch bounding box by rigged mesh joint boxes
+    updateRiggingInfo();
     for (S32 joint_num = 0; joint_num < LL_CHARACTER_MAX_ANIMATED_JOINTS; joint_num++)
     {
         LLJoint *joint = getJoint(joint_num);
-
-        // FIXME TEMP HACK FOR TESTING
-        if (joint)
+        LLJointRiggingInfo *rig_info = NULL;
+        if (joint_num < mJointRiggingInfoTab.size())
         {
-            joint->getRiggingInfo().setIsRiggedTo(true);
+            rig_info = &mJointRiggingInfoTab[joint_num];
         }
 
-        if (joint && joint->getRiggingInfo().isRiggedTo())
+        // FIXME TEMP HACK FOR TESTING
+        //if (joint)
+        //{
+        //    rig_info.setIsRiggedTo(true);
+        //}
+
+        if (joint && rig_info && rig_info->isRiggedTo())
         {
             LLViewerJointAttachment *as_joint_attach = dynamic_cast<LLViewerJointAttachment*>(joint);
             if (as_joint_attach && as_joint_attach->getIsHUDAttachment())
@@ -1436,7 +1442,7 @@ void LLVOAvatar::getSpatialExtents(LLVector4a& newMin, LLVector4a& newMax)
             LLMatrix4a mat;
             LLVector4a new_extents[2];
             mat.loadu(joint->getWorldMatrix());
-            matMulBoundBox(mat, joint->getRiggingInfo().getRiggedExtents(), new_extents);
+            matMulBoundBox(mat, rig_info->getRiggedExtents(), new_extents);
             update_min_max(newMin, newMax, new_extents[0]);
             update_min_max(newMin, newMax, new_extents[1]);
             //if (isSelf())
@@ -6052,6 +6058,7 @@ bool LLVOAvatar::getRiggedMeshID(LLViewerObject* pVO, LLUUID& mesh_id)
 	return false;
 }
 
+// AXON update to use LLRiggingInfo
 bool LLVOAvatar::jointIsRiggedTo(const std::string& joint_name)
 {
 	for (attachment_map_t::iterator iter = mAttachmentPoints.begin(); 
@@ -6073,6 +6080,7 @@ bool LLVOAvatar::jointIsRiggedTo(const std::string& joint_name)
     return false;
 }
 
+// AXON update to use LLRiggingInfo
 bool LLVOAvatar::jointIsRiggedTo(const std::string& joint_name, const LLViewerObject *vo)
 {
 	// Process all children
@@ -9773,11 +9781,80 @@ BOOL LLVOAvatar::updateLOD()
 	return res;
 }
 
-void LLVOAvatar::updateLODRiggedAttachments( void )
+void LLVOAvatar::updateLODRiggedAttachments()
 {
 	updateLOD();
 	rebuildRiggedAttachments();
 }
+
+S32 countRigInfoTab(joint_rig_info_tab& tab)
+{
+    S32 count=0;
+    for (S32 i=0; i<tab.size(); i++)
+    {
+        if (tab[i].isRiggedTo())
+        {
+            count++;
+        }
+    }
+    return count;
+}
+
+// virtual
+void LLVOAvatar::updateRiggingInfo()
+{
+    mJointRiggingInfoTab.clear();
+    //LL_INFOS() << "starting update rig count is " << countRigInfoTab(mJointRiggingInfoTab) << LL_ENDL;
+	for ( attachment_map_t::iterator iter = mAttachmentPoints.begin(); iter != mAttachmentPoints.end(); ++iter )
+	{
+		LLViewerJointAttachment* attachment = iter->second;
+		LLViewerJointAttachment::attachedobjs_vec_t::iterator attach_end = attachment->mAttachedObjects.end();
+		
+		for (LLViewerJointAttachment::attachedobjs_vec_t::iterator attach_iter = attachment->mAttachedObjects.begin();
+			 attach_iter != attach_end; ++attach_iter)
+		{
+			LLViewerObject* attached_object =  *attach_iter;
+            attached_object->updateRiggingInfo();
+            mergeRigInfoTab(mJointRiggingInfoTab, attached_object->mJointRiggingInfoTab);
+            //LL_INFOS() << "after merge rig count is " << countRigInfoTab(mJointRiggingInfoTab) << LL_ENDL;
+            
+
+            LLViewerObject::const_child_list_t& children = attached_object->getChildren();
+            for (LLViewerObject::const_child_list_t::const_iterator it = children.begin();
+                 it != children.end(); ++it)
+            {
+                LLViewerObject *childp = *it;
+                childp->updateRiggingInfo();
+                mergeRigInfoTab(mJointRiggingInfoTab, childp->mJointRiggingInfoTab);
+                //LL_INFOS() << "after merge rig count is " << countRigInfoTab(mJointRiggingInfoTab) << LL_ENDL;
+            }
+        }
+	}
+    LLControlAvatar *control_av = dynamic_cast<LLControlAvatar*>(this);
+    if (control_av)
+    {
+        LLVOVolume *volp = control_av->mRootVolp;
+        if (volp && !volp->isAttachment())
+        {
+            volp->updateRiggingInfo();
+            mergeRigInfoTab(mJointRiggingInfoTab, volp->mJointRiggingInfoTab);
+            //LL_INFOS() << "cav after merge rig count is " << countRigInfoTab(mJointRiggingInfoTab) << LL_ENDL;
+
+            LLViewerObject::const_child_list_t& children = volp->getChildren();
+            for (LLViewerObject::const_child_list_t::const_iterator it = children.begin();
+                 it != children.end(); ++it)
+            {
+                LLViewerObject *childp = *it;
+                childp->updateRiggingInfo();
+                mergeRigInfoTab(mJointRiggingInfoTab, childp->mJointRiggingInfoTab);
+                //LL_INFOS() << "cav after merge rig count is " << countRigInfoTab(mJointRiggingInfoTab) << LL_ENDL;
+            }
+        }
+    }
+
+    //LL_INFOS() << "done update rig count is " << countRigInfoTab(mJointRiggingInfoTab) << LL_ENDL;
+}
+
 U32 LLVOAvatar::getPartitionType() const
 { 
 	// Avatars merely exist as drawables in the bridge partition
