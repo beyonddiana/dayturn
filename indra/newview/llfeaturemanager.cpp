@@ -398,78 +398,88 @@ F32 gpu_benchmark();
 
 bool LLFeatureManager::loadGPUClass()
 {
-	//get memory bandwidth from benchmark
-
-	// <FS:ND> Allow to skip gpu_benchmark with -noprobe.
-	// This can make sense for some Intel GPUs which can take 15+ Minutes or crash during gpu_benchmark
-
-	// F32 gbps = gpu_benchmark();
-	F32 gbps = -1.0f;
-	if( !gSavedSettings.getBOOL( "NoHardwareProbe" ) )
-		gbps = gpu_benchmark();
-
-	// </FS:ND>
-
-	if (gbps < 0.f)
-	{ //couldn't bench, use GLVersion
-#if LL_DARWIN
-        //GLVersion is misleading on OSX, just default to class 3 if we can't bench
+	if (!gSavedSettings.getBOOL("SkipBenchmark"))
+	{
+		//get memory bandwidth from benchmark
+		F32 gbps;
+		try
+		{
+			gbps = gpu_benchmark();
+		}
+		catch (const std::exception& e)
+		{
+			gbps = -1.f;
+			LL_WARNS("RenderInit") << "GPU benchmark failed: " << e.what() << LL_ENDL;
+		}
+	
+		if (gbps < 0.f)
+		{ //couldn't bench, use GLVersion
+	#if LL_DARWIN
+		//GLVersion is misleading on OSX, just default to class 3 if we can't bench
 		LL_WARNS("RenderInit") << "Unable to get an accurate benchmark; defaulting to class 3" << LL_ENDL;
-        mGPUClass = GPU_CLASS_3;
-#else
-		if (gGLManager.mGLVersion < 2.f)
+		mGPUClass = GPU_CLASS_3;
+	#else
+			if (gGLManager.mGLVersion < 2.f)
+			{
+				mGPUClass = GPU_CLASS_0;
+			}
+			else if (gGLManager.mGLVersion < 3.f)
+			{
+				mGPUClass = GPU_CLASS_1;
+			}
+			else if (gGLManager.mGLVersion < 3.3f)
+			{
+				mGPUClass = GPU_CLASS_2;
+			}
+			else if (gGLManager.mGLVersion < 4.f)
+			{
+				mGPUClass = GPU_CLASS_3;
+			}
+			else 
+			{
+				mGPUClass = GPU_CLASS_4;
+			}
+	#endif
+		}
+		else if (gGLManager.mGLVersion <= 2.f)
 		{
 			mGPUClass = GPU_CLASS_0;
 		}
-		else if (gGLManager.mGLVersion < 3.f)
+		else if (gGLManager.mGLVersion <= 3.f)
 		{
 			mGPUClass = GPU_CLASS_1;
 		}
-		else if (gGLManager.mGLVersion < 3.3f)
+		else if (gbps <= 5.f)
+		{
+			mGPUClass = GPU_CLASS_0;
+		}
+		else if (gbps <= 8.f)
+		{
+			mGPUClass = GPU_CLASS_1;
+		}
+		else if (gbps <= 16.f)
 		{
 			mGPUClass = GPU_CLASS_2;
 		}
-		else if (gGLManager.mGLVersion < 4.f)
+		else if (gbps <= 40.f)
 		{
 			mGPUClass = GPU_CLASS_3;
 		}
-		else 
+		else if (gbps <= 80.f)
 		{
 			mGPUClass = GPU_CLASS_4;
 		}
-#endif
-	}
-	else if (gGLManager.mGLVersion <= 2.f)
+		else 
+		{
+			mGPUClass = GPU_CLASS_5;
+		}
+	} //end if benchmark
+	else
 	{
-		mGPUClass = GPU_CLASS_0;
-	}
-	else if (gGLManager.mGLVersion <= 3.f)
-	{
+		//setting says don't benchmark MAINT-7558
+        LL_WARNS("RenderInit") << "Setting 'SkipBenchmark' is true; defaulting to class 1 (may be required for some GPUs)" << LL_ENDL;
+        
 		mGPUClass = GPU_CLASS_1;
-	}
-	else if (gbps <= 5.f)
-	{
-		mGPUClass = GPU_CLASS_0;
-	}
-	else if (gbps <= 8.f)
-	{
-		mGPUClass = GPU_CLASS_1;
-	}
-	else if (gbps <= 16.f)
-	{
-		mGPUClass = GPU_CLASS_2;
-	}
-	else if (gbps <= 40.f)
-	{
-		mGPUClass = GPU_CLASS_3;
-	}
-	else if (gbps <= 80.f)
-	{
-		mGPUClass = GPU_CLASS_4;
-	}
-	else 
-	{
-		mGPUClass = GPU_CLASS_5;
 	}
 
 	// defaults
