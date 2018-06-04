@@ -49,6 +49,7 @@
 #include "lldriverparam.h"
 #include "llviewertexlayer.h"
 #include "material_codes.h"		// LL_MCODE_END
+#include "llrigginginfo.h"
 #include "llviewerstats.h"
 
 extern const LLUUID ANIM_AGENT_BODY_NOISE;
@@ -215,7 +216,12 @@ public:
     void                    getAttachmentOverrideNames(std::set<std::string>& pos_names, 
                                                        std::set<std::string>& scale_names) const;
 
+    // virtual
+    void 					updateRiggingInfo();
+
     std::set<LLUUID>		mActiveOverrideMeshes;
+
+    
     
 	/*virtual*/ const LLUUID&	getID() const;
 	/*virtual*/ void			addDebugText(const std::string& text);
