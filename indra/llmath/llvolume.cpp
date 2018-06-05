@@ -4651,6 +4651,7 @@ LLVolumeFace::LLVolumeFace() :
 	mNumVertices(0),
 	mNumAllocatedVertices(0),
 	mNumIndices(0),
+    mJointRiggingInfoTabPtr(NULL),
 	mPositions(NULL),
 	mNormals(NULL),
 	mTangents(NULL),
@@ -4682,6 +4683,7 @@ LLVolumeFace::LLVolumeFace(const LLVolumeFace& src)
 	mTangents(NULL),
 	mTexCoords(NULL),
 	mIndices(NULL),
+    mJointRiggingInfoTabPtr(NULL),
 	mWeights(NULL),
     mWeightsScrubbed(FALSE),
 	mOctree(NULL)
@@ -4795,6 +4797,9 @@ void LLVolumeFace::freeData()
 	ll_aligned_free_16(mWeights);
 	mWeights = NULL;
 
+    free(mJointRiggingInfoTabPtr);
+    mJointRiggingInfoTabPtr = NULL;
+    
 	delete mOctree;
 	mOctree = NULL;
 }
