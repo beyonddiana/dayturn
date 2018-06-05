@@ -292,6 +292,7 @@ public:
 
     //virtual
     void updateRiggingInfo();
+    S32 mLastRiggingInfoLOD;
     
     // Functions that deal with media, or media navigation
     
