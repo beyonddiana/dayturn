@@ -90,11 +90,6 @@
 #include "llvoavatarself.h"
 //mk
 
-#ifndef LL_RELEASE_FOR_DOWNLOAD
-// AXON to remove
-#pragma optimize("", off)
-#endif
-
 const F32 FORCE_SIMPLE_RENDER_AREA = 512.f;
 const F32 FORCE_CULL_AREA = 8.f;
 U32 JOINT_COUNT_REQUIRED_FOR_FULLRIG = 1;
