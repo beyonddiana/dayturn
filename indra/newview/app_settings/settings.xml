@@ -126,7 +126,7 @@
     <key>RestrainedLoveCanOoc</key>
     <map>
       <key>Comment</key>
-      <string>When TRUE, you can bypass chat restrictions by surrounding your chat with (( and )). ATTENTION : This means Out-Of-Character chat and cheating with it is despised by other players. Needs a restart of the viewer.</string>
+      <string>When TRUE, you can bypass chat restrictions by surrounding your chat with (( and )). Needs a restart of the viewer. Note : This feature is deactivated in this viewer for now.</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>

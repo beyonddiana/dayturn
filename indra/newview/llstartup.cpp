@@ -460,7 +460,10 @@ bool idle_startup()
 	gRRenabled = gSavedSettings.getBOOL("RestrainedLove");
 	RRInterface::sRRNoSetEnv = gSavedSettings.getBOOL("RestrainedLoveNoSetEnv");
 	RRInterface::sRestrainedLoveDebug = gSavedSettings.getBOOL("RestrainedLoveDebug");
-	RRInterface::sCanOoc = gSavedSettings.getBOOL("RestrainedLoveCanOoc");
+
+	// Deactivated for now so we can't send OOC messages on the chat and cheat with them.
+	RRInterface::sCanOoc = FALSE; // gSavedSettings.getBOOL("RestrainedLoveCanOoc");
+
 	RRInterface::sRecvimMessage = gSavedSettings.getString("RestrainedLoveRecvimMessage");
 	RRInterface::sSendimMessage = gSavedSettings.getString("RestrainedLoveSendimMessage");
 	RRInterface::sBlacklist = gSavedSettings.getString("RestrainedLoveBlacklist");
