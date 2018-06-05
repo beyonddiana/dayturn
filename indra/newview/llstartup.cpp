@@ -1782,7 +1782,10 @@ bool idle_startup()
 		// For this, we simulate the reception of those commands from a non-existent object.
 		if (gRRenabled)
 		{
-			gAgent.mRRInterface.handleCommand (LLUUID::generateNewID(), "camavdist:0=n,shownames=n,showloc=n,showworldmap=n,showminimap=n,tploc=n,camdrawmin:1=n,camdrawmax:1.1=n,camdrawalphamin:0=n,camdrawalphamax:1=n,camtextures=n");
+			if (gAgent.mRRInterface.mRetainedCommands.empty()) // we test mRetainedCommands and not mSpecialObjectBehaviours because these commands below will be retained for a bit, they won't be executed right away.
+			{
+				gAgent.mRRInterface.handleCommand(LLUUID::generateNewID(), "camavdist:0=n,shownames=n,showloc=n,showworldmap=n,showminimap=n,tploc=n,camdrawmin:1=n,camdrawmax:1.1=n,camdrawalphamin:0=n,camdrawalphamax:1=n,camtextures=n");
+			}
 		}
 //mk
 */
