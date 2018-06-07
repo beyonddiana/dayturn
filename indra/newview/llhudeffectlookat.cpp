@@ -605,6 +605,33 @@ void LLHUDEffectLookAt::render()
 		} gGL.end();
 		gGL.popMatrix();
 	}
+	
+	if (sDebugLookAt && mSourceObject.notNull())
+	{
+		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
+
+		LLGLDisable gls_stencil(GL_STENCIL_TEST);
+
+		LLVector3 target = mTargetPos + ((LLVOAvatar*)(LLViewerObject*)mSourceObject)->mHeadp->getWorldPosition();
+		gGL.matrixMode(LLRender::MM_MODELVIEW);
+		gGL.pushMatrix();
+		gGL.translatef(target.mV[VX], target.mV[VY], target.mV[VZ]);
+		gGL.scalef(0.3f, 0.3f, 0.3f);
+		gGL.begin(LLRender::LINES);
+		{
+			LLColor3 color = (*mAttentions)[mTargetType].mColor;
+			gGL.color3f(color.mV[VRED], color.mV[VGREEN], color.mV[VBLUE]);
+			gGL.vertex3f(-1.f, 0.f, 0.f);
+			gGL.vertex3f(1.f, 0.f, 0.f);
+
+			gGL.vertex3f(0.f, -1.f, 0.f);
+			gGL.vertex3f(0.f, 1.f, 0.f);
+
+			gGL.vertex3f(0.f, 0.f, -1.f);
+			gGL.vertex3f(0.f, 0.f, 1.f);
+		} gGL.end();
+		gGL.popMatrix();
+	}
 }
 
 //-----------------------------------------------------------------------------
