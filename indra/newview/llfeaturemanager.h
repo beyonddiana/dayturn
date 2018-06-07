@@ -142,9 +142,6 @@ public:
 	// apply the basic masks.  Also, skip one saved
 	// in the skip list if true
 	void applyFeatures(bool skipFeatures);
-
-	// load the dynamic GPU/feature table from a website
-	void fetchHTTPTables();
     
    	LLSD getRecommendedSettingsMap();
 	
@@ -155,7 +152,6 @@ protected:
 	///< @returns TRUE is file parsed correctly, FALSE if not
 
 	void initBaseMask();
-
 
 	std::map<std::string, LLFeatureList *> mMaskList;
 	std::set<std::string> mSkippedFeatures;
