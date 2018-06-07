@@ -62,13 +62,10 @@
 
 #if LL_DARWIN
 const char FEATURE_TABLE_FILENAME[] = "featuretable_mac.txt";
-const char FEATURE_TABLE_VER_FILENAME[] = "featuretable_mac.%s.txt";
 #elif LL_LINUX
 const char FEATURE_TABLE_FILENAME[] = "featuretable_linux.txt";
-const char FEATURE_TABLE_VER_FILENAME[] = "featuretable_linux.%s.txt";
 #else
 const char FEATURE_TABLE_FILENAME[] = "featuretable.txt";
-const char FEATURE_TABLE_VER_FILENAME[] = "featuretable.%s.txt";
 #endif
 
 #if 0                               // consuming code in #if 0 below
@@ -268,33 +265,11 @@ bool LLFeatureManager::loadFeatureTables()
 	app_path += gDirUtilp->getDirDelimiter();
 
 	std::string filename;
-	std::string http_filename; 
 	filename = FEATURE_TABLE_FILENAME;
-	http_filename = llformat(FEATURE_TABLE_VER_FILENAME, LLVersionInfo::getVersion().c_str());
 
 	app_path += filename;
 
-	// second table is downloaded with HTTP
-	std::string http_path = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, http_filename);
-
-	// use HTTP table if it exists
-	std::string path;
-	bool parse_ok = false;
-	if (gDirUtilp->fileExists(http_path))
-	{
-		parse_ok = parseFeatureTable(http_path);
-		if (!parse_ok)
-		{
-			// the HTTP table failed to parse, so delete it
-			LLFile::remove(http_path);
-			LL_WARNS("RenderInit") << "Removed invalid feature table '" << http_path << "'" << LL_ENDL;
-		}
-	}
-
-	if (!parse_ok)
-	{
-		parse_ok = parseFeatureTable(app_path);
-	}
+	bool parse_ok = parseFeatureTable(app_path);
 
 	return parse_ok;
 }
