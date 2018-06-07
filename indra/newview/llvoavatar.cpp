@@ -717,8 +717,11 @@ LLVOAvatar::LLVOAvatar(const LLUUID& id,
 	mCachedInMuteList(false),
 	mIsControlAvatar(false),
 	mIsUIAvatar(false),
-    mEnableDefaultMotions(true)	
+    mEnableDefaultMotions(true),
+    mRiggingInfoNeedsUpdate(true)	
 {
+	LL_DEBUGS("AvatarRender") << "LLVOAvatar Constructor (0x" << this << ") id:" << mID << LL_ENDL;
+
 	//VTResume();  // VTune
 	setHoverOffset(LLVector3(0.0, 0.0, 0.0));
 
@@ -1339,8 +1342,12 @@ void LLVOAvatar::updateSpatialExtents(LLVector4a& newMin, LLVector4a &newMax)
 	}
 }
 
+static LLTrace::BlockTimerStatHandle FTM_AVATAR_EXTENT_UPDATE("Avatar Update Extent");
+
 void LLVOAvatar::getSpatialExtents(LLVector4a& newMin, LLVector4a& newMax)
 {
+    LL_RECORD_BLOCK_TIME(FTM_AVATAR_EXTENT_UPDATE);
+
     S32 box_detail = gSavedSettings.getS32("AvatarBoundingBoxComplexity");
 	LLVector4a buffer(0.0);
 	LLVector4a pos;
@@ -1424,7 +1431,13 @@ void LLVOAvatar::getSpatialExtents(LLVector4a& newMin, LLVector4a& newMax)
     // Stretch bounding box by rigged mesh joint boxes
     if (box_detail>=3)
     {
-        updateRiggingInfo();
+        // AXON try to cache unless something has changed about attached rigged meshes.
+        // Needs more logic based on volume states.
+        //if (mRiggingInfoNeedsUpdate)
+        {
+            updateRiggingInfo();
+            mRiggingInfoNeedsUpdate = false;
+        }
         for (S32 joint_num = 0; joint_num < LL_CHARACTER_MAX_ANIMATED_JOINTS; joint_num++)
         {
             LLJoint *joint = getJoint(joint_num);
@@ -6130,8 +6143,6 @@ void LLVOAvatar::clearAttachmentOverrides()
 {
     LLScopedContextString str("clearAttachmentOverrides " + getFullname());
 
-    mActiveOverrideMeshes.clear();
-    
     for (S32 i=0; i<LL_CHARACTER_MAX_ANIMATED_JOINTS; i++)
     {
         LLJoint *pJoint = getJoint(i);
@@ -6199,6 +6210,9 @@ void LLVOAvatar::rebuildAttachmentOverrides()
             }
         }
     }
+
+    mActiveOverrideMeshes.clear();
+    onActiveOverrideMeshesChanged();
 }
 
 //-----------------------------------------------------------------------------
@@ -6405,8 +6419,6 @@ void LLVOAvatar::addAttachmentOverridesForObject(LLViewerObject *vo, std::set<LL
 			bool fullRig = (jointCnt>=JOINT_COUNT_REQUIRED_FOR_FULLRIG) ? true : false;								
 			if ( fullRig && !mesh_overrides_loaded )
 			{								
-                mActiveOverrideMeshes.insert(mesh_id);
-                
 				for ( int i=0; i<jointCnt; ++i )
 				{
 					std::string lookingForJoint = pSkinData->mJointNames[i].c_str();
@@ -6448,6 +6460,8 @@ void LLVOAvatar::addAttachmentOverridesForObject(LLViewerObject *vo, std::set<LL
                         pelvisGotSet = true;											
                     }
 				}
+                mActiveOverrideMeshes.insert(mesh_id);
+                onActiveOverrideMeshesChanged();
 			}							
 		}
 	}
@@ -6609,17 +6623,9 @@ void LLVOAvatar::removeAttachmentOverridesForObject(LLViewerObject *vo)
 // removeAttachmentOverridesForObject
 //-----------------------------------------------------------------------------
 void LLVOAvatar::removeAttachmentOverridesForObject(const LLUUID& mesh_id)
-{
-    mActiveOverrideMeshes.erase(mesh_id);
-
- 	//Subsequent joints are relative to pelvis
- 	avatar_joint_list_t::iterator iter = mSkeleton.begin();
- 	avatar_joint_list_t::iterator end  = mSkeleton.end();
- 
+{ 
  	LLJoint* pJointPelvis = getJoint("mPelvis");
- 	
     const std::string av_string = avString();
-
     for (S32 joint_num = 0; joint_num < LL_CHARACTER_MAX_ANIMATED_JOINTS; joint_num++)
     {
         LLJoint *pJoint = getJoint(joint_num);
@@ -6639,7 +6645,10 @@ void LLVOAvatar::removeAttachmentOverridesForObject(const LLUUID& mesh_id)
  		}		
  	}	
  		
- 	postPelvisSetRecalc();	
+ 	postPelvisSetRecalc();
+ 	
+    mActiveOverrideMeshes.erase(mesh_id);
+    onActiveOverrideMeshesChanged();
  }
 
 //-----------------------------------------------------------------------------
@@ -9759,20 +9768,7 @@ void LLVOAvatar::updateLODRiggedAttachments()
 	rebuildRiggedAttachments();
 }
 
-S32 countRigInfoTab(joint_rig_info_tab& tab)
-{
-    S32 count=0;
-    for (S32 i=0; i<tab.size(); i++)
-    {
-        if (tab[i].isRiggedTo())
-        {
-            count++;
-        }
-    }
-    return count;
-}
-
-void showRigInfoTabExtents(LLVOAvatar *avatar, joint_rig_info_tab& tab, S32& count_rigged, S32& count_box)
+void showRigInfoTabExtents(LLVOAvatar *avatar, LLJointRiggingInfoTab& tab, S32& count_rigged, S32& count_box)
 {
     count_rigged = count_box = 0;
     LLVector4a zero_vec;
@@ -9809,7 +9805,7 @@ void LLVOAvatar::updateRiggingInfo()
 		{
 			LLViewerObject* attached_object =  *attach_iter;
             attached_object->updateRiggingInfo();
-            mergeRigInfoTab(mJointRiggingInfoTab, attached_object->mJointRiggingInfoTab);
+            mJointRiggingInfoTab.merge(attached_object->mJointRiggingInfoTab);
             //LL_INFOS() << "after merge rig count is " << countRigInfoTab(mJointRiggingInfoTab) << LL_ENDL;
             
 
@@ -9819,7 +9815,7 @@ void LLVOAvatar::updateRiggingInfo()
             {
                 LLViewerObject *childp = *it;
                 childp->updateRiggingInfo();
-                mergeRigInfoTab(mJointRiggingInfoTab, childp->mJointRiggingInfoTab);
+                mJointRiggingInfoTab.merge(childp->mJointRiggingInfoTab);
                 //LL_INFOS() << "after merge rig count is " << countRigInfoTab(mJointRiggingInfoTab) << LL_ENDL;
             }
         }
@@ -9830,9 +9826,8 @@ void LLVOAvatar::updateRiggingInfo()
         LLVOVolume *volp = control_av->mRootVolp;
         if (volp && !volp->isAttachment())
         {
-            volp->updateRiggingInfo();
-            mergeRigInfoTab(mJointRiggingInfoTab, volp->mJointRiggingInfoTab);
-            LL_DEBUGS("RigSpammish") << getFullname() << " after cav update rig tab:" << LL_ENDL;
+            mJointRiggingInfoTab.merge(volp->mJointRiggingInfoTab);
+            LL_DEBUGS("RigSpammish") << getFullname() << " mRootVolp " << control_av->mRootVolp << " after cav update rig tab:" << LL_ENDL;
             S32 joint_count, box_count;
             showRigInfoTabExtents(this, mJointRiggingInfoTab, joint_count, box_count);
             LL_DEBUGS("RigSpammish") << "uses " << joint_count << " joints " << " nonzero boxes: " << box_count << LL_ENDL;
@@ -9844,7 +9839,7 @@ void LLVOAvatar::updateRiggingInfo()
             {
                 LLViewerObject *childp = *it;
                 childp->updateRiggingInfo();
-                mergeRigInfoTab(mJointRiggingInfoTab, childp->mJointRiggingInfoTab);
+                mJointRiggingInfoTab.merge(childp->mJointRiggingInfoTab);
 
                 LL_DEBUGS("RigSpammish") << getFullname() << " after cav child update rig tab:" << LL_ENDL;
                 S32 joint_count, box_count;
@@ -9860,6 +9855,12 @@ void LLVOAvatar::updateRiggingInfo()
     S32 joint_count, box_count;
     showRigInfoTabExtents(this, mJointRiggingInfoTab, joint_count, box_count);
     LL_DEBUGS("RigSpammish") << "uses " << joint_count << " joints " << " nonzero boxes: " << box_count << LL_ENDL;
+}
+
+// virtual
+void LLVOAvatar::onActiveOverrideMeshesChanged()
+{
+    mRiggingInfoNeedsUpdate = true;
 }
 
 U32 LLVOAvatar::getPartitionType() const

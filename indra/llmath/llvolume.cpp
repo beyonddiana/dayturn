@@ -4652,7 +4652,6 @@ LLVolumeFace::LLVolumeFace() :
 	mNumVertices(0),
 	mNumAllocatedVertices(0),
 	mNumIndices(0),
-    mJointRiggingInfoTabPtr(NULL),
 	mPositions(NULL),
 	mNormals(NULL),
 	mTangents(NULL),
@@ -4684,7 +4683,6 @@ LLVolumeFace::LLVolumeFace(const LLVolumeFace& src)
 	mTangents(NULL),
 	mTexCoords(NULL),
 	mIndices(NULL),
-    mJointRiggingInfoTabPtr(NULL),
 	mWeights(NULL),
     mWeightsScrubbed(FALSE),
 	mOctree(NULL)
@@ -4799,9 +4797,6 @@ void LLVolumeFace::freeData()
 	ll_aligned_free_16(mWeights);
 	mWeights = NULL;
 
-    free(mJointRiggingInfoTabPtr);
-    mJointRiggingInfoTabPtr = NULL;
-    
 	delete mOctree;
 	mOctree = NULL;
 }
@@ -4963,7 +4958,7 @@ void LLVolumeFace::optimize(F32 angle_cutoff)
 	//
 	if (new_face.mNumVertices <= mNumVertices)
 	{
-	llassert(new_face.mNumIndices == mNumIndices);
+        llassert(new_face.mNumIndices == mNumIndices);
 		swapData(new_face);
 	}
 
@@ -6300,6 +6295,9 @@ void LLVolumeFace::resizeVertices(S32 num_verts)
 
 	mNumVertices = num_verts;
 	mNumAllocatedVertices = num_verts;
+
+    // Force update
+    mJointRiggingInfoTab.clear();
 }
 
 void LLVolumeFace::pushVertex(const LLVolumeFace::VertexData& cv)
@@ -6421,6 +6419,8 @@ void LLVolumeFace::fillFromLegacyData(std::vector<LLVolumeFace::VertexData>& v, 
 	}
 }
 
+// AXON appendFace/appendFaces not used - referenced by corresponding functions in
+// LLModel but these are not called anywhere.
 void LLVolumeFace::appendFace(const LLVolumeFace& face, LLMatrix4& mat_in, LLMatrix4& norm_mat_in)
 {
 	U16 offset = mNumVertices;
