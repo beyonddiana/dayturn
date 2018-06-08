@@ -55,7 +55,8 @@ public:
 	LLMatrix4 mBindShapeMatrix;
 	float mPelvisOffset;
     bool mLockScaleIfJointPosition;
-    bool mInvalidJointsScrubbed;	
+    bool mInvalidJointsScrubbed;
+    bool mJointNumsInitialized;
 };
 
 class LLModel : public LLVolume
