@@ -44,6 +44,7 @@
 #include "llagentlanguage.h"
 #include "llagentui.h"
 #include "llagentwearables.h"
+#include "lldirpicker.h"
 #include "llfloaterimcontainer.h"
 #include "llwindow.h"
 #include "llviewerstats.h"
@@ -2028,6 +2029,7 @@ bool LLAppViewer::cleanup()
 	ll_cleanup_ares();
 
 	SUBSYSTEM_CLEANUP(LLFilePickerThread);
+    SUBSYSTEM_CLEANUP(LLDirPickerThread);
 
 	//MUST happen AFTER SUBSYSTEM_CLEANUP(LLCurl)
 	delete sTextureCache;
@@ -2180,6 +2182,7 @@ bool LLAppViewer::initThreads()
 	gMeshRepo.init();
 
 	LLFilePickerThread::initClass();
+    LLDirPickerThread::initClass();
 
 	// *FIX: no error handling here!
 	return true;
@@ -4579,7 +4582,7 @@ void LLAppViewer::idle()
 	LLSmoothInterpolation::updateInterpolants();
 	LLMortician::updateClass();
 	LLFilePickerThread::clearDead();  //calls LLFilePickerThread::notify()
-
+    LLDirPickerThread::clearDead();
 	F32 dt_raw = idle_timer.getElapsedTimeAndResetF32();
 
 	// Cap out-of-control frame times
