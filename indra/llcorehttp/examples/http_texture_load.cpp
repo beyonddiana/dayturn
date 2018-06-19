@@ -83,8 +83,8 @@ public:
 	WorkingSet();
 	~WorkingSet();
 
-	bool reload(LLCore::HttpRequest *, LLCore::HttpOptions *);
-	
+    bool reload(LLCore::HttpRequest *, LLCore::HttpOptions::ptr_t &);
+
 	virtual void onCompleted(LLCore::HttpHandle handle, LLCore::HttpResponse * response);
 
 	void loadAssetUuids(FILE * in);
@@ -304,7 +304,7 @@ int main(int argc, char** argv)
 	LLCore::HttpRequest * hr = new LLCore::HttpRequest();
 
 	// Get request options
-	LLCore::HttpOptions * opt = new LLCore::HttpOptions();
+    LLCore::HttpOptions::ptr_t opt = LLCore::HttpOptions::ptr_t(new LLCore::HttpOptions());
 	opt->setRetries(12);
 	opt->setUseRetryAfter(true);
 	
@@ -442,7 +442,7 @@ WorkingSet::~WorkingSet()
 }
 
 
-bool WorkingSet::reload(LLCore::HttpRequest * hr, LLCore::HttpOptions * opt)
+bool WorkingSet::reload(LLCore::HttpRequest * hr, LLCore::HttpOptions::ptr_t & opt)
 {
 	if (mRequestLowWater <= mHandles.size())
 	{

@@ -67,8 +67,8 @@ HttpHandle requestPostWithLLSD(HttpRequest * request,
 							   HttpRequest::priority_t priority,
 							   const std::string & url,
 							   const LLSD & body,
-							   HttpOptions * options,
-                               HttpHeaders::ptr_t &headers,
+							   const HttpOptions::ptr_t &options,
+                               const HttpHeaders::ptr_t &headers,
 							   HttpHandler * handler)
 {
 	HttpHandle handle(LLCORE_HTTP_HANDLE_INVALID);
@@ -93,12 +93,12 @@ HttpHandle requestPostWithLLSD(HttpRequest::ptr_t & request,
 	HttpRequest::priority_t priority,
 	const std::string & url,
 	const LLSD & body,
-	HttpOptions::ptr_t & options,
-	HttpHeaders::ptr_t & headers,
+	const HttpOptions::ptr_t & options,
+	const HttpHeaders::ptr_t & headers,
 	HttpHandler * handler)
 {
 	return requestPostWithLLSD(request.get(), policy_id, priority,
-		url, body, options.get(), headers, handler);
+		url, body, options, headers, handler);
 }
 
 HttpHandle requestPutWithLLSD(HttpRequest * request,
@@ -106,8 +106,8 @@ HttpHandle requestPutWithLLSD(HttpRequest * request,
 							   HttpRequest::priority_t priority,
 							   const std::string & url,
 							   const LLSD & body,
-							   HttpOptions * options,
-                               HttpHeaders::ptr_t &headers,
+							   const HttpOptions::ptr_t &options,
+                               const HttpHeaders::ptr_t &headers,
 							   HttpHandler * handler)
 {
 	HttpHandle handle(LLCORE_HTTP_HANDLE_INVALID);
@@ -132,12 +132,12 @@ HttpHandle requestPutWithLLSD(HttpRequest::ptr_t & request,
 	HttpRequest::priority_t priority,
 	const std::string & url,
 	const LLSD & body,
-	HttpOptions::ptr_t & options,
-	HttpHeaders::ptr_t & headers,
+	const HttpOptions::ptr_t & options,
+	const HttpHeaders::ptr_t & headers,
 	HttpHandler * handler)
 {
 	return requestPutWithLLSD(request.get(), policy_id, priority,
-		url, body, options.get(), headers, handler);
+		url, body, options, headers, handler);
 }
 
 std::string responseToString(LLCore::HttpResponse * response)

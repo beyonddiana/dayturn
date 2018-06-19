@@ -1571,7 +1571,7 @@ bool LLTextureFetchWorker::doWork(S32 param)
 
 		// Will call callbackHttpGet when curl request completes
 		// Only server bake images use the returned headers currently, for getting retry-after field.
-		LLCore::HttpOptions *options = (mFTType == FTT_SERVER_BAKE) ? mFetcher->mHttpOptionsWithHeaders: mFetcher->mHttpOptions;
+		LLCore::HttpOptions::ptr_t options = (mFTType == FTT_SERVER_BAKE) ? mFetcher->mHttpOptionsWithHeaders: mFetcher->mHttpOptions;
 		if (disable_range_req)
 		{
 			// 'Range:' requests may be disabled in which case all HTTP
@@ -2551,8 +2551,8 @@ LLTextureFetch::LLTextureFetch(LLTextureCache* cache, LLImageDecodeThread* image
 	  mTotalHTTPRequests(0),
 	  mQAMode(qa_mode),
 	  mHttpRequest(NULL),
-	  mHttpOptions(NULL),
-	  mHttpOptionsWithHeaders(NULL),
+	  mHttpOptions(),
+	  mHttpOptionsWithHeaders(),
 	  mHttpHeaders(),
 	  mHttpPolicyClass(LLCore::HttpRequest::DEFAULT_POLICY_ID),
 	  mHttpMetricsHeaders(),
@@ -2571,8 +2571,8 @@ LLTextureFetch::LLTextureFetch(LLTextureCache* cache, LLImageDecodeThread* image
 
 	LLAppCoreHttp & app_core_http(LLAppViewer::instance()->getAppCoreHttp());
 	mHttpRequest = new LLCore::HttpRequest;
-	mHttpOptions = new LLCore::HttpOptions;
-	mHttpOptionsWithHeaders = new LLCore::HttpOptions;
+	mHttpOptions = LLCore::HttpOptions::ptr_t(new LLCore::HttpOptions);
+	mHttpOptionsWithHeaders = LLCore::HttpOptions::ptr_t(new LLCore::HttpOptions);
 	mHttpOptionsWithHeaders->setWantHeaders(true);
     mHttpHeaders = LLCore::HttpHeaders::ptr_t(new LLCore::HttpHeaders);
 	mHttpHeaders->append(HTTP_OUT_HEADER_ACCEPT, HTTP_CONTENT_IMAGE_X_J2C);
@@ -2609,18 +2609,6 @@ LLTextureFetch::~LLTextureFetch()
 		TFRequest * req(mCommands.front());
 		mCommands.erase(mCommands.begin());
 		delete req;
-	}
-
-	if (mHttpOptions)
-	{
-		mHttpOptions->release();
-		mHttpOptions = NULL;
-	}
-
-	if (mHttpOptionsWithHeaders)
-	{
-		mHttpOptionsWithHeaders->release();
-		mHttpOptionsWithHeaders = NULL;
 	}
 
 	mHttpWaitResource.clear();
@@ -4073,14 +4061,14 @@ TFReqSendMetrics::doWork(LLTextureFetch * fetcher)
 	if (! mCapsURL.empty())
 	{
 		// Don't care about handle, this is a fire-and-forget operation.  
-//        LLCoreHttpUtil::requestPostWithLLSD(&fetcher->getHttpRequest(),
-//                                            fetcher->getMetricsPolicyClass(),
-//                                            report_priority,
-//                                            mCapsURL,
-//                                            sd,
-//                                            LLCore::HttpOptions::ptr_t(),
-//                                            fetcher->getMetricsHeaders(),
-//                                            handler);
+        LLCoreHttpUtil::requestPostWithLLSD(&fetcher->getHttpRequest(),
+                                            fetcher->getMetricsPolicyClass(),
+                                            report_priority,
+                                            mCapsURL,
+                                            sd,
+                                            LLCore::HttpOptions::ptr_t(),
+                                            fetcher->getMetricsHeaders(),
+                                            handler);
 		LLTextureFetch::svMetricsDataBreak = false;
 	}
 	else
@@ -4634,64 +4622,64 @@ void LLTextureFetchDebugger::debugHTTP()
 
 S32 LLTextureFetchDebugger::fillCurlQueue()
 {
-	if(mStopDebug) //stop
-	{
-		mNbCurlCompleted = mFetchingHistory.size();
-		return 0;
-	}
-	if (mNbCurlRequests > HTTP_NONPIPE_REQUESTS_LOW_WATER)
-	{
-		return mNbCurlRequests;
-	}
-	
-	S32 size = mFetchingHistory.size();
-	for (S32 i = 0 ; i < size ; i++)
-	{		
-		if (mFetchingHistory[i].mCurlState != FetchEntry::CURL_NOT_DONE)
-		{
-			continue;
-		}
-		std::string texture_url = mHTTPUrl + "/?texture_id=" + mFetchingHistory[i].mID.asString().c_str();
-		S32 requestedSize = mFetchingHistory[i].mRequestedSize;
-		// We request the whole file if the size was not set.
-		requestedSize = llmax(0,requestedSize);
-		// We request the whole file if the size was set to an absurdly high value (meaning all file)
-		requestedSize = (requestedSize == 33554432 ? 0 : requestedSize);
+    if(mStopDebug) //stop
+    {
+        mNbCurlCompleted = mFetchingHistory.size();
+        return 0;
+    }
+    if (mNbCurlRequests > HTTP_NONPIPE_REQUESTS_LOW_WATER)
+    {
+        return mNbCurlRequests;
+    }
 
-		LLCore::HttpHandle handle = mFetcher->getHttpRequest().requestGetByteRange(mHttpPolicyClass,
-																				   LLWorkerThread::PRIORITY_LOWBITS,
-																				   texture_url,
-																				   0,
-																				   requestedSize,
-																				   NULL,
-																				   mHttpHeaders,
-																				   this);
-		if (LLCORE_HTTP_HANDLE_INVALID != handle)
-		{
-			mHandleToFetchIndex[handle] = i;
-			mFetchingHistory[i].mHttpHandle = handle;
-			mFetchingHistory[i].mCurlState = FetchEntry::CURL_IN_PROGRESS;
-			mNbCurlRequests++;
-			if (mNbCurlRequests >= HTTP_NONPIPE_REQUESTS_HIGH_WATER)	// emulate normal pipeline
-			{
-				break;
-			}
-		}
-		else 
-		{
-			// Failed to queue request, log it and mark it done.
-			LLCore::HttpStatus status(mFetcher->getHttpRequest().getStatus());
+    S32 size = mFetchingHistory.size();
+    for (S32 i = 0 ; i < size ; i++)
+    {
+        if (mFetchingHistory[i].mCurlState != FetchEntry::CURL_NOT_DONE)
+        {
+            continue;
+        }
+        std::string texture_url = mHTTPUrl + "/?texture_id=" + mFetchingHistory[i].mID.asString().c_str();
+        S32 requestedSize = mFetchingHistory[i].mRequestedSize;
+        // We request the whole file if the size was not set.
+        requestedSize = llmax(0,requestedSize);
+        // We request the whole file if the size was set to an absurdly high value (meaning all file)
+        requestedSize = (requestedSize == 33554432 ? 0 : requestedSize);
 
-			LL_WARNS(LOG_TXT) << "Couldn't issue HTTP request in debugger for texture "
-							  << mFetchingHistory[i].mID
-							  << ", status: " << status.toTerseString()
-							  << " reason:  " << status.toString()
-							  << LL_ENDL;
-			mFetchingHistory[i].mCurlState = FetchEntry::CURL_DONE;
-		}
-	}
-	//LL_INFOS(LOG_TXT) << "Fetch Debugger : Having " << mNbCurlRequests << " requests through the curl thread." << LL_ENDL;
-	return mNbCurlRequests;
+        LLCore::HttpHandle handle = mFetcher->getHttpRequest().requestGetByteRange(mHttpPolicyClass,
+                                                                                   LLWorkerThread::PRIORITY_LOWBITS,
+                                                                                   texture_url,
+                                                                                   0,
+                                                                                   requestedSize,
+                                                                                   LLCore::HttpOptions::ptr_t(),
+                                                                                   mHttpHeaders,
+                                                                                   this);
+        if (LLCORE_HTTP_HANDLE_INVALID != handle)
+        {
+            mHandleToFetchIndex[handle] = i;
+            mFetchingHistory[i].mHttpHandle = handle;
+            mFetchingHistory[i].mCurlState = FetchEntry::CURL_IN_PROGRESS;
+            mNbCurlRequests++;
+            if (mNbCurlRequests >= HTTP_NONPIPE_REQUESTS_HIGH_WATER)    // emulate normal pipeline
+            {
+                break;
+            }
+        }
+        else
+        {
+            // Failed to queue request, log it and mark it done.
+            LLCore::HttpStatus status(mFetcher->getHttpRequest().getStatus());
+
+            LL_WARNS(LOG_TXT) << "Couldn't issue HTTP request in debugger for texture "
+                              << mFetchingHistory[i].mID
+                              << ", status: " << status.toTerseString()
+                              << " reason:  " << status.toString()
+                              << LL_ENDL;
+            mFetchingHistory[i].mCurlState = FetchEntry::CURL_DONE;
+        }
+    }
+    //LL_INFOS(LOG_TXT) << "Fetch Debugger : Having " << mNbCurlRequests << " requests through the curl thread." << LL_ENDL;
+    return mNbCurlRequests;
 }
 
 void LLTextureFetchDebugger::debugGLTextureCreation()
