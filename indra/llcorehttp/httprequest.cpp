@@ -200,8 +200,8 @@ HttpStatus HttpRequest::getStatus() const
 HttpHandle HttpRequest::requestGet(policy_t policy_id,
 								   priority_t priority,
 								   const std::string & url,
-								   HttpOptions * options,
-                                   HttpHeaders::ptr_t &headers,
+								   const HttpOptions::ptr_t &options,
+                                   const HttpHeaders::ptr_t &headers,
 								   HttpHandler * user_handler)
 {
 	HttpStatus status;
@@ -234,8 +234,8 @@ HttpHandle HttpRequest::requestGetByteRange(policy_t policy_id,
 											const std::string & url,
 											size_t offset,
 											size_t len,
-											HttpOptions * options,
-                                            HttpHeaders::ptr_t &headers,
+											const HttpOptions::ptr_t &options,
+                                            const HttpHeaders::ptr_t &headers,
 											HttpHandler * user_handler)
 {
 	HttpStatus status;
@@ -267,8 +267,8 @@ HttpHandle HttpRequest::requestPost(policy_t policy_id,
 									priority_t priority,
 									const std::string & url,
 									BufferArray * body,
-									HttpOptions * options,
-                                    HttpHeaders::ptr_t &headers,
+									const HttpOptions::ptr_t &options,
+                                    const HttpHeaders::ptr_t &headers,
 									HttpHandler * user_handler)
 {
 	HttpStatus status;
@@ -300,8 +300,8 @@ HttpHandle HttpRequest::requestPut(policy_t policy_id,
 								   priority_t priority,
 								   const std::string & url,
 								   BufferArray * body,
-								   HttpOptions * options,
-                                   HttpHeaders::ptr_t &headers,
+								   const HttpOptions::ptr_t &options,
+                                   const HttpHeaders::ptr_t &headers,
 								   HttpHandler * user_handler)
 {
 	HttpStatus status;
@@ -332,8 +332,8 @@ HttpHandle HttpRequest::requestPut(policy_t policy_id,
 HttpHandle HttpRequest::requestDelete(policy_t policy_id,
     priority_t priority,
     const std::string & url,
-    HttpOptions * options,
-    HttpHeaders::ptr_t &headers,
+    const HttpOptions::ptr_t &options,
+    const HttpHeaders::ptr_t &headers,
     HttpHandler * user_handler)
 {
     HttpStatus status;
@@ -364,8 +364,8 @@ HttpHandle HttpRequest::requestPatch(policy_t policy_id,
     priority_t priority,
     const std::string & url,
     BufferArray * body,
-    HttpOptions * options,
-    HttpHeaders::ptr_t &headers,
+    const HttpOptions::ptr_t &options,
+    const HttpHeaders::ptr_t &headers,
     HttpHandler * user_handler)
 {
     HttpStatus status;
@@ -395,8 +395,8 @@ HttpHandle HttpRequest::requestPatch(policy_t policy_id,
 HttpHandle HttpRequest::requestCopy(policy_t policy_id,
     priority_t priority,
     const std::string & url,
-    HttpOptions * options,
-    HttpHeaders::ptr_t &headers,
+    const HttpOptions::ptr_t &options,
+    const HttpHeaders::ptr_t &headers,
     HttpHandler * user_handler)
 {
     HttpStatus status;
@@ -426,8 +426,8 @@ HttpHandle HttpRequest::requestCopy(policy_t policy_id,
 HttpHandle HttpRequest::requestMove(policy_t policy_id,
     priority_t priority,
     const std::string & url,
-    HttpOptions * options,
-    HttpHeaders::ptr_t &headers,
+    const HttpOptions::ptr_t &options,
+    const HttpHeaders::ptr_t &headers,
     HttpHandler * user_handler)
 {
     HttpStatus status;

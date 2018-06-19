@@ -56,15 +56,16 @@ namespace LLCore
 /// Allocation:  Refcounted, heap only.  Caller of the constructor
 /// is given a refcount.
 ///
-class HttpOptions : public LLCoreInt::RefCounted
+class HttpOptions : private boost::noncopyable
 {
 public:
 	HttpOptions();
 
-    typedef LLCoreInt::IntrusivePtr<HttpOptions> ptr_t;
+    typedef boost::shared_ptr<HttpOptions> ptr_t;
+    
+    virtual ~HttpOptions();                        // Use release()
 
 protected:
-	virtual ~HttpOptions();						// Use release()
 	
 	HttpOptions(const HttpOptions &);			// Not defined
 	void operator=(const HttpOptions &);		// Not defined
@@ -167,6 +168,16 @@ public:
     {
         return mDNSCacheTimeout;
     }
+
+    
+    /// Retrieve only the headers and status from the request. Setting this
+    /// to true implies setWantHeaders(true) as well.
+    /// Default: false
+    void                setHeadersOnly(bool nobody);
+    bool                getHeadersOnly() const
+    {
+        return mNoBody;
+    }
 	
 protected:
 	bool				mWantHeaders;
@@ -181,6 +192,8 @@ protected:
 	bool				mVerifyPeer;
 	bool                mVerifyHost;
 	int					mDNSCacheTimeout;
+    bool                mNoBody;
+
 }; // end class HttpOptions
 
 
