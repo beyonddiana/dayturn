@@ -695,7 +695,7 @@ void LLCurl::Easy::prepRequest(const std::string& url,
 	mAliases = curl_slist_append(mAliases, "ICY 200 OK");
 	mAliases = curl_slist_append(mAliases, "ICY 402 Service Unavailabe");
 	setopt(CURLOPT_HTTP200ALIASES, mAliases);
-	//setopt(CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0); // Possible streaming fix? -- MC
+	setopt(CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_NONE); // GN - letting the curl lib choose the http version
 
 	setoptString(CURLOPT_URL, url);
 
