@@ -8269,7 +8269,7 @@ void LLVOAvatar::updateMeshVisibility()
 		}
 		else if (i == MESH_ID_EYELASH)
 		{
-			joint->setVisible(!bake_flag[BAKED_EYES], TRUE);
+			joint->setVisible(!bake_flag[BAKED_HEAD], TRUE);
 		}
 	}
 }
