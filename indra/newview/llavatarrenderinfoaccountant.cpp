@@ -98,41 +98,58 @@ void LLAvatarRenderInfoHandler::onSuccess(LLCore::HttpResponse * response, LLSD 
                 const LLSD & agents = content[KEY_AGENTS];
                 if (agents.isMap())
                 {
-                    LLSD::map_const_iterator	report_iter = agents.beginMap();
-                    while (report_iter != agents.endMap())
+                    for (LLSD::map_const_iterator agent_iter = agents.beginMap();
+                         agent_iter != agents.endMap();
+                         agent_iter++
+                         )
                     {
-                        LLUUID target_agent_id = LLUUID(report_iter->first);
-                        const LLSD & agent_info_map = report_iter->second;
-                        LLViewerObject* avatarp = gObjectList.findObject(target_agent_id);
-                        if (avatarp &&
-                                avatarp->isAvatar() &&
-                                agent_info_map.isMap())
-                        {	// Extract the data for this avatar
-    
-                            if (LLAvatarRenderInfoAccountant::logRenderInfo())
-                            {
-                                LL_INFOS() << "LRI:  Agent " << target_agent_id
-                                << ": " << agent_info_map << LL_ENDL;
-                            }
-    
-                            if (agent_info_map.has(KEY_WEIGHT))
-                            {
-                                ((LLVOAvatar *)avatarp)->setReportedVisualComplexity(agent_info_map[KEY_WEIGHT].asInteger());
-                            }
+                        LLUUID target_agent_id = LLUUID(agent_iter->first);
+                        LLViewerObject* vobjp = gObjectList.findObject(target_agent_id);
+                        LLVOAvatar *avatarp = NULL;
+                        if (vobjp)
+                        {
+                            avatarp = vobjp->asAvatar();
                         }
-                        report_iter++;
+                        if (avatarp && !avatarp->isControlAvatar())
+                        {
+                            const LLSD & agent_info_map = agent_iter->second;
+                            if (agent_info_map.isMap())
+                            {
+                                LL_DEBUGS("AvatarRenderInfo") << " Agent " << target_agent_id 
+                                                      << ": " << agent_info_map << LL_ENDL;
+
+                                if (agent_info_map.has(KEY_WEIGHT))
+                                {
+                                    avatarp->setReportedVisualComplexity(agent_info_map[KEY_WEIGHT].asInteger());
+                                }
+                            }
+                            else
+                            {
+                                LL_WARNS("AvatarRenderInfo") << "agent entry invalid"
+                                                     << " agent " << target_agent_id
+                                                     << " map " << agent_info_map
+                                                     << LL_ENDL;
+                            }
+                         }
+                    else
+                    {
+                        LL_DEBUGS("AvatarRenderInfo") << "Unknown agent " << target_agent_id << LL_ENDL;
                     }
-                }
-            }	// has "agents"
-            else if (content.has(KEY_ERROR))
-            {
-                const LLSD & error = content[KEY_ERROR];
-                LL_WARNS() << "Avatar render info GET error: "
-                << error[KEY_IDENTIFIER]
-                << ": " << error[KEY_MESSAGE]
-                << " from region " << regionp->getName()
-                << LL_ENDL;
+                } // for agent_iter
             }
+            else
+            {
+                LL_WARNS("AvatarRenderInfo") << "malformed get response '" << KEY_AGENTS << "' is not map" << LL_ENDL;
+            }       
+        }	// has "agents"
+        else if (content.has(KEY_ERROR))
+        {
+            const LLSD & error = content[KEY_ERROR];
+            LL_WARNS() << "Avatar render info GET error: "
+            << error[KEY_IDENTIFIER]
+            << ": " << error[KEY_MESSAGE]
+            << " from region " << regionp->getName()
+            << LL_ENDL;
         }
     }
     else
@@ -351,6 +368,7 @@ void LLAvatarRenderInfoAccountant::sendRenderInfoToRegion(LLViewerRegion * regio
 			if (avatar &&
 				avatar->getRezzedStatus() >= 2 &&					// Mostly rezzed (maybe without baked textures downloaded)
 				!avatar->isDead() &&								// Not dead yet
+                !avatar->isControlAvatar() &&						// Not part of an animated object
 				avatar->getObjectHost() == regionp->getHost())		// Ensure it's on the same region
 			{
 				avatar->calculateUpdateRenderCost();			// Make sure the numbers are up-to-date
