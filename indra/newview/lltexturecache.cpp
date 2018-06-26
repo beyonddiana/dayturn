@@ -615,7 +615,7 @@ bool LLTextureCacheRemoteWorker::doWrite()
 			if(idx >= 0)
 			{
 				// write to the fast cache.
-				if(!mCache->writeToFastCache(idx, mRawImage, mRawDiscardLevel))
+				if(!mCache->writeToFastCache(mID, idx, mRawImage, mRawDiscardLevel))
 				{
 					LL_WARNS() << "writeToFastCache failed" << LL_ENDL;
 					mDataSize = -1; // failed
@@ -1999,7 +1999,7 @@ LLPointer<LLImageRaw> LLTextureCache::readFromFastCache(const LLUUID& id, S32& d
 }
 
 //return the fast cache location
-bool LLTextureCache::writeToFastCache(S32 id, LLPointer<LLImageRaw> raw, S32 discardlevel)
+bool LLTextureCache::writeToFastCache(LLUUID image_id, S32 id, LLPointer<LLImageRaw> raw, S32 discardlevel)
 {
 	//rescale image if needed
 	if (raw.isNull() || raw->isBufferInvalid() || !raw->getData())
@@ -2027,7 +2027,25 @@ bool LLTextureCache::writeToFastCache(S32 id, LLPointer<LLImageRaw> raw, S32 dis
 		if(w * h *c > 0) //valid
 		{
 			//make a duplicate to keep the original raw image untouched.
-			raw = raw->duplicate();
+
+            try
+            {
+                raw = raw->duplicate();
+            }
+            catch (...)
+            {
+                removeFromCache(image_id);
+                LL_ERRS() << "Failed to cache image: " << image_id
+                    << " local id: " << id
+                    << " Exception: " << boost::current_exception_diagnostic_information()
+                    << " Image new width: " << w
+                    << " Image new height: " << h
+                    << " Image new components: " << c
+                    << " Image discard difference: " << i
+                    << LL_ENDL;
+
+                return false;
+            }
 			if (raw->isBufferInvalid())
 			{
 				LL_WARNS() << "Invalid image duplicate buffer" << LL_ENDL;
