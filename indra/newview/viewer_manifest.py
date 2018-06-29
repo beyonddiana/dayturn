@@ -69,7 +69,7 @@ class ViewerManifest(LLManifest):
         self.path(src="../../etc/message.xml", dst="app_settings/message.xml")
 
         if self.is_packaging_viewer():
-            with self.prefix(src="app_settings"):
+            with self.prefix(src_dst="app_settings"):
                 self.exclude("logcontrol.xml")
                 self.exclude("logcontrol-dev.xml")
                 self.path("*.ini")
@@ -91,9 +91,8 @@ class ViewerManifest(LLManifest):
             
                 # ... and the included spell checking dictionaries and certificates
                 pkgdir = os.path.join(self.args['build'], os.pardir, 'packages')
-                with self.prefix(src=pkgdir,dst=""):
+                with self.prefix(build=pkgdir):
                     self.path("dictionaries")
-                    self.path("ca-bundle.crt")
 
                 # include the extracted packages information (see BuildPackagesInfo.cmake)
                 self.path(src=os.path.join(self.args['build'],"packages-info.txt"), dst="packages-info.txt")
@@ -138,20 +137,20 @@ class ViewerManifest(LLManifest):
 
 
 
-            with self.prefix(src="character"):
+            with self.prefix(src_dst="character"):
                 self.path("*.llm")
                 self.path("*.xml")
                 self.path("*.tga")
 
             # Include our fonts
-            with self.prefix(src="fonts"):
+            with self.prefix(src_dst="fonts"):
                 self.path("*.ttf")
                 self.path("*.txt")
 
             # skins
-            with self.prefix(src="skins"):
+            with self.prefix(src_dst="skins"):
                     # include the entire textures directory recursively
-                    with self.prefix(src="*/textures"):
+                    with self.prefix(src_dst="*/textures"):
                             self.path("*/*.jpg")
                             self.path("*/*.png")
                             self.path("*.tga")
@@ -469,8 +468,7 @@ class Windows_i686_Manifest(ViewerManifest):
                            "slplugin.exe")
         
         # Get shared libs from the shared libs staging directory
-        with self.prefix(src=os.path.join(os.pardir, 'sharedlibs', self.args['configuration']),
-                       dst=""):
+        with self.prefix(build=os.path.join(os.pardir, 'sharedlibs', self.args['configuration'])):
 
             # Mesh 3rd party libs needed for auto LOD and collada reading
             try:
@@ -506,8 +504,8 @@ class Windows_i686_Manifest(ViewerManifest):
                 self.path("vivoxsdk_x64.dll")
                 self.path("ortp_x64.dll")
             else:
-            	self.path("vivoxsdk.dll")
-            	self.path("ortp.dll")
+                self.path("vivoxsdk.dll")
+                self.path("ortp.dll")
 
             # Security
             self.path("ssleay32.dll")
@@ -515,23 +513,26 @@ class Windows_i686_Manifest(ViewerManifest):
 
             # Hunspell
             self.path("libhunspell.dll")
-            
+
         self.path(src="licenses-win32.txt", dst="licenses.txt")
         self.path("featuretable.txt", dst="featuretable.txt")
 
+        with self.prefix(build=pkgdir):
+            self.path("ca-bundle.crt")
+
         # Media plugins - CEF
-        with self.prefix(src='../media_plugins/cef/%s' % self.args['configuration'], dst="llplugin"):        
-            self.path("media_plugin_cef.dll")
+        with self.prefix(dst="llplugin"):
+            with self.prefix(build='../media_plugins/cef/%s' % self.args['configuration']):
+                self.path("media_plugin_cef.dll")
 
         # Media plugins - LibVLC
-        with self.prefix(src='../media_plugins/libvlc/%s' % self.args['configuration'], dst="llplugin"):
+        with self.prefix(build='../media_plugins/libvlc/%s' % self.args['configuration']):
             self.path("media_plugin_libvlc.dll")
-            self.end_prefix()
 
         # CEF runtime files - debug
         # CEF runtime files - not debug (release, relwithdebinfo etc.)
         config = 'debug' if self.args['configuration'].lower() == 'debug' else 'release'
-        with self.prefix(src=os.path.join(pkgdir, 'bin', config), dst="llplugin"):
+        with self.prefix(build=os.path.join(pkgdir, 'bin', config)):
             self.path("d3dcompiler_43.dll")
             self.path("d3dcompiler_47.dll")
             self.path("libcef.dll")
@@ -544,12 +545,12 @@ class Windows_i686_Manifest(ViewerManifest):
             self.path("wow_helper.exe")
 
         # MSVC DLLs needed for CEF and have to be in same directory as plugin
-        with self.prefix(src=os.path.join(os.pardir, 'sharedlibs', 'Release'), dst="llplugin"):
+        with self.prefix(build=os.path.join(os.pardir, 'sharedlibs', 'Release')):
             self.path("msvcp120.dll")
             self.path("msvcr120.dll")
 
         # CEF files common to all configurations
-        with self.prefix(src=os.path.join(pkgdir, 'resources'), dst="llplugin"):
+        with self.prefix(build=os.path.join(pkgdir, 'resources')):
             self.path("cef.pak")
             self.path("cef_100_percent.pak")
             self.path("cef_200_percent.pak")
@@ -557,7 +558,7 @@ class Windows_i686_Manifest(ViewerManifest):
             self.path("devtools_resources.pak")
             self.path("icudtl.dat")
 
-        with self.prefix(src=os.path.join(pkgdir, 'resources', 'locales'), dst=os.path.join('llplugin', 'locales')):
+        with self.prefix(build=os.path.join(pkgdir, 'resources', 'locales'), dst='locales'):
             self.path("am.pak")
             self.path("ar.pak")
             self.path("bg.pak")
@@ -612,7 +613,7 @@ class Windows_i686_Manifest(ViewerManifest):
             self.path("zh-CN.pak")
             self.path("zh-TW.pak")
 
-        with self.prefix(src=os.path.join(pkgdir, 'bin', 'release'), dst="llplugin"):
+        with self.prefix(build=os.path.join(pkgdir, 'bin', 'release')):
             self.path("libvlc.dll")
             self.path("libvlccore.dll")
             self.path("plugins/")
