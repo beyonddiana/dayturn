@@ -91,7 +91,7 @@ class ViewerManifest(LLManifest):
             
                 # ... and the included spell checking dictionaries and certificates
                 pkgdir = os.path.join(self.args['build'], os.pardir, 'packages')
-                with self.prefix(build=pkgdir):
+                with self.prefix(src=pkgdir):
                     self.path("dictionaries")
 
                 # include the extracted packages information (see BuildPackagesInfo.cmake)
@@ -200,8 +200,7 @@ class ViewerManifest(LLManifest):
         return self.channel().replace(CHANNEL_VENDOR_BASE, "").strip()
 
     def channel_type(self): # returns 'release', 'beta', 'project', or 'test'
-        global CHANNEL_VENDOR_BASE
-        channel_qualifier=self.channel().replace(CHANNEL_VENDOR_BASE, "").lower().strip()
+        channel_qualifier=self.channel_variant().lower()
         if channel_qualifier.startswith('release'):
             channel_type='release'
         elif channel_qualifier.startswith('beta'):
@@ -468,7 +467,8 @@ class Windows_i686_Manifest(ViewerManifest):
                            "slplugin.exe")
         
         # Get shared libs from the shared libs staging directory
-        with self.prefix(build=os.path.join(os.pardir, 'sharedlibs', self.args['configuration'])):
+        with self.prefix(src=os.path.join(self.args['build'], os.pardir,
+                                          'sharedlibs', self.args['configuration'])):
 
             # Mesh 3rd party libs needed for auto LOD and collada reading
             try:
@@ -517,22 +517,23 @@ class Windows_i686_Manifest(ViewerManifest):
         self.path(src="licenses-win32.txt", dst="licenses.txt")
         self.path("featuretable.txt", dst="featuretable.txt")
 
-        with self.prefix(build=pkgdir):
+        with self.prefix(src=pkgdir):
             self.path("ca-bundle.crt")
 
         # Media plugins - CEF
         with self.prefix(dst="llplugin"):
-            with self.prefix(build='../media_plugins/cef/%s' % self.args['configuration']):
-                self.path("media_plugin_cef.dll")
+            with self.prefix(src=os.path.join(self.args['build'], os.pardir, 'media_plugins')):
+                with self.prefix(src=os.path.join('cef', self.args['configuration'])):
+                    self.path("media_plugin_cef.dll")
 
-        # Media plugins - LibVLC
-        with self.prefix(build='../media_plugins/libvlc/%s' % self.args['configuration']):
-            self.path("media_plugin_libvlc.dll")
+                # Media plugins - LibVLC
+                with self.prefix(src=os.path.join('libvlc', self.args['configuration'])):
+                    self.path("media_plugin_libvlc.dll")
 
         # CEF runtime files - debug
         # CEF runtime files - not debug (release, relwithdebinfo etc.)
         config = 'debug' if self.args['configuration'].lower() == 'debug' else 'release'
-        with self.prefix(build=os.path.join(pkgdir, 'bin', config)):
+        with self.prefix(src=os.path.join(pkgdir, 'bin', config)):
             self.path("d3dcompiler_43.dll")
             self.path("d3dcompiler_47.dll")
             self.path("libcef.dll")
@@ -545,12 +546,13 @@ class Windows_i686_Manifest(ViewerManifest):
             self.path("wow_helper.exe")
 
         # MSVC DLLs needed for CEF and have to be in same directory as plugin
-        with self.prefix(build=os.path.join(os.pardir, 'sharedlibs', 'Release')):
+        with self.prefix(src=os.path.join(self.args['build'], os.pardir,
+                                          'sharedlibs', 'Release')):
             self.path("msvcp120.dll")
             self.path("msvcr120.dll")
 
         # CEF files common to all configurations
-        with self.prefix(build=os.path.join(pkgdir, 'resources')):
+        with self.prefix(src=os.path.join(pkgdir, 'resources')):
             self.path("cef.pak")
             self.path("cef_100_percent.pak")
             self.path("cef_200_percent.pak")
@@ -558,7 +560,7 @@ class Windows_i686_Manifest(ViewerManifest):
             self.path("devtools_resources.pak")
             self.path("icudtl.dat")
 
-        with self.prefix(build=os.path.join(pkgdir, 'resources', 'locales'), dst='locales'):
+        with self.prefix(src=os.path.join(pkgdir, 'resources', 'locales'), dst='locales'):
             self.path("am.pak")
             self.path("ar.pak")
             self.path("bg.pak")
@@ -613,7 +615,7 @@ class Windows_i686_Manifest(ViewerManifest):
             self.path("zh-CN.pak")
             self.path("zh-TW.pak")
 
-        with self.prefix(build=os.path.join(pkgdir, 'bin', 'release')):
+        with self.prefix(src=os.path.join(pkgdir, 'bin', 'release')):
             self.path("libvlc.dll")
             self.path("libvlccore.dll")
             self.path("plugins/")
