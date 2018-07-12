@@ -1250,6 +1250,8 @@ void LLVOAvatar::initInstance()
 	//VTPause();  // VTune
 	
 	mVoiceVisualizer->setVoiceEnabled( LLVoiceClient::getInstance()->getVoiceEnabled( mID ) );
+
+    mInitFlags |= 1<<1;
 }
 
 // virtual
