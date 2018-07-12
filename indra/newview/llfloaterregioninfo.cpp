@@ -3682,6 +3682,7 @@ BOOL LLPanelEstateAccess::postBuild()
 		avatar_name_list->setMaxItemCount(ESTATE_MAX_ACCESS_IDS);
 	}
 
+	getChild<LLUICtrl>("allowed_search_input")->setCommitCallback(boost::bind(&LLPanelEstateAccess::onAllowedSearchEdit, this, _2));
 	childSetAction("add_allowed_avatar_btn", boost::bind(&LLPanelEstateAccess::onClickAddAllowedAgent, this));
 	childSetAction("remove_allowed_avatar_btn", boost::bind(&LLPanelEstateAccess::onClickRemoveAllowedAgent, this));
 
@@ -3693,6 +3694,7 @@ BOOL LLPanelEstateAccess::postBuild()
 		group_name_list->setMaxItemCount(ESTATE_MAX_ACCESS_IDS);
 	}
 
+	getChild<LLUICtrl>("allowed_group_search_input")->setCommitCallback(boost::bind(&LLPanelEstateAccess::onAllowedGroupsSearchEdit, this, _2));
 	getChild<LLUICtrl>("add_allowed_group_btn")->setCommitCallback(boost::bind(&LLPanelEstateAccess::onClickAddAllowedGroup, this));
 	childSetAction("remove_allowed_group_btn", boost::bind(&LLPanelEstateAccess::onClickRemoveAllowedGroup, this));
 
@@ -3704,6 +3706,7 @@ BOOL LLPanelEstateAccess::postBuild()
 		banned_name_list->setMaxItemCount(ESTATE_MAX_ACCESS_IDS);
 	}
 
+	getChild<LLUICtrl>("banned_search_input")->setCommitCallback(boost::bind(&LLPanelEstateAccess::onBannedSearchEdit, this, _2));
 	childSetAction("add_banned_avatar_btn", boost::bind(&LLPanelEstateAccess::onClickAddBannedAgent, this));
 	childSetAction("remove_banned_avatar_btn", boost::bind(&LLPanelEstateAccess::onClickRemoveBannedAgent, this));
 
@@ -4365,5 +4368,47 @@ void LLPanelEstateAccess::updateChild(LLUICtrl* child_ctrl)
 {
 	// Ensure appropriate state of the management ui.
 	updateControls(gAgent.getRegion());
+}
+
+//---------------------------------------------------------------------------
+// Access lists search
+//---------------------------------------------------------------------------
+void LLPanelEstateAccess::onAllowedSearchEdit(const std::string& search_string)
+{
+	LLPanelEstateAccess* panel = LLFloaterRegionInfo::getPanelAccess();
+	if (!panel) return;
+	LLNameListCtrl* allowed_agent_name_list = panel->getChild<LLNameListCtrl>("allowed_avatar_name_list");
+	searchAgent(allowed_agent_name_list, search_string);
+}
+
+void LLPanelEstateAccess::onAllowedGroupsSearchEdit(const std::string& search_string)
+{
+	LLPanelEstateAccess* panel = LLFloaterRegionInfo::getPanelAccess();
+	if (!panel) return;
+	LLNameListCtrl* allowed_group_name_list = panel->getChild<LLNameListCtrl>("allowed_group_name_list");
+	searchAgent(allowed_group_name_list, search_string);
+}
+
+void LLPanelEstateAccess::onBannedSearchEdit(const std::string& search_string)
+{
+	LLPanelEstateAccess* panel = LLFloaterRegionInfo::getPanelAccess();
+	if (!panel) return;
+	LLNameListCtrl* banned_agent_name_list = panel->getChild<LLNameListCtrl>("banned_avatar_name_list");
+	searchAgent(banned_agent_name_list, search_string);
+}
+
+void LLPanelEstateAccess::searchAgent(LLNameListCtrl* listCtrl, const std::string& search_string)
+{
+	if (!listCtrl) return;
+
+	if (!search_string.empty())
+	{
+		listCtrl->setSearchColumn(0); // name column
+		listCtrl->selectItemByPrefix(search_string, FALSE);
+	}
+	else
+	{
+		listCtrl->deselectAllItems(TRUE);
+	}
 }
 

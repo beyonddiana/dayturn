@@ -518,6 +518,10 @@ public:
 	void onClickRemoveBannedAgent();
 	void onClickAddEstateManager();
 	void onClickRemoveEstateManager();
+	void onAllowedSearchEdit(const std::string& search_string);
+	void onAllowedGroupsSearchEdit(const std::string& search_string);
+	void onBannedSearchEdit(const std::string& search_string);
+
 
 	// Group picker callback is different, can't use core methods below
 	bool addAllowedGroup(const LLSD& notification, const LLSD& response);
@@ -539,6 +543,8 @@ public:
 
 
 	void clearAccessLists();
+	
+	void searchAgent(LLNameListCtrl* listCtrl, const std::string& search_string);
 };
 
 #endif
