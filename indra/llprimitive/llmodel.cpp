@@ -1367,7 +1367,8 @@ LLMeshSkinInfo::LLMeshSkinInfo():
 LLMeshSkinInfo::LLMeshSkinInfo(LLSD& skin):
     mPelvisOffset(0.0),
     mLockScaleIfJointPosition(false),
-    mInvalidJointsScrubbed(false)
+    mInvalidJointsScrubbed(false),
+    mJointNumsInitialized(false)
 {
 	fromLLSD(skin);
 }
