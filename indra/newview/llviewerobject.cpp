@@ -6936,7 +6936,6 @@ LLVOAvatar* LLViewerObject::getAvatar() const
 		return (LLVOAvatar*) vobj;
 	}
 
-	return NULL;
 }
 
 
