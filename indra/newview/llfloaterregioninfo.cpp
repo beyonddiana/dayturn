@@ -731,12 +731,22 @@ void LLPanelRegionInfo::disableButton(const std::string& btn_name)
 void LLPanelRegionInfo::initCtrl(const std::string& name)
 {
 	getChild<LLUICtrl>(name)->setCommitCallback(boost::bind(&LLPanelRegionInfo::onChangeAnything, this));
+
+	if (!mGodLevelChangeSlot.connected())
+	{
+		mGodLevelChangeSlot = gAgent.registerGodLevelChanageListener(boost::bind(&LLPanelRegionInfo::onGodLevelChange, this, _1));
+	}
 }
 
 void LLPanelRegionInfo::onClickManageTelehub()
 {
 	LLFloaterReg::hideInstance("region_info");
 	LLFloaterReg::showInstance("telehubs");
+}
+
+void LLPanelRegionInfo::onGodLevelChange(U8 god_level)
+{
+	refreshFromRegion(gAgent.getRegion());
 }
 
 /////////////////////////////////////////////////////////////////////////////
