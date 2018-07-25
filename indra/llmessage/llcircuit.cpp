@@ -283,7 +283,7 @@ S32 LLCircuitData::resendUnackedPackets(const F64Seconds now)
 	//
 
 	reliable_iter iter;
-	BOOL have_resend_overflow = FALSE;
+	bool have_resend_overflow = FALSE;
 	for (iter = mUnackedPackets.begin(); iter != mUnackedPackets.end();)
 	{
 		packetp = iter->second;
@@ -490,7 +490,7 @@ void LLCircuit::removeCircuitData(const LLHost &host)
 	mLastCircuit = NULL;
 }
 
-void LLCircuitData::setAlive(BOOL b_alive)
+void LLCircuitData::setAlive(bool b_alive)
 {
 	if (mbAlive != b_alive)
 	{
@@ -507,7 +507,7 @@ void LLCircuitData::setAlive(BOOL b_alive)
 }
 
 
-void LLCircuitData::setAllowTimeout(BOOL allow)
+void LLCircuitData::setAllowTimeout(bool allow)
 {
 	mbAllowTimeout = allow;
 
@@ -601,7 +601,7 @@ void LLCircuit::resendUnackedPackets(S32& unacked_list_length, S32& unacked_list
 }
 
 
-BOOL LLCircuitData::isDuplicateResend(TPACKETID packetnum)
+bool LLCircuitData::isDuplicateResend(TPACKETID packetnum)
 {
 	return (mRecentlyReceivedReliablePackets.find(packetnum) != mRecentlyReceivedReliablePackets.end());
 }
@@ -634,7 +634,7 @@ LLCircuitData* LLCircuit::findCircuit(const LLHost& host) const
 }
 
 
-BOOL LLCircuit::isCircuitAlive(const LLHost& host) const
+bool LLCircuit::isCircuitAlive(const LLHost& host) const
 {
 	LLCircuitData *cdp = findCircuit(host);
 	if(cdp)
@@ -651,7 +651,7 @@ void LLCircuitData::setTimeoutCallback(void (*callback_func)(const LLHost &host,
 	mTimeoutUserData = user_data; 
 }
 
-void LLCircuitData::checkPacketInID(TPACKETID id, BOOL receive_resent)
+void LLCircuitData::checkPacketInID(TPACKETID id, bool receive_resent)
 {
 	// Done as floats so we don't have to worry about running out of room
 	// with U32 getting poked into an S32.
@@ -846,7 +846,7 @@ void LLCircuit::updateWatchDogTimers(LLMessageSystem *msgsys)
 }
 
 
-BOOL LLCircuitData::updateWatchDogTimers(LLMessageSystem *msgsys)
+bool LLCircuitData::updateWatchDogTimers(LLMessageSystem *msgsys)
 {
 	F64Seconds cur_time = LLMessageSystem::getMessageTimeSeconds();
 	mLastPingSendTime = cur_time;
@@ -868,7 +868,7 @@ BOOL LLCircuitData::updateWatchDogTimers(LLMessageSystem *msgsys)
 	// This is to handle the case if we actually manage to wrap our
 	// packet IDs - the oldest will actually have a higher packet ID
 	// than the current.
-	BOOL wrapped = FALSE;
+	bool wrapped = FALSE;
 	reliable_iter iter;
 	iter = mUnackedPackets.upper_bound(getPacketOutID());
 	if (iter == mUnackedPackets.end())
@@ -882,7 +882,7 @@ BOOL LLCircuitData::updateWatchDogTimers(LLMessageSystem *msgsys)
 	TPACKETID packet_id = 0;
 
 	// Check against the "final" packets
-	BOOL wrapped_final = FALSE;
+	bool wrapped_final = FALSE;
 	reliable_iter iter_final;
 	iter_final = mFinalRetryPackets.upper_bound(getPacketOutID());
 	if (iter_final == mFinalRetryPackets.end())
@@ -924,7 +924,7 @@ BOOL LLCircuitData::updateWatchDogTimers(LLMessageSystem *msgsys)
 		}
 		else
 		{
-			BOOL had_unacked = FALSE;
+			bool had_unacked = FALSE;
 			if (iter != mUnackedPackets.end())
 			{
 				// Unacked list has the lowest so far
@@ -1043,7 +1043,7 @@ void LLCircuitData::clearDuplicateList(TPACKETID oldest_id)
 	//LL_INFOS() << "Recent list after: " << mRecentlyReceivedReliablePackets.size() << LL_ENDL;
 }
 
-BOOL LLCircuitData::checkCircuitTimeout()
+bool LLCircuitData::checkCircuitTimeout()
 {
 	F64Seconds time_since_last_ping = LLMessageSystem::getMessageTimeSeconds() - mLastPingReceivedTime;
 
@@ -1070,7 +1070,7 @@ BOOL LLCircuitData::checkCircuitTimeout()
 
 // Call this method when a reliable message comes in - this will
 // correctly place the packet in the correct list to be acked later.
-BOOL LLCircuitData::collectRAck(TPACKETID packet_num)
+bool LLCircuitData::collectRAck(TPACKETID packet_num)
 {
 	if (mAcks.empty())
 	{
@@ -1346,19 +1346,19 @@ U32 LLCircuitData::getPacketsLost() const
 }
 
 
-BOOL LLCircuitData::isAlive() const
+bool LLCircuitData::isAlive() const
 {
 	return mbAlive;
 }
 
 
-BOOL LLCircuitData::isBlocked() const
+bool LLCircuitData::isBlocked() const
 {
 	return mBlocked;
 }
 
 
-BOOL LLCircuitData::getAllowTimeout() const
+bool LLCircuitData::getAllowTimeout() const
 {
 	return mbAllowTimeout;
 }
@@ -1404,13 +1404,13 @@ F32Milliseconds LLCircuitData::getPingDelayAveraged()
 }
 
 
-BOOL LLCircuitData::getTrusted() const
+bool LLCircuitData::getTrusted() const
 {
 	return mTrusted;
 }
 
 
-void LLCircuitData::setTrusted(BOOL t)
+void LLCircuitData::setTrusted(bool t)
 {
 	mTrusted = t;
 }

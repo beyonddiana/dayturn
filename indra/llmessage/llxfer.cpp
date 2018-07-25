@@ -187,7 +187,7 @@ void LLXfer::sendPacket(S32 packet_num)
 {
 	char fdata_buf[LL_XFER_LARGE_PAYLOAD+4];		/* Flawfinder: ignore */
 	S32 fdata_size = mChunkSize;
-	BOOL last_packet = FALSE;
+	bool last_packet = FALSE;
 	S32 num_copy = 0;
 
 	// if the desired packet is not in our current buffered excerpt from the file. . . 
@@ -327,7 +327,7 @@ S32 LLXfer::processEOF()
 
 ///////////////////////////////////////////////////////////
 
-S32 LLXfer::encodePacketNum(S32 packet_num, BOOL is_EOF)
+S32 LLXfer::encodePacketNum(S32 packet_num, bool is_EOF)
 {
 	if (is_EOF)
 	{

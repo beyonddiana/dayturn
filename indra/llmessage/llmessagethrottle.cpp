@@ -76,7 +76,7 @@ void LLMessageThrottle::pruneEntries()
 
 		// Look for the first entry younger than the maximum age.
 		F32 max_age = (F32)MAX_MESSAGE_AGE[cat]; 
-		BOOL found = FALSE;
+		bool found = FALSE;
 		while (r_iterator != r_last && !found)
 		{
 			if ( LLFrameTimer::getTotalTime() - (*r_iterator).getEntryTime() < max_age )
@@ -105,7 +105,7 @@ void LLMessageThrottle::pruneEntries()
 	}
 }
 
-BOOL LLMessageThrottle::addViewerAlert(const LLUUID& to, const std::string& mesg)
+bool LLMessageThrottle::addViewerAlert(const LLUUID& to, const std::string& mesg)
 {
 	message_list_t* message_list = &(mMessageList[MTC_VIEWER_ALERT]);
 
@@ -139,7 +139,7 @@ BOOL LLMessageThrottle::addViewerAlert(const LLUUID& to, const std::string& mesg
 	}
 }
 
-BOOL LLMessageThrottle::addAgentAlert(const LLUUID& agent, const LLUUID& task, const std::string& mesg)
+bool LLMessageThrottle::addAgentAlert(const LLUUID& agent, const LLUUID& task, const std::string& mesg)
 {
 	message_list_t* message_list = &(mMessageList[MTC_AGENT_ALERT]);
 
