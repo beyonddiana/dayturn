@@ -1540,7 +1540,7 @@ void AOEngine::parseNotecard(const char* buffer)
 {
 	LL_DEBUGS() << "parsing import notecard" << LL_ENDL;
 
-	BOOL isValid=FALSE;
+	bool isValid = false;
 
 	if(!buffer)
 	{
@@ -1616,7 +1616,7 @@ void AOEngine::parseNotecard(const char* buffer)
 		if(line[0]=='#') // <ND/> FIRE-3801; skip comments to reduce spam to local chat.
 			continue;
 
-		if(line.find("[")!=0)
+		if(line.find("[") != 0)
 		{
 			LLSD args;
 			args["LINE"]=(S32) index;
@@ -1624,14 +1624,14 @@ void AOEngine::parseNotecard(const char* buffer)
 			continue;
 		}
 
-		U32 endTag=line.find("]");
-		if(endTag==std::string::npos)
-		{
-			LLSD args;
-			args["LINE"]=(S32) index;
-			LLNotificationsUtil::add("AOImportNoValidDelimiter",args);
-			continue;
-		}
+        if (line.find("]") == std::string::npos)
+        {
+            LLSD args;
+            args["LINE"] = (S32)index;
+            LLNotificationsUtil::add("AOImportNoValidDelimiter", args);
+            continue;
+        }
+        U32 endTag = line.find("]");
 
 		std::string stateName=line.substr(1,endTag-1);
 		LLStringUtil::trim(stateName);
@@ -1663,7 +1663,7 @@ void AOEngine::parseNotecard(const char* buffer)
 			}
 			animation.mSortOrder=animIndex;
 			newState->mAnimations.push_back(animation);
-			isValid=TRUE;
+			isValid = true;
 		}
 	}
 
