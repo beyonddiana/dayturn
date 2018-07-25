@@ -81,6 +81,7 @@ public:
 
 
 	/*virtual*/ void onOpen(const LLSD& key);
+	/*virtual*/ void onClose(bool app_quitting);
 	/*virtual*/ BOOL postBuild();
 
 	static void processEstateOwnerRequest(LLMessageSystem* msg, void**);
@@ -118,6 +119,7 @@ protected:
 	void onTabSelected(const LLSD& param);
 	void disableTabCtrls();
 	void refreshFromRegion(LLViewerRegion* region);
+	void onGodLevelChange(U8 god_level);
 
 	// member data
 	LLTabContainer* mTab;
@@ -125,6 +127,10 @@ protected:
 	info_panels_t mInfoPanels;
 	//static S32 sRequestSerial;	// serial # of last EstateOwnerRequest
 	static LLUUID sRequestInvoice;
+
+private:
+	LLAgent::god_level_change_slot_t   mGodLevelChangeSlot;
+
 };
 
 
@@ -165,13 +171,8 @@ protected:
 					 const LLUUID& invoice,
 					 const strings_t& strings);
 	
-	void onGodLevelChange(U8 god_level);
-	
 	// member data
 	LLHost mHost;
-
-private:
-	LLAgent::god_level_change_slot_t   mGodLevelChangeSlot;
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -529,6 +530,7 @@ public:
 	void onAllowedGroupsSearchEdit(const std::string& search_string);
 	void onBannedSearchEdit(const std::string& search_string);
 
+	virtual bool refreshFromRegion(LLViewerRegion* region);
 
 	// Group picker callback is different, can't use core methods below
 	bool addAllowedGroup(const LLSD& notification, const LLSD& response);

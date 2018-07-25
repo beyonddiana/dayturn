@@ -285,6 +285,19 @@ void LLFloaterRegionInfo::onOpen(const LLSD& key)
 	refreshFromRegion(gAgent.getRegion());
 	requestRegionInfo();
 	requestMeshRezInfo();
+	
+	if (!mGodLevelChangeSlot.connected())
+	{
+		mGodLevelChangeSlot = gAgent.registerGodLevelChanageListener(boost::bind(&LLFloaterRegionInfo::onGodLevelChange, this, _1));
+	}
+}
+
+void LLFloaterRegionInfo::onClose(bool app_quitting)
+{
+	if (mGodLevelChangeSlot.connected())
+	{
+		mGodLevelChangeSlot.disconnect();
+	}
 }
 
 // static
@@ -611,6 +624,15 @@ void LLFloaterRegionInfo::disableTopButtons()
 	getChildView("top_scripts_btn")->setEnabled(false);
 }
 
+void LLFloaterRegionInfo::onGodLevelChange(U8 god_level)
+{
+	LLFloaterRegionInfo* floater = LLFloaterReg::getTypedInstance<LLFloaterRegionInfo>("region_info");
+	if (floater && floater->getVisible())
+	{
+		refreshFromRegion(gAgent.getRegion());
+	}
+}
+
 ///----------------------------------------------------------------------------
 /// Local class implementation
 ///----------------------------------------------------------------------------
@@ -731,22 +753,12 @@ void LLPanelRegionInfo::disableButton(const std::string& btn_name)
 void LLPanelRegionInfo::initCtrl(const std::string& name)
 {
 	getChild<LLUICtrl>(name)->setCommitCallback(boost::bind(&LLPanelRegionInfo::onChangeAnything, this));
-
-	if (!mGodLevelChangeSlot.connected())
-	{
-		mGodLevelChangeSlot = gAgent.registerGodLevelChanageListener(boost::bind(&LLPanelRegionInfo::onGodLevelChange, this, _1));
-	}
 }
 
 void LLPanelRegionInfo::onClickManageTelehub()
 {
 	LLFloaterReg::hideInstance("region_info");
 	LLFloaterReg::showInstance("telehubs");
-}
-
-void LLPanelRegionInfo::onGodLevelChange(U8 god_level)
-{
-	refreshFromRegion(gAgent.getRegion());
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -4428,4 +4440,10 @@ void LLPanelEstateAccess::searchAgent(LLNameListCtrl* listCtrl, const std::strin
 		listCtrl->deselectAllItems(TRUE);
 	}
 }
+
+ bool LLPanelEstateAccess::refreshFromRegion(LLViewerRegion* region)
+ {
+ 	refresh();
+	return LLPanelRegionInfo::refreshFromRegion(region);
+ }
 
