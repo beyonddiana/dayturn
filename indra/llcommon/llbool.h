@@ -5,7 +5,7 @@
  * The LL definition of BOOL prevents using Apple's system libraries and frameworks
  * Dayturn
  *
- * $LicenseInfo:firstyear=2016&license=viewerlgpl$
+ * $LicenseInfo:firstyear=2018&license=viewerlgpl$
  * Dayturn Viewer Source Code
  * Created by Dayturn on 26.07.2018.
  * Copyright (C) 2018, Geir Nøklebye <geir.noklebye@dayturn.com>
