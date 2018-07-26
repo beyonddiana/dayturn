@@ -34,7 +34,7 @@
 #include "llcleanup.h"
 
 //static
-BOOL LLCommon::sAprInitialized = FALSE;
+bool LLCommon::sAprInitialized = false;
 
 static LLTrace::ThreadRecorder* sMasterThreadRecorder = NULL;
 
@@ -45,7 +45,7 @@ void LLCommon::initClass()
 	if (!sAprInitialized)
 	{
 		ll_init_apr();
-		sAprInitialized = TRUE;
+		sAprInitialized = true;
 	}
 	LLTimer::initClass();
 	LLThreadSafeRefCount::initThreadSafeRefCount();
@@ -68,7 +68,7 @@ void LLCommon::cleanupClass()
 	if (sAprInitialized)
 	{
 		ll_cleanup_apr();
-		sAprInitialized = FALSE;
+		sAprInitialized = false;
 	}
 	SUBSYSTEM_CLEANUP(LLMemory);
 }

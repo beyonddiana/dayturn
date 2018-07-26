@@ -106,16 +106,16 @@ LLApp* LLApp::sApplication = NULL;
 
 // Allows the generation of core files for post mortem under gdb
 // and disables crashlogger
-BOOL LLApp::sDisableCrashlogger = FALSE; 
+bool LLApp::sDisableCrashlogger = false;
 
 // Local flag for whether or not to do logging in signal handlers.
 //static
-BOOL LLApp::sLogInSignal = FALSE;
+bool LLApp::sLogInSignal = false;
 
 // static
 LLApp::EAppStatus LLApp::sStatus = LLApp::APP_STATUS_STOPPED; // Keeps track of application status
 LLAppErrorHandler LLApp::sErrorHandler = NULL;
-BOOL LLApp::sErrorThreadRunning = FALSE;
+bool LLApp::sErrorThreadRunning = false;
 
 
 LLApp::LLApp() : mThreadErrorp(NULL)

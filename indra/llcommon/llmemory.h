@@ -355,7 +355,7 @@ private:
 	static U32Kilobytes sAllocatedPageSizeInKB ;
 
 	static U32Kilobytes sMaxHeapSizeInKB;
-	static BOOL sEnableMemoryFailurePrevention;
+	static bool sEnableMemoryFailurePrevention;
 };
 
 // LLRefCount moved to llrefcount.h
