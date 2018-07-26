@@ -24,8 +24,7 @@
 #ifndef LL_BOOL_H
 #define LL_BOOL_H
 
-//typedef S32				BOOL;
-// commented out till llbool.h have been included everywhere needed after which 
-// the definition will be removed from stdtypes.h
+typedef S32				BOOL;
+// definition moved from stdtypes.h
 
 #endif
