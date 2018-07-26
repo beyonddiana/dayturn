@@ -30,6 +30,7 @@
 
 
 #include "stdtypes.h"
+#include "llbool.h"
 #include "llpreprocessor.h"
 #include "llunits.h"
 #include "lltimer.h"

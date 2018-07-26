@@ -33,6 +33,7 @@
 #include <string>
 
 #include "stdtypes.h"
+#include "llbool.h"
 #include "llunits.h"
 
 /** 

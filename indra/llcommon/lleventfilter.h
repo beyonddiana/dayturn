@@ -31,6 +31,7 @@
 
 #include "llevents.h"
 #include "stdtypes.h"
+#include "llbool.h"
 #include "lltimer.h"
 #include <boost/function.hpp>
 

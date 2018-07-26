@@ -99,7 +99,7 @@ void LLMemory::freeReserve()
 }
 
 //static 
-void LLMemory::initMaxHeapSizeGB(F32Gigabytes max_heap_size, BOOL prevent_heap_failure)
+void LLMemory::initMaxHeapSizeGB(F32Gigabytes max_heap_size, bool prevent_heap_failure)
 {
 	sMaxHeapSizeInKB = max_heap_size;
 	sEnableMemoryFailurePrevention = prevent_heap_failure ;

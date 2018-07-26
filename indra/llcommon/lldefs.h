@@ -28,6 +28,7 @@
 #define LL_LLDEFS_H
 
 #include "stdtypes.h"
+#include "llbool.h"
 
 // Often used array indices
 const U32	VX			= 0;
