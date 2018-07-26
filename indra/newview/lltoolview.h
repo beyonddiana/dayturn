@@ -28,6 +28,7 @@
 #define LL_LLTOOLVIEW_H
 
 // requires stdtypes.h
+// requires llbool.h - GN possibly
 #include "llpanel.h"
 
 // forward declares

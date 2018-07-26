@@ -28,6 +28,7 @@
 #define LLCTRLSELECTIONINTERFACE_H
 
 #include "stdtypes.h"
+#include "llbool.h"
 #include "llstring.h"
 #include "llui.h"
 

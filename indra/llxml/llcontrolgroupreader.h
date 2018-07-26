@@ -28,6 +28,7 @@
 #define LL_LLCONTROLGROUPREADER_H
 
 #include "stdtypes.h"
+#include "llbool.h"
 #include <string>
 
 #include "v3math.h"

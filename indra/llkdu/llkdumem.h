@@ -47,6 +47,7 @@
 #include "kdu_sample_processing.h"
 #include "image_local.h"
 #include "stdtypes.h"
+#include "llbool.h"
 
 class LLKDUMemSource: public kdu_compressed_source
 {

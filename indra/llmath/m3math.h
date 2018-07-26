@@ -29,6 +29,7 @@
 
 #include "llerror.h"
 #include "stdtypes.h"
+#include "llbool.h"
 
 class LLVector4;
 class LLVector3;

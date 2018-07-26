@@ -29,6 +29,7 @@
 
 // requires:
 // stdtypes.h
+// llbool.h - GN possibly
 
 #include "llview.h"
 

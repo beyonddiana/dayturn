@@ -30,6 +30,7 @@
 #include <string>
 
 #include "stdtypes.h"
+#include "llbool.h"
 
 class LLMsgData;
 class LLQuaternion;

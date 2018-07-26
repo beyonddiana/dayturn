@@ -28,6 +28,7 @@
 #define LL_LLFLOATERBUYCURRENCY_H
 
 #include "stdtypes.h"
+#include "llbool.h"
 
 class LLFloater;
 
