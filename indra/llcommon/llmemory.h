@@ -29,6 +29,7 @@
 #include "linden_common.h"
 #include "llunits.h"
 #include "stdtypes.h"
+#include "llbool.h"
 #if !LL_WINDOWS
 #include <stdint.h>
 #endif
@@ -338,9 +339,9 @@ public:
 	static U64 getCurrentRSS();
 	static U32 getWorkingSetSize();
 	static void* tryToAlloc(void* address, U32 size);
-	static void initMaxHeapSizeGB(F32Gigabytes max_heap_size, BOOL prevent_heap_failure);
+	static void initMaxHeapSizeGB(F32Gigabytes max_heap_size, bool prevent_heap_failure);
 	static void updateMemoryInfo() ;
-	static void logMemoryInfo(BOOL update = FALSE);
+	static void logMemoryInfo(bool update = false);
 	static bool isMemoryPoolLow();
 
 	static U32Kilobytes getAvailableMemKB() ;

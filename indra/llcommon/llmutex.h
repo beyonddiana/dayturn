@@ -28,6 +28,7 @@
 #define LL_LLMUTEX_H
 
 #include "stdtypes.h"
+#include "llbool.h"
 
 //============================================================================
 

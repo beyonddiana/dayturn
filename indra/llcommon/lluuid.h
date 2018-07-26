@@ -30,6 +30,7 @@
 #include <set>
 #include <vector>
 #include "stdtypes.h"
+#include "llbool.h"
 #include "llpreprocessor.h"
 
 class LLMutex;

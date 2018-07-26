@@ -32,6 +32,7 @@
 #include <typeinfo>
 
 #include "stdtypes.h"
+#include "llbool.h"
 
 #include "llpreprocessor.h"
 #include <boost/static_assert.hpp>

@@ -141,6 +141,7 @@ set(llcommon_HEADER_FILES
     llbase32.h
     llbase64.h
     llbitpack.h
+    llbool.h
     llboost.h
     llcallbacklist.h
     llcallstack.h
