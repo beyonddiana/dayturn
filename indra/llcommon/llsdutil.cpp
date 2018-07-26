@@ -209,7 +209,7 @@ std::string ll_stream_notation_sd(const LLSD& sd)
 //are not of the same type, false is returned or if the LLSDs are not
 //of the same value.  Ordering of arrays matters
 //Otherwise, returns true
-BOOL compare_llsd_with_template(
+bool compare_llsd_with_template(
 	const LLSD& llsd_to_test,
 	const LLSD& template_llsd,
 	LLSD& resultant_llsd)

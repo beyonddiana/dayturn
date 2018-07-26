@@ -56,7 +56,7 @@ static LLTrace::SampleStatHandle<F64Megabytes> sVirtualMem("virtual_mem", "virtu
 U32Kilobytes LLMemory::sAllocatedMemInKB(0);
 U32Kilobytes LLMemory::sAllocatedPageSizeInKB(0);
 U32Kilobytes LLMemory::sMaxHeapSizeInKB(U32_MAX);
-BOOL LLMemory::sEnableMemoryFailurePrevention = FALSE;
+bool LLMemory::sEnableMemoryFailurePrevention = false;
 
 void ll_assert_aligned_func(uintptr_t ptr,U32 alignment)
 {
@@ -170,7 +170,7 @@ void* LLMemory::tryToAlloc(void* address, U32 size)
 }
 
 //static 
-void LLMemory::logMemoryInfo(BOOL update)
+void LLMemory::logMemoryInfo(bool update)
 {
 	if(update)
 	{
@@ -406,8 +406,8 @@ void* ll_aligned_malloc_fallback( size_t size, int align )
 		__asm int 3;
 	}
 	DWORD old;
-	BOOL Res = VirtualProtect((void*)((char*)p + for_alloc), sysinfo.dwPageSize, PAGE_NOACCESS, &old);
-	if(FALSE == Res) {
+	bool Res = VirtualProtect((void*)((char*)p + for_alloc), sysinfo.dwPageSize, PAGE_NOACCESS, &old);
+	if(false == Res) {
 		// call debugger
 		__asm int 3;
 	}
