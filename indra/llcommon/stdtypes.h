@@ -61,7 +61,7 @@ typedef long long unsigned int		U64;
 typedef float				F32;
 typedef double				F64;
 
-typedef S32				BOOL;
+// typedef S32				BOOL; definition moved to llbool.h
 typedef U8				KEY;
 typedef U32				MASK;
 typedef U32             		TPACKETID;
