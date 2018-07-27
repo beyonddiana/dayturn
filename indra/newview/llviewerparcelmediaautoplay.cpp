@@ -76,7 +76,7 @@ void LLViewerParcelMediaAutoPlay::playStarted()
 	}
 }
 
-BOOL LLViewerParcelMediaAutoPlay::tick()
+bool LLViewerParcelMediaAutoPlay::tick()
 {
 	LLParcel *this_parcel = NULL;
 	LLViewerRegion *this_region = NULL;

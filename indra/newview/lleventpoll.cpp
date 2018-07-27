@@ -94,7 +94,7 @@ namespace
 			: LLEventTimer(period), mResponder(responder)
 		{ }
 
-		virtual BOOL tick()
+		virtual bool tick()
 		{
 			mResponder->makeRequest();
 			return TRUE;	// Causes this instance to be deleted.

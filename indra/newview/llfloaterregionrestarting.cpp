@@ -75,7 +75,7 @@ void LLFloaterRegionRestarting::regionChange()
 	close();
 }
 
-BOOL LLFloaterRegionRestarting::tick()
+bool LLFloaterRegionRestarting::tick()
 {
 	refresh();
 

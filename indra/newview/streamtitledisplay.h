@@ -38,7 +38,7 @@ public:
 	StreamTitleDisplay();
 	~StreamTitleDisplay() { }
 private:
-	BOOL tick();
+	bool tick();
 	void checkMetadata();
 
 	LLSD mMetadata;

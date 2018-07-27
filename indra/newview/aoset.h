@@ -120,7 +120,7 @@ class AOSet
 
 		void startTimer(F32 timeout);
 		void stopTimer();
-		virtual BOOL tick();
+		virtual bool tick();
 
 		std::vector<std::string> mStateNames;
 
