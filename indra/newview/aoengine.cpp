@@ -1781,7 +1781,7 @@ void AOSitCancelTimer::stop()
 	mEventTimer.stop();
 }
 
-BOOL AOSitCancelTimer::tick()
+bool AOSitCancelTimer::tick()
 {
 	mTickCount++;
 	AOEngine::instance().checkSitCancel();
@@ -1806,7 +1806,7 @@ AOTimerCollection::~AOTimerCollection()
 {
 }
 
-BOOL AOTimerCollection::tick()
+bool AOTimerCollection::tick()
 {
 	if(mInventoryTimer)
 	{

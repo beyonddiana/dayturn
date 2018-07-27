@@ -273,7 +273,7 @@ void LLFloaterLinkReplace::decreaseOpenItemCount()
 	}
 }
 
-BOOL LLFloaterLinkReplace::tick()
+bool LLFloaterLinkReplace::tick()
 {
 	LL_DEBUGS() << "Calling tick - remaining items = " << mRemainingInventoryItems.size() << LL_ENDL;
 

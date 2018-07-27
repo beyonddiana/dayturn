@@ -94,7 +94,7 @@ const LLUUID LLOutgoingCallDialog::OCD_KEY = LLUUID("7CF78E11-0CFE-498D-ADB9-141
 LLIMMgr* gIMMgr = NULL;
 
 
-BOOL LLSessionTimeoutTimer::tick()
+bool LLSessionTimeoutTimer::tick()
 {
 	if (mSessionId.isNull()) return TRUE;
 

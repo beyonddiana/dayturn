@@ -107,7 +107,7 @@ public:
             }
         }
     }
-    BOOL tick()
+    bool tick()
     {
         LLViewerInventoryItem* subj = instack.top();
         instack.pop();
@@ -153,7 +153,7 @@ public:
     ~ZdCleanup()
     {
     }
-    BOOL tick()
+    bool tick()
     {
         zdrop = NULL;
         return TRUE;
@@ -189,7 +189,7 @@ public:
             reportToNearbyChat("Ztake deactivated.");
         }
     }
-    BOOL tick()
+    bool tick()
     {
         {
             LLMessageSystem *msg = gMessageSystem;
@@ -294,7 +294,7 @@ public:
     ~LOZtCleanup()
     {
     }
-    BOOL tick()
+    bool tick()
     {
         ztake->mRunning = TRUE;
         delete ztake;
@@ -322,7 +322,7 @@ public:
     {
         reportToNearbyChat("Mtake deactivated.");
     }
-    BOOL tick()
+    bool tick()
     {
         {
             LLMessageSystem *msg = gMessageSystem;

@@ -71,10 +71,10 @@
 
 StreamTitleDisplay::StreamTitleDisplay() : LLEventTimer(2.f) { }
 
-BOOL StreamTitleDisplay::tick()
+bool StreamTitleDisplay::tick()
 {
 	checkMetadata();
-	return FALSE;
+	return false;
 }
 
 void StreamTitleDisplay::checkMetadata()

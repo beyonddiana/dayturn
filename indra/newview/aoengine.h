@@ -44,7 +44,7 @@ class AOTimerCollection
 		AOTimerCollection();
 		~AOTimerCollection();
 
-		virtual BOOL tick();
+		virtual bool tick();
 
 		void enableInventoryTimer(BOOL yes);
 		void enableSettingsTimer(BOOL yes);
@@ -72,7 +72,7 @@ class AOSitCancelTimer
 		void oneShot();
 		void stop();
 
-		virtual BOOL tick();
+		virtual bool tick();
 
 	protected:
 		S32 mTickCount;

@@ -100,7 +100,7 @@ public:
 	}
 
 	/*virtual*/
-	BOOL tick()
+	bool tick()
 	{
 		if(mEventTimer.hasExpired())
 		{
@@ -305,7 +305,7 @@ public:
 
 	// virtual
 	// Will be deleted after returning true - only safe to do this if all callbacks have fired.
-	BOOL tick()
+	bool tick()
 	{
 		// mPendingRequests will be zero if all requests have been
 		// responded to.  mWaitTimes.empty() will be true if we have
