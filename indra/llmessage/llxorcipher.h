@@ -48,13 +48,13 @@ public:
 	/*virtual*/ U32 requiredEncryptionSpace(U32 src_len) const;
 
 	// special syntactic-sugar since xor can be performed in place.
-	BOOL encrypt(U8* buf, U32 len) { return encrypt((const U8*)buf, len, buf, len); }
-	BOOL decrypt(U8* buf, U32 len) { return decrypt((const U8*)buf, len, buf, len); }
+	bool encrypt(U8* buf, U32 len) { return encrypt((const U8*)buf, len, buf, len); }
+	bool decrypt(U8* buf, U32 len) { return decrypt((const U8*)buf, len, buf, len); }
 
 #ifdef _DEBUG
 	// This function runs tests to make sure the crc is
 	// working. Returns TRUE if it is.
-	static BOOL testHarness();
+	static bool testHarness();
 #endif
 
 protected:
