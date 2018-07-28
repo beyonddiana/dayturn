@@ -124,7 +124,7 @@ S32 LLXfer_Mem::initializeRequest(U64 xfer_id,
 								  const std::string& remote_filename,
 								  ELLPath remote_path,
 								  const LLHost& remote_host,
-								  BOOL delete_remote_on_completion,
+								  bool delete_remote_on_completion,
 								  void (*callback)(void*,S32,void**,S32,LLExtStat),
 								  void** user_data)
 {

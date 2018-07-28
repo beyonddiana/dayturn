@@ -57,7 +57,7 @@ public:
 	 * 
 	 * message
 	 */
-	static BOOL send(
+	static bool send(
 		const char* from_name,
 		const char* from_address,
 		const char* to_name,

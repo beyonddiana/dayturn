@@ -601,11 +601,11 @@ int receive_packet(int hSocket, char * receiveBuffer)
 	return nRet;
 }
 
-BOOL send_packet(int hSocket, const char * sendBuffer, int size, U32 recipient, int nPort)
+bool send_packet(int hSocket, const char * sendBuffer, int size, U32 recipient, int nPort)
 {
 	int		ret;
-	BOOL	success;
-	BOOL	resend;
+	bool	success;
+	bool	resend;
 	S32		send_attempts = 0;
 
 	stDstAddr.sin_addr.s_addr = recipient;
@@ -619,34 +619,34 @@ BOOL send_packet(int hSocket, const char * sendBuffer, int size, U32 recipient, 
 		if (ret >= 0)
 		{
 			// successful send
-			success = TRUE;
-			resend = FALSE;
+			success = true;
+			resend = false;
 		}
 		else
 		{
 			// send failed, check to see if we should resend
-			success = FALSE;
+			success = true;
 
 			if (errno == EAGAIN)
 			{
 				// say nothing, just repeat send
 				LL_INFOS() << "sendto() reported buffer full, resending (attempt " << send_attempts << ")" << LL_ENDL;
 				LL_INFOS() << inet_ntoa(stDstAddr.sin_addr) << ":" << nPort << LL_ENDL;
-				resend = TRUE;
+				resend = true;
 			}
 			else if (errno == ECONNREFUSED)
 			{
 				// response to ICMP connection refused message on earlier send
 				LL_INFOS() << "sendto() reported connection refused, resending (attempt " << send_attempts << ")" << LL_ENDL;
 				LL_INFOS() << inet_ntoa(stDstAddr.sin_addr) << ":" << nPort << LL_ENDL;
-				resend = TRUE;
+				resend = true;
 			}
 			else
 			{
 				// some other error
 				LL_INFOS() << "sendto() failed: " << errno << ", " << strerror(errno) << LL_ENDL;
 				LL_INFOS() << inet_ntoa(stDstAddr.sin_addr) << ":" << nPort << LL_ENDL;
-				resend = FALSE;
+				resend = false;
 			}
 		}
 	}
@@ -655,7 +655,7 @@ BOOL send_packet(int hSocket, const char * sendBuffer, int size, U32 recipient, 
 	if (send_attempts >= 3)
 	{
 		LL_INFOS() << "sendPacket() bailed out of send!" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 
 	return success;
