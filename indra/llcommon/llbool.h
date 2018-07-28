@@ -27,4 +27,12 @@
 typedef S32				BOOL;
 // definition moved from stdtypes.h
 
+#ifndef TRUE
+#define TRUE			(1)  // definition moved from stdtypes.h
+#endif
+
+#ifndef FALSE
+#define FALSE			(0) // definition moved from stdtypes.h
+#endif
+
 #endif
