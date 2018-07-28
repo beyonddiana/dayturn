@@ -166,14 +166,14 @@ protected:
 	void				setPacketInID(TPACKETID id);
 	void					checkPacketInID(TPACKETID id, bool receive_resent);
 	void			setPingDelay(U32Milliseconds ping);
-	bool			checkCircuitTimeout();	// Return FALSE if the circuit is dead and should be cleaned up
+	bool			checkCircuitTimeout();	// Return false if the circuit is dead and should be cleaned up
 
 	void			addBytesIn(S32Bytes bytes);
 	void			addBytesOut(S32Bytes bytes);
 
 	U8				nextPingID()			{ mLastPingID++; return mLastPingID; }
 
-	bool			updateWatchDogTimers(LLMessageSystem *msgsys);	// Return FALSE if the circuit is dead and should be cleaned up
+	bool			updateWatchDogTimers(LLMessageSystem *msgsys);	// Return false if the circuit is dead and should be cleaned up
 
 	void			addReliablePacket(S32 mSocket, U8 *buf_ptr, S32 buf_len, LLReliablePacketParams *params);
 	bool			isDuplicateResend(TPACKETID packetnum);

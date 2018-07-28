@@ -76,13 +76,13 @@ void LLMessageThrottle::pruneEntries()
 
 		// Look for the first entry younger than the maximum age.
 		F32 max_age = (F32)MAX_MESSAGE_AGE[cat]; 
-		bool found = FALSE;
+		bool found = false;
 		while (r_iterator != r_last && !found)
 		{
 			if ( LLFrameTimer::getTotalTime() - (*r_iterator).getEntryTime() < max_age )
 			{
 				// We found a young enough entry.
-				found = TRUE;
+				found = true;
 
 				// Did we find at least one entry to remove?
 				if (r_iterator != message_list->rbegin())
@@ -130,12 +130,12 @@ bool LLMessageThrottle::addViewerAlert(const LLUUID& to, const std::string& mesg
 	{
 		// This message was not found.  Add it to the list.
 		message_list->push_front(entry);
-		return TRUE;
+		return true;
 	}
 	else
 	{
 		// This message was already in the list.
-		return FALSE;
+		return false;
 	}
 }
 
@@ -165,12 +165,12 @@ bool LLMessageThrottle::addAgentAlert(const LLUUID& agent, const LLUUID& task, c
 	{
 		// This message was not found.  Add it to the list.
 		message_list->push_front(entry);
-		return TRUE;
+		return true;
 	}
 	else
 	{
 		// This message was already in the list.
-		return FALSE;
+		return false;
 	}
 }
 
