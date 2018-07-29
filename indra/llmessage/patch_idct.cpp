@@ -658,8 +658,8 @@ void decompress_patchv(LLVector3 *v, S32 *cpatch, LLPatchHeader *ph)
 	F32		mult = ooq*range;
 	F32		addval = mult*(F32)(1<<(prequant - 1))+hmin;
 
-//	BOOL	b_diag = FALSE;
-//	BOOL	b_right = TRUE;
+//	bool	b_diag = false;
+//	bool	b_right = true;
 
 	for (i = 0; i < size*size; i++)
 	{

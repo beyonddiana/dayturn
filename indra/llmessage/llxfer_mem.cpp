@@ -52,7 +52,7 @@ void LLXfer_Mem::init ()
 {
 	mRemoteFilename.clear();
 	mRemotePath = LL_PATH_NONE;
-	mDeleteRemoteOnCompletion = FALSE;
+	mDeleteRemoteOnCompletion = false;
 }
 	
 ///////////////////////////////////////////////////////////
@@ -73,7 +73,7 @@ void LLXfer_Mem::setXferSize (S32 xfer_size)
 	
 	mBufferLength = 0;
 	mBufferStartOffset = 0;	
-	mBufferContainsEOF = TRUE;
+	mBufferContainsEOF = true;
 
 //	cout << "starting transfer of size: " << xfer_size << endl;
 }
