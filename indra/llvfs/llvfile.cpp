@@ -44,7 +44,7 @@ static LLTrace::BlockTimerStatHandle FTM_VFILE_WAIT("VFile Wait");
 
 //----------------------------------------------------------------------------
 LLVFSThread* LLVFile::sVFSThread = NULL;
-BOOL LLVFile::sAllocdVFSThread = FALSE;
+bool LLVFile::sAllocdVFSThread = false;
 //----------------------------------------------------------------------------
 
 //============================================================================
@@ -85,22 +85,22 @@ LLVFile::~LLVFile()
 	mVFS->decLock(mFileID, mFileType, VFSLOCK_OPEN);
 }
 
-BOOL LLVFile::read(U8 *buffer, S32 bytes, BOOL async, F32 priority)
+bool LLVFile::read(U8 *buffer, S32 bytes, bool async, F32 priority)
 {
 	if (! (mMode & READ))
 	{
 		LL_WARNS() << "Attempt to read from file " << mFileID << " opened with mode " << std::hex << mMode << std::dec << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 
 	if (mHandle != LLVFSThread::nullHandle())
 	{
 		LL_WARNS() << "Attempt to read from vfile object " << mFileID << " with pending async operation" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 	mPriority = priority;
 	
-	BOOL success = TRUE;
+	bool success = true;
 
 	// We can't do a read while there are pending async writes
 	waitForLock(VFSLOCK_APPEND);
@@ -117,16 +117,16 @@ BOOL LLVFile::read(U8 *buffer, S32 bytes, BOOL async, F32 priority)
 		mPosition += mBytesRead;
 		if (! mBytesRead)
 		{
-			success = FALSE;
+			success = false;
 		}
 	}
 
 	return success;
 }
 
-BOOL LLVFile::isReadComplete()
+bool LLVFile::isReadComplete()
 {
-	BOOL res = TRUE;
+	bool res = true;
 	if (mHandle != LLVFSThread::nullHandle())
 	{
 		LLVFSThread::Request* req = (LLVFSThread::Request*)sVFSThread->getRequest(mHandle);
@@ -140,7 +140,7 @@ BOOL LLVFile::isReadComplete()
 		}
 		else
 		{
-			res = FALSE;
+			res = false;
 		}
 	}
 	return res;
@@ -151,12 +151,12 @@ S32 LLVFile::getLastBytesRead()
 	return mBytesRead;
 }
 
-BOOL LLVFile::eof()
+bool LLVFile::eof()
 {
 	return mPosition >= getSize();
 }
 
-BOOL LLVFile::write(const U8 *buffer, S32 bytes)
+bool LLVFile::write(const U8 *buffer, S32 bytes)
 {
 	if (! (mMode & WRITE))
 	{
@@ -165,9 +165,9 @@ BOOL LLVFile::write(const U8 *buffer, S32 bytes)
 	if (mHandle != LLVFSThread::nullHandle())
 	{
 		LL_ERRS() << "Attempt to write to vfile object " << mFileID << " with pending async operation" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
-	BOOL success = TRUE;
+	bool success = true;
 	
 	// *FIX: allow async writes? potential problem wit mPosition...
 	if (mMode == APPEND) // all appends are async (but WRITEs are not)
@@ -196,26 +196,26 @@ BOOL LLVFile::write(const U8 *buffer, S32 bytes)
 		{	
 			LL_WARNS() << "Tried to write " << bytes << " bytes, actually wrote " << wrote << LL_ENDL;
 
-			success = FALSE;
+			success = false;
 		}
 	}
 	return success;
 }
 
 //static
-BOOL LLVFile::writeFile(const U8 *buffer, S32 bytes, LLVFS *vfs, const LLUUID &uuid, LLAssetType::EType type)
+bool LLVFile::writeFile(const U8 *buffer, S32 bytes, LLVFS *vfs, const LLUUID &uuid, LLAssetType::EType type)
 {
 	LLVFile file(vfs, uuid, type, LLVFile::WRITE);
 	file.setMaxSize(bytes);
 	return file.write(buffer, bytes);
 }
 
-BOOL LLVFile::seek(S32 offset, S32 origin)
+bool LLVFile::seek(S32 offset, S32 origin)
 {
 	if (mMode == APPEND)
 	{
 		LL_WARNS() << "Attempt to seek on append-only file" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 
 	if (-1 == origin)
@@ -232,18 +232,18 @@ BOOL LLVFile::seek(S32 offset, S32 origin)
 		LL_WARNS() << "Attempt to seek past end of file" << LL_ENDL;
 
 		mPosition = size;
-		return FALSE;
+		return false;
 	}
 	else if (new_pos < 0)
 	{
 		LL_WARNS() << "Attempt to seek past beginning of file" << LL_ENDL;
 
 		mPosition = 0;
-		return FALSE;
+		return false;
 	}
 
 	mPosition = new_pos;
-	return TRUE;
+	return true;
 }
 
 S32 LLVFile::tell() const
@@ -266,13 +266,13 @@ S32 LLVFile::getMaxSize()
 	return size;
 }
 
-BOOL LLVFile::setMaxSize(S32 size)
+bool LLVFile::setMaxSize(S32 size)
 {
 	if (! (mMode & WRITE))
 	{
 		LL_WARNS() << "Attempt to change size of file " << mFileID << " opened with mode " << std::hex << mMode << std::dec << LL_ENDL;
 
-		return FALSE;
+		return false;
 	}
 
 	if (!mVFS->checkAvailable(size))
@@ -295,13 +295,13 @@ BOOL LLVFile::setMaxSize(S32 size)
 	return mVFS->setMaxSize(mFileID, mFileType, size);
 }
 
-BOOL LLVFile::rename(const LLUUID &new_id, const LLAssetType::EType new_type)
+bool LLVFile::rename(const LLUUID &new_id, const LLAssetType::EType new_type)
 {
 	if (! (mMode & WRITE))
 	{
 		LL_WARNS() << "Attempt to rename file " << mFileID << " opened with mode " << std::hex << mMode << std::dec << LL_ENDL;
 
-		return FALSE;
+		return false;
 	}
 
 	if (mHandle != LLVFSThread::nullHandle())
@@ -321,10 +321,10 @@ BOOL LLVFile::rename(const LLUUID &new_id, const LLAssetType::EType new_type)
 	mFileID = new_id;
 	mFileType = new_type;
 
-	return TRUE;
+	return true;
 }
 
-BOOL LLVFile::remove()
+bool LLVFile::remove()
 {
 // 	LL_INFOS() << "Removing file " << mFileID << LL_ENDL;
 	
@@ -347,7 +347,7 @@ BOOL LLVFile::remove()
 	waitForLock(VFSLOCK_APPEND);
 	mVFS->removeFile(mFileID, mFileType);
 
-	return TRUE;
+	return true;
 }
 
 // static
@@ -362,7 +362,7 @@ void LLVFile::initClass(LLVFSThread* vfsthread)
 		else
 		{
 			vfsthread = new LLVFSThread();
-			sAllocdVFSThread = TRUE;
+			sAllocdVFSThread = true;
 		}
 	}
 	sVFSThread = vfsthread;

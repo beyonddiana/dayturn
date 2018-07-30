@@ -38,21 +38,23 @@ public:
 	LLVFile(LLVFS *vfs, const LLUUID &file_id, const LLAssetType::EType file_type, S32 mode = LLVFile::READ);
 	~LLVFile();
 
-	BOOL read(U8 *buffer, S32 bytes, BOOL async = FALSE, F32 priority = 128.f);	/* Flawfinder: ignore */ 
-	BOOL isReadComplete();
+	bool read(U8 *buffer, S32 bytes, bool async = false, F32 priority = 128.f);	/* Flawfinder: ignore */
+	static U8* readFile(LLVFS *vfs, const LLUUID &uuid, LLAssetType::EType type, S32* bytes_read = 0);
+	void setReadPriority(const F32 priority);
+	bool isReadComplete();
 	S32  getLastBytesRead();
-	BOOL eof();
+	bool eof();
 
-	BOOL write(const U8 *buffer, S32 bytes);
-	static BOOL writeFile(const U8 *buffer, S32 bytes, LLVFS *vfs, const LLUUID &uuid, LLAssetType::EType type);
-	BOOL seek(S32 offset, S32 origin = -1);
+	bool write(const U8 *buffer, S32 bytes);
+	static bool writeFile(const U8 *buffer, S32 bytes, LLVFS *vfs, const LLUUID &uuid, LLAssetType::EType type);
+	bool seek(S32 offset, S32 origin = -1);
 	S32  tell() const;
 
 	S32 getSize();
 	S32 getMaxSize();
-	BOOL setMaxSize(S32 size);
-	BOOL rename(const LLUUID &new_id, const LLAssetType::EType new_type);
-	BOOL remove();
+	bool setMaxSize(S32 size);
+	bool rename(const LLUUID &new_id, const LLAssetType::EType new_type);
+	bool remove();
 
 	bool isLocked(EVFSLock lock);
 	void waitForLock(EVFSLock lock);
@@ -63,7 +65,7 @@ public:
 
 protected:
 	static LLVFSThread* sVFSThread;
-	static BOOL sAllocdVFSThread;
+	static bool sAllocdVFSThread;
 	U32 threadPri() { return LLVFSThread::PRIORITY_NORMAL + llmin((U32)mPriority,(U32)0xfff); }
 	
 public:
