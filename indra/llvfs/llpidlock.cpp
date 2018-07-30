@@ -67,7 +67,7 @@ class LLPidLockFile
 			mLockName = gDirUtilp->getTempDir() + gDirUtilp->getDirDelimiter() + "savelock";
 		}
 		bool requestLock(LLNameTable<void *> *name_table, bool autosave,
-						bool force_immediate=FALSE, F32 timeout=300.0);
+						bool force_immediate=false, F32 timeout=300.0);
 		bool checkLock();
 		void releaseLock();
 
@@ -108,9 +108,9 @@ void LLPidLockFile::writeLockFile(LLSD pids)
 bool LLPidLockFile::requestLock(LLNameTable<void *> *name_table, bool autosave,
 								bool force_immediate, F32 timeout)
 {
-	bool readyToSave = FALSE;
+	bool readyToSave = false;
 
-	if (mSaving) return FALSE;	//Bail out if we're currently saving.  Will not queue another save.
+	if (mSaving) return false;	//Bail out if we're currently saving.  Will not queue another save.
 	
 	if (!mWaiting){
 		mNameTable=name_table;
@@ -145,25 +145,25 @@ bool LLPidLockFile::requestLock(LLNameTable<void *> *name_table, bool autosave,
 				}
 			}
 
-			readyToSave=TRUE;
+			readyToSave=true;
 		}
 		ifile.close();
 	}
 	else
 	{
-		readyToSave=TRUE;
+		readyToSave=true;
 	}
 
 	if (!mWaiting)				//Not presently waiting to save.  Queue up.
 	{
 		mTimer.resetWithExpiry(timeout);
-		mWaiting=TRUE;
+		mWaiting=true;
 	}
 
 	if (readyToSave)
 	{	//Potential race condition won't kill us. Ignore it.
 		writeLockFile(out_pids);
-		mSaving=TRUE;
+		mSaving=true;
 	}
 	
 	return readyToSave;
@@ -179,7 +179,7 @@ void LLPidLockFile::releaseLock()
 	llifstream ifile(mLockName.c_str());
 	LLSD in_pids;
 	LLSD out_pids;
-	bool write_file=FALSE;
+	bool write_file=false;
 
 	LLSDSerialize::fromXML(in_pids, ifile);	
 
@@ -193,7 +193,7 @@ void LLPidLockFile::releaseLock()
 		if (stored_pid != mPID && isProcessAlive(stored_pid))
 		{
 			out_pids.append( (*i) );
-			write_file=TRUE;
+			write_file=true;
 		}
 	}
 	ifile.close();
@@ -207,8 +207,8 @@ void LLPidLockFile::releaseLock()
 		unlink(mLockName.c_str());
 	}
 
-	mSaving=FALSE;
-	mWaiting=FALSE;
+	mSaving=false;
+	mWaiting=false;
 }
 
 //LLPidLock

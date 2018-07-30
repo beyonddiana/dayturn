@@ -75,9 +75,9 @@ private:
 	// Pass 0 to not presize
 	LLVFS(const std::string& index_filename, 
 			const std::string& data_filename, 
-			const BOOL read_only, 
+			const bool read_only,
 			const U32 presize, 
-			const BOOL remove_after_crash);
+			const bool remove_after_crash);
 public:
 	~LLVFS();
 
@@ -85,21 +85,21 @@ public:
 	// Pass 0 to not presize
 	static LLVFS * createLLVFS(const std::string& index_filename, 
 			const std::string& data_filename, 
-			const BOOL read_only, 
+			const bool read_only,
 			const U32 presize, 
-			const BOOL remove_after_crash);
+			const bool remove_after_crash);
 
-	BOOL isValid() const			{ return (VFSVALID_OK == mValid); }
+	bool isValid() const			{ return (VFSVALID_OK == mValid); }
 	EVFSValid getValidState() const	{ return mValid; }
 
 	// ---------- The following fucntions lock/unlock mDataMutex ----------
-	BOOL getExists(const LLUUID &file_id, const LLAssetType::EType file_type);
+	bool getExists(const LLUUID &file_id, const LLAssetType::EType file_type);
 	S32	 getSize(const LLUUID &file_id, const LLAssetType::EType file_type);
 
-	BOOL checkAvailable(S32 max_size);
+	bool checkAvailable(S32 max_size);
 	
 	S32  getMaxSize(const LLUUID &file_id, const LLAssetType::EType file_type);
-	BOOL setMaxSize(const LLUUID &file_id, const LLAssetType::EType file_type, S32 max_size);
+	bool setMaxSize(const LLUUID &file_id, const LLAssetType::EType file_type, S32 max_size);
 
 	void renameFile(const LLUUID &file_id, const LLAssetType::EType file_type,
 		const LLUUID &new_id, const LLAssetType::EType &new_type);
@@ -110,7 +110,7 @@ public:
 
 	void incLock(const LLUUID &file_id, const LLAssetType::EType file_type, EVFSLock lock);
 	void decLock(const LLUUID &file_id, const LLAssetType::EType file_type, EVFSLock lock);
-	BOOL isLocked(const LLUUID &file_id, const LLAssetType::EType file_type, EVFSLock lock);
+	bool isLocked(const LLUUID &file_id, const LLAssetType::EType file_type, EVFSLock lock);
 	// ----------------------------------------------------------------
 
 	// Used to trigger evil WinXP behavior of "preloading" entire file into memory.
@@ -137,10 +137,10 @@ protected:
 	void addFreeBlock(LLVFSBlock *block);
 	//void mergeFreeBlocks();
 	void useFreeSpace(LLVFSBlock *free_block, S32 length);
-	void sync(LLVFSFileBlock *block, BOOL remove = FALSE);
+	void sync(LLVFSFileBlock *block, bool remove = false);
 	void presizeDataFile(const U32 size);
 
-	static LLFILE *openAndLock(const std::string& filename, const char* mode, BOOL read_lock);
+	static LLFILE *openAndLock(const std::string& filename, const char* mode, bool read_lock);
 	static void unlockAndClose(FILE *fp);
 	
 	// Can initiate LRU-based file removal to make space.
@@ -169,12 +169,12 @@ protected:
 
 	std::string mIndexFilename;
 	std::string mDataFilename;
-	BOOL mReadOnly;
+	bool mReadOnly;
 
 	EVFSValid mValid;
 
 	S32 mLockCounts[VFSLOCK_COUNT];
-	BOOL mRemoveAfterCrash;
+	bool mRemoveAfterCrash;
 };
 
 extern LLVFS *gVFS;

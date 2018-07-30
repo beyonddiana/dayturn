@@ -39,8 +39,8 @@ namespace LLPidLock
 {
     void initClass(); // { (void) LLPidLockFile::instance(); }
 
-    bool requestLock( LLNameTable<void *> *name_table=NULL, bool autosave=TRUE,
-                     bool force_immediate=FALSE, F32 timeout=300.0);
+    bool requestLock( LLNameTable<void *> *name_table=NULL, bool autosave=true,
+                     bool force_immediate=false, F32 timeout=300.0);
     bool checkLock();
     void releaseLock();
     bool isClean();

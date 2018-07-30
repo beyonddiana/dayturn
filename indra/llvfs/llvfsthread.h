@@ -108,7 +108,7 @@ public:
 	static LLVFSThread* sLocal;		// Default worker thread
 	
 public:
-	LLVFSThread(bool threaded = TRUE);
+	LLVFSThread(bool threaded = true);
 	~LLVFSThread();	
 
 	// Return a Request handle
@@ -128,7 +128,7 @@ public:
 	/*virtual*/ bool processRequest(QueuedRequest* req);
 
 public:
-	static void initClass(bool local_is_threaded = TRUE); // Setup sLocal
+	static void initClass(bool local_is_threaded = true); // Setup sLocal
 	static S32 updateClass(U32 ms_elapsed);
 	static void cleanupClass();		// Delete sLocal
 	static void setDataPath(const std::string& path) { sDataPath = path; }
