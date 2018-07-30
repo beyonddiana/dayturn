@@ -62,9 +62,9 @@ public:
 	GLuint getGLName();
 
 	LLVector3 map(U8 side, U16 v_val, U16 h_val) const;
-	BOOL project(F32& v_val, F32& h_val, BOOL& outside,
+	bool project(F32& v_val, F32& h_val, bool& outside,
 						U8 side, const LLVector3& dir) const;
-	BOOL project(F32& v_min, F32& v_max, F32& h_min, F32& h_max, 
+	bool project(F32& v_min, F32& v_max, F32& h_min, F32& h_max, 
 						U8 side, LLVector3 dir[4]) const;
 	void paintIn(LLVector3 dir[4], const LLColor4U& col);
 	void destroyGL();

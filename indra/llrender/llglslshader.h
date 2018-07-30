@@ -92,15 +92,15 @@ public:
 	void placeProfileQuery();
 	void readProfileQuery(U32 count, U32 mode);
 
-	BOOL createShader(std::vector<LLStaticHashedString> * attributes,
+	bool createShader(std::vector<LLStaticHashedString> * attributes,
 						std::vector<LLStaticHashedString> * uniforms,
 						U32 varying_count = 0,
 						const char** varyings = NULL);
-	BOOL attachObject(std::string object);
+	bool attachObject(std::string object);
 	void attachObject(GLhandleARB object);
 	void attachObjects(GLhandleARB* objects = NULL, S32 count = 0);
-	BOOL mapAttributes(const std::vector<LLStaticHashedString> * attributes);
-	BOOL mapUniforms(const std::vector<LLStaticHashedString> *);
+	bool mapAttributes(const std::vector<LLStaticHashedString> * attributes);
+	bool mapUniforms(const std::vector<LLStaticHashedString> *);
 	void mapUniform(GLint index, const std::vector<LLStaticHashedString> *);
 	void uniform1i(U32 index, GLint i);
 	void uniform1f(U32 index, GLfloat v);
@@ -156,7 +156,7 @@ public:
 	S32 unbindTexture(const std::string& uniform, LLTexUnit::eTextureType mode = LLTexUnit::TT_TEXTURE);
 	S32 unbindTexture(S32 uniform, LLTexUnit::eTextureType mode = LLTexUnit::TT_TEXTURE);
 	
-    BOOL link(BOOL suppress_errors = FALSE);
+    bool link(bool suppress_errors = false);
 	void bind();
 	void unbind();
 
@@ -178,7 +178,7 @@ public:
 	S32 mActiveTextureChannels;
 	S32 mShaderLevel;
 	S32 mShaderGroup;
-	BOOL mUniformsDirty;
+	bool mUniformsDirty;
 	LLShaderFeatures mFeatures;
 	std::vector< std::pair< std::string, GLenum > > mShaderFiles;
 	std::string mName;

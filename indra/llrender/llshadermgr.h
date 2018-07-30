@@ -224,10 +224,10 @@ DISPLAY_GAMMA,
 
 	virtual void initAttribsAndUniforms(void);
 
-	BOOL attachShaderFeatures(LLGLSLShader * shader);
-	void dumpObjectLog(GLhandleARB ret, BOOL warns = TRUE, const std::string& filename = "");
-	BOOL	linkProgramObject(GLhandleARB obj, BOOL suppress_errors = FALSE);
-	BOOL	validateProgramObject(GLhandleARB obj);
+	bool attachShaderFeatures(LLGLSLShader * shader);
+	void dumpObjectLog(GLhandleARB ret, bool warns = true, const std::string& filename = "");
+	bool	linkProgramObject(GLhandleARB obj, bool suppress_errors = false);
+	bool	validateProgramObject(GLhandleARB obj);
 	GLhandleARB loadShaderFile(const std::string& filename, S32 & shader_level, GLenum type, boost::unordered_map<std::string, std::string>* defines = NULL, S32 texture_index_channels = -1);
 
 	// Implemented in the application to actually point to the shader directory.

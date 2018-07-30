@@ -61,14 +61,14 @@ LLShaderMgr * LLShaderMgr::instance()
 	return sInstance;
 }
 
-BOOL LLShaderMgr::attachShaderFeatures(LLGLSLShader * shader)
+bool LLShaderMgr::attachShaderFeatures(LLGLSLShader * shader)
 {
 	llassert_always(shader != NULL);
 	LLShaderFeatures *features = & shader->mFeatures;
 
 	if (features->attachNothing)
 	{
-		return TRUE;
+		return true;
 	}
 	//////////////////////////////////////
 	// Attach Vertex Shader Features First
@@ -81,12 +81,12 @@ BOOL LLShaderMgr::attachShaderFeatures(LLGLSLShader * shader)
 		{
 			if (!shader->attachObject("windlight/atmosphericsVarsWaterV.glsl"))
 			{
-				return FALSE;
+				return false;
 			}
 		}
 		else if (!shader->attachObject("windlight/atmosphericsVarsV.glsl"))
 		{
-			return FALSE;
+			return false;
 		}
 	}
 
@@ -94,7 +94,7 @@ BOOL LLShaderMgr::attachShaderFeatures(LLGLSLShader * shader)
 	{
 		if (!shader->attachObject("windlight/atmosphericsHelpersV.glsl"))
 		{
-			return FALSE;
+			return false;
 		}
 	}
 		
@@ -104,40 +104,40 @@ BOOL LLShaderMgr::attachShaderFeatures(LLGLSLShader * shader)
 		{
 			if (!shader->attachObject("lighting/lightFuncSpecularV.glsl"))
 			{
-				return FALSE;
+				return false;
 			}
 		
 			if (!features->isAlphaLighting)
 			{
 				if (!shader->attachObject("lighting/sumLightsSpecularV.glsl"))
 				{
-					return FALSE;
+					return false;
 				}
 			}
 			
 			if (!shader->attachObject("lighting/lightSpecularV.glsl"))
 			{
-				return FALSE;
+				return false;
 			}
 		}
 		else 
 		{
 			if (!shader->attachObject("lighting/lightFuncV.glsl"))
 			{
-				return FALSE;
+				return false;
 			}
 			
 			if (!features->isAlphaLighting)
 			{
 				if (!shader->attachObject("lighting/sumLightsV.glsl"))
 				{
-					return FALSE;
+					return false;
 				}
 			}
 			
 			if (!shader->attachObject("lighting/lightV.glsl"))
 			{
-				return FALSE;
+				return false;
 			}
 		}
 	}
@@ -147,7 +147,7 @@ BOOL LLShaderMgr::attachShaderFeatures(LLGLSLShader * shader)
 	{
 		if (!shader->attachObject("windlight/atmosphericsV.glsl"))
 		{
-			return FALSE;
+			return false;
 		}
 	}
 
@@ -155,7 +155,7 @@ BOOL LLShaderMgr::attachShaderFeatures(LLGLSLShader * shader)
 	{
 		if (!shader->attachObject("avatar/avatarSkinV.glsl"))
 		{
-			return FALSE;
+			return false;
 		}
 	}
 
@@ -163,7 +163,7 @@ BOOL LLShaderMgr::attachShaderFeatures(LLGLSLShader * shader)
 	{
 		if (!shader->attachObject("avatar/objectSkinV.glsl"))
 		{
-			return FALSE;
+			return false;
 		}
 	}
 	
@@ -177,12 +177,12 @@ BOOL LLShaderMgr::attachShaderFeatures(LLGLSLShader * shader)
 		{
 			if (!shader->attachObject("windlight/atmosphericsVarsWaterF.glsl"))
 			{
-				return FALSE;
+				return false;
 			}
 		}
 		else if (!shader->attachObject("windlight/atmosphericsVarsF.glsl"))
 		{
-			return FALSE;
+			return false;
 		}
 	}
 
@@ -191,7 +191,7 @@ BOOL LLShaderMgr::attachShaderFeatures(LLGLSLShader * shader)
 	{
 		if (!shader->attachObject("windlight/gammaF.glsl"))
 		{
-			return FALSE;
+			return false;
 		}
 	}
 	
@@ -199,7 +199,7 @@ BOOL LLShaderMgr::attachShaderFeatures(LLGLSLShader * shader)
 	{
 		if (!shader->attachObject("windlight/atmosphericsF.glsl"))
 		{
-			return FALSE;
+			return false;
 		}
 	}
 	
@@ -207,7 +207,7 @@ BOOL LLShaderMgr::attachShaderFeatures(LLGLSLShader * shader)
 	{
 		if (!shader->attachObject("windlight/transportF.glsl"))
 		{
-			return FALSE;
+			return false;
 		}
 
 		// Test hasFullbright and hasShiny and attach fullbright and 
@@ -219,7 +219,7 @@ BOOL LLShaderMgr::attachShaderFeatures(LLGLSLShader * shader)
 	{
 		if (!shader->attachObject("environment/waterFogF.glsl"))
 		{
-			return FALSE;
+			return false;
 		}
 	}
 	
@@ -233,14 +233,14 @@ BOOL LLShaderMgr::attachShaderFeatures(LLGLSLShader * shader)
 				{
 					if (!shader->attachObject("lighting/lightWaterAlphaMaskNonIndexedF.glsl"))
 					{
-						return FALSE;
+						return false;
 					}
 				}
 				else
 				{
 					if (!shader->attachObject("lighting/lightWaterNonIndexedF.glsl"))
 					{
-						return FALSE;
+						return false;
 					}
 				}
 			}
@@ -250,14 +250,14 @@ BOOL LLShaderMgr::attachShaderFeatures(LLGLSLShader * shader)
 				{
 					if (!shader->attachObject("lighting/lightWaterAlphaMaskF.glsl"))
 					{
-						return FALSE;
+						return false;
 					}
 				}
 				else
 				{
 					if (!shader->attachObject("lighting/lightWaterF.glsl"))
 					{
-						return FALSE;
+						return false;
 					}
 				}
 				shader->mFeatures.mIndexedTextureChannels = llmax(LLGLSLShader::sIndexedTextureChannels-1, 1);
@@ -272,14 +272,14 @@ BOOL LLShaderMgr::attachShaderFeatures(LLGLSLShader * shader)
 				{
 					if (!shader->attachObject("lighting/lightAlphaMaskNonIndexedF.glsl"))
 					{
-						return FALSE;
+						return false;
 					}
 				}
 				else
 				{
 					if (!shader->attachObject("lighting/lightNonIndexedF.glsl"))
 					{
-						return FALSE;
+						return false;
 					}
 				}
 			}
@@ -289,14 +289,14 @@ BOOL LLShaderMgr::attachShaderFeatures(LLGLSLShader * shader)
 				{
 					if (!shader->attachObject("lighting/lightAlphaMaskF.glsl"))
 					{
-						return FALSE;
+						return false;
 					}
 				}
 				else
 				{
 					if (!shader->attachObject("lighting/lightF.glsl"))
 					{
-						return FALSE;
+						return false;
 					}
 				}
 				shader->mFeatures.mIndexedTextureChannels = llmax(LLGLSLShader::sIndexedTextureChannels-1, 1);
@@ -314,14 +314,14 @@ BOOL LLShaderMgr::attachShaderFeatures(LLGLSLShader * shader)
 			{
 				if (!shader->attachObject("lighting/lightFullbrightShinyWaterNonIndexedF.glsl"))
 				{
-					return FALSE;
+					return false;
 				}
 			}
 			else 
 			{
 				if (!shader->attachObject("lighting/lightFullbrightShinyWaterF.glsl"))
 				{
-					return FALSE;
+					return false;
 				}
 				shader->mFeatures.mIndexedTextureChannels = llmax(LLGLSLShader::sIndexedTextureChannels-1, 1);
 			}
@@ -334,12 +334,12 @@ BOOL LLShaderMgr::attachShaderFeatures(LLGLSLShader * shader)
 				{
 					if (!shader->attachObject("lighting/lightFullbrightWaterNonIndexedAlphaMaskF.glsl"))
 					{
-						return FALSE;
+						return false;
 					}
 				}
 				else if (!shader->attachObject("lighting/lightFullbrightWaterNonIndexedF.glsl"))
 				{
-					return FALSE;
+					return false;
 				}
 			}
 			else 
@@ -348,12 +348,12 @@ BOOL LLShaderMgr::attachShaderFeatures(LLGLSLShader * shader)
 				{
 					if (!shader->attachObject("lighting/lightFullbrightWaterAlphaMaskF.glsl"))
 					{
-						return FALSE;
+						return false;
 					}
 				}
 				else if (!shader->attachObject("lighting/lightFullbrightWaterF.glsl"))
 				{
-					return FALSE;
+					return false;
 				}
 				shader->mFeatures.mIndexedTextureChannels = llmax(LLGLSLShader::sIndexedTextureChannels-1, 1);
 			}
@@ -365,14 +365,14 @@ BOOL LLShaderMgr::attachShaderFeatures(LLGLSLShader * shader)
 			{
 				if (!shader->attachObject("lighting/lightFullbrightShinyNonIndexedF.glsl"))
 				{
-					return FALSE;
+					return false;
 				}
 			}
 			else 
 			{
 				if (!shader->attachObject("lighting/lightFullbrightShinyF.glsl"))
 				{
-					return FALSE;
+					return false;
 				}
 				shader->mFeatures.mIndexedTextureChannels = llmax(LLGLSLShader::sIndexedTextureChannels-1, 1);
 			}
@@ -387,14 +387,14 @@ BOOL LLShaderMgr::attachShaderFeatures(LLGLSLShader * shader)
 				{
 					if (!shader->attachObject("lighting/lightFullbrightNonIndexedAlphaMaskF.glsl"))
 					{
-						return FALSE;
+						return false;
 					}
 				}
 				else
 				{
 					if (!shader->attachObject("lighting/lightFullbrightNonIndexedF.glsl"))
 					{
-						return FALSE;
+						return false;
 					}
 				}
 			}
@@ -404,14 +404,14 @@ BOOL LLShaderMgr::attachShaderFeatures(LLGLSLShader * shader)
 				{
 					if (!shader->attachObject("lighting/lightFullbrightAlphaMaskF.glsl"))
 					{
-						return FALSE;
+						return false;
 					}
 				}
 				else
 				{
 					if (!shader->attachObject("lighting/lightFullbrightF.glsl"))
 					{
-						return FALSE;
+						return false;
 					}
 				}
 				shader->mFeatures.mIndexedTextureChannels = llmax(LLGLSLShader::sIndexedTextureChannels-1, 1);
@@ -429,14 +429,14 @@ BOOL LLShaderMgr::attachShaderFeatures(LLGLSLShader * shader)
 			{
 				if (!shader->attachObject("lighting/lightShinyWaterNonIndexedF.glsl"))
 				{
-					return FALSE;
+					return false;
 				}
 			}
 			else 
 			{
 				if (!shader->attachObject("lighting/lightShinyWaterF.glsl"))
 				{
-					return FALSE;
+					return false;
 				}
 				shader->mFeatures.mIndexedTextureChannels = llmax(LLGLSLShader::sIndexedTextureChannels-1, 1);
 			}
@@ -448,14 +448,14 @@ BOOL LLShaderMgr::attachShaderFeatures(LLGLSLShader * shader)
 			{
 				if (!shader->attachObject("lighting/lightShinyNonIndexedF.glsl"))
 				{
-					return FALSE;
+					return false;
 				}
 			}
 			else 
 			{
 				if (!shader->attachObject("lighting/lightShinyF.glsl"))
 				{
-					return FALSE;
+					return false;
 				}
 				shader->mFeatures.mIndexedTextureChannels = llmax(LLGLSLShader::sIndexedTextureChannels-1, 1);
 			}
@@ -466,18 +466,18 @@ BOOL LLShaderMgr::attachShaderFeatures(LLGLSLShader * shader)
 	{
 		if (!shader->attachObject("objects/nonindexedTextureV.glsl"))
 		{
-			return FALSE;
+			return false;
 		}
 	}
 	else
 	{
 		if (!shader->attachObject("objects/indexedTextureV.glsl"))
 		{
-			return FALSE;
+			return false;
 		}
 	}
 
-	return TRUE;
+	return true;
 }
 
 //============================================================================
@@ -501,7 +501,7 @@ static std::string get_object_log(GLhandleARB ret)
 	return res;
 }
 
-void LLShaderMgr::dumpObjectLog(GLhandleARB ret, BOOL warns, const std::string& filename) 
+void LLShaderMgr::dumpObjectLog(GLhandleARB ret, bool warns, const std::string& filename)
 {
 	std::string log = get_object_log(ret);
 
@@ -918,7 +918,7 @@ GLhandleARB LLShaderMgr::loadShaderFile(const std::string& filename, S32 & shade
 			{
 				//an error occured, print log
 				LL_WARNS("ShaderLoading") << "GLSL Compilation Error:" << LL_ENDL;
-				dumpObjectLog(ret, TRUE, filename);
+				dumpObjectLog(ret, true, filename);
 #if LL_WINDOWS
 				std::stringstream ostr;
 				//dump shader source for debugging
@@ -985,7 +985,7 @@ GLhandleARB LLShaderMgr::loadShaderFile(const std::string& filename, S32 & shade
 	return ret;
 }
 
-BOOL LLShaderMgr::linkProgramObject(GLhandleARB obj, BOOL suppress_errors) 
+bool LLShaderMgr::linkProgramObject(GLhandleARB obj, bool suppress_errors)
 {
 	//check for errors
 	glLinkProgramARB(obj);
@@ -1003,12 +1003,12 @@ BOOL LLShaderMgr::linkProgramObject(GLhandleARB obj, BOOL suppress_errors)
 	{
 		LL_WARNS("ShaderLoading") << "GLSL Linker: Running in Software:" << LL_ENDL;
 		success = GL_FALSE;
-		suppress_errors = FALSE;
+		suppress_errors = false;
 	}
 	return success;
 }
 
-BOOL LLShaderMgr::validateProgramObject(GLhandleARB obj)
+bool LLShaderMgr::validateProgramObject(GLhandleARB obj)
 {
 	//check program validity against current GL
 	glValidateProgramARB(obj);
@@ -1021,7 +1021,7 @@ BOOL LLShaderMgr::validateProgramObject(GLhandleARB obj)
 	}
 	else
 	{
-		dumpObjectLog(obj, FALSE);
+		dumpObjectLog(obj, false);
 	}
 
 	return success;

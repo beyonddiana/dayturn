@@ -47,7 +47,7 @@
 #include "glh/glh_linear.h"
 
 extern BOOL gDebugGL;
-extern BOOL gDebugSession;
+extern bool gDebugSession;
 extern llofstream gFailLog;
 
 #define LL_GL_ERRS LL_ERRS("RenderState")
@@ -73,69 +73,69 @@ public:
 
 	std::string getRawGLString(); // For sending to simulator
 
-	BOOL mInited;
-	BOOL mIsDisabled;
+	bool mInited;
+	bool mIsDisabled;
 
 	// Extensions used by everyone
-	BOOL mHasMultitexture;
-	BOOL mHasATIMemInfo;
-	BOOL mHasAMDAssociations;
-	BOOL mHasNVXMemInfo;
+	bool mHasMultitexture;
+	bool mHasATIMemInfo;
+	bool mHasAMDAssociations;
+	bool mHasNVXMemInfo;
 	S32	 mNumTextureUnits;
-	BOOL mHasMipMapGeneration;
-	BOOL mHasCompressedTextures;
-	BOOL mHasFramebufferObject;
+	bool mHasMipMapGeneration;
+	bool mHasCompressedTextures;
+	bool mHasFramebufferObject;
 	S32 mMaxSamples;
-	BOOL mHasBlendFuncSeparate;
+	bool mHasBlendFuncSeparate;
 		
 	// ARB Extensions
-	BOOL mHasVertexBufferObject;
-	BOOL mHasVertexArrayObject;
-	BOOL mHasSync;
-	BOOL mHasMapBufferRange;
-	BOOL mHasFlushBufferRange;
-	BOOL mHasPBuffer;
-	BOOL mHasShaderObjects;
-	BOOL mHasVertexShader;
-	BOOL mHasFragmentShader;
+	bool mHasVertexBufferObject;
+	bool mHasVertexArrayObject;
+	bool mHasSync;
+	bool mHasMapBufferRange;
+	bool mHasFlushBufferRange;
+	bool mHasPBuffer;
+	bool mHasShaderObjects;
+	bool mHasVertexShader;
+	bool mHasFragmentShader;
 	S32  mNumTextureImageUnits;
-	BOOL mHasOcclusionQuery;
-	BOOL mHasTimerQuery;
-	BOOL mHasOcclusionQuery2;
-	BOOL mHasPointParameters;
-	BOOL mHasDrawBuffers;
-	BOOL mHasDepthClamp;
-	BOOL mHasTextureRectangle;
-	BOOL mHasTextureMultisample;
-	BOOL mHasTransformFeedback;
+	bool mHasOcclusionQuery;
+	bool mHasTimerQuery;
+	bool mHasOcclusionQuery2;
+	bool mHasPointParameters;
+	bool mHasDrawBuffers;
+	bool mHasDepthClamp;
+	bool mHasTextureRectangle;
+	bool mHasTextureMultisample;
+	bool mHasTransformFeedback;
 	S32 mMaxSampleMaskWords;
 	S32 mMaxColorTextureSamples;
 	S32 mMaxDepthTextureSamples;
 	S32 mMaxIntegerSamples;
 
 	// Other extensions.
-	BOOL mHasAnisotropic;
-	BOOL mHasARBEnvCombine;
-	BOOL mHasCubeMap;
-	BOOL mHasDebugOutput;
-	BOOL mHassRGBTexture;
-	BOOL mHassRGBFramebuffer;
+	bool mHasAnisotropic;
+	bool mHasARBEnvCombine;
+	bool mHasCubeMap;
+	bool mHasDebugOutput;
+	bool mHassRGBTexture;
+	bool mHassRGBFramebuffer;
 
 	// Vendor-specific extensions
-	BOOL mIsATI;
-	BOOL mIsNVIDIA;
-	BOOL mIsIntel;
-	BOOL mIsGF2or4MX;
-	BOOL mIsGF3;
-	BOOL mIsGFFX;
-	BOOL mATIOffsetVerticalLines;
-	BOOL mATIOldDriver;
+	bool mIsATI;
+	bool mIsNVIDIA;
+	bool mIsIntel;
+	bool mIsGF2or4MX;
+	bool mIsGF3;
+	bool mIsGFFX;
+	bool mATIOffsetVerticalLines;
+	bool mATIOldDriver;
 	
 	// Whether this version of GL is good enough for SL to use
-	BOOL mHasRequirements;
+	bool mHasRequirements;
 
 	// Misc extensions
-	BOOL mHasSeparateSpecularColor;
+	bool mHasSeparateSpecularColor;
 
 	S32 mDriverVersionMajor;
 	S32 mDriverVersionMinor;
@@ -272,12 +272,12 @@ public:
 	LLGLState(LLGLenum state, S32 enabled = CURRENT_STATE);
 	~LLGLState();
 	void setEnabled(S32 enabled);
-	void enable() { setEnabled(TRUE); }
-	void disable() { setEnabled(FALSE); }
+	void enable() { setEnabled(true); }
+	void disable() { setEnabled(false); }
 protected:
 	LLGLenum mState;
-	BOOL mWasEnabled;
-	BOOL mIsEnabled;
+	bool mWasEnabled;
+	bool mIsEnabled;
 };
 
 // New LLGLState class wrappers that don't depend on actual GL flags.
@@ -311,14 +311,14 @@ public:
 class LLGLEnable : public LLGLState
 {
 public:
-	LLGLEnable(LLGLenum state) : LLGLState(state, TRUE) {}
+	LLGLEnable(LLGLenum state) : LLGLState(state, true) {}
 };
 
 /// TODO: Being deprecated.
 class LLGLDisable : public LLGLState
 {
 public:
-	LLGLDisable(LLGLenum state) : LLGLState(state, FALSE) {}
+	LLGLDisable(LLGLenum state) : LLGLState(state, false) {}
 };
 
 /*
@@ -376,14 +376,14 @@ public:
 	struct NameEntry
 	{
 		GLuint name;
-		BOOL used;
+		bool used;
 	};
 
 	struct CompareUsed
 	{
 		bool operator()(const NameEntry& lhs, const NameEntry& rhs)
 		{
-			return lhs.used < rhs.used;  //FALSE entries first
+			return lhs.used < rhs.used;  //false entries first
 		}
 	};
 
@@ -419,9 +419,9 @@ public:
 
 	static std::list<LLGLUpdate*> sGLQ;
 
-	BOOL mInQ;
+	bool mInQ;
 	LLGLUpdate()
-		: mInQ(FALSE)
+		: mInQ(false)
 	{
 	}
 	virtual ~LLGLUpdate()
@@ -475,8 +475,8 @@ void init_glstates();
 
 void parse_gl_version( S32* major, S32* minor, S32* release, std::string* vendor_specific, std::string* version_string );
 
-extern BOOL gClothRipple;
-extern BOOL gHeadlessClient;
+extern bool gClothRipple;
+extern bool gHeadlessClient
 extern bool gGLActive;
 
 // Deal with changing glext.h definitions for newer SDK versions, specifically
