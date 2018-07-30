@@ -49,7 +49,7 @@ public:
 		
 	public:
 		ImageRequest(handle_t handle, LLImageFormatted* image,
-					 U32 priority, S32 discard, BOOL needs_aux,
+					 U32 priority, S32 discard, bool needs_aux,
 					 LLImageDecodeThread::Responder* responder);
 
 		/*virtual*/ bool processRequest();
@@ -62,12 +62,12 @@ public:
 		// input
 		LLPointer<LLImageFormatted> mFormattedImage;
 		S32 mDiscardLevel;
-		BOOL mNeedsAux;
+		bool mNeedsAux;
 		// output
 		LLPointer<LLImageRaw> mDecodedImageRaw;
 		LLPointer<LLImageRaw> mDecodedImageAux;
-		BOOL mDecodedRaw;
-		BOOL mDecodedAux;
+		bool mDecodedRaw;
+		bool mDecodedAux;
 		LLPointer<LLImageDecodeThread::Responder> mResponder;
 		bool mDecodedImageRawValid;
 	};
@@ -77,7 +77,7 @@ public:
 	virtual ~LLImageDecodeThread();
 
 	handle_t decodeImage(LLImageFormatted* image,
-						 U32 priority, S32 discard, BOOL needs_aux,
+						 U32 priority, S32 discard, bool needs_aux,
 						 Responder* responder);
 	S32 update(F32 max_time_ms);
 
@@ -91,9 +91,9 @@ private:
 		LLPointer<LLImageFormatted> image;
 		U32 priority;
 		S32 discard;
-		BOOL needs_aux;
+		bool needs_aux;
 		LLPointer<Responder> responder;
-		creation_info(handle_t h, LLImageFormatted* i, U32 p, S32 d, BOOL aux, Responder* r)
+		creation_info(handle_t h, LLImageFormatted* i, U32 p, S32 d, bool aux, Responder* r)
 			: handle(h), image(i), priority(p), discard(d), needs_aux(aux), responder(r)
 		{}
 	};

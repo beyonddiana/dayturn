@@ -142,7 +142,7 @@ namespace tut
 			done = false;
 
 			mRequest = new LLImageDecodeThread::ImageRequest(0, 0,
-											 LLQueuedThread::PRIORITY_NORMAL, 0, FALSE,
+											 LLQueuedThread::PRIORITY_NORMAL, 0, false,
 											 new responder_test(&done));
 		}
 		~imagerequest_test()
@@ -199,7 +199,7 @@ namespace tut
 		ensure("LLImageDecodeThread: non threaded init state incorrect", mThread->tut_size() == 0);
 		// Insert something in the queue
 		bool done = false;
-		LLImageDecodeThread::handle_t decodeHandle = mThread->decodeImage(NULL, LLQueuedThread::PRIORITY_NORMAL, 0, FALSE, new responder_test(&done));
+		LLImageDecodeThread::handle_t decodeHandle = mThread->decodeImage(NULL, LLQueuedThread::PRIORITY_NORMAL, 0, false, new responder_test(&done));
 		// Verifies we got a valid handle
 		ensure("LLImageDecodeThread: non threaded decodeImage(), returned handle is null", decodeHandle != 0);
 		// Verifies that we do now have something in the queued list
@@ -222,7 +222,7 @@ namespace tut
 		ensure("LLImageDecodeThread: threaded init state incorrect", mThread->tut_size() == 0);
 		// Insert something in the queue
 		bool done = false;
-		LLImageDecodeThread::handle_t decodeHandle = mThread->decodeImage(NULL, LLQueuedThread::PRIORITY_NORMAL, 0, FALSE, new responder_test(&done));
+		LLImageDecodeThread::handle_t decodeHandle = mThread->decodeImage(NULL, LLQueuedThread::PRIORITY_NORMAL, 0, false, new responder_test(&done));
 		// Verifies we get back a valid handle
 		ensure("LLImageDecodeThread:  threaded decodeImage(), returned handle is null", decodeHandle != 0);
 		// Wait a little so to simulate the main thread doing something on its main loop...

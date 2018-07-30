@@ -69,7 +69,7 @@ S32 LLImageDecodeThread::update(F32 max_time_ms)
 }
 
 LLImageDecodeThread::handle_t LLImageDecodeThread::decodeImage(LLImageFormatted* image, 
-	U32 priority, S32 discard, BOOL needs_aux, Responder* responder)
+	U32 priority, S32 discard, bool needs_aux, Responder* responder)
 {
 	LLMutexLock lock(mCreationMutex);
 	handle_t handle = generateHandle();
@@ -93,14 +93,14 @@ LLImageDecodeThread::Responder::~Responder()
 //----------------------------------------------------------------------------
 
 LLImageDecodeThread::ImageRequest::ImageRequest(handle_t handle, LLImageFormatted* image, 
-												U32 priority, S32 discard, BOOL needs_aux,
+												U32 priority, S32 discard, bool needs_aux,
 												LLImageDecodeThread::Responder* responder)
 	: LLQueuedThread::QueuedRequest(handle, priority, FLAG_AUTO_COMPLETE),
 	  mFormattedImage(image),
 	  mDiscardLevel(discard),
 	  mNeedsAux(needs_aux),
-	  mDecodedRaw(FALSE),
-	  mDecodedAux(FALSE),
+	  mDecodedRaw(false),
+	  mDecodedAux(false),
 	  mDecodedImageRawValid(false),
 	  mResponder(responder)
 {

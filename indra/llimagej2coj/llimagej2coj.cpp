@@ -444,7 +444,7 @@ bool LLImageJ2COJ::getMetadata(LLImageJ2C& base)
 	if (getMetadataFast(base, width, height, img_components))
 	{
 		base.setSize(width, height, img_components);
-		return TRUE;
+		return true;
 	}
 	
 	// *FIMXME: We get metadata by decoding the ENTIRE image.
