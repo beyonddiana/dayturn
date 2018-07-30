@@ -322,7 +322,7 @@ void HttpService::threadRun(LLCoreInt::HttpThread * thread)
         }
         catch (std::bad_alloc&)
         {
-            LLMemory::logMemoryInfo(TRUE);
+            LLMemory::logMemoryInfo(true);
 
             //output possible call stacks to log file.
             LLError::LLCallStacks::print();
