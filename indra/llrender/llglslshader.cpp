@@ -60,7 +60,7 @@ U32 LLGLSLShader::sTotalDrawCalls = 0;
 LLGLSLShader    gUIProgram;
 LLGLSLShader    gSolidColorProgram;
 
-BOOL shouldChange(const LLVector4& v1, const LLVector4& v2)
+bool shouldChange(const LLVector4& v1, const LLVector4& v2)
 {
     return v1 != v2;
 }
@@ -311,7 +311,7 @@ LLGLSLShader::LLGLSLShader()
       mActiveTextureChannels(0), 
       mShaderLevel(0), 
       mShaderGroup(SG_DEFAULT), 
-      mUniformsDirty(FALSE),
+      mUniformsDirty(false),
       mTimerQuery(0),
       mSamplesQuery(0)
 
@@ -374,7 +374,7 @@ void LLGLSLShader::unloadInternal()
     stop_glerror();
 }
 
-BOOL LLGLSLShader::createShader(std::vector<LLStaticHashedString> * attributes,
+bool LLGLSLShader::createShader(std::vector<LLStaticHashedString> * attributes,
                                 std::vector<LLStaticHashedString> * uniforms,
                                 U32 varying_count,
                                 const char** varyings)
@@ -391,7 +391,7 @@ BOOL LLGLSLShader::createShader(std::vector<LLStaticHashedString> * attributes,
     mLightHash = 0xFFFFFFFF;
 
     llassert_always(!mShaderFiles.empty());
-    BOOL success = TRUE;
+    bool success = true;
 
     // Create program
     mProgramObject = glCreateProgramObjectARB();
@@ -409,14 +409,14 @@ BOOL LLGLSLShader::createShader(std::vector<LLStaticHashedString> * attributes,
         }
         else
         {
-            success = FALSE;
+            success = false;
         }
     }
 
     // Attach existing objects
     if (!LLShaderMgr::instance()->attachShaderFeatures(this))
     {
-        return FALSE;
+        return false;
     }
 
     if (gGLManager.mGLSLVersionMajor < 2 && gGLManager.mGLSLVersionMinor < 3)
@@ -480,19 +480,19 @@ BOOL LLGLSLShader::createShader(std::vector<LLStaticHashedString> * attributes,
     return success;
 }
 
-BOOL LLGLSLShader::attachObject(std::string object)
+bool LLGLSLShader::attachObject(std::string object)
 {
     if (LLShaderMgr::instance()->mShaderObjects.count(object) > 0)
     {
         stop_glerror();
         glAttachObjectARB(mProgramObject, LLShaderMgr::instance()->mShaderObjects[object]);
         stop_glerror();
-        return TRUE;
+        return true;
     }
     else
     {
         LL_WARNS("ShaderLoading") << "Attempting to attach shader object that hasn't been compiled: " << object << LL_ENDL;
-        return FALSE;
+        return false;
     }
 }
 
@@ -518,7 +518,7 @@ void LLGLSLShader::attachObjects(GLhandleARB* objects, S32 count)
     }
 }
 
-BOOL LLGLSLShader::mapAttributes(const std::vector<LLStaticHashedString> * attributes)
+bool LLGLSLShader::mapAttributes(const std::vector<LLStaticHashedString> * attributes)
 {
     //before linking, make sure reserved attributes always have consistent locations
     for (U32 i = 0; i < LLShaderMgr::instance()->mReservedAttribs.size(); i++)
@@ -528,7 +528,7 @@ BOOL LLGLSLShader::mapAttributes(const std::vector<LLStaticHashedString> * attri
     }
     
     //link the program
-    BOOL res = link();
+    bool res = link();
 
     mAttribute.clear();
     U32 numAttributes = (attributes == NULL) ? 0 : attributes->size();
@@ -565,10 +565,10 @@ BOOL LLGLSLShader::mapAttributes(const std::vector<LLStaticHashedString> * attri
             }
         }
 
-        return TRUE;
+        return true;
     }
     
-    return FALSE;
+    return false;
 }
 
 void LLGLSLShader::mapUniform(GLint index, const vector<LLStaticHashedString> * uniforms)
@@ -697,9 +697,9 @@ GLint LLGLSLShader::mapUniformTextureChannel(GLint location, GLenum type)
     return -1;
 }
 
-BOOL LLGLSLShader::mapUniforms(const vector<LLStaticHashedString> * uniforms)
+bool LLGLSLShader::mapUniforms(const vector<LLStaticHashedString> * uniforms)
 {
-	BOOL res = TRUE;
+	bool res = true;
 
 	mTotalUniformSize = 0;
 	mActiveTextureChannels = 0;
@@ -831,9 +831,9 @@ BOOL LLGLSLShader::mapUniforms(const vector<LLStaticHashedString> * uniforms)
 }
 
 
-BOOL LLGLSLShader::link(BOOL suppress_errors)
+bool LLGLSLShader::link(bool suppress_errors)
 {
-    BOOL success = LLShaderMgr::instance()->linkProgramObject(mProgramObject, suppress_errors);
+    bool success = LLShaderMgr::instance()->linkProgramObject(mProgramObject, suppress_errors);
 
     if (!suppress_errors)
     {
@@ -855,7 +855,7 @@ void LLGLSLShader::bind()
         if (mUniformsDirty)
         {
             LLShaderMgr::instance()->updateShaderUniforms(this);
-            mUniformsDirty = FALSE;
+            mUniformsDirty = false;
         }
     }
 }

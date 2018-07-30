@@ -40,7 +40,7 @@
 	...
 
 	//allocate a 256x256 RGBA render target with depth buffer
-	target.allocate(256,256,GL_RGBA,TRUE);
+	target.allocate(256,256,GL_RGBA,true);
 
 	//render to contents of offscreen buffer
 	target.bindTarget();
@@ -127,9 +127,9 @@ public:
 	//must be called when rendering is complete
 	//should be used 1:1 with bindTarget 
 	// call bindTarget once, do all your rendering, call flush once
-	// if fetch_depth is TRUE, every effort will be made to copy the depth buffer into 
+	// if fetch_depth is true, every effort will be made to copy the depth buffer into
 	// the current depth texture.  A depth texture will be allocated if needed.
-	void flush(bool fetch_depth = FALSE);
+	void flush(bool fetch_depth = false);
 
 	void copyContents(LLRenderTarget& source, S32 srcX0, S32 srcY0, S32 srcX1, S32 srcY1,
 						S32 dstX0, S32 dstY0, S32 dstX1, S32 dstY1, U32 mask, U32 filter);
@@ -137,7 +137,7 @@ public:
 	static void copyContentsToFramebuffer(LLRenderTarget& source, S32 srcX0, S32 srcY0, S32 srcX1, S32 srcY1,
 						S32 dstX0, S32 dstY0, S32 dstX1, S32 dstY1, U32 mask, U32 filter);
 
-	//Returns TRUE if target is ready to be rendered into.
+	//Returns true if target is ready to be rendered into.
 	//That is, if the target has been allocated with at least
 	//one renderable attachment (i.e. color buffer, depth buffer).
 	bool isComplete() const;
