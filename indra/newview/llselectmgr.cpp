@@ -8018,6 +8018,7 @@ void LLSelectMgr::sendSelectionMove()
 	//saveSelectedObjectTransform(SELECT_ACTION_TYPE_PICK);
 }
 
+template<>
 bool LLCheckIdenticalFunctor<F32>::same(const F32& a, const F32& b, const F32& tolerance)
 {
     F32 delta = (a - b);
@@ -8032,6 +8033,7 @@ bool LLCheckIdenticalFunctor<F32>::same(const F32& a, const F32& b, const F32& t
 }
 
 #define DEF_DUMMY_CHECK_FUNCTOR(T)                                                  \
+template<>                                                                          \
 bool LLCheckIdenticalFunctor<T>::same(const T& a, const T& b, const T& tolerance)   \
 {                                                                                   \
     (void)tolerance;                                                                \
@@ -8051,6 +8053,7 @@ DEF_DUMMY_CHECK_FUNCTOR(LLPointer<LLMaterial>)
 DEF_DUMMY_CHECK_FUNCTOR(std::string)
 DEF_DUMMY_CHECK_FUNCTOR(std::vector<std::string>)
 
+template<>
 bool LLCheckIdenticalFunctor<class LLFace *>::same(class LLFace* const & a, class LLFace* const & b, class LLFace* const & tolerance)   \
 {                                                                                   \
     (void)tolerance;                                                                \
