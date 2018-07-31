@@ -881,9 +881,9 @@ BOOL LLVOVolume::isActive() const
 	return !mStatic;
 }
 
-BOOL LLVOVolume::setMaterial(const U8 material)
+bool LLVOVolume::setMaterial(const U8 material)
 {
-	BOOL res = LLViewerObject::setMaterial(material);
+	bool res = LLViewerObject::setMaterial(material);
 	
 	return res;
 }
@@ -958,7 +958,7 @@ LLDrawable *LLVOVolume::createDrawable(LLPipeline *pipeline)
 	return mDrawable;
 }
 
-BOOL LLVOVolume::setVolume(const LLVolumeParams &params_in, const S32 detail, bool unique_volume)
+bool LLVOVolume::setVolume(const LLVolumeParams &params_in, const S32 detail, bool unique_volume)
 {
 	LLVolumeParams volume_params = params_in;
 
