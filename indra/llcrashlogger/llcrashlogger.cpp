@@ -50,8 +50,8 @@
 #include <boost/regex.hpp>
  
 LLPumpIO* gServicePump = NULL;
-BOOL gBreak = false;
-BOOL gSent = false;
+bool gBreak = false;
+bool gSent = false;
 
 #define CRASH_UPLOAD_RETRIES 3 /* seconds */
 #define CRASH_UPLOAD_TIMEOUT 180 /* seconds */

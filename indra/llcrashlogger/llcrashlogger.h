@@ -67,7 +67,7 @@ public:
 
 protected:
 	S32 mCrashBehavior;
-	BOOL mCrashInPreviousExec;
+	bool mCrashInPreviousExec;
 	std::map<std::string, std::string> mFileMap;
 	std::string mGridName;
 	LLControlGroup mCrashSettings;
