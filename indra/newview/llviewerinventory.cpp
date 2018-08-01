@@ -369,7 +369,7 @@ void LLViewerInventoryItem::cloneViewerItem(LLPointer<LLViewerInventoryItem>& ne
 	}
 }
 
-void LLViewerInventoryItem::updateServer(BOOL is_new) const
+void LLViewerInventoryItem::updateServer(bool is_new) const
 {
 	if(!mIsComplete)
 	{
@@ -452,24 +452,24 @@ void LLViewerInventoryItem::fetchFromServer(void) const
 }
 
 // virtual
-BOOL LLViewerInventoryItem::unpackMessage(const LLSD& item)
+bool LLViewerInventoryItem::unpackMessage(const LLSD& item)
 {
-	BOOL rv = LLInventoryItem::fromLLSD(item);
+	bool rv = LLInventoryItem::fromLLSD(item);
 
 	LLLocalizedInventoryItemsDictionary::getInstance()->localizeInventoryObjectName(mName);
 
-	mIsComplete = TRUE;
+	mIsComplete = true;
 	return rv;
 }
 
 // virtual
-BOOL LLViewerInventoryItem::unpackMessage(LLMessageSystem* msg, const char* block, S32 block_num)
+bool LLViewerInventoryItem::unpackMessage(LLMessageSystem* msg, const char* block, S32 block_num)
 {
-	BOOL rv = LLInventoryItem::unpackMessage(msg, block, block_num);
+	bool rv = LLInventoryItem::unpackMessage(msg, block, block_num);
 
 	LLLocalizedInventoryItemsDictionary::getInstance()->localizeInventoryObjectName(mName);
 
-	mIsComplete = TRUE;
+	mIsComplete = true;
 	return rv;
 }
 
@@ -498,18 +498,18 @@ void LLViewerInventoryItem::packMessage(LLMessageSystem* msg) const
 }
 
 // virtual
-BOOL LLViewerInventoryItem::importFile(LLFILE* fp)
+bool LLViewerInventoryItem::importFile(LLFILE* fp)
 {
-	BOOL rv = LLInventoryItem::importFile(fp);
-	mIsComplete = TRUE;
+	bool rv = LLInventoryItem::importFile(fp);
+	mIsComplete = true;
 	return rv;
 }
 
 // virtual
-BOOL LLViewerInventoryItem::importLegacyStream(std::istream& input_stream)
+bool LLViewerInventoryItem::importLegacyStream(std::istream& input_stream)
 {
-	BOOL rv = LLInventoryItem::importLegacyStream(input_stream);
-	mIsComplete = TRUE;
+	bool rv = LLInventoryItem::importLegacyStream(input_stream);
+	mIsComplete = true;
 	return rv;
 }
 
@@ -539,7 +539,7 @@ bool LLViewerInventoryItem::exportFileLocal(LLFILE* fp) const
 	return true;
 }
 
-void LLViewerInventoryItem::updateParentOnServer(BOOL restamp) const
+void LLViewerInventoryItem::updateParentOnServer(bool restamp) const
 {
 	LLMessageSystem* msg = gMessageSystem;
 	msg->newMessageFast(_PREHASH_MoveInventoryItem);
@@ -617,7 +617,7 @@ void LLViewerInventoryCategory::packMessage(LLMessageSystem* msg) const
 	msg->addStringFast(_PREHASH_Name, mName);
 }
 
-void LLViewerInventoryCategory::updateParentOnServer(BOOL restamp) const
+void LLViewerInventoryCategory::updateParentOnServer(bool restamp) const
 {
 	LLMessageSystem* msg = gMessageSystem;
 	msg->newMessageFast(_PREHASH_MoveInventoryFolder);
@@ -632,7 +632,7 @@ void LLViewerInventoryCategory::updateParentOnServer(BOOL restamp) const
 	gAgent.sendReliableMessage();
 }
 
-void LLViewerInventoryCategory::updateServer(BOOL is_new) const
+void LLViewerInventoryCategory::updateServer(bool is_new) const
 {
 	// communicate that change with the server.
 

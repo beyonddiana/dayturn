@@ -120,15 +120,15 @@ public:
 	void cloneViewerItem(LLPointer<LLViewerInventoryItem>& newitem) const;
 
 	// virtual methods
-	virtual void updateParentOnServer(BOOL restamp) const;
-	virtual void updateServer(BOOL is_new) const;
+	virtual void updateParentOnServer(bool restamp) const;
+	virtual void updateServer(bool is_new) const;
 	void fetchFromServer(void) const;
 
 	virtual void packMessage(LLMessageSystem* msg) const;
-	virtual BOOL unpackMessage(LLMessageSystem* msg, const char* block, S32 block_num = 0);
-	virtual BOOL unpackMessage(const LLSD& item);
-	virtual BOOL importFile(LLFILE* fp);
-	virtual BOOL importLegacyStream(std::istream& input_stream);
+	virtual bool unpackMessage(LLMessageSystem* msg, const char* block, S32 block_num = 0);
+	virtual bool unpackMessage(const LLSD& item);
+	virtual bool importFile(LLFILE* fp);
+	virtual bool importLegacyStream(std::istream& input_stream);
 
 	// file handling on the viewer. These are not meant for anything
 	// other than cacheing.
@@ -198,8 +198,8 @@ public:
 	LLViewerInventoryCategory(const LLViewerInventoryCategory* other);
 	void copyViewerCategory(const LLViewerInventoryCategory* other);
 
-	virtual void updateParentOnServer(BOOL restamp_children) const;
-	virtual void updateServer(BOOL is_new) const;
+	virtual void updateParentOnServer(bool restamp_children) const;
+	virtual void updateServer(bool is_new) const;
 
 	virtual void packMessage(LLMessageSystem* msg) const;
 

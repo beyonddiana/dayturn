@@ -123,7 +123,7 @@ namespace tut
 
 		LLSaleInfo llsaleinfo1;
 		U32 perm_mask;
-		BOOL has_perm_mask;
+		bool has_perm_mask;
 		fp = LLFile::fopen("linden_file.dat","r");
 		
 		if(!fp)
@@ -151,7 +151,7 @@ namespace tut
 		std::istringstream istream(ostream.str());
 		LLSaleInfo llsaleinfo1;
 		U32 perm_mask = 0;
-		BOOL has_perm_mask = FALSE;
+		bool has_perm_mask = false;
 		llsaleinfo1.importLegacyStream(istream, has_perm_mask, perm_mask);
 					
 		ensure("importStream() fn failed ",
@@ -175,7 +175,7 @@ namespace tut
 		LLSD sd_result = saleinfo.asLLSD();
 		
 		U32 perm_mask = 0 ;
-		BOOL has_perm_mask = FALSE;
+		bool has_perm_mask = false;
 
 		LLSaleInfo saleinfo1;
 		saleinfo1.fromLLSD( sd_result, has_perm_mask, perm_mask);	

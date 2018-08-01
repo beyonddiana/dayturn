@@ -1116,7 +1116,7 @@ LLViewerParcelMgr::ParcelBuyInfo* LLViewerParcelMgr::setupParcelBuy(
 	const LLUUID& agent_id,
 	const LLUUID& session_id,
 	const LLUUID& group_id,
-	BOOL is_group_owned,
+	bool is_group_owned,
 	BOOL is_claim,
 	BOOL remove_contribution)
 {

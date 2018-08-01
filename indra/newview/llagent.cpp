@@ -3251,7 +3251,7 @@ BOOL LLAgent::allowOperation(PermissionBit op,
 	if (!perm.isOwned()) return FALSE;
 
 	// A group member with group_proxy_power can act as owner.
-	BOOL is_group_owned;
+	bool is_group_owned;
 	LLUUID owner_id;
 	perm.getOwnership(owner_id, is_group_owned);
 	LLUUID group_id(perm.getGroup());
