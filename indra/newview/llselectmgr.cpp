@@ -6488,7 +6488,7 @@ void LLSelectNode::saveTextureScaleRatios(LLRender::eTexIndex index_to_query)
 BOOL LLSelectNode::allowOperationOnNode(PermissionBit op, U64 group_proxy_power) const
 {
 	// Extract ownership.
-	BOOL object_is_group_owned = FALSE;
+	bool object_is_group_owned = false;
 	LLUUID object_owner_id;
 	mPermissions->getOwnership(object_owner_id, object_is_group_owned);
 

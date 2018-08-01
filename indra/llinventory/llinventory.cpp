@@ -128,7 +128,7 @@ LLAssetType::EType LLInventoryObject::getActualType() const
 	return mType;
 }
 
-BOOL LLInventoryObject::getIsLinkType() const
+bool LLInventoryObject::getIsLinkType() const
 {
 	return LLAssetType::lookupIsLinkType(mType);
 }
@@ -174,7 +174,7 @@ void LLInventoryObject::setType(LLAssetType::EType type)
 
 
 // virtual
-BOOL LLInventoryObject::importLegacyStream(std::istream& input_stream)
+bool LLInventoryObject::importLegacyStream(std::istream& input_stream)
 {
 	// *NOTE: Changing the buffer size will require changing the scanf
 	// calls below.
@@ -225,12 +225,12 @@ BOOL LLInventoryObject::importLegacyStream(std::istream& input_stream)
 					<< "' in LLInventoryObject::importLegacyStream() for object " << mUUID << LL_ENDL;
 		}
 	}
-	return TRUE;
+	return true;
 }
 
 // exportFile should be replaced with exportLegacyStream
 // not sure whether exportLegacyStream(llofstream(fp)) would work, fp may need to get icramented...
-BOOL LLInventoryObject::exportFile(LLFILE* fp, BOOL) const
+bool LLInventoryObject::exportFile(LLFILE* fp, bool) const
 {
 	std::string uuid_str;
 	fprintf(fp, "\tinv_object\t0\n\t{\n");
@@ -241,10 +241,10 @@ BOOL LLInventoryObject::exportFile(LLFILE* fp, BOOL) const
 	fprintf(fp, "\t\ttype\t%s\n", LLAssetType::lookup(mType));
 	fprintf(fp, "\t\tname\t%s|\n", mName.c_str());
 	fprintf(fp,"\t}\n");
-	return TRUE;
+	return true;
 }
 
-BOOL LLInventoryObject::exportLegacyStream(std::ostream& output_stream, BOOL) const
+bool LLInventoryObject::exportLegacyStream(std::ostream& output_stream, bool) const
 {
 	std::string uuid_str;
 	output_stream <<  "\tinv_object\t0\n\t{\n";
@@ -255,16 +255,16 @@ BOOL LLInventoryObject::exportLegacyStream(std::ostream& output_stream, BOOL) co
 	output_stream << "\t\ttype\t" << LLAssetType::lookup(mType) << "\n";
 	output_stream << "\t\tname\t" << mName.c_str() << "|\n";
 	output_stream << "\t}\n";
-	return TRUE;
+	return true;
 }
 
-void LLInventoryObject::updateParentOnServer(BOOL) const
+void LLInventoryObject::updateParentOnServer(bool) const
 {
 	// don't do nothin'
 	LL_WARNS() << "LLInventoryObject::updateParentOnServer() called.  Doesn't do anything." << LL_ENDL;
 }
 
-void LLInventoryObject::updateServer(BOOL) const
+void LLInventoryObject::updateServer(bool) const
 {
 	// don't do nothin'
 	LL_WARNS() << "LLInventoryObject::updateServer() called.  Doesn't do anything." << LL_ENDL;
@@ -554,7 +554,7 @@ void LLInventoryItem::packMessage(LLMessageSystem* msg) const
 }
 
 // virtual
-BOOL LLInventoryItem::unpackMessage(LLMessageSystem* msg, const char* block, S32 block_num)
+bool LLInventoryItem::unpackMessage(LLMessageSystem* msg, const char* block, S32 block_num)
 {
 	msg->getUUIDFast(block, _PREHASH_ItemID, mUUID, block_num);
 	msg->getUUIDFast(block, _PREHASH_FolderID, mParentUUID, block_num);
@@ -590,13 +590,13 @@ BOOL LLInventoryItem::unpackMessage(LLMessageSystem* msg, const char* block, S32
 	if(local_crc == remote_crc)
 	{
 		LL_DEBUGS() << "crc matches" << LL_ENDL;
-		return TRUE;
+		return true;
 	}
 	else
 	{
 		LL_WARNS() << "inventory crc mismatch: local=" << std::hex << local_crc
 				<< " remote=" << remote_crc << std::dec << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 #else
 	return (local_crc == remote_crc);
@@ -604,7 +604,7 @@ BOOL LLInventoryItem::unpackMessage(LLMessageSystem* msg, const char* block, S32
 }
 
 // virtual
-BOOL LLInventoryItem::importFile(LLFILE* fp)
+bool LLInventoryItem::importFile(LLFILE* fp)
 {
 	// *NOTE: Changing the buffer size will require changing the scanf
 	// calls below.
@@ -612,7 +612,7 @@ BOOL LLInventoryItem::importFile(LLFILE* fp)
 	char keyword[MAX_STRING];	/* Flawfinder: ignore */	
 	char valuestr[MAX_STRING];	/* Flawfinder: ignore */
 	char junk[MAX_STRING];	/* Flawfinder: ignore */
-	BOOL success = TRUE;
+	bool success = true;
 
 	keyword[0] = '\0';
 	valuestr[0] = '\0';
@@ -653,7 +653,7 @@ BOOL LLInventoryItem::importFile(LLFILE* fp)
 			// the permissions. Thus, we read that out, and fix legacy
 			// objects. It's possible this op would fail, but it
 			// should pick up the vast majority of the tasks.
-			BOOL has_perm_mask = FALSE;
+			bool has_perm_mask = false;
 			U32 perm_mask = 0;
 			success = mSaleInfo.importFile(fp, has_perm_mask, perm_mask);
 			if(has_perm_mask)
@@ -765,7 +765,7 @@ BOOL LLInventoryItem::importFile(LLFILE* fp)
 	return success;
 }
 
-BOOL LLInventoryItem::exportFile(LLFILE* fp, BOOL include_asset_key) const
+bool LLInventoryItem::exportFile(LLFILE* fp, bool include_asset_key) const
 {
 	std::string uuid_str;
 	fprintf(fp, "\tinv_item\t0\n\t{\n");
@@ -809,11 +809,11 @@ BOOL LLInventoryItem::exportFile(LLFILE* fp, BOOL include_asset_key) const
 	fprintf(fp, "\t\tdesc\t%s|\n", mDescription.c_str());
 	fprintf(fp, "\t\tcreation_date\t%d\n", (S32) mCreationDate);
 	fprintf(fp,"\t}\n");
-	return TRUE;
+	return true;
 }
 
 // virtual
-BOOL LLInventoryItem::importLegacyStream(std::istream& input_stream)
+bool LLInventoryItem::importLegacyStream(std::istream& input_stream)
 {
 	// *NOTE: Changing the buffer size will require changing the scanf
 	// calls below.
@@ -821,7 +821,7 @@ BOOL LLInventoryItem::importLegacyStream(std::istream& input_stream)
 	char keyword[MAX_STRING];	/* Flawfinder: ignore */
 	char valuestr[MAX_STRING];	/* Flawfinder: ignore */
 	char junk[MAX_STRING];	/* Flawfinder: ignore */
-	BOOL success = TRUE;
+	bool success = true;
 
 	keyword[0] = '\0';
 	valuestr[0] = '\0';
@@ -861,7 +861,7 @@ BOOL LLInventoryItem::importLegacyStream(std::istream& input_stream)
 			// the permissions. Thus, we read that out, and fix legacy
 			// objects. It's possible this op would fail, but it
 			// should pick up the vast majority of the tasks.
-			BOOL has_perm_mask = FALSE;
+			bool has_perm_mask = false;
 			U32 perm_mask = 0;
 			success = mSaleInfo.importLegacyStream(input_stream, has_perm_mask, perm_mask);
 			if(has_perm_mask)
@@ -973,7 +973,7 @@ BOOL LLInventoryItem::importLegacyStream(std::istream& input_stream)
 	return success;
 }
 
-BOOL LLInventoryItem::exportLegacyStream(std::ostream& output_stream, BOOL include_asset_key) const
+bool LLInventoryItem::exportLegacyStream(std::ostream& output_stream, bool include_asset_key) const
 {
 	std::string uuid_str;
 	output_stream << "\tinv_item\t0\n\t{\n";
@@ -1020,7 +1020,7 @@ BOOL LLInventoryItem::exportLegacyStream(std::ostream& output_stream, BOOL inclu
 	output_stream << "\t\tdesc\t" << mDescription.c_str() << "|\n";
 	output_stream << "\t\tcreation_date\t" << mCreationDate << "\n";
 	output_stream << "\t}\n";
-	return TRUE;
+	return true;
 }
 
 LLSD LLInventoryItem::asLLSD() const
@@ -1101,7 +1101,7 @@ bool LLInventoryItem::fromLLSD(const LLSD& sd, bool is_new)
 		// the permissions. Thus, we read that out, and fix legacy
 		// objects. It's possible this op would fail, but it
 		// should pick up the vast majority of the tasks.
-		BOOL has_perm_mask = FALSE;
+		bool has_perm_mask = false;
 		U32 perm_mask = 0;
 		if (!mSaleInfo.fromLLSD(sd[w], has_perm_mask, perm_mask))
 		{
@@ -1465,7 +1465,7 @@ void LLInventoryCategory::unpackMessage(LLMessageSystem* msg,
 }
 	
 // virtual
-BOOL LLInventoryCategory::importFile(LLFILE* fp)
+bool LLInventoryCategory::importFile(LLFILE* fp)
 {
 	// *NOTE: Changing the buffer size will require changing the scanf
 	// calls below.
@@ -1528,10 +1528,10 @@ BOOL LLInventoryCategory::importFile(LLFILE* fp)
 					<< "' in inventory import category "  << mUUID << LL_ENDL;
 		}
 	}
-	return TRUE;
+	return true;
 }
 
-BOOL LLInventoryCategory::exportFile(LLFILE* fp, BOOL) const
+bool LLInventoryCategory::exportFile(LLFILE* fp, bool) const
 {
 	std::string uuid_str;
 	fprintf(fp, "\tinv_category\t0\n\t{\n");
@@ -1543,12 +1543,12 @@ BOOL LLInventoryCategory::exportFile(LLFILE* fp, BOOL) const
 	fprintf(fp, "\t\tpref_type\t%s\n", LLFolderType::lookup(mPreferredType).c_str());
 	fprintf(fp, "\t\tname\t%s|\n", mName.c_str());
 	fprintf(fp,"\t}\n");
-	return TRUE;
+	return true;
 }
 
 	
 // virtual
-BOOL LLInventoryCategory::importLegacyStream(std::istream& input_stream)
+bool LLInventoryCategory::importLegacyStream(std::istream& input_stream)
 {
 	// *NOTE: Changing the buffer size will require changing the scanf
 	// calls below.
@@ -1607,10 +1607,10 @@ BOOL LLInventoryCategory::importLegacyStream(std::istream& input_stream)
 					<< "' in inventory import category "  << mUUID << LL_ENDL;
 		}
 	}
-	return TRUE;
+	return true;
 }
 
-BOOL LLInventoryCategory::exportLegacyStream(std::ostream& output_stream, BOOL) const
+bool LLInventoryCategory::exportLegacyStream(std::ostream& output_stream, bool) const
 {
 	std::string uuid_str;
 	output_stream << "\tinv_category\t0\n\t{\n";
@@ -1622,7 +1622,7 @@ BOOL LLInventoryCategory::exportLegacyStream(std::ostream& output_stream, BOOL) 
 	output_stream << "\t\tpref_type\t" << LLFolderType::lookup(mPreferredType) << "\n";
 	output_stream << "\t\tname\t" << mName.c_str() << "|\n";
 	output_stream << "\t}\n";
-	return TRUE;
+	return true;
 }
 
 ///----------------------------------------------------------------------------

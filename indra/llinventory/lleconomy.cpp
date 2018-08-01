@@ -172,7 +172,7 @@ mAreaTotal(-1.f)
 LLRegionEconomy::~LLRegionEconomy()
 { }
 
-BOOL LLRegionEconomy::hasData() const
+bool LLRegionEconomy::hasData() const
 {
     return (mBasePriceParcelRent != -1);
 }

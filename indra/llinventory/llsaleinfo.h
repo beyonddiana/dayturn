@@ -74,7 +74,7 @@ public:
 	LLSaleInfo(EForSale sale_type, S32 sale_price);
 
 	// accessors
-	BOOL isForSale() const;
+	bool isForSale() const;
 	EForSale getSaleType() const { return mSaleType; }
 	S32 getSalePrice() const { return mSalePrice; }
 	U32 getCRC32() const;
@@ -86,14 +86,14 @@ public:
 
 
 	// file serialization
-	BOOL exportFile(LLFILE* fp) const;
-	BOOL importFile(LLFILE* fp, BOOL& has_perm_mask, U32& perm_mask);
+	bool exportFile(LLFILE* fp) const;
+	bool importFile(LLFILE* fp, bool& has_perm_mask, U32& perm_mask);
 
-	BOOL exportLegacyStream(std::ostream& output_stream) const;
+	bool exportLegacyStream(std::ostream& output_stream) const;
 	LLSD asLLSD() const;
 	operator LLSD() const { return asLLSD(); }
-	bool fromLLSD(const LLSD& sd, BOOL& has_perm_mask, U32& perm_mask);
-	BOOL importLegacyStream(std::istream& input_stream, BOOL& has_perm_mask, U32& perm_mask);
+	bool fromLLSD(const LLSD& sd, bool& has_perm_mask, U32& perm_mask);
+	bool importLegacyStream(std::istream& input_stream, bool& has_perm_mask, U32& perm_mask);
 
 	LLSD packMessage() const;
 	void unpackMessage(LLSD sales);
