@@ -549,7 +549,7 @@ public:
 		}
 	}
 
-	void addChild(oct_node* child, BOOL silent = FALSE) 
+	void addChild(oct_node* child, bool silent = false)
 	{
 #if LL_OCTREE_PARANOIA_CHECK
 
@@ -592,7 +592,7 @@ public:
 		}
 	}
 
-	void removeChild(S32 index, BOOL destroy = FALSE)
+	void removeChild(S32 index, bool destroy = false)
 	{
 		for (U32 i = 0; i < this->getListenerCount(); i++)
 		{
@@ -641,7 +641,7 @@ public:
 		{
 			if (getChild(i) == node)
 			{
-				removeChild(i, TRUE);
+				removeChild(i, true);
 				return;
 			}
 		}
@@ -711,7 +711,7 @@ public:
 			//(don't notify listeners of addition)
 			for (U32 i = 0; i < child->getChildCount(); i++)
 			{
-				this->addChild(child->getChild(i), TRUE);
+				this->addChild(child->getChild(i), true);
 			}
 
 			//destroy child
