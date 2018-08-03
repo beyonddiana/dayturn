@@ -322,7 +322,7 @@ int LLCamera::sphereInFrustumOld(const LLVector3 &sphere_center, const F32 radiu
 	LLVector3 rel_center(sphere_center);
 	rel_center -= mOrigin;
 
-	bool all_in = TRUE;
+	bool all_in = true;
 
 	// Transform relative_center.x to camera frame
 	x = mXAxis * rel_center;
@@ -332,7 +332,7 @@ int LLCamera::sphereInFrustumOld(const LLVector3 &sphere_center, const F32 radiu
 	}
 	else if (x < MIN_NEAR_PLANE + radius)
 	{
-		all_in = FALSE;
+		all_in = false;
 	}
 
 	if (x > mFarPlane + radius)
@@ -341,7 +341,7 @@ int LLCamera::sphereInFrustumOld(const LLVector3 &sphere_center, const F32 radiu
 	}
 	else if (x > mFarPlane - radius)
 	{
-		all_in = FALSE;
+		all_in = false;
 	}
 
 	// Transform relative_center.y to camera frame
@@ -355,7 +355,7 @@ int LLCamera::sphereInFrustumOld(const LLVector3 &sphere_center, const F32 radiu
 	}
 	else if (rightDist < radius)
 	{
-		all_in = FALSE;
+		all_in = false;
 	}
 
 	leftDist = x * mLocalPlanes[PLANE_LEFT][VX] + y * mLocalPlanes[PLANE_LEFT][VY];
@@ -365,7 +365,7 @@ int LLCamera::sphereInFrustumOld(const LLVector3 &sphere_center, const F32 radiu
 	}
 	else if (leftDist < radius)
 	{
-		all_in = FALSE;
+		all_in = false;
 	}
 
 	// Transform relative_center.y to camera frame
@@ -378,7 +378,7 @@ int LLCamera::sphereInFrustumOld(const LLVector3 &sphere_center, const F32 radiu
 	}
 	else if (topDist < radius)
 	{
-		all_in = FALSE;
+		all_in = false;
 	}
 
 	bottomDist = x * mLocalPlanes[PLANE_BOTTOM][VX] + z * mLocalPlanes[PLANE_BOTTOM][VZ];
@@ -388,7 +388,7 @@ int LLCamera::sphereInFrustumOld(const LLVector3 &sphere_center, const F32 radiu
 	}
 	else if (bottomDist < radius)
 	{
-		all_in = FALSE;
+		all_in = false;
 	}
 
 	if (all_in)

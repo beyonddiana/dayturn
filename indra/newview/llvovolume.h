@@ -129,7 +129,7 @@ public:
 	            BOOL    isVisible() const ;
 	/*virtual*/ BOOL	isActive() const;
 	/*virtual*/ BOOL	isAttachment() const;
-	/*virtual*/ BOOL	isRootEdit() const; // overridden for sake of attachments treating themselves as a root object
+	/*virtual*/ bool	isRootEdit() const; // overridden for sake of attachments treating themselves as a root object
 	/*virtual*/ BOOL	isHUDAttachment() const;
 
 				void	generateSilhouette(LLSelectNode* nodep, const LLVector3& view_point);

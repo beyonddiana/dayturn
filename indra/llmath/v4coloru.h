@@ -117,7 +117,7 @@ public:
 	inline void setVecScaleClamp(const LLColor3 &color);
 	inline void setVecScaleClamp(const LLColor4 &color);
 
-	static BOOL parseColor4U(const std::string& buf, LLColor4U* value);
+	static bool parseColor4U(const std::string& buf, LLColor4U* value);
 
 	// conversion
 	operator LLColor4() const

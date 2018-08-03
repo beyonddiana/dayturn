@@ -652,10 +652,10 @@ LLQuaternion slerp( F32 u, const LLQuaternion &a, const LLQuaternion &b )
  	if (cos_t < 0.0f)
 	{
 		cos_t = -cos_t;
-		bflip = TRUE;
+		bflip = true;
 	}
 	else
-		bflip = FALSE;
+		bflip = false;
 
 	// if B is (within precision limits) the same as A,
 	// just linear interpolate between A and B.
@@ -934,11 +934,11 @@ void LLQuaternion::unpackFromVector3( const LLVector3& vec )
 	}
 }
 
-BOOL LLQuaternion::parseQuat(const std::string& buf, LLQuaternion* value)
+bool LLQuaternion::parseQuat(const std::string& buf, LLQuaternion* value)
 {
 	if( buf.empty() || value == NULL)
 	{
-		return FALSE;
+		return false;
 	}
 
 	LLQuaternion quat;
@@ -946,10 +946,10 @@ BOOL LLQuaternion::parseQuat(const std::string& buf, LLQuaternion* value)
 	if( 4 == count )
 	{
 		value->set( quat );
-		return TRUE;
+		return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 

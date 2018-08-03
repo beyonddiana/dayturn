@@ -81,15 +81,15 @@ const LLVector4&	LLVector4::scaleVec(const LLVector4& vec)
 }
 
 // Sets all values to absolute value of their original values
-// Returns TRUE if data changed
-BOOL LLVector4::abs()
+// Returns true if data changed
+bool LLVector4::abs()
 {
-	BOOL ret = FALSE;
+	bool ret = false;
 
-	if (mV[0] < 0.f) { mV[0] = -mV[0]; ret = TRUE; }
-	if (mV[1] < 0.f) { mV[1] = -mV[1]; ret = TRUE; }
-	if (mV[2] < 0.f) { mV[2] = -mV[2]; ret = TRUE; }
-	if (mV[3] < 0.f) { mV[3] = -mV[3]; ret = TRUE; }
+	if (mV[0] < 0.f) { mV[0] = -mV[0]; ret = true; }
+	if (mV[1] < 0.f) { mV[1] = -mV[1]; ret = true; }
+	if (mV[2] < 0.f) { mV[2] = -mV[2]; ret = true; }
+	if (mV[3] < 0.f) { mV[3] = -mV[3]; ret = true; }
 
 	return ret;
 }
@@ -117,7 +117,7 @@ F32 angle_between( const LLVector4& a, const LLVector4& b )
 	return angle;
 }
 
-BOOL are_parallel(const LLVector4 &a, const LLVector4 &b, F32 epsilon)
+bool are_parallel(const LLVector4 &a, const LLVector4 &b, F32 epsilon)
 {
 	LLVector4 an = a;
 	LLVector4 bn = b;
@@ -125,8 +125,8 @@ BOOL are_parallel(const LLVector4 &a, const LLVector4 &b, F32 epsilon)
 	bn.normalize();
 	F32 dot = an * bn;
 	if ( (1.0f - fabs(dot)) < epsilon)
-		return TRUE;
-	return FALSE;
+		return true;
+	return true;
 }
 
 
