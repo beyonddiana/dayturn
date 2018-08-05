@@ -4226,7 +4226,7 @@ bool LLAgent::teleportCore(bool is_local)
 	}
 	else
 	{
-		gTeleportDisplay = TRUE;
+		gTeleportDisplay = true;
 		gAgent.setTeleportState( LLAgent::TELEPORT_START );
 
 		//release geometry from old location
@@ -4292,7 +4292,7 @@ void LLAgent::startTeleportRequest()
         mTeleportCanceled.reset();
 		if  (!isMaturityPreferenceSyncedWithServer())
 		{
-			gTeleportDisplay = TRUE;
+			gTeleportDisplay = true;
 			setTeleportState(TELEPORT_PENDING);
 		}
 		else
@@ -4500,7 +4500,7 @@ void LLAgent::restoreCanceledTeleportRequest()
         gAgent.setTeleportState( LLAgent::TELEPORT_REQUESTED );
         mTeleportRequest = mTeleportCanceled;
         mTeleportCanceled.reset();
-        gTeleportDisplay = TRUE;
+        gTeleportDisplay = true;
         gTeleportDisplayTimer.reset();
     }
 }

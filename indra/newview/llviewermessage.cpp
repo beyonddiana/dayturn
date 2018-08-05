@@ -146,7 +146,7 @@ const F32 CAMERA_POSITION_THRESHOLD_SQUARED = 0.001f * 0.001f;
 static const U32 LLREQUEST_PERMISSION_THROTTLE_LIMIT	= 5;     // requests
 static const F32 LLREQUEST_PERMISSION_THROTTLE_INTERVAL	= 10.0f; // seconds
 
-extern BOOL gDebugClicks;
+extern bool gDebugClicks;
 extern bool gShiftFrame;
 extern bool gIsInSecondLife; //Opensim or SecondLife
 
@@ -4686,7 +4686,7 @@ void process_teleport_start(LLMessageSystem *msg, void**)
 
 	if( gAgent.getTeleportState() == LLAgent::TELEPORT_NONE )
 	{
-		gTeleportDisplay = TRUE;
+		gTeleportDisplay = true;
 		gAgent.setTeleportState( LLAgent::TELEPORT_START );
 		make_ui_sound("UISndTeleportOut");
 		
@@ -4999,7 +4999,7 @@ void process_teleport_finish(LLMessageSystem* msg, void**)
 	// </FS:CR>
 
 
-//	gTeleportDisplay = TRUE;
+//	gTeleportDisplay = true;
 //	gTeleportDisplayTimer.reset();
 //	gViewerWindow->setShowProgress(TRUE);
 }
@@ -8220,7 +8220,7 @@ void process_teleport_local(LLMessageSystem *msg,void**)
 			// after tp, keep the teleport state and let progress screen clear it after a short delay
 			// (progress screen is active but not visible)  *TODO: remove when SVC-5290 is fixed
 			gTeleportDisplayTimer.reset();
-			gTeleportDisplay = TRUE;
+			gTeleportDisplay = true;
 		}
 		else
 		{

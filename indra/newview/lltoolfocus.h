@@ -73,8 +73,8 @@ protected:
 };
 
 
-extern BOOL gCameraBtnOrbit;
-extern BOOL gCameraBtnPan;
-extern BOOL gCameraBtnZoom;
+extern bool gCameraBtnOrbit;
+extern bool gCameraBtnPan;
+extern bool gCameraBtnZoom;
 
 #endif

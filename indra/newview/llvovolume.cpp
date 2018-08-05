@@ -95,8 +95,8 @@ const F32 FORCE_SIMPLE_RENDER_AREA = 512.f;
 const F32 FORCE_CULL_AREA = 8.f;
 U32 JOINT_COUNT_REQUIRED_FOR_FULLRIG = 1;
 
-BOOL gAnimateTextures = TRUE;
-//extern BOOL gHideSelectedObjects;
+bool gAnimateTextures = true;
+//extern bool gHideSelectedObjects;
 
 F32 LLVOVolume::sLODFactor = 1.f;
 F32	LLVOVolume::sLODSlopDistanceFactor = 0.5f; //Changing this to zero, effectively disables the LOD transition slop 
@@ -111,7 +111,7 @@ static LLTrace::BlockTimerStatHandle FTM_GEN_TRIANGLES("Generate Triangles");
 static LLTrace::BlockTimerStatHandle FTM_GEN_VOLUME("Generate Volumes");
 static LLTrace::BlockTimerStatHandle FTM_VOLUME_TEXTURES("Volume Textures");
 
-extern BOOL gGLDebugLoggingEnabled;
+extern bool gGLDebugLoggingEnabled;
 
 // Implementation class of LLMediaDataClientObject.  See llmediadataclient.h
 class LLMediaDataClientObjectImpl : public LLMediaDataClientObject

@@ -49,7 +49,7 @@
 #include "llworld.h"
 
 // Globals
-//extern BOOL gAllowSelectAvatar;
+//extern bool gAllowSelectAvatar;
 
 const F32 SELECTION_ROTATION_TRESHOLD = 0.1f;
 const F32 SELECTION_SITTING_ROTATION_TRESHOLD = 3.2f; //radian

@@ -84,7 +84,7 @@
 #include "llfloaterreg.h"
 
 extern F32 gMinObjectDistance;
-extern BOOL gAnimateTextures;
+extern bool gAnimateTextures;
 
 #define MAX_CONCURRENT_PHYSICS_REQUESTS 256
 

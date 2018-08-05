@@ -230,7 +230,7 @@ BOOL LLViewerDynamicTexture::updateAllInstances()
 			if (dynamicTexture->needsRender())
 			{				
 				glClear(GL_DEPTH_BUFFER_BIT);
-				gDepthDirty = TRUE;
+				gDepthDirty = true;
 								
 				gGL.color4f(1,1,1,1);
 				dynamicTexture->preRender();	// Must be called outside of startRender()

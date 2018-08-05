@@ -56,9 +56,9 @@
 #include "llmenugl.h"
 
 // Globals
-BOOL gCameraBtnZoom = TRUE;
-BOOL gCameraBtnOrbit = FALSE;
-BOOL gCameraBtnPan = FALSE;
+bool gCameraBtnZoom = true;
+bool gCameraBtnOrbit = false;
+bool gCameraBtnPan = false;
 
 const S32 SLOP_RANGE = 4;
 

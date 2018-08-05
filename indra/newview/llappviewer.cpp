@@ -278,9 +278,9 @@ static LLAppViewerListener sAppViewerListener(LLAppViewer::instance);
 //----------------------------------------------------------------------------
 // viewer.cpp - these are only used in viewer, should be easily moved.
 
-extern BOOL gRandomizeFramerate;
-extern BOOL gPeriodicSlowFrame;
-extern BOOL gDebugGL;
+extern bool gRandomizeFramerate;
+extern bool gPeriodicSlowFrame;
+extern bool gDebugGL;
 
 ////////////////////////////////////////////////////////////
 // All from the last globals push...
@@ -288,7 +288,7 @@ extern BOOL gDebugGL;
 F32 gSimLastTime; // Used in LLAppViewer::init and send_stats()
 F32 gSimFrames;
 
-BOOL gShowObjectUpdates = FALSE;
+bool gShowObjectUpdates = false;
 
 eLastExecEvent gLastExecEvent = LAST_EXEC_NORMAL;
 S32 gLastExecDuration = -1; // (<0 indicates unknown) 
@@ -326,11 +326,12 @@ F32 gLogoutMaxTime = LOGOUT_REQUEST_TIME;
 S32 gPendingMetricsUploads = 0;
 
 
-BOOL				gDisconnected = FALSE;
+bool            gDisconnected = false;
 
 // used to restore texture state after a mode switch
 LLFrameTimer	gRestoreGLTimer;
-BOOL			gRestoreGL = FALSE;
+
+bool			gRestoreGL = false;
 bool			gUseWireframe = false;
 
 //use for remember deferred mode in wireframe switch
@@ -352,14 +353,14 @@ LLVector3			gRelativeWindVec(0.0, 0.0, 0.0);
 
 U32		gPacketsIn = 0;
 
-BOOL				gPrintMessagesThisFrame = FALSE;
+bool gPrintMessagesThisFrame = false;
 
-BOOL gRandomizeFramerate = FALSE;
-BOOL gPeriodicSlowFrame = FALSE;
+bool gRandomizeFramerate = false;
+bool gPeriodicSlowFrame = false;
 
-BOOL gCrashOnStartup = FALSE;
-BOOL gLLErrorActivated = FALSE;
-BOOL gLogoutInProgress = FALSE;
+bool gCrashOnStartup = false;
+bool gLLErrorActivated = false;
+bool gLogoutInProgress = false;
 
 ////////////////////////////////////////////////////////////
 // Internal globals... that should be removed.
@@ -5213,7 +5214,7 @@ void LLAppViewer::sendLogoutRequest()
 	if(!mLogoutRequestSent && gMessageSystem)
 	{
 		//Set internal status variables and marker files before actually starting the logout process
-		gLogoutInProgress = TRUE;
+		gLogoutInProgress = true;
 		if (!mSecondInstance)
 		{
 			mLogoutMarkerFileName = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,LOGOUT_MARKER_FILE_NAME);
@@ -5402,7 +5403,7 @@ void LLAppViewer::idleNetwork()
 		if (gPrintMessagesThisFrame)
 		{
 			LL_INFOS() << "Decoded " << total_decoded << " msgs this frame!" << LL_ENDL;
-			gPrintMessagesThisFrame = FALSE;
+			gPrintMessagesThisFrame = false;
 		}
 	}
 	add(LLStatViewer::NUM_NEW_OBJECTS, gObjectList.mNumNewObjects);
@@ -5491,7 +5492,7 @@ void LLAppViewer::disconnectViewer()
 	LLDestroyClassList::instance().fireCallbacks();
 
 	cleanup_xfer_manager();
-	gDisconnected = TRUE;
+	gDisconnected = true;
 
 	// Pass the connection state to LLUrlEntryParcel not to attempt
 	// parcel info requests while disconnected.

@@ -546,9 +546,9 @@ extern S32				gDebugRaycastFaceHit;
 extern LLVector4a		gDebugRaycastStart;
 extern LLVector4a		gDebugRaycastEnd;
 
-extern BOOL			gDisplayCameraPos;
-extern BOOL			gDisplayWindInfo;
-extern BOOL			gDisplayFOV;
-extern BOOL			gDisplayBadge;
+extern bool			gDisplayCameraPos;
+extern bool			gDisplayWindInfo;
+extern bool			gDisplayFOV;
+extern bool			gDisplayBadge;
 
 #endif

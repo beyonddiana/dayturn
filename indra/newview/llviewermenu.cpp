@@ -170,15 +170,16 @@ void handle_test_load_url(void*);
 //
 // Evil hackish imported globals
 
-//extern BOOL	gHideSelectedObjects;
-//extern BOOL gAllowSelectAvatar;
-//extern BOOL gDebugAvatarRotation;
-extern BOOL gDebugClicks;
-extern BOOL gDebugWindowProc;
-extern BOOL gShaderProfileFrame;
 
-//extern BOOL gDebugTextEditorTips;
-//extern BOOL gDebugSelectMgr;
+//extern bool	gHideSelectedObjects;
+//extern bool gAllowSelectAvatar;
+//extern bool gDebugAvatarRotation;
+extern bool gDebugClicks;
+extern bool gDebugWindowProc;
+extern bool gShaderProfileFrame;
+
+//extern bool gDebugTextEditorTips;
+//extern bool gDebugSelectMgr;
 
 //
 // Globals
@@ -1268,7 +1269,7 @@ class LLAdvancedToggleWireframe : public view_listener_t
 	bool handleEvent(const LLSD& userdata)
 	{
 		gUseWireframe = !(gUseWireframe);
-		gWindowResized = TRUE;
+		gWindowResized = true;
 //MK
 		// If we are supposed to be blindfolded (i.e. there is at least one locked HUD or the vision restrictions are in effect)
 		// then force wireframe to FALSE, as it could help cheating through.
@@ -1276,7 +1277,7 @@ class LLAdvancedToggleWireframe : public view_listener_t
 		{
 			if (gAgent.mRRInterface.hasLockedHuds() || gAgent.mRRInterface.mVisionRestricted)
 			{
-				gUseWireframe = FALSE;
+				gUseWireframe = false;
 			}
 		}
 //mk
@@ -8724,7 +8725,7 @@ class LLAdvancedClickRenderProfile: public view_listener_t
 {
 	bool handleEvent(const LLSD& userdata)
 	{
-		gShaderProfileFrame = TRUE;
+		gShaderProfileFrame = true;
 		return true;
 	}
 };
