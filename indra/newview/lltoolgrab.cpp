@@ -61,8 +61,8 @@
 const S32 SLOP_DIST_SQ = 4;
 
 // Override modifier key behavior with these buttons
-BOOL gGrabBtnVertical = FALSE;
-BOOL gGrabBtnSpin = FALSE;
+bool gGrabBtnVertical = false;
+bool gGrabBtnSpin = false;
 LLTool* gGrabTransientTool = NULL;
 extern BOOL gDebugClicks;
 
@@ -102,8 +102,8 @@ void LLToolGrabBase::handleSelect()
 		// in case we start from tools floater, we count any selection as valid
 		mValidSelection = gFloaterTools->getVisible();
 	}
-	gGrabBtnVertical = FALSE;
-	gGrabBtnSpin = FALSE;
+	gGrabBtnVertical = false;
+	gGrabBtnSpin = false;
 }
 
 void LLToolGrabBase::handleDeselect()

@@ -167,15 +167,16 @@ void handle_test_load_url(void*);
 //
 // Evil hackish imported globals
 
-//extern BOOL	gHideSelectedObjects;
-//extern BOOL gAllowSelectAvatar;
-//extern BOOL gDebugAvatarRotation;
-extern BOOL gDebugClicks;
-extern BOOL gDebugWindowProc;
-extern BOOL gShaderProfileFrame;
 
-//extern BOOL gDebugTextEditorTips;
-//extern BOOL gDebugSelectMgr;
+//extern bool	gHideSelectedObjects;
+//extern bool gAllowSelectAvatar;
+//extern bool gDebugAvatarRotation;
+extern bool gDebugClicks;
+extern bool gDebugWindowProc;
+extern bool gShaderProfileFrame;
+
+//extern bool gDebugTextEditorTips;
+//extern bool gDebugSelectMgr;
 
 //
 // Globals
@@ -1265,7 +1266,7 @@ class LLAdvancedToggleWireframe : public view_listener_t
 	bool handleEvent(const LLSD& userdata)
 	{
 		gUseWireframe = !(gUseWireframe);
-		gWindowResized = TRUE;
+		gWindowResized = true;
 
 		LLPipeline::updateRenderDeferred();
 
@@ -8002,7 +8003,7 @@ class LLAdvancedClickRenderProfile: public view_listener_t
 {
 	bool handleEvent(const LLSD& userdata)
 	{
-		gShaderProfileFrame = TRUE;
+		gShaderProfileFrame = true;
 		return true;
 	}
 };

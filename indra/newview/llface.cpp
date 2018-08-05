@@ -63,7 +63,7 @@
 #pragma GCC diagnostic ignored "-Wuninitialized"
 #endif
 
-extern BOOL gGLDebugLoggingEnabled;
+extern bool gGLDebugLoggingEnabled;
 #define LL_MAX_INDICES_COUNT 1000000
 
 static LLStaticHashedString sTextureIndexIn("texture_index_in");
@@ -1480,7 +1480,7 @@ BOOL LLFace::getGeometryVolume(const LLVolume& volume,
 		!rebuild_weights && //TODO: add support for weights
 		!volume.isUnique()) //source volume is NOT flexi
 	{ //use transform feedback to pack vertex buffer
-		//gGLDebugLoggingEnabled = TRUE;
+		//gGLDebugLoggingEnabled = true;
 		LL_RECORD_BLOCK_TIME(FTM_FACE_GEOM_FEEDBACK);
 		LLGLEnable discard(GL_RASTERIZER_DISCARD);
 		LLVertexBuffer* buff = (LLVertexBuffer*) vf.mVertexBuffer.get();

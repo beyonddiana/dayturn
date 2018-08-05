@@ -227,10 +227,11 @@
 void render_ui(F32 zoom_factor = 1.f, int subfield = 0);
 void swap();
 
-extern BOOL gDebugClicks;
-extern BOOL gDisplaySwapBuffers;
-extern BOOL gDepthDirty;
-extern BOOL gResizeScreenTexture;
+
+extern bool gDebugClicks;
+extern bool gDisplaySwapBuffers;
+extern bool gDepthDirty;
+extern bool gResizeScreenTexture;
 
 extern bool gIsInSecondLife; //Opensim or SecondLife
 
@@ -253,10 +254,10 @@ LLVector4a		 gDebugRaycastStart;
 LLVector4a		 gDebugRaycastEnd;
 
 // HUD display lines in lower right
-BOOL				gDisplayWindInfo = FALSE;
-BOOL				gDisplayCameraPos = FALSE;
-BOOL				gDisplayFOV = FALSE;
-BOOL				gDisplayBadge = FALSE;
+bool				gDisplayWindInfo = false;
+bool				gDisplayCameraPos = false;
+bool				gDisplayFOV = false;
+bool				gDisplayBadge = false;
 
 static const U8 NO_FACE = 255;
 BOOL gQuietSnapshot = FALSE;
@@ -2453,7 +2454,7 @@ void LLViewerWindow::reshape(S32 width, S32 height)
 	// may have been destructed.
 	if (!LLApp::isExiting())
 	{
-		gWindowResized = TRUE;
+		gWindowResized = true;
 
 		// update our window rectangle
 		mWindowRectRaw.mRight = mWindowRectRaw.mLeft + width;
@@ -3838,7 +3839,7 @@ void LLViewerWindow::updateWorldViewRect(bool use_full_window)
 	if (mWorldViewRectRaw != new_world_rect)
 	{
 		mWorldViewRectRaw = new_world_rect;
-		gResizeScreenTexture = TRUE;
+		gResizeScreenTexture = true;
 		LLViewerCamera::getInstance()->setViewHeightInPixels( mWorldViewRectRaw.getHeight() );
 		LLViewerCamera::getInstance()->setAspect( getWorldViewAspectRatio() );
 
@@ -5322,7 +5323,7 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 	}
 
 	// PRE SNAPSHOT
-	gDisplaySwapBuffers = FALSE;
+	gDisplaySwapBuffers = false;
 	
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	setCursor(UI_CURSOR_WAIT);
@@ -5478,8 +5479,8 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 		S32 output_buffer_offset_x = 0;
 		for (int subimage_x = 0; subimage_x < scale_factor; ++subimage_x)
 		{
-			gDisplaySwapBuffers = FALSE;
-			gDepthDirty = TRUE;
+			gDisplaySwapBuffers = false;
+			gDepthDirty = true;
 
 			S32 subimage_x_offset = llclamp(buffer_x_offset - (subimage_x * window_width), 0, window_width);
 			// handle fractional rows
@@ -5560,8 +5561,8 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 		output_buffer_offset_y += subimage_y_offset;
 	}
 
-	gDisplaySwapBuffers = FALSE;
-	gDepthDirty = TRUE;
+	gDisplaySwapBuffers = false;
+	gDepthDirty = true;
 
 	// POST SNAPSHOT
 	if (!gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_UI))
@@ -5923,8 +5924,8 @@ void LLViewerWindow::restoreGL(const std::string& progress_message)
 		LLVOAvatar::restoreGL();
 		LLVOPartGroup::restoreGL();
 		
-		gResizeScreenTexture = TRUE;
-		gWindowResized = TRUE;
+		gResizeScreenTexture = true;
+		gWindowResized = true;
 
 		if (isAgentAvatarValid() && gAgentAvatarp->isEditingAppearance())
 		{
@@ -6005,7 +6006,7 @@ BOOL LLViewerWindow::changeDisplaySettings(LLCoordScreen size, BOOL disable_vsyn
 {
 	//BOOL was_maximized = gSavedSettings.getBOOL("WindowMaximized");
 
-	//gResizeScreenTexture = TRUE;
+	//gResizeScreenTexture = true;
 
 
 	//U32 fsaa = gSavedSettings.getU32("RenderFSAASamples");

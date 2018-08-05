@@ -642,12 +642,12 @@ void LLFloaterTools::dirty()
 // floater is closed.
 void LLFloaterTools::resetToolState()
 {
-	gCameraBtnZoom = TRUE;
-	gCameraBtnOrbit = FALSE;
-	gCameraBtnPan = FALSE;
+	gCameraBtnZoom = true;
+	gCameraBtnOrbit = false;
+	gCameraBtnPan = false;
 
-	gGrabBtnSpin = FALSE;
-	gGrabBtnVertical = FALSE;
+	gGrabBtnSpin = false;
+	gGrabBtnVertical = false;
 }
 
 void LLFloaterTools::updatePopup(LLCoordGL center, MASK mask)
@@ -1009,18 +1009,18 @@ void commit_radio_group_move(LLUICtrl* ctrl)
 	std::string selected = group->getValue().asString();
 	if (selected == "radio move")
 	{
-		gGrabBtnVertical = FALSE;
-		gGrabBtnSpin = FALSE;
+		gGrabBtnVertical = false;
+		gGrabBtnSpin = false;
 	}
 	else if (selected == "radio lift")
 	{
-		gGrabBtnVertical = TRUE;
-		gGrabBtnSpin = FALSE;
+		gGrabBtnVertical = true;
+		gGrabBtnSpin = false;
 	}
 	else if (selected == "radio spin")
 	{
-		gGrabBtnVertical = FALSE;
-		gGrabBtnSpin = TRUE;
+		gGrabBtnVertical = false;
+		gGrabBtnSpin = true;
 	}
 }
 
@@ -1030,21 +1030,21 @@ void commit_radio_group_focus(LLUICtrl* ctrl)
 	std::string selected = group->getValue().asString();
 	if (selected == "radio zoom")
 	{
-		gCameraBtnZoom = TRUE;
-		gCameraBtnOrbit = FALSE;
-		gCameraBtnPan = FALSE;
+		gCameraBtnZoom = true;
+		gCameraBtnOrbit = false;
+		gCameraBtnPan = false;
 	}
 	else if (selected == "radio orbit")
 	{
-		gCameraBtnZoom = FALSE;
-		gCameraBtnOrbit = TRUE;
-		gCameraBtnPan = FALSE;
+		gCameraBtnZoom = false;
+		gCameraBtnOrbit = true;
+		gCameraBtnPan = false;
 	}
 	else if (selected == "radio pan")
 	{
-		gCameraBtnZoom = FALSE;
-		gCameraBtnOrbit = FALSE;
-		gCameraBtnPan = TRUE;
+		gCameraBtnZoom = false;
+		gCameraBtnOrbit = false;
+		gCameraBtnPan = true;
 	}
 }
 

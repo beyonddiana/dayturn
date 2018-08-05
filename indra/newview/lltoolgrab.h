@@ -152,8 +152,8 @@ class LLToolGrab : public LLToolGrabBase, public LLSingleton<LLToolGrab>
 };
 
 
-extern BOOL gGrabBtnVertical;
-extern BOOL gGrabBtnSpin;
+extern bool gGrabBtnVertical;
+extern bool gGrabBtnSpin;
 extern LLTool* gGrabTransientTool;
 
 #endif  // LL_TOOLGRAB_H

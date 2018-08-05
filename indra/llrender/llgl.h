@@ -46,7 +46,7 @@
 #include "llglheaders.h"
 #include "glh/glh_linear.h"
 
-extern BOOL gDebugGL;
+extern bool gDebugGL;
 extern bool gDebugSession;
 extern llofstream gFailLog;
 

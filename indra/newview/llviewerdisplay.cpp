@@ -86,18 +86,18 @@ extern bool gIsInSecondLife; //Opensim or SecondLife
 LLPointer<LLViewerTexture> gDisconnectedImagep = NULL;
 
 // used to toggle renderer back on after teleport
-BOOL		 gTeleportDisplay = FALSE;
+bool gTeleportDisplay = false;
 LLFrameTimer gTeleportDisplayTimer;
 LLFrameTimer gTeleportArrivalTimer;
 const F32		RESTORE_GL_TIME = 5.f;	// Wait this long while reloading textures before we raise the curtain
 
-BOOL gForceRenderLandFence = FALSE;
-BOOL gDisplaySwapBuffers = FALSE;
-BOOL gDepthDirty = FALSE;
-BOOL gResizeScreenTexture = FALSE;
-BOOL gWindowResized = FALSE;
-BOOL gSnapshot = FALSE;
-BOOL gShaderProfileFrame = FALSE;
+bool gForceRenderLandFence = false;
+bool gDisplaySwapBuffers = false;
+bool gDepthDirty = false;
+bool gResizeScreenTexture = false;
+bool gWindowResized = false;
+bool gSnapshot = false;
+bool gShaderProfileFrame = false;
 
 // This is how long the sim will try to teleport you before giving up.
 const F32 TELEPORT_EXPIRY = 15.0f;
@@ -265,8 +265,8 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		gViewerWindow->getWindow()->swapBuffers();
 		LLPipeline::refreshCachedSettings();
 		gPipeline.resizeScreenTexture();
-		gResizeScreenTexture = FALSE;
-		gWindowResized = FALSE;
+		gResizeScreenTexture = false;
+		gWindowResized = false;
 		return;
 	}
 
@@ -500,7 +500,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		case LLAgent::TELEPORT_NONE:
 			// No teleport in progress
 			gViewerWindow->setShowProgress(FALSE);
-			gTeleportDisplay = FALSE;
+			gTeleportDisplay = false;
 			break;
 		}
 	}
@@ -688,7 +688,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		{ //depth buffer is invalid, don't overwrite occlusion state
 			LLPipeline::sUseOcclusion = llmin(occlusion, 1);
 		}
-		gDepthDirty = FALSE;
+		gDepthDirty = false;
 
 		LLGLState::checkStates();
 		LLGLState::checkTextureChannels();
@@ -712,7 +712,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		{ 
 			if (gResizeScreenTexture)
 			{
-				gResizeScreenTexture = FALSE;
+				gResizeScreenTexture = false;
 				gPipeline.resizeScreenTexture();
 			}
 
@@ -1071,7 +1071,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 
 	if (gShaderProfileFrame)
 	{
-		gShaderProfileFrame = FALSE;
+		gShaderProfileFrame = false;
 		LLGLSLShader::finishProfile();
 	}
 }
@@ -1354,7 +1354,7 @@ void swap()
 	{
 		gViewerWindow->getWindow()->swapBuffers();
 	}
-	gDisplaySwapBuffers = TRUE;
+	gDisplaySwapBuffers = true;
 }
 
 void renderCoordinateAxes()

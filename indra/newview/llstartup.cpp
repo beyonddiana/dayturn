@@ -2166,7 +2166,7 @@ bool idle_startup()
 			LLGestureMgr::instance().setFetchIDs(item_ids);
 			LLGestureMgr::instance().startFetch();
 		}
-		gDisplaySwapBuffers = TRUE;
+		gDisplaySwapBuffers = true;
 		display_startup();
 
 		LLMessageSystem* msg = gMessageSystem;

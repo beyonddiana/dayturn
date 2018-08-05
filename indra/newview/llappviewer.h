@@ -322,7 +322,7 @@ const S32 AGENT_FORCE_UPDATES_PER_SECOND  = 1;
 // "// llstartup" indicates that llstartup is the only client for this global.
 
 extern LLSD gDebugInfo;
-extern BOOL	gShowObjectUpdates;
+extern bool	gShowObjectUpdates;
 
 typedef enum 
 {
@@ -363,10 +363,10 @@ extern S32 gPendingMetricsUploads;
 extern F32 gSimLastTime; 
 extern F32 gSimFrames;
 
-extern BOOL		gDisconnected;
+extern bool		gDisconnected;
 
 extern LLFrameTimer	gRestoreGLTimer;
-extern BOOL			gRestoreGL;
+extern bool			gRestoreGL;
 extern bool		gUseWireframe;
 extern bool		gInitialDeferredModeForWireframe;
 
@@ -385,13 +385,13 @@ extern bool gIsInSecondLife;
 extern LLVector3 gWindVec;
 extern LLVector3 gRelativeWindVec;
 extern U32	gPacketsIn;
-extern BOOL gPrintMessagesThisFrame;
+extern bool gPrintMessagesThisFrame;
 
 extern LLUUID gSunTextureID;
 extern LLUUID gMoonTextureID;
 extern LLUUID gBlackSquareID;
 
-extern BOOL gRandomizeFramerate;
-extern BOOL gPeriodicSlowFrame;
+extern bool gRandomizeFramerate;
+extern bool gPeriodicSlowFrame;
 
 #endif // LL_LLAPPVIEWER_H

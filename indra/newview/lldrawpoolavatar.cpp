@@ -70,8 +70,6 @@ LLUUID gBlackSquareID;
 static bool is_deferred_render = false;
 static bool is_post_deferred_render = false;
 
-extern BOOL gUseGLPick;
-
 F32 CLOTHING_GRAVITY_EFFECT = 0.7f;
 F32 CLOTHING_ACCEL_FORCE_FACTOR = 0.2f;
 
@@ -98,7 +96,7 @@ S32 AVATAR_OFFSET_TEX0 = 32;
 S32 AVATAR_OFFSET_TEX1 = 40;
 S32 AVATAR_VERTEX_BYTES = 48;
 
-BOOL gAvatarEmbossBumpMap = FALSE;
+bool gAvatarEmbossBumpMap = false;
 static BOOL sRenderingSkinned = FALSE;
 S32 normal_channel = -1;
 S32 specular_channel = -1;

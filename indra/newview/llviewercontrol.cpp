@@ -82,7 +82,7 @@
 #include <boost/algorithm/string.hpp>
 
 #ifdef TOGGLE_HACKED_GODLIKE_VIEWER
-BOOL 				gHackGodmode = FALSE;
+bool gHackGodmode = false;
 #endif
 
 // Should you contemplate changing the name "Global", please first grep for
@@ -95,8 +95,8 @@ LLControlGroup gWarningSettings("Warnings"); // persists ignored dialogs/warning
 
 std::string gLastRunVersion;
 
-extern BOOL gResizeScreenTexture;
-extern BOOL gDebugGL;
+extern bool gResizeScreenTexture;
+extern bool gDebugGL;
 ////////////////////////////////////////////////////////////////////////////
 // Listeners
 
@@ -480,7 +480,7 @@ static bool handleRenderDebugPipelineChanged(const LLSD& newvalue)
 
 static bool handleRenderResolutionDivisorChanged(const LLSD&)
 {
-	gResizeScreenTexture = TRUE;
+	gResizeScreenTexture = true;
 	return true;
 }
 
