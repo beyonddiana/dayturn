@@ -40,7 +40,7 @@
 
 #include <boost/date_time/gregorian/gregorian.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
-extern BOOL gIsInSecondLife; //Opensim or SecondLife
+extern bool gIsInSecondLife; //Opensim or SecondLife
 using namespace boost::posix_time;
 using namespace boost::gregorian;
 

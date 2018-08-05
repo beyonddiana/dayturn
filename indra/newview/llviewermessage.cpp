@@ -142,7 +142,7 @@ static const F32 LLREQUEST_PERMISSION_THROTTLE_INTERVAL	= 10.0f; // seconds
 
 extern BOOL gDebugClicks;
 extern bool gShiftFrame;
-extern BOOL gIsInSecondLife; //Opensim or SecondLife
+extern bool gIsInSecondLife; //Opensim or SecondLife
 
 
 // function prototypes

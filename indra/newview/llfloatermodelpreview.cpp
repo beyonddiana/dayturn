@@ -95,7 +95,7 @@
 //static
 S32 LLFloaterModelPreview::sUploadAmount = 10;
 LLFloaterModelPreview* LLFloaterModelPreview::sInstance = NULL;
-extern BOOL gIsInSecondLife; //Opensim or SecondLife
+extern bool gIsInSecondLife; //Opensim or SecondLife
 
 bool LLModelPreview::sIgnoreLoadedCallback = false;
 

@@ -81,7 +81,7 @@
 
 extern LLPointer<LLViewerTexture> gStartTexture;
 extern bool gShiftFrame;
-extern BOOL gIsInSecondLife; //Opensim or SecondLife 
+extern bool gIsInSecondLife; //Opensim or SecondLife 
 
 LLPointer<LLViewerTexture> gDisconnectedImagep = NULL;
 
