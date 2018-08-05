@@ -281,7 +281,7 @@ public:
 
 	void preload(const LLUUID &audio_id); // Only used for preloading UI sounds, now.
 
-	void addAudioData(LLAudioData *adp, bool set_current = TRUE);
+	void addAudioData(LLAudioData *adp, bool set_current = true);
 
 	void setAmbient(const bool ambient)						{ mAmbient = ambient; }
 	bool isAmbient() const									{ return mAmbient; }

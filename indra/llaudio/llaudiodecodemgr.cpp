@@ -70,22 +70,22 @@ public:
 	
 	LLVorbisDecodeState(const LLUUID &uuid, const std::string &out_filename);
 
-	BOOL initDecode();
-	BOOL decodeSection(); // Return TRUE if done.
-	BOOL finishDecode();
+	bool initDecode();
+	bool decodeSection(); // Return true if done.
+	bool finishDecode();
 
 	void flushBadFile();
 
 	void ioComplete(S32 bytes)			{ mBytesRead = bytes; }
-	BOOL isValid() const				{ return mValid; }
-	BOOL isDone() const					{ return mDone; }
+	bool isValid() const				{ return mValid; }
+	bool isDone() const					{ return mDone; }
 	const LLUUID &getUUID() const		{ return mUUID; }
 
 protected:
 	virtual ~LLVorbisDecodeState();
 
-	BOOL mValid;
-	BOOL mDone;
+	bool mValid;
+	bool mDone;
 	LLAtomicS32 mBytesRead;
 	LLUUID mUUID;
 
@@ -166,8 +166,8 @@ long vfs_tell (void *datasource)
 
 LLVorbisDecodeState::LLVorbisDecodeState(const LLUUID &uuid, const std::string &out_filename)
 {
-	mDone = FALSE;
-	mValid = FALSE;
+	mDone = false;
+	mValid = false;
 	mBytesRead = -1;
 	mUUID = uuid;
 	mInFilep = NULL;
@@ -191,7 +191,7 @@ LLVorbisDecodeState::~LLVorbisDecodeState()
 }
 
 
-BOOL LLVorbisDecodeState::initDecode()
+bool LLVorbisDecodeState::initDecode()
 {
 	ov_callbacks vfs_callbacks;
 	vfs_callbacks.read_func = vfs_read;
@@ -207,14 +207,14 @@ BOOL LLVorbisDecodeState::initDecode()
 		LL_WARNS("AudioEngine") << "unable to open vorbis source vfile for reading" << LL_ENDL;
 		delete mInFilep;
 		mInFilep = NULL;
-		return FALSE;
+		return false;
 	}
 
 	S32 r = ov_open_callbacks(mInFilep, &mVF, NULL, 0, vfs_callbacks);
 	if(r < 0) 
 	{
 		LL_WARNS("AudioEngine") << r << " Input to vorbis decode does not appear to be an Ogg bitstream: " << mUUID << LL_ENDL;
-		return(FALSE);
+		return(false);
 	}
 	
 	S32 sample_count = (S32)ov_pcm_total(&mVF, -1);
@@ -263,7 +263,7 @@ BOOL LLVorbisDecodeState::initDecode()
 		}
 		delete mInFilep;
 		mInFilep = NULL;
-		return FALSE;
+		return false;
 	}
 
 	try
@@ -363,31 +363,31 @@ BOOL LLVorbisDecodeState::initDecode()
 //    fprintf(stderr,"\nDecoded length: %ld samples\n", (long)ov_pcm_total(&vf,-1));
 //    fprintf(stderr,"Encoded by: %s\n\n",ov_comment(&vf,-1)->vendor);
 	//}
-	return TRUE;
+	return true;
 }
 
-BOOL LLVorbisDecodeState::decodeSection()
+bool LLVorbisDecodeState::decodeSection()
 {
 	if (!mInFilep)
 	{
 		LL_WARNS("AudioEngine") << "No VFS file to decode in vorbis!" << LL_ENDL;
-		return TRUE;
+		return true;
 	}
 	if (mDone)
 	{
 // 		LL_WARNS("AudioEngine") << "Already done with decode, aborting!" << LL_ENDL;
-		return TRUE;
+		return true;
 	}
 	char pcmout[4096];	/*Flawfinder: ignore*/
 
-	BOOL eof = FALSE;
+	bool eof = false;
 	long ret=ov_read(&mVF, pcmout, sizeof(pcmout), 0, 2, 1, &mCurrentSection);
 	if (ret == 0)
 	{
 		/* EOF */
-		eof = TRUE;
-		mDone = TRUE;
-		mValid = TRUE;
+		eof = true;
+		mDone = true;
+		mValid = true;
 //			LL_INFOS("AudioEngine") << "Vorbis EOF" << LL_ENDL;
 	}
 	else if (ret < 0)
@@ -397,10 +397,10 @@ BOOL LLVorbisDecodeState::decodeSection()
 
 		LL_WARNS("AudioEngine") << "BAD vorbis decode in decodeSection." << LL_ENDL;
 
-		mValid = FALSE;
-		mDone = TRUE;
-		// We're done, return TRUE.
-		return TRUE;
+		mValid = false;
+		mDone = true;
+		// We're done, return true.
+		return true;
 	}
 	else
 	{
@@ -412,12 +412,12 @@ BOOL LLVorbisDecodeState::decodeSection()
 	return eof;
 }
 
-BOOL LLVorbisDecodeState::finishDecode()
+bool LLVorbisDecodeState::finishDecode()
 {
 	if (!isValid())
 	{
 		LL_WARNS("AudioEngine") << "Bogus vorbis decode state for " << getUUID() << ", aborting!" << LL_ENDL;
-		return TRUE; // We've finished
+		return true; // We've finished
 	}
 
 #if !defined(USE_WAV_VFILE)	
@@ -492,8 +492,8 @@ BOOL LLVorbisDecodeState::finishDecode()
 		if (36 == data_length)
 		{
 			LL_WARNS("AudioEngine") << "BAD Vorbis decode in finishDecode!" << LL_ENDL;
-			mValid = FALSE;
-			return TRUE; // we've finished
+			mValid = false;
+			return true; // we've finished
 		}
 #if !defined(USE_WAV_VFILE)
 		mBytesRead = -1;
@@ -509,17 +509,17 @@ BOOL LLVorbisDecodeState::finishDecode()
 			if (mBytesRead == 0)
 			{
 				LL_WARNS("AudioEngine") << "Unable to write file in LLVorbisDecodeState::finishDecode" << LL_ENDL;
-				mValid = FALSE;
-				return TRUE; // we've finished
+				mValid = false;
+				return true; // we've finished
 			}
 		}
 		else
 		{
-			return FALSE; // not done
+			return false; // not done
 		}
 	}
 	
-	mDone = TRUE;
+	mDone = true;
 
 #if defined(USE_WAV_VFILE)
 	// write the data.
@@ -528,7 +528,7 @@ BOOL LLVorbisDecodeState::finishDecode()
 #endif
 	LL_DEBUGS("AudioEngine") << "Finished decode for " << getUUID() << LL_ENDL;
 
-	return TRUE;
+	return true;
 }
 
 void LLVorbisDecodeState::flushBadFile()
@@ -563,12 +563,12 @@ void LLAudioDecodeMgr::Impl::processQueue(const F32 num_secs)
 
 	LLTimer decode_timer;
 
-	BOOL done = FALSE;
+	bool done = false;
 	while (!done)
 	{
 		if (mCurrentDecodep)
 		{
-			BOOL res;
+			bool res;
 
 			// Decode in a loop until we're done or have run out of time.
 			while(!(res = mCurrentDecodep->decodeSection()) && (decode_timer.getElapsedTimeF32() < num_secs))
@@ -590,13 +590,13 @@ void LLAudioDecodeMgr::Impl::processQueue(const F32 num_secs)
 				}
 
 				mCurrentDecodep = NULL;
-				done = TRUE;
+				done = true;
 			}
 
 			if (!res)
 			{
 				// We've used up out time slice, bail...
-				done = TRUE;
+				done = true;
 			}
 			else if (mCurrentDecodep)
 			{
@@ -626,7 +626,7 @@ void LLAudioDecodeMgr::Impl::processQueue(const F32 num_secs)
 					}
 					mCurrentDecodep = NULL;
 				}
-				done = TRUE; // done for now
+				done = true; // done for now
 			}
 		}
 
@@ -635,7 +635,7 @@ void LLAudioDecodeMgr::Impl::processQueue(const F32 num_secs)
 			if (mDecodeQueue.empty())
 			{
 				// Nothing else on the queue.
-				done = TRUE;
+				done = true;
 			}
 			else
 			{
@@ -686,13 +686,13 @@ void LLAudioDecodeMgr::processQueue(const F32 num_secs)
 	mImpl->processQueue(num_secs);
 }
 
-BOOL LLAudioDecodeMgr::addDecodeRequest(const LLUUID &uuid)
+bool LLAudioDecodeMgr::addDecodeRequest(const LLUUID &uuid)
 {
 	if (gAudiop && gAudiop->hasDecodedFile(uuid))
 	{
 		// Already have a decoded version, don't need to decode it.
 		LL_DEBUGS("AudioEngine") << "addDecodeRequest for " << uuid << " has decoded file already" << LL_ENDL;
-		return TRUE;
+		return true;
 	}
 
 	if (gAssetStorage->hasLocalAsset(uuid, LLAssetType::AT_SOUND))
@@ -700,9 +700,9 @@ BOOL LLAudioDecodeMgr::addDecodeRequest(const LLUUID &uuid)
 		// Just put it on the decode queue.
 		LL_DEBUGS("AudioEngine") << "addDecodeRequest for " << uuid << " has local asset file already" << LL_ENDL;
 		mImpl->mDecodeQueue.push_back(uuid);
-		return TRUE;
+		return true;
 	}
 
 	LL_DEBUGS("AudioEngine") << "addDecodeRequest for " << uuid << " no file available" << LL_ENDL;
-	return FALSE;
+	return false;
 }
