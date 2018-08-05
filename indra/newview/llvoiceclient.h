@@ -39,7 +39,7 @@ class LLVOAvatar;
 #include "llcontrol.h"
 
 // devices
-extern BOOL gIsInSecondLife; //Opensim or SecondLife
+extern bool gIsInSecondLife; //Opensim or SecondLife
 
 class LLVoiceDevice
 {

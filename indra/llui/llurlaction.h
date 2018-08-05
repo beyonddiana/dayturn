@@ -42,7 +42,7 @@
 /// call under situations when that input string is deallocated before
 /// the callback is executed.
 ///
-extern BOOL gIsInSecondLife; //Opensim or SecondLife
+extern bool gIsInSecondLife; //Opensim or SecondLife
 class LLUrlAction
 {
 public:

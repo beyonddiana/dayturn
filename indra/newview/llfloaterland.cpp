@@ -83,7 +83,7 @@
 
 #include "llgroupactions.h"
 
-extern BOOL gIsInSecondLife; //Opensim or SecondLife
+extern bool gIsInSecondLife; //Opensim or SecondLife
 
 const F64 COVENANT_REFRESH_TIME_SEC = 60.0f;
 

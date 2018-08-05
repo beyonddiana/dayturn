@@ -37,7 +37,7 @@
 #include "llsidetraypanelcontainer.h"
 #include "llviewercontrol.h" // gSavedSettings
 
-extern BOOL gIsInSecondLife; //Opensim or SecondLife
+extern bool gIsInSecondLife; //Opensim or SecondLife
 
 const S32 MAX_TEXTURE_SIZE = 512 ; //max upload texture size 512 * 512
 

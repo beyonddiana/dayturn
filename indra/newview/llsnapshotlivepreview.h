@@ -30,7 +30,7 @@
 #include "llpanelsnapshot.h"
 #include "llviewertexture.h"
 #include "llviewerwindow.h"
-extern BOOL gIsInSecondLife;
+extern bool gIsInSecondLife;
 
 class LLImageJPEG;
 

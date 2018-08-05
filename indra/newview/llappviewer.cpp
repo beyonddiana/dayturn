@@ -340,7 +340,7 @@ U64Bytes gMemoryAllocated(0); // updated in display_stats() in llviewerdisplay.c
 
 std::string gLastVersionChannel;
 std::string gSimulatorType;
-BOOL gIsInSecondLife; 
+bool gIsInSecondLife;
 
 
 LLVector3			gWindVec(3.0, 3.0, 0.0);
