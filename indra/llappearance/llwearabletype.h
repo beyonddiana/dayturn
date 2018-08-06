@@ -79,8 +79,8 @@ public:
 	static LLAssetType::EType 			getAssetType(EType type);
 	static EType 						typeNameToType(const std::string& type_name);
 	static LLInventoryType::EIconName 	getIconName(EType type);
-	static BOOL 						getDisableCameraSwitch(EType type);
-	static BOOL 						getAllowMultiwear(EType type);
+	static bool 						getDisableCameraSwitch(EType type);
+	static bool 						getAllowMultiwear(EType type);
     static EType						inventoryFlagsToWearableType(U32 flags);
 
 protected:
