@@ -84,7 +84,7 @@ public:
 		std::for_each(mChildList.begin(), mChildList.end(), DeletePointer());
 		mChildList.clear();
 	}
-	BOOL parseXml(LLXmlTreeNode* node);
+	bool parseXml(LLXmlTreeNode* node);
 	
 private:
 	std::string mName;
@@ -115,7 +115,7 @@ public:
 		std::for_each(mBoneInfoList.begin(), mBoneInfoList.end(), DeletePointer());
 		mBoneInfoList.clear();
 	}
-	BOOL parseXml(LLXmlTreeNode* node);
+	bool parseXml(LLXmlTreeNode* node);
 	S32 getNumBones() const { return mNumBones; }
 	S32 getNumCollisionVolumes() const { return mNumCollisionVolumes; }
 	
@@ -1605,7 +1605,7 @@ BOOL LLAvatarAppearance::allocateCollisionVolumes( U32 num )
 //-----------------------------------------------------------------------------
 // LLAvatarBoneInfo::parseXml()
 //-----------------------------------------------------------------------------
-BOOL LLAvatarBoneInfo::parseXml(LLXmlTreeNode* node)
+bool LLAvatarBoneInfo::parseXml(LLXmlTreeNode* node)
 {
 	if (node->hasName("bone"))
 	{
@@ -1614,7 +1614,7 @@ BOOL LLAvatarBoneInfo::parseXml(LLXmlTreeNode* node)
 		if (!node->getFastAttributeString(name_string, mName))
 		{
 			LL_WARNS() << "Bone without name" << LL_ENDL;
-			return FALSE;
+			return false;
 		}
 		
 		static LLStdStringHandle aliases_string = LLXmlTree::addAttributeString("aliases");
@@ -1635,28 +1635,28 @@ BOOL LLAvatarBoneInfo::parseXml(LLXmlTreeNode* node)
 	else
 	{
 		LL_WARNS() << "Invalid node " << node->getName() << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 
 	static LLStdStringHandle pos_string = LLXmlTree::addAttributeString("pos");
 	if (!node->getFastAttributeVector3(pos_string, mPos))
 	{
 		LL_WARNS() << "Bone without position" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 
 	static LLStdStringHandle rot_string = LLXmlTree::addAttributeString("rot");
 	if (!node->getFastAttributeVector3(rot_string, mRot))
 	{
 		LL_WARNS() << "Bone without rotation" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 	
 	static LLStdStringHandle scale_string = LLXmlTree::addAttributeString("scale");
 	if (!node->getFastAttributeVector3(scale_string, mScale))
 	{
 		LL_WARNS() << "Bone without scale" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 
 	static LLStdStringHandle end_string = LLXmlTree::addAttributeString("end");
@@ -1679,7 +1679,7 @@ BOOL LLAvatarBoneInfo::parseXml(LLXmlTreeNode* node)
 		if (!node->getFastAttributeVector3(pivot_string, mPivot))
 		{
 			LL_WARNS() << "Bone without pivot" << LL_ENDL;
-			return FALSE;
+			return false;
 		}
 	}
 
@@ -1691,23 +1691,23 @@ BOOL LLAvatarBoneInfo::parseXml(LLXmlTreeNode* node)
 		if (!child_info->parseXml(child))
 		{
 			delete child_info;
-			return FALSE;
+			return false;
 		}
 		mChildList.push_back(child_info);
 	}
-	return TRUE;
+	return true;
 }
 
 //-----------------------------------------------------------------------------
 // LLAvatarSkeletonInfo::parseXml()
 //-----------------------------------------------------------------------------
-BOOL LLAvatarSkeletonInfo::parseXml(LLXmlTreeNode* node)
+bool LLAvatarSkeletonInfo::parseXml(LLXmlTreeNode* node)
 {
 	static LLStdStringHandle num_bones_string = LLXmlTree::addAttributeString("num_bones");
 	if (!node->getFastAttributeS32(num_bones_string, mNumBones))
 	{
 		LL_WARNS() << "Couldn't find number of bones." << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 
 	static LLStdStringHandle num_collision_volumes_string = LLXmlTree::addAttributeString("num_collision_volumes");
@@ -1721,11 +1721,11 @@ BOOL LLAvatarSkeletonInfo::parseXml(LLXmlTreeNode* node)
 		{
 			delete info;
 			LL_WARNS() << "Error parsing bone in skeleton file" << LL_ENDL;
-			return FALSE;
+			return false;
 		}
 		mBoneInfoList.push_back(info);
 	}
-	return TRUE;
+	return true;
 }
 
 //Make aliases for joint and push to map.

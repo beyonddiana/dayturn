@@ -41,16 +41,16 @@ LLDriverParamInfo::LLDriverParamInfo() :
 {
 }
 
-BOOL LLDriverParamInfo::parseXml(LLXmlTreeNode* node)
+bool LLDriverParamInfo::parseXml(LLXmlTreeNode* node)
 {
 	llassert( node->hasName( "param" ) && node->getChildByName( "param_driver" ) );
 
 	if( !LLViewerVisualParamInfo::parseXml( node ))
-		return FALSE;
+		return false;
 
 	LLXmlTreeNode* param_driver_node = node->getChildByName( "param_driver" );
 	if( !param_driver_node )
-		return FALSE;
+		return false;
 
 	for (LLXmlTreeNode* child = param_driver_node->getChildByName( "driven" );
 		 child;
@@ -90,10 +90,10 @@ BOOL LLDriverParamInfo::parseXml(LLXmlTreeNode* node)
 		else
 		{
 			LL_ERRS() << "<driven> Unable to resolve driven parameter: " << driven_id << LL_ENDL;
-			return FALSE;
+			return false;
 		}
 	}
-	return TRUE;
+	return true;
 }
 
 //virtual 
