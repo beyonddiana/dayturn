@@ -28,7 +28,6 @@
 #define LL_LLTRACE_H
 
 #include "stdtypes.h"
-#include "llbool.h"
 #include "llpreprocessor.h"
 
 #include "llmemory.h"
