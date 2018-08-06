@@ -81,7 +81,7 @@ BOOL LLContainerView::handleDoubleClick(S32 x, S32 y, MASK mask)
 
 BOOL LLContainerView::handleMouseDown(S32 x, S32 y, MASK mask)
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 	if (mDisplayChildren)
 	{
 		handled = (LLView::childrenHandleMouseDown(x, y, mask) != NULL);
@@ -91,8 +91,8 @@ BOOL LLContainerView::handleMouseDown(S32 x, S32 y, MASK mask)
 		if( mShowLabel && (y >= getRect().getHeight() - 10) )
 		{
 			setDisplayChildren(!mDisplayChildren);
-			reshape(getRect().getWidth(), getRect().getHeight(), FALSE);
-			handled = TRUE;
+			reshape(getRect().getWidth(), getRect().getHeight(), false);
+			handled = true;
 		}
 	}
 	return handled;
@@ -100,7 +100,7 @@ BOOL LLContainerView::handleMouseDown(S32 x, S32 y, MASK mask)
 
 BOOL LLContainerView::handleMouseUp(S32 x, S32 y, MASK mask)
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 	if (mDisplayChildren)
 	{
 		handled = (LLView::childrenHandleMouseUp(x, y, mask) != NULL);
@@ -159,7 +159,7 @@ void LLContainerView::reshape(S32 width, S32 height, BOOL called_from_parent)
 	}
 }
 
-void LLContainerView::arrange(S32 width, S32 height, BOOL called_from_parent)
+void LLContainerView::arrange(S32 width, S32 height, bool called_from_parent)
 {
 	// Determine the sizes and locations of all contained views
 	S32 total_height = 0;
@@ -242,7 +242,7 @@ void LLContainerView::arrange(S32 width, S32 height, BOOL called_from_parent)
 	{
 		if (getParent())
 		{
-			getParent()->reshape(getParent()->getRect().getWidth(), getParent()->getRect().getHeight(), FALSE);
+			getParent()->reshape(getParent()->getRect().getWidth(), getParent()->getRect().getHeight(), false);
 		}
 	}
 
@@ -288,7 +288,7 @@ void LLContainerView::setLabel(const std::string& label)
 	mLabel = label;
 }
 
-void LLContainerView::setDisplayChildren(const BOOL displayChildren)
+void LLContainerView::setDisplayChildren(const bool displayChildren)
 {
 	mDisplayChildren = displayChildren;
 	for (child_list_const_iter_t child_iter = getChildList()->begin();
