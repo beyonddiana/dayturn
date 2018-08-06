@@ -383,17 +383,17 @@ LLTexLayerParamAlphaInfo::LLTexLayerParamAlphaInfo() :
 {
 }
 
-BOOL LLTexLayerParamAlphaInfo::parseXml(LLXmlTreeNode* node)
+bool LLTexLayerParamAlphaInfo::parseXml(LLXmlTreeNode* node)
 {
 	llassert(node->hasName("param") && node->getChildByName("param_alpha"));
 
 	if (!LLViewerVisualParamInfo::parseXml(node))
-		return FALSE;
+		return false;
 
 	LLXmlTreeNode* param_alpha_node = node->getChildByName("param_alpha");
 	if (!param_alpha_node)
 	{
-		return FALSE;
+		return false;
 	}
 
 	static LLStdStringHandle tga_file_string = LLXmlTree::addAttributeString("tga_file");
@@ -415,7 +415,7 @@ BOOL LLTexLayerParamAlphaInfo::parseXml(LLXmlTreeNode* node)
 	static LLStdStringHandle domain_string = LLXmlTree::addAttributeString("domain");
 	param_alpha_node->getFastAttributeF32(domain_string, mDomain);
 
-	return TRUE;
+	return true;
 }
 
 
@@ -542,17 +542,17 @@ LLTexLayerParamColorInfo::LLTexLayerParamColorInfo() :
 {
 }
 
-BOOL LLTexLayerParamColorInfo::parseXml(LLXmlTreeNode *node)
+bool LLTexLayerParamColorInfo::parseXml(LLXmlTreeNode *node)
 {
 	llassert(node->hasName("param") && node->getChildByName("param_color"));
 
 	if (!LLViewerVisualParamInfo::parseXml(node))
-		return FALSE;
+		return false;
 
 	LLXmlTreeNode* param_color_node = node->getChildByName("param_color");
 	if (!param_color_node)
 	{
-		return FALSE;
+		return false;
 	}
 
 	std::string op_string;
@@ -585,14 +585,14 @@ BOOL LLTexLayerParamColorInfo::parseXml(LLXmlTreeNode *node)
 	if (!mNumColors)
 	{
 		LL_WARNS() << "<param_color> is missing <value> sub-elements" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 
 	if ((mOperation == LLTexLayerParamColor::OP_BLEND) && (mNumColors != 1))
 	{
 		LL_WARNS() << "<param_color> with operation\"blend\" must have exactly one <value>" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 	
-	return TRUE;
+	return true;
 }

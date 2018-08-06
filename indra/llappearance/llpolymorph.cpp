@@ -258,19 +258,19 @@ LLPolyMorphTargetInfo::LLPolyMorphTargetInfo()
 {
 }
 
-BOOL LLPolyMorphTargetInfo::parseXml(LLXmlTreeNode* node)
+bool LLPolyMorphTargetInfo::parseXml(LLXmlTreeNode* node)
 {
 	llassert( node->hasName( "param" ) && node->getChildByName( "param_morph" ) );
 
 	if (!LLViewerVisualParamInfo::parseXml(node))
-		return FALSE;
+		return false;
 
 	// Get mixed-case name
 	static LLStdStringHandle name_string = LLXmlTree::addAttributeString("name");
 	if( !node->getFastAttributeString( name_string, mMorphName ) )
 	{
 		LL_WARNS() << "Avatar file: <param> is missing name attribute" << LL_ENDL;
-		return FALSE;  // Continue, ignoring this tag
+		return false;  // Continue, ignoring this tag
 	}
 
 	static LLStdStringHandle clothing_morph_string = LLXmlTree::addAttributeString("clothing_morph");
@@ -282,7 +282,7 @@ BOOL LLPolyMorphTargetInfo::parseXml(LLXmlTreeNode* node)
         {
                 LL_WARNS() << "Failed to getChildByName(\"param_morph\")"
                         << LL_ENDL;
-                return FALSE;
+                return false;
         }
 
 	for (LLXmlTreeNode* child_node = paramNode->getFirstChild();
@@ -308,7 +308,7 @@ BOOL LLPolyMorphTargetInfo::parseXml(LLXmlTreeNode* node)
 		}
 	}
 	
-	return TRUE;
+	return true;
 }
 
 //-----------------------------------------------------------------------------

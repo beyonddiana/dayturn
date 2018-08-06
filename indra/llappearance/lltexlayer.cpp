@@ -59,7 +59,7 @@ public:
 	LLTexLayerInfo();
 	~LLTexLayerInfo();
 
-	BOOL parseXml(LLXmlTreeNode* node);
+	bool parseXml(LLXmlTreeNode* node);
 	BOOL createVisualParams(LLAvatarAppearance *appearance);
 	BOOL isUserSettable() { return mLocalTexture != -1;	}
 	S32  getLocalTexture() const { return mLocalTexture; }
@@ -197,12 +197,12 @@ LLTexLayerSetInfo::~LLTexLayerSetInfo( )
 	mLayerInfoList.clear();
 }
 
-BOOL LLTexLayerSetInfo::parseXml(LLXmlTreeNode* node)
+bool LLTexLayerSetInfo::parseXml(LLXmlTreeNode* node)
 {
 	llassert( node->hasName( "layer_set" ) );
 	if( !node->hasName( "layer_set" ) )
 	{
-		return FALSE;
+		return false;
 	}
 
 	// body_region
@@ -210,20 +210,20 @@ BOOL LLTexLayerSetInfo::parseXml(LLXmlTreeNode* node)
 	if( !node->getFastAttributeString( body_region_string, mBodyRegion ) )
 	{
 		LL_WARNS() << "<layer_set> is missing body_region attribute" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 
 	// width, height
 	static LLStdStringHandle width_string = LLXmlTree::addAttributeString("width");
 	if( !node->getFastAttributeS32( width_string, mWidth ) )
 	{
-		return FALSE;
+		return false;
 	}
 
 	static LLStdStringHandle height_string = LLXmlTree::addAttributeString("height");
 	if( !node->getFastAttributeS32( height_string, mHeight ) )
 	{
-		return FALSE;
+		return false;
 	}
 
 	// Optional alpha component to apply after all compositing is complete.
@@ -242,11 +242,11 @@ BOOL LLTexLayerSetInfo::parseXml(LLXmlTreeNode* node)
 		if( !info->parseXml( child ))
 		{
 			delete info;
-			return FALSE;
+			return false;
 		}
 		mLayerInfoList.push_back( info );		
 	}
-	return TRUE;
+	return true;
 }
 
 // creates visual params without generating layersets or layers
@@ -660,7 +660,7 @@ LLTexLayerInfo::~LLTexLayerInfo( )
 	mParamAlphaInfoList.clear();
 }
 
-BOOL LLTexLayerInfo::parseXml(LLXmlTreeNode* node)
+bool LLTexLayerInfo::parseXml(LLXmlTreeNode* node)
 {
 	llassert( node->hasName( "layer" ) );
 
@@ -668,7 +668,7 @@ BOOL LLTexLayerInfo::parseXml(LLXmlTreeNode* node)
 	static LLStdStringHandle name_string = LLXmlTree::addAttributeString("name");
 	if( !node->getFastAttributeString( name_string, mName ) )
 	{
-		return FALSE;
+		return false;
 	}
 	
 	static LLStdStringHandle write_all_channels_string = LLXmlTree::addAttributeString("write_all_channels");
@@ -740,13 +740,13 @@ BOOL LLTexLayerInfo::parseXml(LLXmlTreeNode* node)
 			if (mLocalTexture == TEX_NUM_INDICES)
 			{
 				LL_WARNS() << "<texture> element has invalid local_texture attribute: " << mName << " " << local_texture_name << LL_ENDL;
-				return FALSE;
+				return false;
 			}
 		}
 		else	
 		{
 			LL_WARNS() << "<texture> element is missing a required attribute. " << mName << LL_ENDL;
-			return FALSE;
+			return false;
 		}
 	}
 

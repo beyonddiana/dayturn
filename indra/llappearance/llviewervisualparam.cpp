@@ -57,12 +57,12 @@ LLViewerVisualParamInfo::~LLViewerVisualParamInfo()
 //-----------------------------------------------------------------------------
 // parseXml()
 //-----------------------------------------------------------------------------
-BOOL LLViewerVisualParamInfo::parseXml(LLXmlTreeNode *node)
+bool LLViewerVisualParamInfo::parseXml(LLXmlTreeNode *node)
 {
 	llassert( node->hasName( "param" ) );
 
 	if (!LLVisualParamInfo::parseXml(node))
-		return FALSE;
+		return false;
 	
 	// VIEWER SPECIFIC PARAMS
 	
@@ -82,7 +82,7 @@ BOOL LLViewerVisualParamInfo::parseXml(LLXmlTreeNode *node)
 	static LLStdStringHandle cross_wearable_string = LLXmlTree::addAttributeString("cross_wearable");
 	if (!node->getFastAttributeBOOL(cross_wearable_string, mCrossWearable))
 	{
-		mCrossWearable = FALSE;
+		mCrossWearable = false;
 	}
 
 	// Optional camera offsets from the current joint center.  Used for generating "hints" (thumbnails).
@@ -107,7 +107,7 @@ BOOL LLViewerVisualParamInfo::parseXml(LLXmlTreeNode *node)
 
 	params_loaded++;
 	
-	return TRUE;
+	return true;
 }
 
 /*virtual*/ void LLViewerVisualParamInfo::toStream(std::ostream &out)

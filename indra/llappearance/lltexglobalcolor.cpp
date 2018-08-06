@@ -48,7 +48,7 @@ LLTexGlobalColor::~LLTexGlobalColor()
 	//std::for_each(mParamColorList.begin(), mParamColorList.end(), DeletePointer());
 }
 
-BOOL LLTexGlobalColor::setInfo(LLTexGlobalColorInfo *info)
+bool LLTexGlobalColor::setInfo(LLTexGlobalColorInfo *info)
 {
 	llassert(mInfo == NULL);
 	mInfo = info;
@@ -60,15 +60,15 @@ BOOL LLTexGlobalColor::setInfo(LLTexGlobalColorInfo *info)
 		 iter++)
 	{
 		LLTexParamGlobalColor* param_color = new LLTexParamGlobalColor(this);
-		if (!param_color->setInfo(*iter, TRUE))
+		if (!param_color->setInfo(*iter, true))
 		{
 			mInfo = NULL;
-			return FALSE;
+			return false;
 		}
 		mParamGlobalColorList.push_back(param_color);
 	}
 	
-	return TRUE;
+	return true;
 }
 
 LLColor4 LLTexGlobalColor::getColor() const
@@ -137,7 +137,7 @@ LLTexGlobalColorInfo::~LLTexGlobalColorInfo()
 	mParamColorInfoList.clear();
 }
 
-BOOL LLTexGlobalColorInfo::parseXml(LLXmlTreeNode* node)
+bool LLTexGlobalColorInfo::parseXml(LLXmlTreeNode* node)
 {
 	// name attribute
 	static LLStdStringHandle name_string = LLXmlTree::addAttributeString("name");
@@ -158,10 +158,10 @@ BOOL LLTexGlobalColorInfo::parseXml(LLXmlTreeNode* node)
 			if (!info->parseXml(child))
 			{
 				delete info;
-				return FALSE;
+				return false;
 			}
 			mParamColorInfoList.push_back(info);
 		}
 	}
-	return TRUE;
+	return true;
 }

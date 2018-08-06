@@ -48,7 +48,7 @@ LLVisualParamInfo::LLVisualParamInfo()
 //-----------------------------------------------------------------------------
 // parseXml()
 //-----------------------------------------------------------------------------
-BOOL LLVisualParamInfo::parseXml(LLXmlTreeNode *node)
+bool LLVisualParamInfo::parseXml(LLXmlTreeNode *node)
 {
 	// attribute: id
 	static LLStdStringHandle id_string = LLXmlTree::addAttributeString("id");
@@ -102,7 +102,7 @@ BOOL LLVisualParamInfo::parseXml(LLXmlTreeNode *node)
 	else
 	{
 		LL_WARNS() << "Avatar file: <param> has invalid sex attribute: " << sex << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 	
 	// attribute: name
@@ -110,7 +110,7 @@ BOOL LLVisualParamInfo::parseXml(LLXmlTreeNode *node)
 	if( !node->getFastAttributeString( name_string, mName ) )
 	{
 		LL_WARNS() << "Avatar file: <param> is missing name attribute" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 
 	// attribute: label
@@ -138,7 +138,7 @@ BOOL LLVisualParamInfo::parseXml(LLXmlTreeNode *node)
 		mMaxName = "More";
 	}
 
-	return TRUE;
+	return true;
 }
 
 //virtual

@@ -45,12 +45,12 @@ LLPolySkeletalDistortionInfo::LLPolySkeletalDistortionInfo()
 {
 }
 
-BOOL LLPolySkeletalDistortionInfo::parseXml(LLXmlTreeNode* node)
+bool LLPolySkeletalDistortionInfo::parseXml(LLXmlTreeNode* node)
 {
         llassert( node->hasName( "param" ) && node->getChildByName( "param_skeleton" ) );
         
         if (!LLViewerVisualParamInfo::parseXml(node))
-                return FALSE;
+                return false;
 
         LLXmlTreeNode* skeletalParam = node->getChildByName("param_skeleton");
 
@@ -58,7 +58,7 @@ BOOL LLPolySkeletalDistortionInfo::parseXml(LLXmlTreeNode* node)
         {
                 LL_WARNS() << "Failed to getChildByName(\"param_skeleton\")"
                         << LL_ENDL;
-                return FALSE;
+                return false;
         }
 
         for( LLXmlTreeNode* bone = skeletalParam->getFirstChild(); bone; bone = skeletalParam->getNextChild() )
@@ -98,7 +98,7 @@ BOOL LLPolySkeletalDistortionInfo::parseXml(LLXmlTreeNode* node)
                         continue;
                 }
         }
-        return TRUE;
+        return true;
 }
 
 //-----------------------------------------------------------------------------

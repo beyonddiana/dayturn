@@ -71,7 +71,7 @@ public:
 	LLPolySkeletalDistortionInfo();
 	/*virtual*/ ~LLPolySkeletalDistortionInfo() {};
 	
-	/*virtual*/ BOOL parseXml(LLXmlTreeNode* node);
+	/*virtual*/ bool parseXml(LLXmlTreeNode* node);
 
 
 
