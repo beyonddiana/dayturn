@@ -104,7 +104,7 @@ LLPolyMorphData::~LLPolyMorphData()
 //-----------------------------------------------------------------------------
 // loadBinary()
 //-----------------------------------------------------------------------------
-BOOL LLPolyMorphData::loadBinary(LLFILE *fp, LLPolyMeshSharedData *mesh)
+bool LLPolyMorphData::loadBinary(LLFILE *fp, LLPolyMeshSharedData *mesh)
 {
 	S32 numVertices;
 	S32 numRead;
@@ -114,7 +114,7 @@ BOOL LLPolyMorphData::loadBinary(LLFILE *fp, LLPolyMeshSharedData *mesh)
 	if (numRead != 1)
 	{
 		LL_WARNS() << "Can't read number of morph target vertices" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 
 	//-------------------------------------------------------------------------
@@ -151,7 +151,7 @@ BOOL LLPolyMorphData::loadBinary(LLFILE *fp, LLPolyMeshSharedData *mesh)
 		if (numRead != 1)
 		{
 			LL_WARNS() << "Can't read morph target vertex number" << LL_ENDL;
-			return FALSE;
+			return false;
 		}
 
 		if (mVertexIndices[v] > 10000)
@@ -165,7 +165,7 @@ BOOL LLPolyMorphData::loadBinary(LLFILE *fp, LLPolyMeshSharedData *mesh)
 		if (numRead != 3)
 		{
 			LL_WARNS() << "Can't read morph target vertex coordinates" << LL_ENDL;
-			return FALSE;
+			return false;
 		}
 
 		F32 magnitude = mCoords[v].getLength3().getF32();
@@ -185,7 +185,7 @@ BOOL LLPolyMorphData::loadBinary(LLFILE *fp, LLPolyMeshSharedData *mesh)
 		if (numRead != 3)
 		{
 			LL_WARNS() << "Can't read morph target normal" << LL_ENDL;
-			return FALSE;
+			return false;
 		}
 
 		numRead = fread(&mBinormals[v], sizeof(F32), 3, fp);
@@ -193,7 +193,7 @@ BOOL LLPolyMorphData::loadBinary(LLFILE *fp, LLPolyMeshSharedData *mesh)
 		if (numRead != 3)
 		{
 			LL_WARNS() << "Can't read morph target binormal" << LL_ENDL;
-			return FALSE;
+			return false;
 		}
 
 
@@ -202,7 +202,7 @@ BOOL LLPolyMorphData::loadBinary(LLFILE *fp, LLPolyMeshSharedData *mesh)
 		if (numRead != 2)
 		{
 			LL_WARNS() << "Can't read morph target uv" << LL_ENDL;
-			return FALSE;
+			return false;
 		}
 
 		mNumIndices++;
@@ -211,7 +211,7 @@ BOOL LLPolyMorphData::loadBinary(LLFILE *fp, LLPolyMeshSharedData *mesh)
 	mAvgDistortion.mul(1.f/(F32)mNumIndices);
 	mAvgDistortion.normalize3fast();
 
-	return TRUE;
+	return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -408,7 +408,7 @@ BOOL LLPolyMorphTarget::setInfo(LLPolyMorphTargetInfo* info)
 //-----------------------------------------------------------------------------
 // parseData()
 //-----------------------------------------------------------------------------
-BOOL LLPolyMorphTarget::parseData(LLXmlTreeNode* node)
+bool LLPolyMorphTarget::parseData(LLXmlTreeNode* node)
 {
 	LLPolyMorphTargetInfo* info = new LLPolyMorphTargetInfo;
 
@@ -416,9 +416,9 @@ BOOL LLPolyMorphTarget::parseData(LLXmlTreeNode* node)
 	if (!setInfo(info))
 	{
 		delete info;
-		return FALSE;
+		return false;
 	}
-	return TRUE;
+	return true;
 }
 #endif
 
@@ -662,7 +662,7 @@ void LLPolyMorphTarget::apply( ESex avatar_sex )
 //-----------------------------------------------------------------------------
 // applyMask()
 //-----------------------------------------------------------------------------
-void	LLPolyMorphTarget::applyMask(U8 *maskTextureData, S32 width, S32 height, S32 num_components, BOOL invert)
+void	LLPolyMorphTarget::applyMask(U8 *maskTextureData, S32 width, S32 height, S32 num_components, bool invert)
 {
 	LLVector4a *clothing_weights = getInfo()->mIsClothingMorph ? mMesh->getWritableClothingWeights() : NULL;
 
@@ -753,7 +753,7 @@ void LLPolyMorphTarget::applyVolumeChanges(F32 delta_weight)
 LLPolyVertexMask::LLPolyVertexMask(LLPolyMorphData* morph_data)
 	: mWeights(new F32[morph_data->mNumIndices]),
 	mMorphData(morph_data),
-	mWeightsGenerated(FALSE)
+	mWeightsGenerated(false)
 {
 	llassert(mMorphData != NULL);
 	llassert(mMorphData->mNumIndices > 0);
@@ -784,10 +784,10 @@ LLPolyVertexMask::~LLPolyVertexMask()
 //-----------------------------------------------------------------------------
 // generateMask()
 //-----------------------------------------------------------------------------
-void LLPolyVertexMask::generateMask(U8 *maskTextureData, S32 width, S32 height, S32 num_components, BOOL invert, LLVector4a *clothing_weights)
+void LLPolyVertexMask::generateMask(U8 *maskTextureData, S32 width, S32 height, S32 num_components, bool invert, LLVector4a *clothing_weights)
 {
 // RN debug output that uses Image Debugger (http://www.cs.unc.edu/~baxter/projects/imdebug/)
-//	BOOL debugImg = FALSE; 
+//	bool debugImg = FALSE;
 //	if (debugImg)
 //	{
 //		if (invert)
@@ -831,7 +831,7 @@ void LLPolyVertexMask::generateMask(U8 *maskTextureData, S32 width, S32 height, 
 			clothing_weights[vertIndex].getF32ptr()[VW] = mWeights[index];
 		}
 	}
-	mWeightsGenerated = TRUE;
+	mWeightsGenerated = true;
 }
 
 //-----------------------------------------------------------------------------

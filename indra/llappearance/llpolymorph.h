@@ -59,7 +59,7 @@ public:
 		ll_aligned_free_16(ptr);
 	}
 
-	BOOL			loadBinary(LLFILE* fp, LLPolyMeshSharedData *mesh);
+	bool			loadBinary(LLFILE* fp, LLPolyMeshSharedData *mesh);
 	const std::string& getName() { return mName; }
 
 public:
@@ -94,14 +94,14 @@ public:
 	LLPolyVertexMask(const LLPolyVertexMask& pOther);
 	~LLPolyVertexMask();
 
-	void generateMask(U8 *maskData, S32 width, S32 height, S32 num_components, BOOL invert, LLVector4a *clothing_weights);
+	void generateMask(U8 *maskData, S32 width, S32 height, S32 num_components, bool invert, LLVector4a *clothing_weights);
 	F32* getMorphMaskWeights();
 
 
 protected:
 	F32*		mWeights;
 	LLPolyMorphData *mMorphData;
-	BOOL			mWeightsGenerated;
+	bool			mWeightsGenerated;
 
 };
 
@@ -143,7 +143,7 @@ public:
 
 protected:
 	std::string		mMorphName;
-	BOOL			mIsClothingMorph;
+	S32			mIsClothingMorph;
 	typedef std::vector<LLPolyVolumeMorphInfo> volume_info_list_t;
 	volume_info_list_t mVolumeInfoList;	
 };
@@ -179,7 +179,7 @@ public:
 	/*virtual*/ const LLVector4a*	getFirstDistortion(U32 *index, LLPolyMesh **poly_mesh);
 	/*virtual*/ const LLVector4a*	getNextDistortion(U32 *index, LLPolyMesh **poly_mesh);
 
-	void	applyMask(U8 *maskData, S32 width, S32 height, S32 num_components, BOOL invert);
+	void	applyMask(U8 *maskData, S32 width, S32 height, S32 num_components, bool invert);
 	void	addPendingMorphMask() { mNumMorphMasksPending++; }
 	
 	void    applyVolumeChanges(F32 delta_weight); // SL-315 - for resetSkeleton()
@@ -202,7 +202,7 @@ protected:
 	LLPolyVertexMask *				mVertMask;
 	ESex							mLastSex;
 	// number of morph masks that haven't been generated, must be 0 before this morph is applied
-	BOOL							mNumMorphMasksPending;	
+	S32							mNumMorphMasksPending;
 
 	typedef std::vector<LLPolyVolumeMorph> volume_list_t;
 	volume_list_t 					mVolumeMorphs;
