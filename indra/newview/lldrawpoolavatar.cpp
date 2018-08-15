@@ -60,6 +60,7 @@ static U32 sShaderLevel = 0;
 LLGLSLShader* LLDrawPoolAvatar::sVertexProgram = NULL;
 BOOL	LLDrawPoolAvatar::sSkipOpaque = FALSE;
 BOOL	LLDrawPoolAvatar::sSkipTransparent = FALSE;
+S32     LLDrawPoolAvatar::sShadowPass = -1;
 S32 LLDrawPoolAvatar::sDiffuseChannel = 0;
 F32 LLDrawPoolAvatar::sMinimumAlpha = 0.2f;
 
@@ -402,18 +403,77 @@ void LLDrawPoolAvatar::renderPostDeferred(S32 pass)
 
 S32 LLDrawPoolAvatar::getNumShadowPasses()
 {
-	return 2;
+    // avatars opaque, avatar alpha, avatar alpha mask, alpha attachments, alpha mask attachments, opaque attachments...
+	return NUM_SHADOW_PASSES;
 }
 
 void LLDrawPoolAvatar::beginShadowPass(S32 pass)
 {
 	LL_RECORD_BLOCK_TIME(FTM_SHADOW_AVATAR);
 
-	if (pass == 0)
+	if (pass == SHADOW_PASS_AVATAR_OPAQUE)
 	{
 		sVertexProgram = &gDeferredAvatarShadowProgram;
 		
-		//gGL.setAlphaRejectSettings(LLRender::CF_GREATER_EQUAL, 0.2f);		
+		if ((sShaderLevel > 0))  // for hardware blending
+		{
+			sRenderingSkinned = TRUE;
+			sVertexProgram->bind();
+		}
+
+		gGL.diffuseColor4f(1,1,1,1);
+	}
+    else if (pass == SHADOW_PASS_AVATAR_ALPHA_BLEND)
+	{
+		sVertexProgram = &gDeferredAvatarAlphaShadowProgram;
+
+        // bind diffuse tex so we can reference the alpha channel...
+        sDiffuseChannel = sVertexProgram->enableTexture(LLViewerShaderMgr::DIFFUSE_MAP);
+		
+		if ((sShaderLevel > 0))  // for hardware blending
+		{
+			sRenderingSkinned = TRUE;
+			sVertexProgram->bind();
+		}
+
+		gGL.diffuseColor4f(1,1,1,1);
+	}
+    else if (pass == SHADOW_PASS_AVATAR_ALPHA_MASK)
+	{
+		sVertexProgram = &gDeferredAvatarAlphaMaskShadowProgram;
+
+        // bind diffuse tex so we can reference the alpha channel...
+        sDiffuseChannel = sVertexProgram->enableTexture(LLViewerShaderMgr::DIFFUSE_MAP);
+		
+		if ((sShaderLevel > 0))  // for hardware blending
+		{
+			sRenderingSkinned = TRUE;
+			sVertexProgram->bind();
+		}
+
+		gGL.diffuseColor4f(1,1,1,1);
+	}
+    else if (pass == SHADOW_PASS_ATTACHMENT_ALPHA_BLEND)
+	{
+		sVertexProgram = &gDeferredAttachmentAlphaShadowProgram;
+
+        // bind diffuse tex so we can reference the alpha channel...
+        sDiffuseChannel = sVertexProgram->enableTexture(LLViewerShaderMgr::DIFFUSE_MAP);
+		
+		if ((sShaderLevel > 0))  // for hardware blending
+		{
+			sRenderingSkinned = TRUE;
+			sVertexProgram->bind();
+		}
+
+		gGL.diffuseColor4f(1,1,1,1);
+	}
+    else if (pass == SHADOW_PASS_ATTACHMENT_ALPHA_MASK)
+	{
+		sVertexProgram = &gDeferredAttachmentAlphaMaskShadowProgram;
+
+        // bind diffuse tex so we can reference the alpha channel...
+		sDiffuseChannel = sVertexProgram->enableTexture(LLViewerShaderMgr::DIFFUSE_MAP);
 
 		if ((sShaderLevel > 0))  // for hardware blending
 		{
@@ -423,7 +483,7 @@ void LLDrawPoolAvatar::beginShadowPass(S32 pass)
 
 		gGL.diffuseColor4f(1,1,1,1);
 	}
-	else
+	else // SHADOW_PASS_ATTACHMENT_OPAQUE
 	{
 		sVertexProgram = &gDeferredAttachmentShadowProgram;
 		sDiffuseChannel = sVertexProgram->enableTexture(LLViewerShaderMgr::DIFFUSE_MAP);
@@ -434,20 +494,19 @@ void LLDrawPoolAvatar::beginShadowPass(S32 pass)
 void LLDrawPoolAvatar::endShadowPass(S32 pass)
 {
 	LL_RECORD_BLOCK_TIME(FTM_SHADOW_AVATAR);
-	if (pass == 0)
-	{
-		if (sShaderLevel > 0)
-		{
-			sRenderingSkinned = FALSE;
-			sVertexProgram->unbind();
-		}
-	}
-	else
+
+	if (pass == SHADOW_PASS_ATTACHMENT_OPAQUE)
 	{
 		LLVertexBuffer::unbind();
-		sVertexProgram->unbind();
-		sVertexProgram = NULL;
 	}
+
+    if (sShaderLevel > 0)
+	{			
+		sVertexProgram->unbind();
+	}
+    sVertexProgram = NULL;
+    sRenderingSkinned = FALSE;
+    LLDrawPoolAvatar::sShadowPass = -1;
 }
 
 void LLDrawPoolAvatar::renderShadow(S32 pass)
@@ -477,16 +536,68 @@ void LLDrawPoolAvatar::renderShadow(S32 pass)
 		return;
 	}
 	
-	if (pass == 0)
+    LLDrawPoolAvatar::sShadowPass = pass;
+
+	if (pass == SHADOW_PASS_AVATAR_OPAQUE)
 	{
+        LLDrawPoolAvatar::sSkipTransparent = true;
 		avatarp->renderSkinned();
+        LLDrawPoolAvatar::sSkipTransparent = false;
 	}
-	else
+    else if (pass == SHADOW_PASS_AVATAR_ALPHA_BLEND)
 	{
-		for (U32 i = 0; i < NUM_RIGGED_PASSES; ++i)
-		{
-			renderRigged(avatarp, i);
-		}
+        LLDrawPoolAvatar::sSkipOpaque = true;
+		avatarp->renderSkinned();
+        LLDrawPoolAvatar::sSkipOpaque = false;
+	}
+    else if (pass == SHADOW_PASS_AVATAR_ALPHA_MASK)
+	{
+        LLDrawPoolAvatar::sSkipOpaque = true;
+		avatarp->renderSkinned();
+        LLDrawPoolAvatar::sSkipOpaque = false;
+	}
+    else if (pass == SHADOW_PASS_ATTACHMENT_ALPHA_BLEND) // rigged alpha
+	{
+        LLDrawPoolAvatar::sSkipOpaque = true;
+        renderRigged(avatarp, RIGGED_MATERIAL_ALPHA);
+        renderRigged(avatarp, RIGGED_MATERIAL_ALPHA);
+        renderRigged(avatarp, RIGGED_MATERIAL_ALPHA_EMISSIVE);
+        renderRigged(avatarp, RIGGED_ALPHA);
+        renderRigged(avatarp, RIGGED_FULLBRIGHT_ALPHA);
+        renderRigged(avatarp, RIGGED_GLOW);
+        LLDrawPoolAvatar::sSkipOpaque = false;
+	}
+    else if (pass == SHADOW_PASS_ATTACHMENT_ALPHA_MASK) // rigged alpha mask
+	{
+        LLDrawPoolAvatar::sSkipOpaque = true;
+        renderRigged(avatarp, RIGGED_MATERIAL_ALPHA_MASK);
+        renderRigged(avatarp, RIGGED_NORMMAP_MASK);
+        renderRigged(avatarp, RIGGED_SPECMAP_MASK);
+		renderRigged(avatarp, RIGGED_NORMSPEC_MASK);    
+        renderRigged(avatarp, RIGGED_GLOW);
+        LLDrawPoolAvatar::sSkipOpaque = false;
+	}
+	else // rigged opaque (SHADOW_PASS_ATTACHMENT_OPAQUE
+	{
+        LLDrawPoolAvatar::sSkipTransparent = true;
+		renderRigged(avatarp, RIGGED_MATERIAL);
+        renderRigged(avatarp, RIGGED_SPECMAP);
+        renderRigged(avatarp, RIGGED_SPECMAP_BLEND);		
+		renderRigged(avatarp, RIGGED_SPECMAP_EMISSIVE);
+		renderRigged(avatarp, RIGGED_NORMMAP);
+		renderRigged(avatarp, RIGGED_NORMMAP_BLEND);
+		renderRigged(avatarp, RIGGED_NORMMAP_EMISSIVE);
+		renderRigged(avatarp, RIGGED_NORMSPEC);
+		renderRigged(avatarp, RIGGED_NORMSPEC_BLEND);
+		renderRigged(avatarp, RIGGED_NORMSPEC_EMISSIVE);
+		renderRigged(avatarp, RIGGED_SIMPLE);
+		renderRigged(avatarp, RIGGED_FULLBRIGHT);
+		renderRigged(avatarp, RIGGED_SHINY);
+		renderRigged(avatarp, RIGGED_FULLBRIGHT_SHINY);
+		renderRigged(avatarp, RIGGED_GLOW);
+		renderRigged(avatarp, RIGGED_DEFERRED_BUMP);
+		renderRigged(avatarp, RIGGED_DEFERRED_SIMPLE);
+        LLDrawPoolAvatar::sSkipTransparent = false;
 	}
 }
 
@@ -1462,10 +1573,8 @@ void LLDrawPoolAvatar::renderAvatars(LLVOAvatar* single_avatar, S32 pass)
 	}
 }
 
-// <FS> Fix bogus rigged mesh crash
-//void LLDrawPoolAvatar::getRiggedGeometry(
-bool LLDrawPoolAvatar::getRiggedGeometry(
-// </FS>
+void LLDrawPoolAvatar::getRiggedGeometry(
+
     LLFace* face,
     LLPointer<LLVertexBuffer>& buffer,
     U32 data_mask,
@@ -1473,18 +1582,7 @@ bool LLDrawPoolAvatar::getRiggedGeometry(
     LLVolume* volume,
     const LLVolumeFace& vol_face)
 {
-	// <FS:ND> FIRE-14261 try to skip broken or out of bounds faces
-	if (vol_face.mNumVertices > 65536 || vol_face.mNumVertices < 0 || vol_face.mNumIndices < 0)
-	{
-		LL_WARNS_ONCE() << "Skipping face - "
-						<< " vertices " << vol_face.mNumVertices << " indices " << vol_face.mNumIndices
-						<< " face is possibly corrupted"
-						<< LL_ENDL;
-		return false;
-	}
-	// </FS:ND>
-	
-	face->setGeomIndex(0);
+		face->setGeomIndex(0);
 	face->setIndicesIndex(0);
 		
 	//rigged faces do not batch textures
@@ -1570,9 +1668,6 @@ bool LLDrawPoolAvatar::getRiggedGeometry(
 	face->getGeometryVolume(*volume, face->getTEOffset(), mat_vert, mat_normal, offset, true);
 
 	buffer->flush();
-
-	// <FS> Fix bogus rigged mesh crash
-	return true;
 }
 
 void LLDrawPoolAvatar::updateRiggedFaceVertexBuffer(
@@ -1587,13 +1682,6 @@ void LLDrawPoolAvatar::updateRiggedFaceVertexBuffer(
 	{
 		return;
 	}
-
-	// <FS> Fix bogus rigged mesh crash
-	if (vol_face.mNumVertices > 65536 || vol_face.mNumVertices < 0 || vol_face.mNumIndices < 0)
-	{
-		return;
-	}
-	// </FS>
 
     // FIXME ugly const cast
     LLSkinningUtil::scrubInvalidJoints(avatar, const_cast<LLMeshSkinInfo*>(skin));
@@ -1626,13 +1714,7 @@ void LLDrawPoolAvatar::updateRiggedFaceVertexBuffer(
 				{
 					LLPointer<LLVertexBuffer> cur_buffer = facep->getVertexBuffer();
 					const LLVolumeFace& cur_vol_face = volume->getVolumeFace(i);
-					// <FS> Fix bogus rigged mesh crash
-					//getRiggedGeometry(facep, cur_buffer, face_data_mask, skin, volume, cur_vol_face);
-					if (!getRiggedGeometry(facep, cur_buffer, face_data_mask, skin, volume, cur_vol_face))
-					{
-						return;
-					}
-					// </FS>
+					getRiggedGeometry(facep, cur_buffer, face_data_mask, skin, volume, cur_vol_face);
 				}
 			}
 			drawable->clearState(LLDrawable::REBUILD_ALL);
@@ -1642,13 +1724,7 @@ void LLDrawPoolAvatar::updateRiggedFaceVertexBuffer(
 		else
 		{
 			//just rebuild this face
-			// <FS> Fix bogus rigged mesh crash
-			//getRiggedGeometry(face, buffer, data_mask, skin, volume, vol_face);
-			if (!getRiggedGeometry(face, buffer, data_mask, skin, volume, vol_face))
-			{
-				return;
-			}
-			// </FS>
+			getRiggedGeometry(face, buffer, data_mask, skin, volume, vol_face);
 		}
 	}
 
@@ -1768,8 +1844,81 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 
 		LLVertexBuffer* buff = face->getVertexBuffer();
 
+        const LLTextureEntry* tex_entry = face->getTextureEntry();
+		LLMaterial* mat = tex_entry ? tex_entry->getMaterialParams().get() : 0;
+
+        if (LLDrawPoolAvatar::sShadowPass >= 0)
+        {
+            bool is_alpha_blend = false;
+            bool is_alpha_mask  = false;
+
+            if (mat)
+            {                
+                switch (LLMaterial::eDiffuseAlphaMode(mat->getDiffuseAlphaMode()))
+                {
+                    case LLMaterial::DIFFUSE_ALPHA_MODE_MASK:
+                    {
+                        is_alpha_mask = true;
+                    }
+                    break;
+
+                    case LLMaterial::DIFFUSE_ALPHA_MODE_BLEND:
+                    {
+                        is_alpha_blend = true;
+                    }
+                    break;
+
+                    case LLMaterial::DIFFUSE_ALPHA_MODE_EMISSIVE:
+                    case LLMaterial::DIFFUSE_ALPHA_MODE_DEFAULT:
+                    case LLMaterial::DIFFUSE_ALPHA_MODE_NONE:
+                    default:
+                        break;
+                }
+            }
+
+            if (tex_entry)
+            {
+                if (tex_entry->getAlpha() <= 0.99f)
+                {
+                    is_alpha_blend = true;
+                }
+            }
+
+            LLViewerTexture* tex = face->getTexture(LLRender::DIFFUSE_MAP);
+            if (tex)
+            {
+                LLGLenum image_format = tex->getPrimaryFormat();
+                if (tex->getIsAlphaMask())
+                {
+                    is_alpha_mask = true;
+                }
+                else if (!is_alpha_mask && (image_format == GL_RGBA || image_format == GL_ALPHA))
+                {
+                    is_alpha_blend = true;
+                }
+            }
+
+            // if this is alpha mask content and we're doing opaques or a non-alpha-mask shadow pass...
+            if (is_alpha_mask && (LLDrawPoolAvatar::sSkipTransparent || LLDrawPoolAvatar::sShadowPass != SHADOW_PASS_ATTACHMENT_ALPHA_MASK))
+            {
+                return;
+            }
+
+            // if this is alpha blend content and we're doing opaques or a non-alpha-blend shadow pass...
+            if (is_alpha_blend && (LLDrawPoolAvatar::sSkipTransparent || LLDrawPoolAvatar::sShadowPass != SHADOW_PASS_ATTACHMENT_ALPHA_BLEND))
+            {
+                return;
+            }
+
+            // if this is opaque content and we're skipping opaques...
+            if (!is_alpha_mask && !is_alpha_blend && LLDrawPoolAvatar::sSkipOpaque)
+            {
+                return;
+            }
+        }
+
 		if (buff)
-		{
+		{        
 			if (sShaderLevel > 0)
 			{
                 // upload matrix palette to shader
@@ -1833,9 +1982,6 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 				gGL.diffuseColor4f(0,0,0,face->getTextureEntry()->getGlow());
 			}*/
 
-			const LLTextureEntry* te = face->getTextureEntry();
-			LLMaterial* mat = te->getMaterialParams().get();
-
 			if (mat)
 			{
 				//order is important here LLRender::DIFFUSE_MAP should be last, becouse it change 
@@ -1852,12 +1998,12 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 
 				if (mat->getSpecularID().isNull())
 				{
-					env = te->getShiny()*0.25f;
+					env = tex_entry->getShiny()*0.25f;
 					col.set(env,env,env,0);
 					spec = env;
 				}
 		
-				BOOL fullbright = te->getFullbright();
+				BOOL fullbright = tex_entry->getFullbright();
 
 				sVertexProgram->uniform1f(LLShaderMgr::EMISSIVE_BRIGHTNESS, fullbright ? 1.f : 0.f);
 				sVertexProgram->uniform4f(LLShaderMgr::SPECULAR_COLOR, col.mV[0], col.mV[1], col.mV[2], spec);
@@ -1865,7 +2011,8 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 
 				if (mat->getDiffuseAlphaMode() == LLMaterial::DIFFUSE_ALPHA_MODE_MASK)
 				{
-					sVertexProgram->setMinimumAlpha(mat->getAlphaMaskCutoff()/255.f);
+                    F32 cutoff = mat->getAlphaMaskCutoff()/255.f;
+					sVertexProgram->setMinimumAlpha(cutoff);
 				}
 				else
 				{

@@ -55,6 +55,124 @@ public:
 							LLVertexBuffer::MAP_CLOTHWEIGHT
 	};
 
+
+	
+typedef enum
+	{
+		RIGGED_MATERIAL=0,
+		RIGGED_MATERIAL_ALPHA,
+		RIGGED_MATERIAL_ALPHA_MASK,
+		RIGGED_MATERIAL_ALPHA_EMISSIVE,
+		RIGGED_SPECMAP,
+		RIGGED_SPECMAP_BLEND,
+		RIGGED_SPECMAP_MASK,
+		RIGGED_SPECMAP_EMISSIVE,
+		RIGGED_NORMMAP,
+		RIGGED_NORMMAP_BLEND,
+		RIGGED_NORMMAP_MASK,
+		RIGGED_NORMMAP_EMISSIVE,
+		RIGGED_NORMSPEC,
+		RIGGED_NORMSPEC_BLEND,
+		RIGGED_NORMSPEC_MASK,
+		RIGGED_NORMSPEC_EMISSIVE,
+		RIGGED_SIMPLE,
+		RIGGED_FULLBRIGHT,
+		RIGGED_SHINY,
+		RIGGED_FULLBRIGHT_SHINY,
+		RIGGED_GLOW,
+		RIGGED_ALPHA,
+		RIGGED_FULLBRIGHT_ALPHA,
+		RIGGED_DEFERRED_BUMP,
+		RIGGED_DEFERRED_SIMPLE,
+		NUM_RIGGED_PASSES,
+		RIGGED_UNKNOWN,
+	} eRiggedPass;
+
+typedef enum
+	{
+		RIGGED_MATERIAL_MASK =
+						LLVertexBuffer::MAP_VERTEX | 
+						LLVertexBuffer::MAP_NORMAL | 
+						LLVertexBuffer::MAP_TEXCOORD0 |
+						LLVertexBuffer::MAP_COLOR |
+						LLVertexBuffer::MAP_WEIGHT4,
+		RIGGED_MATERIAL_ALPHA_VMASK = RIGGED_MATERIAL_MASK,
+		RIGGED_MATERIAL_ALPHA_MASK_MASK = RIGGED_MATERIAL_MASK,
+		RIGGED_MATERIAL_ALPHA_EMISSIVE_MASK = RIGGED_MATERIAL_MASK,
+		RIGGED_SPECMAP_VMASK =
+						LLVertexBuffer::MAP_VERTEX | 
+						LLVertexBuffer::MAP_NORMAL | 
+						LLVertexBuffer::MAP_TEXCOORD0 |
+						LLVertexBuffer::MAP_TEXCOORD2 |
+						LLVertexBuffer::MAP_COLOR |
+						LLVertexBuffer::MAP_WEIGHT4,
+		RIGGED_SPECMAP_BLEND_MASK = RIGGED_SPECMAP_VMASK,
+		RIGGED_SPECMAP_MASK_MASK = RIGGED_SPECMAP_VMASK,
+		RIGGED_SPECMAP_EMISSIVE_MASK = RIGGED_SPECMAP_VMASK,
+		RIGGED_NORMMAP_VMASK =
+						LLVertexBuffer::MAP_VERTEX | 
+						LLVertexBuffer::MAP_NORMAL | 
+						LLVertexBuffer::MAP_TANGENT | 
+						LLVertexBuffer::MAP_TEXCOORD0 |
+						LLVertexBuffer::MAP_TEXCOORD1 |
+						LLVertexBuffer::MAP_COLOR |
+						LLVertexBuffer::MAP_WEIGHT4,
+		RIGGED_NORMMAP_BLEND_MASK = RIGGED_NORMMAP_VMASK,
+		RIGGED_NORMMAP_MASK_MASK = RIGGED_NORMMAP_VMASK,
+		RIGGED_NORMMAP_EMISSIVE_MASK = RIGGED_NORMMAP_VMASK,
+		RIGGED_NORMSPEC_VMASK =
+						LLVertexBuffer::MAP_VERTEX | 
+						LLVertexBuffer::MAP_NORMAL | 
+						LLVertexBuffer::MAP_TANGENT | 
+						LLVertexBuffer::MAP_TEXCOORD0 |
+						LLVertexBuffer::MAP_TEXCOORD1 |
+						LLVertexBuffer::MAP_TEXCOORD2 |
+						LLVertexBuffer::MAP_COLOR |
+						LLVertexBuffer::MAP_WEIGHT4,
+		RIGGED_NORMSPEC_BLEND_MASK = RIGGED_NORMSPEC_VMASK,
+		RIGGED_NORMSPEC_MASK_MASK = RIGGED_NORMSPEC_VMASK,
+		RIGGED_NORMSPEC_EMISSIVE_MASK = RIGGED_NORMSPEC_VMASK,
+		RIGGED_SIMPLE_MASK = LLVertexBuffer::MAP_VERTEX | 
+							 LLVertexBuffer::MAP_NORMAL | 
+							 LLVertexBuffer::MAP_TEXCOORD0 |
+							 LLVertexBuffer::MAP_COLOR |
+							 LLVertexBuffer::MAP_WEIGHT4,
+		RIGGED_FULLBRIGHT_MASK = LLVertexBuffer::MAP_VERTEX | 
+							 LLVertexBuffer::MAP_TEXCOORD0 |
+							 LLVertexBuffer::MAP_COLOR |
+							 LLVertexBuffer::MAP_WEIGHT4,
+		RIGGED_SHINY_MASK = RIGGED_SIMPLE_MASK,
+		RIGGED_FULLBRIGHT_SHINY_MASK = RIGGED_SIMPLE_MASK,							 
+		RIGGED_GLOW_MASK = LLVertexBuffer::MAP_VERTEX | 
+							 LLVertexBuffer::MAP_TEXCOORD0 |
+							 LLVertexBuffer::MAP_EMISSIVE |
+							 LLVertexBuffer::MAP_WEIGHT4,
+		RIGGED_ALPHA_MASK = RIGGED_SIMPLE_MASK,
+		RIGGED_FULLBRIGHT_ALPHA_MASK = RIGGED_FULLBRIGHT_MASK,
+		RIGGED_DEFERRED_BUMP_MASK = LLVertexBuffer::MAP_VERTEX | 
+							 LLVertexBuffer::MAP_NORMAL | 
+							 LLVertexBuffer::MAP_TEXCOORD0 |
+							 LLVertexBuffer::MAP_TANGENT |
+							 LLVertexBuffer::MAP_COLOR |
+							 LLVertexBuffer::MAP_WEIGHT4,
+		RIGGED_DEFERRED_SIMPLE_MASK = LLVertexBuffer::MAP_VERTEX | 
+							 LLVertexBuffer::MAP_NORMAL | 
+							 LLVertexBuffer::MAP_TEXCOORD0 |
+							 LLVertexBuffer::MAP_COLOR |
+							 LLVertexBuffer::MAP_WEIGHT4,
+	} eRiggedDataMask;
+
+typedef enum
+	{
+		SHADOW_PASS_AVATAR_OPAQUE,
+        SHADOW_PASS_AVATAR_ALPHA_BLEND,
+        SHADOW_PASS_AVATAR_ALPHA_MASK,
+        SHADOW_PASS_ATTACHMENT_ALPHA_BLEND,
+        SHADOW_PASS_ATTACHMENT_ALPHA_MASK,
+        SHADOW_PASS_ATTACHMENT_OPAQUE,
+        NUM_SHADOW_PASSES
+	} eShadowPass;
+
 	virtual U32 getVertexDataMask() { return VERTEX_DATA_MASK; }
 
 	virtual S32 getVertexShaderLevel() const;
@@ -133,10 +251,7 @@ public:
 	void endDeferredRiggedSimple();
 	void endDeferredRiggedBump();
 		
-	// <FS> Fix bogus rigged mesh crash
-	//void getRiggedGeometry(LLFace* face, LLPointer<LLVertexBuffer>& buffer, U32 data_mask, const LLMeshSkinInfo* skin, LLVolume* volume, const LLVolumeFace& vol_face);
-	bool getRiggedGeometry(LLFace* face, LLPointer<LLVertexBuffer>& buffer, U32 data_mask, const LLMeshSkinInfo* skin, LLVolume* volume, const LLVolumeFace& vol_face);
-	// </FS>
+	void getRiggedGeometry(LLFace* face, LLPointer<LLVertexBuffer>& buffer, U32 data_mask, const LLMeshSkinInfo* skin, LLVolume* volume, const LLVolumeFace& vol_face);
 	void updateRiggedFaceVertexBuffer(LLVOAvatar* avatar,
 									  LLFace* facep, 
 									  const LLMeshSkinInfo* skin, 
@@ -156,110 +271,7 @@ public:
 	void renderDeferredRiggedBump(LLVOAvatar* avatar);
 	void renderDeferredRiggedMaterial(LLVOAvatar* avatar, S32 pass);
 	
-	typedef enum
-	{
-		RIGGED_MATERIAL=0,
-		RIGGED_MATERIAL_ALPHA,
-		RIGGED_MATERIAL_ALPHA_MASK,
-		RIGGED_MATERIAL_ALPHA_EMISSIVE,
-		RIGGED_SPECMAP,
-		RIGGED_SPECMAP_BLEND,
-		RIGGED_SPECMAP_MASK,
-		RIGGED_SPECMAP_EMISSIVE,
-		RIGGED_NORMMAP,
-		RIGGED_NORMMAP_BLEND,
-		RIGGED_NORMMAP_MASK,
-		RIGGED_NORMMAP_EMISSIVE,
-		RIGGED_NORMSPEC,
-		RIGGED_NORMSPEC_BLEND,
-		RIGGED_NORMSPEC_MASK,
-		RIGGED_NORMSPEC_EMISSIVE,
-		RIGGED_SIMPLE,
-		RIGGED_FULLBRIGHT,
-		RIGGED_SHINY,
-		RIGGED_FULLBRIGHT_SHINY,
-		RIGGED_GLOW,
-		RIGGED_ALPHA,
-		RIGGED_FULLBRIGHT_ALPHA,
-		RIGGED_DEFERRED_BUMP,
-		RIGGED_DEFERRED_SIMPLE,
-		NUM_RIGGED_PASSES,
-		RIGGED_UNKNOWN,
-	} eRiggedPass;
-
-	typedef enum
-	{
-		RIGGED_MATERIAL_MASK =
-						LLVertexBuffer::MAP_VERTEX | 
-						LLVertexBuffer::MAP_NORMAL | 
-						LLVertexBuffer::MAP_TEXCOORD0 |
-						LLVertexBuffer::MAP_COLOR |
-						LLVertexBuffer::MAP_WEIGHT4,
-		RIGGED_MATERIAL_ALPHA_VMASK = RIGGED_MATERIAL_MASK,
-		RIGGED_MATERIAL_ALPHA_MASK_MASK = RIGGED_MATERIAL_MASK,
-		RIGGED_MATERIAL_ALPHA_EMISSIVE_MASK = RIGGED_MATERIAL_MASK,
-		RIGGED_SPECMAP_VMASK =
-						LLVertexBuffer::MAP_VERTEX | 
-						LLVertexBuffer::MAP_NORMAL | 
-						LLVertexBuffer::MAP_TEXCOORD0 |
-						LLVertexBuffer::MAP_TEXCOORD2 |
-						LLVertexBuffer::MAP_COLOR |
-						LLVertexBuffer::MAP_WEIGHT4,
-		RIGGED_SPECMAP_BLEND_MASK = RIGGED_SPECMAP_VMASK,
-		RIGGED_SPECMAP_MASK_MASK = RIGGED_SPECMAP_VMASK,
-		RIGGED_SPECMAP_EMISSIVE_MASK = RIGGED_SPECMAP_VMASK,
-		RIGGED_NORMMAP_VMASK =
-						LLVertexBuffer::MAP_VERTEX | 
-						LLVertexBuffer::MAP_NORMAL | 
-						LLVertexBuffer::MAP_TANGENT | 
-						LLVertexBuffer::MAP_TEXCOORD0 |
-						LLVertexBuffer::MAP_TEXCOORD1 |
-						LLVertexBuffer::MAP_COLOR |
-						LLVertexBuffer::MAP_WEIGHT4,
-		RIGGED_NORMMAP_BLEND_MASK = RIGGED_NORMMAP_VMASK,
-		RIGGED_NORMMAP_MASK_MASK = RIGGED_NORMMAP_VMASK,
-		RIGGED_NORMMAP_EMISSIVE_MASK = RIGGED_NORMMAP_VMASK,
-		RIGGED_NORMSPEC_VMASK =
-						LLVertexBuffer::MAP_VERTEX | 
-						LLVertexBuffer::MAP_NORMAL | 
-						LLVertexBuffer::MAP_TANGENT | 
-						LLVertexBuffer::MAP_TEXCOORD0 |
-						LLVertexBuffer::MAP_TEXCOORD1 |
-						LLVertexBuffer::MAP_TEXCOORD2 |
-						LLVertexBuffer::MAP_COLOR |
-						LLVertexBuffer::MAP_WEIGHT4,
-		RIGGED_NORMSPEC_BLEND_MASK = RIGGED_NORMSPEC_VMASK,
-		RIGGED_NORMSPEC_MASK_MASK = RIGGED_NORMSPEC_VMASK,
-		RIGGED_NORMSPEC_EMISSIVE_MASK = RIGGED_NORMSPEC_VMASK,
-		RIGGED_SIMPLE_MASK = LLVertexBuffer::MAP_VERTEX | 
-							 LLVertexBuffer::MAP_NORMAL | 
-							 LLVertexBuffer::MAP_TEXCOORD0 |
-							 LLVertexBuffer::MAP_COLOR |
-							 LLVertexBuffer::MAP_WEIGHT4,
-		RIGGED_FULLBRIGHT_MASK = LLVertexBuffer::MAP_VERTEX | 
-							 LLVertexBuffer::MAP_TEXCOORD0 |
-							 LLVertexBuffer::MAP_COLOR |
-							 LLVertexBuffer::MAP_WEIGHT4,
-		RIGGED_SHINY_MASK = RIGGED_SIMPLE_MASK,
-		RIGGED_FULLBRIGHT_SHINY_MASK = RIGGED_SIMPLE_MASK,							 
-		RIGGED_GLOW_MASK = LLVertexBuffer::MAP_VERTEX | 
-							 LLVertexBuffer::MAP_TEXCOORD0 |
-							 LLVertexBuffer::MAP_EMISSIVE |
-							 LLVertexBuffer::MAP_WEIGHT4,
-		RIGGED_ALPHA_MASK = RIGGED_SIMPLE_MASK,
-		RIGGED_FULLBRIGHT_ALPHA_MASK = RIGGED_FULLBRIGHT_MASK,
-		RIGGED_DEFERRED_BUMP_MASK = LLVertexBuffer::MAP_VERTEX | 
-							 LLVertexBuffer::MAP_NORMAL | 
-							 LLVertexBuffer::MAP_TEXCOORD0 |
-							 LLVertexBuffer::MAP_TANGENT |
-							 LLVertexBuffer::MAP_COLOR |
-							 LLVertexBuffer::MAP_WEIGHT4,
-		RIGGED_DEFERRED_SIMPLE_MASK = LLVertexBuffer::MAP_VERTEX | 
-							 LLVertexBuffer::MAP_NORMAL | 
-							 LLVertexBuffer::MAP_TEXCOORD0 |
-							 LLVertexBuffer::MAP_COLOR |
-							 LLVertexBuffer::MAP_WEIGHT4,
-	} eRiggedDataMask;
+	
 
 	void addRiggedFace(LLFace* facep, U32 type);
 	void removeRiggedFace(LLFace* facep); 
@@ -274,6 +286,7 @@ public:
 
 	static BOOL sSkipOpaque;
 	static BOOL sSkipTransparent;
+    static S32  sShadowPass;
 	static S32 sDiffuseChannel;
 	static F32 sMinimumAlpha;
 
