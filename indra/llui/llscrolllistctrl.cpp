@@ -201,7 +201,8 @@ LLScrollListCtrl::LLScrollListCtrl(const LLScrollListCtrl::Params& p)
 	mHoveredColor(p.hovered_color()),
 	mSearchColumn(p.search_column),
 	mColumnPadding(p.column_padding),
-	mContextMenuType(MENU_NONE)
+	mContextMenuType(MENU_NONE),
+	mIsFriendSignal(NULL)
 {
 	mItemListRect.setOriginAndSize(
 		mBorderThickness,
@@ -325,6 +326,7 @@ LLScrollListCtrl::~LLScrollListCtrl()
 	mItemList.clear();
 	std::for_each(mColumns.begin(), mColumns.end(), DeletePairedPointer());
 	mColumns.clear();
+	delete mIsFriendSignal;
 }
 
 
