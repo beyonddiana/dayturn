@@ -44,19 +44,19 @@ public:
 	LLGLuint insertSubTexture(LLImageGL* source_gl_tex, S32 discard_level, const LLImageRaw* raw_image, S16 slot_col, S16 slot_row) ;
 	void releaseSlot(S16 slot_col, S16 slot_row, S8 slot_width);
 
-	BOOL getNextAvailableSlot(S8 bits_len, S16& col, S16& row) ;
+	bool getNextAvailableSlot(S8 bits_len, S16& col, S16& row) ;
 	void getTexCoordOffset(S16 col, S16 row, F32& xoffset, F32& yOffset) ;
 	void getTexCoordScale(S32 w, S32 h, F32& xscale, F32& yscale) ;
 
-	BOOL isEmpty() const ;
-	BOOL isFull(S8 to_be_reserved = 1) const ;
+	bool isEmpty() const ;
+	bool isFull(S8 to_be_reserved = 1) const ;
 	F32  getFullness() const ;
 
 	void addSpatialGroup(LLSpatialGroup* groupp) ;
 	void removeSpatialGroup(LLSpatialGroup* groupp) ;
 	LLSpatialGroup* getLastSpatialGroup() ;
 	void removeLastSpatialGroup() ;
-	BOOL hasSpatialGroup(LLSpatialGroup* groupp) ;
+	bool hasSpatialGroup(LLSpatialGroup* groupp) ;
 	void clearSpatialGroup() ;
 	std::list<LLSpatialGroup*>* getSpatialGroupList() {return &mSpatialGroupList;}
 private:
@@ -68,7 +68,7 @@ private:
 
 	void getPositionFromIndex(S16 index, S16& col, S16& row) ;
 	void getIndexFromPosition(S16 col, S16 row, S16& index) ;
-	BOOL areUsageBitsMarked(S8 bits_len, U8 mask, S16 col, S16 row) ;
+	bool areUsageBitsMarked(S8 bits_len, U8 mask, S16 col, S16 row) ;
 
 private:	
 	S16 mAtlasDim ; //number of slots per edge, i.e, there are "mAtlasDim * mAtlasDim" total slots in the atlas. 
