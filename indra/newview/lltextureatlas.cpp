@@ -45,7 +45,7 @@ S16 LLTextureAtlas::sSlotSize = 32 ;
 #endif
 //**************************************************************************************************************
 LLTextureAtlas::LLTextureAtlas(U8 ncomponents, S16 atlas_dim) : 
-    LLViewerTexture(atlas_dim * sSlotSize, atlas_dim * sSlotSize, ncomponents, TRUE),
+    LLViewerTexture(atlas_dim * sSlotSize, atlas_dim * sSlotSize, ncomponents, true),
 	mAtlasDim(atlas_dim),
 	mNumSlotsReserved(0),
 	mMaxSlotsInAtlas(atlas_dim * atlas_dim)
@@ -102,7 +102,7 @@ LLGLuint LLTextureAtlas::insertSubTexture(LLImageGL* source_gl_tex, S32 discard_
 		return 0 ;
 	}
 
-	BOOL res = gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, getTexName());
+	bool res = gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, getTexName());
 	if (!res) 
 	{
 		LL_ERRS() << "bindTexture failed" << LL_ENDL;
@@ -130,12 +130,12 @@ void LLTextureAtlas::releaseSlot(S16 slot_col, S16 slot_row, S8 slot_width)
 	mNumSlotsReserved -= slot_width * slot_width ;
 }
 
-BOOL LLTextureAtlas::isEmpty() const 
+bool LLTextureAtlas::isEmpty() const 
 {
 	return !mNumSlotsReserved ;
 }
 	
-BOOL LLTextureAtlas::isFull(S8 to_be_reserved) const 
+bool LLTextureAtlas::isFull(S8 to_be_reserved) const 
 {
 	return mNumSlotsReserved + to_be_reserved > mMaxSlotsInAtlas ;
 }
@@ -178,16 +178,16 @@ LLSpatialGroup* LLTextureAtlas::getLastSpatialGroup()
 	return NULL ;
 }
 
-BOOL LLTextureAtlas::hasSpatialGroup(LLSpatialGroup* groupp) 
+bool LLTextureAtlas::hasSpatialGroup(LLSpatialGroup* groupp) 
 {
 	for(std::list<LLSpatialGroup*>::iterator iter = mSpatialGroupList.begin(); iter != mSpatialGroupList.end() ; ++iter)
 	{
 		if(*iter == groupp)
 		{
-			return TRUE ;
+			return true ;
 		}
 	}
-	return FALSE ;
+	return false ;
 }
 
 //--------------------------------------------------------------------------------------
@@ -311,31 +311,31 @@ void LLTextureAtlas::unmarkUsageBits(S8 bits_len, S16 col, S16 row)
 }
 
 //return true if any of bits in the range marked.
-BOOL LLTextureAtlas::areUsageBitsMarked(S8 bits_len, U8 mask, S16 col, S16 row)
+bool LLTextureAtlas::areUsageBitsMarked(S8 bits_len, U8 mask, S16 col, S16 row)
 {
-	BOOL ret = FALSE ;	
+	bool ret = false ;	
 	S16 x = col >> 3 ;
 	
 	for(S8 i = 0 ; i < bits_len ; i++)
 	{
 		if(mUsageBits[row + i][x] & mask)
 		{
-			ret = TRUE ;
+			ret = true ;
 			break ;
-			//return TRUE ;
+			//return true ;
 		}
 	}
 
 #if DEBUG_USAGE_BITS
 	//test
-	BOOL ret2 = FALSE ;
+	bool ret2 = false ;
 	for(S8 i = row ; i < row + bits_len ; i++)
 	{
 		for(S8 j = col ; j < col + bits_len ; j++)
 		{
 			if(mTestBits[i][j])
 			{
-				ret2 = TRUE ;
+				ret2 = true ;
 			}
 		}
 	}
@@ -345,7 +345,7 @@ BOOL LLTextureAtlas::areUsageBitsMarked(S8 bits_len, U8 mask, S16 col, S16 row)
 		LL_ERRS() << "bits map corrupted." << LL_ENDL ;
 	}
 #endif
-	return ret ;//FALSE ;
+	return ret ;//false ;
 }
 
 //----------------------------------------------------------------------
@@ -386,8 +386,8 @@ void LLTextureAtlas::getIndexFromPosition(S16 col, S16 row, S16& index)
 	}
 }
 //----------------------------------------------------------------------
-//return TRUE if succeeds.
-BOOL LLTextureAtlas::getNextAvailableSlot(S8 bits_len, S16& col, S16& row)
+//return true if succeeds.
+bool LLTextureAtlas::getNextAvailableSlot(S8 bits_len, S16& col, S16& row)
 {
     S16 index_step = bits_len * bits_len ;
 
@@ -408,9 +408,9 @@ BOOL LLTextureAtlas::getNextAvailableSlot(S8 bits_len, S16& col, S16& row)
 			markUsageBits(bits_len, cur_mask, col, row) ;
 			mNumSlotsReserved += bits_len * bits_len ;
 			
-			return TRUE ;
+			return true ;
 		}
     }
 
-   return FALSE ;
+   return false ;
 }
