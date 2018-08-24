@@ -769,6 +769,9 @@ class Windows_i686_Manifest(ViewerManifest):
 ################################################################
 
 if __name__ == "__main__":
+    extra_arguments = [
+        ]
+    main(extra=extra_arguments)
     try:
         main()
     except (ManifestError, MissingError) as err:
