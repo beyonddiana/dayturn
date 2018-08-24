@@ -6518,6 +6518,148 @@ BOOL LLSelectNode::allowOperationOnNode(PermissionBit op, U64 group_proxy_power)
 	return (mPermissions->allowOperationBy(op, proxy_agent_id, group_id));
 }
 
+
+//helper function for pushing relevant vertices from drawable to GL
+void pushWireframe(LLDrawable* drawable)
+{
+	LLVOVolume* vobj = drawable->getVOVolume();
+	if (vobj)
+	{
+		LLVertexBuffer::unbind();
+		gGL.pushMatrix();
+		gGL.multMatrix((F32*) vobj->getRelativeXform().mMatrix);
+
+		LLVolume* volume = NULL;
+
+		if (drawable->isState(LLDrawable::RIGGED))
+		{
+				vobj->updateRiggedVolume();
+				volume = vobj->getRiggedVolume();
+		}
+		else
+		{
+			volume = vobj->getVolume();
+		}
+
+		if (volume)
+		{
+			for (S32 i = 0; i < volume->getNumVolumeFaces(); ++i)
+			{
+				const LLVolumeFace& face = volume->getVolumeFace(i);
+				LLVertexBuffer::drawElements(LLRender::TRIANGLES, face.mPositions, NULL, face.mNumIndices, face.mIndices);
+			}
+		}
+
+		gGL.popMatrix();
+	}
+	
+}
+
+void LLSelectNode::renderOneWireframe(const LLColor4& color)
+{
+    //Need to because crash on ATI 3800 (and similar cards) MAINT-5018 
+    LLGLDisable multisample(LLPipeline::RenderFSAASamples > 0 ? GL_MULTISAMPLE_ARB : 0);
+
+    LLViewerObject* objectp = getObject();
+    if (!objectp)
+    {
+        return;
+    }
+
+    LLDrawable* drawable = objectp->mDrawable;
+    if (!drawable)
+    {
+        return;
+    }
+
+    LLGLSLShader* shader = LLGLSLShader::sCurBoundShaderPtr;
+
+    if (shader)
+    {
+        gDebugProgram.bind();
+    }
+
+    gGL.matrixMode(LLRender::MM_MODELVIEW);
+    gGL.pushMatrix();
+
+    BOOL is_hud_object = objectp->isHUDAttachment();
+
+    if (drawable->isActive())
+    {
+        gGL.loadMatrix(gGLModelView);
+        gGL.multMatrix((F32*)objectp->getRenderMatrix().mMatrix);
+    }
+    else if (!is_hud_object)
+    {
+        gGL.loadIdentity();
+        gGL.multMatrix(gGLModelView);
+        LLVector3 trans = objectp->getRegion()->getOriginAgent();
+        gGL.translatef(trans.mV[0], trans.mV[1], trans.mV[2]);
+    }
+
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+    bool wireframe_selection = (gFloaterTools && gFloaterTools->getVisible()) || LLSelectMgr::sRenderHiddenSelections;
+
+    if (LLSelectMgr::sRenderHiddenSelections)
+    {
+        gGL.blendFunc(LLRender::BF_SOURCE_COLOR, LLRender::BF_ONE);
+        LLGLDepthTest gls_depth(GL_TRUE, GL_FALSE, GL_GEQUAL);
+        if (shader)
+        {
+            gGL.diffuseColor4f(color.mV[VRED], color.mV[VGREEN], color.mV[VBLUE], 0.4f);
+            pushWireframe(drawable);
+        }
+        else
+        {
+            LLGLEnable fog(GL_FOG);
+            glFogi(GL_FOG_MODE, GL_LINEAR);
+            float d = (LLViewerCamera::getInstance()->getPointOfInterest() - LLViewerCamera::getInstance()->getOrigin()).magVec();
+            LLColor4 fogCol = color * (F32)llclamp((LLSelectMgr::getInstance()->getSelectionCenterGlobal() - gAgentCamera.getCameraPositionGlobal()).magVec() / (LLSelectMgr::getInstance()->getBBoxOfSelection().getExtentLocal().magVec() * 4), 0.0, 1.0);
+            glFogf(GL_FOG_START, d);
+            glFogf(GL_FOG_END, d*(1 + (LLViewerCamera::getInstance()->getView() / LLViewerCamera::getInstance()->getDefaultFOV())));
+            glFogfv(GL_FOG_COLOR, fogCol.mV);
+
+            gGL.setAlphaRejectSettings(LLRender::CF_DEFAULT);
+            {
+                gGL.diffuseColor4f(color.mV[VRED], color.mV[VGREEN], color.mV[VBLUE], 0.4f);
+                pushWireframe(drawable);
+            }
+        }
+    }
+
+    gGL.flush();
+    gGL.setSceneBlendType(LLRender::BT_ALPHA);
+
+    gGL.diffuseColor4f(color.mV[VRED] * 2, color.mV[VGREEN] * 2, color.mV[VBLUE] * 2, LLSelectMgr::sHighlightAlpha * 2);
+
+    {
+        LLGLDisable depth(wireframe_selection ? 0 : GL_BLEND);
+        LLGLEnable stencil(wireframe_selection ? 0 : GL_STENCIL_TEST);
+
+        if (!wireframe_selection)
+        { //modify wireframe into outline selection mode
+            glStencilFunc(GL_NOTEQUAL, 2, 0xffff);
+            glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+        }
+
+        LLGLEnable offset(GL_POLYGON_OFFSET_LINE);
+        glPolygonOffset(3.f, 3.f);
+        glLineWidth(5.f);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        pushWireframe(drawable);
+    }
+
+    glLineWidth(1.f);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    gGL.popMatrix();
+
+    if (shader)
+    {
+        shader->bind();
+    }
+}
+
 //-----------------------------------------------------------------------------
 // renderOneSilhouette()
 //-----------------------------------------------------------------------------
@@ -6996,7 +7138,7 @@ LLBBox LLSelectMgr::getBBoxOfSelection() const
 //-----------------------------------------------------------------------------
 // canUndo()
 //-----------------------------------------------------------------------------
-BOOL LLSelectMgr::canUndo() const
+bool LLSelectMgr::canUndo() const
 {
 	// Can edit or can move
 	return const_cast<LLSelectMgr*>(this)->mSelectedObjects->getFirstUndoEnabledObject() != NULL; // HACK: casting away constness - MG;
@@ -7015,7 +7157,7 @@ void LLSelectMgr::undo()
 //-----------------------------------------------------------------------------
 // canRedo()
 //-----------------------------------------------------------------------------
-BOOL LLSelectMgr::canRedo() const
+bool LLSelectMgr::canRedo() const
 {
 	return const_cast<LLSelectMgr*>(this)->mSelectedObjects->getFirstEditableObject() != NULL; // HACK: casting away constness - MG
 }
@@ -7079,7 +7221,7 @@ void LLSelectMgr::deselect()
 //-----------------------------------------------------------------------------
 // canDuplicate()
 //-----------------------------------------------------------------------------
-BOOL LLSelectMgr::canDuplicate() const
+bool LLSelectMgr::canDuplicate() const
 {
 	return const_cast<LLSelectMgr*>(this)->mSelectedObjects->getFirstCopyableObject() != NULL; // HACK: casting away constness - MG
 }

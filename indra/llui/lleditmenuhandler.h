@@ -35,10 +35,10 @@ public:
 	virtual ~LLEditMenuHandler();
 	
 	virtual void	undo() {};
-	virtual BOOL	canUndo() const { return FALSE; }
+	virtual bool	canUndo() const { return false; }
 	
 	virtual void	redo() {};
-	virtual BOOL	canRedo() const { return FALSE; }
+	virtual bool	canRedo() const { return false; }
 	
 	virtual void	cut() {};
 	virtual bool	canCut() const { return false; }

@@ -118,9 +118,9 @@ public:
 
 	// LLEditMenuHandler interface
 	virtual void	undo();
-	virtual BOOL	canUndo() const;
+	virtual bool	canUndo() const;
 	virtual void	redo();
-	virtual BOOL	canRedo() const;
+	virtual bool	canRedo() const;
 
 	virtual void	cut();
 	virtual bool	canCut() const;
