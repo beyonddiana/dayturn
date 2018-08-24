@@ -175,13 +175,13 @@ public:
 	BOOL isOpen() const { return TRUE; } // root folder always open
 
 	// Copy & paste
-	virtual BOOL	canCopy() const;
+	virtual bool	canCopy() const;
 	virtual void	copy();
 
-	virtual BOOL	canCut() const;
+	virtual bool	canCut() const;
 	virtual void	cut();
 
-	virtual BOOL	canPaste() const;
+	virtual bool	canPaste() const;
 	virtual void	paste();
 
 	LLFolderViewItem* getNextUnselectedItem();

@@ -760,7 +760,7 @@ LLVOAvatar::LLVOAvatar(const LLUUID& id,
 	//</FS:Beq>
 	setNumTEs(TEX_NUM_INDICES);
 
-	mbCanSelect = TRUE;
+	mbCanSelect = true;
 
 	mSignaledAnimations.clear();
 	mPlayingAnimations.clear();

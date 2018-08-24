@@ -231,8 +231,8 @@ public:
 	void			swapWithNext(S32 index);
 	void			swapWithPrevious(S32 index);
 
-	void			setCanSelect(BOOL can_select)		{ mCanSelect = can_select; }
-	virtual BOOL	getCanSelect() const				{ return mCanSelect; }
+	void			setCanSelect(bool can_select)		{ mCanSelect = can_select; }
+	virtual bool	getCanSelect() const				{ return mCanSelect; }
 
 	S32				getItemIndex( LLScrollListItem* item ) const;
 	S32				getItemIndex( const LLUUID& item_id ) const;
@@ -363,13 +363,13 @@ public:
 
 	// LLEditMenuHandler functions
 	virtual void	copy();
-	virtual BOOL	canCopy() const;
+	virtual bool	canCopy() const;
 	virtual void	cut();
-	virtual BOOL	canCut() const;
+	virtual bool	canCut() const;
 	virtual void	selectAll();
-	virtual BOOL	canSelectAll() const;
+	virtual bool	canSelectAll() const;
 	virtual void	deselect();
-	virtual BOOL	canDeselect() const;
+	virtual bool	canDeselect() const;
 
 	void setNumDynamicColumns(S32 num) { mNumDynamicWidthColumns = num; }
 	void updateStaticColumnWidth(LLScrollListColumn* col, S32 new_width);

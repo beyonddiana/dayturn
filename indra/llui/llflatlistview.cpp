@@ -1029,7 +1029,7 @@ bool LLFlatListView::selectNextItemPair(bool is_up_direction, bool reset_selecti
 	return false;
 }
 
-BOOL LLFlatListView::canSelectAll() const
+bool LLFlatListView::canSelectAll() const
 {
 	return 0 != size() && mAllowSelection && mMultipleSelection;
 }

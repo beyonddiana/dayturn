@@ -176,7 +176,7 @@ public:
 	virtual void 	sortByColumn(const std::string& name, BOOL ascending);
 
 	// LLCtrlSelectionInterface functions
-	virtual BOOL	getCanSelect() const				{ return TRUE; }
+	virtual bool	getCanSelect() const				{ return true; }
 	virtual BOOL	selectFirstItem()					{ return setCurrentByIndex(0); }
 	virtual BOOL	selectNthItem( S32 index )			{ return setCurrentByIndex(index); }
 	virtual BOOL	selectItemRange( S32 first, S32 last );

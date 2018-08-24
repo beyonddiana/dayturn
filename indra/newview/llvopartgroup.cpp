@@ -175,7 +175,7 @@ LLVOPartGroup::LLVOPartGroup(const LLUUID &id, const LLPCode pcode, LLViewerRegi
 {
 	setNumTEs(1);
 	setTETexture(0, LLUUID::null);
-	mbCanSelect = FALSE;			// users can't select particle systems
+	mbCanSelect = false;			// users can't select particle systems
 }
 
 

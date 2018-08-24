@@ -123,21 +123,21 @@ public:
 	virtual BOOL	canRedo() const;
 
 	virtual void	cut();
-	virtual BOOL	canCut() const;
+	virtual bool	canCut() const;
 	virtual void	copy();
-	virtual BOOL	canCopy() const;
+	virtual bool	canCopy() const;
 	virtual void	paste();
-	virtual BOOL	canPaste() const;
+	virtual bool	canPaste() const;
 
 	virtual void	updatePrimary();
 	virtual void	copyPrimary();
 	virtual void	pastePrimary();
-	virtual BOOL	canPastePrimary() const;
+	virtual bool	canPastePrimary() const;
 
 	virtual void	doDelete();
-	virtual BOOL	canDoDelete() const;
+	virtual bool	canDoDelete() const;
 	virtual void	selectAll();
-	virtual BOOL	canSelectAll()	const;
+	virtual bool	canSelectAll()	const;
 
 	void 			selectByCursorPosition(S32 prev_cursor_pos, S32 next_cursor_pos);
 

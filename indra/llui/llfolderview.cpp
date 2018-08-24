@@ -874,11 +874,11 @@ BOOL LLFolderView::autoOpenTest(LLFolderViewFolder* folder)
 	return FALSE;
 }
 
-BOOL LLFolderView::canCopy() const
+bool LLFolderView::canCopy() const
 {
 	if (!(getVisible() && getEnabled() && (mSelectedItems.size() > 0)))
 	{
-		return FALSE;
+		return false;
 	}
 	
 	for (selected_items_t::const_iterator selected_it = mSelectedItems.begin(); selected_it != mSelectedItems.end(); ++selected_it)
@@ -886,10 +886,10 @@ BOOL LLFolderView::canCopy() const
 		const LLFolderViewItem* item = *selected_it;
 		if (!item->getViewModelItem()->isItemCopyable())
 		{
-			return FALSE;
+			return false;
 		}
 	}
-	return TRUE;
+	return true;
 }
 
 // copy selected item
@@ -914,11 +914,11 @@ void LLFolderView::copy()
 	mSearchString.clear();
 }
 
-BOOL LLFolderView::canCut() const
+bool LLFolderView::canCut() const
 {
 	if (!(getVisible() && getEnabled() && (mSelectedItems.size() > 0)))
 	{
-		return FALSE;
+		return false;
 	}
 	
 	for (selected_items_t::const_iterator selected_it = mSelectedItems.begin(); selected_it != mSelectedItems.end(); ++selected_it)
@@ -928,10 +928,10 @@ BOOL LLFolderView::canCut() const
 
 		if (!listener || !listener->isItemRemovable())
 		{
-			return FALSE;
+			return false;
 		}
 	}
-	return TRUE;
+	return true;
 }
 
 void LLFolderView::cut()
@@ -963,11 +963,11 @@ void LLFolderView::cut()
 	mSearchString.clear();
 }
 
-BOOL LLFolderView::canPaste() const
+bool LLFolderView::canPaste() const
 {
 	if (mSelectedItems.empty())
 	{
-		return FALSE;
+		return false;
 	}
 
 	if(getVisible() && getEnabled())
@@ -984,13 +984,13 @@ BOOL LLFolderView::canPaste() const
 				listener = folderp->getViewModelItem();
 				if (!listener || !listener->isClipboardPasteable())
 				{
-					return FALSE;
+					return false;
 				}
 			}
 		}
-		return TRUE;
+		return true;
 	}
-	return FALSE;
+	return false;
 }
 
 // paste selected item

@@ -88,7 +88,7 @@ public:
 
 	// LLCtrlSelectionInterface functions
 	/*virtual*/ S32		getItemCount() const  				{ return mRadioButtons.size(); }
-	/*virtual*/ BOOL	getCanSelect() const				{ return TRUE; }
+	/*virtual*/ bool	getCanSelect() const				{ return true; }
 	/*virtual*/ BOOL	selectFirstItem()					{ return setSelectedIndex(0); }
 	/*virtual*/ BOOL	selectNthItem( S32 index )			{ return setSelectedIndex(index); }
 	/*virtual*/ BOOL	selectItemRange( S32 first, S32 last ) { return setSelectedIndex(first); }

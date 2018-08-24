@@ -41,23 +41,23 @@ public:
 	virtual BOOL	canRedo() const { return FALSE; }
 	
 	virtual void	cut() {};
-	virtual BOOL	canCut() const { return FALSE; }
+	virtual bool	canCut() const { return false; }
 	
 	virtual void	copy() {};
-	virtual BOOL	canCopy() const { return FALSE; }
+	virtual bool	canCopy() const { return false; }
 	
 	virtual void	paste() {};
-	virtual BOOL	canPaste() const { return FALSE; }
+	virtual bool	canPaste() const { return false; }
 	
 	// "delete" is a keyword
 	virtual void	doDelete() {};
-	virtual BOOL	canDoDelete() const { return FALSE; }
+	virtual bool	canDoDelete() const { return false; }
 	
 	virtual void	selectAll() {};
-	virtual BOOL	canSelectAll() const { return FALSE; }
+	virtual bool	canSelectAll() const { return false; }
 	
 	virtual void	deselect() {};
-	virtual BOOL	canDeselect() const { return FALSE; }
+	virtual bool	canDeselect() const { return FALSE; }
 
 	// TODO: Instead of being a public data member, it would be better to hide it altogether
 	// and have a "set" method and then a bunch of static versions of the cut, copy, paste
