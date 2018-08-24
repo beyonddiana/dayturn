@@ -1926,7 +1926,7 @@ void LLTextEditor::blockUndo()
 }
 
 // virtual
-BOOL LLTextEditor::canUndo() const
+bool LLTextEditor::canUndo() const
 {
 	return !mReadOnly && mLastCmd != NULL;
 }
@@ -1957,7 +1957,7 @@ void LLTextEditor::undo()
 	onKeyStroke();
 }
 
-BOOL LLTextEditor::canRedo() const
+bool LLTextEditor::canRedo() const
 {
 	return !mReadOnly && (mUndoStack.size() > 0) && (mLastCmd != mUndoStack.front());
 }

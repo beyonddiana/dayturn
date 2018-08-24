@@ -444,10 +444,10 @@ public:
 	static void cleanupGlobals();
 
 	// LLEditMenuHandler interface
-	virtual BOOL canUndo() const;
+	virtual bool canUndo() const;
 	virtual void undo();
 
-	virtual BOOL canRedo() const;
+	virtual bool canRedo() const;
 	virtual void redo();
 
 	virtual bool canDoDelete() const;
@@ -457,7 +457,7 @@ public:
 	virtual bool canDeselect() const;
 
 	virtual void duplicate();
-	virtual BOOL canDuplicate() const;
+	virtual bool canDuplicate() const;
 
 	void clearSelections();
 	void update();
