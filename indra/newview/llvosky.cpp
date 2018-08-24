@@ -349,7 +349,7 @@ LLVOSky::LLVOSky(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp)
 	cloud_pos_density2 = LLColor3();
 
 	mInitialized = FALSE;
-	mbCanSelect = FALSE;
+	mbCanSelect = false;
 	mUpdateTimer.reset();
 
 	for (S32 i = 0; i < 6; i++)

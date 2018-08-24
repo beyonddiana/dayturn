@@ -344,7 +344,7 @@ protected:
 
 	virtual bool selectNextItemPair(bool is_up_direction, bool reset_selection);
 
-	virtual BOOL canSelectAll() const;
+	virtual bool canSelectAll() const;
 	virtual void selectAll();
 
 	virtual bool isSelected(item_pair_t* item_pair) const;

@@ -505,7 +505,7 @@ void LLLineEditor::resetScrollPosition()
 	setCursor(getCursor());
 }
 
-BOOL LLLineEditor::canDeselect() const
+bool LLLineEditor::canDeselect() const
 {
 	return hasSelection();
 }
@@ -534,9 +534,9 @@ void LLLineEditor::endSelection()
 	}
 }
 
-BOOL LLLineEditor::canSelectAll() const
+bool LLLineEditor::canSelectAll() const
 {
-	return TRUE;
+	return true;
 }
 
 void LLLineEditor::selectAll()
@@ -1155,7 +1155,7 @@ void LLLineEditor::deleteSelection()
 	}
 }
 
-BOOL LLLineEditor::canCut() const
+bool LLLineEditor::canCut() const
 {
 	return !mReadOnly && !mDrawAsterixes && hasSelection();
 }
@@ -1192,7 +1192,7 @@ void LLLineEditor::cut()
 	}
 }
 
-BOOL LLLineEditor::canCopy() const
+bool LLLineEditor::canCopy() const
 {
 	return !mDrawAsterixes && hasSelection();
 }
@@ -1209,7 +1209,7 @@ void LLLineEditor::copy()
 	}
 }
 
-BOOL LLLineEditor::canPaste() const
+bool LLLineEditor::canPaste() const
 {
 	return !mReadOnly && LLClipboard::instance().isTextAvailable(); 
 }
@@ -1332,7 +1332,7 @@ void LLLineEditor::copyPrimary()
 	}
 }
 
-BOOL LLLineEditor::canPastePrimary() const
+bool LLLineEditor::canPastePrimary() const
 {
 	return !mReadOnly && LLClipboard::instance().isTextAvailable(true); 
 }
@@ -1635,7 +1635,7 @@ BOOL LLLineEditor::handleUnicodeCharHere(llwchar uni_char)
 }
 
 
-BOOL LLLineEditor::canDoDelete() const
+bool LLLineEditor::canDoDelete() const
 {
 	return ( !mReadOnly && (!mPassDelete || (hasSelection() || (getCursor() < mText.length()))) );
 }

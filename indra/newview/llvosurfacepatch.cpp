@@ -135,7 +135,7 @@ LLVOSurfacePatch::LLVOSurfacePatch(const LLUUID &id, const LLPCode pcode, LLView
 		mLastLength(0)
 {
 	// Terrain must draw during selection passes so it can block objects behind it.
-	mbCanSelect = TRUE;
+	mbCanSelect = true;
 	setScale(LLVector3(16.f, 16.f, 16.f)); // Hack for setting scale for bounding boxes/visibility.
 }
 

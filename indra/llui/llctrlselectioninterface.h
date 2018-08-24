@@ -48,7 +48,7 @@ public:
 		OP_DESELECT,
 	};
 
-	virtual BOOL	getCanSelect() const = 0;
+	virtual bool	getCanSelect() const = 0;
 
 	virtual S32		getItemCount() const = 0;
 

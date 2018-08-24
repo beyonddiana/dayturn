@@ -74,7 +74,7 @@ LLVOGrass::LLVOGrass(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regi
 	mLastPatchUpdateTime = 0;
 	mGrassVel.clearVec();
 	mGrassBend.clearVec();
-	mbCanSelect          = TRUE;
+	mbCanSelect          = true;
 
 	mBladeWindAngle      = 35.f;
 	mBWAOverlap          = 2.f;

@@ -3521,19 +3521,17 @@ LLViewerMediaImpl::cut()
 
 ////////////////////////////////////////////////////////////////////////////////
 // virtual
-BOOL
-LLViewerMediaImpl::canCut() const
+bool LLViewerMediaImpl::canCut() const
 {
 	if (mMediaSource)
 		return mMediaSource->canCut();
 	else
-		return FALSE;
+		return false;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // virtual
-void
-LLViewerMediaImpl::copy()
+void LLViewerMediaImpl::copy()
 {
 	if (mMediaSource)
 		mMediaSource->copy();
@@ -3541,19 +3539,17 @@ LLViewerMediaImpl::copy()
 
 ////////////////////////////////////////////////////////////////////////////////
 // virtual
-BOOL
-LLViewerMediaImpl::canCopy() const
+bool LLViewerMediaImpl::canCopy() const
 {
 	if (mMediaSource)
 		return mMediaSource->canCopy();
 	else
-		return FALSE;
+		return false;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // virtual
-void
-LLViewerMediaImpl::paste()
+void LLViewerMediaImpl::paste()
 {
 	if (mMediaSource)
 		mMediaSource->paste();
@@ -3561,13 +3557,12 @@ LLViewerMediaImpl::paste()
 
 ////////////////////////////////////////////////////////////////////////////////
 // virtual
-BOOL
-LLViewerMediaImpl::canPaste() const
+bool LLViewerMediaImpl::canPaste() const
 {
 	if (mMediaSource)
 		return mMediaSource->canPaste();
 	else
-		return FALSE;
+		return false;
 }
 
 void LLViewerMediaImpl::setUpdated(BOOL updated)

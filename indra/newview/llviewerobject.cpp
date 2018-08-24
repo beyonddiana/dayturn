@@ -247,7 +247,7 @@ LLViewerObject::LLViewerObject(const LLUUID &id, const LLPCode pcode, LLViewerRe
 	mTENormalMaps(NULL),
 	mTESpecularMaps(NULL),
 	mGLName(0),
-	mbCanSelect(TRUE),
+	mbCanSelect(true),
 	mFlags(0),
 	mPhysicsShapeType(0),
 	mPhysicsGravity(0),
@@ -5486,7 +5486,7 @@ S32 LLViewerObject::countInventoryContents(LLAssetType::EType type)
 }
 
 
-void LLViewerObject::setCanSelect(BOOL canSelect)
+void LLViewerObject::setCanSelect(bool canSelect)
 {
 	mbCanSelect = canSelect;
 	for (child_list_t::iterator iter = mChildList.begin();

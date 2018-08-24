@@ -450,11 +450,11 @@ public:
 	virtual BOOL canRedo() const;
 	virtual void redo();
 
-	virtual BOOL canDoDelete() const;
+	virtual bool canDoDelete() const;
 	virtual void doDelete();
 
 	virtual void deselect();
-	virtual BOOL canDeselect() const;
+	virtual bool canDeselect() const;
 
 	virtual void duplicate();
 	virtual BOOL canDuplicate() const;
