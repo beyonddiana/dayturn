@@ -56,7 +56,7 @@ public:
 	boost::signals2::connection	setTopLostCallback(const focus_signal_t::slot_type& cb);
 
 	// These were brought up the hierarchy from LLView so that we don't have to use dynamic_cast when dealing with keyboard focus.
-	virtual BOOL	handleKey(KEY key, MASK mask, BOOL called_from_parent);
+	virtual bool	handleKey(KEY key, MASK mask, bool called_from_parent);
 	virtual BOOL	handleKeyUp(KEY key, MASK mask, BOOL called_from_parent);
 	virtual bool	handleUnicodeChar(llwchar uni_char, bool called_from_parent);
 

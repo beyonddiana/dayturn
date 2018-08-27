@@ -143,7 +143,7 @@ public:
 	
 	void setParent(LLFloaterPreference* parent) { mParent = parent; }
 	
-	BOOL handleKeyHere(KEY key, MASK mask);
+	bool handleKeyHere(KEY key, MASK mask);
 	BOOL handleAnyMouseClick(S32 x, S32 y, MASK mask, LLMouseHandler::EClickType clicktype, BOOL down);
 	static void onCancel(void* user_data);
 		
@@ -172,13 +172,13 @@ LLVoiceSetKeyDialog::~LLVoiceSetKeyDialog()
 {
 }
 
-BOOL LLVoiceSetKeyDialog::handleKeyHere(KEY key, MASK mask)
+bool LLVoiceSetKeyDialog::handleKeyHere(KEY key, MASK mask)
 {
-	BOOL result = TRUE;
+	bool result = true;
 	
 	if (key == 'Q' && mask == MASK_CONTROL)
 	{
-		result = FALSE;
+		result = false;
 	}
 	else if (mParent)
 	{

@@ -97,7 +97,7 @@ public:
 	virtual void updateMessages() {}
 	LLConversationItem* getCurSelectedViewModelItem();
 	void forceReshape();
-	virtual BOOL handleKeyHere( KEY key, MASK mask );
+	virtual bool handleKeyHere( KEY key, MASK mask );
 	bool isMessagePaneExpanded(){return mMessagePaneExpanded;}
 	void setMessagePaneExpanded(bool expanded){mMessagePaneExpanded = expanded;}
 	void restoreFloater();

@@ -116,7 +116,7 @@ public:
 	// LLView interface
 	/*virtual*/ BOOL 	isPanel() const;
 	/*virtual*/ void	draw();	
-	/*virtual*/ BOOL	handleKeyHere( KEY key, MASK mask );
+	/*virtual*/ bool	handleKeyHere( KEY key, MASK mask );
 	/*virtual*/ void 	onVisibilityChange ( bool new_visibility );
 
 	// From LLFocusableElement

@@ -708,17 +708,17 @@ bool LLFloaterAssociateListing::postBuild()
 	return LLFloater::postBuild();
 }
 
-BOOL LLFloaterAssociateListing::handleKeyHere(KEY key, MASK mask)
+bool LLFloaterAssociateListing::handleKeyHere(KEY key, MASK mask)
 {
 	if (key == KEY_RETURN && mask == MASK_NONE)
 	{
 		apply();
-		return TRUE;
+		return true;
 	}
 	else if (key == KEY_ESCAPE && mask == MASK_NONE)
 	{
 		cancel();
-		return TRUE;
+		return true;
 	}
     
 	return LLFloater::handleKeyHere(key, mask);

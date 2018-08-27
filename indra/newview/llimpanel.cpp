@@ -522,17 +522,17 @@ void LLFloaterIMPanel::selectNone()
 	mInputEditor->deselect();
 }
 
-BOOL LLFloaterIMPanel::handleKeyHere( KEY key, MASK mask )
+bool LLFloaterIMPanel::handleKeyHere( KEY key, MASK mask )
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 	if( KEY_RETURN == key && mask == MASK_NONE)
 	{
 		sendMsg();
-		handled = TRUE;
+		handled = true;
 	}
 	else if ( KEY_ESCAPE == key )
 	{
-		handled = TRUE;
+		handled = true;
 		gFocusMgr.setKeyboardFocus(NULL);
 	}
 

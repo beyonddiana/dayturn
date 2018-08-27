@@ -90,7 +90,7 @@ public:
 	void 			forceEditorCommit();			// for commit on external button
 
 	virtual BOOL	handleScrollWheel(S32 x,S32 y,S32 clicks);
-	virtual BOOL	handleKeyHere(KEY key, MASK mask);
+	virtual bool	handleKeyHere(KEY key, MASK mask);
 
 	void			onEditorCommit(const LLSD& data);
 	static void		onEditorGainFocus(LLFocusableElement* caller, void *userdata);

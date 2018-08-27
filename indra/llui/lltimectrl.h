@@ -82,7 +82,7 @@ private:
 	};
 
 	virtual void	onFocusLost();
-	virtual BOOL	handleKeyHere(KEY key, MASK mask);
+	virtual bool	handleKeyHere(KEY key, MASK mask);
 
 	void	onUpBtn();
 	void	onDownBtn();

@@ -1755,15 +1755,15 @@ void LLTextEditor::unindentLineBeforeCloseBrace()
 }
 
 
-BOOL LLTextEditor::handleKeyHere(KEY key, MASK mask )
+bool LLTextEditor::handleKeyHere(KEY key, MASK mask )
 {
-	BOOL	handled = FALSE;
+	bool	handled = false;
 
 	// Special case for TAB.  If want to move to next field, report
 	// not handled and let the parent take care of field movement.
 	if (KEY_TAB == key && mTabsToNextField)
 	{
-		return FALSE;
+		return false;
 	}
 
 	if (mReadOnly && mScroller)
@@ -1799,7 +1799,7 @@ BOOL LLTextEditor::handleKeyHere(KEY key, MASK mask )
 				// Add the text
 				cleanStringForPaste(tool_tip_text);
 				pasteTextWithLinebreaks(tool_tip_text);
-				handled = TRUE;
+				handled = true;
 			}
 		}
 		else

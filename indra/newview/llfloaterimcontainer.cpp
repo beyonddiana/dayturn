@@ -2274,27 +2274,27 @@ bool LLFloaterIMContainer::isScrolledOutOfSight(LLConversationViewSession* conve
 	return !mConversationsRoot->getVisibleRect().overlaps(widget_rect);
 }
 
-BOOL LLFloaterIMContainer::handleKeyHere(KEY key, MASK mask )
+bool LLFloaterIMContainer::handleKeyHere(KEY key, MASK mask )
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 
 	if(mask == MASK_ALT)
 	{
 		if (KEY_RETURN == key )
 		{
 			expandConversation();
-			handled = TRUE;
+			handled = true;
 		}
 
 		if ((KEY_DOWN == key ) || (KEY_RIGHT == key))
 		{
 			selectNextorPreviousConversation(true);
-			handled = TRUE;
+			handled = true;
 		}
 		if ((KEY_UP == key) || (KEY_LEFT == key))
 		{
 			selectNextorPreviousConversation(false);
-			handled = TRUE;
+			handled = true;
 		}
 	}
 	return handled;

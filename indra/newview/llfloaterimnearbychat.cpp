@@ -402,21 +402,21 @@ std::string LLFloaterIMNearbyChat::getCurrentChat()
 }
 
 // virtual
-BOOL LLFloaterIMNearbyChat::handleKeyHere( KEY key, MASK mask )
+bool LLFloaterIMNearbyChat::handleKeyHere( KEY key, MASK mask )
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 
 	if( KEY_RETURN == key && mask == MASK_CONTROL)
 	{
 		// shout
 		sendChat(CHAT_TYPE_SHOUT);
-		handled = TRUE;
+		handled = true;
 	}
 	else if (KEY_RETURN == key && mask == MASK_SHIFT)
 	{
 		// whisper
-		sendChat (CHAT_TYPE_WHISPER);
-		handled = TRUE;
+		sendChat(CHAT_TYPE_WHISPER);
+		handled = true;
 	}
 
 
@@ -426,12 +426,12 @@ BOOL LLFloaterIMNearbyChat::handleKeyHere( KEY key, MASK mask )
 		if ((KEY_UP == key) || (KEY_LEFT == key))
 		{
 			floater_container->selectNextorPreviousConversation(false);
-			handled = TRUE;
+			handled = true;
 		}
 		if ((KEY_DOWN == key ) || (KEY_RIGHT == key))
 		{
 			floater_container->selectNextorPreviousConversation(true);
-			handled = TRUE;
+			handled = true;
 		}
 	}
 

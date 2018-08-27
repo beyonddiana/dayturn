@@ -94,7 +94,7 @@ public:
 
 	virtual bool postBuild();
 
-	virtual BOOL handleKeyHere(KEY key, MASK mask);
+	virtual bool handleKeyHere(KEY key, MASK mask);
 
 	static LLFloaterGetBlockedObjectName* show(get_object_name_callback_t callback);
 

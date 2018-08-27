@@ -53,7 +53,7 @@ public:
 
 	// llview
 	void draw() override;
-	BOOL handleKeyHere(KEY key, MASK mask) override;
+	bool handleKeyHere(KEY key, MASK mask) override;
 	void setEnabled( BOOL enabled ) override;
 
 	// llfloater

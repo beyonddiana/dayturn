@@ -129,14 +129,14 @@ bool LLProgressView::handleHover(S32 x, S32 y, MASK mask)
 }
 
 
-BOOL LLProgressView::handleKeyHere(KEY key, MASK mask)
+bool LLProgressView::handleKeyHere(KEY key, MASK mask)
 {
 	// Suck up all keystokes except CTRL-Q.
 	if( ('Q' == key) && (MASK_CONTROL == mask) )
 	{
 		LLAppViewer::instance()->userQuit();
 	}
-	return TRUE;
+	return true;
 }
 
 void LLProgressView::revealIntroPanel()

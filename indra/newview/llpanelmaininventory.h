@@ -64,7 +64,7 @@ public:
 
 	bool postBuild();
 
-	virtual BOOL handleKeyHere(KEY key, MASK mask);
+	virtual bool handleKeyHere(KEY key, MASK mask);
 
 	// Inherited functionality
 	/*virtual*/ bool handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,

@@ -845,7 +845,7 @@ BOOL LLPanelPrimMediaControls::handleMouseUp(S32 x, S32 y, MASK mask)
 	return LLPanel::handleMouseUp(x, y, mask);
 }
 
-BOOL LLPanelPrimMediaControls::handleKeyHere( KEY key, MASK mask )
+bool LLPanelPrimMediaControls::handleKeyHere( KEY key, MASK mask )
 {
 	mInactivityTimer.start();
 	return LLPanel::handleKeyHere(key, mask);

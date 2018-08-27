@@ -90,7 +90,7 @@ private:
 
     void drawFrustum();
 	virtual void draw();
-	virtual BOOL handleKeyHere(KEY key, MASK mask);
+	virtual bool handleKeyHere(KEY key, MASK mask);
 
 	LLUUID				mQueryID;
 	int				    mNumResultsReturned;

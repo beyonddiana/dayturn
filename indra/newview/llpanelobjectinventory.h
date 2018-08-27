@@ -95,7 +95,7 @@ protected:
 	void removeItemID(const LLUUID& id);
 	void clearItemIDs();
 
-	BOOL			handleKeyHere( KEY key, MASK mask );
+	bool			handleKeyHere( KEY key, MASK mask );
 	BOOL			isSelectionRemovable();
 
 private:

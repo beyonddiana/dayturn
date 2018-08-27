@@ -276,17 +276,17 @@ bool LLFloaterGetBlockedObjectName::postBuild()
 	return LLFloater::postBuild();
 }
 
-BOOL LLFloaterGetBlockedObjectName::handleKeyHere(KEY key, MASK mask)
+bool LLFloaterGetBlockedObjectName::handleKeyHere(KEY key, MASK mask)
 {
 	if (key == KEY_RETURN && mask == MASK_NONE)
 	{
 		applyBlocking();
-		return TRUE;
+		return true;
 	}
 	else if (key == KEY_ESCAPE && mask == MASK_NONE)
 	{
 		cancelBlocking();
-		return TRUE;
+		return true;
 	}
 
 	return LLFloater::handleKeyHere(key, mask);

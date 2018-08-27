@@ -143,7 +143,7 @@ public:
 	/*virtual*/ bool handleHover( S32 x, S32 y, MASK mask );
 	/*virtual*/ BOOL handleMouseUp( S32 x, S32 y, MASK mask );
 	/*virtual*/ BOOL handleToolTip(S32 x, S32 y, MASK mask);
-	/*virtual*/ BOOL handleKeyHere(KEY key, MASK mask);
+	/*virtual*/ bool handleKeyHere(KEY key, MASK mask);
 	/*virtual*/ bool handleDragAndDrop(S32 x, S32 y, MASK mask,	bool drop,
 									   EDragAndDropType type, void* cargo_data,
 									   EAcceptance* accept, std::string& tooltip);

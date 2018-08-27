@@ -488,7 +488,7 @@ BOOL LLSpinCtrl::handleScrollWheel(S32 x, S32 y, S32 clicks)
 	return TRUE;
 }
 
-BOOL LLSpinCtrl::handleKeyHere(KEY key, MASK mask)
+bool LLSpinCtrl::handleKeyHere(KEY key, MASK mask)
 {
 	if (mEditor->hasFocus())
 	{
@@ -499,19 +499,19 @@ BOOL LLSpinCtrl::handleKeyHere(KEY key, MASK mask)
 			updateEditor();
 			mEditor->resetScrollPosition();
 			mEditor->setFocus(FALSE);
-			return TRUE;
+			return true;
 		}
 		if(key == KEY_UP)
 		{
 			onUpBtn(getValue());
-			return TRUE;
+			return true;
 		}
 		if(key == KEY_DOWN)
 		{
 			onDownBtn(getValue());
-			return TRUE;
+			return true;
 		}
 	}
-	return FALSE;
+	return false;
 }
 

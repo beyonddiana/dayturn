@@ -274,7 +274,7 @@ public:
 		EAcceptance *accept,
 		std::string& tooltip_msg);
 	/*virtual*/ void	draw();
-	/*virtual*/ BOOL	handleKeyHere(KEY key, MASK mask);
+	/*virtual*/ bool	handleKeyHere(KEY key, MASK mask);
 
 	// LLFloater overrides
 	/*virtual*/ bool    postBuild();

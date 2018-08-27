@@ -704,7 +704,7 @@ BOOL LLViewerKeyboard::modeFromString(const std::string& string, S32 *mode)
 	}
 }
 
-BOOL LLViewerKeyboard::handleKey(KEY translated_key,  MASK translated_mask, BOOL repeated)
+bool LLViewerKeyboard::handleKey(KEY translated_key,  MASK translated_mask, bool repeated)
 {
 	// check for re-map
 	EKeyboardMode mode = gViewerKeyboard.getMode();
@@ -717,17 +717,17 @@ BOOL LLViewerKeyboard::handleKey(KEY translated_key,  MASK translated_mask, BOOL
 	}
 
 	// No repeats of F-keys
-	BOOL repeatable_key = (translated_key < KEY_F1 || translated_key > KEY_F12);
+	bool repeatable_key = (translated_key < KEY_F1 || translated_key > KEY_F12);
 	if (!repeatable_key && repeated)
 	{
-		return FALSE;
+		return false;
 	}
 
 	LL_DEBUGS("UserInput") << "keydown -" << translated_key << "-" << LL_ENDL;
 	// skip skipped keys
 	if(mKeysSkippedByUI.find(translated_key) != mKeysSkippedByUI.end()) 
 	{
-		mKeyHandledByUI[translated_key] = FALSE;
+		mKeyHandledByUI[translated_key] = false;
 		LL_INFOS("Keyboard Handling") << "Key wasn't handled by UI!" << LL_ENDL;
 	}
 	else

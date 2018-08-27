@@ -1056,9 +1056,9 @@ BOOL LLTextureView::handleMouseUp(S32 x, S32 y, MASK mask)
 	return FALSE;
 }
 
-BOOL LLTextureView::handleKey(KEY key, MASK mask, BOOL called_from_parent)
+bool LLTextureView::handleKey(KEY key, MASK mask, bool called_from_parent)
 {
-	return FALSE;
+	return false;
 }
 
 

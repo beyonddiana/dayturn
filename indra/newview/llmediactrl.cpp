@@ -466,9 +466,9 @@ void LLMediaCtrl::onOpenWebInspector()
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-BOOL LLMediaCtrl::handleKeyHere( KEY key, MASK mask )
+bool LLMediaCtrl::handleKeyHere( KEY key, MASK mask )
 {
-	BOOL result = FALSE;
+	bool result = false;
 	
 	if (mMediaSource)
 	{

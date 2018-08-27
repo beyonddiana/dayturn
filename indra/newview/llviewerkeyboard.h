@@ -88,7 +88,7 @@ public:
 
 	LLViewerKeyboard();
 
-	BOOL			handleKey(KEY key, MASK mask, BOOL repeated);
+	bool			handleKey(KEY key, MASK mask, bool repeated);
 	BOOL			handleKeyUp(KEY key, MASK mask);
 
 	S32				loadBindings(const std::string& filename);										// returns number bound, 0 on error

@@ -374,8 +374,8 @@ public:
 	virtual void	reshape(S32 width, S32 height, bool called_from_parent = true);
 	virtual void	translate( S32 x, S32 y );
 	void			setOrigin( S32 x, S32 y )	{ mRect.translate( x - mRect.mLeft, y - mRect.mBottom ); }
-	BOOL			translateIntoRect( const LLRect& constraint, S32 min_overlap_pixels = S32_MAX);
-	BOOL			translateIntoRectWithExclusion( const LLRect& inside, const LLRect& exclude, S32 min_overlap_pixels = S32_MAX);
+	bool			translateIntoRect( const LLRect& constraint, S32 min_overlap_pixels = S32_MAX);
+	bool			translateIntoRectWithExclusion( const LLRect& inside, const LLRect& exclude, S32 min_overlap_pixels = S32_MAX);
 	void			centerWithin(const LLRect& bounds);
 
 	void	setShape(const LLRect& new_rect, bool by_user = false);
@@ -385,7 +385,7 @@ public:
 	virtual void	setSnappedTo(const LLView* snap_view);
 
 	// inherited from LLFocusableElement
-	/* virtual */ BOOL	handleKey(KEY key, MASK mask, BOOL called_from_parent);
+	/* virtual */ bool	handleKey(KEY key, MASK mask, bool called_from_parent);
 	/* virtual */ BOOL	handleKeyUp(KEY key, MASK mask, BOOL called_from_parent);
 	/* virtual */ bool	handleUnicodeChar(llwchar uni_char, bool called_from_parent);
 
@@ -409,9 +409,9 @@ public:
 		HIT_TEST_IGNORE_BOUNDING_RECT
 	}EHitTestType;
 
-	BOOL parentPointInView(S32 x, S32 y, EHitTestType type = HIT_TEST_USE_BOUNDING_RECT) const;
-	BOOL pointInView(S32 x, S32 y, EHitTestType type = HIT_TEST_USE_BOUNDING_RECT) const;
-	BOOL blockMouseEvent(S32 x, S32 y) const;
+	bool parentPointInView(S32 x, S32 y, EHitTestType type = HIT_TEST_USE_BOUNDING_RECT) const;
+	bool pointInView(S32 x, S32 y, EHitTestType type = HIT_TEST_USE_BOUNDING_RECT) const;
+	bool blockMouseEvent(S32 x, S32 y) const;
 
 	// See LLMouseHandler virtuals for screenPointToLocal and localPointToScreen
 	BOOL localPointToOtherView( S32 x, S32 y, S32 *other_x, S32 *other_y, const LLView* other_view) const;
@@ -518,7 +518,7 @@ public:
 	static void setupParamsForExport(Params& p, LLView* parent);
 	
 	//virtual BOOL	addChildFromParam(const LLInitParam::BaseBlock& params) { return TRUE; }
-	virtual BOOL	handleKeyHere(KEY key, MASK mask);
+	virtual bool	handleKeyHere(KEY key, MASK mask);
 	virtual BOOL	handleKeyUpHere(KEY key, MASK mask);
 	virtual bool	handleUnicodeCharHere(llwchar uni_char);
 

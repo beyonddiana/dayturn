@@ -151,7 +151,7 @@ class LLFloaterAssociateListing : public LLFloater
 	friend class LLFloaterReg;
 public:
 	virtual bool postBuild();
-	virtual BOOL handleKeyHere(KEY key, MASK mask);
+	virtual bool handleKeyHere(KEY key, MASK mask);
     
 	static LLFloaterAssociateListing* show(const LLUUID& folder_id);
     

@@ -105,7 +105,7 @@ public:
 	virtual void	onFocusLost();
 
 	virtual BOOL	handleToolTip(S32 x, S32 y, MASK mask);
-	virtual BOOL	handleKeyHere(KEY key, MASK mask);
+	virtual bool	handleKeyHere(KEY key, MASK mask);
 	virtual bool	handleUnicodeCharHere(llwchar uni_char);
 
 	// LLUICtrl interface

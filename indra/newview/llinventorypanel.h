@@ -155,7 +155,7 @@ public:
 	// LLView methods
 	/*virtual*/ void onVisibilityChange(bool new_visibility);
 	void draw();
-	/*virtual*/ BOOL handleKeyHere( KEY key, MASK mask );
+	/*virtual*/ bool handleKeyHere( KEY key, MASK mask );
 	bool handleHover(S32 x, S32 y, MASK mask);
 	bool handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
 								   EDragAndDropType cargo_type,

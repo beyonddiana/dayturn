@@ -349,7 +349,7 @@ void LLMultiFloater::setVisible(BOOL visible)
 	}
 }
 
-BOOL LLMultiFloater::handleKeyHere(KEY key, MASK mask)
+bool LLMultiFloater::handleKeyHere(KEY key, MASK mask)
 {
 	if (key == 'W' && mask == MASK_CONTROL)
 	{
@@ -366,7 +366,7 @@ BOOL LLMultiFloater::handleKeyHere(KEY key, MASK mask)
 				mTabContainer->setFocus(TRUE);
 			}
 		}
-		return TRUE;
+		return true;
 	}
 
 	return LLFloater::handleKeyHere(key, mask);

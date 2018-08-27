@@ -992,7 +992,7 @@ LLOutfitSnapshotFloaterView::~LLOutfitSnapshotFloaterView()
 {
 }
 
-BOOL LLOutfitSnapshotFloaterView::handleKey(KEY key, MASK mask, BOOL called_from_parent)
+bool LLOutfitSnapshotFloaterView::handleKey(KEY key, MASK mask, bool called_from_parent)
 {
 	// use default handler when not in freeze-frame mode
 	if(!gSavedSettings.getBOOL("FreezeTime"))
@@ -1008,9 +1008,9 @@ BOOL LLOutfitSnapshotFloaterView::handleKey(KEY key, MASK mask, BOOL called_from
 	else
 	{
 		// bounce keystrokes back down
-		LLFloaterView::handleKey(key, mask, TRUE);
+		LLFloaterView::handleKey(key, mask, true);
 	}
-	return TRUE;
+	return true;
 }
 
 BOOL LLOutfitSnapshotFloaterView::handleMouseDown(S32 x, S32 y, MASK mask)

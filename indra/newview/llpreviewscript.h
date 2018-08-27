@@ -149,7 +149,7 @@ private:
 
 	void selectFirstError();
 
-	virtual BOOL handleKeyHere(KEY key, MASK mask);
+	virtual bool handleKeyHere(KEY key, MASK mask);
 	
 	void enableSave(BOOL b) {mEnableSave = b;}
 

@@ -127,7 +127,7 @@ protected:
 public:
 	virtual ~LLSnapshotFloaterView();
 
-	/*virtual*/	BOOL handleKey(KEY key, MASK mask, BOOL called_from_parent);
+	/*virtual*/	bool handleKey(KEY key, MASK mask, bool called_from_parent);
 	/*virtual*/	BOOL handleMouseDown(S32 x, S32 y, MASK mask);
 	/*virtual*/	BOOL handleMouseUp(S32 x, S32 y, MASK mask);
 	/*virtual*/	bool handleHover(S32 x, S32 y, MASK mask);

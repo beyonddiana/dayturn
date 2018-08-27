@@ -323,7 +323,7 @@ public:
 	LLView*			getToolBarHolder() { return mToolBarHolder.get(); }
 	LLView*			getHintHolder() { return mHintHolder.get(); }
 	LLView*			getLoginPanelHolder() { return mLoginPanelHolder.get(); }
-	BOOL			handleKey(KEY key, MASK mask);
+	bool			handleKey(KEY key, MASK mask);
 	BOOL			handleKeyUp(KEY key, MASK mask);
 	void			handleScrollWheel	(S32 clicks);
 	void			handleScrollHWheel	(S32 clicks);

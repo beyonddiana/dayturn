@@ -158,27 +158,27 @@ void LLTimeCtrl::setTime24(F32 time)
 	updateText();
 }
 
-BOOL LLTimeCtrl::handleKeyHere(KEY key, MASK mask)
+bool LLTimeCtrl::handleKeyHere(KEY key, MASK mask)
 {
 	if (mEditor->hasFocus())
 	{
 		if(key == KEY_UP)
 		{
 			onUpBtn();
-			return TRUE;
+			return true;
 		}
 		if(key == KEY_DOWN)
 		{
 			onDownBtn();
-			return TRUE;
+			return true;
 		}
 		if (key == KEY_RETURN)
 		{
 			onCommit();
-			return TRUE;
+			return true;
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 void LLTimeCtrl::onUpBtn()

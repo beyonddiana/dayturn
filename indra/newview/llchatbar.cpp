@@ -142,9 +142,9 @@ bool LLChatBar::postBuild()
 //-----------------------------------------------------------------------
 
 // virtual
-BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
+bool LLChatBar::handleKeyHere( KEY key, MASK mask )
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 
 	if( KEY_RETURN == key )
 	{
@@ -152,7 +152,7 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 		{
 			// shout
 			sendChat(CHAT_TYPE_SHOUT);
-			handled = TRUE;
+			handled = true;
 		}
 //MK
 		else if (mask == MASK_SHIFT)
@@ -166,7 +166,7 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 		{
 			// say
 			sendChat( CHAT_TYPE_NORMAL );
-			handled = TRUE;
+			handled = true;
 		}
 	}
 	// only do this in main chatbar
@@ -174,7 +174,7 @@ BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 	{
 		stopChat();
 
-		handled = TRUE;
+		handled = true;
 	}
 
 	return handled;

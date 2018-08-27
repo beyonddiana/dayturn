@@ -116,7 +116,7 @@ public:
     void doToParticipants(const std::string& item, uuid_vec_t& selectedIDS);
 
 	void assignResizeLimits();
-	virtual BOOL handleKeyHere(KEY key, MASK mask );
+	virtual bool handleKeyHere(KEY key, MASK mask );
 	/*virtual*/ void closeFloater(bool app_quitting = false);
     void closeAllConversations();
     void closeSelectedConversations(const uuid_vec_t& ids);

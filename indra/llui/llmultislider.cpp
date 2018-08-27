@@ -559,25 +559,25 @@ BOOL LLMultiSlider::handleMouseDown(S32 x, S32 y, MASK mask)
 	return TRUE;
 }
 
-BOOL	LLMultiSlider::handleKeyHere(KEY key, MASK mask)
+bool	LLMultiSlider::handleKeyHere(KEY key, MASK mask)
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 	switch(key)
 	{
 	case KEY_UP:
 	case KEY_DOWN:
 		// eat up and down keys to be consistent
-		handled = TRUE;
+		handled = true;
 		break;
 	case KEY_LEFT:
 		setCurSliderValue(getCurSliderValue() - getIncrement());
 		onCommit();
-		handled = TRUE;
+		handled = true;
 		break;
 	case KEY_RIGHT:
 		setCurSliderValue(getCurSliderValue() + getIncrement());
 		onCommit();
-		handled = TRUE;
+		handled = true;
 		break;
 	default:
 		break;

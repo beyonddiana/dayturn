@@ -149,12 +149,12 @@ void LLPreviewNotecard::draw()
 }
 
 // virtual
-BOOL LLPreviewNotecard::handleKeyHere(KEY key, MASK mask)
+bool LLPreviewNotecard::handleKeyHere(KEY key, MASK mask)
 {
 	if(('S' == key) && (MASK_CONTROL == (mask & MASK_CONTROL)))
 	{
 		saveIfNeeded();
-		return TRUE;
+		return true;
 	}
 
 	return LLPreview::handleKeyHere(key, mask);

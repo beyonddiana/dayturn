@@ -290,9 +290,9 @@ void LLPanel::setDefaultBtn(const std::string& id)
 	}
 }
 
-BOOL LLPanel::handleKeyHere( KEY key, MASK mask )
+bool LLPanel::handleKeyHere( KEY key, MASK mask )
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 
 	LLUICtrl* cur_focus = dynamic_cast<LLUICtrl*>(gFocusMgr.getKeyboardFocus());
 
@@ -300,7 +300,7 @@ BOOL LLPanel::handleKeyHere( KEY key, MASK mask )
 	if (key == KEY_ESCAPE)
 	{
 		setFocus(FALSE);
-		return TRUE;
+		return true;
 	}
 	else if( (mask == MASK_SHIFT) && (KEY_TAB == key))
 	{
@@ -335,19 +335,19 @@ BOOL LLPanel::handleKeyHere( KEY key, MASK mask )
 		{
 			// current focus is a return-capturing button,
 			// let *that* button handle the return key
-			handled = FALSE; 
+			handled = false;
 		}
 		else if (mDefaultBtn && mDefaultBtn->getVisible() && mDefaultBtn->getEnabled())
 		{
 			// If we have a default button, click it when return is pressed
 			mDefaultBtn->onCommit();
-			handled = TRUE;
+			handled = true;
 		}
 		else if (cur_focus->acceptsTextInput())
 		{
 			// call onCommit for text input handling control
 			cur_focus->onCommit();
-			handled = TRUE;
+			handled = true;
 		}
 	}
 

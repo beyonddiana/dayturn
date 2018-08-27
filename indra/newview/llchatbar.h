@@ -49,7 +49,7 @@ public:
 	~LLChatBar();
 	virtual bool postBuild();
 
-	virtual BOOL handleKeyHere(KEY key, MASK mask);
+	virtual bool handleKeyHere(KEY key, MASK mask);
 
 	void		refresh();
 	void		refreshGestures();

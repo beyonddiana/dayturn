@@ -236,9 +236,9 @@ BOOL LLRadioGroup::setSelectedIndex(S32 index, BOOL from_event)
 	return TRUE;
 }
 
-BOOL LLRadioGroup::handleKeyHere(KEY key, MASK mask)
+bool LLRadioGroup::handleKeyHere(KEY key, MASK mask)
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 	// do any of the tab buttons have keyboard focus?
 	if (mask == MASK_NONE)
 	{
@@ -253,7 +253,7 @@ BOOL LLRadioGroup::handleKeyHere(KEY key, MASK mask)
 			{
 				onCommit();
 			}
-			handled = TRUE;
+			handled = true;
 			break;
 		case KEY_UP:
 			if (!setSelectedIndex((getSelectedIndex() - 1)))
@@ -264,7 +264,7 @@ BOOL LLRadioGroup::handleKeyHere(KEY key, MASK mask)
 			{
 				onCommit();
 			}
-			handled = TRUE;
+			handled = true;
 			break;
 		case KEY_LEFT:
 			if (!setSelectedIndex((getSelectedIndex() - 1)))
@@ -275,7 +275,7 @@ BOOL LLRadioGroup::handleKeyHere(KEY key, MASK mask)
 			{
 				onCommit();
 			}
-			handled = TRUE;
+			handled = true;
 			break;
 		case KEY_RIGHT:
 			if (!setSelectedIndex((getSelectedIndex() + 1)))
@@ -286,7 +286,7 @@ BOOL LLRadioGroup::handleKeyHere(KEY key, MASK mask)
 			{
 				onCommit();
 			}
-			handled = TRUE;
+			handled = true;
 			break;
 		default:
 			break;
