@@ -1159,7 +1159,7 @@ void LLMenuItemBranchGL::updateBranchParent(LLView* parentp)
 
 void LLMenuItemBranchGL::onVisibilityChange( bool new_visibility )
 {
-	if (new_visibility == FALSE && getBranch() && !getBranch()->getTornOff())
+	if (new_visibility == false && getBranch() && !getBranch()->getTornOff())
 	{
 		getBranch()->setVisible(FALSE);
 	}
