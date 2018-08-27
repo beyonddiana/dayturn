@@ -198,15 +198,15 @@ BOOL LLToolCompInspect::handleDoubleClick(S32 x, S32 y, MASK mask)
 	return TRUE;
 }
 
-BOOL LLToolCompInspect::handleKey(KEY key, MASK mask)
+bool LLToolCompInspect::handleKey(KEY key, MASK mask)
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 
 	if(KEY_ALT == key)
 	{
 		setCurrentTool(LLToolCamera::getInstance());
 		mIsToolCameraActive = TRUE;
-		handled = TRUE;
+		handled = true;
 	}
 	else
 	{

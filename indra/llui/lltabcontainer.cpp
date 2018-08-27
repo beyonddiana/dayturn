@@ -761,18 +761,18 @@ BOOL LLTabContainer::handleToolTip( S32 x, S32 y, MASK mask)
 }
 
 // virtual
-BOOL LLTabContainer::handleKeyHere(KEY key, MASK mask)
+bool LLTabContainer::handleKeyHere(KEY key, MASK mask)
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 	if (key == KEY_LEFT && mask == MASK_ALT)
 	{
 		selectPrevTab();
-		handled = TRUE;
+		handled = true;
 	}
 	else if (key == KEY_RIGHT && mask == MASK_ALT)
 	{
 		selectNextTab();
-		handled = TRUE;
+		handled = true;
 	}
 
 	if (handled)
@@ -792,21 +792,21 @@ BOOL LLTabContainer::handleKeyHere(KEY key, MASK mask)
 			{
 			  case KEY_UP:
 				selectPrevTab();
-				handled = TRUE;
+				handled = true;
 				break;
 			  case KEY_DOWN:
 				selectNextTab();
-				handled = TRUE;
+				handled = true;
 				break;
 			  case KEY_LEFT:
-				handled = TRUE;
+				handled = true;
 				break;
 			  case KEY_RIGHT:
 				if (getTabPosition() == LEFT && getCurrentPanel())
 				{
 					getCurrentPanel()->setFocus(TRUE);
 				}
-				handled = TRUE;
+				handled = true;
 				break;
 			  default:
 				break;
@@ -821,22 +821,22 @@ BOOL LLTabContainer::handleKeyHere(KEY key, MASK mask)
 				{
 					getCurrentPanel()->setFocus(TRUE);
 				}
-				handled = TRUE;
+				handled = true;
 				break;
 			  case KEY_DOWN:
 				if (getTabPosition() == TOP && getCurrentPanel())
 				{
 					getCurrentPanel()->setFocus(TRUE);
 				}
-				handled = TRUE;
+				handled = true;
 				break;
 			  case KEY_LEFT:
 				selectPrevTab();
-				handled = TRUE;
+				handled = true;
 				break;
 			  case KEY_RIGHT:
 				selectNextTab();
-				handled = TRUE;
+				handled = true;
 				break;
 			  default:
 				break;

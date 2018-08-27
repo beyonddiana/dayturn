@@ -1774,9 +1774,9 @@ void LLPanelObjectInventory::clearItemIDs()
 	mItemMap.clear();
 }
 
-BOOL LLPanelObjectInventory::handleKeyHere( KEY key, MASK mask )
+bool LLPanelObjectInventory::handleKeyHere( KEY key, MASK mask )
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 	switch (key)
 	{
 	case KEY_DELETE:
@@ -1785,7 +1785,7 @@ BOOL LLPanelObjectInventory::handleKeyHere( KEY key, MASK mask )
 		if (isSelectionRemovable() && mask == MASK_NONE)
 		{
 			LLInventoryAction::doToSelected(&gInventory, mFolders, "delete");
-			handled = TRUE;
+			handled = true;
 		}
 		break;
 	}

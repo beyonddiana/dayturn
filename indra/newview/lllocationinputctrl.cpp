@@ -501,9 +501,9 @@ BOOL LLLocationInputCtrl::handleToolTip(S32 x, S32 y, MASK mask)
 	return FALSE;
 }
 
-BOOL LLLocationInputCtrl::handleKeyHere(KEY key, MASK mask)
+bool LLLocationInputCtrl::handleKeyHere(KEY key, MASK mask)
 {
-	BOOL result = LLComboBox::handleKeyHere(key, mask);
+	bool result = LLComboBox::handleKeyHere(key, mask);
 
 	if (key == KEY_DOWN && hasFocus() && mList->getItemCount() != 0 && !mList->getVisible())
 	{

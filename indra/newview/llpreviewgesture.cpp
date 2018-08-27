@@ -137,12 +137,12 @@ void LLPreviewGesture::draw()
 }
 
 // virtual
-BOOL LLPreviewGesture::handleKeyHere(KEY key, MASK mask)
+bool LLPreviewGesture::handleKeyHere(KEY key, MASK mask)
 {
 	if(('S' == key) && (MASK_CONTROL == (mask & MASK_CONTROL)))
 	{
 		saveIfNeeded();
-		return TRUE;
+		return true;
 	}
 
 	return LLPreview::handleKeyHere(key, mask);

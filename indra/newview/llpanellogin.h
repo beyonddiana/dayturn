@@ -49,7 +49,7 @@ public:
 				void *callback_data);
 	~LLPanelLogin();
 
-	virtual BOOL handleKeyHere(KEY key, MASK mask);
+	virtual bool handleKeyHere(KEY key, MASK mask);
 	virtual void draw();
 	virtual void setFocus( BOOL b );
 

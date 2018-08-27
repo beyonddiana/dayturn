@@ -444,9 +444,9 @@ bool LLButton::handleUnicodeCharHere(llwchar uni_char)
 	return handled;	
 }
 
-BOOL LLButton::handleKeyHere(KEY key, MASK mask )
+bool LLButton::handleKeyHere(KEY key, MASK mask )
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 	if( mCommitOnReturn && KEY_RETURN == key && mask == MASK_NONE && !gKeyboard->getKeyRepeated(key))
 	{
 		if (mIsToggle)
@@ -454,7 +454,7 @@ BOOL LLButton::handleKeyHere(KEY key, MASK mask )
 			toggleState();
 		}
 
-		handled = TRUE;
+		handled = true;
 
 		LLUICtrl::onCommit();
 	}

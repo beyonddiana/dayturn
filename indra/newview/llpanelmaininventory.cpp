@@ -337,7 +337,7 @@ void LLPanelMainInventory::startSearch()
 	}
 }
 
-BOOL LLPanelMainInventory::handleKeyHere(KEY key, MASK mask)
+bool LLPanelMainInventory::handleKeyHere(KEY key, MASK mask)
 {
 	LLFolderView* root_folder = mActivePanel ? mActivePanel->getRootFolder() : NULL;
 	if (root_folder)
@@ -352,7 +352,7 @@ BOOL LLPanelMainInventory::handleKeyHere(KEY key, MASK mask)
 			// move focus to inventory proper
 			mActivePanel->setFocus(TRUE);
 			root_folder->scrollToShowSelection();
-			return TRUE;
+			return true;
 		}
 
 		if (mActivePanel->hasFocus() && key == KEY_UP)

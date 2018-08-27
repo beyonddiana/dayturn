@@ -125,14 +125,14 @@ bool LLFloaterGotoLine::hasAccelerators() const
         return FALSE;
 }
 
-BOOL LLFloaterGotoLine::handleKeyHere(KEY key, MASK mask)
+bool LLFloaterGotoLine::handleKeyHere(KEY key, MASK mask)
 {
         if (mEditorCore)
         {
                 return mEditorCore->handleKeyHere(key, mask);
         }
 
-        return FALSE;
+        return false;
 }
 
 void LLFloaterGotoLine::onGotoBoxCommit()

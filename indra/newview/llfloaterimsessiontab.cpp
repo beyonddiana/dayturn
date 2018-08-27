@@ -1183,9 +1183,9 @@ LLView* LLFloaterIMSessionTab::getChatHistory()
 	return mChatHistory;
 }
 
-BOOL LLFloaterIMSessionTab::handleKeyHere(KEY key, MASK mask )
+bool LLFloaterIMSessionTab::handleKeyHere(KEY key, MASK mask )
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 
 	if(mask == MASK_ALT)
 	{
@@ -1193,17 +1193,17 @@ BOOL LLFloaterIMSessionTab::handleKeyHere(KEY key, MASK mask )
 		if (KEY_RETURN == key && !isTornOff())
 		{
 			floater_container->expandConversation();
-			handled = TRUE;
+			handled = true;
 		}
 		if ((KEY_UP == key) || (KEY_LEFT == key))
 		{
 			floater_container->selectNextorPreviousConversation(false);
-			handled = TRUE;
+			handled = true;
 		}
 		if ((KEY_DOWN == key ) || (KEY_RIGHT == key))
 		{
 			floater_container->selectNextorPreviousConversation(true);
-			handled = TRUE;
+			handled = true;
 		}
 	}
 	return handled;

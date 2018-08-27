@@ -246,14 +246,14 @@ BOOL LLModalDialog::handleRightMouseDown(S32 x, S32 y, MASK mask)
 }
 
 
-BOOL LLModalDialog::handleKeyHere(KEY key, MASK mask )
+bool LLModalDialog::handleKeyHere(KEY key, MASK mask )
 {
 	LLFloater::handleKeyHere(key, mask );
 
 	if (mModal)
 	{
 		// Suck up all keystokes except CTRL-Q.
-		BOOL is_quit = ('Q' == key) && (MASK_CONTROL == mask);
+		bool is_quit = ('Q' == key) && (MASK_CONTROL == mask);
 		return !is_quit;
 	}
 	else
@@ -264,9 +264,9 @@ BOOL LLModalDialog::handleKeyHere(KEY key, MASK mask )
 		if (enough_time_elapsed && key == KEY_ESCAPE)
 		{
 			closeFloater();
-			return TRUE;
+			return true;
 		}
-		return FALSE;
+		return false;
 	}	
 }
 

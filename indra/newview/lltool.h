@@ -91,7 +91,7 @@ public:
 	virtual void			render() {}				// draw tool specific 3D content in world
 	virtual void			draw();					// draw tool specific 2D overlay
 
-	virtual BOOL			handleKey(KEY key, MASK mask);
+	virtual bool			handleKey(KEY key, MASK mask);
 
 	// Note: NOT virtual.  Subclasses should call this version.
 	void					setMouseCapture(BOOL b);

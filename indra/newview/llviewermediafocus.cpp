@@ -318,7 +318,7 @@ void LLViewerMediaFocus::onFocusLost()
 	LLFocusableElement::onFocusLost();
 }
 
-BOOL LLViewerMediaFocus::handleKey(KEY key, MASK mask, BOOL called_from_parent)
+bool LLViewerMediaFocus::handleKey(KEY key, MASK mask, bool called_from_parent)
 {
 	LLViewerMediaImpl* media_impl = getFocusedMediaImpl();
 	if(media_impl)

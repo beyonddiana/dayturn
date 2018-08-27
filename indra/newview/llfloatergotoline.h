@@ -50,7 +50,7 @@ public:
         static LLFloaterGotoLine* getInstance() { return sInstance; }
 
         virtual bool hasAccelerators() const;
-        virtual BOOL handleKeyHere(KEY key, MASK mask);
+        virtual bool handleKeyHere(KEY key, MASK mask);
 
 private:
 

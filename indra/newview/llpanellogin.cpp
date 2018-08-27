@@ -360,13 +360,13 @@ void LLPanelLogin::draw()
 }
 
 // virtual
-BOOL LLPanelLogin::handleKeyHere(KEY key, MASK mask)
+bool LLPanelLogin::handleKeyHere(KEY key, MASK mask)
 {
 	if ( KEY_F1 == key )
 	{
 		LLViewerHelp* vhelp = LLViewerHelp::getInstance();
 		vhelp->showTopic(vhelp->f1HelpTopic());
-		return TRUE;
+		return true;
 	}
 
 	return LLPanel::handleKeyHere(key, mask);

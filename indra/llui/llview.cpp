@@ -923,9 +923,9 @@ BOOL LLView::handleToolTip(S32 x, S32 y, MASK mask)
 	return handled;
 }
 
-BOOL LLView::handleKey(KEY key, MASK mask, BOOL called_from_parent)
+bool LLView::handleKey(KEY key, MASK mask, bool called_from_parent)
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 
 	if (getVisible() && getEnabled())
 	{
@@ -950,7 +950,7 @@ BOOL LLView::handleKey(KEY key, MASK mask, BOOL called_from_parent)
 	if( !handled && !called_from_parent && mParentView)
 	{
 		// Upward traversal
-		handled = mParentView->handleKey( key, mask, FALSE );
+		handled = mParentView->handleKey( key, mask, false );
 	}
 	return handled;
 }
@@ -989,9 +989,9 @@ BOOL LLView::handleKeyUp(KEY key, MASK mask, BOOL called_from_parent)
 
 // Called from handleKey()
 // Handles key in this object.  Checking parents and children happens in handleKey()
-BOOL LLView::handleKeyHere(KEY key, MASK mask)
+bool LLView::handleKeyHere(KEY key, MASK mask)
 {
-	return FALSE;
+	return false;
 }
 
 // Called from handleKey()
@@ -1628,21 +1628,21 @@ LLView* LLView::findChildView(const std::string& name, BOOL recurse) const
 	return NULL;
 }
 
-BOOL LLView::parentPointInView(S32 x, S32 y, EHitTestType type) const 
+bool LLView::parentPointInView(S32 x, S32 y, EHitTestType type) const 
 { 
 	return (getUseBoundingRect() && type == HIT_TEST_USE_BOUNDING_RECT)
 		? mBoundingRect.pointInRect( x, y ) 
 		: mRect.pointInRect( x, y ); 
 }
 
-BOOL LLView::pointInView(S32 x, S32 y, EHitTestType type) const 
+bool LLView::pointInView(S32 x, S32 y, EHitTestType type) const 
 { 
 	return (getUseBoundingRect() && type == HIT_TEST_USE_BOUNDING_RECT)
 		? mBoundingRect.pointInRect( x + mRect.mLeft, y + mRect.mBottom ) 
 		: mRect.localPointInRect( x, y ); 
 }
 
-BOOL LLView::blockMouseEvent(S32 x, S32 y) const
+bool LLView::blockMouseEvent(S32 x, S32 y) const
 {
 	return mMouseOpaque && pointInView(x, y, HIT_TEST_IGNORE_BOUNDING_RECT);
 }
@@ -1768,21 +1768,21 @@ LLCoordGL getNeededTranslation(const LLRect& input, const LLRect& constraint, S3
 // Moves the view so that it is entirely inside of constraint.
 // If the view will not fit because it's too big, aligns with the top and left.
 // (Why top and left?  That's where the drag bars are for floaters.)
-BOOL LLView::translateIntoRect(const LLRect& constraint, S32 min_overlap_pixels)
+bool LLView::translateIntoRect(const LLRect& constraint, S32 min_overlap_pixels)
 {
 	LLCoordGL translation = getNeededTranslation(getRect(), constraint, min_overlap_pixels);
 
 	if (translation.mX != 0 || translation.mY != 0)
 	{
 		translate(translation.mX, translation.mY);
-		return TRUE;
+		return true;
 	}
-	return FALSE;
+	return false;
 }
 
 // move this view into "inside" but not onto "exclude"
 // NOTE: if this view is already contained in "inside", we ignore the "exclude" rect
-BOOL LLView::translateIntoRectWithExclusion( const LLRect& inside, const LLRect& exclude, S32 min_overlap_pixels)
+bool LLView::translateIntoRectWithExclusion( const LLRect& inside, const LLRect& exclude, S32 min_overlap_pixels)
 {
 	LLCoordGL translation = getNeededTranslation(getRect(), inside, min_overlap_pixels);
 	
@@ -1818,9 +1818,9 @@ BOOL LLView::translateIntoRectWithExclusion( const LLRect& inside, const LLRect&
 			}
 		}
 
-		return TRUE;
+		return true;
 	}
-	return FALSE;
+	return false;
 }
 
 

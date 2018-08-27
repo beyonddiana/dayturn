@@ -703,10 +703,10 @@ void LLFlatListView::onItemRightMouseClick(item_pair_t* item_pair, MASK mask)
 	onItemMouseClick(item_pair, mask);
 }
 
-BOOL LLFlatListView::handleKeyHere(KEY key, MASK mask)
+bool LLFlatListView::handleKeyHere(KEY key, MASK mask)
 {
-	BOOL reset_selection = (mask != MASK_SHIFT);
-	BOOL handled = FALSE;
+	bool reset_selection = (mask != MASK_SHIFT);
+	bool handled = false;
 	switch (key)
 	{
 		case KEY_RETURN:
@@ -714,7 +714,7 @@ BOOL LLFlatListView::handleKeyHere(KEY key, MASK mask)
 			if (mSelectedItemPairs.size() && mask == MASK_NONE)
 			{
 				mOnReturnSignal(this, getValue());
-				handled = TRUE;
+				handled = true;
 			}
 			break;
 		}
@@ -768,7 +768,7 @@ BOOL LLFlatListView::handleKeyHere(KEY key, MASK mask)
 		localRectToScreen(selected_rc, &screen_rc);
 		notifyParent(LLSD().with("scrollToShowRect",screen_rc.getValue()));*/
 
-		handled = TRUE;
+		handled = true;
 	}
 
 	return handled ? handled : LLScrollContainer::handleKeyHere(key, mask);

@@ -613,16 +613,16 @@ bool LLToolDragAndDrop::handleHover( S32 x, S32 y, MASK mask )
 	return true;
 }
 
-BOOL LLToolDragAndDrop::handleKey(KEY key, MASK mask)
+bool LLToolDragAndDrop::handleKey(KEY key, MASK mask)
 {
 	if (key == KEY_ESCAPE)
 	{
 		// cancel drag and drop operation
 		endDrag();
-		return TRUE;
+		return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 BOOL LLToolDragAndDrop::handleToolTip(S32 x, S32 y, MASK mask)

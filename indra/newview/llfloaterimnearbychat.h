@@ -72,7 +72,7 @@ public:
 	std::string getCurrentChat();
 	S32 getMessageArchiveLength() {return mMessageArchive.size();}
 
-	virtual BOOL handleKeyHere( KEY key, MASK mask );
+	virtual bool handleKeyHere( KEY key, MASK mask );
 
 	static void startChat(const char* line);
 	static void stopChat();

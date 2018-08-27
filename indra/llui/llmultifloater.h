@@ -47,7 +47,7 @@ public:
 	/*virtual*/ void onClose(bool app_quitting);
 	virtual void draw();
 	virtual void setVisible(BOOL visible);
-	/*virtual*/ BOOL handleKeyHere(KEY key, MASK mask);
+	/*virtual*/ bool handleKeyHere(KEY key, MASK mask);
 	/*virtual*/ bool addChild(LLView* view, S32 tab_group = 0);
 
 	virtual void setCanResize(bool can_resize);

@@ -203,7 +203,7 @@ void LLScrollContainer::reshape(S32 width, S32 height,
 	}
 }
 
-BOOL LLScrollContainer::handleKeyHere(KEY key, MASK mask)
+bool LLScrollContainer::handleKeyHere(KEY key, MASK mask)
 {
 	// allow scrolled view to handle keystrokes in case it delegated keyboard focus
 	// to the scroll container.  
@@ -212,18 +212,18 @@ BOOL LLScrollContainer::handleKeyHere(KEY key, MASK mask)
 	// call LLScrollContainer::handleKeyHere in turn
 	if (mScrolledView && mScrolledView->handleKeyHere(key, mask))
 	{
-		return TRUE;
+		return true;
 	}
 	for( S32 i = 0; i < ORIENTATION_COUNT; i++ )
 	{
 		if( mScrollbar[i]->handleKeyHere(key, mask) )
 		{
 			updateScroll();
-			return TRUE;
+			return true;
 		}
 	}	
 
-	return FALSE;
+	return false;
 }
 
 bool LLScrollContainer::handleUnicodeCharHere(llwchar uni_char)

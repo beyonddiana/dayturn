@@ -92,7 +92,7 @@ public:
 	
 	virtual BOOL handleRightMouseDown	( S32 x, S32 y, MASK mask); 
 	virtual BOOL handleScrollWheel		( S32 x, S32 y, S32 clicks );
-	virtual BOOL handleKeyHere			(KEY key, MASK mask);
+	virtual bool handleKeyHere			(KEY key, MASK mask);
 	virtual bool handleDragAndDrop		(S32 x, S32 y, MASK mask, bool drop,
 										 EDragAndDropType cargo_type,
 										 void* cargo_data,

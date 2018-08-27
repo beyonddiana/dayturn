@@ -67,7 +67,7 @@ public:
 	virtual void			render()										{ mCur->render(); }
 	virtual void			draw()											{ mCur->draw(); }
 
-	virtual BOOL			handleKey(KEY key, MASK mask)					{ return mCur->handleKey( key, mask ); }
+	virtual bool			handleKey(KEY key, MASK mask)					{ return mCur->handleKey( key, mask ); }
 
 	virtual void			onMouseCaptureLost();
 
@@ -111,7 +111,7 @@ public:
     virtual BOOL		handleMouseDown(S32 x, S32 y, MASK mask);
 	virtual BOOL		handleMouseUp(S32 x, S32 y, MASK mask);
     virtual BOOL		handleDoubleClick(S32 x, S32 y, MASK mask);
-	virtual BOOL		handleKey(KEY key, MASK mask);
+	virtual bool		handleKey(KEY key, MASK mask);
 	virtual void		onMouseCaptureLost();
 			void		keyUp(KEY key, MASK mask);
 

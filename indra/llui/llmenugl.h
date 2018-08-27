@@ -154,7 +154,7 @@ public:
 	virtual void setEnabledSubMenus(BOOL enable){};
 
 	// LLView Functionality
-	virtual BOOL handleKeyHere( KEY key, MASK mask );
+	virtual bool handleKeyHere( KEY key, MASK mask );
 	virtual BOOL handleMouseDown( S32 x, S32 y, MASK mask );
 	virtual BOOL handleMouseUp( S32 x, S32 y, MASK mask );
 	virtual BOOL handleScrollWheel( S32 x, S32 y, S32 clicks );
@@ -274,7 +274,7 @@ public:
 	virtual void onCommit( void );
 
 	virtual BOOL handleAcceleratorKey(KEY key, MASK mask);
-	virtual BOOL handleKeyHere(KEY key, MASK mask);
+	virtual bool handleKeyHere(KEY key, MASK mask);
 	
 	//virtual void draw();
 	
@@ -635,14 +635,14 @@ public:
 
 	virtual void onCommit( void );
 
-	virtual BOOL handleKey(KEY key, MASK mask, BOOL called_from_parent);
+	virtual bool handleKey(KEY key, MASK mask, bool called_from_parent);
 	virtual bool handleUnicodeChar(llwchar uni_char, bool called_from_parent);
 
 	// set the hover status (called by it's menu) and if the object is
 	// active. This is used for behavior transfer.
 	virtual void setHighlight( BOOL highlight );
 
-	virtual BOOL handleKeyHere(KEY key, MASK mask);
+	virtual bool handleKeyHere(KEY key, MASK mask);
 
 	virtual BOOL isActive() const;
 
@@ -766,7 +766,7 @@ public:
 	virtual ~LLMenuBarGL();
 
 	/*virtual*/ BOOL handleAcceleratorKey(KEY key, MASK mask);
-	/*virtual*/ BOOL handleKeyHere(KEY key, MASK mask);
+	/*virtual*/ bool handleKeyHere(KEY key, MASK mask);
 	/*virtual*/ BOOL handleJumpKey(KEY key);
 	/*virtual*/ BOOL handleMouseDown(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL handleDoubleClick(S32 x, S32 y, MASK mask);
@@ -823,7 +823,7 @@ public:
 	// Close context menus on right mouse up not handled by menus.
 	/*virtual*/ BOOL handleRightMouseUp( S32 x, S32 y, MASK mask );
 
-	virtual BOOL handleKey(KEY key, MASK mask, BOOL called_from_parent);
+	virtual bool handleKey(KEY key, MASK mask, bool called_from_parent);
 	virtual const LLRect getMenuRect() const { return getLocalRect(); }
 	LLView*const getVisibleMenu() const;
 	virtual BOOL hasVisibleMenu() const {return getVisibleMenu() != NULL;}
@@ -857,7 +857,7 @@ public:
 	virtual void onFocusReceived();
 	virtual void onFocusLost();
 	virtual bool handleUnicodeChar(llwchar uni_char, bool called_from_parent);
-	virtual BOOL handleKeyHere(KEY key, MASK mask);
+	virtual bool handleKeyHere(KEY key, MASK mask);
 	virtual void translate(S32 x, S32 y);
 
 private:

@@ -564,10 +564,10 @@ BOOL LLAccordionCtrl::handleScrollWheel		( S32 x, S32 y, S32 clicks )
 
 }
 
-BOOL LLAccordionCtrl::handleKeyHere			(KEY key, MASK mask)
+bool LLAccordionCtrl::handleKeyHere			(KEY key, MASK mask)
 {
 	if( mScrollbar->getVisible() && mScrollbar->handleKeyHere( key,mask ) )
-		return TRUE;
+		return true;
 	return LLPanel::handleKeyHere(key,mask);
 }
 

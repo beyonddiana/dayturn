@@ -589,30 +589,30 @@ void LLScrollbar::setValue(const LLSD& value)
 }
 
 
-BOOL LLScrollbar::handleKeyHere(KEY key, MASK mask)
+bool LLScrollbar::handleKeyHere(KEY key, MASK mask)
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 
 	switch( key )
 	{
 	case KEY_HOME:
 		setDocPos( 0 );
-		handled = TRUE;
+		handled = true;
 		break;
 	
 	case KEY_END:
 		setDocPos( getDocPosMax() );
-		handled = TRUE;
+		handled = true;
 		break;
 	
 	case KEY_DOWN:
 		setDocPos( getDocPos() + mStepSize );
-		handled = TRUE;
+		handled = true;
 		break;
 	
 	case KEY_UP:
 		setDocPos( getDocPos() - mStepSize );
-		handled = TRUE;
+		handled = true;
 		break;
 
 	case KEY_PAGE_DOWN:

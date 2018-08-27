@@ -793,16 +793,16 @@ BOOL LLComboBox::handleToolTip(S32 x, S32 y, MASK mask)
 	return TRUE;
 }
 
-BOOL LLComboBox::handleKeyHere(KEY key, MASK mask)
+bool LLComboBox::handleKeyHere(KEY key, MASK mask)
 {
-	BOOL result = FALSE;
+	bool result = false;
 	if (hasFocus())
 	{
 		if (mList->getVisible() 
 			&& key == KEY_ESCAPE && mask == MASK_NONE)
 		{
 			hideList();
-			return TRUE;
+			return true;
 		}
 		//give list a chance to pop up and handle key
 		LLScrollListItem* last_selected_item = mList->getLastSelectedItem();
@@ -825,7 +825,7 @@ BOOL LLComboBox::handleKeyHere(KEY key, MASK mask)
 			// don't show list and don't eat key input when committing
 			// free-form text entry with RETURN since user already knows
             // what they are trying to select
-			return FALSE;
+			return false;
 		}
 		// if selection has changed, pop open list
 		else if (mList->getLastSelectedItem() != last_selected_item 
