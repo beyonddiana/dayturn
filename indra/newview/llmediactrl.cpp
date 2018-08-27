@@ -511,9 +511,9 @@ void LLMediaCtrl::onVisibilityChange ( bool new_visibility )
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-BOOL LLMediaCtrl::handleUnicodeCharHere(llwchar uni_char)
+bool LLMediaCtrl::handleUnicodeCharHere(llwchar uni_char)
 {
-	BOOL result = FALSE;
+	bool result = false;
 	
 	if (mMediaSource)
 	{

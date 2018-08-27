@@ -1001,9 +1001,9 @@ BOOL LLView::handleKeyUpHere(KEY key, MASK mask)
 	return FALSE;
 }
 
-BOOL LLView::handleUnicodeChar(llwchar uni_char, BOOL called_from_parent)
+bool LLView::handleUnicodeChar(llwchar uni_char, bool called_from_parent)
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 
 	if (getVisible() && getEnabled())
 	{
@@ -1026,7 +1026,7 @@ BOOL LLView::handleUnicodeChar(llwchar uni_char, BOOL called_from_parent)
 	if (!handled && !called_from_parent && mParentView)
 	{
 		// Upward traversal
-		handled = mParentView->handleUnicodeChar(uni_char, FALSE);
+		handled = mParentView->handleUnicodeChar(uni_char, false);
 	}
 
 	if (handled)
@@ -1038,9 +1038,9 @@ BOOL LLView::handleUnicodeChar(llwchar uni_char, BOOL called_from_parent)
 }
 
 
-BOOL LLView::handleUnicodeCharHere(llwchar uni_char )
+bool LLView::handleUnicodeCharHere(llwchar uni_char )
 {
-	return FALSE;
+	return false;
 }
 
 
@@ -1571,13 +1571,13 @@ BOOL LLView::childHasKeyboardFocus( const std::string& childname ) const
 	{
 		if (focus->getName() == childname)
 		{
-			return TRUE;
+			return true;
 		}
 		
 		focus = focus->getParent();
 	}
 	
-	return FALSE;
+	return false;
 }
 
 //-----------------------------------------------------------------------------

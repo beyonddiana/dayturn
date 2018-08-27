@@ -1821,14 +1821,14 @@ BOOL LLTextEditor::handleKeyHere(KEY key, MASK mask )
 }
 
 
-BOOL LLTextEditor::handleUnicodeCharHere(llwchar uni_char)
+bool LLTextEditor::handleUnicodeCharHere(llwchar uni_char)
 {
 	if ((uni_char < 0x20) || (uni_char == 0x7F)) // Control character or DEL
 	{
-		return FALSE;
+		return false;
 	}
 
-	BOOL	handled = FALSE;
+	bool	handled = false;
 
 	// Handle most keys only if the text editor is writeable.
 	if( !mReadOnly )
@@ -1844,7 +1844,7 @@ BOOL LLTextEditor::handleUnicodeCharHere(llwchar uni_char)
 		// Keys that add characters temporarily hide the cursor
 		getWindow()->hideCursorUntilMouseMove();
 
-		handled = TRUE;
+		handled = true;
 	}
 
 	if( handled )

@@ -47,9 +47,9 @@ void LLWindowCallbacks::handleScanKey(KEY key, BOOL key_down, BOOL key_up, BOOL 
 {
 }
 
-BOOL LLWindowCallbacks::handleUnicodeChar(llwchar uni_char, MASK mask)
+bool LLWindowCallbacks::handleUnicodeChar(llwchar uni_char, MASK mask)
 {
-	return FALSE;
+	return false;
 }
 
 

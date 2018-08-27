@@ -1581,18 +1581,18 @@ BOOL LLLineEditor::handleKeyHere(KEY key, MASK mask )
 }
 
 
-BOOL LLLineEditor::handleUnicodeCharHere(llwchar uni_char)
+bool LLLineEditor::handleUnicodeCharHere(llwchar uni_char)
 {
 	if ((uni_char < 0x20) || (uni_char == 0x7F)) // Control character or DEL
 	{
-		return FALSE;
+		return false;
 	}
 
-	BOOL	handled = FALSE;
+	bool	handled = false;
 
 	if ( (gFocusMgr.getKeyboardFocus() == this) && getVisible() && !mReadOnly)
 	{
-		handled = TRUE;
+		handled = true;
 
 		LLLineEditorRollback rollback( this );
 
@@ -1609,7 +1609,7 @@ BOOL LLLineEditor::handleUnicodeCharHere(llwchar uni_char)
 
 		deselect();
 
-		BOOL need_to_rollback = FALSE;
+		bool need_to_rollback = false;
 
 		// Validate new string and rollback the keystroke if needed.
 		need_to_rollback |= ( mPrevalidateFunc && !mPrevalidateFunc( mText.getWString() ) );

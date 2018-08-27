@@ -426,9 +426,9 @@ bool LLButton::postBuild()
 	return LLUICtrl::postBuild();
 }
 
-BOOL LLButton::handleUnicodeCharHere(llwchar uni_char)
+bool LLButton::handleUnicodeCharHere(llwchar uni_char)
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 	if(' ' == uni_char 
 		&& !gKeyboard->getKeyRepeated(' '))
 	{
@@ -439,7 +439,7 @@ BOOL LLButton::handleUnicodeCharHere(llwchar uni_char)
 
 		LLUICtrl::onCommit();
 		
-		handled = TRUE;		
+		handled = true;		
 	}
 	return handled;	
 }

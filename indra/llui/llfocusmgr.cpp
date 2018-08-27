@@ -53,9 +53,9 @@ BOOL LLFocusableElement::handleKeyUp(KEY key, MASK mask, BOOL called_from_parent
 }
 
 // virtual
-BOOL LLFocusableElement::handleUnicodeChar(llwchar uni_char, BOOL called_from_parent)
+bool LLFocusableElement::handleUnicodeChar(llwchar uni_char, bool called_from_parent)
 {
-	return FALSE;
+	return false;
 }
 
 // virtual 
@@ -302,18 +302,18 @@ void LLFocusMgr::setKeyboardFocus(LLFocusableElement* new_focus, BOOL lock, BOOL
 
 
 // Returns TRUE is parent or any descedent of parent has keyboard focus.
-BOOL LLFocusMgr::childHasKeyboardFocus(const LLView* parent ) const
+bool LLFocusMgr::childHasKeyboardFocus(const LLView* parent ) const
 {
 	LLView* focus_view = dynamic_cast<LLView*>(mKeyboardFocus);
 	while( focus_view )
 	{
 		if( focus_view == parent )
 		{
-			return TRUE;
+			return true;
 		}
 		focus_view = focus_view->getParent();
 	}
-	return FALSE;
+	return false;
 }
 
 // Returns TRUE is parent or any descedent of parent is the mouse captor.

@@ -839,9 +839,9 @@ BOOL LLComboBox::handleKeyHere(KEY key, MASK mask)
 	return result;
 }
 
-BOOL LLComboBox::handleUnicodeCharHere(llwchar uni_char)
+bool LLComboBox::handleUnicodeCharHere(llwchar uni_char)
 {
-	BOOL result = FALSE;
+	bool result = false;
 	if (gFocusMgr.childHasKeyboardFocus(this))
 	{
 		// space bar just shows the list

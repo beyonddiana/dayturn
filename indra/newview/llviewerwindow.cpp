@@ -3073,7 +3073,7 @@ BOOL LLViewerWindow::handleKey(KEY key, MASK mask)
 }
 
 
-BOOL LLViewerWindow::handleUnicodeChar(llwchar uni_char, MASK mask)
+bool LLViewerWindow::handleUnicodeChar(llwchar uni_char, MASK mask)
 {
 	// HACK:  We delay processing of return keys until they arrive as a Unicode char,
 	// so that if you're typing chat text at low frame rate, we don't send the chat
@@ -3090,24 +3090,24 @@ BOOL LLViewerWindow::handleUnicodeChar(llwchar uni_char, MASK mask)
 	}
 
 	// let menus handle navigation (jump) keys
-	if (gMenuBarView && gMenuBarView->handleUnicodeChar(uni_char, TRUE))
+	if (gMenuBarView && gMenuBarView->handleUnicodeChar(uni_char, true))
 	{
-		return TRUE;
+		return true;
 	}
 
 	// Traverses up the hierarchy
 	LLFocusableElement* keyboard_focus = gFocusMgr.getKeyboardFocus();
 	if( keyboard_focus )
 	{
-		if (keyboard_focus->handleUnicodeChar(uni_char, FALSE))
+		if (keyboard_focus->handleUnicodeChar(uni_char, false))
 		{
-			return TRUE;
+			return true;
 		}
 
-        return TRUE;
+        return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 

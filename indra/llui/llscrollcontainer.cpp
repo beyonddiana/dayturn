@@ -226,13 +226,13 @@ BOOL LLScrollContainer::handleKeyHere(KEY key, MASK mask)
 	return FALSE;
 }
 
-BOOL LLScrollContainer::handleUnicodeCharHere(llwchar uni_char)
+bool LLScrollContainer::handleUnicodeCharHere(llwchar uni_char)
 {
 	if (mScrolledView && mScrolledView->handleUnicodeCharHere(uni_char))
 	{
-		return TRUE;
+		return true;
 	}
-	return FALSE;
+	return false;
 }
 
 BOOL LLScrollContainer::handleScrollWheel( S32 x, S32 y, S32 clicks )

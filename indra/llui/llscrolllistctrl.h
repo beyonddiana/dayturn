@@ -316,7 +316,7 @@ public:
 	/*virtual*/ BOOL	handleDoubleClick(S32 x, S32 y, MASK mask);
 	/*virtual*/ bool	handleHover(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL	handleKeyHere(KEY key, MASK mask);
-	/*virtual*/ BOOL	handleUnicodeCharHere(llwchar uni_char);
+	/*virtual*/ bool	handleUnicodeCharHere(llwchar uni_char);
 	/*virtual*/ BOOL	handleScrollWheel(S32 x, S32 y, S32 clicks);
     /*virtual*/ bool    handleScrollHWheel(S32 x, S32 y, S32 clicks);
 	/*virtual*/ BOOL	handleToolTip(S32 x, S32 y, MASK mask);
