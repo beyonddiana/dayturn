@@ -109,6 +109,7 @@ public:
 	virtual void closeItem() {}
 	virtual void showProperties();
 	virtual BOOL isItemRenameable() const { return TRUE; }
+	virtual BOOL isMultiPreviewAllowed() { return TRUE; }
 	//virtual BOOL renameItem(const std::string& new_name) {}
 	virtual BOOL isItemRemovable() const;
 	virtual BOOL isItemMovable() const;
