@@ -117,7 +117,7 @@ public:
 						EAcceptance *accept,
 						std::string& tooltip_msg);
 	virtual bool	handleHover(S32 x, S32 y, MASK mask);
-	virtual BOOL	handleUnicodeCharHere(llwchar uni_char);
+	virtual bool	handleUnicodeCharHere(llwchar uni_char);
 
 	virtual void	draw();
 	virtual void	setVisible( BOOL visible );

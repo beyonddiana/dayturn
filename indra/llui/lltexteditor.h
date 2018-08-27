@@ -100,7 +100,7 @@ public:
 	virtual BOOL	handleMiddleMouseDown(S32 x,S32 y,MASK mask);
 
 	virtual BOOL	handleKeyHere(KEY key, MASK mask );
-	virtual BOOL	handleUnicodeCharHere(llwchar uni_char);
+	virtual bool	handleUnicodeCharHere(llwchar uni_char);
 
 	virtual void	onMouseCaptureLost();
 

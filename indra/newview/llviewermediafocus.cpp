@@ -364,7 +364,7 @@ BOOL LLViewerMediaFocus::handleKeyUp(KEY key, MASK mask, BOOL called_from_parent
 
 
 
-BOOL LLViewerMediaFocus::handleUnicodeChar(llwchar uni_char, BOOL called_from_parent)
+bool LLViewerMediaFocus::handleUnicodeChar(llwchar uni_char, bool called_from_parent)
 {
 	LLViewerMediaImpl* media_impl = getFocusedMediaImpl();
 	if(media_impl)

@@ -1075,12 +1075,12 @@ BOOL LLMenuItemBranchGL::handleKey(KEY key, MASK mask, BOOL called_from_parent)
 	return handled;
 }
 
-BOOL LLMenuItemBranchGL::handleUnicodeChar(llwchar uni_char, BOOL called_from_parent)
+bool LLMenuItemBranchGL::handleUnicodeChar(llwchar uni_char, bool called_from_parent)
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 	if (getBranch() && called_from_parent)
 	{
-		handled = getBranch()->handleUnicodeChar(uni_char, TRUE);
+		handled = getBranch()->handleUnicodeChar(uni_char, true);
 	}
 
 	if (!handled)
@@ -3014,13 +3014,13 @@ BOOL LLMenuGL::handleAcceleratorKey(KEY key, MASK mask)
 	return FALSE;
 }
 
-BOOL LLMenuGL::handleUnicodeCharHere( llwchar uni_char )
+bool LLMenuGL::handleUnicodeCharHere( llwchar uni_char )
 {
 	if (jumpKeysActive())
 	{
 		return handleJumpKey((KEY)uni_char);
 	}
-	return FALSE;
+	return false;
 }
 
 bool LLMenuGL::handleHover( S32 x, S32 y, MASK mask )
@@ -3905,10 +3905,10 @@ void LLTearOffMenu::onFocusLost()
 	LLFloater::onFocusLost();
 }
 
-BOOL LLTearOffMenu::handleUnicodeChar(llwchar uni_char, BOOL called_from_parent)
+bool LLTearOffMenu::handleUnicodeChar(llwchar uni_char, bool called_from_parent)
 {
 	// pass keystrokes down to menu
-	return mMenu->handleUnicodeChar(uni_char, TRUE);
+	return mMenu->handleUnicodeChar(uni_char, true);
 }
 
 BOOL LLTearOffMenu::handleKeyHere(KEY key, MASK mask)

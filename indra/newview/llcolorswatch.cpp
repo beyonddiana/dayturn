@@ -119,7 +119,7 @@ bool LLColorSwatchCtrl::handleHover(S32 x, S32 y, MASK mask)
 	return true;
 }
 
-BOOL LLColorSwatchCtrl::handleUnicodeCharHere(llwchar uni_char)
+bool LLColorSwatchCtrl::handleUnicodeCharHere(llwchar uni_char)
 {
 	if( ' ' == uni_char )
 	{

@@ -2507,7 +2507,7 @@ void LLFloaterView::highlightFocusedFloater()
 			continue;
 		}
 
-		BOOL floater_or_dependent_has_focus = gFocusMgr.childHasKeyboardFocus(floater);
+		bool floater_or_dependent_has_focus = gFocusMgr.childHasKeyboardFocus(floater);
 		for(LLFloater::handle_set_iter_t dependent_it = floater->mDependents.begin();
 			dependent_it != floater->mDependents.end(); 
 			++dependent_it)
@@ -2515,7 +2515,7 @@ void LLFloaterView::highlightFocusedFloater()
 			LLFloater* dependent_floaterp = dependent_it->get();
 			if (dependent_floaterp && gFocusMgr.childHasKeyboardFocus(dependent_floaterp))
 			{
-				floater_or_dependent_has_focus = TRUE;
+				floater_or_dependent_has_focus = true;
 			}
 		}
 

@@ -58,7 +58,7 @@ public:
 	// These were brought up the hierarchy from LLView so that we don't have to use dynamic_cast when dealing with keyboard focus.
 	virtual BOOL	handleKey(KEY key, MASK mask, BOOL called_from_parent);
 	virtual BOOL	handleKeyUp(KEY key, MASK mask, BOOL called_from_parent);
-	virtual BOOL	handleUnicodeChar(llwchar uni_char, BOOL called_from_parent);
+	virtual bool	handleUnicodeChar(llwchar uni_char, bool called_from_parent);
 
     /**
      * If true this LLFocusableElement wants to receive KEYUP and KEYDOWN messages 
@@ -95,7 +95,7 @@ public:
 	void			setKeyboardFocus(LLFocusableElement* new_focus, BOOL lock = FALSE, BOOL keystrokes_only = FALSE);		// new_focus = NULL to release the focus.
 	LLFocusableElement*		getKeyboardFocus() const { return mKeyboardFocus; }  
 	LLFocusableElement*		getLastKeyboardFocus() const { return mLastKeyboardFocus; }  
-	BOOL			childHasKeyboardFocus( const LLView* parent ) const;
+	bool			childHasKeyboardFocus( const LLView* parent ) const;
 	void			removeKeyboardFocusWithoutCallback( const LLFocusableElement* focus );
 	BOOL			getKeystrokesOnly() { return mKeystrokesOnly; }
 	void			setKeystrokesOnly(BOOL keystrokes_only) { mKeystrokesOnly = keystrokes_only; }

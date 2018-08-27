@@ -427,7 +427,7 @@ public:
 	void parseChildXML(LLXMLNodePtr child, LLView* parent);
 
 	// LLView Functionality
-	/*virtual*/ BOOL handleUnicodeCharHere( llwchar uni_char );
+	/*virtual*/ bool handleUnicodeCharHere( llwchar uni_char );
 	/*virtual*/ bool handleHover( S32 x, S32 y, MASK mask );
 	/*virtual*/ BOOL handleScrollWheel( S32 x, S32 y, S32 clicks );
 	/*virtual*/ void draw( void );
@@ -636,7 +636,7 @@ public:
 	virtual void onCommit( void );
 
 	virtual BOOL handleKey(KEY key, MASK mask, BOOL called_from_parent);
-	virtual BOOL handleUnicodeChar(llwchar uni_char, BOOL called_from_parent);
+	virtual bool handleUnicodeChar(llwchar uni_char, bool called_from_parent);
 
 	// set the hover status (called by it's menu) and if the object is
 	// active. This is used for behavior transfer.
@@ -856,7 +856,7 @@ public:
 	virtual void draw(void);
 	virtual void onFocusReceived();
 	virtual void onFocusLost();
-	virtual BOOL handleUnicodeChar(llwchar uni_char, BOOL called_from_parent);
+	virtual bool handleUnicodeChar(llwchar uni_char, bool called_from_parent);
 	virtual BOOL handleKeyHere(KEY key, MASK mask);
 	virtual void translate(S32 x, S32 y);
 

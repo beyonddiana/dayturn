@@ -1819,12 +1819,12 @@ BOOL LLTextureCtrl::doDrop(LLInventoryItem* item)
 	return TRUE;
 }
 
-BOOL LLTextureCtrl::handleUnicodeCharHere(llwchar uni_char)
+bool LLTextureCtrl::handleUnicodeCharHere(llwchar uni_char)
 {
 	if( ' ' == uni_char )
 	{
 		showPicker(TRUE);
-		return TRUE;
+		return true;
 	}
 	return LLUICtrl::handleUnicodeCharHere(uni_char);
 }

@@ -1284,20 +1284,20 @@ BOOL LLFolderView::handleKeyHere( KEY key, MASK mask )
 }
 
 
-BOOL LLFolderView::handleUnicodeCharHere(llwchar uni_char)
+bool LLFolderView::handleUnicodeCharHere(llwchar uni_char)
 {
 	if ((uni_char < 0x20) || (uni_char == 0x7F)) // Control character or DEL
 	{
-		return FALSE;
+		return false;
 	}
 
 	if (uni_char > 0x7f)
 	{
 		LL_WARNS() << "LLFolderView::handleUnicodeCharHere - Don't handle non-ascii yet, aborting" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 
-	BOOL handled = FALSE;
+	bool handled = false;
 	if (mParentPanel.get()->hasFocus())
 	{
 		// SL-51858: Key presses are not being passed to the Popup menu.
@@ -1320,7 +1320,7 @@ BOOL LLFolderView::handleUnicodeCharHere(llwchar uni_char)
 		}
 		search(getCurSelectedItem(), mSearchString, FALSE);
 
-		handled = TRUE;
+		handled = true;
 	}
 
 	return handled;
