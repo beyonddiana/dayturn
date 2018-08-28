@@ -138,7 +138,7 @@ struct LLAvatarGroups
 {
 	LLUUID agent_id;
 	LLUUID avatar_id; //target id
-	BOOL list_in_profile;
+	bool list_in_profile;
 
 	struct LLGroupData;
 	typedef std::list<LLGroupData> group_list_t;
@@ -148,7 +148,7 @@ struct LLAvatarGroups
 	struct LLGroupData
 	{
 		U64 group_powers;
-		BOOL accept_notices;
+		bool accept_notices;
 		std::string group_title;
 		LLUUID group_id;
 		std::string group_name;

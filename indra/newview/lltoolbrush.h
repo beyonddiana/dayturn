@@ -94,8 +94,8 @@ protected:
 	S32 mMouseX;
 	S32 mMouseY;
 	F32 mBrushSize;
-	BOOL mGotHover;
-	BOOL mBrushSelected;
+	bool mGotHover;
+	bool mBrushSelected;
 	// Order doesn't matter and we do check for existance of regions, so use a set
 	region_list_t mLastAffectedRegions;
 

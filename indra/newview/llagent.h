@@ -85,7 +85,7 @@ struct LLGroupData
 	LLUUID mInsigniaID;
 	U64 mPowers;
 	BOOL mAcceptNotices;
-	BOOL mListInProfile;
+	bool mListInProfile;
 	S32 mContribution;
 	std::string mName;
 };
@@ -228,9 +228,9 @@ private:
 public:
 	void			setStartPosition(U32 location_id); // Marks current location as start, sends information to servers
 	void			setHomePosRegion(const U64& region_handle, const LLVector3& pos_region);
-	BOOL			getHomePosGlobal(LLVector3d* pos_global);
+	bool			getHomePosGlobal(LLVector3d* pos_global);
 private:
-	BOOL 			mHaveHomePosition;
+	bool 			mHaveHomePosition;
 	U64				mHomeRegionHandle;
 	LLVector3		mHomePosRegion;
 
@@ -255,7 +255,7 @@ public:
 	void			setRegion(LLViewerRegion *regionp);
 	LLViewerRegion	*getRegion() const;
 	LLHost			getRegionHost() const;
-	BOOL			inPrelude();
+	bool			inPrelude();
 
     // Capability 
     std::string     getRegionCapability(const std::string &name); // short hand for if (getRegion()) { getRegion()->getCapability(name) }
@@ -402,7 +402,7 @@ private:
 public:
 	void			setAFK();
 	void			clearAFK();
-	BOOL			getAFK() const;
+	bool			getAFK() const;
 	static const F32 MIN_AFK_TIME;
 	
 	//--------------------------------------------------------------------
@@ -499,8 +499,8 @@ public:
 
 	void			endAnimationUpdateUI();
 	void			unpauseAnimation() { mPauseRequest = NULL; }
-	BOOL			getCustomAnim() const { return mCustomAnim; }
-	void			setCustomAnim(BOOL anim) { mCustomAnim = anim; }
+	bool			getCustomAnim() const { return mCustomAnim; }
+	void			setCustomAnim(bool anim) { mCustomAnim = anim; }
 	
 	typedef boost::signals2::signal<void ()> camera_signal_t;
 	boost::signals2::connection setMouselookModeInCallback( const camera_signal_t::slot_type& cb );
@@ -509,9 +509,9 @@ public:
 private:
 	camera_signal_t* mMouselookModeInSignal;
 	camera_signal_t* mMouselookModeOutSignal;
-	BOOL            mCustomAnim; 		// Current animation is ANIM_AGENT_CUSTOMIZE ?
+	bool            mCustomAnim; 		// Current animation is ANIM_AGENT_CUSTOMIZE ?
 	LLPointer<LLPauseRequestHandle> mPauseRequest;
-	BOOL			mViewsPushed; 		// Keep track of whether or not we have pushed views
+	bool			mViewsPushed; 		// Keep track of whether or not we have pushed views
 	
 /**                    Animation
  **                                                                            **
@@ -730,8 +730,8 @@ public:
 								   U64 group_proxy_power = 0,
 								   U8 god_minimum = GOD_MAINTENANCE);
 	const LLAgentAccess& getAgentAccess();
-	BOOL			canManageEstate() const;
-	BOOL			getAdminOverride() const;
+	bool			canManageEstate() const;
+	bool			getAdminOverride() const;
 private:
 	LLAgentAccess * mAgentAccess;
 	
@@ -742,7 +742,7 @@ public:
 	bool			isGodlike() const;
 	bool			isGodlikeWithoutAdminMenuFakery() const;
 	U8				getGodLevel() const;
-	void			setAdminOverride(BOOL b);
+	void			setAdminOverride(bool b);
 	void			setGodLevel(U8 god_level);
 	void			requestEnterGodMode();
 	void			requestLeaveGodMode();

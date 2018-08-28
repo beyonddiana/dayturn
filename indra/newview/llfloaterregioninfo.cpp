@@ -386,7 +386,7 @@ void LLFloaterRegionInfo::processRegionInfo(LLMessageSystem* msg)
 	LLTabContainer* tab = floater->getChild<LLTabContainer>("region_panels");
 
 	LLViewerRegion* region = gAgent.getRegion();
-	BOOL allow_modify = gAgent.isGodlike() || (region && region->canManageEstate());
+	bool allow_modify = gAgent.isGodlike() || (region && region->canManageEstate());
 
 	// *TODO: Replace parsing msg with accessing the region info model.
 	LLRegionInfoModel& region_info = LLRegionInfoModel::instance();
@@ -775,7 +775,7 @@ void LLPanelRegionInfo::onClickManageTelehub()
 //
 bool LLPanelRegionGeneralInfo::refreshFromRegion(LLViewerRegion* region)
 {
-	BOOL allow_modify = gAgent.isGodlike() || (region && region->canManageEstate());
+	bool allow_modify = gAgent.isGodlike() || (region && region->canManageEstate());
 	setCtrlsEnabled(allow_modify);
 	getChildView("apply_btn")->setEnabled(FALSE);
 	getChildView("access_text")->setEnabled(allow_modify);
@@ -1081,7 +1081,7 @@ bool LLPanelRegionOpenSettingsInfo::refreshFromRegion(LLViewerRegion* region)
 
 {
 	// Data gets filled in by hippo manager
-	BOOL allow_modify = gAgent.isGodlike() || (region && region->canManageEstate());
+	bool allow_modify = gAgent.isGodlike() || (region && region->canManageEstate());
 
 	LLWorld *regionlimits = LLWorld::getInstance();
 
@@ -1217,7 +1217,7 @@ bool LLPanelRegionDebugInfo::postBuild()
 // virtual
 bool LLPanelRegionDebugInfo::refreshFromRegion(LLViewerRegion* region)
 {
-	BOOL allow_modify = gAgent.isGodlike() || (region && region->canManageEstate());
+	bool allow_modify = gAgent.isGodlike() || (region && region->canManageEstate());
 	setCtrlsEnabled(allow_modify);
 	getChildView("apply_btn")->setEnabled(FALSE);
 	getChildView("target_avatar_name")->setEnabled(FALSE);
@@ -1543,9 +1543,9 @@ bool LLPanelRegionTerrainInfo::postBuild()
 // virtual
 bool LLPanelRegionTerrainInfo::refreshFromRegion(LLViewerRegion* region)
 {
-	BOOL owner_or_god = gAgent.isGodlike() 
+	bool owner_or_god = gAgent.isGodlike()
 						|| (region && (region->getOwner() == gAgent.getID()));
-	BOOL owner_or_god_or_manager = owner_or_god
+	bool owner_or_god_or_manager = owner_or_god
 						|| (region && region->isEstateManager());
 	setCtrlsEnabled(owner_or_god_or_manager);
 
@@ -2896,8 +2896,8 @@ void LLPanelEnvironmentInfo::onVisibilityChange(bool new_visibility)
 bool LLPanelEnvironmentInfo::refreshFromRegion(LLViewerRegion* region)
 {
 	LL_DEBUGS("Windlight") << "Region updated, enabling/disabling controls" << LL_ENDL;
-	BOOL owner_or_god = gAgent.isGodlike() || (region && (region->getOwner() == gAgent.getID()));
-	BOOL owner_or_god_or_manager = owner_or_god || (region && region->isEstateManager());
+	bool owner_or_god = gAgent.isGodlike() || (region && (region->getOwner() == gAgent.getID()));
+	bool owner_or_god_or_manager = owner_or_god || (region && region->isEstateManager());
 
 	// Don't refresh from region settings to avoid flicker after applying new region settings.
 	mEnableEditing = owner_or_god_or_manager;

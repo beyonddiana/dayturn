@@ -157,10 +157,10 @@ void LLPanelLandInfo::refresh()
 		BOOL owner_release = LLViewerParcelMgr::isParcelOwnedByAgent(parcel, GP_LAND_RELEASE);
 		BOOL owner_divide =  LLViewerParcelMgr::isParcelOwnedByAgent(parcel, GP_LAND_DIVIDE_JOIN);
 
-		BOOL manager_releaseable = ( gAgent.canManageEstate()
+		bool manager_releaseable = ( gAgent.canManageEstate()
 								  && (parcel->getOwnerID() == regionp->getOwner()) );
 		
-		BOOL manager_divideable = ( gAgent.canManageEstate()
+		bool manager_divideable = ( gAgent.canManageEstate()
 								&& ((parcel->getOwnerID() == regionp->getOwner()) || owner_divide) );
 
 		getChildView("button abandon land")->setEnabled(owner_release || manager_releaseable || gAgent.isGodlike());

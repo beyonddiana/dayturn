@@ -75,7 +75,7 @@ const S32 HUD_ARROW_SIZE = 32;
 
 // static
 LLTracker *LLTracker::sTrackerp = NULL;
-BOOL LLTracker::sCheesyBeacon = FALSE;
+bool LLTracker::sCheesyBeacon = false;
 
 LLTracker::LLTracker()
 :	mTrackingStatus(TRACKING_NOTHING),
@@ -84,12 +84,12 @@ LLTracker::LLTracker()
 	mHUDArrowCenterY(0),
 	mToolTip( "" ),
 	mTrackedLandmarkName(""),
-	mHasReachedLandmark(FALSE),
-	mHasLandmarkPosition(FALSE),
-	mLandmarkHasBeenVisited(FALSE),
+	mHasReachedLandmark(false),
+	mHasLandmarkPosition(false),
+	mLandmarkHasBeenVisited(false),
 	mTrackedLocationName( "" ),
-	mIsTrackingLocation(FALSE),
-	mHasReachedLocation(FALSE)
+	mIsTrackingLocation(false),
+	mHasReachedLocation(false)
 { }
 
 
@@ -233,7 +233,7 @@ void LLTracker::render3D()
 					// disappear when they're created only a few meters 
 					// away, yet disappear when the agent wanders away 
 					// and back again
-					instance()->mHasReachedLandmark = FALSE;
+					instance()->mHasReachedLandmark = false;
 				}
 				renderBeacon( instance()->mTrackedPositionGlobal, map_track_color, map_track_color_under,
 							  instance()->mBeaconText, instance()->mTrackedLandmarkName );
@@ -270,22 +270,22 @@ void LLTracker::render3D()
 		}
 		else
 		{
-			BOOL stop_tracking = FALSE;
+			bool stop_tracking = false;
 			const LLUUID& avatar_id = av_tracker.getAvatarID();
 			if(avatar_id.isNull())
 			{
-				stop_tracking = TRUE;
+				stop_tracking = true;
 			}
 			else 
 			{
 				const LLRelationship* buddy = av_tracker.getBuddyInfo(avatar_id);
 				if(buddy && !buddy->isOnline() && !gAgent.isGodlike())
 				{
-					stop_tracking = TRUE;
+					stop_tracking = true;
 				}
 				if(!buddy && !gAgent.isGodlike())
 				{
-					stop_tracking = TRUE;
+					stop_tracking = true;
 				}
 			}
 			if(stop_tracking)
@@ -355,7 +355,7 @@ void LLTracker::trackLocation(const LLVector3d& pos_global, const std::string& f
 
 	instance()->mTrackedPositionGlobal = pos_global;
 	instance()->mTrackedLocationName = full_name;
-	instance()->mIsTrackingLocation = TRUE;
+	instance()->mIsTrackingLocation = true;
 	instance()->mTrackingStatus = TRACKING_LOCATION;
 	instance()->mTrackingLocationType = location_type;
 	instance()->mLabel = full_name;
@@ -422,7 +422,7 @@ LLVector3d LLTracker::getTrackedPositionGlobal()
 
 
 // static
-BOOL LLTracker::hasLandmarkPosition()
+bool LLTracker::hasLandmarkPosition()
 {
 	if (!instance()->mHasLandmarkPosition)
 	{
@@ -674,9 +674,9 @@ void LLTracker::stopTrackingLandmark(bool clear_ui)
 	mTrackedLandmarkItemID.setNull();
 	mTrackedLandmarkName.assign("");
 	mTrackedPositionGlobal.zeroVec();
-	mHasLandmarkPosition = FALSE;
-	mHasReachedLandmark = FALSE;
-	mLandmarkHasBeenVisited = TRUE;
+	mHasLandmarkPosition = false;
+	mHasReachedLandmark = false;
+	mLandmarkHasBeenVisited = true;
 	gFloaterWorldMap->clearLandmarkSelection(clear_ui);
 	mTrackingStatus = TRACKING_NOTHING;
 }
@@ -686,7 +686,7 @@ void LLTracker::stopTrackingLocation(bool clear_ui, bool dest_reached)
 {
 	purgeBeaconText();
 	mTrackedLocationName.assign("");
-	mIsTrackingLocation = FALSE;
+	mIsTrackingLocation = false;
 	mTrackedPositionGlobal.zeroVec();
 	gFloaterWorldMap->clearLocationSelection(clear_ui, dest_reached);
 	mTrackingStatus = TRACKING_NOTHING;
@@ -727,7 +727,7 @@ void LLTracker::drawMarker(const LLVector3d& pos_global, const LLColor4& color)
 	LLCoordGL screen;
 	S32 x = 0;
 	S32 y = 0;
-	const BOOL CLAMP = TRUE;
+	const bool CLAMP = true;
 
 	if (LLViewerCamera::getInstance()->projectPosAgentToScreen(pos_local, screen, CLAMP)
 		|| LLViewerCamera::getInstance()->projectPosAgentToScreenEdge(pos_local, screen) )
@@ -841,13 +841,13 @@ void LLTracker::cacheLandmarkPosition()
 {
 	// the landmark asset download may have finished, in which case
 	// we'll now be able to figure out where we're trying to go
-	BOOL found_landmark = FALSE;
+	bool found_landmark = false;
 	if( mTrackedLandmarkAssetID == LLFloaterWorldMap::getHomeID())
 	{
 		LLVector3d pos_global;
 		if ( gAgent.getHomePosGlobal( &mTrackedPositionGlobal ))
 		{
-			found_landmark = TRUE;
+			found_landmark = true;
 		}
 		else
 		{
@@ -861,27 +861,27 @@ void LLTracker::cacheLandmarkPosition()
 		LLLandmark* landmark = gLandmarkList.getAsset(mTrackedLandmarkAssetID);
 		if(landmark && landmark->getGlobalPos(mTrackedPositionGlobal))
 		{
-			found_landmark = TRUE;
+			found_landmark = true;
 
 			// cache the object's visitation status
-			mLandmarkHasBeenVisited = FALSE;
+			mLandmarkHasBeenVisited = true;
 			LLInventoryItem* item = gInventory.getItem(mTrackedLandmarkItemID);
 			if (   item 
 				&& item->getFlags()&LLInventoryItemFlags::II_FLAGS_LANDMARK_VISITED)
 			{
-				mLandmarkHasBeenVisited = TRUE;
+				mLandmarkHasBeenVisited = true;
 			}
 		}
 	}
 	if ( found_landmark && gFloaterWorldMap )
 	{
-		mHasReachedLandmark = FALSE;
+		mHasReachedLandmark = false;
 		F32 dist = gFloaterWorldMap->getDistanceToDestination(mTrackedPositionGlobal, 1.0f);
 		if ( dist < DESTINATION_UNVISITED_RADIUS )
 		{
-			mHasReachedLandmark = TRUE;
+			mHasReachedLandmark = true;
 		}
-		mHasLandmarkPosition = TRUE;
+		mHasLandmarkPosition = true;
 	}
 	mHasLandmarkPosition = found_landmark;
 }

@@ -142,7 +142,7 @@ bool LLPanelGroupGeneral::postBuild()
 		mSpinEnrollmentFee->resetDirty();
 	}
 
-	BOOL accept_notices = FALSE;
+	bool accept_notices = false;
 	bool list_in_profile = false;
 	LLGroupData data;
 	if(gAgent.getGroupData(mGroupID,data))
@@ -779,7 +779,7 @@ void LLPanelGroupGeneral::setGroupID(const LLUUID& id)
 		return;
 	}
 
-	BOOL accept_notices = FALSE;
+	bool accept_notices = false;
 	bool list_in_profile = false;
 	LLGroupData data;
 	if(gAgent.getGroupData(mGroupID,data))
