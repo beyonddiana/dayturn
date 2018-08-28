@@ -81,7 +81,7 @@ public:
 
 public:
 	/*virtual*/ S8          getType() const;
-	BOOL					isInitialized(void) const;
+	bool					isInitialized(void) const;
 	static void				dumpTotalByteCount();
 	const std::string		dumpTextureInfo() const;
 	virtual void 			restoreGLTexture();

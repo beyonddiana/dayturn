@@ -2289,7 +2289,7 @@ bool LLViewerParcelMgr::canAgentBuyParcel(LLParcel* parcel, bool forGroup) const
 			&& ((parcel->getSalePrice() > 0) || (authorizeBuyer.notNull()));
 			
 	bool isEmpowered
-		= forGroup ? gAgent.hasPowerInActiveGroup(GP_LAND_DEED) == TRUE : true;
+		= forGroup ? gAgent.hasPowerInActiveGroup(GP_LAND_DEED) == true : true;
 		
 	bool isOwner
 		= parcelOwner == (forGroup ? gAgent.getGroupID() : gAgent.getID());

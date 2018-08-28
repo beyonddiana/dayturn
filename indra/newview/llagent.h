@@ -121,15 +121,15 @@ public:
 	//--------------------------------------------------------------------
 public:
 	void			onAppFocusGained();
-	void			setFirstLogin(BOOL b) 	{ mFirstLogin = b; }
+	void			setFirstLogin(bool b) 	{ mFirstLogin = b; }
 	// Return TRUE if the database reported this login as the first for this particular user.
-	BOOL 			isFirstLogin() const 	{ return mFirstLogin; }
-	BOOL 			isInitialized() const 	{ return mInitialized; }
+	bool 			isFirstLogin() const 	{ return mFirstLogin; }
+	bool 			isInitialized() const 	{ return mInitialized; }
 public:
 	std::string		mMOTD; 					// Message of the day
 private:
-	BOOL			mInitialized;
-	BOOL			mFirstLogin;
+	bool			mInitialized;
+	bool			mFirstLogin;
 	boost::shared_ptr<LLAgentListener> mListener;
 
 	//--------------------------------------------------------------------
@@ -167,10 +167,10 @@ public:
 public:
 	// On the very first login, gender isn't chosen until the user clicks
 	// in a dialog.  We don't render the avatar until they choose.
-	BOOL 			isOutfitChosen() const 	{ return mOutfitChosen; }
-	void			setOutfitChosen(BOOL b)	{ mOutfitChosen = b; }
+	bool 			isOutfitChosen() const 	{ return mOutfitChosen; }
+	void			setOutfitChosen(bool b)	{ mOutfitChosen = b; }
 private:
-	BOOL			mOutfitChosen;
+	bool			mOutfitChosen;
 
 /**                    Identity
  **                                                                            **
@@ -724,8 +724,8 @@ private:
 
 public:
 	// Checks if agent can modify an object based on the permissions and the agent's proxy status.
-	BOOL			isGrantedProxy(const LLPermissions& perm);
-	BOOL			allowOperation(PermissionBit op,
+	bool			isGrantedProxy(const LLPermissions& perm);
+	bool			allowOperation(PermissionBit op,
 								   const LLPermissions& perm,
 								   U64 group_proxy_power = 0,
 								   U8 god_minimum = GOD_MAINTENANCE);
@@ -812,13 +812,13 @@ private:
 
 public:
 	LLQuaternion	getHeadRotation();
-	BOOL			needsRenderAvatar(); // TRUE when camera mode is such that your own avatar should draw
-	BOOL			needsRenderHead();
-	void			setShowAvatar(BOOL show) { mShowAvatar = show; }
-	BOOL			getShowAvatar() const { return mShowAvatar; }
+	bool			needsRenderAvatar(); // TRUE when camera mode is such that your own avatar should draw
+	bool			needsRenderHead();
+	void			setShowAvatar(bool show) { mShowAvatar = show; }
+	bool			getShowAvatar() const { return mShowAvatar; }
 	
 private:
-	BOOL			mShowAvatar; 		// Should we render the avatar?
+	bool			mShowAvatar; 		// Should we render the avatar?
 	U32				mAppearanceSerialNum;
 	//--------------------------------------------------------------------
 	// Rendering state bitmap helpers
@@ -855,10 +855,10 @@ public:
 	// Get just the agent's contribution to the given group.
 	S32 			getGroupContribution(const LLUUID& group_id) const;
 	// Update internal datastructures and update the server.
-	BOOL 			setGroupContribution(const LLUUID& group_id, S32 contribution);
-	BOOL 			setUserGroupFlags(const LLUUID& group_id, BOOL accept_notices, BOOL list_in_profile);
+	bool 			setGroupContribution(const LLUUID& group_id, S32 contribution);
+	bool 			setUserGroupFlags(const LLUUID& group_id, bool accept_notices, bool list_in_profile);
 	const std::string &getGroupName() const 	{ return mGroupName; }
-	BOOL			canJoinGroups() const;
+	bool			canJoinGroups() const;
 private:
 	std::string		mGroupName;
 	LLUUID			mGroupID;
@@ -871,7 +871,7 @@ public:
 	bool 			isInGroup(const LLUUID& group_id, bool ingnore_God_mod = false) const;
 protected:
 	// Only used for building titles.
-	BOOL			isGroupMember() const 		{ return !mGroupID.isNull(); } 
+	bool			isGroupMember() const 		{ return !mGroupID.isNull(); }
 public:
 	std::vector<LLGroupData> mGroups;
 
@@ -879,11 +879,11 @@ public:
 	// Group Title
 	//--------------------------------------------------------------------
 public:
-	void			setHideGroupTitle(BOOL hide)	{ mHideGroupTitle = hide; }
-	BOOL			isGroupTitleHidden() const 		{ return mHideGroupTitle; }
+	void			setHideGroupTitle(bool hide)	{ mHideGroupTitle = hide; }
+	bool			isGroupTitleHidden() const 		{ return mHideGroupTitle; }
 private:
 	std::string		mGroupTitle; 					// Honorific, like "Sir"
-	BOOL			mHideGroupTitle;
+	bool			mHideGroupTitle;
 
 	//--------------------------------------------------------------------
 	// Group Powers
@@ -972,7 +972,7 @@ public:
 	LLAgentQueryManager();
 	virtual ~LLAgentQueryManager();
 	
-	BOOL 			hasNoPendingQueries() const 	{ return getNumPendingQueries() == 0; }
+	bool 			hasNoPendingQueries() const 	{ return getNumPendingQueries() == 0; }
 	S32 			getNumPendingQueries() const 	{ return mNumPendingQueries; }
 private:
 	S32				mNumPendingQueries;

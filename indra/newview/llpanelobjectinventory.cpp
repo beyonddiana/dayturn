@@ -236,9 +236,9 @@ const std::string& LLTaskInvFVBridge::getDisplayName() const
 		}
 
 		const LLPermissions& perm(item->getPermissions());
-		BOOL copy = gAgent.allowOperation(PERM_COPY, perm, GP_OBJECT_MANIPULATE);
-		BOOL mod  = gAgent.allowOperation(PERM_MODIFY, perm, GP_OBJECT_MANIPULATE);
-		BOOL xfer = gAgent.allowOperation(PERM_TRANSFER, perm, GP_OBJECT_MANIPULATE);
+		bool copy = gAgent.allowOperation(PERM_COPY, perm, GP_OBJECT_MANIPULATE);
+		bool mod  = gAgent.allowOperation(PERM_MODIFY, perm, GP_OBJECT_MANIPULATE);
+		bool xfer = gAgent.allowOperation(PERM_TRANSFER, perm, GP_OBJECT_MANIPULATE);
 
 		if(!copy)
 		{
@@ -1061,7 +1061,7 @@ void LLTaskNotecardBridge::openItem()
 
 	// Note: even if we are not allowed to modify copyable notecard, we should be able to view it
 	LLInventoryItem *item = dynamic_cast<LLInventoryItem*>(object->getInventoryObject(mUUID));
-	BOOL item_copy = item && gAgent.allowOperation(PERM_COPY, item->getPermissions(), GP_OBJECT_MANIPULATE);
+	bool item_copy = item && gAgent.allowOperation(PERM_COPY, item->getPermissions(), GP_OBJECT_MANIPULATE);
 	if( item_copy
 		|| object->permModify()
 		|| gAgent.isGodlike())

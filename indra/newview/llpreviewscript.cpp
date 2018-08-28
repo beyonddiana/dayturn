@@ -1626,9 +1626,9 @@ void LLPreviewLSL::loadAsset()
 	}
 	if(item)
 	{
-		BOOL is_copyable = gAgent.allowOperation(PERM_COPY, 
+		bool is_copyable = gAgent.allowOperation(PERM_COPY,
 								item->getPermissions(), GP_OBJECT_MANIPULATE);
-		BOOL is_modifiable = gAgent.allowOperation(PERM_MODIFY,
+		bool is_modifiable = gAgent.allowOperation(PERM_MODIFY,
 								item->getPermissions(), GP_OBJECT_MANIPULATE);
 		if (gAgent.isGodlike() || (is_copyable && (is_modifiable || is_library)))
 		{
@@ -1870,7 +1870,7 @@ void LLPreviewLSL::onLoadComplete( LLVFS *vfs, const LLUUID& asset_uuid, LLAsset
 
 			std::string script_name = DEFAULT_SCRIPT_NAME;
 			LLInventoryItem* item = gInventory.getItem(*item_uuid);
-			BOOL is_modifiable = FALSE;
+			bool is_modifiable = false;
 			if (item)
 			{
 				if (!item->getName().empty())
@@ -1879,7 +1879,7 @@ void LLPreviewLSL::onLoadComplete( LLVFS *vfs, const LLUUID& asset_uuid, LLAsset
 				}
 				if (gAgent.allowOperation(PERM_MODIFY, item->getPermissions(), GP_OBJECT_MANIPULATE))
 				{
-					is_modifiable = TRUE;
+					is_modifiable = true;
 				}
 			}
 			preview->mScriptEd->setScriptName(script_name);

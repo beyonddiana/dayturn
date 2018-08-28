@@ -91,13 +91,13 @@ LLViewerTextureList::LLViewerTextureList()
 	: mForceResetTextureStats(FALSE),
 	mMaxResidentTexMemInMegaBytes(0),
 	mMaxTotalTextureMemInMegaBytes(0),
-	mInitialized(FALSE)
+	mInitialized(false)
 {
 }
 
 void LLViewerTextureList::init()
 {			
-	mInitialized = TRUE ;
+	mInitialized = true ;
 	sNumImages = 0;
 	mMaxResidentTexMemInMegaBytes = (U32Bytes)0;
 	mMaxTotalTextureMemInMegaBytes = (U32Bytes)0;
@@ -331,7 +331,7 @@ void LLViewerTextureList::shutdown()
 	
 	mImageList.clear();
 
-	mInitialized = FALSE ; //prevent loading textures again.
+	mInitialized = false ; //prevent loading textures again.
 }
 
 void LLViewerTextureList::dump()
