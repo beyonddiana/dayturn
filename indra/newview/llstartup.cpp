@@ -2276,7 +2276,7 @@ bool idle_startup()
 		if (isAgentAvatarValid() && !gAgent.isFirstLogin() && !gAgent.isOutfitChosen())
 		{
 			gAgentWearables.notifyLoadingStarted();
-			gAgent.setOutfitChosen(TRUE);
+			gAgent.setOutfitChosen(true);
 			gAgentWearables.sendDummyAgentWearablesUpdate();
 			callAfterCategoryFetch(LLAppearanceMgr::instance().getCOF(), set_flags_and_update_appearance);
 		}
@@ -2881,7 +2881,7 @@ void LLStartUp::loadInitialOutfit( const std::string& outfit_folder_name,
 		LL_DEBUGS() << "initial outfit category id: " << cat_id << LL_ENDL;
 	}
 
-//	gAgent.setOutfitChosen(TRUE);
+//	gAgent.setOutfitChosen(true);
 	gAgentWearables.sendDummyAgentWearablesUpdate();
 }
 
@@ -3680,7 +3680,7 @@ bool process_login_success_response(U32 &first_sim_size_x, U32 &first_sim_size_y
 		std::string flag = login_flags["ever_logged_in"];
 		if(!flag.empty())
 		{
-			gAgent.setFirstLogin((flag == "N") ? TRUE : FALSE);
+			gAgent.setFirstLogin((flag == "N") ? true : false);
 		}
 
 		/*  Flag is currently ignored by the viewer.
@@ -3694,7 +3694,7 @@ bool process_login_success_response(U32 &first_sim_size_x, U32 &first_sim_size_y
 		flag = login_flags["gendered"].asString();
 		if(flag == "Y")
 		{
-			gAgent.setOutfitChosen(TRUE);
+			gAgent.setOutfitChosen(true);
 		}
 		
 		bool pacific_daylight_time = false;

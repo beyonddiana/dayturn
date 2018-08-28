@@ -159,7 +159,7 @@ bool LLPreviewTexture::postBuild()
             getChild<LLUICtrl>("desc")->setValue(item->getDescription());
             getChild<LLLineEditor>("desc")->setPrevalidate(&LLTextValidate::validateASCIIPrintableNoPipe);
         }
-        BOOL source_library = mObjectUUID.isNull() && gInventory.isObjectDescendentOf(item->getUUID(), gInventory.getLibraryRootFolderID());
+        bool source_library = mObjectUUID.isNull() && gInventory.isObjectDescendentOf(item->getUUID(), gInventory.getLibraryRootFolderID());
         if (source_library)
         {
             getChildView("Discard")->setEnabled(false);
@@ -572,7 +572,7 @@ void LLPreviewTexture::loadAsset()
 		else
 	{
 		// check that we can remove item
-		BOOL source_library = gInventory.isObjectDescendentOf(mItemUUID, gInventory.getLibraryRootFolderID());
+		bool source_library = gInventory.isObjectDescendentOf(mItemUUID, gInventory.getLibraryRootFolderID());
 		if (source_library)
 		{
 			getChildView("Discard")->setEnabled(false);

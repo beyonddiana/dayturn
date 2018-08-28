@@ -347,10 +347,10 @@ bool LLAgent::isMicrophoneOn(const LLSD& sdname)
 //-----------------------------------------------------------------------------
 LLAgent::LLAgent() :
 	mGroupPowers(0),
-	mHideGroupTitle(FALSE),
+	mHideGroupTitle(false),
 	mGroupID(),
 
-	mInitialized(FALSE),
+	mInitialized(false),
 	mListener(),
 
 	mDoubleTapRunTimer(),
@@ -423,7 +423,7 @@ LLAgent::LLAgent() :
 	mNextFidgetTime(0.f),
 	mCurrentFidget(0),
 	mFirstLogin(FALSE),
-	mOutfitChosen(FALSE),
+	mOutfitChosen(false),
 
 	mVoiceConnected(false),
 	mAppearanceSerialNum(0),
@@ -480,7 +480,7 @@ void LLAgent::init()
 		mTeleportFailedSlot = LLViewerParcelMgr::getInstance()->setTeleportFailedCallback(boost::bind(&LLAgent::handleTeleportFailed, this));
 	}
 
-	mInitialized = TRUE;
+	mInitialized = true;
 }
 
 //-----------------------------------------------------------------------------
@@ -1985,18 +1985,18 @@ std::ostream& operator<<(std::ostream &s, const LLAgent &agent)
 //-----------------------------------------------------------------------------
 // needsRenderAvatar()
 //-----------------------------------------------------------------------------
-BOOL LLAgent::needsRenderAvatar()
+bool LLAgent::needsRenderAvatar()
 {
 	if (gAgentCamera.cameraMouselook() && !LLVOAvatar::sVisibleInFirstPerson)
 	{
-		return FALSE;
+		return false;
 	}
 
 	return mShowAvatar && mOutfitChosen;
 }
 
 // TRUE if we need to render your own avatar's head.
-BOOL LLAgent::needsRenderHead()
+bool LLAgent::needsRenderHead()
 {
 	return (LLVOAvatar::sVisibleInFirstPerson && LLPipeline::sReflectionRender) || (mShowAvatar && !gAgentCamera.cameraMouselook());
 }
@@ -3041,7 +3041,7 @@ S32 LLAgent::getGroupContribution(const LLUUID& group_id) const
 	return 0;
 }
 
-BOOL LLAgent::setGroupContribution(const LLUUID& group_id, S32 contribution)
+bool LLAgent::setGroupContribution(const LLUUID& group_id, S32 contribution)
 {
 	S32 count = mGroups.size();
 	for(S32 i = 0; i < count; ++i)
@@ -3058,13 +3058,13 @@ BOOL LLAgent::setGroupContribution(const LLUUID& group_id, S32 contribution)
 			msg->addUUID("GroupID", group_id);
 			msg->addS32("Contribution", contribution);
 			sendReliableMessage();
-			return TRUE;
+			return true;
 		}
 	}
-	return FALSE;
+	return false;
 }
 
-BOOL LLAgent::setUserGroupFlags(const LLUUID& group_id, BOOL accept_notices, BOOL list_in_profile)
+bool LLAgent::setUserGroupFlags(const LLUUID& group_id, bool accept_notices, bool list_in_profile)
 {
 	S32 count = mGroups.size();
 	for(S32 i = 0; i < count; ++i)
@@ -3084,13 +3084,13 @@ BOOL LLAgent::setUserGroupFlags(const LLUUID& group_id, BOOL accept_notices, BOO
 			msg->nextBlock("NewData");
 			msg->addBOOL("ListInProfile", list_in_profile);
 			sendReliableMessage();
-			return TRUE;
+			return true;
 		}
 	}
-	return FALSE;
+	return false;
 }
 
-BOOL LLAgent::canJoinGroups() const
+bool LLAgent::canJoinGroups() const
 {
 	return (S32)mGroups.size() < gMaxAgentGroups;
 }
@@ -3256,12 +3256,12 @@ void LLAgent::friendsChanged()
 	mProxyForAgents = collector.mProxy;
 }
 
-BOOL LLAgent::isGrantedProxy(const LLPermissions& perm)
+bool LLAgent::isGrantedProxy(const LLPermissions& perm)
 {
 	return (mProxyForAgents.count(perm.getOwner()) > 0);
 }
 
-BOOL LLAgent::allowOperation(PermissionBit op,
+bool LLAgent::allowOperation(PermissionBit op,
 							 const LLPermissions& perm,
 							 U64 group_proxy_power,
 							 U8 god_minimum)

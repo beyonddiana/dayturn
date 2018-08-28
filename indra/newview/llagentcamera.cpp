@@ -1302,7 +1302,7 @@ void LLAgentCamera::updateCamera()
 	mCameraFOVZoomFactor = calcCameraFOVZoomFactor();
 	camera_target_global = focus_target_global + (camera_target_global - focus_target_global) * (1.f + mCameraFOVZoomFactor);
 
-	gAgent.setShowAvatar(TRUE); // can see avatar by default
+	gAgent.setShowAvatar(true); // can see avatar by default
 
 	// Adjust position for animation
 	if (mCameraAnimating)
@@ -1335,7 +1335,7 @@ void LLAgentCamera::updateCamera()
 		{
 			if (fraction_of_animation < animation_start_fraction || fraction_of_animation > animation_finish_fraction )
 			{
-				gAgent.setShowAvatar(FALSE);
+				gAgent.setShowAvatar(false);
 			}
 
 			// ...adjust position for animation
@@ -1352,7 +1352,7 @@ void LLAgentCamera::updateCamera()
 			mFocusGlobal = focus_target_global;
 
 			gAgent.endAnimationUpdateUI();
-			gAgent.setShowAvatar(TRUE);
+			gAgent.setShowAvatar(true);
 		}
 
 		if (isAgentAvatarValid() && (mCameraMode != CAMERA_MODE_MOUSELOOK))
@@ -1364,7 +1364,7 @@ void LLAgentCamera::updateCamera()
 	{
 		camera_pos_global = camera_target_global;
 		mFocusGlobal = focus_target_global;
-		gAgent.setShowAvatar(TRUE);
+		gAgent.setShowAvatar(true);
 	}
 
 	// smoothing

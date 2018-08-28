@@ -274,7 +274,7 @@ void LLViewerTexLayerSetBuffer::midRenderTexLayerSet(BOOL success)
 	mGLTexturep->setGLTextureCreated(true);
 }
 
-BOOL LLViewerTexLayerSetBuffer::isInitialized(void) const
+bool LLViewerTexLayerSetBuffer::isInitialized(void) const
 {
 	return mGLTexturep.notNull() && mGLTexturep->isGLTextureCreated();
 }
@@ -296,7 +296,7 @@ BOOL LLViewerTexLayerSetBuffer::uploadInProgress() const
 
 BOOL LLViewerTexLayerSetBuffer::isReadyToUpload() const
 {
-	if (!gAgentQueryManager.hasNoPendingQueries()) return FALSE; // Can't upload if there are pending queries.
+	if (!gAgentQueryManager.hasNoPendingQueries()) return false; // Can't upload if there are pending queries.
 	if (isAgentAvatarValid() && gAgentAvatarp->isEditingAppearance()) return FALSE; // Don't upload if avatar is being edited.
 
 	BOOL ready = FALSE;

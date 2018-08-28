@@ -89,7 +89,7 @@ public:
 	const LLUUID& getID() const { return mID; }
 	S32 getContribution() const { return mContribution; }
 	U64	getAgentPowers() const { return mAgentPowers; }
-	BOOL isOwner() const { return mIsOwner; }
+	bool isOwner() const { return mIsOwner; }
 	const std::string& getTitle() const { return mTitle; }
 	const std::string& getOnlineStatus() const { return mOnlineStatus; }
 	void addRole(const LLUUID& role, LLGroupRoleData* rd);
@@ -106,7 +106,7 @@ private:
 	U64		mAgentPowers;
 	std::string	mTitle;
 	std::string	mOnlineStatus;
-	BOOL	mIsOwner;
+	bool	mIsOwner;
 	role_list_t mRolesList;
 };
 

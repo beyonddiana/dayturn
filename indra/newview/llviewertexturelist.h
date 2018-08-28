@@ -107,7 +107,7 @@ public:
 	void dump();
 	void destroyGL(BOOL save_state = TRUE);
 	void restoreGL();
-	BOOL isInitialized() const {return mInitialized;}
+	bool isInitialized() const {return mInitialized;}
 
 	void findTexturesByID(const LLUUID &image_id, std::vector<LLViewerFetchedTexture*> &output);
 	LLViewerFetchedTexture *findImage(const LLUUID &image_id, ETexListType tex_type);
@@ -221,7 +221,7 @@ private:
 	// simply holds on to LLViewerFetchedTexture references to stop them from being purged too soon
 	std::set<LLPointer<LLViewerFetchedTexture> > mImagePreloads;
 
-	BOOL mInitialized ;
+	bool mInitialized ;
 	S32Megabytes	mMaxResidentTexMemInMegaBytes;
 	S32Megabytes mMaxTotalTextureMemInMegaBytes;
 	LLFrameTimer mForceDecodeTimer;

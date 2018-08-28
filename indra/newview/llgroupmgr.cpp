@@ -117,7 +117,7 @@ LLGroupMemberData::LLGroupMemberData(const LLUUID& id,
 										U64 agent_powers,
 										const std::string& title,
 										const std::string& online_status,
-										BOOL is_owner) : 
+										BOOL is_owner) :
 	mID(id), 
 	mContribution(contribution), 
 	mAgentPowers(agent_powers), 
@@ -2239,7 +2239,7 @@ void LLGroupMgr::processCapGroupMembersRequest(const LLSD& content)
 		title			= titles[0].asString();
 		contribution	= 0;
 		member_powers	= default_powers;
-		is_owner		= false;
+		is_owner		= FALSE;
 
 		const LLUUID member_id(member_iter_start->first);
 		LLSD member_info = member_iter_start->second;
@@ -2263,7 +2263,7 @@ void LLGroupMgr::processCapGroupMembersRequest(const LLSD& content)
 			contribution = member_info["donated_square_meters"];
 
 		if(member_info.has("owner"))
-			is_owner = true;
+			is_owner = TRUE;
 
 		LLGroupMemberData* data = new LLGroupMemberData(member_id, 
 			contribution, 
