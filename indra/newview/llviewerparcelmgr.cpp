@@ -121,8 +121,8 @@ LLViewerParcelMgr::LLViewerParcelMgr()
 	mHoverWestSouth(),
 	mHoverEastNorth(),
 	mTeleportInProgressPosition(),
-	mRenderCollision(FALSE),
-	mRenderSelection(TRUE),
+	mRenderCollision(false),
+	mRenderSelection(true),
 	mCollisionBanned(0),
 	mCollisionTimer(),
 	mCollisionRegionHandle(0),
@@ -883,7 +883,7 @@ void LLViewerParcelMgr::renderParcelCollision()
 	// check for expiration
 	if (mCollisionTimer.getElapsedTimeF32() > PARCEL_COLLISION_DRAW_SECS)
 	{
-		mRenderCollision = FALSE;
+		mRenderCollision = false;
 	}
 
 	if (mRenderCollision && gSavedSettings.getBOOL("ShowBanLines"))
@@ -891,7 +891,7 @@ void LLViewerParcelMgr::renderParcelCollision()
 		LLViewerRegion* regionp = gAgent.getRegion();
 		if (regionp)
 		{
-			BOOL use_pass = mCollisionParcel->getParcelFlag(PF_USE_PASS_LIST);
+			bool use_pass = mCollisionParcel->getParcelFlag(PF_USE_PASS_LIST);
 			renderCollisionSegments(mCollisionSegments, use_pass, regionp);
 		}
 	}
@@ -1797,7 +1797,7 @@ void LLViewerParcelMgr::processParcelProperties(LLMessageSystem *msg, void **use
 			 sequence_id == COLLISION_BANNED_PARCEL_SEQ_ID)
 	{
 		// We're about to collide with this parcel
-		parcel_mgr.mRenderCollision = TRUE;
+		parcel_mgr.mRenderCollision = true;
 		parcel_mgr.mCollisionTimer.reset();
 
 		// Differentiate this parcel if we are banned from it.

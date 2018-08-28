@@ -828,15 +828,15 @@ void LLPanelLandGeneral::refresh()
 		}
 		else
 		{
-			BOOL is_owner_release = LLViewerParcelMgr::isParcelOwnedByAgent(parcel, GP_LAND_RELEASE);
-			BOOL is_manager_release = (gAgent.canManageEstate() && 
+			bool is_owner_release = LLViewerParcelMgr::isParcelOwnedByAgent(parcel, GP_LAND_RELEASE);
+			bool is_manager_release = (gAgent.canManageEstate() && 
 									regionp && 
 									(parcel->getOwnerID() != regionp->getOwner()));
-			BOOL can_release = is_owner_release || is_manager_release;
+			bool can_release = is_owner_release || is_manager_release;
 			mBtnReleaseLand->setEnabled( can_release );
 		}
 
-		BOOL use_pass = parcel->getOwnerID()!= gAgent.getID() && parcel->getParcelFlag(PF_USE_PASS_LIST) && !LLViewerParcelMgr::getInstance()->isCollisionBanned();;
+		bool use_pass = parcel->getOwnerID()!= gAgent.getID() && parcel->getParcelFlag(PF_USE_PASS_LIST) && !LLViewerParcelMgr::getInstance()->isCollisionBanned();;
 		mBtnBuyPass->setEnabled(use_pass);
 
 	}
@@ -2608,7 +2608,7 @@ void LLPanelLandAccess::refresh()
 			getChild<LLUICtrl>("limit_age_verified")->setLabelArg("[ESTATE_AGE_LIMIT]", std::string() );
 		}
 		
-		BOOL use_pass = parcel->getParcelFlag(PF_USE_PASS_LIST);
+		bool use_pass = parcel->getParcelFlag(PF_USE_PASS_LIST);
 		getChild<LLUICtrl>("PassCheck")->setValue(use_pass);
 		LLCtrlSelectionInterface* passcombo = childGetSelectionInterface("pass_combo");
 		if (passcombo)

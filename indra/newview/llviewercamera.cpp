@@ -465,9 +465,9 @@ void LLViewerCamera::projectScreenToPosAgent(const S32 screen_x, const S32 scree
 // Uses the last GL matrices set in set_perspective to project a point from
 // the agent's region space to screen coordinates.  Returns TRUE if point in within
 // the current window.
-BOOL LLViewerCamera::projectPosAgentToScreen(const LLVector3 &pos_agent, LLCoordGL &out_point, const BOOL clamp) const
+bool LLViewerCamera::projectPosAgentToScreen(const LLVector3 &pos_agent, LLCoordGL &out_point, const bool clamp) const
 {
-	BOOL in_front = TRUE;
+	bool in_front = true;
 	GLdouble	x, y, z;			// object's window coords, GL-style
 
 	LLVector3 dir_to_point = pos_agent - getOrigin();
@@ -477,11 +477,11 @@ BOOL LLViewerCamera::projectPosAgentToScreen(const LLVector3 &pos_agent, LLCoord
 	{
 		if (clamp)
 		{
-			return FALSE;
+			return false;
 		}
 		else
 		{
-			in_front = FALSE;
+			in_front = false;
 		}
 	}
 
@@ -516,19 +516,19 @@ BOOL LLViewerCamera::projectPosAgentToScreen(const LLVector3 &pos_agent, LLCoord
 		S32 int_x = lltrunc(x);
 		S32 int_y = lltrunc(y);
 
-		BOOL valid = TRUE;
+		bool valid = true;
 
 		if (clamp)
 		{
 			if (int_x < world_rect.mLeft)
 			{
 				out_point.mX = world_rect.mLeft;
-				valid = FALSE;
+				valid = false;
 			}
 			else if (int_x > world_rect.mRight)
 			{
 				out_point.mX = world_rect.mRight;
-				valid = FALSE;
+				valid = false;
 			}
 			else
 			{
@@ -538,12 +538,12 @@ BOOL LLViewerCamera::projectPosAgentToScreen(const LLVector3 &pos_agent, LLCoord
 			if (int_y < world_rect.mBottom)
 			{
 				out_point.mY = world_rect.mBottom;
-				valid = FALSE;
+				valid = false;
 			}
 			else if (int_y > world_rect.mTop)
 			{
 				out_point.mY = world_rect.mTop;
-				valid = FALSE;
+				valid = false;
 			}
 			else
 			{
@@ -558,19 +558,19 @@ BOOL LLViewerCamera::projectPosAgentToScreen(const LLVector3 &pos_agent, LLCoord
 
 			if (int_x < world_rect.mLeft)
 			{
-				valid = FALSE;
+				valid = false;
 			}
 			else if (int_x > world_rect.mRight)
 			{
-				valid = FALSE;
+				valid = false;
 			}
 			if (int_y < world_rect.mBottom)
 			{
-				valid = FALSE;
+				valid = false;
 			}
 			else if (int_y > world_rect.mTop)
 			{
-				valid = FALSE;
+				valid = false;
 			}
 
 			return in_front && valid;
@@ -578,7 +578,7 @@ BOOL LLViewerCamera::projectPosAgentToScreen(const LLVector3 &pos_agent, LLCoord
 	}
 	else
 	{
-		return FALSE;
+		return false;
 	}
 }
 
@@ -759,7 +759,7 @@ LLVector3 LLViewerCamera::roundToPixel(const LLVector3 &pos_agent)
 	F32 dist = (pos_agent - getOrigin()).magVec();
 	// Convert to screen space and back, preserving the depth.
 	LLCoordGL screen_point;
-	if (!projectPosAgentToScreen(pos_agent, screen_point, FALSE))
+	if (!projectPosAgentToScreen(pos_agent, screen_point, false))
 	{
 		// Off the screen, just return the original position.
 		return pos_agent;

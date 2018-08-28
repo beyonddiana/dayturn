@@ -164,13 +164,13 @@ public:
 
 	virtual void draw( void );
 
-	BOOL getHover() const { return mGotHover; }
+	bool getHover() const { return mGotHover; }
 
 	void setDrawTextDisabled(BOOL disabled) { mDrawTextDisabled = disabled; }
 	BOOL getDrawTextDisabled() const { return mDrawTextDisabled; }
 
 protected:
-	void setHover(BOOL hover) { mGotHover = hover; }
+	void setHover(bool hover) { mGotHover = hover; }
 
 	// This function appends the character string representation of
 	// the current accelerator key and mask to the provided string.
@@ -203,7 +203,7 @@ protected:
 private:
 	// Keyboard and mouse variables
 	BOOL mAllowKeyRepeat;
-	BOOL mGotHover;
+	bool mGotHover;
 
 	// If true, suppress normal space for check marks on the left and accelerator
 	// keys on the right.

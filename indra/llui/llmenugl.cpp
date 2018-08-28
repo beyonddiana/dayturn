@@ -153,7 +153,7 @@ LLMenuItemGL::LLMenuItemGL(const LLMenuItemGL::Params& p)
 	mJumpKey(p.jump_key),
 	mAllowKeyRepeat(p.allow_key_repeat),
 	mHighlight( FALSE ),
-	mGotHover( FALSE ),
+	mGotHover( false ),
 	mBriefItem( FALSE ),
 	mDrawTextDisabled( FALSE ),
 	mFont(p.font),
@@ -227,13 +227,13 @@ BOOL LLMenuItemGL::handleRightMouseDown(S32 x, S32 y, MASK mask)
 
 void LLMenuItemGL::onMouseEnter(S32 x, S32 y, MASK mask)
 {
-	setHover(TRUE);
+	setHover(true);
 	LLUICtrl::onMouseEnter(x,y,mask);
 }
 
 void LLMenuItemGL::onMouseLeave(S32 x, S32 y, MASK mask)
 {
-	setHover(FALSE);
+	setHover(false);
 	LLUICtrl::onMouseLeave(x,y,mask);
 }
 

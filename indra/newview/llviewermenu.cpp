@@ -156,8 +156,8 @@ typedef LLPointer<LLViewerObject> LLViewerObjectPtr;
 
 static boost::unordered_map<std::string, LLStringExplicit> sDefaultItemLabels;
 
-BOOL enable_land_build(void*);
-BOOL enable_object_build(void*);
+bool enable_land_build(void*);
+bool enable_object_build(void*);
 
 LLVOAvatar* find_avatar_from_object( LLViewerObject* object );
 LLVOAvatar* find_avatar_from_object( const LLUUID& object_id );
@@ -3092,12 +3092,12 @@ class LLLandEnableBuyPass : public view_listener_t
 };
 
 // BUG: Should really check if CLICK POINT is in a parcel where you can build.
-BOOL enable_land_build(void*)
+bool enable_land_build(void*)
 {
-	if (gAgent.isGodlike()) return TRUE;
-	if (gAgent.inPrelude()) return FALSE;
+	if (gAgent.isGodlike()) return true;
+	if (gAgent.inPrelude()) return false;
 
-	BOOL can_build = FALSE;
+	bool can_build = false;
 	LLParcel* agent_parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
 	if (agent_parcel)
 	{
@@ -3107,10 +3107,10 @@ BOOL enable_land_build(void*)
 }
 
 // BUG: Should really check if OBJECT is in a parcel where you can build.
-BOOL enable_object_build(void*)
+bool enable_object_build(void*)
 {
-	if (gAgent.isGodlike()) return TRUE;
-	if (gAgent.inPrelude()) return FALSE;
+	if (gAgent.isGodlike()) return true;
+	if (gAgent.inPrelude()) return false;
 
 	BOOL can_build = FALSE;
 	LLParcel* agent_parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
@@ -7499,7 +7499,7 @@ class LLAttachmentEnableDrop : public view_listener_t
 {
 	bool handleEvent(const LLSD& userdata)
 	{
-		BOOL can_build   = gAgent.isGodlike() || (LLViewerParcelMgr::getInstance()->allowAgentBuild());
+		bool can_build   = gAgent.isGodlike() || (LLViewerParcelMgr::getInstance()->allowAgentBuild());
 
 		//Add an inventory observer to only allow dropping the newly attached item
 		//once it exists in your inventory.  Look at Jira 2422.

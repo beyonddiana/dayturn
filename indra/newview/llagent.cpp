@@ -387,9 +387,9 @@ LLAgent::LLAgent() :
 	mRenderState(0),
 	mTypingTimer(),
 
-	mViewsPushed(FALSE),
+	mViewsPushed(false),
 
-	mCustomAnim(FALSE),
+	mCustomAnim(false),
 	mShowAvatar(TRUE),
 	mFrameAgent(),
 
@@ -416,7 +416,7 @@ LLAgent::LLAgent() :
 
 	mEffectColor(new LLUIColor(LLColor4(0.f, 1.f, 1.f, 1.f))),
 
-	mHaveHomePosition(FALSE),
+	mHaveHomePosition(false),
 	mHomeRegionHandle( 0 ),
 	mNearChatRadius(CHAT_NORMAL_RADIUS / 2.f),
 
@@ -718,7 +718,7 @@ void LLAgent::movePitch(F32 mag)
 // Does this parcel allow you to fly?
 BOOL LLAgent::canFly()
 {
-	if (isGodlike()) return TRUE;
+	if (isGodlike()) return true;
 
 	if (gSavedSettings.getBOOL("DisableFly"))
 	{
@@ -1054,7 +1054,7 @@ void LLAgent::changeRegion()
 //-----------------------------------------------------------------------------
 // inPrelude()
 //-----------------------------------------------------------------------------
-BOOL LLAgent::inPrelude()
+bool LLAgent::inPrelude()
 {
 	return mRegionp && mRegionp->isPrelude();
 }
@@ -1073,7 +1073,7 @@ std::string LLAgent::getRegionCapability(const std::string &name)
 // canManageEstate()
 //-----------------------------------------------------------------------------
 
-BOOL LLAgent::canManageEstate() const
+bool LLAgent::canManageEstate() const
 {
 	return mRegionp && mRegionp->canManageEstate();
 }
@@ -1522,7 +1522,7 @@ void LLAgent::clearAFK()
 //-----------------------------------------------------------------------------
 // getAFK()
 //-----------------------------------------------------------------------------
-BOOL LLAgent::getAFK() const
+bool LLAgent::getAFK() const
 {
 	return (mControlFlags & AGENT_CONTROL_AWAY) != 0;
 }
@@ -2140,7 +2140,7 @@ void LLAgent::endAnimationUpdateUI()
 		}
 
 		// Only pop if we have pushed...
-		if (TRUE == mViewsPushed)
+		if (true == mViewsPushed)
 		{
 #if 0 // Use this once all floaters are registered
 			LLFloaterReg::restoreVisibleInstances();
@@ -2165,7 +2165,7 @@ void LLAgent::endAnimationUpdateUI()
 
 			gFloaterView->popVisibleAll(skip_list);
 #endif
-			mViewsPushed = FALSE;
+			mViewsPushed = false;
 		}
 
 		
@@ -2221,7 +2221,7 @@ void LLAgent::endAnimationUpdateUI()
 				sendAnimationRequest(ANIM_AGENT_CUSTOMIZE, ANIM_REQUEST_STOP);
 				sendAnimationRequest(ANIM_AGENT_CUSTOMIZE_DONE, ANIM_REQUEST_START);
 
-				mCustomAnim = FALSE ;
+				mCustomAnim = false ;
 			}
 			
 		}
@@ -2259,7 +2259,7 @@ void LLAgent::endAnimationUpdateUI()
 
 		LLToolMgr::getInstance()->setCurrentToolset(gMouselookToolset);
 
-		mViewsPushed = TRUE;
+		mViewsPushed = true;
 
 		if (mMouselookModeInSignal)
 		{
@@ -2893,7 +2893,7 @@ void LLAgent::sendMaturityPreferenceToServer(U8 pPreferredMaturity)
 	}
 }
 
-BOOL LLAgent::getAdminOverride() const	
+bool LLAgent::getAdminOverride() const	
 { 
 	return mAgentAccess->getAdminOverride(); 
 }
@@ -2903,7 +2903,7 @@ void LLAgent::setMaturity(char text)
 	mAgentAccess->setMaturity(text);
 }
 
-void LLAgent::setAdminOverride(BOOL b)	
+void LLAgent::setAdminOverride(bool b)	
 { 
 	mAgentAccess->setAdminOverride(b);
 }
@@ -3943,22 +3943,22 @@ void LLAgent::forceReleaseControls()
 
 void LLAgent::setHomePosRegion( const U64& region_handle, const LLVector3& pos_region)
 {
-	mHaveHomePosition = TRUE;
+	mHaveHomePosition = true;
 	mHomeRegionHandle = region_handle;
 	mHomePosRegion = pos_region;
 }
 
-BOOL LLAgent::getHomePosGlobal( LLVector3d* pos_global )
+bool LLAgent::getHomePosGlobal( LLVector3d* pos_global )
 {
 	if(!mHaveHomePosition)
 	{
-		return FALSE;
+		return false;
 	}
 	F32 x = 0;
 	F32 y = 0;
 	from_region_handle( mHomeRegionHandle, &x, &y);
 	pos_global->setVec( x + mHomePosRegion.mV[VX], y + mHomePosRegion.mV[VY], mHomePosRegion.mV[VZ] );
-	return TRUE;
+	return true;
 }
 
 void LLAgent::clearVisualParams(void *data)

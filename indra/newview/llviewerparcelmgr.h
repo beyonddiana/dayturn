@@ -132,7 +132,7 @@ public:
 	void removeObserver(LLParcelObserver* observer);
 	void notifyObservers();
 
-	void setSelectionVisible(BOOL visible) { mRenderSelection = visible; }
+	void setSelectionVisible(bool visible) { mRenderSelection = visible; }
 
 	BOOL	isOwnedAt(const LLVector3d& pos_global) const;
 	BOOL	isOwnedSelfAt(const LLVector3d& pos_global) const;
@@ -209,7 +209,7 @@ public:
 						const LLVector3d &east_north_top );
 	void	renderOneSegment(F32 x1, F32 y1, F32 x2, F32 y2, F32 height, U8 direction, LLViewerRegion* regionp);
 	void	renderHighlightSegments(const U8* segments, LLViewerRegion* regionp);
-	void	renderCollisionSegments(U8* segments, BOOL use_pass, LLViewerRegion* regionp);
+	void	renderCollisionSegments(U8* segments, bool use_pass, LLViewerRegion* regionp);
 
 	void	sendParcelGodForceOwner(const LLUUID& owner_id);
 
@@ -368,8 +368,8 @@ private:
 	U8*						mCollisionBitmap;
 	U64                                             mCollisionRegionHandle;
 	collision_update_signal_t*      		mCollisionUpdateSignal;
-	BOOL						mRenderCollision; 
-	BOOL						mRenderSelection;
+	bool						mRenderCollision; 
+	bool						mRenderSelection;
 	S32							mCollisionBanned;     
 	LLFrameTimer				mCollisionTimer;
 	LLViewerTexture*			mBlockedImage;
