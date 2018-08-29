@@ -4356,6 +4356,14 @@ void LLAgent::doTeleportViaLocationLookAt(const LLVector3d& pos_global)
 
 void LLAgent::setTeleportState(ETeleportState state)
 {
+     if (mTeleportRequest && (state != TELEPORT_NONE) && (mTeleportRequest->getStatus() == LLTeleportRequest::kFailed))
+     {   // A late message has come in regarding a failed teleport.  
+         // We have already decided that it failed so should not reinitiate the teleport sequence in the viewer.
+         LL_WARNS("Teleport") << "Attempt to set teleport state to " << state <<
+             " for previously failed teleport.  Ignore!" << LL_ENDL;
+         return;
+     }
+    LL_DEBUGS("Teleport") << "Setting teleport state to " << state << " Previous state: " << mTeleportState << LL_ENDL;
 	mTeleportState = state;
 	if (mTeleportState > TELEPORT_NONE && gSavedSettings.getBOOL("FreezeTime"))
 	{
