@@ -2067,7 +2067,7 @@ bool lure_callback(const LLSD& notification, const LLSD& response)
 	
 	LLUUID from_id = notification["payload"]["from_id"].asUUID();
 	LLUUID lure_id = notification["payload"]["lure_id"].asUUID();
-	BOOL godlike = notification["payload"]["godlike"].asBoolean();
+	bool godlike = notification["payload"]["godlike"].asBoolean();
 
 	switch(option)
 	{
@@ -2116,7 +2116,7 @@ bool mature_lure_callback(const LLSD& notification, const LLSD& response)
 	
 	LLUUID from_id = notification["payload"]["from_id"].asUUID();
 	LLUUID lure_id = notification["payload"]["lure_id"].asUUID();
-	BOOL godlike = notification["payload"]["godlike"].asBoolean();
+	bool godlike = notification["payload"]["godlike"].asBoolean();
 	U8 region_access = static_cast<U8>(notification["payload"]["region_maturity"].asInteger());
 
 	switch(option)
@@ -3172,7 +3172,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 				LLSD payload;
 				payload["from_id"] = from_id;
 				payload["lure_id"] = session_id;
-				payload["godlike"] = FALSE;
+				payload["godlike"] = false;
 				payload["region_maturity"] = region_access;
 
 				if (!canUserAccessDstRegion)
@@ -3277,7 +3277,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 			LLSD payload;
 			payload["from_id"] = from_id;
 			payload["lure_id"] = session_id;
-			payload["godlike"] = TRUE;
+			payload["godlike"] = true;
 			payload["region_maturity"] = region_access;
 
 			if (!canUserAccessDstRegion)
@@ -4367,11 +4367,11 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 	/*
 	if (teleport_flags & TELEPORT_FLAGS_IS_FLYING)
 	{
-		gAgent.setFlying(TRUE);
+		gAgent.setFlying(true);
 	}
 	else
 	{
-		gAgent.setFlying(FALSE);
+		gAgent.setFlying(false);
 	}
 	*/
 
@@ -5250,7 +5250,7 @@ void process_sim_stats(LLMessageSystem *msg, void **user_data)
 	LLViewerRegion* regionp = gAgent.getRegion();
 	if (regionp)
 	{
-		BOOL was_flying = gAgent.getFlying();
+		bool was_flying = gAgent.getFlying();
 		regionp->setRegionFlags(region_flags);
 		regionp->setMaxTasks(max_tasks_per_region);
 		// HACK: This makes agents drop from the sky if the region is 
@@ -5313,7 +5313,7 @@ void process_avatar_animation(LLMessageSystem *mesgsys, void **user_data)
 			// See EXT-2781.
 			if (animation_id == ANIM_AGENT_STANDUP && gAgent.getFlying())
 			{
-				gAgent.setFlying(FALSE);
+				gAgent.setFlying(false);
 			}
 
 			if (i < num_source_blocks)
@@ -5499,7 +5499,7 @@ void process_avatar_sit_response(LLMessageSystem *mesgsys, void **user_data)
 	gAgentCamera.setForceMouselook(force_mouselook);
 	// Forcing turning off flying here to prevent flying after pressing "Stand"
 	// to stand up from an object. See EXT-1655.
-	gAgent.setFlying(FALSE);
+	gAgent.setFlying(false);
 
 	LLViewerObject* object = gObjectList.findObject(sitObjectID);
 	if (object)
@@ -7327,11 +7327,11 @@ void process_teleport_local(LLMessageSystem *msg,void**)
 	// Sim tells us whether the new position is off the ground
 	if (teleport_flags & TELEPORT_FLAGS_IS_FLYING)
 	{
-		gAgent.setFlying(TRUE);
+		gAgent.setFlying(true);
 	}
 	else
 	{
-		gAgent.setFlying(FALSE);
+		gAgent.setFlying(false);
 	}
 
 	gAgent.setPositionAgent(pos);

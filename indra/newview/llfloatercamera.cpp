@@ -342,7 +342,7 @@ void LLFloaterCamera::onClose(bool app_quitting)
 	switchMode(CAMERA_CTRL_MODE_PAN);
 	mClosed = TRUE;
 
-	gAgent.setMovementLocked(FALSE);
+	gAgent.setMovementLocked(false);
 }
 
 LLFloaterCamera::LLFloaterCamera(const LLSD& val)

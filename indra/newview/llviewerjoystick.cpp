@@ -678,7 +678,7 @@ void LLViewerJoystick::moveAvatar(bool reset)
 			else if (!button_held)
 			{
 				button_held = true;
-				gAgent.setFlying(FALSE);
+				gAgent.setFlying(false);
 			}
 		}
 		else if (!button_held)

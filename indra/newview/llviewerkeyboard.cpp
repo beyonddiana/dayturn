@@ -85,8 +85,8 @@ void agent_jump( EKeystate s )
 	}
 	else
 	{
-		gAgent.setFlying(TRUE, first_fly_attempt);
-		first_fly_attempt = FALSE;
+		gAgent.setFlying(true, first_fly_attempt);
+		first_fly_attempt = false;
 		gAgent.moveUp(1);
 	}
 }

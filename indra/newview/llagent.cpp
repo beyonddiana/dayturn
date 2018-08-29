@@ -399,12 +399,12 @@ LLAgent::LLAgent() :
 	mbFlagsDirty(false),
 	mbFlagsNeedReset(false),
 
-	mAutoPilot(FALSE),
-	mAutoPilotFlyOnStop(FALSE),
-	mAutoPilotAllowFlying(TRUE),
+	mAutoPilot(false),
+	mAutoPilotFlyOnStop(false),
+	mAutoPilotAllowFlying(true),
 	mAutoPilotTargetGlobal(),
 	mAutoPilotStopDistance(1.f),
-	mAutoPilotUseRotation(FALSE),
+	mAutoPilotUseRotation(false),
 	mAutoPilotTargetFacing(LLVector3::zero),
 	mAutoPilotTargetDist(0.f),
 	mAutoPilotNoProgressFrameCount(0),
@@ -412,7 +412,7 @@ LLAgent::LLAgent() :
 	mAutoPilotFinishedCallback(NULL),
 	mAutoPilotCallbackData(NULL),
 	
-	mMovementKeysLocked(FALSE),
+	mMovementKeysLocked(false),
 
 	mEffectColor(new LLUIColor(LLColor4(0.f, 1.f, 1.f, 1.f))),
 
@@ -716,7 +716,7 @@ void LLAgent::movePitch(F32 mag)
 
 
 // Does this parcel allow you to fly?
-BOOL LLAgent::canFly()
+bool LLAgent::canFly()
 {
 	if (isGodlike()) return true;
 
@@ -734,13 +734,13 @@ BOOL LLAgent::canFly()
 	// Allow owners to fly on their own land.
 	if (LLViewerParcelMgr::isParcelOwnedByAgent(parcel, GP_LAND_ALLOW_FLY))
 	{
-		return TRUE;
+		return true;
 	}
 
 	return parcel->getAllowFly();
 }
 
-BOOL LLAgent::getFlying() const
+bool LLAgent::getFlying() const
 { 
 	return mControlFlags & AGENT_CONTROL_FLY; 
 }
@@ -748,7 +748,7 @@ BOOL LLAgent::getFlying() const
 //-----------------------------------------------------------------------------
 // setFlying()
 //-----------------------------------------------------------------------------
-void LLAgent::setFlying(BOOL fly, BOOL fail_sound)
+void LLAgent::setFlying(bool fly, bool fail_sound)
 {
 	if (isAgentAvatarValid())
 	{
@@ -771,7 +771,7 @@ void LLAgent::setFlying(BOOL fly, BOOL fail_sound)
 
 	if (fly)
 	{
-		BOOL was_flying = getFlying();
+		bool was_flying = getFlying();
 		if (!canFly() && !was_flying)
 		{
 			// parcel doesn't let you start fly
@@ -815,7 +815,7 @@ void LLAgent::toggleFlying()
 		LLToolPie::instance().stopClickToWalk();
 	}
 
-	BOOL fly = !gAgent.getFlying();
+	bool fly = !gAgent.getFlying();
 
 	gAgent.mMoveTimer.reset();
 	LLFirstUse::notMoving(false);
@@ -834,7 +834,7 @@ void LLAgent::toggleFlying()
 // static
 bool LLAgent::enableFlying()
 {
-	BOOL sitting = FALSE;
+	bool sitting = false;
 	if (isAgentAvatarValid())
 	{
 		sitting = gAgentAvatarp->isSitting();
@@ -1559,11 +1559,11 @@ void LLAgent::startAutoPilotGlobal(
 	const LLVector3d &target_global,
 	const std::string& behavior_name,
 	const LLQuaternion *target_rotation,
-	void (*finish_callback)(BOOL, void *),
+	void (*finish_callback)(bool, void *),
 	void *callback_data,
 	F32 stop_distance,
 	F32 rot_threshold,
-	BOOL allow_flying)
+	bool allow_flying)
 {
 	if (!isAgentAvatarValid())
 	{
@@ -1614,38 +1614,38 @@ void LLAgent::startAutoPilotGlobal(
 	}
 	else
 	{
-		mAutoPilotFlyOnStop = FALSE;
+		mAutoPilotFlyOnStop = false;
 	}
 
 	if (distance > 30.0 && mAutoPilotAllowFlying)
 	{
-		setFlying(TRUE);
+		setFlying(true);
 	}
 
 	if ( distance > 1.f && 
 		mAutoPilotAllowFlying &&
 		heightDelta > (sqrtf(mAutoPilotStopDistance) + 1.f))
 	{
-		setFlying(TRUE);
+		setFlying(true);
 		// Do not force flying for "Sit" behavior to prevent flying after pressing "Stand"
 		// from an object. See EXT-1655.
 		if ("Sit" != mAutoPilotBehaviorName)
-			mAutoPilotFlyOnStop = TRUE;
+			mAutoPilotFlyOnStop = true;
 	}
 
-	mAutoPilot = TRUE;
+	mAutoPilot = true;
 	setAutoPilotTargetGlobal(target_global);
 
 	if (target_rotation)
 	{
-		mAutoPilotUseRotation = TRUE;
+		mAutoPilotUseRotation = true;
 		mAutoPilotTargetFacing = LLVector3::x_axis * *target_rotation;
 		mAutoPilotTargetFacing.mV[VZ] = 0.f;
 		mAutoPilotTargetFacing.normalize();
 	}
 	else
 	{
-		mAutoPilotUseRotation = FALSE;
+		mAutoPilotUseRotation = false;
 	}
 
 	mAutoPilotNoProgressFrameCount = 0;
@@ -1681,7 +1681,7 @@ void LLAgent::setAutoPilotTargetGlobal(const LLVector3d &target_global)
 //-----------------------------------------------------------------------------
 // startFollowPilot()
 //-----------------------------------------------------------------------------
-void LLAgent::startFollowPilot(const LLUUID &leader_id, BOOL allow_flying, F32 stop_distance)
+void LLAgent::startFollowPilot(const LLUUID &leader_id, bool allow_flying, F32 stop_distance)
 {
 	mLeaderID = leader_id;
 	if ( mLeaderID.isNull() ) return;
@@ -1707,11 +1707,11 @@ void LLAgent::startFollowPilot(const LLUUID &leader_id, BOOL allow_flying, F32 s
 //-----------------------------------------------------------------------------
 // stopAutoPilot()
 //-----------------------------------------------------------------------------
-void LLAgent::stopAutoPilot(BOOL user_cancel)
+void LLAgent::stopAutoPilot(bool user_cancel)
 {
 	if (mAutoPilot)
 	{
-		mAutoPilot = FALSE;
+		mAutoPilot = false;
 		if (mAutoPilotUseRotation && !user_cancel)
 		{
 			resetAxes(mAutoPilotTargetFacing);
@@ -1769,7 +1769,7 @@ void LLAgent::autoPilot(F32 *delta_yaw)
 
 		if (gAgentAvatarp->mInAir && mAutoPilotAllowFlying)
 		{
-			setFlying(TRUE);
+			setFlying(true);
 		}
 	
 		LLVector3 at;
@@ -1928,7 +1928,7 @@ void LLAgent::propagate(const F32 dt)
 	// handle auto-land behavior
 	if (isAgentAvatarValid())
 	{
-		BOOL in_air = gAgentAvatarp->mInAir;
+		bool in_air = gAgentAvatarp->mInAir;
 		LLVector3 land_vel = getVelocity();
 		land_vel.mV[VZ] = 0.f;
 
@@ -1938,7 +1938,7 @@ void LLAgent::propagate(const F32 dt)
 			&& gSavedSettings.getBOOL("AutomaticFly"))
 		{
 			// land automatically
-			setFlying(FALSE);
+			setFlying(false);
 		}
 	}
 
@@ -4246,13 +4246,13 @@ void LLAgent::doTeleportViaLandmark(const LLUUID& landmark_asset_id)
 	}
 }
 
-void LLAgent::teleportViaLure(const LLUUID& lure_id, BOOL godlike)
+void LLAgent::teleportViaLure(const LLUUID& lure_id, bool godlike)
 {
 	mTeleportRequest = LLTeleportRequestPtr(new LLTeleportRequestViaLure(lure_id, godlike));
 	startTeleportRequest();
 }
 
-void LLAgent::doTeleportViaLure(const LLUUID& lure_id, BOOL godlike)
+void LLAgent::doTeleportViaLure(const LLUUID& lure_id, bool godlike)
 {
 	LLViewerRegion* regionp = getRegion();
 	if(regionp && teleportCore())
@@ -4723,7 +4723,7 @@ void LLAgent::sendAgentSetAppearance()
 
 	// is texture data current relative to wearables?
 	// KLW - TAT this will probably need to check the local queue.
-	BOOL textures_current = gAgentAvatarp->areTexturesCurrent();
+	bool textures_current = gAgentAvatarp->areTexturesCurrent();
 
 	//<FS:Beq> BOM fallback legacy opensim
 	// for(U8 baked_index = 0; baked_index < BAKED_NUM_INDICES; baked_index++ )
@@ -4742,7 +4742,7 @@ void LLAgent::sendAgentSetAppearance()
 		if (!gAgentAvatarp->isTextureDefined(texture_index, 0))
 		{
 			LL_DEBUGS("Avatar") << "texture not current for baked " << (S32)baked_index << " local " << (S32)texture_index << LL_ENDL;
-			textures_current = FALSE;
+			textures_current = false;
 			break;
 		}
 	}
@@ -4766,10 +4766,10 @@ void LLAgent::sendAgentSetAppearance()
 		for (U8 baked_index = 0; baked_index < LLVOAvatar::sMaxBakes; baked_index++)
 		//</FS:Beq>
 		{
-			BOOL generate_valid_hash = TRUE;
+			bool generate_valid_hash = true;
 			if (isAgentAvatarValid() && !gAgentAvatarp->isBakedTextureFinal((LLAvatarAppearanceDefines::EBakedTextureIndex)baked_index))
 			{
-				generate_valid_hash = FALSE;
+				generate_valid_hash = false;
 				LL_DEBUGS("Avatar") << gAgentAvatarp->avString() << "Not caching baked texture upload for " << (U32)baked_index << " due to being uploaded at low resolution." << LL_ENDL;
 			}
 
@@ -4850,7 +4850,7 @@ void LLAgent::observeFriends()
 void LLAgent::parseTeleportMessages(const std::string& xml_filename)
 {
 	LLXMLNodePtr root;
-	BOOL success = LLUICtrlFactory::getLayeredXMLNode(xml_filename, root);
+	bool success = LLUICtrlFactory::getLayeredXMLNode(xml_filename, root);
 
 	if (!success || !root || !root->hasName( "teleport_messages" ))
 	{

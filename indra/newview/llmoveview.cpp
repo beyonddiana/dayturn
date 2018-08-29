@@ -310,7 +310,7 @@ void LLFloaterMove::setMovementMode(const EMovementMode mode)
 	}
 	else
 	{
-		gAgent.setFlying(FALSE);
+		gAgent.setFlying(false);
 	}
 
 	// attempts to set avatar flying can not set it real flying in some cases.
@@ -692,7 +692,7 @@ void LLPanelStandStopFlying::onStandButtonClick()
 
 void LLPanelStandStopFlying::onStopFlyingButtonClick()
 {
-	gAgent.setFlying(FALSE);
+	gAgent.setFlying(false);
 
 	setFocus(FALSE); // EXT-482
 }
