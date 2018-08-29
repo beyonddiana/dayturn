@@ -314,7 +314,7 @@ void LLAgentCamera::resetView(BOOL reset_camera, BOOL change_camera)
 
 	if (gAgent.getAutoPilot())
 	{
-		gAgent.stopAutoPilot(TRUE);
+		gAgent.stopAutoPilot(true);
 	}
 
 	LLSelectMgr::getInstance()->unhighlightAll();

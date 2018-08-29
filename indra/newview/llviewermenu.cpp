@@ -4575,7 +4575,7 @@ void near_sit_down_point(BOOL success, void *)
 {
 	if (success)
 	{
-		gAgent.setFlying(FALSE);
+		gAgent.setFlying(false);
 //MK
 		if (gRRenabled && gAgent.mRRInterface.mContainsInteract)
 		{
@@ -4595,7 +4595,7 @@ void near_sit_down_point(BOOL success, void *)
 			}
 		}
 //mk
-        gAgent.clearControlFlags(AGENT_CONTROL_STAND_UP); // might have been set by autopilot
+		gAgent.clearControlFlags(AGENT_CONTROL_STAND_UP); // might have been set by autopilot		
 		gAgent.setControlFlags(AGENT_CONTROL_SIT_ON_GROUND);
 
 	}

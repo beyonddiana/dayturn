@@ -340,11 +340,11 @@ private:
 	// Fly
 	//--------------------------------------------------------------------
 public:
-	BOOL			getFlying() const;
-	void			setFlying(BOOL fly, BOOL fail_sound = FALSE);
+	bool			getFlying() const;
+	void			setFlying(bool fly), bool fail_sound = false;
 	static void		toggleFlying();
 	static bool		enableFlying();
-	BOOL			canFly(); 			// Does this parcel allow you to fly?
+	bool			canFly(); 			// Does this parcel allow you to fly?
 	static bool		isSitting();
 
 	//--------------------------------------------------------------------
@@ -537,8 +537,8 @@ public:
 	void			moveYaw(F32 mag, bool reset_view = true);
 	void			movePitch(F32 mag);
 
-	BOOL			isMovementLocked() const				{ return mMovementKeysLocked; }
-	void			setMovementLocked(BOOL set_locked)	{ mMovementKeysLocked = set_locked; }
+	bool			isMovementLocked() const				{ return mMovementKeysLocked; }
+	void			setMovementLocked(bool set_locked)	{ mMovementKeysLocked = set_locked; }
 
 	//--------------------------------------------------------------------
  	// Move the avatar's frame
@@ -558,12 +558,12 @@ public:
 	// Autopilot
 	//--------------------------------------------------------------------
 public:
-	BOOL			getAutoPilot() const				{ return mAutoPilot; }
+	bool			getAutoPilot() const				{ return mAutoPilot; }
 	LLVector3d		getAutoPilotTargetGlobal() const 	{ return mAutoPilotTargetGlobal; }
 	LLUUID			getAutoPilotLeaderID() const		{ return mLeaderID; }
 	F32				getAutoPilotStopDistance() const	{ return mAutoPilotStopDistance; }
 	F32				getAutoPilotTargetDist() const		{ return mAutoPilotTargetDist; }
-	BOOL			getAutoPilotUseRotation() const		{ return mAutoPilotUseRotation; }
+	bool			getAutoPilotUseRotation() const		{ return mAutoPilotUseRotation; }
 	LLVector3		getAutoPilotTargetFacing() const	{ return mAutoPilotTargetFacing; }
 	F32				getAutoPilotRotationThreshold() const	{ return mAutoPilotRotationThreshold; }
 	std::string		getAutoPilotBehaviorName() const	{ return mAutoPilotBehaviorName; }
@@ -571,30 +571,30 @@ public:
 	void			startAutoPilotGlobal(const LLVector3d &pos_global, 
 										 const std::string& behavior_name = std::string(), 
 										 const LLQuaternion *target_rotation = NULL, 
-										 void (*finish_callback)(BOOL, void *) = NULL, void *callback_data = NULL, 
+										 void (*finish_callback)(bool, void *) = NULL, void *callback_data = NULL,
 										 F32 stop_distance = 0.f, F32 rotation_threshold = 0.03f,
-										 BOOL allow_flying = TRUE);
-	void 			startFollowPilot(const LLUUID &leader_id, BOOL allow_flying = TRUE, F32 stop_distance = 0.5f);
-	void			stopAutoPilot(BOOL user_cancel = FALSE);
+										 bool allow_flying = true);
+	void 			startFollowPilot(const LLUUID &leader_id, bool allow_flying = true, F32 stop_distance = 0.5f);
+	void			stopAutoPilot(bool user_cancel = false);
 	void 			setAutoPilotTargetGlobal(const LLVector3d &target_global);
 	void			autoPilot(F32 *delta_yaw); 			// Autopilot walking action, angles in radians
 	void			renderAutoPilotTarget();
 private:
-	BOOL			mAutoPilot;
-	BOOL			mAutoPilotFlyOnStop;
-	BOOL			mAutoPilotAllowFlying;
+	bool			mAutoPilot;
+	bool			mAutoPilotFlyOnStop;
+	bool			mAutoPilotAllowFlying;
 	LLVector3d		mAutoPilotTargetGlobal;
 	F32				mAutoPilotStopDistance;
-	BOOL			mAutoPilotUseRotation;
+	bool			mAutoPilotUseRotation;
 	LLVector3		mAutoPilotTargetFacing;
 	F32				mAutoPilotTargetDist;
 	S32				mAutoPilotNoProgressFrameCount;
 	F32				mAutoPilotRotationThreshold;
 	std::string		mAutoPilotBehaviorName;
-	void			(*mAutoPilotFinishedCallback)(BOOL, void *);
+	void			(*mAutoPilotFinishedCallback)(bool, void *);
 	void*			mAutoPilotCallbackData;
 	LLUUID			mLeaderID;
-	BOOL			mMovementKeysLocked;
+	bool			mMovementKeysLocked;
 	
 /**                    Movement
  **                                                                            **
@@ -634,7 +634,7 @@ private:
 public:
 	void 			teleportViaLandmark(const LLUUID& landmark_id);			// Teleport to a landmark
 	void 			teleportHome()	{ teleportViaLandmark(LLUUID::null); }	// Go home
-	void 			teleportViaLure(const LLUUID& lure_id, BOOL godlike);	// To an invited location
+	void 			teleportViaLure(const LLUUID& lure_id, bool godlike);	// To an invited location
 	void 			teleportViaLocation(const LLVector3d& pos_global);		// To a global location - this will probably need to be deprecated
 	void			teleportViaLocationLookAt(const LLVector3d& pos_global);// To a global location, preserving camera rotation
 	void 			teleportCancel();										// May or may not be allowed by server
@@ -676,7 +676,7 @@ private:
 									const LLVector3& pos_local,				// Go to a named location home
 									bool look_at_from_camera = false);
 	void 			doTeleportViaLandmark(const LLUUID& landmark_id);			// Teleport to a landmark
-	void 			doTeleportViaLure(const LLUUID& lure_id, BOOL godlike);	// To an invited location
+	void 			doTeleportViaLure(const LLUUID& lure_id, bool godlike);	// To an invited location
 	void 			doTeleportViaLocation(const LLVector3d& pos_global);		// To a global location - this will probably need to be deprecated
 	void			doTeleportViaLocationLookAt(const LLVector3d& pos_global);// To a global location, preserving camera rotation
 

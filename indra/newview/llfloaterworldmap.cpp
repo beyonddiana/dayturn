@@ -1458,12 +1458,12 @@ void LLFloaterWorldMap::flyToLandmark()
 
 void LLFloaterWorldMap::teleportToLandmark()
 {
-	BOOL has_destination = FALSE;
+	bool has_destination = false;
 	LLUUID destination_id; // Null means "home"
 	
 	if( LLTracker::getTrackedLandmarkAssetID() == sHomeID )
 	{
-		has_destination = TRUE;
+		has_destination = true;
 	}
 	else
 	{
@@ -1472,7 +1472,7 @@ void LLFloaterWorldMap::teleportToLandmark()
 		if(landmark && landmark->getGlobalPos(global_pos))
 		{
 			destination_id = LLTracker::getTrackedLandmarkAssetID();
-			has_destination = TRUE;
+			has_destination = true;
 		}
 		else if(landmark)
 		{
