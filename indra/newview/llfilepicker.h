@@ -34,7 +34,6 @@
 #define LL_LLFILEPICKER_H
 
 #include "stdtypes.h"
-#include "llbool.h"
 
 
 // Need commdlg.h for OPENFILENAMEA
@@ -108,9 +107,9 @@ public:
 	};
 
 	// open the dialog. This is a modal operation
-	BOOL getSaveFile( ESaveFilter filter = FFSAVE_ALL, const std::string& filename = LLStringUtil::null, bool blocking = true );
-	BOOL getOpenFile( ELoadFilter filter = FFLOAD_ALL, bool blocking = true  );
-	BOOL getMultipleOpenFiles( ELoadFilter filter = FFLOAD_ALL, bool blocking = true );
+	bool getSaveFile( ESaveFilter filter = FFSAVE_ALL, const std::string& filename = LLStringUtil::null, bool blocking = true );
+	bool getOpenFile( ELoadFilter filter = FFLOAD_ALL, bool blocking = true  );
+	bool getMultipleOpenFiles( ELoadFilter filter = FFLOAD_ALL, bool blocking = true );
 
 	// Get the filename(s) found. getFirstFile() sets the pointer to
 	// the start of the structure and allows the start of iteration.
@@ -151,7 +150,7 @@ private:
 	OPENFILENAMEW mOFN;				// for open and save dialogs
 	WCHAR mFilesW[FILENAME_BUFFER_SIZE];
 
-	BOOL setupFilter(ELoadFilter filter);
+	bool setupFilter(ELoadFilter filter);
 #endif
 
 
