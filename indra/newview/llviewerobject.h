@@ -119,7 +119,7 @@ protected:
 	// TomY: Provide for a list of extra parameter structures, mapped by structure name
 	struct ExtraParameter
 	{
-		BOOL in_use;
+		bool in_use;
 		LLNetworkData *data;
 	};
 	std::map<U16, ExtraParameter*> mExtraParameterList;
@@ -131,12 +131,12 @@ public:
 
 	typedef const child_list_t const_child_list_t;
 
-	LLViewerObject(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp, BOOL is_global = FALSE);
+	LLViewerObject(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp, bool is_global = false);
 
 	virtual void markDead();				// Mark this object as dead, and clean up its references
-	BOOL isDead() const									{return mDead;}
-	BOOL isOrphaned() const								{ return mOrphaned; }
-	BOOL isParticleSource() const;
+	bool isDead() const									{return mDead;}
+	bool isOrphaned() const								{ return mOrphaned; }
+	bool isParticleSource() const;
 
 	virtual LLVOAvatar* asAvatar();
 
@@ -146,7 +146,7 @@ public:
 	static void cleanupVOClasses();
 
 	void			addNVPair(const std::string& data);
-	BOOL			removeNVPair(const std::string& name);
+	bool			removeNVPair(const std::string& name);
 	LLNameValue*	getNVPair(const std::string& name) const;			// null if no name value pair by that name
 
 	// Object create and update functions
@@ -172,18 +172,18 @@ public:
 										LLDataPacker *dp);
 
 
-	virtual BOOL    isActive() const; // Whether this object needs to do an idleUpdate.
-	BOOL			onActiveList() const				{return mOnActiveList;}
-	void			setOnActiveList(BOOL on_active)		{ mOnActiveList = on_active; }
+	virtual bool    isActive() const; // Whether this object needs to do an idleUpdate.
+	bool			onActiveList() const				{return mOnActiveList;}
+	void			setOnActiveList(bool on_active)		{ mOnActiveList = on_active; }
 
 	virtual BOOL	isAttachment() const { return FALSE; }
 	const std::string& getAttachmentItemName();
 
 	virtual LLVOAvatar* getAvatar() const;  //get the avatar this object is attached to, or NULL if object is not an attachment
 	virtual BOOL	isHUDAttachment() const { return FALSE; }
-	virtual BOOL	isTempAttachment() const;
+	virtual bool	isTempAttachment() const;
 
-	virtual BOOL isHiglightedOrBeacon() const;
+	virtual bool isHiglightedOrBeacon() const;
 
 	virtual void 	updateRadius() {};
 	virtual F32 	getVObjRadius() const; // default implemenation is mDrawable->getRadius()
@@ -235,11 +235,11 @@ public:
 	S32 getListIndex() const						{ return mListIndex; }
 	void setListIndex(S32 idx)						{ mListIndex = idx; }
 
-	virtual BOOL isFlexible() const					{ return FALSE; }
-	virtual BOOL isSculpted() const 				{ return FALSE; }
-	virtual BOOL isMesh() const						{ return FALSE; }
-	virtual BOOL isRiggedMesh() const				{ return FALSE; }
-	virtual BOOL hasLightTexture() const			{ return FALSE; }
+	virtual bool isFlexible() const					{ return false; }
+	virtual bool isSculpted() const 				{ return false; }
+	virtual bool isMesh() const						{ return false; }
+	virtual bool isRiggedMesh() const				{ return false; }
+	virtual bool hasLightTexture() const			{ return false; }
 
 	// This method returns true if the object is over land owned by
 	// the agent, one of its groups, or it encroaches and 
@@ -262,7 +262,7 @@ public:
 	BOOL isProbablyModifiable() const;
 	*/
 
-	virtual BOOL setParent(LLViewerObject* parent);
+	virtual bool setParent(LLViewerObject* parent);
 	virtual void addChild(LLViewerObject *childp);
     virtual void onReparent(LLViewerObject *old_parent, LLViewerObject *new_parent);
     virtual void afterReparent();	
@@ -271,16 +271,16 @@ public:
 	S32 numChildren() const { return mChildList.size(); }
 	void addThisAndAllChildren(std::vector<LLViewerObject*>& objects);
 	void addThisAndNonJointChildren(std::vector<LLViewerObject*>& objects);
-	BOOL isChild(LLViewerObject *childp) const;
-	BOOL isSeat() const;
+	bool isChild(LLViewerObject *childp) const;
+	bool isSeat() const;
 	
 
 	//detect if given line segment (in agent space) intersects with this viewer object.
 	//returns TRUE if intersection detected and returns information about intersection
-	virtual BOOL lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end,
+	virtual bool lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end,
 									  S32 face = -1,                          // which face to check, -1 = ALL_SIDES
-									  BOOL pick_transparent = FALSE,
-									  BOOL pick_rigged = FALSE,
+									  bool pick_transparent = false,
+									  bool pick_rigged = false,
 									  S32* face_hit = NULL,                   // which face was hit
 									  LLVector4a* intersection = NULL,         // return the intersection point
 									  LLVector2* tex_coord = NULL,            // return the texture coordinates of the intersection point
@@ -587,11 +587,11 @@ public:
 
 	virtual LLNetworkData* getParameterEntry(U16 param_type) const;
 	virtual bool setParameterEntry(U16 param_type, const LLNetworkData& new_value, bool local_origin);
-	virtual BOOL getParameterEntryInUse(U16 param_type) const;
-	virtual bool setParameterEntryInUse(U16 param_type, BOOL in_use, bool local_origin);
+	virtual bool getParameterEntryInUse(U16 param_type) const;
+	virtual bool setParameterEntryInUse(U16 param_type, bool in_use, bool local_origin);
 	// Called when a parameter is changed
 	virtual void parameterChanged(U16 param_type, bool local_origin);
-	virtual void parameterChanged(U16 param_type, LLNetworkData* data, BOOL in_use, bool local_origin);
+	virtual void parameterChanged(U16 param_type, LLNetworkData* data, bool in_use, bool local_origin);
 	
 	friend class LLViewerObjectList;
 	friend class LLViewerMediaList;
@@ -837,10 +837,10 @@ protected:
 	BOOL					mInventoryDirty;
 
 	LLViewerRegion	*mRegionp;					// Region that this object belongs to.
-	BOOL			mDead;
-	BOOL			mOrphaned;					// This is an orphaned child
+	bool			mDead;
+	bool			mOrphaned;					// This is an orphaned child
 	BOOL			mUserSelected;				// Cached user select information
-	BOOL			mOnActiveList;
+	bool			mOnActiveList;
 	BOOL			mOnMap;						// On the map.
 	BOOL			mStatic;					// Object doesn't move.
 	S32				mSeatCount;
@@ -973,7 +973,7 @@ public:
 class LLStaticViewerObject : public LLViewerObject
 {
 public:
-	LLStaticViewerObject(const LLUUID& id, const LLPCode pcode, LLViewerRegion* regionp, BOOL is_global = FALSE)
+	LLStaticViewerObject(const LLUUID& id, const LLPCode pcode, LLViewerRegion* regionp, bool is_global = false)
 		: LLViewerObject(id,pcode,regionp, is_global)
 	{ }
 

@@ -183,7 +183,7 @@ typedef enum
 
 	LLDrawPoolAvatar(U32 type);
     ~LLDrawPoolAvatar();
-    /*virtual*/ BOOL isDead();
+    /*virtual*/ bool isDead();
 
 	static LLMatrix4& getModelView();
 

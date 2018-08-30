@@ -82,7 +82,7 @@ public:
 	LLDrawable(LLViewerObject *vobj, bool new_entry = false);
 	
 	void markDead();			// Mark this drawable as dead
-	BOOL isDead() const			{ return isState(DEAD); }
+	bool isDead() const			{ return isState(DEAD); }
 	BOOL isNew() const			{ return !isState(BUILT); }
 	BOOL isUnload() const		{ return isState(FOR_UNLOAD); }
 
@@ -114,7 +114,7 @@ public:
 	LLXformMatrix*		getXform() { return &mXform; }
 
 	U32					getState()           const { return mState; }
-	BOOL				isState   (U32 bits) const { return ((mState & bits) != 0); }
+	bool				isState   (U32 bits) const { return ((mState & bits) != 0); }
 	void                setState  (U32 bits)       { mState |= bits; }
 	void                clearState(U32 bits)       { mState &= ~bits; }
 
@@ -126,7 +126,7 @@ public:
 	LLDrawable*			getParent() const			{ return mParent; }
 	
 	// must set parent through LLViewerObject::		()
-	//BOOL                setParent(LLDrawable *parent);
+	//bool                setParent(LLDrawable *parent);
 	
 	inline LLFace*      getFace(const S32 i) const;
 	inline S32			getNumFaces()      	 const;
@@ -151,7 +151,7 @@ public:
 	virtual void makeActive();
 	/*virtual*/ void makeStatic(BOOL warning_enabled = TRUE);
 
-	BOOL isActive()	const							{ return isState(ACTIVE); }
+	bool isActive()	const							{ return isState(ACTIVE); }
 	BOOL isStatic() const							{ return !isActive(); }
 	BOOL isAnimating() const;
 

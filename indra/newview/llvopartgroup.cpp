@@ -183,9 +183,9 @@ LLVOPartGroup::~LLVOPartGroup()
 {
 }
 
-BOOL LLVOPartGroup::isActive() const
+bool LLVOPartGroup::isActive() const
 {
-	return FALSE;
+	return false;
 }
 
 F32 LLVOPartGroup::getBinRadius()
@@ -482,10 +482,10 @@ bool LLVOPartGroup::updateGeometry(LLDrawable *drawable)
 }
 
 
-BOOL LLVOPartGroup::lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end,
+bool LLVOPartGroup::lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end,
 										  S32 face,
-										  BOOL pick_transparent,
-										  BOOL pick_rigged,
+										  bool pick_transparent,
+										  bool pick_rigged,
 										  S32* face_hit,
 										  LLVector4a* intersection,
 										  LLVector2* tex_coord,
@@ -496,7 +496,7 @@ BOOL LLVOPartGroup::lineSegmentIntersect(const LLVector4a& start, const LLVector
 	dir.setSub(end, start);
 
 	F32 closest_t = 2.f;
-	BOOL ret = FALSE;
+	bool ret = false;
 	
 	for (U32 idx = 0; idx < mViewerPartGroupp->mParticles.size(); ++idx)
 	{
@@ -516,7 +516,7 @@ BOOL LLVOPartGroup::lineSegmentIntersect(const LLVector4a& start, const LLVector
 				t <= 1.f &&
 				t < closest_t)
 			{
-				ret = TRUE;
+				ret = true;
 				closest_t = t;
 				if (face_hit)
 				{

@@ -355,7 +355,7 @@ protected:
 	LLTextBox*			mResolutionLabel;
 
 	std::string			mPendingName;
-	BOOL				mActive;
+	bool				mActive;
 
 	LLFilterEditor*		mFilterEdit;
 	LLInventoryPanel*	mInventoryPanel;

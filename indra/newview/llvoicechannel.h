@@ -74,7 +74,7 @@ public:
 		const std::string& uri,
 		const std::string& credentials);
 	virtual void getChannelInfo();
-	virtual BOOL isActive();
+	virtual bool isActive();
 	virtual BOOL callStarted();
 
 	// Session name is a UI label used for feedback about which person,
@@ -169,7 +169,7 @@ public:
 	/*virtual*/ void onChange(EStatusType status, const std::string &channelURI, bool proximal);
 	/*virtual*/ void handleStatusChange(EStatusType status);
 	/*virtual*/ void handleError(EStatusType status);
-	/*virtual*/ BOOL isActive();
+	/*virtual*/ bool isActive();
 	/*virtual*/ void activate();
 	/*virtual*/ void deactivate();
 

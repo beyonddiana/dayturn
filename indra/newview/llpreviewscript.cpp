@@ -2323,7 +2323,7 @@ struct LLLiveLSLSaveData
 	LLLiveLSLSaveData(const LLUUID& id, const LLViewerInventoryItem* item, BOOL active);
 	LLUUID mSaveObjectID;
 	LLPointer<LLViewerInventoryItem> mItem;
-	BOOL mActive;
+	bool mActive;
 };
 
 LLLiveLSLSaveData::LLLiveLSLSaveData(const LLUUID& id,

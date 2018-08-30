@@ -1147,14 +1147,14 @@ void LLVOTree::updateSpatialExtents(LLVector4a& newMin, LLVector4a& newMax)
 	mDrawable->setPositionGroup(pos);
 }
 
-BOOL LLVOTree::lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end, S32 face, BOOL pick_transparent, BOOL pick_rigged, S32 *face_hitp,
+bool LLVOTree::lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end, S32 face, bool pick_transparent, bool pick_rigged, S32 *face_hitp,
 									  LLVector4a* intersection,LLVector2* tex_coord, LLVector4a* normal, LLVector4a* tangent)
 	
 {
 
 	if (!lineSegmentBoundingBox(start, end))
 	{
-		return FALSE;
+		return false;
 	}
 
 	const LLVector4a* exta = mDrawable->getSpatialExtents();
@@ -1191,10 +1191,10 @@ BOOL LLVOTree::lineSegmentIntersect(const LLVector4a& start, const LLVector4a& e
 		{
 			normal->load3(norm.mV);
 		}
-		return TRUE;
+		return true;
 	}
 	
-	return FALSE;
+	return false;
 }
 
 U32 LLVOTree::getPartitionType() const

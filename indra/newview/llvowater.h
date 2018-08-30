@@ -68,7 +68,7 @@ public:
 
 	virtual U32 getPartitionType() const;
 
-	/*virtual*/ BOOL isActive() const; // Whether this object needs to do an idleUpdate.
+	/*virtual*/ bool isActive() const; // Whether this object needs to do an idleUpdate.
 
 	void setUseTexture(const bool use_texture);
 	void setIsEdgePatch(const bool edge_patch);

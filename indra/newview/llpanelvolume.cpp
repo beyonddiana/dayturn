@@ -402,7 +402,7 @@ void LLPanelVolume::getState( )
 	
 
 	// Flexible properties
-	BOOL is_flexible = volobjp && volobjp->isFlexible();
+	bool is_flexible = volobjp && volobjp->isFlexible();
 	getChild<LLUICtrl>("Flexible1D Checkbox Ctrl")->setValue(is_flexible);
 	if (is_flexible || (volobjp && volobjp->canBeFlexible()))
 	{
@@ -522,7 +522,7 @@ void LLPanelVolume::getState( )
 	mComboPhysicsShapeType->removeall();
 	mComboPhysicsShapeType->add(getString("None"), LLSD(1));
 
-	BOOL isMesh = FALSE;
+	bool isMesh = false;
 	LLSculptParams *sculpt_params = (LLSculptParams *)objectp->getParameterEntry(LLNetworkData::PARAMS_SCULPT);
 	if (sculpt_params)
 	{

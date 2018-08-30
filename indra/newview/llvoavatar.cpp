@@ -867,7 +867,7 @@ LLVOAvatar::~LLVOAvatar()
 	std::for_each(mAttachmentPoints.begin(), mAttachmentPoints.end(), DeletePairedPointer());
 	mAttachmentPoints.clear();
 
-	mDead = TRUE;
+	mDead = true;
 	
 	mAnimationSources.clear();
 	LLLoadedCallbackEntry::cleanUpCallbackList(&mCallbackTextureList) ;
@@ -1635,7 +1635,7 @@ void LLVOAvatar::renderCollisionVolumes()
 	{
 		LLVector4a unused;
 	
-		mNameText->lineSegmentIntersect(unused, unused, unused, TRUE);
+		mNameText->lineSegmentIntersect(unused, unused, unused, true);
 	}
 
 	mDebugText.clear();
@@ -1806,10 +1806,10 @@ void LLVOAvatar::renderJoints()
 	addDebugText(nullstr.str());
 }
 
-BOOL LLVOAvatar::lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end,
+bool LLVOAvatar::lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end,
 									  S32 face,
-									  BOOL pick_transparent,
-									  BOOL pick_rigged,
+									  bool pick_transparent,
+									  bool pick_rigged,
 									  S32* face_hit,
 									  LLVector4a* intersection,
 									  LLVector2* tex_coord,
@@ -1818,12 +1818,12 @@ BOOL LLVOAvatar::lineSegmentIntersect(const LLVector4a& start, const LLVector4a&
 {
 	if ((isSelf() && !gAgent.needsRenderAvatar()) || !LLPipeline::sPickAvatar)
 	{
-		return FALSE;
+		return false;
 	}
     
     if (isControlAvatar())
     {
-        return FALSE;
+        return false;
     }
 
 	if (lineSegmentBoundingBox(start, end))
@@ -1864,7 +1864,7 @@ BOOL LLVOAvatar::lineSegmentIntersect(const LLVector4a& start, const LLVector4a&
 					normal->load3(res_norm.v);
 				}
 
-				return TRUE;
+				return true;
 			}
 		}
 
@@ -1905,17 +1905,17 @@ BOOL LLVOAvatar::lineSegmentIntersect(const LLVector4a& start, const LLVector4a&
 			*intersection = position;
 		}
 
-		return TRUE;
+		return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 // virtual
 LLViewerObject* LLVOAvatar::lineSegmentIntersectRiggedAttachments(const LLVector4a& start, const LLVector4a& end,
 									  S32 face,
-									  BOOL pick_transparent,
-									  BOOL pick_rigged,
+									  bool pick_transparent,
+									  bool pick_rigged,
 									  S32* face_hit,
 									  LLVector4a* intersection,
 									  LLVector2* tex_coord,
@@ -7011,9 +7011,9 @@ void LLVOAvatar::updateVisualParams()
 //-----------------------------------------------------------------------------
 // isActive()
 //-----------------------------------------------------------------------------
-BOOL LLVOAvatar::isActive() const
+bool LLVOAvatar::isActive() const
 {
-	return TRUE;
+	return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -7199,9 +7199,9 @@ void LLVOAvatar::hideSkirt()
 	mMeshLOD[MESH_ID_SKIRT]->setVisible(FALSE, TRUE);
 }
 
-BOOL LLVOAvatar::setParent(LLViewerObject* parent)
+bool LLVOAvatar::setParent(LLViewerObject* parent)
 {
-	BOOL ret ;
+	bool ret ;
 	if (parent == NULL)
 	{
 		getOffObject();

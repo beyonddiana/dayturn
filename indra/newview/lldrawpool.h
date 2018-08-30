@@ -76,7 +76,7 @@ public:
 	LLDrawPool(const U32 type);
 	virtual ~LLDrawPool();
 
-	virtual BOOL isDead() = 0;
+	virtual bool isDead() = 0;
 
 	S32 getId() const { return mId; }
 	U32 getType() const { return mType; }
@@ -165,7 +165,7 @@ public:
 	virtual ~LLRenderPass();
 	/*virtual*/ LLViewerTexture* getDebugTexture() { return NULL; }
 	LLViewerTexture* getTexture() { return NULL; }
-	BOOL isDead() { return FALSE; }
+	bool isDead() { return false; }
 	void resetDrawOrders() { }
 
 	static void applyModelMatrix(const LLDrawInfo& params);
@@ -192,7 +192,7 @@ public:
 	LLFacePool(const U32 type);
 	virtual ~LLFacePool();
 	
-	BOOL isDead() { return mReferences.empty(); }
+	bool isDead() { return mReferences.empty(); }
 	
 	virtual LLViewerTexture *getTexture();
 	virtual void dirtyTextures(const std::set<LLViewerFetchedTexture*>& textures);

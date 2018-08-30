@@ -1219,13 +1219,13 @@ bool LLMenuItemBranchGL::handleKeyHere( KEY key, MASK mask )
 }
 
 //virtual
-BOOL LLMenuItemBranchGL::isActive() const
+bool LLMenuItemBranchGL::isActive() const
 {
 	return isOpen() && getBranch() && getBranch()->getHighlightedItem();
 }
 
 //virtual
-BOOL LLMenuItemBranchGL::isOpen() const
+bool LLMenuItemBranchGL::isOpen() const
 {
 	return getBranch() && getBranch()->isOpen();
 }
@@ -1333,7 +1333,7 @@ public:
 	// active. This is used for behavior transfer.
 	virtual void setHighlight( BOOL highlight );
 
-	virtual BOOL isActive( void ) const;
+	virtual bool isActive( void ) const;
 
 	// LLView functionality
 	virtual BOOL handleMouseDown( S32 x, S32 y, MASK mask );
@@ -1452,7 +1452,7 @@ void LLMenuItemBranchDownGL::setHighlight( BOOL highlight )
 	}
 }
 
-BOOL LLMenuItemBranchDownGL::isActive() const
+bool LLMenuItemBranchDownGL::isActive() const
 {
 	// for top level menus, being open is sufficient to be considered 
 	// active, because clicking on them with the mouse will open
@@ -1896,7 +1896,7 @@ BOOL LLMenuGL::jumpKeysActive()
 	return active;
 }
 
-BOOL LLMenuGL::isOpen()
+bool LLMenuGL::isOpen()
 {
 	if (getTornOff())
 	{
@@ -1905,7 +1905,7 @@ BOOL LLMenuGL::isOpen()
 		// the open menu chain even if we don't have focus
 		if (itemp && itemp->isOpen())
 		{
-			return TRUE;
+			return true;
 		}
 		// otherwise we are only active if we have keyboard focus
 		LLFloater * parent = dynamic_cast<LLFloater *>(getParent());
@@ -1913,7 +1913,7 @@ BOOL LLMenuGL::isOpen()
 		{
 			return parent->hasFocus();
 		}
-		return FALSE;
+		return false;
 	}
 	else
 	{

@@ -99,7 +99,7 @@ LLFloaterColorPicker::LLFloaterColorPicker (LLColorSwatchCtrl* swatch, BOOL show
 	  mPaletteRegionWidth	( mLumRegionLeft + mLumRegionWidth - 10 ),
 	  mPaletteRegionHeight	( 40 ),
 	  mSwatch				( swatch ),
-	  mActive				( TRUE ),
+	  mActive				( true ),
 	  mCanApplyImmediately	( show_apply_immediate ),
 	  mContextConeOpacity	( 0.f ),
       mContextConeInAlpha   ( 0.f ),

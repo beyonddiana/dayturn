@@ -47,7 +47,7 @@ LLViewerPartSource::LLViewerPartSource(const U32 type) :
 {
 	mLastUpdateTime = 0.f;
 	mLastPartTime = 0.f;
-	mIsDead = FALSE;
+	mIsDead = false;
 	mIsSuspended = FALSE;
 	static U32 id_seed = 0;
 	mID = ++id_seed;
@@ -59,7 +59,7 @@ LLViewerPartSource::LLViewerPartSource(const U32 type) :
 
 void LLViewerPartSource::setDead()
 {
-	mIsDead = TRUE;
+	mIsDead = true;
 }
 
 
@@ -103,7 +103,7 @@ LLViewerPartSourceScript::LLViewerPartSourceScript(LLViewerObject *source_objp) 
 
 void LLViewerPartSourceScript::setDead()
 {
-	mIsDead = TRUE;
+	mIsDead = true;
 	mSourceObjectp = NULL;
 	mTargetObjectp = NULL;
 }
@@ -558,7 +558,7 @@ LLViewerPartSourceSpiral::LLViewerPartSourceSpiral(const LLVector3 &pos) :
 
 void LLViewerPartSourceSpiral::setDead()
 {
-	mIsDead = TRUE;
+	mIsDead = true;
 	mSourceObjectp = NULL;
 }
 
@@ -662,7 +662,7 @@ LLViewerPartSourceBeam::~LLViewerPartSourceBeam()
 
 void LLViewerPartSourceBeam::setDead()
 {
-	mIsDead = TRUE;
+	mIsDead = true;
 	mSourceObjectp = NULL;
 	mTargetObjectp = NULL;
 }
@@ -815,7 +815,7 @@ LLViewerPartSourceChat::LLViewerPartSourceChat(const LLVector3 &pos) :
 
 void LLViewerPartSourceChat::setDead()
 {
-	mIsDead = TRUE;
+	mIsDead = true;
 	mSourceObjectp = NULL;
 }
 

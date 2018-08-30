@@ -271,9 +271,9 @@ U32 LLVOGrass::processUpdateMessage(LLMessageSystem *mesgsys,
 	return retval;
 }
 
-BOOL LLVOGrass::isActive() const
+bool LLVOGrass::isActive() const
 {
-	return TRUE;
+	return true;
 }
 
 void LLVOGrass::idleUpdate(LLAgent &agent, const F64 &time)
@@ -770,16 +770,16 @@ void LLVOGrass::updateDrawable(BOOL force_damped)
 }
 
 // virtual 
-BOOL LLVOGrass::lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end, S32 face, BOOL pick_transparent, BOOL pick_rigged, S32 *face_hitp,
+bool LLVOGrass::lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end, S32 face, bool pick_transparent, bool pick_rigged, S32 *face_hitp,
 									  LLVector4a* intersection,LLVector2* tex_coord, LLVector4a* normal, LLVector4a* tangent)
 	
 {
-	BOOL ret = FALSE;
+	bool ret = false;
 	if (!mbCanSelect ||
 		mDrawable->isDead() || 
 		!gPipeline.hasRenderType(mDrawable->getRenderType()))
 	{
-		return FALSE;
+		return false;
 	}
 
 	LLVector4a dir;
@@ -846,7 +846,7 @@ BOOL LLVOGrass::lineSegmentIntersect(const LLVector4a& start, const LLVector4a& 
 	
 		F32 a,b,t;
 
-		BOOL hit = FALSE;
+		bool hit = false;
 
 
 		U32 idx0 = 0,idx1 = 0,idx2 = 0;
@@ -861,24 +861,24 @@ BOOL LLVOGrass::lineSegmentIntersect(const LLVector4a& start, const LLVector4a& 
 		
 		if (LLTriangleRayIntersect(v0a, v1a, v2a, start, dir, a, b, t))
 		{
-			hit = TRUE;
+			hit = true;
 			idx0 = 0; idx1 = 1; idx2 = 2;
 		}
 		else if (LLTriangleRayIntersect(v1a, v3a, v2a, start, dir, a, b, t))
 		{
-			hit = TRUE;
+			hit = true;
 			idx0 = 1; idx1 = 3; idx2 = 2;
 		}
 		else if (LLTriangleRayIntersect(v2a, v1a, v0a, start, dir, a, b, t))
 		{
 			normal1 = -normal1;
-			hit = TRUE;
+			hit = true;
 			idx0 = 2; idx1 = 1; idx2 = 0;
 		}
 		else if (LLTriangleRayIntersect(v2a, v3a, v1a, start, dir, a, b, t))
 		{
 			normal1 = -normal1;
-			hit = TRUE;
+			hit = true;
 			idx0 = 2; idx1 = 3; idx2 = 1;
 		}
 
@@ -911,7 +911,7 @@ BOOL LLVOGrass::lineSegmentIntersect(const LLVector4a& start, const LLVector4a& 
 					{
 						normal->load3(normal1.mV);
 					}
-					ret = TRUE;
+					ret = true;
 				}
 			}
 		}

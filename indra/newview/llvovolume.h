@@ -127,13 +127,13 @@ public:
 				void	animateTextures();
 	
 	            BOOL    isVisible() const ;
-	/*virtual*/ BOOL	isActive() const;
+	/*virtual*/ bool	isActive() const;
 	/*virtual*/ BOOL	isAttachment() const;
 	/*virtual*/ bool	isRootEdit() const; // overridden for sake of attachments treating themselves as a root object
 	/*virtual*/ BOOL	isHUDAttachment() const;
 
 				void	generateSilhouette(LLSelectNode* nodep, const LLVector3& view_point);
-	/*virtual*/	BOOL	setParent(LLViewerObject* parent);
+	/*virtual*/	bool	setParent(LLViewerObject* parent);
 				S32		getLOD() const							{ return mLOD; }
 				void	setNoLOD()                              { mLOD = NO_LOD; mLODChanged = true; }
 				bool	isNoLOD() const							{ return NO_LOD == mLOD; }
@@ -150,10 +150,10 @@ public:
 
 	/*virtual*/ U32		getTriangleCount(S32* vcount = NULL) const;
 	/*virtual*/ U32		getHighLODTriangleCount();
-	/*virtual*/ BOOL lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end, 
+	/*virtual*/ bool lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end, 
 										  S32 face = -1,                        // which face to check, -1 = ALL_SIDES
-										  BOOL pick_transparent = FALSE,
-										  BOOL pick_rigged = FALSE,
+										  bool pick_transparent = false,
+										  bool pick_rigged = false,
 										  S32* face_hit = NULL,                 // which face was hit
 										  LLVector4a* intersection = NULL,       // return the intersection point
 										  LLVector2* tex_coord = NULL,          // return the texture coordinates of the intersection point
@@ -179,7 +179,7 @@ public:
 	/*virtual*/ void	onShift(const LLVector4a &shift_vector); // Called when the drawable shifts
 
 	/*virtual*/ void	parameterChanged(U16 param_type, bool local_origin);
-	/*virtual*/ void	parameterChanged(U16 param_type, LLNetworkData* data, BOOL in_use, bool local_origin);
+	/*virtual*/ void	parameterChanged(U16 param_type, LLNetworkData* data, bool in_use, bool local_origin);
 
 	/*virtual*/ U32		processUpdateMessage(LLMessageSystem *mesgsys,
 											void **user_data,
@@ -284,11 +284,11 @@ public:
 	
 	// Flexible Objects
 	U32 getVolumeInterfaceID() const;
-	virtual BOOL isFlexible() const;
-	virtual BOOL isSculpted() const;
-	virtual BOOL isMesh() const;
-	virtual BOOL isRiggedMesh() const;
-	virtual BOOL hasLightTexture() const;
+	virtual bool isFlexible() const;
+	virtual bool isSculpted() const;
+	virtual bool isMesh() const;
+	virtual bool isRiggedMesh() const;
+	virtual bool hasLightTexture() const;
 
     
 	BOOL isVolumeGlobal() const;

@@ -110,7 +110,7 @@ LLFloaterTexturePicker::LLFloaterTexturePicker(
 	mLabel(label),
 	mTentativeLabel(NULL),
 	mResolutionLabel(NULL),
-	mActive( TRUE ),
+	mActive( true ),
 	mFilterEdit(NULL),
 	mImmediateFilterPermMask(immediate_filter_perm_mask),
 	mDnDFilterPermMask(dnd_filter_perm_mask),

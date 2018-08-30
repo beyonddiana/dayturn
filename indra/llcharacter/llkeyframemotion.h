@@ -246,7 +246,7 @@ protected:
 		LLVector3					mPositions[MAX_CHAIN_LENGTH];
 		F32							mJointLengths[MAX_CHAIN_LENGTH];
 		F32							mJointLengthFractions[MAX_CHAIN_LENGTH];
-		BOOL						mActive;
+		bool						mActive;
 		LLVector3d					mGroundPos;
 		LLVector3					mGroundNorm;
 		LLJoint*					mSourceVolume;
