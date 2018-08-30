@@ -4045,6 +4045,7 @@ void LLPanelEstateAccess::accessAddCore3(const uuid_vec_t& ids, void* data)
 			return;
 		}
 
+		uuid_vec_t ids_allowed;
 		std::string already_allowed;
 		bool single = true;
 		for (uuid_vec_t::const_iterator it = ids.begin(); it != ids.end(); ++it)
@@ -4059,6 +4060,10 @@ void LLPanelEstateAccess::accessAddCore3(const uuid_vec_t& ids, void* data)
 				}
 				already_allowed += item->getColumn(0)->getValue().asString();
 			}
+			else
+			{
+				ids_allowed.push_back(*it);
+			}
 		}
 		if (!already_allowed.empty())
 		{
@@ -4066,9 +4071,13 @@ void LLPanelEstateAccess::accessAddCore3(const uuid_vec_t& ids, void* data)
 			args["AGENT"] = already_allowed;
 			args["LIST_TYPE"] = LLTrans::getString("RegionInfoListTypeAllowedAgents");
 			LLNotificationsUtil::add(single ? "AgentIsAlreadyInList" : "AgentsAreAlreadyInList", args);
-			delete change_info;
-			return;
+			if (ids_allowed.empty())
+			{
+				delete change_info;
+				return;
+			}
 		}
+		change_info->mAgentOrGroupIDs = ids_allowed;
 	}
 	if (change_info->mOperationFlag & ESTATE_ACCESS_BANNED_AGENT_ADD)
 	{
@@ -4087,16 +4096,22 @@ void LLPanelEstateAccess::accessAddCore3(const uuid_vec_t& ids, void* data)
 			return;
 		}
 
+		uuid_vec_t ids_allowed;
 		std::string already_banned;
 		std::string em_ban;
 		bool single = true;
 		for (uuid_vec_t::const_iterator it = ids.begin(); it != ids.end(); ++it)
 		{
+			bool is_allowed = true;
 			LLScrollListItem* em_item = em_list->getNameItemByAgentId(*it);
 			if (em_item)
 			{
-				em_ban = em_item->getColumn(0)->getValue().asString();
-				break;
+				if (!em_ban.empty())
+				{
+					em_ban += ", ";
+				}
+				em_ban += em_item->getColumn(0)->getValue().asString();
+				is_allowed = false;
 			}
 
 			LLScrollListItem* item = name_list->getNameItemByAgentId(*it);
@@ -4108,6 +4123,12 @@ void LLPanelEstateAccess::accessAddCore3(const uuid_vec_t& ids, void* data)
 					single = false;
 				}
 				already_banned += item->getColumn(0)->getValue().asString();
+				is_allowed = false;
+			}
+
+			if (is_allowed)
+			{
+				ids_allowed.push_back(*it);
 			}
 		}
 		if (!em_ban.empty())
@@ -4115,8 +4136,11 @@ void LLPanelEstateAccess::accessAddCore3(const uuid_vec_t& ids, void* data)
 			LLSD args;
 			args["AGENT"] = em_ban;
 			LLNotificationsUtil::add("ProblemBanningEstateManager", args);
-			delete change_info;
-			return;
+			if (ids_allowed.empty())
+			{
+				delete change_info;
+				return;
+			}
 		}
 		if (!already_banned.empty())
 		{
@@ -4124,14 +4148,17 @@ void LLPanelEstateAccess::accessAddCore3(const uuid_vec_t& ids, void* data)
 			args["AGENT"] = already_banned;
 			args["LIST_TYPE"] = LLTrans::getString("RegionInfoListTypeBannedAgents");
 			LLNotificationsUtil::add(single ? "AgentIsAlreadyInList" : "AgentsAreAlreadyInList", args);
-			delete change_info;
-			return;
+			if (ids_allowed.empty())
+			{
+				delete change_info;
+				return;
+			}
 		}
+		change_info->mAgentOrGroupIDs = ids_allowed;
 	}
 
 	LLSD args;
 	args["ALL_ESTATES"] = all_estates_text();
-
 	LLNotification::Params params(change_info->mDialogName);
 	params.substitutions(args)
 		.payload(change_info->asLLSD())
