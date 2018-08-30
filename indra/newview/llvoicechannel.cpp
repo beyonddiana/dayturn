@@ -256,7 +256,7 @@ void LLVoiceChannel::handleError(EStatusType type)
 	setState(STATE_ERROR);
 }
 
-BOOL LLVoiceChannel::isActive()
+bool LLVoiceChannel::isActive()
 { 
 	// only considered active when currently bound channel matches what our channel
 	return callStarted() && LLVoiceClient::getInstance()->getCurrentChannel() == mURI; 
@@ -679,7 +679,7 @@ LLVoiceChannelProximal::LLVoiceChannelProximal() :
 {
 }
 
-BOOL LLVoiceChannelProximal::isActive()
+bool LLVoiceChannelProximal::isActive()
 {
 	return callStarted() && LLVoiceClient::getInstance()->inProximalChannel(); 
 }

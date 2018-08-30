@@ -71,9 +71,9 @@ void LLVOWater::markDead()
 }
 
 
-BOOL LLVOWater::isActive() const
+bool LLVOWater::isActive() const
 {
-	return FALSE;
+	return false;
 }
 
 

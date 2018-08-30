@@ -1390,7 +1390,7 @@ void LLViewerObjectList::cleanupReferences(LLViewerObject *objectp)
 	if (objectp->onActiveList())
 	{
 		//LL_INFOS() << "Removing " << objectp->mID << " " << objectp->getPCodeString() << " from active list in cleanupReferences." << LL_ENDL;
-		objectp->setOnActiveList(FALSE);
+		objectp->setOnActiveList(false);
 		removeFromActiveList(objectp);
 	}
 
@@ -1595,7 +1595,7 @@ void LLViewerObjectList::updateActive(LLViewerObject *objectp)
 		return; // We don't update dead objects!
 	}
 
-	BOOL active = objectp->isActive();
+	bool active = objectp->isActive();
 	if (active != objectp->onActiveList())
 	{
 		if (active)
@@ -1606,7 +1606,7 @@ void LLViewerObjectList::updateActive(LLViewerObject *objectp)
 			{
 				mActiveObjects.push_back(objectp);
 				objectp->setListIndex(mActiveObjects.size()-1);
-			objectp->setOnActiveList(TRUE);
+			objectp->setOnActiveList(true);
 		}
 		else
 		{
@@ -1624,7 +1624,7 @@ void LLViewerObjectList::updateActive(LLViewerObject *objectp)
 		{
 			//LL_INFOS() << "Removing " << objectp->mID << " " << objectp->getPCodeString() << " from active list." << LL_ENDL;
 			removeFromActiveList(objectp);
-			objectp->setOnActiveList(FALSE);
+			objectp->setOnActiveList(false);
 		}
 	}
 
@@ -2252,7 +2252,7 @@ void LLViewerObjectList::orphanize(LLViewerObject *childp, U32 parent_id, U32 ip
 	LL_DEBUGS("ORPHANS") << "Orphaning object " << childp->getID() << " with parent " << parent_id << LL_ENDL;
 
 	// We're an orphan, flag things appropriately.
-	childp->mOrphaned = TRUE;
+	childp->mOrphaned = true;
 	if (childp->mDrawable.notNull())
 	{
 		bool make_invisible = true;
@@ -2354,7 +2354,7 @@ void LLViewerObjectList::findOrphans(LLViewerObject* objectp, U32 ip, U32 port)
 			objectp->setChanged(LLXform::MOVED | LLXform::SILHOUETTE);
 
 			// Flag the object as no longer orphaned
-			childp->mOrphaned = FALSE;
+			childp->mOrphaned = false;
 			if (childp->mDrawable.notNull())
 			{
 				// Make the drawable visible again and set the drawable parent

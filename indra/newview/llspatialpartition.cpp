@@ -3880,10 +3880,10 @@ public:
 	LLVector4a *mNormal;
 	LLVector4a *mTangent;
 	LLDrawable* mHit;
-	BOOL mPickTransparent;
-	BOOL mPickRigged;
+	bool mPickTransparent;
+	bool mPickRigged;
 
-	LLOctreeIntersect(const LLVector4a& start, const LLVector4a& end, BOOL pick_transparent, BOOL pick_rigged,
+	LLOctreeIntersect(const LLVector4a& start, const LLVector4a& end, bool pick_transparent, bool pick_rigged,
 					  S32* face_hit, LLVector4a* intersection, LLVector2* tex_coord, LLVector4a* normal, LLVector4a* tangent)
 		: mStart(start),
 		  mEnd(end),
@@ -4013,8 +4013,8 @@ public:
 } LL_ALIGN_POSTFIX(16);
 
 LLDrawable* LLSpatialPartition::lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end,
-													 BOOL pick_transparent,
-													 BOOL pick_rigged,
+													 bool pick_transparent,
+													 bool pick_rigged,
 													 S32* face_hit,                   // return the face hit
 													 LLVector4a* intersection,         // return the intersection point
 													 LLVector2* tex_coord,            // return the texture coordinates of the intersection point

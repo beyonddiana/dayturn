@@ -44,7 +44,7 @@ LLHUDEffect::LLHUDEffect(const U8 type)
 {
 	mNeedsSendToSim = FALSE;
 	mOriginatedHere = FALSE;
-	mDead = FALSE;
+	mDead = false;
 }
 
 LLHUDEffect::~LLHUDEffect()
@@ -122,7 +122,7 @@ void LLHUDEffect::getIDType(LLMessageSystem *mesgsys, S32 blocknum, LLUUID &id, 
 	mesgsys->getU8Fast(_PREHASH_Effect, _PREHASH_Type, type, blocknum);
 }
 
-BOOL LLHUDEffect::isDead() const
+bool LLHUDEffect::isDead() const
 {
 	return mDead;
 }

@@ -42,7 +42,7 @@ public:
 	LLDrawPoolWLSky(void);
 	/*virtual*/ ~LLDrawPoolWLSky();
 
-	/*virtual*/ BOOL isDead() { return FALSE; }
+	/*virtual*/ bool isDead() { return false; }
 
 	/*virtual*/ S32 getNumDeferredPasses() { return 1; }
 	/*virtual*/ void beginDeferredPass(S32 pass);

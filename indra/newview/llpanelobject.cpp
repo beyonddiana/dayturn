@@ -527,7 +527,7 @@ void LLPanelObject::getState( )
 	S32 roots_selected = LLSelectMgr::getInstance()->getSelection()->getRootObjectCount();
 	BOOL editable = root_objectp->permModify();
 
-	BOOL is_flexible = volobjp && volobjp->isFlexible();
+	bool is_flexible = volobjp && volobjp->isFlexible();
 	BOOL is_permanent = root_objectp->flagObjectPermanent();
 	BOOL is_permanent_enforced = root_objectp->isPermanentEnforced();
 	BOOL is_character = root_objectp->flagCharacter();
@@ -593,7 +593,7 @@ void LLPanelObject::getState( )
 	BOOL enabled = FALSE;
 	BOOL hole_enabled = FALSE;
 	F32 scale_x=1.f, scale_y=1.f;
-	BOOL isMesh = FALSE;
+	bool isMesh = false;
 	
 	if( !objectp || !objectp->getVolume() || !editable || !single_volume)
 	{
@@ -1314,7 +1314,7 @@ void LLPanelObject::onCommitParametric( LLUICtrl* ctrl, void* userdata )
 
 	if (selected_type == MI_SCULPT)
 	{
-		self->mObject->setParameterEntryInUse(LLNetworkData::PARAMS_SCULPT, TRUE, TRUE);
+		self->mObject->setParameterEntryInUse(LLNetworkData::PARAMS_SCULPT, true, true);
 		LLSculptParams *sculpt_params = (LLSculptParams *)self->mObject->getParameterEntry(LLNetworkData::PARAMS_SCULPT);
 		if (sculpt_params)
 			volume_params.setSculptID(sculpt_params->getSculptTexture(), sculpt_params->getSculptType());
@@ -1323,7 +1323,7 @@ void LLPanelObject::onCommitParametric( LLUICtrl* ctrl, void* userdata )
 	{
 		LLSculptParams *sculpt_params = (LLSculptParams *)self->mObject->getParameterEntry(LLNetworkData::PARAMS_SCULPT);
 		if (sculpt_params)
-			self->mObject->setParameterEntryInUse(LLNetworkData::PARAMS_SCULPT, FALSE, TRUE);
+			self->mObject->setParameterEntryInUse(LLNetworkData::PARAMS_SCULPT, false, true);
 	}
 
 	// Update the volume, if necessary.
@@ -2438,7 +2438,7 @@ void LLPanelObject::onPasteParams(const LLSD& data)
 	{
 		LLSculptParams *sculpt_params = (LLSculptParams *)objectp->getParameterEntry(LLNetworkData::PARAMS_SCULPT);
 		if (sculpt_params)
-			objectp->setParameterEntryInUse(LLNetworkData::PARAMS_SCULPT, FALSE, TRUE);
+			objectp->setParameterEntryInUse(LLNetworkData::PARAMS_SCULPT, false, true);
 	}
 	
 	LLVOVolume *volobjp = NULL;

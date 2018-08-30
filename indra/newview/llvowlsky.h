@@ -54,7 +54,7 @@ public:
 		LLVector3 const & sun_angular_velocity);
 
 	/*virtual*/ void		 idleUpdate(LLAgent &agent, const F64 &time);
-	/*virtual*/ BOOL		 isActive(void) const;
+	/*virtual*/ bool		 isActive(void) const;
 	/*virtual*/ LLDrawable * createDrawable(LLPipeline *pipeline);
 	/*virtual*/ bool		 updateGeometry(LLDrawable *drawable);
 

@@ -186,7 +186,7 @@ class LLFloaterColorPicker
 		LLColorSwatchCtrl* mSwatch;
 
 		// are we actively tied to some output?
-		BOOL	mActive;
+		bool	mActive;
 
 		// enable/disable immediate updates
 		LLCheckBoxCtrl* mApplyImmediateCheck;

@@ -63,7 +63,7 @@ LLHUDObject::LLHUDObject(const U8 type) :
 {
 	mVisible = TRUE;
 	mType = type;
-	mDead = FALSE;
+	mDead = false;
 }
 
 LLHUDObject::~LLHUDObject()
@@ -73,7 +73,7 @@ LLHUDObject::~LLHUDObject()
 void LLHUDObject::markDead()
 {
 	mVisible = FALSE;
-	mDead = TRUE;
+	mDead = true;
 	mSourceObject = NULL;
 	mTargetObject = NULL;
 }

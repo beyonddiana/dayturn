@@ -910,7 +910,7 @@ void LLVOVolume::updateTextureVirtualSize(bool forced)
 	}
 }
 
-BOOL LLVOVolume::isActive() const
+bool LLVOVolume::isActive() const
 {
 	return !mStatic;
 }
@@ -999,7 +999,7 @@ bool LLVOVolume::setVolume(const LLVolumeParams &params_in, const S32 detail, bo
 	S32 last_lod = mVolumep.notNull() ? LLVolumeLODGroup::getVolumeDetailFromScale(mVolumep->getDetail()) : -1;
 	S32 lod = mLOD;
 
-	BOOL is404 = FALSE;
+	bool is404 = false;
 	
 	if (isSculpted())
 	{
@@ -1013,7 +1013,7 @@ bool LLVOVolume::setVolume(const LLVolumeParams &params_in, const S32 detail, bo
 				lod = gMeshRepo.getActualMeshLOD(volume_params, lod);
 				if (lod == -1)
 				{
-					is404 = TRUE;
+					is404 = true;
 					lod = 0;
 				}
 			}
@@ -1024,7 +1024,7 @@ bool LLVOVolume::setVolume(const LLVolumeParams &params_in, const S32 detail, bo
 	bool is_flexible = (volume_params.getPathParams().getCurveType() == LL_PCODE_PATH_FLEXIBLE);
 	if (is_flexible)
 	{
-		setParameterEntryInUse(LLNetworkData::PARAMS_FLEXIBLE, TRUE, false);
+		setParameterEntryInUse(LLNetworkData::PARAMS_FLEXIBLE, true, false);
 		if (!mVolumeImpl)
 		{
 			LLFlexibleObjectData* data = (LLFlexibleObjectData*)getParameterEntry(LLNetworkData::PARAMS_FLEXIBLE);
@@ -1034,7 +1034,7 @@ bool LLVOVolume::setVolume(const LLVolumeParams &params_in, const S32 detail, bo
 	else
 	{
 		// Mark the parameter not in use
-		setParameterEntryInUse(LLNetworkData::PARAMS_FLEXIBLE, FALSE, false);
+		setParameterEntryInUse(LLNetworkData::PARAMS_FLEXIBLE, false, false);
 		if (mVolumeImpl)
 		{
 			delete mVolumeImpl;
@@ -1605,9 +1605,9 @@ void LLVOVolume::updateFaceFlags()
 	}
 }
 
-BOOL LLVOVolume::setParent(LLViewerObject* parent)
+bool LLVOVolume::setParent(LLViewerObject* parent)
 {
-	BOOL ret = FALSE ;
+	bool ret = false ;
     LLViewerObject *old_parent = (LLViewerObject*) getParent();
 	if (parent != old_parent)
 	{
@@ -3118,7 +3118,7 @@ void LLVOVolume::setLightTextureID(LLUUID id)
 	{
 		if (!hasLightTexture())
 		{
-			setParameterEntryInUse(LLNetworkData::PARAMS_LIGHT_IMAGE, TRUE, true);
+			setParameterEntryInUse(LLNetworkData::PARAMS_LIGHT_IMAGE, true, true);
 		}
 		else if (old_texturep)
 		{	
@@ -3146,7 +3146,7 @@ void LLVOVolume::setLightTextureID(LLUUID id)
 		{
 			old_texturep->removeVolume(LLRender::LIGHT_TEX, this);
 		}
-		setParameterEntryInUse(LLNetworkData::PARAMS_LIGHT_IMAGE, FALSE, true);
+		setParameterEntryInUse(LLNetworkData::PARAMS_LIGHT_IMAGE, false, true);
 		parameterChanged(LLNetworkData::PARAMS_LIGHT_IMAGE, true);
 		mLightTexture = NULL;
 	}		
@@ -3169,11 +3169,11 @@ void LLVOVolume::setIsLight(BOOL is_light)
 	{
 		if (is_light)
 		{
-			setParameterEntryInUse(LLNetworkData::PARAMS_LIGHT, TRUE, true);
+			setParameterEntryInUse(LLNetworkData::PARAMS_LIGHT, true, true);
 		}
 		else
 		{
-			setParameterEntryInUse(LLNetworkData::PARAMS_LIGHT, FALSE, true);
+			setParameterEntryInUse(LLNetworkData::PARAMS_LIGHT, false, true);
 		}
 
 		if (is_light)
@@ -3456,7 +3456,7 @@ U32 LLVOVolume::getVolumeInterfaceID() const
 	return 0;
 }
 
-BOOL LLVOVolume::isFlexible() const
+bool LLVOVolume::isFlexible() const
 {
 	if (getParameterEntryInUse(LLNetworkData::PARAMS_FLEXIBLE))
 	{
@@ -3467,25 +3467,25 @@ BOOL LLVOVolume::isFlexible() const
 			U8 profile_and_hole = volume_params.getProfileParams().getCurveType();
 			volume_params.setType(profile_and_hole, LL_PCODE_PATH_FLEXIBLE);
 		}
-		return TRUE;
+		return true;
 	}
 	else
 	{
-		return FALSE;
+		return false;
 	}
 }
 
-BOOL LLVOVolume::isSculpted() const
+bool LLVOVolume::isSculpted() const
 {
 	if (getParameterEntryInUse(LLNetworkData::PARAMS_SCULPT))
 	{
-		return TRUE;
+		return true;
 	}
 	
-	return FALSE;
+	return false;
 }
 
-BOOL LLVOVolume::isMesh() const
+bool LLVOVolume::isMesh() const
 {
 	if (isSculpted())
 	{
@@ -3495,21 +3495,21 @@ BOOL LLVOVolume::isMesh() const
 		if ((sculpt_type & LL_SCULPT_TYPE_MASK) == LL_SCULPT_TYPE_MESH)
 			// mesh is a mesh
 		{
-			return TRUE;	
+			return true;
 		}
 	}
 
-	return FALSE;
+	return false;
 }
 
-BOOL LLVOVolume::hasLightTexture() const
+bool LLVOVolume::hasLightTexture() const
 {
 	if (getParameterEntryInUse(LLNetworkData::PARAMS_LIGHT_IMAGE))
 	{
-		return TRUE;
+		return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 BOOL LLVOVolume::isVolumeGlobal() const
@@ -3535,7 +3535,7 @@ BOOL LLVOVolume::canBeFlexible() const
 BOOL LLVOVolume::setIsFlexible(BOOL is_flexible)
 {
 	BOOL res = FALSE;
-	BOOL was_flexible = isFlexible();
+	bool was_flexible = isFlexible();
 	LLVolumeParams volume_params;
 	if (is_flexible)
 	{
@@ -3547,7 +3547,7 @@ BOOL LLVOVolume::setIsFlexible(BOOL is_flexible)
 			res = TRUE;
 			setFlags(FLAGS_USE_PHYSICS, FALSE);
 			setFlags(FLAGS_PHANTOM, TRUE);
-			setParameterEntryInUse(LLNetworkData::PARAMS_FLEXIBLE, TRUE, true);
+			setParameterEntryInUse(LLNetworkData::PARAMS_FLEXIBLE, true, true);
 			if (mDrawable)
 			{
 				mDrawable->makeActive();
@@ -3563,7 +3563,7 @@ BOOL LLVOVolume::setIsFlexible(BOOL is_flexible)
 			volume_params.setType(profile_and_hole, LL_PCODE_PATH_LINE);
 			res = TRUE;
 			setFlags(FLAGS_PHANTOM, FALSE);
-			setParameterEntryInUse(LLNetworkData::PARAMS_FLEXIBLE, FALSE, true);
+			setParameterEntryInUse(LLNetworkData::PARAMS_FLEXIBLE, false, true);
 		}
 	}
 	if (res)
@@ -3590,7 +3590,7 @@ const LLMeshSkinInfo* LLVOVolume::getSkinInfo() const
 }
 
 // virtual
-BOOL LLVOVolume::isRiggedMesh() const
+bool LLVOVolume::isRiggedMesh() const
 {
     return isMesh() && getSkinInfo();
 }
@@ -4302,7 +4302,7 @@ void LLVOVolume::parameterChanged(U16 param_type, bool local_origin)
 	LLViewerObject::parameterChanged(param_type, local_origin);
 }
 
-void LLVOVolume::parameterChanged(U16 param_type, LLNetworkData* data, BOOL in_use, bool local_origin)
+void LLVOVolume::parameterChanged(U16 param_type, LLNetworkData* data, bool in_use, bool local_origin)
 {
 	LLViewerObject::parameterChanged(param_type, data, in_use, local_origin);
 	if (mVolumeImpl)
@@ -4326,7 +4326,7 @@ void LLVOVolume::parameterChanged(U16 param_type, LLNetworkData* data, BOOL in_u
     }
 	if (mDrawable.notNull())
 	{
-		BOOL is_light = getIsLight();
+		bool is_light = getIsLight();
 		if (is_light != mDrawable->isState(LLDrawable::LIGHT))
 		{
 			gPipeline.setLight(mDrawable, is_light);
@@ -4530,7 +4530,7 @@ LLVector3 LLVOVolume::volumeDirectionToAgent(const LLVector3& dir) const
 }
 
 
-BOOL LLVOVolume::lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end, S32 face, BOOL pick_transparent, BOOL pick_rigged, S32 *face_hitp,
+bool LLVOVolume::lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end, S32 face, bool pick_transparent, bool pick_rigged, S32 *face_hitp,
 									  LLVector4a* intersection,LLVector2* tex_coord, LLVector4a* normal, LLVector4a* tangent)
 	
 {
@@ -4538,10 +4538,10 @@ BOOL LLVOVolume::lineSegmentIntersect(const LLVector4a& start, const LLVector4a&
 		|| mDrawable->isDead() 
 		|| !gPipeline.hasRenderType(mDrawable->getRenderType()))
 	{
-		return FALSE;
+		return false;
 	}
 
-	BOOL ret = FALSE;
+	bool ret = false;
 
 	LLVolume* volume = getVolume();
 
@@ -4557,7 +4557,7 @@ BOOL LLVOVolume::lineSegmentIntersect(const LLVector4a& start, const LLVector4a&
 		}
 		else
 		{ //cannot pick rigged attachments on other avatars or when not in build mode
-			return FALSE;
+			return false;
 		}
 	}
 	
@@ -4720,7 +4720,7 @@ BOOL LLVOVolume::lineSegmentIntersect(const LLVector4a& start, const LLVector4a&
 						*tex_coord = tc;
 					}
 					
-					ret = TRUE;
+					ret = true;
 				}
 			}
 		}

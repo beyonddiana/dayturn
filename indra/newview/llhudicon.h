@@ -69,7 +69,7 @@ public:
 	BOOL getHidden() const { return mHidden; }
 	void setHidden( BOOL hide ) { mHidden = hide; }
 
-	BOOL lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end, LLVector4a* intersection);
+	bool lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end, LLVector4a* intersection);
 
 protected:
 	LLHUDIcon(const U8 type);

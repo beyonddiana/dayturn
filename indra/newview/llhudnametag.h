@@ -124,7 +124,7 @@ public:
 	void setHidden( BOOL hide ) { mHidden = hide; }
 	void shift(const LLVector3& offset);
 
-	BOOL lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end, LLVector4a& intersection, BOOL debug_render = FALSE);
+	bool lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end, LLVector4a& intersection, bool debug_render = false);
 
 	static void shiftAll(const LLVector3& offset);
 	static void addPickable(std::set<LLViewerObject*> &pick_list);

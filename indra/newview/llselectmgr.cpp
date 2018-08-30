@@ -7152,7 +7152,7 @@ BOOL LLSelectMgr::canSelectObject(LLViewerObject* object, BOOL ignore_select_own
 	}
 
 	// Can't select orphans
-	if (object->isOrphaned()) return FALSE;
+	if (object->isOrphaned()) return false;
 
 	// Can't select avatars
 	if (object->isAvatar()) return FALSE;

@@ -60,7 +60,7 @@ public:
 	virtual void update(const F32 dt); // Return FALSE if this source is dead...
 
 	virtual void setDead();
-	BOOL isDead() const				{ return mIsDead; }
+	bool isDead() const				{ return mIsDead; }
 	void setSuspended( BOOL state )	{ mIsSuspended = state; }
 	BOOL isSuspended() const		{ return mIsSuspended; }
 	U32 getType() const				{ return mType; }
@@ -80,7 +80,7 @@ public:
 
 protected:
 	U32			mType;
-	BOOL		mIsDead;
+	bool		mIsDead;
 	BOOL		mIsSuspended;
 	F32			mLastUpdateTime;
 	F32			mLastPartTime;

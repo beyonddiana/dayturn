@@ -212,7 +212,7 @@ public:
 	virtual void unbound();
 	virtual void rebound();
 	
-	BOOL isDead()							{ return hasState(DEAD); }	
+	bool isDead()							{ return hasState(DEAD); }	
 
 	void setVisible();
 	BOOL isVisible() const;

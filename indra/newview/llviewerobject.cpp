@@ -235,7 +235,7 @@ LLViewerObject *LLViewerObject::createObject(const LLUUID &id, const LLPCode pco
 	return res;
 }
 
-LLViewerObject::LLViewerObject(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp, BOOL is_global)
+LLViewerObject::LLViewerObject(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp, bool is_global)
 :	LLTrace::MemTrackable<LLViewerObject>("LLViewerObject"),
 	LLPrimitive(),
 	mChildList(),
@@ -279,10 +279,10 @@ LLViewerObject::LLViewerObject(const LLUUID &id, const LLPCode pcode, LLViewerRe
 	mInvRequestXFerId(0),
 	mInventoryDirty(FALSE),
 	mRegionp(regionp),
-	mDead(FALSE),
-	mOrphaned(FALSE),
+	mDead(false),
+	mOrphaned(false),
 	mUserSelected(FALSE),
-	mOnActiveList(FALSE),
+	mOnActiveList(false),
 	mOnMap(FALSE),
 	mStatic(FALSE),
 	mSeatCount(0),
@@ -415,7 +415,7 @@ void LLViewerObject::markDead()
         }		
 
 		// Mark itself as dead
-		mDead = TRUE;
+		mDead = true;
 		if(mRegionp)
 		{
 			mRegionp->removeFromCreatedList(getLocalID()); 
@@ -862,12 +862,12 @@ bool LLViewerObject::crossesParcelBounds()
 	return mRegionp && mRegionp->objectsCrossParcel(boxes);
 }
 
-BOOL LLViewerObject::setParent(LLViewerObject* parent)
+bool LLViewerObject::setParent(LLViewerObject* parent)
 {
 	if(mParent != parent)
 	{
 		LLViewerObject* old_parent = (LLViewerObject*)mParent ;		
-		BOOL ret = LLPrimitive::setParent(parent);
+		bool ret = LLPrimitive::setParent(parent);
 		if(ret && old_parent && parent)
 		{
 			old_parent->removeChild(this) ;
@@ -875,7 +875,7 @@ BOOL LLViewerObject::setParent(LLViewerObject* parent)
 		return ret ;
 	}
 
-	return FALSE ;
+	return false ;
 }
 
 void LLViewerObject::addChild(LLViewerObject *childp)
@@ -981,21 +981,21 @@ void LLViewerObject::addThisAndNonJointChildren(std::vector<LLViewerObject*>& ob
 	}
 }
 
-BOOL LLViewerObject::isChild(LLViewerObject *childp) const
+bool LLViewerObject::isChild(LLViewerObject *childp) const
 {
 	for (child_list_t::const_iterator iter = mChildList.begin();
 		 iter != mChildList.end(); iter++)
 	{
 		LLViewerObject* testchild = *iter;
 		if (testchild == childp)
-			return TRUE;
+			return true;
 	}
-	return FALSE;
+	return false;
 }
 
 
 // returns TRUE if at least one avatar is sitting on this object
-BOOL LLViewerObject::isSeat() const
+bool LLViewerObject::isSeat() const
 {
 	return mSeatCount > 0;
 }
@@ -1553,7 +1553,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 					if (!iter->second->in_use)
 					{
 						// Send an update message in case it was formerly in use
-						parameterChanged(iter->first, iter->second->data, FALSE, false);
+						parameterChanged(iter->first, iter->second->data, false, false);
 					}
 				}
 
@@ -1930,7 +1930,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 					if (!iter->second->in_use)
 					{
 						// Send an update message in case it was formerly in use
-						parameterChanged(iter->first, iter->second->data, FALSE, false);
+						parameterChanged(iter->first, iter->second->data, false, false);
 					}
 				}
 
@@ -2467,9 +2467,9 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 	return retval;
 }
 
-BOOL LLViewerObject::isActive() const
+bool LLViewerObject::isActive() const
 {
-	return TRUE;
+	return true;
 }
 
 //load flags from cache or from message
@@ -4119,7 +4119,7 @@ void LLViewerObject::addNVPair(const std::string& data)
 	mNameValuePairs[nv->mName] = nv;
 }
 
-BOOL LLViewerObject::removeNVPair(const std::string& name)
+bool LLViewerObject::removeNVPair(const std::string& name)
 {
 	char* canonical_name = gNVNameTable.addString(name);
 
@@ -4145,14 +4145,14 @@ BOOL LLViewerObject::removeNVPair(const std::string& name)
 			// Remove the NV pair from the local list.
 			delete nv;
 			mNameValuePairs.erase(iter);
-			return TRUE;
+			return true;
 		}
 		else
 		{
 			LL_DEBUGS() << "removeNVPair - No region for object" << LL_ENDL;
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 
@@ -4547,10 +4547,10 @@ LLViewerObject* LLViewerObject::getRootEdit() const
 }
 
 
-BOOL LLViewerObject::lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end,
+bool LLViewerObject::lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end,
 										  S32 face,
-										  BOOL pick_transparent,
-										  BOOL pick_rigged,
+										  bool pick_transparent,
+										  bool pick_rigged,
 										  S32* face_hit,
 										  LLVector4a* intersection,
 										  LLVector2* tex_coord,
@@ -5668,7 +5668,7 @@ LLVOAvatar* LLViewerObject::getAvatarAncestor()
 	return NULL;
 }
 
-BOOL LLViewerObject::isParticleSource() const
+bool LLViewerObject::isParticleSource() const
 {
 	return !mPartSourcep.isNull() && !mPartSourcep->isDead();
 }
@@ -5958,8 +5958,8 @@ bool LLViewerObject::unpackParameterEntry(U16 param_type, LLDataPacker *dp)
 	if (param)
 	{
 		param->data->unpack(*dp);
-		param->in_use = TRUE;
-		parameterChanged(param_type, param->data, TRUE, false);
+		param->in_use = true;
+		parameterChanged(param_type, param->data, true, false);
 		return true;
 	}
 	else
@@ -6049,7 +6049,7 @@ LLNetworkData* LLViewerObject::getParameterEntry(U16 param_type) const
 	}
 }
 
-BOOL LLViewerObject::getParameterEntryInUse(U16 param_type) const
+bool LLViewerObject::getParameterEntryInUse(U16 param_type) const
 {
 	ExtraParameter* param = getExtraParameterEntry(param_type);
 	if (param)
@@ -6073,7 +6073,7 @@ bool LLViewerObject::setParameterEntry(U16 param_type, const LLNetworkData& new_
 		}
 		param->in_use = true;
 		param->data->copy(new_value);
-		parameterChanged(param_type, param->data, TRUE, local_origin);
+		parameterChanged(param_type, param->data, true, local_origin);
 		return true;
 	}
 	else
@@ -6085,7 +6085,7 @@ bool LLViewerObject::setParameterEntry(U16 param_type, const LLNetworkData& new_
 // Assumed to be called locally
 // If in_use is TRUE, will crate a new extra parameter if none exists.
 // Should always return true.
-bool LLViewerObject::setParameterEntryInUse(U16 param_type, BOOL in_use, bool local_origin)
+bool LLViewerObject::setParameterEntryInUse(U16 param_type, bool in_use, bool local_origin)
 {
 	ExtraParameter* param = getExtraParameterEntryCreate(param_type);
 	if (param && param->in_use != in_use)
@@ -6106,7 +6106,7 @@ void LLViewerObject::parameterChanged(U16 param_type, bool local_origin)
 	}
 }
 
-void LLViewerObject::parameterChanged(U16 param_type, LLNetworkData* data, BOOL in_use, bool local_origin)
+void LLViewerObject::parameterChanged(U16 param_type, LLNetworkData* data, bool in_use, bool local_origin)
 {
 	if (local_origin)
 	{
@@ -6836,18 +6836,18 @@ void LLViewerObject::resetChildrenPosition(const LLVector3& offset, BOOL simplif
 }
 
 // virtual 
-BOOL	LLViewerObject::isTempAttachment() const
+bool	LLViewerObject::isTempAttachment() const
 {
 	return (mID.notNull() && (mID == mAttachmentItemID));
 }
 
-BOOL LLViewerObject::isHiglightedOrBeacon() const
+bool LLViewerObject::isHiglightedOrBeacon() const
 {
 	if (LLFloaterReg::instanceVisible("beacons") && (gPipeline.getRenderBeacons() || gPipeline.getRenderHighlights()))
 	{
-		BOOL has_media = (getMediaType() == LLViewerObject::MEDIA_SET);
-		BOOL is_scripted = !isAvatar() && !getParent() && flagScripted();
-		BOOL is_physical = !isAvatar() && flagUsePhysics();
+		bool has_media = (getMediaType() == LLViewerObject::MEDIA_SET);
+		bool is_scripted = !isAvatar() && !getParent() && flagScripted();
+		bool is_physical = !isAvatar() && flagUsePhysics();
 
 		return (isParticleSource() && gPipeline.getRenderParticleBeacons())
 				|| (isAudioSource() && gPipeline.getRenderSoundBeacons())
@@ -6856,7 +6856,7 @@ BOOL LLViewerObject::isHiglightedOrBeacon() const
 				|| (is_scripted && flagHandleTouch() && gPipeline.getRenderScriptedTouchBeacons())
 				|| (is_physical && gPipeline.getRenderPhysicalBeacons());
 	}
-	return FALSE;
+	return false;
 }
 
 

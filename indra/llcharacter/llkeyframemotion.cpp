@@ -875,7 +875,7 @@ void LLKeyframeMotion::initializeConstraint(JointConstraint* constraint)
 void LLKeyframeMotion::activateConstraint(JointConstraint* constraint)
 {
 	JointConstraintSharedData *shared_data = constraint->mSharedData;
-	constraint->mActive = TRUE;
+	constraint->mActive = true;
 	S32 joint_num;
 
 	// grab ground position if we need to
@@ -917,7 +917,7 @@ void LLKeyframeMotion::deactivateConstraint(JointConstraint *constraintp)
 			constraintp->mTargetVolume->mUpdateXform = FALSE;
 		}
 	}
-	constraintp->mActive = FALSE;
+	constraintp->mActive = false;
 }
 
 //-----------------------------------------------------------------------------
@@ -2454,7 +2454,7 @@ LLKeyframeMotion::JointConstraint::JointConstraint(JointConstraintSharedData* sh
 {
 	mWeight = 0.f;
 	mTotalLength = 0.f;
-	mActive = FALSE;
+	mActive = false;
 	mSourceVolume = NULL;
 	mTargetVolume = NULL;
 	mFixupDistanceRMS = 0.f;

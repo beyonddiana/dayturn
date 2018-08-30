@@ -203,15 +203,15 @@ void LLHUDIcon::render()
 	renderIcon(FALSE);
 }
 
-BOOL LLHUDIcon::lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end, LLVector4a* intersection)
+bool LLHUDIcon::lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end, LLVector4a* intersection)
 {
 	if (mHidden)
-		return FALSE;
+		return false;
 
 	if (mSourceObject.isNull() || mImagep.isNull())
 	{
 		markDead();
-		return FALSE;
+		return false;
 	}
 
 	LLVector3 obj_position = mSourceObject->getRenderPosition();
@@ -250,7 +250,7 @@ BOOL LLHUDIcon::lineSegmentIntersect(const LLVector4a& start, const LLVector4a& 
 	if (time_elapsed > MAX_VISIBLE_TIME)
 	{
 		markDead();
-		return FALSE;
+		return false;
 	}
 	
 	F32 image_aspect = (F32)mImagep->getFullWidth() / (F32)mImagep->getFullHeight() ;
@@ -289,10 +289,10 @@ BOOL LLHUDIcon::lineSegmentIntersect(const LLVector4a& start, const LLVector4a& 
 			dir.mul(t);
 			intersection->setAdd(start, dir);
 		}
-		return TRUE;
+		return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 //static

@@ -97,9 +97,9 @@ void LLVOWLSky::idleUpdate(LLAgent &agent, const F64 &time)
 	
 }
 
-BOOL LLVOWLSky::isActive(void) const
+bool LLVOWLSky::isActive(void) const
 {
-	return FALSE;
+	return false;
 }
 
 LLDrawable * LLVOWLSky::createDrawable(LLPipeline * pipeline)

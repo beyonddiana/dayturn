@@ -115,17 +115,17 @@ LLHUDNameTag::~LLHUDNameTag()
 }
 
 
-BOOL LLHUDNameTag::lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end, LLVector4a& intersection, BOOL debug_render)
+bool LLHUDNameTag::lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end, LLVector4a& intersection, bool debug_render)
 {
 	if (!mVisible || mHidden)
 	{
-		return FALSE;
+		return false;
 	}
 
 	// don't pick text that isn't bound to a viewerobject
 	if (!mSourceObject || mSourceObject->mDrawable.isNull())
 	{
-		return FALSE;
+		return false;
 	}
 	
 	F32 alpha_factor = 1.f;
@@ -140,7 +140,7 @@ BOOL LLHUDNameTag::lineSegmentIntersect(const LLVector4a& start, const LLVector4
 	}
 	if (text_color.mV[3] < 0.01f)
 	{
-		return FALSE;
+		return false;
 	}
 
 	mOffsetY = lltrunc(mHeight * ((mVertAlignment == ALIGN_VERT_CENTER) ? 0.5f : 1.f));
@@ -215,11 +215,11 @@ BOOL LLHUDNameTag::lineSegmentIntersect(const LLVector4a& start, const LLVector4
 		{
 			dir.mul(t);
 			intersection.setAdd(start, dir);
-			return TRUE;
+			return true;
 		}
 	}
 
-	return FALSE;
+	return false;
 }
 
 void LLHUDNameTag::render()

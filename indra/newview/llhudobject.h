@@ -108,7 +108,7 @@ protected:
 	
 protected:
 	U8				mType;
-	BOOL			mDead;
+	bool			mDead;
 	BOOL			mVisible;
 	LLVector3d		mPositionGlobal;
 	LLPointer<LLViewerObject> mSourceObject;
