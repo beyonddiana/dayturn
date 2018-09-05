@@ -146,7 +146,7 @@ S32 LLXfer_VFile::initializeRequest(U64 xfer_id,
 	mBufferLength = 0;
 	mPacketNum = 0;
 	mTempID.generate();
-	mDeleteTempFile = TRUE;
+	mDeleteTempFile = true;
  	mStatus = e_LL_XFER_PENDING;
 	return retval;
 }
@@ -361,7 +361,7 @@ S32 LLXfer_VFile::processEOF()
 				
 				// Rename worked: the original file is gone.   Clear mDeleteTempFile
 				// so we don't attempt to delete the file in cleanup()
-				mDeleteTempFile = FALSE;
+				mDeleteTempFile = false;
 			}
 		}
 		else
@@ -383,14 +383,14 @@ S32 LLXfer_VFile::processEOF()
 
 ////////////////////////////////////////////////////////////
 
-BOOL LLXfer_VFile::matchesLocalFile(const LLUUID &id, LLAssetType::EType type)
+bool LLXfer_VFile::matchesLocalFile(const LLUUID &id, LLAssetType::EType type)
 {
 	return (id == mLocalID && type == mType);
 }
 
 //////////////////////////////////////////////////////////
 
-BOOL LLXfer_VFile::matchesRemoteFile(const LLUUID &id, LLAssetType::EType type)
+bool LLXfer_VFile::matchesRemoteFile(const LLUUID &id, LLAssetType::EType type)
 {
 	return (id == mRemoteID && type == mType);
 }

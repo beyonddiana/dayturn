@@ -52,7 +52,7 @@ LLXfer_File::LLXfer_File (S32 chunk_size)
 	init(LLStringUtil::null, FALSE, chunk_size);
 }
 
-LLXfer_File::LLXfer_File (const std::string& local_filename, BOOL delete_local_on_completion, S32 chunk_size)
+LLXfer_File::LLXfer_File (const std::string& local_filename, bool delete_local_on_completion, S32 chunk_size)
 : LLXfer(chunk_size)
 {
 	init(local_filename, delete_local_on_completion, chunk_size);
@@ -67,7 +67,7 @@ LLXfer_File::~LLXfer_File ()
 
 ///////////////////////////////////////////////////////////
 
-void LLXfer_File::init (const std::string& local_filename, BOOL delete_local_on_completion, S32 chunk_size)
+void LLXfer_File::init (const std::string& local_filename, bool delete_local_on_completion, S32 chunk_size)
 {
 
 	mFp = NULL;
@@ -75,8 +75,8 @@ void LLXfer_File::init (const std::string& local_filename, BOOL delete_local_on_
 	mRemoteFilename.clear();
 	mRemotePath = LL_PATH_NONE;
 	mTempFilename.clear();
-	mDeleteLocalOnCompletion = FALSE;
-	mDeleteRemoteOnCompletion = FALSE;
+	mDeleteLocalOnCompletion = false;
+	mDeleteRemoteOnCompletion = false;
 
 	if (!local_filename.empty())
 	{
@@ -120,7 +120,7 @@ S32 LLXfer_File::initializeRequest(U64 xfer_id,
 				   const std::string& remote_filename,
 				   ELLPath remote_path,
 				   const LLHost& remote_host,
-				   BOOL delete_remote_on_completion,
+				   bool delete_remote_on_completion,
 				   void (*callback)(void**,S32,LLExtStat),
 				   void** user_data)
 {

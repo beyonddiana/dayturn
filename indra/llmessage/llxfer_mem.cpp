@@ -167,7 +167,7 @@ S32 LLXfer_Mem::startDownload()
 	gMessageSystem->addStringFast(_PREHASH_Filename, mRemoteFilename);
 	gMessageSystem->addU8("FilePath", (U8) mRemotePath);
 	gMessageSystem->addBOOL("DeleteOnCompletion", mDeleteRemoteOnCompletion);
-	gMessageSystem->addBOOL("UseBigPackets", BOOL(mChunkSize == LL_XFER_LARGE_PAYLOAD));
+	gMessageSystem->addBOOL("UseBigPackets", bool(mChunkSize == LL_XFER_LARGE_PAYLOAD));
 	gMessageSystem->addUUIDFast(_PREHASH_VFileID, LLUUID::null);
 	gMessageSystem->addS16Fast(_PREHASH_VFileType, -1);
 

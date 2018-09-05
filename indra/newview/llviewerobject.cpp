@@ -3260,7 +3260,7 @@ void LLViewerObject::processTaskInv(LLMessageSystem* msg, void** user_data)
         U64 new_id = gXferManager->requestFile(gDirUtilp->getExpandedFilename(LL_PATH_CACHE, ft->mFilename),
             ft->mFilename, LL_PATH_CACHE,
             object->mRegionp->getHost(),
-            TRUE,
+            true,
             &LLViewerObject::processTaskInvFile,
             (void**)ft,
             LLXferManager::HIGH_PRIORITY);
@@ -3279,7 +3279,6 @@ void LLViewerObject::processTaskInv(LLMessageSystem* msg, void** user_data)
             object->mInvRequestXFerId = new_id;
         }
     }
-
 }
 
 void LLViewerObject::processTaskInvFile(void** user_data, S32 error_code, LLExtStat ext_status)
