@@ -71,7 +71,7 @@ S32 LLPartData::getSize() const
 }
 
 
-BOOL LLPartData::unpackLegacy(LLDataPacker &dp)
+bool LLPartData::unpackLegacy(LLDataPacker &dp)
 {
 	LLColor4U coloru;
 
@@ -92,10 +92,10 @@ BOOL LLPartData::unpackLegacy(LLDataPacker &dp)
 	mBlendFuncSource = LLPartData::LL_PART_BF_SOURCE_ALPHA;
 	mBlendFuncDest = LLPartData::LL_PART_BF_ONE_MINUS_SOURCE_ALPHA;
 
-	return TRUE;
+	return true;
 }
 
-BOOL LLPartData::unpack(LLDataPacker &dp)
+bool LLPartData::unpack(LLDataPacker &dp)
 {
 	S32 size = 0;
 	dp.unpackS32(size, "partsize");
@@ -105,7 +105,7 @@ BOOL LLPartData::unpack(LLDataPacker &dp)
 
 	if (mFlags & LL_PART_DATA_GLOW)
 	{
-		if (size < PS_PART_DATA_GLOW_SIZE) return FALSE;
+		if (size < PS_PART_DATA_GLOW_SIZE) return false;
 
 		U8 tmp_glow = 0;
 		dp.unpackU8(tmp_glow,"pdstartglow");
@@ -123,7 +123,7 @@ BOOL LLPartData::unpack(LLDataPacker &dp)
 
 	if (mFlags & LL_PART_DATA_BLEND)
 	{
-		if (size < PS_PART_DATA_BLEND_SIZE) return FALSE;
+		if (size < PS_PART_DATA_BLEND_SIZE) return false;
 		dp.unpackU8(mBlendFuncSource,"pdblendsource");
 		dp.unpackU8(mBlendFuncDest,"pdblenddest");
 		size -= PS_PART_DATA_BLEND_SIZE;
@@ -144,11 +144,11 @@ BOOL LLPartData::unpack(LLDataPacker &dp)
 		}
 
 		//this particle system won't display properly, better to not show anything
-		return FALSE;
+		return false;
 	}
 
 
-	return TRUE;
+	return true;
 }
 
 void LLPartData::setFlags(const U32 flags)
@@ -240,7 +240,7 @@ LLPartSysData::LLPartSysData()
 	mNumParticles = 0;
 }
 
-BOOL LLPartSysData::unpackSystem(LLDataPacker &dp)
+bool LLPartSysData::unpackSystem(LLDataPacker &dp)
 {
 	dp.unpackU32(mCRC, "pscrc");
 	dp.unpackU32(mFlags, "psflags");
@@ -266,18 +266,18 @@ BOOL LLPartSysData::unpackSystem(LLDataPacker &dp)
 
 	dp.unpackUUID(mPartImageID, "psuuid");
 	dp.unpackUUID(mTargetUUID, "pstargetuuid");
-	return TRUE;
+	return true;
 }
 
-BOOL LLPartSysData::unpackLegacy(LLDataPacker &dp)
+bool LLPartSysData::unpackLegacy(LLDataPacker &dp)
 {
 	unpackSystem(dp);
 	mPartData.unpackLegacy(dp);
 
-	return TRUE;
+	return true;
 }
 
-BOOL LLPartSysData::unpack(LLDataPacker &dp)
+bool LLPartSysData::unpack(LLDataPacker &dp)
 {
 	// syssize is currently unused.  Adding now when modifying the 'version to make extensible in the future
 	S32 size = 0;
@@ -300,7 +300,7 @@ BOOL LLPartSysData::unpack(LLDataPacker &dp)
 		{
 			dp.unpackU8(feh, "whippang");
 		}
-		return FALSE;
+		return false;
 	}
 
 	unpackSystem(dp);
@@ -323,7 +323,7 @@ std::ostream& operator<<(std::ostream& s, const LLPartSysData &data)
 	return s;
 }
 
-BOOL LLPartSysData::isNullPS(const S32 block_num)
+bool LLPartSysData::isNullPS(const S32 block_num)
 {
 	U8 ps_data_block[PS_MAX_DATA_BLOCK_SIZE];
 	U32 crc;
@@ -334,13 +334,13 @@ BOOL LLPartSysData::isNullPS(const S32 block_num)
 	
 	if (!size)
 	{
-		return TRUE;
+		return true;
 	}
 	
 	if (size > PS_MAX_DATA_BLOCK_SIZE)
 	{
 		//size is too big, newer particle version unsupported
-		return TRUE;
+		return true;
 	}
 
 	gMessageSystem->getBinaryData("ObjectData", "PSBlock", ps_data_block, size, block_num, PS_MAX_DATA_BLOCK_SIZE);
@@ -354,7 +354,7 @@ BOOL LLPartSysData::isNullPS(const S32 block_num)
 
 		if (tmp > PS_SYS_DATA_BLOCK_SIZE)
 		{ //unknown system data block size, don't know how to parse it, treat as NULL
-			return TRUE;
+			return true;
 		}
 	}
 
@@ -362,12 +362,12 @@ BOOL LLPartSysData::isNullPS(const S32 block_num)
 
 	if (crc == 0)
 	{
-		return TRUE;
+		return true;
 	}
-	return FALSE;
+	return false;
 }
 
-BOOL LLPartSysData::unpackBlock(const S32 block_num)
+bool LLPartSysData::unpackBlock(const S32 block_num)
 {
 	U8 ps_data_block[PS_MAX_DATA_BLOCK_SIZE];
 
@@ -377,7 +377,7 @@ BOOL LLPartSysData::unpackBlock(const S32 block_num)
 	if (size > PS_MAX_DATA_BLOCK_SIZE)
 	{
 		// Larger packets are newer and unsupported
-		return FALSE;
+		return false;
 	}
 
 	// Get from message

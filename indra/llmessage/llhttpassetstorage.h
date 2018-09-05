@@ -117,7 +117,7 @@ public:
 
 	// Temp assets are stored on sim nodes, they have agent ID and location data associated with them.
 	virtual void addTempAssetData(const LLUUID& asset_id, const LLUUID& agent_id, const std::string& host_name);
-	virtual BOOL hasTempAssetData(const LLUUID& texture_id) const;
+	virtual bool hasTempAssetData(const LLUUID& texture_id) const;
 	virtual std::string getTempAssetHostName(const LLUUID& texture_id) const;
 	virtual LLUUID getTempAssetAgentID(const LLUUID& texture_id) const;
 	virtual void removeTempAssetData(const LLUUID& asset_id);
@@ -130,7 +130,7 @@ public:
 protected:
 	void _queueDataRequest(const LLUUID& uuid, LLAssetType::EType type,
 						   void (*callback)(LLVFS *vfs, const LLUUID&, LLAssetType::EType, void *, S32, LLExtStat),
-						   void *user_data, BOOL duplicate, BOOL is_priority);
+						   void *user_data, bool duplicate, bool is_priority);
 
 private:
 	void _init(const std::string& web_host, const std::string& local_web_host, const std::string& host_name);
