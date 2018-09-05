@@ -163,10 +163,10 @@ LLBaseDownloadRequest::LLBaseDownloadRequest(const LLUUID &uuid, const LLAssetTy
       mDownCallback(NULL),
       mUserData(NULL),
       mHost(),
-      mIsTemp(FALSE),
-      mIsPriority(FALSE),
-      mDataSentInFirstPacket(FALSE),
-      mDataIsInVFS(FALSE)
+      mIsTemp(false),
+      mIsPriority(false),
+      mDataSentInFirstPacket(false),
+      mDataIsInVFS(false)
 {
     // Need to guarantee that this time is up to date, we may be creating a circuit even though we haven't been
     //  running a message system loop.
@@ -193,8 +193,8 @@ LLAssetRequest::LLAssetRequest(const LLUUID &uuid, const LLAssetType::EType type
     :   LLBaseDownloadRequest(uuid, type),
         mUpCallback( NULL ),
         mInfoCallback( NULL ),
-        mIsLocal(FALSE),
-        mIsUserWaiting(FALSE),
+        mIsLocal(false),
+        mIsUserWaiting(false),
         mTimeout(LL_ASSET_STORAGE_TIMEOUT)
 {
 }
@@ -310,7 +310,7 @@ void LLAssetStorage::_init(LLMessageSystem *msg,
                            LLVFS *static_vfs,
                            const LLHost &upstream_host)
 {
-    mShutDown = FALSE;
+    mShutDown = false;
     mMessageSys = msg;
     mXferManager = xfer;
     mVFS = vfs;
@@ -322,9 +322,9 @@ void LLAssetStorage::_init(LLMessageSystem *msg,
 
 LLAssetStorage::~LLAssetStorage()
 {
-    mShutDown = TRUE;
+    mShutDown = true;
     
-    _cleanupRequests(TRUE, LL_ERR_CIRCUIT_GONE);
+    _cleanupRequests(true, LL_ERR_CIRCUIT_GONE);
 
     if (gMessageSystem)
     {
@@ -346,10 +346,10 @@ void LLAssetStorage::setUpstream(const LLHost &upstream_host)
 
 void LLAssetStorage::checkForTimeouts()
 {
-    _cleanupRequests(FALSE, LL_ERR_TCP_TIMEOUT);
+    _cleanupRequests(false, LL_ERR_TCP_TIMEOUT);
 }
 
-void LLAssetStorage::_cleanupRequests(BOOL all, S32 error)
+void LLAssetStorage::_cleanupRequests(bool all, S32 error)
 {
     F64Seconds mt_secs = LLMessageSystem::getMessageTimeSeconds();
 
@@ -450,7 +450,7 @@ void LLAssetStorage::getAssetData(const LLUUID uuid,
                                   LLAssetType::EType type, 
                                   LLGetAssetCallback callback, 
                                   void *user_data, 
-                                  BOOL is_priority)
+                                  bool is_priority)
 {
     LL_DEBUGS("AssetStorage") << "LLAssetStorage::getAssetData() - " << uuid << "," << LLAssetType::lookup(type) << LL_ENDL;
 
@@ -516,7 +516,7 @@ void LLAssetStorage::getAssetData(const LLUUID uuid,
             file.remove();
         }
         
-        BOOL duplicate = FALSE;
+        bool duplicate = false;
         
         // check to see if there's a pending download of this uuid already
         for (request_list_t::iterator iter = mPendingDownloads.begin();
@@ -535,7 +535,7 @@ void LLAssetStorage::getAssetData(const LLUUID uuid,
                 
                 // this is a duplicate request
                 // queue the request, but don't actually ask for it again
-                duplicate = TRUE;
+                duplicate = true;
             }
         }
         if (duplicate)
@@ -649,7 +649,7 @@ void LLAssetStorage::getEstateAsset(
     EstateAssetType etype,
     LLGetAssetCallback callback, 
     void *user_data, 
-    BOOL is_priority)
+    bool is_priority)
 {
     LL_DEBUGS() << "LLAssetStorage::getEstateAsset() - " << asset_id << "," << LLAssetType::lookup(atype) << ", estatetype " << etype << LL_ENDL;
 
@@ -795,7 +795,7 @@ void LLAssetStorage::getInvItemAsset(
     LLAssetType::EType atype,
     LLGetAssetCallback callback, 
     void *user_data, 
-    BOOL is_priority)
+    bool is_priority)
 {
     LL_DEBUGS() << "LLAssetStorage::getInvItemAsset() - " << asset_id << "," << LLAssetType::lookup(atype) << LL_ENDL;
 
@@ -956,12 +956,12 @@ void LLAssetStorage::uploadCompleteCallback(
         return;
     }
     LLAssetRequest  *req     = (LLAssetRequest *)user_data;
-    BOOL            success  = TRUE;
+    bool            success  = true;
 
     if (result)
     {
         LL_WARNS() << "LLAssetStorage::uploadCompleteCallback " << result << ":" << getErrorString(result) << " trying to upload file to upstream provider" << LL_ENDL;
-        success = FALSE;
+        success = false;
     }
 
     // we're done grabbing the file, tell the client
@@ -991,7 +991,7 @@ void LLAssetStorage::processUploadComplete(LLMessageSystem *msg, void **user_dat
     this_ptr->_callUploadCallbacks(uuid, asset_type, success, LL_EXSTAT_NONE);
 }
 
-void LLAssetStorage::_callUploadCallbacks(const LLUUID &uuid, LLAssetType::EType asset_type, BOOL success, LLExtStat ext_status )
+void LLAssetStorage::_callUploadCallbacks(const LLUUID &uuid, LLAssetType::EType asset_type, bool success, LLExtStat ext_status )
 {
     // SJB: We process the callbacks in reverse order, I do not know if this is important,
     //      but I didn't want to mess with it.
@@ -1309,7 +1309,7 @@ void LLAssetStorage::getAssetData(const LLUUID uuid,
                                                    S32, 
                                                    LLExtStat), 
                                   void *user_data, 
-                                  BOOL is_priority)
+                                  bool is_priority)
 {
     // check for duplicates here, since we're about to fool the normal duplicate checker
     for (request_list_t::iterator iter = mPendingDownloads.begin();
@@ -1448,9 +1448,9 @@ void LLAssetStorage::reportMetric( const LLUUID& asset_id, const LLAssetType::ET
 
 
 // Check if an asset is in the toxic map.  If it is, the entry is updated
-BOOL LLAssetStorage::isAssetToxic( const LLUUID& uuid )
+bool LLAssetStorage::isAssetToxic( const LLUUID& uuid )
 {
-    BOOL is_toxic = FALSE;
+    bool is_toxic = false;
 
     if ( !uuid.isNull() )
     {
@@ -1458,7 +1458,7 @@ BOOL LLAssetStorage::isAssetToxic( const LLUUID& uuid )
         if ( iter != mToxicAssetMap.end() )
         {   // Found toxic asset
             (*iter).second = LLFrameTimer::getTotalTime() + TOXIC_ASSET_LIFETIME;
-            is_toxic = TRUE;
+            is_toxic = true;
         } 
     }
     return is_toxic;

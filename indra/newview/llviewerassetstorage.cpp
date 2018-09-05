@@ -176,7 +176,7 @@ void LLViewerAssetStorage::storeAssetData(
                 
                 if( bytes_read == asset_size )
                 {
-                    req->mDataSentInFirstPacket = TRUE;
+                    req->mDataSentInFirstPacket = true;
                     //LL_INFOS() << "LLViewerAssetStorage::createAsset sending data in first packet" << LL_ENDL;
                 }
                 else
@@ -341,8 +341,8 @@ void LLViewerAssetStorage::_queueDataRequest(
     LLAssetType::EType atype,
     LLGetAssetCallback callback,
     void *user_data,
-    BOOL duplicate,
-    BOOL is_priority)
+    bool duplicate,
+    bool is_priority)
 {
     if (mUpstreamHost.isOk())
     {

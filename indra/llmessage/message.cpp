@@ -805,7 +805,7 @@ void LLMessageSystem::processAcks(F32 collect_time)
 		}
 	}
 
-	BOOL dump = FALSE;
+	bool dump = false;
 	{
 		// Check the status of circuits
 		mCircuitInfo.updateWatchDogTimers(this);
@@ -830,7 +830,7 @@ void LLMessageSystem::processAcks(F32 collect_time)
 		{
 			if (mNumMessageCounts >= mMaxMessageCounts)
 			{
-				dump = TRUE;
+				dump = true;
 			}
 		}
 
@@ -840,7 +840,7 @@ void LLMessageSystem::processAcks(F32 collect_time)
 			mReceiveTime = getMessageTimeSeconds(true) - mMessageCountTime;
 			if (mReceiveTime > mMaxMessageTime)
 			{
-				dump = TRUE;
+				dump = true;
 			}
 		}
 	}
@@ -1025,7 +1025,7 @@ S32 LLMessageSystem::sendSemiReliable(const LLHost &host, void (*callback)(void 
 	}
 
 	const S32 retries = 0;
-	const BOOL ping_based_timeout = FALSE;
+	const bool ping_based_timeout = false;
 	return sendReliable(host, retries, ping_based_timeout, timeout, callback, callback_data);
 }
 
@@ -1274,7 +1274,7 @@ S32 LLMessageSystem::sendMessage(const LLHost &host)
 	// tack packet acks onto the end of this message
 	S32 space_left = (MTUBYTES - buffer_length) / sizeof(TPACKETID); // space left for packet ids
 	S32 ack_count = (S32)cdp->mAcks.size();
-	BOOL is_ack_appended = FALSE;
+	bool is_ack_appended = false;
 	std::vector<TPACKETID> acks;
 	if((space_left > 0) && (ack_count > 0) && 
 	   (mMessageBuilder->getMessageName() != _PREHASH_PacketAck))
@@ -1325,10 +1325,10 @@ S32 LLMessageSystem::sendMessage(const LLHost &host)
 		// tack the count in the final byte
 		U8 count = (U8)append_ack_count;
 		buf_ptr[buffer_length++] = count;
-		is_ack_appended = TRUE;
+		is_ack_appended = true;
 	}
 
-	BOOL success;
+	bool success;
 	success = mPacketRing.sendPacket(mSocket, (char *)buf_ptr, buffer_length, host);
 
 	if (!success)
@@ -1996,7 +1996,7 @@ void LLMessageSystem::processUseCircuitCode(LLMessageSystem* msg,
 		// passed the circuit code and session id check, so we will go
 		// ahead and persist the ID associated.
 		LLCircuitData *cdp = msg->mCircuitInfo.findCircuit(msg->getSender());
-		BOOL had_circuit_already = cdp ? TRUE : FALSE;
+		bool had_circuit_already = cdp ? true : false;
 
 		msg->enableCircuit(msg->getSender(), false);
 		cdp = msg->mCircuitInfo.findCircuit(msg->getSender());

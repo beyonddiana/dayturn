@@ -50,7 +50,7 @@ void LLMessageReader::setTimeDecodesSpamThreshold(F32 seconds)
 }
 
 //static 
-BOOL LLMessageReader::getTimeDecodes()
+bool LLMessageReader::getTimeDecodes()
 {
 	return sTimeDecodes;
 }

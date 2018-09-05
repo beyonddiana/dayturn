@@ -702,8 +702,8 @@ bool LLHTTPAssetStorage::deletePendingRequest(LLAssetStorage::ERequestType rt,
 // internal requester, used by getAssetData in superclass
 void LLHTTPAssetStorage::_queueDataRequest(const LLUUID& uuid, LLAssetType::EType type,
 										  void (*callback)(LLVFS *vfs, const LLUUID&, LLAssetType::EType, void *, S32, LLExtStat),
-										  void *user_data, BOOL duplicate,
-										   BOOL is_priority)
+										  void *user_data, bool duplicate,
+										   bool is_priority)
 {
 	// stash the callback info so we can find it after we get the response message
 	LLAssetRequest *req = new LLAssetRequest(uuid, type);
@@ -1341,10 +1341,10 @@ void LLHTTPAssetStorage::addTempAssetData(const LLUUID& asset_id, const LLUUID& 
 }
 
 // virtual
-BOOL LLHTTPAssetStorage::hasTempAssetData(const LLUUID& texture_id) const
+bool LLHTTPAssetStorage::hasTempAssetData(const LLUUID& texture_id) const
 {
 	uuid_tempdata_map::const_iterator citer = mTempAssets.find(texture_id);
-	BOOL found = (citer != mTempAssets.end());
+	bool found = (citer != mTempAssets.end());
 	return found;
 }
 
