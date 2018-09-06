@@ -520,10 +520,13 @@ public:
 
 	void onClickAddAllowedAgent();
 	void onClickRemoveAllowedAgent();
+	void onClickCopyAllowedList();
 	void onClickAddAllowedGroup();
 	void onClickRemoveAllowedGroup();
+	void onClickCopyAllowedGroupList();
 	void onClickAddBannedAgent();
 	void onClickRemoveBannedAgent();
+    void onClickCopyBannedList();
 	void onClickAddEstateManager();
 	void onClickRemoveEstateManager();
 	void onAllowedSearchEdit(const std::string& search_string);
@@ -554,6 +557,7 @@ public:
 	void clearAccessLists();
 	
 	void searchAgent(LLNameListCtrl* listCtrl, const std::string& search_string);
+	void copyListToClipboard(std::string list_name);
 };
 
 #endif
