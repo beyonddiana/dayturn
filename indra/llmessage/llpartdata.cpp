@@ -76,16 +76,16 @@ bool LLPartData::unpackLegacy(LLDataPacker &dp)
 	LLColor4U coloru;
 
 	dp.unpackU32(mFlags, "pdflags");
-	dp.unpackFixed(mMaxAge, "pdmaxage", FALSE, 8, 8);
+	dp.unpackFixed(mMaxAge, "pdmaxage", false, 8, 8);
 
 	dp.unpackColor4U(coloru, "pdstartcolor");
 	mStartColor.setVec(coloru);
 	dp.unpackColor4U(coloru, "pdendcolor");
 	mEndColor.setVec(coloru);
-	dp.unpackFixed(mStartScale.mV[0], "pdstartscalex", FALSE, 3, 5);
-	dp.unpackFixed(mStartScale.mV[1], "pdstartscaley", FALSE, 3, 5);
-	dp.unpackFixed(mEndScale.mV[0], "pdendscalex", FALSE, 3, 5);
-	dp.unpackFixed(mEndScale.mV[1], "pdendscaley", FALSE, 3, 5);
+	dp.unpackFixed(mStartScale.mV[0], "pdstartscalex", false, 3, 5);
+	dp.unpackFixed(mStartScale.mV[1], "pdstartscaley", false, 3, 5);
+	dp.unpackFixed(mEndScale.mV[0], "pdendscalex", false, 3, 5);
+	dp.unpackFixed(mEndScale.mV[1], "pdendscaley", false, 3, 5);
 
 	mStartGlow = 0.f;
 	mEndGlow = 0.f;
@@ -245,24 +245,24 @@ bool LLPartSysData::unpackSystem(LLDataPacker &dp)
 	dp.unpackU32(mCRC, "pscrc");
 	dp.unpackU32(mFlags, "psflags");
 	dp.unpackU8(mPattern, "pspattern");
-	dp.unpackFixed(mMaxAge, "psmaxage", FALSE, 8, 8);
-	dp.unpackFixed(mStartAge, "psstartage", FALSE, 8, 8);
-	dp.unpackFixed(mInnerAngle, "psinnerangle", FALSE, 3, 5);
-	dp.unpackFixed(mOuterAngle, "psouterangle", FALSE, 3, 5);
-	dp.unpackFixed(mBurstRate, "psburstrate", FALSE, 8, 8);
+	dp.unpackFixed(mMaxAge, "psmaxage", false, 8, 8);
+	dp.unpackFixed(mStartAge, "psstartage", false, 8, 8);
+	dp.unpackFixed(mInnerAngle, "psinnerangle", false, 3, 5);
+	dp.unpackFixed(mOuterAngle, "psouterangle", false, 3, 5);
+	dp.unpackFixed(mBurstRate, "psburstrate", false, 8, 8);
 	mBurstRate = llmax(0.01f, mBurstRate);
-	dp.unpackFixed(mBurstRadius, "psburstradius", FALSE, 8, 8);
-	dp.unpackFixed(mBurstSpeedMin, "psburstspeedmin", FALSE, 8, 8);
-	dp.unpackFixed(mBurstSpeedMax, "psburstspeedmax", FALSE, 8, 8);
+	dp.unpackFixed(mBurstRadius, "psburstradius", false, 8, 8);
+	dp.unpackFixed(mBurstSpeedMin, "psburstspeedmin", false, 8, 8);
+	dp.unpackFixed(mBurstSpeedMax, "psburstspeedmax", false, 8, 8);
 	dp.unpackU8(mBurstPartCount, "psburstpartcount");
 
-	dp.unpackFixed(mAngularVelocity.mV[0], "psangvelx", TRUE, 8, 7);
-	dp.unpackFixed(mAngularVelocity.mV[1], "psangvely", TRUE, 8, 7);
-	dp.unpackFixed(mAngularVelocity.mV[2], "psangvelz", TRUE, 8, 7);
+	dp.unpackFixed(mAngularVelocity.mV[0], "psangvelx", true, 8, 7);
+	dp.unpackFixed(mAngularVelocity.mV[1], "psangvely", true, 8, 7);
+	dp.unpackFixed(mAngularVelocity.mV[2], "psangvelz", true, 8, 7);
 
-	dp.unpackFixed(mPartAccel.mV[0], "psaccelx", TRUE, 8, 7);
-	dp.unpackFixed(mPartAccel.mV[1], "psaccely", TRUE, 8, 7);
-	dp.unpackFixed(mPartAccel.mV[2], "psaccelz", TRUE, 8, 7);
+	dp.unpackFixed(mPartAccel.mV[0], "psaccelx", true, 8, 7);
+	dp.unpackFixed(mPartAccel.mV[1], "psaccely", true, 8, 7);
+	dp.unpackFixed(mPartAccel.mV[2], "psaccelz", true, 8, 7);
 
 	dp.unpackUUID(mPartImageID, "psuuid");
 	dp.unpackUUID(mTargetUUID, "pstargetuuid");
