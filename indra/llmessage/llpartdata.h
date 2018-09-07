@@ -195,7 +195,7 @@ public:
 	LLSD asLLSD() const;
 	bool fromLLSD(LLSD& sd);
 		
-	static bool isNullPS(const S32 block_num); // Returns FALSE if this is a "NULL" particle system (i.e. no system)
+	static bool isNullPS(const S32 block_num); // Returns false if this is a "NULL" particle system (i.e. no system)
 
 	bool isLegacyCompatible() const;
 
