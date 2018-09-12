@@ -1488,6 +1488,13 @@ void LLPanelPeople::onGroupMinusButtonClicked()
 
 void LLPanelPeople::onGroupPlusMenuItemClicked(const LLSD& userdata)
 {
+//MK
+	// Don't allow to join or a create a group from here when under @setgroup
+	if (gRRenabled && gAgent.mRRInterface.contains ("setgroup"))
+	{
+		return;
+	}
+//mk
 	std::string chosen_item = userdata.asString();
 
 	if (chosen_item == "join_group")

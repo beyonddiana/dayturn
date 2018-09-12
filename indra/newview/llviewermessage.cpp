@@ -636,6 +636,15 @@ bool join_group_response(const LLSD& notification, const LLSD& response)
 	LLSD notification_adjusted = notification;
 	LLSD response_adjusted = response;
 
+//MK
+	// We can't join a group when under @setgroup because otherwise the new group is automatically activated
+	// by the server.
+	if (gRRenabled && gAgent.mRRInterface.contains ("setgroup"))
+	{
+		return false;
+	}
+//mk
+
 	std::string action = notification["name"];
 
 //	Storing all the information by group id allows for the rare case of being at your maximum
