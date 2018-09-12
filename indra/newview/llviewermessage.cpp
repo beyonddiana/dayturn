@@ -6606,6 +6606,13 @@ static void process_money_balance_reply_extended(LLMessageSystem* msg)
 	msg->getBOOL("TransactionInfo", "IsDestGroup", is_dest_group);
     msg->getS32("TransactionInfo", "Amount", amount);
     msg->getString("TransactionInfo", "ItemDescription", item_description);
+//MK
+	// Don't allow to read a message attached to a payment from someone we cannot receive an IM from.
+	if (gRRenabled && gAgent.mRRInterface.containsWithoutException("recvim", source_id.asString()))
+	{
+		item_description = "";
+	}
+//mk
 	msg->getBOOL("MoneyData", "TransactionSuccess", success);
     LL_INFOS("Money") << "MoneyBalanceReply source " << source_id 
 		<< " dest " << dest_id
