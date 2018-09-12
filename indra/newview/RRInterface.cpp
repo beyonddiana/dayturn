@@ -3372,10 +3372,12 @@ std::string RRInterface::stringReplaceWholeWord(std::string s, std::string what,
 	int len_by = by.length();
 	int len_s = s.length();
 	if (len_by == 0) len_by = 1; // avoid an infinite loop
+	bool unescaped = false;
 
-	while ((ind = s.find("%20")) != -1) // unescape
+	while ((ind = s.find("%20")) != -1) // unescape but we will have to escape again before returning
 	{
 		s = s.replace(ind, 3, " ");
+		unescaped = true;
 	}
 
 	std::string lower = s;
@@ -3399,6 +3401,10 @@ std::string RRInterface::stringReplaceWholeWord(std::string s, std::string what,
 			if (!caseSensitive) LLStringUtil::toLower(lower);
 		}
 		old_ind = ind + len_by;
+	}
+	while (unescaped && (ind = s.find(" ")) != -1) // escape again
+	{
+		s = s.replace(ind, 1, "%20");
 	}
 	return s;
 
