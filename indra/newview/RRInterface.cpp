@@ -215,7 +215,7 @@ void refreshCachedVariable (std::string var)
 	else if (var == "showworldmap")			gAgent.mRRInterface.mContainsShowworldmap = contained;
 	else if (var == "showminimap")			gAgent.mRRInterface.mContainsShowminimap = contained;
 	else if (var == "showloc")				gAgent.mRRInterface.mContainsShowloc = contained;
-	else if (var == "shownames")			gAgent.mRRInterface.mContainsShownames = contained;
+	//else if (var == "shownames")			gAgent.mRRInterface.mContainsShownames = contained;
 	else if (var == "shownametags")			gAgent.mRRInterface.mContainsShownametags = contained;
 	else if (var == "setenv")				gAgent.mRRInterface.mContainsSetenv = contained;
 	else if (var == "setdebug")				gAgent.mRRInterface.mContainsSetdebug = contained;
@@ -241,6 +241,7 @@ void refreshCachedVariable (std::string var)
 	//else if (var == "moveturnright")			gAgent.mRRInterface.mContainsMoveTurnRight = contained;
 
 	gAgent.mRRInterface.mContainsCamTextures = (gAgent.mRRInterface.containsSubstr("camtextures") || gAgent.mRRInterface.containsSubstr("setcam_textures"));
+	gAgent.mRRInterface.mContainsShownames = (gAgent.mRRInterface.containsSubstr("shownames")); // shownames, shownames_sec
 
 	if (var == "showinv") {
 		if (gAgent.mRRInterface.mContainsShowinv) {
@@ -273,7 +274,7 @@ void refreshCachedVariable (std::string var)
 		}
 	}
 
-	else if (var == "shownames" || var == "shownametags") {
+	else if (var == "shownames" || var == "shownames_sec" || var == "shownametags") {
 		if (gAgent.mRRInterface.mContainsShownames || gAgent.mRRInterface.mContainsShownametags) {
 //			LLSideTray::getInstance()->childSetVisible("nearby_panel", false);
 //			LLSideTray::getInstance()->childSetVisible("recent_panel", false);
@@ -3473,7 +3474,7 @@ std::string RRInterface::getCensoredMessage (std::string str)
 	while (it != mSpecialObjectBehaviours.end()) {
 		command = it->second;
 		LLStringUtil::toLower(command);
-		if (command.find("shownames:") == 0 || command.find("shownametags:") == 0) {
+		if (command.find("shownames:") == 0 || command.find("shownames_sec:") == 0 || command.find("shownametags:") == 0) {
 			if (parseCommand(command, behav, option, param)) {
 				LLUUID uuid;
 				uuid.set(option, FALSE);
