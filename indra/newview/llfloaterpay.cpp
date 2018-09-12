@@ -593,6 +593,13 @@ void LLFloaterPay::give(S32 amount)
 		{
 			// just transfer the L$
 			std::string paymentMessage(getChild<LLLineEditor>("payment_message")->getValue().asString());
+//MK
+			// Don't allow to add a message to a payment to someone we cannot send an IM to.
+			if (gRRenabled && gAgent.mRRInterface.containsWithoutException("sendim", mTargetUUID.asString()))
+			{
+				paymentMessage = "";
+			}
+//mk
 			mCallback(mTargetUUID, gAgent.getRegion(), amount, mTargetIsGroup, TRANS_GIFT, (paymentMessage.empty() ? LLStringUtil::null : paymentMessage));
 
 			// check if the payee needs to be unmuted
