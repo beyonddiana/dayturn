@@ -4174,41 +4174,40 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 
 	BOOL is_audible = (CHAT_AUDIBLE_FULLY == chat.mAudible);
 	chatter = gObjectList.findObject(from_id);
-	if (chatter)
+//MK
+	// If this is an object but its name is equal to its owner's user name or diplay name
+	// and if the debug setting is set right, then show the chat like it were said by the owner
+	if (chat.mSourceType == CHAT_SOURCE_OBJECT)
 	{
-		//MK
-		// If this is an object but its name is equal to its owner's user name or diplay name
-		// and if the debug setting is set right, then show the chat like it were said by the owner
-		if (chat.mSourceType == CHAT_SOURCE_OBJECT)
+		// This object has to be an attachment, or in case of a HUD, not detected at all.
+		// It can NOT be an object in-world.
+		if ((chatter && chatter->isAttachment()) || !chatter)
 		{
-			if (!chatter->isAvatar())
+			if (gSavedSettings.getBOOL("RestrainedLoveImitateAvatarSpeech"))
 			{
-				if (chatter->isAttachment())
+				LLAvatarName av_name;
+				if (LLAvatarNameCache::get(owner_id, &av_name))
 				{
-					if (gSavedSettings.getBOOL("RestrainedLoveImitateAvatarSpeech"))
+					if (from_name == av_name.mDisplayName
+						|| from_name == av_name.mLegacyFirstName + " " + av_name.mLegacyLastName
+						|| from_name == av_name.mLegacyFirstName
+						|| from_name == av_name.mLegacyLastName
+						)
 					{
-						LLAvatarName av_name;
-						if (LLAvatarNameCache::get(owner_id, &av_name))
+						if (!gAgent.mRRInterface.mContainsShownames)
 						{
-							if (from_name == av_name.mDisplayName
-								|| from_name == av_name.mLegacyFirstName + " " + av_name.mLegacyLastName
-								|| from_name == av_name.mLegacyFirstName
-								|| from_name == av_name.mLegacyLastName
-								)
-							{
-								if (!gAgent.mRRInterface.mContainsShownames)
-								{
-									chat.mFromID = owner_id;
-								}
-								chat.mSourceType = CHAT_SOURCE_AGENT;
-							}
+							chat.mFromID = owner_id;
 						}
+						chat.mSourceType = CHAT_SOURCE_AGENT;
 					}
 				}
 			}
 		}
-		//mk
+	}
+//mk
 
+	if (chatter)
+	{
 		chat.mPosAgent = chatter->getPositionAgent();
 
 		// Make swirly things only for talking objects. (not script debug messages, though)
