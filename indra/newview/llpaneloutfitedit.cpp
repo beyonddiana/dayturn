@@ -596,6 +596,14 @@ void LLPanelOutfitEdit::toggleAddWearablesPanel()
 
 void LLPanelOutfitEdit::showAddWearablesPanel(bool show_add_wearables)
 {
+//MK
+	// If we can't use the inventory, don't allow to add stuff to our outfits
+	// or there would be a loophole.
+	if (gRRenabled && gAgent.mRRInterface.mContainsShowinv)
+	{
+		show_add_wearables = false;
+	}
+//mk
 	mAddWearablesPanel->setVisible(show_add_wearables);
 	
 	getChild<LLUICtrl>("show_add_wearables_btn")->setValue(show_add_wearables);

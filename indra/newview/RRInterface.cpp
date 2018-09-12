@@ -55,6 +55,7 @@
 //#include "llnearbychatbar.h"
 #include "llnotifications.h"
 #include "llpanelmaininventory.h"
+#include "llpaneloutfitedit.h"
 #include "llpaneltopinfobar.h"
 #include "llregionhandle.h"
 #include "llrendersphere.h"
@@ -246,6 +247,10 @@ void refreshCachedVariable (std::string var)
 //			LLSideTray::getInstance()->childSetVisible("panel_main_inventory", false);
 			LLFloaterReg::hideInstance("panel_main_inventory", LLSD());
 			setVisibleAll("inventory", FALSE);
+			LLPanelOutfitEdit* panel_outfit_edit = dynamic_cast<LLPanelOutfitEdit*>(LLFloaterSidePanelContainer::getPanel("appearance", "panel_outfit_edit"));
+			if (NULL != panel_outfit_edit) {
+				panel_outfit_edit->showAddWearablesPanel(false);
+			}
 			//LLFloaterInventory::hideAll(); // close all the secondary inventory floaters
 //			LLBottomTray::getInstance()->childSetEnabled("inventory_btn", false);
 		}
