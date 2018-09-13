@@ -349,7 +349,7 @@ BOOL LLTaskInvFVBridge::isItemRemovable() const
 	// can't edit objects that someone is sitting on,
 	// when prevented from sit-tping
 	if (gRRenabled && object && (gAgent.mRRInterface.mSittpMax < EXTREMUM
-		|| gAgent.mRRInterface.mContainsUnsit))
+		|| gAgent.mRRInterface.mContainsUnsit || gAgent.mRRInterface.mContainsStandtp))
 	{
 		if (gAgentAvatarp->isSitting() && gAgentAvatarp->getRoot() == object->getRoot())
 		{

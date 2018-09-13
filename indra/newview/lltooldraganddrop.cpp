@@ -1252,7 +1252,7 @@ void LLToolDragAndDrop::dropScript(LLViewerObject* hit_obj,
 		if (gRRenabled)
 		{
 			// can't edit an object that we are sitting on when prevented from sit-tping
-			if (gAgent.mRRInterface.mSittpMax < EXTREMUM || gAgent.mRRInterface.mContainsUnsit)
+			if (gAgent.mRRInterface.mSittpMax < EXTREMUM || gAgent.mRRInterface.mContainsUnsit || gAgent.mRRInterface.mContainsStandtp)
 			{
 				if (gAgentAvatarp->isSitting() && gAgentAvatarp->getRoot() == hit_obj->getRoot())
 				{
@@ -1655,7 +1655,7 @@ EAcceptance LLToolDragAndDrop::willObjectAcceptInventory(LLViewerObject* obj, LL
 	{
 		// can't edit objects that someone is sitting on,
 		// when prevented from sit-tping
-		if (gAgent.mRRInterface.mSittpMax < EXTREMUM || gAgent.mRRInterface.mContainsUnsit)
+		if (gAgent.mRRInterface.mSittpMax < EXTREMUM || gAgent.mRRInterface.mContainsUnsit || gAgent.mRRInterface.mContainsStandtp)
 		{
 			if (gAgentAvatarp->isSitting() && gAgentAvatarp->getRoot() == obj->getRoot())
 			{
