@@ -542,6 +542,8 @@ RRInterface::RRInterface():
 	mJustReattached.uuid.setNull();
 	mJustReattached.attachpt = "";
 
+	mLastObjectSatOn = LLUUID::null;
+
 	sLastAvatarZOffsetCommit = 1.f; // So a first shape update will be done shortly after the viewer has started
 	sLastOutfitChange = -1000.f;
 	updateCameraLimits();

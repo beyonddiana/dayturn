@@ -6859,7 +6859,25 @@ void LLVOAvatar::sitDown(BOOL bSitting)
 		// Update Movement Controls according to own Sitting mode
 		LLFloaterMove::setSittingMode(bSitting);
 	}
-}
+
+ //MK
+ 	if (gRRenabled && isSelf())
+ 	{
+ 		// If we are being forced to stand up (prim derezzing or calling llUnsit() ), snap back to the previous
+ 		// standing location if under @standtp
+ 		if (was_sitting && !gAgent.mRRInterface.mSnappingBackToLastStandingLocation)
+ 		{
+			if (gAgent.mRRInterface.mContainsStandtp && gAgent.mRRInterface.mParcelLandingType == LLParcel::L_DIRECT)
+ 			//if (!gAgent.mRRInterface.mLastStandingLocation.isExactlyZero() && gAgent.mRRInterface.mParcelLandingType == LLParcel::L_DIRECT)
+ 			{
+ 				gAgent.mRRInterface.mSnappingBackToLastStandingLocation = TRUE;
+ 				gAgent.teleportViaLocationLookAt (gAgent.mRRInterface.mLastStandingLocation);
+ 				gAgent.mRRInterface.mSnappingBackToLastStandingLocation = FALSE;
+ 			}
+ 		}
+ 	}
+ //mk
+ }
 
 //-----------------------------------------------------------------------------
 // sitOnObject()

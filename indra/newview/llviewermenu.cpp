@@ -4560,7 +4560,7 @@ void near_sit_down_point(BOOL success, void *)
 		if (gRRenabled && gAgentAvatarp && !gAgentAvatarp->mIsSitting)
 		{
 			// We are now standing, and we want to sit down => store our current location so that we can snap back here when we stand up, if under @standtp
-			if (gAgent.mRRInterface.contains ("standtp"))
+			if (gAgent.mRRInterface.mContainsStandtp)
 			{
 				gAgent.mRRInterface.mLastStandingLocation = LLVector3d(gAgent.getPositionGlobal ());
 				gSavedPerAccountSettings.setVector3d("RestrainedLoveLastStandingLocation", gAgent.mRRInterface.mLastStandingLocation);
