@@ -63,6 +63,7 @@
 
 //MK
 #include "llvoavatar.h"
+#include "llvoavatarself.h"
 //mk
 
 //
@@ -173,7 +174,7 @@ void LLPanelContents::onClickNewScript(void *userdata)
 			// when prevented from sit-tping
 			if (gAgent.mRRInterface.mSittpMax < EXTREMUM || gAgent.mRRInterface.mContainsUnsit)
 			{
-				if (object->isSeat())
+				if (gAgentAvatarp->isSitting() && gAgentAvatarp->getRoot() == object->getRoot())
 				{
 					return;
 				}

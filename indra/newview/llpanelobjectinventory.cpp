@@ -68,6 +68,9 @@
 #include "llviewermessage.h"
 #include "tea.h"
 
+//MK
+#include "llvoavatarself.h"
+//mk
 const LLColor4U DEFAULT_WHITE(255, 255, 255);
 
 ///----------------------------------------------------------------------------
@@ -348,7 +351,7 @@ BOOL LLTaskInvFVBridge::isItemRemovable() const
 	if (gRRenabled && object && (gAgent.mRRInterface.mSittpMax < EXTREMUM
 		|| gAgent.mRRInterface.mContainsUnsit))
 	{
-		if (object->isSeat())
+		if (gAgentAvatarp->isSitting() && gAgentAvatarp->getRoot() == object->getRoot())
 		{
 			return FALSE;
 		}
