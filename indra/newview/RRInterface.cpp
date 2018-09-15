@@ -3340,10 +3340,10 @@ std::string RRInterface::stringReplace(std::string s, std::string what, std::str
 	int len_by = by.length();
 	if (len_by == 0) len_by = 1; // avoid an infinite loop
 	
-	while ((ind = s.find ("%20")) != -1) // unescape
-	{
-		s = s.replace (ind, 3, " ");
-	}
+	//while ((ind = s.find ("%20")) != -1) // unescape
+	//{
+	//	s = s.replace (ind, 3, " ");
+	//}
 	
 	std::string lower = s;
 	if (!caseSensitive) {
@@ -3374,13 +3374,13 @@ std::string RRInterface::stringReplaceWholeWord(std::string s, std::string what,
 	int len_by = by.length();
 	int len_s = s.length();
 	if (len_by == 0) len_by = 1; // avoid an infinite loop
-	bool unescaped = false;
+	//bool unescaped = false;
 
-	while ((ind = s.find("%20")) != -1) // unescape but we will have to escape again before returning
-	{
-		s = s.replace(ind, 3, " ");
-		unescaped = true;
-	}
+	//while ((ind = s.find("%20")) != -1) // unescape but we will have to escape again before returning
+	//{
+	//	s = s.replace(ind, 3, " ");
+	//	unescaped = true;
+	//}
 
 	std::string lower = s;
 	if (!caseSensitive) {
@@ -3404,10 +3404,10 @@ std::string RRInterface::stringReplaceWholeWord(std::string s, std::string what,
 		}
 		old_ind = ind + len_by;
 	}
-	while (unescaped && (ind = s.find(" ")) != -1) // escape again
-	{
-		s = s.replace(ind, 1, "%20");
-	}
+	//while (unescaped && (ind = s.find(" ")) != -1) // escape again
+	//{
+	//	s = s.replace(ind, 1, "%20");
+	//}
 	return s;
 
 }
