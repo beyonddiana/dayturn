@@ -242,7 +242,7 @@ LLToastAlertPanel::LLToastAlertPanel( LLNotificationPtr notification, bool modal
 		dialog_width += 32 + HPAD;
 	}
 
-	LLToastPanel::reshape( dialog_width, dialog_height, FALSE );
+	LLToastPanel::reshape( dialog_width, dialog_height, false );
 
 	S32 msg_y = LLToastPanel::getRect().getHeight() - VPAD;
 	S32 msg_x = HPAD;

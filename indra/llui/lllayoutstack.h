@@ -81,7 +81,7 @@ public:
 	/*virtual*/ void removeChild(LLView*);
 	/*virtual*/ bool postBuild();
 	/*virtual*/ bool addChild(LLView* child, S32 tab_group = 0);
-	/*virtual*/ void reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
+	/*virtual*/ void reshape(S32 width, S32 height, bool called_from_parent = true);
 
 
 	static LLView* fromXML(LLXMLNodePtr node, LLView *parent, LLXMLNodePtr output_node = NULL);
@@ -162,7 +162,7 @@ public:
 
 	void handleReshape(const LLRect& new_rect, bool by_user);
 
-	void reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
+	void reshape(S32 width, S32 height, bool called_from_parent = true);
 	
 
 	void setVisible(BOOL visible);

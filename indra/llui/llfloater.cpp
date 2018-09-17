@@ -266,7 +266,7 @@ LLFloater::LLFloater(const LLSD& key, const LLFloater::Params& p)
 //	mNotificationContext = new LLFloaterNotificationContext(getHandle());
 
 	// Clicks stop here.
-	setMouseOpaque(TRUE);
+	setMouseOpaque(true);
 	
 	// Floaters always draw their background, unlike every other panel.
 	setBackgroundVisible(TRUE);
@@ -820,7 +820,7 @@ void LLFloater::closeHostedFloater()
 }
 
 /*virtual*/
-void LLFloater::reshape(S32 width, S32 height, BOOL called_from_parent)
+void LLFloater::reshape(S32 width, S32 height, bool called_from_parent)
 {
 	LLPanel::reshape(width, height, called_from_parent);
 }
@@ -1281,7 +1281,7 @@ void LLFloater::setMinimized(BOOL minimize)
 		}
 		
 		// Reshape *after* setting mMinimized
-		reshape( minimized_width, floater_header_size, TRUE);
+		reshape( minimized_width, floater_header_size, true);
 	}
 	else
 	{
@@ -1329,7 +1329,7 @@ void LLFloater::setMinimized(BOOL minimize)
 		mMinimized = FALSE;
 		setFrontmost();
 		// Reshape *after* setting mMinimized
-		reshape( mExpandedRect.getWidth(), mExpandedRect.getHeight(), TRUE );
+		reshape( mExpandedRect.getWidth(), mExpandedRect.getHeight(), true );
 	}
 
 	make_ui_sound("UISndWindowClose");
@@ -2254,7 +2254,7 @@ LLFloaterView::LLFloaterView (const Params& p)
 }
 
 // By default, adjust vertical.
-void LLFloaterView::reshape(S32 width, S32 height, BOOL called_from_parent)
+void LLFloaterView::reshape(S32 width, S32 height, bool called_from_parent)
 {
 	LLView::reshape(width, height, called_from_parent);
 
@@ -2744,7 +2744,7 @@ void LLFloaterView::refresh()
 	LLRect snap_rect = getSnapRect();
 	if (snap_rect != mLastSnapRect)
 	{
-		reshape(getRect().getWidth(), getRect().getHeight(), TRUE);
+		reshape(getRect().getWidth(), getRect().getHeight(), true);
 	}
 
 	// Constrain children to be entirely on the screen

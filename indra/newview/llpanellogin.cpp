@@ -310,7 +310,7 @@ void LLPanelLogin::reshapeBrowser()
 		rect.getCenterX() - 2, rect.getCenterY() + 40,
 		rect.getWidth() + 6, rect.getHeight() - 78 );
 	web_browser->setRect( html_rect );
-	web_browser->reshape( html_rect.getWidth(), html_rect.getHeight(), TRUE );
+	web_browser->reshape( html_rect.getWidth(), html_rect.getHeight(), true );
 	reshape( rect.getWidth(), rect.getHeight(), 1 );
 }
 

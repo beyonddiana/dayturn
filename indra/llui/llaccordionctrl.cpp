@@ -177,7 +177,7 @@ LLAccordionCtrl::~LLAccordionCtrl()
 
 //---------------------------------------------------------------------------------
 
-void LLAccordionCtrl::reshape(S32 width, S32 height, BOOL called_from_parent)
+void LLAccordionCtrl::reshape(S32 width, S32 height, bool called_from_parent)
 {
 	// adjust our rectangle
 	LLRect rcLocal = getRect();

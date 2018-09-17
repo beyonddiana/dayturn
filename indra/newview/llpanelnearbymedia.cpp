@@ -192,7 +192,7 @@ void LLPanelNearByMedia::handleMediaAutoPlayChanged(const LLSD& newvalue)
 }
 
 /*virtual*/
-void LLPanelNearByMedia::reshape(S32 width, S32 height, BOOL called_from_parent)
+void LLPanelNearByMedia::reshape(S32 width, S32 height, bool called_from_parent)
 {
 	LLPanelPulldown::reshape(width, height, called_from_parent);
 

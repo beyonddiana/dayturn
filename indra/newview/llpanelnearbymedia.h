@@ -45,7 +45,7 @@ public:
 	
 	/*virtual*/ bool postBuild();
 	/*virtual*/ void draw();
-	/*virtual*/ void reshape(S32 width, S32 height, BOOL called_from_parent);
+	/*virtual*/ void reshape(S32 width, S32 height, bool called_from_parent);
 	/*virtual*/ bool handleHover(S32 x, S32 y, MASK mask);
 	// this is part of the nearby media *dialog* so we can track whether
 	// the user *implicitly* wants audio on or off via their *explicit*

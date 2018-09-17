@@ -208,7 +208,7 @@ LLPanelVolume::LLPanelVolume()
 	: LLPanel(),
 	  mComboMaterialItemCount(0)
 {
-	setMouseOpaque(FALSE);
+	setMouseOpaque(false);
 
 }
 

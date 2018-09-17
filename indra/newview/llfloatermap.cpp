@@ -211,13 +211,13 @@ void LLFloaterMap::draw()
 	// Note: we can't just gAgent.check cameraMouselook() because the transition states are wrong.
 	if(gAgentCamera.cameraMouselook())
 	{
-		setMouseOpaque(FALSE);
-		getDragHandle()->setMouseOpaque(FALSE);
+		setMouseOpaque(false);
+		getDragHandle()->setMouseOpaque(false);
 	}
 	else
 	{
-		setMouseOpaque(TRUE);
-		getDragHandle()->setMouseOpaque(TRUE);
+		setMouseOpaque(true);
+		getDragHandle()->setMouseOpaque(true);
 	}
 	
 	if(LLWorld::getInstance()->getAllowMinimap()) {
@@ -225,7 +225,7 @@ void LLFloaterMap::draw()
 	}
 }
 
-void LLFloaterMap::reshape(S32 width, S32 height, BOOL called_from_parent)
+void LLFloaterMap::reshape(S32 width, S32 height, bool called_from_parent)
 {
 	LLFloater::reshape(width, height, called_from_parent);
 	

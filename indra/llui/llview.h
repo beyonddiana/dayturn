@@ -222,8 +222,8 @@ public:
 	//
 	// MANIPULATORS
 	//
-	void		setMouseOpaque( BOOL b )		{ mMouseOpaque = b; }
-	BOOL		getMouseOpaque() const			{ return mMouseOpaque; }
+	void		setMouseOpaque( bool b )		{ mMouseOpaque = b; }
+	bool		getMouseOpaque() const			{ return mMouseOpaque; }
 	void		setToolTip( const LLStringExplicit& msg );
 	BOOL		setToolTipArg( const LLStringExplicit& key, const LLStringExplicit& text );
 	void		setToolTipArgs( const LLStringUtil::format_map_t& args );
@@ -267,8 +267,8 @@ public:
 	S32 getDefaultTabGroup() const				{ return mDefaultTabGroup; }
 	S32 getLastTabGroup()						{ return mLastTabGroup; }
 
-	BOOL		isInVisibleChain() const;
-	BOOL		isInEnabledChain() const;
+	bool		isInVisibleChain() const;
+	bool		isInEnabledChain() const;
 
 	void		setFocusRoot(BOOL b)			{ mIsFocusRoot = b; }
 	BOOL		isFocusRoot() const				{ return mIsFocusRoot; }
@@ -305,7 +305,7 @@ public:
 	static bool		isAvailable(const LLView* view);
 	U8              getSoundFlags() const       { return mSoundFlags; }
 
-	virtual BOOL	setLabelArg( const std::string& key, const LLStringExplicit& text );
+	virtual bool	setLabelArg( const std::string& key, const LLStringExplicit& text );
 
 	virtual void	onVisibilityChange ( bool new_visibility );
 	virtual void	onUpdateScrollToChild(const LLUICtrl * cntrl);
@@ -371,7 +371,7 @@ public:
 	//
 
 	// Default behavior is to use reshape flags to resize child views
-	virtual void	reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
+	virtual void	reshape(S32 width, S32 height, bool called_from_parent = true);
 	virtual void	translate( S32 x, S32 y );
 	void			setOrigin( S32 x, S32 y )	{ mRect.translate( x - mRect.mLeft, y - mRect.mBottom ); }
 	BOOL			translateIntoRect( const LLRect& constraint, S32 min_overlap_pixels = S32_MAX);
@@ -609,7 +609,7 @@ private:
 
 	BOOL		mEnabled;		// Enabled means "accepts input that has an effect on the state of the application."
 								// A disabled view, for example, may still have a scrollbar that responds to mouse events.
-	BOOL		mMouseOpaque;	// Opaque views handle all mouse events that are over their rect.
+	bool		mMouseOpaque;	// Opaque views handle all mouse events that are over their rect.
 	LLUIString	mToolTipMsg;	// isNull() is true if none.
 
 	U8          mSoundFlags;

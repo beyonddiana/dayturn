@@ -119,7 +119,7 @@ void LLUploadDialog::setMessage( const std::string& msg)
 	S32 dialog_width = max_msg_width + 2 * HPAD;
 	S32 dialog_height = line_height * msg_lines.size() + 2 * VPAD;
 
-	reshape( dialog_width, dialog_height, FALSE );
+	reshape( dialog_width, dialog_height, false );
 
 	// Message
 	S32 msg_x = (getRect().getWidth() - max_msg_width) / 2;

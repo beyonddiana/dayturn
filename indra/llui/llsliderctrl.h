@@ -88,7 +88,7 @@ public:
 
 	/*virtual*/ void	setValue(const LLSD& value)	{ setValue((F32)value.asReal(), TRUE); }
 	/*virtual*/ LLSD	getValue() const			{ return LLSD(getValueF32()); }
-	/*virtual*/ BOOL	setLabelArg( const std::string& key, const LLStringExplicit& text );
+	/*virtual*/ bool	setLabelArg( const std::string& key, const LLStringExplicit& text );
 
 	BOOL			isMouseHeldDown() const { return mSlider->hasMouseCapture(); }
 

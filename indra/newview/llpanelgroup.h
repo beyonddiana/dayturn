@@ -77,7 +77,7 @@ public:
 	void callGroup();
 	void chatGroup();
 
-	virtual void reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
+	virtual void reshape(S32 width, S32 height, bool called_from_parent = true);
 
 	static void refreshCreatedGroup(const LLUUID& group_id);
 

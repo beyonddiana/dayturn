@@ -648,7 +648,7 @@ void LLNetMap::draw()
 	LLUICtrl::draw();
 }
 
-void LLNetMap::reshape(S32 width, S32 height, BOOL called_from_parent)
+void LLNetMap::reshape(S32 width, S32 height, bool called_from_parent)
 {
 	LLUICtrl::reshape(width, height, called_from_parent);
 	createObjectImage();

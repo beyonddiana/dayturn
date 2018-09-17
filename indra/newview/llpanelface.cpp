@@ -191,7 +191,7 @@ bool	LLPanelFace::postBuild()
 
 	LLSpinCtrl*     mCtrlGlow;
 
-	setMouseOpaque(FALSE);
+	setMouseOpaque(false);
 
 	mTextureCtrl = getChild<LLTextureCtrl>("texture control");
 	if(mTextureCtrl)

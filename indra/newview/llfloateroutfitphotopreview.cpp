@@ -131,7 +131,7 @@ void LLFloaterOutfitPhotoPreview::draw()
 }
 
 // virtual
-void LLFloaterOutfitPhotoPreview::reshape(S32 width, S32 height, BOOL called_from_parent)
+void LLFloaterOutfitPhotoPreview::reshape(S32 width, S32 height, bool called_from_parent)
 {
 	LLPreview::reshape(width, height, called_from_parent);
 

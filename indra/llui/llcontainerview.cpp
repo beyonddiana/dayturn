@@ -60,7 +60,7 @@ LLContainerView::~LLContainerView()
 bool LLContainerView::postBuild()
 {
 	setDisplayChildren(mDisplayChildren);
-	reshape(getRect().getWidth(), getRect().getHeight(), FALSE);
+	reshape(getRect().getWidth(), getRect().getHeight(), false);
 	return TRUE;
 }
 
@@ -128,7 +128,7 @@ void LLContainerView::draw()
 }
 
 
-void LLContainerView::reshape(S32 width, S32 height, BOOL called_from_parent)
+void LLContainerView::reshape(S32 width, S32 height, bool called_from_parent)
 {
 	LLRect scroller_rect;
 	scroller_rect.setOriginAndSize(0, 0, width, height);

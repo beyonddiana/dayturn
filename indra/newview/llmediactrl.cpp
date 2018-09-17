@@ -543,7 +543,7 @@ void LLMediaCtrl::onVisibilityChanged ( const LLSD& new_visibility )
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-void LLMediaCtrl::reshape( S32 width, S32 height, BOOL called_from_parent )
+void LLMediaCtrl::reshape( S32 width, S32 height, bool called_from_parent )
 {
 	if(!getDecoupleTextureSize())
 	{
@@ -807,7 +807,7 @@ void LLMediaCtrl::draw()
 	if ( gRestoreGL == 1 || mUpdateScrolls)
 	{
 		LLRect r = getRect();
-		reshape( r.getWidth(), r.getHeight(), FALSE );
+		reshape( r.getWidth(), r.getHeight(), false );
 		mUpdateScrolls = false;
 		return;
 	}
@@ -1039,7 +1039,7 @@ void LLMediaCtrl::handleMediaEvent(LLPluginClassMedia* self, EMediaEvent event)
 		{
 			LL_DEBUGS("Media") <<  "Media event:  MEDIA_EVENT_SIZE_CHANGED " << LL_ENDL;
 			LLRect r = getRect();
-			reshape( r.getWidth(), r.getHeight(), FALSE );
+			reshape( r.getWidth(), r.getHeight(), false );
 		};
 		break;
 		

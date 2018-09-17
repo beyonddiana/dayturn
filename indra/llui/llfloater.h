@@ -233,7 +233,7 @@ public:
 	// Close the floater or its host. Use when hidding or toggling a floater instance.
 	virtual void	closeHostedFloater();
 
-	/*virtual*/ void reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
+	/*virtual*/ void reshape(S32 width, S32 height, bool called_from_parent = true);
 	
 	// Release keyboard and mouse focus
 	void			releaseFocus();
@@ -528,7 +528,7 @@ protected:
 
 public:
 
-	/*virtual*/ void reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
+	/*virtual*/ void reshape(S32 width, S32 height, bool called_from_parent = true);
 	/*virtual*/ void draw();
 	/*virtual*/ LLRect getSnapRect() const;
 	/*virtual*/ void refresh();

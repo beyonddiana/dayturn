@@ -73,7 +73,7 @@ public:
 	/*virtual*/ BOOL	handleMouseUp(S32 x, S32 y, MASK mask);
 	/*virtual*/ bool	handleHover( S32 x, S32 y, MASK mask );
 	/*virtual*/ BOOL	handleToolTip( S32 x, S32 y, MASK mask);
-	/*virtual*/ void	reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
+	/*virtual*/ void	reshape(S32 width, S32 height, bool called_from_parent = true);
 
 	/*virtual*/ BOOL	handleMiddleMouseDown(S32 x, S32 y, MASK mask) { return handleMouseDown(x, y, mask | MASK_SHIFT); }
 	/*virtual*/ BOOL	handleMiddleMouseUp(S32 x, S32 y, MASK mask) { return handleMouseUp(x, y, mask); }

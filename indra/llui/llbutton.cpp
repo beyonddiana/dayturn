@@ -1064,11 +1064,11 @@ void LLButton::setLabel( const LLStringExplicit& label )
 }
 
 //virtual
-BOOL LLButton::setLabelArg( const std::string& key, const LLStringExplicit& text )
+bool LLButton::setLabelArg( const std::string& key, const LLStringExplicit& text )
 {
 	mUnselectedLabel.setArg(key, text);
 	mSelectedLabel.setArg(key, text);
-	return TRUE;
+	return true;
 }
 
 void LLButton::setLabelUnselected( const LLStringExplicit& label )

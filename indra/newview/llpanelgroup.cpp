@@ -230,7 +230,7 @@ void LLPanelGroup::reposButtons()
 	reposButton("btn_call");
 }
 
-void LLPanelGroup::reshape(S32 width, S32 height, BOOL called_from_parent )
+void LLPanelGroup::reshape(S32 width, S32 height, bool called_from_parent )
 {
 	LLPanel::reshape(width, height, called_from_parent );
 

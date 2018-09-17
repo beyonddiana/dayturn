@@ -93,7 +93,7 @@ public:
 
 	virtual void		setEnabled( BOOL b );
 
-	virtual void		reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
+	virtual void		reshape(S32 width, S32 height, bool called_from_parent = true);
 
 	// LLUICtrl interface
 	virtual void		setValue(const LLSD& value );
@@ -104,7 +104,7 @@ public:
 	virtual void		setTentative(BOOL b);
 	virtual BOOL		getTentative() const;
 
-	virtual BOOL		setLabelArg( const std::string& key, const LLStringExplicit& text );
+	virtual bool		setLabelArg( const std::string& key, const LLStringExplicit& text );
 
 	virtual void		clear();
 	virtual void		onCommit();

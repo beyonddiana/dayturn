@@ -431,7 +431,7 @@ BOOL LLFloaterWorldMap::handleScrollWheel(S32 x, S32 y, S32 clicks)
 
 
 // virtual
-void LLFloaterWorldMap::reshape( S32 width, S32 height, BOOL called_from_parent )
+void LLFloaterWorldMap::reshape( S32 width, S32 height, bool called_from_parent )
 {
 	LLFloater::reshape( width, height, called_from_parent );
 }
@@ -512,8 +512,8 @@ void LLFloaterWorldMap::draw()
 	getChildView("Clear Destination")->setEnabled((BOOL)tracking_status || LLWorldMap::getInstance()->isTracking());
 	getChildView("copy_slurl")->setEnabled((mSLURL.isValid()) );
 	
-	setMouseOpaque(TRUE);
-	getDragHandle()->setMouseOpaque(TRUE);
+	setMouseOpaque(true);
+	getDragHandle()->setMouseOpaque(true);
 	
 	//RN: snaps to zoom value because interpolation caused jitter in the text rendering
 	if (!mZoomTimer.getStarted() && mCurZoomVal != (F32)getChild<LLUICtrl>("zoom slider")->getValue().asReal())

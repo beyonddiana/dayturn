@@ -44,7 +44,7 @@ public:
 	
 	/*virtual*/ bool 	postBuild();
 	/*virtual*/ BOOL	handleDoubleClick( S32 x, S32 y, MASK mask );
-	/*virtual*/ void	reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
+	/*virtual*/ void	reshape(S32 width, S32 height, bool called_from_parent = true);
 	/*virtual*/ void	draw();
 
 private:

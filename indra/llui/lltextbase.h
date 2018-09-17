@@ -349,7 +349,7 @@ public:
 	/*virtual*/ BOOL		handleToolTip(S32 x, S32 y, MASK mask);
 
 	// LLView interface
-	/*virtual*/ void		reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
+	/*virtual*/ void		reshape(S32 width, S32 height, bool called_from_parent = true);
 	/*virtual*/ void		draw();
 
 	// LLUICtrl interface
@@ -418,7 +418,7 @@ public:
 	void					appendText(const std::string &new_text, bool prepend_newline, const LLStyle::Params& input_params = LLStyle::Params());
 
 	void					setLabel(const LLStringExplicit& label);
-	virtual BOOL			setLabelArg(const std::string& key, const LLStringExplicit& text );
+	virtual bool			setLabelArg(const std::string& key, const LLStringExplicit& text );
 
 	const	std::string& 	getLabel()	{ return mLabel.getString(); }
 	const	LLWString&		getWlabel() { return mLabel.getWString();}

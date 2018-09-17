@@ -111,7 +111,7 @@ public:
 	virtual void	setTitle( const std::string& title );
 	virtual std::string getTitle() const;
 	virtual void	draw();
-	virtual void	reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
+	virtual void	reshape(S32 width, S32 height, bool called_from_parent = true);
 
 private:
 	void	reshapeTitleBox();
@@ -129,7 +129,7 @@ public:
 	virtual void	setTitle( const std::string& title );
 	virtual std::string getTitle() const;
 	virtual void	draw();
-	virtual void	reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
+	virtual void	reshape(S32 width, S32 height, bool called_from_parent = true);
 
 };
 

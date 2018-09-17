@@ -217,9 +217,9 @@ void LLSliderCtrl::setValue(F32 v, BOOL from_event)
 	updateText();
 }
 
-BOOL LLSliderCtrl::setLabelArg( const std::string& key, const LLStringExplicit& text )
+bool LLSliderCtrl::setLabelArg( const std::string& key, const LLStringExplicit& text )
 {
-	BOOL res = FALSE;
+	bool res = false;
 	if (mLabelBox)
 	{
 		res = mLabelBox->setTextArg(key, text);

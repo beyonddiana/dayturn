@@ -47,7 +47,7 @@ public:
 	/*virtual*/ void	openFloater(const LLSD& key = LLSD());
 	/*virtual*/ void	onOpen(const LLSD& key);
 	
-	/*virtual*/ void 	reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
+	/*virtual*/ void 	reshape(S32 width, S32 height, bool called_from_parent = true);
 	
 	/*virtual*/ BOOL	handleMouseDown(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL	handleMouseUp(S32 x, S32 y, MASK mask);

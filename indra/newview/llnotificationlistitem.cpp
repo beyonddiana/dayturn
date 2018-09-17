@@ -221,7 +221,7 @@ void LLNotificationListItem::reshapeNotification()
     if(mExpanded)
     {
         S32 width = this->getRect().getWidth();
-        this->reshape(width, mNoticeTextExp->getRect().getHeight() + mExpandedHeight, FALSE);
+        this->reshape(width, mNoticeTextExp->getRect().getHeight() + mExpandedHeight, false);
     }
 }
 
@@ -233,11 +233,11 @@ void LLNotificationListItem::setExpanded(BOOL value)
 
     if (value)
     {
-       this->reshape(width, mNoticeTextExp->getRect().getHeight() + mExpandedHeight, FALSE);
+       this->reshape(width, mNoticeTextExp->getRect().getHeight() + mExpandedHeight, false);
     }
     else
     {
-        this->reshape(width, mCondensedHeight, FALSE);
+        this->reshape(width, mCondensedHeight, false);
     }
     mExpanded = value;
 

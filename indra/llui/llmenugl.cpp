@@ -540,10 +540,10 @@ void LLMenuItemGL::draw( void )
 	}
 }
 
-BOOL LLMenuItemGL::setLabelArg( const std::string& key, const LLStringExplicit& text )
+bool LLMenuItemGL::setLabelArg( const std::string& key, const LLStringExplicit& text )
 {
 	mLabel.setArg(key, text);
-	return TRUE;
+	return true;
 }
 
 void LLMenuItemGL::onVisibilityChange(bool new_visibility)
@@ -1637,7 +1637,7 @@ protected:
 
 public:
 	/*virtual*/ void draw();
-	/*virtual*/ void reshape(S32 width, S32 height, BOOL called_from_parent);
+	/*virtual*/ void reshape(S32 width, S32 height, bool called_from_parent);
 	/*virtual*/ void setEnabled(BOOL enabled);
 	virtual void onCommit( void );
 
@@ -1688,7 +1688,7 @@ void LLMenuScrollItem::draw()
 }
 
 /*virtual*/
-void LLMenuScrollItem::reshape(S32 width, S32 height, BOOL called_from_parent)
+void LLMenuScrollItem::reshape(S32 width, S32 height, bool called_from_parent)
 {
 	mArrowBtn->reshape(width, height, called_from_parent);
 	LLView::reshape(width, height, called_from_parent);
@@ -3755,7 +3755,7 @@ BOOL LLMenuHolderGL::handleKey(KEY key, MASK mask, BOOL called_from_parent)
 	
 }
 
-void LLMenuHolderGL::reshape(S32 width, S32 height, BOOL called_from_parent)
+void LLMenuHolderGL::reshape(S32 width, S32 height, bool called_from_parent)
 {
 	if (width != getRect().getWidth() || height != getRect().getHeight())
 	{

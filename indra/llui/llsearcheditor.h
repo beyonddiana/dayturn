@@ -76,7 +76,7 @@ public:
 	virtual void	setValue(const LLSD& value );
 	virtual LLSD	getValue() const;
 	virtual BOOL	setTextArg( const std::string& key, const LLStringExplicit& text );
-	virtual BOOL	setLabelArg( const std::string& key, const LLStringExplicit& text );
+	virtual bool	setLabelArg( const std::string& key, const LLStringExplicit& text );
 	virtual void	setLabel( const LLStringExplicit &new_label );
 	virtual void	clear();
 	virtual void	setFocus( BOOL b );
