@@ -678,7 +678,7 @@ void LLFavoritesBarCtrl::changed(U32 mask)
 }
 
 //virtual
-void LLFavoritesBarCtrl::reshape(S32 width, S32 height, BOOL called_from_parent)
+void LLFavoritesBarCtrl::reshape(S32 width, S32 height, bool called_from_parent)
 {
     S32 delta_width = width - getRect().getWidth();
     S32 delta_height = height - getRect().getHeight();

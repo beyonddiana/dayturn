@@ -84,7 +84,7 @@ void LLChicletBar::log(LLView* panel, const std::string& descr)
 		<< LL_ENDL;
 }
 
-void LLChicletBar::reshape(S32 width, S32 height, BOOL called_from_parent)
+void LLChicletBar::reshape(S32 width, S32 height, bool called_from_parent)
 {
 	static S32 debug_calling_number = 0;
 	LL_DEBUGS() << "**************************************** " << ++debug_calling_number << LL_ENDL;

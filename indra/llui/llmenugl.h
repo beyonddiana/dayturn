@@ -116,7 +116,7 @@ public:
 	// change the label
 	void setLabel( const LLStringExplicit& label ) { mLabel = label; }	
 	std::string getLabel( void ) const { return mLabel.getString(); }
-	virtual BOOL setLabelArg( const std::string& key, const LLStringExplicit& text );
+	virtual bool setLabelArg( const std::string& key, const LLStringExplicit& text );
 
 	// Get the parent menu for this item
 	virtual class LLMenuGL*	getMenu() const;
@@ -812,7 +812,7 @@ public:
 	virtual ~LLMenuHolderGL() {}
 
 	virtual BOOL hideMenus();
-	void reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
+	void reshape(S32 width, S32 height, bool called_from_parent = true);
 	void setCanHide(BOOL can_hide) { mCanHide = can_hide; }
 
 	// LLView functionality

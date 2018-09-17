@@ -177,7 +177,7 @@ void LLScrollContainer::scrollVertical( S32 new_pos )
 
 // LLView functionality
 void LLScrollContainer::reshape(S32 width, S32 height,
-										BOOL called_from_parent)
+										bool called_from_parent)
 {
 	LLUICtrl::reshape( width, height, called_from_parent );
 
@@ -597,7 +597,7 @@ void LLScrollContainer::updateScroll()
 		{
 			v_scrollbar_height -= scrollbar_size;
 		}
-		mScrollbar[VERTICAL]->reshape( scrollbar_size, v_scrollbar_height, TRUE );
+		mScrollbar[VERTICAL]->reshape( scrollbar_size, v_scrollbar_height, true );
 
 		// Make room for the horizontal scrollbar (or not)
 		S32 v_scrollbar_offset = 0;
@@ -635,7 +635,7 @@ void LLScrollContainer::updateScroll()
 		{
 			h_scrollbar_width -= scrollbar_size;
 		}
-		mScrollbar[HORIZONTAL]->reshape( h_scrollbar_width, scrollbar_size, TRUE );
+		mScrollbar[HORIZONTAL]->reshape( h_scrollbar_width, scrollbar_size, true );
 	}
 	else
 	{

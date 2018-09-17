@@ -150,7 +150,7 @@ protected:
 	
 public:
 	// LLView interface
-	/*virtual*/ BOOL	setLabelArg( const std::string& key, const LLStringExplicit& text );
+	/*virtual*/ bool	setLabelArg( const std::string& key, const LLStringExplicit& text );
 	/*virtual*/ BOOL	isCtrl() const;
 	/*virtual*/ void	onMouseEnter(S32 x, S32 y, MASK mask);
 	/*virtual*/ void	onMouseLeave(S32 x, S32 y, MASK mask);

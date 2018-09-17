@@ -172,7 +172,7 @@ public:
 
 	// view overrides
 	virtual void	draw();
-	virtual void	reshape(S32 width,S32 height,BOOL called_from_parent=TRUE);
+	virtual void	reshape(S32 width,S32 height,bool called_from_parent=true);
 	virtual void	onFocusReceived();
 	virtual void	onFocusLost();
 	virtual void	setEnabled(BOOL enabled);
@@ -191,7 +191,7 @@ public:
 	virtual void	setValue(const LLSD& value );
 	virtual LLSD	getValue() const;
 	virtual BOOL	setTextArg( const std::string& key, const LLStringExplicit& text );
-	virtual BOOL	setLabelArg( const std::string& key, const LLStringExplicit& text );
+	virtual bool	setLabelArg( const std::string& key, const LLStringExplicit& text );
 
 	void			setLabel(const LLStringExplicit &new_label) { mLabel = new_label; }
 	const std::string& 	getLabel()	{ return mLabel.getString(); }

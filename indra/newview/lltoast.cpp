@@ -151,7 +151,7 @@ LLToast::LLToast(const LLToast::Params& p)
 	}
 }
 
-void LLToast::reshape(S32 width, S32 height, BOOL called_from_parent)
+void LLToast::reshape(S32 width, S32 height, bool called_from_parent)
 {
 	// We shouldn't  use reshape from LLModalDialog since it changes toasts position.
 	// Toasts position should be controlled only by toast screen channel, see LLScreenChannelBase.

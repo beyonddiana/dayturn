@@ -425,7 +425,7 @@ void LLSnapshotLivePreview::draw()
 }
 
 /*virtual*/ 
-void LLSnapshotLivePreview::reshape(S32 width, S32 height, BOOL called_from_parent)
+void LLSnapshotLivePreview::reshape(S32 width, S32 height, bool called_from_parent)
 {
 	LLRect old_rect = getRect();
 	LLView::reshape(width, height, called_from_parent);

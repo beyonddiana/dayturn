@@ -76,7 +76,7 @@ static LLPanelInjector<LLSidepanelTaskInfo> t_task_info("sidepanel_task_info");
 // Default constructor
 LLSidepanelTaskInfo::LLSidepanelTaskInfo()
 {
-	setMouseOpaque(FALSE);
+	setMouseOpaque(false);
 	LLSelectMgr::instance().mUpdateSignal.connect(boost::bind(&LLSidepanelTaskInfo::refreshAll, this));
 }
 

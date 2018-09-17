@@ -85,7 +85,7 @@ void LLModalDialog::openFloater(const LLSD& key)
 	LLFloater::setFloaterHost(thost);
 }
 
-void LLModalDialog::reshape(S32 width, S32 height, BOOL called_from_parent)
+void LLModalDialog::reshape(S32 width, S32 height, bool called_from_parent)
 {
 	LLFloater::reshape(width, height, called_from_parent);
 	centerOnScreen();

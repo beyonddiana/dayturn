@@ -122,7 +122,7 @@ LLStatusBar::LLStatusBar(const LLRect& rect)
 	setRect(rect);
 	
 	// status bar can possible overlay menus?
-	setMouseOpaque(FALSE);
+	setMouseOpaque(false);
 
 	mBalanceTimer = new LLFrameTimer();
 	mHealthTimer = new LLFrameTimer();

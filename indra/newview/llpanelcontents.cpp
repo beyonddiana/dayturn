@@ -79,7 +79,7 @@ const char* LLPanelContents::PERMS_ANYONE_CONTROL_KEY = "perms_anyone_control";
 
 bool LLPanelContents::postBuild()
 {
-	setMouseOpaque(FALSE);
+	setMouseOpaque(false);
 
 	childSetAction("button new script",&LLPanelContents::onClickNewScript, this);
 	childSetAction("button permissions",&LLPanelContents::onClickPermissions, this);

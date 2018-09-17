@@ -72,7 +72,7 @@ public:
 	
 	bool postBuild();
 
-	void reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
+	void reshape(S32 width, S32 height, bool called_from_parent = true);
 
 	// Channel's outfit-functions
 	// update channel's size and position in the World View

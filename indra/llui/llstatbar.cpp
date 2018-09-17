@@ -255,7 +255,7 @@ BOOL LLStatBar::handleMouseDown(S32 x, S32 y, MASK mask)
 			}
 		}
 		LLView* parent = getParent();
-		parent->reshape(parent->getRect().getWidth(), parent->getRect().getHeight(), FALSE);
+		parent->reshape(parent->getRect().getWidth(), parent->getRect().getHeight(), false);
 	}
 	return TRUE;
 }

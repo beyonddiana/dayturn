@@ -214,7 +214,7 @@ void LLFloaterOutfitSnapshot::Impl::updateLayout(LLFloaterOutfitSnapshot* floate
 	if (use_freeze_frame)
 	{
 		// stop all mouse events at fullscreen preview layer
-		floaterp->getParent()->setMouseOpaque(TRUE);
+		floaterp->getParent()->setMouseOpaque(true);
 		
 		// shrink to smaller layout
 		// *TODO: unneeded?
@@ -247,7 +247,7 @@ void LLFloaterOutfitSnapshot::Impl::updateLayout(LLFloaterOutfitSnapshot* floate
 	}
 	else // turning off freeze frame mode
 	{
-		floaterp->getParent()->setMouseOpaque(FALSE);
+		floaterp->getParent()->setMouseOpaque(false);
 		// *TODO: unneeded?
 		floaterp->reshape(floaterp->getRect().getWidth(), floaterp->getRect().getHeight());
 		if (previewp)

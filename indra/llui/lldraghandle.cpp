@@ -255,13 +255,13 @@ void LLDragHandleTop::reshapeTitleBox()
 	mTitleBox->setShape( title_rect );
 }
 
-void LLDragHandleTop::reshape(S32 width, S32 height, BOOL called_from_parent)
+void LLDragHandleTop::reshape(S32 width, S32 height, bool called_from_parent)
 {
 	LLView::reshape(width, height, called_from_parent);
 	reshapeTitleBox();
 }
 
-void LLDragHandleLeft::reshape(S32 width, S32 height, BOOL called_from_parent)
+void LLDragHandleLeft::reshape(S32 width, S32 height, bool called_from_parent)
 {
 	LLView::reshape(width, height, called_from_parent);
 }

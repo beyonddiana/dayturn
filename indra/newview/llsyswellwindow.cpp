@@ -198,7 +198,7 @@ void LLSysWellWindow::reshapeWindow()
 		S32 newWidth = curRect.getWidth() < MIN_WINDOW_WIDTH ? MIN_WINDOW_WIDTH	: curRect.getWidth();
 
 		curRect.setLeftTopAndSize(curRect.mLeft, curRect.mTop, newWidth, new_window_height);
-		reshape(curRect.getWidth(), curRect.getHeight(), TRUE);
+		reshape(curRect.getWidth(), curRect.getHeight(), true);
 		setRect(curRect);
 	}
 

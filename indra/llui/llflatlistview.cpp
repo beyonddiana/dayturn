@@ -48,7 +48,7 @@ LLFlatListView::Params::Params()
 	no_items_text("no_items_text")
 {};
 
-void LLFlatListView::reshape(S32 width, S32 height, BOOL called_from_parent /* = TRUE */)
+void LLFlatListView::reshape(S32 width, S32 height, bool called_from_parent /* = true */)
 {
 	S32 delta = height - getRect().getHeight();
 	LLScrollContainer::reshape(width, height, called_from_parent);

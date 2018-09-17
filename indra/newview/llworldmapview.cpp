@@ -1432,7 +1432,7 @@ void LLWorldMapView::updateDirections()
 }
 
 
-void LLWorldMapView::reshape( S32 width, S32 height, BOOL called_from_parent )
+void LLWorldMapView::reshape( S32 width, S32 height, bool called_from_parent )
 {
 	LLView::reshape( width, height, called_from_parent );
 }

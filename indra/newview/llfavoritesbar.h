@@ -68,7 +68,7 @@ public:
 	/*virtual*/ BOOL	handleRightMouseDown(S32 x, S32 y, MASK mask);
 	// LLInventoryObserver observer trigger
 	virtual void changed(U32 mask);
-	virtual void reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
+	virtual void reshape(S32 width, S32 height, bool called_from_parent = true);
 	virtual void draw();
 
 	void showDragMarker(bool show) { mShowDragMarker = show; }

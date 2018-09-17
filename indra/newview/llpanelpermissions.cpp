@@ -141,7 +141,7 @@ std::string click_action_to_string_value( U8 action)
 LLPanelPermissions::LLPanelPermissions() :
 	LLPanel()
 {
-	setMouseOpaque(FALSE);
+	setMouseOpaque(false);
 }
 
 bool LLPanelPermissions::postBuild()

@@ -115,7 +115,7 @@ bool LLScreenChannelBase::postBuild()
 	return true;
 }
 
-void LLScreenChannelBase::reshape(S32 width, S32 height, BOOL called_from_parent)
+void LLScreenChannelBase::reshape(S32 width, S32 height, bool called_from_parent)
 {
 	if (mChannelAlignment == CA_CENTRE)
 	{

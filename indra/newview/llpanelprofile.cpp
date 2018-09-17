@@ -333,7 +333,7 @@ bool LLPanelProfile::postBuild()
 }
 
 // virtual
-void LLPanelProfile::reshape(S32 width, S32 height, BOOL called_from_parent)
+void LLPanelProfile::reshape(S32 width, S32 height, bool called_from_parent)
 {
 	// Temporarily add saved children back and reshape them.
 	mChildStack.preParentReshape();

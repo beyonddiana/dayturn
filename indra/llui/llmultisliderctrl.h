@@ -79,7 +79,7 @@ public:
 
 	virtual void	setValue(const LLSD& value );
 	virtual LLSD	getValue() const		{ return mMultiSlider->getValue(); }
-	virtual BOOL	setLabelArg( const std::string& key, const LLStringExplicit& text );
+	virtual bool	setLabelArg( const std::string& key, const LLStringExplicit& text );
 
 	const std::string& getCurSlider() const					{ return mMultiSlider->getCurSlider(); }
 	F32				getCurSliderValue() const				{ return mCurValue; }

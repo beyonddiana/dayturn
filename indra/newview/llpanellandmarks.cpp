@@ -1421,7 +1421,7 @@ void LLLandmarksPanel::doProcessParcelInfo(LLLandmark* landmark,
 	}
 	panel_places->addChild(panel_pick);
 	LLRect paren_rect(panel_places->getRect());
-	panel_pick->reshape(paren_rect.getWidth(),paren_rect.getHeight(), TRUE);
+	panel_pick->reshape(paren_rect.getWidth(),paren_rect.getHeight(), true);
 	panel_pick->setRect(paren_rect);
 	panel_pick->onOpen(LLSD());
 

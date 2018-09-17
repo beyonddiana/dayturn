@@ -93,7 +93,7 @@ public:
 	virtual bool	handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
 		EDragAndDropType cargo_type, void *cargo_data, EAcceptance *accept, std::string &tooltip_msg);
 
-	virtual void	reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
+	virtual void	reshape(S32 width, S32 height, bool called_from_parent = true);
 
 	virtual void	draw();
 

@@ -639,9 +639,9 @@ BOOL LLUICtrl::setTextArg( const std::string& key, const LLStringExplicit& text 
 }
 
 // virtual
-BOOL LLUICtrl::setLabelArg( const std::string& key, const LLStringExplicit& text ) 
+bool LLUICtrl::setLabelArg( const std::string& key, const LLStringExplicit& text )
 { 
-	return FALSE; 
+	return false; 
 }
 
 // virtual

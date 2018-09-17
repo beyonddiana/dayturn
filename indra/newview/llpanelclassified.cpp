@@ -171,7 +171,7 @@ void LLPanelClassifiedInfo::setEditClassifiedCallback(const commit_callback_t& c
 	getChild<LLButton>("edit_btn")->setClickedCallback(cb);
 }
 
-void LLPanelClassifiedInfo::reshape(S32 width, S32 height, BOOL called_from_parent /* = TRUE */)
+void LLPanelClassifiedInfo::reshape(S32 width, S32 height, bool called_from_parent /* = true */)
 {
 	LLPanel::reshape(width, height, called_from_parent);
 

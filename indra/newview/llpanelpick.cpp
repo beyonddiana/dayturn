@@ -154,7 +154,7 @@ bool LLPanelPickInfo::postBuild()
 	return true;
 }
 
-void LLPanelPickInfo::reshape(S32 width, S32 height, BOOL called_from_parent)
+void LLPanelPickInfo::reshape(S32 width, S32 height, bool called_from_parent)
 {
 	LLPanel::reshape(width, height, called_from_parent);
 

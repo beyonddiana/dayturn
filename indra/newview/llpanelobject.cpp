@@ -101,7 +101,7 @@ enum {
 
 bool	LLPanelObject::postBuild()
 {
-	setMouseOpaque(FALSE);
+	setMouseOpaque(false);
 	
 	//--------------------------------------------------------
 	// Top

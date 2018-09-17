@@ -65,7 +65,7 @@ public:
 	BOOL handleMouseDown(S32 x, S32 y, MASK mask);
 	bool handleHover(S32 x, S32 y, MASK mask);
 
-	void reshape(S32 width, S32 height, BOOL called_from_parent = true);
+	void reshape(S32 width, S32 height, bool called_from_parent = true);
 	void setEnabled(BOOL enabled);
 	void setCommandId(const LLCommandId& id) { mId = id; }
 	LLCommandId getCommandId() { return mId; }
@@ -267,7 +267,7 @@ public:
 
 	// virtuals
 	void draw();
-	void reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
+	void reshape(S32 width, S32 height, bool called_from_parent = true);
 	BOOL handleRightMouseDown(S32 x, S32 y, MASK mask);
 	virtual bool handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
 								   EDragAndDropType cargo_type,

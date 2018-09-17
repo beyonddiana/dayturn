@@ -96,7 +96,7 @@ void LLInspectToast::onOpen(const LLSD& notification_id)
 		return;
 	}
 	panel->setVisible(TRUE);
-	panel->setMouseOpaque(FALSE);
+	panel->setMouseOpaque(false);
 	if(mPanel != NULL && mPanel->getParent() == this)
 	{
 		LLInspect::removeChild(mPanel);

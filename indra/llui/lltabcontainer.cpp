@@ -305,7 +305,7 @@ void LLTabContainer::setValue(const LLSD& value)
 }
 
 //virtual
-void LLTabContainer::reshape(S32 width, S32 height, BOOL called_from_parent)
+void LLTabContainer::reshape(S32 width, S32 height, bool called_from_parent)
 {
 	LLPanel::reshape( width, height, called_from_parent );
 	updateMaxScrollPos();
@@ -1019,7 +1019,7 @@ void LLTabContainer::addTabPanel(const TabPanelParams& panel)
 	}
 	child->setFollowsAll();
 	child->translate( tab_panel_rect.mLeft - child->getRect().mLeft, tab_panel_rect.mBottom - child->getRect().mBottom);
-	child->reshape( tab_panel_rect.getWidth(), tab_panel_rect.getHeight(), TRUE );
+	child->reshape( tab_panel_rect.getWidth(), tab_panel_rect.getHeight(), true );
 	// add this child later
 
 	child->setVisible( FALSE );  // Will be made visible when selected
