@@ -1803,6 +1803,9 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
         S32 offset = face->getIndicesStart();
 		U32 count = face->getIndicesCount();
 
+        U16 start = face->getGeomStart();
+		U16 end = start + face->getGeomCount()-1;			
+
 		LLDrawable* drawable = face->getDrawable();
 		if (!drawable)
 		{
@@ -1858,14 +1861,9 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
             LLViewerTexture* tex = face->getTexture(LLRender::DIFFUSE_MAP);
             if (tex)
             {
-                LLGLenum image_format = tex->getPrimaryFormat();
                 if (tex->getIsAlphaMask())
                 {
                     is_alpha_mask = true;
-                }
-                else if (!is_alpha_mask && (image_format == GL_RGBA || image_format == GL_ALPHA))
-                {
-                    is_alpha_blend = true;
                 }
             }
 
@@ -1890,6 +1888,7 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
                     case LLMaterial::DIFFUSE_ALPHA_MODE_NONE:
                     default:
                         is_alpha_blend = false;
+                        is_alpha_mask  = false;
                         break;
                 }
             }
@@ -1897,6 +1896,15 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
             if (tex_entry)
             {
                 if (tex_entry->getAlpha() <= 0.99f)
+                {
+                    is_alpha_blend = true;
+                }
+            }
+
+            if (tex)
+            {
+                LLGLenum image_format = tex->getPrimaryFormat();
+                if (!is_alpha_mask && (image_format == GL_RGBA || image_format == GL_ALPHA))
                 {
                     is_alpha_blend = true;
                 }
@@ -1975,9 +1983,6 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 			{
 				data_mask &= ~LLVertexBuffer::MAP_WEIGHT4;
 			}
-
-			U16 start = face->getGeomStart();
-			U16 end = start + face->getGeomCount()-1;			
 
 			/*if (glow)
 			{
