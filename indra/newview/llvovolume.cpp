@@ -1279,6 +1279,46 @@ S32	LLVOVolume::computeLODDetail(F32 distance, F32 radius, F32 lod_factor)
 	return cur_detail;
 }
 
+std::string get_debug_object_lod_text(LLVOVolume *rootp)
+{
+    std::string cam_dist_string = "";
+    cam_dist_string += LLStringOps::getReadableNumber(rootp->mLODDistance) +  " ";
+    std::string lod_string = llformat("%d",rootp->getLOD());
+    F32 lod_radius = rootp->mLODRadius;
+    S32 cam_dist_count = 0;
+    LLViewerObject::const_child_list_t& child_list = rootp->getChildren();
+    for (LLViewerObject::const_child_list_t::const_iterator iter = child_list.begin();
+         iter != child_list.end(); ++iter)
+    {
+        LLViewerObject *childp = *iter;
+        LLVOVolume *volp = dynamic_cast<LLVOVolume*>(childp);
+        if (volp)
+        {
+            lod_string += llformat("%d",volp->getLOD());
+            if (volp->isRiggedMesh())
+            {
+                // Rigged/animatable mesh. This is computed from the
+                // avatar dynamic box, so value from any vol will be
+                // the same.
+                lod_radius = volp->mLODRadius;
+            }
+            if (volp->mDrawable)
+            {
+                if (cam_dist_count < 4)
+                {
+                    cam_dist_string += LLStringOps::getReadableNumber(volp->mLODDistance) +  " ";
+                    cam_dist_count++;
+                }
+            }
+        }
+    }
+    std::string result = llformat("lod_radius %s dists %s lods %s",
+                                  LLStringOps::getReadableNumber(lod_radius).c_str(),
+                                  cam_dist_string.c_str(),
+                                  lod_string.c_str());
+    return result;
+}
+
 BOOL LLVOVolume::calcLOD()
 {
 	if (mDrawable.isNull())
@@ -1303,22 +1343,30 @@ BOOL LLVOVolume::calcLOD()
 		}
 
 		distance = avatar->mDrawable->mDistanceWRTCamera;
+
+
         if (avatar->isControlAvatar())
         {
             // MAINT-7926 Handle volumes in an animated object as a special case
             const LLVector3* box = avatar->getLastAnimExtents();
             LLVector3 diag = box[1] - box[0];
             radius = diag.magVec() * 0.5f;
-            //LL_DEBUGS("DynamicBox") << avatar->getFullname() << " diag " << diag << " radius " << radius << LL_ENDL;
+            LL_DEBUGS("DynamicBox") << avatar->getFullname() << " diag " << diag << " radius " << radius << LL_ENDL;
         }
         else
         {
+            // Volume in a rigged mesh attached to a regular avatar.
             // Note this isn't really a radius, so distance calcs are off by factor of 2
-            radius = avatar->getBinRadius();
+            //radius = avatar->getBinRadius();
+            // SL-937: add dynamic box handling for rigged mesh on regular avatars.
+            const LLVector3* box = avatar->getLastAnimExtents();
+            LLVector3 diag = box[1] - box[0];
+            radius = diag.magVec(); // preserve old BinRadius behavior - 2x off
+            LL_DEBUGS("DynamicBox") << avatar->getFullname() << " diag " << diag << " radius " << radius << LL_ENDL;
         }
         if (distance <= 0.f || radius <= 0.f)
         {
-            LL_DEBUGS("CalcLOD") << "avatar distance/radius uninitialized, skipping" << LL_ENDL;
+            LL_DEBUGS("DynamicBox","CalcLOD") << "avatar distance/radius uninitialized, skipping" << LL_ENDL;
             return FALSE;
         }
 	}
@@ -1328,7 +1376,7 @@ BOOL LLVOVolume::calcLOD()
 		radius = getVolume() ? getVolume()->mLODScaleBias.scaledVec(getScale()).length() : getScale().length();
         if (distance <= 0.f || radius <= 0.f)
         {
-            LL_DEBUGS("CalcLOD") << "non-avatar distance/radius uninitialized, skipping" << LL_ENDL;
+            LL_DEBUGS("DynamicBox","CalcLOD") << "non-avatar distance/radius uninitialized, skipping" << LL_ENDL;
             return FALSE;
         }
 	}
@@ -1338,8 +1386,17 @@ BOOL LLVOVolume::calcLOD()
 
     mLODDistance = distance;
     mLODRadius = radius;
-    
-	distance *= sDistanceFactor;
+
+    if (gSavedSettings.getBOOL("DebugObjectLODs"))
+    {
+        if (getAvatar() && isRootEdit())
+        {
+            std::string debug_object_text = get_debug_object_lod_text(this);
+            setDebugText(debug_object_text);
+        }
+    }
+
+    distance *= sDistanceFactor;
 
 	F32 rampDist = LLVOVolume::sLODFactor * 2;
 	
