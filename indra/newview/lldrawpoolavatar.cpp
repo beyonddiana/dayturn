@@ -65,8 +65,8 @@ static U32 sBufferUsage = GL_STREAM_DRAW_ARB;
 static U32 sShaderLevel = 0;
 
 LLGLSLShader* LLDrawPoolAvatar::sVertexProgram = NULL;
-BOOL	LLDrawPoolAvatar::sSkipOpaque = FALSE;
-BOOL	LLDrawPoolAvatar::sSkipTransparent = FALSE;
+bool	LLDrawPoolAvatar::sSkipOpaque = false;
+bool	LLDrawPoolAvatar::sSkipTransparent = false;
 S32     LLDrawPoolAvatar::sShadowPass = -1;
 S32 LLDrawPoolAvatar::sDiffuseChannel = 0;
 F32 LLDrawPoolAvatar::sMinimumAlpha = 0.2f;
@@ -103,7 +103,7 @@ S32 AVATAR_OFFSET_TEX1 = 40;
 S32 AVATAR_VERTEX_BYTES = 48;
 
 bool gAvatarEmbossBumpMap = false;
-static BOOL sRenderingSkinned = FALSE;
+static bool sRenderingSkinned = false;
 S32 normal_channel = -1;
 S32 specular_channel = -1;
 S32 cube_channel = -1;
@@ -194,7 +194,7 @@ void LLDrawPoolAvatar::beginDeferredPass(S32 pass)
 {
 	LL_RECORD_BLOCK_TIME(FTM_RENDER_CHARACTERS);
 	
-	sSkipTransparent = TRUE;
+	sSkipTransparent = true;
 	is_deferred_render = true;
 	
 	if (LLPipeline::sImpostorRender)
@@ -229,7 +229,7 @@ void LLDrawPoolAvatar::endDeferredPass(S32 pass)
 {
 	LL_RECORD_BLOCK_TIME(FTM_RENDER_CHARACTERS);
 
-	sSkipTransparent = FALSE;
+	sSkipTransparent = false;
 	is_deferred_render = false;
 
 	if (LLPipeline::sImpostorRender)
@@ -300,11 +300,10 @@ void LLDrawPoolAvatar::beginPostDeferredPass(S32 pass)
 
 void LLDrawPoolAvatar::beginPostDeferredAlpha()
 {
-	sSkipOpaque = TRUE;
+	sSkipOpaque = true;
 	sShaderLevel = mVertexShaderLevel;
 	sVertexProgram = &gDeferredAvatarAlphaProgram;
-
-	sRenderingSkinned = TRUE;
+	sRenderingSkinned = true;
 
 	gPipeline.bindDeferredShader(*sVertexProgram);
 
@@ -388,9 +387,9 @@ void LLDrawPoolAvatar::endPostDeferredPass(S32 pass)
 void LLDrawPoolAvatar::endPostDeferredAlpha()
 {
 	// if we're in software-blending, remember to set the fence _after_ we draw so we wait till this rendering is done
-	sRenderingSkinned = FALSE;
-	sSkipOpaque = FALSE;
-	
+	sRenderingSkinned = false;
+	sSkipOpaque = false;
+		
 	gPipeline.unbindDeferredShader(*sVertexProgram);
 	sDiffuseChannel = 0;
 	sShaderLevel = mVertexShaderLevel;
@@ -441,7 +440,7 @@ void LLDrawPoolAvatar::beginShadowPass(S32 pass)
 		
 		if ((sShaderLevel > 0))  // for hardware blending
 		{
-			sRenderingSkinned = TRUE;
+			sRenderingSkinned = true;
 			sVertexProgram->bind();
 		}
 
@@ -456,7 +455,7 @@ void LLDrawPoolAvatar::beginShadowPass(S32 pass)
 		
 		if ((sShaderLevel > 0))  // for hardware blending
 		{
-			sRenderingSkinned = TRUE;
+			sRenderingSkinned = true;
 			sVertexProgram->bind();
 		}
 
@@ -471,7 +470,7 @@ void LLDrawPoolAvatar::beginShadowPass(S32 pass)
 		
 		if ((sShaderLevel > 0))  // for hardware blending
 		{
-			sRenderingSkinned = TRUE;
+			sRenderingSkinned = true;
 			sVertexProgram->bind();
 		}
 
@@ -486,7 +485,7 @@ void LLDrawPoolAvatar::beginShadowPass(S32 pass)
 		
 		if ((sShaderLevel > 0))  // for hardware blending
 		{
-			sRenderingSkinned = TRUE;
+			sRenderingSkinned = true;
 			sVertexProgram->bind();
 		}
 
@@ -501,7 +500,7 @@ void LLDrawPoolAvatar::beginShadowPass(S32 pass)
 
 		if ((sShaderLevel > 0))  // for hardware blending
 		{
-			sRenderingSkinned = TRUE;
+			sRenderingSkinned = true;
 			sVertexProgram->bind();
 		}
 
@@ -529,7 +528,7 @@ void LLDrawPoolAvatar::endShadowPass(S32 pass)
 		sVertexProgram->unbind();
 	}
     sVertexProgram = NULL;
-    sRenderingSkinned = FALSE;
+    sRenderingSkinned = false;
     LLDrawPoolAvatar::sShadowPass = -1;
 }
 
@@ -898,7 +897,7 @@ void LLDrawPoolAvatar::beginSkinned()
 	
 	if (sShaderLevel > 0)  // for hardware blending
 	{
-		sRenderingSkinned = TRUE;
+		sRenderingSkinned = true;
 
 		sVertexProgram->bind();
 		sVertexProgram->enableTexture(LLViewerShaderMgr::BUMP_MAP);
@@ -925,7 +924,7 @@ void LLDrawPoolAvatar::endSkinned()
 	// if we're in software-blending, remember to set the fence _after_ we draw so we wait till this rendering is done
 	if (sShaderLevel > 0)
 	{
-		sRenderingSkinned = FALSE;
+		sRenderingSkinned = false;
 		sVertexProgram->disableTexture(LLViewerShaderMgr::BUMP_MAP);
 		gGL.getTexUnit(0)->activate();
 		sVertexProgram->unbind();
@@ -1293,8 +1292,7 @@ void LLDrawPoolAvatar::beginDeferredSkinned()
 {
 	sShaderLevel = mVertexShaderLevel;
 	sVertexProgram = &gDeferredAvatarProgram;
-
-	sRenderingSkinned = TRUE;
+	sRenderingSkinned = true;
 
 	sVertexProgram->bind();
 	sVertexProgram->setMinimumAlpha(LLDrawPoolAvatar::sMinimumAlpha);
@@ -1306,7 +1304,7 @@ void LLDrawPoolAvatar::beginDeferredSkinned()
 void LLDrawPoolAvatar::endDeferredSkinned()
 {
 	// if we're in software-blending, remember to set the fence _after_ we draw so we wait till this rendering is done
-	sRenderingSkinned = FALSE;
+	sRenderingSkinned = false;
 	sVertexProgram->unbind();
 
 	sVertexProgram->disableTexture(LLViewerShaderMgr::DIFFUSE_MAP);
@@ -1805,7 +1803,7 @@ void LLDrawPoolAvatar::updateRiggedFaceVertexBuffer(
     if (!vol_face.mWeightsScrubbed)
     {
         LLSkinningUtil::scrubSkinWeights(weights, vol_face.mNumVertices, skin);
-        vol_face.mWeightsScrubbed = TRUE;
+        vol_face.mWeightsScrubbed = true;
     }
 	
 	if (buffer.isNull() || 
@@ -2230,7 +2228,7 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 					spec = env;
 				}
 		
-				BOOL fullbright = tex_entry->getFullbright();
+				bool fullbright = tex_entry->getFullbright();
 
 				sVertexProgram->uniform1f(LLShaderMgr::EMISSIVE_BRIGHTNESS, fullbright ? 1.f : 0.f);
 				sVertexProgram->uniform4f(LLShaderMgr::SPECULAR_COLOR, col.mV[0], col.mV[1], col.mV[2], spec);
