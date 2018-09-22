@@ -122,11 +122,11 @@ const U32 DESIRED_NORMAL_TEXTURE_SIZE = (U32)LLViewerFetchedTexture::MAX_IMAGE_S
 
 LLLoadedCallbackEntry::LLLoadedCallbackEntry(loaded_callback_func cb,
 					  S32 discard_level,
-					  BOOL need_imageraw, // Needs image raw for the callback
+					  bool need_imageraw, // Needs image raw for the callback
 					  void* userdata,
 					  LLLoadedCallbackEntry::source_callback_list_t* src_callback_list,
 					  LLViewerFetchedTexture* target,
-					  BOOL pause) 
+					  bool pause) 
 	: mCallback(cb),
 	  mLastUsedDiscard(MAX_DISCARD_LEVEL+1),
 	  mDesiredDiscard(discard_level),
@@ -1117,7 +1117,7 @@ void LLViewerFetchedTexture::init(bool firstinit)
 	mIsMissingAsset = FALSE;
 
 	mLoadedCallbackDesiredDiscardLevel = S8_MAX;
-	mPauseLoadedCallBacks = FALSE;
+	mPauseLoadedCallBacks = false;
 
 	mNeedsCreateTexture = FALSE;
 	
@@ -2364,8 +2364,8 @@ void LLViewerFetchedTexture::setIsMissingAsset(BOOL is_missing)
 }
 
 void LLViewerFetchedTexture::setLoadedCallback( loaded_callback_func loaded_callback,
-									   S32 discard_level, BOOL keep_imageraw, BOOL needs_aux, void* userdata, 
-									   LLLoadedCallbackEntry::source_callback_list_t* src_callback_list, BOOL pause)
+									   S32 discard_level, bool keep_imageraw, bool needs_aux, void* userdata,
+									   LLLoadedCallbackEntry::source_callback_list_t* src_callback_list, bool pause)
 {
 	//
 	// Don't do ANYTHING here, just add it to the global callback list
@@ -2508,25 +2508,25 @@ void LLViewerFetchedTexture::unpauseLoadedCallbacks(const LLLoadedCallbackEntry:
 {
 	if(!callback_list)
 {
-		mPauseLoadedCallBacks = FALSE;
+		mPauseLoadedCallBacks = false;
 		return;
 	}
 
-	BOOL need_raw = FALSE;
+	bool need_raw = false;
 	for(callback_list_t::iterator iter = mLoadedCallbackList.begin();
 			iter != mLoadedCallbackList.end(); )
 	{
 		LLLoadedCallbackEntry *entryp = *iter++;
 		if(entryp->mSourceCallbackList == callback_list)
 		{
-			entryp->mPaused = FALSE;
+			entryp->mPaused = false;
 			if(entryp->mNeedsImageRaw)
 			{
-				need_raw = TRUE;
+				need_raw = true;
 			}
 		}
 	}
-	mPauseLoadedCallBacks = FALSE ;
+	mPauseLoadedCallBacks = false ;
 	mLastCallBackActiveTime = sCurrentTime ;
 	mForceCallbackFetch = TRUE;
 	if(need_raw)
@@ -2550,7 +2550,7 @@ void LLViewerFetchedTexture::pauseLoadedCallbacks(const LLLoadedCallbackEntry::s
 		LLLoadedCallbackEntry *entryp = *iter++;
 		if(entryp->mSourceCallbackList == callback_list)
 		{
-			entryp->mPaused = TRUE;
+			entryp->mPaused = true;
 		}
 		else if(!entryp->mPaused)
 		{
@@ -2560,7 +2560,7 @@ void LLViewerFetchedTexture::pauseLoadedCallbacks(const LLLoadedCallbackEntry::s
 
 	if(paused)
 	{
-		mPauseLoadedCallBacks = TRUE;//when set, loaded callback is paused.
+		mPauseLoadedCallBacks = true;//when set, loaded callback is paused.
 		resetTextureStats();
 		mSaveRawImage = FALSE;
 	}

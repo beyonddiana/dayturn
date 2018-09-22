@@ -48,12 +48,12 @@ class FSExport : public LLSingleton<FSExport>, public LLVOInventoryListener
 	LOG_CLASS(FSExport);
 public:
 	void exportSelection();
-	static void onImageLoaded(BOOL success,
+	static void onImageLoaded(bool success,
 				  LLViewerFetchedTexture *src_vi,
 				  LLImageRaw* src, 
 				  LLImageRaw* aux_src,
 				  S32 discard_level, 
-				  BOOL final,
+				  bool final,
 				  void* userdata);
 	void saveFormattedImage(LLPointer<LLImageFormatted> mFormattedImage, LLUUID id);
 	void removeRequestedTexture(LLUUID texture_id);

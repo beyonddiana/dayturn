@@ -613,7 +613,7 @@ public:
 	void selectionSetMaterialParams(LLSelectedTEMaterialFunctor* material_func, int specific_te = -1);
 	void selectionRemoveMaterial();
 
-	void selectionSetObjectPermissions(U8 perm_field, BOOL set, U32 perm_mask, BOOL override = FALSE);
+	void selectionSetObjectPermissions(U8 perm_field, bool set, U32 perm_mask, bool override = false);
 	void selectionSetObjectName(const std::string& name);
 	void selectionSetObjectDescription(const std::string& desc);
 	void selectionSetObjectCategory(const LLCategory& category);

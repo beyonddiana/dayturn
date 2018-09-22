@@ -52,7 +52,7 @@ class LLViewerMediaTexture ;
 class LLTexturePipelineTester ;
 
 
-typedef	void	(*loaded_callback_func)( BOOL success, LLViewerFetchedTexture *src_vi, LLImageRaw* src, LLImageRaw* src_aux, S32 discard_level, BOOL final, void* userdata );
+typedef	void	(*loaded_callback_func)( bool success, LLViewerFetchedTexture *src_vi, LLImageRaw* src, LLImageRaw* src_aux, S32 discard_level, bool final, void* userdata );
 
 class LLVFile;
 class LLMessageSystem;
@@ -68,19 +68,19 @@ public:
 public:
 	LLLoadedCallbackEntry(loaded_callback_func cb,
 						  S32 discard_level,
-						  BOOL need_imageraw, // Needs image raw for the callback
+						  bool need_imageraw, // Needs image raw for the callback
 						  void* userdata,
 						  source_callback_list_t* src_callback_list,
 						  LLViewerFetchedTexture* target,
-						  BOOL pause);
+						  bool pause);
 	~LLLoadedCallbackEntry();
 	void removeTexture(LLViewerFetchedTexture* tex) ;
 
 	loaded_callback_func	mCallback;
 	S32						mLastUsedDiscard;
 	S32						mDesiredDiscard;
-	BOOL					mNeedsImageRaw;
-	BOOL                    mPaused;
+	bool					mNeedsImageRaw;
+	bool                    mPaused;
 	void*					mUserData;
 	source_callback_list_t* mSourceCallbackList;
 	
@@ -329,8 +329,8 @@ public:
 	// Set callbacks to get called when the image gets updated with higher 
 	// resolution versions.
 	void setLoadedCallback(loaded_callback_func cb,
-						   S32 discard_level, BOOL keep_imageraw, BOOL needs_aux,
-						   void* userdata, LLLoadedCallbackEntry::source_callback_list_t* src_callback_list, BOOL pause = FALSE);
+						   S32 discard_level, bool keep_imageraw, bool needs_aux,
+						   void* userdata, LLLoadedCallbackEntry::source_callback_list_t* src_callback_list, bool pause = false);
 	bool hasCallbacks() { return mLoadedCallbackList.empty() ? false : true; }	
 	void pauseLoadedCallbacks(const LLLoadedCallbackEntry::source_callback_list_t* callback_list);
 	void unpauseLoadedCallbacks(const LLLoadedCallbackEntry::source_callback_list_t* callback_list);
@@ -511,7 +511,7 @@ protected:
 
 	typedef std::list<LLLoadedCallbackEntry*> callback_list_t;
 	S8              mLoadedCallbackDesiredDiscardLevel;
-	BOOL            mPauseLoadedCallBacks;
+	bool            mPauseLoadedCallBacks;
 	callback_list_t mLoadedCallbackList;
 	F32             mLastCallBackActiveTime;
 

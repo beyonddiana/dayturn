@@ -69,7 +69,7 @@ public:
 	void bindSpecularMap(LLViewerTexture* tex);
 	void bindNormalMap(LLViewerTexture* tex);
 	
-	/*virtual*/ void pushBatch(LLDrawInfo& params, U32 mask, BOOL texture, BOOL batch_textures = FALSE);
+	/*virtual*/ void pushBatch(LLDrawInfo& params, U32 mask, bool texture, bool batch_textures = false);
 };
 
 #endif //LL_LLDRAWPOOLMATERIALS_H

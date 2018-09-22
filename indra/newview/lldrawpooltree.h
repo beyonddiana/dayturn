@@ -60,7 +60,7 @@ public:
 	/*virtual*/ void render(S32 pass = 0);
 	/*virtual*/ void endRenderPass( S32 pass );
 	/*virtual*/ S32	 getNumPasses() { return 1; }
-	/*virtual*/ BOOL verify() const;
+	/*virtual*/ bool verify() const;
 	/*virtual*/ LLViewerTexture *getTexture();
 	/*virtual*/ LLViewerTexture *getDebugTexture();
 	/*virtual*/ LLColor3 getDebugColor() const; // For AGP debug display

@@ -4559,8 +4559,8 @@ void handle_object_owner_permissive(void*)
 	if(gAgent.isGodlike())
 	{
 		// do the objects.
-		LLSelectMgr::getInstance()->selectionSetObjectPermissions(PERM_BASE, TRUE, PERM_ALL, TRUE);
-		LLSelectMgr::getInstance()->selectionSetObjectPermissions(PERM_OWNER, TRUE, PERM_ALL, TRUE);
+		LLSelectMgr::getInstance()->selectionSetObjectPermissions(PERM_BASE, true, PERM_ALL, true);
+		LLSelectMgr::getInstance()->selectionSetObjectPermissions(PERM_OWNER, true, PERM_ALL, true);
 	}
 }
 
@@ -4576,7 +4576,7 @@ void handle_object_owner_self(void*)
 // Shortcut to set owner permissions to not editable.
 void handle_object_lock(void*)
 {
-	LLSelectMgr::getInstance()->selectionSetObjectPermissions(PERM_OWNER, FALSE, PERM_MODIFY);
+	LLSelectMgr::getInstance()->selectionSetObjectPermissions(PERM_OWNER, false, PERM_MODIFY);
 }
 
 void handle_object_asset_ids(void*)

@@ -317,7 +317,7 @@ void LLPreviewTexture::saveAs()
 
 	mImage->forceToSaveRawImage(0) ;//re-fetch the raw image if the old one is removed.
 	mImage->setLoadedCallback( LLPreviewTexture::onFileLoadedForSave, 
-								0, TRUE, FALSE, new LLUUID( mItemUUID ), &mCallbackTextureList );
+								0, true, false, new LLUUID( mItemUUID ), &mCallbackTextureList );
 }
 
 void LLPreviewTexture::saveMultipleToFile()
