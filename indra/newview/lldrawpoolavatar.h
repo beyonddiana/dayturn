@@ -286,8 +286,8 @@ typedef enum
 	void renderAvatars(LLVOAvatar *single_avatar, S32 pass = -1); // renders only one avatar if single_avatar is not null.
 
 
-	static BOOL sSkipOpaque;
-	static BOOL sSkipTransparent;
+	static bool sSkipOpaque;
+	static bool sSkipTransparent;
     static S32  sShadowPass;
 	static S32 sDiffuseChannel;
 	static F32 sMinimumAlpha;
