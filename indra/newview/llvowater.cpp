@@ -97,7 +97,7 @@ void  LLVOWater::idleUpdate(LLAgent &agent, const F64 &time)
 LLDrawable *LLVOWater::createDrawable(LLPipeline *pipeline)
 {
 	pipeline->allocDrawable(this);
-	mDrawable->setLit(FALSE);
+	mDrawable->setLit(false);
 	mDrawable->setRenderType(mRenderType);
 
 	LLDrawPoolWater *pool = (LLDrawPoolWater*) gPipeline.getPool(LLDrawPool::POOL_WATER);

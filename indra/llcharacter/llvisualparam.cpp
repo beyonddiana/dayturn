@@ -282,7 +282,7 @@ void LLVisualParam::setAnimationTarget(F32 target_value, BOOL upload_bake)
 	{
 		mTargetWeight = target_value;
 	}
-	mIsAnimating = TRUE;
+	mIsAnimating = true;
 
 	if (mNext)
 	{
@@ -327,7 +327,7 @@ void LLVisualParam::stopAnimating(BOOL upload_bake)
 { 
 	if (mIsAnimating && isTweakable())
 	{
-		mIsAnimating = FALSE; 
+		mIsAnimating = false; 
 		setWeight(mTargetWeight, upload_bake);
 	}
 }

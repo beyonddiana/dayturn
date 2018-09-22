@@ -248,7 +248,7 @@ const LLMatrix4& LLDrawable::getRenderMatrix() const
 	return isRoot() ? getWorldMatrix() : getParent()->getWorldMatrix();
 }
 
-BOOL LLDrawable::isLight() const
+bool LLDrawable::isLight() const
 {
 	LLViewerObject* objectp = mVObjp;
 	if ( objectp && (objectp->getPCode() == LL_PCODE_VOLUME) && !isDead())
@@ -257,7 +257,7 @@ BOOL LLDrawable::isLight() const
 	}
 	else
 	{
-		return FALSE;
+		return false;
 	}
 }
 
@@ -570,7 +570,7 @@ void LLDrawable::makeActive()
 }
 
 
-void LLDrawable::makeStatic(BOOL warning_enabled)
+void LLDrawable::makeStatic(bool warning_enabled)
 {
 	if (isState(ACTIVE) && 
 		!isState(ACTIVE_CHILD) && 
@@ -616,7 +616,7 @@ void LLDrawable::makeStatic(BOOL warning_enabled)
 }
 
 // Returns "distance" between target destination and resulting xfrom
-F32 LLDrawable::updateXform(BOOL undamped)
+F32 LLDrawable::updateXform(bool undamped)
 {
 	BOOL damped = !undamped;
 
@@ -749,7 +749,7 @@ void LLDrawable::setRadius(F32 radius)
 	}
 }
 
-void LLDrawable::moveUpdatePipeline(BOOL moved)
+void LLDrawable::moveUpdatePipeline(bool moved)
 {
 	if (moved)
 	{
@@ -776,17 +776,17 @@ void LLDrawable::movePartition()
 	}
 }
 
-BOOL LLDrawable::updateMove()
+bool LLDrawable::updateMove()
 {
 	if (isDead())
 	{
 		LL_WARNS() << "Update move on dead drawable!" << LL_ENDL;
-		return TRUE;
+		return true;
 	}
 	
 	if (mVObjp.isNull())
 	{
-		return FALSE;
+		return false;
 	}
 	
 	makeActive();
@@ -794,21 +794,21 @@ BOOL LLDrawable::updateMove()
 	return isState(MOVE_UNDAMPED) ? updateMoveUndamped() : updateMoveDamped();
 }
 
-BOOL LLDrawable::updateMoveUndamped()
+bool LLDrawable::updateMoveUndamped()
 {
-	F32 dist_squared = updateXform(TRUE);
+	F32 dist_squared = updateXform(true);
 
 	mGeneration++;
 
 	if (!isState(LLDrawable::INVISIBLE))
 	{
-		BOOL moved = (dist_squared > 0.001f && dist_squared < 255.99f);	
+		bool moved = (dist_squared > 0.001f && dist_squared < 255.99f);
 		moveUpdatePipeline(moved);
 		mVObjp->updateText();
 	}
 
 	mVObjp->clearChanged(LLXform::MOVED);
-	return TRUE;
+	return true;
 }
 
 void LLDrawable::updatePartition()
@@ -828,20 +828,20 @@ void LLDrawable::updatePartition()
 	}
 }
 
-BOOL LLDrawable::updateMoveDamped()
+bool LLDrawable::updateMoveDamped()
 {
-	F32 dist_squared = updateXform(FALSE);
+	F32 dist_squared = updateXform(false);
 
 	mGeneration++;
 
 	if (!isState(LLDrawable::INVISIBLE))
 	{
-		BOOL moved = (dist_squared > 0.001f && dist_squared < 128.0f);
+		bool moved = (dist_squared > 0.001f && dist_squared < 128.0f);
 		moveUpdatePipeline(moved);
 		mVObjp->updateText();
 	}
 
-	BOOL done_moving = (dist_squared == 0.0f) ? TRUE : FALSE;
+	bool done_moving = (dist_squared == 0.0f) ? true : false;
 
 	if (done_moving)
 	{
@@ -955,10 +955,10 @@ void LLDrawable::updateTexture()
 	}
 }
 
-BOOL LLDrawable::updateGeometry(BOOL priority)
+bool LLDrawable::updateGeometry(bool priority)
 {
 	llassert(mVObjp.notNull());
-	BOOL res = mVObjp->updateGeometry(this);
+	bool res = mVObjp->updateGeometry(this);
 	return res;
 }
 
@@ -1064,7 +1064,7 @@ void LLDrawable::updateBinRadius()
 	}
 }
 
-void LLDrawable::updateSpecialHoverCursor(BOOL enabled)
+void LLDrawable::updateSpecialHoverCursor(bool enabled)
 {
 	// TODO: maintain a list of objects that have special
 	// hover cursors, then use that list for per-frame
@@ -1243,7 +1243,7 @@ LLSpatialPartition* LLDrawable::getSpatialPartition()
 // Spatial Partition Bridging Drawable
 //=======================================
 
-LLSpatialBridge::LLSpatialBridge(LLDrawable* root, BOOL render_by_group, U32 data_mask, LLViewerRegion* regionp) : 
+LLSpatialBridge::LLSpatialBridge(LLDrawable* root, bool render_by_group, U32 data_mask, LLViewerRegion* regionp) : 
 	LLDrawable(root->getVObj(), true),
 	LLSpatialPartition(data_mask, render_by_group, GL_STREAM_DRAW_ARB, regionp)
 {
@@ -1612,7 +1612,7 @@ void LLSpatialBridge::move(LLDrawable *drawablep, LLSpatialGroup *curp, BOOL imm
 	gPipeline.markMoved(this, FALSE);
 }
 
-BOOL LLSpatialBridge::updateMove()
+bool LLSpatialBridge::updateMove()
 {
 	llassert_always(mDrawable);
 	llassert_always(mDrawable->mVObjp);
@@ -1625,7 +1625,7 @@ BOOL LLSpatialBridge::updateMove()
 	{
 		part->move(this, getSpatialGroup(), TRUE);
 	}
-	return TRUE;
+	return true;
 }
 
 void LLSpatialBridge::shiftPos(const LLVector4a& vec)
@@ -1685,25 +1685,25 @@ const LLVector3	LLDrawable::getPositionAgent() const
 	}
 }
 
-BOOL LLDrawable::isAnimating() const
+bool LLDrawable::isAnimating() const
 {
 	if (!getVObj())
 	{
-		return TRUE;
+		return true;
 	}
 
 	if (getScale() != mVObjp->getScale())
 	{
-		return TRUE;
+		return true;
 	}
 
 	if (mVObjp->getPCode() == LLViewerObject::LL_VO_PART_GROUP)
 	{
-		return TRUE;
+		return true;
 	}
 	if (mVObjp->getPCode() == LLViewerObject::LL_VO_HUD_PART_GROUP)
 	{
-		return TRUE;
+		return true;
 	}
 
 	/*if (!isRoot() && !mVObjp->getAngularVelocity().isExactlyZero())
@@ -1711,7 +1711,7 @@ BOOL LLDrawable::isAnimating() const
 		return TRUE;
 	}*/
 
-	return FALSE;
+	return false;
 }
 
 void LLDrawable::updateFaceSize(S32 idx)

@@ -243,7 +243,7 @@ void LLVOPartGroup::updateTextures()
 LLDrawable* LLVOPartGroup::createDrawable(LLPipeline *pipeline)
 {
 	pipeline->allocDrawable(this);
-	mDrawable->setLit(FALSE);
+	mDrawable->setLit(false);
 	mDrawable->setRenderType(LLPipeline::RENDER_TYPE_PARTICLES);
 	return mDrawable;
 }
@@ -908,11 +908,11 @@ void LLParticlePartition::getGeometry(LLSpatialGroup* group)
 
 		object->getGeometry(facep->getTEOffset(), cur_vert, cur_norm, cur_tc, cur_col, cur_glow, cur_idx);
 		
-		BOOL has_glow = FALSE;
+		bool has_glow = false;
 
 		if (cur_glow.get() != start_glow)
 		{
-			has_glow = TRUE;
+			has_glow = true;
 		}
 
 		llassert(facep->getGeomCount() == 4);
@@ -924,7 +924,7 @@ void LLParticlePartition::getGeometry(LLSpatialGroup* group)
 
 		S32 idx = draw_vec.size()-1;
 
-		BOOL fullbright = facep->isState(LLFace::FULLBRIGHT);
+		bool fullbright = facep->isState(LLFace::FULLBRIGHT);
 		F32 vsize = facep->getVirtualSize();
 
 		bool batched = false;
@@ -981,7 +981,7 @@ void LLParticlePartition::getGeometry(LLSpatialGroup* group)
 			info->mBlendFuncDst = bf_dst;
 			info->mBlendFuncSrc = bf_src;
 			info->mHasGlow = has_glow;
-			info->mParticle = TRUE;
+			info->mParticle = true;
 			draw_vec.push_back(info);
 			//for alpha sorting
 			facep->setDrawInfo(info);
@@ -1004,7 +1004,7 @@ U32 LLVOHUDPartGroup::getPartitionType() const
 LLDrawable* LLVOHUDPartGroup::createDrawable(LLPipeline *pipeline)
 {
 	pipeline->allocDrawable(this);
-	mDrawable->setLit(FALSE);
+	mDrawable->setLit(false);
 	mDrawable->setRenderType(LLPipeline::RENDER_TYPE_HUD_PARTICLES);
 	return mDrawable;
 }

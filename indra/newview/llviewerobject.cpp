@@ -1030,7 +1030,7 @@ BOOL LLViewerObject::setDrawableParent(LLDrawable* parentp)
 	}
 	else if (!mDrawable->isAvatar())
 	{
-		mDrawable->updateXform(TRUE);
+		mDrawable->updateXform(true);
 		/*if (!mDrawable->getSpatialGroup())
 		{
 			mDrawable->movePartition();
@@ -6695,7 +6695,7 @@ void LLStaticViewerObject::updateDrawable(BOOL force_damped)
 	// Force an immediate rebuild on any update
 	if (mDrawable.notNull())
 	{
-		mDrawable->updateXform(TRUE);
+		mDrawable->updateXform(true);
 		gPipeline.markRebuild(mDrawable, LLDrawable::REBUILD_ALL, TRUE);
 	}
 	clearChanged(SHIFTED);

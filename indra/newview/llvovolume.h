@@ -233,7 +233,7 @@ public:
 
 				void	updateFaceFlags();
 				void	regenFaces();
-				BOOL	genBBoxes(BOOL force_global);
+				bool	genBBoxes(bool force_global);
 				void	preRebuild();
 	virtual		void	updateSpatialExtents(LLVector4a& min, LLVector4a& max);
 	virtual		F32		getBinRadius();

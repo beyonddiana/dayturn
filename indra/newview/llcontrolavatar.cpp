@@ -273,7 +273,7 @@ void LLControlAvatar::updateVolumeGeom()
 		return;
 	if (mRootVolp->mDrawable->isActive())
 	{
-		mRootVolp->mDrawable->makeStatic(FALSE);
+		mRootVolp->mDrawable->makeStatic(false);
 	}
 	mRootVolp->mDrawable->makeActive();
 	gPipeline.markMoved(mRootVolp->mDrawable);

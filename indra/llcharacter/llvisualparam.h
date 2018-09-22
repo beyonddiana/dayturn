@@ -158,8 +158,8 @@ public:
 	void					setNextParam( LLVisualParam *next );
 	void					clearNextParam();
 	
-	virtual void			setAnimating(BOOL is_animating) { mIsAnimating = is_animating && !mIsDummy; }
-	BOOL					getAnimating() const { return mIsAnimating; }
+	virtual void			setAnimating(bool is_animating) { mIsAnimating = is_animating && !mIsDummy; }
+	bool					getAnimating() const { return mIsAnimating; }
 
 	void					setIsDummy(bool is_dummy) { mIsDummy = is_dummy; }
 

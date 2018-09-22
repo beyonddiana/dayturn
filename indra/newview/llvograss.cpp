@@ -719,7 +719,7 @@ void LLGrassPartition::getGeometry(LLSpatialGroup* group)
 
 		S32 idx = draw_vec.size()-1;
 
-		BOOL fullbright = facep->isState(LLFace::FULLBRIGHT);
+		bool fullbright = facep->isState(LLFace::FULLBRIGHT);
 		F32 vsize = facep->getVirtualSize();
 
 		if (idx >= 0 && draw_vec[idx]->mEnd == facep->getGeomIndex()-1 &&
@@ -763,7 +763,7 @@ void LLVOGrass::updateDrawable(BOOL force_damped)
 	// Force an immediate rebuild on any update
 	if (mDrawable.notNull())
 	{
-		mDrawable->updateXform(TRUE);
+		mDrawable->updateXform(true);
 		gPipeline.markRebuild(mDrawable, LLDrawable::REBUILD_ALL, TRUE);
 	}
 	clearChanged(SHIFTED);
