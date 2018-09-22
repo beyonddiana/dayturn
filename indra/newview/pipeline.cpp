@@ -1746,7 +1746,7 @@ void LLPipeline::allocDrawable(LLViewerObject *vobj)
 	{
 		drawable->setState(LLDrawable::FORCE_INVISIBLE);
 	}
-	drawable->updateXform(TRUE);
+	drawable->updateXform(true);
 }
 
 
@@ -1912,7 +1912,7 @@ void LLPipeline::createObject(LLViewerObject* vobj)
 	if (drawablep->getVOVolume() && RenderAnimateRes)
 	{
 		// fun animated res
-		drawablep->updateXform(TRUE);
+		drawablep->updateXform(true);
 		drawablep->clearState(LLDrawable::MOVE_UNDAMPED);
 		drawablep->setScale(LLVector3(0,0,0));
 		drawablep->makeActive();

@@ -1196,7 +1196,7 @@ void LLVOSky::updateTextures()
 LLDrawable *LLVOSky::createDrawable(LLPipeline *pipeline)
 {
 	pipeline->allocDrawable(this);
-	mDrawable->setLit(FALSE);
+	mDrawable->setLit(false);
 
 	LLDrawPoolSky *poolp = (LLDrawPoolSky*) gPipeline.getPool(LLDrawPool::POOL_SKY);
 	poolp->setSkyTex(mSkyTex);

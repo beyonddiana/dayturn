@@ -158,7 +158,7 @@ void LLTextureAtlasManager::releaseAtlas(LLTextureAtlas* atlasp)
 	LLSpatialGroup* groupp = atlasp->getLastSpatialGroup() ;
 	while(groupp)
 	{
-		groupp->removeAtlas(atlasp, FALSE) ;
+		groupp->removeAtlas(atlasp, false) ;
 		atlasp->removeLastSpatialGroup() ;
 
 		groupp = atlasp->getLastSpatialGroup() ;

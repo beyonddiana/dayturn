@@ -473,7 +473,7 @@ void LLVOTree::updateTextures()
 LLDrawable* LLVOTree::createDrawable(LLPipeline *pipeline)
 {
 	pipeline->allocDrawable(this);
-	mDrawable->setLit(FALSE);
+	mDrawable->setLit(false);
 
 	mDrawable->setRenderType(LLPipeline::RENDER_TYPE_TREE);
 

@@ -7155,7 +7155,7 @@ BOOL LLSelectMgr::canSelectObject(LLViewerObject* object, BOOL ignore_select_own
 	if (object->isOrphaned()) return false;
 
 	// Can't select avatars
-	if (object->isAvatar()) return FALSE;
+	if (object->isAvatar()) return false;
 
 	// Can't select land
 	if (object->getPCode() == LLViewerObject::LL_VO_SURFACE_PATCH) return FALSE;

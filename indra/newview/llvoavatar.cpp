@@ -7090,7 +7090,7 @@ bool LLVOAvatar::updateJointLODs()
 LLDrawable *LLVOAvatar::createDrawable(LLPipeline *pipeline)
 {
 	pipeline->allocDrawable(this);
-	mDrawable->setLit(FALSE);
+	mDrawable->setLit(false);
 
 	LLDrawPoolAvatar *poolp = (LLDrawPoolAvatar*)gPipeline.getPool(mIsControlAvatar ? LLDrawPool::POOL_CONTROL_AV : LLDrawPool::POOL_AVATAR);
 

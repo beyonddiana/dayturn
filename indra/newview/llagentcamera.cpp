@@ -394,7 +394,7 @@ LLVector3 LLAgentCamera::calcFocusOffset(LLViewerObject *object, LLVector3 origi
 	LLQuaternion obj_rot = object->getRenderRotation();
 	LLVector3 obj_pos = object->getRenderPosition();
 
-	BOOL is_avatar = object->isAvatar();
+	bool is_avatar = object->isAvatar();
 	// if is avatar - don't do any funk heuristics to position the focal point
 	// see DEV-30589
 	if (is_avatar)

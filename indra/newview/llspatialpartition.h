@@ -87,7 +87,7 @@ public:
 	LLDrawInfo(U16 start, U16 end, U32 count, U32 offset, 
 				LLViewerTexture* image, LLVertexBuffer* buffer, 
 				bool selected,
-				BOOL fullbright = FALSE, U8 bump = 0, BOOL particle = FALSE, F32 part_size = 0);
+				bool fullbright = false, U8 bump = 0, bool particle = false, F32 part_size = 0);
 	
 
 	void validate();
@@ -105,10 +105,10 @@ public:
 	U16 mEnd;
 	U32 mCount;
 	U32 mOffset;
-	BOOL mFullbright;
+	bool mFullbright;
 	U8 mBump;
 	U8 mShiny;
-	BOOL mParticle;
+	bool mParticle;
 	F32 mPartSize;
 	F32 mVSize;
 	LLSpatialGroup* mGroup;
@@ -120,7 +120,7 @@ public:
 	U32 mShaderMask;
 	U32 mBlendFuncSrc;
 	U32 mBlendFuncDst;
-	BOOL mHasGlow;
+	bool mHasGlow;
 	LLPointer<LLViewerTexture> mSpecularMap;
 	const LLMatrix4* mSpecularMapMatrix;
 	LLPointer<LLViewerTexture> mNormalMap;
@@ -222,7 +222,7 @@ public:
 	}
 
 	static U32 sNodeCount;
-	static BOOL sNoDelete; //deletion of spatial groups and draw info not allowed if TRUE
+	static bool sNoDelete; //deletion of spatial groups and draw info not allowed if TRUE
 
 	typedef std::vector<LLPointer<LLSpatialGroup> > sg_vector_t;
 	typedef std::vector<LLPointer<LLSpatialBridge> > bridge_list_t;
@@ -271,7 +271,7 @@ public:
 
 	LLSpatialGroup(OctreeNode* node, LLSpatialPartition* part);
 
-	BOOL isHUDGroup() ;
+	bool isHUDGroup() ;
 	
 	void clearDrawMap();
 	void validate();
@@ -283,15 +283,15 @@ public:
 
 	LLSpatialGroup* getParent();
 
-	BOOL addObject(LLDrawable *drawablep);
-	BOOL removeObject(LLDrawable *drawablep, BOOL from_octree = FALSE);
-	BOOL updateInGroup(LLDrawable *drawablep, BOOL immediate = FALSE); // Update position if it's in the group
+	bool addObject(LLDrawable *drawablep);
+	bool removeObject(LLDrawable *drawablep, bool from_octree = false);
+	bool updateInGroup(LLDrawable *drawablep, bool immediate = false); // Update position if it's in the group
 	void shift(const LLVector4a &offset);
 	void destroyGL(bool keep_occlusion = false);
 	
 	void updateDistance(LLCamera& camera);
 	F32 getUpdateUrgency() const;
-	BOOL changeLOD();
+	bool changeLOD();
 	void rebuildGeom();
 	void rebuildMesh();
 
@@ -322,10 +322,10 @@ public:
 	void setCurUpdatingTexture(LLViewerTexture* tex){ mCurUpdatingTexture = tex ;}
 	LLViewerTexture* getCurUpdatingTexture() const { return mCurUpdatingTexture ;}
 	
-	BOOL hasAtlas(LLTextureAtlas* atlasp) ;
+	bool hasAtlas(LLTextureAtlas* atlasp) ;
 	LLTextureAtlas* getAtlas(S8 ncomponents, S8 to_be_reserved, S8 recursive_level = 3) ;
 	void addAtlas(LLTextureAtlas* atlasp, S8 recursive_level = 3) ;
-	void removeAtlas(LLTextureAtlas* atlasp, BOOL remove_group = TRUE, S8 recursive_level = 3) ;
+	void removeAtlas(LLTextureAtlas* atlasp, bool remove_group = true, S8 recursive_level = 3) ;
 	void clearAtlasList() ;
 
 public:
@@ -391,11 +391,11 @@ public:
 class LLSpatialPartition: public LLViewerOctreePartition, public LLGeometryManager
 {
 public:
-	LLSpatialPartition(U32 data_mask,  BOOL render_by_group, U32 mBufferUsage, LLViewerRegion* regionp);
+	LLSpatialPartition(U32 data_mask,  bool render_by_group, U32 mBufferUsage, LLViewerRegion* regionp);
 	virtual ~LLSpatialPartition();
 
-	LLSpatialGroup *put(LLDrawable *drawablep, BOOL was_visible = FALSE);
-	BOOL remove(LLDrawable *drawablep, LLSpatialGroup *curp);
+	LLSpatialGroup *put(LLDrawable *drawablep, bool was_visible = false);
+	bool remove(LLDrawable *drawablep, LLSpatialGroup *curp);
 	
 	LLDrawable* lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end,
 									 bool pick_transparent, 
@@ -426,7 +426,7 @@ public:
 	bool isHUDPartition() ;
 	
 	LLSpatialBridge* asBridge() { return mBridge; }
-	BOOL isBridge() { return asBridge() != NULL; }
+	bool isBridge() { return asBridge() != NULL; }
 
 	void renderPhysicsShapes();
 	void renderDebug();
@@ -434,7 +434,7 @@ public:
 	void restoreGL();
 	void resetVertexBuffers();
 
-	BOOL getVisibleExtents(LLCamera& camera, LLVector3& visMin, LLVector3& visMax);
+	bool getVisibleExtents(LLCamera& camera, LLVector3& visMin, LLVector3& visMax);
 
 public:
 	LLSpatialBridge* mBridge; // NULL for non-LLSpatialBridge instances, otherwise, mBridge == this
@@ -460,18 +460,18 @@ protected:
 public:
 	typedef std::vector<LLPointer<LLSpatialBridge> > bridge_vector_t;
 	
-	LLSpatialBridge(LLDrawable* root, BOOL render_by_group, U32 data_mask, LLViewerRegion* regionp);
+	LLSpatialBridge(LLDrawable* root, bool render_by_group, U32 data_mask, LLViewerRegion* regionp);
 	
 	void destroyTree();
 
-	virtual BOOL isSpatialBridge() const		{ return TRUE; }
+	virtual bool isSpatialBridge() const		{ return true; }
 	virtual void updateSpatialExtents();
 	virtual void updateBinRadius();
 	virtual void setVisible(LLCamera& camera_in, std::vector<LLDrawable*>* results = NULL, BOOL for_select = FALSE);
 	virtual void updateDistance(LLCamera& camera_in, bool force_update);
 	virtual void makeActive();
 	virtual void move(LLDrawable *drawablep, LLSpatialGroup *curp, BOOL immediate = FALSE);
-	virtual BOOL updateMove();
+	virtual bool updateMove();
 	virtual void shiftPos(const LLVector4a& vec);
 	virtual void cleanupReferences();
 	virtual LLSpatialPartition* asPartition()		{ return this; }

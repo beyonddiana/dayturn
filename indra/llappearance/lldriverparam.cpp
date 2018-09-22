@@ -469,7 +469,7 @@ void LLDriverParam::stopAnimating(BOOL upload_bake)
 	for( entry_list_t::iterator iter = mDriven.begin(); iter != mDriven.end(); iter++ )
 	{
 		LLDrivenEntry* driven = &(*iter);
-		driven->mParam->setAnimating(FALSE);
+		driven->mParam->setAnimating(false);
 	}
 }
 

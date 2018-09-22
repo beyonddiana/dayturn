@@ -65,7 +65,7 @@ extern bool gShiftFrame;
 static U32 sZombieGroups = 0;
 U32 LLSpatialGroup::sNodeCount = 0;
 
-BOOL LLSpatialGroup::sNoDelete = FALSE;
+bool LLSpatialGroup::sNoDelete = false;
 
 static F32 sLastMaxTexPriority = 1.f;
 static F32 sCurMaxTexPriority = 1.f;
@@ -136,17 +136,17 @@ LLSpatialGroup::~LLSpatialGroup()
 	clearAtlasList() ;
 }
 
-BOOL LLSpatialGroup::hasAtlas(LLTextureAtlas* atlasp)
+bool LLSpatialGroup::hasAtlas(LLTextureAtlas* atlasp)
 {
 	S8 type = atlasp->getComponents() - 1 ;
 	for(std::list<LLTextureAtlas*>::iterator iter = mAtlasList[type].begin(); iter != mAtlasList[type].end() ; ++iter)
 	{
 		if(atlasp == *iter)
 		{
-			return TRUE ;
+			return true ;
 		}
 	}
-	return FALSE ;
+	return false ;
 }
 
 void LLSpatialGroup::addAtlas(LLTextureAtlas* atlasp, S8 recursive_level) 
@@ -168,7 +168,7 @@ void LLSpatialGroup::addAtlas(LLTextureAtlas* atlasp, S8 recursive_level)
 	}	
 }
 
-void LLSpatialGroup::removeAtlas(LLTextureAtlas* atlasp, BOOL remove_group, S8 recursive_level) 
+void LLSpatialGroup::removeAtlas(LLTextureAtlas* atlasp, bool remove_group, S8 recursive_level) 
 {
 	mAtlasList[atlasp->getComponents() - 1].remove(atlasp) ;
 	if(remove_group)
@@ -263,7 +263,7 @@ void LLSpatialGroup::clearDrawMap()
 	mDrawMap.clear();
 }
 
-BOOL LLSpatialGroup::isHUDGroup() 
+bool LLSpatialGroup::isHUDGroup() 
 {
 	return getSpatialPartition() && getSpatialPartition()->isHUDPartition() ; 
 }
@@ -345,7 +345,7 @@ void LLSpatialGroup::validateDrawMap()
 #endif
 }
 
-BOOL LLSpatialGroup::updateInGroup(LLDrawable *drawablep, BOOL immediate)
+bool LLSpatialGroup::updateInGroup(LLDrawable *drawablep, bool immediate)
 {
 	drawablep->updateSpatialExtents();
 
@@ -359,18 +359,18 @@ BOOL LLSpatialGroup::updateInGroup(LLDrawable *drawablep, BOOL immediate)
 		unbound();
 		setState(OBJECT_DIRTY);
 		//setState(GEOM_DIRTY);
-		return TRUE;
+		return true;
 	}
 		
-	return FALSE;
+	return false;
 }
 
 
-BOOL LLSpatialGroup::addObject(LLDrawable *drawablep)
+bool LLSpatialGroup::addObject(LLDrawable *drawablep)
 {
 	if(!drawablep)
 	{
-		return FALSE;
+		return false;
 	}
 	{
 		drawablep->setGroup(this);
@@ -387,7 +387,7 @@ BOOL LLSpatialGroup::addObject(LLDrawable *drawablep)
 		}
 	}
 
-	return TRUE;
+	return true;
 }
 
 void LLSpatialGroup::rebuildGeom()
@@ -504,11 +504,11 @@ LLSpatialGroup* LLSpatialGroup::getParent()
 	return (LLSpatialGroup*)LLViewerOctreeGroup::getParent();
 	}
 
-BOOL LLSpatialGroup::removeObject(LLDrawable *drawablep, BOOL from_octree)
+bool LLSpatialGroup::removeObject(LLDrawable *drawablep, bool from_octree)
 	{
 	if(!drawablep)
 	{
-		return FALSE;
+		return false;
 	}
 
 	unbound();
@@ -539,7 +539,7 @@ BOOL LLSpatialGroup::removeObject(LLDrawable *drawablep, BOOL from_octree)
 			clearDrawMap();
 		}
 	}
-	return TRUE;
+	return true;
 }
 
 void LLSpatialGroup::shift(const LLVector4a &offset)
@@ -815,12 +815,11 @@ F32 LLSpatialGroup::getUpdateUrgency() const
 	}
 }
 
-BOOL LLSpatialGroup::changeLOD()
+bool LLSpatialGroup::changeLOD()
 {
 	if (hasState(ALPHA_DIRTY | OBJECT_DIRTY))
-	{ 
-	    ///a rebuild is going to happen, update distance and LoD
-		return TRUE;
+	{ ///a rebuild is going to happen, update distance and LoD
+		return true;
 	}
 
 	if (getSpatialPartition()->mSlopRatio > 0.f)
@@ -849,21 +848,21 @@ BOOL LLSpatialGroup::changeLOD()
             << " fab ratio " << fabsf(ratio)
             << " slop " << getSpatialPartition()->mSlopRatio << LL_ENDL;
             		
-			return TRUE;
+			return true;
 		}
 
 		if (mDistance > mRadius*2.f)
 		{
-			return FALSE;
+			return false;
 		}
 	}
 	
 	if (needsUpdate())
 	{
-		return TRUE;
+		return true;
 	}
 	
-	return FALSE;
+	return false;
 }
 
 void LLSpatialGroup::handleInsertion(const TreeNode* node, LLViewerOctreeEntry* entry)
@@ -964,7 +963,7 @@ void LLSpatialGroup::destroyGL(bool keep_occlusion)
 
 //==============================================
 
-LLSpatialPartition::LLSpatialPartition(U32 data_mask, BOOL render_by_group, U32 buffer_usage, LLViewerRegion* regionp)
+LLSpatialPartition::LLSpatialPartition(U32 data_mask, bool render_by_group, U32 buffer_usage, LLViewerRegion* regionp)
 : mRenderByGroup(render_by_group), mBridge(NULL)
 {
 	mRegionp = regionp;		
@@ -983,7 +982,7 @@ LLSpatialPartition::~LLSpatialPartition()
 {
 }
 
-LLSpatialGroup *LLSpatialPartition::put(LLDrawable *drawablep, BOOL was_visible)
+LLSpatialGroup *LLSpatialPartition::put(LLDrawable *drawablep, bool was_visible)
 {
 	drawablep->updateSpatialExtents();
 
@@ -1008,7 +1007,7 @@ LLSpatialGroup *LLSpatialPartition::put(LLDrawable *drawablep, BOOL was_visible)
 	return group;
 }
 
-BOOL LLSpatialPartition::remove(LLDrawable *drawablep, LLSpatialGroup *curp)
+bool LLSpatialPartition::remove(LLDrawable *drawablep, LLSpatialGroup *curp)
 {
 	if (!curp->removeObject(drawablep))
 	{
@@ -1021,7 +1020,7 @@ BOOL LLSpatialPartition::remove(LLDrawable *drawablep, LLSpatialGroup *curp)
 
 	assert_octree_valid(mOctree);
 	
-	return TRUE;
+	return true;
 }
 
 void LLSpatialPartition::move(LLDrawable *drawablep, LLSpatialGroup *curp, BOOL immediate)
@@ -1034,7 +1033,7 @@ void LLSpatialPartition::move(LLDrawable *drawablep, LLSpatialGroup *curp, BOOL 
 		return;
 	}
 		
-	BOOL was_visible = curp ? curp->isVisible() : FALSE;
+	bool was_visible = curp ? curp->isVisible() : false;
 
 	if (curp && curp->getSpatialPartition() != this)
 	{
@@ -1472,7 +1471,7 @@ void LLSpatialPartition::resetVertexBuffers()
 	dirty.traverse(mOctree);
 }
 
-BOOL LLSpatialPartition::getVisibleExtents(LLCamera& camera, LLVector3& visMin, LLVector3& visMax)
+bool LLSpatialPartition::getVisibleExtents(LLCamera& camera, LLVector3& visMin, LLVector3& visMax)
 {
 	LLVector4a visMina, visMaxa;
 	visMina.load3(visMin.mV);
@@ -4032,7 +4031,7 @@ LLDrawable* LLSpatialPartition::lineSegmentIntersect(const LLVector4a& start, co
 LLDrawInfo::LLDrawInfo(U16 start, U16 end, U32 count, U32 offset, 
 					   LLViewerTexture* texture, LLVertexBuffer* buffer,
 					   bool selected,
-					   BOOL fullbright, U8 bump, BOOL particle, F32 part_size)
+					   bool fullbright, U8 bump, bool particle, F32 part_size)
 :	LLTrace::MemTrackableNonVirtual<LLDrawInfo, 16>("LLDrawInfo"),
 	mVertexBuffer(buffer),
 	mTexture(texture),
@@ -4057,7 +4056,7 @@ LLDrawInfo::LLDrawInfo(U16 start, U16 end, U32 count, U32 offset,
 	mSpecColor(1.0f, 1.0f, 1.0f, 0.5f),
 	mBlendFuncSrc(LLRender::BF_SOURCE_ALPHA),
 	mBlendFuncDst(LLRender::BF_ONE_MINUS_SOURCE_ALPHA),
-	mHasGlow(FALSE),
+	mHasGlow(false),
 	mEnvIntensity(0.0f),
 	mAlphaMaskCutoff(0.5f),
 	mDiffuseAlphaMode(0),

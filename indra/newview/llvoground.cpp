@@ -62,7 +62,7 @@ void LLVOGround::updateTextures()
 LLDrawable *LLVOGround::createDrawable(LLPipeline *pipeline)
 {
 	pipeline->allocDrawable(this);
-	mDrawable->setLit(FALSE);
+	mDrawable->setLit(false);
 
 	mDrawable->setRenderType(LLPipeline::RENDER_TYPE_GROUND);
 	LLDrawPoolGround *poolp = (LLDrawPoolGround*) gPipeline.getPool(LLDrawPool::POOL_GROUND);

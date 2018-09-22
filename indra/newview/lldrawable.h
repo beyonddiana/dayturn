@@ -83,10 +83,10 @@ public:
 	
 	void markDead();			// Mark this drawable as dead
 	bool isDead() const			{ return isState(DEAD); }
-	BOOL isNew() const			{ return !isState(BUILT); }
-	BOOL isUnload() const		{ return isState(FOR_UNLOAD); }
+	bool isNew() const			{ return !isState(BUILT); }
+	bool isUnload() const		{ return isState(FOR_UNLOAD); }
 
-	BOOL isLight() const;
+	bool isLight() const;
 
 	virtual void setVisible(LLCamera& camera_in, std::vector<LLDrawable*>* results = NULL, BOOL for_select = FALSE);
 
@@ -118,10 +118,10 @@ public:
 	void                setState  (U32 bits)       { mState |= bits; }
 	void                clearState(U32 bits)       { mState &= ~bits; }
 
-	BOOL				isAvatar()	const			{ return mVObjp.notNull() && mVObjp->isAvatar(); }
-	BOOL				isRoot() const				{ return !mParent || mParent->isAvatar(); }
-	BOOL				isSpatialRoot() const		{ return !mParent || mParent->isAvatar(); }
-	virtual BOOL		isSpatialBridge() const		{ return FALSE; }
+	bool				isAvatar()	const			{ return mVObjp.notNull() && mVObjp->isAvatar(); }
+	bool				isRoot() const				{ return !mParent || mParent->isAvatar(); }
+	bool				isSpatialRoot() const		{ return !mParent || mParent->isAvatar(); }
+	virtual bool		isSpatialBridge() const		{ return false; }
 	virtual LLSpatialPartition* asPartition()		{ return NULL; }
 	LLDrawable*			getParent() const			{ return mParent; }
 	
@@ -146,32 +146,32 @@ public:
 	void destroy();
 
 	void update();
-	F32 updateXform(BOOL undamped);
+	F32 updateXform(bool undamped);
 
 	virtual void makeActive();
-	/*virtual*/ void makeStatic(BOOL warning_enabled = TRUE);
+	/*virtual*/ void makeStatic(bool warning_enabled = true);
 
 	bool isActive()	const							{ return isState(ACTIVE); }
-	BOOL isStatic() const							{ return !isActive(); }
-	BOOL isAnimating() const;
+	bool isStatic() const							{ return !isActive(); }
+	bool isAnimating() const;
 
-	virtual BOOL updateMove();
+	virtual bool updateMove();
 	virtual void movePartition();
 	
 	void updateTexture();
 	void updateMaterial();
 	virtual void updateDistance(LLCamera& camera, bool force_update);
-	BOOL updateGeometry(BOOL priority);
+	bool updateGeometry(bool priority);
 	void updateFaceSize(S32 idx);
 		
-	void updateSpecialHoverCursor(BOOL enabled);
+	void updateSpecialHoverCursor(bool enabled);
 
 	virtual void shiftPos(const LLVector4a &shift_vector);
 
 	S32 getGeneration() const					{ return mGeneration; }
 
-	BOOL getLit() const							{ return isState(UNLIT) ? FALSE : TRUE; }
-	void setLit(BOOL lit)						{ lit ? clearState(UNLIT) : setState(UNLIT); }
+	bool getLit() const							{ return isState(UNLIT) ? false : true; }
+	void setLit(bool lit)						{ lit ? clearState(UNLIT) : setState(UNLIT); }
 
 	bool isVisible() const;
 	bool isRecentlyVisible() const;
@@ -190,7 +190,7 @@ public:
 	virtual void updateBinRadius();
 	
 	void setRenderType(S32 type) 				{ mRenderType = type; }
-	BOOL isRenderType(S32 type) 				{ return mRenderType == type; }
+	bool isRenderType(S32 type) 				{ return mRenderType == type; }
 	S32  getRenderType()						{ return mRenderType; }
 	
 	// Debugging methods
@@ -209,10 +209,10 @@ public:
 
 protected:
 	~LLDrawable() { destroy(); }
-	void moveUpdatePipeline(BOOL moved);
+	void moveUpdatePipeline(bool moved);
 	void updatePartition();
-	BOOL updateMoveDamped();
-	BOOL updateMoveUndamped();
+	bool updateMoveDamped();
+	bool updateMoveUndamped();
 	
 public:
 	friend class LLPipeline;
@@ -238,11 +238,11 @@ public:
 		{
 			if (lhs->isVisible() && !rhs->isVisible())
 			{
-				return TRUE; //visible things come first
+				return true; //visible things come first
 			}
 			else if (!lhs->isVisible() && rhs->isVisible())
 			{
-				return FALSE; //rhs is visible, comes first
+				return false; //rhs is visible, comes first
 			}
 			
 			return lhs->mDistanceWRTCamera < rhs->mDistanceWRTCamera; // farthest = last

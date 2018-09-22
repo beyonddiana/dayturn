@@ -1042,7 +1042,7 @@ bool LLVOVolume::setVolume(const LLVolumeParams &params_in, const S32 detail, bo
 			if (mDrawable.notNull())
 			{
 				// Undo the damage we did to this matrix
-				mDrawable->updateXform(FALSE);
+				mDrawable->updateXform(false);
 			}
 		}
 	}
@@ -1586,7 +1586,7 @@ void LLVOVolume::updateFaceFlags()
 		LLFace *face = mDrawable->getFace(i);
 		if (face)
 		{
-			BOOL fullbright = getTE(i)->getFullbright();
+			bool fullbright = getTE(i)->getFullbright();
 			face->clearState(LLFace::FULLBRIGHT | LLFace::HUD_RENDER | LLFace::LIGHT);
 
 			if (fullbright || (mMaterial == LL_MCODE_LIGHT))
@@ -1671,16 +1671,16 @@ void LLVOVolume::regenFaces()
 	}
 }
 
-BOOL LLVOVolume::genBBoxes(BOOL force_global)
+bool LLVOVolume::genBBoxes(bool force_global)
 {
-	BOOL res = TRUE;
+	bool res = true;
 
 	LLVector4a min,max;
 
 	min.clear();
 	max.clear();
 
-	BOOL rebuild = mDrawable->isState(LLDrawable::REBUILD_VOLUME | LLDrawable::REBUILD_POSITION | LLDrawable::REBUILD_RIGGED);
+	bool rebuild = mDrawable->isState(LLDrawable::REBUILD_VOLUME | LLDrawable::REBUILD_POSITION | LLDrawable::REBUILD_RIGGED);
 
     if (getRiggedVolume())
     {
@@ -1715,7 +1715,7 @@ BOOL LLVOVolume::genBBoxes(BOOL force_global)
 			continue;
 		}
 
-        BOOL face_res = face->genVolumeBBoxes(*volume, i,
+        bool face_res = face->genVolumeBBoxes(*volume, i,
                                               mRelativeXform,
                                               (mVolumeImpl && mVolumeImpl->isVolumeGlobal()) || force_global);
         res &= face_res; // note that this result is never used
@@ -1957,7 +1957,7 @@ bool LLVOVolume::updateGeometry(LLDrawable *drawable)
 			LL_RECORD_BLOCK_TIME(FTM_UPDATE_RIGGED_VOLUME);
 			updateRiggedVolume();
 		}
-		genBBoxes(FALSE);
+		genBBoxes(false);
 		mDrawable->clearState(LLDrawable::REBUILD_RIGGED);
 	}
 
@@ -2009,19 +2009,19 @@ bool LLVOVolume::updateGeometry(LLDrawable *drawable)
 			regenFaces();
 		}
 
-		genBBoxes(FALSE);
+		genBBoxes(false);
 	}
 	else if (mLODChanged || mSculptChanged)
 	{
 		dirtySpatialGroup(drawable->isState(LLDrawable::IN_REBUILD_Q1));
-		compiled = TRUE;
+		compiled = true;
 		lodOrSculptChanged(drawable, compiled);
 		
 		if(drawable->isState(LLDrawable::REBUILD_RIGGED | LLDrawable::RIGGED)) 
 		{
 			updateRiggedVolume(false);
 		}
-		genBBoxes(FALSE);
+		genBBoxes(false);
 	}
 	// it has its own drawable (it's moved) or it has changed UVs or it has changed xforms from global<->local
 	else
@@ -2029,7 +2029,7 @@ bool LLVOVolume::updateGeometry(LLDrawable *drawable)
 		compiled = true;
 		// All it did was move or we changed the texture coordinate offset
 		LL_RECORD_BLOCK_TIME(FTM_GEN_TRIANGLES);
-		genBBoxes(FALSE);
+		genBBoxes(false);
 	}
 
 	// Update face flags
@@ -4372,7 +4372,7 @@ F32 LLVOVolume::getBinRadius()
 
 	const LLVector4a* ext = mDrawable->getSpatialExtents();
 	
-	BOOL shrink_wrap = mDrawable->isAnimating();
+	bool shrink_wrap = mDrawable->isAnimating();
 	BOOL alpha_wrap = FALSE;
 
 	if (!isHUDAttachment())
@@ -5120,7 +5120,7 @@ void LLVolumeGeometryManager::registerFace(LLSpatialGroup* group, LLFace* facep,
 
 	S32 idx = draw_vec.size()-1;
 
-	BOOL fullbright = (type == LLRenderPass::PASS_FULLBRIGHT) ||
+	bool fullbright = (type == LLRenderPass::PASS_FULLBRIGHT) ||
 		(type == LLRenderPass::PASS_INVISIBLE) ||
 		(type == LLRenderPass::PASS_FULLBRIGHT_ALPHA_MASK) ||
 		(type == LLRenderPass::PASS_ALPHA && facep->isState(LLFace::FULLBRIGHT)) ||
@@ -6551,10 +6551,10 @@ U32 LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, LLFace
 			//append face to appropriate render batch
 
 			BOOL force_simple = facep->getPixelArea() < FORCE_SIMPLE_RENDER_AREA;
-			BOOL fullbright = facep->isState(LLFace::FULLBRIGHT);
+			bool fullbright = facep->isState(LLFace::FULLBRIGHT);
 			if ((mask & LLVertexBuffer::MAP_NORMAL) == 0)
 			{ //paranoia check to make sure GL doesn't try to read non-existant normals
-				fullbright = TRUE;
+				fullbright = true;
 			}
 
 			if (hud_group)

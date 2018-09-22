@@ -118,7 +118,7 @@ public:
 	U32				getState()			const	{ return mState; }
 	void			setState(U32 state)			{ mState |= state; }
 	void			clearState(U32 state)		{ mState &= ~state; }
-	BOOL			isState(U32 state)	const	{ return ((mState & state) != 0) ? TRUE : FALSE; }
+	bool			isState(U32 state)	const	{ return ((mState & state) != 0) ? true : false; }
 	void			setVirtualSize(F32 size) { mVSize = size; }
 	void			setPixelArea(F32 area)	{ mPixelArea = area; }
 	F32				getVirtualSize() const { return mVSize; }
