@@ -2047,7 +2047,7 @@ void LLPanelObject::onCommitLock(LLUICtrl *ctrl, void *data)
 
 	if(self->mRootObject.isNull()) return;
 
-	BOOL new_state = self->mCheckLock->get();
+	bool new_state = self->mCheckLock->get();
 	
 	LLSelectMgr::getInstance()->selectionSetObjectPermissions(PERM_OWNER, !new_state, PERM_MOVE | PERM_MODIFY);
 }

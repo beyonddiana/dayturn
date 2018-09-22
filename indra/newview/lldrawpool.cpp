@@ -273,20 +273,20 @@ void LLFacePool::enqueue(LLFace* facep)
 }
 
 // virtual
-BOOL LLFacePool::addFace(LLFace *facep)
+bool LLFacePool::addFace(LLFace *facep)
 {
 	addFaceReference(facep);
-	return TRUE;
+	return true;
 }
 
 // virtual
-BOOL LLFacePool::removeFace(LLFace *facep)
+bool LLFacePool::removeFace(LLFace *facep)
 {
 	removeFaceReference(facep);
 
 	vector_replace_with_last(mDrawFace, facep);
 
-	return TRUE;
+	return true;
 }
 
 // Not absolutely sure if we should be resetting all of the chained pools as well - djs
@@ -324,9 +324,9 @@ void LLFacePool::addFaceReference(LLFace *facep)
 	}
 }
 
-BOOL LLFacePool::verify() const
+bool LLFacePool::verify() const
 {
-	BOOL ok = TRUE;
+	bool ok = true;
 	
 	for (std::vector<LLFace*>::const_iterator iter = mDrawFace.begin();
 		 iter != mDrawFace.end(); iter++)
@@ -336,11 +336,11 @@ BOOL LLFacePool::verify() const
 		{
 			LL_INFOS() << "Face in wrong pool!" << LL_ENDL;
 			facep->printDebugInfo();
-			ok = FALSE;
+			ok = false;
 		}
 		else if (!facep->verify())
 		{
-			ok = FALSE;
+			ok = false;
 		}
 	}
 
@@ -352,7 +352,7 @@ void LLFacePool::printDebugInfo() const
 	LL_INFOS() << "Pool " << this << " Type: " << getType() << LL_ENDL;
 }
 
-BOOL LLFacePool::LLOverrideFaceColor::sOverrideFaceColor = FALSE;
+bool LLFacePool::LLOverrideFaceColor::sOverrideFaceColor = false;
 
 void LLFacePool::LLOverrideFaceColor::setColor(const LLColor4& color)
 {
@@ -384,7 +384,8 @@ LLRenderPass::~LLRenderPass()
 
 }
 
-void LLRenderPass::renderGroup(LLSpatialGroup* group, U32 type, U32 mask, BOOL texture)
+
+void LLRenderPass::renderGroup(LLSpatialGroup* group, U32 type, U32 mask, bool texture)
 {					
 	LLSpatialGroup::drawmap_elem_t& draw_info = group->mDrawMap[type];
 	
@@ -399,10 +400,10 @@ void LLRenderPass::renderGroup(LLSpatialGroup* group, U32 type, U32 mask, BOOL t
 
 void LLRenderPass::renderTexture(U32 type, U32 mask)
 {
-	pushBatches(type, mask, TRUE);
+	pushBatches(type, mask, true);
 }
 
-void LLRenderPass::pushBatches(U32 type, U32 mask, BOOL texture, BOOL batch_textures)
+void LLRenderPass::pushBatches(U32 type, U32 mask, bool texture, bool batch_textures)
 {
 	for (LLCullResult::drawinfo_iterator i = gPipeline.beginRenderMap(type); i != gPipeline.endRenderMap(type); ++i)	
 	{
@@ -414,7 +415,7 @@ void LLRenderPass::pushBatches(U32 type, U32 mask, BOOL texture, BOOL batch_text
 	}
 }
 
-void LLRenderPass::pushMaskBatches(U32 type, U32 mask, BOOL texture, BOOL batch_textures)
+void LLRenderPass::pushMaskBatches(U32 type, U32 mask, bool texture, bool batch_textures)
 {
 	for (LLCullResult::drawinfo_iterator i = gPipeline.beginRenderMap(type); i != gPipeline.endRenderMap(type); ++i)	
 	{
@@ -450,7 +451,7 @@ void LLRenderPass::applyModelMatrix(const LLDrawInfo& params)
 	}
 }
 
-void LLRenderPass::pushBatch(LLDrawInfo& params, U32 mask, BOOL texture, BOOL batch_textures)
+void LLRenderPass::pushBatch(LLDrawInfo& params, U32 mask, bool texture, bool batch_textures)
 {
 	applyModelMatrix(params);
 
@@ -511,7 +512,7 @@ void LLRenderPass::pushBatch(LLDrawInfo& params, U32 mask, BOOL texture, BOOL ba
 	}
 }
 
-void LLRenderPass::renderGroups(U32 type, U32 mask, BOOL texture)
+void LLRenderPass::renderGroups(U32 type, U32 mask, bool texture)
 {
 	gPipeline.renderGroups(this, type, mask, texture);
 }

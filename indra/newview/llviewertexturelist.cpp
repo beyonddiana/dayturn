@@ -1768,7 +1768,7 @@ LLUIImagePtr LLUIImageList::loadUIImage(LLViewerFetchedTexture* imagep, const st
 		datap->mImageScaleRegion = scale_rect;
 		datap->mImageClipRegion = clip_rect;
 
-		imagep->setLoadedCallback(onUIImageLoaded, 0, FALSE, FALSE, datap, NULL);
+		imagep->setLoadedCallback(onUIImageLoaded, 0, false, false, datap, NULL);
 	}
 	return new_imagep;
 }

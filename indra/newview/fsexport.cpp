@@ -176,7 +176,7 @@ void FSExport::onIdle()
 				LLViewerFetchedTexture* image = LLViewerTextureManager::getFetchedTexture(texture_id, FTT_DEFAULT, MIPMAP_TRUE);
 				image->setBoostLevel(LLViewerTexture::BOOST_MAX_LEVEL);
 				image->forceToSaveRawImage(0);
-				image->setLoadedCallback(FSExport::onImageLoaded, 0, TRUE, FALSE, this, &mCallbackTextureList);
+				image->setLoadedCallback(FSExport::onImageLoaded, 0, true, false, this, &mCallbackTextureList);
 				LL_DEBUGS("export") << "re-requested texture " << texture_id.asString() << LL_ENDL;
 			}
 		}
@@ -596,13 +596,13 @@ bool FSExport::exportTexture(const LLUUID& texture_id)
 	LLViewerFetchedTexture* image = LLViewerTextureManager::getFetchedTexture(texture_id, FTT_DEFAULT, MIPMAP_TRUE);
 	image->setBoostLevel(LLViewerTexture::BOOST_MAX_LEVEL);
 	image->forceToSaveRawImage(0);
-	image->setLoadedCallback(FSExport::onImageLoaded, 0, TRUE, FALSE, this, &mCallbackTextureList);
+	image->setLoadedCallback(FSExport::onImageLoaded, 0, true, false, this, &mCallbackTextureList);
 
 	return true;
 }
 
 // static
-void FSExport::onImageLoaded(BOOL success, LLViewerFetchedTexture* src_vi, LLImageRaw* src, LLImageRaw* aux_src, S32 discard_level, BOOL final, void* userdata)
+void FSExport::onImageLoaded(bool success, LLViewerFetchedTexture* src_vi, LLImageRaw* src, LLImageRaw* aux_src, S32 discard_level, bool final, void* userdata)
 {
 	if(final && success)
 	{

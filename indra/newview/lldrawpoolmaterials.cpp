@@ -148,7 +148,7 @@ void LLDrawPoolMaterials::renderDeferred(S32 pass)
 		mShader->setMinimumAlpha(params.mAlphaMaskCutoff);
 		mShader->uniform1f(LLShaderMgr::EMISSIVE_BRIGHTNESS, params.mFullbright ? 1.f : 0.f);
 
-		pushBatch(params, mask, TRUE);
+		pushBatch(params, mask, true);
 	}
 }
 
@@ -162,7 +162,7 @@ void LLDrawPoolMaterials::bindNormalMap(LLViewerTexture* tex)
 	mShader->bindTexture(LLShaderMgr::BUMP_MAP, tex);
 }
 
-void LLDrawPoolMaterials::pushBatch(LLDrawInfo& params, U32 mask, BOOL texture, BOOL batch_textures)
+void LLDrawPoolMaterials::pushBatch(LLDrawInfo& params, U32 mask, bool texture, bool batch_textures)
 {
 	applyModelMatrix(params);
 	

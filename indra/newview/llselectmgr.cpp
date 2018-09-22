@@ -4352,14 +4352,14 @@ struct LLPermData
 	U8 mField;
 	BOOL mSet;
 	U32 mMask;
-	BOOL mOverride;
+	bool mOverride;
 };
 
 // TODO: Make this able to fail elegantly.
 void LLSelectMgr::selectionSetObjectPermissions(U8 field,
-									   BOOL set,
+									   bool set,
 									   U32 mask,
-									   BOOL override)
+									   bool override)
 {
 	LLPermData data;
 
