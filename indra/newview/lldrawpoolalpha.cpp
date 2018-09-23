@@ -54,9 +54,9 @@
 #include "llvovolume.h"
 //mk
 
-BOOL LLDrawPoolAlpha::sShowDebugAlpha = FALSE;
+bool LLDrawPoolAlpha::sShowDebugAlpha = false;
 
-static BOOL deferred_render = FALSE;
+static bool deferred_render = false;
 
 LLDrawPoolAlpha::LLDrawPoolAlpha(U32 type) :
 		LLRenderPass(type), current_shader(NULL), target_shader(NULL),
@@ -155,7 +155,7 @@ void LLDrawPoolAlpha::beginPostDeferredPass(S32 pass)
 		}
     }
 
-	deferred_render = TRUE;
+	deferred_render = true;
 	if (mVertexShaderLevel > 0)
 	{
 		// Start out with no shaders.
@@ -173,7 +173,7 @@ void LLDrawPoolAlpha::endPostDeferredPass(S32 pass)
 		gObjectFullbrightAlphaMaskProgram.unbind();
 	}
 
-	deferred_render = FALSE;
+	deferred_render = false;
 	endRenderPass(pass);
 }
 
@@ -393,10 +393,10 @@ void LLDrawPoolAlpha::renderAlpha(U32 mask, S32 pass)
 	}
 //mk
 
-	BOOL initialized_lighting = FALSE;
-	BOOL light_enabled = TRUE;
+	bool initialized_lighting = false;
+	bool light_enabled = true;
 	
-	BOOL use_shaders = gPipeline.canUseVertexShaders();
+	bool use_shaders = gPipeline.canUseVertexShaders();
 		
 	for (LLCullResult::sg_iterator i = gPipeline.beginAlphaGroups(); i != gPipeline.endAlphaGroups(); ++i)
 	{
@@ -503,7 +503,7 @@ void LLDrawPoolAlpha::renderAlpha(U32 mask, S32 pass)
 					// Turn off lighting if it hasn't already been so.
 					if (light_enabled || !initialized_lighting)
 					{
-						initialized_lighting = TRUE;
+						initialized_lighting = true;
 						if (use_shaders) 
 						{
 							target_shader = fullbright_shader;
@@ -512,13 +512,13 @@ void LLDrawPoolAlpha::renderAlpha(U32 mask, S32 pass)
 						{
 							gPipeline.enableLightsFullbright(LLColor4(1,1,1,1));
 						}
-						light_enabled = FALSE;
+						light_enabled = false;
 					}
 				}
 				// Turn on lighting if it isn't already.
 				else if (!light_enabled || !initialized_lighting)
 				{
-					initialized_lighting = TRUE;
+					initialized_lighting = true;
 					if (use_shaders) 
 					{
 						target_shader = simple_shader;
@@ -527,7 +527,7 @@ void LLDrawPoolAlpha::renderAlpha(U32 mask, S32 pass)
 					{
 						gPipeline.enableLightsDynamic();
 					}
-					light_enabled = TRUE;
+					light_enabled = true;
 				}
 
 				if (deferred_render && mat)

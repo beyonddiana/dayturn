@@ -108,12 +108,12 @@ private:
 	// Dynamic Texture Interface
 	//--------------------------------------------------------------------
 public:
-	/*virtual*/ BOOL		needsRender();
+	/*virtual*/ bool		needsRender();
 protected:
 	// Pass these along for tex layer rendering.
-	virtual void			preRender(BOOL clear_depth) { preRenderTexLayerSet(); }
-	virtual void			postRender(BOOL success) { postRenderTexLayerSet(success); }
-	virtual BOOL			render() { return renderTexLayerSet(); }
+	virtual void			preRender(bool clear_depth) { preRenderTexLayerSet(); }
+	virtual void			postRender(bool success) { postRenderTexLayerSet(success); }
+	virtual bool			render() { return renderTexLayerSet(); }
 	
 	//--------------------------------------------------------------------
 	// Uploads

@@ -62,11 +62,11 @@ public:
 	virtual void render(S32 pass = 0);
 	/*virtual*/ void prerender();
 
-	void renderGroupAlpha(LLSpatialGroup* group, U32 type, U32 mask, BOOL texture = TRUE);
+	void renderGroupAlpha(LLSpatialGroup* group, U32 type, U32 mask, bool texture = true);
 	void renderAlpha(U32 mask, S32 pass);
 	void renderAlphaHighlight(U32 mask);
 		
-	static BOOL sShowDebugAlpha;
+	static bool sShowDebugAlpha;
 
 private:
 	LLGLSLShader* current_shader;

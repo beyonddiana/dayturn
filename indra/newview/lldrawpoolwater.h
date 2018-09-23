@@ -43,9 +43,9 @@ protected:
 	LLPointer<LLViewerTexture> mWaterNormp;
 
 public:
-	static BOOL sSkipScreenCopy;
-	static BOOL sNeedsReflectionUpdate;
-	static BOOL sNeedsDistortionUpdate;
+	static bool sSkipScreenCopy;
+	static bool sNeedsReflectionUpdate;
+	static bool sNeedsDistortionUpdate;
 	static LLVector3 sLightDir;
 
 	static LLColor4 sWaterFogColor;

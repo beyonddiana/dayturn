@@ -1529,7 +1529,7 @@ void render_ui_2d()
 	{
 		if (LLUI::sDirty)
 		{
-			LLUI::sDirty = FALSE;
+			LLUI::sDirty = false;
 			LLRect t_rect;
 
 			gPipeline.mUIScreen.bindTarget();

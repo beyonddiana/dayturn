@@ -10116,8 +10116,8 @@ void LLPipeline::generateWaterReflection(LLCamera& camera_in)
 		glClearColor(0.f, 0.f, 0.f, 0.f);
 		gViewerWindow->setup3DViewport();
 		gPipeline.popRenderTypeMask();
-		LLDrawPoolWater::sNeedsReflectionUpdate = FALSE;
-		LLDrawPoolWater::sNeedsDistortionUpdate = FALSE;
+		LLDrawPoolWater::sNeedsReflectionUpdate = false;
+		LLDrawPoolWater::sNeedsDistortionUpdate = false;
 		LLPlane npnorm(-pnorm, -pd);
 		LLViewerCamera::getInstance()->setUserClipPlane(npnorm);
 		

@@ -1316,7 +1316,7 @@ void LLTextureCtrl::setCanApply(bool can_preview, bool can_apply)
 	}
 }
 
-void LLTextureCtrl::setVisible( BOOL visible ) 
+void LLTextureCtrl::setVisible( bool visible )
 {
 	if( !visible )
 	{

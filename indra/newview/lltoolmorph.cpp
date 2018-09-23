@@ -62,7 +62,7 @@
 
 //static
 LLVisualParamHint::instance_list_t LLVisualParamHint::sInstances;
-BOOL LLVisualParamReset::sDirty = FALSE;
+bool LLVisualParamReset::sDirty = false;
 
 //-----------------------------------------------------------------------------
 // LLVisualParamHint()
@@ -141,12 +141,12 @@ void LLVisualParamHint::requestHintUpdates( LLVisualParamHint* exception1, LLVis
 	}
 }
 
-BOOL LLVisualParamHint::needsRender()
+bool LLVisualParamHint::needsRender()
 {
 	return mNeedsUpdate && mDelayFrames-- <= 0 && !gAgentAvatarp->getIsAppearanceAnimating() && mAllowsUpdates;
 }
 
-void LLVisualParamHint::preRender(BOOL clear_depth)
+void LLVisualParamHint::preRender(bool clear_depth)
 {
 	LLViewerWearable* wearable = (LLViewerWearable*)mWearablePtr;
 	if (wearable)
@@ -179,9 +179,9 @@ void LLVisualParamHint::preRender(BOOL clear_depth)
 //-----------------------------------------------------------------------------
 // render()
 //-----------------------------------------------------------------------------
-BOOL LLVisualParamHint::render()
+bool LLVisualParamHint::render()
 {
-	LLVisualParamReset::sDirty = TRUE;
+	LLVisualParamReset::sDirty = true;
 
 	gGL.pushUIMatrix();
 	gGL.loadUIIdentity();
@@ -314,15 +314,15 @@ S8 LLVisualParamReset::getType() const
 //-----------------------------------------------------------------------------
 // render()
 //-----------------------------------------------------------------------------
-BOOL LLVisualParamReset::render()
+bool LLVisualParamReset::render()
 {
 	if (sDirty)
 	{
 		gAgentAvatarp->updateComposites();
 		gAgentAvatarp->updateVisualParams();
 		gAgentAvatarp->updateGeometry(gAgentAvatarp->mDrawable);
-		sDirty = FALSE;
+		sDirty = false;
 	}
 
-	return FALSE;
+	return false;
 }

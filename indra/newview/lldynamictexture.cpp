@@ -50,7 +50,7 @@ S32 LLViewerDynamicTexture::sNumRenders = 0;
 //-----------------------------------------------------------------------------
 // LLViewerDynamicTexture()
 //-----------------------------------------------------------------------------
-LLViewerDynamicTexture::LLViewerDynamicTexture(S32 width, S32 height, S32 components, EOrder order, BOOL clamp) : 
+LLViewerDynamicTexture::LLViewerDynamicTexture(S32 width, S32 height, S32 components, EOrder order, bool clamp) : 
 	LLViewerTexture(width, height, components, FALSE),
 	mClamp(clamp)
 {
@@ -85,10 +85,10 @@ S8 LLViewerDynamicTexture::getType() const
 void LLViewerDynamicTexture::generateGLTexture()
 {
 	LLViewerTexture::generateGLTexture() ;
-	generateGLTexture(-1, 0, 0, FALSE);
+	generateGLTexture(-1, 0, 0, false);
 }
 
-void LLViewerDynamicTexture::generateGLTexture(LLGLint internal_format, LLGLenum primary_format, LLGLenum type_format, BOOL swap_bytes)
+void LLViewerDynamicTexture::generateGLTexture(LLGLint internal_format, LLGLenum primary_format, LLGLenum type_format, bool swap_bytes)
 {
 	if (mComponents < 1 || mComponents > 4)
 	{
@@ -108,15 +108,15 @@ void LLViewerDynamicTexture::generateGLTexture(LLGLint internal_format, LLGLenum
 //-----------------------------------------------------------------------------
 // render()
 //-----------------------------------------------------------------------------
-BOOL LLViewerDynamicTexture::render()
+bool LLViewerDynamicTexture::render()
 {
-	return FALSE;
+	return false;
 }
 
 //-----------------------------------------------------------------------------
 // preRender()
 //-----------------------------------------------------------------------------
-void LLViewerDynamicTexture::preRender(BOOL clear_depth)
+void LLViewerDynamicTexture::preRender(bool clear_depth)
 {
 	//only images up to 1024*1024 are supported
 	llassert(mFullHeight <= 512);
@@ -162,7 +162,7 @@ void LLViewerDynamicTexture::preRender(BOOL clear_depth)
 //-----------------------------------------------------------------------------
 // postRender()
 //-----------------------------------------------------------------------------
-void LLViewerDynamicTexture::postRender(BOOL success)
+void LLViewerDynamicTexture::postRender(bool success)
 {
 	{
 		if (success)
@@ -201,12 +201,12 @@ void LLViewerDynamicTexture::postRender(BOOL success)
 // updateDynamicTextures()
 // Calls update on each dynamic texture.  Calls each group in order: "first," then "middle," then "last."
 //-----------------------------------------------------------------------------
-BOOL LLViewerDynamicTexture::updateAllInstances()
+bool LLViewerDynamicTexture::updateAllInstances()
 {
 	sNumRenders = 0;
 	if (gGLManager.mIsDisabled)
 	{
-		return TRUE;
+		return true;
 	}
 
 	bool use_fbo = gGLManager.mHasFramebufferObject && gPipeline.mWaterDis.isComplete() && !gGLManager.mIsATI;
@@ -219,8 +219,8 @@ BOOL LLViewerDynamicTexture::updateAllInstances()
 	LLGLSLShader::bindNoShader();
 	LLVertexBuffer::unbind();
 	
-	BOOL result = FALSE;
-	BOOL ret = FALSE ;
+	bool result = false;
+	bool ret = false ;
 	for( S32 order = 0; order < ORDER_COUNT; order++ )
 	{
 		for (instance_list_t::iterator iter = LLViewerDynamicTexture::sInstances[order].begin();
@@ -234,11 +234,11 @@ BOOL LLViewerDynamicTexture::updateAllInstances()
 								
 				gGL.color4f(1,1,1,1);
 				dynamicTexture->preRender();	// Must be called outside of startRender()
-				result = FALSE;
+				result = false;
 				if (dynamicTexture->render())
 				{
-					ret = TRUE ;
-					result = TRUE;
+					ret = true ;
+					result = true;
 					sNumRenders++;
 				}
 				gGL.flush();

@@ -53,11 +53,11 @@ const LLUUID OPAQUE_WATER_TEXTURE("43c32285-d658-1793-c123-bf86315de055");
 
 static float sTime;
 
-BOOL deferred_render = FALSE;
+bool deferred_render = false;
 
-BOOL LLDrawPoolWater::sSkipScreenCopy = FALSE;
-BOOL LLDrawPoolWater::sNeedsReflectionUpdate = TRUE;
-BOOL LLDrawPoolWater::sNeedsDistortionUpdate = TRUE;
+bool LLDrawPoolWater::sSkipScreenCopy = false;
+bool LLDrawPoolWater::sNeedsReflectionUpdate = true;
+bool LLDrawPoolWater::sNeedsDistortionUpdate = true;
 LLColor4 LLDrawPoolWater::sWaterFogColor = LLColor4(0.2f, 0.5f, 0.5f, 0.f);
 F32 LLDrawPoolWater::sWaterFogEnd = 0.f;
 
@@ -121,13 +121,13 @@ S32 LLDrawPoolWater::getNumPasses()
 void LLDrawPoolWater::beginPostDeferredPass(S32 pass)
 {
 	beginRenderPass(pass);
-	deferred_render = TRUE;
+	deferred_render = true;
 }
 
 void LLDrawPoolWater::endPostDeferredPass(S32 pass)
 {
 	endRenderPass(pass);
-	deferred_render = FALSE;
+	deferred_render = false;
 }
 
 //===============================
@@ -136,9 +136,9 @@ void LLDrawPoolWater::endPostDeferredPass(S32 pass)
 void LLDrawPoolWater::renderDeferred(S32 pass)
 {
 	LL_RECORD_BLOCK_TIME(FTM_RENDER_WATER);
-	deferred_render = TRUE;
+	deferred_render = true;
 	shade();
-	deferred_render = FALSE;
+	deferred_render = false;
 }
 
 //=========================================
@@ -689,11 +689,11 @@ void LLDrawPoolWater::shade()
 			LLVOWater* water = (LLVOWater*) face->getViewerObject();
 			gGL.getTexUnit(diffTex)->bind(face->getTexture());
 
-			sNeedsReflectionUpdate = TRUE;
+			sNeedsReflectionUpdate = true;
 			
 			if (water->getUseTexture() || !water->getIsEdgePatch())
 			{
-				sNeedsDistortionUpdate = TRUE;
+				sNeedsDistortionUpdate = true;
 				face->renderIndexed();
 			}
 			else if (gGLManager.mHasDepthClamp || deferred_render)

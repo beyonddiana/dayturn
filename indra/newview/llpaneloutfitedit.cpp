@@ -594,7 +594,7 @@ void LLPanelOutfitEdit::moveWearable(bool closer_to_body)
 
 void LLPanelOutfitEdit::toggleAddWearablesPanel()
 {
-	BOOL current_visibility = mAddWearablesPanel->getVisible();
+	bool current_visibility = mAddWearablesPanel->getVisible();
 	showAddWearablesPanel(!current_visibility);
 }
 
@@ -1221,7 +1221,7 @@ void LLPanelOutfitEdit::displayCurrentOutfit()
 {
 	if (!getVisible())
 	{
-		setVisible(TRUE);
+		setVisible(true);
 	}
 
 	updateCurrentOutfitName();
