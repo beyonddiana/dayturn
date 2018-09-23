@@ -172,7 +172,7 @@ void LLViewerTexLayerSetBuffer::cancelUpload()
 }
 
 // virtual
-BOOL LLViewerTexLayerSetBuffer::needsRender()
+bool LLViewerTexLayerSetBuffer::needsRender()
 {
 	llassert(mTexLayerSet->getAvatarAppearance() == gAgentAvatarp);
 	if (!isAgentAvatarValid()) return FALSE;
@@ -183,13 +183,13 @@ BOOL LLViewerTexLayerSetBuffer::needsRender()
 	// Don't render if we don't want to (or aren't ready to) upload or update.
 	if (!(update_now || upload_now))
 	{
-		return FALSE;
+		return false;
 	}
 
 	// Don't render if we're animating our appearance.
 	if (gAgentAvatarp->getIsAppearanceAnimating())
 	{
-		return FALSE;
+		return false;
 	}
 
 	// Don't render if we are trying to create a shirt texture but aren't wearing a skirt.
@@ -197,7 +197,7 @@ BOOL LLViewerTexLayerSetBuffer::needsRender()
 		!gAgentAvatarp->isWearingWearableType(LLWearableType::WT_SKIRT))
 	{
 		cancelUpload();
-		return FALSE;
+		return false;
 	}
 
 	// Render if we have at least minimal level of detail for each local texture.

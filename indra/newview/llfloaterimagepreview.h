@@ -53,7 +53,7 @@ protected:
 	void setPreviewTarget(LLImageRaw *imagep, F32 distance);
 	void setTexture(U32 name) { mTextureName = name; }
 
-	BOOL render();
+	bool render();
 	void refresh();
 	void rotate(F32 yaw_radians, F32 pitch_radians);
 	void zoom(F32 zoom_amt);
@@ -61,7 +61,7 @@ protected:
 	virtual bool needsRender() { return mNeedsUpdate; }
 
  protected:
-	BOOL        mNeedsUpdate;
+	bool        mNeedsUpdate;
 	U32         mTextureName;
 	F32			mCameraDistance;
 	F32			mCameraYaw;
@@ -87,7 +87,7 @@ public:
 	void setTexture(U32 name) { mTextureName = name; }
 	void clearPreviewTexture(const std::string& mesh_name);
 
-	BOOL	render();
+	bool	render();
 	void	refresh();
 	void	rotate(F32 yaw_radians, F32 pitch_radians);
 	void	zoom(F32 zoom_amt);
@@ -95,7 +95,7 @@ public:
 	virtual bool needsRender() { return mNeedsUpdate; }
 
 protected:
-	BOOL		mNeedsUpdate;
+	bool		mNeedsUpdate;
 	LLJoint*	mTargetJoint;
 	LLViewerJointMesh*	mTargetMesh;
 	F32			mCameraDistance;

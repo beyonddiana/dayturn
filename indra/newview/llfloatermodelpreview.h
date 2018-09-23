@@ -295,7 +295,7 @@ public:
 	void setTexture(U32 name) { mTextureName = name; }
 
 	void setPhysicsFromLOD(S32 lod);
-	BOOL render();
+	bool render();
 	void update();
 	void genBuffers(S32 lod, bool skinned);
 	void clearBuffers();
@@ -381,7 +381,7 @@ private:
 
 	LLFloater*  mFMP;
 
-	BOOL        mNeedsUpdate;
+	bool        mNeedsUpdate;
 	bool		mDirty;
 	bool		mGenLOD;
 	U32         mTextureName;
