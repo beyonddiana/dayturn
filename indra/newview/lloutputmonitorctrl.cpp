@@ -317,7 +317,7 @@ void LLOutputMonitorCtrl::onChange()
 void LLOutputMonitorCtrl::switchIndicator(bool switch_on)
 {
 
-    if (mIsActiveChannel && getVisible() != (BOOL)switch_on)
+    if (mIsActiveChannel && getVisible() != (bool)switch_on)
     {
         setVisible(switch_on);
         

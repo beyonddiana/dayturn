@@ -721,7 +721,7 @@ void LLFloaterIMSession::setVisible(BOOL visible)
 
 }
 
-BOOL LLFloaterIMSession::getVisible()
+bool LLFloaterIMSession::getVisible()
 {
 	bool visible;
 

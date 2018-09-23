@@ -74,7 +74,7 @@ LLViewerTexLayerSetBuffer::LLViewerTexLayerSetBuffer(LLTexLayerSet* const owner,
 										 S32 width, S32 height) :
 	// ORDER_LAST => must render these after the hints are created.
 	LLTexLayerSetBuffer(owner),
-	LLViewerDynamicTexture( width, height, 4, LLViewerDynamicTexture::ORDER_LAST, TRUE ), 
+	LLViewerDynamicTexture( width, height, 4, LLViewerDynamicTexture::ORDER_LAST, true ),
 	mUploadPending(FALSE), // Not used for any logic here, just to sync sending of updates
 	mNeedsUpload(FALSE),
 	mNumLowresUploads(0),
@@ -210,7 +210,7 @@ void LLViewerTexLayerSetBuffer::preRenderTexLayerSet()
 	LLTexLayerSetBuffer::preRenderTexLayerSet();
 	
 	// keep depth buffer, we don't need to clear it
-	LLViewerDynamicTexture::preRender(FALSE);
+	LLViewerDynamicTexture::preRender(false);
 }
 
 // virtual
@@ -358,11 +358,11 @@ BOOL LLViewerTexLayerSetBuffer::isReadyToUpdate() const
 BOOL LLViewerTexLayerSetBuffer::requestUpdateImmediate()
 {
 	mNeedsUpdate = TRUE;
-	BOOL result = FALSE;
+	bool result = false;
 
 	if (needsRender())
 	{
-		preRender(FALSE);
+		preRender(false);
 		result = render();
 		postRender(result);
 	}

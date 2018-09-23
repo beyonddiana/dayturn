@@ -995,12 +995,12 @@ void LLBumpImageList::updateImages()
 		LLViewerTexture* image = curiter->second;
 		if( image )
 		{
-			BOOL destroy = TRUE;
+			bool destroy = true;
 			if( image->hasGLTexture())
 			{
 				if( image->getBoundRecently() )
 				{
-					destroy = FALSE;
+					destroy = false;
 				}
 				else
 				{
@@ -1022,12 +1022,12 @@ void LLBumpImageList::updateImages()
 		LLViewerTexture* image = curiter->second;
 		if( image )
 		{
-			BOOL destroy = TRUE;
+			bool destroy = true;
 			if( image->hasGLTexture())
 			{
 				if( image->getBoundRecently() )
 				{
-					destroy = FALSE;
+					destroy = false;
 				}
 				else
 				{

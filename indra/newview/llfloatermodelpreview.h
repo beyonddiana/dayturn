@@ -303,7 +303,7 @@ public:
 	void rotate(F32 yaw_radians, F32 pitch_radians);
 	void zoom(F32 zoom_amt);
 	void pan(F32 right, F32 up);
-	virtual BOOL needsRender() { return mNeedsUpdate; }
+	virtual bool needsRender() { return mNeedsUpdate; }
 	void setPreviewLOD(S32 lod);
 	void clearModel(S32 lod);
 	void getJointAliases(JointMap& joint_map);
