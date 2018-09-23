@@ -773,7 +773,7 @@ public:
 
 	// True if we are currently in appearance editing mode. Often but
 	// not always the same as isUsingLocalAppearance().
-	/*virtual*/ BOOL	isEditingAppearance() const { return mIsEditingAppearance; }
+	/*virtual*/ bool	isEditingAppearance() const { return mIsEditingAppearance; }
 
 	// FIXME review isUsingLocalAppearance uses, some should be isEditing instead.
 

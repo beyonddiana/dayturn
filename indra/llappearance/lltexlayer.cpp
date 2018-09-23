@@ -130,7 +130,7 @@ void LLTexLayerSetBuffer::preRenderTexLayerSet()
 }
 
 // virtual
-void LLTexLayerSetBuffer::postRenderTexLayerSet(BOOL success)
+void LLTexLayerSetBuffer::postRenderTexLayerSet(bool success)
 {
 	popProjection();
 }

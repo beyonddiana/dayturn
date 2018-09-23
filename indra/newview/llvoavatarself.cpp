@@ -983,7 +983,7 @@ void LLVOAvatarSelf::removeMissingBakedTextures()
 		for (U32 i = 0; i < mBakedTextureDatas.size(); i++)
 		{
 			LLViewerTexLayerSet *layerset = getTexLayerSet(i);
-			layerset->setUpdatesEnabled(TRUE);
+			layerset->setUpdatesEnabled(true);
 			invalidateComposite(layerset, FALSE);
 		}
 		updateMeshTextures();
@@ -1550,7 +1550,7 @@ const LLUUID& LLVOAvatarSelf::getLocalTextureID(ETextureIndex type, U32 index) c
 // Returns true if at least the lowest quality discard level exists for every texture
 // in the layerset.
 //-----------------------------------------------------------------------------
-BOOL LLVOAvatarSelf::isLocalTextureDataAvailable(const LLViewerTexLayerSet* layerset) const
+bool LLVOAvatarSelf::isLocalTextureDataAvailable(const LLViewerTexLayerSet* layerset) const
 {
 	/* if (layerset == mBakedTextureDatas[BAKED_HEAD].mTexLayerSet)
 	   return getLocalDiscardLevel(TEX_HEAD_BODYPAINT) >= 0; */
@@ -1561,7 +1561,7 @@ BOOL LLVOAvatarSelf::isLocalTextureDataAvailable(const LLViewerTexLayerSet* laye
 		const EBakedTextureIndex baked_index = baked_iter->first;
 		if (layerset == mBakedTextureDatas[baked_index].mTexLayerSet)
 		{
-			BOOL ret = true;
+			bool ret = true;
 			const LLAvatarAppearanceDictionary::BakedEntry *baked_dict = baked_iter->second;
 			for (texture_vec_t::const_iterator local_tex_iter = baked_dict->mLocalTextures.begin();
 				 local_tex_iter != baked_dict->mLocalTextures.end();
@@ -1580,7 +1580,7 @@ BOOL LLVOAvatarSelf::isLocalTextureDataAvailable(const LLViewerTexLayerSet* laye
 		}
 	}
 	llassert(0);
-	return FALSE;
+	return false;
 }
 
 //-----------------------------------------------------------------------------
@@ -1589,7 +1589,7 @@ BOOL LLVOAvatarSelf::isLocalTextureDataAvailable(const LLViewerTexLayerSet* laye
 // Returns true if the highest quality discard level exists for every texture
 // in the layerset.
 //-----------------------------------------------------------------------------
-BOOL LLVOAvatarSelf::isLocalTextureDataFinal(const LLViewerTexLayerSet* layerset) const
+bool LLVOAvatarSelf::isLocalTextureDataFinal(const LLViewerTexLayerSet* layerset) const
 {
 	const U32 desired_tex_discard_level = gSavedSettings.getU32("TextureDiscardLevel"); 
 	// const U32 desired_tex_discard_level = 0; // hack to not bake textures on lower discard levels.
@@ -1612,15 +1612,15 @@ BOOL LLVOAvatarSelf::isLocalTextureDataFinal(const LLViewerTexLayerSet* layerset
 					if ((local_discard_level > (S32)(desired_tex_discard_level)) ||
 						(local_discard_level < 0 ))
 					{
-						return FALSE;
+						return false;
 					}
 				}
 			}
-			return TRUE;
+			return true;
 		}
 	}
 	llassert(0);
-	return FALSE;
+	return false;
 }
 
 
@@ -2845,7 +2845,7 @@ void LLVOAvatarSelf::setNewBakedTexture( ETextureIndex te, const LLUUID& uuid )
 	const LLAvatarAppearanceDictionary::TextureEntry *texture_dict = LLAvatarAppearanceDictionary::getInstance()->getTexture(te);
 	if (texture_dict->mIsBakedTexture)
 	{
-		debugBakedTextureUpload(texture_dict->mBakedTextureIndex, TRUE); // FALSE for start of upload, TRUE for finish.
+		debugBakedTextureUpload(texture_dict->mBakedTextureIndex, true); // FALSE for start of upload, TRUE for finish.
 		LL_INFOS() << "New baked texture: " << texture_dict->mName << " UUID: " << uuid <<LL_ENDL;
 	}
 	else
@@ -3062,7 +3062,7 @@ void LLVOAvatarSelf::forceBakeAllTextures(bool slam_for_debug)
 		{
 			if (slam_for_debug)
 			{
-				layer_set->setUpdatesEnabled(TRUE);
+				layer_set->setUpdatesEnabled(true);
 				layer_set->cancelUpload();
 			}
 
