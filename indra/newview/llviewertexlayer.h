@@ -49,12 +49,12 @@ public:
 	/*virtual*/void				requestUpdate();
 	void						requestUpload();
 	void						cancelUpload();
-	BOOL						isLocalTextureDataAvailable() const;
-	BOOL						isLocalTextureDataFinal() const;
+	bool						isLocalTextureDataAvailable() const;
+	bool						isLocalTextureDataFinal() const;
 	void						updateComposite();
 	/*virtual*/void				createComposite();
-	void						setUpdatesEnabled(BOOL b);
-	BOOL						getUpdatesEnabled()	const 	{ return mUpdatesEnabled; }
+	void						setUpdatesEnabled(bool b);
+	bool						getUpdatesEnabled()	const 	{ return mUpdatesEnabled; }
 
 	LLVOAvatarSelf*				getAvatar();
 	const LLVOAvatarSelf*		getAvatar()	const;
@@ -62,7 +62,7 @@ public:
 	const LLViewerTexLayerSetBuffer*	getViewerComposite() const;
 
 private:
-	BOOL						mUpdatesEnabled;
+	bool						mUpdatesEnabled;
 
 };
 
@@ -97,8 +97,8 @@ private:
 	// Tex Layer Render
 	//--------------------------------------------------------------------
 	virtual void			preRenderTexLayerSet();
-	virtual void			midRenderTexLayerSet(BOOL success);
-	virtual void			postRenderTexLayerSet(BOOL success);
+	virtual void			midRenderTexLayerSet(bool success);
+	virtual void			postRenderTexLayerSet(bool success);
 	virtual S32				getCompositeOriginX() const { return getOriginX(); }
 	virtual S32				getCompositeOriginY() const { return getOriginY(); }
 	virtual S32				getCompositeWidth() const { return getFullWidth(); }
@@ -121,20 +121,20 @@ protected:
 public:
 	void					requestUpload();
 	void					cancelUpload();
-	BOOL					uploadNeeded() const; 			// We need to upload a new texture
-	BOOL					uploadInProgress() const; 		// We have started uploading a new texture and are awaiting the result
-	BOOL					uploadPending() const; 			// We are expecting a new texture to be uploaded at some point
+	bool					uploadNeeded() const; 			// We need to upload a new texture
+	bool					uploadInProgress() const; 		// We have started uploading a new texture and are awaiting the result
+	bool					uploadPending() const; 			// We are expecting a new texture to be uploaded at some point
 	static void				onTextureUploadComplete(const LLUUID& uuid,
 													void* userdata,
 													S32 result, LLExtStat ext_status);
 protected:
-	BOOL					isReadyToUpload() const;
+	bool					isReadyToUpload() const;
 	void					doUpload(); 					// Does a read back and upload.
 	void					conditionalRestartUploadTimer();
 private:
-	BOOL					mNeedsUpload; 					// Whether we need to send our baked textures to the server
+	bool					mNeedsUpload; 					// Whether we need to send our baked textures to the server
 	U32						mNumLowresUploads; 				// Number of times we've sent a lowres version of our baked textures to the server
-	BOOL					mUploadPending; 				// Whether we have received back the new baked textures
+	bool					mUploadPending; 				// Whether we have received back the new baked textures
 	LLUUID					mUploadID; 						// The current upload process (null if none).
 	LLFrameTimer    		mNeedsUploadTimer; 				// Tracks time since upload was requested and performed.
 	S32						mUploadFailCount;				// Number of consecutive upload failures
@@ -145,13 +145,13 @@ private:
 	//--------------------------------------------------------------------
 public:
 	void					requestUpdate();
-	BOOL					requestUpdateImmediate();
+	bool					requestUpdateImmediate();
 protected:
-	BOOL					isReadyToUpdate() const;
+	bool					isReadyToUpdate() const;
 	void					doUpdate();
 	void					restartUpdateTimer();
 private:
-	BOOL					mNeedsUpdate; 					// Whether we need to locally update our baked textures
+	bool					mNeedsUpdate; 					// Whether we need to locally update our baked textures
 	U32						mNumLowresUpdates; 				// Number of times we've locally updated with lowres version of our baked textures
 	LLFrameTimer    		mNeedsUpdateTimer; 				// Tracks time since update was requested and performed.
 };

@@ -193,8 +193,8 @@ public:
 	/*virtual*/ bool	hasPendingBakedUploads() const;
 	S32					getLocalDiscardLevel(LLAvatarAppearanceDefines::ETextureIndex type, U32 index) const;
 	bool				areTexturesCurrent() const;
-	BOOL				isLocalTextureDataAvailable(const LLViewerTexLayerSet* layerset) const;
-	BOOL				isLocalTextureDataFinal(const LLViewerTexLayerSet* layerset) const;
+	bool				isLocalTextureDataAvailable(const LLViewerTexLayerSet* layerset) const;
+	bool				isLocalTextureDataFinal(const LLViewerTexLayerSet* layerset) const;
 	BOOL				isBakedTextureFinal(const LLAvatarAppearanceDefines::EBakedTextureIndex index) const;
 	// If you want to check all textures of a given type, pass gAgentWearables.getWearableCount() for index
 	/*virtual*/ BOOL    isTextureDefined(LLAvatarAppearanceDefines::ETextureIndex type, U32 index) const;

@@ -111,7 +111,7 @@ public:
 	virtual BOOL	isValid() const;
 	virtual BOOL	isUsingServerBakes() const = 0;
 	virtual BOOL	isUsingLocalAppearance() const = 0;
-	virtual BOOL	isEditingAppearance() const = 0;
+	virtual bool	isEditingAppearance() const = 0;
 
 	bool isBuilt() const { return mIsBuilt; }
 
