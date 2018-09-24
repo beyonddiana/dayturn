@@ -1095,7 +1095,7 @@ void LLViewerFetchedTexture::init(bool firstinit)
 	mNeedsAux = false;
 	mRequestedDiscardLevel = -1;
 	mRequestedDownloadPriority = 0.f;
-	mFullyLoaded = FALSE;
+	mFullyLoaded = false;
 	mCanUseHTTP = true;
 	mDesiredDiscardLevel = MAX_DISCARD_LEVEL + 1;
 	mMinDesiredDiscardLevel = MAX_DISCARD_LEVEL + 1;
@@ -1312,7 +1312,7 @@ void LLViewerFetchedTexture::setInactive()
 	}
 }
 
-BOOL LLViewerFetchedTexture::isFullyLoaded() const
+bool LLViewerFetchedTexture::isFullyLoaded()
 {
 	// Unfortunately, the boolean "mFullyLoaded" is never updated correctly so we use that logic
 	// to check if the texture is there and completely downloaded
@@ -1361,7 +1361,7 @@ void LLViewerFetchedTexture::destroyTexture()
 
 	//LL_DEBUGS("Avatar") << mID << LL_ENDL;
 	destroyGLTexture();
-	mFullyLoaded = FALSE;
+	mFullyLoaded = false;
 }
 
 void LLViewerFetchedTexture::addToCreateTexture()
@@ -1590,7 +1590,7 @@ void LLViewerFetchedTexture::setKnownDrawSize(S32 width, S32 height)
 		mKnownDrawHeight = llmax(mKnownDrawHeight, height);
 
 		mKnownDrawSizeChanged = TRUE;
-		mFullyLoaded = FALSE;
+		mFullyLoaded = false;
 	}
 	addTextureStats((F32)(mKnownDrawWidth * mKnownDrawHeight));
 }
@@ -1603,7 +1603,7 @@ void LLViewerFetchedTexture::processTextureStats()
 		if(mDesiredDiscardLevel > mMinDesiredDiscardLevel)//need to load more
 		{
 			mDesiredDiscardLevel = llmin(mDesiredDiscardLevel, mMinDesiredDiscardLevel);
-			mFullyLoaded = FALSE;
+			mFullyLoaded = false;
 		}
 	}
 	else
@@ -1660,7 +1660,7 @@ void LLViewerFetchedTexture::processTextureStats()
 		
 			if(getDiscardLevel() >= 0 && (getDiscardLevel() <= mDesiredDiscardLevel))
 			{
-				mFullyLoaded = TRUE;
+				mFullyLoaded = true;
 			}
 		}
 	}
@@ -1670,7 +1670,7 @@ void LLViewerFetchedTexture::processTextureStats()
 		mDesiredDiscardLevel = llmin(mDesiredDiscardLevel, (S8)mDesiredSavedRawDiscardLevel);
 		if(getDiscardLevel() < 0 || getDiscardLevel() > mDesiredDiscardLevel)
 		{
-			mFullyLoaded = FALSE;
+			mFullyLoaded = false;
 		}
 	}
 }
@@ -2306,7 +2306,7 @@ void LLViewerFetchedTexture::clearFetchedResults()
 
 	//LL_DEBUGS("Avatar") << mID << LL_ENDL;
 	destroyGLTexture();
-	mFullyLoaded = FALSE;
+	mFullyLoaded = false;
 }
 
 void LLViewerFetchedTexture::forceToDeleteRequest()

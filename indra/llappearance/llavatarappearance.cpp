@@ -1053,7 +1053,7 @@ BOOL LLAvatarAppearance::loadAvatar()
 //-----------------------------------------------------------------------------
 // loadSkeletonNode(): loads <skeleton> node from XML tree
 //-----------------------------------------------------------------------------
-BOOL LLAvatarAppearance::loadSkeletonNode ()
+bool LLAvatarAppearance::loadSkeletonNode ()
 {
 	mRoot->addChild( mSkeleton[0] );
 
@@ -1104,7 +1104,7 @@ BOOL LLAvatarAppearance::loadSkeletonNode ()
 			if (!param->setInfo(info))
 			{
 				delete param;
-				return FALSE;
+				return false;
 			}
 			else
 			{
@@ -1115,7 +1115,7 @@ BOOL LLAvatarAppearance::loadSkeletonNode ()
 	}
 
 
-	return TRUE;
+	return true;
 }
 
 //-----------------------------------------------------------------------------

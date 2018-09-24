@@ -71,7 +71,7 @@ public:
 	static void			cleanupClass();	// Cleanup data that's only init'd once per class.
 	virtual void 		initInstance(); // Called after construction to initialize the instance.
     S32					mInitFlags;
-	virtual BOOL		loadSkeletonNode();
+	virtual bool		loadSkeletonNode();
 	BOOL				loadMeshNodes();
 	BOOL				loadLayersets();
 
