@@ -428,13 +428,13 @@ void LLViewerJointAttachment::calcLOD()
 //-----------------------------------------------------------------------------
 // updateLOD()
 //-----------------------------------------------------------------------------
-BOOL LLViewerJointAttachment::updateLOD(F32 pixel_area, BOOL activate)
+bool LLViewerJointAttachment::updateLOD(F32 pixel_area, bool activate)
 {
-	BOOL res = FALSE;
+	bool res = false;
 	if (!mValid)
 	{
-		setValid(TRUE, TRUE);
-		res = TRUE;
+		setValid(true, true);
+		res = true;
 	}
 	return res;
 }

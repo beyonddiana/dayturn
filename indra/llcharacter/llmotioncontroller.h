@@ -115,7 +115,7 @@ public:
 	// start motion
 	// begins playing the specified motion
 	// returns true if successful
-	BOOL startMotion( const LLUUID &id, F32 start_offset );
+	bool startMotion( const LLUUID &id, F32 start_offset );
 
 	// stop motion
 	// stops a playing motion

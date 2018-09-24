@@ -1320,7 +1320,7 @@ const LLVector3 LLVOAvatar::getRenderPosition() const
 	}
 }
 
-void LLVOAvatar::updateDrawable(BOOL force_damped)
+void LLVOAvatar::updateDrawable(bool force_damped)
 {
 	clearChanged(SHIFTED);
 }
@@ -2200,7 +2200,7 @@ void LLVOAvatar::releaseMeshData()
 		 ++iter)
 	{
 		LLAvatarJoint* joint = (*iter);
-		joint->setValid(FALSE, TRUE);
+		joint->setValid(false, true);
 	}
 
 	//cleanup data
@@ -6050,7 +6050,7 @@ LLUUID LLVOAvatar::remapMotionID(const LLUUID& id)
 // id is the asset if of the animation to start
 // time_offset is the offset into the animation at which to start playing
 //-----------------------------------------------------------------------------
-BOOL LLVOAvatar::startMotion(const LLUUID& id, F32 time_offset)
+bool LLVOAvatar::startMotion(const LLUUID& id, F32 time_offset)
 {
     LL_DEBUGS("Motion") << "motion requested " << id.asString() << " " << gAnimLibrary.animationName(id) << LL_ENDL;
 	// ## Zi: Animation Overrider
@@ -6091,7 +6091,7 @@ BOOL LLVOAvatar::startMotion(const LLUUID& id, F32 time_offset)
 //-----------------------------------------------------------------------------
 // stopMotion()
 //-----------------------------------------------------------------------------
-BOOL LLVOAvatar::stopMotion(const LLUUID& id, BOOL stop_immediate)
+bool LLVOAvatar::stopMotion(const LLUUID& id, bool stop_immediate)
 {
 	LL_DEBUGS("Motion") << "Motion requested " << id.asString() << " " << gAnimLibrary.animationName(id) << LL_ENDL;
 
@@ -7113,7 +7113,7 @@ bool LLVOAvatar::updateJointLODs()
 		bool res = false;
 		if (root)
 		{
-			res = root->updateLOD(mAdjustedPixelArea, TRUE);
+			res = root->updateLOD(mAdjustedPixelArea, true);
 		}
  		if (res)
 		{

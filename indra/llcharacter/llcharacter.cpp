@@ -147,7 +147,7 @@ LLMotion* LLCharacter::createMotion( const LLUUID &id )
 //-----------------------------------------------------------------------------
 // startMotion()
 //-----------------------------------------------------------------------------
-BOOL LLCharacter::startMotion(const LLUUID &id, F32 start_offset)
+bool LLCharacter::startMotion(const LLUUID &id, F32 start_offset)
 {
 	return mMotionController.startMotion(id, start_offset);
 }
@@ -156,7 +156,7 @@ BOOL LLCharacter::startMotion(const LLUUID &id, F32 start_offset)
 //-----------------------------------------------------------------------------
 // stopMotion()
 //-----------------------------------------------------------------------------
-BOOL LLCharacter::stopMotion(const LLUUID& id, BOOL stop_immediate)
+bool LLCharacter::stopMotion(const LLUUID& id, bool stop_immediate)
 {
 	return mMotionController.stopMotionLocally(id, stop_immediate);
 }

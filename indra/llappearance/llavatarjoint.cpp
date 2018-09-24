@@ -88,7 +88,7 @@ LLAvatarJoint::~LLAvatarJoint()
 //--------------------------------------------------------------------
 // setValid()
 //--------------------------------------------------------------------
-void LLAvatarJoint::setValid( BOOL valid, BOOL recursive )
+void LLAvatarJoint::setValid( bool valid, bool recursive )
 {
 	//----------------------------------------------------------------
 	// set visibility for this joint
@@ -104,7 +104,7 @@ void LLAvatarJoint::setValid( BOOL valid, BOOL recursive )
 			 iter != mChildren.end(); ++iter)
 		{
 			LLAvatarJoint* joint = static_cast<LLAvatarJoint*>(*iter);
-			joint->setValid(valid, TRUE);
+			joint->setValid(valid, true);
 		}
 	}
 
@@ -173,10 +173,10 @@ void LLAvatarJoint::updateJointGeometry()
 }
 
 
-BOOL LLAvatarJoint::updateLOD(F32 pixel_area, BOOL activate)
+bool LLAvatarJoint::updateLOD(F32 pixel_area, bool activate)
 {
-	BOOL lod_changed = FALSE;
-	BOOL found_lod = FALSE;
+	bool lod_changed = false;
+	bool found_lod = false;
 
 	for (joints_t::iterator iter = mChildren.begin();
 		 iter != mChildren.end(); ++iter)
@@ -187,18 +187,18 @@ BOOL LLAvatarJoint::updateLOD(F32 pixel_area, BOOL activate)
 		if (found_lod || jointLOD == DEFAULT_AVATAR_JOINT_LOD)
 		{
 			// we've already found a joint to enable, so enable the rest as alternatives
-			lod_changed |= joint->updateLOD(pixel_area, TRUE);
+			lod_changed |= joint->updateLOD(pixel_area, true);
 		}
 		else
 		{
 			if (pixel_area >= jointLOD || sDisableLOD)
 			{
-				lod_changed |= joint->updateLOD(pixel_area, TRUE);
-				found_lod = TRUE;
+				lod_changed |= joint->updateLOD(pixel_area, true);
+				found_lod = true;
 			}
 			else
 			{
-				lod_changed |= joint->updateLOD(pixel_area, FALSE);
+				lod_changed |= joint->updateLOD(pixel_area, false);
 			}
 		}
 	}

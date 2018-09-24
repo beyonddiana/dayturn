@@ -395,7 +395,7 @@ LLMotion* LLMotionController::createMotion( const LLUUID &id )
 //-----------------------------------------------------------------------------
 // startMotion()
 //-----------------------------------------------------------------------------
-BOOL LLMotionController::startMotion(const LLUUID &id, F32 start_offset)
+bool LLMotionController::startMotion(const LLUUID &id, F32 start_offset)
 {
 	// do we have an instance of this motion for this character?
 	LLMotion *motion = findMotion(id);
@@ -421,12 +421,12 @@ BOOL LLMotionController::startMotion(const LLUUID &id, F32 start_offset)
 
 	if (!motion)
 	{
-		return FALSE;
+		return false;
 	}
 	//if the motion is already active and allows deprecation, then let it keep playing
 	else if (motion->canDeprecate() && isMotionActive(motion))
 	{	
-		return TRUE;
+		return true;
 	}
 
 //	LL_INFOS() << "Starting motion " << name << LL_ENDL;
