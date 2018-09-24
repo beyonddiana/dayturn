@@ -758,7 +758,7 @@ void LLGrassPartition::getGeometry(LLSpatialGroup* group)
 }
 
 // virtual
-void LLVOGrass::updateDrawable(BOOL force_damped)
+void LLVOGrass::updateDrawable(bool force_damped)
 {
 	// Force an immediate rebuild on any update
 	if (mDrawable.notNull())

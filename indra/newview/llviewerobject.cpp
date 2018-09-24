@@ -2521,7 +2521,7 @@ void LLViewerObject::idleUpdate(LLAgent &agent, const F64 &frame_time)
 			}
 		}
 
-		updateDrawable(FALSE);
+		updateDrawable(false);
 	}
 }
 
@@ -5816,7 +5816,7 @@ void LLViewerObject::deleteParticleSource()
 }
 
 // virtual
-void LLViewerObject::updateDrawable(BOOL force_damped)
+void LLViewerObject::updateDrawable(bool force_damped)
 {
 	if (!isChanged(MOVED))
 	{ //most common case, having an empty if case here makes for better branch prediction
@@ -6480,7 +6480,7 @@ void LLViewerObject::setRegion(LLViewerRegion *regionp)
     }
 
 	setChanged(MOVED | SILHOUETTE);
-	updateDrawable(FALSE);
+	updateDrawable(false);
 }
 
 // virtual
@@ -6691,7 +6691,7 @@ void LLAlphaObject::getBlendFunc(S32 face, U32& src, U32& dst)
 }
 
 // virtual
-void LLStaticViewerObject::updateDrawable(BOOL force_damped)
+void LLStaticViewerObject::updateDrawable(bool force_damped)
 {
 	// Force an immediate rebuild on any update
 	if (mDrawable.notNull())

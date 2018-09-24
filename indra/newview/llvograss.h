@@ -53,7 +53,7 @@ public:
 	static void import(LLFILE *file, LLMessageSystem *mesgsys, const LLVector3 &pos);
 	/*virtual*/ void exportFile(LLFILE *file, const LLVector3 &position);
 
-	void updateDrawable(BOOL force_damped);
+	void updateDrawable(bool force_damped);
 
 	/*virtual*/ LLDrawable* createDrawable(LLPipeline *pipeline);
 	/*virtual*/ bool		updateGeometry(LLDrawable *drawable);

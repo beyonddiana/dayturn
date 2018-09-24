@@ -137,10 +137,10 @@ public:
 	
 	// start a motion
 	// returns true if successful, false if an error occurred
-	virtual BOOL startMotion( const LLUUID& id, F32 start_offset = 0.f);
+	virtual bool startMotion( const LLUUID& id, F32 start_offset = 0.f);
 
 	// stop a motion
-	virtual BOOL stopMotion( const LLUUID& id, BOOL stop_immediate = FALSE );
+	virtual bool stopMotion( const LLUUID& id, bool stop_immediate = false );
 
 	// is this motion active?
 	bool isMotionActive( const LLUUID& id );

@@ -6017,7 +6017,7 @@ class LLToolsRestartAllAnimations : public view_listener_t
 						  anim_it++)
 					{
 						// restart this animation locally only, don't propagate to server
-						avatarp->stopMotion(anim_it->first, TRUE);
+						avatarp->stopMotion(anim_it->first, true);
 						avatarp->startMotion(anim_it->first);
 					}
 				}

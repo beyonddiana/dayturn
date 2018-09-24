@@ -4761,7 +4761,7 @@ void LLAgent::stopCurrentAnimations()
 			else
 			{
 				// stop this animation locally
-				gAgentAvatarp->stopMotion(anim_it->first, TRUE);
+				gAgentAvatarp->stopMotion(anim_it->first, true);
 				// ...and tell the server to tell everyone.
 				anim_ids.push_back(anim_it->first);
 			}

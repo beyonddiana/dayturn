@@ -674,10 +674,10 @@ void LLFloaterBvhPreview::onCommitBaseAnim()
 		bool paused = avatarp->areAnimationsPaused();
 
 		// stop all other possible base motions
-		avatarp->stopMotion(mIDList["Standing"], TRUE);
-		avatarp->stopMotion(mIDList["Walking"], TRUE);
-		avatarp->stopMotion(mIDList["Sitting"], TRUE);
-		avatarp->stopMotion(mIDList["Flying"], TRUE);
+		avatarp->stopMotion(mIDList["Standing"], true);
+		avatarp->stopMotion(mIDList["Walking"], true);
+		avatarp->stopMotion(mIDList["Sitting"], true);
+		avatarp->stopMotion(mIDList["Flying"], true);
 
 		resetMotion();
 
@@ -1052,10 +1052,10 @@ LLPreviewAnimation::LLPreviewAnimation(S32 width, S32 height) : LLViewerDynamicT
 	mDummyAvatar->hideSkirt();
 
 	// stop extraneous animations
-	mDummyAvatar->stopMotion( ANIM_AGENT_HEAD_ROT, TRUE );
-	mDummyAvatar->stopMotion( ANIM_AGENT_EYE, TRUE );
-	mDummyAvatar->stopMotion( ANIM_AGENT_BODY_NOISE, TRUE );
-	mDummyAvatar->stopMotion( ANIM_AGENT_BREATHE_ROT, TRUE );
+	mDummyAvatar->stopMotion( ANIM_AGENT_HEAD_ROT, true );
+	mDummyAvatar->stopMotion( ANIM_AGENT_EYE, true );
+	mDummyAvatar->stopMotion( ANIM_AGENT_BODY_NOISE, true );
+	mDummyAvatar->stopMotion( ANIM_AGENT_BREATHE_ROT, true );
 }
 
 //-----------------------------------------------------------------------------
