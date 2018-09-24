@@ -432,7 +432,7 @@ public:
 	LLImageRaw* getSavedRawImage() ;
 	BOOL        hasSavedRawImage() const ;
 	F32         getElapsedLastReferencedSavedRawImageTime() const ;
-	BOOL		isFullyLoaded() const;
+	bool		isFullyLoaded();
 
 	BOOL        hasFetcher() const { return mHasFetcher;}
 	bool        isFetching() const { return mIsFetching;}
@@ -466,7 +466,7 @@ private:
 	BOOL insertToAtlas() ;
 
 private:
-	BOOL  mFullyLoaded;
+	bool  mFullyLoaded;
 	BOOL  mInDebug;
 	bool  mUnremovable;
 	BOOL  mInFastCacheList;

@@ -285,9 +285,9 @@ public:
 	void 			idleUpdateLoadingEffect();
 	void 			idleUpdateWindEffect();
 	void 			idleUpdateNameTag(const LLVector3& root_pos_last);
-	void			idleUpdateNameTagText(BOOL new_name);
+	void			idleUpdateNameTagText(bool new_name);
 	void			idleUpdateNameTagPosition(const LLVector3& root_pos_last);
-	void			idleUpdateNameTagAlpha(BOOL new_name, F32 alpha);
+	void			idleUpdateNameTagAlpha(bool new_name, F32 alpha);
 	LLColor4		getNameTagColor(bool is_friend);
 	void			clearNameTag();
 	static void		invalidateNameTag(const LLUUID& agent_id);
@@ -296,7 +296,7 @@ public:
 	void			addNameTagLine(const std::string& line, const LLColor4& color, S32 style, const LLFontGL* font, const bool use_ellipses = false);
 	void 			idleUpdateRenderCost();
 	void			calculateUpdateRenderCost();
-	void			updateVisualComplexity() { mVisualComplexityStale = TRUE; }
+	void			updateVisualComplexity() { mVisualComplexityStale = true; }
 	
 	S32				getVisualComplexity()			{ return mVisualComplexity;				};		// Numbers calculated here by rendering AV
 	S32				getAttachmentGeometryBytes()	{ return mAttachmentGeometryBytes;		};		// number of bytes in attached geometry
@@ -316,24 +316,25 @@ public:
 	//--------------------------------------------------------------------
 public:
 	static U32		sMaxVisible; //(affected by control "RenderAvatarMaxVisible")
-	static BOOL		sRenderGroupTitles;
+	static bool		sRenderGroupTitles;
 	static F32		sRenderDistance; //distance at which avatars will render.
-	static BOOL		sShowAnimationDebug; // show animation debug info
+	static bool		sShowAnimationDebug; // show animation debug info
 	static bool		sUseImpostors; //use impostors for far away avatars
-	static BOOL		sShowFootPlane;	// show foot collision plane reported by server
-	static BOOL		sShowCollisionVolumes;	// show skeletal collision volumes
+	static bool		sShowFootPlane;	// show foot collision plane reported by server
+	static bool		sShowCollisionVolumes;	// show skeletal collision volumes
 	static BOOL		sVisibleInFirstPerson;
 	static S32		sNumLODChangesThisFrame;
 	static S32		sNumVisibleChatBubbles;
-	static BOOL		sDebugInvisible;
-	static BOOL		sShowAttachmentPoints;
+	static bool		sDebugInvisible;
+	static bool		sShowAttachmentPoints;
 	static F32		sLODFactor; // user-settable LOD factor
 	static F32		sPhysicsLODFactor; // user-settable physics LOD factor
-	static BOOL		sJointDebug; // output total number of joints being touched for each avatar
-	static BOOL		sDebugAvatarRotation;
+	static bool		sJointDebug; // output total number of joints being touched for each avatar
+	static bool		sDebugAvatarRotation;
 		//<FS:Beq> BOM bake limits
 	static int		sMaxBakes;
 	//</FS:Beq>
+
 
 	//--------------------------------------------------------------------
 	// Region state
@@ -345,12 +346,12 @@ public:
 	// Loading state
 	//--------------------------------------------------------------------
 public:
-	BOOL			isFullyLoaded() const;
+	bool			isFullyLoaded();
 	bool			isTooComplex() const;
 	bool 			visualParamWeightsAreDefault();
-	virtual BOOL	getIsCloud() const;
-	BOOL			isFullyTextured() const;
-	BOOL			hasGray() const; 
+	virtual bool	getIsCloud() const;
+	bool			isFullyTextured() const;
+	bool			hasGray() const; 
 	S32				getRezzedStatus() const; // 0 = cloud, 1 = gray, 2 = textured, 3 = textured and fully downloaded.
 	void			updateRezzedStatusTimers();
 
@@ -368,19 +369,19 @@ public:
 
 protected:
 	LLViewerStats::PhaseMap& getPhases() { return mPhases; }
-	BOOL			updateIsFullyLoaded();
-	BOOL			processFullyLoadedChange(bool loading);
+	bool			updateIsFullyLoaded();
+	bool			processFullyLoadedChange(bool loading);
 	void			updateRuthTimer(bool loading);
 	F32 			calcMorphAmount();
 
 private:
-	BOOL			mFirstFullyVisible;
-	BOOL			mFullyLoaded;
-	BOOL			mPreviousFullyLoaded;
-	BOOL			mFullyLoadedInitialized;
+	bool			mFirstFullyVisible;
+	bool			mFullyLoaded;
+	bool			mPreviousFullyLoaded;
+	bool			mFullyLoadedInitialized;
 	S32				mFullyLoadedFrameCounter;
 	S32				mVisualComplexity;
-	BOOL			mVisualComplexityStale;
+	bool			mVisualComplexityStale;
 	LLColor4		mMutedAVColor;
 	LLFrameTimer	mFullyLoadedTimer;
 	LLFrameTimer	mRuthTimer;
@@ -408,7 +409,7 @@ public:
     void				debugBodySize() const;
 	void				postPelvisSetRecalc( void );
 
-	/*virtual*/ BOOL	loadSkeletonNode();
+	/*virtual*/ bool	loadSkeletonNode();
 	void                initAttachmentPoints(bool ignore_hud_joints = false);
 	/*virtual*/ void	buildCharacter();
 	void                resetVisualParams();
@@ -465,7 +466,7 @@ public:
 	U32 		renderRigid();
 	U32 		renderSkinned();
 	F32			getLastSkinTime() { return mLastSkinTime; }
-	U32 		renderTransparent(BOOL first_pass);
+	U32 		renderTransparent(bool first_pass);
 	void 		renderCollisionVolumes();
 	void		renderBones(const std::string &selected_joint = std::string());
 	void		renderJoints();
@@ -525,7 +526,7 @@ protected:
 	void 		updateVisibility();
 private:
 	U32	 		mVisibilityRank;
-	BOOL 		mVisible;
+	bool 		mVisible;
 	
 	//--------------------------------------------------------------------
 	// Shadowing
@@ -798,7 +799,7 @@ private:
 	// Visibility
 	//--------------------------------------------------------------------
 public:
-	BOOL			isVisible() const;
+	bool			isVisible() const;
     virtual bool    shouldRenderRigged() const;
 	void			setVisibilityRank(U32 rank);
 	U32				getVisibilityRank()  const { return mVisibilityRank; }
