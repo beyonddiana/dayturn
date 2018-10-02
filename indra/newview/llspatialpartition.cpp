@@ -29,6 +29,7 @@
 #include "llspatialpartition.h"
 
 #include "llappviewer.h"
+#include "llcallstack.h"
 #include "lltexturecache.h"
 #include "lltexturefetch.h"
 #include "llimageworker.h"
@@ -52,6 +53,10 @@
 #include "llvolumemgr.h"
 #include "lltextureatlas.h"
 #include "llviewershadermgr.h"
+#include "llcontrolavatar.h"
+
+//#pragma optimize("", off)
+
 
 //MK
 #include "llagent.h"
@@ -781,6 +786,10 @@ F32 LLSpatialPartition::calcDistance(LLSpatialGroup* group, LLCamera& camera)
 		dist = eye.getLength3().getF32();
 	}
 
+    LL_DEBUGS("RiggedBox") << "calcDistance, group " << group << " camera " << origin << " obj bounds " 
+                           << group->mObjectBounds[0] << ", " << group->mObjectBounds[1] 
+                           << " dist " << dist << " radius " << group->mRadius << LL_ENDL;
+
 	if (dist < 16.f)
 	{
 		dist /= 16.f;
@@ -812,7 +821,8 @@ F32 LLSpatialGroup::getUpdateUrgency() const
 BOOL LLSpatialGroup::changeLOD()
 {
 	if (hasState(ALPHA_DIRTY | OBJECT_DIRTY))
-	{ ///a rebuild is going to happen, update distance and LoD
+	{ 
+	    ///a rebuild is going to happen, update distance and LoD
 		return TRUE;
 	}
 
@@ -820,8 +830,28 @@ BOOL LLSpatialGroup::changeLOD()
 	{
 		F32 ratio = (mDistance - mLastUpdateDistance)/(llmax(mLastUpdateDistance, mRadius));
 
+        // MAINT-8264 - this check is not robust if it needs to work
+        // for bounding boxes much larger than the actual enclosed
+        // objects, and using distance to box center is also
+        // problematic. Consider the case that you have a large box
+        // where the enclosed object is in one corner. As you zoom in
+        // on the corner, the object gets much closer to the camera,
+        // but the distance to the box center changes very little, and
+        // an LOD change will not trigger, so object LOD gets "stuck"
+        // at a too-low value. In the case of the above JIRA, the box
+        // was large only due to another error, so this logic did not
+        // need to be changed.
+        
 		if (fabsf(ratio) >= getSpatialPartition()->mSlopRatio)
 		{
+            LL_DEBUGS("RiggedBox") << "changeLOD true because of ratio compare "
+            << fabsf(ratio) << " " << getSpatialPartition()->mSlopRatio << LL_ENDL;
+            LL_DEBUGS("RiggedBox") << "sg " << this << "\nmDistance " << mDistance
+            << " mLastUpdateDistance " << mLastUpdateDistance
+            << " mRadius " << mRadius
+            << " fab ratio " << fabsf(ratio)
+            << " slop " << getSpatialPartition()->mSlopRatio << LL_ENDL;
+            		
 			return TRUE;
 		}
 
@@ -2113,17 +2143,17 @@ void renderBoundingBox(LLDrawable* drawable, BOOL set_color = TRUE)
 	{
 		if (drawable->isSpatialBridge())
 		{
-			gGL.diffuseColor4f(1,0.5f,0,1);
+			gGL.diffuseColor4f(1,0.5f,0,1); // orange
 		}
 		else if (drawable->getVOVolume())
-		{
-			if (drawable->isRoot())
+		{ 
+            if (drawable->isRoot())
 			{
-				gGL.diffuseColor4f(1,1,0,1);
+				gGL.diffuseColor4f(1,1,0,1); // yellow
 			}
 			else
 			{
-				gGL.diffuseColor4f(0,1,0,1);
+				gGL.diffuseColor4f(0,1,0,1); // green
 			}
 		}
 		else if (drawable->getVObj())
@@ -2131,24 +2161,36 @@ void renderBoundingBox(LLDrawable* drawable, BOOL set_color = TRUE)
 			switch (drawable->getVObj()->getPCode())
 			{
 				case LLViewerObject::LL_VO_SURFACE_PATCH:
-						gGL.diffuseColor4f(0,1,1,1);
+                    	gGL.diffuseColor4f(0,1,1,1); // cyan
 						break;
 				case LLViewerObject::LL_VO_CLOUDS:
 						// no longer used
 						break;
 				case LLViewerObject::LL_VO_PART_GROUP:
 				case LLViewerObject::LL_VO_HUD_PART_GROUP:
-						gGL.diffuseColor4f(0,0,1,1);
+                    	gGL.diffuseColor4f(0,0,1,1); // blue
 						break;
 				case LLViewerObject::LL_VO_VOID_WATER:
 				case LLViewerObject::LL_VO_WATER:
-						gGL.diffuseColor4f(0,0.5f,1,1);
+                    	gGL.diffuseColor4f(0,0.5f,1,1); // medium blue
 						break;
 				case LL_PCODE_LEGACY_TREE:
-						gGL.diffuseColor4f(0,0.5f,0,1);
+                    	gGL.diffuseColor4f(0,0.5f,0,1); // dark green
 						break;
 				default:
-						gGL.diffuseColor4f(1,0,1,1);
+						LLControlAvatar *cav = dynamic_cast<LLControlAvatar*>(drawable->getVObj()->asAvatar());
+						if (cav)
+						{
+							bool has_pos_constraint = (cav->mPositionConstraintFixup != LLVector3());
+							bool has_scale_constraint = (cav->mScaleConstraintFixup != 1.0f);
+							F32 r = 1.0f * has_scale_constraint;
+							F32 g = 1.0f * has_pos_constraint;
+							gGL.diffuseColor4f(r,g,0,1); 
+						}
+						else
+						{
+							gGL.diffuseColor4f(1,0,1,1); // magenta
+						}
 						break;
 			}
 		}
