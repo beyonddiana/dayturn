@@ -1361,7 +1361,7 @@ void LLVOAvatar::calculateSpatialExtents(LLVector4a& newMin, LLVector4a& newMax)
 
     S32 box_detail = gSavedSettings.getS32("AvatarBoundingBoxComplexity");
 
-    // AXON the update_min_max function used below assumes there is a
+    // FIXME the update_min_max function used below assumes there is a
     // known starting point, but in general there isn't. Ideally the
     // box update logic should be modified to handle the no-point-yet
     // case. For most models, starting with the pelvis is safe though.
@@ -1422,7 +1422,7 @@ void LLVOAvatar::calculateSpatialExtents(LLVector4a& newMin, LLVector4a& newMax)
                      attachment_iter != attachment->mAttachedObjects.end();
                      ++attachment_iter)
                 {
-                    // AXON Don't we need to look at children of attached_object as well?
+                    // Don't we need to look at children of attached_object as well?
                     const LLViewerObject* attached_object = (*attachment_iter);
                     if (attached_object && !attached_object->isHUDAttachment())
                     {
@@ -1479,14 +1479,7 @@ void LLVOAvatar::calculateSpatialExtents(LLVector4a& newMin, LLVector4a& newMax)
     // Stretch bounding box by rigged mesh joint boxes
     if (box_detail>=3)
     {
-        // AXON try to cache unless something has changed about attached rigged meshes.
-        // Needs more logic based on volume states.
-
-        //if (mRiggingInfoTab.needsUpdate())
-        {
-            updateRiggingInfo();
-            //mJointRiggingInfoTab.setNeedsUpdate(false);
-        }
+		updateRiggingInfo();
         for (S32 joint_num = 0; joint_num < LL_CHARACTER_MAX_ANIMATED_JOINTS; joint_num++)
         {
             LLJoint *joint = getJoint(joint_num);
@@ -6246,13 +6239,6 @@ void LLVOAvatar::rebuildAttachmentOverrides()
 // -----------------------------------------------------------------------------
 void LLVOAvatar::updateAttachmentOverrides()
 {
-    const bool paranoid_checking = false; 	// AXON remove when testing done
-
-    if (paranoid_checking)
-    {
-        //dumpArchetypeXML(getFullname() + "_paranoid_before");
-    }
-
     LLScopedContextString str("updateAttachmentOverrides " + getFullname());
 
     LL_DEBUGS("AnimatedObjects") << "updating" << LL_ENDL;
@@ -6307,7 +6293,7 @@ void LLVOAvatar::updateAttachmentOverrides()
     }
 
 
-    if (paranoid_checking)
+#ifdef ATTACHMENT_OVERRIDE_VALIDATION
     {
         std::vector<LLVector3OverrideMap> pos_overrides_by_joint;
         std::vector<LLVector3OverrideMap> scale_overrides_by_joint;
@@ -6358,9 +6344,10 @@ void LLVOAvatar::updateAttachmentOverrides()
         }
         if (mismatched)
         {
-            LL_WARNS() << "MISMATCHED ATTACHMENT OVERRIDES, compare paranoid log files" << LL_ENDL;
+            LL_WARNS() << "MISMATCHED ATTACHMENT OVERRIDES" << LL_ENDL;
         }
     }
+#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -7313,7 +7300,6 @@ U32 LLVOAvatar::getNumAnimatedObjectAttachments() const
 S32 LLVOAvatar::getMaxAnimatedObjectAttachments() const
 {
     S32 max_attach = 0;
-    // AXON REMOVE AFTER SERVER TESTING DONE
     if (gSavedSettings.getBOOL("AnimatedObjectsIgnoreLimits"))
     {
         max_attach = MAX_AGENT_ATTACHMENTS;
@@ -9959,9 +9945,31 @@ void LLVOAvatar::getAssociatedVolumes(std::vector<LLVOVolume*>& volumes)
 void LLVOAvatar::updateRiggingInfo()
 {
     LL_DEBUGS("RigSpammish") << getFullname() << " updating rig tab" << LL_ENDL;
-    mJointRiggingInfoTab.clear();
     std::vector<LLVOVolume*> volumes;
     getAssociatedVolumes(volumes);
+
+	// Get current rigging info key
+	std::map<LLUUID,S32> curr_rigging_info_key;
+    for (std::vector<LLVOVolume*>::iterator it = volumes.begin(); it != volumes.end(); ++it)
+    {
+        LLVOVolume *vol = *it;
+		if (vol->isMesh() && vol->getVolume())
+		{
+			const LLUUID& mesh_id = vol->getVolume()->getParams().getSculptID();
+			S32 max_lod = llmax(vol->getLOD(), vol->mLastRiggingInfoLOD);
+			curr_rigging_info_key[mesh_id] = max_lod;
+		}
+	}
+
+	// Check for key change, which indicates some change in volume composition or LOD.
+	if (curr_rigging_info_key == mLastRiggingInfoKey)
+	{
+		return;
+	}
+
+	// Something changed. Update.
+	mLastRiggingInfoKey = curr_rigging_info_key;
+    mJointRiggingInfoTab.clear();
     for (std::vector<LLVOVolume*>::iterator it = volumes.begin(); it != volumes.end(); ++it)
     {
         LLVOVolume *vol = *it;
