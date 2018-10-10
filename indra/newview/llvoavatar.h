@@ -511,7 +511,7 @@ private:
 	// Impostors
 	//--------------------------------------------------------------------
 public:
-	BOOL 		isImpostor();
+	virtual BOOL isImpostor();
 	BOOL 	    needsImpostorUpdate() const;
 	const LLVector3& getImpostorOffset() const;
 	const LLVector2& getImpostorDim() const;
