@@ -905,11 +905,6 @@ bool LLAppViewer::init()
 	mNumSessions++;
 	gSavedSettings.setS32("NumSessions", mNumSessions);
 
-	if (gSavedSettings.getBOOL("VerboseLogs"))
-	{
-		LLError::setPrintLocation(true);
-	}
-
 	// LLKeyboard relies on LLUI to know what some accelerator keys are called.
 	LLKeyboard::setStringTranslatorFunc( LLTrans::getKeyboardString );
 
