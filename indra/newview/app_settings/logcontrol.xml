@@ -2,7 +2,6 @@
 	<map>
 		<!-- default-level can be ALL, DEBUG, INFO, WARN, ERROR, or NONE -->
 		<key>default-level</key>    <string>INFO</string>
-		<key>print-location</key>   <boolean>false</boolean>
 		<key>log-always-flush</key>   <boolean>true</boolean>
 		<!-- All log types are enabled by default. Can be toggled individually;
              bitwise-or all the ones you want to enable.
