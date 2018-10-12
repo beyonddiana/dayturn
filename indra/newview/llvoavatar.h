@@ -523,6 +523,8 @@ public:
 	LLRenderTarget mImpostor;
 	BOOL		mNeedsImpostorUpdate;
     const LLVector3*  getLastAnimExtents() const { return mLastAnimExtents; }
+	void		setNeedsExtentUpdate(bool val) { mNeedsExtentUpdate = val; }
+
 private:
 	LLVector3	mImpostorOffset;
 	LLVector2	mImpostorDim;
