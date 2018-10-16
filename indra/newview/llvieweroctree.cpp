@@ -753,9 +753,9 @@ bool LLViewerOctreeGroup::boundObjects(BOOL empty, LLVector4a& minOut, LLVector4
 }
 
 //virtual 
-BOOL LLViewerOctreeGroup::isVisible() const
+bool LLViewerOctreeGroup::isVisible() const
 {
-	return mVisible[LLViewerCamera::sCurCameraID] >= LLViewerOctreeEntryData::getCurrentFrame() ? TRUE : FALSE;
+	return mVisible[LLViewerCamera::sCurCameraID] >= LLViewerOctreeEntryData::getCurrentFrame() ? true : false;
 }
 
 //virtual 

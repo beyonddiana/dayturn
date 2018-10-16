@@ -186,8 +186,8 @@ public:
 
 	void		setSize(S32 numVertices, S32 num_indices = 0, bool align = false);
 	
-	BOOL		genVolumeBBoxes(const LLVolume &volume, S32 f,
-									const LLMatrix4& mat_vert_in, BOOL global_volume = FALSE);
+	bool		genVolumeBBoxes(const LLVolume &volume, S32 f,
+									const LLMatrix4& mat_vert_in, bool global_volume = false);
 	
 	void		init(LLDrawable* drawablep, LLViewerObject* objp);
 	void		destroy();

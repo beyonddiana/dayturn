@@ -422,7 +422,7 @@ public:
 	/*virtual*/ S32 cull(LLCamera &camera, bool do_occlusion=false); // Cull on arbitrary frustum
 	S32 cull(LLCamera &camera, std::vector<LLDrawable *>* results, bool for_select); // Cull on arbitrary frustum
 	
-	BOOL isVisible(const LLVector3& v);
+	bool isVisible(const LLVector3& v);
 	bool isHUDPartition() ;
 	
 	LLSpatialBridge* asBridge() { return mBridge; }

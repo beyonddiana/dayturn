@@ -292,7 +292,7 @@ void LLPanelVolume::getState( )
 	}
 	
 	// Light properties
-	BOOL is_light = volobjp && volobjp->getIsLight();
+	bool is_light = volobjp && volobjp->getIsLight();
 	getChild<LLUICtrl>("Light Checkbox Ctrl")->setValue(is_light);
 	getChildView("Light Checkbox Ctrl")->setEnabled(editable && single_volume && volobjp);
 	
@@ -698,8 +698,8 @@ void LLPanelVolume::sendIsFlexible()
 	}	
 	LLVOVolume *volobjp = (LLVOVolume *)objectp;
 	
-	BOOL is_flexible = getChild<LLUICtrl>("Flexible1D Checkbox Ctrl")->getValue();
-	//BOOL is_flexible = mCheckFlexible1D->get();
+	bool is_flexible = getChild<LLUICtrl>("Flexible1D Checkbox Ctrl")->getValue();
+	//bool is_flexible = mCheckFlexible1D->get();
 
 	if (is_flexible)
 	{

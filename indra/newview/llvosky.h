@@ -198,7 +198,7 @@ public:
 		mIntensity(0.f),
 		mDiskRadius(rad), mDraw(FALSE),
 		mHorizonVisibility(1.f), mVisibility(1.f),
-		mVisible(FALSE)
+		mVisible(false)
 	{
 		mColor.setToBlack();
 		mColorCached.setToBlack();

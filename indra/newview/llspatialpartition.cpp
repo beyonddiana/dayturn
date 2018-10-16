@@ -3856,14 +3856,14 @@ bool LLSpatialPartition::isHUDPartition()
 	return mPartitionType == LLViewerRegion::PARTITION_HUD ;
 } 
 
-BOOL LLSpatialPartition::isVisible(const LLVector3& v)
+bool LLSpatialPartition::isVisible(const LLVector3& v)
 {
 	if (!LLViewerCamera::getInstance()->sphereInFrustum(v, 4.0f))
 	{
-		return FALSE;
+		return false;
 	}
 
-	return TRUE;
+	return true;
 }
 
 LL_ALIGN_PREFIX(16)

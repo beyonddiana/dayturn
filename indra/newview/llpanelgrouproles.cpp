@@ -2212,7 +2212,7 @@ void LLPanelGroupRolesSubTab::update(LLGroupChange gc)
 					item = mRolesList->addElement(row, ((*rit).first.isNull()) ? ADD_TOP : ADD_BOTTOM, this);
 					if (had_selection && ((*rit).first == last_selected))
 					{
-						item->setSelected(TRUE);
+						item->setSelected(true);
 					}
 				}
 			}

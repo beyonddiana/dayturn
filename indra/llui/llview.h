@@ -293,7 +293,6 @@ public:
 	const bool	getVisible() const		{ return isAvailableOnThisGrid() && mVisible; }
 	virtual void	setEnabled(bool enabled);
 	const bool	getEnabled() const		{ return isAvailableOnThisGrid() && mEnabled; }
-
 	const bool	getOnlyInSL() const	{ return mOnlyInSL; }
 
 	const bool	isAvailableOnThisGrid() const;

@@ -176,11 +176,11 @@ public:
 	bool			onActiveList() const				{return mOnActiveList;}
 	void			setOnActiveList(bool on_active)		{ mOnActiveList = on_active; }
 
-	virtual BOOL	isAttachment() const { return FALSE; }
+	virtual bool	isAttachment() const { return false; }
 	const std::string& getAttachmentItemName();
 
 	virtual LLVOAvatar* getAvatar() const;  //get the avatar this object is attached to, or NULL if object is not an attachment
-	virtual BOOL	isHUDAttachment() const { return FALSE; }
+	virtual bool	isHUDAttachment() const { return false; }
 	virtual bool	isTempAttachment() const;
 
 	virtual bool isHiglightedOrBeacon() const;
@@ -208,7 +208,7 @@ public:
 	virtual void		updateGL();
 	virtual void		updateFaceSize(S32 idx);
 	virtual bool		updateLOD();
-	virtual BOOL		setDrawableParent(LLDrawable* parentp);
+	virtual bool		setDrawableParent(LLDrawable* parentp);
 	F32					getRotTime() { return mRotTime; }
 private:
 	void				resetRotTime();
@@ -227,7 +227,7 @@ public:
 	BOOL isSelected() const							{ return mUserSelected; }
     // Check whole linkset
     BOOL isAnySelected() const;
-	virtual void setSelected(BOOL sel);
+	virtual void setSelected(bool sel);
 
 	const LLUUID &getID() const						{ return mID; }
 	U32 getLocalID() const							{ return mLocalID; }
@@ -364,7 +364,7 @@ public:
 	void fitFaceTexture(const U8 face);
 	void sendTEUpdate() const;			// Sends packed representation of all texture entry information
 	
-	virtual void setScale(const LLVector3 &scale, BOOL damped = FALSE);
+	virtual void setScale(const LLVector3 &scale, bool damped = false);
 
     S32 getAnimatedObjectMaxTris() const;
     F32 recursiveGetEstTrianglesMax() const;
@@ -431,8 +431,8 @@ public:
 	void clearIcon();
 
     void recursiveMarkForUpdate(BOOL priority);
-	virtual void markForUpdate(BOOL priority);
-	void markForUnload(BOOL priority);
+	virtual void markForUpdate(bool priority);
+	void markForUnload(bool priority);
 	void updateVolume(const LLVolumeParams& volume_params);
 	virtual	void updateSpatialExtents(LLVector4a& min, LLVector4a& max);
 	virtual F32 getBinRadius();

@@ -1584,7 +1584,7 @@ LLScrollListItem* LLPreviewGesture::addStep( const EStepType step_type )
 	mLibraryList->deselectAllItems();
 	mStepList->deselectAllItems();
 
-	step_item->setSelected(TRUE);
+	step_item->setSelected(true);
 
 	return step_item;
 }

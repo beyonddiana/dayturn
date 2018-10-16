@@ -725,7 +725,7 @@ BOOL LLViewerObject::isAnySelected() const
     return any_selected;
 }
 
-void LLViewerObject::setSelected(BOOL sel)
+void LLViewerObject::setSelected(bool sel)
 {
 	mUserSelected = sel;
 	resetRot();
@@ -1000,17 +1000,17 @@ bool LLViewerObject::isSeat() const
 	return mSeatCount > 0;
 }
 
-BOOL LLViewerObject::setDrawableParent(LLDrawable* parentp)
+bool LLViewerObject::setDrawableParent(LLDrawable* parentp)
 {
 	if (mDrawable.isNull())
 	{
-		return FALSE;
+		return false;
 	}
 
-	BOOL ret = mDrawable->mXform.setParent(parentp ? &parentp->mXform : NULL);
+	bool ret = mDrawable->mXform.setParent(parentp ? &parentp->mXform : NULL);
 	if(!ret)
 	{
-		return FALSE ;
+		return false ;
 	}
 	LLDrawable* old_parent = mDrawable->mParent;
 	mDrawable->mParent = parentp; 
@@ -3677,7 +3677,7 @@ LLDrawable* LLViewerObject::createDrawable(LLPipeline *pipeline)
 	return NULL;
 }
 
-void LLViewerObject::setScale(const LLVector3 &scale, BOOL damped)
+void LLViewerObject::setScale(const LLVector3 &scale, bool damped)
 {
 	LLPrimitive::setScale(scale);
 	if (mDrawable.notNull())
@@ -6394,7 +6394,7 @@ void LLViewerObject::updateVolume(const LLVolumeParams& volume_params)
 	{
 		// Transmit the update to the simulator
 		sendShapeUpdate();
-		markForUpdate(TRUE);
+		markForUpdate(true);
 	}
 }
 
@@ -6409,7 +6409,7 @@ void LLViewerObject::recursiveMarkForUpdate(BOOL priority)
     markForUpdate(priority);
 }
 
-void LLViewerObject::markForUpdate(BOOL priority)
+void LLViewerObject::markForUpdate(bool priority)
 {
 	if (mDrawable.notNull())
 	{
@@ -6418,7 +6418,7 @@ void LLViewerObject::markForUpdate(BOOL priority)
 	}
 }
 
-void LLViewerObject::markForUnload(BOOL priority)
+void LLViewerObject::markForUnload(bool priority)
 {
 	if (mDrawable.notNull())
 	{

@@ -1715,7 +1715,7 @@ void LLPanelObject::sendScale(BOOL btn_down)
 			LLSelectMgr::getInstance()->saveSelectedObjectTransform(SELECT_ACTION_TYPE_SCALE);
 		}
 
-		mObject->setScale(newscale, TRUE);
+		mObject->setScale(newscale, true);
 
 		if(!btn_down)
 		{
@@ -2421,7 +2421,7 @@ void LLPanelObject::onPasteParams(const LLSD& data)
 
 	if (volobjp && mHasLightParam)
 	{
-		volobjp->setIsLight(TRUE);
+		volobjp->setIsLight(true);
 		volobjp->setLightIntensity((F32)mPramsClipboard["Light Intensity"].asReal());
 		volobjp->setLightRadius((F32)mPramsClipboard["Light Radius"].asReal());
 		volobjp->setLightFalloff((F32)mPramsClipboard["Light Falloff"].asReal());

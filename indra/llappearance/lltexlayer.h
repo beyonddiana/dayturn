@@ -216,7 +216,7 @@ public:
 	BOOL						hasComposite() const 		{ return (mComposite.notNull()); }
 	LLAvatarAppearanceDefines::EBakedTextureIndex getBakedTexIndex() const { return mBakedTexIndex; }
 	void						setBakedTexIndex(LLAvatarAppearanceDefines::EBakedTextureIndex index) { mBakedTexIndex = index; }
-	BOOL						isVisible() const 			{ return mIsVisible; }
+	bool						isVisible() const 			{ return mIsVisible; }
 
 	static BOOL					sHasCaches;
 
