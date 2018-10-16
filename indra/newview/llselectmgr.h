@@ -344,7 +344,7 @@ public:
 	BOOL contains(LLViewerObject* object, S32 te);
 
 	// returns TRUE is any node is currenly worn as an attachment
-	BOOL isAttachment();
+	bool isAttachment();
 
     bool checkAnimatedObjectEstTris();
     bool checkAnimatedObjectLinkable();
@@ -570,8 +570,8 @@ public:
 	void cleanup();
 
 	void updateSilhouettes();
-	void renderSilhouettes(BOOL for_hud);
-	void enableSilhouette(BOOL enable) { mRenderSilhouettes = enable; }
+	void renderSilhouettes(bool for_hud);
+	void enableSilhouette(bool enable) { mRenderSilhouettes = enable; }
 	
 	////////////////////////////////////////////////////////////////
 	// Utility functions that operate on the current selection
@@ -881,7 +881,7 @@ private:
 	LLVector3d				mLastSentSelectionCenterGlobal;
 	BOOL					mShowSelection; // do we send the selection center name value and do we animate this selection?
 	LLVector3d				mLastCameraPos;		// camera position from last generation of selection silhouette
-	BOOL					mRenderSilhouettes;	// do we render the silhouette
+	bool					mRenderSilhouettes;	// do we render the silhouette
 	LLBBox					mSavedSelectionBBox;
 
 	LLFrameTimer			mEffectsTimer;

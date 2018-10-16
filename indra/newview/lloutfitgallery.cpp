@@ -612,11 +612,11 @@ void LLOutfitGallery::onChangeOutfitSelection(LLWearableItemsList* list, const L
         return;
     if (mOutfitMap[mSelectedOutfitUUID])
     {
-        mOutfitMap[mSelectedOutfitUUID]->setSelected(FALSE);
+        mOutfitMap[mSelectedOutfitUUID]->setSelected(false);
     }
     if (mOutfitMap[category_id])
     {
-        mOutfitMap[category_id]->setSelected(TRUE);
+        mOutfitMap[category_id]->setSelected(true);
     }
 }
 

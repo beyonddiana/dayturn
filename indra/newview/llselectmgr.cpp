@@ -249,7 +249,7 @@ LLSelectMgr::LLSelectMgr()
 
 	sRenderLightRadius = gSavedSettings.getBOOL("RenderLightRadius");
 	
-	mRenderSilhouettes = TRUE;
+	mRenderSilhouettes = true;
 
 	mGridMode = GRID_MODE_WORLD;
 	gSavedSettings.setS32("GridMode", (S32)GRID_MODE_WORLD);
@@ -936,7 +936,7 @@ void LLSelectMgr::addAsFamily(std::vector<LLViewerObject*>& objects, BOOL add_to
 			{
 				mSelectedObjects->addNode(nodep);
 			}
-			objectp->setSelected(TRUE);
+			objectp->setSelected(true);
 
 			if (objectp->getNumTEs() > 0)
 			{
@@ -990,7 +990,7 @@ void LLSelectMgr::addAsIndividual(LLViewerObject *objectp, S32 face, BOOL undoab
 	}
 
 	// Make sure the object is tagged as selected
-	objectp->setSelected( TRUE );
+	objectp->setSelected(true);
 
 	// And make sure we don't consider it as part of a family
 	nodep->mIndividualSelection = TRUE;
@@ -1236,7 +1236,7 @@ LLObjectSelectionHandle LLSelectMgr::selectHighlightedObjects()
 		mSelectedObjects->addNode(new_nodep);
 
 		// flag this object as selected
-		objectp->setSelected(TRUE);
+		objectp->setSelected(true);
 		objectp->setAllTESelected(true);
 
 		mSelectedObjects->mSelectType = getSelectTypeForObject(objectp);
@@ -1430,7 +1430,7 @@ void LLSelectMgr::remove(std::vector<LLViewerObject*>& objects)
 		LLSelectNode* nodep = mSelectedObjects->findNode(objectp);
 		if (nodep)
 		{
-			objectp->setSelected(FALSE);
+			objectp->setSelected(false);
 			mSelectedObjects->removeNode(nodep);
 			nodep = NULL;
 		}
@@ -1458,7 +1458,7 @@ void LLSelectMgr::remove(LLViewerObject *objectp, S32 te, BOOL undoable)
 		// Remove all faces (or the object doesn't have faces) so remove the node
 		mSelectedObjects->removeNode(nodep);
 		nodep = NULL;
-		objectp->setSelected( FALSE );
+		objectp->setSelected(false);
 	}
 	else if (0 <= te && te < SELECT_MAX_TES)
 	{
@@ -1486,7 +1486,7 @@ void LLSelectMgr::remove(LLViewerObject *objectp, S32 te, BOOL undoable)
 		{
 			mSelectedObjects->removeNode(nodep);
 			nodep = NULL;
-			objectp->setSelected( FALSE );
+			objectp->setSelected(false);
 			// *FIXME: Doesn't update simulator that object is no longer selected
 		}
 	}
@@ -1510,7 +1510,7 @@ void LLSelectMgr::removeAll()
 		 iter != mSelectedObjects->end(); iter++ )
 	{
 		LLViewerObject *objectp = (*iter)->getObject();
-		objectp->setSelected( FALSE );
+		objectp->setSelected(false);
 	}
 
 	mSelectedObjects->deleteAllNodes();
@@ -6022,7 +6022,7 @@ void LLSelectMgr::updateSelectionSilhouette(LLObjectSelectionHandle object_handl
 		}
 	}
 }
-void LLSelectMgr::renderSilhouettes(BOOL for_hud)
+void LLSelectMgr::renderSilhouettes(bool for_hud)
 {
 	if (!mRenderSilhouettes || !mRenderHighlightSelections)
 	{
@@ -6637,7 +6637,7 @@ void LLSelectNode::renderOneSilhouette(const LLColor4 &color)
 		return;
 	}
 
-	BOOL is_hud_object = objectp->isHUDAttachment();
+	bool is_hud_object = objectp->isHUDAttachment();
 	
 	if (mSilhouetteVertices.size() == 0 || mSilhouetteNormals.size() != mSilhouetteVertices.size())
 	{
@@ -7832,7 +7832,7 @@ BOOL LLObjectSelection::contains(LLViewerObject* object, S32 te)
 }
 
 // returns TRUE is any node is currenly worn as an attachment
-BOOL LLObjectSelection::isAttachment()
+bool LLObjectSelection::isAttachment()
 {
 	return (mSelectType == SELECT_TYPE_ATTACHMENT || mSelectType == SELECT_TYPE_HUD);
 }

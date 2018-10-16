@@ -450,7 +450,7 @@ BOOL LLManipRotate::handleMouseDownOnPart( S32 x, S32 y, MASK mask )
 
 	// Route future Mouse messages here preemptively.  (Release on mouse up.)
 	setMouseCapture( TRUE );
-	LLSelectMgr::getInstance()->enableSilhouette(FALSE);
+	LLSelectMgr::getInstance()->enableSilhouette(false);
 
 	mHelpTextTimer.reset();
 	sNumTimesHelpTextShown++;
@@ -496,7 +496,7 @@ BOOL LLManipRotate::handleMouseUp(S32 x, S32 y, MASK mask)
 
 		// Might have missed last update due to timing.
 		LLSelectMgr::getInstance()->sendMultipleUpdate( UPD_ROTATION | UPD_POSITION );
-		LLSelectMgr::getInstance()->enableSilhouette(TRUE);
+		LLSelectMgr::getInstance()->enableSilhouette(true);
 		//gAgent.setObjectTracking(gSavedSettings.getBOOL("TrackFocusObject"));
 
 		LLSelectMgr::getInstance()->updateSelectionCenter();

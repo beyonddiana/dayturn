@@ -336,7 +336,7 @@ BOOL LLManipTranslate::handleMouseDownOnPart( S32 x, S32 y, MASK mask )
 
 	LLSelectMgr::getInstance()->getGrid(mGridOrigin, mGridRotation, mGridScale);
 
-	LLSelectMgr::getInstance()->enableSilhouette(FALSE);
+	LLSelectMgr::getInstance()->enableSilhouette(false);
 
 	// we just started a drag, so save initial object positions
 	LLSelectMgr::getInstance()->saveSelectedObjectTransform(SELECT_ACTION_TYPE_MOVE);
@@ -1042,7 +1042,7 @@ BOOL LLManipTranslate::handleMouseUp(S32 x, S32 y, MASK mask)
 	{
 		// make sure arrow colors go back to normal
 		mManipPart = LL_NO_PART;
-		LLSelectMgr::getInstance()->enableSilhouette(TRUE);
+		LLSelectMgr::getInstance()->enableSilhouette(true);
 
 		// Might have missed last update due to UPDATE_DELAY timing.
 		LLSelectMgr::getInstance()->sendMultipleUpdate( UPD_POSITION );

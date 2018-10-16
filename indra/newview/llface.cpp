@@ -330,7 +330,7 @@ void LLFace::dirtyTexture()
 				LLVOVolume* vobj = drawablep->getVOVolume();
 				if (vobj)
 				{
-					vobj->mLODChanged = TRUE;
+					vobj->mLODChanged = true;
 
 					LLVOAvatar* avatar = vobj->getAvatar();
 					if (avatar)
@@ -896,8 +896,8 @@ bool less_than_max_mag(const LLVector4a& vec)
 	return lt == 0x7;
 }
 
-BOOL LLFace::genVolumeBBoxes(const LLVolume &volume, S32 f,
-							const LLMatrix4& mat_vert_in, BOOL global_volume)
+bool LLFace::genVolumeBBoxes(const LLVolume &volume, S32 f,
+								const LLMatrix4& mat_vert_in, bool global_volume)
 {
 	//get bounding box
 	if (mDrawablep->isState(LLDrawable::REBUILD_VOLUME | LLDrawable::REBUILD_POSITION | LLDrawable::REBUILD_RIGGED))
@@ -960,7 +960,7 @@ BOOL LLFace::genVolumeBBoxes(const LLVolume &volume, S32 f,
 		updateCenterAgent();
 	}
 
-	return TRUE;
+	return true;
 }
 
 
@@ -1362,7 +1362,7 @@ bool LLFace::getGeometryVolume(const LLVolume& volume,
 
 	bool full_rebuild = force_rebuild || mDrawablep->isState(LLDrawable::REBUILD_VOLUME);
 	
-	BOOL global_volume = mDrawablep->getVOVolume()->isVolumeGlobal();
+	bool global_volume = mDrawablep->getVOVolume()->isVolumeGlobal();
 	LLVector3 scale;
 	if (global_volume)
 	{
