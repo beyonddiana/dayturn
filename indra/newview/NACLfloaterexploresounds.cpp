@@ -10,7 +10,7 @@
 #include "llviewerwindow.h"
 #include "llviewerobjectlist.h"
 #include "llviewerregion.h"
-#include "fswsassetblacklist.h"
+//#include "fswsassetblacklist.h"
 
 static const size_t num_collision_sounds = 28;
 const LLUUID collision_sounds[num_collision_sounds] =
@@ -58,7 +58,7 @@ NACLFloaterExploreSounds::~NACLFloaterExploreSounds()
 	NACLFloaterExploreSounds::sInstance = NULL;
 }
 
-BOOL NACLFloaterExploreSounds::postBuild(void)
+bool NACLFloaterExploreSounds::postBuild(void)
 {
 	childSetAction("play_locally_btn", handle_play_locally, this);
 	childSetAction("look_at_btn", handle_look_at, this);
@@ -68,7 +68,7 @@ BOOL NACLFloaterExploreSounds::postBuild(void)
 	LLScrollListCtrl* list = getChild<LLScrollListCtrl>("sound_list");
 	list->setDoubleClickCallback(boost::bind(&NACLFloaterExploreSounds::handle_play_locally, this));
 	list->sortByColumn("playing", TRUE);
-	return TRUE;
+	return true;
 }
 
 LLSoundHistoryItem NACLFloaterExploreSounds::getItem(LLUUID itemID)
@@ -118,9 +118,9 @@ public:
 };
 
 // static
-BOOL NACLFloaterExploreSounds::tick()
+bool NACLFloaterExploreSounds::tick()
 {
-	//if(childGetValue("pause_chk").asBoolean()) return FALSE;
+	//if(childGetValue("pause_chk").asBoolean()) return false;
 
 	bool show_collision_sounds = childGetValue("collision_chk").asBoolean();
 	bool show_repeated_assets = childGetValue("repeated_asset_chk").asBoolean();
@@ -231,7 +231,7 @@ BOOL NACLFloaterExploreSounds::tick()
 		LLSD& owner_column = element["columns"][2];
 		owner_column["column"] = "owner";
 		std::string fullname;
-		BOOL is_group;
+		bool is_group;
 		if(gCacheName->getIfThere(item.mOwnerID, fullname, is_group))
 		{
 			if(is_group) fullname += " (Group)";
@@ -250,7 +250,7 @@ BOOL NACLFloaterExploreSounds::tick()
 	list->selectMultiple(selected_ids);
 	list->setScrollPos(scroll_pos);
 
-	return FALSE;
+	return false;
 }
 
 // static
@@ -371,8 +371,8 @@ void NACLFloaterExploreSounds::blacklistSound(void* user_data)
 		  sound_data["entry_name"] = llformat("Sound played by %s",agent.c_str());
 		sound_data["entry_type"] = (LLAssetType::EType)item.mType;
 		sound_data["entry_agent"] = gAgent.getID();
-		//NACLFloaterBlacklist::addEntry(item.mAssetID,sound_data); //for origonal asset blacklist
-		FSWSAssetBlacklist::getInstance()->addNewItemToBlacklist(item.mAssetID,"Sometext",LLAssetType::AT_SOUND,true);
+		NACLFloaterBlacklist::addEntry(item.mAssetID,sound_data); //for origonal asset blacklist
+//		FSWSAssetBlacklist::getInstance()->addNewItemToBlacklist(item.mAssetID,"Sometext",LLAssetType::AT_SOUND,true);
 	}
 }
 
