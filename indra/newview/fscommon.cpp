@@ -55,7 +55,11 @@ void reportToNearbyChat(const std::string& message)
 	args["type"] = LLNotificationsUI::NT_NEARBYCHAT;
 	LLNotificationsUI::LLNotificationManager::instance().onChat(chat, args);
 }
-
+std::string format_string(std::string text, const LLStringUtil::format_map_t& args)
+{
+	LLStringUtil::format(text, args);
+	return text;
+}
 std::string applyAutoCloseOoc(const std::string& message)
 {
 	if (!gSavedSettings.getBOOL("AutoCloseOOC"))
