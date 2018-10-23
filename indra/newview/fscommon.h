@@ -34,6 +34,7 @@
 
 const F32 AVATAR_UNKNOWN_Z_OFFSET = -1.f; // Const value for avatars at unknown height
 const F32 AVATAR_UNKNOWN_RANGE = -1.f;
+std::string format_string(std::string text, const LLStringUtil::format_map_t& args);
 
 struct FSUUIDEntryHasher : public std::unary_function<LLUUID, size_t>
 {

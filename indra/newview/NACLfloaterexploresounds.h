@@ -6,38 +6,43 @@
 #include "llfloater.h"
 #include "lleventtimer.h"
 #include "llaudioengine.h"
+#include "llavatarnamecache.h"
+
+class LLCheckBoxCtrl;
+class LLScrollListCtrl;
 
 class NACLFloaterExploreSounds
 : public LLFloater, public LLEventTimer
 {
-	friend class LLFloaterReg;
 public:
 	NACLFloaterExploreSounds(const LLSD& key);
-	BOOL postBuild(void);
-	void close(bool app_quitting);
+	BOOL postBuild();
 
-	BOOL tick();
+	bool tick();
 
-	LLSoundHistoryItem getItem(LLUUID itemID);
-
-	static void handle_play_locally(void* user_data);
-	static void handle_play_in_world(void* user_data);
-	static void handle_look_at(void* user_data);
-	static void handle_open(void* user_data);
-	static void handle_copy_uuid(void* user_data);
-	static void handle_stop(void* user_data);
-	static void blacklistSound(void* user_data);
+	LLSoundHistoryItem getItem(const LLUUID& itemID);
 
 private:
 	virtual ~NACLFloaterExploreSounds();
+	void handlePlayLocally();
+	void handleLookAt();
+	void handleStop();
+	void handleSelection();
+	void blacklistSound();
+
+	LLScrollListCtrl*	mHistoryScroller;
+	LLCheckBoxCtrl*		mCollisionSounds;
+	LLCheckBoxCtrl*		mRepeatedAssets;
+	LLCheckBoxCtrl*		mAvatarSounds;
+	LLCheckBoxCtrl*		mObjectSounds;
+	LLCheckBoxCtrl*		mPaused;
+	
 	std::list<LLSoundHistoryItem> mLastHistory;
 
-// static stuff!
-public:
-	static NACLFloaterExploreSounds* sInstance;
+	typedef std::map<LLUUID, boost::signals2::connection> blacklist_avatar_name_cache_connection_map_t;
+	blacklist_avatar_name_cache_connection_map_t mBlacklistAvatarNameCacheConnections;
 
-	static void toggle();
+    void onBlacklistAvatarNameCacheCallback(const LLUUID& av_id, const LLAvatarName& av_name, const LLUUID& asset_id, const std::string& region_name);
 };
 
 #endif
-// </edit>
