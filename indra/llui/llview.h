@@ -386,7 +386,7 @@ public:
 
 	// inherited from LLFocusableElement
 	/* virtual */ bool	handleKey(KEY key, MASK mask, bool called_from_parent);
-	/* virtual */ BOOL	handleKeyUp(KEY key, MASK mask, BOOL called_from_parent);
+	/* virtual */ bool	handleKeyUp(KEY key, MASK mask, bool called_from_parent);
 	/* virtual */ bool	handleUnicodeChar(llwchar uni_char, bool called_from_parent);
 
 	virtual bool	handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,

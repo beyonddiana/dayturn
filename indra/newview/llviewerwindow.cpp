@@ -1491,7 +1491,7 @@ void LLViewerWindow::handleFocusLost(LLWindow *window)
 }
 
 
-BOOL LLViewerWindow::handleTranslatedKeyDown(KEY key,  MASK mask, BOOL repeated)
+bool LLViewerWindow::handleTranslatedKeyDown(KEY key,  MASK mask, bool repeated)
 {
 	// Let the voice chat code check for its PTT key.  Note that this never affects event processing.
 	LLVoiceClient::getInstance()->keyDown(key, mask);
@@ -1511,13 +1511,13 @@ BOOL LLViewerWindow::handleTranslatedKeyDown(KEY key,  MASK mask, BOOL repeated)
         // would like to know about the KEYDOWN for an enter key... so ask and pass it along.
         LLFocusableElement* keyboard_focus = gFocusMgr.getKeyboardFocus();
         if (keyboard_focus && !keyboard_focus->wantsReturnKey())
-    		return FALSE;
+    		return false;
 	}
 
 	return gViewerKeyboard.handleKey(key, mask, repeated);
 }
 
-BOOL LLViewerWindow::handleTranslatedKeyUp(KEY key,  MASK mask)
+bool LLViewerWindow::handleTranslatedKeyUp(KEY key,  MASK mask)
 {
 	// Let the voice chat code check for its PTT key.  Note that this never affects event processing.
 	LLVoiceClient::getInstance()->keyUp(key, mask);
@@ -1532,7 +1532,7 @@ BOOL LLViewerWindow::handleTranslatedKeyUp(KEY key,  MASK mask)
 	return gViewerKeyboard.handleKeyUp(key, mask);
 }
 
-void LLViewerWindow::handleScanKey(KEY key, BOOL key_down, BOOL key_up, BOOL key_level)
+void LLViewerWindow::handleScanKey(KEY key, bool key_down, bool key_up, bool key_level)
 {
 	LLViewerJoystick::getInstance()->setCameraNeedsUpdate(true);
 	gViewerKeyboard.scanKey(key, key_down, key_up, key_level);
@@ -1675,40 +1675,40 @@ void LLViewerWindow::handleDataCopy(LLWindow *window, S32 data_type, void *data)
 	}
 }
 
-BOOL LLViewerWindow::handleTimerEvent(LLWindow *window)
+bool LLViewerWindow::handleTimerEvent(LLWindow *window)
 {
 	if (LLViewerJoystick::getInstance()->getOverrideCamera())
 	{
 		LLViewerJoystick::getInstance()->updateStatus();
-		return TRUE;
+		return true;
 	}
-	return FALSE;
+	return false;
 }
 
-BOOL LLViewerWindow::handleDeviceChange(LLWindow *window)
+bool LLViewerWindow::handleDeviceChange(LLWindow *window)
 {
 	// give a chance to use a joystick after startup (hot-plugging)
 	if (!LLViewerJoystick::getInstance()->isJoystickInitialized() )
 	{
 		LLViewerJoystick::getInstance()->init(true);
-		return TRUE;
+		return true;
 	}
-	return FALSE;
+	return false;
 }
 
-BOOL LLViewerWindow::handleDPIChanged(LLWindow *window, F32 ui_scale_factor, S32 window_width, S32 window_height)
+bool LLViewerWindow::handleDPIChanged(LLWindow *window, F32 ui_scale_factor, S32 window_width, S32 window_height)
 {
     if (ui_scale_factor >= MIN_UI_SCALE && ui_scale_factor <= MAX_UI_SCALE)
     {
         LLViewerWindow::reshape(window_width, window_height);
         mResDirty = true;
-        return TRUE;
+        return true;
     }
     else
     {
         LL_WARNS() << "DPI change caused UI scale to go out of bounds: " << ui_scale_factor << LL_ENDL;
-        return FALSE;
-    }    
+        return false;
+    }
 }
 
 bool LLViewerWindow::handleWindowDidChangeScreen(LLWindow *window)
@@ -2819,7 +2819,7 @@ void LLViewerWindow::setTitle(const std::string& win_title)
 	mWindow->setTitle(win_title);
 }
 // Takes a single keyup event, usually when UI is visible
-BOOL LLViewerWindow::handleKeyUp(KEY key, MASK mask)
+bool LLViewerWindow::handleKeyUp(KEY key, MASK mask)
 {
     LLFocusableElement* keyboard_focus = gFocusMgr.getKeyboardFocus();
 
@@ -2830,7 +2830,7 @@ BOOL LLViewerWindow::handleKeyUp(KEY key, MASK mask)
 		// We have keyboard focus, and it's not an accelerator
         if (keyboard_focus && keyboard_focus->wantsKeyUpKeyDown())
         {
-            return keyboard_focus->handleKeyUp(key, mask, FALSE);
+            return keyboard_focus->handleKeyUp(key, mask, false);
         }
         else if (key < 0x80)
 		{
@@ -2841,7 +2841,7 @@ BOOL LLViewerWindow::handleKeyUp(KEY key, MASK mask)
 
 	if (keyboard_focus)
 	{
-		if (keyboard_focus->handleKeyUp(key, mask, FALSE))
+		if (keyboard_focus->handleKeyUp(key, mask, false))
 		{
 			LL_DEBUGS() << "LLviewerWindow::handleKeyUp - in 'traverse up' - no loops seen... just called keyboard_focus->handleKeyUp an it returned true" << LL_ENDL;
 			LLViewerEventRecorder::instance().logKeyEvent(key, mask);

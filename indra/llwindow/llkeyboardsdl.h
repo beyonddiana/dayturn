@@ -36,8 +36,8 @@ public:
 	LLKeyboardSDL();
 	/*virtual*/ ~LLKeyboardSDL() {};
 
-	/*virtual*/ BOOL	handleKeyUp(const U16 key, MASK mask);
-	/*virtual*/ BOOL	handleKeyDown(const U16 key, MASK mask);
+	/*virtual*/ bool	handleKeyUp(const U16 key, MASK mask);
+	/*virtual*/ bool	handleKeyDown(const U16 key, MASK mask);
 	/*virtual*/ void	resetMaskKeys();
 	/*virtual*/ MASK	currentMask(BOOL for_mouse_event);
 	/*virtual*/ void	scanKeyboard();

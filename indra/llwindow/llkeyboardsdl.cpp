@@ -226,12 +226,12 @@ static U16 adjustNativekeyFromUnhandledMask(const U16 key, const U32 mask)
 }
 
 
-BOOL LLKeyboardSDL::handleKeyDown(const U16 key, const U32 mask)
+bool LLKeyboardSDL::handleKeyDown(const U16 key, const U32 mask)
 {
 	U16     adjusted_nativekey;
 	KEY	translated_key = 0;
 	U32	translated_mask = MASK_NONE;
-	BOOL	handled = FALSE;
+	bool	handled = false;
 
 	adjusted_nativekey = adjustNativekeyFromUnhandledMask(key, mask);
 

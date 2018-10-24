@@ -32,18 +32,18 @@
 // LLWindowCallbacks
 //
 
-BOOL LLWindowCallbacks::handleTranslatedKeyDown(const KEY key, const MASK mask, BOOL repeated)
+bool LLWindowCallbacks::handleTranslatedKeyDown(const KEY key, const MASK mask, bool repeated)
 {
-	return FALSE;
+	return false;
 }
 
 
-BOOL LLWindowCallbacks::handleTranslatedKeyUp(const KEY key, const MASK mask)
+bool LLWindowCallbacks::handleTranslatedKeyUp(const KEY key, const MASK mask)
 {
-	return FALSE;
+	return false;
 }
 
-void LLWindowCallbacks::handleScanKey(KEY key, BOOL key_down, BOOL key_up, BOOL key_level)
+void LLWindowCallbacks::handleScanKey(KEY key, bool key_down, bool key_up, bool key_level)
 {
 }
 
@@ -179,19 +179,19 @@ LLWindowCallbacks::DragNDropResult LLWindowCallbacks::handleDragNDrop(LLWindow *
 	return LLWindowCallbacks::DND_NONE;
 }
 
-BOOL LLWindowCallbacks::handleTimerEvent(LLWindow *window)
+bool LLWindowCallbacks::handleTimerEvent(LLWindow *window)
 {
-	return FALSE;
+	return false;
 }
 
-BOOL LLWindowCallbacks::handleDeviceChange(LLWindow *window)
+bool LLWindowCallbacks::handleDeviceChange(LLWindow *window)
 {
-	return FALSE;
+	return false;
 }
 
-BOOL LLWindowCallbacks::handleDPIChanged(LLWindow *window, F32 ui_scale_factor, S32 window_width, S32 window_height)
+bool LLWindowCallbacks::handleDPIChanged(LLWindow *window, F32 ui_scale_factor, S32 window_width, S32 window_height)
 {
-	return FALSE;
+	return false;
 }
 
 bool LLWindowCallbacks::handleWindowDidChangeScreen(LLWindow *window)

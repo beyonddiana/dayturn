@@ -55,9 +55,9 @@ LLKeyboard::LLKeyboard() : mCallbacks(NULL)
 	for (i = 0; i < KEY_COUNT; i++)
 	{
 		mKeyLevelFrameCount[i] = 0;
-		mKeyLevel[i] = FALSE;
-		mKeyUp[i]    = FALSE;
-		mKeyDown[i]  = FALSE;
+		mKeyLevel[i] = false;
+		mKeyUp[i]    = false;
+		mKeyDown[i]  = false;
 		mKeyRepeated[i] = FALSE;
 	}
 
@@ -164,12 +164,12 @@ void LLKeyboard::resetKeys()
 
 	for (i = 0; i < KEY_COUNT; i++)
 	{
-		mKeyUp[i] = FALSE;
+		mKeyUp[i] = false;
 	}
 
 	for (i = 0; i < KEY_COUNT; i++)
 	{
-		mKeyDown[i] = FALSE;
+		mKeyDown[i] = false;
 	}
 
 	for (i = 0; i < KEY_COUNT; i++)
@@ -214,47 +214,47 @@ U16 LLKeyboard::inverseTranslateKey(const KEY translated_key)
 }
 
 
-BOOL LLKeyboard::handleTranslatedKeyDown(KEY translated_key, U32 translated_mask)
+bool LLKeyboard::handleTranslatedKeyDown(KEY translated_key, U32 translated_mask)
 {
-	BOOL handled = FALSE;
-	BOOL repeated = FALSE;
+	bool handled = false;
+	bool repeated = false;
 
 	// is this the first time the key went down?
 	// if so, generate "character" message
 	if( !mKeyLevel[translated_key] )
 	{
-		mKeyLevel[translated_key] = TRUE;
+		mKeyLevel[translated_key] = true;
 		mKeyLevelTimer[translated_key].reset();
 		mKeyLevelFrameCount[translated_key] = 0;
-		mKeyRepeated[translated_key] = FALSE;
+		mKeyRepeated[translated_key] = false;
 	}
 	else
 	{
 		// Level is already down, assume it's repeated.
-		repeated = TRUE;
-		mKeyRepeated[translated_key] = TRUE;
+		repeated = true;
+		mKeyRepeated[translated_key] = true;
 	}
 	
-	mKeyDown[translated_key] = TRUE;
+	mKeyDown[translated_key] = true;
 	mCurTranslatedKey = (KEY)translated_key;
 	handled = mCallbacks->handleTranslatedKeyDown(translated_key, translated_mask, repeated);
 	return handled;
 }
 
 
-BOOL LLKeyboard::handleTranslatedKeyUp(KEY translated_key, U32 translated_mask)
+bool LLKeyboard::handleTranslatedKeyUp(KEY translated_key, U32 translated_mask)
 {	
-	BOOL handled = FALSE;
+	bool handled = false;
 	if( mKeyLevel[translated_key] )
 	{
-		mKeyLevel[translated_key] = FALSE;
+		mKeyLevel[translated_key] = false;
 		
 		// Only generate key up events if the key is thought to
 		// be down.  This allows you to call resetKeys() in the
 		// middle of a frame and ignore subsequent KEY_UP
 		// messages in the same frame.  This was causing the
 		// sequence W<return> in chat to move agents forward. JC
-		mKeyUp[translated_key] = TRUE;
+		mKeyUp[translated_key] = true;
 		handled = mCallbacks->handleTranslatedKeyUp(translated_key, translated_mask);
 	}
 	

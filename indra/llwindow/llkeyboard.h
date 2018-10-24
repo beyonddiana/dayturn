@@ -72,17 +72,18 @@ public:
 
 	F32				getCurKeyElapsedTime()	{ return getKeyDown(mCurScanKey) ? getKeyElapsedTime( mCurScanKey ) : 0.f; }
 	F32				getCurKeyElapsedFrameCount()	{ return getKeyDown(mCurScanKey) ? (F32)getKeyElapsedFrameCount( mCurScanKey ) : 0.f; }
-	BOOL			getKeyDown(const KEY key) { return mKeyLevel[key]; }
-	BOOL			getKeyRepeated(const KEY key) { return mKeyRepeated[key]; }
+	bool			getKeyDown(const KEY key) { return mKeyLevel[key]; }
+	bool			getKeyRepeated(const KEY key) { return mKeyRepeated[key]; }
 
 	BOOL			translateKey(const U16 os_key, KEY *translated_key);
 	U16				inverseTranslateKey(const KEY translated_key);
-	BOOL			handleTranslatedKeyUp(KEY translated_key, U32 translated_mask);		// Translated into "Linden" keycodes
-	BOOL			handleTranslatedKeyDown(KEY translated_key, U32 translated_mask);	// Translated into "Linden" keycodes
+	bool			handleTranslatedKeyUp(KEY translated_key, U32 translated_mask);		// Translated into "Linden" keycodes
+	bool			handleTranslatedKeyDown(KEY translated_key, U32 translated_mask);	// Translated into "Linden" keycodes
 
 
-	virtual BOOL	handleKeyUp(const U16 key, MASK mask) = 0;
-	virtual BOOL	handleKeyDown(const U16 key, MASK mask) = 0;
+	virtual bool	handleKeyUp(const U16 key, MASK mask) = 0;
+	virtual bool	handleKeyDown(const U16 key, MASK mask) = 0;
+
 
 	// Asynchronously poll the control, alt, and shift keys and set the
 	// appropriate internal key masks.
@@ -117,10 +118,10 @@ protected:
 
 	LLTimer			mKeyLevelTimer[KEY_COUNT];	// Time since level was set
 	S32				mKeyLevelFrameCount[KEY_COUNT];	// Frames since level was set
-	BOOL			mKeyLevel[KEY_COUNT];		// Levels
+	bool			mKeyLevel[KEY_COUNT];		// Levels
 	BOOL			mKeyRepeated[KEY_COUNT];	// Key was repeated
-	BOOL			mKeyUp[KEY_COUNT];			// Up edge
-	BOOL			mKeyDown[KEY_COUNT];		// Down edge
+	bool			mKeyUp[KEY_COUNT];			// Up edge
+	bool			mKeyDown[KEY_COUNT];		// Down edge
 	KEY				mCurTranslatedKey;
 	KEY				mCurScanKey;		// Used during the scanKeyboard()
 
