@@ -89,7 +89,7 @@ public:
 	LLViewerKeyboard();
 
 	bool			handleKey(KEY key, MASK mask, bool repeated);
-	BOOL			handleKeyUp(KEY key, MASK mask);
+	bool			handleKeyUp(KEY key, MASK mask);
 
 	S32				loadBindings(const std::string& filename);										// returns number bound, 0 on error
 	S32				loadBindingsXML(const std::string& filename);										// returns number bound, 0 on error
@@ -97,7 +97,7 @@ public:
 
 	BOOL			modeFromString(const std::string& string, S32 *mode);			// False on failure
 
-	void			scanKey(KEY key, BOOL key_down, BOOL key_up, BOOL key_level);
+	void			scanKey(KEY key, bool key_down, bool key_up, bool key_level);
 
 private:
 	S32				loadBindingMode(const LLViewerKeyboard::KeyMode& keymode);

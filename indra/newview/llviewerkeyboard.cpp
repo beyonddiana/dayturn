@@ -739,7 +739,7 @@ bool LLViewerKeyboard::handleKey(KEY translated_key,  MASK translated_mask, bool
 	return mKeyHandledByUI[translated_key];
 }
 
-BOOL LLViewerKeyboard::handleKeyUp(KEY translated_key, MASK translated_mask)
+bool LLViewerKeyboard::handleKeyUp(KEY translated_key, MASK translated_mask)
 {
 	return gViewerWindow->handleKeyUp(translated_key, translated_mask);
 }
@@ -987,7 +987,7 @@ EKeyboardMode LLViewerKeyboard::getMode()
 
 
 // Called from scanKeyboard.
-void LLViewerKeyboard::scanKey(KEY key, BOOL key_down, BOOL key_up, BOOL key_level)
+void LLViewerKeyboard::scanKey(KEY key, bool key_down, bool key_up, bool key_level)
 {
 	if (LLApp::isExiting())
 	{
@@ -1008,7 +1008,7 @@ void LLViewerKeyboard::scanKey(KEY key, BOOL key_down, BOOL key_up, BOOL key_lev
 	}
 
 	// don't process key down on repeated keys
-	BOOL repeat = gKeyboard->getKeyRepeated(key);
+	bool repeat = gKeyboard->getKeyRepeated(key);
 
 	for (S32 i = 0; i < binding_count; i++)
 	{

@@ -47,9 +47,9 @@ bool LLFocusableElement::handleKey(KEY key, MASK mask, bool called_from_parent)
 }
 
 // virtual
-BOOL LLFocusableElement::handleKeyUp(KEY key, MASK mask, BOOL called_from_parent)
+bool LLFocusableElement::handleKeyUp(KEY key, MASK mask, bool called_from_parent)
 {
-	return FALSE;
+	return false;
 }
 
 // virtual

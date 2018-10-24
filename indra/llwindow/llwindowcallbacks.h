@@ -33,9 +33,9 @@ class LLWindowCallbacks
 {
 public:
 	virtual ~LLWindowCallbacks() {}
-	virtual BOOL handleTranslatedKeyDown(KEY key,  MASK mask, BOOL repeated);
-	virtual BOOL handleTranslatedKeyUp(KEY key,  MASK mask);
-	virtual void handleScanKey(KEY key, BOOL key_down, BOOL key_up, BOOL key_level);
+	virtual bool handleTranslatedKeyDown(KEY key,  MASK mask, bool repeated);
+	virtual bool handleTranslatedKeyUp(KEY key,  MASK mask);
+	virtual void handleScanKey(KEY key, bool key_down, bool key_up, bool key_level);
 	virtual bool handleUnicodeChar(llwchar uni_char, MASK mask);
 
 	virtual BOOL handleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask);
@@ -66,10 +66,10 @@ public:
 	virtual void handleWindowBlock(LLWindow *window);							// window is taking over CPU for a while
 	virtual void handleWindowUnblock(LLWindow *window);							// window coming back after taking over CPU for a while
 	virtual void handleDataCopy(LLWindow *window, S32 data_type, void *data);
-	virtual BOOL handleTimerEvent(LLWindow *window);
-	virtual BOOL handleDeviceChange(LLWindow *window);
-	virtual BOOL handleDPIChanged(LLWindow *window, F32 ui_scale_factor, S32 window_width, S32 window_height);
-	virtual bool handleWindowDidChangeScreen(LLWindow *window);
+	virtual bool handleTimerEvent(LLWindow *window);
+	virtual bool handleDeviceChange(LLWindow *window);
+	virtual bool handleDPIChanged(LLWindow *window, F32 ui_scale_factor, S32 window_width, S32 window_height);
+    virtual bool handleWindowDidChangeScreen(LLWindow *window);
 
 	enum DragNDropAction {
 		DNDA_START_TRACKING = 0,// Start tracking an incoming drag
