@@ -2081,6 +2081,10 @@ BOOL LLPanelPreference::postBuild()
 	{
 		getChild<LLCheckBoxCtrl>("voice_call_friends_only_check")->setCommitCallback(boost::bind(&showFriendsOnlyWarning, _1, _2));
 	}
+    if (hasChild("allow_multiple_viewer_check", TRUE))
+    {
+        getChild<LLCheckBoxCtrl>("allow_multiple_viewer_check")->setCommitCallback(boost::bind(&showMultipleViewersWarning, _1, _2));
+    }	
 	if (hasChild("favorites_on_login_check", TRUE))
 	{
 		getChild<LLCheckBoxCtrl>("favorites_on_login_check")->setCommitCallback(boost::bind(&handleFavoritesOnLoginChanged, _1, _2));
@@ -2173,6 +2177,14 @@ void LLPanelPreference::saveSettings()
 			view_stack.push_back(*iter);
 		}
 	}	
+}
+
+void LLPanelPreference::showMultipleViewersWarning(LLUICtrl* checkbox, const LLSD& value)
+{
+    if (checkbox && checkbox->getValue())
+    {
+        LLNotificationsUtil::add("AllowMultipleViewers");
+    }
 }
 
 void LLPanelPreference::showFriendsOnlyWarning(LLUICtrl* checkbox, const LLSD& value)
