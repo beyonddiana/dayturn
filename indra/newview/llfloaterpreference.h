@@ -105,10 +105,6 @@ protected:
 	void		onNameTagOpacityChange(const LLSD& newvalue);
 
 	// set value of "DoNotDisturbResponseChanged" in account settings depending on whether do not disturb response
-	// ## Zi: Pie menu
-	// make sure controls get greyed out or enwbled when pie color override is toggled
-	void onPieColorsOverrideChanged();
-	// ## Zi: Pie menu
 
 	void onStreamMetadataAnnounceChanged();
 	void onMiniMapChatRingChanged();
@@ -239,6 +235,8 @@ protected:
 private:
 	//for "Only friends and groups can call or IM me"
 	static void showFriendsOnlyWarning(LLUICtrl*, const LLSD&);
+    //for  "Allow Multiple Viewers"
+    static void showMultipleViewersWarning(LLUICtrl*, const LLSD&);
 	//for "Show my Favorite Landmarks at Login"
 	static void handleFavoritesOnLoginChanged(LLUICtrl* checkbox, const LLSD& value);
 
