@@ -88,11 +88,11 @@ public:
 	LLPickInfo();
 	LLPickInfo(const LLCoordGL& mouse_pos, 
 		MASK keyboard_mask, 
-		BOOL pick_transparent,
-		BOOL pick_rigged,
-		BOOL pick_particle,
-		BOOL pick_surface_info,
-		BOOL pick_unselectable,
+		bool pick_transparent,
+		bool pick_rigged,
+		bool pick_particle,
+		bool pick_surface_info,
+		bool pick_unselectable,
 		void (*pick_callback)(const LLPickInfo& pick_info));
 
 	void fetchResults();
@@ -123,16 +123,16 @@ public:
 	LLVector3		mNormal;
 	LLVector4		mTangent;
 	LLVector3		mBinormal;
-	BOOL			mPickTransparent;
-	BOOL			mPickRigged;
-	BOOL			mPickParticle;
-	BOOL			mPickUnselectable;
+	bool			mPickTransparent;
+	bool			mPickRigged;
+	bool			mPickParticle;
+	bool			mPickUnselectable;
 	void		    getSurfaceInfo();
 
 private:
 	void			updateXYCoords();
 
-	BOOL			mWantSurfaceInfo;   // do we populate mUVCoord, mNormal, mBinormal?
+	bool			mWantSurfaceInfo;   // do we populate mUVCoord, mNormal, mBinormal?
 
 };
 
@@ -378,18 +378,18 @@ public:
 								S32 y_from_bot,
 								MASK mask,
 								void (*callback)(const LLPickInfo& pick_info),
-								BOOL pick_transparent = FALSE,
-								BOOL pick_rigged = FALSE,
-								BOOL pick_unselectable = FALSE);
-	LLPickInfo		pickImmediate(S32 x, S32 y, BOOL pick_transparent, BOOL pick_rigged = FALSE, BOOL pick_particle = FALSE);
+								bool pick_transparent = false,
+								bool pick_rigged = false,
+								bool pick_unselectable = false);
+	LLPickInfo		pickImmediate(S32 x, S32 y, bool pick_transparent, bool pick_rigged = false, bool pick_particle = false);
 	LLHUDIcon* cursorIntersectIcon(S32 mouse_x, S32 mouse_y, F32 depth,
 										   LLVector4a* intersection);
 
 	LLViewerObject* cursorIntersect(S32 mouse_x = -1, S32 mouse_y = -1, F32 depth = 512.f,
 									LLViewerObject *this_object = NULL,
 									S32 this_face = -1,
-									BOOL pick_transparent = FALSE,
-									BOOL pick_rigged = FALSE,
+									bool pick_transparent = false,
+									bool pick_rigged = false,
 									S32* face_hit = NULL,
 									LLVector4a *intersection = NULL,
 									LLVector2 *uv = NULL,
