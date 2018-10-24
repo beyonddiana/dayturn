@@ -1214,9 +1214,7 @@ LLWindowCallbacks::DragNDropResult LLViewerWindow::handleDragNDrop( LLWindow *wi
 
 				if (prim_media_dnd_enabled)
 				{
-					LLPickInfo pick_info = pickImmediate( pos.mX, pos.mY,
-                                                          TRUE /* pick_transparent */, 
-                                                          FALSE /* pick_rigged */);
+					LLPickInfo pick_info = pickImmediate( pos.mX, pos.mY,  true /*bool pick_transparent*/, false );
 
 					LLUUID object_id = pick_info.getObjectID();
 					S32 object_face = pick_info.mObjectFace;
@@ -3322,7 +3320,7 @@ void LLViewerWindow::updateUI()
 	if (gPipeline.hasRenderDebugMask(LLPipeline::RENDER_DEBUG_RAYCAST))
 	{
 		gDebugRaycastFaceHit = -1;
-		gDebugRaycastObject = cursorIntersect(-1, -1, 512.f, NULL, -1, FALSE, FALSE,
+		gDebugRaycastObject = cursorIntersect(-1, -1, 512.f, NULL, -1, false, false,
 											  &gDebugRaycastFaceHit,
 											  &gDebugRaycastIntersection,
 											  &gDebugRaycastTexCoord,
@@ -4770,19 +4768,19 @@ void LLViewerWindow::pickAsync( S32 x,
 								S32 y_from_bot,
 								MASK mask,
 								void (*callback)(const LLPickInfo& info),
-								BOOL pick_transparent,
-								BOOL pick_rigged,
-								BOOL pick_unselectable)
+								bool pick_transparent,
+								bool pick_rigged,
+								bool pick_unselectable)
 {
-	BOOL in_build_mode = LLFloaterReg::instanceVisible("build");
+	bool in_build_mode = LLFloaterReg::instanceVisible("build");
 	if (in_build_mode || LLDrawPoolAlpha::sShowDebugAlpha)
 	{
 		// build mode allows interaction with all transparent objects
 		// "Show Debug Alpha" means no object actually transparent
-		pick_transparent = TRUE;
+		pick_transparent = true;
 	}
 
-	LLPickInfo pick_info(LLCoordGL(x, y_from_bot), mask, pick_transparent, pick_rigged, FALSE, TRUE, pick_unselectable, callback);
+	LLPickInfo pick_info(LLCoordGL(x, y_from_bot), mask, pick_transparent, pick_rigged, false, true, pick_unselectable, callback);
 	schedulePick(pick_info);
 }
 
@@ -4838,19 +4836,19 @@ void LLViewerWindow::returnEmptyPicks()
 }
 
 // Performs the GL object/land pick.
-LLPickInfo LLViewerWindow::pickImmediate(S32 x, S32 y_from_bot, BOOL pick_transparent, BOOL pick_rigged, BOOL pick_particle)
+LLPickInfo LLViewerWindow::pickImmediate(S32 x, S32 y_from_bot, bool pick_transparent, bool pick_rigged, bool pick_particle)
 {
-	BOOL in_build_mode = LLFloaterReg::instanceVisible("build");
+	bool in_build_mode = LLFloaterReg::instanceVisible("build");
 	if (in_build_mode || LLDrawPoolAlpha::sShowDebugAlpha)
 	{
 		// build mode allows interaction with all transparent objects
 		// "Show Debug Alpha" means no object actually transparent
-		pick_transparent = TRUE;
+		pick_transparent = true;
 	}
 	
 	// shortcut queueing in mPicks and just update mLastPick in place
 	MASK	key_mask = gKeyboard->currentMask(TRUE);
-	mLastPick = LLPickInfo(LLCoordGL(x, y_from_bot), key_mask, pick_transparent, pick_rigged, pick_particle, TRUE, FALSE, NULL);
+	mLastPick = LLPickInfo(LLCoordGL(x, y_from_bot), key_mask, pick_transparent, pick_rigged, pick_particle, true, false, NULL);
 	mLastPick.fetchResults();
 
 	return mLastPick;
@@ -4885,8 +4883,8 @@ LLHUDIcon* LLViewerWindow::cursorIntersectIcon(S32 mouse_x, S32 mouse_y, F32 dep
 LLViewerObject* LLViewerWindow::cursorIntersect(S32 mouse_x, S32 mouse_y, F32 depth,
 												LLViewerObject *this_object,
 												S32 this_face,
-												BOOL pick_transparent,
-												BOOL pick_rigged,
+												bool pick_transparent,
+												bool pick_rigged,
 												S32* face_hit,
 												LLVector4a *intersection,
 												LLVector2 *uv,
@@ -6328,7 +6326,7 @@ LLPickInfo::LLPickInfo()
 	: mKeyMask(MASK_NONE),
 	  mPickCallback(NULL),
 	  mPickType(PICK_INVALID),
-	  mWantSurfaceInfo(FALSE),
+	  mWantSurfaceInfo(false),
 	  mObjectFace(-1),
 	  mUVCoords(-1.f, -1.f),
 	  mSTCoords(-1.f, -1.f),
@@ -6338,19 +6336,19 @@ LLPickInfo::LLPickInfo()
 	  mTangent(),
 	  mBinormal(),
 	  mHUDIcon(NULL),
-	  mPickTransparent(FALSE),
-	  mPickRigged(FALSE),
-	  mPickParticle(FALSE)
+	  mPickTransparent(false),
+	  mPickRigged(false),
+	  mPickParticle(false)
 {
 }
 
 LLPickInfo::LLPickInfo(const LLCoordGL& mouse_pos, 
 		       MASK keyboard_mask, 
-		       BOOL pick_transparent,
-			   BOOL pick_rigged,
-			   BOOL pick_particle,
-		       BOOL pick_uv_coords,
-			   BOOL pick_unselectable,
+		       bool pick_transparent,
+			   bool pick_rigged,
+			   bool pick_particle,
+		       bool pick_uv_coords,
+			   bool pick_unselectable,
 		       void (*pick_callback)(const LLPickInfo& pick_info))
 	: mMousePt(mouse_pos),
 	  mKeyMask(keyboard_mask),

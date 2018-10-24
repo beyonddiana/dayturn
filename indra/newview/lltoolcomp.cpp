@@ -267,7 +267,7 @@ bool LLToolCompTranslate::handleHover(S32 x, S32 y, MASK mask)
 BOOL LLToolCompTranslate::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	mMouseDown = TRUE;
-	gViewerWindow->pickAsync(x, y, mask, pickCallback, /*BOOL pick_transparent*/ TRUE, LLFloaterReg::instanceVisible("build"));
+	gViewerWindow->pickAsync(x, y, mask, pickCallback, /*bool pick_transparent*/ true);
 	return TRUE;
 }
 

@@ -135,7 +135,7 @@ BOOL LLToolCamera::handleMouseDown(S32 x, S32 y, MASK mask)
 
 	gViewerWindow->hideCursor();
 
-	gViewerWindow->pickAsync(x, y, mask, pickCallback, /*BOOL pick_transparent*/ FALSE, /*BOOL pick_rigged*/ gSavedSettings.getBOOL("AnimatedObjectsAllowLeftClick"), /*BOOL pick_unselectable*/ TRUE);
+	gViewerWindow->pickAsync(x, y, mask, pickCallback, /*bool pick_transparent*/ false, /*bool pick_rigged*/ false, /*bool pick_unselectable*/ true);
 
 	return TRUE;
 }
