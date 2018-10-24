@@ -1727,7 +1727,7 @@ bool LLWorldMapView::handleHover( S32 x, S32 y, MASK mask )
 }
 
 
-BOOL LLWorldMapView::handleDoubleClick( S32 x, S32 y, MASK mask )
+bool LLWorldMapView::handleDoubleClick( S32 x, S32 y, MASK mask )
 {
 	if( sHandledLastClick )
 	{
@@ -1790,9 +1790,9 @@ BOOL LLWorldMapView::handleDoubleClick( S32 x, S32 y, MASK mask )
 			}
 		};
 
-		return TRUE;
+		return true;
 	}
-	return FALSE;
+	return false;
 }
 
 

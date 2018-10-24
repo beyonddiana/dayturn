@@ -153,7 +153,7 @@ BOOL LLInboxFolderViewFolder::handleMouseDown( S32 x, S32 y, MASK mask )
 	return LLFolderViewFolder::handleMouseDown(x, y, mask);
 }
 
-BOOL LLInboxFolderViewFolder::handleDoubleClick( S32 x, S32 y, MASK mask )
+bool LLInboxFolderViewFolder::handleDoubleClick( S32 x, S32 y, MASK mask )
 {
 	deFreshify();
 	return LLFolderViewFolder::handleDoubleClick(x, y, mask);
@@ -216,7 +216,7 @@ void LLInboxFolderViewItem::addToFolder(LLFolderViewFolder* folder)
 	}
 }
 
-BOOL LLInboxFolderViewItem::handleDoubleClick(S32 x, S32 y, MASK mask)
+bool LLInboxFolderViewItem::handleDoubleClick(S32 x, S32 y, MASK mask)
 {
 	deFreshify();
 	

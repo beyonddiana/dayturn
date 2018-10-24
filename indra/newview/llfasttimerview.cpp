@@ -172,7 +172,7 @@ BlockTimerStatHandle* LLFastTimerView::getLegendID(S32 y)
 	return NULL;
 }
 
-BOOL LLFastTimerView::handleDoubleClick(S32 x, S32 y, MASK mask)
+bool LLFastTimerView::handleDoubleClick(S32 x, S32 y, MASK mask)
 {
 	for(LLTrace::block_timer_tree_df_iterator_t it = LLTrace::begin_block_timer_tree_df(FTM_FRAME);
 		it != LLTrace::end_block_timer_tree_df();
@@ -180,7 +180,7 @@ BOOL LLFastTimerView::handleDoubleClick(S32 x, S32 y, MASK mask)
 	{
 		(*it)->getTreeNode().mCollapsed = false;
 	}
-	return TRUE;
+	return true;
 }
 
 BOOL LLFastTimerView::handleMouseDown(S32 x, S32 y, MASK mask)

@@ -274,7 +274,7 @@ public:
 	virtual BOOL handleMouseDown( S32 x, S32 y, MASK mask );
 	virtual bool handleHover( S32 x, S32 y, MASK mask );
 	virtual BOOL handleMouseUp( S32 x, S32 y, MASK mask );
-	virtual BOOL handleDoubleClick( S32 x, S32 y, MASK mask );
+	virtual bool handleDoubleClick( S32 x, S32 y, MASK mask );
 
 	virtual void onMouseLeave(S32 x, S32 y, MASK mask);
 
@@ -427,7 +427,7 @@ public:
 	virtual bool handleHover(S32 x, S32 y, MASK mask);
 	virtual BOOL handleRightMouseDown( S32 x, S32 y, MASK mask );
 	virtual BOOL handleMouseDown( S32 x, S32 y, MASK mask );
-	virtual BOOL handleDoubleClick( S32 x, S32 y, MASK mask );
+	virtual bool handleDoubleClick( S32 x, S32 y, MASK mask );
 	virtual bool handleDragAndDrop(S32 x, S32 y, MASK mask,
 									bool drop,
 									EDragAndDropType cargo_type,

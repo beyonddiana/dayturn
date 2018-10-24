@@ -53,20 +53,20 @@ LLToolFace::~LLToolFace()
 { }
 
 
-BOOL LLToolFace::handleDoubleClick(S32 x, S32 y, MASK mask)
+bool LLToolFace::handleDoubleClick(S32 x, S32 y, MASK mask)
 {
 	if (!LLSelectMgr::getInstance()->getSelection()->isEmpty())
 	{
 		// You should already have an object selected from the mousedown.
 		// If so, show its properties
 		LLFloaterReg::showInstance("build", "Texture");
-		return TRUE;
+		return true;
 	}
 	else
 	{
 		// Nothing selected means the first mouse click was probably
 		// bad, so try again.
-		return FALSE;
+		return false;
 	}
 }
 

@@ -292,7 +292,7 @@ public:
 	virtual BOOL	handleMouseDown(S32 x, S32 y, MASK mask);
 	virtual BOOL	handleMouseUp(S32 x, S32 y, MASK mask);
 	virtual BOOL	handleRightMouseDown(S32 x, S32 y, MASK mask);
-	virtual BOOL	handleDoubleClick(S32 x, S32 y, MASK mask);
+	virtual bool	handleDoubleClick(S32 x, S32 y, MASK mask);
 	virtual BOOL	handleMiddleMouseDown(S32 x, S32 y, MASK mask);
 	
 	virtual BOOL	handleScrollWheel(S32 x, S32 y, S32 mask);
@@ -545,8 +545,8 @@ public:
 	void pushVisibleAll(bool visible, const skip_list_t& skip_list = skip_list_t());
 	void popVisibleAll(const skip_list_t& skip_list = skip_list_t());
 
-	void			setCycleMode(BOOL mode) { mFocusCycleMode = mode; }
-	BOOL			getCycleMode() const { return mFocusCycleMode; }
+	void			setCycleMode(bool mode) { mFocusCycleMode = mode; }
+	bool			getCycleMode() const { return mFocusCycleMode; }
 	void			bringToFront( LLFloater* child, BOOL give_focus = TRUE );
 	void			highlightFocusedFloater();
 	void			unhighlightFocusedFloater();
@@ -586,7 +586,7 @@ private:
 	LLRect				mToolbarRightRect;
 	LLRect				mToolbarRects[LLToolBarEnums::TOOLBAR_COUNT];
 	LLHandle<LLView>	mSnapView;
-	BOOL			mFocusCycleMode;
+	bool			mFocusCycleMode;
 	S32				mSnapOffsetBottom;
 	S32				mSnapOffsetRight;
 	S32				mMinimizePositionVOffset;

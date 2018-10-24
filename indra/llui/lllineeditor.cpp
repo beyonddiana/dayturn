@@ -661,7 +661,7 @@ void LLLineEditor::onSpellCheckSettingsChange()
 	mSpellCheckStart = mSpellCheckEnd = -1;
 }
 
-BOOL LLLineEditor::handleDoubleClick(S32 x, S32 y, MASK mask)
+bool LLLineEditor::handleDoubleClick(S32 x, S32 y, MASK mask)
 {
 	setFocus( TRUE );
 	mTripleClickTimer.setTimerExpirySec(TRIPLE_CLICK_INTERVAL);
@@ -675,7 +675,7 @@ BOOL LLLineEditor::handleDoubleClick(S32 x, S32 y, MASK mask)
 	{
 		const LLWString& wtext = mText.getWString();
 
-		BOOL doSelectAll = TRUE;
+		bool doSelectAll = true;
 
 		// Select the word we're on
 		if( LLWStringUtil::isPartOfWord( wtext[mCursorPos] ) )
@@ -718,7 +718,7 @@ BOOL LLLineEditor::handleDoubleClick(S32 x, S32 y, MASK mask)
 	// take selection to 'primary' clipboard
 	updatePrimary();
 
-	return TRUE;
+	return true;
 }
 
 BOOL LLLineEditor::handleMouseDown(S32 x, S32 y, MASK mask)

@@ -1173,8 +1173,8 @@ bool idle_startup()
 		init_start_screen(agent_location_id);
 
 		// Display the startup progress bar.
-		gViewerWindow->setShowProgress(TRUE);
-		gViewerWindow->setProgressCancelButtonVisible(TRUE, LLTrans::getString("Quit"));
+		gViewerWindow->setShowProgress(true);
+		gViewerWindow->setProgressCancelButtonVisible(true, LLTrans::getString("Quit"));
 
 		gViewerWindow->revealIntroPanel();
 
@@ -1588,7 +1588,7 @@ bool idle_startup()
 
 		if ( gViewerWindow != NULL)
 		{	// This isn't the first logon attempt, so show the UI
-			gViewerWindow->setNormalControlsVisible( TRUE );
+			gViewerWindow->setNormalControlsVisible( true );
 		}	
 		gLoginMenuBarView->setVisible(false);
 		gLoginMenuBarView->setEnabled(false);
@@ -2411,7 +2411,7 @@ bool idle_startup()
 		LL_DEBUGS("AppInit") << "Done releasing bitmap" << LL_ENDL;
 		//gViewerWindow->revealIntroPanel();
 		gViewerWindow->setStartupComplete(); 
-		gViewerWindow->setProgressCancelButtonVisible(FALSE);
+		gViewerWindow->setProgressCancelButtonVisible(false);
 		display_startup();
 
 		// We're not away from keyboard, even though login might have taken

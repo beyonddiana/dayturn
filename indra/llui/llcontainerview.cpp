@@ -74,7 +74,7 @@ bool LLContainerView::addChild(LLView* child, S32 tab_group)
 	return res;
 }
 
-BOOL LLContainerView::handleDoubleClick(S32 x, S32 y, MASK mask)
+bool LLContainerView::handleDoubleClick(S32 x, S32 y, MASK mask)
 {
 	return handleMouseDown(x, y, mask);
 }

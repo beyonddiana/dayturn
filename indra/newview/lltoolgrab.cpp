@@ -123,14 +123,14 @@ void LLToolGrabBase::handleDeselect()
 
 }
 
-BOOL LLToolGrabBase::handleDoubleClick(S32 x, S32 y, MASK mask)
+bool LLToolGrabBase::handleDoubleClick(S32 x, S32 y, MASK mask)
 {
 	if (gDebugClicks)
 	{
 		LL_INFOS() << "LLToolGrab handleDoubleClick (becoming mouseDown)" << LL_ENDL;
 	}
 
-	return FALSE;
+	return false;
 }
 
 BOOL LLToolGrabBase::handleMouseDown(S32 x, S32 y, MASK mask)

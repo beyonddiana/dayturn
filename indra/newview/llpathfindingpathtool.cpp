@@ -147,9 +147,9 @@ BOOL LLPathfindingPathTool::handleRightMouseUp(S32 pX, S32 pY, MASK pMask)
 	return TRUE;
 }
 
-BOOL LLPathfindingPathTool::handleDoubleClick(S32 pX, S32 pY, MASK pMask)
+bool LLPathfindingPathTool::handleDoubleClick(S32 pX, S32 pY, MASK pMask)
 {
-	return TRUE;
+	return true;
 }
 
 bool LLPathfindingPathTool::handleHover(S32 pX, S32 pY, MASK pMask)

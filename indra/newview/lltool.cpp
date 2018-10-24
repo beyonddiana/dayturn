@@ -125,11 +125,11 @@ bool LLTool::handleScrollHWheel(S32 x, S32 y, S32 clicks)
     return false;
 }
 
-BOOL LLTool::handleDoubleClick(S32 x,S32 y,MASK mask)
+bool LLTool::handleDoubleClick(S32 x,S32 y,MASK mask)
 {
 	// LL_INFOS() << "LLTool::handleDoubleClick" << LL_ENDL;
 	// by default, pretend it's a left click
-	return FALSE;
+	return false;
 }
 
 BOOL LLTool::handleRightMouseDown(S32 x,S32 y,MASK mask)

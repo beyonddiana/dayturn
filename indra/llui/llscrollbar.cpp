@@ -457,7 +457,7 @@ BOOL LLScrollbar::handleMouseUp(S32 x, S32 y, MASK mask)
 	return handled;
 }
 
-BOOL LLScrollbar::handleDoubleClick(S32 x, S32 y, MASK mask)
+bool LLScrollbar::handleDoubleClick(S32 x, S32 y, MASK mask)
 {
 	// just treat a double click as a second click
 	return handleMouseDown(x, y, mask);

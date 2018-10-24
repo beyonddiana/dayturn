@@ -1046,7 +1046,7 @@ BOOL LLNetMap::handleClick(S32 x, S32 y, MASK mask)
 	return TRUE;
 }
 
-BOOL LLNetMap::handleDoubleClick(S32 x, S32 y, MASK mask)
+bool LLNetMap::handleDoubleClick(S32 x, S32 y, MASK mask)
 {
 	LLVector3d pos_global = viewPosToGlobal(x, y);
 
@@ -1075,7 +1075,7 @@ BOOL LLNetMap::handleDoubleClick(S32 x, S32 y, MASK mask)
 	{
 		LLFloaterReg::showInstance("world_map");
 	}
-	return TRUE;
+	return true;
 }
 
 void LLNetMap::handleOverlayToggle(const LLSD& sdParam)

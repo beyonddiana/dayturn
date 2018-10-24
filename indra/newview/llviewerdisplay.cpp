@@ -422,7 +422,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		{
 		case LLAgent::TELEPORT_PENDING:
 			gTeleportDisplayTimer.reset();
-			gViewerWindow->setShowProgress(TRUE);
+			gViewerWindow->setShowProgress(true);
 			gViewerWindow->setProgressPercent(llmin(teleport_percent, 0.0f));
 			gAgent.setTeleportMessage(LLAgent::sTeleportProgressMessages["pending"]);
 			gViewerWindow->setProgressString(LLAgent::sTeleportProgressMessages["pending"]);
@@ -432,7 +432,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 			// Transition to REQUESTED.  Viewer has sent some kind
 			// of TeleportRequest to the source simulator
 			gTeleportDisplayTimer.reset();
-			gViewerWindow->setShowProgress(TRUE);
+			gViewerWindow->setShowProgress(true);
 			gViewerWindow->setProgressPercent(llmin(teleport_percent, 0.0f));
 			gAgent.setTeleportState( LLAgent::TELEPORT_REQUESTED );
 			gAgent.setTeleportMessage(
@@ -459,7 +459,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		case LLAgent::TELEPORT_START_ARRIVAL:
 			// Transition to ARRIVING.  Viewer has received avatar update, etc., from destination simulator
 			gTeleportArrivalTimer.reset();
-				gViewerWindow->setProgressCancelButtonVisible(FALSE, LLTrans::getString("Cancel"));
+				gViewerWindow->setProgressCancelButtonVisible(false, LLTrans::getString("Cancel"));
 			gViewerWindow->setProgressPercent(75.f);
 			gAgent.setTeleportState( LLAgent::TELEPORT_ARRIVING );
 			gAgent.setTeleportMessage(
@@ -479,7 +479,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 					//LLFirstUse::useTeleport();
 					gAgent.setTeleportState( LLAgent::TELEPORT_NONE );
 				}
-				gViewerWindow->setProgressCancelButtonVisible(FALSE, LLTrans::getString("Cancel"));
+				gViewerWindow->setProgressCancelButtonVisible(false, LLTrans::getString("Cancel"));
 				gViewerWindow->setProgressPercent(  arrival_fraction * 25.f + 75.f);
 				gViewerWindow->setProgressString(message);
 			}
@@ -531,7 +531,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		F32 percent_done = gRestoreGLTimer.getElapsedTimeF32() * 100.f / RESTORE_GL_TIME;
 		if( percent_done > 100.f )
 		{
-			gViewerWindow->setShowProgress(FALSE);
+			gViewerWindow->setShowProgress(false);
 			gRestoreGL = FALSE;
 		}
 		else

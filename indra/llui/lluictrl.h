@@ -159,7 +159,7 @@ public:
 	/*virtual*/ BOOL 	handleMouseUp(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL	handleRightMouseDown(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL	handleRightMouseUp(S32 x, S32 y, MASK mask);
-	/*virtual*/ BOOL	handleDoubleClick(S32 x, S32 y, MASK mask);
+	/*virtual*/ bool	handleDoubleClick(S32 x, S32 y, MASK mask);
 
 	// From LLFocusableElement
 	/*virtual*/ void	setFocus( BOOL b );

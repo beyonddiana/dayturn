@@ -379,7 +379,7 @@ bool LLResizeBar::handleHover(S32 x, S32 y, MASK mask)
 	return handled;
 } // end LLResizeBar::handleHover
 
-BOOL LLResizeBar::handleDoubleClick(S32 x, S32 y, MASK mask)
+bool LLResizeBar::handleDoubleClick(S32 x, S32 y, MASK mask)
 {
 	LLRect orig_rect = mResizingView->getRect();
 	LLRect scaled_rect = orig_rect;
@@ -409,7 +409,7 @@ BOOL LLResizeBar::handleDoubleClick(S32 x, S32 y, MASK mask)
 		mResizingView->setShape(scaled_rect, true);
 	}
 
-	return TRUE;
+	return true;
 }
 
 void LLResizeBar::setImagePanel(LLPanel * panelp)

@@ -769,7 +769,7 @@ BOOL LLOutfitGalleryItem::handleRightMouseDown(S32 x, S32 y, MASK mask)
     return LLUICtrl::handleRightMouseDown(x, y, mask);
 }
 
-BOOL LLOutfitGalleryItem::handleDoubleClick(S32 x, S32 y, MASK mask)
+bool LLOutfitGalleryItem::handleDoubleClick(S32 x, S32 y, MASK mask)
 {
     LLTabContainer* appearence_tabs = LLPanelOutfitsInventory::findInstance()->getChild<LLTabContainer>("appearance_tabs");
     if (appearence_tabs && (mUUID != LLUUID()))
@@ -785,7 +785,7 @@ BOOL LLOutfitGalleryItem::handleDoubleClick(S32 x, S32 y, MASK mask)
                 outfit_list->setSelectedOutfitByUUID(mUUID);
                 LLAccordionCtrlTab* tab = accordion->getSelectedTab();
                 tab->showAndFocusHeader();
-                return TRUE;
+                return true;
             }
         }
     }

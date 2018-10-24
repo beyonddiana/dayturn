@@ -1078,7 +1078,7 @@ bool LLViewerWindow::handleAnyMouseClick(LLWindow *window,  LLCoordGL pos, MASK 
 
 BOOL LLViewerWindow::handleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask)
 {
-    mAllowMouseDragging = FALSE;
+    mAllowMouseDragging = false;
     if (!mMouseDownTimer.getStarted())
     {
         mMouseDownTimer.start();
@@ -1091,7 +1091,7 @@ BOOL LLViewerWindow::handleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask
     return handleAnyMouseClick(window,pos,mask,LLMouseHandler::CLICK_LEFT,down);
 }
 
-BOOL LLViewerWindow::handleDoubleClick(LLWindow *window,  LLCoordGL pos, MASK mask)
+bool LLViewerWindow::handleDoubleClick(LLWindow *window,  LLCoordGL pos, MASK mask)
 {
 	// try handling as a double-click first, then a single-click if that
 	// wasn't handled.
@@ -1099,7 +1099,7 @@ BOOL LLViewerWindow::handleDoubleClick(LLWindow *window,  LLCoordGL pos, MASK ma
 	if (handleAnyMouseClick(window, pos, mask,
 				LLMouseHandler::CLICK_DOUBLELEFT, down))
 	{
-		return TRUE;
+		return true;
 	}
 	return handleMouseDown(window, pos, mask);
 }
@@ -1123,7 +1123,7 @@ BOOL LLViewerWindow::handleRightMouseDown(LLWindow *window,  LLCoordGL pos, MASK
 	y = ll_round((F32)y / mDisplayScale.mV[VY]);
 
 	bool down = true;
-	BOOL handle = handleAnyMouseClick(window,pos,mask,LLMouseHandler::CLICK_RIGHT,down);
+	bool handle = handleAnyMouseClick(window,pos,mask,LLMouseHandler::CLICK_RIGHT,down);
 	if (handle)
 		return handle;
 
@@ -1350,7 +1350,7 @@ void LLViewerWindow::handleMouseMove(LLWindow *window,  LLCoordGL pos, MASK mask
 	x = ll_round((F32)x / mDisplayScale.mV[VX]);
 	y = ll_round((F32)y / mDisplayScale.mV[VY]);
 
-	mMouseInWindow = TRUE;
+	mMouseInWindow = true;
 
 	// Save mouse point for access during idle() and display()
 
@@ -1378,7 +1378,7 @@ void LLViewerWindow::handleMouseDragged(LLWindow *window,  LLCoordGL pos, MASK m
     {
         if (mMouseDownTimer.getElapsedTimeF32() > 0.1)
         {
-            mAllowMouseDragging = TRUE;
+            mAllowMouseDragging = true;
             mMouseDownTimer.stop();
         }
     }
@@ -1392,17 +1392,17 @@ void LLViewerWindow::handleMouseLeave(LLWindow *window)
 {
 	// Note: we won't get this if we have captured the mouse.
 	llassert( gFocusMgr.getMouseCapture() == NULL );
-	mMouseInWindow = FALSE;
+	mMouseInWindow = false;
 	LLToolTipMgr::instance().blockToolTips();
 }
 
-BOOL LLViewerWindow::handleCloseRequest(LLWindow *window)
+bool LLViewerWindow::handleCloseRequest(LLWindow *window)
 {
 	// User has indicated they want to close, but we may need to ask
 	// about modified documents.
 	LLAppViewer::instance()->userQuit();
 	// Don't quit immediately
-	return FALSE;
+	return false;
 }
 
 void LLViewerWindow::handleQuit(LLWindow *window)
@@ -1517,7 +1517,7 @@ void LLViewerWindow::handleScanKey(KEY key, bool key_down, bool key_up, bool key
 
 
 
-BOOL LLViewerWindow::handleActivate(LLWindow *window, BOOL activated)
+bool LLViewerWindow::handleActivate(LLWindow *window, bool activated)
 {
 	if (activated)
 	{
@@ -1549,15 +1549,15 @@ BOOL LLViewerWindow::handleActivate(LLWindow *window, BOOL activated)
 		// Mute audio
 		audio_update_volume();
 	}
-	return TRUE;
+	return true;
 }
 
-BOOL LLViewerWindow::handleActivateApp(LLWindow *window, BOOL activating)
+bool LLViewerWindow::handleActivateApp(LLWindow *window, bool activating)
 {
 	//if (!activating) gAgentCamera.changeCameraToDefault();
 
 	LLViewerJoystick::getInstance()->setNeedsReset(true);
-	return FALSE;
+	return false;
 }
 
 
@@ -1566,7 +1566,7 @@ void LLViewerWindow::handleMenuSelect(LLWindow *window,  S32 menu_item)
 }
 
 
-BOOL LLViewerWindow::handlePaint(LLWindow *window,  S32 x,  S32 y, S32 width,  S32 height)
+bool LLViewerWindow::handlePaint(LLWindow *window,  S32 x,  S32 y, S32 width,  S32 height)
 {
 	// *TODO: Enable similar information output for other platforms?  DK 2011-02-18
 #if LL_WINDOWS
@@ -1603,10 +1603,10 @@ BOOL LLViewerWindow::handlePaint(LLWindow *window,  S32 x,  S32 y, S32 width,  S
 
 		TextOutA(hdc, 0, 50, "Set \"HeadlessClient FALSE\" in settings.ini file to reenable", 61);
 		EndPaint(window_handle, &ps); 
-		return TRUE;
+		return true;
 	}
 #endif
-	return FALSE;
+	return false;
 }
 
 
@@ -1745,14 +1745,14 @@ LLViewerWindow::LLViewerWindow(const Params& p)
 	mLeftMouseDown(FALSE),
 	mMiddleMouseDown(FALSE),
 	mRightMouseDown(FALSE),
-	mMouseInWindow( FALSE ),
-    mAllowMouseDragging(TRUE),
+	mMouseInWindow( false ),
+    mAllowMouseDragging(true),
     mMouseDownTimer(),
 	mLastMask( MASK_NONE ),
 	mToolStored( NULL ),
-	mHideCursorPermanent(false),
+	mHideCursorPermanent( false ),
 	mCursorHidden(false),
-	mIgnoreActivate( FALSE ),
+	mIgnoreActivate( false ),
 	mResDirty(false),
 	mStatesDirty(false),
 	mCurrResolutionIndex(0),
@@ -2064,8 +2064,8 @@ void LLViewerWindow::initBase()
 
 	// Add the progress bar view (startup view), which overrides everything
 	mProgressView = getRootView()->findChild<LLProgressView>("progress_view");
-	setShowProgress(FALSE);
-	setProgressCancelButtonVisible(FALSE);
+	setShowProgress(false);
+	setProgressCancelButtonVisible(false);
 
 	gMenuHolder = getRootView()->getChild<LLViewerMenuHolderGL>("Menu Holder");
 	LLMenuGL::sMenuContainer = gMenuHolder;
@@ -2379,7 +2379,7 @@ void LLViewerWindow::shutdownGL()
 	LLSelectMgr::getInstance()->cleanup();	
 
 	LL_INFOS() << "Stopping GL during shutdown" << LL_ENDL;
-	stopGL(FALSE);
+	stopGL(false);
 	stop_glerror();
 
 	gGL.shutdown();
@@ -2528,7 +2528,7 @@ void LLViewerWindow::reshape(S32 width, S32 height)
 
 
 // Hide normal UI when a logon fails
-void LLViewerWindow::setNormalControlsVisible( BOOL visible )
+void LLViewerWindow::setNormalControlsVisible( bool visible )
 {
 	if(LLChicletBar::instanceExists())
 	{
@@ -3698,11 +3698,11 @@ void LLViewerWindow::updateMouseDelta()
 		mouse_pos.mX > mWindowRectRaw.getWidth() ||
 		mouse_pos.mY > mWindowRectRaw.getHeight())
 	{
-		mMouseInWindow = FALSE;
+		mMouseInWindow = false;
 	}
 	else
 	{
-		mMouseInWindow = TRUE;
+		mMouseInWindow = true;
 	}
 
 	LLVector2 mouse_vel; 
@@ -3797,7 +3797,7 @@ void LLViewerWindow::updateKeyboardFocus()
 		if ((mask & MASK_CONTROL) == 0)
 		{
 			// control key no longer held down, finish cycle mode
-			gFloaterView->setCycleMode(FALSE);
+			gFloaterView->setCycleMode(false);
 
 			gFloaterView->syncFloaterTabOrder();
 		}
@@ -4702,9 +4702,9 @@ LLVector3d LLViewerWindow::clickPointInWorldGlobal(S32 x, S32 y_from_bot, LLView
 }
 
 
-BOOL LLViewerWindow::clickPointOnSurfaceGlobal(const S32 x, const S32 y, LLViewerObject *objectp, LLVector3d &point_global) const
+bool LLViewerWindow::clickPointOnSurfaceGlobal(const S32 x, const S32 y, LLViewerObject *objectp, LLVector3d &point_global) const
 {
-	BOOL intersect = FALSE;
+	BOOL intersect = false;
 
 //	U8 shape = objectp->mPrimitiveCode & LL_PCODE_BASE_MASK;
 	if (!intersect)
@@ -5023,7 +5023,7 @@ LLVector3 LLViewerWindow::mouseDirectionCamera(const S32 x, const S32 y) const
 
 
 
-BOOL LLViewerWindow::mousePointOnPlaneGlobal(LLVector3d& point, const S32 x, const S32 y, 
+bool LLViewerWindow::mousePointOnPlaneGlobal(LLVector3d& point, const S32 x, const S32 y,
 										const LLVector3d &plane_point_global, 
 										const LLVector3 &plane_normal_global)
 {
@@ -5054,11 +5054,11 @@ BOOL LLViewerWindow::mousePointOnPlaneGlobal(LLVector3d& point, const S32 x, con
 
 
 // Returns global position
-BOOL LLViewerWindow::mousePointOnLandGlobal(const S32 x, const S32 y, LLVector3d *land_position_global, BOOL ignore_distance)
+bool LLViewerWindow::mousePointOnLandGlobal(const S32 x, const S32 y, LLVector3d *land_position_global, bool ignore_distance)
 {
 	LLVector3		mouse_direction_global = mouseDirectionGlobal(x,y);
 	F32				mouse_dir_scale;
-	BOOL			hit_land = FALSE;
+	bool			hit_land = false;
 	LLViewerRegion	*regionp;
 	F32			land_z;
 	const F32	FIRST_PASS_STEP = 1.0f;		// meters
@@ -5104,7 +5104,7 @@ BOOL LLViewerWindow::mousePointOnLandGlobal(const S32 x, const S32 y, LLVector3d
 
 			// cout << "under land at " << probe_point << " scale " << mouse_vec_scale << endl;
 
-			hit_land = TRUE;
+			hit_land = true;
 			break;
 		}
 	}
@@ -5152,12 +5152,12 @@ BOOL LLViewerWindow::mousePointOnLandGlobal(const S32 x, const S32 y, LLVector3d
 				// ...just went under land again
 
 				*land_position_global = probe_point_global;
-				return TRUE;
+				return true;
 			}
 		}
 	}
 
-	return FALSE;
+	return false;
 }
 
 // Saves an image to the harddrive as "SnapshotX" where X >= 1.
@@ -5764,7 +5764,7 @@ void LLViewerWindow::revealIntroPanel()
 	}
 }
 
-void LLViewerWindow::setShowProgress(const BOOL show)
+void LLViewerWindow::setShowProgress(const bool show)
 {
 	if (mProgressView)
 	{
@@ -5780,7 +5780,7 @@ void LLViewerWindow::setStartupComplete()
 	}
 }
 
-BOOL LLViewerWindow::getShowProgress() const
+bool LLViewerWindow::getShowProgress() const
 {
 	return (mProgressView && mProgressView->getVisible());
 }
@@ -5809,7 +5809,7 @@ void LLViewerWindow::setProgressPercent(const F32 percent)
 	}
 }
 
-void LLViewerWindow::setProgressCancelButtonVisible( BOOL b, const std::string& label )
+void LLViewerWindow::setProgressCancelButtonVisible( bool b, const std::string& label )
 {
 	if (mProgressView)
 	{
@@ -5831,7 +5831,7 @@ void LLViewerWindow::dumpState()
 		<< LL_ENDL;
 }
 
-void LLViewerWindow::stopGL(BOOL save_state)
+void LLViewerWindow::stopGL(bool save_state)
 {
 	//Note: --bao
 	//if not necessary, do not change the order of the function calls in this function.
@@ -5937,7 +5937,7 @@ void LLViewerWindow::restoreGL(const std::string& progress_message)
 		{
 			gRestoreGLTimer.reset();
 			gRestoreGL = TRUE;
-			setShowProgress(TRUE);
+			setShowProgress(true);
 			setProgressString(progress_message);
 		}
 		LL_INFOS() << "...Restoring GL done" << LL_ENDL;
@@ -6036,7 +6036,7 @@ bool LLViewerWindow::changeDisplaySettings(LLCoordScreen size, bool disable_vsyn
 	send_agent_pause();
 	LL_INFOS() << "Stopping GL during changeDisplaySettings" << LL_ENDL;
 	stopGL();
-	mIgnoreActivate = TRUE;
+	mIgnoreActivate = true;
 	LLCoordScreen old_size;
 	LLCoordScreen old_pos;
 	mWindow->getSize(&old_size);
@@ -6054,7 +6054,7 @@ bool LLViewerWindow::changeDisplaySettings(LLCoordScreen size, bool disable_vsyn
 		{
 			// we are stuck...try once again with a minimal resolution?
 			send_agent_resume();
-			mIgnoreActivate = FALSE;
+			mIgnoreActivate = false;
 			return FALSE;
 		}
 	}
@@ -6097,7 +6097,7 @@ bool LLViewerWindow::changeDisplaySettings(LLCoordScreen size, bool disable_vsyn
 		}
 	}
 
-	mIgnoreActivate = FALSE;
+	mIgnoreActivate = false;
 	gFocusMgr.setKeyboardFocus(keyboard_focus);
 	
 	return success;
