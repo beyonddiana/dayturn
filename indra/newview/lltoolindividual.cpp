@@ -82,20 +82,20 @@ void LLToolIndividual::pickCallback(const LLPickInfo& pick_info)
 	}
 }
 
-BOOL LLToolIndividual::handleDoubleClick(S32 x, S32 y, MASK mask)
+bool LLToolIndividual::handleDoubleClick(S32 x, S32 y, MASK mask)
 {
 	if(!LLSelectMgr::getInstance()->getSelection()->isEmpty())
 	{
 		// You should already have an object selected from the mousedown.
 		// If so, show its inventory. 
 		LLFloaterReg::showInstance("build", "Content");
-		return TRUE;
+		return true;
 	}
 	else
 	{
 		// Nothing selected means the first mouse click was probably
 		// bad, so try again.
-		return FALSE;
+		return false;
 	}
 }
 

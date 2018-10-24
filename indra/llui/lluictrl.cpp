@@ -402,9 +402,9 @@ BOOL LLUICtrl::handleRightMouseUp(S32 x, S32 y, MASK mask)
 	return handled;
 }
 
-BOOL LLUICtrl::handleDoubleClick(S32 x, S32 y, MASK mask)
+bool LLUICtrl::handleDoubleClick(S32 x, S32 y, MASK mask)
 {
-	BOOL handled = LLView::handleDoubleClick(x, y, mask);
+	bool handled = LLView::handleDoubleClick(x, y, mask);
 	if (mDoubleClickSignal)
 	{
 		(*mDoubleClickSignal)(this, x, y, mask);

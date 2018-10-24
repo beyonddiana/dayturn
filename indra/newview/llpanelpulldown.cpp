@@ -69,10 +69,10 @@ BOOL LLPanelPulldown::handleRightMouseDown(S32 x, S32 y, MASK mask)
 }
 
 /*virtual*/
-BOOL LLPanelPulldown::handleDoubleClick(S32 x, S32 y, MASK mask)
+bool LLPanelPulldown::handleDoubleClick(S32 x, S32 y, MASK mask)
 {
     LLPanel::handleDoubleClick(x, y, mask);
-    return TRUE;
+    return true;
 }
 
 BOOL LLPanelPulldown::handleScrollWheel(S32 x, S32 y, S32 clicks)

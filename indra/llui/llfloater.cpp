@@ -1606,9 +1606,9 @@ BOOL LLFloater::handleMiddleMouseDown(S32 x, S32 y, MASK mask)
 
 
 // virtual
-BOOL LLFloater::handleDoubleClick(S32 x, S32 y, MASK mask)
+bool LLFloater::handleDoubleClick(S32 x, S32 y, MASK mask)
 {
-	BOOL was_minimized = mMinimized;
+	bool was_minimized = mMinimized;
 	setMinimized(FALSE);
 	return was_minimized || LLPanel::handleDoubleClick(x, y, mask);
 }
@@ -2244,7 +2244,7 @@ static LLDefaultChildRegistry::Register<LLFloaterView> r("floater_view");
 
 LLFloaterView::LLFloaterView (const Params& p)
 :	LLUICtrl (p),
-	mFocusCycleMode(FALSE),
+	mFocusCycleMode(false),
 	mMinimizePositionVOffset(0),
 	mSnapOffsetBottom(0),
 	mSnapOffsetRight(0),

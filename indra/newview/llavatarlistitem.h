@@ -140,7 +140,7 @@ public:
 	void setBeyondShoutRangeColor(const LLUIColor& beyondShoutRangeColor);
 	// [/Ansariel: Colorful radar]
 
-	/*virtual*/ BOOL handleDoubleClick(S32 x, S32 y, MASK mask);
+	/*virtual*/ bool handleDoubleClick(S32 x, S32 y, MASK mask);
 
 protected:
 	/**

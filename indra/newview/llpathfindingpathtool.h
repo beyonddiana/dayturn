@@ -72,7 +72,7 @@ public:
 	virtual BOOL      handleMiddleMouseUp(S32 pX, S32 pY, MASK pMask);
 	virtual BOOL      handleRightMouseDown(S32 pX, S32 pY, MASK pMask);
 	virtual BOOL      handleRightMouseUp(S32 pX, S32 pY, MASK pMask);
-	virtual BOOL      handleDoubleClick(S32 x, S32 y, MASK mask);
+	virtual bool      handleDoubleClick(S32 x, S32 y, MASK mask);
 
 	virtual bool      handleHover(S32 pX, S32 pY, MASK pMask);
 

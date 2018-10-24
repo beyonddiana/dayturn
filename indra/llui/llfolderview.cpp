@@ -1406,7 +1406,7 @@ BOOL LLFolderView::search(LLFolderViewItem* first_item, const std::string &searc
 	return found;
 }
 
-BOOL LLFolderView::handleDoubleClick( S32 x, S32 y, MASK mask )
+bool LLFolderView::handleDoubleClick( S32 x, S32 y, MASK mask )
 {
 	// skip LLFolderViewFolder::handleDoubleClick()
 	return LLView::handleDoubleClick( x, y, mask );

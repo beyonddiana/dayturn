@@ -2009,10 +2009,10 @@ void LLScrollListCtrl::copySLURLToClipboard(LLUUID &id, bool is_group)
 	LLUrlAction::copyURLToClipboard(slurl);
 }
 
-BOOL LLScrollListCtrl::handleDoubleClick(S32 x, S32 y, MASK mask)
+bool LLScrollListCtrl::handleDoubleClick(S32 x, S32 y, MASK mask)
 {
 	//BOOL handled = FALSE;
-	BOOL handled = handleClick(x, y, mask);
+	bool handled = handleClick(x, y, mask);
 
 	if (!handled)
 	{
@@ -2028,7 +2028,7 @@ BOOL LLScrollListCtrl::handleDoubleClick(S32 x, S32 y, MASK mask)
 		}
 	}
 
-	return TRUE;
+	return true;
 }
 
 BOOL LLScrollListCtrl::handleClick(S32 x, S32 y, MASK mask)

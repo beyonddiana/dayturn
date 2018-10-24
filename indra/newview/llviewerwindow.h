@@ -186,7 +186,7 @@ public:
 	/*virtual*/ bool handleUnicodeChar(llwchar uni_char, MASK mask);	// NOT going to handle extended 
 	/*virtual*/ BOOL handleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask);
 	/*virtual*/ BOOL handleMouseUp(LLWindow *window,  LLCoordGL pos, MASK mask);
-	/*virtual*/ BOOL handleCloseRequest(LLWindow *window);
+	/*virtual*/ bool handleCloseRequest(LLWindow *window);
 	/*virtual*/ void handleQuit(LLWindow *window);
 	/*virtual*/ BOOL handleRightMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask);
 	/*virtual*/ BOOL handleRightMouseUp(LLWindow *window,  LLCoordGL pos, MASK mask);
@@ -202,13 +202,13 @@ public:
 	/*virtual*/ void handleResize(LLWindow *window,  S32 x,  S32 y);
 	/*virtual*/ void handleFocus(LLWindow *window);
 	/*virtual*/ void handleFocusLost(LLWindow *window);
-	/*virtual*/ BOOL handleActivate(LLWindow *window, BOOL activated);
-	/*virtual*/ BOOL handleActivateApp(LLWindow *window, BOOL activating);
+	/*virtual*/ bool handleActivate(LLWindow *window, bool activated);
+	/*virtual*/ bool handleActivateApp(LLWindow *window, bool activating);
 	/*virtual*/ void handleMenuSelect(LLWindow *window,  S32 menu_item);
-	/*virtual*/ BOOL handlePaint(LLWindow *window,  S32 x,  S32 y,  S32 width,  S32 height);
+	/*virtual*/ bool handlePaint(LLWindow *window,  S32 x,  S32 y,  S32 width,  S32 height);
 	/*virtual*/ void handleScrollWheel(LLWindow *window,  S32 clicks);
 	/*virtual*/ void handleScrollHWheel(LLWindow *window,  S32 clicks);
-	/*virtual*/ BOOL handleDoubleClick(LLWindow *window,  LLCoordGL pos, MASK mask);
+	/*virtual*/ bool handleDoubleClick(LLWindow *window,  LLCoordGL pos, MASK mask);
 	/*virtual*/ void handleWindowBlock(LLWindow *window);
 	/*virtual*/ void handleWindowUnblock(LLWindow *window);
 	/*virtual*/ void handleDataCopy(LLWindow *window, S32 data_type, void *data);
@@ -302,12 +302,12 @@ public:
 	bool            getCursorHidden() { return mCursorHidden; }
 	void			moveCursorToCenter();								// move to center of window
 													
-	void			setShowProgress(const BOOL show);
-	BOOL			getShowProgress() const;
+	void			setShowProgress(const bool show);
+	bool			getShowProgress() const;
 	void			setProgressString(const std::string& string);
 	void			setProgressPercent(const F32 percent);
 	void			setProgressMessage(const std::string& msg);
-	void			setProgressCancelButtonVisible( BOOL b, const std::string& label = LLStringUtil::null );
+	void			setProgressCancelButtonVisible( bool b, const std::string& label = LLStringUtil::null );
 	LLProgressView *getProgressView() const;
 	void			revealIntroPanel();
 	void			setStartupComplete();
@@ -334,7 +334,7 @@ public:
 	void			clearPopups();
 
 	// Hide normal UI when a logon fails, re-show everything when logon is attempted again
-	void			setNormalControlsVisible( BOOL visible );
+	void			setNormalControlsVisible( bool visible );
 	void			setMenuBackgroundColor(bool god_mode = false, bool dev_grid = false);
 
 	void			reshape(S32 width, S32 height);
@@ -407,10 +407,10 @@ public:
 	//const LLVector3d& lastNonFloraObjectHitOffset();
 
 	// mousePointOnLand() returns true if found point
-	BOOL			mousePointOnLandGlobal(const S32 x, const S32 y, LLVector3d *land_pos_global, BOOL ignore_distance = FALSE);
-	BOOL			mousePointOnPlaneGlobal(LLVector3d& point, const S32 x, const S32 y, const LLVector3d &plane_point, const LLVector3 &plane_normal);
+	bool			mousePointOnLandGlobal(const S32 x, const S32 y, LLVector3d *land_pos_global, bool ignore_distance = false);
+	bool			mousePointOnPlaneGlobal(LLVector3d& point, const S32 x, const S32 y, const LLVector3d &plane_point, const LLVector3 &plane_normal);
 	LLVector3d		clickPointInWorldGlobal(const S32 x, const S32 y_from_bot, LLViewerObject* clicked_object) const;
-	BOOL			clickPointOnSurfaceGlobal(const S32 x, const S32 y, LLViewerObject *objectp, LLVector3d &point_global) const;
+	bool			clickPointOnSurfaceGlobal(const S32 x, const S32 y, LLViewerObject *objectp, LLVector3d &point_global) const;
 
 	// Prints window implementation details
 	void			dumpState();
@@ -420,7 +420,7 @@ public:
 	void			checkSettings();
 	void			restartDisplay(bool show_progress_bar);
 	bool			changeDisplaySettings(LLCoordScreen size, bool disable_vsync, bool show_progress_bar);
-	BOOL			getIgnoreDestroyWindow() { return mIgnoreActivate; }
+	bool			getIgnoreDestroyWindow() { return mIgnoreActivate; }
 	F32				getWorldViewAspectRatio() const;
 	const LLVector2& getDisplayScale() const { return mDisplayScale; }
 	void			calcDisplayScale();
@@ -439,7 +439,7 @@ private:
 	void			switchToolByMask(MASK mask);
 	void			destroyWindow();
 	void			drawMouselookInstructions();
-	void			stopGL(BOOL save_state = TRUE);
+	void			stopGL(bool save_state = true);
 	void			restoreGL(const std::string& progress_message = LLStringUtil::null);
 	void			initFonts(F32 zoom_factor = 1.f);
 	void			schedulePick(LLPickInfo& pick_info);
@@ -477,9 +477,9 @@ private:
 	std::string		mLastToolTipMessage;
 	LLRect			mToolTipStickyRect;			// Once a tool tip is shown, it will stay visible until the mouse leaves this rect.
 
-	BOOL			mMouseInWindow;				// True if the mouse is over our window or if we have captured the mouse.
-	BOOL			mFocusCycleMode;
-    BOOL            mAllowMouseDragging;
+	bool			mMouseInWindow;				// True if the mouse is over our window or if we have captured the mouse.
+	bool			mFocusCycleMode;
+    bool            mAllowMouseDragging;
     LLFrameTimer    mMouseDownTimer;
 	typedef std::set<LLHandle<LLView> > view_handle_set_t;
 	view_handle_set_t mMouseHoverViews;
@@ -496,7 +496,7 @@ private:
 
 	std::string		mOverlayTitle;		// Used for special titles such as "Second Life - Special E3 2003 Beta"
 
-	BOOL			mIgnoreActivate;
+	bool			mIgnoreActivate;
 
 	std::string		mInitAlert;			// Window / GL initialization requires an alert
 

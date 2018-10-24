@@ -588,10 +588,10 @@ bool LLFolderViewItem::handleHover( S32 x, S32 y, MASK mask )
 }
 
 
-BOOL LLFolderViewItem::handleDoubleClick( S32 x, S32 y, MASK mask )
+bool LLFolderViewItem::handleDoubleClick( S32 x, S32 y, MASK mask )
 {
 	openItem();
-	return TRUE;
+	return true;
 }
 
 BOOL LLFolderViewItem::handleMouseUp( S32 x, S32 y, MASK mask )
@@ -1953,9 +1953,9 @@ BOOL LLFolderViewFolder::handleMouseDown( S32 x, S32 y, MASK mask )
 	return handled;
 }
 
-BOOL LLFolderViewFolder::handleDoubleClick( S32 x, S32 y, MASK mask )
+bool LLFolderViewFolder::handleDoubleClick( S32 x, S32 y, MASK mask )
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 	if( isOpen() )
 	{
 		handled = childrenHandleDoubleClick( x, y, mask ) != NULL;
@@ -1973,7 +1973,7 @@ BOOL LLFolderViewFolder::handleDoubleClick( S32 x, S32 y, MASK mask )
 			getRoot()->setSelection(this, FALSE);
 			toggleOpen();
 		}
-		handled = TRUE;
+		handled = true;
 	}
 	return handled;
 }

@@ -194,7 +194,7 @@ public:
 	/*virtual*/ bool handleKeyHere( KEY key, MASK mask );
 	/*virtual*/ bool handleUnicodeCharHere(llwchar uni_char);
 	/*virtual*/ BOOL handleMouseDown( S32 x, S32 y, MASK mask );
-	/*virtual*/ BOOL handleDoubleClick( S32 x, S32 y, MASK mask );
+	/*virtual*/ bool handleDoubleClick( S32 x, S32 y, MASK mask );
 	/*virtual*/ BOOL handleRightMouseDown( S32 x, S32 y, MASK mask );
 	/*virtual*/ bool handleHover( S32 x, S32 y, MASK mask );
 	/*virtual*/ bool handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,

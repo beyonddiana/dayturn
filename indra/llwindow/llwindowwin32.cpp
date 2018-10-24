@@ -2877,19 +2877,19 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
 				// means that the window was un-minimized.
 				if (w_param == SIZE_RESTORED && window_imp->mLastSizeWParam != SIZE_RESTORED)
 				{
-					window_imp->mCallbacks->handleActivate(window_imp, TRUE);
+					window_imp->mCallbacks->handleActivate(window_imp, true);
 				}
 
 				// handle case of window being maximized from fully minimized state
 				if (w_param == SIZE_MAXIMIZED && window_imp->mLastSizeWParam != SIZE_MAXIMIZED)
 				{
-					window_imp->mCallbacks->handleActivate(window_imp, TRUE);
+					window_imp->mCallbacks->handleActivate(window_imp, true);
 				}
 
 				// Also handle the minimization case
 				if (w_param == SIZE_MINIMIZED && window_imp->mLastSizeWParam != SIZE_MINIMIZED)
 				{
-					window_imp->mCallbacks->handleActivate(window_imp, FALSE);
+					window_imp->mCallbacks->handleActivate(window_imp, false);
 				}
 
 				// Actually resize all of our views

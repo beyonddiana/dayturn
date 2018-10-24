@@ -805,9 +805,9 @@ BOOL LLViewerTextEditor::handleMouseUp(S32 x, S32 y, MASK mask)
 	return handled;
 }
 
-BOOL LLViewerTextEditor::handleDoubleClick(S32 x, S32 y, MASK mask)
+bool LLViewerTextEditor::handleDoubleClick(S32 x, S32 y, MASK mask)
 {
-	BOOL	handled = FALSE;
+	bool	handled = false;
 
 	// let scrollbar have first dibs
 	handled = LLView::childrenHandleDoubleClick(x, y, mask) != NULL;
@@ -824,7 +824,7 @@ BOOL LLViewerTextEditor::handleDoubleClick(S32 x, S32 y, MASK mask)
 				{
 					deselect();
 					setFocus( FALSE );
-					return TRUE;
+					return true;
 				}
 			}
 		}

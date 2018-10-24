@@ -228,14 +228,14 @@ BOOL LLModalDialog::handleScrollWheel(S32 x, S32 y, S32 clicks)
 	return TRUE;
 }
 
-BOOL LLModalDialog::handleDoubleClick(S32 x, S32 y, MASK mask)
+bool LLModalDialog::handleDoubleClick(S32 x, S32 y, MASK mask)
 {
 	if (!LLFloater::handleDoubleClick(x, y, mask))
 	{
 		// Click outside the panel
 		make_ui_sound("UISndInvalidOp");
 	}
-	return TRUE;
+	return true;
 }
 
 BOOL LLModalDialog::handleRightMouseDown(S32 x, S32 y, MASK mask)

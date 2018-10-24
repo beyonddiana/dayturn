@@ -870,9 +870,9 @@ BOOL LLTextEditor::handleMouseUp(S32 x, S32 y, MASK mask)
 }
 
 
-BOOL LLTextEditor::handleDoubleClick(S32 x, S32 y, MASK mask)
+bool LLTextEditor::handleDoubleClick(S32 x, S32 y, MASK mask)
 {
-	BOOL	handled = FALSE;
+	bool	handled = false;
 
 	// let scrollbar and text segments have first dibs
 	handled = LLTextBase::handleDoubleClick(x, y, mask);
@@ -918,7 +918,7 @@ BOOL LLTextEditor::handleDoubleClick(S32 x, S32 y, MASK mask)
 		// take selection to 'primary' clipboard
 		updatePrimary();
 
-		handled = TRUE;
+		handled = true;
 	}
 
 	return handled;

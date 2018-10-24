@@ -313,7 +313,7 @@ void LLLoginInstance::handleLoginFailure(const LLSD& event)
 		data["message"] = message_response;
 		data["reply_pump"] = TOS_REPLY_PUMP;
 		if (gViewerWindow)
-			gViewerWindow->setShowProgress(FALSE);
+			gViewerWindow->setShowProgress(false);
 		LLFloaterReg::showInstance("message_tos", data);
 		LLEventPumps::instance().obtain(TOS_REPLY_PUMP)
 			.listen(TOS_LISTENER_NAME,
@@ -337,7 +337,7 @@ void LLLoginInstance::handleLoginFailure(const LLSD& event)
 		}
 		
 		if (gViewerWindow)
-			gViewerWindow->setShowProgress(FALSE);
+			gViewerWindow->setShowProgress(false);
 
 		LLFloaterReg::showInstance("message_critical", data);
 		LLEventPumps::instance().obtain(TOS_REPLY_PUMP)

@@ -1128,7 +1128,7 @@ BOOL LLTextBase::handleRightMouseUp(S32 x, S32 y, MASK mask)
 	return LLUICtrl::handleRightMouseUp(x, y, mask);
 }
 
-BOOL LLTextBase::handleDoubleClick(S32 x, S32 y, MASK mask)
+bool LLTextBase::handleDoubleClick(S32 x, S32 y, MASK mask)
 {
 	//Don't start triple click timer if user have clicked on scrollbar
 	mVisibleTextRect = mScroller ? mScroller->getContentWindowRect() : getLocalRect();
@@ -1141,7 +1141,7 @@ BOOL LLTextBase::handleDoubleClick(S32 x, S32 y, MASK mask)
 	LLTextSegmentPtr cur_segment = getSegmentAtLocalPos(x, y);
 	if (cur_segment && cur_segment->handleDoubleClick(x, y, mask))
 	{
-		return TRUE;
+		return true;
 	}
 
 	return LLUICtrl::handleDoubleClick(x, y, mask);
@@ -3171,7 +3171,7 @@ BOOL LLTextSegment::handleMiddleMouseDown(S32 x, S32 y, MASK mask) { return FALS
 BOOL LLTextSegment::handleMiddleMouseUp(S32 x, S32 y, MASK mask) { return FALSE; }
 BOOL LLTextSegment::handleRightMouseDown(S32 x, S32 y, MASK mask) { return FALSE; }
 BOOL LLTextSegment::handleRightMouseUp(S32 x, S32 y, MASK mask) { return FALSE; }
-BOOL LLTextSegment::handleDoubleClick(S32 x, S32 y, MASK mask) { return FALSE; }
+bool LLTextSegment::handleDoubleClick(S32 x, S32 y, MASK mask) { return false; }
 bool LLTextSegment::handleHover(S32 x, S32 y, MASK mask) { return false; }
 BOOL LLTextSegment::handleScrollWheel(S32 x, S32 y, S32 clicks) { return FALSE; }
 bool LLTextSegment::handleScrollHWheel(S32 x, S32 y, S32 clicks) { return false; }

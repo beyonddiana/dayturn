@@ -68,10 +68,10 @@ void LLWindowCallbacks::handleMouseLeave(LLWindow *window)
 	return;
 }
 
-BOOL LLWindowCallbacks::handleCloseRequest(LLWindow *window)
+bool LLWindowCallbacks::handleCloseRequest(LLWindow *window)
 {
 	//allow the window to close
-	return TRUE;
+	return true;
 }
 
 void LLWindowCallbacks::handleQuit(LLWindow *window)
@@ -108,14 +108,14 @@ BOOL LLWindowCallbacks::handleOtherMouseUp(LLWindow *window, const LLCoordGL pos
     return FALSE;
 }
 
-BOOL LLWindowCallbacks::handleActivate(LLWindow *window, BOOL activated)
+bool LLWindowCallbacks::handleActivate(LLWindow *window, bool activated)
 {
-	return FALSE;
+	return false;
 }
 
-BOOL LLWindowCallbacks::handleActivateApp(LLWindow *window, BOOL activating)
+bool LLWindowCallbacks::handleActivateApp(LLWindow *window, bool activating)
 {
-	return FALSE;
+	return false;
 }
 
 void LLWindowCallbacks::handleMouseMove(LLWindow *window, const LLCoordGL pos, MASK mask)
@@ -151,15 +151,15 @@ void LLWindowCallbacks::handleMenuSelect(LLWindow *window, const S32 menu_item)
 {
 }
 
-BOOL LLWindowCallbacks::handlePaint(LLWindow *window, const S32 x, const S32 y, 
+bool LLWindowCallbacks::handlePaint(LLWindow *window, const S32 x, const S32 y,
 									const S32 width, const S32 height)
 {
-	return FALSE;
+	return false;
 }
 
-BOOL LLWindowCallbacks::handleDoubleClick(LLWindow *window, const LLCoordGL pos, MASK mask)
+bool LLWindowCallbacks::handleDoubleClick(LLWindow *window, const LLCoordGL pos, MASK mask)
 {
-	return FALSE;
+	return false;
 }
 
 void LLWindowCallbacks::handleWindowBlock(LLWindow *window)
