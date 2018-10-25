@@ -243,8 +243,8 @@ namespace LLTrace
 
 		EventAccumulator()
 		:	mSum(0),
-			mMin(NaN),
-			mMax(NaN),
+			mMin(F32(NaN)),
+			mMax(F32(NaN)),
 			mMean(NaN),
 			mSumOfSquares(0),
 			mNumSamples(0),
@@ -314,8 +314,8 @@ namespace LLTrace
 
 		SampleAccumulator()
 		:	mSum(0),
-			mMin(NaN),
-			mMax(NaN),
+			mMin(F32(NaN)),
+			mMax(F32(NaN)),
 			mMean(NaN),
 			mSumOfSquares(0),
 			mLastSampleTimeStamp(0),
