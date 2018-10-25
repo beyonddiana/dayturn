@@ -170,7 +170,7 @@ LLWorldMapView::LLWorldMapView()
 :	LLPanel(),
 	mBackgroundColor( LLColor4( OCEAN_RED, OCEAN_GREEN, OCEAN_BLUE, 1.f ) ),
 	mItemPicked(FALSE),
-	mPanning( FALSE ),
+	mPanning( false ),
 	mMouseDownPanX( 0 ),
 	mMouseDownPanY( 0 ),
 	mMouseDownX( 0 ),
@@ -1629,7 +1629,7 @@ BOOL LLWorldMapView::handleMouseUp( S32 x, S32 y, MASK mask )
 			LLUI::setMousePositionLocal(this, local_x, local_y);
 
 			// finish the pan
-			mPanning = FALSE;
+			mPanning = false;
 			
 			mMouseDownX = 0;
 			mMouseDownY = 0;
@@ -1688,7 +1688,7 @@ bool LLWorldMapView::handleHover( S32 x, S32 y, MASK mask )
 			// just started panning, so hide cursor
 			if (!mPanning)
 			{
-				mPanning = TRUE;
+				mPanning = true;
 				gViewerWindow->hideCursor();
 			}
 

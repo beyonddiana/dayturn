@@ -1640,5 +1640,5 @@ void LLFloaterWorldMap::onFocusLost()
 {
 	gViewerWindow->showCursor();
 	LLWorldMapView* map_panel = (LLWorldMapView*)gFloaterWorldMap->mPanel;
-	map_panel->mPanning = FALSE;
+	map_panel->mPanning = false;
 }

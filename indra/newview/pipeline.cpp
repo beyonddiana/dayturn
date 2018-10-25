@@ -7315,7 +7315,7 @@ LLViewerObject* LLPipeline::lineSegmentIntersectInHUD(const LLVector4a& start, c
 		LLSpatialPartition* part = region->getSpatialPartition(LLViewerRegion::PARTITION_HUD);
 		if (part)
 		{
-			LLDrawable* hit = part->lineSegmentIntersect(start, end, pick_transparent, FALSE, face_hit, intersection, tex_coord, normal, tangent);
+			LLDrawable* hit = part->lineSegmentIntersect(start, end, pick_transparent, false, face_hit, intersection, tex_coord, normal, tangent);
 			if (hit)
 			{
 				drawable = hit;

@@ -754,9 +754,9 @@ void LLGLTexSizeBar::draw()
 
 LLTextureView::LLTextureView(const LLTextureView::Params& p)
 	:	LLContainerView(p),
-		mFreezeView(FALSE),
-		mOrderFetch(FALSE),
-		mPrintList(FALSE),
+		mFreezeView(false),
+		mOrderFetch(false),
+		mPrintList(false),
 		mNumTextureBars(0)
 {
 	setVisible(false);
@@ -933,7 +933,7 @@ void LLTextureView::draw()
 		
 		if (mPrintList)
 		{
-			mPrintList = FALSE;
+			mPrintList = false;
 		}
 		
 		static S32 max_count = 50;
@@ -1030,7 +1030,7 @@ BOOL LLTextureView::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	if ((mask & (MASK_CONTROL|MASK_SHIFT|MASK_ALT)) == (MASK_ALT|MASK_SHIFT))
 	{
-		mPrintList = TRUE;
+		mPrintList = true;
 		return TRUE;
 	}
 	if ((mask & (MASK_CONTROL|MASK_SHIFT|MASK_ALT)) == (MASK_CONTROL|MASK_SHIFT))

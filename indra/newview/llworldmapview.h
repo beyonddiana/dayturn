@@ -168,7 +168,7 @@ public:
 	static bool		sVisibleTilesLoaded;
 
 	// Are we mid-pan from a user drag?
-	BOOL			mPanning;
+	bool			mPanning;
 	S32				mMouseDownPanX;		// value at start of drag
 	S32				mMouseDownPanY;		// value at start of drag
 	S32				mMouseDownX;
