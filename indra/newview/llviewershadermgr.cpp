@@ -70,7 +70,7 @@ using std::pair;
 using std::make_pair;
 using std::string;
 
-BOOL				LLViewerShaderMgr::sInitialized = FALSE;
+bool				LLViewerShaderMgr::sInitialized = false;
 bool				LLViewerShaderMgr::sSkipReload = false;
 
 LLVector4			gShinyOrigin;

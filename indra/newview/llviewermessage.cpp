@@ -7253,7 +7253,7 @@ bool attempt_standard_notification(LLMessageSystem* msgsystem)
 			std::string snap_filename = gDirUtilp->getLindenUserDir();
 			snap_filename += gDirUtilp->getDirDelimiter();
 			snap_filename += SCREEN_HOME_FILENAME;
-			gViewerWindow->saveSnapshot(snap_filename, gViewerWindow->getWindowWidthRaw(), gViewerWindow->getWindowHeightRaw(), FALSE, FALSE);
+			gViewerWindow->saveSnapshot(snap_filename, gViewerWindow->getWindowWidthRaw(), gViewerWindow->getWindowHeightRaw(), false, false);
 		}
 		
 		if (notificationID == "RegionRestartMinutes" ||
@@ -7336,7 +7336,7 @@ static void process_special_alert_messages(const std::string & message)
 		std::string snap_filename = gDirUtilp->getLindenUserDir();
 		snap_filename += gDirUtilp->getDirDelimiter();
 		snap_filename += SCREEN_HOME_FILENAME;
-		gViewerWindow->saveSnapshot(snap_filename, gViewerWindow->getWindowWidthRaw(), gViewerWindow->getWindowHeightRaw(), FALSE, FALSE);
+		gViewerWindow->saveSnapshot(snap_filename, gViewerWindow->getWindowWidthRaw(), gViewerWindow->getWindowHeightRaw(), false, false);
 	}
 }
 

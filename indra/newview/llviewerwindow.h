@@ -270,9 +270,9 @@ public:
 	S32				getCurrentMouseDY()		const	{ return mCurrentMouseDelta.mY; }
 	LLCoordGL		getCurrentMouseDelta()	const	{ return mCurrentMouseDelta; }
 	static LLTrace::SampleStatHandle<>*	getMouseVelocityStat()		{ return &sMouseVelocityStat; }
-	BOOL			getLeftMouseDown()	const	{ return mLeftMouseDown; }
-	BOOL			getMiddleMouseDown()	const	{ return mMiddleMouseDown; }
-	BOOL			getRightMouseDown()	const	{ return mRightMouseDown; }
+	bool			getLeftMouseDown()	const	{ return mLeftMouseDown; }
+	bool			getMiddleMouseDown()	const	{ return mMiddleMouseDown; }
+	bool			getRightMouseDown()	const	{ return mRightMouseDown; }
 
 	const LLPickInfo&	getLastPick() const { return mLastPick; }
 
@@ -355,13 +355,13 @@ public:
 		SNAPSHOT_TYPE_COLOR,
 		SNAPSHOT_TYPE_DEPTH
 	} ESnapshotType;
-	BOOL			saveSnapshot(const std::string&  filename, S32 image_width, S32 image_height, BOOL show_ui = TRUE, BOOL do_rebuild = FALSE, ESnapshotType type = SNAPSHOT_TYPE_COLOR);
-	BOOL			rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_height, BOOL keep_window_aspect = TRUE, BOOL is_texture = FALSE,
-								BOOL show_ui = TRUE, BOOL do_rebuild = FALSE, ESnapshotType type = SNAPSHOT_TYPE_COLOR, S32 max_size = MAX_SNAPSHOT_IMAGE_SIZE );
-	BOOL			thumbnailSnapshot(LLImageRaw *raw, S32 preview_width, S32 preview_height, BOOL show_ui, BOOL do_rebuild, ESnapshotType type) ;
-	BOOL			isSnapshotLocSet() const { return ! sSnapshotDir.empty(); }
+	bool			saveSnapshot(const std::string&  filename, S32 image_width, S32 image_height, bool show_ui = true, bool do_rebuild = false, ESnapshotType type = SNAPSHOT_TYPE_COLOR);
+	bool			rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_height, bool keep_window_aspect = true, bool is_texture = false,
+								bool show_ui = true, bool do_rebuild = false, ESnapshotType type = SNAPSHOT_TYPE_COLOR, S32 max_size = MAX_SNAPSHOT_IMAGE_SIZE );
+	bool			thumbnailSnapshot(LLImageRaw *raw, S32 preview_width, S32 preview_height, bool show_ui, bool do_rebuild, ESnapshotType type) ;
+	bool			isSnapshotLocSet() const { return ! sSnapshotDir.empty(); }
 	void			resetSnapshotLoc() const { sSnapshotDir.clear(); }
-	BOOL		    saveImageNumbered(LLImageFormatted *image, bool force_picker = false);
+	bool		    saveImageNumbered(LLImageFormatted *image, bool force_picker = false);
 
 	// Reset the directory where snapshots are saved.
 	// Client will open directory picker on next snapshot save.
@@ -370,7 +370,7 @@ public:
 	void			playSnapshotAnimAndSound();
 	
 	// draws selection boxes around selected objects, must call displayObjects first
-	void			renderSelections( BOOL for_gl_pick, BOOL pick_parcel_walls, BOOL for_hud );
+	void			renderSelections( bool for_gl_pick, bool pick_parcel_walls, bool for_hud );
 	void			performPick();
 	void			returnEmptyPicks();
 
@@ -466,9 +466,9 @@ private:
 	LLCoordGL		mCurrentMousePoint;			// last mouse position in GL coords
 	LLCoordGL		mLastMousePoint;		// Mouse point at last frame.
 	LLCoordGL		mCurrentMouseDelta;		//amount mouse moved this frame
-	BOOL			mLeftMouseDown;
-	BOOL			mMiddleMouseDown;
-	BOOL			mRightMouseDown;
+	bool			mLeftMouseDown;
+	bool			mMiddleMouseDown;
+	bool			mRightMouseDown;
 
 	LLProgressView	*mProgressView;
 

@@ -550,7 +550,7 @@ void LLSnapshotLivePreview::generateThumbnailImage(BOOL force_update)
         if(!gViewerWindow->thumbnailSnapshot(raw,
                                          mThumbnailWidth, mThumbnailHeight,
                                          mAllowRenderUI && gSavedSettings.getBOOL("RenderUIInSnapshot"),
-                                         FALSE,
+                                         false,
                                          mSnapshotBufferType) )
         {
             raw = NULL ;
@@ -1068,7 +1068,7 @@ BOOL LLSnapshotLivePreview::saveLocal()
     getFormattedImage();
     
     // Save the formatted image
-	BOOL success = gViewerWindow->saveImageNumbered(mFormattedImage);
+	bool success = gViewerWindow->saveImageNumbered(mFormattedImage);
 
 	if(success)
 	{

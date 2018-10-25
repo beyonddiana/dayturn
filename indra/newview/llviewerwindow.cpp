@@ -260,7 +260,7 @@ bool				gDisplayFOV = false;
 bool				gDisplayBadge = false;
 
 static const U8 NO_FACE = 255;
-BOOL gQuietSnapshot = FALSE;
+bool gQuietSnapshot = false;
 
 // Minimum value for UIScaleFactor, also defined in preferences, ui_scale_slider
 static const F32 MIN_UI_SCALE = 0.75f;
@@ -1765,9 +1765,9 @@ LLViewerWindow::LLViewerWindow(const Params& p)
 	mWindowRectRaw(0, p.height, p.width, 0),
 	mWindowRectScaled(0, p.height, p.width, 0),
 	mWorldViewRectRaw(0, p.height, p.width, 0),
-	mLeftMouseDown(FALSE),
-	mMiddleMouseDown(FALSE),
-	mRightMouseDown(FALSE),
+	mLeftMouseDown(false),
+	mMiddleMouseDown(false),
+	mRightMouseDown(false),
 	mMouseInWindow( false ),
     mAllowMouseDragging(true),
     mMouseDownTimer(),
@@ -1830,7 +1830,7 @@ LLViewerWindow::LLViewerWindow(const Params& p)
 
 	if (!LLViewerShaderMgr::sInitialized)
 	{ //immediately initialize shaders
-		LLViewerShaderMgr::sInitialized = TRUE;
+		LLViewerShaderMgr::sInitialized = true;
 		LLViewerShaderMgr::instance()->setShaders();
 	}
 
@@ -2439,7 +2439,7 @@ LLViewerWindow::~LLViewerWindow()
 	if (LLViewerShaderMgr::sInitialized)
 	{
 		LLViewerShaderMgr::releaseInstance();
-		LLViewerShaderMgr::sInitialized = FALSE;
+		LLViewerShaderMgr::sInitialized = false;
 	}
 }
 
@@ -2526,7 +2526,6 @@ void LLViewerWindow::reshape(S32 width, S32 height)
             // Needs only a 'scale change' update, everything else gets handled by LLLayoutStack::updateClass()
             LLPanelLogin::reshapePanel();
         }
-		LLView::sForceReshape = false;
 
 		// clear font width caches
 		if (display_scale_changed)
@@ -3335,7 +3334,7 @@ void LLViewerWindow::updateUI()
 	updateMouseDelta();
 	updateKeyboardFocus();
 
-	BOOL handled = FALSE;
+	bool handled = false;
 
 	LLUICtrl* top_ctrl = gFocusMgr.getTopCtrl();
 	LLMouseHandler* mouse_captor = gFocusMgr.getMouseCapture();
@@ -3558,7 +3557,7 @@ void LLViewerWindow::updateUI()
 		}
 
 		// Show a new tool tip (or update one that is already shown)
-		BOOL tool_tip_handled = FALSE;
+		bool tool_tip_handled = false;
 		std::string tool_tip_msg;
 		if( handled 
 			&& !mWindow->isCursorHidden())
@@ -4525,7 +4524,7 @@ void renderOnePhysicsShape(LLViewerObject* objectp)
 // NOTE: This function gets called 3 times:
 //  render_ui_3d: 			FALSE, FALSE, TRUE
 //  render_hud_elements:	FALSE, FALSE, FALSE
-void LLViewerWindow::renderSelections( BOOL for_gl_pick, BOOL pick_parcel_walls, BOOL for_hud )
+void LLViewerWindow::renderSelections( bool for_gl_pick, bool pick_parcel_walls, bool for_hud )
 {
 	LLObjectSelectionHandle selection = LLSelectMgr::getInstance()->getSelection();
 
@@ -4688,21 +4687,21 @@ void LLViewerWindow::renderSelections( BOOL for_gl_pick, BOOL pick_parcel_walls,
 					// make whole viewer benefit.
 					LLSelectMgr::getInstance()->selectGetEditMoveLinksetPermissions(all_selected_objects_move, all_selected_objects_modify);
 
-					BOOL draw_handles = TRUE;
+					bool draw_handles = true;
 
 					if (tool == LLToolCompTranslate::getInstance() && !all_selected_objects_move && !LLSelectMgr::getInstance()->isSelfAvatarSelected())
 					{
-						draw_handles = FALSE;
+						draw_handles = false;
 					}
 
 					if (tool == LLToolCompRotate::getInstance() && !all_selected_objects_move)
 					{
-						draw_handles = FALSE;
+						draw_handles = false;
 					}
 
 					if ( !all_selected_objects_modify && tool == LLToolCompScale::getInstance() )
 					{
-						draw_handles = FALSE;
+						draw_handles = false;
 					}
 				
 					if( draw_handles )
@@ -4748,7 +4747,7 @@ LLVector3d LLViewerWindow::clickPointInWorldGlobal(S32 x, S32 y_from_bot, LLView
 
 bool LLViewerWindow::clickPointOnSurfaceGlobal(const S32 x, const S32 y, LLViewerObject *objectp, LLVector3d &point_global) const
 {
-	BOOL intersect = false;
+	bool intersect = false;
 
 //	U8 shape = objectp->mPrimitiveCode & LL_PCODE_BASE_MASK;
 	if (!intersect)
@@ -5221,12 +5220,12 @@ bool LLViewerWindow::mousePointOnLandGlobal(const S32 x, const S32 y, LLVector3d
 }
 
 // Saves an image to the harddrive as "SnapshotX" where X >= 1.
-BOOL LLViewerWindow::saveImageNumbered(LLImageFormatted *image, bool force_picker)
+bool LLViewerWindow::saveImageNumbered(LLImageFormatted *image, bool force_picker)
 {
 	if (!image)
 	{
 		LL_WARNS() << "No image to save" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 
 	LLFilePicker::ESaveFilter pick_type;
@@ -5244,7 +5243,7 @@ BOOL LLViewerWindow::saveImageNumbered(LLImageFormatted *image, bool force_picke
 	else
 		pick_type = LLFilePicker::FFSAVE_ALL; // ???
 	
-	BOOL is_snapshot_name_loc_set = isSnapshotLocSet();
+	bool is_snapshot_name_loc_set = isSnapshotLocSet();
 
 	// Get a base file location if needed.
 	if (force_picker || !isSnapshotLocSet())
@@ -5258,7 +5257,7 @@ BOOL LLViewerWindow::saveImageNumbered(LLImageFormatted *image, bool force_picke
 		if (!picker.getSaveFile(pick_type, proposed_name))
 		{
 			// Clicked cancel
-			return FALSE;
+			return false;
 		}
 
 		// Copy the directory + file name
@@ -5270,7 +5269,7 @@ BOOL LLViewerWindow::saveImageNumbered(LLImageFormatted *image, bool force_picke
 
 	if(LLViewerWindow::sSnapshotDir.empty())
 	{
-		return FALSE;
+		return false;
 	}
 
 	// Look for an unused file name
@@ -5319,12 +5318,12 @@ void LLViewerWindow::movieSize(S32 new_width, S32 new_height)
 	}
 }
 
-BOOL LLViewerWindow::saveSnapshot( const std::string& filepath, S32 image_width, S32 image_height, BOOL show_ui, BOOL do_rebuild, ESnapshotType type)
+bool LLViewerWindow::saveSnapshot( const std::string& filepath, S32 image_width, S32 image_height, bool show_ui, bool do_rebuild, ESnapshotType type)
 {
 	LL_INFOS() << "Saving snapshot to: " << filepath << LL_ENDL;
 
 	LLPointer<LLImageRaw> raw = new LLImageRaw;
-	BOOL success = rawSnapshot(raw, image_width, image_height, TRUE, FALSE, show_ui, do_rebuild);
+	bool success = rawSnapshot(raw, image_width, image_height, true, false, show_ui, do_rebuild);
 
 	if (success)
 	{
@@ -5358,20 +5357,20 @@ void LLViewerWindow::playSnapshotAnimAndSound()
 	send_sound_trigger(LLUUID(gSavedSettings.getString("UISndSnapshot")), 1.0f);
 }
 
-BOOL LLViewerWindow::thumbnailSnapshot(LLImageRaw *raw, S32 preview_width, S32 preview_height, BOOL show_ui, BOOL do_rebuild, ESnapshotType type)
+bool LLViewerWindow::thumbnailSnapshot(LLImageRaw *raw, S32 preview_width, S32 preview_height, bool show_ui, bool do_rebuild, ESnapshotType type)
 {
-	return rawSnapshot(raw, preview_width, preview_height, FALSE, FALSE, show_ui, do_rebuild, type);
+	return rawSnapshot(raw, preview_width, preview_height, false, false, show_ui, do_rebuild, type);
 }
 
 // Saves the image from the screen to a raw image
 // Since the required size might be bigger than the available screen, this method rerenders the scene in parts (called subimages) and copy
 // the results over to the final raw image.
-BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_height, 
-								 BOOL keep_window_aspect, BOOL is_texture, BOOL show_ui, BOOL do_rebuild, ESnapshotType type, S32 max_size)
+bool LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_height,
+								 bool keep_window_aspect, bool is_texture, bool show_ui, bool do_rebuild, ESnapshotType type, S32 max_size)
 {
 	if (!raw)
 	{
-		return FALSE;
+		return false;
 	}
 	//check if there is enough memory for the snapshot image
 	if(image_width * image_height > (1 << 22)) //if snapshot image is larger than 2K by 2K
@@ -5379,7 +5378,7 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 		if(!LLMemory::tryToAlloc(NULL, image_width * image_height * 3))
 		{
 			LL_WARNS() << "No enough memory to take the snapshot with size (w : h): " << image_width << " : " << image_height << LL_ENDL ;
-			return FALSE ; //there is no enough memory for taking this snapshot.
+			return false ; //there is no enough memory for taking this snapshot.
 		}
 	}
 
@@ -5390,7 +5389,7 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 	setCursor(UI_CURSOR_WAIT);
 
 	// Hide all the UI widgets first and draw a frame
-	BOOL prev_draw_ui = gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_UI) ? TRUE : FALSE;
+	bool prev_draw_ui = gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_UI) ? true : false;
 
 ////MK
 //	// HACK : It seems we have a weird bug when the vision is restricted. I know this is not a good place to fix it, let alone with such a hack,
@@ -5416,10 +5415,10 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 		LLPipeline::toggleRenderDebugFeature(LLPipeline::RENDER_DEBUG_FEATURE_UI);
 	}
 
-	BOOL hide_hud = !gSavedSettings.getBOOL("RenderHUDInSnapshot") && LLPipeline::sShowHUDAttachments;
+	bool hide_hud = !gSavedSettings.getBOOL("RenderHUDInSnapshot") && LLPipeline::sShowHUDAttachments;
 	if (hide_hud)
 	{
-		LLPipeline::sShowHUDAttachments = FALSE;
+		LLPipeline::sShowHUDAttachments = false;
 	}
 
 	if(show_ui && gSavedSettings.getBOOL("HideBalanceInSnapshots"))
@@ -5528,15 +5527,15 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 	else
 	{
 		gStatusBar->hideBalance(false);
-		return FALSE ;
+		return false ;
 	}
 	if (raw->isBufferInvalid())
 	{
 		gStatusBar->hideBalance(false);
-		return FALSE ;
+		return false ;
 	}
 
-	BOOL high_res = scale_factor >= 2.f; // Font scaling is slow, only do so if rez is much higher
+	bool high_res = scale_factor >= 2.f; // Font scaling is slow, only do so if rez is much higher
 	if (high_res && show_ui)
 	{
 		// Note: we should never get there...
@@ -5659,7 +5658,7 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 
 	if (hide_hud)
 	{
-		LLPipeline::sShowHUDAttachments = TRUE;
+		LLPipeline::sShowHUDAttachments = true;
 	}
 
 	/*if (high_res)
@@ -5672,7 +5671,7 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 	// Note: this formula depends on the number of components being 3.  Not obvious, but it's correct.	
 	image_width += (image_width * 3) % 4;
 
-	BOOL ret = TRUE ;
+	bool ret = true ;
 	// Resize image
 	if(llabs(image_width - image_buffer_x) > 4 || llabs(image_height - image_buffer_y) > 4)
 	{
@@ -5680,7 +5679,7 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 	}
 	else if(image_width != image_buffer_x || image_height != image_buffer_y)
 	{
-		ret = raw->scale( image_width, image_height, FALSE );  
+		ret = raw->scale( image_width, image_height, false );
 	}
 	
 
@@ -6034,7 +6033,7 @@ void LLViewerWindow::restoreGL(const std::string& progress_message)
 		if (!progress_message.empty())
 		{
 			gRestoreGLTimer.reset();
-			gRestoreGL = TRUE;
+			gRestoreGL = true;
 			setShowProgress(true);
 			setProgressString(progress_message);
 		}
