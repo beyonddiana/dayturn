@@ -185,7 +185,7 @@ BOOL LLToolPie::handleMouseDown(S32 x, S32 y, MASK mask)
 
 BOOL LLToolPie::handleMiddleMouseDown(S32 x, S32 y, MASK mask)
 {
-	LLPickInfo pick = gViewerWindow->pickImmediate(x, y, TRUE);
+	LLPickInfo pick = gViewerWindow->pickImmediate(x, y, true);
 
 	return handleMediaClick(pick, 2);
 }

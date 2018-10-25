@@ -150,7 +150,7 @@ BOOL LLToolGrabBase::handleMouseDown(S32 x, S32 y, MASK mask)
 //mk
 	{
 		// can grab transparent objects (how touch event propagates, scripters rely on this)
-		gViewerWindow->pickAsync(x, y, mask, pickCallback, /*BOOL pick_transparent*/ TRUE);
+		gViewerWindow->pickAsync(x, y, mask, pickCallback, /*BOOL pick_transparent*/ true);
 	}
 	mClickedInMouselook = gAgentCamera.cameraMouselook();
 	return TRUE;

@@ -59,9 +59,9 @@ private:
 	void removeAllBars();
 
 private:
-	BOOL mFreezeView;
-	BOOL mOrderFetch;
-	BOOL mPrintList;
+	bool mFreezeView;
+	bool mOrderFetch;
+	bool mPrintList;
 	
 	LLTextBox *mInfoTextp;
 
