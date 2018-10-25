@@ -532,7 +532,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		if( percent_done > 100.f )
 		{
 			gViewerWindow->setShowProgress(false);
-			gRestoreGL = FALSE;
+			gRestoreGL = false;
 		}
 		else
 		{
@@ -1457,7 +1457,7 @@ void render_ui_3d()
 		draw_axes();
 	}
 
-	gViewerWindow->renderSelections(FALSE, FALSE, TRUE); // Non HUD call in render_hud_elements
+	gViewerWindow->renderSelections(false, false, true); // Non HUD call in render_hud_elements
 	stop_glerror();
 }
 

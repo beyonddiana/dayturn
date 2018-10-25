@@ -627,10 +627,10 @@ class LLFileTakeSnapshotToDisk : public view_listener_t
 		if (gViewerWindow->rawSnapshot(raw,
 									   width,
 									   height,
-									   TRUE,
-									   FALSE,
+									   true,
+									   false,
 									   gSavedSettings.getBOOL("RenderUIInSnapshot"),
-									   FALSE))
+									   false))
 		{
 			gViewerWindow->playSnapshotAnimAndSound();
 			LLPointer<LLImageFormatted> formatted;

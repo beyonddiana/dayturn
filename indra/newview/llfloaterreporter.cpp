@@ -766,7 +766,7 @@ void LLFloaterReporter::takeScreenshot()
 	const S32 IMAGE_HEIGHT = 768;
 
 	LLPointer<LLImageRaw> raw = new LLImageRaw;
-	if( !gViewerWindow->rawSnapshot(raw, IMAGE_WIDTH, IMAGE_HEIGHT, TRUE, FALSE, TRUE, FALSE))
+	if( !gViewerWindow->rawSnapshot(raw, IMAGE_WIDTH, IMAGE_HEIGHT, true, false, true, false))
 	{
 		LL_WARNS() << "Unable to take screenshot" << LL_ENDL;
 		return;

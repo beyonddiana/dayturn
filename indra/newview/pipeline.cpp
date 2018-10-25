@@ -4082,7 +4082,7 @@ void render_hud_elements()
 	if (!LLPipeline::sReflectionRender && gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_UI))
 	{
 		LLGLEnable multisample(LLPipeline::RenderFSAASamples > 0 ? GL_MULTISAMPLE_ARB : 0);
-		gViewerWindow->renderSelections(FALSE, FALSE, FALSE); // For HUD version in render_ui_3d()
+		gViewerWindow->renderSelections(false, false, false); // For HUD version in render_ui_3d()
 	
 		// Draw the tracking overlays
 		LLTracker::render3D();
