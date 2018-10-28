@@ -743,6 +743,7 @@ set(viewer_SOURCE_FILES
     viewerinfo.cpp
     streamtitledisplay.cpp
     astraopenregionsettings.cpp
+    NACLfloaterexploresounds.cpp
     )
 
 set(VIEWER_BINARY_NAME "kokuaos-bin" CACHE STRING
