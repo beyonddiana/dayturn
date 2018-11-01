@@ -946,7 +946,7 @@ void LLPanelEditWearable::onCommitSexChange()
         LLViewerWearable*     wearable = gAgentWearables.getViewerWearable(type, index);
         if (wearable)
         {
-                wearable->setVisualParamWeight(param->getID(), is_new_sex_male, FALSE);
+                wearable->setVisualParamWeight(param->getID(), is_new_sex_male, false);
         }
         param->setWeight( is_new_sex_male, FALSE );
 

@@ -111,9 +111,9 @@ public:
 
 	// LLVisualParam Virtual functions
 	/*virtual*/ void				apply( ESex sex ) {} // apply is called separately for each driven param.
-	/*virtual*/ void				setWeight(F32 weight, BOOL upload_bake);
-	/*virtual*/ void				setAnimationTarget( F32 target_value, BOOL upload_bake );
-	/*virtual*/ void				stopAnimating(BOOL upload_bake);
+	/*virtual*/ void				setWeight(F32 weight, bool upload_bake);
+	/*virtual*/ void				setAnimationTarget( F32 target_value, bool upload_bake );
+	/*virtual*/ void				stopAnimating(bool upload_bake);
 	/*virtual*/ bool				linkDrivenParams(visual_param_mapper mapper, bool only_cross_params);
 	/*virtual*/ void				resetDrivenParams();
 	

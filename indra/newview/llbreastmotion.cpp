@@ -341,7 +341,7 @@ BOOL LLBreastMotion::onUpdate(F32 time, U8* joint_mask)
 		{
 			mCharacter->setVisualParamWeight(mBreastParamsDriven[i],
 											 new_local_pt[i],
-											 FALSE);
+											 false);
 		}
 	}
 

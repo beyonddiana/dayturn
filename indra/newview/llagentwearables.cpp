@@ -1861,7 +1861,7 @@ bool LLAgentWearables::canWearableBeRemoved(const LLViewerWearable* wearable) co
 	return !(((type == LLWearableType::WT_SHAPE) || (type == LLWearableType::WT_SKIN) || (type == LLWearableType::WT_HAIR) || (type == LLWearableType::WT_EYES))
 			 && (getWearableCount(type) <= 1) );		  
 }
-void LLAgentWearables::animateAllWearableParams(F32 delta, BOOL upload_bake)
+void LLAgentWearables::animateAllWearableParams(F32 delta, bool upload_bake)
 {
 	for( S32 type = 0; type < LLWearableType::WT_COUNT; ++type )
 	{

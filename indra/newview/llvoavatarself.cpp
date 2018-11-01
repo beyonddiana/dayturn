@@ -755,46 +755,46 @@ LLJoint *LLVOAvatarSelf::getJoint(const std::string &name)
 }
 
 // virtual
-BOOL LLVOAvatarSelf::setVisualParamWeight(const LLVisualParam *which_param, F32 weight, BOOL upload_bake )
+bool LLVOAvatarSelf::setVisualParamWeight(const LLVisualParam *which_param, F32 weight, bool upload_bake )
 {
 	if (!which_param)
 	{
-		return FALSE;
+		return false;
 	}
 	LLViewerVisualParam *param = (LLViewerVisualParam*) LLCharacter::getVisualParam(which_param->getID());
 	return setParamWeight(param,weight,upload_bake);
 }
 
 // virtual
-BOOL LLVOAvatarSelf::setVisualParamWeight(const char* param_name, F32 weight, BOOL upload_bake )
+bool LLVOAvatarSelf::setVisualParamWeight(const char* param_name, F32 weight, bool upload_bake )
 {
 	if (!param_name)
 	{
-		return FALSE;
+		return false;
 	}
 	LLViewerVisualParam *param = (LLViewerVisualParam*) LLCharacter::getVisualParam(param_name);
 	return setParamWeight(param,weight,upload_bake);
 }
 
 // virtual
-BOOL LLVOAvatarSelf::setVisualParamWeight(S32 index, F32 weight, BOOL upload_bake )
+bool LLVOAvatarSelf::setVisualParamWeight(S32 index, F32 weight, bool upload_bake )
 {
 	LLViewerVisualParam *param = (LLViewerVisualParam*) LLCharacter::getVisualParam(index);
 	return setParamWeight(param,weight,upload_bake);
 }
 
-BOOL LLVOAvatarSelf::setParamWeight(const LLViewerVisualParam *param, F32 weight, BOOL upload_bake )
+bool LLVOAvatarSelf::setParamWeight(const LLViewerVisualParam *param, F32 weight, bool upload_bake )
 {
 	if (!param)
 	{
-		return FALSE;
+		return false;
 	}
 
 #if 0
 	// FIXME DRANO - kludgy way to avoid overwriting avatar state from wearables.
 	if (isUsingServerBakes() && !isUsingLocalAppearance())
 	{
-		return FALSE;
+		return false;
 	}
 #endif
 

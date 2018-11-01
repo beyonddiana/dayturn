@@ -7144,7 +7144,7 @@ bool LLVOAvatar::updateGeometry(LLDrawable *drawable)
 //-----------------------------------------------------------------------------
 // updateSexDependentLayerSets()
 //-----------------------------------------------------------------------------
-void LLVOAvatar::updateSexDependentLayerSets( BOOL upload_bake )
+void LLVOAvatar::updateSexDependentLayerSets( bool upload_bake )
 {
 	invalidateComposite( mBakedTextureDatas[BAKED_HEAD].mTexLayerSet, upload_bake );
 	invalidateComposite( mBakedTextureDatas[BAKED_UPPER].mTexLayerSet, upload_bake );
@@ -7843,7 +7843,7 @@ void LLVOAvatar::invalidateAll()
 }
 
 // virtual
-void LLVOAvatar::onGlobalColorChanged(const LLTexGlobalColor* global_color, BOOL upload_bake )
+void LLVOAvatar::onGlobalColorChanged(const LLTexGlobalColor* global_color, bool upload_bake )
 {
 	if (global_color == mTexSkinColor)
 	{
