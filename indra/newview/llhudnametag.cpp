@@ -232,7 +232,7 @@ void LLHUDNameTag::render()
 	}
 }
 
-void LLHUDNameTag::renderText(BOOL for_select)
+void LLHUDNameTag::renderText(bool for_select)
 {
 	if (!mVisible || mHidden)
 	{
@@ -255,8 +255,8 @@ void LLHUDNameTag::renderText(BOOL for_select)
 		gGL.getTexUnit(0)->enable(LLTexUnit::TT_TEXTURE);
 	}
 
-	LLGLState gls_blend(GL_BLEND, for_select ? FALSE : TRUE);
-	LLGLState gls_alpha(GL_ALPHA_TEST, for_select ? FALSE : TRUE);
+	LLGLState gls_blend(GL_BLEND, for_select ? false : true);
+	LLGLState gls_alpha(GL_ALPHA_TEST, for_select ? false : true);
 	
 	LLColor4 shadow_color(0.f, 0.f, 0.f, 1.f);
 	F32 alpha_factor = 1.f;

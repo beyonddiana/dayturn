@@ -3939,7 +3939,7 @@ void LLAgent::processAgentCachedTextureResponse(LLMessageSystem *mesgsys, void *
 					else
 					{
 						// no cache of this bake. request upload.
-						gAgentAvatarp->invalidateComposite(gAgentAvatarp->getLayerSet(baked_index),TRUE);
+						gAgentAvatarp->invalidateComposite(gAgentAvatarp->getLayerSet(baked_index),true);
 					}
 				}
 			}
@@ -4095,7 +4095,7 @@ bool LLAgent::teleportCore(bool is_local)
 
 		//release geometry from old location
 		gPipeline.resetVertexBuffers();
-		LLSpatialPartition::sTeleportRequested = TRUE;
+		LLSpatialPartition::sTeleportRequested = true;
 	}
 	make_ui_sound("UISndTeleportOut");
 	
@@ -4718,7 +4718,7 @@ void LLAgent::sendAgentSetAppearance()
 
 	// At this point we have a complete appearance to send and are in a non-baking region.
 	// DRANO FIXME
-	//gAgentAvatarp->setIsUsingServerBakes(FALSE);
+	//gAgentAvatarp->setIsUsingServerBakes(false);
 	S32 sb_count, host_count, both_count, neither_count;
 	gAgentAvatarp->bakedTextureOriginCounts(sb_count, host_count, both_count, neither_count);
 	if (both_count != 0 || neither_count != 0)

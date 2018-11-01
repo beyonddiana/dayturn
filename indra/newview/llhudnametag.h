@@ -135,7 +135,7 @@ protected:
 	LLHUDNameTag(const U8 type);
 
 	/*virtual*/ void render();
-	void renderText(BOOL for_select);
+	void renderText(bool for_select);
 	static void updateAll();
 	void setLOD(S32 lod);
 	S32 getMaxLines();

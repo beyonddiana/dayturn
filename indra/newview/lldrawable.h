@@ -88,7 +88,7 @@ public:
 
 	bool isLight() const;
 
-	virtual void setVisible(LLCamera& camera_in, std::vector<LLDrawable*>* results = NULL, BOOL for_select = FALSE);
+	virtual void setVisible(LLCamera& camera_in, std::vector<LLDrawable*>* results = NULL, bool for_select = false);
 
 	LLSpatialGroup* getSpatialGroup()const          {return (LLSpatialGroup*)getGroup();}
 	LLViewerRegion* getRegion()               const { return mVObjp->getRegion(); }

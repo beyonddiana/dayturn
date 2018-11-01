@@ -980,7 +980,7 @@ void LLVOAvatarSelf::removeMissingBakedTextures()
 		{
 			LLViewerTexLayerSet *layerset = getTexLayerSet(i);
 			layerset->setUpdatesEnabled(true);
-			invalidateComposite(layerset, FALSE);
+			invalidateComposite(layerset, false);
 		}
 		updateMeshTextures();
 		if (getRegion() && !getRegion()->getCentralBakeVersion())
@@ -1121,7 +1121,7 @@ void LLVOAvatarSelf::idleUpdateTractorBeam()
 void LLVOAvatarSelf::restoreMeshData()
 {
 	//LL_INFOS() << "Restoring" << LL_ENDL;
-	mMeshValid = TRUE;
+	mMeshValid = true;
 	updateJointLODs();
 	updateAttachmentVisibility(gAgentCamera.getCameraMode());
 
@@ -1598,10 +1598,10 @@ BOOL LLVOAvatarSelf::isBakedTextureFinal(const LLAvatarAppearanceDefines::EBaked
 	return !layerset_buffer->uploadNeeded();
 }
 
-BOOL LLVOAvatarSelf::isTextureDefined(LLAvatarAppearanceDefines::ETextureIndex type, U32 index) const
+bool LLVOAvatarSelf::isTextureDefined(LLAvatarAppearanceDefines::ETextureIndex type, U32 index) const
 {
 	LLUUID id;
-	BOOL isDefined = TRUE;
+	bool isDefined = true;
 	if (isIndexLocalTexture(type))
 	{
 		const LLWearableType::EType wearable_type = LLAvatarAppearanceDictionary::getTEWearableType(type);
@@ -1631,7 +1631,7 @@ BOOL LLVOAvatarSelf::isTextureDefined(LLAvatarAppearanceDefines::ETextureIndex t
 }
 
 //virtual
-BOOL LLVOAvatarSelf::isTextureVisible(LLAvatarAppearanceDefines::ETextureIndex type, U32 index) const
+bool LLVOAvatarSelf::isTextureVisible(LLAvatarAppearanceDefines::ETextureIndex type, U32 index) const
 {
 	if (isIndexBakedTexture(type))
 	{
@@ -1644,7 +1644,7 @@ BOOL LLVOAvatarSelf::isTextureVisible(LLAvatarAppearanceDefines::ETextureIndex t
 }
 
 //virtual
-BOOL LLVOAvatarSelf::isTextureVisible(LLAvatarAppearanceDefines::ETextureIndex type, LLViewerWearable *wearable) const
+bool LLVOAvatarSelf::isTextureVisible(LLAvatarAppearanceDefines::ETextureIndex type, LLViewerWearable *wearable) const
 {
 	if (isIndexBakedTexture(type))
 	{
@@ -1659,7 +1659,7 @@ BOOL LLVOAvatarSelf::isTextureVisible(LLAvatarAppearanceDefines::ETextureIndex t
 	else
 	{
 		LL_WARNS() << "Wearable not found" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 }
 
@@ -1678,7 +1678,7 @@ void LLVOAvatarSelf::requestLayerSetUploads()
 void LLVOAvatarSelf::requestLayerSetUpload(LLAvatarAppearanceDefines::EBakedTextureIndex i)
 {
 	ETextureIndex tex_index = mBakedTextureDatas[i].mTextureIndex;
-	const BOOL layer_baked = isTextureDefined(tex_index, gAgentWearables.getWearableCount(tex_index));
+	const bool layer_baked = isTextureDefined(tex_index, gAgentWearables.getWearableCount(tex_index));
 	LLViewerTexLayerSet *layerset = getLayerSet(i);
 	if (!layer_baked && layerset)
 	{
@@ -1705,7 +1705,7 @@ bool LLVOAvatarSelf::hasPendingBakedUploads() const
 	return false;
 }
 
-void LLVOAvatarSelf::invalidateComposite( LLTexLayerSet* layerset, BOOL upload_result )
+void LLVOAvatarSelf::invalidateComposite( LLTexLayerSet* layerset, bool upload_result )
 {
 	LLViewerTexLayerSet *layer_set = dynamic_cast<LLViewerTexLayerSet*>(layerset);
 	if( !layer_set || !layer_set->getUpdatesEnabled() )
@@ -1733,7 +1733,7 @@ void LLVOAvatarSelf::invalidateAll()
 	for (U32 i = 0; i < mBakedTextureDatas.size(); i++)
 	{
 		LLViewerTexLayerSet *layerset = getTexLayerSet(i);
-		invalidateComposite(layerset, TRUE);
+		invalidateComposite(layerset, true);
 	}
 	//mDebugSelfLoadTimer.reset();
 }
@@ -1773,7 +1773,7 @@ void LLVOAvatarSelf::setupComposites()
 	for (U32 i = 0; i < mBakedTextureDatas.size(); i++)
 	{
 		ETextureIndex tex_index = mBakedTextureDatas[i].mTextureIndex;
-		BOOL layer_baked = isTextureDefined(tex_index, gAgentWearables.getWearableCount(tex_index));
+		bool layer_baked = isTextureDefined(tex_index, gAgentWearables.getWearableCount(tex_index));
 		LLViewerTexLayerSet *layerset = getTexLayerSet(i);
 		if (layerset)
 		{
@@ -2957,7 +2957,7 @@ void LLVOAvatarSelf::processRebakeAvatarTextures(LLMessageSystem* msg, void**)
 				if (layer_set)
 				{
 					LL_INFOS() << "TAT: rebake - matched entry " << (S32)index << LL_ENDL;
-					gAgentAvatarp->invalidateComposite(layer_set, TRUE);
+					gAgentAvatarp->invalidateComposite(layer_set, true);
 					found = TRUE;
 				}
 			}
@@ -2993,7 +2993,7 @@ void LLVOAvatarSelf::forceBakeAllTextures(bool slam_for_debug)
 				layer_set->cancelUpload();
 			}
 
-			invalidateComposite(layer_set, TRUE);
+			invalidateComposite(layer_set, true);
 			add(LLStatViewer::TEX_REBAKES, 1);
 		}
 		else

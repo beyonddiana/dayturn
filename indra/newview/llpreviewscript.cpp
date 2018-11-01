@@ -708,7 +708,7 @@ void LLScriptEdCore::draw()
 	LLPanel::draw();
 }
 
-void LLScriptEdCore::updateDynamicHelp(BOOL immediate)
+void LLScriptEdCore::updateDynamicHelp(bool immediate)
 {
 	LLFloater* help_floater = mLiveHelpHandle.get();
 	if (!help_floater) return;
@@ -958,7 +958,7 @@ void LLScriptEdCore::onBtnDynamicHelp()
 	live_help_floater->setVisible(visible);
 	live_help_floater->setFrontmost(take_focus);
 
-	updateDynamicHelp(TRUE);
+	updateDynamicHelp(true);
 }
 
 //static 

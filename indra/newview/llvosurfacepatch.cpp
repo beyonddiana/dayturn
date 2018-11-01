@@ -1060,7 +1060,7 @@ LLTerrainPartition::LLTerrainPartition(LLViewerRegion* regionp)
 : LLSpatialPartition(LLDrawPoolTerrain::VERTEX_DATA_MASK, FALSE, GL_DYNAMIC_DRAW_ARB, regionp)
 {
 	mOcclusionEnabled = FALSE;
-	mInfiniteFarClip = TRUE;
+	mInfiniteFarClip = true;
 	mDrawableType = LLPipeline::RENDER_TYPE_TERRAIN;
 	mPartitionType = LLViewerRegion::PARTITION_TERRAIN;
 }

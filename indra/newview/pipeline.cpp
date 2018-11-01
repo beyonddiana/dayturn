@@ -7382,7 +7382,7 @@ void LLPipeline::doResetVertexBuffers(bool forced)
 		else
 		{
 			//teleporting aborted
-			LLSpatialPartition::sTeleportRequested = FALSE;
+			LLSpatialPartition::sTeleportRequested = false;
 			mResetVertexBuffers = false;
 			return;
 		}
@@ -7408,7 +7408,7 @@ void LLPipeline::doResetVertexBuffers(bool forced)
 	}
 	if(LLSpatialPartition::sTeleportRequested)
 	{
-		LLSpatialPartition::sTeleportRequested = FALSE;
+		LLSpatialPartition::sTeleportRequested = false;
 
 		LLWorld::getInstance()->clearAllVisibleObjects();
 		clearRebuildDrawables();

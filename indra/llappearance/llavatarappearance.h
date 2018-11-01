@@ -109,8 +109,8 @@ public:
 public:
 	virtual bool 	isSelf() const { return false; } // True if this avatar is for this viewer's agent
 	virtual BOOL	isValid() const;
-	virtual BOOL	isUsingServerBakes() const = 0;
-	virtual BOOL	isUsingLocalAppearance() const = 0;
+	virtual bool	isUsingServerBakes() const = 0;
+	virtual bool	isUsingLocalAppearance() const = 0;
 	virtual bool	isEditingAppearance() const = 0;
 
 	bool isBuilt() const { return mIsBuilt; }
@@ -241,7 +241,7 @@ public:
 	// Composites
 	//--------------------------------------------------------------------
 public:
-	virtual void	invalidateComposite(LLTexLayerSet* layerset, BOOL upload_result) = 0;/********************************************************************************
+	virtual void	invalidateComposite(LLTexLayerSet* layerset, bool upload_result) = 0;/********************************************************************************
  **                                                                            **
  **                    MESHES
  **/
@@ -302,7 +302,7 @@ public:
 public:
 	LLWearableData*			getWearableData() { return mWearableData; }
 	const LLWearableData*	getWearableData() const { return mWearableData; }
-	virtual BOOL isTextureDefined(LLAvatarAppearanceDefines::ETextureIndex te, U32 index = 0 ) const = 0;
+	virtual bool isTextureDefined(LLAvatarAppearanceDefines::ETextureIndex te, U32 index = 0 ) const = 0;
 	virtual BOOL			isWearingWearableType(LLWearableType::EType type ) const;
 
 private:
