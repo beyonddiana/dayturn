@@ -106,7 +106,7 @@ public:
 		{
 			LLAppearanceMgr::instance().setOutfitLocked(false);
 		}
-		return FALSE;
+		return false;
 	}
 	void stop() { mEventTimer.stop(); }
 	void start() { mEventTimer.start(); }

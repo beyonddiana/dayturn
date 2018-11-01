@@ -194,7 +194,7 @@ private:
 	BOOL tick()
 	{
 		mCallable();
-		return TRUE;
+		return true;
 	}
 
 	nullary_func_t mCallable;
@@ -215,7 +215,7 @@ public:
 	{
 	}
 private:
-	BOOL tick()
+	bool tick()
 	{
 		return mCallable();
 	}

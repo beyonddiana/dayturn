@@ -126,7 +126,7 @@ public:
         else
         {
             errorCode = 1;
-            return TRUE;
+            return true;
         }
     }
 
@@ -154,7 +154,7 @@ public:
     bool tick()
     {
         zdrop = NULL;
-        return TRUE;
+        return true;
     }
 };
 
@@ -297,7 +297,7 @@ public:
         ztake->mRunning = TRUE;
         delete ztake;
         ztake = NULL;
-        return TRUE;
+        return true;
     }
 };
 

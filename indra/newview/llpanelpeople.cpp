@@ -318,7 +318,7 @@ public:
 
 	virtual bool tick() // from LLEventTimer
 	{
-		return FALSE;
+		return false;
 	}
 };
 
@@ -369,7 +369,7 @@ public:
 
 	/*virtual*/ bool tick()
 	{
-		if (!mIsActive) return FALSE;
+		if (!mIsActive) return false;
 
 		if (mMask & (LLFriendObserver::ADD | LLFriendObserver::REMOVE | LLFriendObserver::ONLINE))
 		{
@@ -380,7 +380,7 @@ public:
 		mEventTimer.stop();
 		mMask = 0;
 
-		return FALSE;
+		return false;
 	}
 
 	// virtual
@@ -511,7 +511,7 @@ public:
 	/*virtual*/ bool tick()
 	{
 		update();
-		return FALSE;
+		return false;
 	}
 private:
 };

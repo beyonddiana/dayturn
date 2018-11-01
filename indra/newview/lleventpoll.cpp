@@ -97,7 +97,7 @@ namespace
 		virtual bool tick()
 		{
 			mResponder->makeRequest();
-			return TRUE;	// Causes this instance to be deleted.
+			return true;	// Causes this instance to be deleted.
 		}
 
 	private:

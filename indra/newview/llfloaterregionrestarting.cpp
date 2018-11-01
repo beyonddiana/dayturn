@@ -79,7 +79,7 @@ bool LLFloaterRegionRestarting::tick()
 {
 	refresh();
 
-	return FALSE;
+	return false;
 }
 
 void LLFloaterRegionRestarting::refresh()

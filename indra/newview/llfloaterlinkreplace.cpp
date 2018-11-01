@@ -292,7 +292,7 @@ bool LLFloaterLinkReplace::tick()
 	}
 	processBatch(current_batch);
 
-	return FALSE;
+	return false;
 }
 
 void LLFloaterLinkReplace::processBatch(LLInventoryModel::item_array_t items)

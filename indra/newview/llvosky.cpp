@@ -1041,17 +1041,17 @@ BOOL LLVOSky::updateSky()
 {
 	if (mDead || !(gPipeline.hasRenderType(LLPipeline::RENDER_TYPE_SKY)))
 	{
-		return TRUE;
+		return true;
 	}
 	
 	if (mDead)
 	{
 		// It's dead.  Don't update it.
-		return TRUE;
+		return true;
 	}
 	if (gGLManager.mIsDisabled)
 	{
-		return TRUE;
+		return true;
 	}
 
 	static S32 next_frame = 0;
@@ -1171,7 +1171,7 @@ BOOL LLVOSky::updateSky()
 	{
 		gPipeline.markRebuild(mDrawable, LLDrawable::REBUILD_VOLUME, TRUE);
 	}
-	return TRUE;
+	return true;
 }
 
 void LLVOSky::updateTextures()
@@ -1392,7 +1392,7 @@ BOOL LLVOSky::updateGeometry(LLDrawable *drawable)
 	}
 
 	LLPipeline::sCompiles++;
-	return TRUE;
+	return true;
 }
 
 BOOL LLVOSky::updateHeavenlyBodyGeometry(LLDrawable *drawable, const S32 f, const BOOL is_sun,
@@ -1452,7 +1452,7 @@ BOOL LLVOSky::updateHeavenlyBodyGeometry(LLDrawable *drawable, const S32 f, cons
 	if (!clip_quad_to_horizon(t_left, t_right, v_clipped, hb.corners(), cos_max_angle))
 	{
 		hb.setVisible(FALSE);
-		return FALSE;
+		return false;
 	}
 	hb.setVisible(TRUE);
 
@@ -1479,7 +1479,7 @@ BOOL LLVOSky::updateHeavenlyBodyGeometry(LLDrawable *drawable, const S32 f, cons
 
 	if (-1 == index_offset)
 	{
-		return TRUE;
+		return true;
 	}
 
 	for (S32 vtx = 0; vtx < 4; ++vtx)
@@ -1517,7 +1517,7 @@ BOOL LLVOSky::updateHeavenlyBodyGeometry(LLDrawable *drawable, const S32 f, cons
 		updateSunHaloGeometry(drawable);
 	}
 
-	return TRUE;
+	return true;
 }
 
 
@@ -1556,7 +1556,7 @@ BOOL clip_quad_to_horizon(F32& t_left, F32& t_right, LLVector3 v_clipped[4],
 									: v_corner[3];
 	}*/
 
-	return TRUE;
+	return true;
 }
 
 

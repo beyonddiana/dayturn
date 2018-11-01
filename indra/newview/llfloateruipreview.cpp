@@ -362,7 +362,7 @@ bool LLFadeEventTimer::tick()
 
 	if(NULL == mParent)	// no more need to tick, so suicide
 	{
-		return TRUE;
+		return true;
 	}
 
 	// Set up colors
@@ -385,7 +385,7 @@ bool LLFadeEventTimer::tick()
 		mFadingOut = FALSE;
 	}
 
-	return FALSE;
+	return false;
 }
 
 // Constructor

@@ -421,7 +421,7 @@ bool LLMediaDataClient::RetryTimer::tick()
 	mRequest = NULL;
 
 	// Don't fire again
-	return TRUE;
+	return true;
 }
 
 
