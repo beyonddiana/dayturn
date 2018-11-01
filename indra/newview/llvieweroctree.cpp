@@ -749,7 +749,7 @@ bool LLViewerOctreeGroup::boundObjects(BOOL empty, LLVector4a& minOut, LLVector4
 		maxOut.setMax(maxOut, newMax);
 	}
 		
-	return TRUE;
+	return true;
 }
 
 //virtual 

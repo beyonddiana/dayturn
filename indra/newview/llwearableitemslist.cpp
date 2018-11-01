@@ -62,10 +62,10 @@ bool LLFindOutfitItems::operator()(LLInventoryCategory* cat,
 		   || (item->getType() == LLAssetType::AT_OBJECT)
 		   || (item->getType() == LLAssetType::AT_GESTURE))
 		{
-			return TRUE;
+			return true;
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 //////////////////////////////////////////////////////////////////////////

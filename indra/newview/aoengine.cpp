@@ -1787,7 +1787,7 @@ bool AOSitCancelTimer::tick()
 	AOEngine::instance().checkSitCancel();
 	if(mTickCount==10)
 		mEventTimer.stop();
-	return FALSE;
+	return false;
 }
 
 // ----------------------------------------------------
@@ -1830,7 +1830,7 @@ bool AOTimerCollection::tick()
 	}
 
 // always return FALSE or the LLEventTimer will be deleted -> crash
-	return FALSE;
+	return false;
 }
 
 void AOTimerCollection::enableInventoryTimer(BOOL yes)

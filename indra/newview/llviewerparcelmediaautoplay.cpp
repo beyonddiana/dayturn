@@ -155,7 +155,7 @@ bool LLViewerParcelMediaAutoPlay::tick()
 	}
 
 
-	return FALSE; // continue ticking forever please.
+	return false; // continue ticking forever please.
 }
 
 

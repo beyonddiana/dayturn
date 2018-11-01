@@ -836,7 +836,7 @@ bool LLLocalBitmapTimer::isRunning()
 bool LLLocalBitmapTimer::tick()
 {
 	LLLocalBitmapMgr::doUpdates();
-	return FALSE;
+	return false;
 }
 
 /*=======================================*/
