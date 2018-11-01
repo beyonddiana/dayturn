@@ -90,9 +90,9 @@ public:
 	/*virtual*/ void 		requestStopMotion(LLMotion* motion);
 	/*virtual*/ LLJoint*	getJoint(const std::string &name);
 	
-	/*virtual*/ BOOL setVisualParamWeight(const LLVisualParam *which_param, F32 weight, BOOL upload_bake = FALSE );
-	/*virtual*/ BOOL setVisualParamWeight(const char* param_name, F32 weight, BOOL upload_bake = FALSE );
-	/*virtual*/ BOOL setVisualParamWeight(S32 index, F32 weight, BOOL upload_bake = FALSE );
+	/*virtual*/ bool setVisualParamWeight(const LLVisualParam *which_param, F32 weight, bool upload_bake = false );
+	/*virtual*/ bool setVisualParamWeight(const char* param_name, F32 weight, bool upload_bake = false );
+	/*virtual*/ bool setVisualParamWeight(S32 index, F32 weight, bool upload_bake = false );
 	/*virtual*/ void updateVisualParams();
 	void writeWearablesToAvatar();
 	/*virtual*/ void idleUpdateAppearanceAnimation();
@@ -105,7 +105,7 @@ public:
 
 private:
 	// helper function. Passed in param is assumed to be in avatar's parameter list.
-	BOOL setParamWeight(const LLViewerVisualParam *param, F32 weight, BOOL upload_bake = FALSE );
+	bool setParamWeight(const LLViewerVisualParam *param, F32 weight, bool upload_bake = false );
 
 
 

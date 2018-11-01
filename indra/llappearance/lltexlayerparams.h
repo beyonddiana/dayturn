@@ -85,9 +85,9 @@ public:
 	// LLVisualParam Virtual functions
 	///*virtual*/ BOOL		parseData(LLXmlTreeNode* node);
 	/*virtual*/ void		apply( ESex avatar_sex ) {}
-	/*virtual*/ void		setWeight(F32 weight, BOOL upload_bake);
-	/*virtual*/ void		setAnimationTarget(F32 target_value, BOOL upload_bake); 
-	/*virtual*/ void		animate(F32 delta, BOOL upload_bake);
+	/*virtual*/ void		setWeight(F32 weight, bool upload_bake);
+	/*virtual*/ void		setAnimationTarget(F32 target_value, bool upload_bake);
+	/*virtual*/ void		animate(F32 delta, bool upload_bake);
 
 	// LLViewerVisualParam Virtual functions
 	/*virtual*/ F32					getTotalDistortion()									{ return 1.f; }
@@ -178,9 +178,9 @@ public:
 	// LLVisualParam Virtual functions
 	///*virtual*/ BOOL			parseData(LLXmlTreeNode* node);
 	/*virtual*/ void			apply( ESex avatar_sex ) {}
-	/*virtual*/ void			setWeight(F32 weight, BOOL upload_bake);
-	/*virtual*/ void			setAnimationTarget(F32 target_value, BOOL upload_bake);
-	/*virtual*/ void			animate(F32 delta, BOOL upload_bake);
+	/*virtual*/ void			setWeight(F32 weight, bool upload_bake);
+	/*virtual*/ void			setAnimationTarget(F32 target_value, bool upload_bake);
+	/*virtual*/ void			animate(F32 delta, bool upload_bake);
 
 
 	// LLViewerVisualParam Virtual functions

@@ -209,7 +209,7 @@ BOOL LLDriverParam::setInfo(LLDriverParamInfo *info)
 	return new LLDriverParam(*this);
 }
 
-void LLDriverParam::setWeight(F32 weight, BOOL upload_bake)
+void LLDriverParam::setWeight(F32 weight, bool upload_bake)
 {
 	F32 min_weight = getMinWeight();
 	F32 max_weight = getMaxWeight();
@@ -444,7 +444,7 @@ const LLViewerVisualParam* LLDriverParam::getDrivenParam(S32 index) const
 //-----------------------------------------------------------------------------
 // setAnimationTarget()
 //-----------------------------------------------------------------------------
-void LLDriverParam::setAnimationTarget( F32 target_value, BOOL upload_bake )
+void LLDriverParam::setAnimationTarget( F32 target_value, bool upload_bake )
 {
 	LLVisualParam::setAnimationTarget(target_value, upload_bake);
 
@@ -462,7 +462,7 @@ void LLDriverParam::setAnimationTarget( F32 target_value, BOOL upload_bake )
 //-----------------------------------------------------------------------------
 // stopAnimating()
 //-----------------------------------------------------------------------------
-void LLDriverParam::stopAnimating(BOOL upload_bake)
+void LLDriverParam::stopAnimating(bool upload_bake)
 {
 	LLVisualParam::stopAnimating(upload_bake);
 

@@ -236,7 +236,7 @@ bool LLVisualParam::parseData(LLXmlTreeNode *node)
 //-----------------------------------------------------------------------------
 // setWeight()
 //-----------------------------------------------------------------------------
-void LLVisualParam::setWeight(F32 weight, BOOL upload_bake)
+void LLVisualParam::setWeight(F32 weight, bool upload_bake)
 {
 	if (mIsAnimating)
 	{
@@ -261,7 +261,7 @@ void LLVisualParam::setWeight(F32 weight, BOOL upload_bake)
 //-----------------------------------------------------------------------------
 // setAnimationTarget()
 //-----------------------------------------------------------------------------
-void LLVisualParam::setAnimationTarget(F32 target_value, BOOL upload_bake)
+void LLVisualParam::setAnimationTarget(F32 target_value, bool upload_bake)
 {
 	// don't animate dummy parameters
 	if (mIsDummy)
@@ -311,7 +311,7 @@ void LLVisualParam::clearNextParam()
 //-----------------------------------------------------------------------------
 // animate()
 //-----------------------------------------------------------------------------
-void LLVisualParam::animate( F32 delta, BOOL upload_bake )
+void LLVisualParam::animate( F32 delta, bool upload_bake )
 {
 	if (mIsAnimating)
 	{
@@ -323,7 +323,7 @@ void LLVisualParam::animate( F32 delta, BOOL upload_bake )
 //-----------------------------------------------------------------------------
 // stopAnimating()
 //-----------------------------------------------------------------------------
-void LLVisualParam::stopAnimating(BOOL upload_bake)
+void LLVisualParam::stopAnimating(bool upload_bake)
 { 
 	if (mIsAnimating && isTweakable())
 	{

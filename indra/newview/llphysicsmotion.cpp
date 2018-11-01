@@ -673,7 +673,7 @@ bool LLPhysicsMotion::onUpdate(F32 time)
 			{
 				mCharacter->setVisualParamWeight(driver_param,
 								 0,
-								 FALSE);
+								 false);
 			}
 			S32 num_driven = driver_param->getDrivenParamsCount();
 			for (S32 i = 0; i < num_driven; ++i)
@@ -775,5 +775,5 @@ void LLPhysicsMotion::setParamValue(const LLViewerVisualParam *param,
 
         mCharacter->setVisualParamWeight(param,
                                          new_value_local,
-                                         FALSE);
+                                         false);
 }

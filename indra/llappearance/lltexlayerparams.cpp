@@ -183,7 +183,7 @@ BOOL LLTexLayerParamAlpha::getMultiplyBlend() const
 	return ((LLTexLayerParamAlphaInfo *)getInfo())->mMultiplyBlend; 	
 }
 
-void LLTexLayerParamAlpha::setWeight(F32 weight, BOOL upload_bake)
+void LLTexLayerParamAlpha::setWeight(F32 weight, bool upload_bake)
 {
 	if (mIsAnimating || mTexLayer == NULL)
 	{
@@ -207,7 +207,7 @@ void LLTexLayerParamAlpha::setWeight(F32 weight, BOOL upload_bake)
 	}
 }
 
-void LLTexLayerParamAlpha::setAnimationTarget(F32 target_value, BOOL upload_bake)
+void LLTexLayerParamAlpha::setAnimationTarget(F32 target_value, bool upload_bake)
 { 
 	// do not animate dummy parameters
 	if (mIsDummy)
@@ -225,7 +225,7 @@ void LLTexLayerParamAlpha::setAnimationTarget(F32 target_value, BOOL upload_bake
 	}
 }
 
-void LLTexLayerParamAlpha::animate(F32 delta, BOOL upload_bake)
+void LLTexLayerParamAlpha::animate(F32 delta, bool upload_bake)
 {
 	if (mNext)
 	{
@@ -476,7 +476,7 @@ LLColor4 LLTexLayerParamColor::getNetColor() const
 	}
 }
 
-void LLTexLayerParamColor::setWeight(F32 weight, BOOL upload_bake)
+void LLTexLayerParamColor::setWeight(F32 weight, bool upload_bake)
 {
 	if (mIsAnimating)
 	{
@@ -513,7 +513,7 @@ void LLTexLayerParamColor::setWeight(F32 weight, BOOL upload_bake)
 	}
 }
 
-void LLTexLayerParamColor::setAnimationTarget(F32 target_value, BOOL upload_bake)
+void LLTexLayerParamColor::setAnimationTarget(F32 target_value, bool upload_bake)
 { 
 	// set value first then set interpolating flag to ignore further updates
 	mTargetWeight = target_value; 
@@ -525,7 +525,7 @@ void LLTexLayerParamColor::setAnimationTarget(F32 target_value, BOOL upload_bake
 	}
 }
 
-void LLTexLayerParamColor::animate(F32 delta, BOOL upload_bake)
+void LLTexLayerParamColor::animate(F32 delta, bool upload_bake)
 {
 	if (mNext)
 	{
