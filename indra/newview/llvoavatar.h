@@ -617,12 +617,12 @@ public:
 	// Loading status
 	//--------------------------------------------------------------------
 public:
-	virtual BOOL    isTextureDefined(LLAvatarAppearanceDefines::ETextureIndex type, U32 index = 0) const;
-	virtual BOOL	isTextureVisible(LLAvatarAppearanceDefines::ETextureIndex type, U32 index = 0) const;
-	virtual BOOL	isTextureVisible(LLAvatarAppearanceDefines::ETextureIndex type, LLViewerWearable *wearable) const;
+	virtual bool    isTextureDefined(LLAvatarAppearanceDefines::ETextureIndex type, U32 index = 0) const;
+	virtual bool	isTextureVisible(LLAvatarAppearanceDefines::ETextureIndex type, U32 index = 0) const;
+	virtual bool	isTextureVisible(LLAvatarAppearanceDefines::ETextureIndex type, LLViewerWearable *wearable) const;
 
-	BOOL			isFullyBaked();
-	static BOOL		areAllNearbyInstancesBaked(S32& grey_avatars);
+	bool			isFullyBaked();
+	static bool		areAllNearbyInstancesBaked(S32& grey_avatars);
 	static void		getNearbyRezzedStats(std::vector<S32>& counts);
 	static std::string rezStatusToString(S32 status);
 
@@ -677,7 +677,7 @@ protected:
 	// Composites
 	//--------------------------------------------------------------------
 public:
-	virtual void	invalidateComposite(LLTexLayerSet* layerset, BOOL upload_result);
+	virtual void	invalidateComposite(LLTexLayerSet* layerset, bool upload_result);
 	virtual void	invalidateAll();
 	virtual void	setCompositeUpdatesEnabled(bool b) {}
 	virtual void 	setCompositeUpdatesEnabled(U32 index, bool b) {}
@@ -687,8 +687,8 @@ public:
 	// Static texture/mesh/baked dictionary
 	//--------------------------------------------------------------------
 public:
-	static BOOL 	isIndexLocalTexture(LLAvatarAppearanceDefines::ETextureIndex i);
-	static BOOL 	isIndexBakedTexture(LLAvatarAppearanceDefines::ETextureIndex i);
+	static bool 	isIndexLocalTexture(LLAvatarAppearanceDefines::ETextureIndex i);
+	static bool 	isIndexBakedTexture(LLAvatarAppearanceDefines::ETextureIndex i);
 private:
 	static const LLAvatarAppearanceDefines::LLAvatarAppearanceDictionary *getDictionary() { return sAvatarDictionary; }
 	static LLAvatarAppearanceDefines::LLAvatarAppearanceDictionary* sAvatarDictionary;
@@ -727,13 +727,13 @@ private:
 	virtual void	dirtyMesh(S32 priority); // Dirty the avatar mesh, with priority
 	LLViewerJoint*	getViewerJoint(S32 idx);
 	S32 			mDirtyMesh; // 0 -- not dirty, 1 -- morphed, 2 -- LOD
-	BOOL			mMeshTexturesDirty;
+	bool			mMeshTexturesDirty;
 
 	//--------------------------------------------------------------------
 	// Destroy invisible mesh
 	//--------------------------------------------------------------------
 protected:
-	BOOL			mMeshValid;
+	bool			mMeshValid;
 	LLFrameTimer	mMeshInvisibleTime;
 
 /**                    Meshes
@@ -758,17 +758,17 @@ public:
 	// Appearance morphing
 	//--------------------------------------------------------------------
 public:
-	BOOL			getIsAppearanceAnimating() const { return mAppearanceAnimating; }
+	bool			getIsAppearanceAnimating() const { return mAppearanceAnimating; }
 
 	// True if we are computing our appearance via local compositing
 	// instead of baked textures, as for example during wearable
 	// editing or when waiting for a subsequent server rebake.
-	/*virtual*/ BOOL	isUsingLocalAppearance() const { return mUseLocalAppearance; }
+	/*virtual*/ bool	isUsingLocalAppearance() const { return mUseLocalAppearance; }
 
 	// True if this avatar should fetch its baked textures via the new
 	// appearance mechanism.
-	BOOL				isUsingServerBakes() const;
-	void 				setIsUsingServerBakes(BOOL newval);
+	bool				isUsingServerBakes() const;
+	void 				setIsUsingServerBakes(bool newval);
 
 
 	// True if we are currently in appearance editing mode. Often but
@@ -778,12 +778,12 @@ public:
 	// FIXME review isUsingLocalAppearance uses, some should be isEditing instead.
 
 private:
-	BOOL			mAppearanceAnimating;
+	bool			mAppearanceAnimating;
 	LLFrameTimer	mAppearanceMorphTimer;
 	F32				mLastAppearanceBlendTime;
-	BOOL			mIsEditingAppearance; // flag for if we're actively in appearance editing mode
-	BOOL			mUseLocalAppearance; // flag for if we're using a local composite
-	BOOL			mUseServerBakes; // flag for if baked textures should be fetched from baking service (false if they're temporary uploads)
+	bool			mIsEditingAppearance; // flag for if we're actively in appearance editing mode
+	bool			mUseLocalAppearance; // flag for if we're using a local composite
+	bool			mUseServerBakes; // flag for if baked textures should be fetched from baking service (false if they're temporary uploads)
 
 	//--------------------------------------------------------------------
 	// Visibility
@@ -885,13 +885,14 @@ public:
 public:
 	void			addChat(const LLChat& chat);
 	void	   		clearChat();
-	void	   		startTyping() { mTyping = TRUE; mTypingTimer.reset(); }
-	void			stopTyping() { mTyping = FALSE; }
+	void	   		startTyping() { mTyping = true; mTypingTimer.reset(); }
+	void			stopTyping() { mTyping = false; }
 //MK
 	BOOL			getTyping() { return mTyping; }
 //mk
+
 private:
-	BOOL			mVisibleChat;
+	bool			mVisibleChat;
 
 	//--------------------------------------------------------------------
 	// Lip synch morphs
@@ -1015,7 +1016,7 @@ public:
 private:
 	LLFrameTimer	mTimeVisible;
 	std::deque<LLChat> mChats;
-	BOOL			mTyping;
+	bool			mTyping;
 	LLFrameTimer	mTypingTimer;
 
 /**                    Name

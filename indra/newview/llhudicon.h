@@ -75,7 +75,7 @@ protected:
 	LLHUDIcon(const U8 type);
 	~LLHUDIcon();
 
-	void renderIcon(BOOL for_select); // common render code
+	void renderIcon(bool for_select); // common render code
 
 private:
 	LLPointer<LLViewerTexture> mImagep;

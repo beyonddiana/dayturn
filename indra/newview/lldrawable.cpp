@@ -1396,7 +1396,7 @@ LLCamera LLSpatialBridge::transformCamera(LLCamera& camera)
 	return ret;
 }
 
-void LLDrawable::setVisible(LLCamera& camera, std::vector<LLDrawable*>* results, BOOL for_select)
+void LLDrawable::setVisible(LLCamera& camera, std::vector<LLDrawable*>* results, bool for_select)
 {
 	LLViewerOctreeEntryData::setVisible();
 	
@@ -1453,7 +1453,7 @@ public:
 	}
 };
 
-void LLSpatialBridge::setVisible(LLCamera& camera_in, std::vector<LLDrawable*>* results, BOOL for_select)
+void LLSpatialBridge::setVisible(LLCamera& camera_in, std::vector<LLDrawable*>* results, bool for_select)
 {
 	if (!gPipeline.hasRenderType(mDrawableType))
 	{
@@ -1606,7 +1606,7 @@ void LLSpatialBridge::makeActive()
 	LL_ERRS() << "makeActive called on spatial bridge" << LL_ENDL;
 }
 
-void LLSpatialBridge::move(LLDrawable *drawablep, LLSpatialGroup *curp, BOOL immediate)
+void LLSpatialBridge::move(LLDrawable *drawablep, LLSpatialGroup *curp, bool immediate)
 {
 	LLSpatialPartition::move(drawablep, curp, immediate);
 	gPipeline.markMoved(this, FALSE);

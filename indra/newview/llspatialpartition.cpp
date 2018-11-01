@@ -75,7 +75,7 @@ bool LLSpatialGroup::sNoDelete = false;
 static F32 sLastMaxTexPriority = 1.f;
 static F32 sCurMaxTexPriority = 1.f;
 
-BOOL LLSpatialPartition::sTeleportRequested = FALSE;
+bool LLSpatialPartition::sTeleportRequested = false;
 
 //static counter for frame to switch LOD on
 
@@ -977,7 +977,7 @@ LLSpatialPartition::LLSpatialPartition(U32 data_mask, bool render_by_group, U32 
 	mBufferUsage = buffer_usage;
 	mDepthMask = FALSE;
 	mSlopRatio = 0.25f;
-	mInfiniteFarClip = FALSE;
+	mInfiniteFarClip = false;
 
 	new LLSpatialGroup(mOctree, this);
 }
@@ -1028,7 +1028,7 @@ bool LLSpatialPartition::remove(LLDrawable *drawablep, LLSpatialGroup *curp)
 	return true;
 }
 
-void LLSpatialPartition::move(LLDrawable *drawablep, LLSpatialGroup *curp, BOOL immediate)
+void LLSpatialPartition::move(LLDrawable *drawablep, LLSpatialGroup *curp, bool immediate)
 {
 	// sanity check submitted by open source user bushing Spatula
 	// who was seeing crashing here. (See VWR-424 reported by Bunny Mayne)
@@ -1182,7 +1182,7 @@ class LLOctreeCullVisExtents: public LLOctreeCullShadow
 {
 public:
 	LLOctreeCullVisExtents(LLCamera* camera, LLVector4a& min, LLVector4a& max)
-		: LLOctreeCullShadow(camera), mMin(min), mMax(max), mEmpty(TRUE) { }
+		: LLOctreeCullShadow(camera), mMin(min), mMax(max), mEmpty(true) { }
 
 	virtual bool earlyFail(LLViewerOctreeGroup* base_group)
 	{
@@ -1259,7 +1259,7 @@ class LLOctreeCullDetectVisible: public LLOctreeCullShadow
 {
 public:
 	LLOctreeCullDetectVisible(LLCamera* camera)
-		: LLOctreeCullShadow(camera), mResult(FALSE) { }
+		: LLOctreeCullShadow(camera), mResult(false) { }
 
 	virtual bool earlyFail(LLViewerOctreeGroup* base_group)
 	{
@@ -1280,11 +1280,11 @@ public:
 	{
 		if (base_group->isVisible())
 		{
-			mResult = TRUE;
+			mResult = true;
 		}
 	}
 
-	BOOL mResult;
+	bool mResult;
 };
 
 class LLOctreeSelect : public LLOctreeCull
@@ -1463,7 +1463,7 @@ public:
 	}
 
 private:
-	BOOL mNoRebuild;
+	bool mNoRebuild;
 };
 
 void LLSpatialPartition::restoreGL()
@@ -1496,14 +1496,14 @@ bool LLSpatialPartition::getVisibleExtents(LLCamera& camera, LLVector3& visMin, 
 	return vis.mEmpty;
 }
 
-BOOL LLSpatialPartition::visibleObjectsInFrustum(LLCamera& camera)
+bool LLSpatialPartition::visibleObjectsInFrustum(LLCamera& camera)
 {
 	LLOctreeCullDetectVisible vis(&camera);
 	vis.traverse(mOctree);
 	return vis.mResult;
 }
 
-S32 LLSpatialPartition::cull(LLCamera &camera, std::vector<LLDrawable *>* results, BOOL for_select)
+S32 LLSpatialPartition::cull(LLCamera &camera, std::vector<LLDrawable *>* results, bool for_select)
 {
 #if LL_OCTREE_PARANOIA_CHECK
 	((LLSpatialGroup*)mOctree->getListener(0))->checkStates();
@@ -2138,7 +2138,7 @@ void renderComplexityDisplay(LLDrawable* drawablep)
 	voVol->setDebugText(llformat("%4.0f", cost));	
 }
 
-void renderBoundingBox(LLDrawable* drawable, BOOL set_color = TRUE)
+void renderBoundingBox(LLDrawable* drawable, bool set_color = true)
 {
 	if (set_color)
 	{
@@ -3661,7 +3661,7 @@ public:
 		{
 				continue;
 			}
-			renderBoundingBox(drawable, FALSE);			
+			renderBoundingBox(drawable, false);
 		}
 	}
 };

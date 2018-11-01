@@ -111,7 +111,7 @@ LLFloaterIMPanel::LLFloaterIMPanel(const std::string& session_label,
 	mOtherParticipantUUID(other_participant_id),
 	mDialog(dialog),
 	mSessionInitialTargetIDs(ids),
-	mTyping(FALSE),
+	mTyping(false),
 	mOtherTyping(FALSE),
 	mTypingLineStartIndex(0),
 	mSentTypingState(TRUE),
@@ -824,7 +824,7 @@ void LLFloaterIMPanel::sendMsg()
 
 	// Don't need to actually send the typing stop message, the other
 	// client will infer it from receiving the message.
-	mTyping = FALSE;
+	mTyping = false;
 	mSentTypingState = TRUE;
 }
 

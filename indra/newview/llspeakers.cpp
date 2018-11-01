@@ -50,11 +50,11 @@ LLSpeaker::LLSpeaker(const LLUUID& id, const std::string& name, const ESpeakerTy
 	mStatus(LLSpeaker::STATUS_TEXT_ONLY),
 	mLastSpokeTime(0.f), 
 	mSpeechVolume(0.f), 
-	mHasSpoken(FALSE),
-	mHasLeftCurrentCall(FALSE),
+	mHasSpoken(false),
+	mHasLeftCurrentCall(false),
 	mDotColor(LLColor4::white),
 	mID(id),
-	mTyping(FALSE),
+	mTyping(false),
 	mSortIndex(0),
 	mType(type),
 	mIsModerator(FALSE),
@@ -456,7 +456,7 @@ void LLSpeakerMgr::update(BOOL resort_ok)
 				if (speakerp->mStatus != LLSpeaker::STATUS_SPEAKING)
 				{
 					speakerp->mLastSpokeTime = mSpeechTimer.getElapsedTimeF32();
-					speakerp->mHasSpoken = TRUE;
+					speakerp->mHasSpoken = true;
 					fireEvent(new LLSpeakerUpdateSpeakerEvent(speakerp), "update_speaker");
 				}
 				speakerp->mStatus = LLSpeaker::STATUS_SPEAKING;
@@ -706,7 +706,7 @@ void LLSpeakerMgr::speakerChatted(const LLUUID& speaker_id)
 	if (speakerp.notNull())
 	{
 		speakerp->mLastSpokeTime = mSpeechTimer.getElapsedTimeF32();
-		speakerp->mHasSpoken = TRUE;
+		speakerp->mHasSpoken = true;
 		fireEvent(new LLSpeakerUpdateSpeakerEvent(speakerp), "update_speaker");
 	}
 }

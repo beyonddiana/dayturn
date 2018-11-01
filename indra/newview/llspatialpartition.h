@@ -409,7 +409,7 @@ public:
 	
 	
 	// If the drawable moves, move it here.
-	virtual void move(LLDrawable *drawablep, LLSpatialGroup *curp, BOOL immediate = FALSE);
+	virtual void move(LLDrawable *drawablep, LLSpatialGroup *curp, bool immediate = false);
 	virtual void shift(const LLVector4a &offset);
 
 	virtual F32 calcDistance(LLSpatialGroup* group, LLCamera& camera);
@@ -418,9 +418,9 @@ public:
 	virtual void rebuildGeom(LLSpatialGroup* group);
 	virtual void rebuildMesh(LLSpatialGroup* group);
 
-	BOOL visibleObjectsInFrustum(LLCamera& camera);
+	bool visibleObjectsInFrustum(LLCamera& camera);
 	/*virtual*/ S32 cull(LLCamera &camera, bool do_occlusion=false); // Cull on arbitrary frustum
-	S32 cull(LLCamera &camera, std::vector<LLDrawable *>* results, BOOL for_select); // Cull on arbitrary frustum
+	S32 cull(LLCamera &camera, std::vector<LLDrawable *>* results, bool for_select); // Cull on arbitrary frustum
 	
 	BOOL isVisible(const LLVector3& v);
 	bool isHUDPartition() ;
@@ -441,14 +441,14 @@ public:
 							// use a pointer instead of making "isBridge" and "asBridge" virtual so it's safe
 							// to call asBridge() from the destructor
 	
-	BOOL mInfiniteFarClip; // if TRUE, frustum culling ignores far clip plane
+	bool mInfiniteFarClip; // if TRUE, frustum culling ignores far clip plane
 	U32 mBufferUsage;
-	const BOOL mRenderByGroup;
+	const bool mRenderByGroup;
 	U32 mVertexDataMask;
 	F32 mSlopRatio; //percentage distance must change before drawables receive LOD update (default is 0.25);
 	BOOL mDepthMask; //if TRUE, objects in this partition will be written to depth during alpha rendering
 
-	static BOOL sTeleportRequested; //started to issue a teleport request
+	static bool sTeleportRequested; //started to issue a teleport request
 };
 
 // class for creating bridges between spatial partitions
@@ -467,10 +467,10 @@ public:
 	virtual bool isSpatialBridge() const		{ return true; }
 	virtual void updateSpatialExtents();
 	virtual void updateBinRadius();
-	virtual void setVisible(LLCamera& camera_in, std::vector<LLDrawable*>* results = NULL, BOOL for_select = FALSE);
+	virtual void setVisible(LLCamera& camera_in, std::vector<LLDrawable*>* results = NULL, bool for_select = false);
 	virtual void updateDistance(LLCamera& camera_in, bool force_update);
 	virtual void makeActive();
-	virtual void move(LLDrawable *drawablep, LLSpatialGroup *curp, BOOL immediate = FALSE);
+	virtual void move(LLDrawable *drawablep, LLSpatialGroup *curp, bool immediate = false);
 	virtual bool updateMove();
 	virtual void shiftPos(const LLVector4a& vec);
 	virtual void cleanupReferences();

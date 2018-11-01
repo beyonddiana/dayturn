@@ -68,11 +68,11 @@ public:
 	F32				mLastSpokeTime;		// timestamp when this speaker last spoke
 	F32				mSpeechVolume;		// current speech amplitude (timea average rms amplitude?)
 	std::string		mDisplayName;		// cache user name for this speaker
-	BOOL			mHasSpoken;			// has this speaker said anything this session?
-	BOOL			mHasLeftCurrentCall;	// has this speaker left the current voice call?
+	bool			mHasSpoken;			// has this speaker said anything this session?
+	bool			mHasLeftCurrentCall;	// has this speaker left the current voice call?
 	LLColor4		mDotColor;
 	LLUUID			mID;
-	BOOL			mTyping;
+	bool			mTyping;
 	S32				mSortIndex;
 	ESpeakerType	mType;
 	BOOL			mIsModerator;
