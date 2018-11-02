@@ -1068,7 +1068,7 @@ void LLSurface::createPatchData()
 		{
 			patchp = getPatch(i, j);
 			patchp->mHasReceivedData = false;
-			patchp->mSTexUpdate = TRUE;
+			patchp->mSTexUpdate = true;
 
 			S32 data_offset = i * mGridsPerPatchEdge + j * mGridsPerPatchEdge * mGridsPerEdge;
 
