@@ -1268,7 +1268,7 @@ BOOL LLToolPie::handleTooltipObject( LLViewerObject* hover_object, std::string l
 BOOL LLToolPie::handleToolTip(S32 local_x, S32 local_y, MASK mask)
 {
 	if (!LLUI::sSettingGroups["config"]->getBOOL("ShowHoverTips")) return TRUE;
-	if (!mHoverPick.isValid()) return TRUE;
+	if (!mHoverPick.isValid()) return true;
 
 	LLViewerObject* hover_object = mHoverPick.getObject();
 	

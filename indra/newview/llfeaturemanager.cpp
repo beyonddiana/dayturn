@@ -65,7 +65,7 @@ const char FEATURE_TABLE_FILENAME[] = "featuretable.txt";
 #if 0                               // consuming code in #if 0 below
 #endif
 LLFeatureInfo::LLFeatureInfo(const std::string& name, const BOOL available, const F32 level)
-	: mValid(TRUE), mName(name), mAvailable(available), mRecommendedLevel(level)
+	: mValid(true), mName(name), mAvailable(available), mRecommendedLevel(level)
 {
 }
 

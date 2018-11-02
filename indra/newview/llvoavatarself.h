@@ -125,7 +125,7 @@ private:
 
 public:
 	/*virtual*/ bool 	isSelf() const { return true; }
-	/*virtual*/ BOOL	isValid() const;
+	/*virtual*/ bool	isValid() const;
 
 	//--------------------------------------------------------------------
 	// Updates

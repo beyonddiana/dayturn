@@ -1220,7 +1220,7 @@ LLTextureCtrl::LLTextureCtrl(const LLTextureCtrl::Params& p)
 	mNonImmediateFilterPermMask( PERM_NONE ),
 	mCanApplyImmediately( FALSE ),
 	mNeedsRawImageData( FALSE ),
-	mValid( TRUE ),
+	mValid( true ),
 	mShowLoadingPlaceholder( TRUE ),
 	mImageAssetID(p.image_id),
 	mDefaultImageAssetID(p.default_image_id),

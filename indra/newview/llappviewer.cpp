@@ -4351,7 +4351,7 @@ bool LLAppViewer::initCache()
 		return false;
 	}
 
-	BOOL success = gVFS->isValid() && gStaticVFS->isValid();
+	bool success = gVFS->isValid() && gStaticVFS->isValid();
 	if (!success)
 	{
 		return false;

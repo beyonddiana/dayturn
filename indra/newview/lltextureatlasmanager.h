@@ -55,19 +55,19 @@ public:
 
 	void setSpatialGroup(LLSpatialGroup* groupp) ;
 	void setTexCoordScale(F32 xscale, F32 yscale) ;
-	void setValid() {mValid = TRUE ;}
+	void setValid() {mValid = true ;}
 
-	LLTextureAtlas* getAtlas()const {return mAtlasp;}
+	LLTextureAtlas* getAtlas() const {return mAtlasp;}
 	LLSpatialGroup* getSpatialGroup() const {return mGroupp ;} 
-	S16             getSlotCol()const {return mCol;}
-	S16             getSlotRow()const {return mRow;}
-	S8              getSlotWidth()const{return mReservedSlotWidth;}
-	BOOL            isValid()const { return mValid;}
-	const LLVector2*      getTexCoordOffset()const {return &mTexCoordOffset;}
+	S16             getSlotCol() const {return mCol;}
+	S16             getSlotRow() const {return mRow;}
+	S8              getSlotWidth() const {return mReservedSlotWidth;}
+	bool            isValid() const { return mValid;}
+	const LLVector2*      getTexCoordOffset() const {return &mTexCoordOffset;}
 	const LLVector2*      getTexCoordScale() const {return &mTexCoordScale;}
 
 	void setUpdatedTime(U32 t) {mUpdatedTime = t;}
-	U32  getUpdatedTime()const {return mUpdatedTime;}
+	U32  getUpdatedTime() const {return mUpdatedTime;}
 
 private:
 	LLTextureAtlas* mAtlasp;
@@ -75,7 +75,7 @@ private:
 	S16             mRow ;//row of the slot
 	S8              mReservedSlotWidth ; //slot is a square with each edge length a power-of-two number	
 	LLSpatialGroup* mGroupp ;
-	BOOL            mValid ;
+	bool            mValid ;
 
 	LLVector2       mTexCoordOffset ;
 	LLVector2       mTexCoordScale ;
@@ -94,7 +94,7 @@ public:
 		LLSpatialGroup* groupp, LLViewerTexture* imagep) ;
 	void releaseAtlas(LLTextureAtlas* atlasp);
 
-	BOOL canAddToAtlas(S32 w, S32 h, S8 ncomponents, LLGLenum target) ;
+	bool canAddToAtlas(S32 w, S32 h, S8 ncomponents, LLGLenum target) ;
 
 private:	
 	std::vector<ll_texture_atlas_list_t> mAtlasMap ;

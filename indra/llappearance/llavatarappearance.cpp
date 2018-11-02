@@ -1398,14 +1398,14 @@ LLPolyMesh*	LLAvatarAppearance::getUpperBodyMesh()
 
 
 // virtual
-BOOL LLAvatarAppearance::isValid() const
+bool LLAvatarAppearance::isValid() const
 {
 	// This should only be called on ourself.
 	if (!isSelf())
 	{
 		LL_ERRS() << "Called LLAvatarAppearance::isValid() on when isSelf() == false" << LL_ENDL;
 	}
-	return TRUE;
+	return true;
 }
 
 

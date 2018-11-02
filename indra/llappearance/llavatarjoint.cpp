@@ -66,7 +66,7 @@ LLAvatarJoint::LLAvatarJoint(const std::string &name, LLJoint *parent) :
 
 void LLAvatarJoint::init()
 {
-	mValid = FALSE;
+	mValid = false;
 	mComponents = SC_JOINT | SC_BONE | SC_AXES;
 	mMinPixelArea = DEFAULT_AVATAR_JOINT_LOD;
 	mPickName = PN_DEFAULT;

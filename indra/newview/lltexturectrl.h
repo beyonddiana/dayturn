@@ -235,7 +235,7 @@ private:
 	BOOL					 	mCommitOnSelection;
 	BOOL					 	mNeedsRawImageData;
 	LLViewBorder*			 	mBorder;
-	BOOL					 	mValid;
+	bool					 	mValid;
 	BOOL					 	mShowLoadingPlaceholder;
 	std::string				 	mLoadingPlaceholderString;
 	S32						 	mLabelWidth;

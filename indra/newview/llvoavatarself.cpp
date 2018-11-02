@@ -719,7 +719,7 @@ BOOL LLVOAvatarSelf::updateCharacter(LLAgent &agent)
 }
 
 // virtual
-BOOL LLVOAvatarSelf::isValid() const
+bool LLVOAvatarSelf::isValid() const
 {
 	return ((getRegion() != NULL) && !isDead());
 }
