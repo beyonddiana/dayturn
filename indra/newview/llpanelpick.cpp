@@ -473,7 +473,7 @@ void LLPanelPickEdit::resetDirty()
 	mLocationChanged = false;
 }
 
-BOOL LLPanelPickEdit::isDirty() const
+bool LLPanelPickEdit::isDirty() const
 {
 	if( mNewPick
 		|| LLPanelPickInfo::isDirty()
@@ -482,9 +482,9 @@ BOOL LLPanelPickEdit::isDirty() const
 		|| getChild<LLLineEditor>("pick_name")->isDirty()
 		|| getChild<LLTextEditor>("pick_desc")->isDirty())
 	{
-		return TRUE;
+		return true;
 	}
-	return FALSE;
+	return false;
 }
 
 // PROTECTED AREA

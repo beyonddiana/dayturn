@@ -120,7 +120,7 @@ protected:
 	
 	// for LLInventoryObserver 
 	virtual void changed(U32 mask);	
-	BOOL mDirty;
+	bool mDirty;
 	BOOL mSaveDialogShown;
 
 protected:

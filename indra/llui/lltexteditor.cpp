@@ -2902,11 +2902,11 @@ S32 LLTextEditor::getPreeditFontSize() const
 	return ll_round((F32)mFont->getLineHeight() * LLUI::getScaleFactor().mV[VY]);
 }
 
-BOOL LLTextEditor::isDirty() const
+bool LLTextEditor::isDirty() const
 {
 	if(mReadOnly)
 	{
-		return FALSE;
+		return false;
 	}
 
 	if( mPristineCmd )

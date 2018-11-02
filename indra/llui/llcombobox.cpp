@@ -212,9 +212,9 @@ void LLComboBox::onCommit()
 }
 
 // virtual
-BOOL LLComboBox::isDirty() const
+bool LLComboBox::isDirty() const
 {
-	BOOL grubby = FALSE;
+	bool grubby = false;
 	if ( mList )
 	{
 		grubby = mList->isDirty();

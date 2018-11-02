@@ -208,9 +208,9 @@ BOOL LLViewerWearable::isOldVersion() const
 // * If parameters or textures have been ADDED since the wearable was created,
 // they are taken to have default values, so we consider the wearable clean
 // only if those values are the same as the defaults.
-BOOL LLViewerWearable::isDirty() const
+bool LLViewerWearable::isDirty() const
 {
-	if (!isAgentAvatarValid()) return FALSE;
+	if (!isAgentAvatarValid()) return false;
 
 	for( LLViewerVisualParam* param = (LLViewerVisualParam*) gAgentAvatarp->getFirstVisualParam(); 
 		param;
@@ -229,7 +229,7 @@ BOOL LLViewerWearable::isDirty() const
 			U8 b = F32_to_U8( current_weight, param->getMinWeight(), param->getMaxWeight() );
 			if( a != b  )
 			{
-				return TRUE;
+				return true;
 			}
 		}
 	}
@@ -249,19 +249,19 @@ BOOL LLViewerWearable::isDirty() const
 					if (saved_image_id != current_image_id)
 					{
 						// saved vs current images are different, wearable is dirty
-						return TRUE;
+						return true;
 					}
 				}
 				else
 				{
 					// image found in current image list but not saved image list
-					return TRUE;
+					return true;
 				}
 			}
 		}
 	}
 
-	return FALSE;
+	return false;
 }
 
 

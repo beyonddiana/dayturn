@@ -52,7 +52,7 @@ public:
 	virtual ~LLPanelEditWearable();
 
 	/*virtual*/ bool 		postBuild();
-	/*virtual*/ BOOL		isDirty() const;	// LLUICtrl
+	/*virtual*/ bool		isDirty() const;	// LLUICtrl
 	/*virtual*/ void		draw();	
 				void		onClose();
 

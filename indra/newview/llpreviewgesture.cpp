@@ -199,7 +199,7 @@ BOOL LLPreviewGesture::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
 						sound->mSoundName = item->getName();
 					}
 					updateLabel(line);
-					mDirty = TRUE;
+					mDirty = true;
 					refresh();
 				}
 				*accept = ACCEPT_YES_COPY_MULTI;
@@ -313,7 +313,7 @@ LLPreviewGesture::LLPreviewGesture(const LLSD& key)
 	mSaveBtn(NULL),
 	mPreviewBtn(NULL),
 	mPreviewGesture(NULL),
-	mDirty(FALSE)
+	mDirty(false)
 {
 	NONE_LABEL =  LLTrans::getString("---");
 	SHIFT_LABEL = LLTrans::getString("KBShift");
@@ -797,7 +797,7 @@ void LLPreviewGesture::initDefaultGesture()
 	mStepList->selectFirstItem();
 
 	// this is *new* content, so we are dirty
-	mDirty = TRUE;
+	mDirty = true;
 }
 
 
@@ -872,7 +872,7 @@ void LLPreviewGesture::onLoadComplete(LLVFS *vfs,
 
 				self->mStepList->selectFirstItem();
 
-				self->mDirty = FALSE;
+				self->mDirty = false;
 				self->refresh();
 				self->refreshFromItem(); // to update description and title
 			}
@@ -1132,7 +1132,7 @@ void LLPreviewGesture::saveIfNeeded()
 			gesture = NULL;
 		}
 
-		mDirty = FALSE;
+		mDirty = false;
 		// refresh will be called when callback
 		// if triggered when delayedUpload
 		if(!delayedUpload)
@@ -1319,7 +1319,7 @@ void LLPreviewGesture::updateLabel(LLScrollListItem* item)
 void LLPreviewGesture::onCommitSetDirty(LLUICtrl* ctrl, void* data)
 {
 	LLPreviewGesture* self = (LLPreviewGesture*)data;
-	self->mDirty = TRUE;
+	self->mDirty = true;
 	self->refresh();
 }
 
@@ -1378,7 +1378,7 @@ void LLPreviewGesture::onCommitAnimation(LLUICtrl* ctrl, void* data)
 			// Update the UI label in the list
 			updateLabel(step_item);
 
-			self->mDirty = TRUE;
+			self->mDirty = true;
 			self->refresh();
 		}
 	}
@@ -1409,7 +1409,7 @@ void LLPreviewGesture::onCommitAnimationTrigger(LLUICtrl* ctrl, void *data)
 			// Update the UI label in the list
 			updateLabel(step_item);
 
-			self->mDirty = TRUE;
+			self->mDirty = true;
 			self->refresh();
 		}
 	}
@@ -1435,7 +1435,7 @@ void LLPreviewGesture::onCommitSound(LLUICtrl* ctrl, void* data)
 			// Update the UI label in the list
 			updateLabel(step_item);
 
-			self->mDirty = TRUE;
+			self->mDirty = true;
 			self->refresh();
 		}
 	}
@@ -1459,7 +1459,7 @@ void LLPreviewGesture::onCommitChat(LLUICtrl* ctrl, void* data)
 	// Update the UI label in the list
 	updateLabel(step_item);
 
-	self->mDirty = TRUE;
+	self->mDirty = true;
 	self->refresh();
 }
 
@@ -1495,7 +1495,7 @@ void LLPreviewGesture::onCommitWait(LLUICtrl* ctrl, void* data)
 	// Update the UI label in the list
 	updateLabel(step_item);
 
-	self->mDirty = TRUE;
+	self->mDirty = true;
 	self->refresh();
 }
 
@@ -1543,7 +1543,7 @@ void LLPreviewGesture::onClickAdd(void* data)
 	}
 
 	self->addStep( (EStepType)library_item_index );
-	self->mDirty = TRUE;
+	self->mDirty = true;
 	self->refresh();
 }
 
@@ -1644,7 +1644,7 @@ void LLPreviewGesture::onClickUp(void* data)
 	if (selected_index > 0)
 	{
 		self->mStepList->swapWithPrevious(selected_index);
-		self->mDirty = TRUE;
+		self->mDirty = true;
 		self->refresh();
 	}
 }
@@ -1661,7 +1661,7 @@ void LLPreviewGesture::onClickDown(void* data)
 	if (selected_index < count-1)
 	{
 		self->mStepList->swapWithNext(selected_index);
-		self->mDirty = TRUE;
+		self->mDirty = true;
 		self->refresh();
 	}
 }
@@ -1681,7 +1681,7 @@ void LLPreviewGesture::onClickDelete(void* data)
 
 		self->mStepList->deleteSingleItem(selected_index);
 
-		self->mDirty = TRUE;
+		self->mDirty = true;
 		self->refresh();
 	}
 }

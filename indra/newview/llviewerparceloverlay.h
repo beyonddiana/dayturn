@@ -119,7 +119,7 @@ private:
 	U8				*mOwnership;
 
 	// Update propery lines and overlay texture
-	BOOL			mDirty;
+	bool			mDirty;
 	LLFrameTimer	mTimeSinceLastUpdate;
 	S32				mOverlayTextureIdx;
 	

@@ -58,7 +58,7 @@ LLViewerParcelOverlay::LLViewerParcelOverlay(LLViewerRegion* region, F32 region_
 :	mRegion( region ),
 	mParcelGridsPerEdge( S32( region_width_meters / PARCEL_GRID_STEP_METERS ) ),
 	mRegionSize(S32(region_width_meters)),
-	mDirty( FALSE ),
+	mDirty(false),
 	mTimeSinceLastUpdate(),
 	mOverlayTextureIdx(-1),
 	mVertexCount(0),
@@ -674,7 +674,7 @@ void LLViewerParcelOverlay::updatePropertyLines()
 	}
 	
 	// Everything's clean now
-	mDirty = FALSE;
+	mDirty = false;
 }
 
 
@@ -849,7 +849,7 @@ void LLViewerParcelOverlay::addPropertyLine(
 
 void LLViewerParcelOverlay::setDirty()
 {
-	mDirty = TRUE;
+	mDirty = true;
 }
 
 void LLViewerParcelOverlay::updateGL()

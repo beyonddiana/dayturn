@@ -53,7 +53,7 @@
 LLFloaterOpenObject::LLFloaterOpenObject(const LLSD& key)
 :	LLFloater(key),
 	mPanelInventoryObject(NULL),
-	mDirty(TRUE)
+	mDirty(true)
 {
 	mCommitCallbackRegistrar.add("OpenObject.MoveToInventory",	boost::bind(&LLFloaterOpenObject::onClickMoveToInventory, this));
 	mCommitCallbackRegistrar.add("OpenObject.MoveAndWear",		boost::bind(&LLFloaterOpenObject::onClickMoveAndWear, this));
@@ -125,14 +125,14 @@ void LLFloaterOpenObject::draw()
 	if (mDirty)
 	{
 		refresh();
-		mDirty = FALSE;
+		mDirty = false;
 	}
 	LLFloater::draw();
 }
 
 void LLFloaterOpenObject::dirty()
 {
-	mDirty = TRUE;
+	mDirty = true;
 }
 
 

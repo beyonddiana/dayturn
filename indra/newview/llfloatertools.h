@@ -202,7 +202,7 @@ public:
 	bool					mNeedMediaTitle;
 
 private:
-	BOOL					mDirty;
+	bool					mDirty;
 	U32						mPrecision;
 	BOOL                    mHasSelection;
 
