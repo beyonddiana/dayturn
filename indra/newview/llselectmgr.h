@@ -195,7 +195,7 @@ public:
 	BOOL			mIndividualSelection;		// For root objects and objects individually selected
 
 	BOOL			mTransient;
-	BOOL			mValid;				// is extra information valid?
+	bool			mValid;				// is extra information valid?
 	LLPermissions*	mPermissions;
 	LLSaleInfo		mSaleInfo;
 	LLAggregatePermissions mAggregatePerm;

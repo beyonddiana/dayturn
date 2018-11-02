@@ -52,7 +52,7 @@ public:
 	virtual ~LLAvatarJoint();
 
 	// Gets the validity of this joint
-	BOOL getValid() { return mValid; }
+	bool getValid() { return mValid; }
 
 	// Sets the validity of this joint
 	virtual void setValid( BOOL valid, BOOL recursive=FALSE );
@@ -112,7 +112,7 @@ public:
 protected:
 	void init();
 
-	BOOL		mValid;
+	bool		mValid;
 	BOOL		mIsTransparent;
 	U32			mComponents;
 	F32			mMinPixelArea;

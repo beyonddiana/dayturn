@@ -63,7 +63,7 @@ LLViewerJointAttachment::LLViewerJointAttachment() :
 	mIsHUDAttachment(FALSE),
 	mPieSlice(-1)
 {
-	mValid = FALSE;
+	mValid = false;
 	mUpdateXform = FALSE;
 	mAttachedObjects.clear();
 }

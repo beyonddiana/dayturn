@@ -43,7 +43,7 @@ LLTextureAtlasSlot::LLTextureAtlasSlot(LLTextureAtlas* atlasp, LLSpatialGroup* g
 	mCol(col),
 	mRow(row),
 	mReservedSlotWidth(slot_width),
-	mValid(FALSE),
+	mValid(false),
 	mUpdatedTime(0),
 	mTexCoordOffset(xoffset, yoffset),
 	mTexCoordScale(1.f, 1.f)
@@ -127,30 +127,30 @@ LLTextureAtlasManager::~LLTextureAtlasManager()
 }
 
 //return TRUE if qualified
-BOOL LLTextureAtlasManager::canAddToAtlas(S32 w, S32 h, S8 ncomponents, LLGLenum target) 
+bool LLTextureAtlasManager::canAddToAtlas(S32 w, S32 h, S8 ncomponents, LLGLenum target)
 {
 	if(ncomponents < 1 || ncomponents > 4)
 	{
-		return FALSE ;
+		return false ;
 	}
 	//only support GL_TEXTURE_2D
 	if(GL_TEXTURE_2D != target)
 	{
-		return FALSE ;
+		return false ;
 	}
 	//real image size overflows
 	if(w < 8 || w > LLTextureAtlas::sMaxSubTextureSize || h < 8 || h > LLTextureAtlas::sMaxSubTextureSize)
 	{
-		return FALSE ;
+		return false ;
 	}
 
 	//if non-power-of-two number
 	if((w & (w - 1)) || (h & (h - 1)))
 	{
-		return FALSE ;
+		return false ;
 	}
 
-	return TRUE ;
+	return true ;
 }
 
 void LLTextureAtlasManager::releaseAtlas(LLTextureAtlas* atlasp)

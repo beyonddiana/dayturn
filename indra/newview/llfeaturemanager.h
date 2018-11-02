@@ -52,10 +52,10 @@ public:
 	LLFeatureInfo() : mValid(FALSE), mAvailable(FALSE), mRecommendedLevel(-1) {}
 	LLFeatureInfo(const std::string& name, const BOOL available, const F32 level);
 
-	BOOL isValid() const	{ return mValid; };
+	bool isValid() const	{ return mValid; };
 
 public:
-	BOOL		mValid;
+	bool		mValid;
 	std::string	mName;
 	BOOL		mAvailable;
 	F32			mRecommendedLevel;
