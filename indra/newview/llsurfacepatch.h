@@ -140,15 +140,15 @@ public:
 
 public:
 	bool mHasReceivedData;	// has the patch EVER received height data?
-	BOOL mSTexUpdate;		// Does the surface texture need to be updated?
+	bool mSTexUpdate;		// Does the surface texture need to be updated?
 
 protected:
 	LLSurfacePatch *mNeighborPatches[8]; // Adjacent patches
-	BOOL mNormalsInvalid[9];  // Which normals are invalid
+	bool mNormalsInvalid[9];  // Which normals are invalid
 
 	bool mDirty;
-	BOOL mDirtyZStats;
-	BOOL mHeightsGenerated;
+	bool mDirtyZStats;
+	bool mHeightsGenerated;
 
 	U32 mDataOffset;
 	F32 *mDataZ;
