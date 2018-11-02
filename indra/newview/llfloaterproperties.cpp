@@ -107,7 +107,7 @@ void LLPropertiesObserver::changed(U32 mask)
 LLFloaterProperties::LLFloaterProperties(const LLUUID& item_id)
   : LLFloater(mItemID),
 	mItemID(item_id),
-	mDirty(TRUE)
+	mDirty(true)
 {
 	mPropertiesObserver = new LLPropertiesObserver(this);
 }
@@ -172,7 +172,7 @@ void LLFloaterProperties::refresh()
 		//RN: it is possible that the container object is in the middle of an inventory refresh
 		// causing findItem() to fail, so just temporarily disable everything
 		
-		mDirty = TRUE;
+		mDirty = true;
 
 		const char* enableNames[]={
 			"LabelItemName",
@@ -216,7 +216,7 @@ void LLFloaterProperties::draw()
 	if (mDirty)
 	{
 		// RN: clear dirty first because refresh can set dirty to TRUE
-		mDirty = FALSE;
+		mDirty = false;
 		refresh();
 	}
 

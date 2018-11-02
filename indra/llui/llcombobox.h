@@ -112,7 +112,7 @@ public:
 	virtual void	clear();					// select nothing
 	virtual void	onCommit();
 	virtual BOOL	acceptsTextInput() const		{ return mAllowTextEntry; }
-	virtual BOOL	isDirty() const;			// Returns TRUE if the user has modified this control.
+	virtual bool	isDirty() const;			// Returns TRUE if the user has modified this control.
 	virtual void	resetDirty();				// Clear dirty state
 
 	virtual void	setFocus(BOOL b);

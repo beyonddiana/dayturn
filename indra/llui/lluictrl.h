@@ -198,7 +198,7 @@ public:
 
 	// A control is dirty if the user has modified its value.
 	// Editable controls should override this.
-	virtual BOOL	isDirty() const; // Defauls to false
+	virtual bool	isDirty() const; // Defauls to false
 	virtual void	resetDirty(); //Defaults to no-op
 	
 	// Call appropriate callback

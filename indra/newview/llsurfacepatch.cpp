@@ -48,9 +48,9 @@ extern U64MicrosecondsImplicit gFrameTime;
 extern LLPipeline gPipeline;
 
 LLSurfacePatch::LLSurfacePatch() 
-:	mHasReceivedData(FALSE),
+:	mHasReceivedData(false),
 	mSTexUpdate(FALSE),
-	mDirty(FALSE),
+	mDirty(false),
 	mDirtyZStats(TRUE),
 	mHeightsGenerated(FALSE),
 	mDataOffset(0),
@@ -108,7 +108,7 @@ void LLSurfacePatch::dirty()
 	
 	if (!mDirty)
 	{
-		mDirty = TRUE;
+		mDirty = true;
 		mSurfacep->dirtySurfacePatch(this);
 	}
 }
@@ -449,7 +449,7 @@ void LLSurfacePatch::updateVerticalStats()
 
 	mSurfacep->mMaxZ = llmax(mMaxZ, mSurfacep->mMaxZ);
 	mSurfacep->mMinZ = llmin(mMinZ, mSurfacep->mMinZ);
-	mSurfacep->mHasZData = TRUE;
+	mSurfacep->mHasZData = true;
 	mSurfacep->getRegion()->calculateCenterGlobal();
 
 	if (mVObjp)
@@ -718,7 +718,7 @@ void LLSurfacePatch::updateNorthEdge()
 	}
 }
 
-BOOL LLSurfacePatch::updateTexture()
+bool LLSurfacePatch::updateTexture()
 {
 	if (mSTexUpdate)		//  Update texture as needed
 	{
@@ -745,7 +745,7 @@ BOOL LLSurfacePatch::updateTexture()
 				}
 				else
 				{
-					return FALSE;
+					return false;
 				}
 			}
 			
@@ -755,15 +755,15 @@ BOOL LLSurfacePatch::updateTexture()
 				{
 					mVObjp->dirtyGeom();
 					gPipeline.markGLRebuild(mVObjp);
-					return TRUE;
+					return true;
 				}
 			}
 		}
-		return FALSE;
+		return false;
 	}
 	else
 	{
-		return TRUE;
+		return true;
 	}
 }
 
@@ -848,7 +848,7 @@ void LLSurfacePatch::setOriginGlobal(const LLVector3d &origin_global)
 	mCenterRegion.mV[VX] = origin_region.mV[VX] + 0.5f*mSurfacep->getGridsPerPatchEdge()*mSurfacep->getMetersPerGrid();
 	mCenterRegion.mV[VY] = origin_region.mV[VY] + 0.5f*mSurfacep->getGridsPerPatchEdge()*mSurfacep->getMetersPerGrid();
 
-	mVisInfo.mbIsVisible = FALSE;
+	mVisInfo.mbIsVisible = false;
 	mVisInfo.mDistance = 512.0f;
 	mVisInfo.mRenderLevel = 0;
 	mVisInfo.mRenderStride = mSurfacep->getGridsPerPatchEdge();
@@ -950,11 +950,11 @@ void LLSurfacePatch::updateVisibility()
 				}
 			}
 		}
-		mVisInfo.mbIsVisible = TRUE;
+		mVisInfo.mbIsVisible = true;
 	}
 	else
 	{
-		mVisInfo.mbIsVisible = FALSE;
+		mVisInfo.mbIsVisible = false;
 	}
 }
 
@@ -986,10 +986,10 @@ S32 LLSurfacePatch::getRenderLevel() const
 
 void LLSurfacePatch::setHasReceivedData()
 {
-	mHasReceivedData = TRUE;
+	mHasReceivedData = true;
 }
 
-BOOL LLSurfacePatch::getHasReceivedData() const
+bool LLSurfacePatch::getHasReceivedData() const
 {
 	return mHasReceivedData;
 }

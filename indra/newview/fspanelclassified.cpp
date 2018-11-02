@@ -796,14 +796,14 @@ void FSPanelClassifiedEdit::processProperties(void* data, EAvatarProcessorType t
 	}
 }
 
-BOOL FSPanelClassifiedEdit::isDirty() const
+bool FSPanelClassifiedEdit::isDirty() const
 {
 	if(mIsNew)
 	{
-		return TRUE;
+		return true;
 	}
 
-	BOOL dirty = false;
+	bool dirty = false;
 
 	dirty |= FSPanelClassifiedInfo::isDirty();
 	dirty |= getChild<LLUICtrl>("classified_snapshot")->isDirty();

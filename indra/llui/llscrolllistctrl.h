@@ -326,7 +326,7 @@ public:
 	/*virtual*/ void	onMouseLeave(S32 x, S32 y, MASK mask);
 	/*virtual*/ void	reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
 
-	virtual BOOL	isDirty() const;
+	virtual bool	isDirty() const;
 	virtual void	resetDirty();		// Clear dirty state
 
 	virtual void	updateLayout();

@@ -58,7 +58,7 @@ public:
 
 public:
 
-	BOOL				isDirty() const;
+	bool				isDirty() const;
 	BOOL				isOldVersion() const;
 
 	/*virtual*/ void	writeToAvatar(LLAvatarAppearance *avatarp);

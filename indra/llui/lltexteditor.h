@@ -114,7 +114,7 @@ public:
 	// uictrl overrides
 	virtual void	clear();
 	virtual void	setFocus( BOOL b );
-	virtual BOOL	isDirty() const;
+	virtual bool	isDirty() const;
 
 	// LLEditMenuHandler interface
 	virtual void	undo();

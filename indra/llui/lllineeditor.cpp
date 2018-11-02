@@ -275,7 +275,7 @@ void LLLineEditor::onCommit()
 
 // Returns TRUE if user changed value at all
 // virtual
-BOOL LLLineEditor::isDirty() const
+bool LLLineEditor::isDirty() const
 {
 	return mText.getString() != mPrevText;
 }

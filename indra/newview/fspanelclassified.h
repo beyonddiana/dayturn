@@ -217,7 +217,7 @@ public:
 
 	/*virtual*/ void processProperties(void* data, EAvatarProcessorType type);
 
-	/*virtual*/ BOOL isDirty() const;
+	/*virtual*/ bool isDirty() const;
 
 	/*virtual*/ void resetDirty();
 

@@ -709,7 +709,7 @@ BOOL LLUICtrl::acceptsTextInput() const
 }
 
 //virtual
-BOOL LLUICtrl::isDirty() const
+bool LLUICtrl::isDirty() const
 {
 	return mViewModel->isDirty();
 };

@@ -86,7 +86,7 @@ class AOSet
 			U32 mCurrentAnimation;
 			LLUUID mCurrentAnimationID;
 			LLUUID mInventoryUUID;
-			BOOL mDirty;
+			bool mDirty;
 		};
 
 		const LLUUID& getInventoryUUID() const;
@@ -133,7 +133,7 @@ class AOSet
 		bool mMouselookDisable;
 		bool mComplete;
 		LLUUID mCurrentMotion;
-		BOOL mDirty;
+		bool mDirty;
 
 		AOState mStates[AOSTATES_MAX];
 };

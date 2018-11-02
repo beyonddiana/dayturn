@@ -275,13 +275,13 @@ void LLCheckBoxCtrl::setControlName(const std::string& control_name, LLView* con
 
 
 // virtual		Returns TRUE if the user has modified this control.
-BOOL	 LLCheckBoxCtrl::isDirty() const
+bool	 LLCheckBoxCtrl::isDirty() const
 {
 	if ( mButton )
 	{
 		return mButton->isDirty();
 	}
-	return FALSE;		// Shouldn't get here
+	return false;		// Shouldn't get here
 }
 
 

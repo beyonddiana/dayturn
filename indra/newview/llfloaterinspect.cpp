@@ -47,7 +47,7 @@
 
 LLFloaterInspect::LLFloaterInspect(const LLSD& key)
   : LLFloater(key),
-	mDirty(FALSE),
+	mDirty(false),
 	mOwnerNameCacheConnection(),
 	mCreatorNameCacheConnection()
 {
@@ -345,7 +345,7 @@ void LLFloaterInspect::draw()
 	if (mDirty)
 	{
 		refresh();
-		mDirty = FALSE;
+		mDirty = false;
 	}
 
 	LLFloater::draw();

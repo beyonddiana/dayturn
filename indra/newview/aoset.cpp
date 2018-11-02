@@ -116,7 +116,7 @@ AOSet::AOSet(const LLUUID inventoryID)
 		mStates[index].mCycle=false;
 		mStates[index].mRandom=false;
 		mStates[index].mCycleTime=0.0f;
-		mStates[index].mDirty=FALSE;
+		mStates[index].mDirty=false;
 		mStateNames.push_back(stateNameList[0]);
 	}
 	stopTimer();

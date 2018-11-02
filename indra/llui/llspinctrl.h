@@ -72,7 +72,7 @@ public:
 	virtual void    setEnabled( BOOL b );
 	virtual void	setFocus( BOOL b );
 	virtual void	clear();
-	virtual BOOL	isDirty() const { return( getValueF32() != mInitialValue ); }
+	virtual bool	isDirty() const { return( getValueF32() != mInitialValue ); }
 	virtual void    resetDirty() { mInitialValue = getValueF32(); }
 
 	virtual void	setPrecision(S32 precision);

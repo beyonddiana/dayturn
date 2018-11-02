@@ -406,7 +406,7 @@ protected:
     /**
      * Returns true if any of Pick properties was changed by user.
      */
-    /*virtual*/ BOOL isDirty() const;
+    /*virtual*/ bool isDirty() const;
 
     /**
      * Callback for "Set Location" button click
