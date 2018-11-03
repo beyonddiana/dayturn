@@ -1095,7 +1095,7 @@ void LLViewerFetchedTexture::init(bool firstinit)
 	mOrigWidth = 0;
 	mOrigHeight = 0;
 	mHasAux = FALSE;
-	mNeedsAux = FALSE;
+	mNeedsAux = false;
 	mRequestedDiscardLevel = -1;
 	mRequestedDownloadPriority = 0.f;
 	mFullyLoaded = FALSE;
@@ -1194,7 +1194,7 @@ void LLViewerFetchedTexture::cleanup()
 		delete entryp;
 	}
 	mLoadedCallbackList.clear();
-	mNeedsAux = FALSE;
+	mNeedsAux = false;
 	
 	// Clean up image data
 	destroyRawImage();
@@ -1556,7 +1556,7 @@ BOOL LLViewerFetchedTexture::createTexture(S32 usename/*= 0*/)
 
 	if (!needsToSaveRawImage())
 	{
-		mNeedsAux = FALSE;
+		mNeedsAux = false;
 		destroyRawImage();
 	}
 
