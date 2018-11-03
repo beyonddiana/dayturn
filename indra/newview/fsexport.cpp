@@ -623,7 +623,7 @@ FSExportCacheReadResponder::FSExportCacheReadResponder(const LLUUID& id, LLImage
 	setImage(image);
 }
 
-void FSExportCacheReadResponder::setData(U8* data, S32 datasize, S32 imagesize, S32 imageformat, BOOL imagelocal)
+void FSExportCacheReadResponder::setData(U8* data, S32 datasize, S32 imagesize, S32 imageformat, bool imagelocal)
 {
 	if (imageformat != IMG_CODEC_J2C)
 	{
