@@ -79,24 +79,24 @@ public:
 	class Responder : public LLResponder
 	{
 	public:
-		virtual void setData(U8* data, S32 datasize, S32 imagesize, S32 imageformat, BOOL imagelocal) = 0;
+		virtual void setData(U8* data, S32 datasize, S32 imagesize, S32 imageformat, bool imagelocal) = 0;
 	};
 	
 	class ReadResponder : public Responder
 	{
 	public:
 		ReadResponder();
-		void setData(U8* data, S32 datasize, S32 imagesize, S32 imageformat, BOOL imagelocal);
+		void setData(U8* data, S32 datasize, S32 imagesize, S32 imageformat, bool imagelocal);
 		void setImage(LLImageFormatted* image) { mFormattedImage = image; }
 	protected:
 		LLPointer<LLImageFormatted> mFormattedImage;
 		S32 mImageSize;
-		BOOL mImageLocal;
+		bool mImageLocal;
 	};
 
 	class WriteResponder : public Responder
 	{
-		void setData(U8* data, S32 datasize, S32 imagesize, S32 imageformat, BOOL imagelocal)
+		void setData(U8* data, S32 datasize, S32 imagesize, S32 imageformat, bool imagelocal)
 		{
 			// not used
 		}
@@ -108,8 +108,8 @@ public:
 	/*virtual*/ S32 update(F32 max_time_ms);	
 	
 	void purgeCache(ELLPath location, bool remove_dir = true);
-	void setReadOnly(BOOL read_only) ;
-	S64 initCache(ELLPath location, S64 maxsize, BOOL texture_cache_mismatch);
+	void setReadOnly(bool read_only) ;
+	S64 initCache(ELLPath location, S64 maxsize, bool texture_cache_mismatch);
 
 	handle_t readFromCache(const std::string& local_filename, const LLUUID& id, U32 priority, S32 offset, S32 size,
 						   ReadResponder* responder);
@@ -138,8 +138,8 @@ public:
 	S64Bytes getMaxUsage() { return S64Bytes(sCacheMaxTexturesSize); }
 	U32 getEntries() { return mHeaderEntriesInfo.mEntries; }
 	U32 getMaxEntries() { return sCacheMaxEntries; };
-	BOOL isInCache(const LLUUID& id) ;
-	BOOL isInLocal(const LLUUID& id) ; //not thread safe at the moment
+	bool isInCache(const LLUUID& id) ;
+	bool isInLocal(const LLUUID& id) ;
 
 protected:
 	// Accessed by LLTextureCacheWorker
@@ -206,7 +206,7 @@ private:
 	typedef std::vector<std::pair<LLPointer<Responder>, bool> > responder_list_t;
 	responder_list_t mCompletedList;
 	
-	BOOL mReadOnly;
+	bool mReadOnly;
 	
 	// HEADERS (Include first mip)
 	std::string mHeaderEntriesFileName;
