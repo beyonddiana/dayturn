@@ -167,7 +167,7 @@ private:
 class LLTeleportRequestViaLure : public LLTeleportRequestViaLandmark
 {
 public:
-	LLTeleportRequestViaLure(const LLUUID &pLureId, BOOL pIsLureGodLike);
+	LLTeleportRequestViaLure(const LLUUID &pLureId, bool pIsLureGodLike);
 	virtual ~LLTeleportRequestViaLure();
 
 	virtual bool canRestartTeleport();
@@ -175,10 +175,10 @@ public:
 	virtual void startTeleport();
 
 protected:
-	inline BOOL isLureGodLike() const {return mIsLureGodLike;};
+	inline bool isLureGodLike() const {return mIsLureGodLike;};
 
 private:
-	BOOL mIsLureGodLike;
+	bool mIsLureGodLike;
 };
 
 class LLTeleportRequestViaLocation : public LLTeleportRequest
@@ -2955,7 +2955,7 @@ void LLAgent::buildFullnameAndTitle(std::string& name) const
 	}
 }
 
-BOOL LLAgent::isInGroup(const LLUUID& group_id, BOOL ignore_god_mode /* FALSE */) const
+bool LLAgent::isInGroup(const LLUUID& group_id, bool ignore_god_mode /* FALSE */) const
 {
 	if (!ignore_god_mode && isGodlike())
 		return true;
@@ -2965,30 +2965,30 @@ BOOL LLAgent::isInGroup(const LLUUID& group_id, BOOL ignore_god_mode /* FALSE */
 	{
 		if(mGroups[i].mID == group_id)
 		{
-			return TRUE;
+			return true;
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 // This implementation should mirror LLAgentInfo::hasPowerInGroup
-BOOL LLAgent::hasPowerInGroup(const LLUUID& group_id, U64 power) const
+bool LLAgent::hasPowerInGroup(const LLUUID& group_id, U64 power) const
 {
 	if (isGodlikeWithoutAdminMenuFakery())
 		return true;
 
 	// GP_NO_POWERS can also mean no power is enough to grant an ability.
-	if (GP_NO_POWERS == power) return FALSE;
+	if (GP_NO_POWERS == power) return false;
 
 	U32 count = mGroups.size();
 	for(U32 i = 0; i < count; ++i)
 	{
 		if(mGroups[i].mID == group_id)
 		{
-			return (BOOL)((mGroups[i].mPowers & power) > 0);
+			return ((mGroups[i].mPowers & power) > 0);
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 BOOL LLAgent::hasPowerInActiveGroup(U64 power) const
@@ -3013,7 +3013,7 @@ U64 LLAgent::getPowerInGroup(const LLUUID& group_id) const
 	return GP_NO_POWERS;
 }
 
-BOOL LLAgent::getGroupData(const LLUUID& group_id, LLGroupData& data) const
+bool LLAgent::getGroupData(const LLUUID& group_id, LLGroupData& data) const
 {
 	S32 count = mGroups.size();
 	for(S32 i = 0; i < count; ++i)
@@ -3021,10 +3021,10 @@ BOOL LLAgent::getGroupData(const LLUUID& group_id, LLGroupData& data) const
 		if(mGroups[i].mID == group_id)
 		{
 			data = mGroups[i];
-			return TRUE;
+			return true;
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 S32 LLAgent::getGroupContribution(const LLUUID& group_id) const
@@ -3330,7 +3330,7 @@ void LLAgent::initOriginGlobal(const LLVector3d &origin_global)
 
 bool LLAgent::leftButtonGrabbed() const
 { 
-	const BOOL camera_mouse_look = gAgentCamera.cameraMouselook();
+	const bool camera_mouse_look = gAgentCamera.cameraMouselook();
 	return (!camera_mouse_look && mControlsTakenCount[CONTROL_LBUTTON_DOWN_INDEX] > 0) 
 		|| (camera_mouse_look && mControlsTakenCount[CONTROL_ML_LBUTTON_DOWN_INDEX] > 0)
 		|| (!camera_mouse_look && mControlsTakenPassedOnCount[CONTROL_LBUTTON_DOWN_INDEX] > 0)
@@ -3358,7 +3358,7 @@ bool LLAgent::upGrabbed() const
 	return (mControlsTakenCount[CONTROL_UP_POS_INDEX] > 0); 
 }
 
-bool LLAgent::downGrabbed() const	
+bool LLAgent::downGrabbed() const
 { 
 	return (mControlsTakenCount[CONTROL_UP_NEG_INDEX] > 0); 
 }
@@ -5039,7 +5039,7 @@ void LLTeleportRequestViaLandmark::restartTeleport()
 // LLTeleportRequestViaLure
 //-----------------------------------------------------------------------------
 
-LLTeleportRequestViaLure::LLTeleportRequestViaLure(const LLUUID &pLureId, BOOL pIsLureGodLike)
+LLTeleportRequestViaLure::LLTeleportRequestViaLure(const LLUUID &pLureId, bool pIsLureGodLike)
 	: LLTeleportRequestViaLandmark(pLureId),
 	mIsLureGodLike(pIsLureGodLike)
 {

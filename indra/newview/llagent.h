@@ -842,7 +842,7 @@ private:
 public:
 	const LLUUID	&getGroupID() const			{ return mGroupID; }
 	// Get group information by group_id, or FALSE if not in group.
-	BOOL 			getGroupData(const LLUUID& group_id, LLGroupData& data) const;
+	bool 			getGroupData(const LLUUID& group_id, LLGroupData& data) const;
 	// Get just the agent's contribution to the given group.
 	S32 			getGroupContribution(const LLUUID& group_id) const;
 	// Update internal datastructures and update the server.
@@ -859,7 +859,7 @@ private:
 	//--------------------------------------------------------------------
 public:
 	// Checks against all groups in the entire agent group list.
-	BOOL 			isInGroup(const LLUUID& group_id, BOOL ingnore_God_mod = FALSE) const;
+	bool 			isInGroup(const LLUUID& group_id, bool ingnore_God_mod = false) const;
 protected:
 	// Only used for building titles.
 	BOOL			isGroupMember() const 		{ return !mGroupID.isNull(); } 
@@ -880,8 +880,8 @@ private:
 	// Group Powers
 	//--------------------------------------------------------------------
 public:
-	BOOL 			hasPowerInGroup(const LLUUID& group_id, U64 power) const;
-	BOOL 			hasPowerInActiveGroup(const U64 power) const;
+	bool 			hasPowerInGroup(const LLUUID& group_id, U64 power) const;
+	bool 			hasPowerInActiveGroup(const U64 power) const;
 	U64  			getPowerInGroup(const LLUUID& group_id) const;
  	U64				mGroupPowers;
 
