@@ -6548,7 +6548,7 @@ bool confirm_attachment_rez(const LLSD& notification, const LLSD& response)
 			// attachments are batched up all into one message versus each attachment
 			// being sent in its own separate attachments message.
 			U8 attachment_pt = notification["payload"]["attachment_point"].asInteger();
-			BOOL is_add = notification["payload"]["is_add"].asBoolean();
+			bool is_add = notification["payload"]["is_add"].asBoolean();
 
 			LL_DEBUGS("Avatar") << "ATT calling addAttachmentRequest " << (itemp ? itemp->getName() : "UNKNOWN") << " id " << item_id << LL_ENDL;
 			LLAttachmentsMgr::instance().addAttachmentRequest(item_id, attachment_pt, is_add);

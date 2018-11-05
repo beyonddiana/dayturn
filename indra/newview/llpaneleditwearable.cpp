@@ -987,7 +987,7 @@ void LLPanelEditWearable::onTexturePickerCommit(const LLUICtrl* ctrl)
 							{
 								gAgentAvatarp->setLocalTexture(entry->mTextureIndex, image, FALSE, index);
 								LLVisualParamHint::requestHintUpdates();
-								gAgentAvatarp->wearableUpdated(type, FALSE);
+								gAgentAvatarp->wearableUpdated(type, false);
 							}
 							else
 							{
@@ -1018,7 +1018,7 @@ void LLPanelEditWearable::onColorSwatchCommit(const LLUICtrl* ctrl)
                         {
                                 getWearable()->setClothesColor(entry->mTextureIndex, new_color, TRUE);
                                 LLVisualParamHint::requestHintUpdates();
-                                gAgentAvatarp->wearableUpdated(getWearable()->getType(), FALSE);
+                                gAgentAvatarp->wearableUpdated(getWearable()->getType(), false);
                         }
                 }
                 else
@@ -1096,7 +1096,7 @@ void LLPanelEditWearable::saveChanges(bool force_save_as)
         {
 			// the name of the wearable has changed, re-save wearable with new name
 			LLAppearanceMgr::instance().removeCOFItemLinks(mWearablePtr->getItemID(),gAgentAvatarp->mEndCustomizeCallback);
-			gAgentWearables.saveWearableAs(mWearablePtr->getType(), index, new_name, description, FALSE);
+			gAgentWearables.saveWearableAs(mWearablePtr->getType(), index, new_name, description, false);
 			mNameEditor->setText(mWearableItem->getName());
         }
         else
@@ -1119,7 +1119,7 @@ void LLPanelEditWearable::saveChanges(bool force_save_as)
 				// Remove old link
 				remove_inventory_item(link_item->getUUID(), gAgentAvatarp->mEndCustomizeCallback);
 			}
-			gAgentWearables.saveWearable(mWearablePtr->getType(), index, TRUE, new_name);
+			gAgentWearables.saveWearable(mWearablePtr->getType(), index, true, new_name);
         }
 
 	
@@ -1137,7 +1137,7 @@ void LLPanelEditWearable::revertChanges()
         mNameEditor->setText(mWearableItem->getName());
         updatePanelPickerControls(mWearablePtr->getType());
         updateTypeSpecificControls(mWearablePtr->getType());
-        gAgentAvatarp->wearableUpdated(mWearablePtr->getType(), FALSE);
+        gAgentAvatarp->wearableUpdated(mWearablePtr->getType(), false);
 }
 
 void LLPanelEditWearable::showWearable(LLViewerWearable* wearable, BOOL show, BOOL disable_camera_switch)
@@ -1613,7 +1613,7 @@ void LLPanelEditWearable::onInvisibilityCommit(LLCheckBoxCtrl* checkbox_ctrl, LL
                 
                 LLViewerFetchedTexture* image = LLViewerTextureManager::getFetchedTexture( IMG_INVISIBLE );
 				gAgentAvatarp->setLocalTexture(te, image, FALSE, index);
-				gAgentAvatarp->wearableUpdated(getWearable()->getType(), FALSE);
+				gAgentAvatarp->wearableUpdated(getWearable()->getType(), false);
         }
         else
         {
@@ -1629,7 +1629,7 @@ void LLPanelEditWearable::onInvisibilityCommit(LLCheckBoxCtrl* checkbox_ctrl, LL
                 if (!image) return;
 
                 gAgentAvatarp->setLocalTexture(te, image, FALSE, index);
-                gAgentAvatarp->wearableUpdated(getWearable()->getType(), FALSE);
+                gAgentAvatarp->wearableUpdated(getWearable()->getType(), false);
         }
 
         updatePanelPickerControls(getWearable()->getType());

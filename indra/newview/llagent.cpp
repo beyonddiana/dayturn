@@ -3910,7 +3910,7 @@ void LLAgent::processAgentCachedTextureResponse(LLMessageSystem *mesgsys, void *
 	if (gAgentQueryManager.mNumPendingQueries == 0)
 	{
 		// RN: not sure why composites are disabled at this point
-		gAgentAvatarp->setCompositeUpdatesEnabled(TRUE);
+		gAgentAvatarp->setCompositeUpdatesEnabled(true);
 		gAgent.sendAgentSetAppearance();
 	}
 }
