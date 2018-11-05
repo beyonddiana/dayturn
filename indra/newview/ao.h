@@ -91,16 +91,16 @@ class FloaterAO
 
 		void onAnimationChanged(const LLUUID& animation);
 
-		void reloading(BOOL yes);
+		void reloading(bool yes);
 
 		void updateSmart();
 		void updateCycleParameters();
 
-		void enableSetControls(BOOL yes);
-		void enableStateControls(BOOL yes);
+		void enableSetControls(bool yes);
+		void enableStateControls(bool yes);
 
-		BOOL newSetCallback(const LLSD& notification,const LLSD& response);
-		BOOL removeSetCallback(const LLSD& notification,const LLSD& response);
+		bool newSetCallback(const LLSD& notification,const LLSD& response);
+		bool removeSetCallback(const LLSD& notification,const LLSD& response);
 
 		virtual bool tick();
 
@@ -150,9 +150,9 @@ class FloaterAO
 		LLButton* mNextButtonSmall;
 		LLCheckBoxCtrl* mOverrideSitsCheckBoxSmall;
 
-		BOOL mCanDragAndDrop;
-		BOOL mImportRunning;
-		BOOL mMore;
+		bool mCanDragAndDrop;
+		bool mImportRunning;
+		bool mMore;
 };
 
 #endif // AO_H

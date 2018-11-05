@@ -2016,7 +2016,7 @@ void	LLFloater::setCanTearOff(BOOL can_tear_off)
 }
 
 
-void LLFloater::setCanResize(BOOL can_resize)
+void LLFloater::setCanResize(bool can_resize)
 {
 	mResizable = can_resize;
 	enableResizeCtrls(can_resize);

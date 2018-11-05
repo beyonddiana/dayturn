@@ -32,11 +32,11 @@ AOSet::AOSet(const LLUUID inventoryID)
 :	LLEventTimer(10000.0f),
 	mInventoryID(inventoryID),
 	mName("** New AO Set **"),
-	mSitOverride(FALSE),
-	mSmart(FALSE),
-	mMouselookDisable(FALSE),
-	mComplete(FALSE),
-	mDirty(FALSE),
+	mSitOverride(false),
+	mSmart(false),
+	mMouselookDisable(false),
+	mComplete(false),
+	mDirty(false),
 	mCurrentMotion(LLUUID())
 {
 	LL_DEBUGS("AO") << "Creating new AO set: " << this << LL_ENDL;
@@ -113,8 +113,8 @@ AOSet::AOSet(const LLUUID inventoryID)
 		mStates[index].mInventoryUUID=LLUUID::null;
 		mStates[index].mCurrentAnimation=0;
 		mStates[index].mCurrentAnimationID=LLUUID::null;
-		mStates[index].mCycle=FALSE;
-		mStates[index].mRandom=FALSE;
+		mStates[index].mCycle=false;
+		mStates[index].mRandom=false;
 		mStates[index].mCycleTime=0.0f;
 		mStates[index].mDirty=FALSE;
 		mStateNames.push_back(stateNameList[0]);
@@ -212,7 +212,7 @@ void AOSet::stopTimer()
 bool AOSet::tick()
 {
 	AOEngine::instance().cycleTimeout(this);
-	return FALSE;
+	return false;
 }
 
 const LLUUID& AOSet::getInventoryUUID() const
@@ -235,52 +235,52 @@ void AOSet::setName(const std::string& name)
 	mName=name;
 }
 
-BOOL AOSet::getSitOverride() const
+bool AOSet::getSitOverride() const
 {
 	return mSitOverride;
 }
 
-void AOSet::setSitOverride(BOOL yes)
+void AOSet::setSitOverride(bool yes)
 {
 	mSitOverride=yes;
 }
 
-BOOL AOSet::getSmart() const
+bool AOSet::getSmart() const
 {
 	return mSmart;
 }
 
-void AOSet::setSmart(BOOL yes)
+void AOSet::setSmart(bool yes)
 {
 	mSmart=yes;
 }
 
-BOOL AOSet::getMouselookDisable() const
+bool AOSet::getMouselookDisable() const
 {
 	return mMouselookDisable;
 }
 
-void AOSet::setMouselookDisable(BOOL yes)
+void AOSet::setMouselookDisable(bool yes)
 {
 	mMouselookDisable=yes;
 }
 
-BOOL AOSet::getComplete() const
+bool AOSet::getComplete() const
 {
 	return mComplete;
 }
 
-void AOSet::setComplete(BOOL yes)
+void AOSet::setComplete(bool yes)
 {
 	mComplete=yes;
 }
 
-BOOL AOSet::getDirty() const
+bool AOSet::getDirty() const
 {
 	return mDirty;
 }
 
-void AOSet::setDirty(BOOL yes)
+void AOSet::setDirty(bool yes)
 {
 	mDirty=yes;
 }

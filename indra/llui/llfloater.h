@@ -271,7 +271,7 @@ public:
 	void			setCanMinimize(BOOL can_minimize);
 	void			setCanClose(BOOL can_close);
 	void			setCanTearOff(BOOL can_tear_off);
-	virtual void	setCanResize(BOOL can_resize);
+	virtual void	setCanResize(bool can_resize);
 	void			setCanDrag(BOOL can_drag);
 	bool			getCanDrag();
 	void			setHost(LLMultiFloater* host);

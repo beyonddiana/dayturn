@@ -50,7 +50,7 @@ public:
 	/*virtual*/ BOOL handleKeyHere(KEY key, MASK mask);
 	/*virtual*/ bool addChild(LLView* view, S32 tab_group = 0);
 
-	virtual void setCanResize(BOOL can_resize);
+	virtual void setCanResize(bool can_resize);
 	virtual void growToFit(S32 content_width, S32 content_height);
 	virtual void addFloater(LLFloater* floaterp, BOOL select_added_floater, LLTabContainer::eInsertionPoint insertion_point = LLTabContainer::END);
 

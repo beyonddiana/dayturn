@@ -46,18 +46,18 @@ class AOTimerCollection
 
 		virtual bool tick();
 
-		void enableInventoryTimer(BOOL yes);
-		void enableSettingsTimer(BOOL yes);
-		void enableReloadTimer(BOOL yes);
-		void enableImportTimer(BOOL yes);
+		void enableInventoryTimer(bool yes);
+		void enableSettingsTimer(bool yes);
+		void enableReloadTimer(bool yes);
+		void enableImportTimer(bool yes);
 
 	protected:
 		void updateTimers();
 
-		BOOL mInventoryTimer;
-		BOOL mSettingsTimer;
-		BOOL mReloadTimer;
-		BOOL mImportTimer;
+		bool mInventoryTimer;
+		bool mSettingsTimer;
+		bool mReloadTimer;
+		bool mImportTimer;
 };
 
 // ----------------------------------------------------
@@ -98,8 +98,8 @@ class AOEngine
 			CyclePrevious
 		};
 
-		void enable(BOOL yes);
-		const LLUUID override(const LLUUID& motion,BOOL start);
+		void enable(bool yes);
+		const LLUUID override(const LLUUID& motion,bool start);
 		void tick();
 		void update();
 		void reload(bool);
@@ -108,24 +108,24 @@ class AOEngine
 
 		const LLUUID& getAOFolder() const;
 
-		LLUUID addSet(const std::string& name,BOOL reload=TRUE);
-		BOOL removeSet(AOSet* set);
+		LLUUID addSet(const std::string& name,bool reload=true);
+		bool removeSet(AOSet* set);
 
-		BOOL addAnimation(const AOSet* set,AOSet::AOState* state,const LLInventoryItem* item,BOOL reload=TRUE);
-		BOOL removeAnimation(const AOSet* set,AOSet::AOState* state,S32 index);
+		bool addAnimation(const AOSet* set,AOSet::AOState* state,const LLInventoryItem* item,bool reload=true);
+		bool removeAnimation(const AOSet* set,AOSet::AOState* state,S32 index);
 		void checkSitCancel();
-		void checkBelowWater(BOOL yes);
+		void checkBelowWater(bool yes);
 
-		BOOL importNotecard(const LLInventoryItem* item);
+		bool importNotecard(const LLInventoryItem* item);
 		void processImport( bool );
 
-		BOOL swapWithPrevious(AOSet::AOState* state,S32 index);
-		BOOL swapWithNext(AOSet::AOState* state,S32 index);
+		bool swapWithPrevious(AOSet::AOState* state,S32 index);
+		bool swapWithNext(AOSet::AOState* state,S32 index);
 
 		void cycleTimeout(const AOSet* set);
 		void cycle(eCycleMode cycleMode);
 
-		void inMouselook(BOOL yes);
+		void inMouselook(bool yes);
 		void selectSet(AOSet* set);
 		AOSet* selectSetByName(const std::string& name);
 		AOSet* getSetByName(const std::string& name) const;
@@ -136,14 +136,14 @@ class AOEngine
 		const std::vector<AOSet*> getSetList() const;
 		const std::string getCurrentSetName() const;
 		const AOSet* getDefaultSet() const;
-		BOOL renameSet(AOSet* set,const std::string& name);
+		bool renameSet(AOSet* set,const std::string& name);
 
 		void setDefaultSet(AOSet* set);
-		void setOverrideSits(AOSet* set,BOOL yes);
-		void setSmart(AOSet* set,BOOL yes);
-		void setDisableStands(AOSet* set,BOOL yes);
-		void setCycle(AOSet::AOState* set,BOOL yes);
-		void setRandomize(AOSet::AOState* state,BOOL yes);
+		void setOverrideSits(AOSet* set,bool yes);
+		void setSmart(AOSet* set,bool yes);
+		void setDisableStands(AOSet* set,bool yes);
+		void setCycle(AOSet::AOState* set,bool yes);
+		void setRandomize(AOSet::AOState* state,bool yes);
 		void setCycleTime(AOSet::AOState* state,F32 time);
 
 		void saveSettings();
@@ -170,16 +170,15 @@ class AOEngine
 		void stopAllStandVariants();
 		void stopAllSitVariants();
 
-		BOOL foreignAnimations(const LLUUID& seat);
-        AOSet::AOState* mapSwimming(const LLUUID& motion) const;
-        AOSet::AOState* getStateForMotion(const LLUUID& motion) const;
+		bool foreignAnimations(const LLUUID& seat);
+		const LLUUID& mapSwimming(const LLUUID& motion) const;
 
 		void updateSortOrder(AOSet::AOState* state);
 		void saveSet(const AOSet* set);
 		void saveState(const AOSet::AOState* state);
 
-		BOOL createAnimationLink(const AOSet* set,AOSet::AOState* state,const LLInventoryItem* item);
-		BOOL findForeignItems(const LLUUID& uuid) const;
+		bool createAnimationLink(const AOSet* set,AOSet::AOState* state,const LLInventoryItem* item);
+		bool findForeignItems(const LLUUID& uuid) const;
 		void purgeFolder(const LLUUID& uuid) const;
     
         void onRegionChange();
@@ -195,9 +194,9 @@ class AOEngine
 		AOTimerCollection mTimerCollection;
 		AOSitCancelTimer mSitCancelTimer;
 
-		BOOL mEnabled;
-		BOOL mInMouselook;
-		BOOL mUnderWater;
+		bool mEnabled;
+		bool mInMouselook;
+		bool mUnderWater;
 
 		LLUUID mAOFolder;
 		LLUUID mLastMotion;
