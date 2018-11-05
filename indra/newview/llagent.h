@@ -454,12 +454,12 @@ private:
 	// Grab
 	//--------------------------------------------------------------------
 public:
-    BOOL 			leftButtonGrabbed() const;
-	BOOL 			rotateGrabbed() const;
-	BOOL 			forwardGrabbed() const;
-	BOOL 			backwardGrabbed() const;
-	BOOL 			upGrabbed() const;
-	BOOL 			downGrabbed() const;
+	bool 			leftButtonGrabbed() const;
+	bool 			rotateGrabbed() const;
+	bool 			forwardGrabbed() const;
+	bool 			backwardGrabbed() const;
+	bool 			upGrabbed() const;
+	bool 			downGrabbed() const;
 
 	//--------------------------------------------------------------------
 	// Controls
@@ -468,22 +468,22 @@ public:
 	U32 			getControlFlags(); 
 	void 			setControlFlags(U32 mask); 		// Performs bitwise mControlFlags |= mask
 	void 			clearControlFlags(U32 mask); 	// Performs bitwise mControlFlags &= ~mask
-	BOOL			controlFlagsDirty() const;
+	bool			controlFlagsDirty() const;
 	void			enableControlFlagReset();
 	void 			resetControlFlags();
-	BOOL			anyControlGrabbed() const; 		// True if a script has taken over any control
-    BOOL			isControlGrabbed(S32 control_index) const; // True if a script has taken over a control
+	bool			anyControlGrabbed() const; 		// True iff a script has taken over a control
+	bool			isControlGrabbed(S32 control_index) const;
 	// Send message to simulator to force grabbed controls to be
 	// released, in case of a poorly written script.
 	void			forceReleaseControls();
-	void			setFlagsDirty() { mbFlagsDirty = TRUE; }
+	void			setFlagsDirty() { mbFlagsDirty = true; }
 
 private:
 	S32				mControlsTakenCount[TOTAL_CONTROLS];
 	S32				mControlsTakenPassedOnCount[TOTAL_CONTROLS];
 	U32				mControlFlags;					// Replacement for the mFooKey's
-	BOOL 			mbFlagsDirty;
-	BOOL 			mbFlagsNeedReset;				// ! HACK ! For preventing incorrect flags sent when crossing region boundaries
+	bool 			mbFlagsDirty;
+	bool 			mbFlagsNeedReset;				// ! HACK ! For preventing incorrect flags sent when crossing region boundaries
 	
 	//--------------------------------------------------------------------
 	// Animations
