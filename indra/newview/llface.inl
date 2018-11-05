@@ -30,7 +30,7 @@
 #include "llglheaders.h"
 #include "llrender.h"
 
-inline BOOL LLFace::getDirty() const
+inline bool LLFace::getDirty() const
 { 
 	return (mGeneration != mDrawPoolp->mGeneration); 
 }

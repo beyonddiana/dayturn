@@ -191,7 +191,7 @@ void LLMultiFloater::addFloater(LLFloater* floaterp, BOOL select_added_floater, 
 
 	// remove minimize and close buttons
 	floaterp->setCanMinimize(FALSE);
-	floaterp->setCanResize(FALSE);
+	floaterp->setCanResize(false);
 	floaterp->setCanDrag(FALSE);
 	floaterp->mSaveRect = FALSE;
 	floaterp->storeRectControl();
@@ -436,7 +436,7 @@ void LLMultiFloater::onTabSelected()
 	}
 }
 
-void LLMultiFloater::setCanResize(BOOL can_resize)
+void LLMultiFloater::setCanResize(bool can_resize)
 {
 	LLFloater::setCanResize(can_resize);
 	if (!mTabContainer) return;

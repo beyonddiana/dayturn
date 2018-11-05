@@ -79,8 +79,8 @@ class AOSet
 			std::string mName;
 			std::vector<std::string> mAlternateNames;
 			LLUUID mRemapID;
-			BOOL mCycle;
-			BOOL mRandom;
+			bool mCycle;
+			bool mRandom;
 			S32 mCycleTime;
 			std::vector<AOAnimation> mAnimations;
 			U32 mCurrentAnimation;
@@ -95,23 +95,23 @@ class AOSet
 		const std::string& getName() const;
 		void setName(const std::string& name);
 
-		BOOL getSitOverride() const;
-		void setSitOverride(BOOL yes);
+		bool getSitOverride() const;
+		void setSitOverride(bool yes);
 
-		BOOL getSmart() const;
-		void setSmart(BOOL yes);
+		bool getSmart() const;
+		void setSmart(bool yes);
 
-		BOOL getMouselookDisable() const;
-		void setMouselookDisable(BOOL yes);
+		bool getMouselookDisable() const;
+		void setMouselookDisable(bool yes);
 
-		BOOL getComplete() const;
-		void setComplete(BOOL yes);
+		bool getComplete() const;
+		void setComplete(bool yes);
 
 		const LLUUID& getMotion() const;
 		void setMotion(const LLUUID& motion);
 
-		BOOL getDirty() const;
-		void setDirty(BOOL yes);
+		bool getDirty() const;
+		void setDirty(bool yes);
 
 		AOState* getState(S32 eName);
 		AOState* getStateByName(const std::string& name);
@@ -128,10 +128,10 @@ class AOSet
 		LLUUID mInventoryID;
 
 		std::string mName;
-		BOOL mSitOverride;
-		BOOL mSmart;
-		BOOL mMouselookDisable;
-		BOOL mComplete;
+		bool mSitOverride;
+		bool mSmart;
+		bool mMouselookDisable;
+		bool mComplete;
 		LLUUID mCurrentMotion;
 		BOOL mDirty;
 
