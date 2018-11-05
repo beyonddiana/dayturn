@@ -54,7 +54,7 @@ LLAttachmentsMgr::~LLAttachmentsMgr()
 
 void LLAttachmentsMgr::addAttachmentRequest(const LLUUID& item_id,
                                             const U8 attachment_pt,
-                                            const BOOL add)
+                                            const bool add)
 {
 	LLViewerInventoryItem *item = gInventory.getItem(item_id);
 

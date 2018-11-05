@@ -1115,7 +1115,7 @@ void LLVOAvatar::restoreGL()
 {
 	if (!isAgentAvatarValid()) return;
 
-	gAgentAvatarp->setCompositeUpdatesEnabled(TRUE);
+	gAgentAvatarp->setCompositeUpdatesEnabled(true);
 	for (U32 i = 0; i < gAgentAvatarp->mBakedTextureDatas.size(); i++)
 	{
 		gAgentAvatarp->invalidateComposite(gAgentAvatarp->getTexLayerSet(i), FALSE);
@@ -9300,7 +9300,7 @@ void LLVOAvatar::applyParsedAppearanceMessage(LLAppearanceMessageContents& conte
 		onFirstTEMessageReceived();
 	}
 
-	setCompositeUpdatesEnabled( FALSE );
+	setCompositeUpdatesEnabled(false);
 	gPipeline.markGLRebuild(this);
 
 	// Apply visual params
@@ -9395,7 +9395,7 @@ void LLVOAvatar::applyParsedAppearanceMessage(LLAppearanceMessageContents& conte
 		setHoverOffset(LLVector3(0.0, 0.0, 0.0));
 	}
 
-	setCompositeUpdatesEnabled( TRUE );
+	setCompositeUpdatesEnabled(true);
 
 	// If all of the avatars are completely baked, release the global image caches to conserve memory.
 	LLVOAvatar::cullAvatarsByPixelArea();

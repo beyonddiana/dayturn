@@ -75,12 +75,12 @@ protected:
 	// Queries
 	//--------------------------------------------------------------------
 public:
-	BOOL			isWearingItem(const LLUUID& item_id) const;
-	BOOL			isWearableModifiable(LLWearableType::EType type, U32 index /*= 0*/) const;
-	BOOL			isWearableModifiable(const LLUUID& item_id) const;
+	bool			isWearingItem(const LLUUID& item_id) const;
+	bool			isWearableModifiable(LLWearableType::EType type, U32 index /*= 0*/) const;
+	bool			isWearableModifiable(const LLUUID& item_id) const;
 
-	BOOL			isWearableCopyable(LLWearableType::EType type, U32 index /*= 0*/) const;
-	BOOL			areWearablesLoaded() const;
+	bool			isWearableCopyable(LLWearableType::EType type, U32 index /*= 0*/) const;
+	bool			areWearablesLoaded() const;
 	bool			isCOFChangeInProgress() const { return mCOFChangeInProgress; }
 	F32				getCOFChangeTime() const { return mCOFChangeTimer.getElapsedTimeF32(); }
 	void			updateWearablesLoaded();
@@ -104,7 +104,7 @@ public:
 	LLViewerWearable*		getViewerWearable(const LLWearableType::EType type, U32 index /*= 0*/); 
 	const LLViewerWearable*	getViewerWearable(const LLWearableType::EType type, U32 index /*= 0*/) const;
 	LLInventoryItem*	getWearableInventoryItem(LLWearableType::EType type, U32 index /*= 0*/);
-	static BOOL			selfHasWearable(LLWearableType::EType type);
+	static bool			selfHasWearable(LLWearableType::EType type);
 
 	//--------------------------------------------------------------------
 	// Setters
@@ -126,7 +126,7 @@ protected:
 	void			addWearableToAgentInventory(LLPointer<LLInventoryCallback> cb,
 												LLViewerWearable* wearable, 
 												const LLUUID& category_id = LLUUID::null,
-												BOOL notify = TRUE);
+												bool notify = true);
 	void 			addWearabletoAgentInventoryDone(const LLWearableType::EType type,
 													const U32 index,
 													const LLUUID& item_id,
@@ -184,8 +184,8 @@ private:
 	// Save Wearables
 	//--------------------------------------------------------------------
 public:	
-	void			saveWearableAs(const LLWearableType::EType type, const U32 index, const std::string& new_name, const std::string& description, BOOL save_in_lost_and_found);
-	void			saveWearable(const LLWearableType::EType type, const U32 index, BOOL send_update = TRUE,
+	void			saveWearableAs(const LLWearableType::EType type, const U32 index, const std::string& new_name, const std::string& description, bool save_in_lost_and_found);
+	void			saveWearable(const LLWearableType::EType type, const U32 index, bool send_update = true,
 								 const std::string new_name = "");
 	void			saveAllWearables();
 	void			revertWearable(const LLWearableType::EType type, const U32 index);
@@ -211,7 +211,7 @@ public:
 	static void		userRemoveMultipleAttachments(llvo_vec_t& llvo_array);
 	static void		userAttachMultipleAttachments(LLInventoryModel::item_array_t& obj_item_array);
 
-	BOOL			itemUpdatePending(const LLUUID& item_id) const;
+	bool			itemUpdatePending(const LLUUID& item_id) const;
 	U32				itemUpdatePendingCount() const;
 
 //MK from HB
@@ -255,8 +255,8 @@ private:
 	// Member variables
 	//--------------------------------------------------------------------
 private:
-	static BOOL		mInitialWearablesUpdateReceived;
-	BOOL			mWearablesLoaded;
+	static bool		mInitialWearablesUpdateReceived;
+	bool			mWearablesLoaded;
 	std::set<LLUUID>	mItemsAwaitingWearableUpdate;
 //MK from HB
 	bool				mHasModifiableShape;
@@ -267,7 +267,7 @@ private:
 	/**
 	 * True if agent's outfit is being changed now.
 	 */
-	BOOL			mCOFChangeInProgress;
+	bool			mCOFChangeInProgress;
 	LLTimer			mCOFChangeTimer;
 	
 	//--------------------------------------------------------------------------------

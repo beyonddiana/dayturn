@@ -77,7 +77,7 @@ public:
 
 	void addAttachmentRequest(const LLUUID& item_id,
                               const U8 attachment_pt,
-                              const BOOL add);
+                              const bool add);
     void onAttachmentRequested(const LLUUID& item_id);
 	void requestAttachments(attachments_vec_t& attachment_requests);
 	static void onIdle(void *);
