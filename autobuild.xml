@@ -4063,7 +4063,7 @@
                   <string>KokuaOS.sln</string>
                 </array>
                 <key>command</key>
-                <string>devenv.com</string>
+                <string>devenv</string>
                 <key>options</key>
                 <array>
                   <string>/build</string>
