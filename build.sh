@@ -216,20 +216,6 @@ do
                   record_event "no autobuild metadata at '$build_dir/autobuild-package.xml'"
               fi
               ;;
-            Doxygen)
-              if [ -r "$build_dir/doxygen_warnings.log" ]
-              then
-                  record_event "Doxygen warnings generated; see doxygen_warnings.log"
-                  upload_item log "$build_dir/doxygen_warnings.log" text/plain
-              fi
-              if [ -d "$build_dir/doxygen/html" ]
-              then
-                  tar -c -f "$build_dir/viewer-doxygen.tar.bz2" --strip-components 3  "$build_dir/doxygen/html"
-                  upload_item docs "$build_dir/viewer-doxygen.tar.bz2" binary/octet-stream
-              fi
-              ;;
-            *)
-              ;;
           esac
 
       else

@@ -100,8 +100,6 @@ endif (LINUX)
 add_subdirectory(${VIEWER_PREFIX}newview)
   add_dependencies(viewer kokuaos-bin)
 
-add_subdirectory(${VIEWER_PREFIX}doxygen EXCLUDE_FROM_ALL)
-
 if (LL_TESTS)
   # Define after the custom targets are created so
   # individual apps can add themselves as dependencies
