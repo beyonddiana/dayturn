@@ -75,15 +75,11 @@ Once sure that no upstream incoming are pending and you ready for merge into ups
 
 
 
-Linux 64 Bit
+###Linux 64 Bit
+---
 
-------------
-
-
-
-Development system:
-
--------------
+####Development system:
+---
 
 
 
@@ -232,9 +228,9 @@ eol = auto
 
 [hooks]
 
-#pretxncommit = python:~/hg-tools/coding_policy.py:hook
+\#pretxncommit = python:~/hg-tools/coding_policy.py:hook
 
-#pretxnchangegroup = python:~/hg-tools/coding_policy.py:hook
+\#pretxnchangegroup = python:~/hg-tools/coding_policy.py:hook
 
 ----------------------
 As an options add this to you bash history file ~/.bashrc
@@ -282,7 +278,11 @@ This places the viewer in /opt/kokua-install and places a Kokua menu entry under
 sudo is the perferred method as the chrome-sandbox a part of Chrome Embedded Framework requies root permissions.
 
 
-Windows
+###Windows
+---
+
+####Development system:
+---
 
 Reference: https://wiki.secondlife.com/wiki/Visual_Studio_2013_Viewer_Builds
 
@@ -380,7 +380,6 @@ You will need these items before you begin:
 - Change "Add python.exe to Path" to "Will be installed on local hard drive"
 
 ==Intermediate check==
-
 - Confirm things are installed properly so far|
 
 - Open a Cygwin terminal and type:
@@ -398,7 +397,6 @@ You will need these items before you begin:
 - If they all report sensible values and not "Command not found" errors, then you are in good shape}}
 
 ==Set up Autobuild and Python==
-
 -  This section only works inside the Windows Command Prompt. 
 
 - Bootstrap pip 
@@ -529,11 +527,13 @@ Verify that these version request.
 -  Under main menu DEBUG is a right pointing green arrow with text 'Local Windows Debugger' click to start building...
 
 -  Once the build competes the viewer should be at the start page waiting to logon.
---------
 
-Mac
 
---------
+macOS
+---
+
+####Development system:
+---
 
 The current development environment is XCode 7.3 running on OS X 10.11.4 where the viewer is built 32-bit with OS X SDK 10.11 and Deployment Target of OS X 10.9.
 
