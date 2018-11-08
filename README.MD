@@ -306,17 +306,15 @@ You will need these items before you begin:
 
 - Install VS 2013 Pro
 
-- Note: If you don't own a copy of VS 2013 Pro, you might consider installing the 
-
-- [http://www.visualstudio.com/en-us/news/vs2013-community-vs.aspx Community Version]
+- Note: If you don't own a copy of VS 2013 Pro, you might consider installing the Community Version from
+  [https://visualstudio.microsoft.com/vs/older-downloads/ ] as the Express version does not have devenv.exe
+  and therefore will not be able to build the viewer. 
 
 - Run the installer as Administrator (right click, "Run as administrator")
 
 - Uncheck all the "Optional features to install:" - they are not required
 
-- Download and install VS2013 Service Packs and updates
-
-- [http://www.visualstudio.com/en-us/downloads/download-visual-studio-vs#DownloadFamilies_5 Update 4 ] 
+- Download and install VS2013 Service Packs and updates via Software Update
 
 - is the most recent '''released''' version at time of writing (2015-01)
 
@@ -529,7 +527,7 @@ Verify that these version request.
 -  Once the build competes the viewer should be at the start page waiting to logon.
 
 
-macOS
+###macOS
 ---
 
 ####Development system:
