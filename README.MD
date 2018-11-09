@@ -1,4 +1,3 @@
-New Tools Update
 ## ** Kokua OpenSim ** ##
 This repository is a baseline of the combined Linden Lab 4.0.2 SecondLife Viewer and Kokua 4.0.2 releases with select commits from the following Linden code base with the aim of providing a starting point for development of an OpenSim specific version of Kokua or derived viewers.
 
@@ -8,7 +7,7 @@ A pure-play OpenSim viewer will also over time evolve to a simpler code base rem
 
 It will also remove the code for SecondLife specific functionality such as Pathfinding, a unified marketplace, experience keys, avatar complexity and information that is not directly relevant to OpenSim grids. 
 
-There are two active branches KokuaNT and Kokua-MKRLV. 
+There are two active bookmarks KokuaSO and KokuaOS-MKRLV. 
 
 ================
 Contributing Code to Kokua
@@ -473,25 +472,27 @@ Verify that these version request.
 
 -  Stable source code repositories
 
--   OpenSim https://bitbucket.org/kokua/kokua-os
+-   OpenSim https://bitbucket.org/dayturn/kokua-opensim
 
 -   SecondLife https://bitbucket.org/kokua/kokua-sl
 
 -  Development source code repositories
 
--   OpenSim https://bitbucket.org/kokua/kokua-os
+-   OpenSim https://bitbucket.org/dayturn/kokua-opensim
 
 -   SecondLife https://bitbucket.org/kokua/kokua-sl
 
 -   Use mercurial to clone one of the above respostories to your local machine. For example: 
 
--   hg clone https://bitbucket.org/kokua/kokua-os
+-   hg clone https://bitbucket.org/dayturn/kokua-opensim
 
 -   This will place a folder with the source code typically in /Users/xxxx/kokua-os
 
 -   cd kokua-os 
 
--   hg update -rKokua-MKRLV
+-   Check that you have the two bookmarks with hg bookmark
+
+-   Change to the KokuaOS bookmark with hg update -C --rev KokuaOS
 
 -   autobuild configure -c ReleaseOS -- -DCMAKE_VERBOSE_MAKEFILE:BOOL=FALSE -DLL_TESTS:BOOL=OFF \
     -DPACKAGE:BOOL=FALSE  -DOPENAL:BOOL=FALSE -DFMODEX:BOOL=ON
@@ -561,13 +562,9 @@ If you have newer versions of Xcode installed then you also need to run xcode-se
 
 Xcode should have created the directory ~/Library/Developer during installation. If not create it (or use the location of your choice) and shortcut it to the Finder sidebar. 
 
-In terminal cd to the above directory and type the command:
-
-hg clone https://bitbucket.org/lindenlab/autobuild-1.1
-
 Pip Install auto build python dependencies by typing:
 
-sudo pip install ‘hg+https://bitbucket.org/lindenlab/autobuild-1.1#egg=autobuild'
+sudo pip install ‘hg+https://bitbucket.org/lindenlab/autobuild-1.0#egg=autobuild'
 
 If everything goes well it should be installed in /opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/autobuild
 
@@ -597,11 +594,17 @@ To build Kokua first download the Kokua source code with the following command i
 
 For the OpenSim version:
 
-hg clone https://bitbucket.org/kokua/kokua-os
+hg clone https://bitbucket.org/dayturn/kokua-opensim
 
 For the SecondLife version:
 
 hg clone https://bitbucket.org/kokua/kokua-sl 
+
+Change directory to the location where you cloned the repository, i.e kokua-os 
+
+Check that you have the two bookmarks with hg bookmark
+
+Change to the KokuaOS bookmark with hg update -C --rev KokuaOS
 
 You can configure the build with:
 
