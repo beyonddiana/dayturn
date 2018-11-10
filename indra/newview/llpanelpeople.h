@@ -61,8 +61,6 @@ public:
 	// when voice is available
 	/*virtual*/ void onChange(EStatusType status, const std::string &channelURI, bool proximal);
 
-    bool mTryToConnectToFacebook;
-
 // [RLVa:KB] - Checked: 2010-04-05 (RLVa-1.2.0d) | Added: RLVa-1.2.0d
 	// Externalized to FSRadar
 	//LLAvatarList* getNearbyList() { return mNearbyList; }
@@ -89,13 +87,11 @@ private:
 	// methods indirectly called by the updaters
 	void					updateFriendListHelpText();
 	void					updateFriendList();
-	bool					updateSuggestedFriendList();
 	void					updateNearbyList();
 	void					updateRecentList();
 //MK
 	void					updateNearbyRange();
 //mk
-	void					updateFacebookList(bool visible);
 
 	bool					isItemsFreeOfFriends(const uuid_vec_t& uuids);
 
@@ -150,8 +146,6 @@ private:
 	void					showFriendsAccordionsIfNeeded();
 
 	void					onFriendListRefreshComplete(LLUICtrl*ctrl, const LLSD& param);
-
-	bool					onConnectedToFacebook(const LLSD& data);
 
 	void					setAccordionCollapsedByUser(LLUICtrl* acc_tab, bool collapsed);
 	void					setAccordionCollapsedByUser(const std::string& name, bool collapsed);

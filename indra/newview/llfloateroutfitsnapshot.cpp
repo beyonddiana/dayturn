@@ -30,9 +30,7 @@
 #include "llfloateroutfitsnapshot.h"
 
 #include "llagent.h"
-#include "llfacebookconnect.h"
 #include "llfloaterreg.h"
-#include "llfloaterfacebook.h"
 #include "llfloaterflickr.h"
 #include "llfloatertwitter.h"
 #include "llimagefiltersmanager.h"
@@ -850,11 +848,10 @@ S32 LLFloaterOutfitSnapshot::notify(const LLSD& info)
 void LLFloaterOutfitSnapshot::update()
 {
 	LLFloaterOutfitSnapshot* inst = findInstance();
-	LLFloaterFacebook* floater_facebook = LLFloaterReg::findTypedInstance<LLFloaterFacebook>("facebook"); 
 	LLFloaterFlickr* floater_flickr = LLFloaterReg::findTypedInstance<LLFloaterFlickr>("flickr"); 
 	LLFloaterTwitter* floater_twitter = LLFloaterReg::findTypedInstance<LLFloaterTwitter>("twitter"); 
 
-	if (!inst && !floater_facebook && !floater_flickr && !floater_twitter)
+	if (!inst && !floater_flickr && !floater_twitter)
 		return;
 	
 	BOOL changed = FALSE;

@@ -204,13 +204,7 @@ Please try logging in again in a minute.</string>
 	<string name="SentToInvalidRegion">You were sent to an invalid region.</string>
 	<string name="TestingDisconnect">Testing viewer disconnect</string>
 
-	<!-- SLShare: Facebook, Flickr, and Twitter -->
-  <string name="SocialFacebookConnecting">Connecting to Facebook...</string>
-  <string name="SocialFacebookPosting">Posting...</string>
-  <string name="SocialFacebookDisconnecting">Disconnecting from Facebook...</string>
-  <string name="SocialFacebookErrorConnecting">Problem connecting to Facebook</string>
-  <string name="SocialFacebookErrorPosting">Problem posting to Facebook</string>
-  <string name="SocialFacebookErrorDisconnecting">Problem disconnecting from Facebook</string>
+	<!-- SLShare: Flickr, and Twitter -->
   <string name="SocialFlickrConnecting">Connecting to Flickr...</string>
   <string name="SocialFlickrPosting">Posting...</string>
   <string name="SocialFlickrDisconnecting">Disconnecting from Flickr...</string>
@@ -5300,10 +5294,6 @@ If you continue to receive this message, contact the [SUPPORT_SITE].
   <string name="share_alert">
     Drag items from inventory here
   </string>
-
-  <string name="facebook_post_success">
-    You posted to Facebook.
-  </string>
   <string name="flickr_post_success">
     You posted to Flickr.
   </string>
@@ -5739,7 +5729,6 @@ Try enclosing path to the editor with double quotes.
   <string name="Command_Conversations_Label">Conversations</string>
   <string name="Command_Compass_Label">Compass</string>
   <string name="Command_Destinations_Label">Destinations</string>
-  <string name="Command_Facebook_Label">Facebook</string>
   <string name="Command_Flickr_Label">Flickr</string>
   <string name="Command_Gestures_Label">Gestures</string>
   <string name="Command_HowTo_Label">How to</string>
@@ -5773,7 +5762,6 @@ Try enclosing path to the editor with double quotes.
   <string name="Command_Conversations_Tooltip">Converse with everyone</string>
   <string name="Command_Compass_Tooltip">Compass</string>
   <string name="Command_Destinations_Tooltip">Destinations of interest</string>
-  <string name="Command_Facebook_Tooltip">Post to Facebook</string>
   <string name="Command_Flickr_Tooltip">Upload to Flickr</string>
   <string name="Command_Gestures_Tooltip">Gestures for your avatar</string>
   <string name="Command_HowTo_Tooltip">How to do common tasks</string>
