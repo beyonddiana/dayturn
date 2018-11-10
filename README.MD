@@ -1,4 +1,13 @@
-New Tools Update
+## ** Kokua OpenSim ** ##
+This repository is a baseline of the combined Linden Lab 4.0.2 SecondLife Viewer and Kokua 4.0.2 releases with select commits from the following Linden code base with the aim of providing a starting point for development of an OpenSim specific version of Kokua or derived viewers.
+
+The reason for this is that the http changes in the Linden 4.0.3 release are interoperable with OpenSim core in Standalone mode or in Grid mode without assets served over http. Assets over http is still largely experimental in OpenSim and currently requires both more hardware and configuration skills than many small grids are willing or able to invest in. 
+
+A pure-play OpenSim viewer will also over time evolve to a simpler code base removing functionality not supported by OpenSim, removing similar functionality with different implementations across the two environments, and adding better support for OpenSim specific functionality such as Hypergrid Teleports, variable size regions, NPCs, the OSSL scripting language and different physics engines. 
+
+It will also remove the code for SecondLife specific functionality such as Pathfinding, a unified marketplace, experience keys, avatar complexity and information that is not directly relevant to OpenSim grids. 
+
+There are two active bookmarks KokuaSO and KokuaOS-MKRLV. 
 
 ================
 Contributing Code to Kokua
@@ -65,15 +74,11 @@ Once sure that no upstream incoming are pending and you ready for merge into ups
 
 
 
-Linux 64 Bit
+###Linux 64 Bit
+---
 
-------------
-
-
-
-Development system:
-
--------------
+####Development system:
+---
 
 
 
@@ -222,9 +227,9 @@ eol = auto
 
 [hooks]
 
-#pretxncommit = python:~/hg-tools/coding_policy.py:hook
+\#pretxncommit = python:~/hg-tools/coding_policy.py:hook
 
-#pretxnchangegroup = python:~/hg-tools/coding_policy.py:hook
+\#pretxnchangegroup = python:~/hg-tools/coding_policy.py:hook
 
 ----------------------
 As an options add this to you bash history file ~/.bashrc
@@ -272,7 +277,11 @@ This places the viewer in /opt/kokua-install and places a Kokua menu entry under
 sudo is the perferred method as the chrome-sandbox a part of Chrome Embedded Framework requies root permissions.
 
 
-Windows
+###Windows
+---
+
+####Development system:
+---
 
 Reference: https://wiki.secondlife.com/wiki/Visual_Studio_2013_Viewer_Builds
 
@@ -296,17 +305,15 @@ You will need these items before you begin:
 
 - Install VS 2013 Pro
 
-- Note: If you don't own a copy of VS 2013 Pro, you might consider installing the 
-
-- [http://www.visualstudio.com/en-us/news/vs2013-community-vs.aspx Community Version]
+- Note: If you don't own a copy of VS 2013 Pro, you might consider installing the Community Version from
+  [https://visualstudio.microsoft.com/vs/older-downloads/ ] as the Express version does not have devenv.exe
+  and therefore will not be able to build the viewer. 
 
 - Run the installer as Administrator (right click, "Run as administrator")
 
 - Uncheck all the "Optional features to install:" - they are not required
 
-- Download and install VS2013 Service Packs and updates
-
-- [http://www.visualstudio.com/en-us/downloads/download-visual-studio-vs#DownloadFamilies_5 Update 4 ] 
+- Download and install VS2013 Service Packs and updates via Software Update
 
 - is the most recent '''released''' version at time of writing (2015-01)
 
@@ -370,7 +377,6 @@ You will need these items before you begin:
 - Change "Add python.exe to Path" to "Will be installed on local hard drive"
 
 ==Intermediate check==
-
 - Confirm things are installed properly so far|
 
 - Open a Cygwin terminal and type:
@@ -388,7 +394,6 @@ You will need these items before you begin:
 - If they all report sensible values and not "Command not found" errors, then you are in good shape}}
 
 ==Set up Autobuild and Python==
-
 -  This section only works inside the Windows Command Prompt. 
 
 - Bootstrap pip 
@@ -467,25 +472,27 @@ Verify that these version request.
 
 -  Stable source code repositories
 
--   OpenSim https://bitbucket.org/kokua/kokua-os
+-   OpenSim https://bitbucket.org/dayturn/kokua-opensim
 
 -   SecondLife https://bitbucket.org/kokua/kokua-sl
 
 -  Development source code repositories
 
--   OpenSim https://bitbucket.org/kokua/kokua-os
+-   OpenSim https://bitbucket.org/dayturn/kokua-opensim
 
 -   SecondLife https://bitbucket.org/kokua/kokua-sl
 
 -   Use mercurial to clone one of the above respostories to your local machine. For example: 
 
--   hg clone https://bitbucket.org/kokua/kokua-os
+-   hg clone https://bitbucket.org/dayturn/kokua-opensim
 
 -   This will place a folder with the source code typically in /Users/xxxx/kokua-os
 
 -   cd kokua-os 
 
--   hg update -rKokua-MKRLV
+-   Check that you have the two bookmarks with hg bookmark
+
+-   Change to the KokuaOS bookmark with hg update -C --rev KokuaOS
 
 -   autobuild configure -c ReleaseOS -- -DCMAKE_VERBOSE_MAKEFILE:BOOL=FALSE -DLL_TESTS:BOOL=OFF \
     -DPACKAGE:BOOL=FALSE  -DOPENAL:BOOL=FALSE -DFMODEX:BOOL=ON
@@ -519,11 +526,13 @@ Verify that these version request.
 -  Under main menu DEBUG is a right pointing green arrow with text 'Local Windows Debugger' click to start building...
 
 -  Once the build competes the viewer should be at the start page waiting to logon.
---------
 
-Mac
 
---------
+###macOS
+---
+
+####Development system:
+---
 
 The current development environment is XCode 7.3 running on OS X 10.11.4 where the viewer is built 32-bit with OS X SDK 10.11 and Deployment Target of OS X 10.9.
 
@@ -553,13 +562,9 @@ If you have newer versions of Xcode installed then you also need to run xcode-se
 
 Xcode should have created the directory ~/Library/Developer during installation. If not create it (or use the location of your choice) and shortcut it to the Finder sidebar. 
 
-In terminal cd to the above directory and type the command:
-
-hg clone https://bitbucket.org/lindenlab/autobuild-1.1
-
 Pip Install auto build python dependencies by typing:
 
-sudo pip install ‘hg+https://bitbucket.org/lindenlab/autobuild-1.1#egg=autobuild'
+sudo pip install ‘hg+https://bitbucket.org/lindenlab/autobuild-1.0#egg=autobuild'
 
 If everything goes well it should be installed in /opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/autobuild
 
@@ -589,11 +594,17 @@ To build Kokua first download the Kokua source code with the following command i
 
 For the OpenSim version:
 
-hg clone https://bitbucket.org/kokua/kokua-os
+hg clone https://bitbucket.org/dayturn/kokua-opensim
 
 For the SecondLife version:
 
 hg clone https://bitbucket.org/kokua/kokua-sl 
+
+Change directory to the location where you cloned the repository, i.e kokua-os 
+
+Check that you have the two bookmarks with hg bookmark
+
+Change to the KokuaOS bookmark with hg update -C --rev KokuaOS
 
 You can configure the build with:
 
@@ -610,10 +621,3 @@ Disclaimer
 -----
 
 -      This software is not provided nor supported by Linden Lab, the makers of Second Life.
-
-
-
-
-
-
-
