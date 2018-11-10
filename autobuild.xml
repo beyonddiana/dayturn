@@ -3954,7 +3954,7 @@
         <key>windows</key>
         <map>
           <key>build_directory</key>
-          <string>build-vc120</string>
+          <string>build-vs</string>
           <key>configurations</key>
           <map>
             <key>RelWithDebInfo</key>
