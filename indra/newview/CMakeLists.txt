@@ -222,7 +222,6 @@ set(viewer_SOURCE_FILES
     llexperiencelog.cpp
     llexternaleditor.cpp
     llface.cpp
-    llfacebookconnect.cpp
     llfasttimerview.cpp
     llfavoritesbar.cpp
     llfeaturemanager.cpp
@@ -264,7 +263,6 @@ set(viewer_SOURCE_FILES
     llfloaterexperiencepicker.cpp
     llfloaterexperienceprofile.cpp
     llfloaterexperiences.cpp
-    llfloaterfacebook.cpp
     llfloaterflickr.cpp
     llfloaterfonttest.cpp
     llfloatergesture.cpp
@@ -872,7 +870,6 @@ set(viewer_HEADER_FILES
     llexperiencelog.h
     llexternaleditor.h
     llface.h
-    llfacebookconnect.h
     llfasttimerview.h
     llfavoritesbar.h
     llfeaturemanager.h
@@ -914,7 +911,6 @@ set(viewer_HEADER_FILES
     llfloaterexperiencepicker.h
     llfloaterexperienceprofile.h
     llfloaterexperiences.h
-    llfloaterfacebook.h
     llfloaterflickr.h
     llfloaterfonttest.h
     llfloatergesture.h

@@ -224,7 +224,7 @@ public:
     
 	/* virtual */ void httpFailure()
 	{
-		// show the facebook login page if not connected yet
+		// show the Twitter login page if not connected yet
 		if ( HTTP_NOT_FOUND == getStatus() )
 		{
 			LL_DEBUGS("TwitterConnect") << "Not connected. " << dumpResponse() << LL_ENDL;

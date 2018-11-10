@@ -2775,7 +2775,6 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
 	//capabilityNames.append("DispatchWindLightSettings"); // now using EnvironmentSettings for windlight settings
 	capabilityNames.append("EstateChangeInfo");
 	capabilityNames.append("EventQueueGet");
-	capabilityNames.append("FacebookConnect");
 	capabilityNames.append("FlickrConnect");
 	capabilityNames.append("TwitterConnect");
 

@@ -316,24 +316,6 @@ Spróbuj zalogować się ponownie za minutę.
 	<string name="TestingDisconnect">
 		Testowanie rozłączenia klienta
 	</string>
-	<string name="SocialFacebookConnecting">
-		Łączenie z Facebookiem...
-	</string>
-	<string name="SocialFacebookPosting">
-		Wysyłanie...
-	</string>
-	<string name="SocialFacebookDisconnecting">
-		Rozłączanie z Facebookiem...
-	</string>
-	<string name="SocialFacebookErrorConnecting">
-		Problem z łączeniem z Facebookiem
-	</string>
-	<string name="SocialFacebookErrorPosting">
-		Problem z wysyłaniem na Facebooka
-	</string>
-	<string name="SocialFacebookErrorDisconnecting">
-		Problem z rozłączaniem z Facebookiem
-	</string>
 	<string name="SocialFlickrConnecting">
 		Łączenie z Flickr...
 	</string>
@@ -4112,9 +4094,6 @@ Jeżeli nadal otrzymujesz ten komunikat, skontaktuj się z [SUPPORT_SITE].
 	<string name="share_alert">
 		Przeciągaj tutaj rzeczy z Szafy
 	</string>
-	<string name="facebook_post_success">
-		Wysłałeś/aś post na Facebooka.
-	</string>
 	<string name="flickr_post_success">
 		Wysłałeś/aś post na Flickr.
 	</string>
@@ -4690,9 +4669,6 @@ Spróbuj załączyć ścieżkę do edytora w cytowaniu.
 	</string>
 	<string name="Command_Destinations_Tooltip">
 		Punkty, jakie mogą być interesujące
-	</string>
-	<string name="Command_Facebook_Tooltip">
-		Wyślij na Facebooka
 	</string>
 	<string name="Command_Flickr_Tooltip">
 		Wyślij na Flickr
