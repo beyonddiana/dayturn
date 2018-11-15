@@ -18,8 +18,7 @@
 ;;
 ;; Linden Research, Inc., 945 Battery Street, San Francisco, CA  94111  USA
 ;;
-;; NSIS Unicode 2.46.5 or higher required
-;; http://www.scratchpaper.com/
+;; NSIS 3 or higher required for Unicode support
 ;;
 ;; Author: James Cook, TankMaster Finesmith, Don Kjer, Callum Prentice
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -27,6 +26,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compiler flags
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+Unicode true
 SetOverwrite on				# Overwrite files
 SetCompress auto			# Compress if saves space
 SetCompressor /solid lzma	# Compress whole installer as one block
