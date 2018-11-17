@@ -523,7 +523,8 @@
         <menu
          label="Voice morphing"
          name="VoiceMorphing"
-         visibility_control="VoiceMorphingEnabled">
+         visibility_control="VoiceMorphingEnabled"
+         only_in_sl="true">
             <menu_item_check
              label="No voice morphing"
              name="NoVoiceMorphing">
