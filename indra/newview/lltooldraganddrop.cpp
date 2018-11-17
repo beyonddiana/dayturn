@@ -1558,7 +1558,7 @@ void LLToolDragAndDrop::dropInventory(LLViewerObject* hit_obj,
 
 // accessor that looks at permissions, copyability, and names of
 // inventory items to determine if a drop would be ok.
-EAcceptance LLToolDragAndDrop::willObjectAcceptInventory(LLViewerObject* obj, LLInventoryItem* item)
+EAcceptance LLToolDragAndDrop::willObjectAcceptInventory(LLViewerObject* obj, LLInventoryItem* item, EDragAndDropType type)
 {
 	// check the basics
 	if (!item || !obj) return ACCEPT_NO;
@@ -1593,12 +1593,15 @@ EAcceptance LLToolDragAndDrop::willObjectAcceptInventory(LLViewerObject* obj, LL
 
 	// HACK: downcast
 	LLViewerInventoryItem* vitem = (LLViewerInventoryItem*)item;
-//MK
-	// We don't care if the item is finished or not. We see it in the inventory, it is finished enough for us.
-	// The rest is up to the asset server. Too many times were drag-and-drops denied for no actual reason and no
-	// actual consistency.
-////	if (!vitem->isFinished()) return ACCEPT_NO;
-//mk
+	 	
+	if (!vitem->isFinished() && (type != DAD_CATEGORY))
+	{
+		// Note: for DAD_CATEGORY we assume that folder version check passed and folder 
+		// is complete, meaning that items inside are up to date. 
+		// (isFinished() == false) at the moment shows that item was loaded from cache.
+		// Library or agent inventory only.
+		return ACCEPT_NO;
+	}	
 	if (vitem->getIsLinkType()) return ACCEPT_NO; // No giving away links
 
 	// deny attempts to drop from an object onto itself. This is to
@@ -1672,17 +1675,16 @@ EAcceptance LLToolDragAndDrop::willObjectAcceptInventory(LLViewerObject* obj, LL
 	{
 		return ACCEPT_NO_LOCKED;
 	}
-	else if (modify && transfer && volume && !worn)
+	else if(modify && transfer && volume && !worn)
 	{
 		return ACCEPT_YES_MULTI;
 	}
-	else if (!modify)
+	else if(!modify)
 	{
 		return ACCEPT_NO_LOCKED;
 	}
 	return ACCEPT_NO;
 }
-
 
 static void give_inventory_cb(const LLSD& notification, const LLSD& response)
 {
@@ -2516,7 +2518,7 @@ EAcceptance LLToolDragAndDrop::dad3dUpdateInventoryCategory(
 				(*item_iter) = item;
 			}
 			*/
-			rv = willObjectAcceptInventory(root_object, item);
+			rv = willObjectAcceptInventory(root_object, item, DAD_CATEGORY);
 			if (rv < ACCEPT_YES_COPY_SINGLE)
 			{
 				LL_DEBUGS() << "Object will not accept " << item->getUUID() << LL_ENDL;
