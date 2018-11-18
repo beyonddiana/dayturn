@@ -981,6 +981,8 @@ LLWString LLFloaterIMNearbyChat::stripChannelNumber(const LLWString &mesg, S32* 
 
 void send_chat_from_viewer(const std::string& utf8_out_text, EChatType type, S32 channel)
 {
+    LLMessageSystem* msg = gMessageSystem;
+
 //MK
 	if (type != CHAT_TYPE_START && type != CHAT_TYPE_STOP) // do not bother with redirections and channel restrictions if we're not actually chatting
 	{
@@ -1041,7 +1043,7 @@ void send_chat_from_viewer(const std::string& utf8_out_text, EChatType type, S32
 							}
 						}
 					}
-					it++;					
+					it++;
 				}
 
 				//LLViewerStats::getInstance()->incStat(LLViewerStats::ST_CHAT_COUNT);
@@ -1062,7 +1064,6 @@ void send_chat_from_viewer(const std::string& utf8_out_text, EChatType type, S32
 		crunchedText = gAgent.mRRInterface.crunchEmote(crunchedText);
 	}
 //mk
-	LLMessageSystem* msg = gMessageSystem;
 	
 	if (channel >= 0)
 	{

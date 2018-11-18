@@ -1522,6 +1522,14 @@ LLPreviewLSL::LLPreviewLSL(const LLSD& key )
 // virtual
 BOOL LLPreviewLSL::postBuild()
 {
+//MK
+	if (gRRenabled && gAgent.mRRInterface.contains("viewnote"))
+	{
+		mForceClose = TRUE;
+		closeFloater();
+		return TRUE;
+	}
+//mk
 	const LLInventoryItem* item = getItem();	
 
 	llassert(item);
@@ -1537,14 +1545,6 @@ BOOL LLPreviewLSL::postBuild()
 
 void LLPreviewLSL::draw()
 {
-//MK
-	if (gRRenabled && gAgent.mRRInterface.contains("viewnote"))
-	{
-		mForceClose = TRUE;
-		closeFloater();
-		return TRUE;
-	}
-//mk
 	const LLInventoryItem* item = getItem();
 	if(!item)
 	{
@@ -1553,7 +1553,7 @@ void LLPreviewLSL::draw()
 	}
 
 	LLPreview::draw();
-}
+}	
 // virtual
 void LLPreviewLSL::callbackLSLCompileSucceeded()
 {
