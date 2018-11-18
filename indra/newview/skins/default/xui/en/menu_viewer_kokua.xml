@@ -487,7 +487,7 @@
             <menu_item_call.on_click
              function="Tools.RestartAllAnimations" />
         </menu_item_call>
-      <!-- mk -->	  
+<!-- mk -->	  
         <menu_item_check
          label="Do Not Let Me Fly"
          name="Disable Fly">
@@ -1802,6 +1802,135 @@
   </menu>
 <!-- END OF COMMANDS MENU -->
 
+<!-- MK -->
+<!-- START OF RLV MENU -->
+  <menu
+   create_jump_keys="true"
+   label="RLV"
+   name="RLV"
+   tear_off="true"
+   visible="true">
+    <menu_item_call
+     label="List restrictions"
+     name="List restrictions"
+     visible="true">
+      <menu_item_call.on_click
+       function="Rlv.ListRlvRestrictions" />
+    </menu_item_call>
+    <menu_item_separator/>
+    <menu_item_check
+     label="Show Debug Messages"
+     name="Show Debug Messages">
+      <menu_item_check.on_check
+       function="CheckControl"
+       parameter="RestrainedLoveDebug" />
+      <menu_item_check.on_click
+       function="ToggleControl"
+       parameter="RestrainedLoveDebug" />
+    </menu_item_check>
+    <menu_item_check
+     label="Forbid offers to #RLV"
+     name="Forbid offers to #RLV">
+      <menu_item_check.on_check
+       function="CheckControl"
+       parameter="RestrainedLoveForbidGiveToRLV" />
+      <menu_item_check.on_click
+       function="ToggleControl"
+       parameter="RestrainedLoveForbidGiveToRLV" />
+    </menu_item_check>
+    <menu_item_check
+     label="Show '...'"
+     name="ShowEllipsis">
+      <menu_item_check.on_check
+       function="CheckControl"
+       parameter="RestrainedLoveShowEllipsis" />
+      <menu_item_check.on_click
+       function="ToggleControl"
+       parameter="RestrainedLoveShowEllipsis" />
+    </menu_item_check>
+    <menu_item_check
+     label="Double-click to replace items"
+     name="RestrainedLoveDoubleClickWear">
+      <menu_item_check.on_check
+       function="CheckControl"
+       parameter="RestrainedLoveDoubleClickWear" />
+      <menu_item_check.on_click
+       function="ToggleControl"
+       parameter="RestrainedLoveDoubleClickWear" />
+    </menu_item_check>
+    <menu_item_separator/>
+    <menu_item_check
+     label="Report avatar entering chat range"
+     name="RadarReportChatRange">
+      <menu_item_check.on_check
+       function="CheckControl"
+       parameter="RadarReportChatRange" />
+      <menu_item_check.on_click
+       function="ToggleControl"
+       parameter="RadarReportChatRange" />
+    </menu_item_check>
+    <menu_item_check
+     label="Report avatar entering draw range"
+     name="RadarReportDrawRange">
+      <menu_item_check.on_check
+       function="CheckControl"
+       parameter="RadarReportDrawRange" />
+      <menu_item_check.on_click
+       function="ToggleControl"
+       parameter="RadarReportDrawRange" />
+    </menu_item_check>
+    <menu_item_separator/>
+    <menu
+     create_jump_keys="true"
+     label="Focus"
+     name="Focus"
+     tear_off="true">
+      <menu_item_call
+       label="Head"
+       name="RLV.FocusHead"
+       shortcut="control|alt|shift|U">
+        <menu_item_call.on_click
+         function="RLV.FocusHead" />
+      </menu_item_call>
+      <menu_item_call
+       label="Pelvis"
+       name="RLV.FocusPelvis"
+       shortcut="control|alt|shift|J">
+        <menu_item_call.on_click
+         function="RLV.FocusPelvis" />
+      </menu_item_call>
+      <menu_item_call
+       label="Left hand"
+       name="RLV.FocusLeftHand"
+       shortcut="control|alt|shift|I">
+        <menu_item_call.on_click
+         function="RLV.FocusLeftHand" />
+      </menu_item_call>
+      <menu_item_call
+       label="Right hand"
+       name="RLV.FocusRightHand"
+       shortcut="control|alt|shift|O">
+        <menu_item_call.on_click
+         function="RLV.FocusRightHand" />
+      </menu_item_call>
+      <menu_item_call
+       label="Left foot"
+       name="RLV.FocusLeftFoot"
+       shortcut="control|alt|shift|K">
+        <menu_item_call.on_click
+         function="RLV.FocusLeftFoot" />
+      </menu_item_call>
+      <menu_item_call
+       label="Right foot"
+       name="RLV.FocusRightFoot"
+       shortcut="control|alt|shift|L">
+        <menu_item_call.on_click
+         function="RLV.FocusRightFoot" />
+      </menu_item_call>
+    </menu>
+  </menu>
+<!-- END OF RLV MENU -->
+<!-- mk -->
 
 <!-- START OF HELP MENU -->  
   <menu
