@@ -979,7 +979,7 @@ void LLViewerParcelMgr::sendParcelGodForceOwner(const LLUUID& owner_id)
 		return;
 	}
 
-	LL_INFOS() << "Claiming " << mWestSouth << " to " << mEastNorth << LL_ENDL;
+	LL_INFOS("ParcelMgr") << "Claiming " << mWestSouth << " to " << mEastNorth << LL_ENDL;
 
 	// BUG: Only works for the region containing mWestSouthBottom
 	LLVector3d east_north_region_check( mEastNorth );
@@ -1002,7 +1002,7 @@ void LLViewerParcelMgr::sendParcelGodForceOwner(const LLUUID& owner_id)
 		return;
 	}
 
-	LL_INFOS() << "Region " << region->getOriginGlobal() << LL_ENDL;
+	LL_INFOS("ParcelMgr") << "Region " << region->getOriginGlobal() << LL_ENDL;
 
 	LLSD payload;
 	payload["owner_id"] = owner_id;
@@ -1142,8 +1142,8 @@ LLViewerParcelMgr::ParcelBuyInfo* LLViewerParcelMgr::setupParcelBuy(
 	
 	if (is_claim)
 	{
-		LL_INFOS() << "Claiming " << mWestSouth << " to " << mEastNorth << LL_ENDL;
-		LL_INFOS() << "Region " << region->getOriginGlobal() << LL_ENDL;
+		LL_INFOS("ParcelMgr") << "Claiming " << mWestSouth << " to " << mEastNorth << LL_ENDL;
+		LL_INFOS("ParcelMgr") << "Region " << region->getOriginGlobal() << LL_ENDL;
 
 		// BUG: Only works for the region containing mWestSouthBottom
 		LLVector3d east_north_region_check( mEastNorth );
@@ -1313,7 +1313,6 @@ void LLViewerParcelMgr::sendParcelPropertiesUpdate(LLParcel* parcel, bool use_ag
 
 	LLViewerRegion *region = use_agent_region ? gAgent.getRegion() : LLWorld::getInstance()->getRegionFromPosGlobal( mWestSouth );
 	if (!region) return;
-	//LL_INFOS() << "found region: " << region->getName() << LL_ENDL;
 
 	LLSD body;
 	std::string url = region->getCapability("ParcelPropertiesUpdate");
@@ -1323,7 +1322,7 @@ void LLViewerParcelMgr::sendParcelPropertiesUpdate(LLParcel* parcel, bool use_ag
 		U32 message_flags = 0x01;
 		body["flags"] = ll_sd_from_U32(message_flags);
 		parcel->packMessage(body);
-		LL_INFOS() << "Sending parcel properties update via capability to: "
+		LL_INFOS("ParcelMgr") << "Sending parcel properties update via capability to: "
 			<< url << LL_ENDL;
 		LLHTTPClient::post(url, body, new LLHTTPClient::Responder());
 	}
@@ -1372,6 +1371,8 @@ void LLViewerParcelMgr::setHoverParcel(const LLVector3d& pos)
 	{
 		return;
 	}
+
+	LL_DEBUGS("ParcelMgr") << "Requesting parcel properties on hover, for " << pos << LL_ENDL;
 
 
 	// Send a rectangle around the point.
@@ -1489,7 +1490,7 @@ void LLViewerParcelMgr::processParcelProperties(LLMessageSystem *msg, void **use
 	if (request_result == PARCEL_RESULT_NO_DATA)
 	{
 		// no valid parcel data
-		LL_INFOS() << "no valid parcel data" << LL_ENDL;
+		LL_INFOS("ParcelMgr") << "no valid parcel data" << LL_ENDL;
 		return;
 	}
 
@@ -1521,7 +1522,7 @@ void LLViewerParcelMgr::processParcelProperties(LLMessageSystem *msg, void **use
 	}
 	else
 	{
-		LL_INFOS() << "out of order agent parcel sequence id " << sequence_id
+		LL_INFOS("ParcelMgr") << "out of order agent parcel sequence id " << sequence_id
 			<< " last good " << parcel_mgr.mAgentParcelSequenceID
 			<< LL_ENDL;
 		return;
@@ -1563,6 +1564,8 @@ void LLViewerParcelMgr::processParcelProperties(LLMessageSystem *msg, void **use
 	}
 
 	msg->getS32("ParcelData", "OtherCleanTime", other_clean_time );
+
+	LL_DEBUGS("ParcelMgr") << "Processing parcel " << local_id << " update, target(sequence): " << sequence_id << LL_ENDL;
 
 	// Actually extract the data.
 	if (parcel)
@@ -1811,7 +1814,7 @@ void LLViewerParcelMgr::processParcelProperties(LLMessageSystem *msg, void **use
                         }
                         else
                         {
-                            LL_INFOS() << "Stopping parcel music (invalid audio stream URL)" << LL_ENDL;
+                            LL_INFOS("ParcelMgr") << "Stopping parcel music (invalid audio stream URL)" << LL_ENDL;
                             // clears the URL
                             // null value causes fade out
                             LLViewerAudio::getInstance()->startInternetStreamWithAutoFade(LLStringUtil::null);
@@ -1819,7 +1822,7 @@ void LLViewerParcelMgr::processParcelProperties(LLMessageSystem *msg, void **use
                     }
                     else if (!gAudiop->getInternetStreamURL().empty())
                     {
-                        LL_INFOS() << "Stopping parcel music (parcel stream URL is empty)" << LL_ENDL;
+                        LL_INFOS("ParcelMgr") << "Stopping parcel music (parcel stream URL is empty)" << LL_ENDL;
                         // null value causes fade out
                         LLViewerAudio::getInstance()->startInternetStreamWithAutoFade(LLStringUtil::null);
                     }
@@ -1848,7 +1851,7 @@ void LLViewerParcelMgr::optionally_start_music(const std::string& music_url)
 		     gSavedSettings.getBOOL(LLViewerMedia::AUTO_PLAY_MEDIA_SETTING) &&
 			 gSavedSettings.getBOOL("MediaTentativeAutoPlay")))
 		{
-			LL_INFOS() << "Starting parcel music " << music_url << LL_ENDL;
+			LL_INFOS("ParcelMgr") << "Starting parcel music " << music_url << LL_ENDL;
 			LLViewerAudio::getInstance()->startInternetStreamWithAutoFade(music_url);
 		}
 		else
@@ -1876,7 +1879,7 @@ void LLViewerParcelMgr::processParcelAccessListReply(LLMessageSystem *msg, void 
 
 	if (parcel_id != parcel->getLocalID())
 	{
-		LL_WARNS_ONCE("") << "processParcelAccessListReply for parcel " << parcel_id
+		LL_WARNS_ONCE("ParcelMgr") << "processParcelAccessListReply for parcel " << parcel_id
 			<< " which isn't the selected parcel " << parcel->getLocalID()<< LL_ENDL;
 		return;
 	}
