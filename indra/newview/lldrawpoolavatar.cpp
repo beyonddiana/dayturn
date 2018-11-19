@@ -120,21 +120,21 @@ LLDrawPoolAvatar::~LLDrawPoolAvatar()
 }
 
 // virtual
-BOOL LLDrawPoolAvatar::isDead()
+bool LLDrawPoolAvatar::isDead()
 {
     if (!LLFacePool::isDead())
     {
-        return FALSE;
+        return false;
     }
     
 	for (U32 i = 0; i < NUM_RIGGED_PASSES; ++i)
     {
         if (mRiggedFace[i].size() > 0)
         {
-            return FALSE;
+            return false;
         }
     }
-    return TRUE;
+    return false;
 }
  
 //-----------------------------------------------------------------------------
