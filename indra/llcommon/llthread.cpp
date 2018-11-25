@@ -34,6 +34,7 @@
 #include "lltimer.h"
 #include "lltrace.h"
 #include "lltracethreadrecorder.h"
+#include "llexception.h"
 
 #if LL_LINUX
 #include <sched.h>
