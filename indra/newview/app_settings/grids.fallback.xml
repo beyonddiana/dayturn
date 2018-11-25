@@ -1,5 +1,77 @@
 <llsd>
     <map>
+    <key>127.0.0.1:8002</key>
+      <map>
+        <key>LastModified</key>
+        <date>1970-01-01T13:37:13.37Z</date>
+        <key>gridname</key>
+        <string>localhost</string>
+        <key>gridnick</key>
+        <string>localhost</string>
+        <key>login_identifier_types</key>
+        <array>
+          <string>agent</string>
+          <string>account</string>
+        </array>
+        <key>loginpage</key>
+        <string />
+        <key>loginuri</key>
+        <array>
+          <string>http://127.0.0.1:8002</string>
+        </array>
+        <key>name</key>
+        <string>127.0.0.1:8002</string>
+        <key>slurl_base</key>
+        <string>hop://127.0.0.1:8002/</string>
+      </map>
+    <key>127.0.0.1:9000</key>
+        <map>
+        <key>LastModified</key>
+            <date>1970-01-01T13:37:13.37Z</date>
+        <key>gridname</key>
+            <string>localhost</string>
+        <key>gridnick</key>
+            <string>localhost</string>
+        <key>login_identifier_types</key>
+            <array>
+                <string>agent</string>
+                <string>account</string>
+            </array>
+        <key>loginpage</key>
+            <string/>
+        <key>loginuri</key>
+            <array>
+                <string>http://127.0.0.1:9000</string>
+            </array>
+        <key>name</key>
+            <string>127.0.0.1:9000</string>
+        <key>slurl_base</key>
+            <string>hop://127.0.0.1:9000/</string>
+        </map>
+   <key>127.0.0.1:8080</key>
+        <map>
+        <key>LastModified</key>
+            <date>1970-01-01T13:37:13.37Z</date>
+        <key>gridname</key>
+            <string>Grid Proxy</string>
+        <key>gridnick</key>
+            <string>localhost</string>
+        <key>login_identifier_types</key>
+            <array>
+                <string>agent</string>
+                <string>account</string>
+            </array>
+        <key>loginpage</key>
+            <string>http://lib.openmetaverse.org/wiki/SLProxy</string>
+        <key>loginuri</key>
+            <array>
+                <string>http://127.0.0.1:8080</string>
+            </array>
+        <key>name</key>
+            <string>127.0.0.1:8080</string>
+        <key>slurl_base</key>
+            <string>hop://127.0.0.1:8080/</string>
+        </map>                  
     <key>hg.sirinhgpole.com:8002</key>
         <map>
         <key>LastModified</key>
@@ -34,30 +106,6 @@
         <key>slurl_base</key>
             <string>hop://hg.sirinhgpole.com:8002/</string>
         </map>
-    <key>127.0.0.1:8002</key>
-      <map>
-        <key>LastModified</key>
-        <date>1970-01-01T13:37:13.37Z</date>
-        <key>gridname</key>
-        <string>localhost</string>
-        <key>gridnick</key>
-        <string>localhost</string>
-        <key>login_identifier_types</key>
-        <array>
-          <string>agent</string>
-          <string>account</string>
-        </array>
-        <key>loginpage</key>
-        <string />
-        <key>loginuri</key>
-        <array>
-          <string>http://127.0.0.1:8002</string>
-        </array>
-        <key>name</key>
-        <string>127.0.0.1:8002</string>
-        <key>slurl_base</key>
-        <string>hop://127.0.0.1:8002/</string>
-      </map> 
      <key>tanglegrid.net:8002</key>
         <map>
         <key>LastModified</key>
@@ -180,63 +228,41 @@
         <key>slurl_base</key>
             <string>hop://grid.3rdrockgrid.com:8002/</string>
         </map>
-	<key>inworldz.com:8002</key>
+    <key>login.islandzvw.com:8002</key>
         <map>
         <key>LastModified</key>
-            <date>2012-03-31T13:37:13.37Z</date>
+            <date>2018-11-25T13:41:11.46Z</date>
         <key>about</key>
-            <string>http://inworldz.com/</string>
+            <string>http://www.islandzvw.com/about/</string>
         <key>gridname</key>
-            <string>Inworldz</string>
+            <string>Islandz Virtual World</string>
         <key>gridnick</key>
-            <string>Inworldz</string>
+            <string>islandz</string>
         <key>help</key>
-            <string>http://inworldz.com/faq.php</string>
+            <string>http://www.islandzvw.com/help</string>
         <key>helperuri</key>
-            <string>http://inworldz.com/</string>
+            <string>http://www.islandzvw.com/</string>
         <key>login_identifier_types</key>
             <array>
                 <string>agent</string>
                 <string>account</string>
             </array>
         <key>loginpage</key>
-            <string>http://inworldz.com/loginscreen.php</string>
+            <string>http://www.islandzvw.com/loginscreen.php</string>
         <key>loginuri</key>
             <array>
-                <string>http://inworldz.com:8002/</string>
+                <string>http://login.islandzvw.com:8002/</string>
             </array>
         <key>name</key>
-            <string>inworldz.com:8002</string>
+            <string>login.islandzvw.com:8002</string>
         <key>password</key>
-            <string>http://inworldz.com/</string>
+            <string>http://www.islandzvw.com/password</string>
+        <key>platform</key>
+            <string>Halcyon</string>
         <key>register</key>
-            <string>http://inworldz.com/register.php</string>
+            <string>http://www.islandzvw.com/register/</string>
         <key>slurl_base</key>
-            <string>hop://inworldz.com:8002/</string>
-        </map>
-    <key>127.0.0.1:9000</key>
-        <map>
-        <key>LastModified</key>
-            <date>1970-01-01T13:37:13.37Z</date>
-        <key>gridname</key>
-            <string>localhost</string>
-        <key>gridnick</key>
-            <string>localhost</string>
-        <key>login_identifier_types</key>
-            <array>
-                <string>agent</string>
-                <string>account</string>
-            </array>
-        <key>loginpage</key>
-            <string/>
-        <key>loginuri</key>
-            <array>
-                <string>http://127.0.0.1:9000</string>
-            </array>
-        <key>name</key>
-            <string>127.0.0.1:9000</string>
-        <key>slurl_base</key>
-            <string>hop://127.0.0.1:9000/</string>
+            <string>hop://login.islandzvw.com:8002/</string>
         </map>
     <key>localhost:9100</key>
         <map>
@@ -472,29 +498,41 @@
         <key>web_profile_url</key>
         	<string>https://my.secondlife.com</string>
         </map>
-   <key>127.0.0.1:8080</key>
+    <key>grid.xmir.org:8002</key>
         <map>
         <key>LastModified</key>
-            <date>1970-01-01T13:37:13.37Z</date>
+            <date>1970-01-01T00:00:00Z</date>
+        <key>about</key>
+            <string>http://www.xmir.org/about.html</string>
+        <key>gatekeeper</key>
+            <string>grid.xmir.org:8002</string>
         <key>gridname</key>
-            <string>Grid Proxy</string>
+            <string>XMIR</string>
         <key>gridnick</key>
-            <string>localhost</string>
+            <string>XMIR</string>
+        <key>help</key>
+            <string>http://www.xmir.org/support/</string>
+        <key>helperuri</key>
+            <string>http://www.dayturn.com/opensim/</string>
         <key>login_identifier_types</key>
             <array>
                 <string>agent</string>
                 <string>account</string>
             </array>
         <key>loginpage</key>
-            <string>http://lib.openmetaverse.org/wiki/SLProxy</string>
+            <string>http://www.xmir.org</string>
         <key>loginuri</key>
             <array>
-                <string>http://127.0.0.1:8080</string>
+                <string>http://grid.xmir.org:8002</string>
             </array>
         <key>name</key>
-            <string>127.0.0.1:8080</string>
+            <string>grid.xmir.org:8002</string>
+        <key>platform</key>
+            <string>OpenSim</string>
+        <key>register</key>
+            <string>http://www.xmir.org/register-avatar.html</string>
         <key>slurl_base</key>
-            <string>hop://127.0.0.1:8080/</string>
-        </map>
+            <string>hop://grid.xmir.org:8002/</string>
+        </map>        
     </map>
 </llsd>
