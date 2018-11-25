@@ -29,6 +29,8 @@
 
 #include "llinitparam.h"
 #include "llsdparam.h"
+#include "llexception.h"
+
 #include "llwin32headerslean.h"
 #include "apr_thread_proc.h"
 #include <boost/shared_ptr.hpp>
