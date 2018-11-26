@@ -27,6 +27,11 @@ build_dir_Darwin()
   echo build-darwin
 }
 
+build_dir_CYGWIN()
+{
+  echo build-vs
+}
+
 viewer_channel_suffix()
 {
     local package_name="$1"
@@ -340,14 +345,24 @@ then
       case "$last_built_variant" in
       Release)
       # nat 2016-12-22: without RELEASE_CRASH_REPORTING, we have no symbol file.
-      if [ "${RELEASE_CRASH_REPORTING:-}" != "OFF" ]
-      then
-        	# Upload crash reporter files
-        	for symbolfile in $symbolfiles
-        	do
-          	upload_item symbolfile "$build_dir/$symbolfile" binary/octet-stream
-        	done
-      fi
+          if [ "${RELEASE_CRASH_REPORTING:-}" != "OFF" ]
+          then
+              # Upload crash reporter file
+              # These names must match the set of VIEWER_SYMBOL_FILE in indra/newview/CMakeLists.txt
+              case "$arch" in
+                  CYGWIN)
+                      symbolfile="$build_dir/newview/Release/viewer-symbols-windows-${AUTOBUILD_ADDRSIZE}.tar.bz2"
+                      ;;
+                  Darwin)
+                      symbolfile="$build_dir/newview/Release/viewer-symbols-darwin-${AUTOBUILD_ADDRSIZE}.tar.bz2"
+                      ;;
+                  Linux)
+                      symbolfile="$build_dir/newview/Release/viewer-symbols-linux-${AUTOBUILD_ADDRSIZE}.tar.bz2"
+                      ;;
+              esac
+              python_cmd "$helpers/codeticket.py" addoutput "Symbolfile" "$symbolfile" \
+                  || fatal "Upload of symbolfile failed"
+          fi
 
         # Upload the actual dependencies used
         if [ -r "$build_dir/packages/installed-packages.xml" ]
