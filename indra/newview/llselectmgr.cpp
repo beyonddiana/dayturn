@@ -3749,7 +3749,22 @@ BOOL LLSelectMgr::selectGetEditMoveLinksetPermissions(bool &move, bool &modify)
         {
             this_object_movable = true;
         }
-        move = move && this_object_movable;
+//MK
+		// can't edit objects that we are sitting on,
+		// while prevented from sit-tping or unsitting
+		LLVOAvatar* avatar = gAgentAvatarp;
+		if (gRRenabled && !object->isAttachment() && (gAgent.mRRInterface.mSittpMax < EXTREMUM
+			|| (avatar && avatar->mIsSitting &&
+			(gAgent.mRRInterface.mContainsUnsit || gAgent.mRRInterface.mContainsStandtp))))
+		{
+			if (gAgentAvatarp->isSitting() && gAgentAvatarp->getRoot() == object->getRoot())
+			{
+				this_object_movable = FALSE;
+				modify = false;
+			}
+		}
+//mk
+		move = move && this_object_movable;
         modify = modify && object->permModify();
     }
 
