@@ -696,6 +696,16 @@ public:
 				avatar->calculateUpdateRenderCost();			// Make sure the numbers are up-to-date
 
 				trunc_name = utf8str_truncate(avatar->getFullname(), 16);
+//MK
+				// don't show the name under @shownames
+				if (gRRenabled)
+				{
+					if (gAgent.mRRInterface.mContainsShownames)
+					{
+						trunc_name = "(Hidden)";
+					}
+				}
+//mk				
 				addText(xpos, ypos, llformat("%s : rez %d, weight %d, bytes %d area %.2f",
 					trunc_name.c_str(),
 					avatar->getRezzedStatus(),
