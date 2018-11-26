@@ -5549,8 +5549,8 @@ void LLAppViewer::resumeMainloopTimeout(const std::string& state, F32 secs)
 	{
 		if(secs < 0.0f)
 		{
-			secs = gSavedSettings.getF32("MainloopTimeoutDefault");
-		}
+			static LLCachedControl<F32> mainloop_timeout(gSavedSettings, "MainloopTimeoutDefault", 60);
+			secs = mainloop_timeout;		}
 		
 		mMainloopTimeout->setTimeout(secs);
 		mMainloopTimeout->start(state);
@@ -5576,7 +5576,8 @@ void LLAppViewer::pingMainloopTimeout(const std::string& state, F32 secs)
 	{
 		if(secs < 0.0f)
 		{
-			secs = gSavedSettings.getF32("MainloopTimeoutDefault");
+			static LLCachedControl<F32> mainloop_timeout(gSavedSettings, "MainloopTimeoutDefault", 60);
+			secs = mainloop_timeout;
 		}
 
 		mMainloopTimeout->setTimeout(secs);
