@@ -58,6 +58,7 @@ enum LLVolumeInterfaceType
 	INTERFACE_FLEXIBLE = 1,
 };
 
+const F32 MAX_LOD_FACTOR = 8.0f;
 
 class LLRiggedVolume : public LLVolume
 {
