@@ -742,10 +742,20 @@ void LLFloaterIMNearbyChat::addMessage(const LLChat& chat,bool archive,const LLS
 			LLAvatarName av_name;
 			LLAvatarNameCache::get(chat.mFromID, &av_name);
 
-			if (!av_name.isDisplayNameDefault())
+//MK
+			// if mFromID is null, this means we have purposely erased the UUID of the chatter, probably because we are
+			// under @shownames
+			// => don't do any cache lookup, keep the obfuscated mFromName we calculated in process_chat_from_simulator
+			if (chat.mFromID != LLUUID::null)
 			{
-				from_name = av_name.getCompleteName();
+//mk
+				if (!av_name.isDisplayNameDefault())
+				{
+					from_name = av_name.getCompleteName();
+				}
+//MK
 			}
+//mk
 		}
 
 		LLLogChat::saveHistory("chat", from_name, chat.mFromID, chat.mText);
