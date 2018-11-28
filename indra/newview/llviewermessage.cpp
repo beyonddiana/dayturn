@@ -4336,6 +4336,16 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 					chat.mFromName = from_name;
 				}
 			}
+
+			else
+			{
+				if (gAgent.mRRInterface.mContainsShownames)
+				{
+					// this is an attachment we own, but it could imitate the name of someone around => censor it
+					from_name = gAgent.mRRInterface.getCensoredMessage(from_name);
+					chat.mFromName = from_name;
+				}
+			}
 		}
 //mk
 		// Look for IRC-style emotes here so chatbubbles work
