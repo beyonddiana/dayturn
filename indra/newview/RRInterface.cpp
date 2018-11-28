@@ -4481,6 +4481,11 @@ bool RRInterface::canUnwear(LLWearableType::EType type)
 
 bool RRInterface::canWear(LLInventoryItem* item)
 {
+	// CA: Apply the same defensive measures here as canWear(LLWearableType)
+	if (!gAgentAvatarp) {
+		return true;
+	}
+
 	// If we are still a cloud, allow to wear whatever the restrictions (we are probably logging on)
 	if (gAgentAvatarp && gAgentAvatarp->getIsCloud())
 	{
@@ -4523,6 +4528,11 @@ bool RRInterface::canWear(LLInventoryItem* item)
 
 bool RRInterface::canWear(LLWearableType::EType type, bool from_server /*= false*/)
 {
+	// CA: Defensive code
+	if (!gAgentAvatarp) {
+		return true;
+	}
+
 	// If we are still a cloud, allow to wear whatever the restrictions (we are probably logging on)
 	if (gAgentAvatarp && gAgentAvatarp->getIsCloud())
 	{
