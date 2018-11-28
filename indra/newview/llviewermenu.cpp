@@ -9900,9 +9900,12 @@ class LLWorldEnvSettings : public view_listener_t
 			LLEnvManagerNew::instance().setUseSkyPreset("Midnight");
 		}
 //MK
-		else if (tod == "default")
+		else if (tod == "region")
 		{
+			LLWLParamManager::getInstance()->mAnimator.mIsRunning = true;
+			LLWLParamManager::getInstance()->mAnimator.setTimeType(LLWLAnimator::TIME_LINDEN);
 			LLEnvManagerNew::instance().useRegionSettings();
+			LLWLParamManager::getInstance()->propagateParameters();
 		}
 //mk
 		else
