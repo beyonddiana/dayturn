@@ -18,7 +18,7 @@ public:
 	NACLFloaterExploreSounds(const LLSD& key);
 	BOOL postBuild();
 
-	bool tick();
+	BOOL tick();
 
 	LLSoundHistoryItem getItem(const LLUUID& itemID);
 
