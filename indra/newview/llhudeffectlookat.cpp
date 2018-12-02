@@ -49,6 +49,9 @@
 
 BOOL LLHUDEffectLookAt::sDebugLookAt = FALSE;
 
+//CA for @shownames
+#include "RRInterface.h"
+
 // packet layout
 const S32 SOURCE_AVATAR = 0;
 const S32 TARGET_OBJECT = 16;
@@ -558,8 +561,10 @@ void LLHUDEffectLookAt::render()
 	)) {
 		LLVector3 target = mTargetPos + ((LLVOAvatar*)(LLViewerObject*)mSourceObject)->mHeadp->getWorldPosition();
 		LLColor3 color = (*mAttentions)[mTargetType].mColor;
+		
+		//CA: squash lookat_names if @shownames is in effect
 
-		if (lookat_names) {
+		if (lookat_names && (!gRRenabled || (gRRenabled && !gAgent.mRRInterface.mContainsShownames))) {
 			//
 			//	render name above crosshairs
 			//
