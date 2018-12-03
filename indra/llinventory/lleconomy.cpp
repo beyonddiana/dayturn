@@ -26,12 +26,11 @@
 #include "linden_common.h"
 
 #include "lleconomy.h"
-#include "llerror.h"
 #include "message.h"
 #include "v3math.h"
 
 
-LLBaseEconomy::~LLBaseEconomy()
+LLBaseEconomy::LLBaseEconomy()
 :	mObjectCount( -1 ),
 mObjectCapacity( -1 ),
 mPriceObjectClaim( -1 ),
@@ -45,8 +44,7 @@ mTeleportPriceExponent( -1 ),
 mPriceGroupCreate( -1 )
 { }
 
-
-LLGlobalEconomy::~LLGlobalEconomy()
+LLBaseEconomy::~LLBaseEconomy()
 { }
 
 void LLBaseEconomy::addObserver(LLEconomyObserver* observer)
