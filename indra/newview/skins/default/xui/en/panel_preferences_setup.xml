@@ -298,7 +298,7 @@
      width="300">
 		Http:
   </text>
-    <check_box
+  <check_box
     top_delta="4"
     enabled="true"
     follows="left|top"
@@ -310,7 +310,18 @@
     name="ImagePipelineUseHTTP"
     width="400"           
     top_pad="5"/>
-    <check_box
+  <check_box
+    top_delta="4"
+    enabled="true"
+    follows="left|top"
+    height="16"
+    control_name="UseHTTPInventory"
+    label="Fetch Inventory with HTTP"
+    mouse_opaque="true"
+    name="UseHTTPInventory"
+    width="400"           
+    top_pad="5"/>
+  <check_box
     top_delta="4"
     enabled="true"
     follows="left|top"

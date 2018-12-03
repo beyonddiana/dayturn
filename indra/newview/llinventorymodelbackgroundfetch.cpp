@@ -339,7 +339,11 @@ void LLInventoryModelBackgroundFetch::backgroundFetch()
 	if (mBackgroundFetchActive && gAgent.getRegion() && gAgent.getRegion()->capabilitiesReceived())
 	{
 		// If we'll be using the capability, we'll be sending batches and the background thing isn't as important.
-		bulkFetch();
+		if (gSavedSettings.getBOOL("UseHTTPInventory")) 
+		{
+			bulkFetch();
+			return;
+		}
 	}
 }
 
