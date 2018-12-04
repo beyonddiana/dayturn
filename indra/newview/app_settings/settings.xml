@@ -14524,6 +14524,17 @@
       <key>Value</key>
       <integer>1</integer>
     </map>
+    <key>RegionCrossingInterpolationTime</key>
+    <map>
+      <key>Comment</key>
+      <string>How long to extrapolate object motion after crossing regions</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>F32</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
     <key>VerboseLogs</key>
     <map>
       <key>Comment</key>
