@@ -74,11 +74,11 @@
 			<menu_item_check label="区画プロパティ" name="Parcel Properties"/>
 			<menu_item_check label="アドバンスメニュー" name="Show Advanced Menu"/>
 		</menu>
-		<menu label="太陽" name="Sun">
+		<menu label="日" name="Sun">
 			<menu_item_check label="日の出" name="Sunrise"/>
 			<menu_item_check label="正午" name="Noon"/>
 			<menu_item_check label="日没" name="Sunset"/>
-			<menu_item_check label="真夜中" name="Midnight"/>
+			<menu_item_check label="深夜" name="Midnight"/>
 			<menu_item_check label="リージョンの設定を使用" name="Use Region Settings"/>
 		</menu>
 		<menu label="自然環境エディター" name="Environment Editor">
@@ -274,7 +274,6 @@
 			<menu_item_check label="マトリックスを表示する" name="Show Matrices"/>
 			<menu_item_check label="カーソルを乗せた場所の色を表示する" name="Show Color Under Cursor"/>
 			<menu_item_check label="メモリを表示：" name="Show Memory"/>
-			<menu_item_check label="プライベートメモリ情報を表示" name="Show Private Mem Info"/>
 			<menu_item_check label="オブジェクトのアップデートを表示する" name="Show Updates"/>
 		</menu>
 		<menu label="エラー実行" name="Force Errors">
@@ -309,6 +308,7 @@
 			<menu_item_check label="テクスチャの範囲" name="Texture Area"/>
 			<menu_item_check label="側面" name="Face Area"/>
 			<menu_item_check label="LOD 情報" name="LOD Info"/>
+			<menu_item_check label="三角形の数" name="Triangle Count"/>
 			<menu_item_check label="制作キュー" name="Build Queue"/>
 			<menu_item_check label="光" name="Lights"/>
 			<menu_item_check label="骨組みの衝突判定" name="Collision Skeleton"/>
