@@ -74,9 +74,9 @@
 			<menu_item_check label="Propriétés de la parcelle" name="Parcel Properties"/>
 			<menu_item_check label="Menu Avancé" name="Show Advanced Menu"/>
 		</menu>
-		<menu label="Luminosité" name="Sun">
+		<menu label="Soleil" name="Sun">
 			<menu_item_check label="Aube" name="Sunrise"/>
-			<menu_item_check label="Milieu de journée" name="Noon"/>
+			<menu_item_check label="Midi" name="Noon"/>
 			<menu_item_check label="Coucher de soleil" name="Sunset"/>
 			<menu_item_check label="Minuit" name="Midnight"/>
 			<menu_item_check label="Utiliser les réglages de la région" name="Use Region Settings"/>
@@ -275,7 +275,6 @@
 			<menu_item_check label="Afficher les matrices" name="Show Matrices"/>
 			<menu_item_check label="Afficher la couleur sous le curseur" name="Show Color Under Cursor"/>
 			<menu_item_check label="Afficher la mémoire" name="Show Memory"/>
-			<menu_item_check label="Afficher les infos de mémoire privées" name="Show Private Mem Info"/>
 			<menu_item_check label="Afficher les mises à jour des objets" name="Show Updates"/>
 		</menu>
 		<menu label="Forcer une erreur" name="Force Errors">
@@ -310,6 +309,7 @@
 			<menu_item_check label="Zone de texture" name="Texture Area"/>
 			<menu_item_check label="Zone de face" name="Face Area"/>
 			<menu_item_check label="Infos sur le niveau de détail" name="LOD Info"/>
+			<menu_item_check label="Nombre de triangles" name="Triangle Count"/>
 			<menu_item_check label="File d&apos;attente pour la construction" name="Build Queue"/>
 			<menu_item_check label="Lumières" name="Lights"/>
 			<menu_item_check label="Squelette de collision" name="Collision Skeleton"/>

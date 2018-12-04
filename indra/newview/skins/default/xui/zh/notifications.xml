@@ -3994,6 +3994,9 @@ Replace texture [TEXTURE_NUM] with a 24-bit 1024 x 1024 or smaller image then cl
 	<notification name="CantCreateObjectRegionFull">
 		無法建立要求的物件。 地區已滿載。
 	</notification>
+	<notification name="CantCreateAnimatedObjectTooLarge">
+		無法建立所求的動作物件，因為超過架設三角形的限制。
+	</notification>
 	<notification name="CantAttackMultipleObjOneSpot">
 		你不能將多個物件附著到同一個點。
 	</notification>
@@ -4041,6 +4044,21 @@ Replace texture [TEXTURE_NUM] with a 24-bit 1024 x 1024 or smaller image then cl
 	</notification>
 	<notification name="CantChangeShape">
 		你無權變更這個形狀。
+	</notification>
+	<notification name="NoPermsTooManyAttachedAnimatedObjects">
+		操作會導致附著的動作物件數目超過限制。
+	</notification>
+	<notification name="NoPermsLinkAnimatedObjectTooLarge">
+		無法連結這些物件，因為連結後的動作物件會超過架設三角形的限制。
+	</notification>
+	<notification name="NoPermsSetFlagAnimatedObjectTooLarge">
+		無法使這物件變為動作物件，因為會超過架設三角形的限制。
+	</notification>
+	<notification name="CantChangeAnimatedObjectStateInsufficientLand">
+		無法改變這一物件的動作物件狀態，因為會超過地段的限制。
+	</notification>
+	<notification name="ErrorNoMeshData">
+		伺服器出錯：無法完成操作，因為網面資料未載入。
 	</notification>
 	<notification name="NoAccessToClaimObjects">
 		你權限不夠，無法在此收取物件。
