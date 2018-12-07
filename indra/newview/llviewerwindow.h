@@ -155,7 +155,8 @@ public:
 									min_width,
 									min_height;
 		Optional<bool>				fullscreen,
-									ignore_pixel_depth;
+									ignore_pixel_depth,
+									first_run;
 
 		Params();
 	};
