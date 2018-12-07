@@ -36,15 +36,15 @@ class LLViewerRegion;
 
 // Class to gather avatar rendering information 
 // that is sent to or fetched from regions.
-class LLAvatarRenderInfoAccountant
+class LLAvatarRenderInfoAccountant : public LLSingleton<LLAvatarRenderInfoAccountant>
 {
-    LLSINGLETON(LLAvatarRenderInfoAccountant);
-    ~LLAvatarRenderInfoAccountant();
+  private:
+	LOG_CLASS(LLAvatarRenderInfoAccountant);
 
-private:
-    LOG_CLASS(LLAvatarRenderInfoAccountant);
+  public:
+	LLAvatarRenderInfoAccountant();
+	~LLAvatarRenderInfoAccountant();
     
-public:
 	static void sendRenderInfoToRegion(LLViewerRegion * regionp);
 	static void getRenderInfoFromRegion(LLViewerRegion * regionp);
 
