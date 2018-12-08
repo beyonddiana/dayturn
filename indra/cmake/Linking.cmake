@@ -68,6 +68,7 @@ if (WINDOWS)
       wldap32
       gdi32
       user32
+      ole32
       dbghelp
       )
 else (WINDOWS)
