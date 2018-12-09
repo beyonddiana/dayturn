@@ -136,6 +136,7 @@
 #include <boost/foreach.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/regex.hpp>
+#include <boost/throw_exception.hpp>
 
 #if LL_WINDOWS
 #	include <share.h> // For _SH_DENYWR in processMarkerFiles
@@ -334,10 +335,10 @@ BOOL				gDisconnected = FALSE;
 // used to restore texture state after a mode switch
 LLFrameTimer	gRestoreGLTimer;
 BOOL			gRestoreGL = FALSE;
-BOOL			gUseWireframe = FALSE;
+bool			gUseWireframe = false;
 
 //use for remember deferred mode in wireframe switch
-BOOL			gInitialDeferredModeForWireframe = FALSE;
+bool			gInitialDeferredModeForWireframe = false;
 
 // VFS globals - see llappviewer.h
 LLVFS* gStaticVFS = NULL;
@@ -740,7 +741,6 @@ LLAppViewer::LLAppViewer()
 LLAppViewer::~LLAppViewer()
 {
 	delete mSettingsLocationList;
-	LLViewerEventRecorder::deleteSingleton();
     	
 	destroyMainloopTimeout();
     
@@ -847,12 +847,6 @@ bool LLAppViewer::init()
     LLMachineID::init();
 	
 	{
-		// Viewer metrics initialization
-		//static LLCachedControl<bool> metrics_submode(gSavedSettings,
-		//											 "QAModeMetrics",
-		//											 false,
-		//											 "Enables QA features (logging, faster cycling) for metrics collector");
-
 		if (gSavedSettings.getBOOL("QAModeMetrics"))
 		{
 			app_metrics_qa_mode = true;
@@ -1618,25 +1612,6 @@ bool LLAppViewer::mainLoop()
 					gFrameStalls++;
 				}
 
-				// Limit FPS
-				static LLCachedControl<F32> max_fps(gSavedSettings, "MaxFPS", -1.0f);
-				// Only limit FPS when we are actually rendering something.  Otherwise
-				// logins, logouts and teleports take much longer to complete.
-				if (max_fps > F_APPROXIMATELY_ZERO &&
-					LLStartUp::getStartupState() == STATE_STARTED &&
-					!gTeleportDisplay &&
-					!logoutRequestSent())
-				{
-					// Sleep a while to limit frame rate.
-					F32 min_frame_time = 1.f / max_fps;
-					S32 milliseconds_to_sleep = llclamp((S32)((min_frame_time - frameTimer.getElapsedTimeF64()) * 1000.f), 0, 1000);
-					if (milliseconds_to_sleep > 0)
-					{
-						LLFastTimer t(FTM_YIELD);
-						ms_sleep(milliseconds_to_sleep);
-					}
-				}
-
 				frameTimer.reset();
 
 				resumeMainloopTimeout();
@@ -1932,9 +1907,7 @@ bool LLAppViewer::cleanup()
 	LLViewerObject::cleanupVOClasses();
 
 	SUBSYSTEM_CLEANUP(LLAvatarAppearance);
-	
-	SUBSYSTEM_CLEANUP(LLAvatarAppearance);
-	
+		
 	SUBSYSTEM_CLEANUP(LLPostProcess);
 
 	LLTracker::cleanupInstance();
@@ -2900,20 +2873,18 @@ bool LLAppViewer::initConfiguration()
 		// This is the second instance of SL. Turn off voice support,
 		// but make sure the setting is *not* persisted.
 		LLControlVariable* disable_voice = gSavedSettings.getControl("CmdLineDisableVoice");
-		// <FS:Ansariel> Voice in multiple instances; by Latif Khalifa
-		//if(disable_voice)
-		if(disable_voice && !gSavedSettings.getBOOL("VoiceMultiInstance"))
-		// </FS:Ansariel>
+		if(disable_voice)
 		{
 			const BOOL DO_NOT_PERSIST = FALSE;
 			disable_voice->setValue(LLSD(TRUE), DO_NOT_PERSIST);
 		}
 	}
 
-   	// need to do this here - need to have initialized global settings first
+   	// NextLoginLocation is set from the command line option
 	std::string nextLoginLocation = gSavedSettings.getString( "NextLoginLocation" );
 	if ( !nextLoginLocation.empty() )
 	{
+		LL_DEBUGS("AppInit")<<"set start from NextLoginLocation: "<<nextLoginLocation<<LL_ENDL;	
 		LLStartUp::setStartSLURL(LLSLURL(nextLoginLocation));
 	}
 	else if (   (   clp.hasOption("login") || clp.hasOption("autologin"))
@@ -4282,8 +4253,16 @@ bool LLAppViewer::initCache()
 	S64 cache_size = (S64)(gSavedSettings.getU32("CacheSize")) * MB;
 	cache_size = llclamp(cache_size, MIN_CACHE_SIZE, MAX_CACHE_SIZE);
 
-	S64 vfs_size = llmin((S64)((cache_size * 2) / 10), MAX_VFS_SIZE);
-	S64 texture_cache_size = cache_size - vfs_size;
+	S64 texture_cache_size = ((cache_size * 8) / 10);
+	S64 vfs_size = cache_size - texture_cache_size;
+
+	if (vfs_size > MAX_VFS_SIZE)
+	{
+		// Give the texture cache more space, since the VFS can't be bigger than 1GB.
+		// This happens when the user's CacheSize setting is greater than 5GB.
+		vfs_size = MAX_VFS_SIZE;
+		texture_cache_size = cache_size - MAX_VFS_SIZE;
+	}
 
 	S64 extra = LLAppViewer::getTextureCache()->initCache(LL_PATH_CACHE, texture_cache_size, texture_cache_mismatch);
 	texture_cache_size -= extra;
