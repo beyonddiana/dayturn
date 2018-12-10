@@ -537,7 +537,7 @@ void fetch_feature_table(std::string table)
 	const std::string base       = gSavedSettings.getString("FeatureManagerHTTPTable");
 
 #if LL_WINDOWS
-	std::string os_string = LLAppViewer::instance()->getOSInfo().getOSStringSimple();
+	std::string os_string = LLOSInfo::instance().getOSStringSimple();
 	std::string filename;
 	if (os_string.find("Microsoft Windows XP") == 0)
 	{
@@ -796,7 +796,7 @@ void LLFeatureManager::applyBaseMasks()
 	}
 
 #if LL_DARWIN
-	const LLOSInfo& osInfo = LLAppViewer::instance()->getOSInfo();
+	const LLOSInfo& osInfo = LLOSInfo::instance();
 #endif
 
 	// now mask by gpu string
