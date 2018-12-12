@@ -4160,6 +4160,16 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 		////			from_name = LLTrans::getString("Unnamed");
 		////		}
 		//mk
+
+		// This is an object, check if its name ends with " Resident". If that's the case, remove that part
+		// as the object is probably trying to imitate someone's speech.
+		// Attention : this would break in case the object name looks like "This object belongs to a Resident".
+		int ind_resident = from_name.find(" Resident");
+		if (ind_resident == from_name.length() - 9)
+		{
+			from_name = LLCacheName::cleanFullName(from_name);
+		}
+ //mk		
 		chat.mFromName = from_name;
 	}
 
