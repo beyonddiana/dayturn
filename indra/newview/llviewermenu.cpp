@@ -9899,15 +9899,6 @@ class LLWorldEnvSettings : public view_listener_t
 		{
 			LLEnvManagerNew::instance().setUseSkyPreset("Midnight");
 		}
-//MK
-		else if (tod == "region")
-		{
-			LLWLParamManager::getInstance()->mAnimator.mIsRunning = true;
-			LLWLParamManager::getInstance()->mAnimator.setTimeType(LLWLAnimator::TIME_LINDEN);
-			LLEnvManagerNew::instance().useRegionSettings();
-			LLWLParamManager::getInstance()->propagateParameters();
-		}
-//mk
 		else
 		{
 			LLEnvManagerNew &envmgr = LLEnvManagerNew::instance();
@@ -9918,6 +9909,12 @@ class LLWorldEnvSettings : public view_listener_t
 					    envmgr.getSkyPresetName(),
 					    envmgr.getDayCycleName(),
 					    use_fixed_sky, use_region_settings);
+//MK
+			LLWLParamManager::getInstance()->mAnimator.mIsRunning = true;
+			LLWLParamManager::getInstance()->mAnimator.setTimeType(LLWLAnimator::TIME_LINDEN);
+			envmgr.useRegionSettings();
+			LLWLParamManager::getInstance()->propagateParameters();
+//mk
 		}
 		return true;
 	}
