@@ -116,6 +116,10 @@ public:
 
 	// describes the skin binding pose
 	LLVector3		mSkinOffset;
+    
+    // Endpoint of the bone, if applicable. This is only relevant for
+    // external programs like Blender, and for diagnostic display.
+    LLVector3		mEnd;
 
 	S32				mJointNum;
 
@@ -151,7 +155,11 @@ public:
 	// get/set name
 	const std::string& getName() const { return mName; }
 	void setName( const std::string &name ) { mName = name; }
-
+    
+    // joint num
+    S32 getJointNum() const { return mJointNum; }
+    void setJointNum(S32 joint_num);
+    
     // get/set support
     SupportCategory getSupport() const { return mSupport; }
     void setSupport( const SupportCategory& support) { mSupport = support; }
@@ -220,7 +228,6 @@ public:
 
 	virtual BOOL isAnimatable() const { return TRUE; }
 
-	S32 getJointNum() const { return mJointNum; }
 
 	void addAttachmentPosOverride( const LLVector3& pos, const LLUUID& mesh_id, const std::string& av_info );
 	void removeAttachmentPosOverride( const LLUUID& mesh_id, const std::string& av_info );
