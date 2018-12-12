@@ -204,6 +204,8 @@ public:
 	void 					addAttachmentPosOverridesForObject(LLViewerObject *vo);
 	void					resetJointPositionsOnDetach(const LLUUID& mesh_id);
 	void					resetJointPositionsOnDetach(LLViewerObject *vo);
+	bool					jointIsRiggedTo(const std::string& joint_name);
+    bool					jointIsRiggedTo(const std::string& joint_name, const LLViewerObject *vo);
 	void					clearAttachmentPosOverrides();
 	
 	/*virtual*/ const LLUUID&	getID() const;
@@ -378,6 +380,7 @@ public:
 /********************************************************************************
  **                                                                            **
  **                    RENDERING
+ 
  **/
 
 public:
