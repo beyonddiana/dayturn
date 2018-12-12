@@ -107,6 +107,7 @@
 #include "llsdutil.h"
 #include "llscenemonitor.h"
 #include "llsdserialize.h"
+#include "llrendersphere.h"
 
 extern F32 SPEED_ADJUST_MAX;
 extern F32 SPEED_ADJUST_MAX_SEC;
@@ -1402,18 +1403,78 @@ void LLVOAvatar::getSpatialExtents(LLVector4a& newMin, LLVector4a& newMax)
 	newMax.add(buffer);
 }
 
+void render_sphere_and_line(const LLVector3& begin_pos, const LLVector3& end_pos, F32 sphere_scale, const LLVector3& occ_color, const LLVector3& visible_color)
+{
+    // Unoccluded bone portions
+    LLGLDepthTest normal_depth(GL_TRUE);
+
+    // Draw line segment for unoccluded joint
+    gGL.diffuseColor3f(visible_color[0], visible_color[1], visible_color[2]);
+
+    gGL.begin(LLRender::LINES);
+    gGL.vertex3fv(begin_pos.mV); 
+    gGL.vertex3fv(end_pos.mV);
+    gGL.end();
+        
+
+    // Draw sphere representing joint pos
+    gGL.pushMatrix();
+    gGL.scalef(sphere_scale, sphere_scale, sphere_scale);
+    gSphere.renderGGL();
+    gGL.popMatrix();
+        
+    LLGLDepthTest depth_under(GL_TRUE, GL_FALSE, GL_GREATER);
+
+    // Occluded bone portions
+    gGL.diffuseColor3f(occ_color[0], occ_color[1], occ_color[2]);
+
+    gGL.begin(LLRender::LINES);
+    gGL.vertex3fv(begin_pos.mV); 
+    gGL.vertex3fv(end_pos.mV);
+    gGL.end();
+
+    // Draw sphere representing joint pos
+    gGL.pushMatrix();
+    gGL.scalef(sphere_scale, sphere_scale, sphere_scale);
+    gSphere.renderGGL();
+    gGL.popMatrix();
+}
+
 //-----------------------------------------------------------------------------
 // renderCollisionVolumes()
 //-----------------------------------------------------------------------------
 void LLVOAvatar::renderCollisionVolumes()
 {
 	std::ostringstream ostr;
+
 	for (S32 i = 0; i < mNumCollisionVolumes; i++)
 	{
-		mCollisionVolumes[i].renderCollision();
 		ostr << mCollisionVolumes[i].getName() << ", ";
-	}
 
+        LLAvatarJointCollisionVolume& collision_volume = mCollisionVolumes[i];
+
+		collision_volume.updateWorldMatrix();
+
+		gGL.pushMatrix();
+		gGL.multMatrix( &collision_volume.getXform()->getWorldMatrix().mMatrix[0][0] );
+
+        LLVector3 begin_pos(0,0,0);
+        LLVector3 end_pos(collision_volume.getEnd());
+        static F32 sphere_scale = 1.0f;
+        static F32 center_dot_scale = 0.05f;
+
+        static LLVector3 CV_COLOR_OCCLUDED(0.0f, 0.0f, 1.0f);
+        static LLVector3 CV_COLOR_VISIBLE(0.5f, 0.5f, 1.0f);
+        static LLVector3 DOT_COLOR_OCCLUDED(1.0f, 1.0f, 1.0f);
+        static LLVector3 DOT_COLOR_VISIBLE(1.0f, 1.0f, 1.0f);
+
+        render_sphere_and_line(begin_pos, end_pos, sphere_scale, CV_COLOR_OCCLUDED, CV_COLOR_VISIBLE);
+        render_sphere_and_line(begin_pos, end_pos, center_dot_scale, DOT_COLOR_OCCLUDED, DOT_COLOR_VISIBLE);
+
+        gGL.popMatrix();
+    }
+
+    
 	if (mNameText.notNull())
 	{
 		LLVector4a unused;
