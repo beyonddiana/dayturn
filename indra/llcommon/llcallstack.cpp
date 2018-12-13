@@ -24,9 +24,12 @@
  * $/LicenseInfo$
  */
 
+#include "linden_common.h"
+
 #include "llcommon.h"
 #include "llcallstack.h"
 #include "StackWalker.h"
+#include "llthreadlocalstorage.h"
 
 #if LL_WINDOWS
 class LLCallStackImpl: public StackWalker
@@ -86,6 +89,19 @@ LLCallStack::LLCallStack(S32 skip_count, bool verbose):
     s_impl->getStack(m_strings, m_skipCount, m_verbose);
 }
 
+bool LLCallStack::contains(const std::string& str)
+{
+    for (std::vector<std::string>::const_iterator it = m_strings.begin();
+         it != m_strings.end(); ++it)
+    {
+        if (it->find(str) != std::string::npos)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 std::ostream& operator<<(std::ostream& s, const LLCallStack& call_stack)
 {
     std::vector<std::string>::const_iterator it;
@@ -94,4 +110,77 @@ std::ostream& operator<<(std::ostream& s, const LLCallStack& call_stack)
         s << *it;
     }
     return s;
+}
+
+LLContextStrings::LLContextStrings()
+{
+}
+
+// static
+LLContextStrings* LLContextStrings::getThreadLocalInstance()
+{
+	LLContextStrings *cons = LLThreadLocalSingletonPointer<LLContextStrings>::getInstance();
+    if (!cons)
+    {
+        LLThreadLocalSingletonPointer<LLContextStrings>::setInstance(new LLContextStrings);
+    }
+	return LLThreadLocalSingletonPointer<LLContextStrings>::getInstance();
+}
+
+// static
+void LLContextStrings::addContextString(const std::string& str)
+{
+	LLContextStrings *cons = getThreadLocalInstance();
+    //LL_INFOS() << "CTX " << (S32)cons << " ADD " << str << " CNT " << cons->m_contextStrings[str] << LL_ENDL;
+	cons->m_contextStrings[str]++;
+}
+
+// static
+void LLContextStrings::removeContextString(const std::string& str)
+{
+	LLContextStrings *cons = getThreadLocalInstance();
+	cons->m_contextStrings[str]--;
+    //LL_INFOS() << "CTX " << (S32)cons << " REMOVE " << str << " CNT " << cons->m_contextStrings[str] << LL_ENDL;
+    if (cons->m_contextStrings[str] == 0)
+    {
+        cons->m_contextStrings.erase(str);
+    }
+}
+
+// static
+bool LLContextStrings::contains(const std::string& str)
+{
+    const std::map<std::string,S32>& strings =
+        LLThreadLocalSingletonPointer<LLContextStrings>::getInstance()->m_contextStrings;
+    for (std::map<std::string,S32>::const_iterator it = strings.begin(); it!=strings.end(); ++it)
+    {
+        if (it->first.find(str) != std::string::npos)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+// static
+void LLContextStrings::output(std::ostream& os)
+{
+    const std::map<std::string,S32>& strings =
+        LLThreadLocalSingletonPointer<LLContextStrings>::getInstance()->m_contextStrings;
+    for (std::map<std::string,S32>::const_iterator it = strings.begin(); it!=strings.end(); ++it)
+    {
+        os << it->first << "[" << it->second << "]" << "\n";
+    }
+}
+
+// static 
+std::ostream& operator<<(std::ostream& s, const LLContextStatus& context_status)
+{
+    LLThreadLocalSingletonPointer<LLContextStrings>::getInstance()->output(s);
+    return s;
+}
+
+bool LLContextStatus::contains(const std::string& str)
+{
+    return LLThreadLocalSingletonPointer<LLContextStrings>::getInstance()->contains(str);
 }

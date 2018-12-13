@@ -24,6 +24,8 @@
  * $/LicenseInfo$
  */
 
+#include <map>
+
 class LLCallStackImpl;
 
 class LLCallStack
@@ -32,9 +34,47 @@ public:
     LLCallStack(S32 skip_count=0, bool verbose=false);
     std::vector<std::string> m_strings;
     bool m_verbose;
+    bool contains(const std::string& str);
 private:
     static LLCallStackImpl *s_impl;
     S32 m_skipCount;
 };
 
 LL_COMMON_API std::ostream& operator<<(std::ostream& s, const LLCallStack& call_stack);
+
+class LLContextStrings
+{
+public:
+    LLContextStrings();
+    static void addContextString(const std::string& str);
+    static void removeContextString(const std::string& str);
+    static void output(std::ostream& os);
+    static LLContextStrings* getThreadLocalInstance();
+    static bool contains(const std::string& str);
+private:
+    std::map<std::string,S32> m_contextStrings;
+};
+
+class LLScopedContextString
+{
+public:
+    LLScopedContextString(const std::string& str):
+        m_str(str)
+    {
+        LLContextStrings::addContextString(m_str);
+    }
+    ~LLScopedContextString()
+    {
+        LLContextStrings::removeContextString(m_str);
+    }
+private:
+    std::string m_str;
+};
+
+// Mostly exists as a class to hook an ostream override to.
+struct LLContextStatus
+{
+    bool contains(const std::string& str);
+};
+
+LL_COMMON_API std::ostream& operator<<(std::ostream& s, const LLContextStatus& context_status);
