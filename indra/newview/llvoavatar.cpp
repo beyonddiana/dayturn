@@ -8027,7 +8027,7 @@ void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
 		// RequestAgentUpdateAppearanceResponder::onRequestRequested()
 		// assumes that cof version is only updated with server-bake
 		// appearance messages.
-		LL_INFOS("Avatar") << "Processing appearance message version " << thisAppearanceVersion << LL_ENDL;
+		LL_INFOS("Avatar") << "Processing appearance message version " << appearance_version << LL_ENDL;
 		
         // Note:
         // locally the COF is maintained via LLInventoryModel::accountForUpdate
