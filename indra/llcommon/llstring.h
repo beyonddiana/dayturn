@@ -27,6 +27,7 @@
 #ifndef LL_LLSTRING_H
 #define LL_LLSTRING_H
 
+#include <boost/optional/optional.hpp>
 #include <string>
 #include <cstdio>
 //#include <locale>
@@ -331,6 +332,19 @@ public:
 	static bool endsWith(
 		const string_type& string,
 		const string_type& substr);
+
+	/**
+	 * get environment string value with proper Unicode handling
+	 * (key is always UTF-8)
+	 * detect absence by return value == dflt
+	 */
+	static string_type getenv(const std::string& key, const string_type& dflt="");
+	/**
+	 * get optional environment string value with proper Unicode handling
+	 * (key is always UTF-8)
+	 * detect absence by (! return value)
+	 */
+	static boost::optional<string_type> getoptenv(const std::string& key);
 
 	static void	addCRLF(string_type& string);
 	static void	removeCRLF(string_type& string);
