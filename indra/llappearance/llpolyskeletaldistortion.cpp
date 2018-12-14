@@ -34,6 +34,7 @@
 #include "llpolymorph.h"
 #include "llwearable.h"
 #include "llfasttimer.h"
+#include "llcallstack.h"
 
 #include "llpolyskeletaldistortion.h"
 
