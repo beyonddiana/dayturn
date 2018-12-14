@@ -107,6 +107,7 @@
 #include "llsdutil.h"
 #include "llscenemonitor.h"
 #include "llsdserialize.h"
+#include "llcallstack.h"
 #include "llrendersphere.h"
 
 extern F32 SPEED_ADJUST_MAX;
@@ -5751,61 +5752,6 @@ bool LLVOAvatar::jointIsRiggedTo(const std::string& joint_name, const LLViewerOb
     return false;
 }
 
-bool LLVOAvatar::jointIsRiggedTo(const std::string& joint_name)
-{
-	for (attachment_map_t::iterator iter = mAttachmentPoints.begin(); 
-		 iter != mAttachmentPoints.end();
-		 ++iter)
-	{
-		LLViewerJointAttachment* attachment = iter->second;
-        for (LLViewerJointAttachment::attachedobjs_vec_t::iterator attachment_iter = attachment->mAttachedObjects.begin();
-             attachment_iter != attachment->mAttachedObjects.end();
-             ++attachment_iter)
-        {
-            const LLViewerObject* attached_object = (*attachment_iter);
-            if (attached_object && jointIsRiggedTo(joint_name, attached_object))
-            {
-                return true;
-            }
-        }
-	}
-    return false;
-}
-
-bool LLVOAvatar::jointIsRiggedTo(const std::string& joint_name, const LLViewerObject *vo)
-{
-	// Process all children
-	LLViewerObject::const_child_list_t& children = vo->getChildren();
-	for (LLViewerObject::const_child_list_t::const_iterator it = children.begin();
-		 it != children.end(); ++it)
-	{
-		LLViewerObject *childp = *it;
-        if (jointIsRiggedTo(joint_name,childp))
-        {
-            return true;
-        }
-	}
-
-	const LLVOVolume *vobj = dynamic_cast<const LLVOVolume*>(vo);
-	if (!vobj)
-	{
-		return false;
-	}
-
-	LLUUID currentId = vobj->getVolume()->getParams().getSculptID();						
-	const LLMeshSkinInfo*  pSkinData = gMeshRepo.getSkinInfo( currentId, vobj );
-
-	if ( vobj && vobj->isAttachment() && vobj->isMesh() && pSkinData )
-	{
-        if (std::find(pSkinData->mJointNames.begin(), pSkinData->mJointNames.end(), joint_name) !=
-            pSkinData->mJointNames.end())
-        {
-            return true;
-        }
-    }
-
-    return false;
-}
 
 void LLVOAvatar::clearAttachmentOverrides()
 {
@@ -5954,6 +5900,7 @@ void LLVOAvatar::addAttachmentOverridesForObject(LLViewerObject *vo)
 //-----------------------------------------------------------------------------
 void LLVOAvatar::getAttachmentOverrideNames(std::set<std::string>& pos_names, std::set<std::string>& scale_names) const
 {
+    LLVector3 pos;
     LLVector3 scale;
     LLUUID mesh_id;
     
@@ -6302,7 +6249,23 @@ void LLVOAvatar::initAttachmentPoints(bool ignore_hud_joints)
             attachment->setOriginalPosition(info->mPosition);
             attachment->setDefaultPosition(info->mPosition);
         }
+        
+        if (info->mHasRotation)
+        {
+            LLQuaternion rotation;
+            rotation.setQuat(info->mRotationEuler.mV[VX] * DEG_TO_RAD,
+                             info->mRotationEuler.mV[VY] * DEG_TO_RAD,
+                             info->mRotationEuler.mV[VZ] * DEG_TO_RAD);
+            attachment->setRotation(rotation);
+        }
 			
+        int group = info->mGroup;
+        if (group >= 0)
+        {
+            if (group < 0 || group > 9)
+            {
+                LL_WARNS() << "Invalid group number (" << group << ") for attachment point " << info->mName << LL_ENDL;
+            }
             else
             {
                 attachment->setGroup(group);
@@ -6793,7 +6756,7 @@ void LLVOAvatar::cleanupAttachedMesh( LLViewerObject* pVO )
 	LLUUID mesh_id;
 	if (getRiggedMeshID(pVO, mesh_id))
 	{
-		resetJointPositionsOnDetach(mesh_id);
+		resetJointsOnDetach(mesh_id);
 		if ( gAgentCamera.cameraCustomizeAvatar() )
 		{
 			gAgent.unpauseAnimation();
