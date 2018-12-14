@@ -30,6 +30,7 @@
 #if LL_WINDOWS
 #include "llwin32headerslean.h"
 #include <stdlib.h>                 // Windows errno
+#include <vector>
 #else
 #include <errno.h>
 #endif
@@ -134,8 +135,10 @@ int warnif(const std::string& desc, const std::string& filename, int rc, int acc
 		{
 			// Only do any of this stuff (before LL_ENDL) if it will be logged.
 			LL_DEBUGS("LLFile") << empty;
-			const char* TEMP = getenv("TEMP");
-			if (! TEMP)
+			// would be nice to use LLDir for this, but dependency goes the
+			// wrong way
+			const char* TEMP = LLFile::tmpdir();
+			if (! (TEMP && *TEMP))
 			{
 				LL_CONT << "No $TEMP, not running 'handle'";
 			}
