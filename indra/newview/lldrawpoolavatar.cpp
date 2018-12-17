@@ -2002,62 +2002,45 @@ void LLDrawPoolAvatar::renderRiggedShadows(LLVOAvatar* avatar)
 
 		LLVertexBuffer* buff = face->getVertexBuffer();
 
-		if (buff)
-		{
-			if (sShaderLevel > 0)
-			{ //upload matrix palette to shader
-				LLMatrix4 mat[JOINT_COUNT];
-
-				U32 count = llmin((U32)skin->mJointNames.size(), (U32)JOINT_COUNT);
-
-				for (U32 i = 0; i < count; ++i)
+			if (buff)
+			{
+				if (sShaderLevel > 0)
 				{
-					LLJoint* joint = avatar->getJoint(skin->mJointNames[i]);
-					if (joint)
-					{
-						mat[i] = skin->mInvBindMatrix[i];
-						mat[i] *= joint->getWorldMatrix();
-					}
-				}
+					// upload matrix palette to shader
+					LLMatrix4a mat[LL_MAX_JOINTS_PER_MESH_OBJECT];
+					U32 count = LLSkinningUtil::getMeshJointCount(skin);
+					LLSkinningUtil::initSkinningMatrixPalette((LLMatrix4*)mat, count, skin, avatar);
 
 				stop_glerror();
 
-				F32 mp[JOINT_COUNT * 9];
+					F32 mp[LL_MAX_JOINTS_PER_MESH_OBJECT * 12];
 
-				F32 transp[JOINT_COUNT * 3];
+					for (U32 i = 0; i < count; ++i)
+					{
+						F32* m = (F32*)mat[i].mMatrix[0].getF32ptr();
 
-				for (U32 i = 0; i < count; ++i)
-				{
-					F32* m = (F32*)mat[i].mMatrix;
+						U32 idx = i * 12;
 
-					U32 idx = i * 9;
+						mp[idx + 0] = m[0];
+						mp[idx + 1] = m[1];
+						mp[idx + 2] = m[2];
+						mp[idx + 3] = m[12];
 
-					mp[idx + 0] = m[0];
-					mp[idx + 1] = m[1];
-					mp[idx + 2] = m[2];
+						mp[idx + 4] = m[4];
+						mp[idx + 5] = m[5];
+						mp[idx + 6] = m[6];
+						mp[idx + 7] = m[13];
 
-					mp[idx + 3] = m[4];
-					mp[idx + 4] = m[5];
-					mp[idx + 5] = m[6];
+						mp[idx + 8] = m[8];
+						mp[idx + 9] = m[9];
+						mp[idx + 10] = m[10];
+						mp[idx + 11] = m[14];
+					}
 
-					mp[idx + 6] = m[8];
-					mp[idx + 7] = m[9];
-					mp[idx + 8] = m[10];
-
-					idx = i * 3;
-
-					transp[idx + 0] = m[12];
-					transp[idx + 1] = m[13];
-					transp[idx + 2] = m[14];
-				}
-
-				LLDrawPoolAvatar::sVertexProgram->uniformMatrix3fv(LLViewerShaderMgr::AVATAR_MATRIX,
-					count,
-					FALSE,
-					(GLfloat*)mp);
-
-				LLDrawPoolAvatar::sVertexProgram->uniform3fv(LLShaderMgr::AVATAR_TRANSLATION, count, transp);
-
+					LLDrawPoolAvatar::sVertexProgram->uniformMatrix3x4fv(LLViewerShaderMgr::AVATAR_MATRIX,
+						count,
+						FALSE,
+						(GLfloat*)mp);
 
 				stop_glerror();
 			}
@@ -2112,6 +2095,7 @@ void LLDrawPoolAvatar::renderRiggedShadows(LLVOAvatar* avatar)
 	}
 }
 //mk from cy
+
 
 void LLDrawPoolAvatar::renderDeferredRiggedSimple(LLVOAvatar* avatar)
 {
