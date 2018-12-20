@@ -6188,7 +6188,6 @@ void LLVOAvatar::resetJointsOnDetach(LLViewerObject *vo)
 		 it != children.end(); ++it)
 	{
 		LLViewerObject *childp = *it;
-        LLViewerObject *childp = *it;
 	}
 
 	// Process self.
