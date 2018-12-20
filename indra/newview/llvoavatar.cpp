@@ -6188,12 +6188,13 @@ void LLVOAvatar::resetJointsOnDetach(LLViewerObject *vo)
 		 it != children.end(); ++it)
 	{
 		LLViewerObject *childp = *it;
+		resetJointsOnDetach(childp);
 	}
 
 	// Process self.
 	LLUUID mesh_id;
 	if (getRiggedMeshID(vo,mesh_id))
-    {
+	{
 		resetJointsOnDetach(mesh_id);
 	}
 }
