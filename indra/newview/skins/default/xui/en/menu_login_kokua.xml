@@ -38,7 +38,7 @@
         <menu_item_call
          label="Preferences"
          name="Preferences..."
-         shortcut="control|P">
+         shortcut="control|,">
             <menu_item_call.on_click
              function="Floater.Toggle"
              parameter="preferences" />
