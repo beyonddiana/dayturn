@@ -43,6 +43,38 @@
         top_pad="5"
         height="25"
         width="180" />
+    </panel>
+	<panel
+      border="true" 
+      label="Dayturn Credits" 
+      help_topic="about_dayturn_credits_tab"
+      name="credits_panel">
+      <text
+          follows="top|left|right"
+          height="20"
+          layout="topleft"
+          left="5"
+          name="dayturn_names"
+          top="10"
+          width="435"
+          wrap="true">
+Dayturn is an open source viewer for connection to and interaction with OpenSim-based virtual worlds. Dayturn runs on macOS based systems. 
+      </text>
+      <text_editor
+       enabled="false" 
+       follows="top|left"
+       height="340"
+       bg_readonly_color="Transparent"
+       left="5"
+       text_color="LtGray"
+       max_length="65536"
+       name="dayturn_intro"
+       top_pad="10"
+       width="435"
+       word_wrap="true">
+Dayturn is developed by Geir Nøklebye.
+      </text_editor>
+    </panel>     
     <panel
       border="true" 
       label="Linden Credits" 
@@ -57,7 +89,7 @@
           top="10"
           width="435"
           wrap="true">
-Second Life is brought to you by the Lindens, 
+Second Life is brought to you by Linden Research, Inc., 
 with open source contributions from:
       </text>
       <text_editor
@@ -74,7 +106,7 @@ with open source contributions from:
        word_wrap="true">
 Dummy Name replaced at run time
       </text_editor>
-    </panel>
+    </panel>   
     <panel
       border="true"
       label="Kokua Credits"
@@ -85,14 +117,23 @@ Dummy Name replaced at run time
           height="65"
           layout="topleft"
           left="5"
-          name="kokua_intro"
+          name="kokua_credits"
           top="10"
           width="435"
           wrap="true">
-Kokua is an open source viewer for Second Life and OpenSim-based virtual worlds.  The goal of Kokua is to improve the user interface and usability of the viewer through community involvement, thoughtful design, modern development methods, and a pro-change atmosphere. 
-
-The Kokua Development Team:
+Dayturn uses code from Kokua and KokuaOS, in addition to their predecessors, the Imprudence Viewer, and recognizes the significant contributions by the creators of these and its developers to all Third Party Viewers and specifically to Dayturn. Kokua and KokuaOS is developed and distributed by Nicky Perian and the Kokua Viewer Project, and the Kokua Team.
       </text>
+      <text
+          follows="top|left"
+          height="10"
+          layout="topleft"
+          left="5"
+          name="kokua_retired_intro"
+          top_pad="15"
+          width="435"
+          wrap="true">
+The Kokua Development Team:
+	  </text>       
       <text_editor
        enabled="false"
        follows="top|left"
@@ -113,7 +154,7 @@ Boroondas Gupta, Geir Nøklebye, Kentron Katana, McCabe Maxstead, Nicky Perian, 
           layout="topleft"
           left="5"
           name="kokua_retired_intro"
-          top_pad="10"
+          top_pad="15"
           width="435"
           wrap="true">
 Retired or inactive team members who contributed to Kokua:
@@ -121,7 +162,7 @@ Retired or inactive team members who contributed to Kokua:
       <text_editor
        enabled="false"
        follows="top|left"
-       height="45"
+       height="25"
        bg_readonly_color="Transparent"
        left="5"
        text_color="LtGray"
@@ -146,7 +187,7 @@ Additional code contributed to Kokua by:
       <text_editor
        enabled="false"
        follows="top|left"
-       height="45"
+       height="65"
        bg_readonly_color="Transparent"
        left="5"
        text_color="LtGray"
