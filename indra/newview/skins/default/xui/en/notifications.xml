@@ -8777,7 +8777,7 @@ Select residents to share with.
     icon="alert.tga"
     type="alert">
       [LABEL] failed to upload: [MESSAGE]
-[DETAILS]See KokuaOS.log for details
+[DETAILS]See Dayturn.log for details
   </notification>
 
   <notification
@@ -8786,7 +8786,7 @@ Select residents to share with.
     type="alert">
       [LABEL] failed to upload: [MESSAGE]
 
-See KokuaOS.log for details
+See Dayturn.log for details
   </notification>
    
   <notification

@@ -591,7 +591,7 @@ BOOL LLWindowMacOSX::createContext(int x, int y, int width, int height, int bits
 
 	if(mContext == NULL)
 	{
-		// Our OpenGL view is already defined within KokuaOS.xib.
+		// Our OpenGL view is already defined within Dayturn.xib.
 		// Get the view instead.
 		mGLView = createOpenGLView(mWindow, mFSAASamples, !disable_vsync);
 		mContext = getCGLContextObj(mGLView);

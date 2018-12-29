@@ -6,8 +6,8 @@
 ## prior to 2.8, the add_custom_target commands used in setting the version did not work correctly
 cmake_minimum_required(VERSION 2.8.2 FATAL_ERROR)
 
-set(ROOT_PROJECT_NAME "KokuaOS" CACHE STRING
-    "The root project/makefile/solution name. Defaults to KokuaOS.")
+set(ROOT_PROJECT_NAME "Dayturn" CACHE STRING
+    "The root project/makefile/solution name. Defaults to Dayturn.")
 project(${ROOT_PROJECT_NAME})
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
@@ -98,7 +98,7 @@ elseif (WINDOWS)
 endif (LINUX)
 
 add_subdirectory(${VIEWER_PREFIX}newview)
-  add_dependencies(viewer kokuaos-bin)
+  add_dependencies(viewer dayturn-bin)
 
 if (LL_TESTS)
   # Define after the custom targets are created so

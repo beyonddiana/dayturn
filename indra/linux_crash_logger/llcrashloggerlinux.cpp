@@ -46,8 +46,8 @@
 
 // These need to be localized.
 static const char dialog_text[] =
-"Kokua appears to have crashed or frozen last time it ran.\n"
-"This crash reporter collects information about your computer's hardware, operating system, and some Kokua Viewer logs, all of which are used for debugging purposes only.\n"
+"Dayturn appears to have crashed or frozen last time it ran.\n"
+"This crash reporter collects information about your computer's hardware, operating system, and some Dayturn Viewer logs, all of which are used for debugging purposes only.\n"
 "\n"
 "Send crash report?";
 

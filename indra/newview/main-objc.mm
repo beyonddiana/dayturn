@@ -1,10 +1,10 @@
 /*
  * @file main-objc.mm
- * @brief KokuaOS for macOS application entry
- * KokuaOS
+ * @brief Dayturn for macOS application entry
+ * Dayturn
  *
  * $LicenseInfo:firstyear=2016&license=viewerlgpl$
- * KokuaOS Viewer Source Code
+ * Dayturn Viewer Source Code
  * Created by Dayturn on 27.05.2016.
  * Copyright (C) 2017, Geir Nøklebye <geir.noklebye@dayturn.com>
  *

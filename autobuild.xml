@@ -3444,7 +3444,7 @@
                 <array>
                   <string>-DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo</string>
                   <string>-DWORD_SIZE:STRING=32</string>
-                  <string>-DROOT_PROJECT_NAME:STRING=KokuaOS</string>
+                  <string>-DROOT_PROJECT_NAME:STRING=Dayturn</string>
                   <string>-DINSTALL_PROPRIETARY=TRUE</string>
                 </array>
               </map>
@@ -3465,7 +3465,7 @@
                 <array>
                   <string>-DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo</string>
                   <string>-DWORD_SIZE:STRING=32</string>
-                  <string>-DROOT_PROJECT_NAME:STRING=KokuaOS</string>
+                  <string>-DROOT_PROJECT_NAME:STRING=Dayturn</string>
                   <string>-DINSTALL_PROPRIETARY=FALSE</string>
                 </array>
               </map>
@@ -3486,7 +3486,7 @@
                 <array>
                   <string>-DCMAKE_BUILD_TYPE:STRING=Release</string>
                   <string>-DWORD_SIZE:STRING=32</string>
-                  <string>-DROOT_PROJECT_NAME:STRING=KokuaOS</string>
+                  <string>-DROOT_PROJECT_NAME:STRING=Dayturn</string>
                   <string>-DINSTALL_PROPRIETARY=TRUE</string>
                 </array>
               </map>
@@ -3507,7 +3507,7 @@
                 <array>
                   <string>-DCMAKE_BUILD_TYPE:STRING=Release</string>
                   <string>-DWORD_SIZE:STRING=32</string>
-                  <string>-DROOT_PROJECT_NAME:STRING=KokuaOS</string>
+                  <string>-DROOT_PROJECT_NAME:STRING=Dayturn</string>
                   <string>-DINSTALL_PROPRIETARY=FALSE</string>
                 </array>
               </map>
@@ -3559,7 +3559,7 @@
                 <key>options</key>
                 <array>
                   <string>-configuration RelWithDebInfo</string>
-                  <string>-project KokuaOS.xcodeproj</string>
+                  <string>-project Dayturn.xcodeproj</string>
                 </array>
               </map>
               <key>configure</key>
@@ -3584,7 +3584,7 @@
                 <key>options</key>
                 <array>
                   <string>-configuration RelWithDebInfo</string>
-                  <string>-project KokuaOS.xcodeproj</string>
+                  <string>-project Dayturn.xcodeproj</string>
                 </array>
               </map>
               <key>configure</key>
@@ -3611,7 +3611,7 @@
                 <key>options</key>
                 <array>
                   <string>-configuration Release</string>
-                  <string>-project KokuaOS.xcodeproj</string>
+                  <string>-project Dayturn.xcodeproj</string>
                 </array>
               </map>
               <key>configure</key>
@@ -3634,7 +3634,7 @@
                 <key>options</key>
                 <array>
                   <string>-configuration Release</string>
-                  <string>-project KokuaOS.xcodeproj</string>
+                  <string>-project Dayturn.xcodeproj</string>
                 </array>
               </map>
               <key>configure</key>
@@ -3963,7 +3963,7 @@
               <map>
                 <key>arguments</key>
                 <array>
-                  <string>KokuaOS.sln</string>
+                  <string>Dayturn.sln</string>
                 </array>
                 <key>command</key>
                 <string>devenv</string>
@@ -3996,7 +3996,7 @@
               <map>
                 <key>arguments</key>
                 <array>
-                  <string>KokuaOS.sln</string>
+                  <string>Dayturn.sln</string>
                 </array>
                 <key>command</key>
                 <string>devenv</string>
@@ -4029,7 +4029,7 @@
               <map>
                 <key>arguments</key>
                 <array>
-                  <string>KokuaOS.sln</string>
+                  <string>Dayturn.sln</string>
                 </array>
                 <key>command</key>
                 <string>devenv</string>
@@ -4060,7 +4060,7 @@
               <map>
                 <key>arguments</key>
                 <array>
-                  <string>KokuaOS.sln</string>
+                  <string>Dayturn.sln</string>
                 </array>
                 <key>command</key>
                 <string>devenv.com</string>

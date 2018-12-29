@@ -58,13 +58,13 @@ function homedir_install()
 	exit 0
     fi
 
-    install_to_prefix "$HOME/.kokuaos-install"
+    install_to_prefix "$HOME/.dayturn-install"
     $HOME/.kokuaos-install/etc/refresh_desktop_app_entry.sh
 }
 
 function root_install()
 {
-    local default_prefix="/opt/kokuaos-install"
+    local default_prefix="/opt/dayturn-install"
 
     echo -n "Enter the desired installation directory [${default_prefix}]: ";
     read
