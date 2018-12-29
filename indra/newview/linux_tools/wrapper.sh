@@ -158,7 +158,7 @@ done
 # Don't quote $LL_WRAPPER because, if empty, it should simply vanish from the
 # command line. But DO quote "${ARGS[@]}": preserve separate args as
 # individually quoted.
-$LL_WRAPPER bin/do-not-directly-run-kokuaos-bin "${ARGS[@]}"
+$LL_WRAPPER bin/do-not-directly-run-dayturn-bin "${ARGS[@]}"
 LL_RUN_ERR=$?
 
 

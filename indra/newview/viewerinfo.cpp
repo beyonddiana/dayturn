@@ -30,7 +30,7 @@ namespace ViewerInfo
 
 	// These are intentionally defined here instead of in the header,
 	// because they should NOT be read directly. Use the functions.
-	const std::string NAME  = "KokuaOS";
+	const std::string NAME  = "Dayturn";
 	const S32         MAJOR = 3;
 	const S32         MINOR = 6;
 	const S32         PATCH = 4;

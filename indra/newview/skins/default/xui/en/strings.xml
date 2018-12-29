@@ -7,8 +7,8 @@
 
 	<!-- Default Args - these arguments will be replaced in all strings -->
 	<string name="SECOND_LIFE">[CURRENT_GRID]</string>
-	<string name="APP_NAME">KokuaOS</string>
-	<string name="CAPITALIZED_APP_NAME">KOKUAOS</string>
+	<string name="APP_NAME">Dayturn</string>
+	<string name="CAPITALIZED_APP_NAME">DAYTURN</string>
 	<string name="SECOND_LIFE_GRID">Second Life Grid</string>
 	<string name="SUPPORT_SITE">Second Life Support Portal</string>
 

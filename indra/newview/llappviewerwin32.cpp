@@ -106,7 +106,7 @@ extern "C" {
 #endif
 #endif
 
-const std::string LLAppViewerWin32::sWindowClass = "Kokua";
+const std::string LLAppViewerWin32::sWindowClass = "Dayturn";
 
 /*
     This function is used to print to the command line a text message 
@@ -133,7 +133,7 @@ void nvapi_error(NvAPI_Status status)
 bool create_app_mutex()
 {
 	bool result = true;
-	LPCWSTR unique_mutex_name = L"KokuaAppMutex";
+	LPCWSTR unique_mutex_name = L"DayturnAppMutex";
 	HANDLE hMutex;
 	hMutex = CreateMutex(NULL, TRUE, unique_mutex_name); 
 	if(GetLastError() == ERROR_ALREADY_EXISTS) 

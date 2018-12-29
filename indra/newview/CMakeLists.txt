@@ -747,7 +747,7 @@ set(viewer_SOURCE_FILES
     NACLfloaterexploresounds.cpp
     )
 
-set(VIEWER_BINARY_NAME "kokuaos-bin" CACHE STRING
+set(VIEWER_BINARY_NAME "dayturn-bin" CACHE STRING
     "The name of the viewer executable to create.")
 
 set(viewer_HEADER_FILES
@@ -1431,27 +1431,27 @@ if (DARWIN)
    # Add resource files to the project.
    set(viewer_RESOURCE_FILES
      kokua_icon.icns
-    Base.lproj/Info-KokuaOS.plist
-    Base.lproj/KokuaOS.xib
+    Base.lproj/Info-Dayturn.plist
+    Base.lproj/Dayturn.xib
     Base.lproj/Main.storyboard
      # CMake doesn't seem to support Xcode language variants well just yet
-    da.lproj/KokuaOS.strings
+    da.lproj/Dayturn.strings
     en.lproj/InfoPlist.strings
-    en.lproj/KokuaOS.strings
-    es.lproj/KokuaOS.strings
-    fr.lproj/KokuaOS.strings
-    ge.lproj/KokuaOS.strings
-    hu-HU.lproj/KokuaOS.strings
-    it.lproj/KokuaOS.strings
-    ja.lproj/KokuaOS.strings
-    ko.lproj/KokuaOS.strings
-    nl.lproj/KokuaOS.strings
-    pl.lproj/KokuaOS.strings
-    pt-PT.lproj/KokuaOS.strings
-    ru.lproj/KokuaOS.strings
-    tr.lproj/KokuaOS.strings
-    en-GB.lproj/KokuaOS.strings
-    zh-Hans.lproj/KokuaOS.strings
+    en.lproj/Dayturn.strings
+    es.lproj/Dayturn.strings
+    fr.lproj/Dayturn.strings
+    ge.lproj/Dayturn.strings
+    hu-HU.lproj/Dayturn.strings
+    it.lproj/Dayturn.strings
+    ja.lproj/Dayturn.strings
+    ko.lproj/Dayturn.strings
+    nl.lproj/Dayturn.strings
+    pl.lproj/Dayturn.strings
+    pt-PT.lproj/Dayturn.strings
+    ru.lproj/Dayturn.strings
+    tr.lproj/Dayturn.strings
+    en-GB.lproj/Dayturn.strings
+    zh-Hans.lproj/Dayturn.strings
      )
    set_source_files_properties(
      ${viewer_RESOURCE_FILES}
@@ -1518,14 +1518,14 @@ if (WINDOWS)
     set(ICON_PATH "test")
     set(VIEWER_MACOSX_PHASE "d")
     string(TOLOWER ${VIEWER_CHANNEL} channel_lower)
-    if(channel_lower MATCHES "^kokuaos release")
+    if(channel_lower MATCHES "^dayturn release")
     # Use original kokua icons. Can be changed to "release" if desired
-        set(ICON_PATH "kokuaos")
+        set(ICON_PATH "dayturn")
         set(VIEWER_MACOSX_PHASE "f")
-    elseif(channel_lower MATCHES "^kokuaos beta")
+    elseif(channel_lower MATCHES "^dayturn beta")
         set(ICON_PATH "beta")
         set(VIEWER_MACOSX_PHASE "b")
-    elseif(channel_lower MATCHES "^kokuaos project")
+    elseif(channel_lower MATCHES "^dayturn project")
         set(ICON_PATH "project")
         set(VIEWER_MACOSX_PHASE "a")
 
@@ -2056,7 +2056,7 @@ set(ARTWORK_DIR ${CMAKE_CURRENT_SOURCE_DIR} CACHE PATH
     "Path to artwork files.")
 
 if (LINUX)
-  set(product kokuaos-${ARCH}-${VIEWER_SHORT_VERSION}.${VIEWER_VERSION_REVISION})
+  set(product dayturn-${ARCH}-${VIEWER_SHORT_VERSION}.${VIEWER_VERSION_REVISION})
 
   # These are the generated targets that are copied to package/
   set(COPY_INPUT_DEPENDENCIES
@@ -2126,30 +2126,30 @@ endif (LINUX)
 
 if (DARWIN)
   # These all get set with PROPERTIES
-  set(product "KokuaOS")
-  set(MACOSX_BUNDLE_INFO_STRING "Kokua OS Viewer")
+  set(product "Dayturn")
+  set(MACOSX_BUNDLE_INFO_STRING "Dayturn Viewer")
   set(MACOSX_BUNDLE_ICON_FILE "kokua_icon.icns")
-  set(MACOSX_BUNDLE_EXECUTABLE_NAME "KokuaOS")
-  set(MACOSX_BUNDLE_GUI_IDENTIFIER "org.kokuaviewer.KokuaOS")
+  set(MACOSX_BUNDLE_EXECUTABLE_NAME "Dayturn")
+  set(MACOSX_BUNDLE_GUI_IDENTIFIER "com.dayturn.Dayturn")
   set(MACOSX_BUNDLE_LONG_VERSION_STRING "${VIEWER_CHANNEL} ${VIEWER_SHORT_VERSION}.${VIEWER_VERSION_REVISION}")
-  set(MACOSX_BUNDLE_BUNDLE_NAME "KokuaOS")
+  set(MACOSX_BUNDLE_BUNDLE_NAME "Dayturn")
   set(MACOSX_BUNDLE_SHORT_VERSION_STRING "${VIEWER_SHORT_VERSION}")
   set(MACOSX_BUNDLE_BUNDLE_VERSION "${VIEWER_SHORT_VERSION}${VIEWER_MACOSX_PHASE}${VIEWER_REVISION}")
-  set(MACOSX_BUNDLE_COPYRIGHT "Copyright © Nicky Perian, Kokua Viewer Project, 2014")
-  set(MACOSX_BUNDLE_NSMAIN_NIB_FILE "KokuaOS.nib")
+  set(MACOSX_BUNDLE_COPYRIGHT "Copyright © Geir Nøklebye, Dayturn Viewer for OpenSim, 2017")
+  set(MACOSX_BUNDLE_NSMAIN_NIB_FILE "Dayturn.nib")
   set(MACOSX_BUNDLE_NSPRINCIPAL_CLASS "NSApplication")
-  set(CMAKE_XCODE_ATTRIBUTE_PRODUCT_NAME “KokuaOS“)
+  set(CMAKE_XCODE_ATTRIBUTE_PRODUCT_NAME “Dayturn“)
   
   set_target_properties(
     ${VIEWER_BINARY_NAME}
     PROPERTIES
     OUTPUT_NAME "${product}"
     MACOSX_BUNDLE_INFO_PLIST
-    "${CMAKE_CURRENT_SOURCE_DIR}/Base.lproj/Info-KokuaOS.plist"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Base.lproj/Info-Dayturn.plist"
     )
 
   configure_file(
-     "${CMAKE_CURRENT_SOURCE_DIR}/Base.lproj/Info-KokuaOS.plist"
+     "${CMAKE_CURRENT_SOURCE_DIR}/Base.lproj/Info-Dayturn.plist"
      "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/${product}.app/Contents/Info.plist"
     )
 
@@ -2217,7 +2217,7 @@ if (PACKAGE)
   set(SYMBOL_SEARCH_DIRS "")
   if (WINDOWS)
     list(APPEND SYMBOL_SEARCH_DIRS "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}")
-    set(VIEWER_SYMBOL_FILE "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/kokuaos-symbols-windows.tar.bz2")
+    set(VIEWER_SYMBOL_FILE "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/dayturn-symbols-windows.tar.bz2")
     # slplugin.exe failing symbols dump - need to debug, might have to do with updated version of google breakpad
     # set(VIEWER_EXE_GLOBS "${VIEWER_BINARY_NAME}${CMAKE_EXECUTABLE_SUFFIX} slplugin.exe")
     set(VIEWER_EXE_GLOBS "${VIEWER_BINARY_NAME}${CMAKE_EXECUTABLE_SUFFIX}")
@@ -2230,15 +2230,15 @@ if (PACKAGE)
     list(APPEND SYMBOL_SEARCH_DIRS "${CMAKE_BINARY_DIR}/llplugin/slplugin/${CMAKE_CFG_INTDIR}")
     list(APPEND SYMBOL_SEARCH_DIRS "${CMAKE_BINARY_DIR}/mac_crash_logger/${CMAKE_CFG_INTDIR}")
     list(APPEND SYMBOL_SEARCH_DIRS "${CMAKE_BINARY_DIR}/media_plugins/quicktime/${CMAKE_CFG_INTDIR}")
-    set(VIEWER_SYMBOL_FILE "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/kokuaos-symbols-darwin.tar.bz2")
-    set(VIEWER_EXE_GLOBS "'KokuaOS' SLPlugin mac-crash-logger")
+    set(VIEWER_SYMBOL_FILE "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/dayturn-symbols-darwin.tar.bz2")
+    set(VIEWER_EXE_GLOBS "'Dayturn' SLPlugin mac-crash-logger")
     set(VIEWER_LIB_GLOB "*.dylib")
   endif (DARWIN)
   if (LINUX)
     list(APPEND SYMBOL_SEARCH_DIRS "${CMAKE_CURRENT_BINARY_DIR}/packaged")
-    set(VIEWER_SYMBOL_FILE "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/kokuaos-symbols-linux.tar.bz2")
-    set(VIEWER_EXE_GLOBS "do-not-directly-run-kokuaos-bin SLPlugin")
-    set(VIEWER_EXE_GLOBS "do-not-directly-run-kokuaos-bin")
+    set(VIEWER_SYMBOL_FILE "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/dayturn-symbols-linux.tar.bz2")
+    set(VIEWER_EXE_GLOBS "do-not-directly-run-dayturn-bin SLPlugin")
+    set(VIEWER_EXE_GLOBS "do-not-directly-run-dayturn-bin")
     set(VIEWER_LIB_GLOB "*${CMAKE_SHARED_MODULE_SUFFIX}*")
     set(VIEWER_COPY_MANIFEST copy_l_viewer_manifest)
   endif (LINUX)

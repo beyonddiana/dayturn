@@ -35,11 +35,11 @@ LLViewerEventRecorder::LLViewerEventRecorder() {
   // Remove any previous event log file
   if (logEvents)
   {
-  	std::string old_log_ui_events_to_llsd_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS, "KokuaOS_Events_log.old");
+  	std::string old_log_ui_events_to_llsd_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS, "Dayturn_Events_log.old");
   	LLFile::remove(old_log_ui_events_to_llsd_file);
   
 
-  	mLogFilename = gDirUtilp->getExpandedFilename(LL_PATH_LOGS, "KokuaOS_Events_log.llsd");
+  	mLogFilename = gDirUtilp->getExpandedFilename(LL_PATH_LOGS, "Dayturn_Events_log.llsd");
   	LLFile::rename(mLogFilename, old_log_ui_events_to_llsd_file);
   }
 

@@ -371,7 +371,7 @@ std::string LLDir::buildSLOSCacheDir() const
 	}
 	else
 	{
-		res = getOSCacheDir() + mDirDelimiter + "kokuaos";
+		res = getOSCacheDir() + mDirDelimiter + "Dayturn";
 	}
 	return res;
 }

@@ -351,8 +351,8 @@ class Windows_i686_Manifest(ViewerManifest):
         debpkgdir = os.path.join(pkgdir, "lib", "debug")
 
         if self.is_packaging_viewer():
-            # Find kokuaos-bin.exe in the 'configuration' dir, then rename it to the result of final_exe.
-            self.path(src='%s/kokuaos-bin.exe' % self.args['configuration'], dst=self.final_exe())
+            # Find dayturn-bin.exe in the 'configuration' dir, then rename it to the result of final_exe.
+            self.path(src='%s/dayturn-bin.exe' % self.args['configuration'], dst=self.final_exe())
 
         # Plugin host application
         self.path2basename(os.path.join(os.pardir,
@@ -738,7 +738,7 @@ class Darwin_i386_Manifest(ViewerManifest):
 
     def construct(self):
         # copy over the build result (this is a no-op if run within the xcode script)
-        self.path(self.args['configuration'] + "/KokuaOS.app", dst="")
+        self.path(self.args['configuration'] + "/Dayturn.app", dst="")
 
         pkgdir = os.path.join(self.args['build'], os.pardir, 'packages')
         relpkgdir = os.path.join(pkgdir, "lib", "release")
@@ -778,7 +778,7 @@ class Darwin_i386_Manifest(ViewerManifest):
                     self.path("kokua_icon.icns")
                     self.end_prefix(icon_path)
 
-                self.path("Base.lproj/KokuaOS.nib")
+                self.path("Base.lproj/Dayturn.nib")
                 
                 # Translations
                 self.path("en.lproj/KokuaOS.strings")
@@ -786,21 +786,21 @@ class Darwin_i386_Manifest(ViewerManifest):
                                 dst="en.lproj/InfoPlist.strings",
                                 searchdict={'%%VERSION%%':'.'.join(self.args['version'])}
                                 )
-                self.path("de.lproj/KokuaOS.strings")
-                self.path("ja.lproj/KokuaOS.strings")
-                self.path("ko.lproj/KokuaOS.strings")
-                self.path("da.lproj/KokuaOS.strings")
-                self.path("es.lproj/KokuaOS.strings")
-                self.path("fr.lproj/KokuaOS.strings")
-                self.path("hu-HU.lproj/KokuaOS.strings")
-                self.path("it.lproj/KokuaOS.strings")
-                self.path("nl.lproj/KokuaOS.strings")
-                self.path("pl.lproj/KokuaOS.strings")
-                self.path("pt-PT.lproj/KokuaOS.strings")
-                self.path("ru.lproj/KokuaOS.strings")
-                self.path("tr.lproj/KokuaOS.strings")
-                self.path("en-GB.lproj/KokuaOS.strings")
-                self.path("zh-Hans.lproj/KokuaOS.strings")
+                self.path("de.lproj/Dayturn.strings")
+                self.path("ja.lproj/Dayturn.strings")
+                self.path("ko.lproj/Dayturn.strings")
+                self.path("da.lproj/Dayturn.strings")
+                self.path("es.lproj/Dayturn.strings")
+                self.path("fr.lproj/Dayturn.strings")
+                self.path("hu-HU.lproj/Dayturn.strings")
+                self.path("it.lproj/Dayturn.strings")
+                self.path("nl.lproj/Dayturn.strings")
+                self.path("pl.lproj/Dayturn.strings")
+                self.path("pt-PT.lproj/Dayturn.strings")
+                self.path("ru.lproj/Dayturn.strings")
+                self.path("tr.lproj/Dayturn.strings")
+                self.path("en-GB.lproj/Dayturn.strings")
+                self.path("zh-Hans.lproj/Dayturn.strings")
 
                 def path_optional(src, dst):
                     """
@@ -918,7 +918,7 @@ class Darwin_i386_Manifest(ViewerManifest):
 
                 self.end_prefix("Resources")
 
-                # CEF framework goes inside KokuaOS.app/Contents/Frameworks
+                # CEF framework goes inside Dayturn.app/Contents/Frameworks
                 if self.prefix(src="", dst="Frameworks"):
                     frameworkfile="Chromium Embedded Framework.framework"
                     self.path2basename(relpkgdir, frameworkfile)
@@ -948,7 +948,7 @@ class Darwin_i386_Manifest(ViewerManifest):
             self.end_prefix("Contents")
 
         # fix up media_plugin.dylib so it knows where to look for CEF files it needs
-        self.run_command('install_name_tool -change "@executable_path/Chromium Embedded Framework" "@executable_path/../Frameworks/Chromium Embedded Framework.framework/Chromium Embedded Framework" "%(config)s/KokuaOS.app/Contents/Resources/llplugin/media_plugin_cef.dylib"' %
+        self.run_command('install_name_tool -change "@executable_path/Chromium Embedded Framework" "@executable_path/../Frameworks/Chromium Embedded Framework.framework/Chromium Embedded Framework" "%(config)s/Dayturn.app/Contents/Resources/llplugin/media_plugin_cef.dylib"' %
                         { 'config' : self.args['configuration'] })
 
         # NOTE: the -S argument to strip causes it to keep enough info for
@@ -958,7 +958,7 @@ class Darwin_i386_Manifest(ViewerManifest):
         if ("package" in self.args['actions'] or 
             "unpacked" in self.args['actions']):
             self.run_command('strip -S %(viewer_binary)r' %
-                             { 'viewer_binary' : self.dst_path_of('Contents/MacOS/KokuaOS')})
+                             { 'viewer_binary' : self.dst_path_of('Contents/MacOS/Dayturn')})
 
     def package_finish(self):
         global CHANNEL_VENDOR_BASE
@@ -1156,7 +1156,7 @@ class LinuxManifest(ViewerManifest):
             self.end_prefix("linux_tools")
 
         if self.prefix(src="", dst="bin"):
-            self.path("kokuaos-bin","do-not-directly-run-kokuaos-bin")
+            self.path("dayturn-bin","do-not-directly-run-dayturn-bin")
             self.path("../linux_crash_logger/linux-crash-logger","linux-crash-logger.bin")
             self.path2basename("../llplugin/slplugin", "SLPlugin")
             self.end_prefix("bin")
@@ -1443,7 +1443,7 @@ class Linux_x86_64_Manifest(LinuxManifest):
         super(Linux_x86_64_Manifest, self).construct()
 
         # support file for valgrind debug tool
-        self.path("kokuaos-i686.supp")
+        self.path("dayturn-i686.supp")
 
 	try:
             self.path("../llcommon/libllcommon.so", "lib64/libllcommon.so")

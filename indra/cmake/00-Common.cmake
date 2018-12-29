@@ -1,6 +1,6 @@
 # -*- cmake -*-
 #
-# Compilation options shared by all Kokua OS components.
+# Compilation options shared by all Dayturn components.
 
 if(NOT DEFINED ${CMAKE_CURRENT_LIST_FILE}_INCLUDED)
 set(${CMAKE_CURRENT_LIST_FILE}_INCLUDED "YES")
@@ -173,7 +173,7 @@ if (LINUX)
       -pthread
       )
     add_definitions(-std=gnu++11)
-    add_definitions(-DAPPID=KokuaOS)
+    add_definitions(-DAPPID=Dayturn)
   # force this platform to accept TOS via external browser #DKO  will break use internal browser
   #add_definitions(-DEXTERNAL_TOS)
 
