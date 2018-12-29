@@ -49,6 +49,7 @@
 #pragma warning (push)
 #pragma warning (disable : 4701) // compiler thinks might use uninitialized var, but no
 #endif
+#include <boost/make_shared.hpp>
 #include <boost/lexical_cast.hpp>
 #if LL_WINDOWS
 #pragma warning (pop)
@@ -151,13 +152,23 @@ void LLEventPumps::flush()
     }
 }
 
+void LLEventPumps::clear()
+{
+    // Clear every known LLEventPump instance. Leave it up to each instance to
+    // decide what to do with the clear() call.
+    for (PumpMap::value_type& pair : mPumpMap)
+    {
+        pair.second->clear();
+    }
+}
+
 void LLEventPumps::reset()
 {
     // Reset every known LLEventPump instance. Leave it up to each instance to
     // decide what to do with the reset() call.
-    for (PumpMap::iterator pmi = mPumpMap.begin(), pmend = mPumpMap.end(); pmi != pmend; ++pmi)
+    for (PumpMap::value_type& pair : mPumpMap)
     {
-        pmi->second->reset();
+        pair.second->reset();
     }
 }
 
@@ -278,7 +289,7 @@ LLEventPump::LLEventPump(const std::string& name, bool tweak):
     // Register every new instance with LLEventPumps
     mRegistry(LLEventPumps::instance().getHandle()),
     mName(mRegistry.get()->registerNew(*this, name, tweak)),
-    mSignal(new LLStandardSignal()),
+    mSignal(boost::make_shared<LLStandardSignal>()),
     mEnabled(true)
 {}
 
@@ -304,6 +315,14 @@ std::string LLEventPump::inventName(const std::string& pfx)
 {
     static long suffix = 0;
     return STRINGIZE(pfx << suffix++);
+}
+
+void LLEventPump::clear()
+{
+    // Destroy the original LLStandardSignal instance, replacing it with a
+    // whole new one.
+    mSignal = boost::make_shared<LLStandardSignal>();
+    mConnections.clear();
 }
 
 void LLEventPump::reset()
@@ -548,7 +567,7 @@ bool LLEventMailDrop::post(const LLSD& event)
         // be posted to any future listeners when they attach.
         mEventHistory.push_back(event);
     }
-    
+
     return posted;
 }
 
