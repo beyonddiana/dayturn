@@ -425,7 +425,7 @@
      value="0.43 0.06 0.06 1" />
     <color
      name="HTMLLinkColor"
-     reference="EmphasisColor" />
+     value="0.643 0.804 1 1" />
     <color
      name="HealthTextColor"
      reference="White" />
@@ -700,7 +700,7 @@
      reference="DkGray_66" />
     <color
      name="ObjectChatColor"
-     reference="EmphasisColor" />
+     value="0.643 0.804 1 1" />
     <color
      name="OverdrivenColor"
      reference="Red" />
