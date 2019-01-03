@@ -62,6 +62,7 @@ class LLUICtrlFactory;
 
 class LLButton
 : public LLUICtrl, public LLBadgeOwner
+, public ll::ui::SearchableControl
 {
 public:
 	struct Params 
@@ -387,6 +388,13 @@ protected:
 	std::string					mCheckboxControl;
 	LLPanel*					mCheckboxControlPanel;
 	// </FS:Zi>
+	
+
+protected:
+	virtual std::string _getSearchText() const
+	{
+		return getLabelUnselected() + getToolTip();
+	}	
 };
 
 // Build time optimization, generate once in .cpp file

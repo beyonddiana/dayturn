@@ -554,6 +554,7 @@ set(viewer_SOURCE_FILES
     llscrollingpanelparam.cpp
     llscrollingpanelparambase.cpp
     llsearchcombobox.cpp
+    llsearchableui.cpp
     llsearchhistory.cpp
     llsecapi.cpp
     llsechandler_basic.cpp
@@ -1190,6 +1191,7 @@ set(viewer_HEADER_FILES
     llscrollingpanelparam.h
     llscrollingpanelparambase.h
     llsearchcombobox.h
+    llsearchableui.h
     llsearchhistory.h
     llsecapi.h
     llsechandler_basic.h
