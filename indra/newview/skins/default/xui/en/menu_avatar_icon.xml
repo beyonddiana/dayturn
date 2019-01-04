@@ -79,13 +79,13 @@
          function="AvatarIcon.Action"
          parameter="invite_to_group" />
     </menu_item_call>
-    <menu_item_call
+    <menu_item_check
      label="Block Voice"
      layout="topleft"
      name="Block Unblock">
        <on_click function="AvatarIcon.Action" parameter="block_unblock" />
        <on_check function="AvatarIcon.Check" parameter="is_blocked" />
-    </menu_item_call>
+    </menu_item_check>
     <menu_item_check
      label="Block Text"
      layout="topleft"
