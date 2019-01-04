@@ -35,6 +35,13 @@
      label="Edit"
      tear_off="false"
      name="Edit">
+      <menu_item_call
+       label="Set Window Size..."
+       name="Set Window Size...">
+        <menu_item_call.on_click
+         function="Floater.Show"
+         parameter="window_size" />
+      </menu_item_call>     
         <menu_item_call
          label="Preferences"
          name="Preferences..."
@@ -102,6 +109,20 @@
                  parameter="http://wiki.secondlife.com"/>
         </menu_item_call>
         <menu_item_separator/>
+        <menu_item_check
+          label="Show Debug Menu"
+          name="Show Debug Menu"
+          visible="true" 
+          shortcut="control|alt|D"
+          use_mac_ctrl="true">
+          <on_check
+           function="CheckControl"
+           parameter="UseDebugMenus" />
+          <on_click
+           function="ToggleControl"
+           parameter="UseDebugMenus" />
+        </menu_item_check>        
+        <menu_item_separator/>
         <menu_item_call
          label="About [APP_NAME]"
          name="About Second Life">
@@ -110,18 +131,6 @@
              parameter="sl_about" />
         </menu_item_call>
     </menu>
-    <menu_item_check
-      label="Show Debug Menu"
-      name="Show Debug Menu"
-      visible="false" 
-      shortcut="control|alt|D">
-      <on_check
-       function="CheckControl"
-       parameter="UseDebugMenus" />
-      <on_click
-       function="ToggleControl"
-       parameter="UseDebugMenus" />
-    </menu_item_check>
     <menu
      create_jump_keys="true"
      visible="false"
@@ -198,13 +207,6 @@
       </menu_item_check>
 -->
       <menu_item_separator />
-      <menu_item_call
-       label="Set Window Size..."
-       name="Set Window Size...">
-        <menu_item_call.on_click
-         function="Floater.Show"
-         parameter="window_size" />
-      </menu_item_call>
         <menu_item_call
          label="Show TOS"
          name="TOS">

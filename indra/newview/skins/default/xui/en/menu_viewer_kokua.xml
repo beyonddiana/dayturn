@@ -1685,6 +1685,7 @@
          label="Show Advanced Menu"
          name="Show Advanced Menu"
          shortcut="control|alt|D"
+         use_mac_ctrl="true"
          visible="true">
          <menu_item_check.on_check
             function="CheckControl"
@@ -2655,6 +2656,7 @@
              label="Show Advanced Menu"
              name="Show Advanced Menu"
              shortcut="control|alt|D"
+             use_mac_ctrl="true"
              visible="false">
                 <on_check
                  function="CheckControl"
