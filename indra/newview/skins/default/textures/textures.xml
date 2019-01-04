@@ -586,8 +586,8 @@ with the same filename but different name
   <texture name="SliderThumb_Disabled" file_name="widgets/SliderThumb_Disabled.png" />
   <texture name="SliderThumb_Press" file_name="widgets/SliderThumb_Press.png" />
 
-  <texture name="Kokua_Logo" file_name="icons/Kokua_Logo.png" preload="true" />
-  <texture name="Kokua_Logo_Large" file_name="icons/Kokua_Logo_Large.png" preload="true" /> 
+  <texture name="Dayturn_Logo" file_name="icons/Dayturn_Logo.png" preload="true" />
+  <texture name="Dayturn_Logo_Large" file_name="icons/Dayturn_Logo_Large.png" preload="true" /> 
   <texture name="OBJECT_Icon" file_name="icons/object_icon.png" preload="true" />
   <texture name="Sound_Icon" file_name="icons/sound_icon.png" preload="true" />
   <texture name="Unknown_Icon" file_name="icons/unknown_icon.png" preload="true" />
@@ -816,7 +816,7 @@ with the same filename but different name
   <texture name="Default_Outfit_Photo" file_name="icons/Default_Outfit_Photo.png" preload="true"/>
   <texture name="Notification_Condense" file_name="icons/Icon_Notification_Condense.png" preload="true"/>
   <texture name="Notification_Expand" file_name="icons/Icon_Notification_Expand.png" preload="true"/>
-  <texture name="System_Notification" file_name="icons/Kokua_Logo_Large.png" preload="true"/>
+  <texture name="System_Notification" file_name="icons/Dayturn_Logo_Large.png" preload="true"/>
   <texture name="Icon_Attachment_Small" file_name="icons/Icon_Attachment_Small.png"	preload="true"/>
   <texture name="Icon_Attachment_Large" file_name="icons/Icon_Attachment_Large.png"	preload="true"/>
 </textures>
