@@ -2807,7 +2807,8 @@
      <menu_item_check
          label="Show Develop Menu"
          name="Debug Mode"
-         shortcut="control|alt|Q">
+         shortcut="control|alt|Q"
+         use_mac_ctrl="true">
             <menu_item_check.on_check
              function="CheckControl"
              parameter="QAMode" />
