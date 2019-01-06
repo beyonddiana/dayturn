@@ -8956,24 +8956,13 @@
     <key>RenderAnisotropic</key>
     <map>
       <key>Comment</key>
-      <string>Render textures using anisotropic filtering (Unused setting - Set RenderAnisotropicSamples instead of this one)</string>
+      <string>Render textures using anisotropic filtering</string>
       <key>Persist</key>
       <integer>0</integer>
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
       <integer>0</integer>
-    </map>
-    <key>RenderAnisotropicSamples</key>
-    <map>
-      <key>Comment</key>
-      <string>Per-pixel samples for anisotropic filtering.  Use 2, 4, 8 or 16 etc.  Values &lt;= 1 disable anisotropic filtering.  The GPU's maximum supported value will be used if it is lower than the value specified here</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>F32</string>
-      <key>Value</key>
-      <real>0.0</real>
     </map>
     <key>RenderAppleUseMultGL</key>
     <map>
