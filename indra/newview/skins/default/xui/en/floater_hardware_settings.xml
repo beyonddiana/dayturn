@@ -14,66 +14,9 @@
      height="12"
      layout="topleft"
      left="10"
-     name="Filtering:"
-     text_readonly_color="LabelDisabledColor"
-     top="34"
-     width="130">
-        Anisotropic filtering:
-    </text>
-    <combo_box
-     name="ani"
-     control_name="RenderAnisotropicSamples"
-     label="Anisotropic filtering"
-     layout="topleft"
-     height="22"
-     width="130"
-     top_delta="-4"
-     left_pad="10"
-     initial_value="0">
-        <combo_box.item
-         label="Disabled"
-         name="ANIDisabled"
-         value="0" />
-        <combo_box.item
-         label="2x"
-         name="2x"
-         value="2" />
-        <combo_box.item
-         label="4x"
-         name="4x"
-         value="4" />
-        <combo_box.item
-         label="8x"
-         name="8x"
-         value="8" />
-        <combo_box.item
-         label="16x"
-         name="16x"
-         value="16" />
-    </combo_box>
-    <text
-     name="ani note"
-     layout="topleft"
-     follows="left|top"
-     type="string"
-     length="1"
-     height="12"
-     width="130"
-     top_delta="4"
-     left_pad="10"
-     text_readonly_color="LabelDisabledColor">
-        (Slower when enabled)
-    </text>
-    <text
-     type="string"
-     length="1"
-     follows="left|top"
-     height="12"
-     layout="topleft"
-     left="10"
      name="antialiasing label"
      text_readonly_color="LabelDisabledColor"
-     top_pad="15"
+     top="34"
      width="130">
         Antialiasing:
     </text>
@@ -125,12 +68,34 @@
      type="string"
      length="1"
      follows="left|top"
+     height="12"
+     layout="topleft"
+     left="10"
+     name="Filtering:"
+     text_readonly_color="LabelDisabledColor"
+     top_pad="15"
+     width="130">
+        Anisotropic filtering:
+    </text>
+  <check_box
+    control_name="RenderAnisotropic"
+    height="16"
+    label="(Slower when enabled)"
+    layout="topleft"
+    left_pad="10"
+    top_delta="4"
+    name="ani"
+    width="256" />    
+    <text
+     type="string"
+     length="1"
+     follows="left|top"
      height="16"
      layout="topleft"
      left="10"
      name="vbo_label"
      text_readonly_color="LabelDisabledColor"
-     top_pad="15"
+     top_pad="5"
      width="130">
         Vertex buffer objects:
     </text>
