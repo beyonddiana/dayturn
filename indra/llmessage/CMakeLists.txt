@@ -3,7 +3,6 @@
 project(llmessage)
 
 include(00-Common)
-include(GoogleMock)
 include(LLAddBuildTest)
 include(LLCommon)
 include(LLCoreHttp)
@@ -255,7 +254,6 @@ if (LL_TESTS)
     ${LLVFS_LIBRARIES}
     ${LLMATH_LIBRARIES}
     ${LLCOMMON_LIBRARIES}
-      ${GOOGLEMOCK_LIBRARIES}
     )
 
   LL_ADD_INTEGRATION_TEST(
