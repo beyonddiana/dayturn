@@ -52,7 +52,7 @@ Linux.cxx_version = /usr/bin/g++-4.6
 # All Linden Lab builds (and only Linden Lab builds)
 # should use a viewer_channel that begins with "Second Life"
 ################################################################
-viewer_channel = "Kokua Release"
+viewer_channel = "Dayturn Release"
 
 ################################################################
 # Special packaging parameters.

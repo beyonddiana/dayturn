@@ -673,11 +673,11 @@ class Windows_i686_Manifest(ViewerManifest):
             OutFile "%(installer_file)s"
             !define INSTNAME   "%(app_name_oneword)s"
             !define SHORTCUT   "%(app_name)s"
-            !define URLNAME   "kokua"
+            !define URLNAME   "dayturn"
             Caption "%(caption)s"
             """
 
-        tempfile = "kokua_setup_tmp.nsi"
+        tempfile = "dayturn_setup_tmp.nsi"
         # the following replaces strings in the nsi template
         # it also does python-style % substitution
         self.replace_in("installers/windows/installer_template.nsi", tempfile, {
