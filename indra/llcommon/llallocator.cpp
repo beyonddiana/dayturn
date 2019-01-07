@@ -46,13 +46,3 @@ std::string LLAllocator::getRawProfile()
     return std::string();
 }
 
-LLAllocatorHeapProfile const & LLAllocator::getProfile()
-{
-    mProf.mLines.clear();
-
-    // *TODO - avoid making all these extra copies of things...
-    std::string prof_text = getRawProfile();
-    //std::cout << prof_text << std::endl;
-    mProf.parse(prof_text);
-    return mProf;
-}

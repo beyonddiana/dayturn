@@ -29,7 +29,6 @@
 
 #include <string>
 
-#include "llallocator_heap_profile.h"
 
 class LL_COMMON_API LLAllocator {
     friend class LLMemoryView;
@@ -39,13 +38,9 @@ public:
 
     static bool isProfiling();
 
-    LLAllocatorHeapProfile const & getProfile();
-
 private:
     std::string getRawProfile();
 
-private:
-    LLAllocatorHeapProfile mProf;
 };
 
 #endif // LL_LLALLOCATOR_H

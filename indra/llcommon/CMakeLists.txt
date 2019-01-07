@@ -36,7 +36,6 @@ include_directories(
 set(llcommon_SOURCE_FILES
     indra_constants.cpp
     llallocator.cpp
-    llallocator_heap_profile.cpp
     llapp.cpp
     llapr.cpp
     llassettype.cpp
@@ -136,7 +135,6 @@ set(llcommon_HEADER_FILES
     linden_common.h
     llalignedarray.h
     llallocator.h
-    llallocator_heap_profile.h
     llapp.h
     llapr.h
     llassettype.h
@@ -374,10 +372,5 @@ if (LL_TESTS)
 ## every build. It's to help a developer make implementation choices about
 ## throwing and catching exceptions.
 ##LL_ADD_INTEGRATION_TEST(llexception "" "${test_libs}")
-
-  # *TODO - reenable these once tcmalloc libs no longer break the build.
-  #ADD_BUILD_TEST(llallocator llcommon)
-  #ADD_BUILD_TEST(llallocator_heap_profile llcommon)
-  #ADD_BUILD_TEST(llmemtype llcommon)
 
 endif (LL_TESTS)
