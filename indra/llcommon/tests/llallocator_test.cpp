@@ -51,30 +51,4 @@ namespace tut
         llallocator.setProfilingEnabled(false);
         ensure("Profiler disable", !llallocator.isProfiling());
     }
-
-#if LL_USE_TCMALLOC
-    template<> template<>
-    void object::test<2>()
-    {
-        llallocator.setProfilingEnabled(true);
-        ensure("Profiler enable", llallocator.isProfiling());
-    }
-
-    template <> template <>
-    void object::test<3>()
-    {
-        llallocator.setProfilingEnabled(true);
-
-        char * test_alloc = new char[1024];
-
-        llallocator.getProfile();
-
-        delete [] test_alloc;
-
-        llallocator.getProfile();        
-
-        // *NOTE - this test isn't ensuring anything right now other than no
-        // exceptions are thrown.
-    }
-#endif // LL_USE_TCMALLOC
 };

@@ -34,7 +34,6 @@ set(cmake_SOURCE_FILES
     FindGLH.cmake
     FindGLOD.cmake
     FindGoogleBreakpad.cmake
-    FindGooglePerfTools.cmake
     FindHUNSPELL.cmake
     FindJsonCpp.cmake
     FindNDOF.cmake
@@ -53,7 +52,6 @@ set(cmake_SOURCE_FILES
     Glui.cmake
     Glut.cmake
     GoogleBreakpad.cmake
-    GooglePerfTools.cmake
     Havok.cmake
     Hunspell.cmake
     JPEG.cmake
