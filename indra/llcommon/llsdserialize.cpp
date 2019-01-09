@@ -32,6 +32,8 @@
 #include "llstreamtools.h" // for fullread
 
 #include <iostream>
+#include <stdexcept>
+
 #include "apr_base64.h"
 
 #ifdef LL_USESYSTEMLIBS
