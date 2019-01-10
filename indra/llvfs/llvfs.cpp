@@ -2117,7 +2117,9 @@ time_t LLVFS::creationTime()
     if (0 == errors)
     {
     time_t creation_time = data_file_stat.st_ctime;
+#if LL_DARWIN    
     creation_time = data_file_stat.st_birthtime;
+#endif    
     return creation_time;
     }
     return 0;
