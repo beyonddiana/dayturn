@@ -580,7 +580,7 @@ private:
 public:
 	LLVector4	mWindVec;
 	F32			mRipplePhase;
-	BOOL		mBelowWater;
+	bool		mBelowWater;
 private:
 	F32			mWindFreq;
 	LLFrameTimer mRippleTimer;
