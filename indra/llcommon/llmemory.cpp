@@ -175,7 +175,6 @@ void LLMemory::logMemoryInfo(BOOL update)
 	if(update)
 	{
 		updateMemoryInfo() ;
-		LLPrivateMemoryPoolManager::getInstance()->updateStatistics() ;
 	}
 
 	LL_INFOS() << "Current allocated physical memory(KB): " << sAllocatedMemInKB << LL_ENDL ;
