@@ -1274,7 +1274,7 @@ bool LLMeshRepoThread::fetchMeshSkinInfo(const LLUUID& mesh_id)
 
 				if (!zero)
 				{ //attempt to parse
-					if (lodReceived(mesh_params, lod, buffer, size) == MESH_OK)
+					if (skinInfoReceived(mesh_id, buffer, size))
 					{						
 						delete[] buffer;
 						return true;
