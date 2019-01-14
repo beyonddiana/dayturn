@@ -224,7 +224,7 @@ public:
 	// Accessor functions
 	LLViewerRegion* getRegion() const				{ return mRegionp; }
 
-	BOOL isSelected() const							{ return mUserSelected; }
+	bool isSelected() const							{ return mUserSelected; }
     // Check whole linkset
     BOOL isAnySelected() const;
 	virtual void setSelected(bool sel);
@@ -839,7 +839,7 @@ protected:
 	LLViewerRegion	*mRegionp;					// Region that this object belongs to.
 	bool			mDead;
 	bool			mOrphaned;					// This is an orphaned child
-	BOOL			mUserSelected;				// Cached user select information
+	bool			mUserSelected;				// Cached user select information
 	bool			mOnActiveList;
 	BOOL			mOnMap;						// On the map.
 	BOOL			mStatic;					// Object doesn't move.

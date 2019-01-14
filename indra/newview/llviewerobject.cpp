@@ -281,7 +281,7 @@ LLViewerObject::LLViewerObject(const LLUUID &id, const LLPCode pcode, LLViewerRe
 	mRegionp(regionp),
 	mDead(false),
 	mOrphaned(false),
-	mUserSelected(FALSE),
+	mUserSelected(false),
 	mOnActiveList(false),
 	mOnMap(FALSE),
 	mStatic(FALSE),
@@ -2429,7 +2429,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 //
 	// Additionally, if any child is selected, need to update the dialogs and selection
 	// center.
-	BOOL needs_refresh = mUserSelected;
+	bool needs_refresh = mUserSelected;
 	for (child_list_t::iterator iter = mChildList.begin();
 		 iter != mChildList.end(); iter++)
 	{
@@ -3742,7 +3742,7 @@ void LLViewerObject::setLinksetCost(F32 cost)
 	mLinksetCost = cost;
 	mCostStale = false;
 
-	BOOL needs_refresh = isSelected();
+	bool needs_refresh = isSelected();
 	child_list_t::iterator iter = mChildList.begin();
 	while(iter != mChildList.end() && !needs_refresh)
 	{
