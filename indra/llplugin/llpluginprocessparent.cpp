@@ -81,11 +81,11 @@ protected:
 };
 
 LLPluginProcessParent::LLPluginProcessParent(LLPluginProcessParentOwner *owner):
-	mIncomingQueueMutex(gAPRPoolp)
+	mIncomingQueueMutex()
 {
 	if(!sInstancesMutex)
 	{
-		sInstancesMutex = new LLMutex(gAPRPoolp);
+		sInstancesMutex = new LLMutex();
 	}
 	
 	mOwner = owner;
