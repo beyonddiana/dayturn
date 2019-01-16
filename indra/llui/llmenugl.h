@@ -441,7 +441,7 @@ public:
 
 	LLMenuGL* findChildMenuByName(const std::string& name, BOOL recurse) const;
 	
-	BOOL clearHoverItem();
+	bool clearHoverItem();
 
 	// return the name label
 	const std::string& getLabel( void ) const { return mLabel.getString(); }
