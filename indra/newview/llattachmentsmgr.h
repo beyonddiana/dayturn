@@ -97,8 +97,8 @@ private:
         LLItemRequestTimes(const std::string& op_name, F32 timeout);
         void addTime(const LLUUID& inv_item_id);
         void removeTime(const LLUUID& inv_item_id);
-        BOOL wasRequestedRecently(const LLUUID& item_id) const;
-        BOOL getTime(const LLUUID& inv_item_id, LLTimer& timer) const;
+        bool wasRequestedRecently(const LLUUID& item_id) const;
+        bool getTime(const LLUUID& inv_item_id, LLTimer& timer) const;
 
     private:
         F32 mTimeout;

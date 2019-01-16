@@ -296,18 +296,18 @@ void LLAttachmentsMgr::LLItemRequestTimes::removeTime(const LLUUID& inv_item_id)
     }
 }
 
-BOOL LLAttachmentsMgr::LLItemRequestTimes::getTime(const LLUUID& inv_item_id, LLTimer& timer) const
+bool LLAttachmentsMgr::LLItemRequestTimes::getTime(const LLUUID& inv_item_id, LLTimer& timer) const
 {
 	std::map<LLUUID,LLTimer>::const_iterator it = (*this).find(inv_item_id);
 	if (it != (*this).end())
 	{
         timer = it->second;
-        return TRUE;
+        return true;
     }
-    return FALSE;
+    return false;
 }
 
-BOOL LLAttachmentsMgr::LLItemRequestTimes::wasRequestedRecently(const LLUUID& inv_item_id) const
+bool LLAttachmentsMgr::LLItemRequestTimes::wasRequestedRecently(const LLUUID& inv_item_id) const
 {
     LLTimer request_time;
     if (getTime(inv_item_id, request_time))
@@ -317,7 +317,7 @@ BOOL LLAttachmentsMgr::LLItemRequestTimes::wasRequestedRecently(const LLUUID& in
     }
     else
     {
-        return FALSE;
+        return false;
     }
 }
 

@@ -3190,7 +3190,7 @@ LLMenuGL* LLMenuGL::findChildMenuByName(const std::string& name, BOOL recurse) c
 	return NULL;
 }
 
-BOOL LLMenuGL::clearHoverItem()
+bool LLMenuGL::clearHoverItem()
 {
 	for ( child_list_const_iter_t child_it = getChildList()->begin(); child_it != getChildList()->end(); ++child_it)
 	{
@@ -3201,7 +3201,7 @@ BOOL LLMenuGL::clearHoverItem()
 			return TRUE;
 		}
 	}		
-	return FALSE;
+	return false;
 }
 
 void hide_top_view( LLView* view )

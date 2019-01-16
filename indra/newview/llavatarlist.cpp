@@ -270,7 +270,7 @@ LLAvatarList::~LLAvatarList()
 void LLAvatarList::setShowIcons(std::string param_name)
 {
 	mIconParamName= param_name;
-	mShowIcons = gSavedSettings.getBOOL(mIconParamName);
+	mShowIcons = (bool)gSavedSettings.getBOOL(mIconParamName);
 }
 // [Ansariel: Colorful radar]
 void LLAvatarList::setUseRangeColors(bool UseRangeColors)
@@ -549,7 +549,7 @@ S32 LLAvatarList::notifyParent(const LLSD& info)
 	return LLFlatListViewEx::notifyParent(info);
 }
 
-void LLAvatarList::addNewItem(const LLUUID& id, const std::string& name, BOOL is_online, EAddPosition pos)
+void LLAvatarList::addNewItem(const LLUUID& id, const std::string& name, bool is_online, EAddPosition pos)
 {
 //MK
 	// Do not add ourselves to the list
