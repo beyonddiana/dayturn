@@ -69,7 +69,7 @@ BOOL LLDoNotDisturbNotificationStorageTimer::tick()
 }
 
 LLDoNotDisturbNotificationStorage::LLDoNotDisturbNotificationStorage()
-    : LLNotificationStorage("")
+	: LLNotificationStorage("")
     , mDirty(false)
 {
     nameToPayloadParameterMap[toastName] = "SESSION_ID";
@@ -151,6 +151,7 @@ void LLDoNotDisturbNotificationStorage::loadNotifications()
     bool imToastExists = false;
 	bool group_ad_hoc_toast_exists = false;
 	S32 toastSessionType;
+    bool offerExists = false;
 	
 	for (LLSD::array_const_iterator notification_it = data.beginArray();
 		 notification_it != data.endArray();
@@ -177,6 +178,10 @@ void LLDoNotDisturbNotificationStorage::loadNotifications()
 				group_ad_hoc_toast_exists = true;
 				continue;
 			}
+        }
+        else if(notificationName == offerName)
+        {
+            offerExists = true;
         }
 		
 		//Notification already exists due to persistent storage adding it first into the notification system
@@ -212,7 +217,11 @@ void LLDoNotDisturbNotificationStorage::loadNotifications()
 		LLFloaterReg::showInstance("conversation");
 	}
 
-    if(imToastExists || group_ad_hoc_toast_exists)
+    if(imToastExists || group_ad_hoc_toast_exists || offerExists)
+    {
+		make_ui_sound_deferred("UISndNewIncomingIMSession");
+    }
+
     //writes out empty .xml file (since LLCommunicationChannel::mHistory is empty)
 	saveNotifications();
 
@@ -228,6 +237,8 @@ void LLDoNotDisturbNotificationStorage::updateNotifications()
 
     LLNotifications& instance = LLNotifications::instance();
     bool imToastExists = false;
+    bool offerExists = false;
+    
 #if (LL_LINUX && GCC_VERSION >= 40600)
 //Work around gcc-4.7 set but unused warning
 	if (imToastExists){};
@@ -244,6 +255,10 @@ void LLDoNotDisturbNotificationStorage::updateNotifications()
         {
             imToastExists = true;
         }
+        else if(notificationName == offerName)
+        {
+            offerExists = true;
+        }
 
         //Notification already exists in notification pipeline (same instance of app running)
         if (notification)
@@ -252,9 +267,10 @@ void LLDoNotDisturbNotificationStorage::updateNotifications()
             instance.update(notification);
         }
     }
-    if(imToastExists)
-    {   
-        LLFloaterReg::showInstance("im_container");
+
+    if(imToastExists || offerExists)
+    {
+        make_ui_sound("UISndNewIncomingIMSession");
     }
 
     //When exit DND mode, write empty notifications file
