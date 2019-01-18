@@ -1896,11 +1896,13 @@ struct LLEstateAccessChangeInfo
 		LLSD sd;
 		sd["name"] = mDialogName;
 		sd["operation"] = (S32)mOperationFlag;
-		for (uuid_vec_t::const_iterator it = mAgentOrGroupIDs.begin();
-			it != mAgentOrGroupIDs.end();
-			++it)
+		for (U32 i = 0; i < mAgentOrGroupIDs.size(); ++i)
 		{
-			sd["allowed_ids"].append(*it);
+			sd["allowed_ids"].append(mAgentOrGroupIDs[i]);
+			if (mAgentNames.size() > i)
+			{
+				sd["allowed_names"].append(mAgentNames[i].asLLSD());
+			}
 		}
 		return sd;
 	}
@@ -1908,6 +1910,7 @@ struct LLEstateAccessChangeInfo
 	U32 mOperationFlag;	// ESTATE_ACCESS_BANNED_AGENT_ADD, _REMOVE, etc.
 	std::string mDialogName;
 	uuid_vec_t mAgentOrGroupIDs; // List of agent IDs to apply to this change
+	std::vector<LLAvatarName> mAgentNames; // Optional list of the agent names for notifications
 };
 
 // static
@@ -4018,7 +4021,7 @@ bool LLPanelEstateAccess::accessAddCore2(const LLSD& notification, const LLSD& r
 	}
 
 	// avatar picker yes multi-select, yes close-on-select
-	LLFloater* child_floater = LLFloaterAvatarPicker::show(boost::bind(&LLPanelEstateAccess::accessAddCore3, _1, (void*)change_info),
+	LLFloater* child_floater = LLFloaterAvatarPicker::show(boost::bind(&LLPanelEstateAccess::accessAddCore3, _1, _2, (void*)change_info),
 		TRUE, TRUE, FALSE, parent_floater_name, button);
 
 	//Allows the closed parent floater to close the child floater (avatar picker)
@@ -4031,7 +4034,7 @@ bool LLPanelEstateAccess::accessAddCore2(const LLSD& notification, const LLSD& r
 }
 
 // static
-void LLPanelEstateAccess::accessAddCore3(const uuid_vec_t& ids, void* data)
+void LLPanelEstateAccess::accessAddCore3(const uuid_vec_t& ids, std::vector<LLAvatarName> names, void* data)
 {
 	LLEstateAccessChangeInfo* change_info = (LLEstateAccessChangeInfo*)data;
 	if (!change_info) return;
@@ -4067,11 +4070,12 @@ void LLPanelEstateAccess::accessAddCore3(const uuid_vec_t& ids, void* data)
 		}
 
 		uuid_vec_t ids_allowed;
+		std::vector<LLAvatarName> names_allowed;
 		std::string already_allowed;
 		bool single = true;
-		for (uuid_vec_t::const_iterator it = ids.begin(); it != ids.end(); ++it)
+		for (U32 i = 0; i < ids.size(); ++i)
 		{
-			LLScrollListItem* item = name_list->getNameItemByAgentId(*it);
+			LLScrollListItem* item = name_list->getNameItemByAgentId(ids[i]);
 			if (item)
 			{
 				if (!already_allowed.empty())
@@ -4083,7 +4087,8 @@ void LLPanelEstateAccess::accessAddCore3(const uuid_vec_t& ids, void* data)
 			}
 			else
 			{
-				ids_allowed.push_back(*it);
+				ids_allowed.push_back(ids[i]);
+				names_allowed.push_back(names[i]);
 			}
 		}
 		if (!already_allowed.empty())
@@ -4099,6 +4104,7 @@ void LLPanelEstateAccess::accessAddCore3(const uuid_vec_t& ids, void* data)
 			}
 		}
 		change_info->mAgentOrGroupIDs = ids_allowed;
+		change_info->mAgentNames = names_allowed;
 	}
 	if (change_info->mOperationFlag & ESTATE_ACCESS_BANNED_AGENT_ADD)
 	{
@@ -4118,13 +4124,14 @@ void LLPanelEstateAccess::accessAddCore3(const uuid_vec_t& ids, void* data)
 		}
 
 		uuid_vec_t ids_allowed;
+		std::vector<LLAvatarName> names_allowed;
 		std::string already_banned;
 		std::string em_ban;
 		bool single = true;
-		for (uuid_vec_t::const_iterator it = ids.begin(); it != ids.end(); ++it)
+		for (U32 i = 0; i < ids.size(); ++i)
 		{
 			bool is_allowed = true;
-			LLScrollListItem* em_item = em_list->getNameItemByAgentId(*it);
+			LLScrollListItem* em_item = em_list->getNameItemByAgentId(ids[i]);
 			if (em_item)
 			{
 				if (!em_ban.empty())
@@ -4135,7 +4142,7 @@ void LLPanelEstateAccess::accessAddCore3(const uuid_vec_t& ids, void* data)
 				is_allowed = false;
 			}
 
-			LLScrollListItem* item = name_list->getNameItemByAgentId(*it);
+			LLScrollListItem* item = name_list->getNameItemByAgentId(ids[i]);
 			if (item)
 			{
 				if (!already_banned.empty())
@@ -4149,7 +4156,8 @@ void LLPanelEstateAccess::accessAddCore3(const uuid_vec_t& ids, void* data)
 
 			if (is_allowed)
 			{
-				ids_allowed.push_back(*it);
+				ids_allowed.push_back(ids[i]);
+				names_allowed.push_back(names[i]);
 			}
 		}
 		if (!em_ban.empty())
@@ -4176,6 +4184,7 @@ void LLPanelEstateAccess::accessAddCore3(const uuid_vec_t& ids, void* data)
 			}
 		}
 		change_info->mAgentOrGroupIDs = ids_allowed;
+		change_info->mAgentNames = names_allowed;
 	}
 
 	LLSD args;
@@ -4298,15 +4307,18 @@ bool LLPanelEstateAccess::accessCoreConfirm(const LLSD& notification, const LLSD
 
 	std::string names;
 	U32 listed_names = 0;
-	LLSD::array_const_iterator end_it = notification["payload"]["allowed_ids"].endArray();
-	for (LLSD::array_const_iterator iter = notification["payload"]["allowed_ids"].beginArray();
-		 iter != end_it;
-		 iter++)
+	for (U32 i = 0; i < notification["payload"]["allowed_ids"].size(); ++i)
 	{
-		if (iter + 1 != end_it)
+		if (i + 1 != notification["payload"]["allowed_ids"].size())
+		{
 			flags |= ESTATE_ACCESS_NO_REPLY;
+		}
+		else
+		{
+			flags &= ~ESTATE_ACCESS_NO_REPLY;
+		}
 
-		const LLUUID id = iter->asUUID();
+		const LLUUID id = notification["payload"]["allowed_ids"][i].asUUID();
 		if (((U32)notification["payload"]["operation"].asInteger() & ESTATE_ACCESS_BANNED_AGENT_ADD)
 			&& region && (region->getOwner() == id))
 		{
@@ -4321,15 +4333,23 @@ bool LLPanelEstateAccess::accessCoreConfirm(const LLSD& notification, const LLSD
 			// fill the name list for confirmation
 			if (listed_names < MAX_LISTED_NAMES)
 			{
-				LLAvatarName av_name;
-				if (LLAvatarNameCache::get(id, &av_name))
+				if (!names.empty())
 				{
-					if (!names.empty())
+					names += ", ";
+				}
+				if (!notification["payload"]["allowed_names"][i]["display_name"].asString().empty())
+				{
+					names += notification["payload"]["allowed_names"][i]["display_name"].asString();
+				}
+				else
+				{ //try to get an agent name from cache
+					LLAvatarName av_name;
+					if (LLAvatarNameCache::get(id, &av_name))
 					{
-						names += ", ";
+						names += av_name.getCompleteName();
 					}
-					names += av_name.getCompleteName();
-				}				
+				}
+				
 			}
 			listed_names++;
 		}
