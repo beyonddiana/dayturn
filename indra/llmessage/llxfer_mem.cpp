@@ -144,8 +144,11 @@ S32 LLXfer_Mem::initializeRequest(U64 xfer_id,
 
 	LL_INFOS() << "Requesting file: " << remote_filename << LL_ENDL;
 
-	delete [] mBuffer;
-	mBuffer = NULL;
+	if (mBuffer)
+	{
+		delete[] mBuffer;
+		mBuffer = NULL;
+	}
 
 	mBufferLength = 0;
 	mPacketNum = 0;

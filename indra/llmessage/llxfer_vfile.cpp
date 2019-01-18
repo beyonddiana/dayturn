@@ -82,8 +82,11 @@ void LLXfer_VFile::cleanup ()
 	LLVFile file(mVFS, mTempID, mType, LLVFile::WRITE);
 	file.remove();
 
-	delete mVFile;
-	mVFile = NULL;
+	if (mVFile)
+	{
+		delete mVFile;
+		mVFile = NULL;
+	}
 
 	LLXfer::cleanup();
 }
