@@ -2215,7 +2215,7 @@ LLUZipHelper::EZipRresult LLUZipHelper::unzip_llsd(LLSD& data, std::istream& is,
 
 	if (ret != Z_STREAM_END)
 	{
-		LL_WARNS() << "Unzip error: !Z_STREAM_END" << LL_ENDL;
+		LL_DEBUGS() << "Unzip error: !Z_STREAM_END" << LL_ENDL;
 		free(result);
 		return ZR_DATA_ERROR;
 	}
