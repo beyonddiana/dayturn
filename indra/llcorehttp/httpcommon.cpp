@@ -24,8 +24,19 @@
  * $/LicenseInfo$
  */
 
-#include "httpcommon.h"
 
+#define SAFE_SSL 1
+
+#include "linden_common.h"        // Modifies curl/curl.h interfaces
+#include "httpcommon.h"
+#include "llmutex.h"
+#include "llthread.h"
+#include <curl/curl.h>
+#include <string>
+#include <sstream>
+#if SAFE_SSL
+#include <openssl/crypto.h>
+#endif
 #include <curl/curl.h>
 #include <string>
 #include <sstream>
