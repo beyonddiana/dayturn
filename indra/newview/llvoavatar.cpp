@@ -8285,6 +8285,23 @@ void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
     bool slam_params = false;
     applyParsedAppearanceMessage(*contents, slam_params);
     
+//MK
+	// we need to rebake the textures too, which has the effect of sanitizing the COF by 
+	// making it consistent with what we see on the screen.
+	if (isSelf())
+	{
+		handle_rebake_textures(NULL); // included in llviewermenu
+	}
+
+	// We also need to reset the skeleton of this avatar because Bento-animated attachments 
+	// still in place may look funny after an object has been detached.
+	// But don't do this while editing one of our own attachments because it puts the 
+	// avatar in T-pose, potentially ruining some delicate positioning.
+	if (!LLSelectMgr::getInstance()->getSelection()->getObjectCount() || !LLSelectMgr::getInstance()->getSelection()->isAttachment())
+	{
+		resetSkeleton(false);
+	}
+//mk    
 } 
 
 void LLVOAvatar::applyParsedAppearanceMessage(LLAppearanceMessageContents& contents, bool slam_params)
