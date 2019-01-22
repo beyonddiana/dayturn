@@ -1827,6 +1827,54 @@ class LLAdvancedReloadVertexShader : public view_listener_t
 };
 
 
+//////////////////
+// SHOW LOOK AT //
+//////////////////
+
+
+class LLAdvancedToggleShowLookAt : public view_listener_t
+{
+	bool handleEvent(const LLSD& userdata)
+	{
+		LLHUDEffectLookAt::sDebugLookAt = !(LLHUDEffectLookAt::sDebugLookAt);
+		return true;
+	}
+};
+
+class LLAdvancedCheckShowLookAt : public view_listener_t
+{
+	bool handleEvent(const LLSD& userdata)
+	{
+		bool new_value = LLHUDEffectLookAt::sDebugLookAt;
+		return new_value;
+	}
+};
+
+
+
+///////////////////
+// SHOW POINT AT //
+///////////////////
+
+
+class LLAdvancedToggleShowPointAt : public view_listener_t
+{
+	bool handleEvent(const LLSD& userdata)
+	{
+		LLHUDEffectPointAt::sDebugPointAt = !(LLHUDEffectPointAt::sDebugPointAt);
+		return true;
+	}
+};
+
+class LLAdvancedCheckShowPointAt : public view_listener_t
+{
+	bool handleEvent(const LLSD& userdata)
+	{
+		bool new_value = LLHUDEffectPointAt::sDebugPointAt;
+		return new_value;
+	}
+};
+
 
 ////////////////////
 // ANIMATION INFO //

@@ -76,6 +76,10 @@ const S32 POINTAT_PRIORITIES[POINTAT_NUM_TARGETS] =
 	3, //POINTAT_TARGET_CLEAR
 };
 
+// statics
+
+BOOL LLHUDEffectPointAt::sDebugPointAt;
+
 //-----------------------------------------------------------------------------
 // LLHUDEffectPointAt()
 //-----------------------------------------------------------------------------

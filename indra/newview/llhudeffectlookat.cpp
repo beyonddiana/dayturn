@@ -47,6 +47,8 @@
 #include "llxmltree.h"
 #include "llviewercontrol.h"
 
+BOOL LLHUDEffectLookAt::sDebugLookAt = FALSE;
+
 // packet layout
 const S32 SOURCE_AVATAR = 0;
 const S32 TARGET_OBJECT = 16;
@@ -687,6 +689,10 @@ void LLHUDEffectLookAt::update()
 		if (gRRenabled && gAgent.mRRInterface.mCamDistDrawMax < EXTREMUM)
 		{
 			return;
+		}
+		else if (sDebugLookAt)
+		{
+		    ((LLVOAvatar*)(LLViewerObject*)mSourceObject)->addDebugText((*mAttentions)[mTargetType].mName);
 		}
 //mk
 }
