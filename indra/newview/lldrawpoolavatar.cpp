@@ -1852,6 +1852,7 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 		return;
 	}
 	bool vision_restricted = (gRRenabled && gAgent.mRRInterface.mCamDistDrawMax < EXTREMUM);
+	bool in_mouselook = gAgentCamera.cameraMouselook();
 	// Optimization : Rather than compare the distances for every face (which involves square roots, which are costly), we compare squared distances.
 	LLVector3 joint_pos = LLVector3::zero;
 	F32 cam_dist_draw_max_squared = EXTREMUM;
@@ -1878,6 +1879,19 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 		{
 			continue;
 		}
+
+//MK
+		// Our own rigged objects worn on our head attach points should not be rendered when we are in mouselook.
+		// Those objects are already marked as "don't render" but without these lines here, they would render anyway.
+		if (in_mouselook)
+		{
+			LLSpatialBridge* bridge = drawable->isRoot() ? drawable->getSpatialBridge() : drawable->getParent()->getSpatialBridge();
+			if (bridge && bridge->mDrawableType == 0)
+			{
+				continue;
+			}
+		}
+//mk
 
 		LLVOVolume* vobj = drawable->getVOVolume();
 
