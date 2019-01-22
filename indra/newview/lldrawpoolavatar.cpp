@@ -1891,7 +1891,12 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 	}
 //mk
 
-	for (U32 i = 0; i < mRiggedFace[type].size(); ++i)
+//MK
+	// A little optimization, nothing much but why calculate size() of an array at every step along that very array?
+	////for (U32 i = 0; i < mRiggedFace[type].size(); ++i)
+	U32 size = mRiggedFace[type].size();
+	for (U32 i = 0; i < size; ++i)
+//mk
 	{
 		LLFace* face = mRiggedFace[type][i];
 
@@ -2251,8 +2256,13 @@ void LLDrawPoolAvatar::updateRiggedVertexBuffers(LLVOAvatar* avatar)
 	//update rigged vertex buffers
 	for (U32 type = 0; type < NUM_RIGGED_PASSES; ++type)
 	{
-		for (U32 i = 0; i < mRiggedFace[type].size(); ++i)
-		{
+//MK
+		// A little optimization, nothing much but why calculate size() of an array at every step along that very array?
+		U32 size = mRiggedFace[type].size();
+		////for (U32 i = 0; i < mRiggedFace[type].size(); ++i)
+		for (U32 i = 0; i < size; ++i)
+//mk	
+    	{
 			LLFace* face = mRiggedFace[type][i];
 			LLDrawable* drawable = face->getDrawable();
 			if (!drawable)
