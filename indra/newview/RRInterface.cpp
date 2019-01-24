@@ -4793,7 +4793,10 @@ bool RRInterface::canTouchFar(LLViewerObject* object, LLVector3 pick_intersectio
 	F32 dist = pos.magVec();
 	if (!object->isHUDAttachment()) {
 		if (dist > mFartouchMax) return false;
-		if (dist > mCamDistDrawMax) return false; // don't allow touching or selecting something that is obstructed
+
+		// Deactivate this restriction for now, as there may be cases where we want the avatar to touch
+		// something that is beyond their vision range.
+		//if (dist > mCamDistDrawMax) return false; // don't allow touching or selecting something that is obstructed
 	}
 
 	return true;
