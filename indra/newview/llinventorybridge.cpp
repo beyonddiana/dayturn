@@ -4302,14 +4302,14 @@ void LLFolderBridge::buildContextMenuFolderOptions(U32 flags,   menuentry_vec_t&
 	LLIsType is_gesture( LLAssetType::AT_GESTURE );
 
 //MK
-////	if (mWearables ||
-////		checkFolderForContentsOfType(model, is_wearable)  ||
-////		checkFolderForContentsOfType(model, is_object) ||
-////		checkFolderForContentsOfType(model, is_gesture) )
-	if (!gRRenabled && (mWearables ||
+	if (mWearables ||
 		checkFolderForContentsOfType(model, is_wearable)  ||
 		checkFolderForContentsOfType(model, is_object) ||
-		checkFolderForContentsOfType(model, is_gesture)) )
+		checkFolderForContentsOfType(model, is_gesture) )
+	////if (!gRRenabled && (mWearables ||
+	////	checkFolderForContentsOfType(model, is_wearable)  ||
+	////	checkFolderForContentsOfType(model, is_object) ||
+	////	checkFolderForContentsOfType(model, is_gesture)) )
 //mk
 	{
 		items.push_back(std::string("Folder Wearables Separator"));
