@@ -5982,6 +5982,9 @@ void LLSelectMgr::renderSilhouettes(BOOL for_hud)
 				if (!objectp)
 					continue;
 
+                if(getTEMode() && !node->hasSelectedTE()) 
+                    continue;
+
                 if (objectp->mDrawable 
                     && objectp->mDrawable->getVOVolume() 
                     && objectp->mDrawable->getVOVolume()->isMesh())
@@ -5989,11 +5992,18 @@ void LLSelectMgr::renderSilhouettes(BOOL for_hud)
                     S32 num_tes = llmin((S32)objectp->getNumTEs(), (S32)objectp->getNumFaces()); // avatars have TEs but no faces
                     for (S32 te = 0; te < num_tes; ++te)
                     {
-                        bool bSelected = node->isTESelected(te) && getTEMode();
-
-                        objectp->mDrawable->getFace(te)->renderOneWireframe(
-                            !bSelected ? LLColor4(sSilhouetteParentColor[VRED], sSilhouetteParentColor[VGREEN], sSilhouetteParentColor[VBLUE], LLSelectMgr::sHighlightAlpha * 2) : sHighlightInspectColor
-                            , fogCfx, bSelected, wireframe_selection, node->isTransient() ? FALSE : LLSelectMgr::sRenderHiddenSelections);
+                        if (!getTEMode())
+                        {
+                            objectp->mDrawable->getFace(te)->renderOneWireframe(
+                                LLColor4(sSilhouetteParentColor[VRED], sSilhouetteParentColor[VGREEN], sSilhouetteParentColor[VBLUE], LLSelectMgr::sHighlightAlpha * 2)
+                                , fogCfx, wireframe_selection, node->isTransient() ? FALSE : LLSelectMgr::sRenderHiddenSelections);
+                        }
+                        else if(node->isTESelected(te))
+                        {
+                            objectp->mDrawable->getFace(te)->renderOneWireframe(
+                                LLColor4(sSilhouetteParentColor[VRED], sSilhouetteParentColor[VGREEN], sSilhouetteParentColor[VBLUE], LLSelectMgr::sHighlightAlpha * 2)
+                                , fogCfx, wireframe_selection, node->isTransient() ? FALSE : LLSelectMgr::sRenderHiddenSelections);
+                        }
                     }
                 }
                 else
@@ -6191,7 +6201,7 @@ void LLSelectNode::selectTE(S32 te_index, BOOL selected)
 	mLastTESelected = te_index;
 }
 
-BOOL LLSelectNode::isTESelected(S32 te_index)
+BOOL LLSelectNode::isTESelected(S32 te_index) const
 {
 	if (te_index < 0 || te_index >= mObject->getNumTEs())
 	{
@@ -6200,7 +6210,7 @@ BOOL LLSelectNode::isTESelected(S32 te_index)
 	return (mTESelectMask & (0x1 << te_index)) != 0;
 }
 
-S32 LLSelectNode::getLastSelectedTE()
+S32 LLSelectNode::getLastSelectedTE() const
 {
 	if (!isTESelected(mLastTESelected))
 	{
