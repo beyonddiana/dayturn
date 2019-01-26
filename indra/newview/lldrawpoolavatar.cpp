@@ -1890,6 +1890,18 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 	{
 		joint_pos = gAgent.mRRInterface.getCamDistDrawFromJoint()->getWorldPosition();
 		cam_dist_draw_max_squared = gAgent.mRRInterface.mCamDistDrawMax * gAgent.mRRInterface.mCamDistDrawMax;
+
+		if (!is_self)
+ 		{
+ 			// If the outer sphere is opaque and the avatar is farther than its radius, no need to render it at all.
+			LLVector3d my_pos(gAgentAvatarp->getWorldPosition());
+			LLVector3d their_pos(avatar->getWorldPosition());
+ 			LLVector3d offset(their_pos - my_pos);
+ 			F32 distance_squared = (F32)offset.magVecSquared();
+ 			if (distance_squared > cam_dist_draw_max_squared && gAgent.mRRInterface.mCamDistDrawAlphaMax >= 0.999999f) {
+ 				return;
+ 			}
+ 		}
 	}
 //mk
 
