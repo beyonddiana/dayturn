@@ -80,10 +80,7 @@ HttpRequest::~HttpRequest()
 		mReplyQueue->release();
 		mReplyQueue = NULL;
 	}
-	
-    --mStatistics.mCurrentRequests;
 
-    LL_WARNS("HTTPRequest") << "HttpRequest destroyed (outstanding: " << mStatistics.mCurrentRequests << " total: " << mStatistics.mTotalRequests << ")" << LL_ENDL;	
 }
 
 

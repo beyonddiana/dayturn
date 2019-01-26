@@ -214,16 +214,6 @@ public:
         return mRequestMethod;
     }
 
-    void setRequestMethod(const std::string &method)
-        {
-            mRequestMethod = method;
-        }
-
-    const std::string &getRequestMethod() const
-        {
-            return mRequestMethod;
-        }
-
 
 protected:
 	// Response data here
