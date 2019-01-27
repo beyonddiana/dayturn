@@ -4413,7 +4413,7 @@
                  function="IsGodCustomerService" />
             </menu_item_call>
             <menu_item_call
-             label="Set to Linden Content"
+             label="Set to Grid Content"
              name="Set to Linden Content"
              shortcut="control|alt|shift|C">
                 <menu_item_call.on_click
