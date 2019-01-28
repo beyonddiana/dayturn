@@ -2144,8 +2144,8 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 					// Other avatars only
 					if (avatar != gAgentAvatarp)
 					{
-						// This rigged mesh is diffuse alpha blend without materials
-						if (gPipeline.getPoolTypeFromTE(te, face->getTexture()) == LLDrawPool::POOL_ALPHA)
+						// This rigged mesh is diffuse  
+						if (gPipeline.getPoolTypeFromTE(face->getTextureEntry(), face->getTexture()) == LLDrawPool::POOL_ALPHA)
 						{
 							if (face_distance_to_avatar_squared > cam_dist_draw_max_squared)
 							{
