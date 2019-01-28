@@ -232,7 +232,18 @@
       <string>Boolean</string>
       <key>Value</key>
       <integer>1</integer>
-    </map>    
+    </map>
+    <key>RestrainedLoveHeadMouselookRenderRigged</key>
+    <map>
+      <key>Comment</key>
+      <string>If TRUE, rigged attachments attached to any head point will show while in mouselook.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map> 
     <key>ShowProfileFloaters</key>
     <map>
       <key>Comment</key>

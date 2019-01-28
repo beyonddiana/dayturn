@@ -143,6 +143,12 @@ static bool handleRestrainedLoveCamDistNbGradientsChanged(const LLSD& newvalue)
 	// Let's keep it constant for now, because there are ways to make the vision restriction less tight by playing with this setting.
 	return true;
 }
+
+static bool handleRestrainedLoveHeadMouselookRenderRigged(const LLSD& newvalue)
+{
+	RRInterface::sRestrainedLoveHeadMouselookRenderRigged = newvalue.asBoolean();
+	return true;
+}
 //mk
 
 static bool handleRenderAvatarMouselookChanged(const LLSD& newvalue)
@@ -728,6 +734,7 @@ void settings_setup_listeners()
 	gSavedPerAccountSettings.getControl("RestrainedLoveLastStandingLocation")->getSignal()->connect(boost::bind(&handleRestrainedLoveLastStandingLocationChanged, _2));
 	gSavedSettings.getControl("RenderDeferredShowInvisiprims")->getSignal()->connect(boost::bind(&handleRenderDeferredShowInvisiprimsChanged, _2));
 	gSavedSettings.getControl("RestrainedLoveCamDistNbGradients")->getSignal()->connect(boost::bind(&handleRestrainedLoveCamDistNbGradientsChanged, _2));
+	gSavedSettings.getControl("RestrainedLoveHeadMouselookRenderRigged")->getSignal()->connect(boost::bind(&handleRestrainedLoveHeadMouselookRenderRigged, _2));
 //mk
 	gSavedSettings.getControl("FirstPersonAvatarVisible")->getSignal()->connect(boost::bind(&handleRenderAvatarMouselookChanged, _2));
 	gSavedSettings.getControl("RenderFarClip")->getSignal()->connect(boost::bind(&handleRenderFarClipChanged, _2));
