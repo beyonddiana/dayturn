@@ -368,6 +368,10 @@ void LLXMLRPCTransaction::Impl::init(XMLRPC_REQUEST request, bool useGzip, const
 	{
 		httpOpts->setRetries(httpParams["retries"].asInteger());
 	}
+	if (httpParams.has("DNSCacheTimeout"))
+	{
+		httpOpts->setDNSCacheTimeout(httpParams["DNSCacheTimeout"].asInteger());
+	}	
 
 	bool verifySSLCert = !gSavedSettings.getBOOL("NoVerifySSLCert");
 	mCertStore = gSavedSettings.getString("CertStore");
