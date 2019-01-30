@@ -517,41 +517,6 @@ private:
 	std::string mFilename;
 };
 
-void fetch_feature_table(std::string table)
-{
-	const std::string base       = gSavedSettings.getString("FeatureManagerHTTPTable");
-
-#if LL_WINDOWS
-	std::string os_string = LLOSInfo::instance().getOSStringSimple();
-	std::string filename;
-	if (os_string.find("Microsoft Windows XP") == 0)
-	{
-		filename = llformat(table.c_str(), "_xp", LLVersionInfo::getVersion().c_str());
-	}
-	else
-	{
-		filename = llformat(table.c_str(), "", LLVersionInfo::getVersion().c_str());
-	}
-#else
-	const std::string filename   = llformat(table.c_str(), LLVersionInfo::getVersion().c_str());
-#endif
-
-	const std::string url        = base + "/" + filename;
-
-	const std::string path       = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, filename);
-
-	LL_INFOS() << "LLFeatureManager fetching " << url << " into " << path << LL_ENDL;
-	
-	LLHTTPClient::get(url, new LLHTTPFeatureTableResponder(path));
-}
-
-
-// fetch table(s) from a website (S3)
-void LLFeatureManager::fetchHTTPTables()
-{
-	fetch_feature_table(FEATURE_TABLE_VER_FILENAME);
-}
-
 
 void LLFeatureManager::cleanupFeatureTables()
 {
