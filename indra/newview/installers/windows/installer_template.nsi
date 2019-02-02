@@ -32,7 +32,7 @@ SetCompress auto			# Compress if saves space
 SetCompressor /solid lzma	# Compress whole installer as one block
 SetDatablockOptimize off	# Only saves us 0.1%, not worth it
 XPStyle on                  # Add an XP manifest to the installer
-RequestExecutionLevel highest           # match MULTIUSER_EXECUTIONLEVEL
+RequestExecutionLevel admin	# For when we write to Program Files
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Project flags
@@ -105,8 +105,8 @@ AutoCloseWindow true					# After all files install, close window
 # Highest level permitted for user: Admin for Admin, Standard for Standard
 !define MULTIUSER_EXECUTIONLEVEL Highest
 !define MULTIUSER_MUI
-# Look for /AllUsers or /CurrentUser switches
-!define MULTIUSER_INSTALLMODE_COMMANDLINE
+### Look for /AllUsers or /CurrentUser switches
+##!define MULTIUSER_INSTALLMODE_COMMANDLINE
 # appended to $PROGRAMFILES, as affected by MULTIUSER_USE_PROGRAMFILES64
 !define MULTIUSER_INSTALLMODE_INSTDIR "${INSTNAME}"
 # expands to !define MULTIUSER_USE_PROGRAMFILES64 or nothing
@@ -114,9 +114,12 @@ AutoCloseWindow true					# After all files install, close window
 # should make MultiUser.nsh initialization read existing INSTDIR from registry
 !define MULTIUSER_INSTALLMODE_INSTDIR_REGISTRY_KEY "${INSTNAME_KEY}"
 !define MULTIUSER_INSTALLMODE_INSTDIR_REGISTRY_VALUENAME ""
-# should make MultiUser.nsh initialization write $MultiUser.InstallMode to registry
-!define MULTIUSER_INSTALLMODE_DEFAULT_REGISTRY_KEY "${INSTNAME_KEY}"
-!define MULTIUSER_INSTALLMODE_DEFAULT_REGISTRY_VALUENAME "InstallMode"
+# Don't set MULTIUSER_INSTALLMODE_DEFAULT_REGISTRY_KEY and
+# MULTIUSER_INSTALLMODE_DEFAULT_REGISTRY_VALUENAME to cause the installer to
+# write $MultiUser.InstallMode to the registry, because when the user installs
+# multiple viewers with the same channel (same ${INSTNAME}, hence same
+# ${INSTNAME_KEY}), the registry entry is overwritten. Instead we'll write a
+# little file into the install directory -- see .onInstSuccess and un.onInit.!include MultiUser.nsh
 !include MultiUser.nsh
 !include MUI2.nsh
 !define MUI_BGCOLOR FFFFFF
@@ -124,7 +127,7 @@ AutoCloseWindow true					# After all files install, close window
 
 UninstallText $(UninstallTextMsg)
 DirText $(DirectoryChooseTitle) $(DirectoryChooseSetup)
-!insertmacro MULTIUSER_PAGE_INSTALLMODE
+##!insertmacro MULTIUSER_PAGE_INSTALLMODE
 !define MUI_PAGE_CUSTOMFUNCTION_PRE dirPre
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_INSTFILES
@@ -265,7 +268,6 @@ skipread:
     IfErrors lbl_end
 	StrCpy $LANGUAGE $0
 lbl_end:
-    Return
     
 ##  MessageBox MB_OK "After restoring:$\n$$INSTDIR = '$INSTDIR'$\n$$MultiUser.InstallMode = '$MultiUser.InstallMode'$\n$$LANGUAGE = '$LANGUAGE'"
 
@@ -325,6 +327,7 @@ StrCpy $INSTNAME "${INSTNAME}"
 StrCpy $INSTEXE "${INSTEXE}"
 StrCpy $INSTSHORTCUT "${SHORTCUT}"
 
+Call CheckIfAdministrator		# Make sure the user can install/uninstall
 Call CloseViewer			# Make sure the viewer not currently running
 Call CheckIfAlreadyCurrent	# Check if the viewer is already current
 
@@ -376,7 +379,7 @@ WriteRegStr SHELL_CONTEXT "${MSUNINSTALL_KEY}" "EstimatedSize" "0x0001D500"		# ~
 WriteRegStr SHELL_CONTEXT "${MSUNINSTALL_KEY}" "DisplayIcon" '"$INSTDIR\$INSTEXE"'
 
 # BUG-2707 Disable SEHOP for installed viewer.
-WriteRegDWORD SHELL_CONTEXT "${MSNTCURRVER_KEY}\Image File Execution Options\$VIEWER_EXE" "DisableExceptionChainValidation" 1
+WriteRegDWORD SHELL_CONTEXT "${MSNTCURRVER_KEY}\Image File Execution Options\$INSTEXE" "DisableExceptionChainValidation" 1
 
 # Write URL registry info
 WriteRegStr HKEY_CLASSES_ROOT "${URLNAME}" "(default)" "URL:Second Life"
@@ -411,10 +414,12 @@ StrCpy $INSTSHORTCUT "${SHORTCUT}"
 # SetShellVarContext per the mode saved at install time in registry at
 # MULTIUSER_INSTALLMODE_DEFAULT_REGISTRY_KEY
 # MULTIUSER_INSTALLMODE_DEFAULT_REGISTRY_VALUENAME
-# Couln't get NSIS to expand $MultiUser.InstallMode into the function name at Call time
+# Couldn't get NSIS to expand $MultiUser.InstallMode into the function name at Call time
 ${If} $MultiUser.InstallMode == 'AllUsers'
+##MessageBox MB_OK "Uninstalling for all users"
   Call un.MultiUser.InstallMode.AllUsers
 ${Else}
+##MessageBox MB_OK "Uninstalling for current user"
   Call un.MultiUser.InstallMode.CurrentUser
 ${EndIf}
 
@@ -425,7 +430,7 @@ Call un.CloseViewer
 DeleteRegKey SHELL_CONTEXT "${INSTNAME_KEY}"
 DeleteRegKey SHELL_CONTEXT "${MSCURRVER_KEY}\Uninstall\$INSTNAME"
 # BUG-2707 Remove entry that disabled SEHOP
-DeleteRegKey SHELL_CONTEXT "${MSNTCURRVER_KEY}\Image File Execution Options\$VIEWER_EXE"
+DeleteRegKey SHELL_CONTEXT "${MSNTCURRVER_KEY}\Image File Execution Options\$INSTEXE"
 
 # Clean up shortcuts
 Delete "$SMPROGRAMS\$INSTSHORTCUT\*.*"
@@ -443,6 +448,35 @@ Call un.UserSettingsFiles
 
 SectionEnd
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Make sure the user can install
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+Function CheckIfAdministrator
+    DetailPrint $(CheckAdministratorInstDP)
+    UserInfo::GetAccountType
+    Pop $R0
+    StrCmp $R0 "Admin" lbl_is_admin
+        MessageBox MB_OK $(CheckAdministratorInstMB)
+        Quit
+lbl_is_admin:
+    Return
+
+FunctionEnd
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Make sure the user can uninstall
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+Function un.CheckIfAdministrator
+    DetailPrint $(CheckAdministratorUnInstDP)
+    UserInfo::GetAccountType
+    Pop $R0
+    StrCmp $R0 "Admin" lbl_is_admin
+        MessageBox MB_OK $(CheckAdministratorUnInstMB)
+        Quit
+lbl_is_admin:
+    Return
+
+FunctionEnd
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Checks to see if the current version has already been installed (according to the registry).
@@ -614,6 +648,9 @@ Function un.ProgramFiles
 # This placeholder is replaced by the complete list of files to uninstall by viewer_manifest.py
 %%DELETE_FILES%%
 
+# our InstallMode.txt
+Delete "$INSTDIR\InstallMode.txt"
+
 # Optional/obsolete files.  Delete won't fail if they don't exist.
 Delete "$INSTDIR\autorun.bat"
 Delete "$INSTDIR\dronesettings.ini"
@@ -679,7 +716,6 @@ Function .onInstSuccess
          ClearErrors
          Pop $0
          Pop $R0
-         Push $R0					# Option value, unused#          
 
          Call CheckWindowsServPack				; Warn if not on the latest SP before asking to launch.
                 StrCmp $SKIP_DIALOGS "true" label_launch 
