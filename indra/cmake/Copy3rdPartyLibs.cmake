@@ -20,6 +20,7 @@ if(WINDOWS)
     set(vivox_src_dir "${ARCH_PREBUILT_DIRS_RELEASE}")
     set(vivox_files
         SLVoice.exe
+        ca-bundle.crt
 #       added from archive
         vivoxsdk.dll
         ortp.dll
