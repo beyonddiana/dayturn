@@ -47,6 +47,7 @@ indra/viewer-linux-*
 indra/web/doc/asset-upload/plugins/lsl_compiler/lslc
 indra/web/doc/asset-upload/plugins/verify-notecard
 indra/web/doc/asset-upload/plugins/verify-texture
+scripts/messages/message_template.msg.sha1
 installed.xml
 libraries
 tarfile_tmp
