@@ -90,6 +90,7 @@ class ViewerManifest(LLManifest):
                 pkgdir = os.path.join(self.args['build'], os.pardir, 'packages')
                 if self.prefix(src=pkgdir,dst=""):
                     self.path("dictionaries")
+                    self.path("ca-bundle.crt")
                     self.end_prefix(pkgdir)
 
                 # include the extracted packages information (see BuildPackagesInfo.cmake)
@@ -414,7 +415,6 @@ class Windows_i686_Manifest(ViewerManifest):
 #           added from archive
             self.path("libsndfile-1.dll")
             self.path("vivoxoal.dll")
-            self.path("ca-bundle.crt")
             self.path("vivoxplatform.dll")
             try:
                 self.path("zlib1.dll")

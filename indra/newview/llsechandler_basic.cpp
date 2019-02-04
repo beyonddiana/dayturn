@@ -1226,8 +1226,8 @@ void LLSecAPIBasicHandler::init()
 															"bin_conf.dat");
 		mLegacyPasswordPath = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "password.dat");
         
-		std::string store_file = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS,
-														"CA.pem");
+		std::string store_file = gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS,
+														"ca-bundle.crt");
 		
 		
 		LL_INFOS("SECAPI") << "Loading user certificate store from " << store_file << LL_ENDL;
