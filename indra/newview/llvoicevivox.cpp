@@ -25,6 +25,7 @@
  */
 
 #include "llviewerprecompiledheaders.h"
+#include <algorithm>
 #include "llvoicevivox.h"
 
 #include "llsdutil.h"
@@ -363,8 +364,14 @@ static void killGateway()
 {
 	if (sGatewayPtr)
 	{
+        LL_DEBUGS("Voice") << "SLVoice " << sGatewayPtr->getStatusString() << LL_ENDL;
+	
 		sGatewayPtr->kill();
 	}
+    else
+    {
+        LL_DEBUGS("Voice") << "no gateway" << LL_ENDL;
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -485,6 +492,7 @@ void LLVivoxVoiceClient::terminate()
 	{
 		logout();
 		connectorShutdown(); 
+	    LL_DEBUGS("Voice") << "closing SLVoice socket" << LL_ENDL;		 		
 #ifdef LL_WINDOWS
 		int count=0;
 		while (!mShutdownComplete && 10 > count++)
@@ -5582,8 +5590,8 @@ void LLVivoxVoiceClient::notifyStatusObservers(LLVoiceClientStatusObserver::ESta
 	LL_DEBUGS("Voice") 
 		<< " " << LLVoiceClientStatusObserver::status2string(status)  
 		<< ", session URI " << getAudioSessionURI() 
-		<< (inSpatialChannel()?", proximal is true":", proximal is false")
-	<< LL_ENDL;
+		<< ", proximal is " << inSpatialChannel()
+        << LL_ENDL;
 
 	for (status_observer_set_t::iterator it = mStatusObservers.begin();
 		it != mStatusObservers.end();
