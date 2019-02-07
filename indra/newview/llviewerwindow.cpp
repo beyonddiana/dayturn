@@ -1605,8 +1605,6 @@ BOOL LLViewerWindow::handleDPIChanged(LLWindow *window, F32 ui_scale_factor, S32
 {
     if (ui_scale_factor >= MIN_UI_SCALE && ui_scale_factor <= MAX_UI_SCALE)
     {
-        gSavedSettings.setF32("LastSystemUIScaleFactor", ui_scale_factor);
-        gSavedSettings.setF32("UIScaleFactor", ui_scale_factor);
         LLViewerWindow::reshape(window_width, window_height);
         mResDirty = true;
         return TRUE;
@@ -1680,8 +1678,7 @@ LLViewerWindow::LLViewerWindow(const Params& p)
 	mResDirty(false),
 	mStatesDirty(false),
 	mCurrResolutionIndex(0),
-	mProgressView(NULL),
-	mSystemUIScaleFactorChanged(false)
+	mProgressView(NULL)
 {
 	// gKeyboard is still NULL, so it doesn't do LLWindowListener any good to
 	// pass its value right now. Instead, pass it a nullary function that
@@ -1762,26 +1759,16 @@ LLViewerWindow::LLViewerWindow(const Params& p)
 	LLCoordScreen scr;
     mWindow->getSize(&scr);
 
-    if(p.fullscreen && ( scr.mX!=p.width || scr.mY!=p.height))
-    {
-		LL_WARNS() << "Fullscreen has forced us in to a different resolution now using "<<scr.mX<<" x "<<scr.mY<<LL_ENDL;
-		gSavedSettings.setS32("FullScreenWidth",scr.mX);
-		gSavedSettings.setS32("FullScreenHeight",scr.mY);
-    }
-
- 	F32 system_scale_factor = mWindow->getSystemUISize();
+#if LL_DARWIN
+	F32 system_scale_factor = 1.f;
+#else
+	F32 system_scale_factor = mWindow->getSystemUISize();
 	if (system_scale_factor < MIN_UI_SCALE || system_scale_factor > MAX_UI_SCALE)
 	{
 		// reset to default;
 		system_scale_factor = 1.f;
 	}
- 	if (p.first_run || gSavedSettings.getF32("LastSystemUIScaleFactor") != system_scale_factor)
- 	{
- 		mSystemUIScaleFactorChanged = !p.first_run;
- 		gSavedSettings.setF32("LastSystemUIScaleFactor", system_scale_factor);
- 		gSavedSettings.setF32("UIScaleFactor", system_scale_factor);
- 	}
- 
+#endif
 
 	// Get the real window rect the window was created with (since there are various OS-dependent reasons why
 	// the size of a window or fullscreen context may have been adjusted slightly...)
@@ -1877,28 +1864,6 @@ LLViewerWindow::LLViewerWindow(const Params& p)
 
 	mWorldViewRectScaled = calcScaledRect(mWorldViewRectRaw, mDisplayScale);
 }
-
-//static
-void LLViewerWindow::showSystemUIScaleFactorChanged()
-{
-	LLNotificationsUtil::add("SystemUIScaleFactorChanged", LLSD(), LLSD(), onSystemUIScaleFactorChanged);
-}
-
-//static
-bool LLViewerWindow::onSystemUIScaleFactorChanged(const LLSD& notification, const LLSD& response)
-{
-	S32 option = LLNotificationsUtil::getSelectedOption(notification, response);
-	if(option == 0)
-	{
-		LLFloaterReg::toggleInstanceOrBringToFront("preferences");
-		LLFloater* pref_floater = LLFloaterReg::getInstance("preferences");
-		LLTabContainer* tab_container = pref_floater->getChild<LLTabContainer>("pref core");
-		tab_container->selectTabByName("advanced1");
-
-	}
-	return false; 
-}
-
 
 void LLViewerWindow::initGLDefaults()
 {
