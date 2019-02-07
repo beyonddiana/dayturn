@@ -558,6 +558,8 @@ public:
 	
 	void searchAgent(LLNameListCtrl* listCtrl, const std::string& search_string);
 	void copyListToClipboard(std::string list_name);
+	
+	BOOL mCtrlsEnabled;
 };
 
 #endif
