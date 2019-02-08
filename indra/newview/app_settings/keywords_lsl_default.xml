@@ -7977,30 +7977,43 @@
          <key>experience_permissions</key>
          <map>
             <key>arguments</key>
-            <map>
-               <key>agent_id</key>
-               <map>
+            <array>
+              <map>
+                <key>agent_id</key>
+                <map>
                   <key>type</key>
                   <string>key</string>
                   <key>tooltip</key>
                   <string>ID of the agent approving permission for the Experience.</string>
-               </map>
-            </map>
+                </map>
+              </map>
+            </array>
          </map>
          <key>experience_permissions_denied</key>
          <map>
             <key>arguments</key>
-            <map>
-               <key>agent_id</key>
-               <map>
+            <array>
+              <map>
+                <key>agent_id</key>
+                <map>
                   <key>type</key>
                   <string>key</string>
                   <key>tooltip</key>
                   <string>ID of the agent denying permission for the Experience.</string>
-               </map>
-            </map>
+                </map>
+              </map>
+              <map>
+                <key>Reason</key>
+                <map>
+                  <key>type</key>
+                  <string>integer</string>
+                  <key>tooltip</key>
+                  <string>One of the XP_ERROR_... constants describing the reason why the Experience permissions were denied for the agent.</string>
+                </map>
+              </map>
+            </array>
             <key>tooltip</key>
-            <string>One of the XP_ERROR_... constants describing the reason why the Experience permissions were denied for the agent.</string>
+            <string>Describes why the Experience permissions were denied for the agent.</string>
          </map>
          <key>http_request</key>
          <map>
@@ -8696,15 +8709,17 @@
             <key>return</key>
             <string>integer</string>
             <key>arguments</key>
-            <map>
-               <key>AgentID</key>
-               <map>
+            <array>
+              <map>
+                <key>AgentID</key>
+                <map>
                   <key>type</key>
                   <string>key</string>
                   <key>tooltip</key>
                   <string></string>
-               </map>
-            </map>
+                </map>
+              </map>
+            </array>
             <key>tooltip</key>
             <string>
                Returns TRUE if the agent is in the Experience and the Experience can run in the current location.
@@ -9450,7 +9465,8 @@
             <key>return</key>
             <string>key</string>
             <key>arguments</key>
-            <map>
+            <array>
+              <map>
                <key>Key</key>
                <map>
                   <key>type</key>
@@ -9458,6 +9474,8 @@
                   <key>tooltip</key>
                   <string></string>
                </map>
+              </map>
+              <map>
                <key>Value</key>
                <map>
                   <key>type</key>
@@ -9465,7 +9483,8 @@
                   <key>tooltip</key>
                   <string></string>
                </map>
-            </map>
+              </map>
+            </array>
             <key>tooltip</key>
             <string>
                Starts an asychronous transaction to create a key-value pair. Will fail with XP_ERROR_STORAGE_EXCEPTION if the key already exists. The dataserver callback will be executed with the key returned from this call and a string describing the result. The result is a two element commma-delimited list. The first item is an integer specifying if the transaction succeeded (1) or not (0). In the failure case, the second item will be an integer corresponding to one of the XP_ERROR_... constants. In the success case the second item will be the value passed to the function.
@@ -9563,15 +9582,17 @@
             <key>return</key>
             <string>key</string>
             <key>arguments</key>
-            <map>
-               <key>Key</key>
-               <map>
+            <array>
+              <map>
+                <key>Key</key>
+                <map>
                   <key>type</key>
                   <string>string</string>
                   <key>tooltip</key>
                   <string></string>
-               </map>
-            </map>
+                </map>
+              </map>
+            </array>
             <key>tooltip</key>
             <string>
                Starts an asychronous transaction to delete a key-value pair. The dataserver callback will be executed with the key returned from this call and a string describing the result. The result is a two element commma-delimited list. The first item is an integer specifying if the transaction succeeded (1) or not (0). In the failure case, the second item will be an integer corresponding to one of the XP_ERROR_... constants. In the success case the second item will be the value associated with the key.
@@ -10964,15 +10985,17 @@
             <key>return</key>
             <string>list</string>
             <key>arguments</key>
-            <map>
-               <key>ExperienceID</key>
-               <map>
+            <array>
+              <map>
+                <key>ExperienceID</key>
+                <map>
                   <key>type</key>
                   <string>key</string>
                   <key>tooltip</key>
                   <string>May be NULL_KEY to retrieve the details for the script's Experience</string>
-               </map>
-            </map>
+                </map>
+              </map>
+            </array>
             <key>tooltip</key>
             <string>
                Returns a list with the following Experience properties: [Experience Name, Owner ID, Group ID, Experience ID, State, State Message]. State is an integer corresponding to one of the constants XP_ERROR_... and State Message is the string returned by llGetExperienceErrorMessage for that integer.
@@ -10987,15 +11010,17 @@
             <key>return</key>
             <string>string</string>
             <key>arguments</key>
-            <map>
-               <key>Error</key>
-               <map>
+            <array>
+              <map>
+                <key>Error</key>
+                <map>
                   <key>type</key>
                   <string>integer</string>
                   <key>tooltip</key>
                   <string>An Experience error code to translate.</string>
-               </map>
-            </map>
+                </map>
+              </map>
+            </array>
             <key>tooltip</key>
             <string>
                Returns a string describing the error code passed or the string corresponding with XP_ERROR_UNKNOWN_ERROR if the value is not a valid Experience error code.
@@ -11345,7 +11370,7 @@
                   <key>Parameters</key>
                   <map>
                      <key>type</key>
-                     <string>integer</string>
+                     <string>list</string>
                      <key>tooltip</key>
                      <string>A list of PRIM_* property constants to return values of.</string>
                   </map>
@@ -11436,7 +11461,7 @@
                   <key>Parameters</key>
                   <map>
                      <key>type</key>
-                     <string>integer</string>
+                     <string>list</string>
                      <key>tooltip</key>
                      <string>PRIM_* flags.</string>
                   </map>
@@ -12197,7 +12222,7 @@
             <key>sleep</key>
             <real>0.0</real>
             <key>return</key>
-            <string>void</string>
+            <string>float</string>
             <key>arguments</key>
             <undef/>
             <key>tooltip</key>
@@ -12805,7 +12830,7 @@
             <key>sleep</key>
             <real>0.0</real>
             <key>return</key>
-            <string>void</string>
+            <string>integer</string>
             <key>arguments</key>
             <array>
                <map>
@@ -13352,22 +13377,26 @@
             <key>return</key>
             <string>key</string>
             <key>arguments</key>
-            <map>
-               <key>First</key>
-               <map>
+            <array>
+              <map>
+                <key>First</key>
+                <map>
                   <key>type</key>
-                  <string>string</string>
+                  <string>integer</string>
                   <key>tooltip</key>
                   <string>Index of the first key to return.</string>
-               </map>
-               <key>Count</key>
-               <map>
+                </map>
+              </map>
+              <map>
+                <key>Count</key>
+                <map>
                   <key>type</key>
-                  <string>string</string>
+                  <string>integer</string>
                   <key>tooltip</key>
                   <string>The number of keys to return.</string>
-               </map>
-            </map>
+                </map>
+              </map>
+            </array>
             <key>tooltip</key>
             <string>
                Starts an asychronous transaction the request a number of keys from the data store. The dataserver callback will be executed with the key returned from this call and a string describing the result. The result is commma-delimited list. The first item is an integer specifying if the transaction succeeded (1) or not (0). In the failure case, the second item will be an integer corresponding to one of the XP_ERROR_... constants. The error XP_ERROR_KEY_NOT_FOUND is returned if First is greater than or equal to the number of keys in the data store. In the success case the subsequent items will be the keys requested. The number of keys returned may be less than requested if the return value is too large or if there is not enough keys remaining. The order keys are returned is not guaranteed but is stable between subsequent calls as long as no keys are added or removed. Because the keys are returned in a comma-delimited list it is not recommended to use commas in key names if this function is used.
@@ -13396,7 +13425,7 @@
                   <key>Rules</key>
                   <map>
                      <key>type</key>
-                     <string>integer</string>
+                     <string>list</string>
                      <key>tooltip</key>
                      <string>Particle system rules list in the format [ rule1, data1, rule2, data2 . . . ruleN, dataN ]</string>
                   </map>
@@ -14557,6 +14586,15 @@
                   </map>
                </map>
                <map>
+                  <key>Bounce</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
                   <key>Texture</key>
                   <map>
                      <key>type</key>
@@ -14570,6 +14608,15 @@
                   <map>
                      <key>type</key>
                      <string>vector</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>Bounce_Offset</key>
+                  <map>
+                     <key>type</key>
+                     <string>float</string>
                      <key>tooltip</key>
                      <string/>
                   </map>
@@ -15374,7 +15421,7 @@
             <key>sleep</key>
             <real>0.0</real>
             <key>return</key>
-            <string>void</string>
+            <string>float</string>
             <key>arguments</key>
             <array>
                <map>
@@ -15513,7 +15560,8 @@
             <key>return</key>
             <string>key</string>
             <key>arguments</key>
-            <map>
+            <array>
+              <map>
                <key>Key</key>
                <map>
                   <key>type</key>
@@ -15521,7 +15569,8 @@
                   <key>tooltip</key>
                   <string></string>
                </map>
-            </map>
+              </map>
+            </array>
             <key>tooltip</key>
             <string>
                Starts an asychronous transaction to retrieve the value associated with the key given. Will fail with XP_ERROR_KEY_NOT_FOUND if the key does not exist. The dataserver callback will be executed with the key returned from this call and a string describing the result. The result is a two element commma-delimited list. The first item is an integer specifying if the transaction succeeded (1) or not (0). In the failure case, the second item will be an integer corresponding to one of the XP_ERROR_... constants. In the success case the second item will be the value associated with the key.
@@ -15563,7 +15612,7 @@
                   <key>Text</key>
                   <map>
                      <key>type</key>
-                     <string>integer</string>
+                     <string>string</string>
                      <key>tooltip</key>
                      <string>Message to be transmitted.</string>
                   </map>
@@ -15956,22 +16005,26 @@
             <key>return</key>
             <string>void</string>
             <key>arguments</key>
-            <map>
-               <key>AvatarID</key>
-               <map>
+            <array>
+              <map>
+                <key>AgentID</key>
+                <map>
                   <key>type</key>
                   <string>key</string>
                   <key>tooltip</key>
                   <string/>
-               </map>
-               <key>unused</key>
-               <map>
+                </map>
+              </map>
+              <map>
+                <key>unused</key>
+                <map>
                   <key>type</key>
                   <string>string</string>
                   <key>tooltip</key>
                   <string>Not used, should be &quot;&quot;</string>
-               </map>
-            </map>
+                </map>
+              </map>
+            </array>
             <key>tooltip</key>
             <string>
                Ask the agent for permission to participate in an experience. This request is similar to llRequestPermissions with the following permissions: PERMISSION_TAKE_CONTROLS, PERMISSION_TRIGGER_ANIMATION, PERMISSION_ATTACH, PERMISSION_TRACK_CAMERA, PERMISSION_CONTROL_CAMERA and PERMISSION_TELEPORT. However, unlike llRequestPermissions the decision to allow or block the request is persistent and applies to all scripts using the experience grid wide. Subsequent calls to llRequestExperiencePermissions from scripts in the experience will receive the same response automatically with no user interaction. One of experience_permissions or experience_permissions_denied will be generated in response to this call. Outstanding permission requests will be lost if the script is derezzed, moved to another region or reset.
@@ -18778,7 +18831,7 @@
                   <key>ParameterValue</key>
                   <map>
                      <key>type</key>
-                     <string>float</string>
+                     <string>rotation</string>
                      <key>tooltip</key>
                      <string/>
                   </map>
@@ -18833,7 +18886,7 @@
                   <key>ParameterValue</key>
                   <map>
                      <key>type</key>
-                     <string>float</string>
+                     <string>vector</string>
                      <key>tooltip</key>
                      <string/>
                   </map>
@@ -19902,36 +19955,44 @@
             <key>return</key>
             <string>key</string>
             <key>arguments</key>
-            <map>
-               <key>Key</key>
-               <map>
+            <array>
+              <map>
+                <key>Key</key>
+                <map>
                   <key>type</key>
                   <string>string</string>
                   <key>tooltip</key>
                   <string></string>
-               </map>
-               <key>Value</key>
-               <map>
+                </map>
+              </map>
+              <map>
+                <key>Value</key>
+                <map>
                   <key>type</key>
                   <string>string</string>
                   <key>tooltip</key>
                   <string></string>
-               </map>
-               <key>Checked</key>
-               <map>
+                </map>
+              </map>
+              <map>
+                <key>Checked</key>
+                <map>
                   <key>type</key>
                   <string>integer</string>
                   <key>tooltip</key>
                   <string></string>
-               </map>
-               <key>OriginalValue</key>
-               <map>
+                </map>
+              </map>
+              <map>
+                <key>OriginalValue</key>
+                <map>
                   <key>type</key>
                   <string>string</string>
                   <key>tooltip</key>
                   <string></string>
-               </map>
-            </map>
+                </map>
+              </map>
+            </array>
             <key>tooltip</key>
             <string>
                Starts an asychronous transaction to update the value associated with the key given. The dataserver callback will be executed with the key returned from this call and a string describing the result. The result is a two element commma-delimited list. The first item is an integer specifying if the transaction succeeded (1) or not (0). In the failure case, the second item will be an integer corresponding to one of the XP_ERROR_... constants. In the success case the second item will be the value associated with the key. If Checked is 1 the existing value in the data store must match the OriginalValue passed or XP_ERROR_RETRY_UPDATE will be returned. If Checked is 0 the key will be created if necessary.
@@ -20282,29 +20343,6 @@
             <undef/>
             <key>tooltip</key>
             <string>Returns the largest multiplicative uniform scale factor that can be successfully applied (via llScaleByFactor()) to the object without violating prim size or linkability rules.</string>
-         </map>
-         <key>llScaleByFactor</key>
-         <map>
-            <key>energy</key>
-            <real>10.0</real>
-            <key>sleep</key>
-            <real>0.0</real>
-            <key>return</key>
-            <string>float</string>
-            <key>arguments</key>
-            <array>
-               <map>
-                  <key>Factor</key>
-                  <map>
-                     <key>type</key>
-                     <string>float</string>
-                     <key>tooltip</key>
-                     <string/>
-                  </map>
-               </map>
-            </array>
-            <key>tooltip</key>
-            <string>Tries to uniformly scale the object by a multiplicative factor.  Returns TRUE on success or FALSE on failure.</string>
          </map>
          
 <!-- Start of OSSL Functions -->
