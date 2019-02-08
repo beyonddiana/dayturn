@@ -15446,7 +15446,7 @@
             <key>tooltip</key>
             <string>Returns the Value raised to the power Exponent, or returns 0 and triggers Math Error for imaginary results.\nReturns the Value raised to the Exponent.</string>
          </map>
-         <key>llPreloadSound</key>
+         <key>osPreloadSound</key>
          <map>
             <key>energy</key>
             <real>10.0</real>
@@ -20386,7 +20386,135 @@
             </array>
             <key>tooltip</key>
             <string>Adds the avatar to a group under a given role.</string> 
-         </map> 
+         </map>
+         <key>osAdjustSoundVolume</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+       		<key>return</key>
+            <string>integer</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>linknum</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>            
+               <map>
+                  <key>volume</key>
+                  <map>
+                     <key>type</key>
+                     <string>float</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+                </map>
+            </array>
+            <key>tooltip</key>
+            <string></string> 
+         </map>
+         <key>osAngleBetween</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+       		<key>return</key>
+            <string>float</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>a</key>
+                  <map>
+                     <key>type</key>
+                     <string>vector</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>            
+               <map>
+                  <key>b</key>
+                  <map>
+                     <key>type</key>
+                     <string>vector</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+                </map>
+            </array>
+            <key>tooltip</key>
+            <string></string> 
+         </map>
+         <key>osApproxEquals</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+       		<key>return</key>
+            <string>integer</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>va</key>
+                  <map>
+                     <key>type</key>
+                     <string>vector</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>            
+               <map>
+                  <key>vb</key>
+                  <map>
+                     <key>type</key>
+                     <string>vector</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+                </map>
+               <map>
+                  <key>margin</key>
+                  <map>
+                     <key>type</key>
+                     <string>float</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+                </map>                
+            </array>
+            <key>tooltip</key>
+            <string></string> 
+         </map>
+         <key>osDetectedCountry</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+       		<key>return</key>
+            <string>string</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>number</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>                          
+            </array>
+            <key>tooltip</key>
+            <string></string> 
+         </map>                                                
          <key>osAgentSaveAppearance</key>
          <map>
             <key>energy</key>
@@ -21560,7 +21688,30 @@
             </array>
             <key>tooltip</key>
             <string>Formats the given string using specified parameters.</string> 
-         </map> 
+         </map>
+         <key>osGetAgentCountry</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+       		<key>return</key>
+            <string>string</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>agentID</key>
+                  <map>
+                     <key>type</key>
+                     <string>key</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>                          
+            </array>
+            <key>tooltip</key>
+            <string></string> 
+         </map>          
          <key>osGetAgentIP</key>
          <map>
             <key>energy</key>
@@ -22292,20 +22443,7 @@
             </array>  
             <key>tooltip</key>
             <string>Returns the current region's terrain height as a float at the given coordinates.</string>
-         </map>          
-         <key>osGetThreatLevel</key>
-         <map>
-            <key>energy</key>
-            <real>10.0</real>
-            <key>sleep</key>
-            <real>0.0</real>
-            <key>return</key>
-            <string>string</string>
-            <key>arguments</key>
-            <undef/>
-            <key>tooltip</key>
-            <string>Returns the statistics for the current region.</string>
-         </map>          
+         </map>                    
          <key>osGetWindParam</key>
          <map>
             <key>energy</key>
@@ -22577,7 +22715,130 @@
             <undef/>
             <key>tooltip</key>
             <string>Returns the creation time of the current region.</string>
-         </map>   
+         </map> 
+         <key>osLoopSound</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>linknum</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>sound</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>volume</key>
+                  <map>
+                     <key>type</key>
+                     <string>float</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>               
+            </array>                
+            <key>tooltip</key>
+            <string></string>
+         </map> 
+         <key>osLoopSoundMaster</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>linknum</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>sound</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>volume</key>
+                  <map>
+                     <key>type</key>
+                     <string>float</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>               
+            </array>                
+            <key>tooltip</key>
+            <string></string>
+         </map> 
+         <key>osLoopSoundSlave</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>linknum</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>sound</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>volume</key>
+                  <map>
+                     <key>type</key>
+                     <string>float</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>               
+            </array>                
+            <key>tooltip</key>
+            <string></string>
+         </map>                                
          <key>osMakeNotecard</key>
          <map>
             <key>energy</key>
@@ -22870,6 +23131,38 @@
             <key>tooltip</key>
             <string>Joins two adjacent parcels within the same region.</string>
          </map>
+         <key>osParcelSetDetails</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>pos</key>
+                  <map>
+                     <key>type</key>
+                     <string>vector</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>rules</key>
+                  <map>
+                     <key>type</key>
+                     <string>list</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>                
+            <key>tooltip</key>
+            <string></string>
+         </map>         
          <key>osParcelSubdivide</key>
          <map>
             <key>energy</key>
@@ -22948,6 +23241,120 @@
             <key>tooltip</key>
             <string>Returns a hashtable containing the structured JSON contents.</string>
          </map>
+         <key>osPlaySound</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>linknum</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>sound</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>volume</key>
+                  <map>
+                     <key>type</key>
+                     <string>float</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>               
+            </array>                
+            <key>tooltip</key>
+            <string></string>
+         </map>
+         <key>osPlaySoundSlave</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>linknum</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>sound</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>volume</key>
+                  <map>
+                     <key>type</key>
+                     <string>float</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>               
+            </array>                
+            <key>tooltip</key>
+            <string></string>
+         </map>
+         <key>osPreloadSound</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>linknum</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>sound</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>             
+            </array>                
+            <key>tooltip</key>
+            <string></string>
+         </map>                               
          <key>osRegexIsMatch</key>
          <map>
             <key>energy</key>
@@ -23118,52 +23525,6 @@
             <key>tooltip</key>
             <string>Requests one HTTP:// url (opensim version 0.9 or over).</string>
          </map>
-         <key>osReturnObject</key>
-         <map>
-            <key>energy</key>
-            <real>10.0</real>
-            <key>sleep</key>
-            <real>0.0</real>
-            <key>return</key>
-            <string>void</string>
-            <key>arguments</key>
-            <array>            
-               <map>
-                  <key>avatar</key>
-                  <map>
-                     <key>type</key>
-                     <string>key</string>
-                     <key>tooltip</key>
-                     <string/>
-                  </map>
-               </map>
-            </array>                
-            <key>tooltip</key>
-            <string>Returns object to a specified avatar.</string>
-         </map>
-         <key>osReturnObjects</key>
-         <map>
-            <key>energy</key>
-            <real>10.0</real>
-            <key>sleep</key>
-            <real>0.0</real>
-            <key>return</key>
-            <string>void</string>
-            <key>arguments</key>
-            <array>            
-               <map>
-                  <key>param</key>
-                  <map>
-                     <key>type</key>
-                     <string>integer</string>
-                     <key>tooltip</key>
-                     <string/>
-                  </map>
-               </map>
-            </array>                
-            <key>tooltip</key>
-            <string>Returns a group of objects.</string>
-         </map>
          <key>osRezObject</key>
          <map>
             <key>energy</key>
@@ -23259,6 +23620,38 @@
             <key>tooltip</key>
             <string>Rez an object.</string>
          </map>
+         <key>osRound</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>float</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>value</key>
+                  <map>
+                     <key>type</key>
+                     <string>float</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>digits</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>             
+            </array>                
+            <key>tooltip</key>
+            <string></string>
+         </map>         
          <key>osSetContentType</key>
          <map>
             <key>energy</key>
@@ -24163,6 +24556,29 @@
             <key>tooltip</key>
             <string>Allows creators to set the link set total mass, center of mass and moment of inertia. Moment of inertia will be the one of a sphere of radius radius, placed at the center of mass. Call osClearInertia to undo.</string>
          </map>
+         <key>osSetOwnerSpeed</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>SpeedModifier</key>
+                  <map>
+                     <key>type</key>
+                     <string>float</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>                
+            <key>tooltip</key>
+            <string>Allows creators to set the link set total mass, center of mass and moment of inertia. Moment of inertia will be the one of a sphere of radius radius, placed at the center of mass. Call osClearInertia to undo.</string>
+         </map>         
          <key>osSetParcelDetails</key>
          <map>
             <key>energy</key>
@@ -24218,7 +24634,7 @@
             <key>tooltip</key>
             <string>Set parcel media to a given url.</string>
          </map>
-         <key>osSetParcelSIPaddress</key>
+         <key>osSetParcelSIPAddress</key>
          <map>
             <key>energy</key>
             <real>10.0</real>
@@ -24314,6 +24730,38 @@
             <key>tooltip</key>
             <string>Sets the pen color to be used when drawing dynamic textures.</string>
          </map>
+         <key>osSetPenColour</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>draw_list</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>                              
+               <map>
+                  <key>color</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>   
+            </array>                
+            <key>tooltip</key>
+            <string>Sets the pen colour to be used when drawing dynamic textures.</string>
+         </map>         
          <key>osSetPenSize</key>
          <map>
             <key>energy</key>
@@ -24524,6 +24972,38 @@
             <key>tooltip</key>
             <string>Adjusts water height in current region.</string>
          </map>
+         <key>osSetSoundRadius</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>linknum</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>                              
+               <map>
+                  <key>radius</key>
+                  <map>
+                     <key>type</key>
+                     <string>float</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>   
+            </array>                
+            <key>tooltip</key>
+            <string></string>
+         </map>         
          <key>osSetSpeed</key>
          <map>
             <key>energy</key>
@@ -24556,6 +25036,29 @@
             <key>tooltip</key>
             <string>Modify the speed of movement for the given avatar.</string>
          </map>
+         <key>osSetStateEvents</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>events</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>                               
+            </array>                
+            <key>tooltip</key>
+            <string></string>
+         </map>         
          <key>osSetSunParam</key>
          <map>
             <key>energy</key>
@@ -24743,6 +25246,407 @@
             <key>tooltip</key>
             <string>Sets value of param property for plugin module.;SimpleRandomWind plugin param is: strength.;ConfigurableWind plugin params are: avgStrength, avgDirection, varStrength, varDirection, rateChange.</string>
          </map>
+         <key>osStopSound</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>linknum</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>                              
+            </array>                
+            <key>tooltip</key>
+            <string></string>
+         </map>
+         <key>osStringEndsWith</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>integer</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>src</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>                              
+               <map>
+                  <key>value</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>ignorecase</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>                
+            <key>tooltip</key>
+            <string></string>
+         </map>
+         <key>osStringIndexOf</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>integer</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>src</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>                              
+               <map>
+                  <key>value</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>start</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>count</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>                              
+               <map>
+                  <key>ignorecase</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>                
+            <key>tooltip</key>
+            <string></string>
+         </map> 
+         <key>osStringLastIndexOf</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>integer</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>src</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>                              
+               <map>
+                  <key>value</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>start</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>count</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>                              
+               <map>
+                  <key>ignorecase</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>                
+            <key>tooltip</key>
+            <string></string>
+         </map> 
+         <key>osStringRemove</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>integer</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>src</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>                              
+               <map>
+                  <key>start</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>count</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>                
+            <key>tooltip</key>
+            <string></string>
+         </map>
+         <key>osStringReplace</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>integer</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>src</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>                              
+               <map>
+                  <key>oldvalue</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>newvalue</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>                
+            <key>tooltip</key>
+            <string></string>
+         </map>
+         <key>osStringStartsWith</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>integer</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>src</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>                              
+               <map>
+                  <key>value</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>ignorecase</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>                
+            <key>tooltip</key>
+            <string></string>
+         </map> 
+         <key>osStringSubString</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>integer</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>src</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>                              
+               <map>
+                  <key>start</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>length</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>                
+            <key>tooltip</key>
+            <string></string>
+         </map>
+         <key>osSunGetParam</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>float</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>param</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>                               
+            </array>                
+            <key>tooltip</key>
+            <string></string>
+         </map>
+         <key>osSunSetParam</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>param</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>                              
+               <map>
+                  <key>value</key>
+                  <map>
+                     <key>type</key>
+                     <string>float</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>                
+            <key>tooltip</key>
+            <string></string>
+         </map>                                                                                                 
          <key>osShutDown</key>
          <map>
             <key>energy</key>
@@ -24945,7 +25849,121 @@
             <undef/>
             <key>tooltip</key>
             <string>Commits terrain changes to the grid database.</string>
-         </map>         
+         </map> 
+         <key>osTerrainGetHeight</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>float</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>x</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>                              
+               <map>
+                  <key>y</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>                
+            <key>tooltip</key>
+            <string></string>
+         </map>
+         <key>osTerrainSetHeight</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>integer</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>x</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>                              
+               <map>
+                  <key>y</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>val</key>
+                  <map>
+                     <key>type</key>
+                     <string>float</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>               
+            </array>                
+            <key>tooltip</key>
+            <string></string>
+         </map>
+         <key>osTriggerSound</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>linknum</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>                              
+               <map>
+                  <key>sound</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>volume</key>
+                  <map>
+                     <key>type</key>
+                     <string>float</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>               
+            </array>                
+            <key>tooltip</key>
+            <string></string>
+         </map>                                          
          <key>osUnixTimeToTimestamp</key>
          <map>
             <key>energy</key>
@@ -24981,7 +25999,62 @@
             <undef/>
             <key>tooltip</key>
             <string>Returns active wind plugin name, as specified by the wind_plugin parameter in OpenSim.ini.</string>
-         </map>  
+         </map>
+         <key>osVecDistSquare</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>float</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>a</key>
+                  <map>
+                     <key>type</key>
+                     <string>vector</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>                              
+               <map>
+                  <key>b</key>
+                  <map>
+                     <key>type</key>
+                     <string>vector</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>                
+            <key>tooltip</key>
+            <string></string>
+         </map> 
+         <key>osVecMagSquare</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>float</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>a</key>
+                  <map>
+                     <key>type</key>
+                     <string>vector</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>                              
+            </array>                
+            <key>tooltip</key>
+            <string>No description available.</string>
+         </map>                   
          <key>osVolumeDetect</key>
          <map>
             <key>energy</key>
@@ -25453,6 +26526,56 @@
             <key>tooltip</key>
             <string>Target NPC says message on the nearby chat channel.</string> 
          </map>
+         <key>osNpcSayTo</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+       		<key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>npc</key>
+                  <map>
+                     <key>type</key>
+                     <string>key</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>target</key>
+                  <map>
+                     <key>type</key>
+                     <string>key</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>channel</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>msg</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>                                                                                                                                                                     
+            </array>
+            <key>tooltip</key>
+            <string></string> 
+         </map>         
          <key>osNpcSetProfileAbout</key>
          <map>
             <key>energy</key>
@@ -25819,7 +26942,7 @@
             <key>tooltip</key>
             <string>Returns 1 if TRUE, 0 if FALSE.</string>
          </map>
-         <key>osGetNpcList</key>
+         <key>osGetNPCList</key>
          <map>
             <key>energy</key>
             <real>10.0</real>
