@@ -528,7 +528,7 @@
             <key>type</key>
             <string>integer</string>
             <key>value</key>
-            <integer>27</integer>
+            <integer>26</integer>
             <key>tooltip</key>
             <string>Attach to the avatar's lower upper leg.</string>
          </map>
@@ -678,6 +678,141 @@
             <key>tooltip</key>
             <string>Attach to the avatar's right upper leg.</string>
          </map>
+         <key>ATTACH_LHAND_RING1</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>41</integer>
+            <key>tooltip</key>
+            <string>Attach to the avatar's left ring finger.</string>
+         </map>
+         <key>ATTACH_RHAND_RING1</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>42</integer>
+            <key>tooltip</key>
+            <string>Attach to the avatar's right ring finger.</string>
+         </map>
+         <key>ATTACH_TAIL_BASE</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>43</integer>
+            <key>tooltip</key>
+            <string>Attach to the avatar's tail base.</string>
+         </map>
+         <key>ATTACH_TAIL_TIP</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>44</integer>
+            <key>tooltip</key>
+            <string>Attach to the avatar's tail tip.</string>
+         </map>
+         <key>ATTACH_LWING</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>45</integer>
+            <key>tooltip</key>
+            <string>Attach to the avatar's left wing.</string>
+         </map>
+         <key>ATTACH_RWING</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>46</integer>
+            <key>tooltip</key>
+            <string>Attach to the avatar's right wing.</string>
+         </map>
+         <key>ATTACH_FACE_JAW</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>47</integer>
+            <key>tooltip</key>
+            <string>Attach to the avatar's jaw.</string>
+         </map>
+         <key>ATTACH_FACE_LEAR</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>48</integer>
+            <key>tooltip</key>
+            <string>Attach to the avatar's left ear (extended).</string>
+         </map>
+         <key>ATTACH_FACE_REAR</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>49</integer>
+            <key>tooltip</key>
+            <string>Attach to the avatar's right ear (extended).</string>
+         </map>
+         <key>ATTACH_FACE_LEYE</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>50</integer>
+            <key>tooltip</key>
+            <string>Attach to the avatar's left eye (extended).</string>
+         </map>
+         <key>ATTACH_FACE_REYE</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>51</integer>
+            <key>tooltip</key>
+            <string>Attach to the avatar's right eye (extended).</string>
+         </map>
+         <key>ATTACH_FACE_TONGUE</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>52</integer>
+            <key>tooltip</key>
+            <string>Attach to the avatar's tongue.</string>
+         </map>
+         <key>ATTACH_GROIN</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>53</integer>
+            <key>tooltip</key>
+            <string>Attach to the avatar's groin.</string>
+         </map>
+         <key>ATTACH_HIND_LFOOT</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>54</integer>
+            <key>tooltip</key>
+            <string>Attach to the avatar's left hind foot.</string>
+         </map>
+         <key>ATTACH_HIND_RFOOT</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>55</integer>
+            <key>tooltip</key>
+            <string>Attach to the avatar's right hind foot.</string>
+         </map>
          <key>AVOID_CHARACTERS</key>
          <map>
             <key>type</key>
@@ -809,7 +944,7 @@
             <key>type</key>
             <string>integer</string>
             <key>value</key>
-            <integer>6</integer>
+            <integer>5</integer>
             <key>tooltip</key>
             <string/>
          </map>
@@ -818,7 +953,7 @@
             <key>type</key>
             <string>integer</string>
             <key>value</key>
-            <integer>22</integer>
+            <integer>21</integer>
             <key>tooltip</key>
             <string/>
          </map>
@@ -872,7 +1007,7 @@
             <key>type</key>
             <string>integer</string>
             <key>value</key>
-            <integer>2048</integer>
+            <string>0x800</string>
             <key>tooltip</key>
             <string/>
          </map>
@@ -1463,9 +1598,9 @@
             <key>type</key>
             <string>float</string>
             <key>value</key>
-            <real>0.01745329</real>
+            <real>0.017453293</real>
             <key>tooltip</key>
-            <string>0.01745329 - Number of radians per degree.
+            <string>0.017453293 - Number of radians per degree.
 			You can use this to convert degrees to radians by multiplying the degrees by this number.</string>
          </map>
          <key>DENSITY</key>
@@ -1482,7 +1617,7 @@
             <key>type</key>
             <string>string</string>
             <key>value</key>
-            <string>0x0A0x0A0x0A</string>
+            <string>\\n\\n\\n</string>
             <key>tooltip</key>
             <string>Indicates the last line of a notecard was read.</string>
          </map>
@@ -2299,7 +2434,7 @@
          <key>NULL_KEY</key>
          <map>
             <key>type</key>
-            <string>key</string>
+            <string>string</string>
             <key>value</key>
             <uuid>00000000-0000-0000-0000-000000000000</uuid>
             <key>tooltip</key>
@@ -2395,6 +2530,15 @@
             <key>tooltip</key>
             <string>Gets the object's name.</string>
          </map>
+         <key>OBJECT_OMEGA</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>29</integer>
+            <key>tooltip</key>
+            <string>Gets an object's angular velocity.</string>
+         </map>
          <key>OBJECT_OWNER</key>
          <map>
             <key>type</key>
@@ -2403,6 +2547,15 @@
             <integer>6</integer>
             <key>tooltip</key>
             <string>Gets an object's owner's key. If id is group owned, a NULL_KEY is returned.</string>
+         </map>
+         <key>OBJECT_PRIM_COUNT</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>30</integer>
+            <key>tooltip</key>
+            <string>Gets the prim count of the object.  The script and target object  must be owned by the same owner</string>
          </map>
          <key>OBJECT_PATHFINDING_TYPE</key>
          <map>
@@ -2494,6 +2647,15 @@
             <key>tooltip</key>
             <string/>
          </map>
+         <key>OBJECT_REZZER_KEY</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>32</integer>
+            <key>tooltip</key>
+            <string/>
+         </map>
          <key>OBJECT_ROOT</key>
          <map>
             <key>type</key>
@@ -2565,6 +2727,15 @@
             <integer>23</integer>
             <key>tooltip</key>
             <string>Returns boolean, detailing if temporary is enabled or disabled on the object.</string>
+         </map>
+         <key>OBJECT_TOTAL_INVENTORY_COUNT</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>31</integer>
+            <key>tooltip</key>
+            <string>Gets the total inventory count of the object.  The script and target object must be owned by the same owner</string>
          </map>
          <key>OBJECT_TOTAL_SCRIPT_COUNT</key>
          <map>
@@ -3051,6 +3222,33 @@
             <integer>5</integer>
             <key>tooltip</key>
             <string/>
+         </map>
+         <key>PASS_ALWAYS</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <string>1</string>
+            <key>tooltip</key>
+            <string>Always pass the event.</string>
+         </map>
+         <key>PASS_NEVER</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <string>2</string>
+            <key>tooltip</key>
+            <string>Always pass the event.</string>
+         </map>
+         <key>PASS_IF_NOT_HANDLED</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <string>0</string>
+            <key>tooltip</key>
+            <string>Pass the event if there is no script handling the event in the prim.</string>
          </map>
          <key>PASSIVE</key>
          <map>
@@ -4387,6 +4585,24 @@
             <key>tooltip</key>
             <string/>
          </map>
+         <key>PSYS_PART_BF_ONE_MINUS_SOURCE_COLOR</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>5</integer>
+            <key>tooltip</key>
+            <string/>
+         </map>
+         <key>PSYS_PART_BF_ONE_MINUS_SOURCE_ALPHA</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>9</integer>
+            <key>tooltip</key>
+            <string/>
+         </map>
          <key>PSYS_PART_BF_SOURCE_ALPHA</key>
          <map>
             <key>type</key>
@@ -4536,7 +4752,7 @@
             <key>type</key>
             <string>integer</string>
             <key>value</key>
-            <integer>19</integer>
+            <integer>7</integer>
             <key>tooltip</key>
             <string>Age in seconds of a particle at which it dies.</string>
          </map>
@@ -5061,7 +5277,7 @@
             <key>type</key>
             <string>integer</string>
             <key>value</key>
-            <integer>2</integer>
+            <integer>0</integer>
             <key>tooltip</key>
             <string/>
          </map>
@@ -5295,7 +5511,7 @@
             <key>type</key>
             <string>integer</string>
             <key>value</key>
-            <integer>64</integer>
+            <string>0x40</string>
             <key>tooltip</key>
             <string>Controls whether the object can be grabbed.\nA grab is the default action when in third person, and is available as the hand tool in build mode. This is useful for physical objects that you don't want other people to be able to trivially disturb. The default is FALSE</string>
          </map>
@@ -5304,7 +5520,7 @@
             <key>type</key>
             <string>integer</string>
             <key>value</key>
-            <integer>1024</integer>
+            <string>0x400</string>
             <key>tooltip</key>
             <string>Prevent click-and-drag movement on all prims in the object.</string>
          </map>
@@ -5500,7 +5716,7 @@
          <key>TEXTURE_BLANK</key>
          <map>
             <key>type</key>
-            <string>key</string>
+            <string>string</string>
             <key>value</key>
             <uuid>5748decc-f629-461c-9a36-a35a221fe21f</uuid>
             <key>tooltip</key>
@@ -5509,7 +5725,7 @@
          <key>TEXTURE_DEFAULT</key>
          <map>
             <key>type</key>
-            <string>key</string>
+            <string>string</string>
             <key>value</key>
             <uuid>89556747-24cb-43ed-920b-47caed15465f</uuid>
             <key>tooltip</key>
@@ -5518,7 +5734,7 @@
          <key>TEXTURE_MEDIA</key>
          <map>
             <key>type</key>
-            <string>key</string>
+            <string>string</string>
             <key>value</key>
             <uuid>8b5fec65-8d8d-9dc5-cda8-8fdf2716e361</uuid>
             <key>tooltip</key>
@@ -5527,7 +5743,7 @@
          <key>TEXTURE_PLYWOOD</key>
          <map>
             <key>type</key>
-            <string>key</string>
+            <string>string</string>
             <key>value</key>
             <uuid>89556747-24cb-43ed-920b-47caed15465f</uuid>
             <key>tooltip</key>
@@ -5536,7 +5752,7 @@
          <key>TEXTURE_TRANSPARENT</key>
          <map>
             <key>type</key>
-            <string>key</string>
+            <string>string</string>
             <key>value</key>
             <uuid>8dcd4a48-2d37-4909-9f78-f7a9eb4ef903</uuid>
             <key>tooltip</key>
@@ -5956,7 +6172,7 @@
             <key>type</key>
             <string>integer</string>
             <key>value</key>
-            <integer>35</integer>
+            <integer>31</integer>
             <key>tooltip</key>
             <string>The timescale for exponential decay of the linear motors magnitude.</string>
          </map>
