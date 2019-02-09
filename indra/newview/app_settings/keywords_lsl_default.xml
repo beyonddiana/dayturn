@@ -20417,7 +20417,7 @@
                 </map>
             </array>
             <key>tooltip</key>
-            <string></string> 
+            <string>Adjust the volume of attached sound for a prim in a linkset.</string> 
          </map>
          <key>osAngleBetween</key>
          <map>
@@ -20449,7 +20449,7 @@
                 </map>
             </array>
             <key>tooltip</key>
-            <string></string> 
+            <string>Returns a angle between 0 and PI.</string> 
          </map>
          <key>osApproxEquals</key>
          <map>
@@ -22755,7 +22755,7 @@
                </map>               
             </array>                
             <key>tooltip</key>
-            <string></string>
+            <string>Play the specified sound at the specified volume and loop it indefinitely. The sound parameter can be the UUID of a sound or the name of a sound that is in the inventory of the target prim.</string>
          </map> 
          <key>osLoopSoundMaster</key>
          <map>
@@ -22796,7 +22796,7 @@
                </map>               
             </array>                
             <key>tooltip</key>
-            <string></string>
+            <string>Play the specified sound at the specified volume and loop it indefinitely. This sound will be set as a master sound. The playing of the sound in other prims using osLoopSoundSlave will be synchronized to this sound.</string>
          </map> 
          <key>osLoopSoundSlave</key>
          <map>
@@ -22837,7 +22837,7 @@
                </map>               
             </array>                
             <key>tooltip</key>
-            <string></string>
+            <string>Play the specified sound at the specified volume and loop it indefinitely. This sound will be set as a slave sound. The playing of a slave sound will be synchronized to the playing of the same sound declared in another prim as the master sound.</string>
          </map>                                
          <key>osMakeNotecard</key>
          <map>
@@ -23131,7 +23131,7 @@
             <key>tooltip</key>
             <string>Joins two adjacent parcels within the same region.</string>
          </map>
-         <key>osParcelSetDetails</key>
+         <key>osSetParcelDetails</key>
          <map>
             <key>energy</key>
             <real>10.0</real>
@@ -23161,7 +23161,7 @@
                </map>
             </array>                
             <key>tooltip</key>
-            <string></string>
+            <string>This function is the counterpart to llGetParcelDetails. Currently PARCEL_DETAILS_NAME, PARCEL_DETAILS_DESC, PARCEL_DETAILS_OWNER, PARCEL_DETAILS_GROUP, PARCEL_DETAILS_CLAIMDATE are implemented. </string>
          </map>         
          <key>osParcelSubdivide</key>
          <map>
@@ -23280,7 +23280,7 @@
                </map>               
             </array>                
             <key>tooltip</key>
-            <string></string>
+            <string>Play the specified sound once at the specified volume.</string>
          </map>
          <key>osPlaySoundSlave</key>
          <map>
@@ -23321,7 +23321,7 @@
                </map>               
             </array>                
             <key>tooltip</key>
-            <string></string>
+            <string>Play the specified sound at the specified volume and loop it indefinitely. This sound will be set as a slave sound. The playing of a slave sound will be synchronized to the playing of the same sound declared in another prim as the master sound.</string>
          </map>
          <key>osPreloadSound</key>
          <map>
@@ -23353,7 +23353,7 @@
                </map>             
             </array>                
             <key>tooltip</key>
-            <string></string>
+            <string>Preload the specified sound in viewers of nearby avatars.</string>
          </map>                               
          <key>osRegexIsMatch</key>
          <map>
@@ -23650,7 +23650,7 @@
                </map>             
             </array>                
             <key>tooltip</key>
-            <string></string>
+            <string>Returns the value rounded to the number with a number if decimal places set by ndigits.</string>
          </map>         
          <key>osSetContentType</key>
          <map>
@@ -24577,7 +24577,7 @@
                </map>
             </array>                
             <key>tooltip</key>
-            <string>Allows creators to set the link set total mass, center of mass and moment of inertia. Moment of inertia will be the one of a sphere of radius radius, placed at the center of mass. Call osClearInertia to undo.</string>
+            <string>This allows for users to speed themselves up. It multiplies the running, walking, rotating and flying of the avatar.</string>
          </map>         
          <key>osSetParcelDetails</key>
          <map>
@@ -24760,7 +24760,7 @@
                </map>   
             </array>                
             <key>tooltip</key>
-            <string>Sets the pen colour to be used when drawing dynamic textures.</string>
+            <string>Deprecated. Use osSetPenColor</string>
          </map>         
          <key>osSetPenSize</key>
          <map>
@@ -25002,7 +25002,7 @@
                </map>   
             </array>                
             <key>tooltip</key>
-            <string></string>
+            <string>Establishes a hard cut-off radius for audibility of scripted sounds (both attached and triggered) in the specified prim of a linkset.</string>
          </map>         
          <key>osSetSpeed</key>
          <map>
@@ -25267,7 +25267,7 @@
                </map>                              
             </array>                
             <key>tooltip</key>
-            <string></string>
+            <string>Stop the sound playing in the specified prim of a linkset.</string>
          </map>
          <key>osStringEndsWith</key>
          <map>
@@ -25592,7 +25592,7 @@
             <key>tooltip</key>
             <string></string>
          </map>
-         <key>osSunGetParam</key>
+         <key>osGetSunParam</key>
          <map>
             <key>energy</key>
             <real>10.0</real>
@@ -25615,7 +25615,7 @@
             <key>tooltip</key>
             <string></string>
          </map>
-         <key>osSunSetParam</key>
+         <key>osSetSunParam</key>
          <map>
             <key>energy</key>
             <real>10.0</real>
@@ -25646,19 +25646,6 @@
             </array>                
             <key>tooltip</key>
             <string></string>
-         </map>                                                                                                 
-         <key>osShutDown</key>
-         <map>
-            <key>energy</key>
-            <real>10.0</real>
-            <key>sleep</key>
-            <real>0.0</real>
-            <key>return</key>
-            <string>void</string>
-            <key>arguments</key>
-            <undef/>
-            <key>tooltip</key>
-            <string>Shuts down the current simulator.</string>
          </map>
          <key>osTeleportAgent</key>
          <map>
@@ -25850,7 +25837,7 @@
             <key>tooltip</key>
             <string>Commits terrain changes to the grid database.</string>
          </map> 
-         <key>osTerrainGetHeight</key>
+         <key>osGetTerrainHeight</key>
          <map>
             <key>energy</key>
             <real>10.0</real>
@@ -25878,47 +25865,6 @@
                      <string/>
                   </map>
                </map>
-            </array>                
-            <key>tooltip</key>
-            <string></string>
-         </map>
-         <key>osTerrainSetHeight</key>
-         <map>
-            <key>energy</key>
-            <real>10.0</real>
-            <key>sleep</key>
-            <real>0.0</real>
-            <key>return</key>
-            <string>integer</string>
-            <key>arguments</key>
-            <array>            
-               <map>
-                  <key>x</key>
-                  <map>
-                     <key>type</key>
-                     <string>integer</string>
-                     <key>tooltip</key>
-                     <string/>
-                  </map>
-               </map>                              
-               <map>
-                  <key>y</key>
-                  <map>
-                     <key>type</key>
-                     <string>integer</string>
-                     <key>tooltip</key>
-                     <string/>
-                  </map>
-               </map>
-               <map>
-                  <key>val</key>
-                  <map>
-                     <key>type</key>
-                     <string>float</string>
-                     <key>tooltip</key>
-                     <string/>
-                  </map>
-               </map>               
             </array>                
             <key>tooltip</key>
             <string></string>
@@ -25962,7 +25908,7 @@
                </map>               
             </array>                
             <key>tooltip</key>
-            <string></string>
+            <string>Start playing the specified sound in the viewers of nearby avatars once at the specified volume.</string>
          </map>                                          
          <key>osUnixTimeToTimestamp</key>
          <map>
@@ -26030,7 +25976,7 @@
                </map>
             </array>                
             <key>tooltip</key>
-            <string></string>
+            <string>Returns the square of norm of vector or distance vector (a-b), when expensive square root is not needed.</string>
          </map> 
          <key>osVecMagSquare</key>
          <map>
@@ -26053,7 +25999,7 @@
                </map>                              
             </array>                
             <key>tooltip</key>
-            <string>No description available.</string>
+            <string></string>
          </map>                   
          <key>osVolumeDetect</key>
          <map>
@@ -26076,7 +26022,7 @@
                </map>                              
             </array>                
             <key>tooltip</key>
-            <string>No description available.</string>
+            <string></string>
          </map>
          <key>osRevokeScriptPermissions</key>
          <map>
@@ -26574,7 +26520,7 @@
                </map>                                                                                                                                                                     
             </array>
             <key>tooltip</key>
-            <string></string> 
+            <string>NPC says message on the given channel to the specified target.</string> 
          </map>         
          <key>osNpcSetProfileAbout</key>
          <map>
