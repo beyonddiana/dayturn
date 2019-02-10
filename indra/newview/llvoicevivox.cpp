@@ -89,13 +89,13 @@ const F32 CONNECT_THROTTLE_SECONDS = 1.0f;
 // Don't send positional updates more frequently than this:
 const F32 UPDATE_THROTTLE_SECONDS = 0.5f;
 
-const F32 LOGIN_ATTEMPT_TIMEOUT = 30.0f;
-const int LOGIN_RETRY_MAX = 3;
-const F32 LOGIN_RETRY_BACKOFF = 10.0f;
+//const F32 LOGIN_ATTEMPT_TIMEOUT = 30.0f;
+//const int LOGIN_RETRY_MAX = 3;
+//const F32 LOGIN_RETRY_BACKOFF = 10.0f;
 
- 
-const int PROVISION_RETRY_MAX = 5;
-const F32 PROVISION_RETRY_TIMEOUT = 2.0;
+
+//const int PROVISION_RETRY_MAX = 5;
+//const F32 PROVISION_RETRY_TIMEOUT = 2.0;
 
 const F32 LOGIN_RETRY_SECONDS = 10.0f;
 const int MAX_LOGIN_RETRIES = 12;
