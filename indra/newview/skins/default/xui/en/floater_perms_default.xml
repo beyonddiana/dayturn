@@ -38,6 +38,7 @@
       </text>
       <text
        name="label_2"
+       tool_tip="Next owner can make unlimited copies of this object. Copies maintain creator information, and can never be more permissive than the item being copied."
        type="string"
        length="1"
        follows="left|top"
@@ -51,6 +52,7 @@
       </text>
       <text
        name="label_3"
+       tool_tip="Next owner can edit properties like item name or scale of this object."       
        type="string"
        length="1"
        follows="left|top"
@@ -64,6 +66,7 @@
       </text>
       <text
        name="label_4"
+       tool_tip="Next owner can give away or resell this object."       
        type="string"
        length="1"
        follows="left|top"
@@ -77,6 +80,7 @@
       </text>    
       <text
        name="label_5"
+       tool_tip="Allow all members of the set group to share your modify permissions for this object. You must Deed to enable role restrictions."       
        type="string"
        length="1"
        follows="left|top"
@@ -91,6 +95,7 @@
       </text>
       <text
        name="label_6"
+       tool_tip="Anyone can take a copy of the object. Object and all of its contents must be copy and transfer permissive"       
        type="string"
        length="1"
        follows="left|top"
