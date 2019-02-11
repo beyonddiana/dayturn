@@ -333,7 +333,6 @@ set(viewer_SOURCE_FILES
     llfloatertwitter.cpp
     llfloateruipreview.cpp
     llfloaterurlentry.cpp
-    llfloatervoiceeffect.cpp
     llfloatervoicevolume.cpp
     llfloaterwebcontent.cpp
     llfloaterwebprofile.cpp
@@ -503,7 +502,6 @@ set(viewer_SOURCE_FILES
     llpanelsnapshotprofile.cpp
     llpanelteleporthistory.cpp
     llpaneltiptoast.cpp
-    llpanelvoiceeffect.cpp
     llpaneltopinfobar.cpp
     llpanelvoicedevicesettings.cpp
     llpanelvolume.cpp
@@ -982,7 +980,6 @@ set(viewer_HEADER_FILES
     llfloatertwitter.h
     llfloateruipreview.h
     llfloaterurlentry.h
-    llfloatervoiceeffect.h
     llfloatervoicevolume.h
     llfloaterwebcontent.h
     llfloaterwebprofile.h
@@ -1139,7 +1136,6 @@ set(viewer_HEADER_FILES
     llpanelteleporthistory.h
     llpaneltiptoast.h
     llpanelvoicedevicesettings.h
-    llpanelvoiceeffect.h
     llpaneltopinfobar.h
     llpanelvolume.h
     llpanelvolumepulldown.h
