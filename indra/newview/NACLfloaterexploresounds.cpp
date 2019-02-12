@@ -146,7 +146,7 @@ public:
 	}
 };
 
-BOOL NACLFloaterExploreSounds::tick()
+bool NACLFloaterExploreSounds::tick()
 {
 	static const std::string str_playing =  getString("Playing");
 	static const std::string str_not_playing = getString("NotPlaying");
