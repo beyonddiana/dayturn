@@ -90,7 +90,7 @@ public:
 		mMap.insert(pqm_pair(LLPQMKey<DATA_TYPE>(priority, data), data));
 	}
 
-	BOOL pop(DATA_TYPE *datap)
+	bool pop(DATA_TYPE *datap)
 	{
 		pqm_iter iter;
 		iter = mMap.begin();

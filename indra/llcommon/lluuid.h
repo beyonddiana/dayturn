@@ -68,8 +68,8 @@ public:
 
 	static LLUUID generateNewID(std::string stream = "");	//static version of above for use in initializer expressions such as constructor params, etc. 
 
-	BOOL	set(const char *in_string, BOOL emit = TRUE);	// Convert from string, if emit is FALSE, do not emit warnings
-	BOOL	set(const std::string& in_string, BOOL emit = TRUE);	// Convert from string, if emit is FALSE, do not emit warnings
+	bool	set(const char *in_string, bool emit = TRUE);	// Convert from string, if emit is FALSE, do not emit warnings
+	bool	set(const std::string& in_string, bool emit = TRUE);	// Convert from string, if emit is FALSE, do not emit warnings
 	void	setNull();					// Faster than setting to LLUUID::null.
 
     S32     cmpTime(uuid_time_t *t1, uuid_time_t *t2);
@@ -79,8 +79,8 @@ public:
 	//
 	// ACCESSORS
 	//
-	BOOL	isNull() const;			// Faster than comparing to LLUUID::null.
-	BOOL	notNull() const;		// Faster than comparing to LLUUID::null.
+	bool	isNull() const;			// Faster than comparing to LLUUID::null.
+	bool	notNull() const;		// Faster than comparing to LLUUID::null.
 	// JC: This is dangerous.  It allows UUIDs to be cast automatically
 	// to integers, among other things.  Use isNull() or notNull().
 	//		operator bool() const;
@@ -119,7 +119,7 @@ public:
 	U16 getCRC16() const;
 	U32 getCRC32() const;
 
-	static BOOL validate(const std::string& in_string); // Validate that the UUID string is legal.
+	static bool validate(const std::string& in_string); // Validate that the UUID string is legal.
 
 	static const LLUUID null;
 	static LLMutex * mMutex;
@@ -127,7 +127,7 @@ public:
 	static U32 getRandomSeed();
 	static S32 getNodeID(unsigned char * node_id);
 
-	static BOOL parseUUID(const std::string& buf, LLUUID* value);
+	static bool parseUUID(const std::string& buf, LLUUID* value);
 
 	U8 mData[UUID_BYTES];
 };
