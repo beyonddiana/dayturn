@@ -209,14 +209,14 @@ std::string LLUUID::asString() const
 	return str;
 }
 
-BOOL LLUUID::set(const char* in_string, BOOL emit)
+bool LLUUID::set(const char* in_string, bool emit)
 {
 	return set(ll_safe_string(in_string),emit);
 }
 
-BOOL LLUUID::set(const std::string& in_string, BOOL emit)
+bool LLUUID::set(const std::string& in_string, bool emit)
 {
-	BOOL broken_format = FALSE;
+	bool broken_format = FALSE;
 
 	// empty strings should make NULL uuid
 	if (in_string.empty())
@@ -318,9 +318,9 @@ BOOL LLUUID::set(const std::string& in_string, BOOL emit)
 	return TRUE;
 }
 
-BOOL LLUUID::validate(const std::string& in_string)
+bool LLUUID::validate(const std::string& in_string)
 {
-	BOOL broken_format = FALSE;
+	bool broken_format = FALSE;
 	if (in_string.length() != (UUID_STR_LENGTH - 1))		/* Flawfinder: ignore */
 	{
 		// I'm a moron.  First implementation didn't have the right UUID format.
@@ -731,7 +731,7 @@ void LLUUID::getCurrentTime(uuid_time_t *timestamp)
 
    static uuid_time_t time_last;
    static U32    uuids_this_tick;
-   static BOOL     init = FALSE;
+   static bool     init = FALSE;
 
    if (!init) {
       getSystemTime(&time_last);
@@ -893,7 +893,7 @@ U32 LLUUID::getRandomSeed()
    return(*(U32 *)seed);
 }
 
-BOOL LLUUID::parseUUID(const std::string& buf, LLUUID* value)
+bool LLUUID::parseUUID(const std::string& buf, LLUUID* value)
 {
 	if( buf.empty() || value == NULL)
 	{
@@ -1002,7 +1002,7 @@ LLUUID::LLUUID()
 }
 */
 
- BOOL LLUUID::notNull() const
+ bool LLUUID::notNull() const
 {
 	// <FS> Fix for misaligned unsigned ints in LLUUID; by Sovereign Engineer / Shyotl Kuhr
 	//U32 *word = (U32 *)mData;
@@ -1013,7 +1013,7 @@ LLUUID::LLUUID()
 
 // Faster than == LLUUID::null because doesn't require
 // as much memory access.
- BOOL LLUUID::isNull() const
+ bool LLUUID::isNull() const
 {
 	// <FS> Fix for misaligned unsigned ints in LLUUID; by Sovereign Engineer / Shyotl Kuhr
 	//U32 *word = (U32 *)mData;

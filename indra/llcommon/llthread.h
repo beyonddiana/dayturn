@@ -97,7 +97,7 @@ public:
     static void registerThreadID();
     
 private:
-    BOOL                mPaused;
+    bool                mPaused;
     
     // static function passed to APR thread creation routine
     static void *APR_THREAD_FUNC staticRun(struct apr_thread_t *apr_threadp, void *datap);
@@ -109,7 +109,7 @@ protected:
 
     apr_thread_t        *mAPRThreadp;
     apr_pool_t          *mAPRPoolp;
-    BOOL                mIsLocalPool;
+    bool                mIsLocalPool;
     EThreadStatus       mStatus;
     U32                 mID;
     LLTrace::ThreadRecorder* mRecorder;
