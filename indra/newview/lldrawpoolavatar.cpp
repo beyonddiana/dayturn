@@ -1891,15 +1891,15 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 		joint_pos = gAgent.mRRInterface.getCamDistDrawFromJoint()->getWorldPosition();
 		cam_dist_draw_max_squared = gAgent.mRRInterface.mCamDistDrawMax * gAgent.mRRInterface.mCamDistDrawMax;
 
-		if (!is_self)
+		if (!is_self && gAgent.mRRInterface.mCamDistDrawAlphaMax >= 0.999999f)
  		{
  			// If the outer sphere is opaque and the avatar is farther than its radius, no need to render it at all.
-			LLVector3d my_pos(gAgentAvatarp->getWorldPosition());
-			LLVector3d their_pos(avatar->getWorldPosition());
+			LLVector3d my_pos(gAgentAvatarp->getPositionAgent());
+			LLVector3d their_pos(avatar->getPositionAgent());
  			LLVector3d offset(their_pos - my_pos);
  			F32 distance_squared = (F32)offset.magVecSquared();
- 			if (distance_squared > cam_dist_draw_max_squared && gAgent.mRRInterface.mCamDistDrawAlphaMax >= 0.999999f) {
- 				return;
+            if (distance_squared > cam_dist_draw_max_squared) {
+     				return;
  			}
  		}
 	}
@@ -1958,6 +1958,19 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 			face_pos = face->getPositionAgent();
 			face_avatar_offset = face_pos - joint_pos;
 			face_distance_to_avatar_squared = (F32)face_avatar_offset.magVecSquared();
+
+			// If the vision is restricted, rendering alpha rigged attachments may allow to cheat through the vision spheres.
+			if (!is_self) // Other avatars only
+			{
+				if (face_distance_to_avatar_squared > cam_dist_draw_max_squared)
+				{
+					U32 type = gPipeline.getPoolTypeFromTE(face->getTextureEntry(), face->getTexture());
+					if (type == LLDrawPool::POOL_ALPHA)
+					{
+						continue;
+					}
+				}
+			}			
 		}
 //mk
 
@@ -2167,24 +2180,6 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 				}
 				else
 				{
-//MK
-					// If the vision is restricted, rendering alpha rigged attachments may allow to cheat through the vision spheres.
-					if (vision_restricted)
-					{
-						// Other avatars only
-						if (!is_self)
-						{
-							// This rigged mesh is diffuse alpha blend with materials
-							if (mat->getDiffuseAlphaMode() == LLMaterial::DIFFUSE_ALPHA_MODE_BLEND)
-							{
-								if (face_distance_to_avatar_squared > cam_dist_draw_max_squared)
-								{
-									continue;
-								}
-							}
-						}
-					}
-//mk
 					sVertexProgram->setMinimumAlpha(0.f);
 				}
 
@@ -2199,24 +2194,6 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 			}
 			else
 			{
-//MK
-				// If the vision is restricted, rendering alpha rigged attachments may allow to cheat through the vision spheres.
-				if (vision_restricted)
-				{
-					// Other avatars only
-					if (!is_self)
-					{
-						// This rigged mesh is diffuse  
-						if (gPipeline.getPoolTypeFromTE(face->getTextureEntry(), face->getTexture()) == LLDrawPool::POOL_ALPHA)
-						{
-							if (face_distance_to_avatar_squared > cam_dist_draw_max_squared)
-							{
-								continue;
-							}
-						}
-					}
-				}
-//mk
 				gGL.getTexUnit(sDiffuseChannel)->bind(face->getTexture());
 				sVertexProgram->setMinimumAlpha(0.f);
 				if (normal_channel > -1)
