@@ -96,7 +96,7 @@ top="10"
       <line_editor
           follows="left|bottom"
           height="22"
-          max_length_bytes="16"
+          max_length_bytes="24"
           name="password_edit"
           is_password="true" 
           select_on_focus="true"
