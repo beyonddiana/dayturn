@@ -59,7 +59,7 @@
          <key>key</key>
          <map>
             <key>tooltip</key>
-            <string>A 128 bit unique identifier (UUID).\nThe key is represented as hexidecimal characters (A-F and 0-9), grouped into sections (8,4,4,4,12 characters) and separated by hyphens (for a total of 36 characters). e.g. "A822FF2B-FF02-461D-B45D-DCD10A2DE0C2".</string>
+            <string>A 128 bit unique identifier (UUID).\nThe key is represented as hexadecimal characters (A-F and 0-9), grouped into sections (8,4,4,4,12 characters) and separated by hyphens (for a total of 36 characters). e.g. "A822FF2B-FF02-461D-B45D-DCD10A2DE0C2".</string>
          </map>
          <key>list</key>
          <map>
@@ -1207,7 +1207,7 @@
             <key>value</key>
             <integer>15</integer>
             <key>tooltip</key>
-            <string>Determines whether a character can leave its starting parcel.\nTakes a boolean parameter. If TRUE, the character cannot voluntarilly leave the parcel, but can return to it.</string>
+            <string>Determines whether a character can leave its starting parcel.\nTakes a boolean parameter. If TRUE, the character cannot voluntarily leave the parcel, but can return to it.</string>
          </map>
          <key>CHARACTER_TYPE</key>
          <map>
@@ -1835,7 +1835,7 @@
             <key>value</key>
             <integer>6</integer>
             <key>tooltip</key>
-            <string>Allows enabling/disbling of the "Pragma: no-cache" header.\nUsage: [HTTP_PRAGMA_NO_CACHE, integer SendHeader]. When SendHeader is TRUE, the "Pragma: no-cache" header is sent by the script. This matches the default behavior. When SendHeader is FALSE, no "Pragma" header is sent by the script.</string>
+            <string>Allows enabling/disabling of the "Pragma: no-cache" header.\nUsage: [HTTP_PRAGMA_NO_CACHE, integer SendHeader]. When SendHeader is TRUE, the "Pragma: no-cache" header is sent by the script. This matches the default behavior. When SendHeader is FALSE, no "Pragma" header is sent by the script.</string>
          </map>
          <key>HTTP_VERBOSE_THROTTLE</key>
          <map>
@@ -3455,7 +3455,7 @@
             <key>value</key>
             <string>0x4</string>
             <key>tooltip</key>
-            <string>If this permission enabled, the object can successfully call the llTakeControls libray call.</string>
+            <string>If this permission enabled, the object can successfully call the llTakeControls library call.</string>
          </map>
          <key>PERMISSION_TELEPORT</key>
          <map>
@@ -5982,7 +5982,7 @@
             <key>value</key>
             <integer>38</integer>
             <key>tooltip</key>
-            <string>A slider between anti (-1.0), none (0.0), and maxmum (1.0) banking strength.</string>
+            <string>A slider between anti (-1.0), none (0.0), and maximum (1.0) banking strength.</string>
          </map>
          <key>VEHICLE_BANKING_MIX</key>
          <map>
@@ -8643,7 +8643,7 @@
                </map>
             </array>
             <key>tooltip</key>
-            <string>Add avatar ID to the parcel ban list for the specified number of Hours.\nA value of 0 for Hours will add the agent indefinitely.\nThe smallest value that Hours will accept is 0.01; anything smaller will be seen as 0.\nWhen values that small are used, it seems the function bans in approximately 30 second increments (Probably 36 second increments, as 0.01 of an hour is 36 seconds).\nResidents teleporting to a parcel where they are banned will be redirected to a neighbouring parcel.</string>
+            <string>Add avatar ID to the parcel ban list for the specified number of Hours.\nA value of 0 for Hours will add the agent indefinitely.\nThe smallest value that Hours will accept is 0.01; anything smaller will be seen as 0.\nWhen values that small are used, it seems the function bans in approximately 30 second increments (Probably 36 second increments, as 0.01 of an hour is 36 seconds).\nResidents teleporting to a parcel where they are banned will be redirected to a neighboring parcel.</string>
          </map>
          <key>llAddToLandPassList</key>
          <map>
@@ -9487,7 +9487,7 @@
             </array>
             <key>tooltip</key>
             <string>
-               Starts an asychronous transaction to create a key-value pair. Will fail with XP_ERROR_STORAGE_EXCEPTION if the key already exists. The dataserver callback will be executed with the key returned from this call and a string describing the result. The result is a two element commma-delimited list. The first item is an integer specifying if the transaction succeeded (1) or not (0). In the failure case, the second item will be an integer corresponding to one of the XP_ERROR_... constants. In the success case the second item will be the value passed to the function.
+               Starts an asynchronous transaction to create a key-value pair. Will fail with XP_ERROR_STORAGE_EXCEPTION if the key already exists. The dataserver callback will be executed with the key returned from this call and a string describing the result. The result is a two element comma-delimited list. The first item is an integer specifying if the transaction succeeded (1) or not (0). In the failure case, the second item will be an integer corresponding to one of the XP_ERROR_... constants. In the success case the second item will be the value passed to the function.
             </string>
          </map>
          <key>llCreateLink</key>
@@ -9557,7 +9557,7 @@
             <undef/>
             <key>tooltip</key>
             <string>
-               Starts an asychronous transaction the request the used and total amount of data allocated for the Experience. The dataserver callback will be executed with the key returned from this call and a string describing the result. The result is commma-delimited list. The first item is an integer specifying if the transaction succeeded (1) or not (0). In the failure case, the second item will be an integer corresponding to one of the XP_ERROR_... constants. In the success case the second item will be the the amount in use and the third item will be the total available.
+               Starts an asynchronous transaction the request the used and total amount of data allocated for the Experience. The dataserver callback will be executed with the key returned from this call and a string describing the result. The result is comma-delimited list. The first item is an integer specifying if the transaction succeeded (1) or not (0). In the failure case, the second item will be an integer corresponding to one of the XP_ERROR_... constants. In the success case the second item will be the the amount in use and the third item will be the total available.
             </string>
          </map>
          <key>llDeleteCharacter</key>
@@ -9595,7 +9595,7 @@
             </array>
             <key>tooltip</key>
             <string>
-               Starts an asychronous transaction to delete a key-value pair. The dataserver callback will be executed with the key returned from this call and a string describing the result. The result is a two element commma-delimited list. The first item is an integer specifying if the transaction succeeded (1) or not (0). In the failure case, the second item will be an integer corresponding to one of the XP_ERROR_... constants. In the success case the second item will be the value associated with the key.
+               Starts an asynchronous transaction to delete a key-value pair. The dataserver callback will be executed with the key returned from this call and a string describing the result. The result is a two element comma-delimited list. The first item is an integer specifying if the transaction succeeded (1) or not (0). In the failure case, the second item will be an integer corresponding to one of the XP_ERROR_... constants. In the success case the second item will be the value associated with the key.
             </string>
          </map>
          <key>llDeleteSubList</key>
@@ -13104,7 +13104,7 @@
                </map>
             </array>
             <key>tooltip</key>
-            <string>Responds to an incoming HTTP request which was triggerd by an http_request event within the script. HTTPRequestID specifies the request to respond to (this ID is supplied in the http_request event handler).  Status and Body specify the status code and message to respond with.</string>
+            <string>Responds to an incoming HTTP request which was triggered by an http_request event within the script. HTTPRequestID specifies the request to respond to (this ID is supplied in the http_request event handler).  Status and Body specify the status code and message to respond with.</string>
          </map>
          <key>llInsertString</key>
          <map>
@@ -13365,7 +13365,7 @@
             <undef/>
             <key>tooltip</key>
             <string>
-               Starts an asychronous transaction the request the number of keys in the data store. The dataserver callback will be executed with the key returned from this call and a string describing the result. The result is commma-delimited list. The first item is an integer specifying if the transaction succeeded (1) or not (0). In the failure case, the second item will be an integer corresponding to one of the XP_ERROR_... constants. In the success case the second item will the the number of keys in the system.
+               Starts an asynchronous transaction the request the number of keys in the data store. The dataserver callback will be executed with the key returned from this call and a string describing the result. The result is comma-delimited list. The first item is an integer specifying if the transaction succeeded (1) or not (0). In the failure case, the second item will be an integer corresponding to one of the XP_ERROR_... constants. In the success case the second item will the the number of keys in the system.
             </string>
          </map>
          <key>llKeysKeyValue</key>
@@ -13399,7 +13399,7 @@
             </array>
             <key>tooltip</key>
             <string>
-               Starts an asychronous transaction the request a number of keys from the data store. The dataserver callback will be executed with the key returned from this call and a string describing the result. The result is commma-delimited list. The first item is an integer specifying if the transaction succeeded (1) or not (0). In the failure case, the second item will be an integer corresponding to one of the XP_ERROR_... constants. The error XP_ERROR_KEY_NOT_FOUND is returned if First is greater than or equal to the number of keys in the data store. In the success case the subsequent items will be the keys requested. The number of keys returned may be less than requested if the return value is too large or if there is not enough keys remaining. The order keys are returned is not guaranteed but is stable between subsequent calls as long as no keys are added or removed. Because the keys are returned in a comma-delimited list it is not recommended to use commas in key names if this function is used.
+               Starts an asynchronous transaction the request a number of keys from the data store. The dataserver callback will be executed with the key returned from this call and a string describing the result. The result is comma-delimited list. The first item is an integer specifying if the transaction succeeded (1) or not (0). In the failure case, the second item will be an integer corresponding to one of the XP_ERROR_... constants. The error XP_ERROR_KEY_NOT_FOUND is returned if First is greater than or equal to the number of keys in the data store. In the success case the subsequent items will be the keys requested. The number of keys returned may be less than requested if the return value is too large or if there is not enough keys remaining. The order keys are returned is not guaranteed but is stable between subsequent calls as long as no keys are added or removed. Because the keys are returned in a comma-delimited list it is not recommended to use commas in key names if this function is used.
             </string>
          </map>
          <key>llLinkParticleSystem</key>
@@ -14775,7 +14775,7 @@
                </map>
             </array>
             <key>tooltip</key>
-            <string>Opens world map for avatar who touched is is wearing the script, centred on RegionName with Position highlighted. Only works for scripts attached to avatar, or during touch events.\nDirection currently has no effect.</string>
+            <string>Opens world map for avatar who touched is is wearing the script, centered on RegionName with Position highlighted. Only works for scripts attached to avatar, or during touch events.\nDirection currently has no effect.</string>
          </map>
          <key>llMD5String</key>
          <map>
@@ -15573,7 +15573,7 @@
             </array>
             <key>tooltip</key>
             <string>
-               Starts an asychronous transaction to retrieve the value associated with the key given. Will fail with XP_ERROR_KEY_NOT_FOUND if the key does not exist. The dataserver callback will be executed with the key returned from this call and a string describing the result. The result is a two element commma-delimited list. The first item is an integer specifying if the transaction succeeded (1) or not (0). In the failure case, the second item will be an integer corresponding to one of the XP_ERROR_... constants. In the success case the second item will be the value associated with the key.
+               Starts an asynchronous transaction to retrieve the value associated with the key given. Will fail with XP_ERROR_KEY_NOT_FOUND if the key does not exist. The dataserver callback will be executed with the key returned from this call and a string describing the result. The result is a two element comma-delimited list. The first item is an integer specifying if the transaction succeeded (1) or not (0). In the failure case, the second item will be an integer corresponding to one of the XP_ERROR_... constants. In the success case the second item will be the value associated with the key.
             </string>
          </map>
          <key>llRefreshPrimURL</key>
@@ -17955,7 +17955,7 @@
                </map>
             </array>
             <key>tooltip</key>
-            <string>Animates a texture on the prim specified by LinkNumber, by setting the texture scale and offset.\nMode is a bitmask of animation options.\nFace specifies which object face to animate.\nSizeX and SizeY specify the number of horizontal and vertical frames.Start specifes the animation start point.\nLength specifies the animation duration.\nRate specifies the animation playback rate.</string>
+            <string>Animates a texture on the prim specified by LinkNumber, by setting the texture scale and offset.\nMode is a bitmask of animation options.\nFace specifies which object face to animate.\nSizeX and SizeY specify the number of horizontal and vertical frames.Start specifies the animation start point.\nLength specifies the animation duration.\nRate specifies the animation playback rate.</string>
          </map>
          <key>llSetLocalRot</key>
          <map>
@@ -18122,7 +18122,7 @@
                      <key>type</key>
                      <string>integer</string>
                      <key>tooltip</key>
-                     <string>The default price shown in the textu input field.</string>
+                     <string>The default price shown in the text input field.</string>
                   </map>
                </map>
                <map>
@@ -18136,7 +18136,7 @@
                </map>
             </array>
             <key>tooltip</key>
-            <string>Sets the default amount when someone chooses to pay this object.\nPrice is the default price shown in the textu input field.  QuickButtons specifies the 4 payment values shown in the payment dialog's buttons.\nInput field and buttons may be hidden with PAY_HIDE constant, and may be set to their default values using PAY_DEFAULT.</string>
+            <string>Sets the default amount when someone chooses to pay this object.\nPrice is the default price shown in the text input field.  QuickButtons specifies the 4 payment values shown in the payment dialog's buttons.\nInput field and buttons may be hidden with PAY_HIDE constant, and may be set to their default values using PAY_DEFAULT.</string>
          </map>
          <key>llSetPhysicsMaterial</key>
          <map>
@@ -18344,7 +18344,7 @@
                </map>
             </array>
             <key>tooltip</key>
-            <string>If PIN is set to a non-zero number, the task will accept remote script loads via llRemoteLoadScriptPin() if it passes in the correct PIN. Othersise, llRemoteLoadScriptPin() is ignored.</string>
+            <string>If PIN is set to a non-zero number, the task will accept remote script loads via llRemoteLoadScriptPin() if it passes in the correct PIN. Otherwise, llRemoteLoadScriptPin() is ignored.</string>
          </map>
          <key>llSetRot</key>
          <map>
@@ -18673,7 +18673,7 @@
                </map>
             </array>
             <key>tooltip</key>
-            <string>Animates a texture by setting the texture scale and offset.\nMode is a bitmask of animation options.\nFace specifies which object face to animate.\nSizeX and SizeY specify the number of horizontal and vertical frames.Start specifes the animation start point.\nLength specifies the animation duration.\nRate specifies the animation playback rate.</string>
+            <string>Animates a texture by setting the texture scale and offset.\nMode is a bitmask of animation options.\nFace specifies which object face to animate.\nSizeX and SizeY specify the number of horizontal and vertical frames.Start specifies the animation start point.\nLength specifies the animation duration.\nRate specifies the animation playback rate.</string>
          </map>
          <key>llSetTimerEvent</key>
          <map>
@@ -19995,7 +19995,7 @@
             </array>
             <key>tooltip</key>
             <string>
-               Starts an asychronous transaction to update the value associated with the key given. The dataserver callback will be executed with the key returned from this call and a string describing the result. The result is a two element commma-delimited list. The first item is an integer specifying if the transaction succeeded (1) or not (0). In the failure case, the second item will be an integer corresponding to one of the XP_ERROR_... constants. In the success case the second item will be the value associated with the key. If Checked is 1 the existing value in the data store must match the OriginalValue passed or XP_ERROR_RETRY_UPDATE will be returned. If Checked is 0 the key will be created if necessary.
+               Starts an asynchronous transaction to update the value associated with the key given. The dataserver callback will be executed with the key returned from this call and a string describing the result. The result is a two element comma-delimited list. The first item is an integer specifying if the transaction succeeded (1) or not (0). In the failure case, the second item will be an integer corresponding to one of the XP_ERROR_... constants. In the success case the second item will be the value associated with the key. If Checked is 1 the existing value in the data store must match the OriginalValue passed or XP_ERROR_RETRY_UPDATE will be returned. If Checked is 0 the key will be created if necessary.
             </string>
          </map>
          <key>llVecDist</key>
@@ -22014,7 +22014,7 @@
             <key>arguments</key>
             <undef/>
             <key>tooltip</key>
-            <string>Returns list of Intertia Data.</string>
+            <string>Returns list of Inertia Data.</string>
          </map>   
          <key>osGetInventoryDesc</key>
          <map>
@@ -23024,7 +23024,7 @@
                </map>
             </array>                
             <key>tooltip</key>
-            <string>Sends a specified message to an objec.</string>
+            <string>Sends a specified message to an object.</string>
          </map>                       
          <key>osMin</key>
          <map>
