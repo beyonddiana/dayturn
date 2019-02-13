@@ -3393,7 +3393,17 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 	LLWindow* viewer_window = gViewerWindow->getWindow();
 	if (viewer_window && viewer_window->getMinimized())
 	{
+//MK
+		// No need to make the icon flash in the task bar if the other party is still typing.
+		// Some people literally take 10 minutes to type a long IM and if you're working
+		// you're not getting anything done because the flashing is so annoying.
+		if (dialog != IM_TYPING_START && dialog != IM_TYPING_STOP)
+		{
+//mk
 		viewer_window->flashIcon(5.f);
+//MK
+		}
+//mk
 	}
 }
 
