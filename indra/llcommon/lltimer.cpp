@@ -278,7 +278,7 @@ LLTimer::LLTimer()
 		get_timer_info().update();
 	}
 
-	mStarted = TRUE;
+	mStarted = true;
 	reset();
 }
 

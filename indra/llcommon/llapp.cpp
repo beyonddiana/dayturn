@@ -656,13 +656,13 @@ void LLApp::disableCrashlogger()
 		mExceptionHandler = 0;
 	}
 
-	sDisableCrashlogger = TRUE;
+	sDisableCrashlogger = true;
 }
 
 // static
 bool LLApp::isCrashloggerDisabled()
 {
-	return (sDisableCrashlogger == TRUE); 
+	return (sDisableCrashlogger == true); 
 }
 
 // static
