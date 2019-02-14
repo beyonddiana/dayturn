@@ -47,17 +47,17 @@ public:
 	{
 		if (mPriority > b.mPriority)
 		{
-			return TRUE;
+			return true;
 		}
 		if (mPriority < b.mPriority)
 		{
-			return FALSE;
+			return false;
 		}
 		if (mData > b.mData)
 		{
-			return TRUE;
+			return true;
 		}
-		return FALSE;
+		return false;
 	}
 
 	F32 mPriority;
@@ -96,12 +96,12 @@ public:
 		iter = mMap.begin();
 		if (iter == mMap.end())
 		{
-			return FALSE;
+			return false;
 		}
 		*datap = (*(iter)).second;
 		mMap.erase(iter);
 
-		return TRUE;
+		return true;
 	}
 
 	void reprioritize(const F32 new_priority, DATA_TYPE data)

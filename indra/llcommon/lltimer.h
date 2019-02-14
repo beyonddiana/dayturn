@@ -88,8 +88,8 @@ public:
 
 
 	// MANIPULATORS
-	void start() { reset(); mStarted = TRUE; }
-	void stop() { mStarted = FALSE; }
+	void start() { reset(); mStarted = true; }
+	void stop() { mStarted = false; }
 	void reset();								// Resets the timer
 	void setLastClockCount(U64 current_count);		// Sets the timer so that the next elapsed call will be relative to this time
 	void setTimerExpirySec(F32SecondsImplicit expiration);

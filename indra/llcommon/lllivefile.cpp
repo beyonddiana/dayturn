@@ -173,7 +173,7 @@ namespace
 		bool tick()
 		{ 
 			mLiveFile.checkAndReload(); 
-			return FALSE;
+			return false;
 		}
 	
 	private:

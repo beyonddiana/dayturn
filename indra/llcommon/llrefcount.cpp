@@ -46,7 +46,7 @@ LLRefCount::LLRefCount(const LLRefCount& other)
 	{
 		mMutexp = NULL ;
 	}
-	mCrashAtUnlock = FALSE ;
+	mCrashAtUnlock = false ;
 #endif
 }
 
@@ -68,7 +68,7 @@ LLRefCount::LLRefCount() :
 	{
 		mMutexp = NULL ;
 	}
-	mCrashAtUnlock = FALSE ;
+	mCrashAtUnlock = false ;
 #endif
 }
 
@@ -94,7 +94,7 @@ void LLRefCount::ref() const
 	{
 		if(mMutexp->isLocked()) 
 		{
-			mCrashAtUnlock = TRUE ;
+			mCrashAtUnlock = true ;
 			LL_ERRS() << "the mutex is locked by the thread: " << mLockedThreadID 
 				<< " Current thread: " << LLThread::currentID() << LL_ENDL ;
 		}
@@ -122,7 +122,7 @@ S32 LLRefCount::unref() const
 	{
 		if(mMutexp->isLocked()) 
 		{
-			mCrashAtUnlock = TRUE ;
+			mCrashAtUnlock = true ;
 			LL_ERRS() << "the mutex is locked by the thread: " << mLockedThreadID 
 				<< " Current thread: " << LLThread::currentID() << LL_ENDL ;
 		}
