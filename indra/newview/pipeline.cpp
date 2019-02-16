@@ -2814,7 +2814,7 @@ void LLPipeline::updateGL()
 		{
 			LLGLUpdate* glu = LLGLUpdate::sGLQ.front();
 			glu->updateGL();
-			glu->mInQ = FALSE;
+			glu->mInQ = false;
 			LLGLUpdate::sGLQ.pop_front();
 		}
 	}
@@ -3277,7 +3277,7 @@ void LLPipeline::markGLRebuild(LLGLUpdate* glu)
 	if (glu && !glu->mInQ)
 	{
 		LLGLUpdate::sGLQ.push_back(glu);
-		glu->mInQ = TRUE;
+		glu->mInQ = true;
 	}
 }
 
