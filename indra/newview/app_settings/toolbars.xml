@@ -6,10 +6,8 @@
     button_layout_style="fill">	
     <command name="chat"/>
     <command name="speak"/>
-    <command name="destinations"/>
     <command name="people"/>
-    <command name="snapshot"/> 
-    <command name="search"/>	
+    <command name="snapshot"/> 	
     <command name="build"/>
     <command name="profile"/>
     <command name="preferences"/>
@@ -21,13 +19,17 @@
     <command name="appearance"/>   
     <command name="inventory"/>
     <command name="animationoverride"/>
+<!-- Disabled buttons for OpenSim 
+    <command name="destinations"/>
+    <command name="search"/>  -->
  
   </bottom_toolbar>
   <left_toolbar
     button_alignment="bottom"
     button_display_mode="icons_only">
+<!-- Disabled buttons for OpenSim     
     <command name="avatar"/>
-    <command name="destinations"/>
+    <command name="destinations"/> -->
     <command name="legacy_search"/>
     <command name="area_search" />
     <command name="web_browser"/>
