@@ -543,7 +543,7 @@ Veuillez réessayer de vous connecter dans une minute.
 		Notes de version
 	</string>
 	<string name="RELEASE_NOTES_BASE_URL">
-		http://wiki.secondlife.com/wiki/Release_Notes/
+		https://www.dayturn.com/viewer/index.php?resources/
 	</string>
 	<string name="LoadingData">
 		Chargement...

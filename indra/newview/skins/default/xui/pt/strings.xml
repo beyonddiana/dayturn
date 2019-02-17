@@ -505,7 +505,7 @@ Aguarde um minuto antes que tentar logar-se novamente.
 		Notas de versão
 	</string>
 	<string name="RELEASE_NOTES_BASE_URL">
-		http://wiki.secondlife.com/wiki/Release_Notes/
+		https://www.dayturn.com/viewer/index.php?resources/
 	</string>
 	<string name="LoadingData">
 		Carregando...

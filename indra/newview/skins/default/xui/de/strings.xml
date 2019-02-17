@@ -634,7 +634,7 @@ Warten Sie kurz und versuchen Sie dann noch einmal, sich anzumelden.
 		Versionshinweise
 	</string>
 	<string name="RELEASE_NOTES_BASE_URL">
-		http://wiki.secondlife.com/wiki/Release_Notes/
+		https://www.dayturn.com/viewer/index.php?resources/
 	</string>
 	<string name="LoadingData">
 		Wird geladen...
