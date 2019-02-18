@@ -58,34 +58,37 @@
      name="Help">
         <menu_item_call
          label="[APP_NAME] Help"
-         name="Second Life Help"
+         name="Dayturn Help"
          shortcut="F1">
         <menu_item_call.on_click
             function="PromptShowURL"
-            name="wiki_kokua_viewer_org_url"
-            parameter="WebLaunchExternalTarget,http://wiki.kokuaviewer.org/wiki/Support" />
+            name="help_dayturn_viewer_com_url"
+            parameter="WebLaunchExternalTarget,https://www.dayturn.com/viewer/index.php?forums/hints-and-help.10/" />
         </menu_item_call>
         <menu_item_call
-             label="[APP_NAME]  Wiki"
-             name="KWiki">
+             label="[APP_NAME] Forum"
+             name="Dayturn Forum">
              <menu_item_call.on_click
-                 function="Advanced.ShowURL"
-                 parameter="http://wiki.kokuaviewer.org/wiki" />
+                 function="PromptShowURL"
+                 name="forum_dayturn_viewer_com_url"
+                 parameter="WebLaunchExternalTarget,https://www.dayturn.com/viewer/index.php"/>
         </menu_item_call>
         <menu_item_call
-             label="[APP_NAME] Blog"
-             name="Kokua Blog">
-             <menu_item_call.on_click
-                 function="Advanced.ShowURL"
-                 parameter="http://blog.kokuaviewer.org"/>
-        </menu_item_call>
-        <menu_item_call
-             label="Report Bug"
+             label="Report Issue or Bug"
              name="Report Bug">
                 <menu_item_call.on_click
-                 function="Advanced.ShowURL"
-                 parameter="http://sourceforge.net/p/team-purple/kokua/tickets/?source=navbar"/>
+                 function="PromptShowURL"
+                 name="support_dayturn_viewer_com_url"
+                 parameter="WebLaunchExternalTarget,https://www.dayturn.com/viewer/index.php?forums/support.15/"/>
             </menu_item_call>
+        <menu_item_call
+             label="[APP_NAME] Downloads"
+             name="Dayturn Downloads">
+             <menu_item_call.on_click
+                 function="PromptShowURL"
+                 name="resources_dayturn_viewer_com_url"
+                 parameter="WebLaunchExternalTarget,https://www.dayturn.com/viewer/index.php?resources/"/>
+        </menu_item_call>            
         <menu_item_separator/>
         <menu_item_call
            label="SecondLife Quickstart"
