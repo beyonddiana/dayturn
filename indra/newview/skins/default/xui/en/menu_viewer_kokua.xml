@@ -1909,27 +1909,55 @@
      name="Help"
      tear_off="false">
         <menu_item_call
-         label="[APP_NAME] Help"
-         name="Second Life Help">
-            <menu_item_call.on_click
+            label="[APP_NAME] Help"
+            name="Dayturn Help"
+            shortcut="F1">
+        <menu_item_call.on_click
             function="PromptShowURL"
-            name="wiki_kokua_viewer_org_url"
-            parameter="WebLaunchExternalTarget,http://wiki.kokuaviewer.org/wiki/Support" />
+            name="help_dayturn_viewer_com_url"
+            parameter="WebLaunchExternalTarget,https://www.dayturn.com/viewer/index.php?forums/hints-and-help.10/" />
         </menu_item_call>
         <menu_item_call
-             label="Second Life Grid Status"
-             name="Second Life Grid Status">
+             label="[APP_NAME] Forum"
+             name="Dayturn Forum">
              <menu_item_call.on_click
-                 function="Advanced.ShowURL"
-                 parameter="http://status.secondlifegrid.net/" />
+                 function="PromptShowURL"
+                 name="forum_dayturn_viewer_com_url"
+                 parameter="WebLaunchExternalTarget,https://www.dayturn.com/viewer/index.php"/>
         </menu_item_call>
+        <menu_item_call
+             label="Report Issue or Bug"
+             name="Report Bug">
+                <menu_item_call.on_click
+                 function="PromptShowURL"
+                 name="support_dayturn_viewer_com_url"
+                 parameter="WebLaunchExternalTarget,https://www.dayturn.com/viewer/index.php?forums/support.15/"/>
+            </menu_item_call>
+        <menu_item_call
+             label="[APP_NAME] Downloads"
+             name="Dayturn Downloads">
+             <menu_item_call.on_click
+                 function="PromptShowURL"
+                 name="resources_dayturn_viewer_com_url"
+                 parameter="WebLaunchExternalTarget,https://www.dayturn.com/viewer/index.php?resources/"/>
+        </menu_item_call>            
+        <menu_item_separator/>
         <menu_item_call
          label="How to..."
          name="How To"
-         shortcut="F1">
+         shortcut="F1"
+         only_in_sl="true">
             <menu_item_call.on_click
              function="Help.ToggleHowTo"
              parameter="" />
+        </menu_item_call>
+        <menu_item_call
+             label="Second Life Grid Status"
+             name="Second Life Grid Status"
+             only_in_sl="true">
+             <menu_item_call.on_click
+                 function="Advanced.ShowURL"
+                 parameter="http://status.secondlifegrid.net/" />
         </menu_item_call>
         <menu_item_call
           label="Scripting LSL wiki"
@@ -1946,39 +1974,25 @@
              function="Floater.Show"
              parameter="hud" />
         </menu_item_call>-->
-        <menu_item_call
-             label="[APP_NAME] Support Group"
-             name="Viewer Support Group"
-             visible="false">
-             <menu_item_call.on_click
-                 function="Advanced.ShowGroup" />
-             <menu_item_call.on_visible
-                 function="Advanced.ViewerSupportGroupExists" />
-        </menu_item_call>
 
-        <menu_item_separator/>
+        <menu_item_separator only_in_sl="true"/>
 
         <menu_item_call
              label="Report Abuse SL"
-             name="Report Abuse">
+             name="Report Abuse"
+             only_in_sl="true">
                 <menu_item_call.on_click
                  function="ReportAbuse" />
             </menu_item_call>
         <menu_item_call
              label="Report Bug SL"
-             name="Report Bug SL">
+             name="Report Bug SL"
+             only_in_sl="true">
                 <menu_item_call.on_click
                  function="ShowHelp"
                  parameter="Advanced.ReportBug" />
         </menu_item_call>
-        <menu_item_call
-             label="Report Bug Dayturn"
-             name="Report Bug Kokua">
-                <menu_item_call.on_click
-                 function="PromptShowURL"
-                 name="tickets_kokua_viewer_org_url"
-                 parameter="WebLaunchExternalTarget,http://sourceforge.net/p/team-purple/kokua/tickets/?source=navbar"/>
-        </menu_item_call>        
+        
         <menu_item_separator/>
 
         <menu_item_call
