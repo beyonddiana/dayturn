@@ -1882,15 +1882,39 @@ BOOL RRInterface::answerOnChat (std::string channel, std::string msg)
 		// protection against abusive "@getstatus=0" commands, or against a non-numerical channel
 		return FALSE;
 	}
-//	if (msg.length() > (size_t)(chan > 0 ? 1023 : 255)) {
-//		LL_WARNS() << "Too large an answer: maximum is " << (chan > 0 ? "1023 characters" : "255 characters for a negative channel") << ". Aborted command." << LL_ENDL;
-//		return FALSE;
-//	}
-	//if (chan > 0) {
+	if (chan > 0) {
+		// If the message is too long, truncate
+		if (msg.length() > 1023) {
+			msg = msg.substr(0, 1023);
+		}	
 	//	std::ostringstream temp;
 	//	temp << "/" << chan << " " << msg;
 	//	LLFloaterIMNearbyChat::sendChatFromViewer(temp.str(), CHAT_TYPE_SHOUT, FALSE);
-	//} else {
+ 		gMessageSystem->newMessageFast(_PREHASH_ChatFromViewer);
+ 		gMessageSystem->nextBlockFast(_PREHASH_AgentData);
+ 		gMessageSystem->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
+ 		gMessageSystem->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
+ 		gMessageSystem->nextBlockFast(_PREHASH_ChatData);
+ 		gMessageSystem->addStringFast(_PREHASH_Message, msg);
+ 		gMessageSystem->addU8Fast(_PREHASH_Type, CHAT_TYPE_SHOUT);
+ 		gMessageSystem->addS32("Channel", chan);
+ 
+ 		gAgent.sendReliableMessage();
+ 	}
+ 	else if (chan==0)
+ 	{	
+		// If the message is too long, truncate
+		if (msg.length() > 1023) {
+			msg = msg.substr(0, 1023);
+		}
+ 		// it's a reply for the console - all other uses of 0 got tested for earlier
+ 		// KokuaFloaterRLVConsole::getBase()->addCommandReply(msg);
+ 	}
+ 	else {
+		// If the message is too long, truncate
+		if (msg.length() > 255) {
+			msg = msg.substr(0, 255);
+		}	
 		gMessageSystem->newMessage("ScriptDialogReply");
 		gMessageSystem->nextBlock("AgentData");
 		gMessageSystem->addUUID("AgentID", gAgent.getID());
@@ -1901,7 +1925,7 @@ BOOL RRInterface::answerOnChat (std::string channel, std::string msg)
 		gMessageSystem->addS32("ButtonIndex", 1);
 		gMessageSystem->addString("ButtonLabel", msg);
 		gAgent.sendReliableMessage();
-	//}
+	}
 	if (sRestrainedLoveDebug) {
 		LL_INFOS() << "/" << chan << " " << msg << LL_ENDL;
 	}
