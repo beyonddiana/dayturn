@@ -3233,15 +3233,15 @@
       <key>canonical_repo</key>
       <string>https://bitbucket.org/dayturn/dayturn</string>
       <key>copyright</key>
-      <string>Copyright (c) 2014, Linden Research, Inc.</string>
+      <string>Copyright (c) 2019, Geir Nøklebye.</string>
       <key>description</key>
-      <string>Second Life Viewer</string>
+      <string>Dayturn Viewer</string>
       <key>license</key>
       <string>LGPL</string>
       <key>license_file</key>
       <string>docs/LICENSE-source.txt</string>
       <key>name</key>
-      <string>Second Life Viewer</string>
+      <string>Dayturn Viewer</string>
       <key>platforms</key>
       <map>
         <key>common</key>
