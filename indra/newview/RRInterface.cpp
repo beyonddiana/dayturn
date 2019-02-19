@@ -5082,7 +5082,7 @@ BOOL RRInterface::updateCameraLimits ()
 		}
 	}
 
-	mVisionRestricted = (mCamDistDrawMin < EXTREMUM || mCamDistDrawMax >= EXTREMUM);
+	mVisionRestricted = (mCamDistDrawMin < EXTREMUM || mCamDistDrawMax < EXTREMUM);
 
 	// And check the camera is still within the limits
 	return checkCameraLimits (TRUE);
