@@ -36,6 +36,8 @@
 #include "llwlhandlers.h"
 #include "llwlparammanager.h"
 #include "lltrans.h"
+#include "llhttpnode.h"
+
 
 std::string LLWLParamKey::toString() const
 {
@@ -719,3 +721,53 @@ void LLEnvManagerNew::onRegionChange()
 							   << LL_ENDL;
 	}
 }
+
+// <FS:CR> FIRE-8063: Aurora-sim windlight refresh
+class WindLightRefresh : public LLHTTPNode
+{
+	/*virtual*/ void post(
+		LLHTTPNode::ResponsePtr response,
+		const LLSD& context,
+		const LLSD& input) const
+	{
+		if (!input || !context || !input.isMap() || !input.has("body")) {
+			LL_INFOS() << "malformed WindLightRefresh!" << LL_ENDL;	 
+			return;
+		}
+
+		//std::string dump = input["body"].asString();
+		//LL_WARNS() << dump << LL_ENDL;
+
+		LLSD body = input["body"];
+		LLEnvManagerNew *env = &LLEnvManagerNew::instance();
+
+		LLViewerRegion* regionp = gAgent.getRegion();
+		LLUUID region_uuid = regionp ? regionp->getRegionID() : LLUUID::null;
+
+		env->mNewRegionPrefs.clear();
+		env->mCurRegionUUID = region_uuid;
+
+		if(body.has("Interpolate")) {
+			if(body["Interpolate"].asInteger() == 1) {
+				env->mInterpNextChangeMessage = true;
+			}
+			else {
+				env->mInterpNextChangeMessage = false;
+			}
+		}
+		else {
+			env->mInterpNextChangeMessage = true;
+		}
+		LL_INFOS() << "Windlight Refresh , interpolate:" << env->mInterpNextChangeMessage << LL_ENDL;
+		env->requestRegionSettings();
+
+		// Ansa: This cause the windlight editor and others to update since the windlight has changed!
+		gAgent.changeRegion();
+	}
+};
+
+LLHTTPRegistration<WindLightRefresh>
+gHTTPRegistrationWindLightRefresh(
+	"/message/WindLightRefresh");
+// </FS:CR> FIRE-8063: Aurora-sim windlight refresh
+
