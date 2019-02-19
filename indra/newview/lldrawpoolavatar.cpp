@@ -1878,7 +1878,7 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 	{
 		return;
 	}
-	bool vision_restricted = (gRRenabled && gAgent.mRRInterface.mCamDistDrawMax < EXTREMUM);
+	bool vision_restricted = (gRRenabled && gAgent.mRRInterface.mVisionRestricted);
 	bool in_mouselook = gAgentCamera.cameraMouselook();
 	bool is_self = (avatar == gAgentAvatarp);
 
