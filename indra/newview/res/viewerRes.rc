@@ -67,7 +67,7 @@ STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_VISIBLE
 FONT 8, "MS Sans Serif"
 BEGIN
     ICON            IDI_LL_ICON,IDC_STATIC,7,7,20,20
-    LTEXT           "Loading Kokua...",666,36,13,91,8
+    LTEXT           "Loading Dayturn...",666,36,13,91,8
 END
 
 
@@ -154,10 +154,10 @@ BEGIN
             VALUE "CompanyName", "Dayturn.com"
             VALUE "FileDescription", "Dayturn Release Version"
             VALUE "FileVersion", "${VIEWER_VERSION_MAJOR}.${VIEWER_VERSION_MINOR}.${VIEWER_VERSION_PATCH}.${VIEWER_VERSION_REVISION}"
-            VALUE "InternalName", "Dayturn Release Version"
+            VALUE "InternalName", "Dayturn"
+            VALUE "LegalCopyright", "Copyright \251 2017-2019, Geir Nøklebye"                        
             VALUE "OriginalFilename", "DayturnViewer.exe"
             VALUE "ProductName", "Dayturn"
-            VALUE "ProductVersion", "2019.01.06"
             VALUE "ProductVersion", "${VIEWER_VERSION_MAJOR}.${VIEWER_VERSION_MINOR}.${VIEWER_VERSION_PATCH}.${VIEWER_VERSION_REVISION}"
         END
     END
