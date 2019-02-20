@@ -2,7 +2,7 @@
 <floater name="godtools floater" title="ИНСТРУМЕНТЫ ТВОРЦА">
 	<tab_container name="GodTools Tabs">
 		<panel label="Сетка" name="grid">
-			<button label="Обновить кэш данных карты этого региона" label_selected="Обновить кэш данных карты этого региона" name="Flush This Region&apos;s Map Visibility Caches"/>
+			<button label="Обновить карту для этого региона" label_selected="Обновить карту для этого региона" name="Flush This Region&apos;s Map Visibility Caches"/>
 		</panel>
 		<panel label="Регион" name="region">
 			<text name="Region Name:">

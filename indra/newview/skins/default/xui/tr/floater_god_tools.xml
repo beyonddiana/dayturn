@@ -2,7 +2,7 @@
 <floater name="godtools floater" title="YÖNETİCİ ARAÇLARI">
 	<tab_container name="GodTools Tabs">
 		<panel label="Ağ" name="grid">
-			<button label="Bu Bölgenin Harita Görünürlük Önbelleklerini Temizle" label_selected="Bu Bölgenin Harita Görünürlük Önbelleklerini Temizle" name="Flush This Region&apos;s Map Visibility Caches"/>
+			<button label="Bu bölge için taze harita tabancası" label_selected="Bu bölge için taze harita tabancası" name="Flush This Region&apos;s Map Visibility Caches"/>
 		</panel>
 		<panel label="Bölge" name="region">
 			<text name="Region Name:">

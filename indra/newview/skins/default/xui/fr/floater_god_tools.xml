@@ -2,7 +2,7 @@
 <floater name="godtools floater" title="OUTILS DIVINS">
 	<tab_container name="GodTools Tabs">
 		<panel label="Grille" name="grid">
-			<button label="Vider le cache cartographique de la région" label_selected="Vider le cache cartographique de la région" name="Flush This Region&apos;s Map Visibility Caches" width="285"/>
+			<button label="Cartographie de la carte refret pour cette région" label_selected="Cartographie de la carte refret pour cette région" name="Flush This Region&apos;s Map Visibility Caches" width="285"/>
 		</panel>
 		<panel label="Région" name="region">
 			<text name="Region Name:">

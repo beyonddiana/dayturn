@@ -2,7 +2,7 @@
 <floater name="godtools floater" title="神之工具">
 	<tab_container name="GodTools Tabs">
 		<panel label="網格" name="grid">
-			<button label="刷新這個地區的地圖可視快取" label_selected="刷新這個地區的地圖可視快取" name="Flush This Region&apos;s Map Visibility Caches"/>
+			<button label="这本区域的重新安排图。" label_selected="这本区域的重新安排图。" name="Flush This Region&apos;s Map Visibility Caches"/>
 		</panel>
 		<panel label="地區" name="region">
 			<text name="Region Name:">
