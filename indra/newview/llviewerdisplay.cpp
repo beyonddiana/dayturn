@@ -1310,7 +1310,9 @@ void render_ui(F32 zoom_factor, int subfield)
 		
 //MK
 		// Draw a big black sphere around our avatar if the camera render is limited by RLV
-		if (gRRenabled && (!gAgentAvatarp || !gAgentAvatarp->isFullyLoaded()))
+ 		// This call happens only while the avatar is a cloud. This is a crutch while we wait
+ 		// for the real call in lldrawpoolavatar.cpp to be possible.		
+		if (gRRenabled && (!gAgentAvatarp || !gAgentAvatarp->isFullyLoaded() || !gAgent.mRRInterface.sRenderLimitRenderedThisFrame))
 		{
 			gAgent.mRRInterface.drawRenderLimit();
 		}

@@ -1348,6 +1348,11 @@ void LLDrawPoolAvatar::renderAvatars(LLVOAvatar* single_avatar, S32 pass)
 
 	if (mDrawFace.empty() && !single_avatar)
 	{
+//MK
+		// We are in the case where there is no avatar to render at all
+		// => the drawRenderLimit() call will be done in render_ui() in llviewerdisplay
+		// because we will not have done it here.
+//mk	
 		return;
 	}
 
