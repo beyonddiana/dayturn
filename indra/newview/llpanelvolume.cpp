@@ -394,7 +394,10 @@ void LLPanelVolume::getState( )
 			}
 		}
 
-		gAgentAvatarp->updateMeshVisibility();
+		if (gAgentAvatarp)
+		{
+			gAgentAvatarp->updateMeshVisibility();
+		}
 	}
 	
 
@@ -997,7 +1000,10 @@ void LLPanelVolume::onCommitAnimatedMeshCheckbox(LLUICtrl *, void*)
 			}
 		}
 
-		gAgentAvatarp->updateMeshVisibility();
+		if (gAgentAvatarp)
+		{
+			gAgentAvatarp->updateMeshVisibility();
+		}
 	}
 }
 
