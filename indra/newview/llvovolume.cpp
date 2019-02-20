@@ -6716,15 +6716,15 @@ U32 LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, LLFace
 
 			if (!is_alpha && LLPipeline::sRenderGlow && te->getGlow() > 0.f)
 			{
-//MK
-				// This face is glowing and it is farther than the distance of the vision restriction => don't let it glow
-				// or it is visible through non-black vision spheres.
- 				if (vision_restricted && face_distance_to_avatar_squared > cam_dist_draw_max_squared)
- 				{
- 					registerFace(group, facep, LLRenderPass::PASS_SIMPLE);
- 				}
- 				else
- //mk			
+// MK
+// 				This face is glowing and it is farther than the distance of the vision restriction => don't let it glow
+// 				or it is visible through non-black vision spheres.
+//  				if (vision_restricted && face_distance_to_avatar_squared > cam_dist_draw_max_squared)
+//  				{
+//  					registerFace(group, facep, LLRenderPass::PASS_SIMPLE);
+//  				}
+//  				else
+//  mk			
 				registerFace(group, facep, LLRenderPass::PASS_GLOW);
 			}
 						

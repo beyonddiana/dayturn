@@ -49,6 +49,11 @@
 #include "llspatialpartition.h"
 #include "llglcommonfunc.h"
 
+//MK
+#include "llagent.h"
+#include "llvovolume.h"
+//mk
+
 BOOL LLDrawPoolAlpha::sShowDebugAlpha = FALSE;
 
 static BOOL deferred_render = FALSE;
@@ -374,6 +379,20 @@ static LLTrace::BlockTimerStatHandle FTM_RENDER_ALPHA_PUSH("Alpha Push Verts");
 
 void LLDrawPoolAlpha::renderAlpha(U32 mask, S32 pass)
 {
+//MK
+	// Calculate the position of the avatar here so we don't have to do it for each face
+	bool vision_restricted = (gRRenabled && gAgent.mRRInterface.mVisionRestricted);
+	// Optimization : Rather than compare the distances for every face (which involves square roots, which are costly), we compare squared distances.
+	LLVector3 joint_pos = LLVector3::zero;
+	F32 cam_dist_draw_max_squared = EXTREMUM;
+	// We don't need to calculate all that stuff if the vision is not restricted.
+	if (vision_restricted)
+	{
+		joint_pos = gAgent.mRRInterface.getCamDistDrawFromJoint()->getWorldPosition();
+		cam_dist_draw_max_squared = gAgent.mRRInterface.mCamDistDrawMax * gAgent.mRRInterface.mCamDistDrawMax;
+	}
+//mk
+
 	BOOL initialized_lighting = FALSE;
 	BOOL light_enabled = TRUE;
 	
@@ -429,6 +448,57 @@ void LLDrawPoolAlpha::renderAlpha(U32 mask, S32 pass)
 						}
 					}
 				}
+
+//MK
+				LLFace*	facep = params.mFace;
+				if (facep)
+				{
+					// If the face is invisible, don't render it at all unless we have activated highlight invisible.
+					if (!sShowDebugAlpha)
+					{
+						const LLTextureEntry* tep = facep->getTextureEntry();
+						if (tep)
+						{
+							if (tep->getColor().mV[3] < 0.0001f)
+								continue;
+						}
+					}
+
+					LLDrawable* drawable = facep->getDrawable();
+					if (drawable)
+					{
+						LLVOVolume* vovolume = drawable->getVOVolume();
+						if (vovolume)
+						{
+							if (vision_restricted)
+							{
+								// If we are under @camtextures, do not render this alpha surface if it is phantom and it is not an attachment
+								if (gAgent.mRRInterface.mContainsCamTextures && vovolume && vovolume->flagPhantom() && !vovolume->isAttachment())
+								{
+									continue;
+								}
+
+								// Do not render any alpha surface (except on our HUDs) if the vision is restricted and 
+								// the face is farther than the outer vision sphere.
+								LLVector3 face_pos = LLVector3::zero;
+								LLVector3 face_avatar_offset = LLVector3::zero;
+								F32 face_distance_to_avatar_squared = EXTREMUM;
+
+								if (vovolume && !vovolume->isHUDAttachment())
+								{
+									face_pos = facep->getPositionAgent();
+									face_avatar_offset = face_pos - joint_pos;
+									face_distance_to_avatar_squared = (F32)face_avatar_offset.magVecSquared();
+									if (face_distance_to_avatar_squared > cam_dist_draw_max_squared)
+									{
+										continue;
+									}
+								}
+							}
+						}
+					}
+				}
+//mk
 
 				LLRenderPass::applyModelMatrix(params);
 

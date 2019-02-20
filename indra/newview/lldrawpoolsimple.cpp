@@ -37,6 +37,11 @@
 #include "llviewershadermgr.h"
 #include "llrender.h"
 
+//MK
+#include "llagent.h"
+#include "llvovolume.h"
+//mk
+
 static LLGLSLShader* simple_shader = NULL;
 static LLGLSLShader* fullbright_shader = NULL;
 
@@ -53,6 +58,13 @@ static LLTrace::BlockTimerStatHandle FTM_RENDER_GLOW_PUSH("Glow Push");
 
 void LLDrawPoolGlow::renderPostDeferred(S32 pass)
 {
+//MK
+	// If the vision is restricted, don't show any glow in-world (attachments work)
+	if (gAgent.mRRInterface.mVisionRestricted)
+	{
+		return;
+	}
+//mk
 	LL_RECORD_BLOCK_TIME(FTM_RENDER_GLOW);
 	LLGLEnable blend(GL_BLEND);
 	LLGLDisable test(GL_ALPHA_TEST);
@@ -94,6 +106,13 @@ S32 LLDrawPoolGlow::getNumPasses()
 
 void LLDrawPoolGlow::render(S32 pass)
 {
+//MK
+	// If the vision is restricted, don't show any glow in-world (attachments work)
+	if (gAgent.mRRInterface.mVisionRestricted)
+	{
+		return;
+	}
+//mk
 	LL_RECORD_BLOCK_TIME(FTM_RENDER_GLOW);
 	LLGLEnable blend(GL_BLEND);
 	LLGLDisable test(GL_ALPHA_TEST);
