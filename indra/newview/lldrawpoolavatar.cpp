@@ -1894,11 +1894,11 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 		if (!is_self && gAgent.mRRInterface.mCamDistDrawAlphaMax >= 0.999999f)
  		{
  			// If the outer sphere is opaque and the avatar is farther than its radius, no need to render it at all.
-			LLVector3d my_pos(gAgentAvatarp->getPositionAgent());
-			LLVector3d their_pos(avatar->getPositionAgent());
- 			LLVector3d offset(their_pos - my_pos);
+			LLVector3 my_pos(gAgent.getPosGlobalFromAgent(gAgentAvatarp->mHeadp->getWorldPosition()));
+			LLVector3 their_pos(gAgent.getPosGlobalFromAgent(avatar->mHeadp->getWorldPosition()));
+			LLVector3 offset(their_pos - (LLVector3)gAgent.getPosGlobalFromAgent(joint_pos));
  			F32 distance_squared = (F32)offset.magVecSquared();
-            if (distance_squared > cam_dist_draw_max_squared) {
+            if (distance_squared > cam_dist_draw_max_squared + 2.5f) {
      				return;
  			}
  		}
@@ -1962,7 +1962,7 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 			// If the vision is restricted, rendering alpha rigged attachments may allow to cheat through the vision spheres.
 			if (!is_self) // Other avatars only
 			{
-				if (face_distance_to_avatar_squared > cam_dist_draw_max_squared)
+				if (face_distance_to_avatar_squared > cam_dist_draw_max_squared + 2.5f)
 				{
 					U32 type = gPipeline.getPoolTypeFromTE(face->getTextureEntry(), face->getTexture());
 					if (type == LLDrawPool::POOL_ALPHA)
