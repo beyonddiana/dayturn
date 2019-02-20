@@ -412,6 +412,17 @@ BOOL LLToolPie::handleLeftClickPick()
 	}
 	if (object && object == gAgentAvatarp && !gSavedSettings.getBOOL("ClickToWalk"))
 	{
+//MK
+			// If we are focusing on something, don't break the focus by clicking on our own avatar.
+			// Unless we are holding SHIFT down or "RestrainedLoveBreakFocusOnClick" is TRUE.
+			if (LOOKAT_TARGET_FOCUS == gAgentCamera.getLookAtType())
+			{
+				if (!(mask & MASK_SHIFT) && !gSavedSettings.getBOOL("RestrainedLoveBreakFocusOnClick"))
+				{
+					return TRUE;
+				}
+			}
+//mk	
 		// we left clicked on avatar, switch to focus mode
 		mMouseButtonDown = false;
 		LLToolMgr::getInstance()->setTransientTool(LLToolCamera::getInstance());
