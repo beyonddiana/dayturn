@@ -2,7 +2,7 @@
 <floater name="godtools floater" title="GOTT-WERKZEUGE">
 	<tab_container name="GodTools Tabs">
 		<panel label="Raster" name="grid">
-			<button label="Sichtbarkeits-Cache dieser Regionskarte leeren" label_selected="Sichtbarkeits-Cache dieser Regionskarte leeren" name="Flush This Region&apos;s Map Visibility Caches" width="285"/>
+			<button label="Refrische Landkarte Fliesen für diese Region" label_selected="Refrische Landkarte Fliesen für diese Region" name="Flush This Region&apos;s Map Visibility Caches" width="285"/>
 		</panel>
 		<panel label="Region" name="region">
 			<text name="Region Name:">

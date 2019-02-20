@@ -2,7 +2,7 @@
 <floater name="godtools floater" title="BOSKIE NARZĘDZIA">
 	<tab_container name="GodTools Tabs">
 		<panel label="Grid" name="grid">
-			<button label="Wyrównaj widoczność buforu mapy Regionu" label_selected="Wyrównaj widoczność buforu mapy Regionu" name="Flush This Region&apos;s Map Visibility Caches" width="285"/>
+			<button label="Odśwież kategorię mapy dla tego regionu" label_selected="Odśwież kategorię mapy dla tego regionu" name="Flush This Region&apos;s Map Visibility Caches" width="285"/>
 		</panel>
 		<panel label="Region" name="region">
 			<text name="Region Name:">

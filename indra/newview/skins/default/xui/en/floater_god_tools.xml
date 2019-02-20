@@ -31,8 +31,8 @@
             <button
              follows="left|top"
              height="20"
-             label="Flush This Region&apos;s Map Visibility Caches"
-             label_selected="Flush This Region&apos;s Map Visibility Caches"
+             label="Refresh Map Tile for this Region"
+             label_selected="Refresh Map Tile for this Region"
              layout="topleft"
              left="10"
              name="Flush This Region&apos;s Map Visibility Caches"

@@ -2,7 +2,7 @@
 <floater name="godtools floater" title="FERRAMENTAS DE DEUS">
 	<tab_container name="GodTools Tabs">
 		<panel label="Grade" name="grid">
-			<button label="Limpar os caches de visibilidade do mapa da região." label_selected="Limpar os caches de visibilidade do mapa da região." name="Flush This Region&apos;s Map Visibility Caches"/>
+			<button label="Atualizar o mosaico do mapa para esta região" label_selected="Atualizar o mosaico do mapa para esta região" name="Flush This Region&apos;s Map Visibility Caches"/>
 		</panel>
 		<panel label="Região" name="region">
 			<text name="Region Name:">
