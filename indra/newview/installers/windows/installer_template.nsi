@@ -46,28 +46,29 @@ RequestExecutionLevel admin	# For when we write to Program Files
 ;; (these files are in the same place as the nsi template but the python script generates a new nsi file in the 
 ;; application directory so we have to add a path to these include files)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-!include "%%SOURCE%%\installers\windows\lang_da.nsi"
+# Danish and Polish no longer supported by the viewer itself
+##!include "%%SOURCE%%\installers\windows\lang_da.nsi"
 !include "%%SOURCE%%\installers\windows\lang_de.nsi"
 !include "%%SOURCE%%\installers\windows\lang_en-us.nsi"
 !include "%%SOURCE%%\installers\windows\lang_es.nsi"
 !include "%%SOURCE%%\installers\windows\lang_fr.nsi"
 !include "%%SOURCE%%\installers\windows\lang_ja.nsi"
 !include "%%SOURCE%%\installers\windows\lang_it.nsi"
-!include "%%SOURCE%%\installers\windows\lang_pl.nsi"
+##!include "%%SOURCE%%\installers\windows\lang_pl.nsi"
 !include "%%SOURCE%%\installers\windows\lang_pt-br.nsi"
 !include "%%SOURCE%%\installers\windows\lang_ru.nsi"
 !include "%%SOURCE%%\installers\windows\lang_tr.nsi"
 !include "%%SOURCE%%\installers\windows\lang_zh.nsi"
 
 # *TODO: Move these into the language files themselves
-LangString LanguageCode ${LANG_DANISH}   "da"
+##LangString LanguageCode ${LANG_DANISH}   "da"
 LangString LanguageCode ${LANG_GERMAN}   "de"
 LangString LanguageCode ${LANG_ENGLISH}  "en"
 LangString LanguageCode ${LANG_SPANISH}  "es"
 LangString LanguageCode ${LANG_FRENCH}   "fr"
 LangString LanguageCode ${LANG_JAPANESE} "ja"
 LangString LanguageCode ${LANG_ITALIAN}  "it"
-LangString LanguageCode ${LANG_POLISH}   "pl"
+##LangString LanguageCode ${LANG_POLISH}   "pl"
 LangString LanguageCode ${LANG_PORTUGUESEBR} "pt"
 LangString LanguageCode ${LANG_RUSSIAN}  "ru"
 LangString LanguageCode ${LANG_TURKISH}  "tr"
