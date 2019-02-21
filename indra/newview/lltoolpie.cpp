@@ -381,11 +381,12 @@ BOOL LLToolPie::handleLeftClickPick()
 		}
 
 		if (object && object == gAgentAvatarp) {
-			// we left clicked on avatar, switch to focus mode
+			// pretend we left clicked on avatar, switch to focus mode
 			mMouseButtonDown = false;
 			LLToolMgr::getInstance()->setTransientTool(LLToolCamera::getInstance());
 			gViewerWindow->hideCursor();
 			LLToolCamera::getInstance()->setMouseCapture(TRUE);
+			mPick.mObjectID = gAgentAvatarp->getID(); // UGLY HACK : pretend the ID of the picked object is the avatar, so it works through HUDs as well (otherwise we can't mouse-steer through a HUD)
 			LLToolCamera::getInstance()->pickCallback(mPick);
 			gAgentCamera.setFocusOnAvatar(TRUE, TRUE);
 
