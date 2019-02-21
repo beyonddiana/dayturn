@@ -70,6 +70,13 @@
 #include "llpluginclassmedia.h"
 #include "llviewertexturelist.h"// Update sel manager as to which channel we're editing so it can reflect the correct overlay UI
 
+#include <cstddef>
+
+#if !defined(nullptr)
+#define nullptr NULL
+#endif
+
+
 //
 // Constant definitions for comboboxes
 // Must match the commbobox definitions in panel_tools_texture.xml
