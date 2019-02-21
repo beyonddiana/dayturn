@@ -370,6 +370,30 @@ BOOL LLToolPie::handleLeftClickPick()
 		gFocusMgr.setKeyboardFocus(NULL);
 	}
 
+//MK
+	// If we are clicking on one of our own attachments with the Shift key down,
+	// ignore the touch and do as if we clicked on ourselves.
+	if ((mask & MASK_SHIFT) && !gSavedSettings.getBOOL("RestrainedLoveBreakFocusOnClick"))
+	{
+		while (object && object->isAttachment())
+		{
+			object = (LLViewerObject*)object->getParent();
+		}
+
+		if (object && object == gAgentAvatarp) {
+			// we left clicked on avatar, switch to focus mode
+			mMouseButtonDown = false;
+			LLToolMgr::getInstance()->setTransientTool(LLToolCamera::getInstance());
+			gViewerWindow->hideCursor();
+			LLToolCamera::getInstance()->setMouseCapture(TRUE);
+			LLToolCamera::getInstance()->pickCallback(mPick);
+			gAgentCamera.setFocusOnAvatar(TRUE, TRUE);
+
+			return TRUE;
+		}
+	}
+//mk
+
 	BOOL touchable = (object && object->flagHandleTouch()) 
 					 || (parent && parent->flagHandleTouch());
 
