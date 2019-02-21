@@ -232,13 +232,13 @@ void LLToolCamera::pickCallback(const LLPickInfo& pick_info)
 			if (!hit_obj->isHUDAttachment())
 			{
 				gAgentCamera.setFocusOnAvatar(FALSE, ANIMATE);
-//MK
-				if (pick_info.mKeyMask & MASK_SHIFT)
-				{
-
-				}
-				else
-//mk
+////MK
+//				if (pick_info.mKeyMask & MASK_SHIFT)
+//				{
+//
+//				}
+//				else
+////mk
 				gAgentCamera.setFocusGlobal(pick_info);
 			}
 		}
@@ -246,13 +246,13 @@ void LLToolCamera::pickCallback(const LLPickInfo& pick_info)
 		{
 			// Hit the ground
 			gAgentCamera.setFocusOnAvatar(FALSE, ANIMATE);
-//MK
-			if (pick_info.mKeyMask & MASK_SHIFT)
-			{
-
-			}
-			else
-//mk
+////MK
+//			if (pick_info.mKeyMask & MASK_SHIFT)
+//			{
+//
+//			}
+//			else
+////mk
 			gAgentCamera.setFocusGlobal(pick_info);
 		}
 
