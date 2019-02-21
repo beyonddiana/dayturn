@@ -453,17 +453,6 @@ void LLDrawPoolAlpha::renderAlpha(U32 mask, S32 pass)
 				LLFace*	facep = params.mFace;
 				if (facep)
 				{
-					// If the face is invisible, don't render it at all unless we have activated highlight invisible.
-					if (!sShowDebugAlpha)
-					{
-						const LLTextureEntry* tep = facep->getTextureEntry();
-						if (tep)
-						{
-							if (tep->getColor().mV[3] < 0.0001f)
-								continue;
-						}
-					}
-
 					LLDrawable* drawable = facep->getDrawable();
 					if (drawable)
 					{
