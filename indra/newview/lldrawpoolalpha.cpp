@@ -453,12 +453,28 @@ void LLDrawPoolAlpha::renderAlpha(U32 mask, S32 pass)
 				LLFace*	facep = params.mFace;
 				if (facep)
 				{
+					// If the face is invisible, don't render it at all unless we have activated highlight invisible.
 					LLDrawable* drawable = facep->getDrawable();
 					if (drawable)
 					{
 						LLVOVolume* vovolume = drawable->getVOVolume();
 						if (vovolume)
 						{
+							if (!sShowDebugAlpha)
+							{
+								const LLTextureEntry* tep = facep->getTextureEntry();
+								if (tep)
+								{
+									if (tep->getColor().mV[3] < 0.0001f)
+									{
+										if (!vovolume->isHUDAttachment())
+										{
+											continue;
+										}
+									}
+								}
+							}
+
 							if (vision_restricted)
 							{
 								// If we are under @camtextures, do not render this alpha surface if it is phantom and it is not an attachment
@@ -473,7 +489,7 @@ void LLDrawPoolAlpha::renderAlpha(U32 mask, S32 pass)
 								LLVector3 face_avatar_offset = LLVector3::zero;
 								F32 face_distance_to_avatar_squared = EXTREMUM;
 
-								if (vovolume && !vovolume->isHUDAttachment())
+								if (!vovolume->isHUDAttachment())
 								{
 									face_pos = facep->getPositionAgent();
 									face_avatar_offset = face_pos - joint_pos;
