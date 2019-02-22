@@ -1694,7 +1694,7 @@ LLViewerWindow::LLViewerWindow(const Params& p)
 	mCurrResolutionIndex(0),
 	mProgressView(NULL),
 //MK
-	, mPickThroughHuds(FALSE)
+    mPickThroughHuds(FALSE)
 //mk
 {
 	// gKeyboard is still NULL, so it doesn't do LLWindowListener any good to
