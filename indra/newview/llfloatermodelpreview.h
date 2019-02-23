@@ -109,7 +109,6 @@ public:
 	void 			loadModel(S32 lod, const std::string& file_name, bool force_disable_slm = true);
 	
 	void onViewOptionChecked(LLUICtrl* ctrl);
-	void onUploadOptionChecked(LLUICtrl* ctrl);
 	bool isViewOptionChecked(const LLSD& userdata);
 	bool isViewOptionEnabled(const LLSD& userdata);
 	void setViewOptionEnabled(const std::string& option, bool enabled);
@@ -177,7 +176,6 @@ protected:
 	LLModelPreview*	mModelPreview;
 	
 	LLPhysicsDecomp::decomp_params mDecompParams;
-	LLPhysicsDecomp::decomp_params mDefaultDecompParams;
 	
 	S32				mLastMouseX;
 	S32				mLastMouseY;
@@ -202,6 +200,7 @@ protected:
 
 private:
 	void onClickCalculateBtn();
+	void toggleCalculateButton();
 
 	void onLoDSourceCommit(S32 lod);
 
@@ -210,8 +209,6 @@ private:
 
 	// resets display options of model preview to their defaults.
 	void resetDisplayOptions();
-
-	void resetUploadOptions();
 
 	void createSmoothComboBox(LLComboBox* combo_box, float min, float max);
 
