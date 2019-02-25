@@ -45,7 +45,7 @@ namespace ll
 
 			LLColor4 getHighlightColor( ) const
 			{
-				static LLUIColor highlight_color = LLUIColorTable::instance().getColor("SearchableControlHighlightColor", LLColor4::red);
+				static LLUIColor highlight_color = LLUIColorTable::instance().getColor("SearchableControlHighlightColor", LLColor4::orange4);
 				return highlight_color.get();
 			}
 
