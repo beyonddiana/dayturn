@@ -3,10 +3,10 @@
     border="true"
     follows="left|top|right|bottom"
     height="500"
-    label="Kokua"
+    label="Dayturn"
     layout="topleft"
     left="102"
-    name="kokua_viewer"
+    name="dayturn_viewer"
     top="20"
     width="517">
 
@@ -29,9 +29,11 @@
 	    label="General"
 	    left="1"
 	    mouse_opaque="true"
-	    name="kokua_general"
-	    width="517">
+	    name="dayturn_general"
+	    width="517" >
     <check_box
+        name="automatic_fly"
+        label="Do not let me Fly"
 		top_pad="15"
 		layout="topleft"
 		follows="left|top"
@@ -40,12 +42,12 @@
 		height="20"
 		initial_value="false"
 		control_name="DisableFly"
-		label="Do not let me Fly"
 		left="15"
-		name="automatic_fly"
 		tool_tip="Prevents your avatar from flying even when the region allows avatars to fly."
-		width="270"/>
+		width="270" />
     <check_box
+        name="automatic_jump"
+        label="Do not jump with page up keys"
 		top_pad="5"
 		layout="topleft"
 		follows="left|top"
@@ -54,11 +56,9 @@
 		height="20"
 		initial_value="false"
 		control_name="DisableJump"
-		label="Do not jump with page up keys."
 		left="15"
-		name="automatic_fly"
 		tool_tip="Prevents your avatar from jumping with 'PgUp' 'PAGE UP' and 'E' keys."
-		width="270"/>
+		width="270" />
     <check_box
 		top_pad="5"
 		layout="topleft"
@@ -281,10 +281,10 @@
 		 width="130"
 		 visible="false">
 				<combo_item name="24hours" type="string" length="1" enabled="true" value="default">
-					24 hours clock
+				<!-->	24 hours clock <!-->
 				</combo_item>
 				<combo_item name="12hours" type="string" length="1" enabled="true" value="default">
-					12 hours clock
+				<!-->	12 hours clock <!-->
 				</combo_item>
 		</combo_box>
 		<text 
@@ -312,13 +312,13 @@
 		layout="topleft"
 		visible="false">
 				<combo_item name="year_first" type="string" length="1" enabled="true" value="default">
-					YYYY-MM-DD
+				<!-->	YYYY-MM-DD <!-->
 				</combo_item>
 				<combo_item name="day_first" type="string" length="1" enabled="true" value="default">
-					DD-MM-YYYY
+				<!-->	DD-MM-YYYY <!-->
 				</combo_item>
 				<combo_item name="month_first" type="string" length="1" enabled="true" value="default">
-					MM/DD/YYYY
+				<!-->	MM/DD/YYYY <!-->
 				</combo_item>
 		</combo_box>
 
@@ -334,7 +334,7 @@
 	    left="1"
 	    mouse_opaque="true"
 	    name="wabbit_chat"
-	    width="517">
+	    width="517" >
 	    <check_box
 		top_pad="15"
 		control_name="FSCmdLine"
@@ -601,7 +601,7 @@
 	    label="Inventory"
 	    left="1"
 	    mouse_opaque="true"
-	    name="kokua_inv"
+	    name="dayturn_inv"
 	    width="517">
         <check_box
          top_pad="15"
@@ -634,7 +634,7 @@
             label="Scripting"
             left="1"
             mouse_opaque="true"
-            name="kokua_scripting"
+            name="dayturn_scripting"
             width="517">
             <check_box
                 font="SansSerifSmall"

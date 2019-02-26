@@ -261,7 +261,7 @@
         height="16"
         width="100"
         top_pad="5"
-        left="30" />
+        left="30"
         tool_tip="Show my own name tag (others will see it regardless of this setting)" />
     <check_box
         name="display_names_check"
