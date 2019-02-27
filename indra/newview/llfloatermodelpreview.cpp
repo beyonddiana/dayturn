@@ -112,6 +112,12 @@ const double RETAIN_COEFFICIENT = 100;
 // So this const is used as a size of Smooth combobox list.
 const S32 SMOOTH_VALUES_NUMBER = 10;
 
+const F32 SKIN_WEIGHT_CAMERA_DISTANCE = 16.f;
+
+// mCameraDistance
+// Also see: mCameraZoom
+const F32 MODEL_PREVIEW_CAMERA_DISTANCE = 16.f;
+
 void drawBoxOutline(const LLVector3& pos, const LLVector3& size);
 
 
@@ -337,7 +343,7 @@ bool LLFloaterModelPreview::postBuild()
 	getChild<LLCheckBoxCtrl>("show_edges")->setCommitCallback(boost::bind(&LLFloaterModelPreview::onViewOptionChecked, this, _1));
 	getChild<LLCheckBoxCtrl>("show_physics")->setCommitCallback(boost::bind(&LLFloaterModelPreview::onViewOptionChecked, this, _1));
 	getChild<LLCheckBoxCtrl>("show_textures")->setCommitCallback(boost::bind(&LLFloaterModelPreview::onViewOptionChecked, this, _1));
-	getChild<LLCheckBoxCtrl>("show_skin_weight")->setCommitCallback(boost::bind(&LLFloaterModelPreview::onViewOptionChecked, this, _1));
+	getChild<LLCheckBoxCtrl>("show_skin_weight")->setCommitCallback(boost::bind(&LLFloaterModelPreview::onShowSkinWeightChecked, this, _1));
 	getChild<LLCheckBoxCtrl>("show_joint_overrides")->setCommitCallback(boost::bind(&LLFloaterModelPreview::onViewOptionChecked, this, _1));	
 	getChild<LLCheckBoxCtrl>("show_joint_positions")->setCommitCallback(boost::bind(&LLFloaterModelPreview::onViewOptionChecked, this, _1));
 
@@ -471,6 +477,15 @@ void LLFloaterModelPreview::initModelPreview()
 	mModelPreview->setPreviewTarget(16.f);
 	mModelPreview->setDetailsCallback(boost::bind(&LLFloaterModelPreview::setDetails, this, _1, _2, _3, _4, _5));
 	mModelPreview->setModelUpdatedCallback(boost::bind(&LLFloaterModelPreview::modelUpdated, this, _1));
+}
+
+void LLFloaterModelPreview::onShowSkinWeightChecked(LLUICtrl* ctrl)
+{
+	if (mModelPreview)
+	{
+		mModelPreview->mCameraOffset.clearVec();
+		onViewOptionChecked(ctrl);
+	}
 }
 
 void LLFloaterModelPreview::onViewOptionChecked(LLUICtrl* ctrl)
@@ -4252,7 +4267,7 @@ BOOL LLModelPreview::render()
 
 	if (skin_weight)
 	{
-		target_pos = getPreviewAvatar()->getPositionAgent();
+		target_pos = getPreviewAvatar()->getPositionAgent() + offset;
 		z_near = 0.01f;
 		z_far = 1024.f;
 		mCameraDistance = 16.f;
@@ -4273,8 +4288,9 @@ BOOL LLModelPreview::render()
 	LLQuaternion(mCameraYaw, LLVector3::z_axis);
 
 	LLQuaternion av_rot = camera_rot;
+	F32 camera_distance = skin_weight ? SKIN_WEIGHT_CAMERA_DISTANCE : mCameraDistance;
 	LLViewerCamera::getInstance()->setOriginAndLookAt(
-													  target_pos + ((LLVector3(mCameraDistance, 0.f, 0.f) + offset) * av_rot),		// camera
+													  target_pos + ((LLVector3(camera_distance, 0.f, 0.f) + offset) * av_rot),		// camera
 													  LLVector3::z_axis,																	// up
 													  target_pos);											// point of interest
 
@@ -4608,7 +4624,7 @@ BOOL LLModelPreview::render()
 			bool pelvis_recalc = false;
 
 			LLViewerCamera::getInstance()->setOriginAndLookAt(
-															  target_pos + ((LLVector3(mCameraDistance, 0.f, 0.f) + offset) * av_rot),		// camera
+															  target_pos + ((LLVector3(camera_distance, 0.f, 0.f) + offset) * av_rot),		// camera
 															  LLVector3::z_axis,																	// up
 															  target_pos);											// point of interest
 
@@ -4809,8 +4825,10 @@ void LLModelPreview::zoom(F32 zoom_amt)
 
 void LLModelPreview::pan(F32 right, F32 up)
 {
-	mCameraOffset.mV[VY] = llclamp(mCameraOffset.mV[VY] + right * mCameraDistance / mCameraZoom, -1.f, 1.f);
-	mCameraOffset.mV[VZ] = llclamp(mCameraOffset.mV[VZ] + up * mCameraDistance / mCameraZoom, -1.f, 1.f);
+	bool skin_weight = mViewOption["show_skin_weight"];
+	F32 camera_distance = skin_weight ? SKIN_WEIGHT_CAMERA_DISTANCE : mCameraDistance;
+	mCameraOffset.mV[VY] = llclamp(mCameraOffset.mV[VY] + right * camera_distance / mCameraZoom, -1.f, 1.f);
+	mCameraOffset.mV[VZ] = llclamp(mCameraOffset.mV[VZ] + up * camera_distance / mCameraZoom, -1.f, 1.f);
 }
 
 void LLModelPreview::setPreviewLOD(S32 lod)
