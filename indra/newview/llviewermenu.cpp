@@ -509,8 +509,8 @@ void init_menus()
 	{
 		color = LLUIColorTable::instance().getColor( "MenuNonProductionBgColor" );
 	}
-	gMenuBarView = LLUICtrlFactory::getInstance()->createFromFile<LLMenuBarGL>("menu_viewer_kokua.xml", gMenuHolder, LLViewerMenuHolderGL::child_registry_t::instance());
-//kokua we could add a legacy menu here
+	gMenuBarView = LLUICtrlFactory::getInstance()->createFromFile<LLMenuBarGL>("menu_viewer_dayturn.xml", gMenuHolder, LLViewerMenuHolderGL::child_registry_t::instance());
+//Dayturn we could add a legacy menu here
 
 	LLView* menu_bar_holder = gViewerWindow->getRootView()->getChildView("menu_bar_holder");
 	gMenuBarView->setRect(LLRect(0, menu_bar_holder->getRect().mTop, 0, menu_bar_holder->getRect().mTop - MENU_BAR_HEIGHT));
@@ -554,8 +554,8 @@ void init_menus()
 	// Let land based option enable when parcel changes
 	gMenuParcelObserver = new LLMenuParcelObserver();
 
-	gLoginMenuBarView = LLUICtrlFactory::getInstance()->createFromFile<LLMenuBarGL>("menu_login_kokua.xml", gMenuHolder, LLViewerMenuHolderGL::child_registry_t::instance());
-//kokua we could add a legacy menu here
+	gLoginMenuBarView = LLUICtrlFactory::getInstance()->createFromFile<LLMenuBarGL>("menu_login_dayturn.xml", gMenuHolder, LLViewerMenuHolderGL::child_registry_t::instance());
+//Dayturn we could add a legacy menu here
 
 	gLoginMenuBarView->arrangeAndClear();
 	LLRect menuBarRect = gLoginMenuBarView->getRect();

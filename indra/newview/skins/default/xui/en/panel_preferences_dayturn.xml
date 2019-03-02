@@ -3,10 +3,10 @@
     border="true"
     follows="left|top|right|bottom"
     height="500"
-    label="Kokua"
+    label="Dayturn"
     layout="topleft"
     left="102"
-    name="kokua_viewer"
+    name="dayturn_viewer"
     top="20"
     width="517">
 
@@ -29,7 +29,7 @@
 	    label="General"
 	    left="1"
 	    mouse_opaque="true"
-	    name="kokua_general"
+	    name="dayturn_general"
 	    width="517">
     <check_box
 		top_pad="15"
@@ -615,7 +615,7 @@
 	    label="Inventory"
 	    left="1"
 	    mouse_opaque="true"
-	    name="kokua_inv"
+	    name="dayturn_inv"
 	    width="517">
         <check_box
          top_pad="15"
@@ -648,7 +648,7 @@
             label="Scripting"
             left="1"
             mouse_opaque="true"
-            name="kokua_scripting"
+            name="dayturn_scripting"
             width="517">
             <check_box
                 font="SansSerifSmall"
