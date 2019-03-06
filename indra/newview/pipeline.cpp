@@ -254,6 +254,11 @@ LLTrace::BlockTimerStatHandle FTM_PIPELINE("Pipeline");
 LLTrace::BlockTimerStatHandle FTM_CLIENT_COPY("Client Copy");
 LLTrace::BlockTimerStatHandle FTM_RENDER_DEFERRED("Deferred Shading");
 
+LLTrace::BlockTimerStatHandle FTM_RENDER_UI_HUD("HUD");
+LLTrace::BlockTimerStatHandle FTM_RENDER_UI_3D("3D");
+LLTrace::BlockTimerStatHandle FTM_RENDER_UI_2D("2D");
+LLTrace::BlockTimerStatHandle FTM_RENDER_UI_DEBUG_TEXT("Debug Text");
+LLTrace::BlockTimerStatHandle FTM_RENDER_UI_SCENE_MON("Scene Mon");
 
 static LLTrace::BlockTimerStatHandle FTM_STATESORT_DRAWABLE("Sort Drawables");
 static LLTrace::BlockTimerStatHandle FTM_STATESORT_POSTSORT("Post Sort");
@@ -9937,8 +9942,9 @@ void LLPipeline::generateWaterReflection(LLCamera& camera_in)
 			gGL.popMatrix();
 			mWaterRef.flush();
 			glh_set_current_modelview(current);
-			LLPipeline::sUseOcclusion = occlusion;
 		}
+
+		//LLPipeline::sUseOcclusion = occlusion;
 
 		camera.setOrigin(camera_in.getOrigin());
 		//render distortion map
@@ -10538,6 +10544,10 @@ void LLPipeline::generateHighlight(LLCamera& camera)
 
 
 static LLTrace::BlockTimerStatHandle FTM_GEN_SUN_SHADOW("Gen Sun Shadow");
+static LLTrace::BlockTimerStatHandle FTM_GEN_SUN_SHADOW_SETUP("Sun Shadow Setup");
+static LLTrace::BlockTimerStatHandle FTM_GEN_SUN_SHADOW_RENDER_DIRECTIONAL("Render Dir");
+static LLTrace::BlockTimerStatHandle FTM_GEN_SUN_SHADOW_SPOT_SETUP("Spot Shadow Setup");
+static LLTrace::BlockTimerStatHandle FTM_GEN_SUN_SHADOW_SPOT_RENDER("Spot Shadow Render");
 
 void LLPipeline::generateSunShadow(LLCamera& camera)
 {
@@ -10553,11 +10563,6 @@ void LLPipeline::generateSunShadow(LLCamera& camera)
 	{
 
 		skip_avatar_update = true;
-	}
-
-	if (!skip_avatar_update)
-	{
-		gAgentAvatarp->updateAttachmentVisibility(CAMERA_MODE_THIRD_PERSON);
 	}
 
 	F64 last_modelview[16];
