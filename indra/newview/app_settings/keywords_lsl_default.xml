@@ -6579,7 +6579,16 @@
             <integer>4</integer>
             <key>tooltip</key>
             <string>Adjusts the camera focus z position relative to the target..</string>
-         </map>                 
+         </map>
+         <key>OS_APIVERSION</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <string>3</string>
+            <key>tooltip</key>
+            <string></string>
+         </map>                        
           <key>OS_ATTACH_MSG_ALL</key>
          <map>
             <key>type</key>
@@ -22027,7 +22036,7 @@
             <key>arguments</key>
             <array>
                <map>
-                  <key>name</key>
+                  <key>itemNameorID</key>
                   <map>
                      <key>type</key>
                      <string>string</string>
@@ -22038,7 +22047,66 @@
             </array>
             <key>tooltip</key>
             <string>Returns the description of inventory item.</string>
-         </map>  
+         </map>
+         <key>osGetInventoryLastOwner</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>string</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>itemNameorID</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>            
+            </array>
+            <key>tooltip</key>
+            <string>Returns the last owner of inventory item.</string>
+         </map>
+         <key>osGetInventoryName</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>string</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>itemID</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>            
+            </array>
+            <key>tooltip</key>
+            <string>Returns the name of inventory item for key.</string>
+         </map>
+         <key>osGetLastChangedEventKey</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>string</string>
+            <key>arguments</key>
+            <undef/>
+            <key>tooltip</key>
+            <string></string>
+         </map>                               
          <key>osGetLinkNumber</key>
          <map>
             <key>energy</key>
@@ -22586,7 +22654,7 @@
             <key>tooltip</key>
             <string>Kicks specified avatar out of the current region.</string>
          </map>
-          <key>osList2Double</key>
+         <key>osList2Double</key>
          <map>
             <key>energy</key>
             <real>10.0</real>
@@ -22618,7 +22686,7 @@
             <key>tooltip</key>
             <string>This function converts a value in the specified index of the list src to the double data type. However, OSSL does not have a double data type. C# contains a double type, but the current LSL implementation does not.</string>
          </map>
-          <key>osListenRegex</key>
+         <key>osListenRegex</key>
          <map>
             <key>energy</key>
             <real>10.0</real>
@@ -22676,7 +22744,39 @@
             </array>  
             <key>tooltip</key>
             <string>Filter listen events by regex.</string>
-         </map> 
+         </map>
+          <key>osKickAvatar</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>agentID</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>              
+               <map>
+                  <key>alert</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>  
+            </array>  
+            <key>tooltip</key>
+            <string>Kicks the avatar identified by agent key</string>
+         </map>          
          <key>osLoadedCreationDate</key>
          <map>
             <key>energy</key>
@@ -23429,9 +23529,18 @@
                      <string/>
                   </map>
                </map>
+               <map>
+                  <key>msg</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>               
             </array>                
             <key>tooltip</key>
-            <string>Restarts the current region after a specified amount of time (in seconds).</string>
+            <string>Restarts the current region after a specified amount of time (in seconds) sending a message to users.</string>
          </map>
          <key>osReplaceString</key>
          <map>
@@ -24303,7 +24412,7 @@
             <key>arguments</key>
             <array>            
                <map>
-                  <key>avatar</key>
+                  <key>agentID</key>
                   <map>
                      <key>type</key>
                      <string>key</string>
@@ -24335,7 +24444,7 @@
             <key>arguments</key>
             <array>            
                <map>
-                  <key>avatar</key>
+                  <key>agentID</key>
                   <map>
                      <key>type</key>
                      <string>key</string>
