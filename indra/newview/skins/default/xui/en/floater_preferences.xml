@@ -59,7 +59,8 @@
          right="-1"
          text_pad_left="6"
          tool_tip="Type the search term you are interested in here. Results will be displayed for partial fulltext matches within the setting's name or comment."
-         top="0">
+         top="0"
+         visible="false">
          <search_editor.commit_callback
           function="UpdateFilter" />
          <search_editor.clear_button
