@@ -2262,8 +2262,10 @@ void LLView::initFromParams(const LLView::Params& params)
 	reshape(width, height);
 
 	// call virtual methods with most recent data
-	setEnabled(mEnabled);
-	setVisible(mVisible);
+	// use getters because these values might not come through parameter block
+	setEnabled(getEnabled());
+	setVisible(getVisible());
+
 
 	if (!params.name().empty())
 	{
