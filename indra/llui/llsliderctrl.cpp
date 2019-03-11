@@ -153,10 +153,9 @@ LLSliderCtrl::LLSliderCtrl(const LLSliderCtrl::Params& p)
 	
 	if( p.show_text() )
 	{
+		LLRect text_rect(text_left, top, getRect().getWidth(), bottom);
 		if( p.can_edit_text() )
 		{
-			LLRect text_rect(text_left, top, getRect().getWidth(), bottom);
-
 			LLLineEditor::Params line_p(p.value_editor);
 			if (!line_p.rect.isProvided())
 			{
@@ -179,8 +178,6 @@ LLSliderCtrl::LLSliderCtrl(const LLSliderCtrl::Params& p)
 		}
 		else
 		{
-			LLRect text_rect(text_left, top - 2, getRect().getWidth(), bottom);
-
 			LLTextBox::Params text_p(p.value_text);
 			if (!text_p.rect.isProvided())
 			{
