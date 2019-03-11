@@ -157,6 +157,7 @@ void PeopleContextMenu::buildContextMenu(class LLMenuGL& menu, U32 flags)
 		items.push_back(std::string("add_friend"));
 		items.push_back(std::string("remove_friend"));
 		items.push_back(std::string("invite_to_group"));
+		items.push_back(std::string("separator_invite_to_group"));
 		items.push_back(std::string("map"));
 		items.push_back(std::string("share"));
 		items.push_back(std::string("pay"));
@@ -459,6 +460,7 @@ void NearbyPeopleContextMenu::buildContextMenu(class LLMenuGL& menu, U32 flags)
 		items.push_back(std::string("request_teleport"));
 		items.push_back(std::string("voice_call"));
 		items.push_back(std::string("chat_history"));
+		items.push_back(std::string("separator_chat_history"));
 		items.push_back(std::string("add_friend"));
 		items.push_back(std::string("remove_friend"));
 		items.push_back(std::string("copy_to_clipboard"));
@@ -466,6 +468,7 @@ void NearbyPeopleContextMenu::buildContextMenu(class LLMenuGL& menu, U32 flags)
 		items.push_back(std::string("copy_uuid"));
 		items.push_back(std::string("copy_profile_uri"));
 		items.push_back(std::string("invite_to_group"));
+		items.push_back(std::string("separator_invite_to_group"));
 		items.push_back(std::string("zoom_in"));
 		items.push_back(std::string("map"));
 		items.push_back(std::string("share"));

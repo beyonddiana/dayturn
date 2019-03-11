@@ -402,7 +402,7 @@ public:
 		{
 			LLAvatarActions::startIM(getAvatarId());
 		}
-		else if (level == "offer_teleport")
+		else if (level == "offer_teleport" || level == "teleport")
 		{
 			LLAvatarActions::offerTeleport(getAvatarId());
 		}
@@ -430,6 +430,10 @@ public:
 		{
 			LLAvatarActions::inviteToGroup(getAvatarId());
 		}
+		else if (level == "zoom_in")
+		{
+			handle_zoom_to_object(getAvatarId());
+		}		
 		else if (level == "map")
 		{
 			LLAvatarActions::showOnMap(getAvatarId());
@@ -519,10 +523,6 @@ public:
 		else if (level == "copyprofileuri")
 		{
 			LLAvatarActions::copyProfileSLURL(getAvatarId());
-		}
-		else if (level == "zoom_in")
-		{
-			handle_zoom_to_object(getAvatarId());
 		}
 	}
 
@@ -1148,13 +1148,12 @@ protected:
 				menu->setItemEnabled("Request Teleport", false);
 				menu->setItemEnabled("Voice Call", false);
 				menu->setItemEnabled("Chat History", false);
+				menu->setItemEnabled("Invite To Group", false);				
 				menu->setItemEnabled("Zoom In", false);
-				menu->setItemEnabled("Invite To Group", false);
 				menu->setItemEnabled("Report Abuse", false);
 				menu->setItemEnabled("Share", false);
 				menu->setItemEnabled("Pay", false);
 				menu->setItemEnabled("Block", false);
-
 				menu->setItemEnabled("Remove Friend", false);
 				menu->setItemEnabled("Block Unblock", false);
 				menu->setItemEnabled("Mute Text", false);
@@ -1349,7 +1348,6 @@ private:
 	boost::signals2::connection mAvatarNameCacheConnection;
 };
 
-
 LLChatHistory::LLChatHistory(const LLChatHistory::Params& p)
 	: LLUICtrl(p),
 	mMessageHeaderFilename(p.message_header),
@@ -1441,17 +1439,17 @@ void LLChatHistory::initFromParams(const LLChatHistory::Params& p)
 
 /*void LLChatHistory::updateTextRect()
 {
-static LLUICachedControl<S32> texteditor_border ("UITextEditorBorder", 0);
+    static LLUICachedControl<S32> texteditor_border ("UITextEditorBorder", 0);
 
-LLRect old_text_rect = mVisibleTextRect;
-mVisibleTextRect = mScroller->getContentWindowRect();
-mVisibleTextRect.stretch(-texteditor_border);
-mVisibleTextRect.mLeft += mLeftTextPad;
-mVisibleTextRect.mRight -= mRightTextPad;
-if (mVisibleTextRect != old_text_rect)
-{
-needsReflow();
-}
+    LLRect old_text_rect = mVisibleTextRect;
+    mVisibleTextRect = mScroller->getContentWindowRect();
+    mVisibleTextRect.stretch(-texteditor_border);
+    mVisibleTextRect.mLeft += mLeftTextPad;
+    mVisibleTextRect.mRight -= mRightTextPad;
+    if (mVisibleTextRect != old_text_rect)
+    {
+        needsReflow();
+    }
 }*/
 
 LLView* LLChatHistory::getSeparator()

@@ -293,7 +293,7 @@ void LLInventoryPanel::initFromParams(const LLInventoryPanel::Params& params)
 	if (!gSavedSettings.getBOOL("FSShowInboxFolder"))
 	{
 		getFilter().setFilterCategoryTypes(getFilter().getFilterCategoryTypes() & ~(1ULL << LLFolderType::FT_INBOX));
-	}
+	}	
     // hide marketplace listing box, unless we are a marketplace panel
 	if (!gSavedSettings.getBOOL("InventoryOutboxMakeVisible") && !mParams.use_marketplace_folders)
 	{
@@ -1308,7 +1308,6 @@ bool LLInventoryPanel::beginIMSession()
 						if(at.isBuddyOnline(id))
 						{
 							members.push_back(id);
-							members.push_back(id);
 						}
 					}
 				}
@@ -1328,7 +1327,6 @@ bool LLInventoryPanel::beginIMSession()
 
 						if(at.isBuddyOnline(id))
 						{
-							//members.put(id);
 							members.push_back(id);
 						}
 					}
