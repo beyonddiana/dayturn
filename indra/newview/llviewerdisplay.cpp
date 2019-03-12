@@ -140,7 +140,7 @@ void display_startup()
 	{
 	LLTexUnit::sWhiteTexture = LLViewerFetchedTexture::sWhiteImagep->getTexName();
 	}
-	
+
 	LLGLSDefault gls_default;
 
 	// Required for HTML update in login screen
@@ -177,6 +177,7 @@ void display_startup()
 
 	if (gViewerWindow && gViewerWindow->getWindow())
 	gViewerWindow->getWindow()->swapBuffers();
+
 	glClear(GL_DEPTH_BUFFER_BIT);
 }
 
@@ -200,10 +201,6 @@ void display_update_camera()
 		//Reset the draw distance and do not update with the new val
 		final_far = LLViewerCamera::getInstance()->getFar();
 	}
-	//		final_far = gAgent.mRRInterface.mCamDistDrawMin;
-	//	}
-	//}
-//mk
 	LLViewerCamera::getInstance()->setFar(final_far);
 	gViewerWindow->setup3DRender();
 	
@@ -469,10 +466,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 			gAgent.setTeleportMessage(
 				LLAgent::sTeleportProgressMessages["arriving"]);
 			gTextureList.mForceResetTextureStats = TRUE;
-//MK
-			// Let's not reset the view, we could be stuck in mouselook with @camdistmax set to 0
-////			gAgentCamera.resetView(TRUE, TRUE);
-//mk
+			gAgentCamera.resetView(TRUE, TRUE);
 			
 			break;
 
@@ -601,7 +595,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 	stop_glerror();
 	gGL.setAmbientLightColor(LLColor4::white);
 	stop_glerror();
-		
+			
 	/////////////////////////////////////
 	//
 	// Render
@@ -610,10 +604,6 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 	//
 
 	// do render-to-texture stuff here
-//MK
-	//if (gRRenabled && gAgent.mRRInterface.mContainsCamFocus)
-	//{
-//mk
 	if (gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_DYNAMIC_TEXTURES))
 	{
 		LLAppViewer::instance()->pingMainloopTimeout("Display:DynamicTextures");
@@ -624,9 +614,6 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 			glClear(GL_DEPTH_BUFFER_BIT);
 		}
 	}
-//MK
-	//}
-//mk
 
 	gViewerWindow->setup3DViewport();
 
@@ -696,7 +683,6 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		LLSpatialGroup::sNoDelete = TRUE;
 		LLTexUnit::sWhiteTexture = LLViewerFetchedTexture::sWhiteImagep->getTexName();
 
-
 		S32 occlusion = LLPipeline::sUseOcclusion;
 		if (gDepthDirty)
 		{ //depth buffer is invalid, don't overwrite occlusion state
@@ -710,7 +696,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 
 		static LLCullResult result;
 		LLViewerCamera::sCurCameraID = LLViewerCamera::CAMERA_WORLD;
-		LLPipeline::sUnderWaterRender = LLViewerCamera::getInstance()->cameraUnderWater();
+		LLPipeline::sUnderWaterRender = LLViewerCamera::getInstance()->cameraUnderWater() ? TRUE : FALSE;
 		gPipeline.updateCull(*LLViewerCamera::getInstance(), result, water_clip);
 		stop_glerror();
 
@@ -811,24 +797,24 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 											LLTrace::get_frame_recording().getPeriodMeanPerSec(*angular_velocity_stat));
 			}
 
-
+			
 			{
 				LL_RECORD_BLOCK_TIME(FTM_IMAGE_UPDATE_BUMP);
-			gBumpImageList.updateImages();  // must be called before gTextureList version so that it's textures are thrown out first.
+				gBumpImageList.updateImages();  // must be called before gTextureList version so that it's textures are thrown out first.
 			}
 
 			{
 				LL_RECORD_BLOCK_TIME(FTM_IMAGE_UPDATE_LIST);
 				F32 max_image_decode_time = 0.050f*gFrameIntervalSeconds.value(); // 50 ms/second decode time
-			max_image_decode_time = llclamp(max_image_decode_time, 0.002f, 0.005f ); // min 2ms/frame, max 5ms/frame)
-			gTextureList.updateImages(max_image_decode_time);
+				max_image_decode_time = llclamp(max_image_decode_time, 0.002f, 0.005f ); // min 2ms/frame, max 5ms/frame)
+				gTextureList.updateImages(max_image_decode_time);
 			}
 
 			/*{
 				LL_RECORD_BLOCK_TIME(FTM_IMAGE_UPDATE_DELETE);
-			//remove dead textures from GL
-			LLImageGL::deleteDeadTextures();
-			stop_glerror();
+				//remove dead textures from GL
+				LLImageGL::deleteDeadTextures();
+				stop_glerror();
 			}*/
 			}
 
@@ -873,7 +859,6 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 			LL_RECORD_BLOCK_TIME(FTM_UPDATE_SKY);	
 			gSky.updateSky();
 		}
-
 
 		if(gUseWireframe)
 		{
@@ -921,11 +906,8 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		//	gGL.popMatrix();
 		//}
 
-		LLPipeline::sUnderWaterRender = LLViewerCamera::getInstance()->cameraUnderWater();
-		
-		//Check for RenderWater
-		if (!gSavedSettings.getBOOL("RenderWater") || !LLWorld::getInstance()->getAllowRenderWater())
-			LLPipeline::sUnderWaterRender = FALSE;
+		LLPipeline::sUnderWaterRender = LLViewerCamera::getInstance()->cameraUnderWater() ? TRUE : FALSE;
+
 		LLGLState::checkStates();
 		LLGLState::checkClientArrays();
 
@@ -982,6 +964,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 				gOcclusionProgram.unbind();
 			}
 
+
 			gGL.setColorMask(true, false);
 			if (LLPipeline::sRenderDeferred)
 			{
@@ -1018,13 +1001,6 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 
 		LLAppViewer::instance()->pingMainloopTimeout("Display:RenderFlush");		
 		
-////MK
-//		// Draw a big black sphere around our avatar if the camera render is limited by RLV
-//		if (gRRenabled)
-//		{
-//			gAgent.mRRInterface.drawRenderLimit();
-//		}
-////mk
 		if (to_texture)
 		{
 			if (LLPipeline::sRenderDeferred)
@@ -1073,6 +1049,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 			swap();
 		}
 
+		
 		LLSpatialGroup::sNoDelete = FALSE;
 		gPipeline.clearReferences();
 
@@ -1099,7 +1076,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 	{
 		gShaderProfileFrame = FALSE;
 		LLGLSLShader::finishProfile();
-}
+	}
 }
 
 void render_hud_attachments()
@@ -1113,14 +1090,7 @@ void render_hud_attachments()
 	glh::matrix4f current_mod = glh_get_current_modelview();
 
 	// clamp target zoom level to reasonable values
-//MK
-	if (gRRenabled && gAgent.mRRInterface.mHasLockedHuds)
-	{
-		gAgentCamera.mHUDTargetZoom = llclamp(gAgentCamera.mHUDTargetZoom, 0.85f, 1.f);
-	}
-	else
-//mk
-		gAgentCamera.mHUDTargetZoom = llclamp(gAgentCamera.mHUDTargetZoom, 0.1f, 1.f);
+	gAgentCamera.mHUDTargetZoom = llclamp(gAgentCamera.mHUDTargetZoom, 0.1f, 1.f);
 	// smoothly interpolate current zoom level
 	gAgentCamera.mHUDCurZoom = lerp(gAgentCamera.mHUDCurZoom, gAgentCamera.mHUDTargetZoom, LLSmoothInterpolation::getInterpolant(0.03f));
 
@@ -1331,14 +1301,6 @@ void render_ui(F32 zoom_factor, int subfield)
 			gPipeline.renderBloom(gSnapshot, zoom_factor, subfield);
 		}
 		
-//MK
-		// Draw a big black sphere around our avatar if the camera render is limited by RLV
-		if (gRRenabled && (!gAgentAvatarp || !gAgentAvatarp->isFullyLoaded()))
-		{
-			gAgent.mRRInterface.drawRenderLimit();
-		}
-//mk
-
 		render_hud_elements();
 		render_hud_attachments();
 	}
@@ -1500,7 +1462,6 @@ void render_ui_3d()
 	}
 
 	gViewerWindow->renderSelections(FALSE, FALSE, TRUE); // Non HUD call in render_hud_elements
-
 	stop_glerror();
 }
 
@@ -1701,6 +1662,7 @@ void render_disconnected_background()
 	{
 		gUIProgram.unbind();
 	}
+
 }
 
 void display_cleanup()

@@ -1049,7 +1049,6 @@ bool LLPanelRegionOpenSettingsInfo::refreshFromRegion(LLViewerRegion* region)
 	childSetValue("max_phys_prim_scale", LLSD(regionlimits->getMaxPhysPrimScale()));
 	childSetValue("max_prim_scale", LLSD(regionlimits->getRegionMaxPrimScale()));
 	childSetValue("min_prim_scale", LLSD(regionlimits->getRegionMinPrimScale()));
-	childSetValue("render_water", LLSD(regionlimits->getAllowRenderWater()));
 	childSetValue("show_tags", LLSD(regionlimits->getAllowRenderName()));
 	childSetValue("max_groups", LLSD(gMaxAgentGroups));
 	childSetValue("allow_parcel_windlight", LLSD(regionlimits->getAllowParcelWindLight()));

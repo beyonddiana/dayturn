@@ -160,10 +160,6 @@ class OpenRegionInfoUpdate : public LLHTTPNode
 			gUTCOffset = body["OffsetOfUTC"].asInteger();
 			if(time_UTCDST) gUTCOffset++;
 		}
-		if ( body.has("RenderWater") )
-		{
-			regionlimits->setAllowRenderWater(body["RenderWater"].asInteger() == 1 ? TRUE : FALSE);
-		}
 		if ( body.has("SayDistance") )
 		{
 			regionlimits->setSayDistance(body["SayDistance"].asReal());
