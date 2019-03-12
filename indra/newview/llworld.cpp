@@ -583,10 +583,6 @@ void LLWorld::updateLimits()
 	mMaxDragDistance;
 	*/
 	//done in llmaniptranslate.cpp
-	/*
-	mAllowRenderWater
-	*/
-	gAgent.getRegion()->rebuildWater();
 
 	/*
 	mMaxInventoryItemsTransfer

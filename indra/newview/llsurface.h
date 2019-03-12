@@ -84,7 +84,6 @@ public:
 	void disconnectNeighbor(LLSurface *neighborp);
 	void disconnectAllNeighbors();
 
-	void rebuildWater();
 	virtual void decompressDCTPatch(LLBitPack &bitpack, LLGroupHeader *gopp, BOOL b_large_patch);
 	virtual void updatePatchVisibilities(LLAgent &agent);
 

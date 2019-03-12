@@ -630,10 +630,6 @@ void LLViewerRegion::setWaterHeight(F32 water_level)
 	mImpl->mLandp->setWaterHeight(water_level);
 }
 
-void LLViewerRegion::rebuildWater()
-{
-	mImpl->mLandp->rebuildWater();
-}
 F32 LLViewerRegion::getWaterHeight() const
 {
 	return mImpl->mLandp->getWaterHeight();
