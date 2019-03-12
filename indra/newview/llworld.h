@@ -148,7 +148,6 @@ public:
 	int getAllowRenderName() const           { return mAllowRenderName; }
 	bool getAllowMinimap() const             { return mAllowMinimap; }
 	bool getAllowPhysicalPrims() const       { return mAllowPhysicalPrims; }
-	bool getAllowRenderWater() const         { return mAllowRenderWater; }
 
 	F32 getMaxPrimXPos() const			{ return mMaxPrimXPos; }
 	F32 getMaxPrimYPos() const			{ return mMaxPrimYPos; }

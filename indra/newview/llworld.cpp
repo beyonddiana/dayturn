@@ -276,7 +276,6 @@ void LLWorld::refreshLimits()
 		mAllowRenderName = gSavedSettings.getS32("AvatarNameTagMode");
 		mAllowMinimap = TRUE;
 		mAllowPhysicalPrims = TRUE;
-		mAllowRenderWater = TRUE;
 
 		mMaxPrimXPos = OS_MAX_OBJECT_XY;
 		mMaxPrimYPos = OS_MAX_OBJECT_XY;
@@ -320,7 +319,6 @@ void LLWorld::refreshLimits()
 		mAllowRenderName = gSavedSettings.getS32("AvatarNameTagMode");
 		mAllowMinimap = TRUE;
 		mAllowPhysicalPrims = TRUE;
-		mAllowRenderWater = TRUE;
 
 		mMaxPrimXPos = 256;
 		mMaxPrimYPos = 256;
@@ -536,7 +534,6 @@ void LLWorld::setTerrainDetailScale(F32 val)
 
 void LLWorld::setAllowMinimap(BOOL val)			{ mAllowMinimap = val; }
 void LLWorld::setAllowPhysicalPrims(BOOL val)	{ mAllowPhysicalPrims = val; }
-void LLWorld::setAllowRenderWater(BOOL val)		{ mAllowRenderWater = val; }
 void LLWorld::setSkyUseClassicClouds(BOOL val)	{ mClassicCloudsEnabled = val; }
 void LLWorld::setAllowParcelWindLight(BOOL val) { mAllowParcelWindLight = val; }
 void LLWorld::setEnableTeenMode(BOOL val)		{ mEnableTeenMode = val; }
