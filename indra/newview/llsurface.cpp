@@ -288,28 +288,7 @@ void LLSurface::initTextures()
 	//
 	// Water texture
 	//
-	if (gSavedSettings.getBOOL("RenderWater") && LLWorld::getInstance()->getAllowRenderWater())
-	{
-		createWaterTexture();
-		mWaterObjp = (LLVOWater *)gObjectList.createObjectViewer(LLViewerObject::LL_VO_WATER, mRegionp);
-		gPipeline.createObject(mWaterObjp);
-		LLVector3d water_pos_global = from_region_handle(mRegionp->getHandle());
-		water_pos_global += LLVector3d(mRegionp->getWidth()/2, mRegionp->getWidth()/2, DEFAULT_WATER_HEIGHT);
-		mWaterObjp->setPositionGlobal(water_pos_global);
-	}
-}
-
-void LLSurface::rebuildWater()
-{
-	BOOL renderwater = gSavedSettings.getBOOL("RenderWater") && LLWorld::getInstance()->getAllowRenderWater();
-	BOOL prev_renderwater = !mWaterObjp.isNull();
-
-	if(prev_renderwater && !renderwater)
-	{
-		gObjectList.killObject(mWaterObjp);
-	}
-
-	if (!prev_renderwater && renderwater)
+	if (gSavedSettings.getBOOL("RenderWater"))
 	{
 		createWaterTexture();
 		mWaterObjp = (LLVOWater *)gObjectList.createObjectViewer(LLViewerObject::LL_VO_WATER, mRegionp);

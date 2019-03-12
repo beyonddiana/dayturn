@@ -142,7 +142,6 @@ public:
 
 	void setWaterHeight(F32 water_level);
 	F32 getWaterHeight() const;
-	void rebuildWater();
 
 	BOOL isVoiceEnabled() const;
 
