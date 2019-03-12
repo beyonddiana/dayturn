@@ -3387,6 +3387,7 @@ std::string LLAppViewer::getViewerInfoString(bool default_string) const
 
 	// SLT timestamp
 	LLSD substitution;
+	substitution["datetime"] = (S32)time(NULL);//(S32)time_corrected();
 	support << "\n" << LLTrans::getString("AboutTime", substitution, default_string);
 
 	return support.str();
