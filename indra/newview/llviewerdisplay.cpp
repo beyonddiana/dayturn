@@ -1090,7 +1090,14 @@ void render_hud_attachments()
 	glh::matrix4f current_mod = glh_get_current_modelview();
 
 	// clamp target zoom level to reasonable values
-	gAgentCamera.mHUDTargetZoom = llclamp(gAgentCamera.mHUDTargetZoom, 0.1f, 1.f);
+//MK
+	if (gRRenabled && gAgent.mRRInterface.mHasLockedHuds)
+	{
+		gAgentCamera.mHUDTargetZoom = llclamp(gAgentCamera.mHUDTargetZoom, 0.85f, 1.f);
+	}
+	else
+//mk
+		gAgentCamera.mHUDTargetZoom = llclamp(gAgentCamera.mHUDTargetZoom, 0.1f, 1.f);
 	// smoothly interpolate current zoom level
 	gAgentCamera.mHUDCurZoom = lerp(gAgentCamera.mHUDCurZoom, gAgentCamera.mHUDTargetZoom, LLSmoothInterpolation::getInterpolant(0.03f));
 
@@ -1301,6 +1308,14 @@ void render_ui(F32 zoom_factor, int subfield)
 			gPipeline.renderBloom(gSnapshot, zoom_factor, subfield);
 		}
 		
+//MK
+		// Draw a big black sphere around our avatar if the camera render is limited by RLV
+		if (gRRenabled && (!gAgentAvatarp || !gAgentAvatarp->isFullyLoaded()))
+		{
+			gAgent.mRRInterface.drawRenderLimit();
+		}
+//mk
+
 		render_hud_elements();
 		render_hud_attachments();
 	}
