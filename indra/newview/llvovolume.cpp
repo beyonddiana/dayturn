@@ -5524,7 +5524,7 @@ static LLTrace::BlockTimerStatHandle FTM_GEN_DRAW_INFO_RESIZE_VB("Resize VB");
 
 
 
-void LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, LLFace** faces, U32 face_count, BOOL distance_sort, BOOL batch_textures, BOOL no_materials)
+U32 LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, LLFace** faces, U32 face_count, BOOL distance_sort, BOOL batch_textures, BOOL no_materials)
 {
 	LL_RECORD_BLOCK_TIME(FTM_REBUILD_VOLUME_GEN_DRAW_INFO);
 
@@ -5606,21 +5606,21 @@ void LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, LLFac
 	bool flexi = false;
 
 // MK
-// 	Calculate the position of the avatar here so we don't have to do it for each face
-// 	if (!gAgentAvatarp)
-// 	{
-// 		return geometryBytes;
-// 	}
-// 	bool vision_restricted = (gRRenabled && gAgent.mRRInterface.mCamDistDrawMax < EXTREMUM);
-// 	Optimization : Rather than compare the distances for every face (which involves square roots, which are costly), we compare squared distances.
-// 	LLVector3 joint_pos = LLVector3::zero;
-// 	F32 cam_dist_draw_max_squared = EXTREMUM;
-// 	We don't need to calculate all that stuff if the vision is not restricted.
-// 	if (vision_restricted)
-// 	{
-// 		joint_pos = gAgent.mRRInterface.getCamDistDrawFromJoint()->getWorldPosition();
-// 		cam_dist_draw_max_squared = gAgent.mRRInterface.mCamDistDrawMax * gAgent.mRRInterface.mCamDistDrawMax;
-// 	}
+	//Calculate the position of the avatar here so we don't have to do it for each face
+	if (!gAgentAvatarp)
+	{
+		return geometryBytes;
+	}
+	bool vision_restricted = (gRRenabled && gAgent.mRRInterface.mCamDistDrawMax < EXTREMUM);
+	//Optimization : Rather than compare the distances for every face (which involves square roots, which are costly), we compare squared distances.
+	LLVector3 joint_pos = LLVector3::zero;
+	F32 cam_dist_draw_max_squared = EXTREMUM;
+	//We don't need to calculate all that stuff if the vision is not restricted.
+	if (vision_restricted)
+	{
+		joint_pos = gAgent.mRRInterface.getCamDistDrawFromJoint()->getWorldPosition();
+		cam_dist_draw_max_squared = gAgent.mRRInterface.mCamDistDrawMax * gAgent.mRRInterface.mCamDistDrawMax;
+	}
 // mk
 
 	while (face_iter != end_faces)
@@ -5630,18 +5630,18 @@ void LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, LLFac
 		LLViewerTexture* tex = facep->getTexture();
 		LLMaterialPtr mat = facep->getTextureEntry()->getMaterialParams();
 // MK
-// 		LLVector3 face_pos = LLVector3::zero;
-// 		LLVector3 face_avatar_offset = LLVector3::zero;
-// 		F32 face_distance_to_avatar_squared = EXTREMUM;
-// 
-// 		We don't need to calculate all that stuff if the vision is not restricted.
-// 		if (vision_restricted)
-// 		{
-// 			We need the position of the face for later, as well as the square of the distance from this face to the avatar
-// 			face_pos = facep->getPositionAgent();
-// 			face_avatar_offset = face_pos - joint_pos;
-// 			face_distance_to_avatar_squared = (F32)face_avatar_offset.magVecSquared();
-// 		}
+		LLVector3 face_pos = LLVector3::zero;
+		LLVector3 face_avatar_offset = LLVector3::zero;
+		F32 face_distance_to_avatar_squared = EXTREMUM;
+
+		//We don't need to calculate all that stuff if the vision is not restricted.
+		if (vision_restricted)
+		{
+			//We need the position of the face for later, as well as the square of the distance from this face to the avatar
+			face_pos = facep->getPositionAgent();
+			face_avatar_offset = face_pos - joint_pos;
+			face_distance_to_avatar_squared = (F32)face_avatar_offset.magVecSquared();
+		}
 // mk
 		
 		if (distance_sort)
