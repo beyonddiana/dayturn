@@ -2651,7 +2651,8 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 			gAgent.sendReliableMessage();
 
 			// remove the "XXX is typing..." label from the IM window
-			gIMMgr->processIMTypingStart(from_id, dialog);
+			LLPointer<LLIMInfo> im_info = new LLIMInfo(gMessageSystem);
+			gIMMgr->processIMTypingStop(im_info);
 		}
 		else if (gRRenabled && message == "@getblacklist")
 		{
@@ -2673,7 +2674,8 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 			gAgent.sendReliableMessage();
 
 			// remove the "XXX is typing..." label from the IM window
-			gIMMgr->processIMTypingStart(from_id, dialog);
+			LLPointer<LLIMInfo> im_info = new LLIMInfo(gMessageSystem);
+			gIMMgr->processIMTypingStop(im_info);
 		}
 		else if (gRRenabled && message == "@list")
 		{
@@ -2716,7 +2718,8 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 			gAgent.sendReliableMessage();
 
 			// remove the "XXX is typing..." label from the IM window
-			gIMMgr->processIMTypingStart(from_id, dialog);
+			LLPointer<LLIMInfo> im_info = new LLIMInfo(gMessageSystem);
+			gIMMgr->processIMTypingStop(im_info);
 		}
 		else if (gRRenabled && message == "@stopim")
 		{
@@ -2761,7 +2764,8 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 			}
 
 			// remove the "XXX is typing..." label from the IM window
-			gIMMgr->processIMTypingStart(from_id, dialog);
+			LLPointer<LLIMInfo> im_info = new LLIMInfo(gMessageSystem);
+			gIMMgr->processIMTypingStop(im_info);
 		}
 //mk
 		else if (from_id.isNull())

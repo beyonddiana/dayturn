@@ -6853,6 +6853,9 @@ BOOL LLVOAvatar::detachObject(LLViewerObject *viewer_object)
 //-----------------------------------------------------------------------------
 void LLVOAvatar::sitDown(BOOL bSitting)
 {
+//MK
+	BOOL was_sitting = mIsSitting;
+//mk
 	mIsSitting = bSitting;
 	if (isSelf())
 	{
