@@ -2642,8 +2642,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 			gAgent.sendReliableMessage();
 
 			// remove the "XXX is typing..." label from the IM window
-			LLPointer<LLIMInfo> im_info = new LLIMInfo(gMessageSystem);
-			gIMMgr->processIMTypingStop(im_info);
+			gIMMgr->processIMTypingStart(from_id, dialog);
 		}
 		else if (gRRenabled && message == "@getblacklist")
 		{
@@ -2665,8 +2664,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 			gAgent.sendReliableMessage();
 
 			// remove the "XXX is typing..." label from the IM window
-			LLPointer<LLIMInfo> im_info = new LLIMInfo(gMessageSystem);
-			gIMMgr->processIMTypingStop(im_info);
+			gIMMgr->processIMTypingStart(from_id, dialog);
 		}
 		else if (gRRenabled && message == "@list")
 		{
@@ -2709,8 +2707,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 			gAgent.sendReliableMessage();
 
 			// remove the "XXX is typing..." label from the IM window
-			LLPointer<LLIMInfo> im_info = new LLIMInfo(gMessageSystem);
-			gIMMgr->processIMTypingStop(im_info);
+			gIMMgr->processIMTypingStart(from_id, dialog);
 		}
 		else if (gRRenabled && message == "@stopim")
 		{
@@ -2755,31 +2752,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 			}
 
 			// remove the "XXX is typing..." label from the IM window
-			LLPointer<LLIMInfo> im_info = new LLIMInfo(gMessageSystem);
-			gIMMgr->processIMTypingStop(im_info);
-		}
-		else if (gRRenabled && message == "@getblacklist")
-		{
-			// return the contents of  the blacklist, without a filter
-			std::string my_name;
-			LLAgentUI::buildFullname(my_name);
-			std::string response = gAgent.mRRInterface.sBlacklist;
-			pack_instant_message(
-				gMessageSystem,
-				gAgent.getID(),
-				FALSE,
-				gAgent.getSessionID(),
-				from_id,
-				my_name.c_str(),
-				response.c_str(),
-				IM_ONLINE,
-				IM_DO_NOT_DISTURB_AUTO_RESPONSE,
-				session_id);
-			gAgent.sendReliableMessage();
-
-			// remove the "XXX is typing..." label from the IM window
-			LLPointer<LLIMInfo> im_info = new LLIMInfo(gMessageSystem);
-			gIMMgr->processIMTypingStop(im_info);
+			gIMMgr->processIMTypingStart(from_id, dialog);
 		}
 //mk
 		else if (from_id.isNull())
