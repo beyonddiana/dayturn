@@ -57,7 +57,7 @@ public:
 	/*virtual*/ BOOL	handleRightMouseDown(S32 x, S32 y, MASK mask);
 	/*virtual*/ bool	handleKeyHere(KEY key, MASK mask );
 
-	/*virtual*/ void	setVisible(BOOL visible);
+	/*virtual*/ void	setVisible(bool visible);
 	/*virtual*/ void	draw();
 
 	BOOL 			isModal() const { return mModal; }

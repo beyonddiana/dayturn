@@ -362,7 +362,7 @@ void LLSidepanelItemInfo::refreshFromItem(LLViewerInventoryItem* item)
 
     if(item->getInventoryType() == LLInventoryType::IT_LSL)
     {
-        getChildView("LabelItemExperienceTitle")->setVisible(TRUE);
+        getChildView("LabelItemExperienceTitle")->setVisible(true);
         LLTextBox* tb = getChild<LLTextBox>("LabelItemExperience");
         tb->setText(getString("loading_experience"));
         tb->setVisible(true);
@@ -376,10 +376,10 @@ void LLSidepanelItemInfo::refreshFromItem(LLViewerInventoryItem* item)
 											   GP_OBJECT_MANIPULATE)
 		&& is_obj_modify && is_complete && not_in_trash;
 
-	getChildView("LabelItemNameTitle")->setEnabled(TRUE);
+	getChildView("LabelItemNameTitle")->setEnabled(true);
 	getChildView("LabelItemName")->setEnabled(is_modifiable && !is_calling_card); // for now, don't allow rename of calling cards
 	getChild<LLUICtrl>("LabelItemName")->setValue(item->getName());
-	getChildView("LabelItemDescTitle")->setEnabled(TRUE);
+	getChildView("LabelItemDescTitle")->setEnabled(true);
 	getChildView("LabelItemDesc")->setEnabled(is_modifiable);
 	getChildView("IconLocked")->setVisible(!is_modifiable);
 	getChild<LLUICtrl>("LabelItemDesc")->setValue(item->getDescription());
@@ -395,16 +395,16 @@ void LLSidepanelItemInfo::refreshFromItem(LLViewerInventoryItem* item)
 		LLUUID creator_id = item->getCreatorUUID();
 		std::string name =
 			LLSLURL("agent", creator_id, "completename").getSLURLString();
-		getChildView("BtnCreator")->setEnabled(TRUE);
-		getChildView("LabelCreatorTitle")->setEnabled(TRUE);
-		getChildView("LabelCreatorName")->setEnabled(FALSE);
+		getChildView("BtnCreator")->setEnabled(true);
+		getChildView("LabelCreatorTitle")->setEnabled(true);
+		getChildView("LabelCreatorName")->setEnabled(false);
 		getChild<LLUICtrl>("LabelCreatorName")->setValue(name);
 	}
 	else
 	{
-		getChildView("BtnCreator")->setEnabled(FALSE);
-		getChildView("LabelCreatorTitle")->setEnabled(FALSE);
-		getChildView("LabelCreatorName")->setEnabled(FALSE);
+		getChildView("BtnCreator")->setEnabled(false);
+		getChildView("LabelCreatorTitle")->setEnabled(false);
+		getChildView("LabelCreatorName")->setEnabled(false);
 		getChild<LLUICtrl>("LabelCreatorName")->setValue(getString("unknown_multiple"));
 	}
 
@@ -423,16 +423,16 @@ void LLSidepanelItemInfo::refreshFromItem(LLViewerInventoryItem* item)
 			LLUUID owner_id = perm.getOwner();
 			name = LLSLURL("agent", owner_id, "completename").getSLURLString();
 		}
-		getChildView("BtnOwner")->setEnabled(TRUE);
-		getChildView("LabelOwnerTitle")->setEnabled(TRUE);
-		getChildView("LabelOwnerName")->setEnabled(FALSE);
+		getChildView("BtnOwner")->setEnabled(true);
+		getChildView("LabelOwnerTitle")->setEnabled(true);
+		getChildView("LabelOwnerName")->setEnabled(false);
 		getChild<LLUICtrl>("LabelOwnerName")->setValue(name);
 	}
 	else
 	{
-		getChildView("BtnOwner")->setEnabled(FALSE);
-		getChildView("LabelOwnerTitle")->setEnabled(FALSE);
-		getChildView("LabelOwnerName")->setEnabled(FALSE);
+		getChildView("BtnOwner")->setEnabled(false);
+		getChildView("LabelOwnerTitle")->setEnabled(false);
+		getChildView("LabelOwnerName")->setEnabled(false);
 		getChild<LLUICtrl>("LabelOwnerName")->setValue(getString("public"));
 	}
 	
@@ -536,11 +536,11 @@ void LLSidepanelItemInfo::refreshFromItem(LLViewerInventoryItem* item)
 	U32 everyone_mask	= perm.getMaskEveryone();
 	U32 next_owner_mask	= perm.getMaskNextOwner();
 
-	getChildView("CheckOwnerModify")->setEnabled(FALSE);
+	getChildView("CheckOwnerModify")->setEnabled(false);
 	getChild<LLUICtrl>("CheckOwnerModify")->setValue(LLSD((BOOL)(owner_mask & PERM_MODIFY)));
-	getChildView("CheckOwnerCopy")->setEnabled(FALSE);
+	getChildView("CheckOwnerCopy")->setEnabled(false);
 	getChild<LLUICtrl>("CheckOwnerCopy")->setValue(LLSD((BOOL)(owner_mask & PERM_COPY)));
-	getChildView("CheckOwnerTransfer")->setEnabled(FALSE);
+	getChildView("CheckOwnerTransfer")->setEnabled(false);
 	getChild<LLUICtrl>("CheckOwnerTransfer")->setValue(LLSD((BOOL)(owner_mask & PERM_TRANSFER)));
 
 	///////////////////////
@@ -607,18 +607,18 @@ void LLSidepanelItemInfo::refreshFromItem(LLViewerInventoryItem* item)
 	// Check for ability to change values.
 	if (is_link || cannot_restrict_permissions)
 	{
-		getChildView("CheckShareWithGroup")->setEnabled(FALSE);
-		getChildView("CheckEveryoneCopy")->setEnabled(FALSE);
+		getChildView("CheckShareWithGroup")->setEnabled(false);
+		getChildView("CheckEveryoneCopy")->setEnabled(false);
 	}
 	else if (is_obj_modify && can_agent_manipulate)
 	{
-		getChildView("CheckShareWithGroup")->setEnabled(TRUE);
+		getChildView("CheckShareWithGroup")->setEnabled(true);
 		getChildView("CheckEveryoneCopy")->setEnabled((owner_mask & PERM_COPY) && (owner_mask & PERM_TRANSFER));
 	}
 	else
 	{
-		getChildView("CheckShareWithGroup")->setEnabled(FALSE);
-		getChildView("CheckEveryoneCopy")->setEnabled(FALSE);
+		getChildView("CheckShareWithGroup")->setEnabled(false);
+		getChildView("CheckEveryoneCopy")->setEnabled(false);
 	}
 
 	// Set values.
@@ -672,7 +672,7 @@ void LLSidepanelItemInfo::refreshFromItem(LLViewerInventoryItem* item)
 	{
 		getChildView("CheckPurchase")->setEnabled(is_complete);
 
-		getChildView("NextOwnerLabel")->setEnabled(TRUE);
+		getChildView("NextOwnerLabel")->setEnabled(true);
 		getChildView("CheckNextOwnerModify")->setEnabled((base_mask & PERM_MODIFY) && !cannot_restrict_permissions);
 		getChildView("CheckNextOwnerCopy")->setEnabled((base_mask & PERM_COPY) && !cannot_restrict_permissions);
 		getChildView("CheckNextOwnerTransfer")->setEnabled((next_owner_mask & PERM_COPY) && !cannot_restrict_permissions);
@@ -682,15 +682,15 @@ void LLSidepanelItemInfo::refreshFromItem(LLViewerInventoryItem* item)
 	}
 	else
 	{
-		getChildView("CheckPurchase")->setEnabled(FALSE);
+		getChildView("CheckPurchase")->setEnabled(false);
 
-		getChildView("NextOwnerLabel")->setEnabled(FALSE);
-		getChildView("CheckNextOwnerModify")->setEnabled(FALSE);
-		getChildView("CheckNextOwnerCopy")->setEnabled(FALSE);
-		getChildView("CheckNextOwnerTransfer")->setEnabled(FALSE);
+		getChildView("NextOwnerLabel")->setEnabled(false);
+		getChildView("CheckNextOwnerModify")->setEnabled(false);
+		getChildView("CheckNextOwnerCopy")->setEnabled(false);
+		getChildView("CheckNextOwnerTransfer")->setEnabled(false);
 
-		combo_sale_type->setEnabled(FALSE);
-		edit_cost->setEnabled(FALSE);
+		combo_sale_type->setEnabled(false);
+		edit_cost->setEnabled(false);
 	}
 
 	// Set values.

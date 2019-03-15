@@ -103,7 +103,7 @@ LLFloaterScriptQueue::~LLFloaterScriptQueue()
 bool LLFloaterScriptQueue::postBuild()
 {
 	childSetAction("close",onCloseBtn,this);
-	getChildView("close")->setEnabled(FALSE);
+	getChildView("close")->setEnabled(false);
 	setVisible(true);
 	return true;
 }
@@ -204,7 +204,7 @@ BOOL LLFloaterScriptQueue::nextObject()
 	{
 		mDone = true;
 		getChild<LLScrollListCtrl>("queue output")->addSimpleElement(getString("Done"), ADD_BOTTOM);
-		getChildView("close")->setEnabled(TRUE);
+		getChildView("close")->setEnabled(true);
 	}
 	return successful_start;
 }

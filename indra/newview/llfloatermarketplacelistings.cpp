@@ -68,7 +68,7 @@ bool LLPanelMarketplaceListings::postBuild()
     mFilterEditor->setCommitCallback(boost::bind(&LLPanelMarketplaceListings::onFilterEdit, this, _2));
     
     mAuditBtn = getChild<LLButton>("audit_btn");
-    mAuditBtn->setEnabled(FALSE);
+    mAuditBtn->setEnabled(false);
     
     return LLPanel::postBuild();
 }
@@ -543,7 +543,7 @@ void LLFloaterMarketplaceListings::updateView()
     {
         // Just show the loading indicator in that case and fetch the data (fetch will be skipped if it's already loading)
         mInventoryInitializationInProgress->setVisible(true);
-        mPanelListings->setVisible(FALSE);
+        mPanelListings->setVisible(false);
         fetchContents();
         return;
     }
@@ -560,13 +560,13 @@ void LLFloaterMarketplaceListings::updateView()
             // We need to rebuild the tabs cleanly the first time we make them visible
             setPanels();
         }
-		mPanelListings->setVisible(TRUE);
-		mInventoryPlaceholder->setVisible(FALSE);
+		mPanelListings->setVisible(true);
+		mInventoryPlaceholder->setVisible(false);
 	}
 	else
 	{
-        mPanelListings->setVisible(FALSE);
-		mInventoryPlaceholder->setVisible(TRUE);
+        mPanelListings->setVisible(false);
+		mInventoryPlaceholder->setVisible(true);
 		
         std::string text;
         std::string title;
@@ -795,7 +795,7 @@ bool LLFloaterMarketplaceValidation::postBuild()
 	
     // This widget displays the validation messages
     mEditor = getChild<LLTextEditor>("validation_text");
-    mEditor->setEnabled(FALSE);
+    mEditor->setEnabled(false);
     mEditor->setFocus(TRUE);
     mEditor->setValue(LLSD());
     
@@ -936,7 +936,7 @@ bool LLFloaterItemProperties::postBuild()
     // On the standalone properties floater, we have no need for a back button...
     LLSidepanelItemInfo* panel = getChild<LLSidepanelItemInfo>("item_panel");
     LLButton* back_btn = panel->getChild<LLButton>("back_btn");
-    back_btn->setVisible(FALSE);
+    back_btn->setVisible(false);
     
 	return LLFloater::postBuild();
 }

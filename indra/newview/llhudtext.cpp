@@ -392,7 +392,7 @@ void LLHUDText::updateVisibility()
 	if (!mSourceObject)
 	{
 		//LL_WARNS() << "LLHUDText::updateScreenPos -- mSourceObject is NULL!" << LL_ENDL;
-		mVisible = TRUE;
+		mVisible = true;
 		if (mOnHUDAttachment)
 		{
 			sVisibleHUDTextObjects.push_back(LLPointer<LLHUDText> (this));
@@ -407,14 +407,14 @@ void LLHUDText::updateVisibility()
 	// Not visible if parent object is dead
 	if (mSourceObject->isDead())
 	{
-		mVisible = FALSE;
+		mVisible = false;
 		return;
 	}
 
 	// for now, all text on hud objects is visible
 	if (mOnHUDAttachment)
 	{
-		mVisible = TRUE;
+		mVisible = true;
 		sVisibleHUDTextObjects.push_back(LLPointer<LLHUDText> (this));
 		mLastDistance = mPositionAgent.mV[VX];
 		return;
@@ -427,7 +427,7 @@ void LLHUDText::updateVisibility()
 
 	if (dir_from_camera * LLViewerCamera::getInstance()->getAtAxis() <= 0.f)
 	{ //text is behind camera, don't render
-		mVisible = FALSE;
+		mVisible = false;
 		return;
 	}
 
@@ -460,7 +460,7 @@ void LLHUDText::updateVisibility()
 
 	if (!mTextSegments.size() || (mDoFade && (mLastDistance > mFadeDistance + mFadeRange)))
 	{
-		mVisible = FALSE;
+		mVisible = false;
 		return;
 	}
 
@@ -481,7 +481,7 @@ void LLHUDText::updateVisibility()
 
 	if(last_distance_center > max_draw_distance)
 	{
-		mVisible = FALSE;
+		mVisible = false;
 		return;
 	}
 
@@ -500,7 +500,7 @@ void LLHUDText::updateVisibility()
 	{
 //		if (!mVisibleOffScreen)
 //		{
-			mVisible = FALSE;
+			mVisible = false;
 			return;
 //		}
 //		else
@@ -509,7 +509,7 @@ void LLHUDText::updateVisibility()
 //		}
 	}
 
-	mVisible = TRUE;
+	mVisible = true;
 	sVisibleTextObjects.push_back(LLPointer<LLHUDText> (this));
 }
 

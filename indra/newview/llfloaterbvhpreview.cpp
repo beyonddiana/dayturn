@@ -219,7 +219,7 @@ bool LLFloaterBvhPreview::postBuild()
 	mStopButton = getChild<LLButton>( "stop_btn");
 	mStopButton->setClickedCallback(boost::bind(&LLFloaterBvhPreview::onBtnStop, this));
 
-	getChildView("bad_animation_text")->setVisible(FALSE);
+	getChildView("bad_animation_text")->setVisible(false);
 
     mAnimPreview = new LLPreviewAnimation(256, 256);
     
@@ -330,7 +330,7 @@ bool LLFloaterBvhPreview::postBuild()
 			getChild<LLUICtrl>("hand_pose_combo")->setValue(LLHandMotion::getHandPoseName(motionp->getHandPose()));
 			getChild<LLUICtrl>("ease_in_time")->setValue(LLSD(motionp->getEaseInDuration()));
 			getChild<LLUICtrl>("ease_out_time")->setValue(LLSD(motionp->getEaseOutDuration()));
-			setEnabled(TRUE);
+			setEnabled(true);
 			std::string seconds_string;
 			seconds_string = llformat(" - %.2f seconds", motionp->getDuration());
 
@@ -362,7 +362,7 @@ bool LLFloaterBvhPreview::postBuild()
 			}
 		}
 
-		//setEnabled(FALSE);
+		//setEnabled(false);
 		mMotionID.setNull();
 		mAnimPreview = NULL;
 	}
@@ -381,7 +381,7 @@ LLFloaterBvhPreview::~LLFloaterBvhPreview()
 {
 	mAnimPreview = NULL;
 
-	setEnabled(FALSE);
+	setEnabled(false);
 }
 
 //-----------------------------------------------------------------------------
@@ -938,22 +938,22 @@ void LLFloaterBvhPreview::refresh()
 	bool show_play = true;
 	if (!mAnimPreview)
 	{
-		getChildView("bad_animation_text")->setVisible(TRUE);
+		getChildView("bad_animation_text")->setVisible(true);
 		// play button visible but disabled
-		mPlayButton->setEnabled(FALSE);
-		mStopButton->setEnabled(FALSE);
-		getChildView("ok_btn")->setEnabled(FALSE);
+		mPlayButton->setEnabled(false);
+		mStopButton->setEnabled(false);
+		getChildView("ok_btn")->setEnabled(false);
 	}
 	else
 	{
-		getChildView("bad_animation_text")->setVisible(FALSE);
+		getChildView("bad_animation_text")->setVisible(false);
 		// re-enabled in case previous animation was bad
-		mPlayButton->setEnabled(TRUE);
-		mStopButton->setEnabled(TRUE);
+		mPlayButton->setEnabled(true);
+		mStopButton->setEnabled(true);
 		LLVOAvatar* avatarp = mAnimPreview->getDummyAvatar();
 		if (avatarp->isMotionActive(mMotionID))
 		{
-			mStopButton->setEnabled(TRUE);
+			mStopButton->setEnabled(true);
 			LLKeyframeMotion* motionp = (LLKeyframeMotion*)avatarp->findMotion(mMotionID);
 			if (!avatarp->areAnimationsPaused())
 			{
@@ -971,7 +971,7 @@ void LLFloaterBvhPreview::refresh()
 			// Motion just finished playing
 			mPauseRequest = avatarp->requestPause();
 		}
-		getChildView("ok_btn")->setEnabled(TRUE);
+		getChildView("ok_btn")->setEnabled(true);
 		mAnimPreview->requestUpdate();
 	}
 	mPlayButton->setVisible(show_play);

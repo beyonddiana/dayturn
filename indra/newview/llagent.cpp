@@ -2315,18 +2315,18 @@ void LLAgent::endAnimationUpdateUI()
 		// show mouse cursor
 		gViewerWindow->showCursor();
 		// show menus
-		gMenuBarView->setVisible(TRUE);
+		gMenuBarView->setVisible(true);
 		LLNavigationBar::getInstance()->setVisible(TRUE && gSavedSettings.getBOOL("ShowNavbarNavigationPanel"));
 		gStatusBar->setVisibleForMouselook(true);
 
 		if (gSavedSettings.getBOOL("ShowMiniLocationPanel"))
 		{
-			LLPanelTopInfoBar::getInstance()->setVisible(TRUE);
+			LLPanelTopInfoBar::getInstance()->setVisible(true);
 		}
 
-		LLChicletBar::getInstance()->setVisible(TRUE);
+		LLChicletBar::getInstance()->setVisible(true);
 
-		LLPanelStandStopFlying::getInstance()->setVisible(TRUE);
+		LLPanelStandStopFlying::getInstance()->setVisible(true);
 
 		LLToolMgr::getInstance()->setCurrentToolset(gBasicToolset);
 
@@ -2370,7 +2370,7 @@ void LLAgent::endAnimationUpdateUI()
 		gAgentCamera.setLookAt(LOOKAT_TARGET_CLEAR);
 		if( gMorphView )
 		{
-			gMorphView->setVisible( FALSE );
+			gMorphView->setVisible(false);
 		}
 
 		// Disable mouselook-specific animations
@@ -2409,7 +2409,7 @@ void LLAgent::endAnimationUpdateUI()
 
 		if( gMorphView )
 		{
-			gMorphView->setVisible( FALSE );
+			gMorphView->setVisible(false);
 		}
 
 		if (isAgentAvatarValid())
@@ -2440,7 +2440,6 @@ void LLAgent::endAnimationUpdateUI()
     		// another command already (Ctrl+Alt+F1) or (Ctrl-Shift-U). 
 			// Hiding the UI renders Mouselook pretty useless, if you ask me.
 
-
 	//mk
 			// clean up UI
 			// first show anything hidden by UI toggle
@@ -2448,15 +2447,15 @@ void LLAgent::endAnimationUpdateUI()
 
 			// then hide stuff we want hidden for mouselook 
 			gToolBarView->setToolBarsVisible(false);
-			gMenuBarView->setVisible(FALSE);
-			LLNavigationBar::getInstance()->setVisible(FALSE);
+			gMenuBarView->setVisible(false);
+			LLNavigationBar::getInstance()->setVisible(false);
 			gStatusBar->setVisibleForMouselook(false);
 
-			LLPanelTopInfoBar::getInstance()->setVisible(FALSE);
+			LLPanelTopInfoBar::getInstance()->setVisible(false);
 
-			LLChicletBar::getInstance()->setVisible(FALSE);
+			LLChicletBar::getInstance()->setVisible(false);
 
-			LLPanelStandStopFlying::getInstance()->setVisible(FALSE);
+			LLPanelStandStopFlying::getInstance()->setVisible(false);
 
 			// clear out camera lag effect
 			gAgentCamera.clearCameraLag();
@@ -2490,10 +2489,10 @@ void LLAgent::endAnimationUpdateUI()
 	//mk
 			if( gMorphView )
 			{
-				gMorphView->setVisible(FALSE);
+				gMorphView->setVisible(false);
 			}
 
-			gConsole->setVisible( TRUE );
+			gConsole->setVisible(true);
 
 		if (isAgentAvatarValid())
 		{
@@ -2542,7 +2541,7 @@ void LLAgent::endAnimationUpdateUI()
 
 		if( gMorphView )
 		{
-			gMorphView->setVisible( TRUE );
+			gMorphView->setVisible(true);
 		}
 
 		// freeze avatar

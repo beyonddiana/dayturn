@@ -94,7 +94,7 @@ bool LLToggleableMenu::toggleVisibility()
 
 	if (getVisible())
 	{
-		setVisible(FALSE);
+		setVisible(false);
 		mClosedByButtonClick = false;
 		return false;
 	}

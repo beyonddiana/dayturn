@@ -236,11 +236,11 @@ void LLFloaterSettingsDebug::updateControl(LLControlVariable* controlp)
 		return;
 	}
 
-	spinner1->setVisible(FALSE);
-	spinner2->setVisible(FALSE);
-	spinner3->setVisible(FALSE);
-	spinner4->setVisible(FALSE);
-	color_swatch->setVisible(FALSE);
+	spinner1->setVisible(false);
+	spinner2->setVisible(false);
+	spinner3->setVisible(false);
+	spinner4->setVisible(false);
+	color_swatch->setVisible(false);
 	getChildView("val_text")->setVisible( FALSE);
 	mComment->setText(LLStringUtil::null);
 
@@ -287,7 +287,7 @@ void LLFloaterSettingsDebug::updateControl(LLControlVariable* controlp)
 		switch(type)
 		{
 		  case TYPE_U32:
-			spinner1->setVisible(TRUE);
+			spinner1->setVisible(true);
 			spinner1->setLabel(std::string("value")); // Debug, don't translate
 			if (!spinner1->hasFocus())
 			{
@@ -299,7 +299,7 @@ void LLFloaterSettingsDebug::updateControl(LLControlVariable* controlp)
 			}
 			break;
 		  case TYPE_S32:
-			spinner1->setVisible(TRUE);
+			spinner1->setVisible(true);
 			spinner1->setLabel(std::string("value")); // Debug, don't translate
 			if (!spinner1->hasFocus())
 			{
@@ -311,7 +311,7 @@ void LLFloaterSettingsDebug::updateControl(LLControlVariable* controlp)
 			}
 			break;
 		  case TYPE_F32:
-			spinner1->setVisible(TRUE);
+			spinner1->setVisible(true);
 			spinner1->setLabel(std::string("value")); // Debug, don't translate
 			if (!spinner1->hasFocus())
 			{
@@ -356,11 +356,11 @@ void LLFloaterSettingsDebug::updateControl(LLControlVariable* controlp)
 		  {
 			LLVector3 v;
 			v.setValue(sd);
-			spinner1->setVisible(TRUE);
+			spinner1->setVisible(true);
 			spinner1->setLabel(std::string("X"));
-			spinner2->setVisible(TRUE);
+			spinner2->setVisible(true);
 			spinner2->setLabel(std::string("Y"));
-			spinner3->setVisible(TRUE);
+			spinner3->setVisible(true);
 			spinner3->setLabel(std::string("Z"));
 			if (!spinner1->hasFocus())
 			{
@@ -383,11 +383,11 @@ void LLFloaterSettingsDebug::updateControl(LLControlVariable* controlp)
 		  {
 			LLVector3d v;
 			v.setValue(sd);
-			spinner1->setVisible(TRUE);
+			spinner1->setVisible(true);
 			spinner1->setLabel(std::string("X"));
-			spinner2->setVisible(TRUE);
+			spinner2->setVisible(true);
 			spinner2->setLabel(std::string("Y"));
-			spinner3->setVisible(TRUE);
+			spinner3->setVisible(true);
 			spinner3->setLabel(std::string("Z"));
 			if (!spinner1->hasFocus())
 			{
@@ -410,13 +410,13 @@ void LLFloaterSettingsDebug::updateControl(LLControlVariable* controlp)
 		  {
 			LLRect r;
 			r.setValue(sd);
-			spinner1->setVisible(TRUE);
+			spinner1->setVisible(true);
 			spinner1->setLabel(std::string("Left"));
-			spinner2->setVisible(TRUE);
+			spinner2->setVisible(true);
 			spinner2->setLabel(std::string("Right"));
-			spinner3->setVisible(TRUE);
+			spinner3->setVisible(true);
 			spinner3->setLabel(std::string("Bottom"));
-			spinner4->setVisible(TRUE);
+			spinner4->setVisible(true);
 			spinner4->setLabel(std::string("Top"));
 			if (!spinner1->hasFocus())
 			{
@@ -460,13 +460,13 @@ void LLFloaterSettingsDebug::updateControl(LLControlVariable* controlp)
 		  {
 			LLColor4 clr;
 			clr.setValue(sd);
-			color_swatch->setVisible(TRUE);
+			color_swatch->setVisible(true);
 			// only set if changed so color picker doesn't update
 			if(clr != LLColor4(color_swatch->getValue()))
 			{
 				color_swatch->set(LLColor4(sd), TRUE, FALSE);
 			}
-			spinner4->setVisible(TRUE);
+			spinner4->setVisible(true);
 			spinner4->setLabel(std::string("Alpha"));
 			if (!spinner4->hasFocus())
 			{
@@ -481,7 +481,7 @@ void LLFloaterSettingsDebug::updateControl(LLControlVariable* controlp)
 		  {
 			LLColor3 clr;
 			clr.setValue(sd);
-			color_swatch->setVisible(TRUE);
+			color_swatch->setVisible(true);
 			color_swatch->setValue(sd);
 			break;
 		  }

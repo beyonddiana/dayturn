@@ -590,7 +590,7 @@ void LLScrollContainer::updateScroll()
 		}
 
 		scrollVertical(	mScrollbar[VERTICAL]->getDocPos() );
-		mScrollbar[VERTICAL]->setVisible( TRUE );
+		mScrollbar[VERTICAL]->setVisible(true);
 
 		S32 v_scrollbar_height = visible_height;
 		if( !show_h_scrollbar && mReserveScrollCorner )
@@ -613,7 +613,7 @@ void LLScrollContainer::updateScroll()
 	{
 		mScrolledView->translate( 0, getRect().getHeight() - border_width - doc_rect.mTop );
 
-		mScrollbar[VERTICAL]->setVisible( FALSE );
+		mScrollbar[VERTICAL]->setVisible(false);
 		mScrollbar[VERTICAL]->setDocPos( 0 );
 	}
 		
@@ -629,7 +629,7 @@ void LLScrollContainer::updateScroll()
 			scrollHorizontal( mScrollbar[HORIZONTAL]->getDocPos() );
 		}
 	
-		mScrollbar[HORIZONTAL]->setVisible( TRUE );
+		mScrollbar[HORIZONTAL]->setVisible(true);
 		S32 h_scrollbar_width = visible_width;
 		if( !show_v_scrollbar && mReserveScrollCorner )
 		{
@@ -641,7 +641,7 @@ void LLScrollContainer::updateScroll()
 	{
 		mScrolledView->translate( border_width - doc_rect.mLeft, 0 );
 		
-		mScrollbar[HORIZONTAL]->setVisible( FALSE );
+		mScrollbar[HORIZONTAL]->setVisible(false);
 		mScrollbar[HORIZONTAL]->setDocPos( 0 );
 	}
 

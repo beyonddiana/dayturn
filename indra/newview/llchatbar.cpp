@@ -495,13 +495,13 @@ void LLChatBar::startChat(const char* line)
 	//TODO* remove DUMMY chat
 	//if(gBottomTray && gBottomTray->getChatBox())
 	//{
-	//	gBottomTray->setVisible(TRUE);
+	//	gBottomTray->setVisible(true);
 	//	gBottomTray->getChatBox()->setFocus(TRUE);
 	//}
 
 	// *TODO Vadim: Why was this code commented out?
 
-// 	gChatBar->setVisible(TRUE);
+// 	gChatBar->setVisible(true);
 // 	gChatBar->setKeyboardFocus(TRUE);
 // 	gSavedSettings.setBOOL("ChatVisible", TRUE);
 // 
@@ -540,7 +540,7 @@ void LLChatBar::stopChat()
 // 	gAgent.stopTyping();
 // 
 // 	// hide chat bar so it doesn't grab focus back
-// 	gChatBar->setVisible(FALSE);
+// 	gChatBar->setVisible(false);
 // 	gSavedSettings.setBOOL("ChatVisible", FALSE);
 }
 

@@ -558,7 +558,7 @@ void LLComboBox::createLineEditor(const LLComboBox::Params& p)
 		
 		if (mTextEntry)
 		{
-			mTextEntry->setVisible(FALSE);
+			mTextEntry->setVisible(false);
 		}
 	}
 }
@@ -666,7 +666,7 @@ void LLComboBox::showList()
 
 	// Show the list and push the button down
 	mButton->setToggleState(TRUE);
-	mList->setVisible(TRUE);
+	mList->setVisible(true);
 	
 	LLUI::addPopup(this);
 
@@ -690,7 +690,7 @@ void LLComboBox::hideList()
 			mList->selectNthItem(mLastSelectedIndex);
 
 		mButton->setToggleState(FALSE);
-		mList->setVisible(FALSE);
+		mList->setVisible(false);
 		mList->mouseOverHighlightNthItem(-1);
 
 		setUseBoundingRect(FALSE);

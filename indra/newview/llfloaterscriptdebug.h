@@ -38,7 +38,7 @@ public:
 	LLFloaterScriptDebug(const LLSD& key);
 	virtual ~LLFloaterScriptDebug();
 	virtual bool postBuild();
-	virtual void setVisible(BOOL visible);
+	virtual void setVisible(bool visible);
     static void show(const LLUUID& object_id);
 
     /*virtual*/ void closeFloater(bool app_quitting = false);

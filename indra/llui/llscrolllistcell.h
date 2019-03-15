@@ -99,7 +99,7 @@ public:
 	virtual void			setValue(const LLSD& value) { }
 	virtual const std::string &getToolTip() const { return mToolTip; }
 	virtual void			setToolTip(const std::string &str) { mToolTip = str; }
-	virtual BOOL			getVisible() const { return TRUE; }
+	virtual bool			getVisible() const { return true; }
 	virtual void			setWidth(S32 width) { mWidth = width; }
 	virtual void			highlightText(S32 offset, S32 num_chars) {}
 	virtual BOOL			isText() const { return FALSE; }
@@ -108,7 +108,7 @@ public:
 	virtual void			onCommit() {};
 
 	virtual BOOL			handleClick() { return FALSE; }
-	virtual	void			setEnabled(BOOL enable) { }
+	virtual	void			setEnabled(bool enable) { }
 
 private:
 	S32 mWidth;
@@ -137,7 +137,7 @@ public:
 	/*virtual*/ S32		getHeight() const;
 	/*virtual*/ void	setValue(const LLSD& value);
 	/*virtual*/ const LLSD getValue() const;
-	/*virtual*/ BOOL	getVisible() const;
+	/*virtual*/ bool	getVisible() const;
 	/*virtual*/ void	highlightText(S32 offset, S32 num_chars);
 
 	/*virtual*/ void	setColor(const LLColor4&);
@@ -160,7 +160,7 @@ private:
 	LLColor4		mHighlightColor;
 	U8				mUseColor;
 	LLFontGL::HAlign mFontAlignment;
-	BOOL			mVisible;
+	bool			mVisible;
 	S32				mHighlightCount;
 	S32				mHighlightOffset;
 
@@ -205,7 +205,7 @@ public:
 	/*virtual*/ void	onCommit();
 
 	/*virtual*/ BOOL	handleClick();
-	/*virtual*/ void	setEnabled(BOOL enable);
+	/*virtual*/ void	setEnabled(bool enable);
 
 	LLCheckBoxCtrl*	getCheckBox()				{ return mCheckBox; }
 

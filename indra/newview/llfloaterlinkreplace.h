@@ -58,7 +58,7 @@ public:
 
 	virtual bool postBuild()
 	{
-		setEnabled(FALSE);
+		setEnabled(false);
 		return LLLineEditor::postBuild();
 	}
 

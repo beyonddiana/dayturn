@@ -674,7 +674,7 @@ bool LLAvatarList::isAvalineItemSelected()
 	return false;
 }
 
-void LLAvatarList::setVisible(BOOL visible)
+void LLAvatarList::setVisible(bool visible)
 {
 	if ( visible == FALSE && mContextMenu )
 	{

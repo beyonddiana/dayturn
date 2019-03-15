@@ -946,7 +946,7 @@ LLMenuItemBranchGL::LLMenuItemBranchGL(const LLMenuItemBranchGL::Params& p)
 	if (branch)
 	{
 		mBranchHandle = branch->getHandle();
-		branch->setVisible(FALSE);
+		branch->setVisible(false);
 		branch->setParentMenuItem(this);
 	}
 }
@@ -1101,17 +1101,17 @@ void LLMenuItemBranchGL::setHighlight( BOOL highlight )
 	if (!branch)
 		return;
 
-	BOOL auto_open = getEnabled() && (!branch->getVisible() || branch->getTornOff());
+	bool auto_open = getEnabled() && (!branch->getVisible() || branch->getTornOff());
 	// torn off menus don't open sub menus on hover unless they have focus
 	LLFloater * menu_parent = dynamic_cast<LLFloater *>(getMenu()->getParent());
 	if (getMenu()->getTornOff() && menu_parent && !menu_parent->hasFocus())
 	{
-		auto_open = FALSE;
+		auto_open = false;
 	}
 	// don't auto open torn off sub-menus (need to explicitly active menu item to give them focus)
 	if (branch->getTornOff())
 	{
-		auto_open = FALSE;
+		auto_open = false;
 	}
 	LLMenuItemGL::setHighlight(highlight);
 	if( highlight )
@@ -1134,7 +1134,7 @@ void LLMenuItemBranchGL::setHighlight( BOOL highlight )
 		}
 		else
 		{
-			branch->setVisible( FALSE );
+			branch->setVisible( false );
 		}
 	}
 }
@@ -1161,7 +1161,7 @@ void LLMenuItemBranchGL::onVisibilityChange( bool new_visibility )
 {
 	if (new_visibility == false && getBranch() && !getBranch()->getTornOff())
 	{
-		getBranch()->setVisible(FALSE);
+		getBranch()->setVisible(false);
 	}
 	LLMenuItemGL::onVisibilityChange(new_visibility);
 }
@@ -1296,7 +1296,7 @@ void LLMenuItemBranchGL::openMenu()
 		}
 		branch->translate( delta_x, delta_y );
 
-		branch->setVisible( TRUE );
+		branch->setVisible( true );
 		branch->getParent()->sendChildToFront(branch);
 
 		dirtyRect();
@@ -1373,7 +1373,7 @@ void LLMenuItemBranchDownGL::openMenu( void )
 	LLMenuGL* branch = getBranch();
 	if( branch->getVisible() && !branch->getTornOff() )
 	{
-		branch->setVisible( FALSE );
+		branch->setVisible( false );
 	}
 	else
 	{
@@ -1415,7 +1415,7 @@ void LLMenuItemBranchDownGL::openMenu( void )
 			branch->translate( delta_x, 0 );
 
 			setHighlight(TRUE);
-			branch->setVisible( TRUE );
+			branch->setVisible( true );
 			branch->getParent()->sendChildToFront(branch);
 		}
 	}
@@ -1447,7 +1447,7 @@ void LLMenuItemBranchDownGL::setHighlight( BOOL highlight )
 		}
 		else
 		{
-			branch->setVisible( FALSE );
+			branch->setVisible( false );
 		}
 	}
 }
@@ -1486,8 +1486,8 @@ BOOL LLMenuItemBranchDownGL::handleMouseUp( S32 x, S32 y, MASK mask )
 
 BOOL LLMenuItemBranchDownGL::handleAcceleratorKey(KEY key, MASK mask)
 {
-	BOOL branch_visible = getBranch()->getVisible();
-	BOOL handled = getBranch()->handleAcceleratorKey(key, mask);
+	bool branch_visible = getBranch()->getVisible();
+	bool handled = getBranch()->handleAcceleratorKey(key, mask);
 	if (handled && !branch_visible && isInVisibleChain())
 	{
 		// flash this menu entry because we triggered an invisible menu item
@@ -1638,7 +1638,7 @@ protected:
 public:
 	/*virtual*/ void draw();
 	/*virtual*/ void reshape(S32 width, S32 height, bool called_from_parent);
-	/*virtual*/ void setEnabled(BOOL enabled);
+	/*virtual*/ void setEnabled(bool enabled);
 	virtual void onCommit( void );
 
 private:
@@ -1695,7 +1695,7 @@ void LLMenuScrollItem::reshape(S32 width, S32 height, bool called_from_parent)
 }
 
 /*virtual*/
-void LLMenuScrollItem::setEnabled(BOOL enabled)
+void LLMenuScrollItem::setEnabled(bool enabled)
 {
 	mArrowBtn->setEnabled(enabled);
 	LLView::setEnabled(enabled);
@@ -1870,7 +1870,7 @@ bool LLMenuGL::postBuild()
 BOOL LLMenuGL::jumpKeysActive()
 {
 	LLMenuItemGL* highlighted_item = getHighlightedItem();
-	BOOL active = getVisible() && getEnabled();
+	bool active = getVisible() && getEnabled();
 
 	if (active)
 	{
@@ -2280,11 +2280,11 @@ void LLMenuGL::arrange( void )
 
 				LLRect rect;
 				mArrowUpItem->setRect(rect.setLeftTopAndSize( 0, cur_height, width, mArrowUpItem->getNominalHeight()));
-				mArrowUpItem->setVisible(TRUE);
+				mArrowUpItem->setVisible(true);
 				mArrowUpItem->setEnabled(height_before_first_visible_item > MENU_ITEM_PADDING);
 				mArrowUpItem->reshape(width, mArrowUpItem->getNominalHeight());
 				mArrowDownItem->setRect(rect.setLeftTopAndSize( 0, mArrowDownItem->getNominalHeight(), width, mArrowDownItem->getNominalHeight()));
-				mArrowDownItem->setVisible(TRUE);
+				mArrowDownItem->setVisible(true);
 				mArrowDownItem->setEnabled(height_before_first_visible_item + visible_items_height < (S32)height);
 				mArrowDownItem->reshape(width, mArrowDownItem->getNominalHeight());
 
@@ -2296,11 +2296,11 @@ void LLMenuGL::arrange( void )
 			{
 				if (NULL != mArrowUpItem)
 				{
-					mArrowUpItem->setVisible(FALSE);
+					mArrowUpItem->setVisible(false);
 				}
 				if (NULL != mArrowDownItem)
 				{
-					mArrowDownItem->setVisible(FALSE);
+					mArrowDownItem->setVisible(false);
 				}
 			}
 
@@ -3146,7 +3146,7 @@ void LLMenuGL::drawBackground(LLMenuItemGL* itemp, F32 alpha)
 	gl_rect_2d( 0, item_rect.getHeight(), item_rect.getWidth(), 0);
 }
 
-void LLMenuGL::setVisible(BOOL visible)
+void LLMenuGL::setVisible(bool visible)
 {
 	if (visible != getVisible())
 	{
@@ -3206,7 +3206,7 @@ BOOL LLMenuGL::clearHoverItem()
 
 void hide_top_view( LLView* view )
 {
-	if( view ) view->setVisible( FALSE );
+	if( view ) view->setVisible( false );
 }
 
 
@@ -3223,7 +3223,7 @@ void LLMenuGL::showPopup(LLView* spawning_view, LLMenuGL* menu, S32 x, S32 y, S3
 		return;
 	}
 
-	menu->setVisible( TRUE );
+	menu->setVisible( true );
 
 	if(!menu->getAlwaysShowMenu())
 	{
@@ -3239,7 +3239,7 @@ void LLMenuGL::showPopup(LLView* spawning_view, LLMenuGL* menu, S32 x, S32 y, S3
 
 		if(!item_enabled)
 		{
-			menu->setVisible( FALSE );
+			menu->setVisible( false );
 			return;
 		}
 	}
@@ -3794,7 +3794,7 @@ BOOL LLMenuHolderGL::hideMenus()
 			LLView* viewp = *child_it;
 			if (dynamic_cast<LLMenuGL*>(viewp) != NULL && viewp->getVisible())
 			{
-				viewp->setVisible(FALSE);
+				viewp->setVisible(false);
 			}
 		}
 	}
@@ -3839,7 +3839,7 @@ LLTearOffMenu::LLTearOffMenu(LLMenuGL* menup) :
 	menup->setFollows( FOLLOWS_LEFT | FOLLOWS_BOTTOM );
 	mOldParent = menup->getParent();
 	addChild(menup);
-	menup->setVisible(TRUE);
+	menup->setVisible(true);
 	LLRect menu_rect = menup->getRect();
 	menu_rect.setOriginAndSize( 1, 1,
 		menu_rect.getWidth(), menu_rect.getHeight());
@@ -3958,7 +3958,7 @@ void LLTearOffMenu::closeTearOff()
 	mMenu->clearHoverItem();
 	mMenu->setFollowsNone();
 	mMenu->setBackgroundVisible(TRUE);
-	mMenu->setVisible(FALSE);
+	mMenu->setVisible(false);
 	mMenu->setTornOff(FALSE);
 	mMenu->setDropShadowed(TRUE);
 }
@@ -4062,7 +4062,7 @@ LLContextMenu::LLContextMenu(const Params& p)
 	//setBackgroundVisible(TRUE);
 }
 
-void LLContextMenu::setVisible(BOOL visible)
+void LLContextMenu::setVisible(bool visible)
 {
 	if (!visible)
 		hide();
@@ -4131,14 +4131,14 @@ void LLContextMenu::show(S32 x, S32 y, LLView* spawning_view)
 	{
 		mSpawningViewHandle.markDead();
 	}
-	LLView::setVisible(TRUE);
+	LLView::setVisible(true);
 }
 
 void LLContextMenu::hide()
 {
 	if (!getVisible()) return;
 
-	LLView::setVisible(FALSE);
+	LLView::setVisible(false);
 
 	if (mHoverItem)
 	{

@@ -1572,7 +1572,7 @@ bool LLVOAvatarSelf::isLocalTextureDataAvailable(const LLViewerTexLayerSet* laye
 				const U32 wearable_count = gAgentWearables.getWearableCount(wearable_type);
 				for (U32 wearable_index = 0; wearable_index < wearable_count; wearable_index++)
 				{
-					BOOL tex_avail = (getLocalDiscardLevel(tex_index, wearable_index) >= 0);
+					bool tex_avail = (getLocalDiscardLevel(tex_index, wearable_index) >= 0);
 					ret &= tex_avail;
 				}
 			}

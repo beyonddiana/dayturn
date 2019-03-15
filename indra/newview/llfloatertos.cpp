@@ -129,7 +129,7 @@ bool LLFloaterTOS::postBuild()
 
 	// hide the SL text widget if we're displaying TOS with using a browser widget.
 	LLUICtrl *editor = getChild<LLUICtrl>("tos_text");
-	editor->setVisible( FALSE );
+	editor->setVisible(false);
 
 	LLMediaCtrl* web_browser = getChild<LLMediaCtrl>("tos_html");
 	if ( web_browser )

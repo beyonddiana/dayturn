@@ -824,7 +824,7 @@ S32	LLAccordionCtrl::notifyParent(const LLSD& info)
 		if (new_visibility)
 		{
 			// there is at least one visible tab
-			mNoVisibleTabsHelpText->setVisible(FALSE);
+			mNoVisibleTabsHelpText->setVisible(false);
 		}
 		else
 		{

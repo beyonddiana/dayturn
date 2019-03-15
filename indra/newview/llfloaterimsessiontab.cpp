@@ -138,7 +138,7 @@ LLFloaterIMSessionTab* LLFloaterIMSessionTab::getConversation(const LLUUID& uuid
 	return conv;
 };
 
-void LLFloaterIMSessionTab::setVisible(BOOL visible)
+void LLFloaterIMSessionTab::setVisible(bool visible)
 {
 	if(visible && !mHasVisibleBeenInitialized)
 	{
@@ -543,7 +543,7 @@ void LLFloaterIMSessionTab::addConversationViewParticipant(LLConversationItem* p
 		mConversationsWidgets[uuid] = participant_view;
 		participant_view->addToFolder(mConversationsRoot);
 		participant_view->addToSession(mSessionID);
-		participant_view->setVisible(TRUE);
+		participant_view->setVisible(true);
 	}
 }
 
@@ -586,7 +586,7 @@ void LLFloaterIMSessionTab::refreshConversation()
 			participants_uuids.push_back(widget_it->first);
 		}
 		widget_it->second->refresh();
-		widget_it->second->setVisible(TRUE);
+		widget_it->second->setVisible(true);
 		++widget_it;
 	}
 	if (is_ad_hoc || mIsP2PChat)
@@ -1110,7 +1110,7 @@ void LLFloaterIMSessionTab::onTearOffClicked()
 void LLFloaterIMSessionTab::updateGearBtn()
 {
 
-	BOOL prevVisibility = mGearBtn->getVisible();
+	bool prevVisibility = mGearBtn->getVisible();
 	mGearBtn->setVisible(checkIfTornOff() && mIsP2PChat);
 
 

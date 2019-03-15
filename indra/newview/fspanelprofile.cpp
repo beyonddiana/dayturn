@@ -1202,11 +1202,11 @@ void FSPanelPick::setAvatarId(const LLUUID& avatar_id)
     {
         getChild<LLLineEditor>("pick_name")->setEnabled( TRUE );
         getChild<LLUICtrl>("pick_desc")->setEnabled( TRUE );
-        getChild<LLUICtrl>("set_to_curr_location_btn")->setVisible( TRUE );
+        getChild<LLUICtrl>("set_to_curr_location_btn")->setVisible( true );
     }
 	/*else
 	{
-		mSnapshotCtrl->setEnabled(FALSE);
+		mSnapshotCtrl->setEnabled(false);
 	}*/
 }
 
@@ -1249,7 +1249,7 @@ void FSPanelPick::processProperties(void* data, EAvatarProcessorType type)
     setSnapshotId(pick_info->snapshot_id);
 	if (getAvatarId() != gAgent.getID())
 	{
-		mSnapshotCtrl->setEnabled(FALSE);
+		mSnapshotCtrl->setEnabled(false);
 	}
     setPickName(pick_info->name);
     setPickDesc(pick_info->desc);
@@ -1662,7 +1662,7 @@ void FSPanelProfilePicks::updateData()
     if (getAvatarId().notNull())
     {
         mNoItemsLabel->setValue(LLTrans::getString("PicksClassifiedsLoadingText"));
-        mNoItemsLabel->setVisible(TRUE);
+        mNoItemsLabel->setVisible(true);
 
         LLAvatarPropertiesProcessor::getInstance()->sendAvatarPicksRequest(getAvatarId());
     }

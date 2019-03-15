@@ -95,7 +95,7 @@ void FloaterAO::updateAnimationList()
 
 	if(!mSelectedSet)
 	{
-		mStateSelector->setEnabled(FALSE);
+		mStateSelector->setEnabled(false);
 		mStateSelector->add(getString("ao_no_animations_loaded"));
 		return;
 	}
@@ -119,7 +119,7 @@ void FloaterAO::updateAnimationList()
 
 void FloaterAO::updateList()
 {
-	mReloadButton->setEnabled(TRUE);
+	mReloadButton->setEnabled(true);
 	mImportRunning=false;
 
 	std::string currentSetName=mSetSelector->getSelectedItemLabel();
@@ -250,8 +250,8 @@ bool FloaterAO::postBuild()
 	AOEngine::instance().setAnimationChangedCallback(boost::bind(&FloaterAO::onAnimationChanged,this,_1));
 
 	onChangeAnimationSelection();
-	mMainInterfacePanel->setVisible(TRUE);
-	mSmallInterfacePanel->setVisible(FALSE);
+	mMainInterfacePanel->setVisible(true);
+	mSmallInterfacePanel->setVisible(false);
 	reloading(true);
 
 	updateList();
@@ -396,7 +396,7 @@ void FloaterAO::onSelectState()
 	mAnimationList->deleteAllItems();
 	mCurrentBoldItem=NULL;
 	mAnimationList->setCommentText(getString("ao_no_animations_loaded"));
-	mAnimationList->setEnabled(FALSE);
+	mAnimationList->setEnabled(false);
 
 	onChangeAnimationSelection();
 
@@ -418,7 +418,7 @@ void FloaterAO::onSelectState()
 		}
 
 		mAnimationList->setCommentText("");
-		mAnimationList->setEnabled(TRUE);
+		mAnimationList->setEnabled(true);
 	}
 
 	mCycleCheckBox->setValue(mSelectedState->mCycle);
@@ -678,8 +678,8 @@ void FloaterAO::onClickMore()
 
 	mMore=true;
 
-	mSmallInterfacePanel->setVisible(FALSE);
-	mMainInterfacePanel->setVisible(TRUE);
+	mSmallInterfacePanel->setVisible(false);
+	mMainInterfacePanel->setVisible(true);
 	setCanResize(true);
 
 	gSavedPerAccountSettings.setBOOL("UseFullAOInterface",TRUE);
@@ -697,8 +697,8 @@ void FloaterAO::onClickLess()
 
 	mMore=false;
 
-	mSmallInterfacePanel->setVisible(TRUE);
-	mMainInterfacePanel->setVisible(FALSE);
+	mSmallInterfacePanel->setVisible(true);
+	mMainInterfacePanel->setVisible(false);
 	setCanResize(false);
 
 	gSavedPerAccountSettings.setBOOL("UseFullAOInterface",FALSE);
@@ -773,7 +773,7 @@ bool FloaterAO::handleDragAndDrop(S32 x,S32 y,MASK mask,bool drop,EDragAndDropTy
 			if(AOEngine::instance().importNotecard(item))
 			{
 				reloading(true);
-				mReloadButton->setEnabled(FALSE);
+				mReloadButton->setEnabled(false);
 				mImportRunning=true;
 			}
 		}

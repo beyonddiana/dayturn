@@ -440,7 +440,7 @@ void LLFastTimerView::onOpen(const LLSD& key)
 										
 void LLFastTimerView::onClose(bool app_quitting)
 {
-	setVisible(FALSE);
+	setVisible(false);
 }
 
 void saveChart(const std::string& label, const char* suffix, LLImageRaw* scratch)

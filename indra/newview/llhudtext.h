@@ -113,7 +113,7 @@ public:
 	/*virtual*/ void markDead();
 	friend class LLHUDObject;
 	/*virtual*/ F32 getDistance() const { return mLastDistance; }
-	BOOL getVisible() { return mVisible; }
+	bool getVisible() { return mVisible; }
 	BOOL getHidden() const { return mHidden; }
 	void setHidden( BOOL hide ) { mHidden = hide; }
 	void setOnHUDAttachment(BOOL on_hud) { mOnHUDAttachment = on_hud; }

@@ -180,7 +180,7 @@ void LLFloaterOutfitPhotoPreview::updateDimensions()
 
 	if ((mImage->getFullWidth() <= MAX_OUTFIT_PHOTO_WIDTH) && (mImage->getFullHeight() <= MAX_OUTFIT_PHOTO_HEIGHT))
 	{
-		getChild<LLButton>("ok_btn")->setEnabled(TRUE);
+		getChild<LLButton>("ok_btn")->setEnabled(true);
 		mExceedLimits = FALSE;
 	}
 	else
@@ -192,7 +192,7 @@ void LLFloaterOutfitPhotoPreview::updateDimensions()
 		std::string label = getString("exceed_limits", args);
 		getChild<LLUICtrl>("notification")->setValue(label);
 		getChild<LLUICtrl>("notification")->setColor(LLColor4::yellow);
-		getChild<LLButton>("ok_btn")->setEnabled(FALSE);
+		getChild<LLButton>("ok_btn")->setEnabled(false);
 	}
 
 	if (mUpdateDimensions)

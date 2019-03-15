@@ -69,7 +69,7 @@ public:
 
 	BOOL			isMouseHeldDown() const;
 
-	virtual void    setEnabled( BOOL b );
+	virtual void    setEnabled( bool b );
 	virtual void	setFocus( BOOL b );
 	virtual void	clear();
 	virtual bool	isDirty() const { return( getValueF32() != mInitialValue ); }

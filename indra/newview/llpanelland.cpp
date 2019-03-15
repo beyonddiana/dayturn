@@ -125,11 +125,11 @@ void LLPanelLandInfo::refresh()
 		//mTextPrice->setText(LLStringUtil::null);
 		getChild<LLUICtrl>("textbox price")->setValue(LLStringUtil::null);
 
-		getChildView("button buy land")->setEnabled(FALSE);
-		getChildView("button abandon land")->setEnabled(FALSE);
-		getChildView("button subdivide land")->setEnabled(FALSE);
-		getChildView("button join land")->setEnabled(FALSE);
-		getChildView("button about land")->setEnabled(FALSE);
+		getChildView("button buy land")->setEnabled(false);
+		getChildView("button abandon land")->setEnabled(false);
+		getChildView("button subdivide land")->setEnabled(false);
+		getChildView("button join land")->setEnabled(false);
+		getChildView("button about land")->setEnabled(false);
 	}
 	else
 	{
@@ -147,7 +147,7 @@ void LLPanelLandInfo::refresh()
 			
 		if (is_public && !LLViewerParcelMgr::getInstance()->getParcelSelection()->getMultipleOwners())
 		{
-			getChildView("button buy land")->setEnabled(TRUE);
+			getChildView("button buy land")->setEnabled(true);
 		}
 		else
 		{
@@ -183,15 +183,15 @@ void LLPanelLandInfo::refresh()
 			//&& LLViewerParcelMgr::getInstance()->getSelfCount() > 1
 			&& !LLViewerParcelMgr::getInstance()->getParcelSelection()->getWholeParcelSelected())
 		{
-			getChildView("button join land")->setEnabled(TRUE);
+			getChildView("button join land")->setEnabled(true);
 		}
 		else
 		{
 			LL_DEBUGS() << "Invalid selection for joining land" << LL_ENDL;
-			getChildView("button join land")->setEnabled(FALSE);
+			getChildView("button join land")->setEnabled(false);
 		}
 
-		getChildView("button about land")->setEnabled(TRUE);
+		getChildView("button about land")->setEnabled(true);
 
 		// show pricing information
 		S32 area;

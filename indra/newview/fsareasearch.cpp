@@ -172,8 +172,8 @@ bool FSAreaSearch::postBuild()
 		return false;
 	}
 
-	mStatusBarText->setVisible(FALSE);
-	mStatusBarProgress->setVisible(FALSE);
+	mStatusBarText->setVisible(false);
+	mStatusBarProgress->setVisible(false);
 
 	if (!mOptionsMenu) {
 		LL_WARNS("FSAreaSearch") << "The options menu is missing" << LL_ENDL;
@@ -249,7 +249,7 @@ void FSAreaSearch::checkRegion()
 		mRegionRequests.clear();
 		mLastProptiesRecievedTimer.start();
 		mResultsList->deleteAllItems();
-		mStatusBarText->setVisible(FALSE);
+		mStatusBarText->setVisible(false);
 		mRefresh = true;
 	}
 }
@@ -412,19 +412,19 @@ void FSAreaSearch::updateStatusBar()
 		}
 
 		mStatusBarText->setTextArg("[LISTED]", llformat("%d", mResultsList->getItemCount()));
-		mStatusBarText->setVisible(TRUE);
+		mStatusBarText->setVisible(true);
 
 		if (mRequested > 0) {
 			mStatusBarProgress->setValue(((mSearchableObjects - mRequested) * 100) / mSearchableObjects);
-			mStatusBarProgress->setVisible(TRUE);
+			mStatusBarProgress->setVisible(true);
 		}
 		else {
-			mStatusBarProgress->setVisible(FALSE);
+			mStatusBarProgress->setVisible(false);
 		}
 	}
 	else {
-		mStatusBarText->setVisible(FALSE);
-		mStatusBarProgress->setVisible(FALSE);
+		mStatusBarText->setVisible(false);
+		mStatusBarProgress->setVisible(false);
 	}
 }
 

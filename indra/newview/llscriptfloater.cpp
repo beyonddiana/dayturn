@@ -88,7 +88,7 @@ bool LLScriptFloater::toggle(const LLUUID& notification_id)
 		}
 		else
 		{
-			floater->setVisible(TRUE);
+			floater->setVisible(true);
 			floater->setFocus(FALSE);
 		}
 	}
@@ -206,7 +206,7 @@ void LLScriptFloater::setDocked(bool docked, bool pop_on_undock /* = true */)
 	hideToastsIfNeeded();
 }
 
-void LLScriptFloater::setVisible(BOOL visible)
+void LLScriptFloater::setVisible(bool visible)
 {
 	LLDockableFloater::setVisible(visible);
 

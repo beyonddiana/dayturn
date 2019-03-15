@@ -269,7 +269,7 @@ LLViewerWindow::ESnapshotType LLFloaterSnapshot::Impl::getLayerType(LLFloaterSna
 void LLFloaterSnapshot::Impl::setResolution(LLFloaterSnapshot* floater, const std::string& comboname)
 {
 	LLComboBox* combo = floater->getChild<LLComboBox>(comboname);
-		combo->setVisible(TRUE);
+		combo->setVisible(true);
 	updateResolution(combo, floater, FALSE); // to sync spinners with combo
 }
 
@@ -324,8 +324,8 @@ void LLFloaterSnapshot::Impl::updateLayout(LLFloaterSnapshot* floaterp)
 		// can see and interact with fullscreen preview now
 		if (previewp)
 		{
-			previewp->setVisible(TRUE);
-			previewp->setEnabled(TRUE);
+			previewp->setVisible(true);
+			previewp->setEnabled(true);
 		}
 
 		//RN: freeze all avatars
@@ -353,8 +353,8 @@ void LLFloaterSnapshot::Impl::updateLayout(LLFloaterSnapshot* floaterp)
 		floaterp->reshape(floaterp->getRect().getWidth(), floaterp->getRect().getHeight());
 		if (previewp)
 		{
-			previewp->setVisible(FALSE);
-			previewp->setEnabled(FALSE);
+			previewp->setVisible(false);
+			previewp->setEnabled(false);
 		}
 
 		//RN: thaw all avatars
@@ -1145,7 +1145,7 @@ bool LLFloaterSnapshot::postBuild()
 
 	childSetCommitCallback("layer_types", Impl::onCommitLayerTypes, this);
 	getChild<LLUICtrl>("layer_types")->setValue("colors");
-	getChildView("layer_types")->setEnabled(FALSE);
+	getChildView("layer_types")->setEnabled(false);
 
 	getChild<LLUICtrl>("freeze_frame_check")->setValue(gSavedSettings.getBOOL("UseFreezeFrame"));
 	childSetCommitCallback("freeze_frame_check", Impl::onCommitFreezeFrame, this);
@@ -1260,8 +1260,8 @@ void LLFloaterSnapshot::onOpen(const LLSD& key)
 		preview->updateSnapshot(TRUE);
 	}
 	focusFirstItem(FALSE);
-	gSnapshotFloaterView->setEnabled(TRUE);
-	gSnapshotFloaterView->setVisible(TRUE);
+	gSnapshotFloaterView->setEnabled(true);
+	gSnapshotFloaterView->setVisible(true);
 	gSnapshotFloaterView->adjustToFitScreen(this, FALSE);
 
 	impl.updateControls(this);
@@ -1280,8 +1280,8 @@ void LLFloaterSnapshot::onClose(bool app_quitting)
 	if (previewp)
 	{
 		previewp->setAllowFullScreenPreview(FALSE);
-		previewp->setVisible(FALSE);
-		previewp->setEnabled(FALSE);
+		previewp->setVisible(false);
+		previewp->setEnabled(false);
 	}
 
 	gSavedSettings.setBOOL("FreezeTime", FALSE);

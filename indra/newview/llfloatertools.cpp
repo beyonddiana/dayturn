@@ -284,7 +284,7 @@ void LLFloaterTools::updateToolsPrecision()
 bool	LLFloaterTools::postBuild()
 {	
 	// Hide until tool selected
-	setVisible(FALSE);
+	setVisible(false);
 
 	// Since we constantly show and hide this during drags, don't
 	// make sounds on visibility changes.
@@ -957,7 +957,7 @@ void LLFloaterTools::onOpen(const LLSD& key)
 // virtual
 void LLFloaterTools::onClose(bool app_quitting)
 {
-	mTab->setVisible(FALSE);
+	mTab->setVisible(false);
 
 	LLViewerJoystick::getInstance()->moveAvatar(false);
 
@@ -1316,7 +1316,7 @@ void LLFloaterTools::getMediaState()
 		  &&first_object->permModify() 
 	      ))
 	{
-		getChildView("add_media")->setEnabled(FALSE);
+		getChildView("add_media")->setEnabled(false);
 		media_info->clear();
 		clearMediaSettings();
 		return;
@@ -1327,7 +1327,7 @@ void LLFloaterTools::getMediaState()
 	
 	if(!has_media_capability)
 	{
-		getChildView("add_media")->setEnabled(FALSE);
+		getChildView("add_media")->setEnabled(false);
 		LL_WARNS("LLFloaterToolsMedia") << "Media not enabled (no capability) in this region!" << LL_ENDL;
 		clearMediaSettings();
 		return;
@@ -1466,7 +1466,7 @@ void LLFloaterTools::getMediaState()
 			}
 		}
 		
-		getChildView("delete_media")->setEnabled(TRUE);
+		getChildView("delete_media")->setEnabled(true);
 	}
 
 	navigateToTitleMedia(media_title);

@@ -172,12 +172,12 @@ void LLTeleportHistoryMenuItem::draw()
 
 void LLTeleportHistoryMenuItem::onMouseEnter(S32 x, S32 y, MASK mask)
 {
-	mArrowIcon->setVisible(TRUE);
+	mArrowIcon->setVisible(true);
 }
 
 void LLTeleportHistoryMenuItem::onMouseLeave(S32 x, S32 y, MASK mask)
 {
-	mArrowIcon->setVisible(FALSE);
+	mArrowIcon->setVisible(false);
 }
 
 static LLDefaultChildRegistry::Register<LLPullButton> menu_button("pull_button");
@@ -294,12 +294,12 @@ bool LLNavigationBar::postBuild()
 
 	mCmbLocation= getChild<LLLocationInputCtrl>("location_combo");
 
-	mBtnBack->setEnabled(FALSE);
+	mBtnBack->setEnabled(false);
 	mBtnBack->setClickedCallback(boost::bind(&LLNavigationBar::onBackButtonClicked, this));
 	mBtnBack->setHeldDownCallback(boost::bind(&LLNavigationBar::onBackOrForwardButtonHeldDown, this,_1, _2));
 	mBtnBack->setClickDraggingCallback(boost::bind(&LLNavigationBar::showTeleportHistoryMenu, this,_1));
 	
-	mBtnForward->setEnabled(FALSE);
+	mBtnForward->setEnabled(false);
 	mBtnForward->setClickedCallback(boost::bind(&LLNavigationBar::onForwardButtonClicked, this));
 	mBtnForward->setHeldDownCallback(boost::bind(&LLNavigationBar::onBackOrForwardButtonHeldDown, this, _1, _2));
 	mBtnForward->setClickDraggingCallback(boost::bind(&LLNavigationBar::showTeleportHistoryMenu, this,_1));
@@ -328,7 +328,7 @@ bool LLNavigationBar::postBuild()
 	return true;
 }
 
-void LLNavigationBar::setVisible(BOOL visible)
+void LLNavigationBar::setVisible(bool visible)
 {
 	// change visibility of grandparent layout_panel to animate in and out
 	if (getParent()) 

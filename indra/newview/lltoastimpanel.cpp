@@ -205,9 +205,9 @@ void LLToastIMPanel::spawnGroupIconToolTip()
 
 void LLToastIMPanel::initIcon()
 {
-	mAvatarIcon->setVisible(FALSE);
-	mGroupIcon->setVisible(FALSE);
-	mAdhocIcon->setVisible(FALSE);
+	mAvatarIcon->setVisible(false);
+	mGroupIcon->setVisible(false);
+	mAdhocIcon->setVisible(false);
 
 	if(mAvatarName->getValue().asString() == SYSTEM_FROM)
 	{
@@ -227,15 +227,15 @@ void LLToastIMPanel::initIcon()
 		switch(im_session->mSessionType)
 		{
 		case LLIMModel::LLIMSession::P2P_SESSION:
-			mAvatarIcon->setVisible(TRUE);
+			mAvatarIcon->setVisible(true);
 			mAvatarIcon->setValue(mAvatarID);
 			break;
 		case LLIMModel::LLIMSession::GROUP_SESSION:
-			mGroupIcon->setVisible(TRUE);
+			mGroupIcon->setVisible(true);
 			mGroupIcon->setValue(mSessionID);
 			break;
 		case LLIMModel::LLIMSession::ADHOC_SESSION:
-			mAdhocIcon->setVisible(TRUE);
+			mAdhocIcon->setVisible(true);
 			mAdhocIcon->setValue(im_session->mOtherParticipantID);
 			mAdhocIcon->setToolTip(im_session->mName);
 			break;

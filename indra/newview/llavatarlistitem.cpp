@@ -367,7 +367,7 @@ void LLAvatarListItem::setShowProfileBtn(bool show)
 void LLAvatarListItem::showSpeakingIndicator(bool visible)
 {
 	// Already done? Then do nothing.
-	if (mSpeakingIndicator->getVisible() == (BOOL)visible)
+	if (mSpeakingIndicator->getVisible() == visible)
 		return;
 // Disabled to not contradict with SpeakingIndicatorManager functionality. EXT-3976
 // probably this method should be totally removed.
@@ -483,7 +483,7 @@ void LLAvatarListItem::setFirstSeen(time_t seentime)
 void LLAvatarListItem::setAvatarIconVisible(bool visible)
 {
 	// Already done? Then do nothing.
-	if (mAvatarIcon->getVisible() == (BOOL)visible)
+	if (mAvatarIcon->getVisible() == visible)
 	{
 		return;
 	}

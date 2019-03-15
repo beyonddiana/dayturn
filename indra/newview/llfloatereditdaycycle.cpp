@@ -528,7 +528,7 @@ void LLFloaterEditDayCycle::reset()
 	{
 		mDayCycleNameEditor->setValue(LLSD());
 		F32 time = 0.5f * sHoursPerDay;
-		mSaveButton->setEnabled(FALSE); // will be enabled as soon as users enters a name
+		mSaveButton->setEnabled(false); // will be enabled as soon as users enters a name
 		mTimeSlider->setCurSliderValue(time);
 
 		addSliderKey(time, LLWLParamKey("Default", LLEnvKey::SCOPE_LOCAL));

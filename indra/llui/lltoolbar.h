@@ -66,7 +66,7 @@ public:
 	bool handleHover(S32 x, S32 y, MASK mask);
 
 	void reshape(S32 width, S32 height, bool called_from_parent = true);
-	void setEnabled(BOOL enabled);
+	void setEnabled(bool enabled);
 	void setCommandId(const LLCommandId& id) { mId = id; }
 	LLCommandId getCommandId() { return mId; }
 

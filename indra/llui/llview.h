@@ -289,10 +289,10 @@ public:
 
 	void 	setAllChildrenEnabled(bool b);
 
-	virtual void	setVisible(BOOL visible);
-	const BOOL	getVisible() const		{ return isAvailableOnThisGrid() && mVisible; }
-	virtual void	setEnabled(BOOL enabled);
-	const BOOL	getEnabled() const		{ return isAvailableOnThisGrid() && mEnabled; }
+	virtual void	setVisible(bool visible);
+	const bool	getVisible() const		{ return isAvailableOnThisGrid() && mVisible; }
+	virtual void	setEnabled(bool enabled);
+	const bool	getEnabled() const		{ return isAvailableOnThisGrid() && mEnabled; }
 
 	const bool	getOnlyInSL() const	{ return mOnlyInSL; }
 
@@ -593,7 +593,7 @@ private:
 	child_list_t mChildList;
 
 	// location in pixels, relative to surrounding structure, bottom,left=0,0
-	BOOL		mVisible;
+	bool		mVisible;
 	bool		mOnlyInSL;
 	LLRect		mRect;
 	LLRect		mBoundingRect;

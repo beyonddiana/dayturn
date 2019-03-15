@@ -124,7 +124,7 @@ public:
 	// +---+---+---+
 
 
-	BOOL getVisible() const;
+	bool getVisible() const;
 	U32 getRenderStride() const;
 	S32 getRenderLevel() const;
 

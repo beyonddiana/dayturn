@@ -77,7 +77,7 @@ void LLMenuButton::hideMenu()
 	LLToggleableMenu* menu = getMenu();
 	if (menu)
 	{
-		menu->setVisible(FALSE);
+		menu->setVisible(false);
 	}
 }
 
@@ -134,7 +134,7 @@ bool LLMenuButton::handleKeyHere(KEY key, MASK mask )
 	LLToggleableMenu* menu = getMenu();
 	if (menu && menu->getVisible() && key == KEY_ESCAPE && mask == MASK_NONE)
 	{
-		menu->setVisible(FALSE);
+		menu->setVisible(false);
 		return true;
 	}
 	

@@ -109,7 +109,7 @@ public:
 	virtual void	onFocusReceived();
 	virtual void	onFocusLost();
 	virtual void	onCommit();
-	virtual void	setEnabled(BOOL enabled);
+	virtual void	setEnabled(bool enabled);
 
 	// uictrl overrides
 	virtual void	clear();

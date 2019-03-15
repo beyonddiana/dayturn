@@ -91,7 +91,7 @@ protected:
 public:
 	// LLView interface
 
-	virtual void		setEnabled( BOOL b );
+	virtual void		setEnabled( bool b );
 
 	virtual void		reshape(S32 width, S32 height, bool called_from_parent = true);
 

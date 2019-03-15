@@ -115,7 +115,7 @@ bool LLTextBox::handleHover(S32 x, S32 y, MASK mask)
 	return handled;
 }
 
-void LLTextBox::setEnabled(BOOL enabled)
+void LLTextBox::setEnabled(bool enabled)
 {
 	// just treat enabled as read-only flag
 	bool read_only = !enabled;

@@ -384,7 +384,7 @@ LLToastAlertPanel::LLToastAlertPanel( LLNotificationPtr notification, bool modal
 			LLTransientFloaterMgr::GLOBAL, this);
 }
 
-void LLToastAlertPanel::setVisible( BOOL visible )
+void LLToastAlertPanel::setVisible(bool visible)
 {
 	// only make the "ding" sound if it's newly visible
 	if( visible && !LLToastPanel::getVisible() )

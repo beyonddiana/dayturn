@@ -1454,7 +1454,7 @@ void LLPanelObjectInventory::updateInventory()
 			reset();
 			mIsInventoryEmpty = FALSE;
 			createFolderViews(inventory_root, contents);
-			mFolders->setEnabled(TRUE);
+			mFolders->setEnabled(true);
 		}
 		else
 		{

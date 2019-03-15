@@ -110,19 +110,19 @@ bool LLPanelExperiencePicker::postBuild()
 	getChild<LLLineEditor>(TEXT_EDIT)->setKeystrokeCallback( boost::bind(&LLPanelExperiencePicker::editKeystroke, this, _1, _2),NULL);
 
 	childSetAction(BTN_FIND, boost::bind(&LLPanelExperiencePicker::onBtnFind, this));
-	getChildView(BTN_FIND)->setEnabled(TRUE);
+	getChildView(BTN_FIND)->setEnabled(true);
 
 	LLScrollListCtrl* searchresults = getChild<LLScrollListCtrl>(LIST_RESULTS);
 	searchresults->setDoubleClickCallback( boost::bind(&LLPanelExperiencePicker::onBtnSelect, this));
 	searchresults->setCommitCallback(boost::bind(&LLPanelExperiencePicker::onList, this));
-	getChildView(LIST_RESULTS)->setEnabled(FALSE);
+	getChildView(LIST_RESULTS)->setEnabled(false);
 	getChild<LLScrollListCtrl>(LIST_RESULTS)->setCommentText(getString("no_results"));
 
 	childSetAction(BTN_OK, boost::bind(&LLPanelExperiencePicker::onBtnSelect, this));
-	getChildView(BTN_OK)->setEnabled(FALSE);
+	getChildView(BTN_OK)->setEnabled(false);
 	childSetAction(BTN_CANCEL, boost::bind(&LLPanelExperiencePicker::onBtnClose, this));
 	childSetAction(BTN_PROFILE, boost::bind(&LLPanelExperiencePicker::onBtnProfile, this));
-	getChildView(BTN_PROFILE)->setEnabled(FALSE);
+	getChildView(BTN_PROFILE)->setEnabled(false);
 
 	getChild<LLComboBox>(TEXT_MATURITY)->setCurrentByIndex(2);
 	getChild<LLComboBox>(TEXT_MATURITY)->setCommitCallback(boost::bind(&LLPanelExperiencePicker::onMaturity, this));
@@ -175,11 +175,11 @@ void LLPanelExperiencePicker::onBtnFind()
 					getChild<LLScrollListCtrl>(LIST_RESULTS)->deleteAllItems();
 					getChild<LLScrollListCtrl>(LIST_RESULTS)->setCommentText(getString("searching"));
 
-					getChildView(BTN_OK)->setEnabled(FALSE);
-					getChildView(BTN_PROFILE)->setEnabled(FALSE);
+					getChildView(BTN_OK)->setEnabled(false);
+					getChildView(BTN_PROFILE)->setEnabled(false);
 
-					getChildView(BTN_RIGHT)->setEnabled(FALSE);
-					getChildView(BTN_LEFT)->setEnabled(FALSE);
+					getChildView(BTN_RIGHT)->setEnabled(false);
+					getChildView(BTN_LEFT)->setEnabled(false);
 					LLExperienceCache::get(experience_id, boost::bind(&LLPanelExperiencePicker::onBtnFind, this));
 					return;
 				}
@@ -217,11 +217,11 @@ void LLPanelExperiencePicker::find()
 	getChild<LLScrollListCtrl>(LIST_RESULTS)->deleteAllItems();
 	getChild<LLScrollListCtrl>(LIST_RESULTS)->setCommentText(getString("searching"));
 	
-	getChildView(BTN_OK)->setEnabled(FALSE);
-	getChildView(BTN_PROFILE)->setEnabled(FALSE);
+	getChildView(BTN_OK)->setEnabled(false);
+	getChildView(BTN_PROFILE)->setEnabled(false);
 
-	getChildView(BTN_RIGHT)->setEnabled(FALSE);
-	getChildView(BTN_LEFT)->setEnabled(FALSE);
+	getChildView(BTN_RIGHT)->setEnabled(false);
+	getChildView(BTN_LEFT)->setEnabled(false);
 }
 
 bool LLPanelExperiencePicker::isSelectButtonEnabled()

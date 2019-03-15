@@ -127,7 +127,7 @@ void LLUploadDialog::setMessage( const std::string& msg)
 	int line_num;
 	for (line_num=0; line_num<16; ++line_num)
 	{
-		mLabelBox[line_num]->setVisible(FALSE);
+		mLabelBox[line_num]->setVisible(false);
 	}
 	line_num = 0;
 	for (std::list<std::string>::iterator iter = msg_lines.begin();
@@ -139,7 +139,7 @@ void LLUploadDialog::setMessage( const std::string& msg)
 		mLabelBox[line_num]->setRect(msg_rect);
 		mLabelBox[line_num]->setText(cur_line);
 		mLabelBox[line_num]->setColor( LLUIColorTable::instance().getColor( "LabelTextColor" ) );
-		mLabelBox[line_num]->setVisible(TRUE);
+		mLabelBox[line_num]->setVisible(true);
 		msg_y -= line_height;
 		++line_num;
 	}

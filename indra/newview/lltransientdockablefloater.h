@@ -45,7 +45,7 @@ public:
 			const LLSD& key, const Params& params = getDefaultParams());
 	virtual ~LLTransientDockableFloater();
 
-	/*virtual*/ void setVisible(BOOL visible);
+	/*virtual*/ void setVisible(bool visible);
 	/* virtual */void setDocked(bool docked, bool pop_on_undock = true);
 	virtual LLTransientFloaterMgr::ETransientGroup getGroup() { return LLTransientFloaterMgr::GLOBAL; }
 };

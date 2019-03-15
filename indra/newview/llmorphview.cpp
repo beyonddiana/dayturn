@@ -103,7 +103,7 @@ void	LLMorphView::shutdown()
 //-----------------------------------------------------------------------------
 // setVisible()
 //-----------------------------------------------------------------------------
-void LLMorphView::setVisible(BOOL visible)
+void LLMorphView::setVisible(bool visible)
 {
 	if( visible != getVisible() )
 	{

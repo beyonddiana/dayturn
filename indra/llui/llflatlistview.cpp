@@ -1187,14 +1187,14 @@ void LLFlatListView::onFocusReceived()
 {
 	if (size())
 	{
-	mSelectedItemsBorder->setVisible(TRUE);
+	mSelectedItemsBorder->setVisible(true);
 	}
 	gEditMenuHandler = this;
 }
 // virtual
 void LLFlatListView::onFocusLost()
 {
-	mSelectedItemsBorder->setVisible(FALSE);
+	mSelectedItemsBorder->setVisible(false);
 	// Route menu back to the default
  	if( gEditMenuHandler == this )
 	{

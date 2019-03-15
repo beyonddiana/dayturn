@@ -585,7 +585,7 @@ void LLWorldMapView::draw()
 
 
 //virtual
-void LLWorldMapView::setVisible(BOOL visible)
+void LLWorldMapView::setVisible(bool visible)
 {
 	LLPanel::setVisible(visible);
 	if (!visible)

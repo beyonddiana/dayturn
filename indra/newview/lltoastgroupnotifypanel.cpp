@@ -192,7 +192,7 @@ void LLToastGroupNotifyPanel::onClickAttachment()
 
 		LLIconCtrl* pAttachIcon =
 				getChild<LLIconCtrl> ("attachment_icon", TRUE);
-		pAttachIcon->setEnabled(FALSE);
+		pAttachIcon->setEnabled(false);
 
 		//if attachment isn't openable - notify about saving
 		if (!isAttachmentOpenable(mInventoryOffer->mType)) {

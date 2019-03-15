@@ -158,7 +158,7 @@ bool LLFloaterPay::postBuild()
 	mCallbackData.push_back(info);
 
 	childSetAction("fastpay 1", boost::bind(LLFloaterPay::onGive, info));
-	getChildView("fastpay 1")->setVisible(FALSE);
+	getChildView("fastpay 1")->setVisible(false);
 
 	mQuickPayButton[i] = getChild<LLButton>("fastpay 1");
 	mQuickPayInfo[i] = info;
@@ -168,7 +168,7 @@ bool LLFloaterPay::postBuild()
 	mCallbackData.push_back(info);
 
 	childSetAction("fastpay 5", boost::bind(LLFloaterPay::onGive, info));
-	getChildView("fastpay 5")->setVisible(FALSE);
+	getChildView("fastpay 5")->setVisible(false);
 
 	mQuickPayButton[i] = getChild<LLButton>("fastpay 5");
 	mQuickPayInfo[i] = info;
@@ -178,7 +178,7 @@ bool LLFloaterPay::postBuild()
 	mCallbackData.push_back(info);
 
 	childSetAction("fastpay 10", boost::bind(LLFloaterPay::onGive, info));
-	getChildView("fastpay 10")->setVisible(FALSE);
+	getChildView("fastpay 10")->setVisible(false);
 
 	mQuickPayButton[i] = getChild<LLButton>("fastpay 10");
 	mQuickPayInfo[i] = info;
@@ -188,15 +188,15 @@ bool LLFloaterPay::postBuild()
 	mCallbackData.push_back(info);
 
 	childSetAction("fastpay 20", boost::bind(LLFloaterPay::onGive, info));
-	getChildView("fastpay 20")->setVisible(FALSE);
+	getChildView("fastpay 20")->setVisible(false);
 
 	mQuickPayButton[i] = getChild<LLButton>("fastpay 20");
 	mQuickPayInfo[i] = info;
 	++i;
 
 
-	getChildView("amount text")->setVisible(FALSE);	
-	getChildView("amount")->setVisible(FALSE);
+	getChildView("amount text")->setVisible(false);	
+	getChildView("amount")->setVisible(false);
 
 	getChild<LLLineEditor>("amount")->setKeystrokeCallback(&LLFloaterPay::onKeystroke, this);
 	getChild<LLLineEditor>("amount")->setPrevalidate(LLTextValidate::validateNonNegativeS32);
@@ -206,8 +206,8 @@ bool LLFloaterPay::postBuild()
 
 	childSetAction("pay btn", boost::bind(LLFloaterPay::onGive, info));
 	setDefaultBtn("pay btn");
-	getChildView("pay btn")->setVisible(FALSE);
-	getChildView("pay btn")->setEnabled(FALSE);
+	getChildView("pay btn")->setVisible(false);
+	getChildView("pay btn")->setEnabled(false);
 
 	childSetAction("cancel btn",&LLFloaterPay::onCancel,this);
 
@@ -241,25 +241,25 @@ void LLFloaterPay::processPayPriceReply(LLMessageSystem* msg, void **userdata)
 		
 		if (PAY_PRICE_HIDE == price)
 		{
-			self->getChildView("amount")->setVisible(FALSE);
-			self->getChildView("pay btn")->setVisible(FALSE);
-			self->getChildView("amount text")->setVisible(FALSE);
+			self->getChildView("amount")->setVisible(false);
+			self->getChildView("pay btn")->setVisible(false);
+			self->getChildView("amount text")->setVisible(false);
 		}
 		else if (PAY_PRICE_DEFAULT == price)
 		{			
-			self->getChildView("amount")->setVisible(TRUE);
-			self->getChildView("pay btn")->setVisible(TRUE);
-			self->getChildView("amount text")->setVisible(TRUE);
+			self->getChildView("amount")->setVisible(true);
+			self->getChildView("pay btn")->setVisible(true);
+			self->getChildView("amount text")->setVisible(true);
 		}
 		else
 		{
 			// PAY_PRICE_HIDE and PAY_PRICE_DEFAULT are negative values
 			// So we take the absolute value here after we have checked for those cases
 			
-			self->getChildView("amount")->setVisible(TRUE);
-			self->getChildView("pay btn")->setVisible(TRUE);
-			self->getChildView("pay btn")->setEnabled(TRUE);
-			self->getChildView("amount text")->setVisible(TRUE);
+			self->getChildView("amount")->setVisible(true);
+			self->getChildView("pay btn")->setVisible(true);
+			self->getChildView("pay btn")->setEnabled(true);
+			self->getChildView("amount text")->setVisible(true);
 
 			self->getChild<LLUICtrl>("amount")->setValue(llformat("%d", llabs(price)));
 		}
@@ -282,7 +282,7 @@ void LLFloaterPay::processPayPriceReply(LLMessageSystem* msg, void **userdata)
 
 				self->mQuickPayButton[i]->setLabelSelected(button_str);
 				self->mQuickPayButton[i]->setLabelUnselected(button_str);
-				self->mQuickPayButton[i]->setVisible(TRUE);
+				self->mQuickPayButton[i]->setVisible(true);
 				self->mQuickPayInfo[i]->mAmount = pay_button;
 
 				if ( pay_button > max_pay_amount )
@@ -292,7 +292,7 @@ void LLFloaterPay::processPayPriceReply(LLMessageSystem* msg, void **userdata)
 			}
 			else
 			{
-				self->mQuickPayButton[i]->setVisible(FALSE);
+				self->mQuickPayButton[i]->setVisible(false);
 			}
 		}
 
@@ -345,7 +345,7 @@ void LLFloaterPay::processPayPriceReply(LLMessageSystem* msg, void **userdata)
 
 		for (i=num_blocks;i<MAX_PAY_BUTTONS;++i)
 		{
-			self->mQuickPayButton[i]->setVisible(FALSE);
+			self->mQuickPayButton[i]->setVisible(false);
 		}
 
 		self->reshape( self->getRect().getWidth() + padding_required, self->getRect().getHeight(), false );
@@ -407,13 +407,13 @@ void LLFloaterPay::payDirectly(money_callback callback,
 	floater->setCallback(callback);
 	floater->mObjectSelection = NULL;
 	
-	floater->getChildView("amount")->setVisible(TRUE);
-	floater->getChildView("pay btn")->setVisible(TRUE);
-	floater->getChildView("amount text")->setVisible(TRUE);
+	floater->getChildView("amount")->setVisible(true);
+	floater->getChildView("pay btn")->setVisible(true);
+	floater->getChildView("amount text")->setVisible(true);
 
 	for(S32 i=0;i<MAX_PAY_BUTTONS;++i)
 	{
-		floater->mQuickPayButton[i]->setVisible(TRUE);
+		floater->mQuickPayButton[i]->setVisible(true);
 	}
 	
 	floater->finishPayUI(target_id, is_group);

@@ -382,7 +382,7 @@ void LLIMChiclet::hidePopupMenu()
 {
 	if (mPopupMenu)
 	{
-		mPopupMenu->setVisible(FALSE);
+		mPopupMenu->setVisible(false);
 	}
 }
 

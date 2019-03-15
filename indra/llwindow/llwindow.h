@@ -63,7 +63,7 @@ public:
 	virtual void show() = 0;
 	virtual void hide() = 0;
 	virtual void close() = 0;
-	virtual BOOL getVisible() = 0;
+	virtual bool getVisible() = 0;
 	virtual bool getMinimized() = 0;
 	virtual bool getMaximized() = 0;
 	virtual bool maximize() = 0;

@@ -46,7 +46,7 @@ public:
 	virtual bool postBuild();
 	/*virtual*/ void onClose(bool app_quitting);
 	virtual void draw();
-	virtual void setVisible(BOOL visible);
+	virtual void setVisible(bool visible);
 	/*virtual*/ bool handleKeyHere(KEY key, MASK mask);
 	/*virtual*/ bool addChild(LLView* view, S32 tab_group = 0);
 

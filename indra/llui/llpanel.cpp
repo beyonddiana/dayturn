@@ -168,7 +168,7 @@ void LLPanel::clearCtrls()
 	{
 		LLUICtrl* ctrl = *ctrl_it;
 		ctrl->setFocus( FALSE );
-		ctrl->setEnabled( FALSE );
+		ctrl->setEnabled( false );
 		ctrl->clear();
 	}
 }

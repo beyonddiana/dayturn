@@ -314,14 +314,14 @@ void LLToolTip::initFromParams(const LLToolTip::Params& p)
 	setShape(tooltip_rect);
 }
 
-void LLToolTip::setVisible(BOOL visible)
+void LLToolTip::setVisible(bool visible)
 {
 	// fade out tooltip over time
 	if (visible)
 	{
 		mVisibleTimer.start();
 		mFadeTimer.stop();
-		LLPanel::setVisible(TRUE);
+		LLPanel::setVisible(true);
 	}
 	else
 	{
@@ -533,7 +533,7 @@ void LLToolTipMgr::hideToolTips()
 { 
 	if (mToolTip)
 	{
-		mToolTip->setVisible(FALSE);
+		mToolTip->setVisible(false);
 	}
 }
 

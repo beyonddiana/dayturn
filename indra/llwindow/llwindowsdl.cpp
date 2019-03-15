@@ -839,15 +839,15 @@ bool LLWindowSDL::isValid()
 	return (mWindow != NULL);
 }
 
-BOOL LLWindowSDL::getVisible()
+bool LLWindowSDL::getVisible()
 {
-	BOOL result = FALSE;
+	bool result = false;
 
     // *FIX: This isn't really right...
 	// Then what is?
 	if (mWindow)
 	{
-		result = TRUE;
+		result = true;
 	}
 
 	return(result);

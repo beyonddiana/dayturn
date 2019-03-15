@@ -1288,9 +1288,9 @@ void LLTextBase::draw()
 		drawCursor();
 	}
  
-	mDocumentView->setVisible(FALSE);
+	mDocumentView->setVisible(false);
 	LLUICtrl::draw();
-	mDocumentView->setVisible(TRUE);
+	mDocumentView->setVisible(true);
 }
 
 

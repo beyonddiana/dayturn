@@ -195,7 +195,7 @@ void LLFloaterMemLeak::onClickRelease()
 
 void LLFloaterMemLeak::onClickClose()
 {
-	setVisible(FALSE);
+	setVisible(false);
 }
 
 void LLFloaterMemLeak::draw()

@@ -105,10 +105,10 @@ void LLFloaterHardwareSettings::refreshEnabledState()
 	if (!LLFeatureManager::getInstance()->isFeatureAvailable("RenderVBOEnable") ||
 		!gGLManager.mHasVertexBufferObject)
 	{
-		getChild<LLTextBox>("vbo_label")->setEnabled(FALSE);
-		getChild<LLCheckBoxCtrl>("vbo")->setEnabled(FALSE);
-		getChild<LLTextBox>("streamed_vbo_label")->setEnabled(FALSE);
-		getChild<LLCheckBoxCtrl>("streamed_vbo")->setEnabled(FALSE);
+		getChild<LLTextBox>("vbo_label")->setEnabled(false);
+		getChild<LLCheckBoxCtrl>("vbo")->setEnabled(false);
+		getChild<LLTextBox>("streamed_vbo_label")->setEnabled(false);
+		getChild<LLCheckBoxCtrl>("streamed_vbo")->setEnabled(false);
 	}
 	else {
 		onRenderVBOEnableChange();
@@ -117,7 +117,7 @@ void LLFloaterHardwareSettings::refreshEnabledState()
 	if (!LLFeatureManager::getInstance()->isFeatureAvailable("RenderCompressTextures") ||
 		!gGLManager.mHasVertexBufferObject)
 	{
-		getChildView("texture compression")->setEnabled(FALSE);
+		getChildView("texture compression")->setEnabled(false);
 	}
 
 	// anti-aliasing
@@ -131,17 +131,17 @@ void LLFloaterHardwareSettings::refreshEnabledState()
 
 		if (gPipeline.canUseAntiAliasing())
 		{
-			fsaa_ctrl->setEnabled(TRUE);
-			fsaa_text->setEnabled(TRUE);
+			fsaa_ctrl->setEnabled(true);
+			fsaa_text->setEnabled(true);
 
 			fsaa_restart->setVisible(!gSavedSettings.getBOOL("RenderDeferred"));
 		}
 		else
 		{
-			fsaa_ctrl->setEnabled(FALSE);
+			fsaa_ctrl->setEnabled(false);
 			fsaa_ctrl->setValue((LLSD::Integer) 0);
-			fsaa_text->setEnabled(FALSE);
-			fsaa_restart->setVisible(FALSE);
+			fsaa_text->setEnabled(false);
+			fsaa_restart->setVisible(false);
 		}
 	}
 }
@@ -171,10 +171,10 @@ bool LLFloaterHardwareSettings::postBuild()
 		LLSpinCtrl *fog = getChild<LLSpinCtrl>("fog");
 		LLSpinCtrl *gamma = getChild<LLSpinCtrl>("gamma");
 
-		fog->setVisible(FALSE);
-		gamma->setVisible(FALSE);
+		fog->setVisible(false);
+		gamma->setVisible(false);
 
-		getChild<LLTextBox>("gamma_note")->setVisible(FALSE);
+		getChild<LLTextBox>("gamma_note")->setVisible(false);
 
 		//
 		//	reshape the floater to get rid of the blank space
@@ -187,9 +187,9 @@ bool LLFloaterHardwareSettings::postBuild()
 		//	no windlight shaders are available so enable the
 		//	gamma and fog distance
 		//
-		getChild<LLSpinCtrl>("fog")->setEnabled(TRUE);
-		getChild<LLSpinCtrl>("gamma")->setEnabled(TRUE);
-		getChild<LLTextBox>("gamma_note")->setEnabled(TRUE);
+		getChild<LLSpinCtrl>("fog")->setEnabled(true);
+		getChild<LLSpinCtrl>("gamma")->setEnabled(true);
+		getChild<LLTextBox>("gamma_note")->setEnabled(true);
 	}
 
 	refresh();

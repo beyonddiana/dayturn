@@ -201,7 +201,7 @@ void LLPanelPlaceInfo::setErrorStatus(S32 status, const std::string& reason)
 	mRegionTitle.clear();
 
 	// Enable "Back" button that was disabled when parcel request was sent.
-	getChild<LLButton>("back_btn")->setEnabled(TRUE);
+	getChild<LLButton>("back_btn")->setEnabled(true);
 }
 
 // virtual

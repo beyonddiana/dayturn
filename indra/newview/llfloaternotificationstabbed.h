@@ -85,7 +85,7 @@ public:
     void updateNotificationCounter(S32 panelIndex, S32 counterValue, std::string stringName);
 
     // Operating with outfit
-    virtual void setVisible(BOOL visible);
+    virtual void setVisible(bool visible);
 
     /*virtual*/ void    setDocked(bool docked, bool pop_on_undock = true);
     // override LLFloater's minimization according to EXT-1216

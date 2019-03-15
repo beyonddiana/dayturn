@@ -81,7 +81,7 @@ bool LLFloaterScriptDebug::postBuild()
 	return false;
 }
 
-void LLFloaterScriptDebug::setVisible(BOOL visible)
+void LLFloaterScriptDebug::setVisible(bool visible)
 {
 	if(visible)
 	{

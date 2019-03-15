@@ -59,7 +59,7 @@ public:
 	virtual bool	handleKeyHere(KEY key, MASK mask );
 
 	virtual void	draw();
-	virtual void	setVisible( BOOL visible );
+	virtual void	setVisible(bool visible);
 
 	void			setCaution(BOOL val = TRUE) { mCaution = val; }
 	// If mUnique==TRUE only one copy of this message should exist

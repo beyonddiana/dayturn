@@ -71,7 +71,7 @@ bool LLSidepanelInventorySubpanel::postBuild()
 	return true;
 }
 
-void LLSidepanelInventorySubpanel::setVisible(BOOL visible)
+void LLSidepanelInventorySubpanel::setVisible(bool visible)
 {
 	if (visible)
 	{

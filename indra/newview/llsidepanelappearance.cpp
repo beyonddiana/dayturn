@@ -191,8 +191,8 @@ void LLSidepanelAppearance::updateToVisibility(const LLSD &new_visibility)
 {
 	if (new_visibility["visible"].asBoolean())
 	{
-		const BOOL is_outfit_edit_visible = mOutfitEdit && mOutfitEdit->getVisible();
-		const BOOL is_wearable_edit_visible = mEditWearable && mEditWearable->getVisible();
+		const bool is_outfit_edit_visible = mOutfitEdit && mOutfitEdit->getVisible();
+		const bool is_wearable_edit_visible = mEditWearable && mEditWearable->getVisible();
 
 		if (is_outfit_edit_visible || is_wearable_edit_visible)
 		{
@@ -324,7 +324,7 @@ void LLSidepanelAppearance::showWearableEditPanel(LLViewerWearable *wearable /* 
 	toggleWearableEditPanel(TRUE, wearable, disable_camera_switch);
 }
 
-void LLSidepanelAppearance::toggleMyOutfitsPanel(BOOL visible)
+void LLSidepanelAppearance::toggleMyOutfitsPanel(bool visible)
 {
 	if (!mPanelOutfitsInventory || mPanelOutfitsInventory->getVisible() == visible)
 	{
@@ -345,7 +345,7 @@ void LLSidepanelAppearance::toggleMyOutfitsPanel(BOOL visible)
 	}
 }
 
-void LLSidepanelAppearance::toggleOutfitEditPanel(BOOL visible, BOOL disable_camera_switch)
+void LLSidepanelAppearance::toggleOutfitEditPanel(bool visible, BOOL disable_camera_switch)
 {
 	if (!mOutfitEdit || mOutfitEdit->getVisible() == visible)
 	{
@@ -370,7 +370,7 @@ void LLSidepanelAppearance::toggleOutfitEditPanel(BOOL visible, BOOL disable_cam
 	}
 }
 
-void LLSidepanelAppearance::toggleWearableEditPanel(BOOL visible, LLViewerWearable *wearable, BOOL disable_camera_switch)
+void LLSidepanelAppearance::toggleWearableEditPanel(bool visible, LLViewerWearable *wearable, BOOL disable_camera_switch)
 {
 	if (!mEditWearable)
 	{
@@ -391,7 +391,7 @@ void LLSidepanelAppearance::toggleWearableEditPanel(BOOL visible, LLViewerWearab
 	// If we're just switching between outfit and wearable editing or updating item,
 	// don't end customization and don't switch camera
 	// Don't end customization and don't switch camera without visibility change
-	BOOL change_state = !disable_camera_switch && mEditWearable->getVisible() != visible;
+	bool change_state = !disable_camera_switch && mEditWearable->getVisible() != visible;
 
 	if (!wearable)
 	{
@@ -442,13 +442,13 @@ void LLSidepanelAppearance::refreshCurrentOutfitName(const std::string& name)
 
 		std::string string_name = gAgentWearables.isCOFChangeInProgress() ? "Changing outfits" : "No Outfit";
 		mCurrentLookName->setText(getString(string_name));
-		mOpenOutfitBtn->setEnabled(FALSE);
+		mOpenOutfitBtn->setEnabled(false);
 	}
 	else
 	{
 		mCurrentLookName->setText(name);
 		// Can't just call update verbs since the folder link may not have been created yet.
-		mOpenOutfitBtn->setEnabled(TRUE);
+		mOpenOutfitBtn->setEnabled(true);
 	}
 }
 

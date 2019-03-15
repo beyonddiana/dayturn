@@ -425,7 +425,7 @@ void LLPanelProfile::openPanel(LLPanel* panel, const LLSD& params)
 		sendChildToFront(panel);
 	}
 
-	panel->setVisible(TRUE);
+	panel->setVisible(true);
 	panel->setFocus(TRUE); // prevent losing focus by the floater
 	panel->onOpen(params);
 
@@ -437,7 +437,7 @@ void LLPanelProfile::openPanel(LLPanel* panel, const LLSD& params)
 
 void LLPanelProfile::closePanel(LLPanel* panel)
 {
-	panel->setVisible(FALSE);
+	panel->setVisible(false);
 
 	if (panel->getParent() == this) 
 	{

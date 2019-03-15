@@ -146,7 +146,7 @@ public:
 	//
 	virtual void draw();
 	//
-	virtual void setVisible(BOOL show);
+	virtual void setVisible(bool show);
 
 	/*virtual*/ void setBackgroundOpaque(BOOL b);
 	//

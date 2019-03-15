@@ -43,7 +43,7 @@ public:
 	LLSidepanelInventorySubpanel(const LLPanel::Params& p = getDefaultParams());
 	virtual ~LLSidepanelInventorySubpanel();
 
-	/*virtual*/ void setVisible(BOOL visible);
+	/*virtual*/ void setVisible(bool visible);
 	virtual bool postBuild();
 	virtual void draw();
 	virtual void reset();

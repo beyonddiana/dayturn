@@ -326,17 +326,17 @@ void LLFloaterIMPanel::draw()
 	}
 	if(!mTextIMPossible)
 	{
-		mInputEditor->setEnabled(FALSE);
+		mInputEditor->setEnabled(false);
 		mInputEditor->setLabel(getString("unavailable_text_label"));
 	}
 	else if (self_speaker.notNull() && self_speaker->mModeratorMutedText)
 	{
-		mInputEditor->setEnabled(FALSE);
+		mInputEditor->setEnabled(false);
 		mInputEditor->setLabel(getString("muted_text_label"));
 	}
 	else
 	{
-		mInputEditor->setEnabled(TRUE);
+		mInputEditor->setEnabled(true);
 		mInputEditor->setLabel(getString("default_text_label"));
 	}
 

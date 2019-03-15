@@ -123,7 +123,7 @@ protected:
 	{
 		if (!toast) return;
 		LL_DEBUGS("NearbyChat") << "Pooling toast" << LL_ENDL;
-		toast->setVisible(FALSE);
+		toast->setVisible(false);
 		toast->stopTimer();
 		toast->setIsHidden(true);
 
@@ -442,7 +442,7 @@ void LLFloaterIMNearbyChatScreenChannel::arrangeToasts()
 		if (toast)
 	{
 		toast->setIsHidden(false);
-		toast->setVisible(TRUE);
+		toast->setVisible(true);
 		}
 	}
 

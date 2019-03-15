@@ -244,12 +244,12 @@ void LLPanelPickInfo::resetControls()
 {
 	if(getAvatarId() == gAgent.getID())
 	{
-		getChildView("edit_btn")->setEnabled(TRUE);
+		getChildView("edit_btn")->setEnabled(true);
 		getChildView("edit_btn")->setVisible( TRUE);
 	}
 	else
 	{
-		getChildView("edit_btn")->setEnabled(FALSE);
+		getChildView("edit_btn")->setEnabled(false);
 		getChildView("edit_btn")->setVisible( FALSE);
 	}
 }
@@ -619,15 +619,15 @@ void LLPanelPickEdit::initTexturePickerMouseEvents()
 	mSnapshotCtrl->setMouseEnterCallback(boost::bind(&LLPanelPickEdit::onTexturePickerMouseEnter, this, _1));
 	mSnapshotCtrl->setMouseLeaveCallback(boost::bind(&LLPanelPickEdit::onTexturePickerMouseLeave, this, _1));
 	
-	text_icon->setVisible(FALSE);
+	text_icon->setVisible(false);
 }
 		
 void LLPanelPickEdit::onTexturePickerMouseEnter(LLUICtrl* ctrl)
 {
-        text_icon->setVisible(TRUE);
+        text_icon->setVisible(true);
 }
 
 void LLPanelPickEdit::onTexturePickerMouseLeave(LLUICtrl* ctrl)
 {
-	text_icon->setVisible(FALSE);
+	text_icon->setVisible(false);
 }

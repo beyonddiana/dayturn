@@ -268,7 +268,7 @@ BOOL LLFolderViewItem::isPotentiallyVisible(S32 filter_generation)
 		filter_generation = getFolderViewModel()->getFilter().getFirstSuccessGeneration();
 	}
 	LLFolderViewModelItem* model = getViewModelItem();
-	BOOL visible = model->passedFilter(filter_generation);
+	bool visible = model->passedFilter(filter_generation);
 	if (model->getMarkedDirtyGeneration() >= filter_generation)
 	{
 		// unsure visibility state
@@ -1163,7 +1163,7 @@ S32 LLFolderViewFolder::arrange( S32* width, S32* height )
 				> ll_round(mCurHeight) + mMaxFolderItemOverlap)
 			{
 				// hide if beyond current folder height
-				(*fit)->setVisible(FALSE);
+				(*fit)->setVisible(false);
 			}
 		}
 
@@ -1175,7 +1175,7 @@ S32 LLFolderViewFolder::arrange( S32* width, S32* height )
 			if (getRect().getHeight() - (*iit)->getRect().mBottom
 				> ll_round(mCurHeight) + mMaxFolderItemOverlap)
 			{
-				(*iit)->setVisible(FALSE);
+				(*iit)->setVisible(false);
 			}
 		}
 	}
@@ -1679,7 +1679,7 @@ void LLFolderViewFolder::addItem(LLFolderViewItem* item)
 	mItems.push_back(item);
 	
 	item->setRect(LLRect(0, 0, getRect().getWidth(), 0));
-	item->setVisible(FALSE);
+	item->setVisible(false);
 	
 	addChild(item);
 	
@@ -1702,7 +1702,7 @@ void LLFolderViewFolder::addFolder(LLFolderViewFolder* folder)
 	mFolders.push_back(folder);
 	folder->setOrigin(0, 0);
 	folder->reshape(getRect().getWidth(), 0);
-	folder->setVisible(FALSE);
+	folder->setVisible(false);
 	// rearrange all descendants too, as our indentation level might have changed
 	//folder->requestArrange();
 	//requestSort();
