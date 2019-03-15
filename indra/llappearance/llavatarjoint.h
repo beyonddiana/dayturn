@@ -117,7 +117,7 @@ protected:
 	U32			mComponents;
 	F32			mMinPixelArea;
 	LLJointPickName	mPickName;
-	BOOL		mVisible;
+	bool		mVisible;
 	S32			mMeshID;
 };
 

@@ -265,25 +265,25 @@ void FSFloaterImport::onClickBtnPickFile()
 	LL_DEBUGS("import") << "Linkset size is " << mLinksetSize << LL_ENDL;
 	if (mLinksetSize != 0)
 	{
-		getChild<LLTextBox>("creation_date_text")->setVisible(TRUE);
-		getChild<LLTextBox>("author_text")->setVisible(TRUE);
-		getChild<LLTextBox>("client_text")->setVisible(TRUE);
+		getChild<LLTextBox>("creation_date_text")->setVisible(true);
+		getChild<LLTextBox>("author_text")->setVisible(true);
+		getChild<LLTextBox>("client_text")->setVisible(true);
 		populateBackupInfo();
 		
-		getChild<LLButton>("import_file")->setEnabled(TRUE);
-		getChild<LLCheckBoxCtrl>("do_not_attach")->setEnabled(TRUE);
-		getChild<LLCheckBoxCtrl>("region_position")->setEnabled(TRUE);
-		getChild<LLCheckBoxCtrl>("upload_asset")->setEnabled(TRUE);
+		getChild<LLButton>("import_file")->setEnabled(true);
+		getChild<LLCheckBoxCtrl>("do_not_attach")->setEnabled(true);
+		getChild<LLCheckBoxCtrl>("region_position")->setEnabled(true);
+		getChild<LLCheckBoxCtrl>("upload_asset")->setEnabled(true);
 	}
 	else
 	{
-		getChild<LLTextBox>("creation_date_text")->setVisible(FALSE);
-		getChild<LLTextBox>("author_text")->setVisible(FALSE);
-		getChild<LLTextBox>("client_text")->setVisible(FALSE);
-		getChild<LLButton>("import_file")->setEnabled(FALSE);
-		getChild<LLCheckBoxCtrl>("do_not_attach")->setEnabled(FALSE);
-		getChild<LLCheckBoxCtrl>("region_position")->setEnabled(FALSE);
-		getChild<LLCheckBoxCtrl>("upload_asset")->setEnabled(FALSE);
+		getChild<LLTextBox>("creation_date_text")->setVisible(true);
+		getChild<LLTextBox>("author_text")->setVisible(true);
+		getChild<LLTextBox>("client_text")->setVisible(true);
+		getChild<LLButton>("import_file")->setEnabled(false);
+		getChild<LLCheckBoxCtrl>("do_not_attach")->setEnabled(false);
+		getChild<LLCheckBoxCtrl>("region_position")->setEnabled(false);
+		getChild<LLCheckBoxCtrl>("upload_asset")->setEnabled(false);
 	}
 }
 
@@ -475,12 +475,12 @@ void FSFloaterImport::onClickBtnImport()
 	LL_DEBUGS("import") << "mStartPosition is " << mStartPosition << LL_ENDL;
 
 	// don't allow change during a long upload/import
-	getChild<LLButton>("pick_file")->setEnabled(FALSE);
-	getChild<LLButton>("import_file")->setEnabled(FALSE);
-	getChild<LLCheckBoxCtrl>("do_not_attach")->setEnabled(FALSE);
-	getChild<LLCheckBoxCtrl>("region_position")->setEnabled(FALSE);
-	getChild<LLCheckBoxCtrl>("upload_asset")->setEnabled(FALSE);
-	getChild<LLCheckBoxCtrl>("temp_asset")->setEnabled(FALSE);
+	getChild<LLButton>("pick_file")->setEnabled(false);
+	getChild<LLButton>("import_file")->setEnabled(false);
+	getChild<LLCheckBoxCtrl>("do_not_attach")->setEnabled(false);
+	getChild<LLCheckBoxCtrl>("region_position")->setEnabled(false);
+	getChild<LLCheckBoxCtrl>("upload_asset")->setEnabled(false);
+	getChild<LLCheckBoxCtrl>("temp_asset")->setEnabled(false);
 
 	if (((mTexturesTotal + mSoundsTotal + mAnimsTotal + mAssetsTotal) != 0) && getChild<LLCheckBoxCtrl>("upload_asset")->get())
 	{
@@ -497,11 +497,11 @@ void FSFloaterImport::onClickBtnImport()
 				LLBuyCurrencyHTML::openCurrencyFloater(LLTrans::getString("UploadingCosts", args), expected_upload_cost);
 
 				// re-enable the controls
-				getChild<LLButton>("pick_file")->setEnabled(TRUE);
-				getChild<LLButton>("import_file")->setEnabled(TRUE);
-				getChild<LLCheckBoxCtrl>("do_not_attach")->setEnabled(TRUE);
-				getChild<LLCheckBoxCtrl>("region_position")->setEnabled(TRUE);
-				getChild<LLCheckBoxCtrl>("upload_asset")->setEnabled(TRUE);
+				getChild<LLButton>("pick_file")->setEnabled(true);
+				getChild<LLButton>("import_file")->setEnabled(true);
+				getChild<LLCheckBoxCtrl>("do_not_attach")->setEnabled(true);
+				getChild<LLCheckBoxCtrl>("region_position")->setEnabled(true);
+				getChild<LLCheckBoxCtrl>("upload_asset")->setEnabled(true);
 				getChild<LLCheckBoxCtrl>("temp_asset")->setEnabled(getChild<LLCheckBoxCtrl>("upload_asset")->get());
 				return;
 			}
@@ -558,15 +558,15 @@ void FSFloaterImport::onClickCheckBoxUploadAsset()
 {
 	if (getChild<LLCheckBoxCtrl>("upload_asset")->get())
 	{
-		getChild<LLCheckBoxCtrl>("temp_asset")->setEnabled(TRUE);
+		getChild<LLCheckBoxCtrl>("temp_asset")->setEnabled(true);
 		LLUIString stats = getString("upload_cost");
 		stats.setArg("[COST]", llformat("%u", (mTexturesTotal + mSoundsTotal + mAnimsTotal) * (U32)LLGlobalEconomy::getInstance()->getPriceUpload()));
 		getChild<LLTextBox>("file_status_text")->setText(stats.getString());
 	}
 	else
 	{
-		getChild<LLCheckBoxCtrl>("temp_asset")->set(FALSE);
-		getChild<LLCheckBoxCtrl>("temp_asset")->setEnabled(FALSE);
+		getChild<LLCheckBoxCtrl>("temp_asset")->set(false);
+		getChild<LLCheckBoxCtrl>("temp_asset")->setEnabled(false);
 		std::string text;
 		getChild<LLTextBox>("file_status_text")->setText(text);
 	}
@@ -1106,7 +1106,7 @@ void FSFloaterImport::postLink()
 		getChild<LLTextBox>("file_status_text")->setText(getString("file_status_done"));
 
 		// re-enable the controls, but force to pick file due to need to re-create the upload queues.
-		getChild<LLButton>("pick_file")->setEnabled(TRUE);
+		getChild<LLButton>("pick_file")->setEnabled(true);
 	}
 	else
 	{

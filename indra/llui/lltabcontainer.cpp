@@ -454,7 +454,7 @@ void LLTabContainer::draw()
 		for(tuple_list_t::iterator iter = mTabList.begin(); iter != mTabList.end(); ++iter)
 		{
 			LLTabTuple* tuple = *iter;
-			tuple->mButton->setVisible( FALSE );
+			tuple->mButton->setVisible(false);
 		}
 	}
 
@@ -473,7 +473,7 @@ void LLTabContainer::draw()
 		for(tuple_list_t::iterator iter = mTabList.begin(); iter != mTabList.end(); ++iter)
 		{
 			LLTabTuple* tuple = *iter;
-			tuple->mButton->setVisible( TRUE );
+			tuple->mButton->setVisible(true);
 		}
 
 		S32 max_scroll_visible = getTabCount() - getMaxScrollPos() + getScrollPos();
@@ -1022,7 +1022,7 @@ void LLTabContainer::addTabPanel(const TabPanelParams& panel)
 	child->reshape( tab_panel_rect.getWidth(), tab_panel_rect.getHeight(), true );
 	// add this child later
 
-	child->setVisible( FALSE );  // Will be made visible when selected
+	child->setVisible(false);  // Will be made visible when selected
 
 	mTotalTabWidth += button_width;
 
@@ -1612,7 +1612,7 @@ BOOL LLTabContainer::setTab(S32 which)
 	if (mIsVertical && getCurrentPanelIndex() >= 0)
 	{
 		LLTabTuple* tuple = getTab(getCurrentPanelIndex());
-		tuple->mTabPanel->setVisible( TRUE );
+		tuple->mTabPanel->setVisible(true);
 		tuple->mButton->setToggleState( TRUE );
 	}
 	return is_visible;
@@ -2172,9 +2172,9 @@ void LLTabContainer::setTabVisibility( LLPanel const *aPanel, bool aVisible )
 	}
 
 	if( foundTab )
-		this->setVisible( TRUE );
+		this->setVisible(true);
 	else
-		this->setVisible( FALSE );
+		this->setVisible(false);
 
 	updateMaxScrollPos();
 }

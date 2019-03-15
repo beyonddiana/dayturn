@@ -100,7 +100,7 @@ bool LLProgressView::postBuild()
 	getChild<LLTextBox>("message_text")->setClickedCallback(onClickMessage, this);
 
 	// hidden initially, until we need it
-	LLPanel::setVisible(FALSE);
+	LLPanel::setVisible(false);
 
 	LLNotifications::instance().getChannel("AlertModal")->connectChanged(boost::bind(&LLProgressView::onAlertModal, this, _1));
 
@@ -152,7 +152,7 @@ void LLProgressView::revealIntroPanel()
 		
 		// navigate to intro URL and reveal widget 
 		mMediaCtrl->navigateTo( intro_url );	
-		mMediaCtrl->setVisible( TRUE );
+		mMediaCtrl->setVisible(true);
 
 
 		// flag as having seen the new user post login intro
@@ -177,7 +177,7 @@ void LLProgressView::setStartupComplete()
 	}
 }
 
-void LLProgressView::setVisible(BOOL visible)
+void LLProgressView::setVisible(bool visible)
 {
     if (!visible && mFadeFromLoginTimer.getStarted())
     {
@@ -186,14 +186,14 @@ void LLProgressView::setVisible(BOOL visible)
 	// hiding progress view
 	if (getVisible() && !visible)
 	{
-		LLPanel::setVisible(FALSE);
+		LLPanel::setVisible(false);
 	}
 	// showing progress view
 	else if (visible && (!getVisible() || mFadeToWorldTimer.getStarted()))
 	{
 		setFocus(TRUE);
 		mFadeToWorldTimer.stop();
-		LLPanel::setVisible(TRUE);
+		LLPanel::setVisible(true);
 	} 
 }
 
@@ -273,7 +273,7 @@ void LLProgressView::draw()
 			gFocusMgr.releaseFocusIfNeeded( this );
 
 			// turn off panel that hosts intro so we see the world
-			LLPanel::setVisible(FALSE);
+			LLPanel::setVisible(false);
 
 			// stop observing events since we no longer care
 			mMediaCtrl->remObserver( this );
@@ -335,8 +335,8 @@ void LLProgressView::onCancelButtonClicked(void*)
 	else
 	{
 		gAgent.teleportCancel();
-		sInstance->mCancelBtn->setEnabled(FALSE);
-		sInstance->setVisible(FALSE);
+		sInstance->mCancelBtn->setEnabled(false);
+		sInstance->setVisible(false);
 	}
 }
 

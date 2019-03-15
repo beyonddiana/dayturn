@@ -291,13 +291,13 @@ void LLFloaterSellLandUI::refreshUI()
 		F32 per_meter_price = 0;
 		per_meter_price = F32(mParcelPrice) / F32(mParcelActualArea);
 		getChild<LLUICtrl>("price_per_m")->setTextArg("[PER_METER]", llformat("%0.2f", per_meter_price));
-		getChildView("price_per_m")->setVisible(TRUE);
+		getChildView("price_per_m")->setVisible(true);
 
 		setBadge("step_price", BADGE_OK);
 	}
 	else
 	{
-		getChildView("price_per_m")->setVisible(FALSE);
+		getChildView("price_per_m")->setVisible(false);
 
 		if ("" == price_str)
 		{
@@ -312,8 +312,8 @@ void LLFloaterSellLandUI::refreshUI()
 	if (mSellToBuyer)
 	{
 		getChild<LLUICtrl>("sell_to")->setValue("user");
-		getChildView("sell_to_agent")->setVisible(TRUE);
-		getChildView("sell_to_select_agent")->setVisible(TRUE);
+		getChildView("sell_to_agent")->setVisible(true);
+		getChildView("sell_to_select_agent")->setVisible(true);
 	}
 	else
 	{
@@ -325,8 +325,8 @@ void LLFloaterSellLandUI::refreshUI()
 		{
 			getChild<LLUICtrl>("sell_to")->setValue("select");
 		}
-		getChildView("sell_to_agent")->setVisible(FALSE);
-		getChildView("sell_to_select_agent")->setVisible(FALSE);
+		getChildView("sell_to_agent")->setVisible(false);
+		getChildView("sell_to_select_agent")->setVisible(false);
 	}
 
 	// Must select Sell To: Anybody, or User (with a specified username)
@@ -356,11 +356,11 @@ void LLFloaterSellLandUI::refreshUI()
 
 	if (valid_sell_to && valid_price && valid_sell_objects)
 	{
-		getChildView("sell_btn")->setEnabled(TRUE);
+		getChildView("sell_btn")->setEnabled(true);
 	}
 	else
 	{
-		getChildView("sell_btn")->setEnabled(FALSE);
+		getChildView("sell_btn")->setEnabled(false);
 	}
 }
 

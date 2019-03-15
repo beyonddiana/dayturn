@@ -250,7 +250,7 @@ void LLLandmarksPanel::onSearchEdit(const std::string& string)
 	for (accordion_tabs_t::const_iterator iter = mAccordionTabs.begin(); iter != mAccordionTabs.end(); ++iter)
 	{
 		LLAccordionCtrlTab* tab = *iter;
-		tab->setVisible(TRUE);
+		tab->setVisible(true);
 
 		// expand accordion to see matched items in each one. See EXT-2014.
 		if (string != "")
@@ -284,7 +284,7 @@ void LLLandmarksPanel::onShowOnMap()
 	// Disable the "Map" button because loading landmark can take some time.
 	// During this time the button is useless. It will be enabled on callback finish
 	// or upon switching to other item.
-	mShowOnMapBtn->setEnabled(FALSE);
+	mShowOnMapBtn->setEnabled(false);
 
 	doActionOnCurSelectedLandmark(boost::bind(&LLLandmarksPanel::doShowOnMap, this, _1));
 }
@@ -1329,7 +1329,7 @@ bool LLLandmarksPanel::canItemBeModified(const std::string& command_name, LLFold
 
 void LLLandmarksPanel::onPickPanelExit( LLPanelPickEdit* pick_panel, LLView* owner, const LLSD& params)
 {
-	pick_panel->setVisible(FALSE);
+	pick_panel->setVisible(false);
 	owner->removeChild(pick_panel);
 	//we need remove  observer to  avoid  processParcelInfo in the future.
 	LLRemoteParcelInfoProcessor::getInstance()->removeObserver(params["parcel_id"].asUUID(), this);
@@ -1394,7 +1394,7 @@ void LLLandmarksPanel::doShowOnMap(LLLandmark* landmark)
 		LLFloaterReg::showInstance("world_map", "center");
 	}
 
-	mShowOnMapBtn->setEnabled(TRUE);
+	mShowOnMapBtn->setEnabled(true);
 	mGearLandmarkMenu->setItemEnabled("show_on_map", TRUE);
 }
 

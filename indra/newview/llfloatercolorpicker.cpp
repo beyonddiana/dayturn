@@ -113,7 +113,7 @@ LLFloaterColorPicker::LLFloaterColorPicker (LLColorSwatchCtrl* swatch, BOOL show
 
 	if (!mCanApplyImmediately)
 	{
-		mApplyImmediateCheck->setEnabled(FALSE);
+		mApplyImmediateCheck->setEnabled(false);
 		mApplyImmediateCheck->set(FALSE);
 	}
 

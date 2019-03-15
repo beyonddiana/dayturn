@@ -52,7 +52,7 @@ public:
 	/*virtual*/ BOOL handleMouseUp(S32 x, S32 y, MASK mask);
 	/*virtual*/ bool handleHover(S32 x, S32 y, MASK mask);
 
-	/*virtual*/ void setEnabled(BOOL enabled);
+	/*virtual*/ void setEnabled(bool enabled);
 
 	/*virtual*/ void setText( const LLStringExplicit& text, const LLStyle::Params& input_params = LLStyle::Params() );
 	

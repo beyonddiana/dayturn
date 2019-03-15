@@ -615,7 +615,7 @@ void LLFloaterIMContainer::handleConversationModelEvent(const LLSD& event)
 			{
 				participant_view = createConversationViewParticipant(participant_model);
 				participant_view->addToFolder(session_view);
-				participant_view->setVisible(TRUE);
+				participant_view->setVisible(true);
 			}
 		}
 		// Add a participant view to the conversation floater 
@@ -722,7 +722,7 @@ void LLFloaterIMContainer::setMinimized(BOOL b)
 	}
 }
 
-void LLFloaterIMContainer::setVisible(BOOL visible)
+void LLFloaterIMContainer::setVisible(bool visible)
 {	LLFloaterIMNearbyChat* nearby_chat;
 	if (visible)
 	{

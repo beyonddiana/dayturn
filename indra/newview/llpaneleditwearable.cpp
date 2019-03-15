@@ -868,7 +868,7 @@ void LLPanelEditWearable::onClose()
 	revertChanges();
 }
 
-void LLPanelEditWearable::setVisible(BOOL visible)
+void LLPanelEditWearable::setVisible(bool visible)
 {
         if (!visible)
         {
@@ -1222,12 +1222,12 @@ void LLPanelEditWearable::showWearable(LLViewerWearable* wearable, BOOL show, BO
 			// Don't show female subparts if you're not female, etc.
 			if (!(gAgentAvatarp->getSex() & subpart_entry->mSex))
 			{
-				tab->setVisible(FALSE);
+				tab->setVisible(false);
 				continue;
 			}
 			else
 			{
-				tab->setVisible(TRUE);
+				tab->setVisible(true);
 			}
 			
                         // what edit group do we want to extract params for?

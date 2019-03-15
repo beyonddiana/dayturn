@@ -358,7 +358,7 @@ void LLSliderCtrl::onSliderCommit( LLUICtrl* ctrl, const LLSD& userdata )
 	self->updateText();
 }
 
-void LLSliderCtrl::setEnabled(BOOL b)
+void LLSliderCtrl::setEnabled(bool b)
 {
 	LLView::setEnabled( b );
 

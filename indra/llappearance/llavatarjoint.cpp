@@ -70,7 +70,7 @@ void LLAvatarJoint::init()
 	mComponents = SC_JOINT | SC_BONE | SC_AXES;
 	mMinPixelArea = DEFAULT_AVATAR_JOINT_LOD;
 	mPickName = PN_DEFAULT;
-	mVisible = TRUE;
+	mVisible = true;
 	mMeshID = 0;
 	mIsTransparent = FALSE;
 }

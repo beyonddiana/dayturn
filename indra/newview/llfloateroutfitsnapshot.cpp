@@ -223,8 +223,8 @@ void LLFloaterOutfitSnapshot::Impl::updateLayout(LLFloaterOutfitSnapshot* floate
 		// can see and interact with fullscreen preview now
 		if (previewp)
 		{
-			previewp->setVisible(TRUE);
-			previewp->setEnabled(TRUE);
+			previewp->setVisible(true);
+			previewp->setEnabled(true);
 		}
 
 		//RN: freeze all avatars
@@ -252,8 +252,8 @@ void LLFloaterOutfitSnapshot::Impl::updateLayout(LLFloaterOutfitSnapshot* floate
 		floaterp->reshape(floaterp->getRect().getWidth(), floaterp->getRect().getHeight());
 		if (previewp)
 		{
-			previewp->setVisible(FALSE);
-			previewp->setEnabled(FALSE);
+			previewp->setVisible(false);
+			previewp->setEnabled(false);
 		}
 
 		//RN: thaw all avatars
@@ -757,8 +757,8 @@ void LLFloaterOutfitSnapshot::onOpen(const LLSD& key)
 		preview->updateSnapshot(TRUE);
 	}
 	focusFirstItem(FALSE);
-	gSnapshotFloaterView->setEnabled(TRUE);
-	gSnapshotFloaterView->setVisible(TRUE);
+	gSnapshotFloaterView->setEnabled(true);
+	gSnapshotFloaterView->setVisible(true);
 	gSnapshotFloaterView->adjustToFitScreen(this, FALSE);
 
 	impl.updateControls(this);
@@ -781,8 +781,8 @@ void LLFloaterOutfitSnapshot::onClose(bool app_quitting)
 	LLSnapshotLivePreview* previewp = LLFloaterOutfitSnapshot::Impl::getPreviewView(this);
 	if (previewp)
 	{
-		previewp->setVisible(FALSE);
-		previewp->setEnabled(FALSE);
+		previewp->setVisible(false);
+		previewp->setEnabled(false);
 	}
 
 	gSavedSettings.setBOOL("FreezeTime", FALSE);

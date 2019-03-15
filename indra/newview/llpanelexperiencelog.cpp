@@ -181,7 +181,7 @@ void LLPanelExperienceLog::refresh()
 	{
 		setAllChildrenEnabled(true);
 
-		mEventList->setEnabled(TRUE);
+		mEventList->setEnabled(true);
 		getChild<LLButton>("btn_next")->setEnabled(moreItems);
 		getChild<LLButton>("btn_prev")->setEnabled(mCurrentPage>0);
 		getChild<LLButton>("btn_clear")->setEnabled(mEventList->getItemCount()>0);

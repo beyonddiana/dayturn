@@ -860,14 +860,14 @@ BOOL LLPanelGroupMembersSubTab::postBuildSubTab(LLView* root)
 	if ( mEjectBtn )
 	{
 		mEjectBtn->setClickedCallback(onEjectMembers, this);
-		mEjectBtn->setEnabled(FALSE);
+		mEjectBtn->setEnabled(false);
 	}
 
 	mBanBtn = parent->getChild<LLButton>("member_ban", recurse);
 	if(mBanBtn)
 	{
 		mBanBtn->setClickedCallback(onBanMember, this);
-		mBanBtn->setEnabled(FALSE);
+		mBanBtn->setEnabled(false);
 	}
 
 	return TRUE;
@@ -1078,7 +1078,7 @@ void LLPanelGroupMembersSubTab::handleMemberSelect()
 			LL_WARNS() << "No group role data for " << iter->second << LL_ENDL;
 		}
 	}
-	mAssignedRolesList->setEnabled(TRUE);
+	mAssignedRolesList->setEnabled(true);
 
 	if (gAgent.isGodlike())
 	{
@@ -1712,7 +1712,7 @@ void LLPanelGroupMembersSubTab::update(LLGroupChange gc)
 			// Still busy retreiving role/member mappings.
 			retrieved << "Retrieving role member mappings...";
 		}
-		mMembersList->setEnabled(FALSE);
+		mMembersList->setEnabled(false);
 		mMembersList->setCommentText(retrieved.str());
 	}
 }
@@ -1767,7 +1767,7 @@ void LLPanelGroupMembersSubTab::onNameCache(const LLUUID& update_id, LLGroupMemb
 		addMemberToList(member);
 		if(!mMembersList->getEnabled())
 		{
-			mMembersList->setEnabled(TRUE);
+			mMembersList->setEnabled(true);
 		}
 	}
 	
@@ -1840,11 +1840,11 @@ void LLPanelGroupMembersSubTab::updateMembers()
 	{
 		if (mHasMatch)
 		{
-			mMembersList->setEnabled(TRUE);
+			mMembersList->setEnabled(true);
 		}
 		else if (gdatap->mMembers.size()) 
 		{
-			mMembersList->setEnabled(FALSE);
+			mMembersList->setEnabled(false);
 			mMembersList->setCommentText(std::string("No match."));
 		}
 	}
@@ -2001,7 +2001,7 @@ BOOL LLPanelGroupRolesSubTab::postBuildSubTab(LLView* root)
 	mRoleUUID = parent->getChild<LLLineEditor>("role_uuid", recurse);
 	mBtnRoleUUIDCopy = parent->getChild<LLButton>("role_uuid_copy", recurse);
 	if (mBtnRoleUUIDCopy) {
-		mBtnRoleUUIDCopy->setEnabled(FALSE);
+		mBtnRoleUUIDCopy->setEnabled(false);
 		mBtnRoleUUIDCopy->setClickedCallback(onCopyRoleUUID, this);
 	}
 
@@ -2021,7 +2021,7 @@ BOOL LLPanelGroupRolesSubTab::postBuildSubTab(LLView* root)
 	if ( mCreateRoleButton )
 	{
 		mCreateRoleButton->setClickedCallback(onCreateRole, this);
-		mCreateRoleButton->setEnabled(FALSE);
+		mCreateRoleButton->setEnabled(false);
 	}
 
 	mCopyRoleButton = 
@@ -2029,7 +2029,7 @@ BOOL LLPanelGroupRolesSubTab::postBuildSubTab(LLView* root)
 	if ( mCopyRoleButton )
 	{
 		mCopyRoleButton->setClickedCallback(onCopyRole, this);
-		mCopyRoleButton->setEnabled(FALSE);
+		mCopyRoleButton->setEnabled(false);
 	}	
 	
 	mDeleteRoleButton =  
@@ -2037,7 +2037,7 @@ BOOL LLPanelGroupRolesSubTab::postBuildSubTab(LLView* root)
 	if ( mDeleteRoleButton )
 	{
 		mDeleteRoleButton->setClickedCallback(onDeleteRole, this);
-		mDeleteRoleButton->setEnabled(FALSE);
+		mDeleteRoleButton->setEnabled(false);
 	}
 
 	mRolesList->setCommitOnSelectionChange(TRUE);
@@ -2076,7 +2076,7 @@ void LLPanelGroupRolesSubTab::activate()
 	mRoleDescription->clear();
 	mRoleTitle->clear();
 	mRoleUUID->clear();
-	mBtnRoleUUIDCopy->setEnabled(FALSE);
+	mBtnRoleUUIDCopy->setEnabled(false);
 
 	setFooterEnabled(false);
 
@@ -2227,11 +2227,11 @@ void LLPanelGroupRolesSubTab::update(LLGroupChange gc)
 		if ( (gdatap->mRoles.size() < (U32)MAX_ROLES)
 			&& gAgent.hasPowerInGroup(mGroupID, GP_ROLE_CREATE) )
 		{
-			mCreateRoleButton->setEnabled(TRUE);
+			mCreateRoleButton->setEnabled(true);
 		}
 		else
 		{
-			mCreateRoleButton->setEnabled(FALSE);
+			mCreateRoleButton->setEnabled(false);
 		}
 
 		if (had_selection)
@@ -2247,9 +2247,9 @@ void LLPanelGroupRolesSubTab::update(LLGroupChange gc)
 			mRoleTitle->clear();
 			mRoleUUID->clear();
 			setFooterEnabled(false);
-			mBtnRoleUUIDCopy->setEnabled(FALSE);
-			mDeleteRoleButton->setEnabled(FALSE);
-			mCopyRoleButton->setEnabled(FALSE);			
+			mBtnRoleUUIDCopy->setEnabled(false);
+			mDeleteRoleButton->setEnabled(false);
+			mCopyRoleButton->setEnabled(false);			
 		}
 	}
 	
@@ -2308,8 +2308,8 @@ void LLPanelGroupRolesSubTab::handleRoleSelect()
 		mRoleTitle->setText(rd.mRoleTitle);
 		mRoleDescription->setText(rd.mRoleDescription);
 		mRoleUUID->setText(item->getUUID().asString());
-		mRoleUUID->setEnabled(FALSE);
-		mBtnRoleUUIDCopy->setEnabled(TRUE);
+		mRoleUUID->setEnabled(false);
+		mBtnRoleUUIDCopy->setEnabled(true);
 
 		mAllowedActionsList->setEnabled(gAgent.hasPowerInGroup(mGroupID,
 									   GP_ROLE_CHANGE_ACTIONS));
@@ -2333,7 +2333,7 @@ void LLPanelGroupRolesSubTab::handleRoleSelect()
 				// you can't delete the owner role
 				can_delete = FALSE;
 				// ... or hide members with this role
-				mMemberVisibleCheck->setEnabled(FALSE);
+				mMemberVisibleCheck->setEnabled(false);
 			}
 		else
 			{
@@ -2343,8 +2343,8 @@ void LLPanelGroupRolesSubTab::handleRoleSelect()
 		if (item->getUUID().isNull())
 		{
 			// Everyone role, can't edit description or name or delete
-			mRoleDescription->setEnabled(FALSE);
-			mRoleName->setEnabled(FALSE);
+			mRoleDescription->setEnabled(false);
+			mRoleName->setEnabled(false);
 			can_delete = FALSE;
 		}
 	}
@@ -2357,9 +2357,8 @@ void LLPanelGroupRolesSubTab::handleRoleSelect()
 		mRoleDescription->clear();
 		mRoleTitle->clear();
 		mRoleUUID->clear();
-		mBtnRoleUUIDCopy->setEnabled(FALSE);
+		mBtnRoleUUIDCopy->setEnabled(false);
 		setFooterEnabled(false);
-
 		can_delete = FALSE;
 	}
 	mSelectedRole = item->getUUID();
@@ -2733,8 +2732,8 @@ void LLPanelGroupRolesSubTab::handleCreateRole()
 
 	if (mRoleUUID) {
 		mRoleUUID->setText(new_role_id.asString());
-		mRoleUUID->setEnabled(FALSE);
-		mBtnRoleUUIDCopy->setEnabled(TRUE);
+		mRoleUUID->setEnabled(false);
+		mBtnRoleUUIDCopy->setEnabled(true);
 	}
 
 	// put focus on name field and select its contents
@@ -3113,13 +3112,13 @@ BOOL LLPanelGroupBanListSubTab::postBuildSubTab(LLView* root)
 	mBanList->setCommitCallback(onBanEntrySelect, this);
 
 	mCreateBanButton->setClickedCallback(onCreateBanEntry, this);
-	mCreateBanButton->setEnabled(FALSE);
+	mCreateBanButton->setEnabled(false);
 
 	mDeleteBanButton->setClickedCallback(onDeleteBanEntry, this);
-	mDeleteBanButton->setEnabled(FALSE);
+	mDeleteBanButton->setEnabled(false);
 	
 	mRefreshBanListButton->setClickedCallback(onRefreshBanList, this);
-	mRefreshBanListButton->setEnabled(FALSE);
+	mRefreshBanListButton->setEnabled(false);
 
 	setBanCount(0);
 
@@ -3136,7 +3135,7 @@ void LLPanelGroupBanListSubTab::activate()
 	LLPanelGroupSubTab::activate();
 
 	mBanList->deselectAllItems();
-	mDeleteBanButton->setEnabled(FALSE);
+	mDeleteBanButton->setEnabled(false);
 
 	LLGroupMgrGroupData * group_datap = LLGroupMgr::getInstance()->getGroupData(mGroupID);
 	if (group_datap)
@@ -3147,7 +3146,7 @@ void LLPanelGroupBanListSubTab::activate()
 	}
 	else
 	{
-		mCreateBanButton->setEnabled(FALSE);
+		mCreateBanButton->setEnabled(false);
 		setBanCount(0);
 	}
 
@@ -3189,7 +3188,7 @@ void LLPanelGroupBanListSubTab::handleBanEntrySelect()
 {
 	if (gAgent.hasPowerInGroup(mGroupID, GP_GROUP_BAN_ACCESS))
 	{
-		mDeleteBanButton->setEnabled(TRUE);
+		mDeleteBanButton->setEnabled(true);
 	}
 }
 
@@ -3265,11 +3264,11 @@ void LLPanelGroupBanListSubTab::handleDeleteBanEntry()
 	
 		// Removing an item removes the selection, we shouldn't be able to click
 		// the button anymore until we reselect another entry.
-		mDeleteBanButton->setEnabled(FALSE);
+		mDeleteBanButton->setEnabled(false);
 	}
 
 	// update ban-count related elements
-	mCreateBanButton->setEnabled(TRUE);
+	mCreateBanButton->setEnabled(true);
 	setBanCount(gdatap->mBanList.size());
 	
 	LLGroupMgr::getInstance()->sendGroupBanRequest(LLGroupMgr::REQUEST_POST, mGroupID, LLGroupMgr::BAN_DELETE, ban_ids);
@@ -3286,7 +3285,7 @@ void LLPanelGroupBanListSubTab::onRefreshBanList(void* user_data)
 
 void LLPanelGroupBanListSubTab::handleRefreshBanList()
 {
-	mRefreshBanListButton->setEnabled(FALSE);
+	mRefreshBanListButton->setEnabled(false);
 	LLGroupMgr::getInstance()->sendGroupBanRequest(LLGroupMgr::REQUEST_GET, mGroupID);
 }
 
@@ -3294,7 +3293,7 @@ void LLPanelGroupBanListSubTab::onBanListCompleted(bool isComplete)
 {
 	if(isComplete)
 	{
-		mRefreshBanListButton->setEnabled(TRUE);
+		mRefreshBanListButton->setEnabled(true);
 		populateBanList();
 	}
 }
@@ -3345,7 +3344,7 @@ void LLPanelGroupBanListSubTab::populateBanList()
 		mBanList->addNameItemRow(ban_entry);
 	}
 	 
-	mRefreshBanListButton->setEnabled(TRUE);
+	mRefreshBanListButton->setEnabled(true);
 	mCreateBanButton->setEnabled(gAgent.hasPowerInGroup(mGroupID, GP_GROUP_BAN_ACCESS) &&
 								 gdatap->mBanList.size() < GB_MAX_BANNED_AGENTS);
 	setBanCount(gdatap->mBanList.size());

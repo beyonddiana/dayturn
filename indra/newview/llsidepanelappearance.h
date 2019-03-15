@@ -72,9 +72,9 @@ private:
 	void onOpenOutfitButtonClicked();
 	void onEditAppearanceButtonClicked();
 
-	void toggleMyOutfitsPanel(BOOL visible);
-	void toggleOutfitEditPanel(BOOL visible, BOOL disable_camera_switch = FALSE);
-	void toggleWearableEditPanel(BOOL visible, LLViewerWearable* wearable = NULL, BOOL disable_camera_switch = FALSE);
+	void toggleMyOutfitsPanel(bool visible);
+	void toggleOutfitEditPanel(bool visible, BOOL disable_camera_switch = FALSE);
+	void toggleWearableEditPanel(bool visible, LLViewerWearable* wearable = NULL, BOOL disable_camera_switch = FALSE);
 
 	LLFilterEditor*			mFilterEditor;
 	LLPanelOutfitsInventory* mPanelOutfitsInventory;

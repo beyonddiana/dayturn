@@ -97,7 +97,7 @@ public:
 
 	BOOL			isMouseHeldDown();
 
-	virtual void    setEnabled( BOOL b );
+	virtual void    setEnabled( bool b );
 	virtual void	clear();
 	virtual void	setPrecision(S32 precision);
 	void			setMinValue(F32 min_value) {mMultiSlider->setMinValue(min_value);}

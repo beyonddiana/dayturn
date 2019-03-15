@@ -101,7 +101,7 @@ void LLFloaterNotificationsTabbed::handleReshape(const LLRect& rect, bool by_use
 void LLFloaterNotificationsTabbed::onStartUpToastClick(S32 x, S32 y, MASK mask)
 {
     // just set floater visible. Screen channels will be cleared.
-    setVisible(TRUE);
+    setVisible(true);
 }
 
 //---------------------------------------------------------------------------------
@@ -140,7 +140,7 @@ void LLFloaterNotificationsTabbed::removeItemByID(const LLUUID& id, std::string 
     // hide chiclet window if there are no items left
     if(isWindowEmpty())
     {
-        setVisible(FALSE);
+        setVisible(false);
     }
 }
 
@@ -168,7 +168,7 @@ void LLFloaterNotificationsTabbed::initChannel()
 }
 
 //---------------------------------------------------------------------------------
-void LLFloaterNotificationsTabbed::setVisible(BOOL visible)
+void LLFloaterNotificationsTabbed::setVisible(bool visible)
 {
     if (visible)
     {

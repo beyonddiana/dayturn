@@ -80,8 +80,8 @@ public:
 	void	setSelected( bool b );
 	BOOL	getSelected() const				{ return mSelected; }
 
-	void	setEnabled( BOOL b )			{ mEnabled = b; }
-	BOOL	getEnabled() const 				{ return mEnabled; }
+	void	setEnabled( bool b )			{ mEnabled = b; }
+	bool	getEnabled() const 				{ return mEnabled; }
 
 	void	setHighlighted( BOOL b );
 	BOOL	getHighlighted() const			{ return mHighlighted; }

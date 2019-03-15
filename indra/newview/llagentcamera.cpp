@@ -2313,7 +2313,7 @@ void LLAgentCamera::changeCameraToCustomizeAvatar()
 		gFocusMgr.setMouseCapture( NULL );
 		if( gMorphView )
 		{
-			gMorphView->setVisible( TRUE );
+			gMorphView->setVisible(true);
 		}
 		// Remove any pitch or rotation from the avatar
 		LLVector3 at = gAgent.getAtAxis();

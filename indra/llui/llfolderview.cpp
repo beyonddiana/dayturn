@@ -652,12 +652,12 @@ void LLFolderView::draw()
 
 	if (hasVisibleChildren())
 	{
-		mStatusTextBox->setVisible( FALSE );
+		mStatusTextBox->setVisible(false);
 	}
 	else if (mShowEmptyMessage)
 	{
 		mStatusTextBox->setValue(getFolderViewModel()->getStatusText());
-		mStatusTextBox->setVisible( TRUE );
+		mStatusTextBox->setVisible(true);
 		
 		// firstly reshape message textbox with current size. This is necessary to
 		// LLTextBox::getTextPixelHeight works properly
@@ -1048,7 +1048,7 @@ void LLFolderView::startRenamingSelectedItem( void )
 
 		mRenamer->setText(item->getName());
 		mRenamer->selectAll();
-		mRenamer->setVisible( TRUE );
+		mRenamer->setVisible(true);
 		// set focus will fail unless item is visible
 		mRenamer->setFocus( TRUE );
 		mRenamer->setTopLostCallback(boost::bind(&LLFolderView::onRenamerLost, this));
@@ -1443,7 +1443,7 @@ BOOL LLFolderView::handleRightMouseDown( S32 x, S32 y, MASK mask )
 	{
 		if (menu && menu->getVisible())
 		{
-			menu->setVisible(FALSE);
+			menu->setVisible(false);
 		}
 		setSelection(NULL, FALSE, TRUE);
 	}
@@ -1474,8 +1474,8 @@ BOOL LLFolderView::addNoOptions(LLMenuGL* menu) const
 	}
 	if (nooptions_item)
 	{
-		nooptions_item->setVisible(TRUE);
-		nooptions_item->setEnabled(FALSE);
+		nooptions_item->setVisible(true);
+		nooptions_item->setEnabled(false);
 		return TRUE;
 	}
 	return FALSE;
@@ -1811,9 +1811,9 @@ void LLFolderView::updateMenuOptions(LLMenuGL* menu)
 	LLView::child_list_t::const_iterator menu_itor;
 	for (menu_itor = list->begin(); menu_itor != list->end(); ++menu_itor)
 	{
-		(*menu_itor)->setVisible(FALSE);
+		(*menu_itor)->setVisible(false);
 		(*menu_itor)->pushVisible(TRUE);
-		(*menu_itor)->setEnabled(TRUE);
+		(*menu_itor)->setEnabled(true);
 	}
 
 	// Successively filter out invalid options
@@ -1938,7 +1938,7 @@ void LLFolderView::onRenamerLost()
 {
 	if (mRenamer && mRenamer->getVisible())
 	{
-		mRenamer->setVisible(FALSE);
+		mRenamer->setVisible(false);
 
 		// will commit current name (which could be same as original name)
 		mRenamer->setFocus(FALSE);

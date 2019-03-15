@@ -77,7 +77,7 @@ void LLSysWellWindow::handleReshape(const LLRect& rect, bool by_user)
 void LLSysWellWindow::onStartUpToastClick(S32 x, S32 y, MASK mask)
 {
 	// just set floater visible. Screen channels will be cleared.
-	setVisible(TRUE);
+	setVisible(true);
 }
 
 void LLSysWellWindow::setSysWellChiclet(LLSysWellChiclet* chiclet) 
@@ -114,7 +114,7 @@ void LLSysWellWindow::removeItemByID(const LLUUID& id)
 	// hide chiclet window if there are no items left
 	if(isWindowEmpty())
 	{
-		setVisible(FALSE);
+		setVisible(false);
 	}
 }
 
@@ -137,7 +137,7 @@ void LLSysWellWindow::initChannel()
 }
 
 //---------------------------------------------------------------------------------
-void LLSysWellWindow::setVisible(BOOL visible)
+void LLSysWellWindow::setVisible(bool visible)
 {
 	if (visible)
 	{
@@ -375,7 +375,7 @@ void LLIMWellWindow::removeObjectRow(const LLUUID& notification_id)
 	// hide chiclet window if there are no items left
 	if(isWindowEmpty())
 	{
-		setVisible(FALSE);
+		setVisible(false);
 	}
 }
 

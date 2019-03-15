@@ -44,7 +44,7 @@ public:
 	/*virtual*/ void show();
 	/*virtual*/ void hide();
 	/*virtual*/ void close();
-	/*virtual*/ BOOL getVisible();
+	/*virtual*/ bool getVisible();
 	/*virtual*/ bool getMinimized();
 	/*virtual*/ bool getMaximized();
 	/*virtual*/ bool maximize();

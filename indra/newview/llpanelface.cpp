@@ -1583,14 +1583,14 @@ void LLPanelFace::updateUI(bool force_set_values /*false*/)
 		{
 			radio_mat_type->setSelectedIndex(0);
 		}
-		getChildView("color trans")->setEnabled(FALSE);
-		getChildView("rptctrl")->setEnabled(FALSE);
-		getChildView("tex gen")->setEnabled(FALSE);
-		getChildView("label shininess")->setEnabled(FALSE);
-		getChildView("label bumpiness")->setEnabled(FALSE);
-		getChildView("button align")->setEnabled(FALSE);
-		//getChildView("has media")->setEnabled(FALSE);
-		//getChildView("media info set")->setEnabled(FALSE);
+		getChildView("color trans")->setEnabled(false);
+		getChildView("rptctrl")->setEnabled(false);
+		getChildView("tex gen")->setEnabled(false);
+		getChildView("label shininess")->setEnabled(false);
+		getChildView("label bumpiness")->setEnabled(false);
+		getChildView("button align")->setEnabled(false);
+		//getChildView("has media")->setEnabled(false);
+		//getChildView("media info set")->setEnabled(false);
 		
 		updateVisibility();
 

@@ -454,7 +454,7 @@ LLLocationInputCtrl::~LLLocationInputCtrl()
 	mLocationHistoryConnection.disconnect();
 }
 
-void LLLocationInputCtrl::setEnabled(BOOL enabled)
+void LLLocationInputCtrl::setEnabled(bool enabled)
 {
 	LLComboBox::setEnabled(enabled);
 	mAddLandmarkBtn->setEnabled(enabled);
@@ -1108,7 +1108,7 @@ void LLLocationInputCtrl::changeLocationPresentation()
 		mTextEntry->setText(LLURI::unescape(slurl.getSLURLString()));
 		mTextEntry->selectAll();
 
-		mMaturityButton->setVisible(FALSE);
+		mMaturityButton->setVisible(false);
 
 		isHumanReadableLocationVisible = false;
 	}

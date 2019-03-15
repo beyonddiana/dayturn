@@ -128,9 +128,9 @@ bool LLFloaterReporter::postBuild()
 	setPosBox(pos);
 
 	// Take a screenshot, but don't draw this floater.
-	setVisible(FALSE);
+	setVisible(false);
 	takeScreenshot();
-	setVisible(TRUE);
+	setVisible(true);
 
 	// Default text to be blank
 	getChild<LLUICtrl>("object_name")->setValue(LLStringUtil::null);
@@ -202,7 +202,7 @@ void LLFloaterReporter::enableControls(BOOL enable)
 	getChildView("category_combo")->setEnabled(enable);
 	getChildView("chat_check")->setEnabled(enable);
 	getChildView("screen_check")->setEnabled(enable);
-	getChildView("screenshot")->setEnabled(FALSE);
+	getChildView("screenshot")->setEnabled(false);
 	getChildView("pick_btn")->setEnabled(enable);
 	getChildView("summary_edit")->setEnabled(enable);
 	getChildView("details_edit")->setEnabled(enable);
@@ -401,8 +401,8 @@ void LLFloaterReporter::onClickSend(void *userdata)
 		{
 			if(self->getChild<LLUICtrl>("screen_check")->getValue())
 			{
-				self->getChildView("send_btn")->setEnabled(FALSE);
-				self->getChildView("cancel_btn")->setEnabled(FALSE);
+				self->getChildView("send_btn")->setEnabled(false);
+				self->getChildView("cancel_btn")->setEnabled(false);
 				// the callback from uploading the image calls sendReportViaLegacy()
 				self->uploadImage();
 			}

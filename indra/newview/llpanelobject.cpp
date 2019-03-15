@@ -1207,7 +1207,7 @@ void LLPanelObject::getState( )
 
 			if (mLabelSculptType)
 			{
-				mLabelSculptType->setEnabled(TRUE);
+				mLabelSculptType->setEnabled(true);
 			}
 			
 		}
@@ -2011,10 +2011,10 @@ void LLPanelObject::clearCtrls()
 	mLabelRadiusOffset->setEnabled( FALSE );
 	mLabelRevolutions->setEnabled( FALSE );
 	
-	getChildView("scale_hole")->setEnabled(FALSE);
-	getChildView("scale_taper")->setEnabled(FALSE);
-	getChildView("advanced_cut")->setEnabled(FALSE);
-	getChildView("advanced_dimple")->setEnabled(FALSE);
+	getChildView("scale_hole")->setEnabled(false);
+	getChildView("scale_taper")->setEnabled(false);
+	getChildView("advanced_cut")->setEnabled(false);
+	getChildView("advanced_dimple")->setEnabled(false);
 	getChildView("advanced_slice")->setVisible( FALSE);
 }
 

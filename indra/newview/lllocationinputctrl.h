@@ -88,7 +88,7 @@ public:
 	};
 
 	// LLView interface
-	/*virtual*/ void		setEnabled(BOOL enabled);
+	/*virtual*/ void		setEnabled(bool enabled);
 	/*virtual*/ BOOL		handleToolTip(S32 x, S32 y, MASK mask);
 	/*virtual*/ bool		handleKeyHere(KEY key, MASK mask);
 	/*virtual*/ void		onFocusReceived();

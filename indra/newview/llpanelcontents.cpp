@@ -106,7 +106,7 @@ void LLPanelContents::getState(LLViewerObject *objectp )
 {
 	if( !objectp )
 	{
-		getChildView("button new script")->setEnabled(FALSE);
+		getChildView("button new script")->setEnabled(false);
 		return;
 	}
 

@@ -989,10 +989,10 @@ void LLPanelOutfitEdit::updatePlusButton()
 					current_item->getLocalRect().mBottom);
 	
 	mAddToLookBtn->setRect(btn_rect);
-	mAddToLookBtn->setEnabled(TRUE);
+	mAddToLookBtn->setEnabled(true);
 	if (!mAddToLookBtn->getVisible())
 	{
-		mAddToLookBtn->setVisible(TRUE);
+		mAddToLookBtn->setVisible(true);
 	}
 	
 	current_item->addChild(mAddToLookBtn); */
@@ -1256,8 +1256,8 @@ bool LLPanelOutfitEdit::switchPanels(LLPanel* switch_from_panel, LLPanel* switch
 {
 	if(switch_from_panel && switch_to_panel && !switch_to_panel->getVisible())
 	{
-		switch_from_panel->setVisible(FALSE);
-		switch_to_panel->setVisible(TRUE);
+		switch_from_panel->setVisible(false);
+		switch_to_panel->setVisible(true);
 		return true;
 	}
 	return false;

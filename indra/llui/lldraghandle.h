@@ -67,7 +67,7 @@ public:
 	S32				getMaxTitleWidth() const { return mMaxTitleWidth; }
 	void			setButtonsRect(const LLRect& rect){ mButtonsRect = rect; }
 	LLRect			getButtonsRect() { return mButtonsRect; }
-	void			setTitleVisible(BOOL visible);
+	void			setTitleVisible(bool visible);
 
 	virtual void	setTitle( const std::string& title ) = 0;
 	virtual std::string	getTitle() const = 0;

@@ -749,7 +749,7 @@ void LLPanelRegionInfo::enableButton(const std::string& btn_name, BOOL enable)
 void LLPanelRegionInfo::disableButton(const std::string& btn_name)
 {
 	LLView* button = findChildView(btn_name);
-	if (button) button->setEnabled(FALSE);
+	if (button) button->setEnabled(false);
 }
 
 void LLPanelRegionInfo::initCtrl(const std::string& name)
@@ -770,7 +770,7 @@ bool LLPanelRegionGeneralInfo::refreshFromRegion(LLViewerRegion* region)
 {
 	bool allow_modify = gAgent.isGodlike() || (region && region->canManageEstate());
 	setCtrlsEnabled(allow_modify);
-	getChildView("apply_btn")->setEnabled(FALSE);
+	getChildView("apply_btn")->setEnabled(false);
 	getChildView("access_text")->setEnabled(allow_modify);
 	// getChildView("access_combo")->setEnabled(allow_modify);
 	// now set in processRegionInfo for teen grid detection
@@ -1212,8 +1212,8 @@ bool LLPanelRegionDebugInfo::refreshFromRegion(LLViewerRegion* region)
 {
 	bool allow_modify = gAgent.isGodlike() || (region && region->canManageEstate());
 	setCtrlsEnabled(allow_modify);
-	getChildView("apply_btn")->setEnabled(FALSE);
-	getChildView("target_avatar_name")->setEnabled(FALSE);
+	getChildView("apply_btn")->setEnabled(false);
+	getChildView("target_avatar_name")->setEnabled(false);
 	
 	getChildView("choose_avatar_btn")->setEnabled(allow_modify);
 	getChildView("return_scripts")->setEnabled(allow_modify && !mTargetAvatar.isNull());
@@ -1542,7 +1542,7 @@ bool LLPanelRegionTerrainInfo::refreshFromRegion(LLViewerRegion* region)
 						|| (region && region->isEstateManager());
 	setCtrlsEnabled(owner_or_god_or_manager);
 
-	getChildView("apply_btn")->setEnabled(FALSE);
+	getChildView("apply_btn")->setEnabled(false);
 
 	if (region)
 	{
@@ -1946,7 +1946,7 @@ void LLPanelEstateInfo::updateControls(LLViewerRegion* region)
 	BOOL manager = (region && region->isEstateManager());
 	setCtrlsEnabled(god || owner || manager);
 	
-	getChildView("apply_btn")->setEnabled(FALSE);
+	getChildView("apply_btn")->setEnabled(false);
 
 	getChildView("message_estate_btn")->setEnabled(god || owner || manager);
 	getChildView("kick_user_from_estate_btn")->setEnabled(god || owner || manager);
@@ -2156,7 +2156,6 @@ protected:
 	virtual void httpSuccess()
 	{
 		LL_INFOS("Windlight") << "Successfully committed estate info" << LL_ENDL;
-
 	    // refresh the panel from the database
 		LLPanelEstateInfo* panel = dynamic_cast<LLPanelEstateInfo*>(mpPanel.get());
 		if (panel)
@@ -3429,7 +3428,7 @@ bool LLPanelRegionExperiences::postBuild()
 	mTrusted = setupList("panel_trusted", ESTATE_EXPERIENCE_TRUSTED_ADD, ESTATE_EXPERIENCE_TRUSTED_REMOVE);
 	mBlocked = setupList("panel_blocked", ESTATE_EXPERIENCE_BLOCKED_ADD, ESTATE_EXPERIENCE_BLOCKED_REMOVE);
 
-	getChild<LLLayoutPanel>("trusted_layout_panel")->setVisible(TRUE);
+	getChild<LLLayoutPanel>("trusted_layout_panel")->setVisible(true);
 	getChild<LLTextBox>("experiences_help_text")->setText(getString("estate_caption"));
 	getChild<LLTextBox>("trusted_text_help")->setText(getString("trusted_estate_text"));
 	getChild<LLTextBox>("allowed_text_help")->setText(getString("allowed_estate_text"));

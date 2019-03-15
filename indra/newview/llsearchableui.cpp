@@ -137,7 +137,7 @@ void ll::statusbar::SearchableItem::setNotHighlighted( )
 		mCtrl->setHighlighted( false );
 
 		if( mWasHiddenBySearch )
-			mMenu->setVisible( TRUE );
+			mMenu->setVisible(true);
 	}
 }
 
@@ -170,7 +170,7 @@ bool ll::statusbar::SearchableItem::hightlightAndHide(LLWString const &aFilter, 
 	if (mCtrl && !bVisible && !bHighlighted)
 	{
 		mWasHiddenBySearch = true;
-		mMenu->setVisible(FALSE);
+		mMenu->setVisible(false);
 	}
 	return bVisible || bHighlighted;
 }

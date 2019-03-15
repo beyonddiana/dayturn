@@ -879,11 +879,11 @@ void LLFloaterUIPreview::displayFloater(BOOL click, S32 ID)
 	
 	if(ID == 1)
 	{
-		mCloseOtherButton->setEnabled(TRUE);	// enable my floater's close button
+		mCloseOtherButton->setEnabled(true);	// enable my floater's close button
 	}
 	else
 	{
-		mCloseOtherButton_2->setEnabled(TRUE);
+		mCloseOtherButton_2->setEnabled(true);
 	}
 
 	// Add localization to title so user knows whether it's localized or defaulted to en
@@ -916,7 +916,7 @@ void LLFloaterUIPreview::displayFloater(BOOL click, S32 ID)
 
 	if(ID == 1)
 	{
-		mToggleOverlapButton->setEnabled(TRUE);
+		mToggleOverlapButton->setEnabled(true);
 	}
 
 	if(LLView::sHighlightingDiffs && click && ID == 1)
@@ -1271,8 +1271,8 @@ void LLFloaterUIPreview::onClickCloseDisplayedFloater(S32 caller_id)
 {
 	if(caller_id == PRIMARY_FLOATER)
 	{
-		mCloseOtherButton->setEnabled(FALSE);
-		mToggleOverlapButton->setEnabled(FALSE);
+		mCloseOtherButton->setEnabled(false);
+		mToggleOverlapButton->setEnabled(false);
 
 		if(mDisplayedFloater)
 		{
@@ -1299,7 +1299,7 @@ void LLFloaterUIPreview::onClickCloseDisplayedFloater(S32 caller_id)
 	}
 	else
 	{
-		mCloseOtherButton_2->setEnabled(FALSE);
+		mCloseOtherButton_2->setEnabled(false);
 		delete mDisplayedFloater_2;
 		mDisplayedFloater_2 = NULL;
 	}

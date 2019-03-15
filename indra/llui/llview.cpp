@@ -454,7 +454,7 @@ bool LLView::canFocusChildren() const
 }
 
 //virtual
-void LLView::setEnabled(BOOL enabled)
+void LLView::setEnabled(bool enabled)
 {
 	mEnabled = enabled;
 }
@@ -600,7 +600,7 @@ void LLView::setAllChildrenEnabled(bool b)
 }
 
 // virtual
-void LLView::setVisible(BOOL visible)
+void LLView::setVisible(bool visible)
 {
 	if ( mVisible != visible )
 	{

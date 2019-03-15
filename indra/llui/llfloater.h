@@ -307,7 +307,7 @@ public:
 	// methods are const as well.  JC
 	virtual BOOL	canClose() { return TRUE; }
 
-	/*virtual*/ void setVisible(BOOL visible); // do not override
+	/*virtual*/ void setVisible(bool visible); // do not override
 	/*virtual*/ void onVisibilityChange ( bool new_visibility ); // do not override
 	
 	void			setFrontmost(bool take_focus = true);

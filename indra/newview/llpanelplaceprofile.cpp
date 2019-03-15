@@ -177,8 +177,8 @@ void LLPanelPlaceProfile::resetLocation()
 	mLastSelectedRegionID = LLUUID::null;
 	mNextCovenantUpdateTime = 0;
 
-	mForSalePanel->setVisible(FALSE);
-	mYouAreHerePanel->setVisible(FALSE);
+	mForSalePanel->setVisible(false);
+	mYouAreHerePanel->setVisible(false);
 
 	std::string loading = LLTrans::getString("LoadingData");
 
@@ -222,7 +222,7 @@ void LLPanelPlaceProfile::resetLocation()
 	mResaleText->setValue(loading);
 	mSaleToText->setValue(loading);
 
-	getChild<LLAccordionCtrlTab>("sales_tab")->setVisible(TRUE);
+	getChild<LLAccordionCtrlTab>("sales_tab")->setVisible(true);
 }
 
 // virtual

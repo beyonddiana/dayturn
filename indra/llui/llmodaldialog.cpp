@@ -47,7 +47,7 @@ LLModalDialog::LLModalDialog( const LLSD& key, BOOL modal )
 		setCanMinimize(FALSE);
 		setCanClose(FALSE);
 	}
-	setVisible( FALSE );
+	setVisible( false );
 	setBackgroundVisible(TRUE);
 	setBackgroundOpaque(TRUE);
 	centerOnScreen(); // default position
@@ -100,7 +100,7 @@ void LLModalDialog::onOpen(const LLSD& key)
 		if (!sModalStack.empty())
 		{
 			LLModalDialog* front = sModalStack.front();
-			front->setVisible(FALSE);
+			front->setVisible(false);
 		}
 	
 		// This is a modal dialog.  It sucks up all mouse and keyboard operations.
@@ -132,12 +132,12 @@ void LLModalDialog::stopModal()
 	if (!sModalStack.empty())
 	{
 		LLModalDialog* front = sModalStack.front();
-		front->setVisible(TRUE);
+		front->setVisible(true);
 	}
 }
 
 
-void LLModalDialog::setVisible( BOOL visible )
+void LLModalDialog::setVisible( bool visible )
 {
 	if (mModal)
 	{

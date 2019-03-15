@@ -476,7 +476,7 @@ void LLFloaterEditWater::reset()
 	if (isNewPreset())
 	{
 		mWaterPresetNameEditor->setValue(LLSD());
-		mSaveButton->setEnabled(FALSE); // will be enabled as soon as users enters a name
+		mSaveButton->setEnabled(false); // will be enabled as soon as users enters a name
 	}
 	else
 	{

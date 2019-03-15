@@ -330,7 +330,7 @@ void LLFloaterIMSession::initIMFloater()
 	// Disable input editor if session cannot accept text
 	if ( mSession && !mSession->mTextIMPossible )
 	{
-		mInputEditor->setEnabled(FALSE);
+		mInputEditor->setEnabled(false);
 		mInputEditor->setLabel(LLTrans::getString("IM_unavailable_text_label"));
 	}
 
@@ -610,7 +610,7 @@ LLFloaterIMSession* LLFloaterIMSession::show(const LLUUID& session_id)
 
 	floater->openFloater(floater->getKey());
 
-	floater->setVisible(TRUE);
+	floater->setVisible(true);
 
 	return floater;
 }
@@ -685,7 +685,7 @@ void LLFloaterIMSession::setMinimized(BOOL b)
 	}
 }
 
-void LLFloaterIMSession::setVisible(BOOL visible)
+void LLFloaterIMSession::setVisible(bool visible)
 {
 	LLNotificationsUI::LLScreenChannel* channel = static_cast<LLNotificationsUI::LLScreenChannel*>
 		(LLNotificationsUI::LLChannelManager::getInstance()->
@@ -781,7 +781,7 @@ bool LLFloaterIMSession::toggle(const LLUUID& session_id)
 		}
 		else if(floater && ((!floater->isDocked() || floater->getVisible()) && !floater->hasFocus()))
 		{
-			floater->setVisible(TRUE);
+			floater->setVisible(true);
 			floater->setFocus(TRUE);
 			return true;
 		}

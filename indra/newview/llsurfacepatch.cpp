@@ -969,7 +969,7 @@ LLVector3 LLSurfacePatch::getOriginAgent() const
 	return gAgent.getPosAgentFromGlobal(mOriginGlobal);
 }
 
-BOOL LLSurfacePatch::getVisible() const
+bool LLSurfacePatch::getVisible() const
 {
 	return mVisInfo.mbIsVisible;
 }

@@ -64,7 +64,7 @@ bool LLPanelVolumePulldown::postBuild()
 void LLPanelVolumePulldown::onAdvancedButtonClick(const LLSD& user_data)
 {
 	// close the global volume minicontrol, we're bringing up the big one
-	setVisible(FALSE);
+	setVisible(false);
 
 	// bring up the prefs floater
 	LLFloaterPreference* prefsfloater = dynamic_cast<LLFloaterPreference*>

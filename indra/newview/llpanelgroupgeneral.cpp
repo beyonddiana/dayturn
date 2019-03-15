@@ -118,7 +118,7 @@ bool LLPanelGroupGeneral::postBuild()
 		if (gAgent.isTeen())
 		{
 			// Teens don't get to set mature flag. JC
-			mComboMature->setVisible(FALSE);
+			mComboMature->setVisible(false);
 			mComboMature->setCurrentByIndex(NON_MATURE_CONTENT);
 		}
 	}
@@ -178,7 +178,7 @@ bool LLPanelGroupGeneral::postBuild()
 	mGroupUUIDText = getChild<LLLineEditor>("group_uuid_text", recurse);
 	mBtnGroupUUIDCopy = getChild<LLButton>("group_uuid_copy", recurse);
 	if (mBtnGroupUUIDCopy) {
-		mBtnGroupUUIDCopy->setEnabled(FALSE);
+		mBtnGroupUUIDCopy->setEnabled(false);
 		mBtnGroupUUIDCopy->setClickedCallback(onCopyGroupUUID, this);
 	}
 
@@ -187,13 +187,13 @@ bool LLPanelGroupGeneral::postBuild()
 	// If the group_id is null, then we are creating a new group
 	if (mGroupID.isNull())
 	{
-		mEditCharter->setEnabled(TRUE);
+		mEditCharter->setEnabled(true);
 
-		mCtrlShowInGroupList->setEnabled(TRUE);
-		mComboMature->setEnabled(TRUE);
-		mCtrlOpenEnrollment->setEnabled(TRUE);
-		mCtrlEnrollmentFee->setEnabled(TRUE);
-		mSpinEnrollmentFee->setEnabled(TRUE);
+		mCtrlShowInGroupList->setEnabled(true);
+		mComboMature->setEnabled(true);
+		mCtrlOpenEnrollment->setEnabled(true);
+		mCtrlEnrollmentFee->setEnabled(true);
+		mSpinEnrollmentFee->setEnabled(true);
 		mGroupUUIDText->clear();
 	}
 
@@ -262,11 +262,11 @@ void LLPanelGroupGeneral::onCommitEnrollment(LLUICtrl* ctrl, void* data)
 
 	if (self->mCtrlEnrollmentFee->get())
 	{
-		self->mSpinEnrollmentFee->setEnabled(TRUE);
+		self->mSpinEnrollmentFee->setEnabled(true);
 	}
 	else
 	{
-		self->mSpinEnrollmentFee->setEnabled(FALSE);
+		self->mSpinEnrollmentFee->setEnabled(false);
 		self->mSpinEnrollmentFee->set(0);
 	}
 }
@@ -536,11 +536,11 @@ void LLPanelGroupGeneral::update(LLGroupChange gc)
 			if (1 == gdatap->mTitles.size())
 			{
 				// Only the everyone title.  Don't bother letting them try changing this.
-				mComboActiveTitle->setEnabled(FALSE);
+				mComboActiveTitle->setEnabled(false);
 			}
 			else
 			{
-				mComboActiveTitle->setEnabled(TRUE);
+				mComboActiveTitle->setEnabled(true);
 			}
 
 			std::vector<LLGroupTitle>::const_iterator citer = gdatap->mTitles.begin();
@@ -627,7 +627,7 @@ void LLPanelGroupGeneral::update(LLGroupChange gc)
 	if (mInsignia) mInsignia->setEnabled(mAllowEdit && can_change_ident);
 	if (mEditCharter) mEditCharter->setEnabled(mAllowEdit && can_change_ident);
 	
-	if (mGroupNameEditor) mGroupNameEditor->setVisible(FALSE);
+	if (mGroupNameEditor) mGroupNameEditor->setVisible(false);
 	if (mFounderName) mFounderName->setText(LLSLURL("agent", gdatap->mFounderID, "inspect").getSLURLString());
 	if (mInsignia)
 	{
@@ -648,7 +648,7 @@ void LLPanelGroupGeneral::update(LLGroupChange gc)
 
 	if (mGroupUUIDText) {
 		mGroupUUIDText->setText(mGroupID.asString());
-		mBtnGroupUUIDCopy->setEnabled(TRUE);
+		mBtnGroupUUIDCopy->setEnabled(true);
 	}
 
 	resetDirty();
@@ -699,17 +699,17 @@ void LLPanelGroupGeneral::reset()
 
 	mCtrlListGroup->setEnabled(false);
 
-	mGroupNameEditor->setEnabled(TRUE);
-	mEditCharter->setEnabled(TRUE);
+	mGroupNameEditor->setEnabled(true);
+	mEditCharter->setEnabled(true);
 
 	mCtrlShowInGroupList->setEnabled(false);
-	mComboMature->setEnabled(TRUE);
+	mComboMature->setEnabled(true);
 	
-	mCtrlOpenEnrollment->setEnabled(TRUE);
+	mCtrlOpenEnrollment->setEnabled(true);
 	
-	mCtrlEnrollmentFee->setEnabled(TRUE);
+	mCtrlEnrollmentFee->setEnabled(true);
 	
-	mSpinEnrollmentFee->setEnabled(TRUE);
+	mSpinEnrollmentFee->setEnabled(true);
 	mSpinEnrollmentFee->set((F32)0);
 
 	mGroupNameEditor->setVisible(true);
@@ -735,7 +735,7 @@ void LLPanelGroupGeneral::reset()
 	}
 
 	mGroupUUIDText->clear();
-	mBtnGroupUUIDCopy->setEnabled(FALSE);
+	mBtnGroupUUIDCopy->setEnabled(false);
 
 	resetDirty();
 }

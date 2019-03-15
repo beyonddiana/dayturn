@@ -157,7 +157,7 @@ void LLLayoutPanel::setOrientation( LLLayoutStack::ELayoutOrientation orientatio
 	mTargetDim = llmax(layout_dim, getMinDim());
 }
  
-void LLLayoutPanel::setVisible( BOOL visible )
+void LLLayoutPanel::setVisible( bool visible )
 {
 	if (visible != getVisible())
 	{
@@ -349,7 +349,7 @@ void LLLayoutStack::addPanel(LLLayoutPanel* panel, EAnimate animate)
 	if (animate == ANIMATE)
 	{
 		panel->mVisibleAmt = 0.f;
-		panel->setVisible(TRUE);
+		panel->setVisible(true);
 	}
 }
 
@@ -999,7 +999,7 @@ void LLLayoutStack::updateResizeBarLimits()
 	{
 		if (!visible_panelp->getVisible() || visible_panelp->mCollapsed)
 		{
-			visible_panelp->mResizeBar->setVisible(FALSE);
+			visible_panelp->mResizeBar->setVisible(false);
 			continue;
 		}
 
@@ -1009,14 +1009,14 @@ void LLLayoutStack::updateResizeBarLimits()
 			&& (visible_panelp->mAutoResize || visible_panelp->mUserResize)							// current panel is resizable
 			&& (previous_visible_panelp->mAutoResize || previous_visible_panelp->mUserResize))		// previous panel is resizable
 		{
-			visible_panelp->mResizeBar->setVisible(TRUE);
+			visible_panelp->mResizeBar->setVisible(true);
 			S32 previous_panel_headroom = previous_visible_panelp->getVisibleDim() - previous_visible_panelp->getRelevantMinDim();
 			visible_panelp->mResizeBar->setResizeLimits(visible_panelp->getRelevantMinDim(), 
 														visible_panelp->getVisibleDim() + previous_panel_headroom);
 		}
 		else
 		{
-			visible_panelp->mResizeBar->setVisible(FALSE);
+			visible_panelp->mResizeBar->setVisible(false);
 		}
 
 		previous_visible_panelp = visible_panelp;

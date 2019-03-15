@@ -56,8 +56,8 @@ LLFloaterBuy::LLFloaterBuy(const LLSD& key)
 
 bool LLFloaterBuy::postBuild()
 {
-	getChildView("object_list")->setEnabled(FALSE);
-	getChildView("item_list")->setEnabled(FALSE);
+	getChildView("object_list")->setEnabled(false);
+	getChildView("item_list")->setEnabled(false);
 
 	getChild<LLUICtrl>("cancel_btn")->setCommitCallback( boost::bind(&LLFloaterBuy::onClickCancel, this));
 	getChild<LLUICtrl>("buy_btn")->setCommitCallback( boost::bind(&LLFloaterBuy::onClickBuy, this));

@@ -111,11 +111,11 @@ void LLDockableFloater::toggleInstance(const LLSD& sdname)
 		instance->setMinimized(FALSE);
 		if (instance->getVisible())
 		{
-			instance->setVisible(FALSE);
+			instance->setVisible(false);
 		}
 		else
 		{
-			instance->setVisible(TRUE);
+			instance->setVisible(true);
 			gFloaterView->bringToFront(instance);
 		}
 	}
@@ -127,13 +127,13 @@ void LLDockableFloater::resetInstance()
 	{
 		if (sInstanceHandle.get() != NULL && sInstanceHandle.get()->isDocked())
 		{
-			sInstanceHandle.get()->setVisible(FALSE);
+			sInstanceHandle.get()->setVisible(false);
 		}
 		sInstanceHandle = getHandle();
 	}
 }
 
-void LLDockableFloater::setVisible(BOOL visible)
+void LLDockableFloater::setVisible(bool visible)
 {
 	// Force docking if requested
 	if (visible && mForceDocking)
@@ -165,7 +165,7 @@ void LLDockableFloater::setMinimized(BOOL minimize)
 	if(minimize && isDocked())
 	{
 		// minimizing a docked floater just hides it
-		setVisible(FALSE);
+		setVisible(false);
 	}
 	else
 	{

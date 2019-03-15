@@ -227,7 +227,7 @@ bool FSFloaterSearchLegacy::postBuild()
 
 	LLButton *search_btn = getChild<LLButton>("search_btn");
 	if (search_btn) {
-		search_btn->setEnabled(FALSE);
+		search_btn->setEnabled(false);
 	}
 
 	LLLineEditor* price_edit = findChild<LLLineEditor>("price_edit");
@@ -254,8 +254,8 @@ bool FSFloaterSearchLegacy::postBuild()
 	childSetAction("parcel_teleport_btn", boost::bind(&FSFloaterSearchLegacy::onBtnParcelTeleport, this));
 	childSetAction("parcel_map_btn", boost::bind(&FSFloaterSearchLegacy::onBtnParcelMap, this));
 	childSetAction("search_results_land", boost::bind(&FSFloaterSearchLegacy::find, this));
-	getChildView("Next")->setEnabled(FALSE);
-	getChildView("Back")->setEnabled(FALSE);
+	getChildView("Next")->setEnabled(false);
+	getChildView("Back")->setEnabled(false);
 	
 	mSearchRadio = getChild<LLRadioGroup>("search_category_radio");
 	mSearchRadio->setCommitCallback(onModeSelect, this);
@@ -286,32 +286,32 @@ bool FSFloaterSearchLegacy::postBuild()
 	
 	LLScrollListCtrl* search_results_people = getChild<LLScrollListCtrl>("search_results_people");
 	search_results_people->setCommitCallback(boost::bind(&FSFloaterSearchLegacy::onSelectItem, this));
-	search_results_people->setEnabled(FALSE);
+	search_results_people->setEnabled(false);
 	search_results_people->setCommentText(getString("no_results"));
 	
 	LLScrollListCtrl* search_results_groups = getChild<LLScrollListCtrl>("search_results_groups");
 	search_results_groups->setCommitCallback(boost::bind(&FSFloaterSearchLegacy::onSelectItem, this));
-	search_results_groups->setEnabled(FALSE);
+	search_results_groups->setEnabled(false);
 	search_results_groups->setCommentText(getString("no_results"));
 	
 	LLScrollListCtrl* search_results_places = getChild<LLScrollListCtrl>("search_results_places");
 	search_results_places->setCommitCallback(boost::bind(&FSFloaterSearchLegacy::onSelectItem, this));
-	search_results_places->setEnabled(FALSE);
+	search_results_places->setEnabled(false);
 	search_results_places->setCommentText(getString("no_results"));
 	
 	LLScrollListCtrl* search_results_land = getChild<LLScrollListCtrl>("search_results_land");
 	search_results_land->setCommitCallback(boost::bind(&FSFloaterSearchLegacy::onSelectItem, this));
-	search_results_land->setEnabled(FALSE);
+	search_results_land->setEnabled(false);
 	search_results_land->setCommentText(getString("no_results"));
 	
 	LLScrollListCtrl* search_results_events = getChild<LLScrollListCtrl>("search_results_events");
 	search_results_events->setCommitCallback(boost::bind(&FSFloaterSearchLegacy::onSelectItem, this));
-	search_results_events->setEnabled(FALSE);
+	search_results_events->setEnabled(false);
 	search_results_events->setCommentText(getString("no_results"));
 	
 	LLScrollListCtrl* search_results_classifieds = getChild<LLScrollListCtrl>("search_results_classifieds");
 	search_results_classifieds->setCommitCallback(boost::bind(&FSFloaterSearchLegacy::onSelectItem, this));
-	search_results_classifieds->setEnabled(FALSE);
+	search_results_classifieds->setEnabled(false);
 	search_results_classifieds->setCommentText(getString("no_results"));
 	
 	childSetVisible("people_profile_btn", false);
@@ -438,7 +438,7 @@ void FSFloaterSearchLegacy::refreshActionButtons()
 void FSFloaterSearchLegacy::onBtnNext()
 {
 	mStartSearch += mResultsPerPage;
-	getChildView("Back")->setEnabled(TRUE);
+	getChildView("Back")->setEnabled(true);
 	
 	find();
 }
@@ -527,10 +527,10 @@ void FSFloaterSearchLegacy::showResultsCount()
 		if (last_row) {
 			result_count_text->setTextArg("[FIRST]", llformat("%d", mStartSearch + 1));
 			result_count_text->setTextArg("[LAST]", llformat("%d", last_row));
-			result_count_text->setVisible(TRUE);
+			result_count_text->setVisible(true);
 		}
 		else {
-			result_count_text->setVisible(FALSE);
+			result_count_text->setVisible(false);
 		}
 	}
 }
@@ -550,8 +550,8 @@ void FSFloaterSearchLegacy::resetSearch()
 	mStartSearch = 0;
 	mResultsPerPage = (ESearchMode == SM_EVENTS) ? 200 : 100;
 
-	getChildView("Back")->setEnabled(FALSE);
-	getChildView("Next")->setEnabled(FALSE);
+	getChildView("Back")->setEnabled(false);
+	getChildView("Next")->setEnabled(false);
 
 	updateSearchEnabled();
 
@@ -595,7 +595,7 @@ void FSFloaterSearchLegacy::onSelectItem()
 	}
 
 	refreshActionButtons();
-	mSnapshotCtrl->setVisible(TRUE);
+	mSnapshotCtrl->setVisible(true);
 	mParcelID.setNull();
 
 	LLAvatarPropertiesProcessor* mAvatarPropertiesProcessor = LLAvatarPropertiesProcessor::getInstance();
@@ -790,7 +790,7 @@ void FSFloaterSearchLegacy::find()
 		LLButton *search_btn = getChild<LLButton>("search_btn");
 
 		if (search_btn) {
-			search_btn->setEnabled(FALSE);
+			search_btn->setEnabled(false);
 		}
 		return;
 	}
@@ -1134,7 +1134,7 @@ void FSFloaterSearchLegacy::processSearchPeopleReply(LLMessageSystem* msg, void*
 		{
 			LLStringUtil::format_map_t map;
 			map["[TEXT]"] = self->getChild<LLUICtrl>("search_terms")->getValue().asString();
-			search_results->setEnabled(FALSE);
+			search_results->setEnabled(false);
 			search_results->setCommentText(self->getString("not_found", map));
 			self->mResultsReceived = 0;
 			self->showResultsCount();
@@ -1143,7 +1143,7 @@ void FSFloaterSearchLegacy::processSearchPeopleReply(LLMessageSystem* msg, void*
 		}
 		else if(status & STATUS_SEARCH_PLACES_SHORTSTRING)
 		{
-			search_results->setEnabled(FALSE);
+			search_results->setEnabled(false);
 			search_results->setCommentText(self->getString("search_short"));
 			self->mResultsReceived = 0;
 			self->showResultsCount();
@@ -1152,7 +1152,7 @@ void FSFloaterSearchLegacy::processSearchPeopleReply(LLMessageSystem* msg, void*
 		}
 		else if (status & STATUS_SEARCH_PLACES_BANNEDWORD)
 		{
-			search_results->setEnabled(FALSE);
+			search_results->setEnabled(false);
 			search_results->setCommentText(self->getString("search_banned"));
 			self->mResultsReceived = 0;
 			self->showResultsCount();
@@ -1161,7 +1161,7 @@ void FSFloaterSearchLegacy::processSearchPeopleReply(LLMessageSystem* msg, void*
 		}
 		else if (status & STATUS_SEARCH_PLACES_SEARCHDISABLED)
 		{
-			search_results->setEnabled(FALSE);
+			search_results->setEnabled(false);
 			search_results->setCommentText(self->getString("search_disabled"));
 			self->mResultsReceived = 0;
 			self->showResultsCount();
@@ -1177,7 +1177,7 @@ void FSFloaterSearchLegacy::processSearchPeopleReply(LLMessageSystem* msg, void*
 		LLStringUtil::format_map_t map;
 		map["[TEXT]"] = self->getChild<LLUICtrl>("search_terms")->getValue().asString();
 
-		search_results->setEnabled(FALSE);
+		search_results->setEnabled(false);
 		search_results->setCommentText(self->getString("not_found", map));
 		self->mResultsReceived = 0;
 		self->showResultsCount();
@@ -1200,7 +1200,7 @@ void FSFloaterSearchLegacy::processSearchPeopleReply(LLMessageSystem* msg, void*
 			LL_DEBUGS() << "No results returned for QueryID: " << query_id << LL_ENDL;
 			LLStringUtil::format_map_t map;
 			map["[TEXT]"] = self->getChild<LLUICtrl>("search_terms")->getValue().asString();
-			search_results->setEnabled(FALSE);
+			search_results->setEnabled(false);
 			search_results->setCommentText(self->getString("not_found", map));
 			self->mResultsReceived = 0;
 			self->showResultsCount();
@@ -1208,7 +1208,7 @@ void FSFloaterSearchLegacy::processSearchPeopleReply(LLMessageSystem* msg, void*
 		}
 		else {
 			LL_DEBUGS() << "Got: " << first_name << " " << last_name << " AgentID: " << agent_id << LL_ENDL;
-			search_results->setEnabled(TRUE);
+			search_results->setEnabled(true);
 			found_one = TRUE;
 			
 			std::string avatar_name;
@@ -1281,7 +1281,7 @@ void FSFloaterSearchLegacy::processSearchGroupsReply(LLMessageSystem* msg, void*
 		{
 			LLStringUtil::format_map_t map;
 			map["[TEXT]"] = self->getChild<LLUICtrl>("search_terms")->getValue().asString();
-			search_results->setEnabled(FALSE);
+			search_results->setEnabled(false);
 			search_results->setCommentText(self->getString("not_found", map));
 			self->mResultsReceived = 0;
 			self->showResultsCount();
@@ -1290,7 +1290,7 @@ void FSFloaterSearchLegacy::processSearchGroupsReply(LLMessageSystem* msg, void*
 		}
 		else if(status & STATUS_SEARCH_PLACES_SHORTSTRING)
 		{
-			search_results->setEnabled(FALSE);
+			search_results->setEnabled(false);
 			search_results->setCommentText(self->getString("search_short"));
 			self->mResultsReceived = 0;
 			self->showResultsCount();
@@ -1299,7 +1299,7 @@ void FSFloaterSearchLegacy::processSearchGroupsReply(LLMessageSystem* msg, void*
 		}
 		else if (status & STATUS_SEARCH_PLACES_BANNEDWORD)
 		{
-			search_results->setEnabled(FALSE);
+			search_results->setEnabled(false);
 			search_results->setCommentText(self->getString("search_banned"));
 			self->mResultsReceived = 0;
 			self->showResultsCount();
@@ -1308,7 +1308,7 @@ void FSFloaterSearchLegacy::processSearchGroupsReply(LLMessageSystem* msg, void*
 		}
 		else if (status & STATUS_SEARCH_PLACES_SEARCHDISABLED)
 		{
-			search_results->setEnabled(FALSE);
+			search_results->setEnabled(false);
 			search_results->setCommentText(self->getString("search_disabled"));
 			self->mResultsReceived = 0;
 			self->showResultsCount();
@@ -1324,7 +1324,7 @@ void FSFloaterSearchLegacy::processSearchGroupsReply(LLMessageSystem* msg, void*
 		LLStringUtil::format_map_t map;
 		map["[TEXT]"] = self->getChild<LLUICtrl>("search_terms")->getValue().asString();
 
-		search_results->setEnabled(FALSE);
+		search_results->setEnabled(false);
 		search_results->setCommentText(self->getString("not_found", map));
 		self->mResultsReceived = 0;
 		self->showResultsCount();
@@ -1347,7 +1347,7 @@ void FSFloaterSearchLegacy::processSearchGroupsReply(LLMessageSystem* msg, void*
 			LL_DEBUGS() << "No results returned for QueryID: " << query_id << LL_ENDL;
 			LLStringUtil::format_map_t map;
 			map["[TEXT]"] = self->getChild<LLUICtrl>("search_terms")->getValue().asString();
-			search_results->setEnabled(FALSE);
+			search_results->setEnabled(false);
 			search_results->setCommentText(self->getString("not_found", map));
 			self->mResultsReceived = 0;
 			self->showResultsCount();
@@ -1355,7 +1355,7 @@ void FSFloaterSearchLegacy::processSearchGroupsReply(LLMessageSystem* msg, void*
 		}
 		else {
 			LL_DEBUGS() << "Got: " << group_name << " GroupID: " << group_id << LL_ENDL;
-			search_results->setEnabled(TRUE);
+			search_results->setEnabled(true);
 			found_one = TRUE;
 			
 			LLSD content;
@@ -1428,7 +1428,7 @@ void FSFloaterSearchLegacy::processSearchPlacesReply(LLMessageSystem* msg, void*
 		{
 			LLStringUtil::format_map_t map;
 			map["[TEXT]"] = self->getChild<LLUICtrl>("search_terms")->getValue().asString();
-			search_results->setEnabled(FALSE);
+			search_results->setEnabled(false);
 			search_results->setCommentText(self->getString("not_found", map));
 			self->mResultsReceived = 0;
 			self->showResultsCount();
@@ -1437,7 +1437,7 @@ void FSFloaterSearchLegacy::processSearchPlacesReply(LLMessageSystem* msg, void*
 		}
 		else if(status & STATUS_SEARCH_PLACES_SHORTSTRING)
 		{
-			search_results->setEnabled(FALSE);
+			search_results->setEnabled(false);
 			search_results->setCommentText(self->getString("search_short"));
 			self->mResultsReceived = 0;
 			self->showResultsCount();
@@ -1446,7 +1446,7 @@ void FSFloaterSearchLegacy::processSearchPlacesReply(LLMessageSystem* msg, void*
 		}
 		else if (status & STATUS_SEARCH_PLACES_BANNEDWORD)
 		{
-			search_results->setEnabled(FALSE);
+			search_results->setEnabled(false);
 			search_results->setCommentText(self->getString("search_banned"));
 			self->mResultsReceived = 0;
 			self->showResultsCount();
@@ -1455,7 +1455,7 @@ void FSFloaterSearchLegacy::processSearchPlacesReply(LLMessageSystem* msg, void*
 		}
 		else if (status & STATUS_SEARCH_PLACES_SEARCHDISABLED)
 		{
-			search_results->setEnabled(FALSE);
+			search_results->setEnabled(false);
 			search_results->setCommentText(self->getString("search_disabled"));
 			self->mResultsReceived = 0;
 			self->showResultsCount();
@@ -1471,7 +1471,7 @@ void FSFloaterSearchLegacy::processSearchPlacesReply(LLMessageSystem* msg, void*
 		LLStringUtil::format_map_t map;
 		map["[TEXT]"] = self->getChild<LLUICtrl>("search_terms")->getValue().asString();
 
-		search_results->setEnabled(FALSE);
+		search_results->setEnabled(false);
 		search_results->setCommentText(self->getString("not_found", map));
 		self->mResultsReceived = 0;
 		self->showResultsCount();
@@ -1494,7 +1494,7 @@ void FSFloaterSearchLegacy::processSearchPlacesReply(LLMessageSystem* msg, void*
 			LL_DEBUGS() << "Null result returned for QueryID: " << query_id << LL_ENDL;
 			LLStringUtil::format_map_t map;
 			map["[TEXT]"] = self->getChild<LLUICtrl>("search_terms")->getValue().asString();
-			search_results->setEnabled(FALSE);
+			search_results->setEnabled(false);
 			search_results->setCommentText(self->getString("not_found", map));
 			self->mResultsReceived = 0;
 			self->showResultsCount();
@@ -1502,7 +1502,7 @@ void FSFloaterSearchLegacy::processSearchPlacesReply(LLMessageSystem* msg, void*
 		}
 		else {
 			LL_DEBUGS() << "Got: " << name << " ParcelID: " << parcel_id << LL_ENDL;
-			search_results->setEnabled(TRUE);
+			search_results->setEnabled(true);
 			found_one = TRUE;
 			
 			std::string place_name;
@@ -1597,7 +1597,7 @@ void FSFloaterSearchLegacy::processSearchLandReply(LLMessageSystem* msg, void**)
 		LLStringUtil::format_map_t map;
 		map["[TEXT]"] = self->getChild<LLUICtrl>("search_terms")->getValue().asString();
 
-		search_results->setEnabled(FALSE);
+		search_results->setEnabled(false);
 		search_results->setCommentText(self->getString("not_found", map));
 		self->mResultsReceived = 0;
 		self->showResultsCount();
@@ -1759,7 +1759,7 @@ void FSFloaterSearchLegacy::processSearchClassifiedsReply(LLMessageSystem* msg, 
 		{
 			LLStringUtil::format_map_t map;
 			map["[TEXT]"] = self->getChild<LLUICtrl>("search_terms")->getValue().asString();
-			search_results->setEnabled(FALSE);
+			search_results->setEnabled(false);
 			search_results->setCommentText(self->getString("not_found", map));
 			self->mResultsReceived = 0;
 			self->showResultsCount();
@@ -1768,7 +1768,7 @@ void FSFloaterSearchLegacy::processSearchClassifiedsReply(LLMessageSystem* msg, 
 		}
 		else if(status & STATUS_SEARCH_PLACES_SHORTSTRING)
 		{
-			search_results->setEnabled(FALSE);
+			search_results->setEnabled(false);
 			search_results->setCommentText(self->getString("search_short"));
 			self->mResultsReceived = 0;
 			self->showResultsCount();
@@ -1777,7 +1777,7 @@ void FSFloaterSearchLegacy::processSearchClassifiedsReply(LLMessageSystem* msg, 
 		}
 		else if (status & STATUS_SEARCH_PLACES_BANNEDWORD)
 		{
-			search_results->setEnabled(FALSE);
+			search_results->setEnabled(false);
 			search_results->setCommentText(self->getString("search_banned"));
 			self->mResultsReceived = 0;
 			self->showResultsCount();
@@ -1786,7 +1786,7 @@ void FSFloaterSearchLegacy::processSearchClassifiedsReply(LLMessageSystem* msg, 
 		}
 		else if (status & STATUS_SEARCH_PLACES_SEARCHDISABLED)
 		{
-			search_results->setEnabled(FALSE);
+			search_results->setEnabled(false);
 			search_results->setCommentText(self->getString("search_disabled"));
 			self->mResultsReceived = 0;
 			self->showResultsCount();
@@ -1802,7 +1802,7 @@ void FSFloaterSearchLegacy::processSearchClassifiedsReply(LLMessageSystem* msg, 
 		LLStringUtil::format_map_t map;
 		map["[TEXT]"] = self->getChild<LLUICtrl>("search_terms")->getValue().asString();
 
-		search_results->setEnabled(FALSE);
+		search_results->setEnabled(false);
 		search_results->setCommentText(self->getString("not_found", map));
 		self->mResultsReceived = 0;
 		self->showResultsCount();
@@ -1825,7 +1825,7 @@ void FSFloaterSearchLegacy::processSearchClassifiedsReply(LLMessageSystem* msg, 
 			LL_DEBUGS() << "Null result returned for QueryID: " << query_id << LL_ENDL;
 			LLStringUtil::format_map_t map;
 			map["[TEXT]"] = self->getChild<LLUICtrl>("search_terms")->getValue().asString();
-			search_results->setEnabled(FALSE);
+			search_results->setEnabled(false);
 			search_results->setCommentText(self->getString("not_found", map));
 			self->mResultsReceived = 0;
 			self->showResultsCount();
@@ -1833,7 +1833,7 @@ void FSFloaterSearchLegacy::processSearchClassifiedsReply(LLMessageSystem* msg, 
 		}
 		else {
 			LL_DEBUGS() << "Got: " << name << " ClassifiedID: " << classified_id << LL_ENDL;
-			search_results->setEnabled(TRUE);
+			search_results->setEnabled(true);
 			found_one = TRUE;
 			
 			std::string classified_name;

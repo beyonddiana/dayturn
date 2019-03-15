@@ -533,7 +533,7 @@ void LLOutfitsList::applyFilter(const std::string& new_filter_substring)
 		// to compare it with updated string if it was previously hidden.
 		if (!more_restrictive)
 		{
-			tab->setVisible(TRUE);
+			tab->setVisible(true);
 		}
 
 		LLWearableItemsList* list = dynamic_cast<LLWearableItemsList*>(tab->getAccordionView());

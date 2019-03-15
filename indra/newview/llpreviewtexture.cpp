@@ -528,7 +528,7 @@ void LLPreviewTexture::updateDimensions()
         mLastHeight = img_height;
         mLastWidth = img_width;
 
-        dimensions->setVisible(TRUE);
+        dimensions->setVisible(true);
     }
 
 	// Reshape the floater only when required

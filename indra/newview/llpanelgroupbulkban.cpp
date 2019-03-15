@@ -83,7 +83,7 @@ bool LLPanelGroupBulkBan::postBuild()
 	if ( mImplementation->mRemoveButton )
 	{
 		mImplementation->mRemoveButton->setClickedCallback(LLPanelGroupBulkImpl::callbackClickRemove, mImplementation);
-		mImplementation->mRemoveButton->setEnabled(FALSE);
+		mImplementation->mRemoveButton->setEnabled(false);
 	}
 
 	mImplementation->mOKButton = 
@@ -91,7 +91,7 @@ bool LLPanelGroupBulkBan::postBuild()
 	if ( mImplementation->mOKButton )
 	{
 		mImplementation->mOKButton->setClickedCallback(LLPanelGroupBulkBan::callbackClickSubmit, this);
-		mImplementation->mOKButton->setEnabled(FALSE);
+		mImplementation->mOKButton->setEnabled(false);
 	}
 
 	button = getChild<LLButton>("cancel_button", recurse);

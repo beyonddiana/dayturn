@@ -263,7 +263,7 @@ void LLOutputMonitorCtrl::setIsActiveChannel(bool val)
     if (!val)
     {
         // switchIndicator will set it to TRUE when channel becomes active
-        setVisible(FALSE);
+        setVisible(false);
     }
 }
 

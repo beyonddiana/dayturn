@@ -364,7 +364,7 @@ bool LLFloaterTexturePicker::postBuild()
 
 
 	childSetCommitCallback("show_folders_check", onShowFolders, this);
-	getChildView("show_folders_check")->setVisible( FALSE);
+	getChildView("show_folders_check")->setVisible(false);
 
 	mFilterEdit = getChild<LLFilterEditor>("inventory search editor");
 	mFilterEdit->setCommitCallback(boost::bind(&LLFloaterTexturePicker::onFilterEdit, this, _2));
@@ -424,7 +424,7 @@ bool LLFloaterTexturePicker::postBuild()
 
 	if (!mCanApplyImmediately)
 	{
-		getChildView("show_folders_check")->setEnabled(FALSE);
+		getChildView("show_folders_check")->setEnabled(false);
 	}
 
 	getChild<LLUICtrl>("Pipette")->setCommitCallback( boost::bind(&LLFloaterTexturePicker::onBtnPipette, this));
@@ -538,7 +538,7 @@ void LLFloaterTexturePicker::draw()
 
 		if (mTentativeLabel)
 		{
-			mTentativeLabel->setVisible( FALSE  );
+			mTentativeLabel->setVisible(false);
 		}
 
 		getChildView("Default")->setEnabled(mImageAssetID != mDefaultImageAssetID || mTentative);
@@ -592,7 +592,7 @@ void LLFloaterTexturePicker::draw()
 		// Draw Tentative Label over the image
 		if( mTentative && !mViewModel->isDirty() )
 		{
-			mTentativeLabel->setVisible( TRUE );
+			mTentativeLabel->setVisible(true);
 			drawChild(mTentativeLabel);
 		}
 
@@ -1309,16 +1309,16 @@ void LLTextureCtrl::setCanApply(bool can_preview, bool can_apply)
 	}
 }
 
-void LLTextureCtrl::setVisible( BOOL visible )
+void LLTextureCtrl::setVisible(bool visible)
 {
 	if( !visible )
 	{
 		closeDependentFloater();
 	}
-	LLUICtrl::setVisible( visible );
+	LLUICtrl::setVisible(visible);
 }
 
-void LLTextureCtrl::setEnabled( BOOL enabled )
+void LLTextureCtrl::setEnabled(bool enabled)
 {
 	LLFloaterTexturePicker* floaterp = (LLFloaterTexturePicker*)mFloaterHandle.get();
 	if( floaterp )
@@ -1446,7 +1446,7 @@ void LLTextureCtrl::closeDependentFloater()
 	if( floaterp && floaterp->isInVisibleChain())
 	{
 		floaterp->setOwner(NULL);
-		floaterp->setVisible(FALSE);
+		floaterp->setVisible(false);
 		floaterp->closeFloater();
 	}
 }

@@ -49,7 +49,7 @@ private:
 public:
 
 	/*virtual*/	bool	postBuild();
-	/*virtual*/ void	setVisible(BOOL visible);
+	/*virtual*/ void	setVisible(bool visible);
 	static F32	getYawRate(F32 time);
 	static void setFlyingMode(BOOL fly);
 	void setFlyingModeImpl(BOOL fly);
@@ -86,7 +86,7 @@ private:
 	void initModeButtonMap();
 	void setModeButtonToggleState(const EMovementMode mode);
 	void updateButtonsWithMovementMode(const EMovementMode newMode);
-	void showModeButtons(BOOL bShow);
+	void showModeButtons(bool bShow);
 
 public:
 
@@ -142,7 +142,7 @@ public:
 	static void setStandStopFlyingMode(EStandStopFlyingMode mode);
 	static void clearStandStopFlyingMode(EStandStopFlyingMode mode);
 	/*virtual*/ bool postBuild();
-	/*virtual*/ void setVisible(BOOL visible);
+	/*virtual*/ void setVisible(bool visible);
 
 	// *HACK: due to hard enough to have this control aligned with "Move" button while resizing
 	// let update its position in each frame

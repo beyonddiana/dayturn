@@ -902,24 +902,24 @@ void LLToolBar::updateLayoutAsNeeded()
 	// <FS:Zi> Apply alignment settings
 	if(mAlignment==ALIGN_CENTER)
 	{
-		mStartCenteringPanel->setVisible(TRUE);
-		mEndCenteringPanel->setVisible(TRUE);
+		mStartCenteringPanel->setVisible(true);
+		mEndCenteringPanel->setVisible(true);
 	}
 	else if(mAlignment==ALIGN_START)
 	{
-		mStartCenteringPanel->setVisible(FALSE);
-		mEndCenteringPanel->setVisible(TRUE);
+		mStartCenteringPanel->setVisible(false);
+		mEndCenteringPanel->setVisible(true);
 	}
 	else if(mAlignment==ALIGN_END)
 	{
-		mStartCenteringPanel->setVisible(TRUE);
-		mEndCenteringPanel->setVisible(FALSE);
+		mStartCenteringPanel->setVisible(true);
+		mEndCenteringPanel->setVisible(false);
 	}
 	// <FS:Zi>
 
 	if (!mButtons.empty())
 	{
-		mButtonPanel->setVisible(TRUE);
+		mButtonPanel->setVisible(true);
 		mButtonPanel->setMouseOpaque(true);
 	}
 
@@ -932,12 +932,12 @@ void LLToolBar::draw()
 {
 	if (mButtons.empty())
 	{
-		mButtonPanel->setVisible(FALSE);
+		mButtonPanel->setVisible(false);
 		mButtonPanel->setMouseOpaque(false);
 	}
 	else
 	{
-		mButtonPanel->setVisible(TRUE);
+		mButtonPanel->setVisible(true);
 		mButtonPanel->setMouseOpaque(true);
 	}
 
@@ -976,7 +976,7 @@ void LLToolBar::draw()
 	}
 
 	LLIconCtrl* caret = mCaretIcon;
-	caret->setVisible(FALSE);
+	caret->setVisible(false);
 	if (mDragAndDropTarget && !mButtonCommands.empty())
 	{
 		LLRect caret_rect = caret->getRect();
@@ -994,11 +994,11 @@ void LLToolBar::draw()
 								  mDragx+mDragGirth,
 								  mDragy-caret_rect.getHeight()/2));
 		}
-		caret->setVisible(TRUE);
+		caret->setVisible(true);
 	}
 		
 	LLUICtrl::draw();
-	caret->setVisible(FALSE);
+	caret->setVisible(false);
 	mDragAndDropTarget = false;
 }
 
@@ -1369,7 +1369,7 @@ void LLToolBarButton::reshape(S32 width, S32 height, bool called_from_parent)
 	// </FS:Zi>
 }
 
-void LLToolBarButton::setEnabled(BOOL enabled)
+void LLToolBarButton::setEnabled(bool enabled)
 {
 	if (enabled)
 	{

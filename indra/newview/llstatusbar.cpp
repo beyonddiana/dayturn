@@ -202,12 +202,12 @@ bool LLStatusBar::postBuild()
 	mPanelVolumePulldown = new LLPanelVolumePulldown();
 	addChild(mPanelVolumePulldown);
 	mPanelVolumePulldown->setFollows(FOLLOWS_TOP | FOLLOWS_RIGHT);
-	mPanelVolumePulldown->setVisible(FALSE);
+	mPanelVolumePulldown->setVisible(false);
 
 	mPanelNearByMedia = new LLPanelNearByMedia();
 	addChild(mPanelNearByMedia);
 	mPanelNearByMedia->setFollows(FOLLOWS_TOP | FOLLOWS_RIGHT);
-	mPanelNearByMedia->setVisible(FALSE);
+	mPanelNearByMedia->setVisible(false);
 
 	mScriptOut = getChildView("scriptout");
 
@@ -492,8 +492,8 @@ void LLStatusBar::onMouseEnterVolume()
 	// show the master volume pull-down
 	LLUI::clearPopups();
 	LLUI::addPopup(mPanelVolumePulldown);
-	mPanelNearByMedia->setVisible(FALSE);
-	mPanelVolumePulldown->setVisible(TRUE);
+	mPanelNearByMedia->setVisible(false);
+	mPanelVolumePulldown->setVisible(true);
 }
 
 void LLStatusBar::onMouseEnterNearbyMedia()
@@ -518,8 +518,8 @@ void LLStatusBar::onMouseEnterNearbyMedia()
 	LLUI::clearPopups();
 	LLUI::addPopup(mPanelNearByMedia);
 
-	mPanelVolumePulldown->setVisible(FALSE);
-	mPanelNearByMedia->setVisible(TRUE);
+	mPanelVolumePulldown->setVisible(false);
+	mPanelNearByMedia->setVisible(true);
 }
 
 

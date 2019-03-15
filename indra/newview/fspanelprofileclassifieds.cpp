@@ -99,7 +99,7 @@ void FSPanelClassifieds::updateData()
 		mNoClassifieds = false;
 
 		mNoItemsLabel->setValue(LLTrans::getString("PicksClassifiedsLoadingText"));
-		mNoItemsLabel->setVisible(TRUE);
+		mNoItemsLabel->setVisible(true);
 
 		mClassifiedsList->clear();
 		LLAvatarPropertiesProcessor::getInstance()->sendAvatarClassifiedsRequest(getAvatarId());
@@ -231,9 +231,9 @@ void FSPanelClassifieds::onOpen(const LLSD& key)
 	// Disable buttons when viewing profile for first time
 	if(getAvatarId() != id)
 	{
-		getChildView(XML_BTN_INFO)->setEnabled(FALSE);
-		getChildView(XML_BTN_TELEPORT)->setEnabled(FALSE);
-		getChildView(XML_BTN_SHOW_ON_MAP)->setEnabled(FALSE);
+		getChildView(XML_BTN_INFO)->setEnabled(false);
+		getChildView(XML_BTN_TELEPORT)->setEnabled(false);
+		getChildView(XML_BTN_SHOW_ON_MAP)->setEnabled(false);
 	}
 
 	if(getAvatarId() != id)
@@ -459,7 +459,7 @@ void FSPanelClassifieds::onPanelClassifiedSave(FSPanelClassifiedEdit* panel)
 		c_item->setMouseUpCallback(boost::bind(&FSPanelClassifieds::updateButtons, this));
 		c_item->childSetAction("info_chevron", boost::bind(&FSPanelClassifieds::onClickInfo, this));
 		    
-		mNoItemsLabel->setVisible(FALSE);
+		mNoItemsLabel->setVisible(false);
 	}
 	else if(panel->isNewWithErrors())
 	{
@@ -513,7 +513,7 @@ void FSPanelClassifieds::createClassifiedInfoPanel()
 	mPanelClassifiedInfo = FSPanelClassifiedInfo::create();
 	mPanelClassifiedInfo->setExitCallback(boost::bind(&FSPanelClassifieds::onPanelClassifiedClose, this, mPanelClassifiedInfo));
 	mPanelClassifiedInfo->setEditClassifiedCallback(boost::bind(&FSPanelClassifieds::onPanelClassifiedEdit, this));
-	mPanelClassifiedInfo->setVisible(FALSE);
+	mPanelClassifiedInfo->setVisible(false);
 }
 
 void FSPanelClassifieds::createClassifiedEditPanel(FSPanelClassifiedEdit** panel)
@@ -524,7 +524,7 @@ void FSPanelClassifieds::createClassifiedEditPanel(FSPanelClassifiedEdit** panel
 		new_panel->setExitCallback(boost::bind(&FSPanelClassifieds::onPanelClassifiedClose, this, new_panel));
 		new_panel->setSaveCallback(boost::bind(&FSPanelClassifieds::onPanelClassifiedSave, this, new_panel));
 		new_panel->setCancelCallback(boost::bind(&FSPanelClassifieds::onPanelClassifiedClose, this, new_panel));
-		new_panel->setVisible(FALSE);
+		new_panel->setVisible(false);
 		*panel = new_panel;
 	}
 }
@@ -630,7 +630,7 @@ void FSPanelClassifieds::openPanel(LLPanel* panel, const LLSD& params)
 		sendChildToFront(panel);
 	}
 
-	panel->setVisible(TRUE);
+	panel->setVisible(true);
 	panel->setFocus(TRUE); // prevent losing focus by the floater
 	panel->onOpen(params);
 
@@ -643,7 +643,7 @@ void FSPanelClassifieds::openPanel(LLPanel* panel, const LLSD& params)
 //hack
 void FSPanelClassifieds::closePanel(LLPanel* panel)
 {
-	panel->setVisible(FALSE);
+	panel->setVisible(false);
 
 	if (panel->getParent() == this) 
 	{

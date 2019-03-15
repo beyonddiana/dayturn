@@ -970,7 +970,7 @@ bool idle_startup()
 		}
 
 		gViewerWindow->setNormalControlsVisible( FALSE );	
-		gLoginMenuBarView->setVisible( TRUE );
+		gLoginMenuBarView->setVisible(true);
 		gLoginMenuBarView->setEnabled( TRUE );
 		show_debug_menus();
 
@@ -1590,7 +1590,7 @@ bool idle_startup()
 		{	// This isn't the first logon attempt, so show the UI
 			gViewerWindow->setNormalControlsVisible( TRUE );
 		}	
-		gLoginMenuBarView->setVisible( FALSE );
+		gLoginMenuBarView->setVisible(false);
 		gLoginMenuBarView->setEnabled( FALSE );
 		display_startup();
 
@@ -1752,7 +1752,7 @@ bool idle_startup()
 	if (STATE_LOGIN_CONFIRM_NOTIFICATON == LLStartUp::getStartupState())
 	{
 		display_startup();
-		gViewerWindow->getProgressView()->setVisible(FALSE);
+		gViewerWindow->getProgressView()->setVisible(false);
 		display_startup();
 		ms_sleep(1);
 		return FALSE;
@@ -2484,7 +2484,7 @@ void login_show()
 	// Hide the toolbars: may happen to come back here if login fails after login agent but before login in region
 	if (gToolBarView)
 	{
-		gToolBarView->setVisible(FALSE);
+		gToolBarView->setVisible(false);
 	}
 	
 	LLPanelLogin::show(	gViewerWindow->getWindowRectScaled(), login_callback, NULL );
@@ -3067,7 +3067,7 @@ void reset_login()
 	if ( gViewerWindow )
 	{	// Hide menus and normal buttons
 		gViewerWindow->setNormalControlsVisible( FALSE );
-		gLoginMenuBarView->setVisible( TRUE );
+		gLoginMenuBarView->setVisible(true);
 		gLoginMenuBarView->setEnabled( TRUE );
 	}
 

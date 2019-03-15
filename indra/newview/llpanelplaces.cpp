@@ -441,7 +441,7 @@ void LLPanelPlaces::onOpen(const LLSD& key)
 
 				mLandmarkInfo->displayParcelInfo(LLUUID(), mPosGlobal);
 
-				mSaveBtn->setEnabled(FALSE);
+				mSaveBtn->setEnabled(false);
 			}
 			else if (mPlaceInfoType == LANDMARK_INFO_TYPE)
 			{
@@ -1035,7 +1035,7 @@ void LLPanelPlaces::togglePlaceInfoPanel(BOOL visible)
 			LLRect new_rect = LLRect(rect.mLeft, rect.mTop, rect.mRight, mTabContainer->getRect().mBottom);
 			mPlaceProfile->reshape(new_rect.getWidth(), new_rect.getHeight());
 
-			mLandmarkInfo->setVisible(FALSE);
+			mLandmarkInfo->setVisible(false);
 		}
 		else if (mPlaceInfoType == AGENT_INFO_TYPE)
 		{
@@ -1051,7 +1051,7 @@ void LLPanelPlaces::togglePlaceInfoPanel(BOOL visible)
 			 mPlaceInfoType == LANDMARK_TAB_INFO_TYPE)
 	{
 		mLandmarkInfo->setVisible(visible);
-		mPlaceProfile->setVisible(FALSE);
+		mPlaceProfile->setVisible(false);
 		if (visible)
 		{
 			mLandmarkInfo->resetLocation();

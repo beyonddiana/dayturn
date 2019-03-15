@@ -528,11 +528,11 @@ bool LLFloaterPreference::postBuild()
 	if (!tabcontainer->selectTab(gSavedSettings.getS32("LastPrefTab")))
 		tabcontainer->selectFirstTab();
 
-	getChild<LLUICtrl>("cache_location")->setEnabled(FALSE); // make it read-only but selectable (STORM-227)
+	getChild<LLUICtrl>("cache_location")->setEnabled(false); // make it read-only but selectable (STORM-227)
 	std::string cache_location = gDirUtilp->getExpandedFilename(LL_PATH_CACHE, "");
 	setCacheLocation(cache_location);
 
-	getChild<LLUICtrl>("log_path_string")->setEnabled(FALSE); // make it read-only but selectable
+	getChild<LLUICtrl>("log_path_string")->setEnabled(false); // make it read-only but selectable
 
 	getChild<LLComboBox>("language_combobox")->setCommitCallback(boost::bind(&LLFloaterPreference::onLanguageChange, this));
 
@@ -547,13 +547,13 @@ bool LLFloaterPreference::postBuild()
 	if (LLStartUp::getStartupState() < STATE_STARTED)
 	{
 		gSavedPerAccountSettings.setString("DoNotDisturbModeResponse", LLTrans::getString("DoNotDisturbModeResponseDefault"));
-		getChild<LLUICtrl>("WindowTitleAvatarName")->setEnabled(FALSE);
-		getChild<LLUICtrl>("WindowTitleGridName")->setEnabled(FALSE);
+		getChild<LLUICtrl>("WindowTitleAvatarName")->setEnabled(false);
+		getChild<LLUICtrl>("WindowTitleGridName")->setEnabled(false);
 	}
 	else
 	{
-		getChild<LLUICtrl>("WindowTitleAvatarName")->setEnabled(TRUE);
-		getChild<LLUICtrl>("WindowTitleGridName")->setEnabled(TRUE);
+		getChild<LLUICtrl>("WindowTitleAvatarName")->setEnabled(true);
+		getChild<LLUICtrl>("WindowTitleGridName")->setEnabled(true);
 	}	
 	
 
@@ -1383,11 +1383,11 @@ void LLFloaterPreference::refreshEnabledState()
 	if (shaders)
 	{
 		mRadioTerrainDetail->setValue(1);
-		mRadioTerrainDetail->setEnabled(FALSE);
+		mRadioTerrainDetail->setEnabled(false);
 	}
 	else
 	{
-		mRadioTerrainDetail->setEnabled(TRUE);		
+		mRadioTerrainDetail->setEnabled(true);		
 	}
 	
 	// WindLight
@@ -1427,8 +1427,7 @@ void LLFloaterPreference::refreshEnabledState()
 
 	enabled = enabled && LLFeatureManager::getInstance()->isFeatureAvailable("RenderShadowDetail");
 
-	ctrl_shadow->setEnabled(enabled);
-	
+	ctrl_shadow->setEnabled(enabled);	
 
 	// now turn off any features that are unavailable
 	disableUnavailableSettings();
@@ -1441,13 +1440,13 @@ void LLFloaterPreference::refreshEnabledState()
 	// Set Window title follows
 	if (LLStartUp::getStartupState() != STATE_STARTED)
 	{
-		getChild<LLUICtrl>("WindowTitleAvatarName")->setEnabled(FALSE);
-		getChild<LLUICtrl>("WindowTitleGridName")->setEnabled(FALSE);
+		getChild<LLUICtrl>("WindowTitleAvatarName")->setEnabled(false);
+		getChild<LLUICtrl>("WindowTitleGridName")->setEnabled(false);
 	}
 	else
 	{
-		getChild<LLUICtrl>("WindowTitleAvatarName")->setEnabled(TRUE);
-		getChild<LLUICtrl>("WindowTitleGridName")->setEnabled(TRUE);
+		getChild<LLUICtrl>("WindowTitleAvatarName")->setEnabled(true);
+		getChild<LLUICtrl>("WindowTitleGridName")->setEnabled(true);
 	}
 }
 
@@ -1467,51 +1466,51 @@ void LLFloaterPreference::disableUnavailableSettings()
 	// if vertex shaders off, disable all shader related products
 	if (!LLFeatureManager::getInstance()->isFeatureAvailable("VertexShaderEnable"))
 	{
-		ctrl_shader_enable->setEnabled(FALSE);
+		ctrl_shader_enable->setEnabled(false);
 		ctrl_shader_enable->setValue(FALSE);
 		
-		ctrl_wind_light->setEnabled(FALSE);
+		ctrl_wind_light->setEnabled(false);
 		ctrl_wind_light->setValue(FALSE);
 		
-		ctrl_reflections->setEnabled(FALSE);
+		ctrl_reflections->setEnabled(false);
 		ctrl_reflections->setValue(0);
 		
-		ctrl_avatar_vp->setEnabled(FALSE);
+		ctrl_avatar_vp->setEnabled(false);
 		ctrl_avatar_vp->setValue(FALSE);
 		
-		ctrl_avatar_cloth->setEnabled(FALSE);
+		ctrl_avatar_cloth->setEnabled(false);
 		ctrl_avatar_cloth->setValue(FALSE);
 
-		ctrl_shadows->setEnabled(FALSE);
+		ctrl_shadows->setEnabled(false);
 		ctrl_shadows->setValue(0);
 		
-		ctrl_ssao->setEnabled(FALSE);
+		ctrl_ssao->setEnabled(false);
 		ctrl_ssao->setValue(FALSE);
 
-		ctrl_dof->setEnabled(FALSE);
+		ctrl_dof->setEnabled(false);
 		ctrl_dof->setValue(FALSE);
 
-		ctrl_deferred->setEnabled(FALSE);
+		ctrl_deferred->setEnabled(false);
 		ctrl_deferred->setValue(FALSE);
 	}
 	
 	// disabled windlight
 	if (!LLFeatureManager::getInstance()->isFeatureAvailable("WindLightUseAtmosShaders"))
 	{
-		ctrl_wind_light->setEnabled(FALSE);
+		ctrl_wind_light->setEnabled(false);
 		ctrl_wind_light->setValue(FALSE);
 
 		//deferred needs windlight, disable deferred
-		ctrl_shadows->setEnabled(FALSE);
+		ctrl_shadows->setEnabled(false);
 		ctrl_shadows->setValue(0);
 		
-		ctrl_ssao->setEnabled(FALSE);
+		ctrl_ssao->setEnabled(false);
 		ctrl_ssao->setValue(FALSE);
 
-		ctrl_dof->setEnabled(FALSE);
+		ctrl_dof->setEnabled(false);
 		ctrl_dof->setValue(FALSE);
 
-		ctrl_deferred->setEnabled(FALSE);
+		ctrl_deferred->setEnabled(false);
 		ctrl_deferred->setValue(FALSE);
 	}
 
@@ -1519,74 +1518,74 @@ void LLFloaterPreference::disableUnavailableSettings()
 	if (!LLFeatureManager::getInstance()->isFeatureAvailable("RenderDeferred") ||
 		!gGLManager.mHasFramebufferObject)
 	{
-		ctrl_shadows->setEnabled(FALSE);
+		ctrl_shadows->setEnabled(false);
 		ctrl_shadows->setValue(0);
 		
-		ctrl_ssao->setEnabled(FALSE);
+		ctrl_ssao->setEnabled(false);
 		ctrl_ssao->setValue(FALSE);
 
-		ctrl_dof->setEnabled(FALSE);
+		ctrl_dof->setEnabled(false);
 		ctrl_dof->setValue(FALSE);
 
-		ctrl_deferred->setEnabled(FALSE);
+		ctrl_deferred->setEnabled(false);
 		ctrl_deferred->setValue(FALSE);
 	}
 	
 	// disabled deferred SSAO
 	if (!LLFeatureManager::getInstance()->isFeatureAvailable("RenderDeferredSSAO"))
 	{
-		ctrl_ssao->setEnabled(FALSE);
+		ctrl_ssao->setEnabled(false);
 		ctrl_ssao->setValue(FALSE);
 	}
 	
 	// disabled deferred shadows
 	if (!LLFeatureManager::getInstance()->isFeatureAvailable("RenderShadowDetail"))
 	{
-		ctrl_shadows->setEnabled(FALSE);
+		ctrl_shadows->setEnabled(false);
 		ctrl_shadows->setValue(0);
 	}
 
 	// disabled reflections
 	if (!LLFeatureManager::getInstance()->isFeatureAvailable("RenderReflectionDetail"))
 	{
-		ctrl_reflections->setEnabled(FALSE);
+		ctrl_reflections->setEnabled(false);
 		ctrl_reflections->setValue(FALSE);
 	}
 	
 	// disabled av
 	if (!LLFeatureManager::getInstance()->isFeatureAvailable("RenderAvatarVP"))
 	{
-		ctrl_avatar_vp->setEnabled(FALSE);
+		ctrl_avatar_vp->setEnabled(false);
 		ctrl_avatar_vp->setValue(FALSE);
 		
-		ctrl_avatar_cloth->setEnabled(FALSE);
+		ctrl_avatar_cloth->setEnabled(false);
 		ctrl_avatar_cloth->setValue(FALSE);
 
 		//deferred needs AvatarVP, disable deferred
-		ctrl_shadows->setEnabled(FALSE);
+		ctrl_shadows->setEnabled(false);
 		ctrl_shadows->setValue(0);
 		
-		ctrl_ssao->setEnabled(FALSE);
+		ctrl_ssao->setEnabled(false);
 		ctrl_ssao->setValue(FALSE);
 
-		ctrl_dof->setEnabled(FALSE);
+		ctrl_dof->setEnabled(false);
 		ctrl_dof->setValue(FALSE);
 
-		ctrl_deferred->setEnabled(FALSE);
+		ctrl_deferred->setEnabled(false);
 		ctrl_deferred->setValue(FALSE);
 	}
 
 	// disabled cloth
 	if (!LLFeatureManager::getInstance()->isFeatureAvailable("RenderAvatarCloth"))
 	{
-		ctrl_avatar_cloth->setEnabled(FALSE);
+		ctrl_avatar_cloth->setEnabled(false);
 		ctrl_avatar_cloth->setValue(FALSE);
 	}
 
 	// disabled impostors
 	if (!LLFeatureManager::getInstance()->isFeatureAvailable("RenderUseImpostors"))
 	{
-		ctrl_avatar_impostors->setEnabled(FALSE);
+		ctrl_avatar_impostors->setEnabled(false);
 		ctrl_avatar_impostors->setValue(FALSE);
 	}
 }
@@ -1862,28 +1861,28 @@ void LLFloaterPreference::setPersonalInfo(const std::string& visibility, bool im
 	if (visibility == VISIBILITY_DEFAULT)
 	{
 		mOriginalHideOnlineStatus = false;
-		getChildView("online_visibility")->setEnabled(TRUE); 	 
+		getChildView("online_visibility")->setEnabled(true); 	 
 	}
 	else if (visibility == VISIBILITY_HIDDEN)
 	{
 		mOriginalHideOnlineStatus = true;
-		getChildView("online_visibility")->setEnabled(TRUE); 	 
+		getChildView("online_visibility")->setEnabled(true); 	 
 	}
 	else
 	{
 		mOriginalHideOnlineStatus = true;
 	}
 	
-	getChild<LLUICtrl>("online_searchresults")->setEnabled(TRUE);
-	getChildView("friends_online_notify_checkbox")->setEnabled(TRUE);
+	getChild<LLUICtrl>("online_searchresults")->setEnabled(true);
+	getChildView("friends_online_notify_checkbox")->setEnabled(true);
 	getChild<LLUICtrl>("online_visibility")->setValue(mOriginalHideOnlineStatus); 	 
 	getChild<LLUICtrl>("online_visibility")->setLabelArg("[DIR_VIS]", mDirectoryVisibility);
-	getChildView("send_im_to_email")->setEnabled(TRUE);
+	getChildView("send_im_to_email")->setEnabled(true);
 	getChild<LLUICtrl>("send_im_to_email")->setValue(im_via_email);
-	getChildView("favorites_on_login_check")->setEnabled(TRUE);
-	getChildView("log_path_button")->setEnabled(TRUE);
-	getChildView("chat_font_size")->setEnabled(TRUE);
-	getChildView("conversation_log_combo")->setEnabled(TRUE);
+	getChildView("favorites_on_login_check")->setEnabled(true);
+	getChildView("log_path_button")->setEnabled(true);
+	getChildView("chat_font_size")->setEnabled(true);
+	getChildView("conversation_log_combo")->setEnabled(true);
 }
 
 
@@ -2639,7 +2638,7 @@ void LLPanelPreferenceOpensim::onClickAddGrid()
 
 	if (!new_grid.empty())
 	{
-		getChild<LLUICtrl>("grid_management_panel")->setEnabled(FALSE);
+		getChild<LLUICtrl>("grid_management_panel")->setEnabled(false);
 		LLGridManager::getInstance()->addGridListChangedCallback(boost::bind(&LLPanelPreferenceOpensim::addedGrid, this, _1));
 		LLGridManager::getInstance()->addGrid(new_grid);
 	}
@@ -2662,7 +2661,7 @@ void LLPanelPreferenceOpensim::onClickClearGrid()
 void LLPanelPreferenceOpensim::onClickRefreshGrid()
 {
 	std::string grid = mGridListControl->getSelectedValue();
-	getChild<LLUICtrl>("grid_management_panel")->setEnabled(FALSE);
+	getChild<LLUICtrl>("grid_management_panel")->setEnabled(false);
 	LLGridManager::getInstance()->addGridListChangedCallback(boost::bind(&LLPanelPreferenceOpensim::refreshGridList, this, _1));
 	LLGridManager::getInstance()->reFetchGrid(grid);
 }
@@ -2691,7 +2690,7 @@ bool LLPanelPreferenceOpensim::removeGridCB(const LLSD& notification, const LLSD
 	if (0 == option)
 	{
 		std::string grid = notification["payload"].asString();
-		getChild<LLUICtrl>("grid_management_panel")->setEnabled(FALSE);
+		getChild<LLUICtrl>("grid_management_panel")->setEnabled(false);
 		/*mGridListChanged =*/ LLGridManager::getInstance()->addGridListChangedCallback(boost::bind(&LLPanelPreferenceOpensim::refreshGridList, this, _1));
 		LLGridManager::getInstance()->removeGrid(grid);
 	}
@@ -2700,7 +2699,7 @@ bool LLPanelPreferenceOpensim::removeGridCB(const LLSD& notification, const LLSD
 
 void LLPanelPreferenceOpensim::refreshGridList(bool success)
 {
-	getChild<LLUICtrl>("grid_management_panel")->setEnabled(TRUE);
+	getChild<LLUICtrl>("grid_management_panel")->setEnabled(true);
 
 	if (!mGridListControl)
 	{

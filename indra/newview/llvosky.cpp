@@ -1460,10 +1460,10 @@ bool LLVOSky::updateHeavenlyBodyGeometry(LLDrawable *drawable, const S32 f, cons
 	F32 t_left, t_right;
 	if (!clip_quad_to_horizon(t_left, t_right, v_clipped, hb.corners(), cos_max_angle))
 	{
-		hb.setVisible(FALSE);
+		hb.setVisible(false);
 		return false;
 	}
-	hb.setVisible(TRUE);
+	hb.setVisible(true);
 
 	facep = mFace[f]; 
 

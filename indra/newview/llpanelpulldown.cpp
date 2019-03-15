@@ -51,7 +51,7 @@ void LLPanelPulldown::onMouseEnter(S32 x, S32 y, MASK mask)
 /*virtual*/
 void LLPanelPulldown::onTopLost()
 {
-    setVisible(FALSE);
+    setVisible(false);
 }
 
 /*virtual*/
@@ -113,6 +113,6 @@ void LLPanelPulldown::draw()
 
     if (alpha == 0.f)
     {
-        setVisible(FALSE);
+        setVisible(false);
     }
 }

@@ -361,11 +361,11 @@ bool LLPreviewGesture::postBuild()
 	mTriggerEditor = edit;
 
 	text = getChild<LLTextBox>("replace_text");
-	text->setEnabled(FALSE);
+	text->setEnabled(false);
 	mReplaceText = text;
 
 	edit = getChild<LLLineEditor>("replace_editor");
-	edit->setEnabled(FALSE);
+	edit->setEnabled(false);
 	edit->setKeystrokeCallback(onKeystrokeCommit, this);
 	edit->setCommitCallback(onCommitSetDirty, this);
 	edit->setCommitOnFocusLost(TRUE);
@@ -387,22 +387,22 @@ bool LLPreviewGesture::postBuild()
 
 	btn = getChild<LLButton>( "add_btn");
 	btn->setClickedCallback(onClickAdd, this);
-	btn->setEnabled(FALSE);
+	btn->setEnabled(false);
 	mAddBtn = btn;
 
 	btn = getChild<LLButton>( "up_btn");
 	btn->setClickedCallback(onClickUp, this);
-	btn->setEnabled(FALSE);
+	btn->setEnabled(false);
 	mUpBtn = btn;
 
 	btn = getChild<LLButton>( "down_btn");
 	btn->setClickedCallback(onClickDown, this);
-	btn->setEnabled(FALSE);
+	btn->setEnabled(false);
 	mDownBtn = btn;
 
 	btn = getChild<LLButton>( "delete_btn");
 	btn->setClickedCallback(onClickDelete, this);
-	btn->setEnabled(FALSE);
+	btn->setEnabled(false);
 	mDeleteBtn = btn;
 
 	list = getChild<LLScrollListCtrl>("step_list");
@@ -413,23 +413,23 @@ bool LLPreviewGesture::postBuild()
 	mOptionsText = getChild<LLTextBox>("options_text");
 
 	combo = getChild<LLComboBox>( "animation_list");
-	combo->setVisible(FALSE);
+	combo->setVisible(false);
 	combo->setCommitCallback(onCommitAnimation, this);
 	mAnimationCombo = combo;
 
 	LLRadioGroup* group;
 	group = getChild<LLRadioGroup>("animation_trigger_type");
-	group->setVisible(FALSE);
+	group->setVisible(false);
 	group->setCommitCallback(onCommitAnimationTrigger, this);
 	mAnimationRadio = group;
 
 	combo = getChild<LLComboBox>( "sound_list");
-	combo->setVisible(FALSE);
+	combo->setVisible(false);
 	combo->setCommitCallback(onCommitSound, this);
 	mSoundCombo = combo;
 
 	edit = getChild<LLLineEditor>("chat_editor");
-	edit->setVisible(FALSE);
+	edit->setVisible(false);
 	edit->setCommitCallback(onCommitChat, this);
 	//edit->setKeystrokeCallback(onKeystrokeCommit, this);
 	edit->setCommitOnFocusLost(TRUE);
@@ -437,18 +437,18 @@ bool LLPreviewGesture::postBuild()
 	mChatEditor = edit;
 
 	check = getChild<LLCheckBoxCtrl>( "wait_anim_check");
-	check->setVisible(FALSE);
+	check->setVisible(false);
 	check->setCommitCallback(onCommitWait, this);
 	mWaitAnimCheck = check;
 
 	check = getChild<LLCheckBoxCtrl>( "wait_time_check");
-	check->setVisible(FALSE);
+	check->setVisible(false);
 	check->setCommitCallback(onCommitWait, this);
 	mWaitTimeCheck = check;
 
 	edit = getChild<LLLineEditor>("wait_time_editor");
-	edit->setEnabled(FALSE);
-	edit->setVisible(FALSE);
+	edit->setEnabled(false);
+	edit->setVisible(false);
 	edit->setPrevalidate(LLTextValidate::validateFloat);
 //	edit->setKeystrokeCallback(onKeystrokeCommit, this);
 	edit->setCommitOnFocusLost(TRUE);
@@ -626,39 +626,39 @@ void LLPreviewGesture::refresh()
 	if (mPreviewGesture || !is_complete)
 	{
 		
-		getChildView("desc")->setEnabled(FALSE);
-		//mDescEditor->setEnabled(FALSE);
-		mTriggerEditor->setEnabled(FALSE);
-		mReplaceText->setEnabled(FALSE);
-		mReplaceEditor->setEnabled(FALSE);
-		mModifierCombo->setEnabled(FALSE);
-		mKeyCombo->setEnabled(FALSE);
-		mLibraryList->setEnabled(FALSE);
-		mAddBtn->setEnabled(FALSE);
-		mUpBtn->setEnabled(FALSE);
-		mDownBtn->setEnabled(FALSE);
-		mDeleteBtn->setEnabled(FALSE);
-		mStepList->setEnabled(FALSE);
-		mOptionsText->setEnabled(FALSE);
-		mAnimationCombo->setEnabled(FALSE);
-		mAnimationRadio->setEnabled(FALSE);
-		mSoundCombo->setEnabled(FALSE);
-		mChatEditor->setEnabled(FALSE);
-		mWaitAnimCheck->setEnabled(FALSE);
-		mWaitTimeCheck->setEnabled(FALSE);
-		mWaitTimeEditor->setEnabled(FALSE);
-		mActiveCheck->setEnabled(FALSE);
-		mSaveBtn->setEnabled(FALSE);
+		getChildView("desc")->setEnabled(false);
+		//mDescEditor->setEnabled(false);
+		mTriggerEditor->setEnabled(false);
+		mReplaceText->setEnabled(false);
+		mReplaceEditor->setEnabled(false);
+		mModifierCombo->setEnabled(false);
+		mKeyCombo->setEnabled(false);
+		mLibraryList->setEnabled(false);
+		mAddBtn->setEnabled(false);
+		mUpBtn->setEnabled(false);
+		mDownBtn->setEnabled(false);
+		mDeleteBtn->setEnabled(false);
+		mStepList->setEnabled(false);
+		mOptionsText->setEnabled(false);
+		mAnimationCombo->setEnabled(false);
+		mAnimationRadio->setEnabled(false);
+		mSoundCombo->setEnabled(false);
+		mChatEditor->setEnabled(false);
+		mWaitAnimCheck->setEnabled(false);
+		mWaitTimeCheck->setEnabled(false);
+		mWaitTimeEditor->setEnabled(false);
+		mActiveCheck->setEnabled(false);
+		mSaveBtn->setEnabled(false);
 
 		// Make sure preview button is enabled, so we can stop it
-		mPreviewBtn->setEnabled(TRUE);
+		mPreviewBtn->setEnabled(true);
 		return;
 	}
 
 	BOOL modifiable = item->getPermissions().allowModifyBy(gAgent.getID());
 
 	getChildView("desc")->setEnabled(modifiable);
-	mTriggerEditor->setEnabled(TRUE);
+	mTriggerEditor->setEnabled(true);
 	mLibraryList->setEnabled(modifiable);
 	mStepList->setEnabled(modifiable);
 	mOptionsText->setEnabled(modifiable);
@@ -669,7 +669,7 @@ void LLPreviewGesture::refresh()
 	mWaitAnimCheck->setEnabled(modifiable);
 	mWaitTimeCheck->setEnabled(modifiable);
 	mWaitTimeEditor->setEnabled(modifiable);
-	mActiveCheck->setEnabled(TRUE);
+	mActiveCheck->setEnabled(true);
 
 	const std::string& trigger = mTriggerEditor->getText();
 	BOOL have_trigger = !trigger.empty();
@@ -688,8 +688,8 @@ void LLPreviewGesture::refresh()
 	mReplaceText->setEnabled(have_trigger || have_replace);
 	mReplaceEditor->setEnabled(have_trigger || have_replace);
 
-	mModifierCombo->setEnabled(TRUE);
-	mKeyCombo->setEnabled(TRUE);
+	mModifierCombo->setEnabled(true);
+	mKeyCombo->setEnabled(true);
 
 	mAddBtn->setEnabled(modifiable && have_library);
 	mUpBtn->setEnabled(modifiable && have_step && step_index > 0);
@@ -697,13 +697,13 @@ void LLPreviewGesture::refresh()
 	mDeleteBtn->setEnabled(modifiable && have_step);
 
 	// Assume all not visible
-	mAnimationCombo->setVisible(FALSE);
-	mAnimationRadio->setVisible(FALSE);
-	mSoundCombo->setVisible(FALSE);
-	mChatEditor->setVisible(FALSE);
-	mWaitAnimCheck->setVisible(FALSE);
-	mWaitTimeCheck->setVisible(FALSE);
-	mWaitTimeEditor->setVisible(FALSE);
+	mAnimationCombo->setVisible(false);
+	mAnimationRadio->setVisible(false);
+	mSoundCombo->setVisible(false);
+	mChatEditor->setVisible(false);
+	mWaitAnimCheck->setVisible(false);
+	mWaitTimeCheck->setVisible(false);
+	mWaitTimeEditor->setVisible(false);
 
 	std::string optionstext;
 	
@@ -719,8 +719,8 @@ void LLPreviewGesture::refresh()
 			{
 				LLGestureStepAnimation* anim_step = (LLGestureStepAnimation*)step;
 				optionstext = getString("step_anim");
-				mAnimationCombo->setVisible(TRUE);
-				mAnimationRadio->setVisible(TRUE);
+				mAnimationCombo->setVisible(true);
+				mAnimationRadio->setVisible(true);
 				mAnimationRadio->setSelectedIndex((anim_step->mFlags & ANIM_FLAG_STOP) ? 1 : 0);
 				mAnimationCombo->setCurrentByID(anim_step->mAnimAssetID);
 				break;
@@ -729,7 +729,7 @@ void LLPreviewGesture::refresh()
 			{
 				LLGestureStepSound* sound_step = (LLGestureStepSound*)step;
 				optionstext = getString("step_sound");
-				mSoundCombo->setVisible(TRUE);
+				mSoundCombo->setVisible(true);
 				mSoundCombo->setCurrentByID(sound_step->mSoundAssetID);
 				break;
 			}
@@ -737,7 +737,7 @@ void LLPreviewGesture::refresh()
 			{
 				LLGestureStepChat* chat_step = (LLGestureStepChat*)step;
 				optionstext = getString("step_chat");
-				mChatEditor->setVisible(TRUE);
+				mChatEditor->setVisible(true);
 				mChatEditor->setText(chat_step->mChatText);
 				break;
 			}
@@ -745,11 +745,11 @@ void LLPreviewGesture::refresh()
 			{
 				LLGestureStepWait* wait_step = (LLGestureStepWait*)step;
 				optionstext = getString("step_wait");
-				mWaitAnimCheck->setVisible(TRUE);
+				mWaitAnimCheck->setVisible(true);
 				mWaitAnimCheck->set(wait_step->mFlags & WAIT_FLAG_ALL_ANIM);
-				mWaitTimeCheck->setVisible(TRUE);
+				mWaitTimeCheck->setVisible(true);
 				mWaitTimeCheck->set(wait_step->mFlags & WAIT_FLAG_TIME);
-				mWaitTimeEditor->setVisible(TRUE);
+				mWaitTimeEditor->setVisible(true);
 				std::string buffer = llformat("%.1f", (double)wait_step->mWaitSeconds);
 				mWaitTimeEditor->setText(buffer);
 				break;

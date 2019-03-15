@@ -1413,7 +1413,7 @@ void LLPanelMainInventory::onVisibilityChange( bool new_visibility )
 		LLMenuGL* menu = (LLMenuGL*)mMenuAddHandle.get();
 		if (menu)
 		{
-			menu->setVisible(FALSE);
+			menu->setVisible(false);
 		}
 		getActivePanel()->getRootFolder()->finishRenamingItem();
 	}

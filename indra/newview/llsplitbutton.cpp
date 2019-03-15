@@ -80,7 +80,7 @@ void LLSplitButton::setFocus(BOOL b)
 	}
 }
 
-void LLSplitButton::setEnabled(BOOL enabled)
+void LLSplitButton::setEnabled(bool enabled)
 {
 	LLView::setEnabled(enabled);
 	mArrowBtn->setEnabled(enabled);
@@ -165,14 +165,14 @@ void LLSplitButton::showButtons()
 
 	//push arrow button down and show the item buttons
 	mArrowBtn->setToggleState(TRUE);
-	mItemsPanel->setVisible(TRUE);
+	mItemsPanel->setVisible(true);
 
 	setUseBoundingRect(TRUE);
 }
 
 void LLSplitButton::hideButtons()
 {
-	mItemsPanel->setVisible(FALSE);
+	mItemsPanel->setVisible(false);
 	mArrowBtn->setToggleState(FALSE);
 
 	setUseBoundingRect(FALSE);

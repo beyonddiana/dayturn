@@ -88,7 +88,7 @@ public:
 	 *  If descendant class overrides setVisible() then it must still invoke its
 	 *  superclass' implementation.
 	 */
-	/*virtual*/ void setVisible(BOOL visible);
+	/*virtual*/ void setVisible(bool visible);
 
 	/**
 	 *  If descendant class overrides setMinimized() then it must still invoke its

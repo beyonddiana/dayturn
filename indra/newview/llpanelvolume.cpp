@@ -302,7 +302,7 @@ void LLPanelVolume::getState( )
 		LLColorSwatchCtrl* LightColorSwatch = getChild<LLColorSwatchCtrl>("colorswatch");
 		if(LightColorSwatch)
 		{
-			LightColorSwatch->setEnabled(TRUE);
+			LightColorSwatch->setEnabled(true);
 			LightColorSwatch->setValid(TRUE);
 			LightColorSwatch->set(volobjp->getLightSRGBBaseColor());
 		}
@@ -310,7 +310,7 @@ void LLPanelVolume::getState( )
 		LLTextureCtrl* LightTextureCtrl = getChild<LLTextureCtrl>("light texture control");
 		if (LightTextureCtrl)
 		{
-			LightTextureCtrl->setEnabled(TRUE);
+			LightTextureCtrl->setEnabled(true);
 			LightTextureCtrl->setValid(TRUE);
 			LightTextureCtrl->setImageAssetID(volobjp->getLightTextureID());
 		}
@@ -349,7 +349,7 @@ void LLPanelVolume::getState( )
 		LLTextureCtrl* LightTextureCtrl = getChild<LLTextureCtrl>("light texture control");
 		if (LightTextureCtrl)
 		{
-			LightTextureCtrl->setEnabled(FALSE);
+			LightTextureCtrl->setEnabled(false);
 			LightTextureCtrl->setValid(FALSE);
 		}
 
@@ -660,15 +660,15 @@ void LLPanelVolume::clearCtrls()
 	getChildView("FlexForceY")->setEnabled(false);
 	getChildView("FlexForceZ")->setEnabled(false);
 
-	mSpinPhysicsGravity->setEnabled(FALSE);
-	mSpinPhysicsFriction->setEnabled(FALSE);
-	mSpinPhysicsDensity->setEnabled(FALSE);
-	mSpinPhysicsRestitution->setEnabled(FALSE);
+	mSpinPhysicsGravity->setEnabled(false);
+	mSpinPhysicsFriction->setEnabled(false);
+	mSpinPhysicsDensity->setEnabled(false);
+	mSpinPhysicsRestitution->setEnabled(false);
 
     //<FS:Beq> physics view changes
     getChildView("PhysicsViewToggle")->setEnabled(true);
     //</FS:Beq>
-    mComboMaterial->setEnabled(FALSE);
+    mComboMaterial->setEnabled(false);
 }
 
 //
@@ -922,9 +922,9 @@ void LLPanelVolume::onCommitLight( LLUICtrl* ctrl, void* userdata )
 		else if (volobjp->isLightSpotlight())
 		{ //no longer a spot light
 			volobjp->setLightTextureID(id);
-			//self->getChildView("Light FOV")->setEnabled(FALSE);
-			//self->getChildView("Light Focus")->setEnabled(FALSE);
-			//self->getChildView("Light Ambiance")->setEnabled(FALSE);
+			//self->getChildView("Light FOV")->setEnabled(false);
+			//self->getChildView("Light Focus")->setEnabled(false);
+			//self->getChildView("Light Ambiance")->setEnabled(false);
 		}
 	}
 

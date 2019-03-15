@@ -759,7 +759,7 @@ LLTextureView::LLTextureView(const LLTextureView::Params& p)
 		mPrintList(FALSE),
 		mNumTextureBars(0)
 {
-	setVisible(FALSE);
+	setVisible(false);
 	
 	setDisplayChildren(TRUE);
 	mGLTexMemBar = 0;
@@ -994,7 +994,7 @@ void LLTextureView::draw()
 			LLView *viewp = *child_iter;
 			if (viewp->getRect().mBottom < 0)
 			{
-				viewp->setVisible(FALSE);
+				viewp->setVisible(false);
 			}
 		}
 	}

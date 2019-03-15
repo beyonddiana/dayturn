@@ -109,7 +109,7 @@ LLInventoryPanel * LLPanelMarketplaceInbox::setupInventoryPanel()
 	mInventoryPanel->getFilter().setEmptyLookupMessage("InventoryInboxNoItems");
 	
 	// Hide the placeholder text
-	inbox_inventory_placeholder->setVisible(FALSE);
+	inbox_inventory_placeholder->setVisible(false);
 	
 	return mInventoryPanel;
 }
@@ -277,7 +277,7 @@ void LLPanelMarketplaceInbox::draw()
 	{
 		mInboxButton->setLabel(getString("InboxLabelNoArg"));
 
-		mFreshCountCtrl->setVisible(FALSE);
+		mFreshCountCtrl->setVisible(false);
 	}
 		
 	LLPanel::draw();

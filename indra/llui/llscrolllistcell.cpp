@@ -224,7 +224,7 @@ BOOL LLScrollListText::needsToolTip() const
 }
 
 //virtual 
-BOOL LLScrollListText::getVisible() const
+bool LLScrollListText::getVisible() const
 {
 	return mVisible;
 }
@@ -411,7 +411,7 @@ void LLScrollListCheck::onCommit()
 }
 
 /*virtual*/
-void LLScrollListCheck::setEnabled(BOOL enable)
+void LLScrollListCheck::setEnabled(bool enable)
 {
 	mCheckBox->setEnabled(enable);
 }

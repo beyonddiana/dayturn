@@ -120,8 +120,8 @@ public:
 	virtual bool	handleUnicodeCharHere(llwchar uni_char);
 
 	virtual void	draw();
-	virtual void	setVisible( BOOL visible );
-	virtual void	setEnabled( BOOL enabled );
+	virtual void	setVisible( bool visible );
+	virtual void	setEnabled(bool enabled);
 
 	void			setValid(BOOL valid);
 

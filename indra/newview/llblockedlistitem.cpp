@@ -62,20 +62,20 @@ bool LLBlockedListItem::postBuild()
 	case LLMute::EXTERNAL:
 		{
 			LLAvatarIconCtrl* avatar_icon = getChild<LLAvatarIconCtrl>("avatar_icon");
-			avatar_icon->setVisible(TRUE);
+			avatar_icon->setVisible(true);
 			avatar_icon->setValue(mItemID);
 		}
 		break;
 	case LLMute::GROUP:
 		{
 			LLGroupIconCtrl* group_icon = getChild<LLGroupIconCtrl>("group_icon");
-			group_icon->setVisible(TRUE);
+			group_icon->setVisible(true);
 			group_icon->setValue(mItemID);
 		}
 		break;
 	case LLMute::OBJECT:
 	case LLMute::BY_NAME:
-		getChild<LLUICtrl>("object_icon")->setVisible(TRUE);
+		getChild<LLUICtrl>("object_icon")->setVisible(true);
 		break;
 
 	default:

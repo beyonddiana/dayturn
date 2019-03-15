@@ -149,7 +149,7 @@ void LLFloaterIMNearbyChat::closeHostedFloater()
 	// If detached from conversations window close anyway
 	if (!getHost())
 	{
-		setVisible(FALSE);
+		setVisible(false);
 	}
 
 	// Should check how many conversations are ongoing. Select next to "Nearby Chat" in case there are some other besides.
@@ -277,7 +277,7 @@ void LLFloaterIMNearbyChat::removeScreenChat()
 }
 
 
-void LLFloaterIMNearbyChat::setVisible(BOOL visible)
+void LLFloaterIMNearbyChat::setVisible(bool visible)
 {
 	LLFloaterIMSessionTab::setVisible(visible);
 

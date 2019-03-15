@@ -222,7 +222,7 @@ void LLFloaterTextureFetchDebugger::onClickStart()
 
 void LLFloaterTextureFetchDebugger::onClickClose()
 {
-	setVisible(FALSE);
+	setVisible(false);
 	
 	//stop everything
 	mDebugger->setStopDebug();

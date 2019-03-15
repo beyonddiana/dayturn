@@ -94,7 +94,7 @@ public:
 
 	virtual void	setPrecision(S32 precision);
 
-	/*virtual*/ void    setEnabled( BOOL b );
+	/*virtual*/ void    setEnabled( bool b );
 	/*virtual*/ void	clear();
 
 	/*virtual*/ void	setMinValue(const LLSD& min_value)  { setMinValue((F32)min_value.asReal()); }

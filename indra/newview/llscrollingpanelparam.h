@@ -45,7 +45,7 @@ public:
 	virtual ~LLScrollingPanelParam();
 
 	virtual void		draw();
-	virtual void		setVisible( BOOL visible );
+	virtual void		setVisible(bool visible) ;
 	virtual void		updatePanel(BOOL allow_modify);
 
 	static void			onSliderMouseDown(LLUICtrl* ctrl, void* userdata);

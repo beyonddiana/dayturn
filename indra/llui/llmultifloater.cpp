@@ -226,7 +226,7 @@ void LLMultiFloater::addFloater(LLFloater* floaterp, BOOL select_added_floater, 
 	floaterp->setHost(this);
 	if (isMinimized())
 	{
-		floaterp->setVisible(FALSE);
+		floaterp->setVisible(false);
 	}
 	
 	// Tabs sometimes overlap resize handle
@@ -326,7 +326,7 @@ void LLMultiFloater::tabClose()
 	}
 }
 
-void LLMultiFloater::setVisible(BOOL visible)
+void LLMultiFloater::setVisible(bool visible)
 {
 	// *FIX: shouldn't have to do this, fix adding to minimized multifloater
 	LLFloater::setVisible(visible);

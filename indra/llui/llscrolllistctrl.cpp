@@ -1643,7 +1643,7 @@ void LLScrollListCtrl::draw()
 	LLUICtrl::draw();
 }
 
-void LLScrollListCtrl::setEnabled(BOOL enabled)
+void LLScrollListCtrl::setEnabled(bool enabled)
 {
 	mCanSelect = enabled;
 	setTabStop(enabled);

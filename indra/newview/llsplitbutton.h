@@ -72,7 +72,7 @@ public:
 	//Overridden
 	virtual void	onFocusLost();
 	virtual void	setFocus(BOOL b);
-	virtual void	setEnabled(BOOL enabled);
+	virtual void	setEnabled(bool enabled);
 
 	//Callbacks
 	void	onArrowBtnDown();

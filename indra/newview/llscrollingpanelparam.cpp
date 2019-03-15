@@ -92,7 +92,7 @@ LLScrollingPanelParam::LLScrollingPanelParam( const LLPanel::Params& panel_param
 		more->setHeldDownDelay( PARAM_STEP_TIME_THRESHOLD );
 	}
 
-	setVisible(FALSE);
+	setVisible(false);
 	setBorderVisible( false );
 }
 
@@ -114,7 +114,7 @@ void LLScrollingPanelParam::updatePanel(BOOL allow_modify)
 	getChildView("more")->setEnabled(mAllowModify);
 }
 
-void LLScrollingPanelParam::setVisible( BOOL visible )
+void LLScrollingPanelParam::setVisible(bool visible)
 {
 	if( getVisible() != visible )
 	{
@@ -149,8 +149,8 @@ void LLScrollingPanelParam::draw()
 	getChildView("right_border")->setVisible( !mHintMax->getVisible());
 
 	// Draw all the children except for the labels
-	getChildView("min param text")->setVisible( FALSE );
-	getChildView("max param text")->setVisible( FALSE );
+	getChildView("min param text")->setVisible(false);
+	getChildView("max param text")->setVisible(false);
 	LLPanel::draw();
 	
 	// If we're in a focused floater, don't apply the floater's alpha to visual param hint,
@@ -176,10 +176,10 @@ void LLScrollingPanelParam::draw()
 
 
 	// Draw labels on top of the buttons
-	getChildView("min param text")->setVisible( TRUE );
+	getChildView("min param text")->setVisible(true);
 	drawChild(getChild<LLView>("min param text"));
 
-	getChildView("max param text")->setVisible( TRUE );
+	getChildView("max param text")->setVisible(true);
 	drawChild(getChild<LLView>("max param text"));
 }
 

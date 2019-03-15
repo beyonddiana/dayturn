@@ -379,7 +379,7 @@ void LLPanelPicks::updateData()
 		mNoClassifieds = false;
 
 		mNoItemsLabel->setValue(LLTrans::getString("PicksClassifiedsLoadingText"));
-		mNoItemsLabel->setVisible(TRUE);
+		mNoItemsLabel->setVisible(true);
 
 		mPicksList->clear();
 		LLAvatarPropertiesProcessor::getInstance()->sendAvatarPicksRequest(getAvatarId());
@@ -622,9 +622,9 @@ void LLPanelPicks::onOpen(const LLSD& key)
 	// Disable buttons when viewing profile for first time
 	if(getAvatarId() != id)
 	{
-		getChildView(XML_BTN_INFO)->setEnabled(FALSE);
-		getChildView(XML_BTN_TELEPORT)->setEnabled(FALSE);
-		getChildView(XML_BTN_SHOW_ON_MAP)->setEnabled(FALSE);
+		getChildView(XML_BTN_INFO)->setEnabled(false);
+		getChildView(XML_BTN_TELEPORT)->setEnabled(false);
+		getChildView(XML_BTN_SHOW_ON_MAP)->setEnabled(false);
 	}
 
 	// and see a special title - set as invisible by default in xml file
@@ -1072,7 +1072,7 @@ void LLPanelPicks::createPickInfoPanel()
 		mPanelPickInfo = LLPanelPickInfo::create();
 		mPanelPickInfo->setExitCallback(boost::bind(&LLPanelPicks::onPanelPickClose, this, mPanelPickInfo));
 		mPanelPickInfo->setEditPickCallback(boost::bind(&LLPanelPicks::onPanelPickEdit, this));
-		mPanelPickInfo->setVisible(FALSE);
+		mPanelPickInfo->setVisible(false);
 	}
 }
 
@@ -1081,7 +1081,7 @@ void LLPanelPicks::createClassifiedInfoPanel()
 	mPanelClassifiedInfo = LLPanelClassifiedInfo::create();
 	mPanelClassifiedInfo->setExitCallback(boost::bind(&LLPanelPicks::onPanelClassifiedClose, this, mPanelClassifiedInfo));
 	mPanelClassifiedInfo->setEditClassifiedCallback(boost::bind(&LLPanelPicks::onPanelClassifiedEdit, this));
-	mPanelClassifiedInfo->setVisible(FALSE);
+	mPanelClassifiedInfo->setVisible(false);
 }
 
 void LLPanelPicks::createClassifiedEditPanel(LLPanelClassifiedEdit** panel)
@@ -1092,7 +1092,7 @@ void LLPanelPicks::createClassifiedEditPanel(LLPanelClassifiedEdit** panel)
 		new_panel->setExitCallback(boost::bind(&LLPanelPicks::onPanelClassifiedClose, this, new_panel));
 		new_panel->setSaveCallback(boost::bind(&LLPanelPicks::onPanelClassifiedSave, this, new_panel));
 		new_panel->setCancelCallback(boost::bind(&LLPanelPicks::onPanelClassifiedClose, this, new_panel));
-		new_panel->setVisible(FALSE);
+		new_panel->setVisible(false);
 		*panel = new_panel;
 	}
 }
@@ -1103,7 +1103,7 @@ void LLPanelPicks::createPickEditPanel()
 	mPanelPickEdit->setExitCallback(boost::bind(&LLPanelPicks::onPanelPickClose, this, mPanelPickEdit));
 	mPanelPickEdit->setSaveCallback(boost::bind(&LLPanelPicks::onPanelPickSave, this, mPanelPickEdit));
 	mPanelPickEdit->setCancelCallback(boost::bind(&LLPanelPicks::onPanelPickClose, this, mPanelPickEdit));
-	mPanelPickEdit->setVisible(FALSE);
+	mPanelPickEdit->setVisible(false);
 }
 
 // void LLPanelPicks::openPickEditPanel(LLPickItem* pick)
@@ -1121,7 +1121,7 @@ void LLPanelPicks::createPickEditPanel()
 // 		mPanelPickInfo = LLPanelPickInfo::create();
 // 		mPanelPickInfo->setExitCallback(boost::bind(&LLPanelPicks::onPanelPickClose, this, mPanelPickInfo));
 // 		mPanelPickInfo->setEditPickCallback(boost::bind(&LLPanelPicks::onPanelPickEdit, this));
-// 		mPanelPickInfo->setVisible(FALSE);
+// 		mPanelPickInfo->setVisible(false);
 // 	}
 // 
 // 	LLSD params;

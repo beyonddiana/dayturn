@@ -56,7 +56,7 @@ public:
 	virtual bool	postBuild();
 	
 	virtual void	reshape(S32 width, S32 height, bool called_from_parent = true );
-	virtual void	setVisible(BOOL visible);
+	virtual void	setVisible(bool visible);
 
 	virtual BOOL	handleMouseDown(S32 x, S32 y, MASK mask);
 	virtual BOOL	handleMouseUp(S32 x, S32 y, MASK mask);

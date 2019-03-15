@@ -158,7 +158,7 @@ bool LLFloaterAbout::postBuild()
 	support_widget->blockUndo();
 
 	// Fix views
-	support_widget->setEnabled(FALSE);
+	support_widget->setEnabled(false);
 	support_widget->startOfDoc();
 
 	// Get the names of contributors, extracted from .../doc/contributions.txt by viewer_manifest.py at build time
@@ -176,7 +176,7 @@ bool LLFloaterAbout::postBuild()
 		LL_WARNS("AboutInit") << "Could not read contributors file at " << contributors_path << LL_ENDL;
 	}
 	contrib_names_widget->setText(contributors);
-	contrib_names_widget->setEnabled(FALSE);
+	contrib_names_widget->setEnabled(false);
 	contrib_names_widget->startOfDoc();
 
     // Get the Versions and Copyrights, created at build time
@@ -199,7 +199,7 @@ bool LLFloaterAbout::postBuild()
 		// this case will use the (out of date) hard coded value from the XUI
 		LL_INFOS("AboutInit") << "Could not read licenses file at " << licenses_path << LL_ENDL;
 	}
-	licenses_widget->setEnabled(FALSE);
+	licenses_widget->setEnabled(false);
 	licenses_widget->startOfDoc();
 
 	return true;

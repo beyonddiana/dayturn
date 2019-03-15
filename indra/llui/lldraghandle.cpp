@@ -78,7 +78,7 @@ void LLDragHandle::initFromParams(const LLDragHandle::Params& p)
 	setTitle( p.label );
 }
 
-void LLDragHandle::setTitleVisible(BOOL visible) 
+void LLDragHandle::setTitleVisible(bool visible) 
 { 
 	if(mTitleBox)
 	{
