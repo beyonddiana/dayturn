@@ -1297,6 +1297,8 @@ static void removeDuplicateItems(LLInventoryModel::item_array_t& items)
 	items = new_items;
 }
 
+//=========================================================================
+
 const std::string LLAppearanceMgr::sExpectedTextureName = "OutfitPreview";
 
 const LLUUID LLAppearanceMgr::getCOF() const
