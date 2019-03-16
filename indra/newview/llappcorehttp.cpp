@@ -30,6 +30,8 @@
 
 #include "llappviewer.h"
 #include "llviewercontrol.h"
+#include "llexception.h"
+#include "stringize.h"
 
 #include <openssl/x509_vfy.h>
 #include <openssl/ssl.h>
