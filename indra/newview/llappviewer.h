@@ -309,10 +309,9 @@ private:
 	// llcorehttp library init/shutdown helper
 	LLAppCoreHttp mAppCoreHttp;
 
-    U64 mMinMicroSecPerFrame; // frame throttling
-
 	bool mIsFirstRun;
-
+    U64 mMinMicroSecPerFrame; // frame throttling
+    
 public:
 	static void setViewerWindowTitle();
 
