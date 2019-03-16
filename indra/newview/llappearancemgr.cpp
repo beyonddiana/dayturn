@@ -1298,6 +1298,8 @@ static void removeDuplicateItems(LLInventoryModel::item_array_t& items)
 	items = new_items;
 }
 
+//=========================================================================
+
 const std::string LLAppearanceMgr::sExpectedTextureName = "OutfitPreview";
 
 const LLUUID LLAppearanceMgr::getCOF() const
@@ -2190,8 +2192,6 @@ void LLAppearanceMgr::updateAgentWearables(LLWearableHoldingPattern* holder)
 				LLViewerInventoryItem* item = (LLViewerInventoryItem*)gInventory.getItem(data.mItemID);
 				if( item && (item->getAssetUUID() == wearable->getAssetID()) )
 				{
-					items.push_back(item);
-					wearables.push_back(wearable);
 					items.push_back(item);
 					wearables.push_back(wearable);
 				}
