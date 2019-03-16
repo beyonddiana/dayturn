@@ -364,6 +364,7 @@ void LLAppCoreHttp::refreshSettings(bool initial)
 			mPipelined = pipelined;
 			pipeline_changed = true;
 		}
+        LL_INFOS("Init") << "HTTP Pipelining " << (mPipelined ? "enabled" : "disabled") << "!" << LL_ENDL;
 	}
 	
 	for (int i(0); i < LL_ARRAY_SIZE(init_data); ++i)
@@ -541,6 +542,7 @@ LLCore::HttpStatus LLAppCoreHttp::sslVerify(const std::string &url,
 	}
 	catch (...)
 	{
+		LOG_UNHANDLED_EXCEPTION(STRINGIZE("('" << url << "')"));
 		// any other odd error, we just handle as a connect error.
 		result = LLCore::HttpStatus(LLCore::HttpStatus::EXT_CURL_EASY, CURLE_SSL_CONNECT_ERROR);
 	}
