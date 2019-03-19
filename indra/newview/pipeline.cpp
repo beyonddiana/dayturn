@@ -3972,7 +3972,7 @@ void LLPipeline::postSort(LLCamera& camera)
 	LL_PUSH_CALLSTACKS();
 //MK
 	// Don't render beacons when our vision is restricted
-	if (!gRRenabled || gAgent.mRRInterface.mCamDistDrawMax >= EXTREMUM)
+	if (!gRRenabled || !gAgent.mRRInterface.mVisionRestricted)
 	{
 //mk
 	// only render if the flag is set. The flag is only set if we are in edit mode or the toggle is set in the menus
@@ -4099,7 +4099,7 @@ void render_hud_elements()
 		LLTracker::render3D();
 		
 //MK
-		if (gRRenabled && gAgent.mRRInterface.mCamDistDrawMax < EXTREMUM)
+		if (gRRenabled && gAgent.mRRInterface.mVisionRestricted)
 		{
 
 		}
