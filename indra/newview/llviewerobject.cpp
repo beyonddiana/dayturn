@@ -5948,7 +5948,7 @@ void LLViewerObject::markForUpdate(BOOL priority)
 	}
 }
 
-void LLViewerObject::markForUnload(bool priority)
+void LLViewerObject::markForUnload(BOOL priority)
 {
 	if (mDrawable.notNull())
 	{
