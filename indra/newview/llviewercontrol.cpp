@@ -633,6 +633,7 @@ bool toggle_show_object_render_cost(const LLSD& newvalue)
 	return true;
 }
 
+void handleRenderAutoMuteByteLimitChanged(const LLSD& new_value);
 ////////////////////////////////////////////////////////////////////////////
 
 void settings_setup_listeners()
@@ -791,6 +792,7 @@ void settings_setup_listeners()
     gSavedSettings.getControl("DebugAvatarJoints")->getCommitSignal()->connect(boost::bind(&handleDebugAvatarJointsChanged, _2));
     gSavedSettings.getControl("ViewerAssetHttpTypes")->getCommitSignal()->connect(boost::bind(&handleViewerAssetHttpTypesChanged, _2));
 	gSavedPerAccountSettings.getControl("AvatarHoverOffsetZ")->getCommitSignal()->connect(boost::bind(&handleAvatarHoverOffsetChanged, _2));
+	gSavedSettings.getControl("RenderAutoMuteByteLimit")->getSignal()->connect(boost::bind(&handleRenderAutoMuteByteLimitChanged, _2));
 }
 
 #if TEST_CACHED_CONTROL

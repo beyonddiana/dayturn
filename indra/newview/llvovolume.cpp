@@ -77,6 +77,7 @@
 #include "llvoavatar.h"
 #include "llvocache.h"
 #include "llmaterialmgr.h"
+#include "llsculptidsize.h"
 
 const F32 FORCE_SIMPLE_RENDER_AREA = 512.f;
 const F32 FORCE_CULL_AREA = 8.f;
@@ -246,6 +247,8 @@ LLVOVolume::~LLVOVolume()
 
 void LLVOVolume::markDead()
 {
+	LLSculptIDSize::instance().rem(getVolume()->getParams().getSculptID());
+
 	if (!mDead)
 	{
 		if(getMDCImplCount() > 0)
@@ -957,11 +960,14 @@ BOOL LLVOVolume::setVolume(const LLVolumeParams &params_in, const S32 detail, bo
 		{ //meshes might not have all LODs, get the force detail to best existing LOD
 			LLUUID mesh_id = volume_params.getSculptID();
 
-			lod = gMeshRepo.getActualMeshLOD(volume_params, lod);
-			if (lod == -1)
+            if (NO_LOD != lod)
 			{
-				is404 = TRUE;
-				lod = 0;
+				lod = gMeshRepo.getActualMeshLOD(volume_params, lod);
+				if (lod == -1)
+				{
+					is404 = TRUE;
+					lod = 0;
+				}
 			}
 		}
 	}
@@ -1062,8 +1068,10 @@ BOOL LLVOVolume::setVolume(const LLVolumeParams &params_in, const S32 detail, bo
 
 		return TRUE;
 	}
-
-
+	else if (NO_LOD == lod) 
+	{
+		LLSculptIDSize::instance().resetSizeSum(volume_params.getSculptID());
+	}
 
 	return FALSE;
 }
@@ -1346,8 +1354,17 @@ BOOL LLVOVolume::updateLOD()
 		return FALSE;
 	}
 	
-	BOOL lod_changed = calcLOD();
+	BOOL lod_changed = FALSE;
 
+	if (!LLSculptIDSize::instance().isUnloaded(getVolume()->getParams().getSculptID())) 
+	{
+		lod_changed = calcLOD();
+	}
+	else
+	{
+		return false;
+	}
+	
 	if (lod_changed)
 	{
 		gPipeline.markRebuild(mDrawable, LLDrawable::REBUILD_VOLUME, FALSE);
@@ -4675,6 +4692,82 @@ void LLVolumeGeometryManager::registerFace(LLSpatialGroup* group, LLFace* facep,
 	}
 }
 
+void handleRenderAutoMuteByteLimitChanged(const LLSD& new_value)
+{
+	static LLCachedControl<U32> render_auto_mute_byte_limit(gSavedSettings, "RenderAutoMuteByteLimit", 0U);
+
+	if (0 != render_auto_mute_byte_limit)
+	{
+		//for unload
+		LLSculptIDSize::container_BY_SIZE_view::iterator
+			itL = LLSculptIDSize::instance().getSizeInfo().get<LLSculptIDSize::tag_BY_SIZE>().lower_bound(render_auto_mute_byte_limit),
+			itU = LLSculptIDSize::instance().getSizeInfo().get<LLSculptIDSize::tag_BY_SIZE>().end();
+
+		for (; itL != itU; ++itL)
+		{
+			const LLSculptIDSize::Info &nfo = *itL;
+			LLVOVolume *pVVol = nfo.getPtrLLDrawable()->getVOVolume();
+			if (pVVol
+				&& !pVVol->isDead()
+				&& pVVol->isAttachment()
+				&& !pVVol->getAvatar()->isSelf()
+				&& LLVOVolume::NO_LOD != pVVol->getLOD()
+				)
+			{
+				//postponed
+				pVVol->markForUnload();
+				LLSculptIDSize::instance().addToUnloaded(nfo.getSculptId());
+			}
+		}
+
+		//for load if it was unload
+		itL = LLSculptIDSize::instance().getSizeInfo().get<LLSculptIDSize::tag_BY_SIZE>().begin();
+		itU = LLSculptIDSize::instance().getSizeInfo().get<LLSculptIDSize::tag_BY_SIZE>().upper_bound(render_auto_mute_byte_limit);
+
+		for (; itL != itU; ++itL)
+		{
+			const LLSculptIDSize::Info &nfo = *itL;
+			LLVOVolume *pVVol = nfo.getPtrLLDrawable()->getVOVolume();
+			if (pVVol
+				&& !pVVol->isDead()
+				&& pVVol->isAttachment()
+				&& !pVVol->getAvatar()->isSelf()
+				&& LLVOVolume::NO_LOD == pVVol->getLOD()
+				)
+			{
+				LLSculptIDSize::instance().remFromUnloaded(nfo.getSculptId());
+				pVVol->updateLOD();
+				pVVol->markForUpdate(true);
+			}
+		}
+	}
+	else
+	{
+		LLSculptIDSize::instance().clearUnloaded();
+
+		LLSculptIDSize::container_BY_SIZE_view::iterator
+			itL = LLSculptIDSize::instance().getSizeInfo().get<LLSculptIDSize::tag_BY_SIZE>().begin(),
+			itU = LLSculptIDSize::instance().getSizeInfo().get<LLSculptIDSize::tag_BY_SIZE>().end();
+
+		for (; itL != itU; ++itL)
+		{
+			const LLSculptIDSize::Info &nfo = *itL;
+			LLVOVolume *pVVol = nfo.getPtrLLDrawable()->getVOVolume();
+			if (pVVol
+				&& !pVVol->isDead()
+				&& pVVol->isAttachment()
+				&& !pVVol->getAvatar()->isSelf()
+				&& LLVOVolume::NO_LOD == pVVol->getLOD()
+				) 
+			{
+				pVVol->updateLOD();
+				pVVol->markForUpdate(true);
+			}
+		}
+	}
+}
+
+
 void LLVolumeGeometryManager::getGeometry(LLSpatialGroup* group)
 {
 
@@ -5282,13 +5375,19 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 		fullbright_mask = fullbright_mask | LLVertexBuffer::MAP_TEXTURE_INDEX;
 	}
 
-	genDrawInfo(group, simple_mask | LLVertexBuffer::MAP_TEXTURE_INDEX, sSimpleFaces, simple_count, FALSE, batch_textures, FALSE);
-	genDrawInfo(group, fullbright_mask | LLVertexBuffer::MAP_TEXTURE_INDEX, sFullbrightFaces, fullbright_count, FALSE, batch_textures);
-	genDrawInfo(group, alpha_mask | LLVertexBuffer::MAP_TEXTURE_INDEX, sAlphaFaces, alpha_count, TRUE, batch_textures);
-	genDrawInfo(group, bump_mask | LLVertexBuffer::MAP_TEXTURE_INDEX, sBumpFaces, bump_count, FALSE, FALSE);
-	genDrawInfo(group, norm_mask | LLVertexBuffer::MAP_TEXTURE_INDEX, sNormFaces, norm_count, FALSE, FALSE);
-	genDrawInfo(group, spec_mask | LLVertexBuffer::MAP_TEXTURE_INDEX, sSpecFaces, spec_count, FALSE, FALSE);
-	genDrawInfo(group, normspec_mask | LLVertexBuffer::MAP_TEXTURE_INDEX, sNormSpecFaces, normspec_count, FALSE, FALSE);
+	group->mGeometryBytes = 0;
+
+	U32 geometryBytes = 0;
+
+	geometryBytes += genDrawInfo(group, simple_mask | LLVertexBuffer::MAP_TEXTURE_INDEX, sSimpleFaces, simple_count, FALSE, batch_textures, FALSE);
+	geometryBytes += genDrawInfo(group, fullbright_mask | LLVertexBuffer::MAP_TEXTURE_INDEX, sFullbrightFaces, fullbright_count, FALSE, batch_textures);
+	geometryBytes += genDrawInfo(group, alpha_mask | LLVertexBuffer::MAP_TEXTURE_INDEX, sAlphaFaces, alpha_count, TRUE, batch_textures);
+	geometryBytes += genDrawInfo(group, bump_mask | LLVertexBuffer::MAP_TEXTURE_INDEX, sBumpFaces, bump_count, FALSE, FALSE);
+	geometryBytes += genDrawInfo(group, norm_mask | LLVertexBuffer::MAP_TEXTURE_INDEX, sNormFaces, norm_count, FALSE, FALSE);
+	geometryBytes += genDrawInfo(group, spec_mask | LLVertexBuffer::MAP_TEXTURE_INDEX, sSpecFaces, spec_count, FALSE, FALSE);
+	geometryBytes += genDrawInfo(group, normspec_mask | LLVertexBuffer::MAP_TEXTURE_INDEX, sNormSpecFaces, normspec_count, FALSE, FALSE);
+
+	group->mGeometryBytes = geometryBytes;
 
 	if (!LLPipeline::sDelayVBUpdate)
 	{
@@ -5493,10 +5592,11 @@ static LLTrace::BlockTimerStatHandle FTM_GEN_DRAW_INFO_RESIZE_VB("Resize VB");
 
 
 
-void LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, LLFace** faces, U32 face_count, BOOL distance_sort, BOOL batch_textures, BOOL no_materials)
+U32 LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, LLFace** faces, U32 face_count, BOOL distance_sort, BOOL batch_textures, BOOL no_materials)
 {
 	LL_RECORD_BLOCK_TIME(FTM_REBUILD_VOLUME_GEN_DRAW_INFO);
 
+ 	U32 geometryBytes = 0;
 	U32 buffer_usage = group->mBufferUsage;
 	
 	static LLCachedControl<bool> use_transform_feedback(gSavedSettings, "RenderUseTransformFeedback", false);
@@ -6104,6 +6204,8 @@ void LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, LLFac
 	{
 		group->mBufferMap[mask][i->first] = i->second;
 	}
+	
+	return geometryBytes;
 }
 
 void LLGeometryManager::addGeometryCount(LLSpatialGroup* group, U32 &vertex_count, U32 &index_count)
@@ -6170,4 +6272,3 @@ void LLHUDPartition::shift(const LLVector4a &offset)
 {
 	//HUD objects don't shift with region crossing.  That would be silly.
 }
-
