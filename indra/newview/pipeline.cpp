@@ -3040,7 +3040,13 @@ void LLPipeline::updateGeom(F32 max_dtime)
 				}
 			}
 
-			if (updateDrawableGeom(drawablep, TRUE))
+			if (drawablep->isUnload())
+			{
+				drawablep->unload();
+				drawablep->clearState(LLDrawable::FOR_UNLOAD);
+			}
+
+			if (updateDrawableGeom(drawablep, true))
 			{
 				drawablep->clearState(LLDrawable::IN_REBUILD_Q1);
 				mBuildQ1.erase(curiter);
@@ -3090,7 +3096,7 @@ void LLPipeline::updateGeom(F32 max_dtime)
 		bool update_complete = true;
 		if (!drawablep->isDead())
 		{
-			update_complete = updateDrawableGeom(drawablep, FALSE);
+			update_complete = updateDrawableGeom(drawablep, false);
 			count++;
 		}
 		if (update_complete)

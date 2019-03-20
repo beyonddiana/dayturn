@@ -35,6 +35,12 @@
 #include "m3math.h"		// LLMatrix3
 #include "m4math.h"		// LLMatrix4
 #include <map>
+#include <set>
+//boost
+#include "boost/multi_index_container.hpp"
+#include "boost/multi_index/ordered_index.hpp"
+#include "boost/multi_index/mem_fun.hpp"
+
 
 class LLViewerTextureAnim;
 class LLDrawPool;
@@ -126,6 +132,7 @@ public:
 				void	generateSilhouette(LLSelectNode* nodep, const LLVector3& view_point);
 	/*virtual*/	BOOL	setParent(LLViewerObject* parent);
 				S32		getLOD() const							{ return mLOD; }
+				void	setNoLOD()                              { mLOD = NO_LOD; mLODChanged = true; }
 	const LLVector3		getPivotPositionAgent() const;
 	const LLMatrix4&	getRelativeXform() const				{ return mRelativeXform; }
 	const LLMatrix3&	getRelativeXformInvTrans() const		{ return mRelativeXformInvTrans; }
@@ -160,6 +167,7 @@ public:
 				const LLMatrix4& getWorldMatrix(LLXformMatrix* xform) const;
 
 				void	markForUpdate(BOOL priority)			{ LLViewerObject::markForUpdate(priority); mVolumeChanged = TRUE; }
+                void    markForUnload()                         { LLViewerObject::markForUnload(true); mVolumeChanged = TRUE; }                
 				void    faceMappingChanged()                    { mFaceMappingChanged=TRUE; };
 
 	/*virtual*/ void	onShift(const LLVector4a &shift_vector); // Called when the drawable shifts

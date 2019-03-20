@@ -77,6 +77,7 @@
 #include "llvoavatar.h"
 #include "llvocache.h"
 #include "llmaterialmgr.h"
+#include "llsculptidsize.h"
 
 //MK
 #include "llagent.h"
@@ -251,6 +252,8 @@ LLVOVolume::~LLVOVolume()
 
 void LLVOVolume::markDead()
 {
+	LLSculptIDSize::instance().rem(getVolume()->getParams().getSculptID());
+
 	if (!mDead)
 	{
 		if(getMDCImplCount() > 0)
@@ -962,11 +965,14 @@ BOOL LLVOVolume::setVolume(const LLVolumeParams &params_in, const S32 detail, bo
 		{ //meshes might not have all LODs, get the force detail to best existing LOD
 			LLUUID mesh_id = volume_params.getSculptID();
 
-			lod = gMeshRepo.getActualMeshLOD(volume_params, lod);
-			if (lod == -1)
+            if (NO_LOD != lod)
 			{
-				is404 = TRUE;
-				lod = 0;
+				lod = gMeshRepo.getActualMeshLOD(volume_params, lod);
+				if (lod == -1)
+				{
+					is404 = TRUE;
+					lod = 0;
+				}
 			}
 		}
 	}
@@ -1067,8 +1073,10 @@ BOOL LLVOVolume::setVolume(const LLVolumeParams &params_in, const S32 detail, bo
 
 		return TRUE;
 	}
-
-
+	else if (NO_LOD == lod) 
+	{
+		LLSculptIDSize::instance().resetSizeSum(volume_params.getSculptID());
+	}
 
 	return FALSE;
 }
@@ -1351,8 +1359,17 @@ BOOL LLVOVolume::updateLOD()
 		return FALSE;
 	}
 	
-	BOOL lod_changed = calcLOD();
+	BOOL lod_changed = FALSE;
 
+	if (!LLSculptIDSize::instance().isUnloaded(getVolume()->getParams().getSculptID())) 
+	{
+		lod_changed = calcLOD();
+	}
+	else
+	{
+		return false;
+	}
+	
 	if (lod_changed)
 	{
 		gPipeline.markRebuild(mDrawable, LLDrawable::REBUILD_VOLUME, FALSE);
@@ -4706,6 +4723,82 @@ void LLVolumeGeometryManager::registerFace(LLSpatialGroup* group, LLFace* facep,
 	}
 }
 
+void handleRenderAutoMuteByteLimitChanged(const LLSD& new_value)
+{
+	static LLCachedControl<U32> render_auto_mute_byte_limit(gSavedSettings, "RenderAutoMuteByteLimit", 0U);
+
+	if (0 != render_auto_mute_byte_limit)
+	{
+		//for unload
+		LLSculptIDSize::container_BY_SIZE_view::iterator
+			itL = LLSculptIDSize::instance().getSizeInfo().get<LLSculptIDSize::tag_BY_SIZE>().lower_bound(render_auto_mute_byte_limit),
+			itU = LLSculptIDSize::instance().getSizeInfo().get<LLSculptIDSize::tag_BY_SIZE>().end();
+
+		for (; itL != itU; ++itL)
+		{
+			const LLSculptIDSize::Info &nfo = *itL;
+			LLVOVolume *pVVol = nfo.getPtrLLDrawable()->getVOVolume();
+			if (pVVol
+				&& !pVVol->isDead()
+				&& pVVol->isAttachment()
+				&& !pVVol->getAvatar()->isSelf()
+				&& LLVOVolume::NO_LOD != pVVol->getLOD()
+				)
+			{
+				//postponed
+				pVVol->markForUnload();
+				LLSculptIDSize::instance().addToUnloaded(nfo.getSculptId());
+			}
+		}
+
+		//for load if it was unload
+		itL = LLSculptIDSize::instance().getSizeInfo().get<LLSculptIDSize::tag_BY_SIZE>().begin();
+		itU = LLSculptIDSize::instance().getSizeInfo().get<LLSculptIDSize::tag_BY_SIZE>().upper_bound(render_auto_mute_byte_limit);
+
+		for (; itL != itU; ++itL)
+		{
+			const LLSculptIDSize::Info &nfo = *itL;
+			LLVOVolume *pVVol = nfo.getPtrLLDrawable()->getVOVolume();
+			if (pVVol
+				&& !pVVol->isDead()
+				&& pVVol->isAttachment()
+				&& !pVVol->getAvatar()->isSelf()
+				&& LLVOVolume::NO_LOD == pVVol->getLOD()
+				)
+			{
+				LLSculptIDSize::instance().remFromUnloaded(nfo.getSculptId());
+				pVVol->updateLOD();
+				pVVol->markForUpdate(true);
+			}
+		}
+	}
+	else
+	{
+		LLSculptIDSize::instance().clearUnloaded();
+
+		LLSculptIDSize::container_BY_SIZE_view::iterator
+			itL = LLSculptIDSize::instance().getSizeInfo().get<LLSculptIDSize::tag_BY_SIZE>().begin(),
+			itU = LLSculptIDSize::instance().getSizeInfo().get<LLSculptIDSize::tag_BY_SIZE>().end();
+
+		for (; itL != itU; ++itL)
+		{
+			const LLSculptIDSize::Info &nfo = *itL;
+			LLVOVolume *pVVol = nfo.getPtrLLDrawable()->getVOVolume();
+			if (pVVol
+				&& !pVVol->isDead()
+				&& pVVol->isAttachment()
+				&& !pVVol->getAvatar()->isSelf()
+				&& LLVOVolume::NO_LOD == pVVol->getLOD()
+				) 
+			{
+				pVVol->updateLOD();
+				pVVol->markForUpdate(true);
+			}
+		}
+	}
+}
+
+
 void LLVolumeGeometryManager::getGeometry(LLSpatialGroup* group)
 {
 
@@ -5313,13 +5406,19 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 		fullbright_mask = fullbright_mask | LLVertexBuffer::MAP_TEXTURE_INDEX;
 	}
 
-	genDrawInfo(group, simple_mask | LLVertexBuffer::MAP_TEXTURE_INDEX, sSimpleFaces, simple_count, FALSE, batch_textures, FALSE);
-	genDrawInfo(group, fullbright_mask | LLVertexBuffer::MAP_TEXTURE_INDEX, sFullbrightFaces, fullbright_count, FALSE, batch_textures);
-	genDrawInfo(group, alpha_mask | LLVertexBuffer::MAP_TEXTURE_INDEX, sAlphaFaces, alpha_count, TRUE, batch_textures);
-	genDrawInfo(group, bump_mask | LLVertexBuffer::MAP_TEXTURE_INDEX, sBumpFaces, bump_count, FALSE, FALSE);
-	genDrawInfo(group, norm_mask | LLVertexBuffer::MAP_TEXTURE_INDEX, sNormFaces, norm_count, FALSE, FALSE);
-	genDrawInfo(group, spec_mask | LLVertexBuffer::MAP_TEXTURE_INDEX, sSpecFaces, spec_count, FALSE, FALSE);
-	genDrawInfo(group, normspec_mask | LLVertexBuffer::MAP_TEXTURE_INDEX, sNormSpecFaces, normspec_count, FALSE, FALSE);
+	group->mGeometryBytes = 0;
+
+	U32 geometryBytes = 0;
+
+	geometryBytes += genDrawInfo(group, simple_mask | LLVertexBuffer::MAP_TEXTURE_INDEX, sSimpleFaces, simple_count, FALSE, batch_textures, FALSE);
+	geometryBytes += genDrawInfo(group, fullbright_mask | LLVertexBuffer::MAP_TEXTURE_INDEX, sFullbrightFaces, fullbright_count, FALSE, batch_textures);
+	geometryBytes += genDrawInfo(group, alpha_mask | LLVertexBuffer::MAP_TEXTURE_INDEX, sAlphaFaces, alpha_count, TRUE, batch_textures);
+	geometryBytes += genDrawInfo(group, bump_mask | LLVertexBuffer::MAP_TEXTURE_INDEX, sBumpFaces, bump_count, FALSE, FALSE);
+	geometryBytes += genDrawInfo(group, norm_mask | LLVertexBuffer::MAP_TEXTURE_INDEX, sNormFaces, norm_count, FALSE, FALSE);
+	geometryBytes += genDrawInfo(group, spec_mask | LLVertexBuffer::MAP_TEXTURE_INDEX, sSpecFaces, spec_count, FALSE, FALSE);
+	geometryBytes += genDrawInfo(group, normspec_mask | LLVertexBuffer::MAP_TEXTURE_INDEX, sNormSpecFaces, normspec_count, FALSE, FALSE);
+
+	group->mGeometryBytes = geometryBytes;
 
 	if (!LLPipeline::sDelayVBUpdate)
 	{
@@ -5528,7 +5627,7 @@ U32 LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, LLFace
 {
 	LL_RECORD_BLOCK_TIME(FTM_REBUILD_VOLUME_GEN_DRAW_INFO);
 
-    U32 geometryBytes = 0;
+ 	U32 geometryBytes = 0;
 	U32 buffer_usage = group->mBufferUsage;
 	
 	static LLCachedControl<bool> use_transform_feedback(gSavedSettings, "RenderUseTransformFeedback", false);
@@ -5603,25 +5702,7 @@ U32 LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, LLFace
 	//NEVER use more than 16 texture index channels (workaround for prevalent driver bug)
 	texture_index_channels = llmin(texture_index_channels, 16);
 
-	bool flexi = false;
-
-// MK
-	//Calculate the position of the avatar here so we don't have to do it for each face
-	if (!gAgentAvatarp)
-	{
-		return geometryBytes;
-	}
-	bool vision_restricted = (gRRenabled && gAgent.mRRInterface.mCamDistDrawMax < EXTREMUM);
-	//Optimization : Rather than compare the distances for every face (which involves square roots, which are costly), we compare squared distances.
-	LLVector3 joint_pos = LLVector3::zero;
-	F32 cam_dist_draw_max_squared = EXTREMUM;
-	//We don't need to calculate all that stuff if the vision is not restricted.
-	if (vision_restricted)
-	{
-		joint_pos = gAgent.mRRInterface.getCamDistDrawFromJoint()->getWorldPosition();
-		cam_dist_draw_max_squared = gAgent.mRRInterface.mCamDistDrawMax * gAgent.mRRInterface.mCamDistDrawMax;
-	}
-// mk
+	bool    
 
 	while (face_iter != end_faces)
 	{
@@ -5629,21 +5710,7 @@ U32 LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, LLFace
 		LLFace* facep = *face_iter;
 		LLViewerTexture* tex = facep->getTexture();
 		LLMaterialPtr mat = facep->getTextureEntry()->getMaterialParams();
-// MK
-		LLVector3 face_pos = LLVector3::zero;
-		LLVector3 face_avatar_offset = LLVector3::zero;
-		F32 face_distance_to_avatar_squared = EXTREMUM;
 
-		//We don't need to calculate all that stuff if the vision is not restricted.
-		if (vision_restricted)
-		{
-			//We need the position of the face for later, as well as the square of the distance from this face to the avatar
-			face_pos = facep->getPositionAgent();
-			face_avatar_offset = face_pos - joint_pos;
-			face_distance_to_avatar_squared = (F32)face_avatar_offset.magVecSquared();
-		}
-// mk
-		
 		if (distance_sort)
 		{
 			tex = NULL;
@@ -5909,50 +5976,6 @@ U32 LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, LLFace
 			bool use_legacy_bump = te->getBumpmap() && (te->getBumpmap() < 18) && (!mat || mat->getNormalID().isNull());
 			bool opaque = te->getColor().mV[3] >= 0.999f;
 
-//MK
-			LLDrawable* drawablep = facep->getDrawable();
-			LLVOVolume* vobj = drawablep->getVOVolume();
-
-			// Due to a rendering bug, we must completely ignore the alpha and fullbright of any object (except our own attachments and 100% invisible objects) when the vision is restricted
-			if ((is_alpha || fullbright) && vision_restricted && te->getColor().mV[3] > 0.f)
-			{
-				if (vobj && vobj->getAvatar() != gAgentAvatarp )
-				{
-					// If this is an attachment with materials and alpha, and its wearer is farther than the vision range, do not render it at all
-					if (vobj->isAttachment())
-					{
-						if (face_distance_to_avatar_squared > cam_dist_draw_max_squared)
-						{
-							++face_iter;
-							continue;
-						}
-					}
-					else
-					{
-						// If the object is phantom, no need to even render it at all
-						// If it is solid, then a blind avatar will have to "see" it since it may bump into it
-						if (vobj->flagPhantom())
-						{
-							++face_iter;
-							continue;
-						}
-						else
-						{
-							is_alpha = FALSE;
-							fullbright = FALSE;
-							opaque = true;
-							can_be_shiny = false;
-							no_materials = TRUE;
-						}
-					}
-				}
-			}
-			else if (te->getColor().mV[3] == 0.f && vision_restricted && vobj && !vobj->isAttachment()) // completely transparent and not an attachment => don't bother rendering it at all (even when highlighting transparent)
-			{
-				++face_iter;
-				continue;
-			}
-//mk
 			if (mat && LLPipeline::sRenderDeferred && !hud_group)
 			{
 				bool material_pass = false;
@@ -5983,13 +6006,6 @@ U32 LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, LLFace
 						if (mat->getEnvironmentIntensity() > 0 ||
 							te->getShiny() > 0)
 						{
-//MK
-							if (vision_restricted)
-							{
-								registerFace(group, facep, LLRenderPass::PASS_FULLBRIGHT);
-							}
-							else
-//mk
 							material_pass = true;
 						}
 						else
@@ -6173,9 +6189,9 @@ U32 LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, LLFace
 						}
 						else
 						{
-						    registerFace(group, facep, LLRenderPass::PASS_SIMPLE);
-					    }
-				    }
+							registerFace(group, facep, LLRenderPass::PASS_SIMPLE);
+						}
+				}
 				}
 				
 				
@@ -6202,13 +6218,6 @@ U32 LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, LLFace
 
 			if (!is_alpha && LLPipeline::sRenderGlow && te->getGlow() > 0.f)
 			{
-//MK
-				if (vision_restricted && face_distance_to_avatar_squared > cam_dist_draw_max_squared)
-				{
-					registerFace(group, facep, LLRenderPass::PASS_SIMPLE);
-				}
-				else
-//mk			
 				registerFace(group, facep, LLRenderPass::PASS_GLOW);
 			}
 						
@@ -6226,6 +6235,8 @@ U32 LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, LLFace
 	{
 		group->mBufferMap[mask][i->first] = i->second;
 	}
+	
+	return geometryBytes;
 }
 
 void LLGeometryManager::addGeometryCount(LLSpatialGroup* group, U32 &vertex_count, U32 &index_count)
@@ -6292,4 +6303,3 @@ void LLHUDPartition::shift(const LLVector4a &offset)
 {
 	//HUD objects don't shift with region crossing.  That would be silly.
 }
-

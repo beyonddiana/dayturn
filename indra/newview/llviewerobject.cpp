@@ -5960,6 +5960,14 @@ void LLViewerObject::markForUpdate(BOOL priority)
 	}
 }
 
+void LLViewerObject::markForUnload(bool priority)
+{
+	if (mDrawable.notNull())
+	{
+		gPipeline.markRebuild(mDrawable, LLDrawable::FOR_UNLOAD, priority);
+	}
+}
+
 bool LLViewerObject::isPermanentEnforced() const
 {
 	return flagObjectPermanent() && (mRegionp != gAgent.getRegion()) && !gAgent.isGodlike();
