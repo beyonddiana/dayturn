@@ -637,8 +637,8 @@ void LLVOVolume::updateTextures()
 		if (mDrawable.notNull() && !isVisible() && !mDrawable->isActive())
 		{ //delete vertex buffer to free up some VRAM
 			LLSpatialGroup* group  = mDrawable->getSpatialGroup();
-			if (group)
-			{
+            if (group && (group->mVertexBuffer.notNull() || !group->mBufferMap.empty() || !group->mDrawMap.empty()))
+            {
 				group->destroyGL(true);
 
 				//flag the group as having changed geometry so it gets a rebuild next time
