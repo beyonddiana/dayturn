@@ -669,7 +669,7 @@ void LLVolumeImplFlexible::doFlexibleUpdate()
 	S32 num_render_sections = 1<<mRenderRes;
 	if (path->getPathLength() != num_render_sections+1)
 	{
-		((LLVOVolume*) mVO)->mVolumeChanged = TRUE;
+		((LLVOVolume*) mVO)->mVolumeChanged = true;
 		volume->resizePath(num_render_sections+1);
 	}
 
@@ -825,7 +825,7 @@ BOOL LLVolumeImplFlexible::doUpdateGeometry(LLDrawable *drawable)
 		volume->genBBoxes(isVolumeGlobal());
 	}
 			
-	volume->mVolumeChanged = FALSE;
+	volume->mVolumeChanged = false;
 	volume->mLODChanged = FALSE;
 	volume->mFaceMappingChanged = FALSE;
 
