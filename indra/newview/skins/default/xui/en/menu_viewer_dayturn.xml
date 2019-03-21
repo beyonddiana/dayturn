@@ -625,9 +625,20 @@
      </menu_item_call>
     <menu_item_separator/>
     <menu_item_check
-     label="Search"
-     name="Search"
+	 label="Search"
+	 name="Legacy Search"
      shortcut="control|F">
+     <menu_item_check.on_check
+		function="Floater.Visible"
+		parameter="search_legacy" />
+     <menu_item_check.on_click
+		function="Floater.Toggle"
+		parameter="search_legacy" />
+	 </menu_item_check>    
+    <menu_item_check
+     label="Web Search"
+     name="Search"
+     shortcut="control|alt|F">
      <menu_item_check.on_check
          function="Floater.Visible"
          parameter="search" />
@@ -635,17 +646,6 @@
          function="Floater.Toggle"
          parameter="search" />
     </menu_item_check>
-    <menu_item_check
-	 label="Legacy Search"
-	 name="Legacy Search"
-     shortcut="control|alt|F">
-     <menu_item_check.on_check
-		function="Floater.Visible"
-		parameter="search_legacy" />
-     <menu_item_check.on_click
-		function="Floater.Toggle"
-		parameter="search_legacy" />
-	 </menu_item_check>
      <menu_item_call
       label="Area Search"
       name="area_search"
@@ -760,7 +760,8 @@
     <menu_item_separator/>
     <menu_item_call
      label="Buy L$"
-     name="Buy and Sell L$">
+     name="Buy and Sell L$"
+     only_in_sl="true">
         <menu_item_call.on_click
          function="BuyCurrency" />
     </menu_item_call>
@@ -1224,13 +1225,21 @@
            function="EditableSelected" />
       </menu_item_call>
       <menu_item_call
-        label="Scripting LSL wiki"
+        label="Scripting LSL"
         name="scripting_wiki">
            <menu_item_call.on_click
             function="PromptShowURL"
             name="wiki_lslscripting_url"
             parameter="WebLaunchExternalTarget,http://wiki.secondlife.com/wiki/LSL_Portal" />
       </menu_item_call>
+      <menu_item_call
+        label="Scripting OSSL"
+        name="scripting_wiki">
+           <menu_item_call.on_click
+            function="PromptShowURL"
+            name="wiki_osslscripting_url"
+            parameter="WebLaunchExternalTarget,http://opensimulator.org/wiki/Category:OSSL_Functions" />
+      </menu_item_call>      
     </menu>
 
     <menu
