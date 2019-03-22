@@ -55,6 +55,7 @@
 #include "llviewertexturelist.h"
 
 //MK
+#include "llagentcamera.h" // for gAgentCamera
 #include "llvoavatarself.h"
 //mk
 
