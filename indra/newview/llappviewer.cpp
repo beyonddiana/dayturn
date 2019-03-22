@@ -1746,24 +1746,25 @@ bool LLAppViewer::mainLoop()
 
 	if (LLApp::isExiting())
 	{
-	// Save snapshot for next time, if we made it through initialization
-	if (STATE_STARTED == LLStartUp::getStartupState())
-	{
-		try
-		{
-			saveFinalSnapshot();
-		}
-		catch(std::bad_alloc)
-		{
+	    // Save snapshot for next time, if we made it through initialization
+	    if (STATE_STARTED == LLStartUp::getStartupState())
+	    {
+		    try
+		    {
+			    saveFinalSnapshot();
+		    }
+		    catch(std::bad_alloc)
+		    {
 				LL_WARNS() << "Bad memory allocation when saveFinalSnapshot() is called!" << LL_ENDL ;
 
-			//stop memory leaking simulation
-			LLFloaterMemLeak* mem_leak_instance =
+			    //stop memory leaking simulation
+			    LLFloaterMemLeak* mem_leak_instance =
 				LLFloaterReg::findTypedInstance<LLFloaterMemLeak>("mem_leaking");
-			if(mem_leak_instance)
-			{
-				mem_leak_instance->stop() ;				
-			}	
+			    if(mem_leak_instance)
+			    {
+				    mem_leak_instance->stop() ;				
+			    }	
+		    }
 		}
 
 		delete gServicePump;
@@ -1775,6 +1776,7 @@ bool LLAppViewer::mainLoop()
 
 	return LLApp::isExiting();
 }
+
 
 S32 LLAppViewer::updateTextureThreads(F32 max_time)
 {

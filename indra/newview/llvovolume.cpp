@@ -5702,7 +5702,7 @@ U32 LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, LLFace
 	//NEVER use more than 16 texture index channels (workaround for prevalent driver bug)
 	texture_index_channels = llmin(texture_index_channels, 16);
 
-	bool    
+	bool flexi = false;    
 
 	while (face_iter != end_faces)
 	{
