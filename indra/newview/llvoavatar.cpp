@@ -6115,7 +6115,7 @@ void LLVOAvatar::showAttachmentOverrides(bool verbose) const
 // removeAttachmentOverridesForObject
 //-----------------------------------------------------------------------------
 // AXON handle NPC case
-void LLVOAvatar::resetJointsOnDetach(LLViewerObject *vo)
+void LLVOAvatar::removeAttachmentOverridesForObject(LLViewerObject *vo)
 {
     if (vo->getAvatar() != this)
 	{
