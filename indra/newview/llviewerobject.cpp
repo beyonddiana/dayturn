@@ -2973,7 +2973,7 @@ void LLViewerObject::linkControlAvatar()
     }
     if (getControlAvatar())
     {
-        getControlAvatar()->addAttachmentPosOverridesForObject(this);
+        getControlAvatar()->addAttachmentOverridesForObject(this);
     }
     else
     {
