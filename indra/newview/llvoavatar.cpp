@@ -6123,67 +6123,6 @@ void LLVOAvatar::resetJointsOnDetach(LLViewerObject *vo)
 //-----------------------------------------------------------------------------
 // resetJointsOnDetach
 //-----------------------------------------------------------------------------
-void LLVOAvatar::resetJointsOnDetach(const LLUUID& mesh_id)
-{	
-	//Subsequent joints are relative to pelvis
-	avatar_joint_list_t::iterator iter = mSkeleton.begin();
-	avatar_joint_list_t::iterator end  = mSkeleton.end();
-
-	LLJoint* pJointPelvis = getJoint("mPelvis");
-	
-	for (; iter != end; ++iter)
-	{
-		LLJoint* pJoint = (*iter);
-		//Reset joints except for pelvis
-		if ( pJoint )
-		{	
-		    bool dummy; // unused
-			pJoint->removeAttachmentPosOverride(mesh_id, avString(),dummy);
-			pJoint->removeAttachmentScaleOverride(mesh_id, avString());
-		}		
-		if ( pJoint && pJoint == pJointPelvis)
-		{
-			removePelvisFixup( mesh_id );
-			// SL-315			
-			pJoint->setPosition( LLVector3( 0.0f, 0.0f, 0.0f) );
-		}		
-	}	
-		
-	postPelvisSetRecalc();	
-}
-
- //-----------------------------------------------------------------------------
- // resetJointsOnDetach
- //-----------------------------------------------------------------------------
-// AXON handle NPC case
- void LLVOAvatar::resetJointsOnDetach(LLViewerObject *vo)
- {
- 	LLVOAvatar *av = vo->getAvatarAncestor();
- 	if (!av || (av != this))
- 	{
- 		LL_WARNS("Avatar") << "called with invalid avatar" << LL_ENDL;
- 	}
- 		
- 	// Process all children
- 	LLViewerObject::const_child_list_t& children = vo->getChildren();
- 	for (LLViewerObject::const_child_list_t::const_iterator it = children.begin();
- 		 it != children.end(); ++it)
- 	{
- 		LLViewerObject *childp = *it;
- 		resetJointsOnDetach(childp);
- 	}
- 
- 	// Process self.
- 	LLUUID mesh_id;
- 	if (getRiggedMeshID(vo,mesh_id))
- 	{
- 		resetJointsOnDetach(mesh_id);
- 	}
- }
- 
- //-----------------------------------------------------------------------------
- // resetJointsOnDetach
- //-----------------------------------------------------------------------------
 // AXON handle NPC case
  void LLVOAvatar::resetJointsOnDetach(const LLUUID& mesh_id)
  {	
@@ -6200,7 +6139,7 @@ void LLVOAvatar::resetJointsOnDetach(const LLUUID& mesh_id)
  		if ( pJoint )
  		{			
              bool dummy; // unused
- 			pJoint->removeAttachmentPosOverride(mesh_id, avString());
+ 			 pJoint->removeAttachmentPosOverride(mesh_id, avString(), dummy);
  			//pJoint->removeAttachmentScaleOverride(mesh_id, avString()); GN commendted out to be fixed in Bento merge
  		}		
  		if ( pJoint && pJoint == pJointPelvis)
