@@ -5119,8 +5119,8 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 	LLVOAvatar* pAvatarVO = NULL;
 
 	LLSpatialBridge* bridge = group->getSpatialPartition()->asBridge();
-	LLViewerObject *vobj = NULL;
-    //LLVOVolume *vol_obj = NULL;
+	// LLViewerObject *vobj = NULL;
+    // LLVOVolume *vol_obj = NULL;
     
 	if (bridge)
 	{
