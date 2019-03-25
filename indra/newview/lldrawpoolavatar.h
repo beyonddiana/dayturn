@@ -179,7 +179,7 @@ typedef enum
 
 	LLDrawPoolAvatar();
     ~LLDrawPoolAvatar();
-    /*virtual*/ bool isDead();
+    /*virtual*/ BOOL isDead();
 
 	static LLMatrix4& getModelView();
 
