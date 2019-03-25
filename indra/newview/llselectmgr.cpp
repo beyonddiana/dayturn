@@ -3732,7 +3732,7 @@ void LLSelectMgr::selectForceDelete()
 		SEND_ONLY_ROOTS);
 }
 
-BOOL LLSelectMgr::selectGetEditMoveLinksetPermissions(bool &move, bool &modify)
+bool LLSelectMgr::selectGetEditMoveLinksetPermissions(bool &move, bool &modify)
 {
     move = true;
     modify = true;
@@ -3747,7 +3747,7 @@ BOOL LLSelectMgr::selectGetEditMoveLinksetPermissions(bool &move, bool &modify)
         {
             move = false;
             modify = false;
-            return FALSE;
+            return false;
         }
 
         LLViewerObject *root_object = object->getRootEdit();
@@ -3777,7 +3777,7 @@ BOOL LLSelectMgr::selectGetEditMoveLinksetPermissions(bool &move, bool &modify)
         modify = modify && object->permModify();
     }
 
-    return TRUE;
+    return true;
 }
 
 void LLSelectMgr::selectGetAggregateSaleInfo(U32 &num_for_sale,

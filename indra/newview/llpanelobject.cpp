@@ -425,8 +425,8 @@ void LLPanelObject::getState( )
 
 	LLSelectMgr::getInstance()->selectGetEditMoveLinksetPermissions(enable_move, enable_modify);
 
-	BOOL enable_scale = enable_modify;
-	BOOL enable_rotate = enable_move; // already accounts for a case of children, which needs permModify() as well
+	bool enable_scale = enable_modify;
+	bool enable_rotate = enable_move; // already accounts for a case of children, which needs permModify() as well
 	
 	//MK
 	LLVOAvatarSelf* avatar = gAgentAvatarp;
