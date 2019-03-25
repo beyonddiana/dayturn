@@ -4905,7 +4905,7 @@ U32 LLVOAvatar::renderRigid()
 		gGL.setAlphaRejectSettings(LLRender::CF_GREATER, 0.5f);
 	}
 
-    bool is_pure_dummy = mIsDummy && !isControlAvatar();
+    //bool is_pure_dummy = mIsDummy && !isControlAvatar();
 
 	if (isTextureVisible(TEX_EYES_BAKED)  || isUIAvatar())
 	{
