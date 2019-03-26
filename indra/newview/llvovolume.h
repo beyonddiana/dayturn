@@ -324,6 +324,9 @@ public:
 	
 	LLVector3 getApproximateFaceNormal(U8 face_id);
 	
+    // Flag any corresponding avatars as needing update.
+    void updateVisualComplexity();	
+		
 	void notifyMeshLoaded();
 	
 	// Returns 'true' iff the media data for this object is in flight

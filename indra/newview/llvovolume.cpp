@@ -1114,16 +1114,34 @@ void LLVOVolume::updateSculptTexture()
 	
 }
 
+void LLVOVolume::updateVisualComplexity()
+{
+    LLVOAvatar* avatar = getAvatarAncestor();
+    if (avatar)
+    {
+        avatar->updateVisualComplexity();
+    }
+    LLVOAvatar* rigged_avatar = getAvatar();
+    if(rigged_avatar && (rigged_avatar != avatar))
+    {
+        rigged_avatar->updateVisualComplexity();
+    }
+}
+
 void LLVOVolume::notifyMeshLoaded()
 { 
 	mSculptChanged = TRUE;
 	gPipeline.markRebuild(mDrawable, LLDrawable::REBUILD_GEOMETRY, TRUE);
 
-	LLVOAvatar* avatar = getAvatar();
-	if (avatar)
-	{
-		avatar->updateVisualComplexity();
-	}
+    if (getAvatar() && !isAnimatedObject())
+    {
+        getAvatar()->addAttachmentOverridesForObject(this);
+    }
+    if (getControlAvatar() && isAnimatedObject())
+    {
+        getControlAvatar()->addAttachmentOverridesForObject(this);
+    }
+    // updateVisualComplexity();
 }
 
 // sculpt replaces generate() for sculpted surfaces
@@ -3412,12 +3430,12 @@ void LLVOVolume::onSetExtendedMeshFlags(U32 flags)
         if (flags & LLExtendedMeshParams::ANIMATED_MESH_ENABLED_FLAG)
         {
             // Making a rigged mesh into an animated object
-            getAvatarAncestor()->removeAttachmentOverridesForObject(this);
+            getAvatarAncestor()->rebuildAttachmentOverrides();
         }
         else
         {
             // Making an animated object into a rigged mesh
-            getAvatarAncestor()->addAttachmentOverridesForObject(this);
+            getAvatarAncestor()->rebuildAttachmentOverrides();
         }
     }
 }
@@ -3489,7 +3507,7 @@ void LLVOVolume::updateAnimatedObjectStateOnReparent(LLViewerObject *old_parent,
         if (old_volp->getControlAvatar())
         {
             // We have been removed from an animated object, need to do cleanup.
-            old_volp->getControlAvatar()->removeAttachmentOverridesForObject(this);
+            old_volp->getControlAvatar()->rebuildAttachmentOverrides();
         }
     }
 }
@@ -5054,22 +5072,19 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 	LLVOAvatar* pAvatarVO = NULL;
 
 	LLSpatialBridge* bridge = group->getSpatialPartition()->asBridge();
-	// LLViewerObject *vobj = NULL;
-    // LLVOVolume *vol_obj = NULL;
+	LLViewerObject *vobj = NULL;
+    LLVOVolume *vol_obj = NULL;
     
 	if (bridge)
 	{
-		if (bridge->mAvatar.isNull())
-		{
-			LLViewerObject* vobj = bridge->mDrawable->getVObj();
-			if (vobj)
-			{
-				bridge->mAvatar = vobj->getAvatar();
-			}
-		}
-
-		pAvatarVO = bridge->mAvatar;
+	    vobj = bridge->mDrawable->getVObj();
+        vol_obj = dynamic_cast<LLVOVolume*>(vobj);
 	}
+	
+// 	if (vol_obj)
+// 	{
+// 	    vol_obj->updateVisualComplexity();
+// 	}
 
 	group->mGeometryBytes = 0;
 	group->mSurfaceArea = 0;
@@ -5174,14 +5189,8 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 			bool rigged = vobj->isRiggedMesh() && vobj->isAttachment();
 						
             vobj->updateControlAvatar();
-            if (vobj->getControlAvatar())
-            {
-                pAvatarVO = vobj->getControlAvatar();
-                pAvatarVO->rebuildAttachmentOverrides();
-            }
 						
 			bool bake_sunlight = LLPipeline::sBakeSunlight && drawablep->isStatic();
-
             bool any_rigged_face = false;
             			
 			if (rigged && pAvatarVO)
@@ -5189,16 +5198,6 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
                 pAvatarVO->addAttachmentOverridesForObject(vobj);
                 if (!LLApp::isExiting() && pAvatarVO->isSelf() && debugLoggingEnabled("AvatarAttachments"))
 				{
-                    bool verbose = true;
-					pAvatarVO->showAttachmentOverrides(verbose);
-				}
-            }
-            
-            if (rigged && pAvatarVO)
-            {
-                pAvatarVO->addAttachmentOverridesForObject(vobj);
-				if (!LLApp::isExiting() && pAvatarVO->isSelf() && debugLoggingEnabled("AvatarAttachments"))
-                {
                     bool verbose = true;
 					pAvatarVO->showAttachmentOverrides(verbose);
 				}
