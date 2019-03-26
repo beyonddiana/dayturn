@@ -1620,7 +1620,7 @@ BOOL LLVOVolume::genBBoxes(BOOL force_global)
 			continue;
 		}
 
-        bool face_res = face->genVolumeBBoxes(*volume, i,
+        BOOL face_res = face->genVolumeBBoxes(*volume, i,
                                               mRelativeXform,
                                               (mVolumeImpl && mVolumeImpl->isVolumeGlobal()) || force_global);
         res &= face_res; // note that this result is never used
@@ -5303,8 +5303,6 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 
 	group->mBuilt = 1.f;
 	
-	LLVOAvatar* pAvatarVO = NULL;
-
 	LLSpatialBridge* bridge = group->getSpatialPartition()->asBridge();
 	LLViewerObject *vobj = NULL;
     LLVOVolume *vol_obj = NULL;
