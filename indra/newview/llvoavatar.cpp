@@ -3751,6 +3751,16 @@ void LLVOAvatar::updateAppearanceMessageDebugText()
         {
             debug_line += " FORCING ERRS";
         }
+    }
+    else
+    {
+        debug_line += llformat(" - cof rcv:%d", last_received_cof_version);
+    }
+    debug_line += llformat(" bsz-z: %.3f", mBodySize[2]);
+    if (mAvatarOffset[2] != 0.0f)
+    {
+        debug_line += llformat("avofs-z: %.3f", mAvatarOffset[2]);
+    }
     bool hover_enabled = getRegion() && getRegion()->avatarHoverHeightEnabled();
     debug_line += hover_enabled ? " H" : " h";
     const LLVector3& hover_offset = getHoverOffset();
