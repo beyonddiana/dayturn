@@ -6004,6 +6004,17 @@ void LLVOAvatar::clearAttachmentOverrides()
 			pJoint->clearAttachmentScaleOverrides();
         }
     }
+
+    if (mPelvisFixups.count()>0)
+    {
+        mPelvisFixups.clear();
+        LLJoint* pJointPelvis = getJoint("mPelvis");
+        if (pJointPelvis)
+        {
+			pJointPelvis->setPosition( LLVector3( 0.0f, 0.0f, 0.0f) );
+        }
+        postPelvisSetRecalc();	
+    }    
 }
 
 //-----------------------------------------------------------------------------
@@ -6012,6 +6023,8 @@ void LLVOAvatar::clearAttachmentOverrides()
 void LLVOAvatar::rebuildAttachmentOverrides()
 {
     LLScopedContextString str("rebuildAttachmentOverrides " + getFullname());
+    
+    clearAttachmentOverrides();
 
     // Handle the case that we're resetting the skeleton of an animated object.
     LLControlAvatar *control_av = dynamic_cast<LLControlAvatar*>(this);
@@ -6048,7 +6061,7 @@ void LLVOAvatar::rebuildAttachmentOverrides()
 }
 
 //-----------------------------------------------------------------------------
-// addAttachmentPosOverridesForObject
+// addAttachmentOverridesForObject
 //-----------------------------------------------------------------------------
 void LLVOAvatar::addAttachmentOverridesForObject(LLViewerObject *vo)
 {
@@ -6899,6 +6912,11 @@ const LLViewerJointAttachment *LLVOAvatar::attachObject(LLViewerObject *viewer_o
 		return 0;
 	}
 
+    if (!viewer_object->isAnimatedObject())
+    {
+        rebuildAttachmentOverrides();
+    }
+
 	mVisualComplexityStale = TRUE;
 
 	if (viewer_object->isSelected())
@@ -7075,7 +7093,7 @@ void LLVOAvatar::cleanupAttachedMesh( LLViewerObject* pVO )
 	LLUUID mesh_id;
 	if (getRiggedMeshID(pVO, mesh_id))
 	{
-		removeAttachmentOverridesForObject(mesh_id);
+        // FIXME this seems like an odd place for this code.
 		if ( gAgentCamera.cameraCustomizeAvatar() )
 		{
 			gAgent.unpauseAnimation();
@@ -7100,9 +7118,13 @@ BOOL LLVOAvatar::detachObject(LLViewerObject *viewer_object)
 		if (attachment->isObjectAttached(viewer_object))
 		{
 			mVisualComplexityStale = TRUE;
-			cleanupAttachedMesh( viewer_object );
-		
+            bool is_animated_object = viewer_object->isAnimatedObject();			
+			cleanupAttachedMesh( viewer_object );		
 			attachment->removeObject(viewer_object);
+            if (!is_animated_object)
+            {
+                rebuildAttachmentOverrides();
+            }			
 			LL_DEBUGS() << "Detaching object " << viewer_object->mID << " from " << attachment->getName() << LL_ENDL;
 			return TRUE;
 		}
