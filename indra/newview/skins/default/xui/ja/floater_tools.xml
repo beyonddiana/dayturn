@@ -72,10 +72,6 @@
 	<check_box label="リンク部分を編集" name="checkbox edit linked parts"/>
 	<button label="リンク" name="link_btn"/>
 	<button label="リンクを外す" name="unlink_btn"/>
-	<check_box label="" name="checkbox uniform"/>
-	<text label="両側を延ばす" name="checkbox uniform label">
-		両側を延ばす
-	</text>
 	<check_box initial_value="true" label="テクスチャを引き延ばす" name="checkbox stretch textures"/>
 	<check_box initial_value="true" label="スナップ" name="checkbox snap to grid"/>
 	<combo_box name="combobox grid mode" tool_tip="オブジェクトの配置に使うグリッドルーラの種類を選択">

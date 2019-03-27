@@ -72,10 +72,6 @@
 	<check_box label="Modification liée" name="checkbox edit linked parts"/>
 	<button label="Lien" name="link_btn"/>
 	<button label="Annuler le lien" name="unlink_btn"/>
-	<check_box label="" name="checkbox uniform"/>
-	<text label="Étirer les deux côtés" name="checkbox uniform label">
-		Étirer les deux côtés
-	</text>
 	<check_box initial_value="true" label="Étirer les textures" name="checkbox stretch textures"/>
 	<check_box initial_value="true" label="Fixer" name="checkbox snap to grid"/>
 	<combo_box name="combobox grid mode" tool_tip="Choisir le type d&apos;axe de grille pour le positionnement de l&apos;objet.">

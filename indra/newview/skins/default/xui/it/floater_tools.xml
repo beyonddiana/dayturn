@@ -72,10 +72,6 @@
 	<check_box label="Modifica parti collegate" name="checkbox edit linked parts"/>
 	<button label="Collegamento" name="link_btn"/>
 	<button label="Scollega" name="unlink_btn"/>
-	<check_box label="" name="checkbox uniform"/>
-	<text label="Allunga entrambi i lati" name="checkbox uniform label">
-		Allunga entrambi i lati
-	</text>
 	<check_box initial_value="true" label="Ridimensiona le texture" name="checkbox stretch textures"/>
 	<check_box initial_value="true" label="Scatto" name="checkbox snap to grid"/>
 	<combo_box name="combobox grid mode" tool_tip="Scegli il tipo di righello per posizionare l&apos;oggetto">
