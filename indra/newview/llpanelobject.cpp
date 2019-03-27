@@ -416,10 +416,6 @@ void LLPanelObject::getState( )
 	S32 selected_count = LLSelectMgr::getInstance()->getSelection()->getObjectCount();
 	BOOL single_volume = (LLSelectMgr::getInstance()->selectionAllPCode( LL_PCODE_VOLUME ))
 						 && (selected_count == 1);
-
- 	S32 selected_count = LLSelectMgr::getInstance()->getSelection()->getObjectCount();
- 	BOOL single_volume = (LLSelectMgr::getInstance()->selectionAllPCode( LL_PCODE_VOLUME ))
- 						 && (selected_count == 1);
  
  	if (LLSelectMgr::getInstance()->getSelection()->getRootObjectCount() > 1)
  	{
