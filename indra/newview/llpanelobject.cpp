@@ -412,22 +412,15 @@ void LLPanelObject::getState( )
 		return;
 	}
 
-    // it's not entirely clear what the motivation is to have 3
-    // different rules for enablement. At least the difference between
-    // move and rotate looks like just a parens error, have updated accordingly.
+	// can move or rotate only linked group with move permissions, or sub-object with move and modify perms
+	BOOL enable_move	= objectp->permMove() && !objectp->isPermanentEnforced() && ((root_objectp == NULL) || !root_objectp->isPermanentEnforced()) && !objectp->isAttachment() && (objectp->permModify() || !gSavedSettings.getBOOL("EditLinkedParts"));
+	BOOL enable_scale	= objectp->permMove() && !objectp->isPermanentEnforced() && ((root_objectp == NULL) || !root_objectp->isPermanentEnforced()) && objectp->permModify();
+	BOOL enable_rotate	= objectp->permMove() && !objectp->isPermanentEnforced() && ((root_objectp == NULL) || !root_objectp->isPermanentEnforced()) && ( (objectp->permModify() && !objectp->isAttachment()) || !gSavedSettings.getBOOL("EditLinkedParts"));
 
 	S32 selected_count = LLSelectMgr::getInstance()->getSelection()->getObjectCount();
 	BOOL single_volume = (LLSelectMgr::getInstance()->selectionAllPCode( LL_PCODE_VOLUME ))
 						 && (selected_count == 1);
-
-	bool enable_move;
-	bool enable_modify;
-
-	LLSelectMgr::getInstance()->selectGetEditMoveLinksetPermissions(enable_move, enable_modify);
-
-	bool enable_scale = enable_modify;
-	bool enable_rotate = enable_move; // already accounts for a case of children, which needs permModify() as well
-	
+ 
 	//MK
 	LLVOAvatarSelf* avatar = gAgentAvatarp;
 	if (gRRenabled && 
@@ -447,8 +440,7 @@ void LLPanelObject::getState( )
 			}
 		}
 	}
-//mk
-
+//mk 	
 	LLVector3 vec;
 	if (enable_move)
 	{
