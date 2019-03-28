@@ -118,7 +118,7 @@ set(llcommon_SOURCE_FILES
     lltracerecording.cpp
     lltracethreadrecorder.cpp
     lluri.cpp
-	lluriparser.cpp	
+    lluriparser.cpp
     lluuid.cpp
     llworkerthread.cpp
     timing.cpp
@@ -244,7 +244,7 @@ set(llcommon_HEADER_FILES
     llunits.h
     llunittype.h
     lluri.h
-	lluriparser.h
+    lluriparser.h
     lluuid.h
     llwin32headers.h
     llwin32headerslean.h
