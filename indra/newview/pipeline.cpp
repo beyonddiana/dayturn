@@ -9314,7 +9314,7 @@ void LLPipeline::renderDeferredLightingToRT(LLRenderTarget* target)
 					const F32* c = center.getF32ptr();
 					F32 s = volume->getLightRadius()*1.5f;
 
-                    LLColor3 col = volume->getLightsRGBColor();
+                    LLColor3 col = volume->getLightSRGBColor();
 					
 					if (col.magVecSquared() < 0.001f)
 					{
@@ -9406,10 +9406,7 @@ void LLPipeline::renderDeferredLightingToRT(LLRenderTarget* target)
 
 					setupSpotLight(gDeferredSpotLightProgram, drawablep);
 					
-                    LLColor3 col = volume->getLightsRGBColor();
-					/*col.mV[0] = powf(col.mV[0], 2.2f);
-					col.mV[1] = powf(col.mV[1], 2.2f);
-					col.mV[2] = powf(col.mV[2], 2.2f);*/
+                    LLColor3 col = volume->getLightSRGBColor();
 					
 					gDeferredSpotLightProgram.uniform3fv(LLShaderMgr::LIGHT_CENTER, 1, c);
 					gDeferredSpotLightProgram.uniform1f(LLShaderMgr::LIGHT_SIZE, s);
@@ -9498,7 +9495,7 @@ void LLPipeline::renderDeferredLightingToRT(LLRenderTarget* target)
 					
 					setupSpotLight(gDeferredMultiSpotLightProgram, drawablep);
 
-                    LLColor3 col = volume->getLightsRGBColor();
+                    LLColor3 col = volume->getLightSRGBColor();
 					
 					gDeferredMultiSpotLightProgram.uniform3fv(LLShaderMgr::LIGHT_CENTER, 1, tc.v);
 					gDeferredMultiSpotLightProgram.uniform1f(LLShaderMgr::LIGHT_SIZE, s);
