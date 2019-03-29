@@ -51,6 +51,7 @@
 #include "material_codes.h"		// LL_MCODE_END
 #include "llrigginginfo.h"
 #include "llviewerstats.h"
+#include "llvovolume.h"
 
 extern const LLUUID ANIM_AGENT_BODY_NOISE;
 extern const LLUUID ANIM_AGENT_BREATHE_ROT;
@@ -931,7 +932,9 @@ public:
 	BOOL			isSitting(){return mIsSitting;}
 	void 			sitOnObject(LLViewerObject *sit_object);
 	void 			getOffObject();
-private:
+//MK
+////private:
+//mk
 	// set this property only with LLVOAvatar::sitDown method
 	BOOL 			mIsSitting;
 	// position backup in case of missing data

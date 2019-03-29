@@ -49,6 +49,9 @@
 #include "llagentui.h"
 #include "llagentwearables.h"
 #include "llagentpilot.h"
+//MK from KB
+#include "llattachmentsmgr.h"
+//mk from kb
 #include "llcompilequeue.h"
 #include "llconsole.h"
 #include "lldaycyclemanager.h"
@@ -6574,19 +6577,6 @@ class LLEditRedo : public view_listener_t
 		}
 		return true;
 	}
-};
-
-class LLAvatarResetSkeleton: public view_listener_t
-{
-    bool handleEvent(const LLSD& userdata)
-    {
-		LLVOAvatar* avatar = find_avatar_from_object( LLSelectMgr::getInstance()->getSelection()->getPrimaryObject() );
-		if(avatar)
-        {
-            avatar->resetSkeleton(false);
-        }
-        return true;
-    }
 };
 
 void print_object_info(void*)

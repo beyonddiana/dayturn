@@ -6958,25 +6958,82 @@ void process_script_question(LLMessageSystem *msg, void **user_data)
 	// don't display permission requests if this object is muted
 	if (LLMuteList::getInstance()->isMuted(taskid)) return;
 	
+//MK
+	BOOL auto_acceptable_permission = FALSE;
+
+	// Manage @acceptpermission (careful not to accept any other permission in the same batch than the ones this RLV command handles)
+	if (gRRenabled && gAgent.mRRInterface.contains("acceptpermission"))
+	{
+		auto_acceptable_permission = (questions	&
+			(
+			  SCRIPT_PERMISSIONS[SCRIPT_PERMISSION_TAKE_CONTROLS].permbit
+			| SCRIPT_PERMISSIONS[SCRIPT_PERMISSION_TRIGGER_ANIMATION].permbit
+			| SCRIPT_PERMISSIONS[SCRIPT_PERMISSION_ATTACH].permbit
+			));	
+		
+		if (auto_acceptable_permission)
+		{
+			// security check : if there is any other permission contained in this package, we can't automatically grant anything
+			unsigned int other_perms = questions & ~(
+				SCRIPT_PERMISSIONS[SCRIPT_PERMISSION_TAKE_CONTROLS].permbit 
+				| SCRIPT_PERMISSIONS[SCRIPT_PERMISSION_TRIGGER_ANIMATION].permbit 
+				| SCRIPT_PERMISSIONS[SCRIPT_PERMISSION_ATTACH].permbit
+				);
+			if (other_perms)
+			{
+				auto_acceptable_permission = FALSE;
+			}
+
+			// can't auto-accept animation permission if not sitting
+			if (gAgentAvatarp && !gAgentAvatarp->mIsSitting && (questions & SCRIPT_PERMISSIONS[SCRIPT_PERMISSION_TRIGGER_ANIMATION].permbit))
+			{
+				auto_acceptable_permission = FALSE;
+			}
+
+			// can't auto-accept attach request from a non-owned object
+			if (questions & SCRIPT_PERMISSIONS[SCRIPT_PERMISSION_ATTACH].permbit && owner_name != self_name && owner_name != self_name + " Resident")
+			{
+				auto_acceptable_permission = FALSE;
+			}
+		}
+	}
+
+	// Auto-accept attachment permission (and no other, hence the "==" instead of logical AND) if RestrainedLoveAutoTempAttach is TRUE
+	// We're moving it after the whole @acceptpermission management but this time we want to target one specific permission request, without
+	// caring whether this request comes from an owned object or not.
+	if (questions == SCRIPT_PERMISSIONS[SCRIPT_PERMISSION_ATTACH].permbit && gSavedSettings.getBOOL("RestrainedLoveAutoTempAttach"))
+	{
+		auto_acceptable_permission = TRUE;
+	}
+	//mk	
+	
 	// throttle excessive requests from any specific user's scripts
 	typedef LLKeyThrottle<std::string> LLStringThrottle;
 	static LLStringThrottle question_throttle( LLREQUEST_PERMISSION_THROTTLE_LIMIT, LLREQUEST_PERMISSION_THROTTLE_INTERVAL );
 
-	switch (question_throttle.noteAction(throttle_name))
+//MK
+	// do not throttle automatically accepted permissions
+	if (!auto_acceptable_permission)
 	{
-		case LLStringThrottle::THROTTLE_NEWLY_BLOCKED:
-			LL_INFOS("Messaging") << "process_script_question throttled"
-					<< " owner_name:" << owner_name
-					<< LL_ENDL;
-			// Fall through
+//mk
+		switch (question_throttle.noteAction(throttle_name))
+		{
+			case LLStringThrottle::THROTTLE_NEWLY_BLOCKED:
+				LL_INFOS("Messaging") << "process_script_question throttled"
+						<< " owner_name:" << owner_name
+						<< LL_ENDL;
+				// Fall through
 
 		case LLStringThrottle::THROTTLE_BLOCKED:
 			// Escape altogether until we recover
 			return;
 
-		case LLStringThrottle::THROTTLE_OK:
-			break;
+			case LLStringThrottle::THROTTLE_OK:
+				break;
+		}
+//MK
 	}
+//mk
 
 	std::string script_question;
 	if (questions)
@@ -7030,7 +7087,14 @@ void process_script_question(LLMessageSystem *msg, void **user_data)
 			payload["questions"] = known_questions;
 			payload["object_name"] = object_name;
 			payload["owner_name"] = owner_name;
-
+//MK
+		if (auto_acceptable_permission && !(caution && gSavedSettings.getBOOL("PermissionsCautionEnabled")))
+		{
+			// reply with the permissions granted
+			LLNotifications::instance().forceResponse(LLNotification::Params("ScriptQuestion").payload(payload), 0/*YES*/);
+			return;
+		}
+//mk
 			// check whether cautions are even enabled or not
 			const char* notification = "ScriptQuestion";
 
@@ -7309,11 +7373,13 @@ void process_teleport_local(LLMessageSystem *msg,void**)
 	gAgent.setPositionAgent(pos);
 	gAgentCamera.slamLookAt(look_at);
 
-	if ( !(gAgent.getTeleportKeepsLookAt() && LLViewerJoystick::getInstance()->getOverrideCamera()) )
-	{
-		gAgentCamera.resetView(TRUE, TRUE);
-	}
-
+//MK
+	// This piece of code breaks @camdistmax when set to 0, I haven't found out why yet
+	////if ( !(gAgent.getTeleportKeepsLookAt() && LLViewerJoystick::getInstance()->getOverrideCamera()) )
+	////{
+	////	gAgentCamera.resetView(TRUE, TRUE);
+	////}
+//mk
 	// send camera update to new region
 	gAgentCamera.updateCamera();
 
@@ -7400,6 +7466,12 @@ void send_lures(const LLSD& notification, const LLSD& response)
 	LLSLURL slurl;
 	LLAgentUI::buildSLURL(slurl);
 	text.append("\r\n").append(slurl.getSLURLString());
+//MK
+	if (gRRenabled && gAgent.mRRInterface.mContainsShowloc)
+	{
+		return;
+	}
+//mk
 
 	LLMessageSystem* msg = gMessageSystem;
 	msg->newMessageFast(_PREHASH_StartLure);
@@ -7408,7 +7480,22 @@ void send_lures(const LLSD& notification, const LLSD& response)
 	msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
 	msg->nextBlockFast(_PREHASH_Info);
 	msg->addU8Fast(_PREHASH_LureType, (U8)0); // sim will fill this in.
-	msg->addStringFast(_PREHASH_Message, text);
+//LC
+		for(LLSD::array_const_iterator lc_it = notification["payload"]["ids"].beginArray();
+			lc_it != notification["payload"]["ids"].endArray();
+			++lc_it)
+		{
+//MK
+			LLUUID lc_target_id = lc_it->asUUID();
+                        if (gRRenabled && (gAgent.mRRInterface.containsWithoutException ("sendim") || gAgent.mRRInterface.containsSubstr ("sendimto:"+lc_target_id.asString())))
+			{
+				text = "(Hidden)";
+			}
+		}
+
+ 		msg->addStringFast(_PREHASH_Message, text);
+//mk
+//lc
 	for(LLSD::array_const_iterator it = notification["payload"]["ids"].beginArray();
 		it != notification["payload"]["ids"].endArray();
 		++it)
@@ -7487,6 +7574,12 @@ void handle_lure(const uuid_vec_t& ids)
 	{
 		payload["ids"].append(*it);
 	}
+//MK
+	if (gRRenabled && gAgent.mRRInterface.mContainsShowloc)
+	{
+		return;
+	}
+//mk	
 	if (gAgent.isGodlike())
 	{
 		LLNotificationsUtil::add("OfferTeleportFromGod", edit_args, payload, handle_lure_callback);
@@ -7747,6 +7840,35 @@ void process_script_dialog(LLMessageSystem* msg, void**)
 		msg->getString("Buttons", "ButtonLabel", tdesc, i);
 		form.addElement("button", std::string(tdesc));
 	}
+	
+//MK
+			if (gRRenabled)
+			{
+				if (gAgent.mRRInterface.mContainsShowloc)
+				{
+					{
+						// hide every occurrence of the Parcel name if the location restriction is active
+						object_name = gAgent.mRRInterface.stringReplaceWholeWord(object_name,
+								gAgent.mRRInterface.mParcelName, "(Parcel hidden)");
+						message = gAgent.mRRInterface.stringReplaceWholeWord(message,
+								gAgent.mRRInterface.mParcelName, "(Parcel hidden)");
+						// hide every occurrence of the Region name if the location restriction is active
+						object_name = gAgent.mRRInterface.stringReplaceWholeWord(object_name,
+								gAgent.getRegion()->getName(), "(Region hidden)");
+						if (gAgent.getRegion()) message = gAgent.mRRInterface.stringReplaceWholeWord(message, gAgent.getRegion()->getName(), "(Region hidden)");
+					}
+				}
+
+				if (gAgent.mRRInterface.mContainsShownames)
+				{
+					object_name = gAgent.mRRInterface.getCensoredMessage (object_name);
+					message = gAgent.mRRInterface.getCensoredMessage (message);
+					last_name = first_name+" "+last_name;
+					first_name = "";
+					last_name = gAgent.mRRInterface.getDummyName (last_name);
+				}
+			}
+//mk	
 
 	LLSD args;
 	args["TITLE"] = object_name;

@@ -97,10 +97,9 @@
 
 //MK
 #include "llstartup.h"
-//mk
-//MK
 #include "RRInterface.h"
 //mk
+
 using namespace LLAvatarAppearanceDefines;
 
 extern LLMenuBarGL* gMenuBarView;
