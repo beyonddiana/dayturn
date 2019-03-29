@@ -47,10 +47,11 @@ const bool use_cube_mipmaps = false;
 
 bool LLCubeMap::sUseCubeMaps = true;
 
-LLCubeMap::LLCubeMap()
+LLCubeMap::LLCubeMap(bool init_as_srgb)
 	: mTextureStage(0),
 	  mTextureCoordStage(0),
-	  mMatrixStage(0)
+	  mMatrixStage(0),
+	  mIssRGB(init_as_srgb)
 {
 	mTargets[0] = GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB;
 	mTargets[1] = GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB;
@@ -79,9 +80,12 @@ void LLCubeMap::initGL()
 
 			for (int i = 0; i < 6; i++)
 			{
-				mImages[i] = new LLImageGL(64, 64, 4, (use_cube_mipmaps? true : false));
+				mImages[i] = new LLImageGL(RESOLUTION, RESOLUTION, 4, false);
+				if (mIssRGB) {
+					mImages[i]->setExplicitFormat(GL_SRGB8_ALPHA8, GL_RGBA);
+				}
 				mImages[i]->setTarget(mTargets[i], LLTexUnit::TT_CUBE_MAP);
-				mRawImages[i] = new LLImageRaw(64, 64, 4);
+				mRawImages[i] = new LLImageRaw(RESOLUTION, RESOLUTION, 4);
 				mImages[i]->createGLTexture(0, mRawImages[i], texname);
 				
 				gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_CUBE_MAP, texname); 
@@ -148,7 +152,7 @@ void LLCubeMap::initGLData()
 {
 	for (int i = 0; i < 6; i++)
 	{
-		mImages[i]->setSubImage(mRawImages[i], 0, 0, 64, 64);
+		mImages[i]->setSubImage(mRawImages[i], 0, 0, RESOLUTION, RESOLUTION);
 	}
 }
 
@@ -478,7 +482,7 @@ void LLCubeMap::paintIn(LLVector3 dir[4], const LLColor4U& col)
 						td[offset + cc] = U8((td[offset + cc] + col.mV[cc]) * 0.5);
 				}
 			}
-		mImages[side]->setSubImage(mRawImages[side], 0, 0, 64, 64);
+		mImages[side]->setSubImage(mRawImages[side], 0, 0, RESOLUTION, RESOLUTION);
 	}
 }
 
