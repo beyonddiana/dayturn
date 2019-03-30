@@ -8810,7 +8810,7 @@ void LLPipeline::renderDeferredLighting()
 
 				mCubeVB->setBuffer(LLVertexBuffer::MAP_VERTEX);
 
-				gDeferredSpotLightProgram.enableTexture(LLShaderMgr::DEFERRED_PROJECTION);
+                gDeferredSpotLightProgram.enableTexture(LLShaderMgr::DEFERRED_PROJECTION, LLTexUnit::TT_TEXTURE, LLTexUnit::TCS_SRGB);
 
 				for (LLDrawable::drawable_list_t::iterator iter = spot_lights.begin(); iter != spot_lights.end(); ++iter)
 				{
@@ -8841,7 +8841,8 @@ void LLPipeline::renderDeferredLighting()
 										
 					mCubeVB->drawRange(LLRender::TRIANGLE_FAN, 0, 7, 8, get_box_fan_indices(camera, center));
 				}
-				gDeferredSpotLightProgram.disableTexture(LLShaderMgr::DEFERRED_PROJECTION);
+                gDeferredSpotLightProgram.disableTexture(LLShaderMgr::DEFERRED_PROJECTION, LLTexUnit::TT_TEXTURE, LLTexUnit::TCS_SRGB);
+
 				unbindDeferredShader(gDeferredSpotLightProgram);
 			}
 
@@ -8902,7 +8903,7 @@ void LLPipeline::renderDeferredLighting()
 				
 				bindDeferredShader(gDeferredMultiSpotLightProgram);
 
-				gDeferredMultiSpotLightProgram.enableTexture(LLShaderMgr::DEFERRED_PROJECTION);
+                gDeferredMultiSpotLightProgram.enableTexture(LLShaderMgr::DEFERRED_PROJECTION, LLTexUnit::TT_TEXTURE, LLTexUnit::TCS_SRGB);
 
 				mDeferredVB->setBuffer(LLVertexBuffer::MAP_VERTEX);
 
@@ -8937,7 +8938,7 @@ void LLPipeline::renderDeferredLighting()
 					mDeferredVB->drawArrays(LLRender::TRIANGLES, 0, 3);
 				}
 
-				gDeferredMultiSpotLightProgram.disableTexture(LLShaderMgr::DEFERRED_PROJECTION);
+                gDeferredMultiSpotLightProgram.disableTexture(LLShaderMgr::DEFERRED_PROJECTION, LLTexUnit::TT_TEXTURE, LLTexUnit::TCS_SRGB);
 				unbindDeferredShader(gDeferredMultiSpotLightProgram);
 
 				gGL.popMatrix();
@@ -9354,7 +9355,7 @@ void LLPipeline::renderDeferredLightingToRT(LLRenderTarget* target)
 
 				mCubeVB->setBuffer(LLVertexBuffer::MAP_VERTEX);
 
-				gDeferredSpotLightProgram.enableTexture(LLShaderMgr::DEFERRED_PROJECTION);
+                gDeferredSpotLightProgram.enableTexture(LLShaderMgr::DEFERRED_PROJECTION, LLTexUnit::TT_TEXTURE, LLTexUnit::TCS_SRGB);
 
 				for (LLDrawable::drawable_list_t::iterator iter = spot_lights.begin(); iter != spot_lights.end(); ++iter)
 				{
@@ -9697,7 +9698,7 @@ void LLPipeline::setupSpotLight(LLGLSLShader& shader, LLDrawable* drawablep)
 		img = LLViewerFetchedTexture::sWhiteImagep;
 	}
 
-	S32 channel = shader.enableTexture(LLShaderMgr::DEFERRED_PROJECTION);
+	S32 channel = shader.enableTexture(LLShaderMgr::DEFERRED_PROJECTION, LLTexUnit::TT_TEXTURE, LLTexUnit::TCS_SRGB);
 
 	if (channel > -1)
 	{
