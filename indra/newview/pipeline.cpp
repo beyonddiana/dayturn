@@ -8245,6 +8245,7 @@ void LLPipeline::bindDeferredShader(LLGLSLShader& shader, U32 light_index, U32 n
 	{
 		mDeferredScreen.bindTexture(0,channel);
 		gGL.getTexUnit(channel)->setTextureFilteringOption(LLTexUnit::TFO_POINT);
+        gGL.getTexUnit(channel)->setTextureColorSpace(LLTexUnit::TCS_SRGB);
 	}
 
 	channel = shader.enableTexture(LLShaderMgr::DEFERRED_SPECULAR, mDeferredScreen.getUsage());
@@ -8252,6 +8253,7 @@ void LLPipeline::bindDeferredShader(LLGLSLShader& shader, U32 light_index, U32 n
 	{
 		mDeferredScreen.bindTexture(1, channel);
 		gGL.getTexUnit(channel)->setTextureFilteringOption(LLTexUnit::TFO_POINT);
+        gGL.getTexUnit(channel)->setTextureColorSpace(LLTexUnit::TCS_SRGB);
 	}
 
 	channel = shader.enableTexture(LLShaderMgr::DEFERRED_NORMAL, mDeferredScreen.getUsage());
@@ -8259,6 +8261,7 @@ void LLPipeline::bindDeferredShader(LLGLSLShader& shader, U32 light_index, U32 n
 	{
 		mDeferredScreen.bindTexture(2, channel);
 		gGL.getTexUnit(channel)->setTextureFilteringOption(LLTexUnit::TFO_POINT);
+        gGL.getTexUnit(channel)->setTextureColorSpace(LLTexUnit::TCS_LINEAR);
 	}
 
 	channel = shader.enableTexture(LLShaderMgr::DEFERRED_DEPTH, mDeferredDepth.getUsage());
