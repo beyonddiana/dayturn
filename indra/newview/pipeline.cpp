@@ -8372,7 +8372,7 @@ void LLPipeline::bindDeferredShader(LLGLSLShader& shader, U32 light_index, U32 n
 
 	stop_glerror();
 
-	channel = shader.enableTexture(LLShaderMgr::ENVIRONMENT_MAP, LLTexUnit::TT_CUBE_MAP);
+	channel = shader.enableTexture(LLShaderMgr::ENVIRONMENT_MAP, LLTexUnit::TT_CUBE_MAP, LLTexUnit::TCS_SRGB);
 	if (channel > -1)
 	{
 		LLCubeMap* cube_map = gSky.mVOSkyp ? gSky.mVOSkyp->getCubeMap() : NULL;
@@ -8876,7 +8876,6 @@ void LLPipeline::renderDeferredLighting()
 					mCubeVB->drawRange(LLRender::TRIANGLE_FAN, 0, 7, 8, get_box_fan_indices(camera, center));
 				}
                 gDeferredSpotLightProgram.disableTexture(LLShaderMgr::DEFERRED_PROJECTION, LLTexUnit::TT_TEXTURE, LLTexUnit::TCS_SRGB);
-
 				unbindDeferredShader(gDeferredSpotLightProgram);
 			}
 
@@ -9780,7 +9779,7 @@ void LLPipeline::unbindDeferredShader(LLGLSLShader &shader)
 	shader.disableTexture(LLShaderMgr::DEFERRED_NOISE);
 	shader.disableTexture(LLShaderMgr::DEFERRED_LIGHTFUNC);
 
-	S32 channel = shader.disableTexture(LLShaderMgr::ENVIRONMENT_MAP, LLTexUnit::TT_CUBE_MAP);
+    S32 channel = shader.disableTexture(LLShaderMgr::ENVIRONMENT_MAP, LLTexUnit::TT_CUBE_MAP, LLTexUnit::TCS_SRGB);
 	if (channel > -1)
 	{
 		LLCubeMap* cube_map = gSky.mVOSkyp ? gSky.mVOSkyp->getCubeMap() : NULL;

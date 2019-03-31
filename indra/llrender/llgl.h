@@ -120,6 +120,7 @@ public:
 	bool mHasDebugOutput;
 	bool mHassRGBTexture;
 	bool mHassRGBFramebuffer;
+    bool mHasTexturesRGBDecode;
 
 	// Vendor-specific extensions
 	bool mIsATI;
