@@ -129,7 +129,6 @@ vec3 linear_to_srgb(vec3 cl)
 vec4 texture2DLodSpecular(sampler2D projectionMap, vec2 tc, float lod)
 {
 	vec4 ret = texture2DLod(projectionMap, tc, lod);
-	ret.rgb = srgb_to_linear(ret.rgb);
 	
 	vec2 dist = vec2(0.5) - abs(tc-vec2(0.5));
 	
@@ -149,7 +148,6 @@ vec4 texture2DLodSpecular(sampler2D projectionMap, vec2 tc, float lod)
 vec4 texture2DLodDiffuse(sampler2D projectionMap, vec2 tc, float lod)
 {
 	vec4 ret = texture2DLod(projectionMap, tc, lod);
-	ret.rgb = srgb_to_linear(ret.rgb);
 	
 	vec2 dist = vec2(0.5) - abs(tc-vec2(0.5));
 	
@@ -167,7 +165,6 @@ vec4 texture2DLodDiffuse(sampler2D projectionMap, vec2 tc, float lod)
 vec4 texture2DLodAmbient(sampler2D projectionMap, vec2 tc, float lod)
 {
 	vec4 ret = texture2DLod(projectionMap, tc, lod);
-	ret.rgb = srgb_to_linear(ret.rgb);
 	
 	vec2 dist = tc-vec2(0.5);
 	
