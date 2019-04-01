@@ -37,11 +37,7 @@
 #include "message.h"
 
 const F32 COF_LINK_BATCH_TIME = 5.0F;
-//MK
-// LLAttachmentsMgr::expireOldAttachmentRequests causes issues, locked objects may arrive late and be discarded upon a slow relog
-////const F32 MAX_ATTACHMENT_REQUEST_LIFETIME = 30.0F;
-const F32 MAX_ATTACHMENT_REQUEST_LIFETIME = 3600.0F;
-//mk
+const F32 MAX_ATTACHMENT_REQUEST_LIFETIME = 30.0F;
 const F32 MIN_RETRY_REQUEST_TIME = 5.0F;
 const F32 MAX_BAD_COF_TIME = 30.0F;
 
