@@ -140,22 +140,6 @@ public:
 /// ---------------------------------------------------------------------------
 /// LLLiveLSLFile
 /// ---------------------------------------------------------------------------
-class LLLiveLSLFile : public LLLiveFile
-{
-public:
-	typedef boost::function<bool (const std::string& filename)> change_callback_t;
-
-	LLLiveLSLFile(std::string file_path, change_callback_t change_cb);
-	~LLLiveLSLFile();
-
-	void ignoreNextUpdate() { mIgnoreNextUpdate = true; }
-
-protected:
-	/*virtual*/ bool loadFile();
-
-	change_callback_t	mOnChangeCallback;
-	bool				mIgnoreNextUpdate;
-};
 
 LLLiveLSLFile::LLLiveLSLFile(std::string file_path, change_callback_t change_cb)
 :	mOnChangeCallback(change_cb)
