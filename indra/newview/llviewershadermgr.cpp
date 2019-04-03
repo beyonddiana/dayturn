@@ -2167,6 +2167,7 @@ BOOL LLViewerShaderMgr::loadShadersObject()
 		gObjectSimpleNonIndexedProgram.mFeatures.hasGamma = true;
 		gObjectSimpleNonIndexedProgram.mFeatures.hasAtmospherics = true;
 		gObjectSimpleNonIndexedProgram.mFeatures.hasLighting = true;
+        gObjectSimpleNonIndexedProgram.mFeatures.hasAlphaMask = true; // Fix for MAINT-8836
 		gObjectSimpleNonIndexedProgram.mFeatures.disableTextureIndex = true;
 		gObjectSimpleNonIndexedProgram.mFeatures.hasAlphaMask = true;
 		gObjectSimpleNonIndexedProgram.mShaderFiles.clear();
