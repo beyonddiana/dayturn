@@ -308,6 +308,7 @@ void LLSpinCtrl::forceSetValue(const LLSD& value )
         LLF32UICtrl::setValue(value);
 		
 		updateEditor();
+		mEditor->resetScrollPosition();
 	}
 }
 
@@ -373,7 +374,9 @@ void LLSpinCtrl::onEditorCommit( const LLSD& data )
 
 	if( success )
 	{
-		updateEditor();
+		// We commited and clamped value
+		// try to display as much as possible
+		mEditor->resetScrollPosition();
 	}
 	else
 	{
@@ -493,6 +496,7 @@ BOOL LLSpinCtrl::handleKeyHere(KEY key, MASK mask)
 			// text editors don't support revert normally (due to user confusion)
 			// but not allowing revert on a spinner seems dangerous
 			updateEditor();
+			mEditor->resetScrollPosition();
 			mEditor->setFocus(FALSE);
 			return TRUE;
 		}
