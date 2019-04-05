@@ -2141,6 +2141,8 @@ BOOL LLItemBridge::isItemCopyable() const
 	if (item)
 	{
 		// Can't copy worn objects. DEV-15183
+		// Worn objects are tied to their inworld conterparts
+		// Copy of modified worn object will return object with obsolete asset and inventory
 		if(get_is_item_worn(mUUID))
 		{
 			return FALSE;
