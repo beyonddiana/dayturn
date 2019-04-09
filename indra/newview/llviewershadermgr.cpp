@@ -570,7 +570,7 @@ void LLViewerShaderMgr::setShaders()
 		mVertexShaderLevel[SHADER_DEFERRED] = deferred_class;
 		mVertexShaderLevel[SHADER_TRANSFORM] = transform_class;
 
-		BOOL loaded = loadBasicShaders();
+		bool loaded = loadBasicShaders();
 
 		if (loaded)
 		{
@@ -853,7 +853,7 @@ void LLViewerShaderMgr::unloadShaders()
 	gPipeline.mVertexShadersLoaded = 0;
 }
 
-BOOL LLViewerShaderMgr::loadBasicShaders()
+bool LLViewerShaderMgr::loadBasicShaders()
 {
 	// Load basic dependency shaders first
 	// All of these have to load for any shaders to function
@@ -911,7 +911,7 @@ BOOL LLViewerShaderMgr::loadBasicShaders()
 		// Note usage of GL_VERTEX_SHADER_ARB
 		if (loadShaderFile(shaders[i].first, shaders[i].second, GL_VERTEX_SHADER_ARB, &attribs) == 0)
 		{
-			return FALSE;
+			return false;
 		}
 	}
 
@@ -963,21 +963,21 @@ BOOL LLViewerShaderMgr::loadBasicShaders()
 		// Note usage of GL_FRAGMENT_SHADER_ARB
 		if (loadShaderFile(shaders[i].first, shaders[i].second, GL_FRAGMENT_SHADER_ARB, &attribs, index_channels[i]) == 0)
 		{
-			return FALSE;
+			return false;
 		}
 	}
 
-	return TRUE;
+	return true;
 }
 
-BOOL LLViewerShaderMgr::loadShadersEnvironment()
+bool LLViewerShaderMgr::loadShadersEnvironment()
 {
-	BOOL success = TRUE;
+	bool success = true;
 
 	if (mVertexShaderLevel[SHADER_ENVIRONMENT] == 0)
 	{
 		gTerrainProgram.unload();
-		return TRUE;
+		return true;
 	}
 
 	if (success)
@@ -999,25 +999,25 @@ BOOL LLViewerShaderMgr::loadShadersEnvironment()
 	if (!success)
 	{
 		mVertexShaderLevel[SHADER_ENVIRONMENT] = 0;
-		return FALSE;
+		return false;
 	}
 	
 	LLWorld::getInstance()->updateWaterObjects();
 	
-	return TRUE;
+	return true;
 }
 
-BOOL LLViewerShaderMgr::loadShadersWater()
+bool LLViewerShaderMgr::loadShadersWater()
 {
-	BOOL success = TRUE;
-	BOOL terrainWaterSuccess = TRUE;
+	bool success = true;
+	bool terrainWaterSuccess = true;
 
 	if (mVertexShaderLevel[SHADER_WATER] == 0)
 	{
 		gWaterProgram.unload();
 		gUnderWaterProgram.unload();
 		gTerrainWaterProgram.unload();
-		return TRUE;
+		return true;
 	}
 
 	if (success)
@@ -1076,7 +1076,7 @@ BOOL LLViewerShaderMgr::loadShadersWater()
 	if (!success)
 	{
 		mVertexShaderLevel[SHADER_WATER] = 0;
-		return FALSE;
+		return false;
 	}
 
 	// if we failed to load the terrain water shaders and we need them (using class2 water),
@@ -1089,12 +1089,12 @@ BOOL LLViewerShaderMgr::loadShadersWater()
 	
 	LLWorld::getInstance()->updateWaterObjects();
 
-	return TRUE;
+	return true;
 }
 
-BOOL LLViewerShaderMgr::loadShadersEffects()
+bool LLViewerShaderMgr::loadShadersEffects()
 {
-	BOOL success = TRUE;
+	bool success = true;
 
 	if (mVertexShaderLevel[SHADER_EFFECT] == 0)
 	{
@@ -1102,7 +1102,7 @@ BOOL LLViewerShaderMgr::loadShadersEffects()
 		gGlowExtractProgram.unload();
 		gPostColorFilterProgram.unload();	
 		gPostNightVisionProgram.unload();
-		return TRUE;
+		return true;
 	}
 
 	if (success)
@@ -1137,7 +1137,7 @@ BOOL LLViewerShaderMgr::loadShadersEffects()
 
 }
 
-BOOL LLViewerShaderMgr::loadShadersDeferred()
+bool LLViewerShaderMgr::loadShadersDeferred()
 {
 	if (mVertexShaderLevel[SHADER_DEFERRED] == 0)
 	{
@@ -1208,10 +1208,10 @@ BOOL LLViewerShaderMgr::loadShadersDeferred()
 			gDeferredMaterialProgram[i].unload();
 			gDeferredMaterialWaterProgram[i].unload();
 		}
-		return TRUE;
+		return true;
 	}
 
-	BOOL success = TRUE;
+	bool success = true;
 
     if (success)
 	{
@@ -2119,9 +2119,9 @@ BOOL LLViewerShaderMgr::loadShadersDeferred()
 	return success;
 }
 
-BOOL LLViewerShaderMgr::loadShadersObject()
+bool LLViewerShaderMgr::loadShadersObject()
 {
-	BOOL success = TRUE;
+	bool success = true;
 	
 	if (mVertexShaderLevel[SHADER_OBJECT] == 0)
 	{
@@ -2173,7 +2173,7 @@ BOOL LLViewerShaderMgr::loadShadersObject()
 		gTreeProgram.unload();
 		gTreeWaterProgram.unload();
 	
-		return TRUE;
+		return true;
 	}
 
 	if (success)
@@ -3005,15 +3005,15 @@ BOOL LLViewerShaderMgr::loadShadersObject()
 	if( !success )
 	{
 		mVertexShaderLevel[SHADER_OBJECT] = 0;
-		return FALSE;
+		return false;
 	}
 	
-	return TRUE;
+	return true;
 }
 
-BOOL LLViewerShaderMgr::loadShadersAvatar()
+bool LLViewerShaderMgr::loadShadersAvatar()
 {
-	BOOL success = TRUE;
+	bool success = true;
 
 	if (mVertexShaderLevel[SHADER_AVATAR] == 0)
 	{
@@ -3021,7 +3021,7 @@ BOOL LLViewerShaderMgr::loadShadersAvatar()
 		gAvatarWaterProgram.unload();
 		gAvatarEyeballProgram.unload();
 		gAvatarPickProgram.unload();
-		return TRUE;
+		return true;
 	}
 
 	if (success)
@@ -3102,20 +3102,20 @@ BOOL LLViewerShaderMgr::loadShadersAvatar()
 	{
 		mVertexShaderLevel[SHADER_AVATAR] = 0;
 		mMaxAvatarShaderLevel = 0;
-		return FALSE;
+		return false;
 	}
 	
-	return TRUE;
+	return true;
 }
 
-BOOL LLViewerShaderMgr::loadShadersInterface()
+bool LLViewerShaderMgr::loadShadersInterface()
 {
-	BOOL success = TRUE;
+	bool success = true;
 
 	if (mVertexShaderLevel[SHADER_INTERFACE] == 0)
 	{
 		gHighlightProgram.unload();
-		return TRUE;
+		return true;
 	}
 	
 	if (success)
@@ -3413,21 +3413,21 @@ BOOL LLViewerShaderMgr::loadShadersInterface()
 	if( !success )
 	{
 		mVertexShaderLevel[SHADER_INTERFACE] = 0;
-		return FALSE;
+		return false;
 	}
 	
-	return TRUE;
+	return true;
 }
 
-BOOL LLViewerShaderMgr::loadShadersWindLight()
+bool LLViewerShaderMgr::loadShadersWindLight()
 {	
-	BOOL success = TRUE;
+	bool success = true;
 
 	if (mVertexShaderLevel[SHADER_WINDLIGHT] < 2)
 	{
 		gWLSkyProgram.unload();
 		gWLCloudProgram.unload();
-		return TRUE;
+		return true;
 	}
 
 	if (success)
@@ -3457,9 +3457,9 @@ BOOL LLViewerShaderMgr::loadShadersWindLight()
 	return success;
 }
 
-BOOL LLViewerShaderMgr::loadTransformShaders()
+bool LLViewerShaderMgr::loadTransformShaders()
 {
-	BOOL success = TRUE;
+	bool success = true;
 	
 	if (mVertexShaderLevel[SHADER_TRANSFORM] < 1)
 	{
@@ -3468,7 +3468,7 @@ BOOL LLViewerShaderMgr::loadTransformShaders()
 		gTransformNormalProgram.unload();
 		gTransformColorProgram.unload();
 		gTransformTangentProgram.unload();
-		return TRUE;
+		return true;
 	}
 
 	if (success)
