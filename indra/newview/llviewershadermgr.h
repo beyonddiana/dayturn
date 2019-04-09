@@ -50,16 +50,16 @@ public:
 	void setShaders();
 	void unloadShaders();
 	S32 getVertexShaderLevel(S32 type);
-	BOOL loadBasicShaders();
-	BOOL loadShadersEffects();
-	BOOL loadShadersDeferred();
-	BOOL loadShadersObject();
-	BOOL loadShadersAvatar();
-	BOOL loadShadersEnvironment();
-	BOOL loadShadersWater();
-	BOOL loadShadersInterface();
-	BOOL loadShadersWindLight();
-	BOOL loadTransformShaders();
+	bool loadBasicShaders();
+	bool loadShadersEffects();
+	bool loadShadersDeferred();
+	bool loadShadersObject();
+	bool loadShadersAvatar();
+	bool loadShadersEnvironment();
+	bool loadShadersWater();
+	bool loadShadersInterface();
+	bool loadShadersWindLight();
+	bool loadTransformShaders();
 
 	std::vector<S32> mVertexShaderLevel;
 	S32	mMaxAvatarShaderLevel;
