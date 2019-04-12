@@ -236,7 +236,7 @@ void LLFloaterMove::setAlwaysRunModeImpl(bool run)
 }
 
 //static
-void LLFloaterMove::setSittingMode(BOOL bSitting)
+void LLFloaterMove::setSittingMode(bool bSitting)
 {
 	if (bSitting)
 	{
@@ -504,7 +504,7 @@ void LLFloaterMove::onOpen(const LLSD& key)
 
 	if (isAgentAvatarValid() && gAgentAvatarp->isSitting())
 	{
-		setSittingMode(TRUE);
+		setSittingMode(true);
 		showModeButtons(FALSE);
 	}
 

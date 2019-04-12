@@ -959,8 +959,8 @@ public:
 	// Sitting
 	//--------------------------------------------------------------------
 public:
-	void			sitDown(BOOL bSitting);
-	BOOL			isSitting(){return mIsSitting;}
+	void			sitDown(bool bSitting);
+	bool			isSitting(){return mIsSitting;}
 	void 			sitOnObject(LLViewerObject *sit_object);
 	void 			getOffObject();
 //MK
