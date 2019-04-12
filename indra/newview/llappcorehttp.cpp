@@ -360,7 +360,7 @@ void LLAppCoreHttp::refreshSettings(bool initial)
 	if (gSavedSettings.controlExists(http_pipelining))
 	{
 		// Default to true (in ctor) if absent.
-		bool pipelined(gSavedSettings.getBOOL(http_pipelining));
+		bool pipelined(static_cast<bool>(gSavedSettings.getBOOL(http_pipelining)));
 		if (pipelined != mPipelined)
 		{
 			mPipelined = pipelined;

@@ -70,7 +70,7 @@ public:
 	LLFeatureList(const std::string& name);
 	virtual ~LLFeatureList();
 
-	BOOL isFeatureAvailable(const std::string& name);
+	bool isFeatureAvailable(const std::string& name);
 	F32 getRecommendedValue(const std::string& name);
 
 	void setFeatureAvailable(const std::string& name, const BOOL available);

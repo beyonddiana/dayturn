@@ -2653,7 +2653,7 @@ bool LLAppViewer::initConfiguration()
 	}
 
 	// If we have specified crash on startup, set the global so we'll trigger the crash at the right time
-	gCrashOnStartup = gSavedSettings.getBOOL("CrashOnStartup");
+	gCrashOnStartup = static_cast<bool>(gSavedSettings.getBOOL("CrashOnStartup"));
 
 	if (gSavedSettings.getBOOL("LogPerformance"))
 	{
