@@ -444,7 +444,7 @@ void LLFloaterReporter::onClickObjPicker(void *userdata)
 	self->getChild<LLUICtrl>("owner_name")->setValue(LLStringUtil::null);
 	self->mOwnerName = LLStringUtil::null;
 	LLButton* pick_btn = self->getChild<LLButton>("pick_btn");
-	if (pick_btn) pick_btn->setToggleState(TRUE);
+	if (pick_btn) pick_btn->setToggleState(true);
 }
 
 
@@ -459,7 +459,7 @@ void LLFloaterReporter::closePickTool(void *userdata)
 	LLToolMgr::getInstance()->clearTransientTool();
 	self->mPicking = FALSE;
 	LLButton* pick_btn = self->getChild<LLButton>("pick_btn");
-	if (pick_btn) pick_btn->setToggleState(FALSE);
+	if (pick_btn) pick_btn->setToggleState(false);
 }
 
 

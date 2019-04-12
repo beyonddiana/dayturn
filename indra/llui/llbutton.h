@@ -174,7 +174,7 @@ public:
 
 	void			setUnselectedLabelColor( const LLColor4& c )		{ mUnselectedLabelColor = c; }
 	void			setSelectedLabelColor( const LLColor4& c )			{ mSelectedLabelColor = c; }
-	void			setUseEllipses( BOOL use_ellipses )					{ mUseEllipses = use_ellipses; }
+	void			setUseEllipses( bool use_ellipses )					{ mUseEllipses = use_ellipses; }
 
 
 	boost::signals2::connection setClickedCallback(const CommitCallbackParam& cb);
@@ -199,9 +199,9 @@ public:
 	
 	F32				getHeldDownTime() const								{ return mMouseDownTimer.getElapsedTimeF32(); }
 
-	BOOL			toggleState();
-	BOOL			getToggleState() const;
-	void			setToggleState(BOOL b);
+	bool			toggleState();
+	bool			getToggleState() const;
+	void			setToggleState(bool b);
 
 	void			setHighlight(bool b);
 	void			setFlashing( bool b, bool force_flashing = false );
@@ -254,8 +254,8 @@ public:
 	bool			labelIsTruncated() const;
 	const LLUIString&	getCurrentLabel() const;
 
-	void			setScaleImage(BOOL scale)			{ mScaleImage = scale; }
-	BOOL			getScaleImage() const				{ return mScaleImage; }
+	void			setScaleImage(bool scale)			{ mScaleImage = scale; }
+	bool			getScaleImage() const				{ return mScaleImage; }
 
 	void			setDropShadowedText(BOOL b)			{ mDropShadowedText = b; }
 
@@ -349,11 +349,11 @@ protected:
 	LLUIColor					mDisabledImageColor;
 
 	bool						mIsToggle;
-	bool						mScaleImage;
+    bool mScaleImage;
 
 	bool						mDropShadowedText;
 	bool						mAutoResize;
-	bool						mUseEllipses;
+	bool mUseEllipses;
 	bool						mBorderEnabled;
 	bool						mFlashing;
 

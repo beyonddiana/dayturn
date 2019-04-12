@@ -164,7 +164,7 @@ void LLSplitButton::showButtons()
 	mItemsPanel->setFocus(TRUE);
 
 	//push arrow button down and show the item buttons
-	mArrowBtn->setToggleState(TRUE);
+	mArrowBtn->setToggleState(true);
 	mItemsPanel->setVisible(true);
 
 	setUseBoundingRect(TRUE);
@@ -173,8 +173,7 @@ void LLSplitButton::showButtons()
 void LLSplitButton::hideButtons()
 {
 	mItemsPanel->setVisible(false);
-	mArrowBtn->setToggleState(FALSE);
-
+	mArrowBtn->setToggleState(false);
 	setUseBoundingRect(FALSE);
 	gViewerWindow->removePopup(this);
 }

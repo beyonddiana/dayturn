@@ -499,10 +499,10 @@ void LLFloaterMove::setModeButtonToggleState(const EMovementMode mode)
 	mode_control_button_map_t::const_iterator it = mModeControlButtonMap.begin();
 	for (; it != mModeControlButtonMap.end(); ++it)
 	{
-		it->second->setToggleState(FALSE);
+		it->second->setToggleState(false);
 	}
 
-	mModeControlButtonMap[mode]->setToggleState(TRUE);
+	mModeControlButtonMap[mode]->setToggleState(true);
 }
 
 

@@ -666,7 +666,7 @@ void LLPanelOutfitEdit::showWearablesListView()
 		updateFiltersVisibility();
 		mWearableListManager->populateIfNeeded();
 	}
-	mListViewBtn->setToggleState(TRUE);
+	mListViewBtn->setToggleState(true);
 }
 
 void LLPanelOutfitEdit::showWearablesFolderView()
@@ -676,7 +676,7 @@ void LLPanelOutfitEdit::showWearablesFolderView()
 		updateWearablesPanelVerbButtons();
 		updateFiltersVisibility();
 	}
-	mFolderViewBtn->setToggleState(TRUE);
+	mFolderViewBtn->setToggleState(true);
 }
 
 void LLPanelOutfitEdit::updateFiltersVisibility()
@@ -1375,13 +1375,13 @@ void LLPanelOutfitEdit::updateWearablesPanelVerbButtons()
 {
 	if(mWearablesListViewPanel->getVisible())
 	{
-		mFolderViewBtn->setToggleState(FALSE);
+		mFolderViewBtn->setToggleState(false);
 		mFolderViewBtn->setImageOverlay(getString("folder_view_off"), mFolderViewBtn->getImageOverlayHAlign());
 		mListViewBtn->setImageOverlay(getString("list_view_on"), mListViewBtn->getImageOverlayHAlign());
 	}
 	else if(mInventoryItemsPanel->getVisible())
 	{
-		mListViewBtn->setToggleState(FALSE);
+		mListViewBtn->setToggleState(false);
 		mListViewBtn->setImageOverlay(getString("list_view_off"), mListViewBtn->getImageOverlayHAlign());
 		mFolderViewBtn->setImageOverlay(getString("folder_view_on"), mFolderViewBtn->getImageOverlayHAlign());
 	}

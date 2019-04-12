@@ -485,7 +485,7 @@ public:
 
 	/*virtual*/ ~LLSysWellChiclet();
 
-	void setToggleState(BOOL toggled);
+	void setToggleState(bool toggled);
 
 	void setNewMessagesState(bool new_messages);
 	//this method should change a widget according to state of the SysWellWindow 

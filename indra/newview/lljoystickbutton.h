@@ -143,7 +143,7 @@ public:
 
 	LLJoystickCameraRotate(const LLJoystickCameraRotate::Params&);
 
-	virtual void	setToggleState( BOOL left, BOOL top, BOOL right, BOOL bottom );
+	virtual void	setToggleState( bool left, bool top, bool right, bool bottom );
 
 	virtual BOOL	handleMouseDown(S32 x, S32 y, MASK mask);
 	virtual BOOL	handleMouseUp(S32 x, S32 y, MASK mask);
@@ -156,10 +156,10 @@ protected:
 	void			drawRotatedImage( LLPointer<LLUIImage> image, S32 rotations );
 
 protected:
-	BOOL			mInLeft;
-	BOOL			mInTop;
-	BOOL			mInRight;
-	BOOL			mInBottom;
+	bool			mInLeft;
+	bool			mInTop;
+	bool			mInRight;
+	bool			mInBottom;
 };
 
 

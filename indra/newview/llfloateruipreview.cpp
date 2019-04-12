@@ -1141,7 +1141,7 @@ void LLFloaterUIPreview::onClickToggleDiffHighlighting()
 
 		if(error)	// if we encountered an error, reset the button to off
 		{
-			mToggleHighlightButton->setToggleState(FALSE);		
+			mToggleHighlightButton->setToggleState(false);		
 		}
 		else		// only toggle if we didn't encounter an error
 		{

@@ -1612,8 +1612,9 @@ BOOL LLTabContainer::setTab(S32 which)
 	if (mIsVertical && getCurrentPanelIndex() >= 0)
 	{
 		LLTabTuple* tuple = getTab(getCurrentPanelIndex());
+
 		tuple->mTabPanel->setVisible(true);
-		tuple->mButton->setToggleState( TRUE );
+		tuple->mButton->setToggleState( true );
 	}
 	return is_visible;
 }

@@ -419,7 +419,7 @@ void LLFloaterColorPicker::onClickSelect ( void* data )
 
 void LLFloaterColorPicker::onClickPipette( )
 {
-	BOOL pipette_active = mPipetteBtn->getToggleState();
+	bool pipette_active = mPipetteBtn->getToggleState();
 	pipette_active = !pipette_active;
 	if (pipette_active)
 	{
