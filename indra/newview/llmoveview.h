@@ -55,7 +55,7 @@ public:
 	void setFlyingModeImpl(BOOL fly);
 	static void setAlwaysRunMode(bool run);
 	void setAlwaysRunModeImpl(bool run);
-	static void setSittingMode(BOOL bSitting);
+	static void setSittingMode(bool bSitting);
 	static void enableInstance();
 	/*virtual*/ void onOpen(const LLSD& key);
 

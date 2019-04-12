@@ -4754,7 +4754,7 @@ void LLAgent::sendAgentSetAppearance()
 	// composites to false, and update mesh textures.
 	if (textures_current)
 	{
-		bool enable_verbose_dumps = gSavedSettings.getBOOL("DebugAvatarAppearanceMessage");
+		bool enable_verbose_dumps = static_cast<bool>(gSavedSettings.getBOOL("DebugAvatarAppearanceMessage"));
 		std::string dump_prefix = gAgentAvatarp->getFullname() + "_sent_appearance";
 		if (enable_verbose_dumps)
 		{

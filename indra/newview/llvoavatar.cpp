@@ -4208,7 +4208,7 @@ void LLVOAvatar::updateOrientation(LLAgent& agent, F32 speed, F32 delta_time)
     // When moving very slow, the pelvis is allowed to deviate from the
     // forward direction to allow it to hold its position while the torso
     // and head turn.  Once in motion, it must conform however.
-    BOOL self_in_mouselook = isSelf() && gAgentCamera.cameraMouselook();
+    bool self_in_mouselook = isSelf() && gAgentCamera.cameraMouselook();
 
     LLVector3 pelvisDir( mRoot->getWorldMatrix().getFwdRow4().mV );
 
@@ -5890,7 +5890,7 @@ BOOL LLVOAvatar::processSingleAnimationStateChange( const LLUUID& anim_id, BOOL 
 		}
 		else if (anim_id == ANIM_AGENT_SIT_GROUND_CONSTRAINED)
 		{
-			sitDown(TRUE);
+			sitDown(true);
 		}
 
 
@@ -5907,7 +5907,7 @@ BOOL LLVOAvatar::processSingleAnimationStateChange( const LLUUID& anim_id, BOOL 
 	{
 		if (anim_id == ANIM_AGENT_SIT_GROUND_CONSTRAINED)
 		{
-			sitDown(FALSE);
+			sitDown(false);
 		}
 		if ((anim_id == ANIM_AGENT_DO_NOT_DISTURB) && gAgent.isDoNotDisturb())
 		{
@@ -7592,7 +7592,7 @@ BOOL LLVOAvatar::detachObject(LLViewerObject *viewer_object)
 //-----------------------------------------------------------------------------
 // sitDown()
 //-----------------------------------------------------------------------------
-void LLVOAvatar::sitDown(BOOL bSitting)
+void LLVOAvatar::sitDown(bool bSitting)
 {
 	mIsSitting = bSitting;
 	if (isSelf())
@@ -7654,7 +7654,7 @@ void LLVOAvatar::sitOnObject(LLViewerObject *sit_object)
 	gPipeline.markMoved(mDrawable, TRUE);
 	// Notice that removing sitDown() from here causes avatars sitting on
 	// objects to be not rendered for new arrivals. See EXT-6835 and EXT-1655.
-	sitDown(TRUE);
+	sitDown(true);
 	mRoot->getXform()->setParent(&sit_object->mDrawable->mXform); // LLVOAvatar::sitOnObject
 	// SL-315
 	mRoot->setPosition(getPosition());
@@ -7712,7 +7712,7 @@ void LLVOAvatar::getOffObject()
 	
 	gPipeline.markMoved(mDrawable, TRUE);
 
-	sitDown(FALSE);
+	sitDown(false);
 
 	mRoot->getXform()->setParent(NULL); // LLVOAvatar::getOffObject
 	// SL-315	
