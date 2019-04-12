@@ -56,7 +56,7 @@ protected:
 public:
 	virtual void	draw();
 
-	void setToggleState(BOOL state);
+	void setToggleState(bool state);
 
 	void onActionButtonClick(const LLSD& data);
 

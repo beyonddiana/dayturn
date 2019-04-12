@@ -486,7 +486,7 @@ void LLFloaterCamera::switchMode(ECameraControlMode mode)
 void LLFloaterCamera::onClickBtn(ECameraControlMode mode)
 {
 	// check for a click on active button
-	if (mCurrMode == mode) mMode2Button[mode]->setToggleState(TRUE);
+	if (mCurrMode == mode) mMode2Button[mode]->setToggleState(true);
 	
 	switchMode(mode);
 

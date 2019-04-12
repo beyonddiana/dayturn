@@ -521,7 +521,7 @@ F32 LLJoystickCameraRotate::getOrbitRate()
 
 
 // Only used for drawing
-void LLJoystickCameraRotate::setToggleState( BOOL left, BOOL top, BOOL right, BOOL bottom )
+void LLJoystickCameraRotate::setToggleState( bool left, bool top, bool right, bool bottom )
 {
 	mInLeft = left;
 	mInTop = top;

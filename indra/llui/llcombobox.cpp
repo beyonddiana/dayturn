@@ -665,9 +665,8 @@ void LLComboBox::showList()
 	mList->setFocus(TRUE);
 
 	// Show the list and push the button down
-	mButton->setToggleState(TRUE);
-	mList->setVisible(true);
-	
+	mButton->setToggleState(true);
+	mList->setVisible(true);	
 	LLUI::addPopup(this);
 
 	setUseBoundingRect(TRUE);
@@ -689,7 +688,7 @@ void LLComboBox::hideList()
 		else if(mLastSelectedIndex >= 0)
 			mList->selectNthItem(mLastSelectedIndex);
 
-		mButton->setToggleState(FALSE);
+		mButton->setToggleState(false);
 		mList->setVisible(false);
 		mList->mouseOverHighlightNthItem(-1);
 

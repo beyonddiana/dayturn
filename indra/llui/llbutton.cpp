@@ -1017,12 +1017,12 @@ void LLButton::drawBorder(LLUIImage* imagep, const LLColor4& color, S32 size)
 	}
 }
 
-BOOL LLButton::getToggleState() const
+bool LLButton::getToggleState() const
 {
     return getValue().asBoolean();
 }
 
-void LLButton::setToggleState(BOOL b)
+void LLButton::setToggleState(bool b)
 {
 	if( b != getToggleState() )
 	{
@@ -1049,7 +1049,7 @@ void LLButton::setFlashing(bool b, bool force_flashing/* = false */)
 	}
 }
 
-BOOL LLButton::toggleState()			
+bool LLButton::toggleState()
 {
     bool flipped = ! getToggleState();
 	setToggleState(flipped); 

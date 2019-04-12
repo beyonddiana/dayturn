@@ -108,7 +108,7 @@ boost::signals2::connection LLSysWellChiclet::setClickCallback(
 	return mButton->setClickedCallback(cb);
 }
 
-void LLSysWellChiclet::setToggleState(BOOL toggled) {
+void LLSysWellChiclet::setToggleState(bool toggled) {
 	mButton->setToggleState(toggled);
 }
 

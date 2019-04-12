@@ -69,7 +69,7 @@ void LLFlyoutButton::draw()
 	LLComboBox::draw();	
 }
 
-void LLFlyoutButton::setToggleState(BOOL state)
+void LLFlyoutButton::setToggleState(bool state)
 {
 	mToggleState = state;
 }
