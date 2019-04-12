@@ -421,7 +421,7 @@ private:
 
 extern LLPointer<LLVOAvatarSelf> gAgentAvatarp;
 
-BOOL isAgentAvatarValid();
+bool isAgentAvatarValid();
 
 void selfStartPhase(const std::string& phase_name);
 void selfStopPhase(const std::string& phase_name, bool err_check = true);

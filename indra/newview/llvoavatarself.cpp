@@ -76,7 +76,7 @@
 
 LLPointer<LLVOAvatarSelf> gAgentAvatarp = NULL;
 
-BOOL isAgentAvatarValid()
+bool isAgentAvatarValid()
 {
 	return (gAgentAvatarp.notNull() && gAgentAvatarp->isValid());
 }

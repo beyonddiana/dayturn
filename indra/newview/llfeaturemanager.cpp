@@ -93,7 +93,7 @@ void LLFeatureList::addFeature(const std::string& name, const BOOL available, co
 	mFeatures[name] = fi;
 }
 
-BOOL LLFeatureList::isFeatureAvailable(const std::string& name)
+bool LLFeatureList::isFeatureAvailable(const std::string& name)
 {
 	if (mFeatures.count(name))
 	{
@@ -102,9 +102,9 @@ BOOL LLFeatureList::isFeatureAvailable(const std::string& name)
 
 	LL_WARNS_ONCE("RenderInit") << "Feature " << name << " not on feature list!" << LL_ENDL;
 	
-	// changing this to TRUE so you have to explicitly disable 
+	// changing this to true so you have to explicitly disable
 	// something for it to be disabled
-	return TRUE;
+	return true;
 }
 
 F32 LLFeatureList::getRecommendedValue(const std::string& name)
