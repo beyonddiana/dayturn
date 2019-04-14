@@ -106,30 +106,6 @@ if (LINUX)
 
 endif (LINUX)
 
-if (DARWIN)
-  list(APPEND llwindow_SOURCE_FILES
-    llkeyboardmacosx.cpp
-    llwindowmacosx.cpp
-    llwindowmacosx-objc.mm
-    llopenglview-objc.mm
-    )
-  list(APPEND llwindow_HEADER_FILES
-    llkeyboardmacosx.h
-    llwindowmacosx.h
-    llwindowmacosx-objc.h
-    llopenglview-objc.h
-    llappdelegate-objc.h
-    )
-
-  # We use a bunch of deprecated system APIs.
-  set_source_files_properties(
-      llkeyboardmacosx.cpp
-      llwindowmacosx.cpp
-      PROPERTIES
-      COMPILE_FLAGS "-Wno-deprecated-declarations -fpascal-strings"
-      )
-endif (DARWIN)
-
 
 if (WINDOWS)
   list(APPEND llwindow_SOURCE_FILES
