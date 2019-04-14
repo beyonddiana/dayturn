@@ -368,32 +368,12 @@ std::string LLKeyboard::stringFromAccelerator( MASK accel_mask, KEY key )
 	}
 	
 	// Append any masks
-#ifdef LL_DARWIN
-	// Standard Mac names for modifier keys in menu equivalents
-	// We could use the symbol characters, but they only exist in certain fonts.
-	if( accel_mask & MASK_CONTROL )
-	{
-		if ( accel_mask & MASK_MAC_CONTROL )
-		{
-			res.append( trans("accel-mac-control") );
-		}
-		else
-		{
-			res.append( trans("accel-mac-command") );		// Symbol would be "\xE2\x8C\x98"
-		}
-	}
-	if( accel_mask & MASK_ALT )
-		res.append( trans("accel-mac-option") );		// Symbol would be "\xE2\x8C\xA5"
-	if( accel_mask & MASK_SHIFT )
-		res.append( trans("accel-mac-shift") );		// Symbol would be "\xE2\x8C\xA7"
-#else
 	if( accel_mask & MASK_CONTROL )
 		res.append( trans("accel-win-control") );
 	if( accel_mask & MASK_ALT )
 		res.append( trans("accel-win-alt") );
 	if( accel_mask & MASK_SHIFT )
 		res.append( trans("accel-win-shift") );
-#endif
 	std::string key_string = LLKeyboard::stringFromKey(key);
 	if ((accel_mask & MASK_NORMALKEYS) &&
 		(key_string[0] == '-' || key_string[0] == '=' || key_string[0] == '+'))

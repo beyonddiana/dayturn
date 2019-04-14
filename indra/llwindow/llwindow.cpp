@@ -33,8 +33,6 @@
 #include "llwindowsdl.h"
 #elif LL_WINDOWS
 #include "llwindowwin32.h"
-#elif LL_DARWIN
-#include "llwindowmacosx.h"
 #endif
 
 #include "llerror.h"
@@ -76,8 +74,6 @@ S32 OSMessageBox(const std::string& text, const std::string& caption, U32 type)
 	return OSBTN_OK;
 #elif LL_WINDOWS
 	result = OSMessageBoxWin32(text, caption, type);
-#elif LL_DARWIN
-	result = OSMessageBoxMacOSX(text, caption, type);
 #elif LL_SDL
 	result = OSMessageBoxSDL(text, caption, type);
 #else
@@ -254,8 +250,6 @@ std::vector<std::string> LLWindow::getDynamicFallbackFontList()
 {
 #if LL_WINDOWS
 	return LLWindowWin32::getDynamicFallbackFontList();
-#elif LL_DARWIN
-	return LLWindowMacOSX::getDynamicFallbackFontList();
 #elif LL_SDL
 	return LLWindowSDL::getDynamicFallbackFontList();
 #else
@@ -327,8 +321,6 @@ LLSplashScreen *LLSplashScreen::create()
 	return 0;
 #elif LL_WINDOWS
 	return new LLSplashScreenWin32;
-#elif LL_DARWIN
-	return new LLSplashScreenMacOSX;
 #else
 #error("LLSplashScreen not implemented on this platform!")
 #endif
@@ -342,8 +334,6 @@ void LLSplashScreen::show()
 	{
 #if LL_WINDOWS && !LL_MESA_HEADLESS
 		gSplashScreenp = new LLSplashScreenWin32;
-#elif LL_DARWIN
-		gSplashScreenp = new LLSplashScreenMacOSX;
 #endif
 		if (gSplashScreenp)
 		{
@@ -404,10 +394,6 @@ LLWindow* LLWindowManager::createWindow(
 			fullscreen, clearBg, disable_vsync, use_gl, ignore_pixel_depth, fsaa_samples);
 #elif LL_WINDOWS
 		new_window = new LLWindowWin32(callbacks,
-			title, name, x, y, width, height, flags, 
-			fullscreen, clearBg, disable_vsync, use_gl, ignore_pixel_depth, fsaa_samples);
-#elif LL_DARWIN
-		new_window = new LLWindowMacOSX(callbacks,
 			title, name, x, y, width, height, flags, 
 			fullscreen, clearBg, disable_vsync, use_gl, ignore_pixel_depth, fsaa_samples);
 #endif
