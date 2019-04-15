@@ -455,10 +455,10 @@ void LLToolTipMgr::createToolTip(const LLToolTip::Params& params)
 	}
 	else
 	{
-		S32 mouse_x;
-		S32 mouse_y;
-		LLUI::getMousePositionLocal(gToolTipView->getParent(), &mouse_x, &mouse_y);
-
+ 		S32 mouse_x;
+ 		S32 mouse_y;
+ 		LLUI::getMousePositionLocal(gToolTipView->getParent(), &mouse_x, &mouse_y);
+ 	
 		// allow mouse a little bit of slop before changing tooltips
 		mMouseNearRect.setCenterAndSize(mouse_x, mouse_y, 3, 3);
 	}
@@ -578,12 +578,12 @@ void LLToolTipMgr::updateToolTipVisibility()
 	}
 
 	// hide existing tooltips if they have timed out
-	S32 mouse_x, mouse_y;
-	LLUI::getMousePositionLocal(gToolTipView, &mouse_x, &mouse_y);
-
 	F32 tooltip_timeout = 0.f;
 	if (toolTipVisible())
 	{
+		S32 mouse_x, mouse_y;
+		LLUI::getMousePositionLocal(gToolTipView, &mouse_x, &mouse_y);
+	
 		// mouse far away from tooltip
 		tooltip_timeout = mLastToolTipParams.visible_time_far;
 		// mouse near rect will only include the tooltip if the 
