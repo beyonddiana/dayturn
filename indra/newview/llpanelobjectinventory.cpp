@@ -1499,7 +1499,14 @@ void LLPanelObjectInventory::updateInventory()
 			mIsInventoryEmpty = TRUE;
 		}
 
-		mHaveInventory = TRUE;
+		mHaveInventory = !mIsInventoryEmpty || !objectp->isInventoryDirty();
+		if (objectp->isInventoryDirty())
+		{
+			// Inventory is dirty, yet we received inventoryChanged() callback.
+			// User changed something during ongoing request.
+			// Rerequest. It will clear dirty flag and won't create dupplicate requests.
+			objectp->requestInventory();
+		}
 	}
 	else
 	{
@@ -1769,7 +1776,7 @@ void LLPanelObjectInventory::deleteAllChildren()
 
 BOOL LLPanelObjectInventory::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop, EDragAndDropType cargo_type, void *cargo_data, EAcceptance *accept, std::string& tooltip_msg)
 {
-	if (mFolders && mHaveInventory)
+	if (mFolders)
 	{
 		LLFolderViewItem* folderp = mFolders->getNextFromChild(NULL);
 		if (!folderp)
