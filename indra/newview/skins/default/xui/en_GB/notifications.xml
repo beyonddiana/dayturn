@@ -22,9 +22,6 @@ This is often the case with new hardware that hasn&apos;t been tested yet with [
 Unable to save [NAME] to central asset store.
 This is usually a temporary failure.  Please customise and save the wearable again in a few minutes.
     </notification>
-    <notification name="UnknownScriptQuestion">
-The runtime script permission requested by &apos;&lt;nolink&gt;[OBJECTNAME]&lt;/nolink&gt;&apos;, an object owned by &apos;[NAME]&apos;, isn&apos;t recognised by the viewer and can&apos;t be granted.
-    </notification>
     <notification name="CantBuyParcelNotAuthorized">
 You are not the authorised buyer for this parcel.
     </notification>

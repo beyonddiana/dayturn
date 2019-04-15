@@ -3083,15 +3083,6 @@ Eğer hesabınıza neden erişmek istediğini tam olarak anlamıyorsanız, eriş
 			<button name="Deny" text="Reddet"/>
 		</form>
 	</notification>
-	<notification name="UnknownScriptQuestion">
-		&apos;[NAME]&apos; tarafından sahip olunan bir nesne olan &apos;&lt;nolink&gt;[OBJECTNAME]&lt;/nolink&gt;&apos; tarafından istenen çalışma zamanı komut dosyası izni görüntüleyici tarafından tanınmadı ve verilemez.
-
-Bu izni vermek için lütfen [DOWNLOADURL] adresinden görüntüleyicinizi en son sürüme güncelleyin.
-		<form name="form">
-			<button name="Deny" text="Tamam"/>
-			<button name="Mute" text="Engelle"/>
-		</form>
-	</notification>
 	<notification name="ScriptDialog">
 		[NAME] adlı kişiye ait &apos;&lt;nolink&gt;[TITLE]&lt;/nolink&gt;&apos;
 [MESSAGE]

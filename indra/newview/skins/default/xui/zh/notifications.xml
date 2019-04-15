@@ -3073,15 +3073,6 @@ Replace texture [TEXTURE_NUM] with a 24-bit 1024 x 1024 or smaller image then cl
 			<button name="Deny" text="拒絕"/>
 		</form>
 	</notification>
-	<notification name="UnknownScriptQuestion">
-		由 &apos;[NAME]&apos; 所擁有的物件 &apos;&lt;nolink&gt;[OBJECTNAME]&lt;/nolink&gt;&apos; 正請求某項執行時期腳本權限，但本瀏覽器無法辨識該權限，故不允准。
-
-欲准許此權限，請從 [DOWNLOADURL] 下載並更新為最新版瀏覽器。
-		<form name="form">
-			<button name="Deny" text="確定"/>
-			<button name="Mute" text="封鎖"/>
-		</form>
-	</notification>
 	<notification name="ScriptDialog">
 		[NAME] 的 &apos;&lt;nolink&gt;[TITLE]&lt;/nolink&gt;&apos;
 [MESSAGE]

@@ -3089,15 +3089,6 @@ No autorices el acceso a tu cuenta si no conoces cuál es la razón exacta.
 			<button name="Deny" text="Denegar"/>
 		</form>
 	</notification>
-	<notification name="UnknownScriptQuestion">
-		&apos;&lt;nolink&gt;[OBJECTNAME]&lt;/nolink&gt;&apos;, un objeto propiedad de &apos;[NAME]&apos;, ha solicitado un permiso de script en tiempo de ejecución que el visor no reconoce ni puede conceder.
-
-Para obtener el permiso, descárgate aquí la última versión: [DOWNLOADURL].
-		<form name="form">
-			<button name="Deny" text="Aceptar"/>
-			<button name="Mute" text="Ignorar"/>
-		</form>
-	</notification>
 	<notification name="ScriptDialog">
 		&apos;&lt;nolink&gt;[TITLE]&lt;/nolink&gt;&apos; de [NAME]
 [MESSAGE]
