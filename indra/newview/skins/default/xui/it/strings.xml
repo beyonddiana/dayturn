@@ -2100,7 +2100,7 @@ Se continui a ricevere questo messaggio, contatta l&apos;assistenza Second Life 
 		Petto
 	</string>
 	<string name="ATTACH_HEAD">
-		Testa
+		Cranio
 	</string>
 	<string name="ATTACH_LSHOULDER">
 		Spalla sinistra
@@ -2121,7 +2121,7 @@ Se continui a ricevere questo messaggio, contatta l&apos;assistenza Second Life 
 		Piede destro
 	</string>
 	<string name="ATTACH_BACK">
-		Indietro
+		Spina dorsale
 	</string>
 	<string name="ATTACH_PELVIS">
 		Pelvi
@@ -2178,7 +2178,7 @@ Se continui a ricevere questo messaggio, contatta l&apos;assistenza Second Life 
 		Polpaccio sinistro
 	</string>
 	<string name="ATTACH_BELLY">
-		Addome
+		Stomaco
 	</string>
 	<string name="ATTACH_LEFT_PEC">
 		Petto sinistro

@@ -3128,15 +3128,6 @@ Web ページにリンクすると、他人がこの場所に簡単にアクセ�
 			<button name="Deny" text="拒否"/>
 		</form>
 	</notification>
-	<notification name="UnknownScriptQuestion">
-		&apos;[NAME]&apos; が所有する &apos;&lt;nolink&gt;[OBJECTNAME]&lt;/nolink&gt;&apos; によってリクエストされたランタイムスクリプト権限がビューアによって認識されないため、許可できません。
-
-この権限を許可するには、ビューアを [DOWNLOADURL] からの最新バージョンにアップデートしてください。
-		<form name="form">
-			<button name="Deny" text="Ok"/>
-			<button name="Mute" text="ブロック"/>
-		</form>
-	</notification>
 	<notification name="ScriptDialog">
 		[NAME] の「&lt;nolink&gt;[TITLE]&lt;/nolink&gt;」
 [MESSAGE]

@@ -2630,15 +2630,6 @@ Zanim zezwolisz na dostęp upewnij się, że wiesz jaki to obiekt i dlaczego pyt
 			<button name="Deny" text="Odmów" />
 		</form>
 	</notification>
-	<notification name="UnknownScriptQuestion">
-		Zezwolenia, o jakie prosi skrypt z &apos;&lt;nolink&gt;[OBJECTNAME]&lt;/nolink&gt;&apos;, którego właścicielem jest &apos;[NAME]&apos;, nie są rozpoznawane przez przeglądarkę i nie mogą zostać udzielone.
-
-Aby ich udzielić prosimy zaktualizować przeglądarkę do najnowszej wersji z [DOWNLOADURL].
-		<form name="form">
-			<button name="Deny" text="Ok, odmów jednorazowo" />
-			<button name="Mute" text="Zablokuj/Wycisz" />
-		</form>
-	</notification>
 	<notification name="ScriptDialog">
 		&apos;&lt;nolink&gt;[TITLE]&lt;/nolink&gt;&apos; - [NAME]
 [MESSAGE]

@@ -3071,15 +3071,6 @@ Não conceda acesso se você não entender completamente por que ele deseja aces
 			<button name="Deny" text="Negar"/>
 		</form>
 	</notification>
-	<notification name="UnknownScriptQuestion">
-		A permissão de script de tempo de execução solicitada por &apos;&lt;nolink&gt;[OBJECTNAME]&lt;/nolink&gt;&apos;, um objeto de &apos;[NAME]&apos;, não é reconhecida pelo visualizador e não pode ser concedida.
-
-Para conceder essa permissão, atualize seu visualizador para a versão mais recente em [DOWNLOADURL].
-		<form name="form">
-			<button name="Deny" text="Ok"/>
-			<button name="Mute" text="Bloquear"/>
-		</form>
-	</notification>
 	<notification name="ScriptDialog">
 		&apos;&lt;nolink&gt;[TITLE]&lt;/nolink&gt;&apos; de [NAME]
 [MESSAGE]
