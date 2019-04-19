@@ -328,6 +328,7 @@ private:
 	static void onCommitAny(LLUICtrl* ctrl, void *userdata);
 	static void onClickSet(void* userdata);
 	static void onClickClear(void* userdata);
+	static void toggleSeeAvatars(void* userdata);
 
 private:
 	S32 getDirectoryFee();
