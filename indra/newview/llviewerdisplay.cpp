@@ -238,6 +238,7 @@ void display_stats()
 
 static LLTrace::BlockTimerStatHandle FTM_PICK("Picking");
 static LLTrace::BlockTimerStatHandle FTM_RENDER("Render");
+static LLTrace::BlockTimerStatHandle FTM_RENDER_HUD("Render HUD");
 static LLTrace::BlockTimerStatHandle FTM_UPDATE_SKY("Update Sky");
 static LLTrace::BlockTimerStatHandle FTM_UPDATE_DYNAMIC_TEXTURES("Update Dynamic Textures");
 static LLTrace::BlockTimerStatHandle FTM_IMAGE_UPDATE("Update Images");
@@ -575,6 +576,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 	if (gDisconnected)
 	{
 		LLAppViewer::instance()->pingMainloopTimeout("Display:Disconnected");
+		LL_RECORD_BLOCK_TIME(FTM_RENDER_UI);
 		render_ui();
 		swap();
 	}
@@ -1318,6 +1320,7 @@ void render_ui(F32 zoom_factor, int subfield)
 		}
 //mk
 
+		LL_RECORD_BLOCK_TIME(FTM_RENDER_HUD);
 		render_hud_elements();
 		render_hud_attachments();
 	}
@@ -1332,8 +1335,6 @@ void render_ui(F32 zoom_factor, int subfield)
 		gGL.color4f(1,1,1,1);
 		if (gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_UI))
 		{
-			LL_RECORD_BLOCK_TIME(FTM_RENDER_UI);
-
 			if (!gDisconnected)
 			{
 				render_ui_3d();
