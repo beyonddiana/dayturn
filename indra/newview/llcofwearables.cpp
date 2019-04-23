@@ -42,6 +42,7 @@
 #include "llwearableitemslist.h"
 #include "llpaneloutfitedit.h"
 #include "lltrans.h"
+#include "llvoavatarself.h"
 
 //MK
 #include "llagent.h"
@@ -360,7 +361,7 @@ void LLCOFWearables::setAttachmentsTitle()
 {
 	if (mAttachmentsTab)
 	{
-		U32 free_slots = MAX_AGENT_ATTACHMENTS - mAttachments->size();
+		U32 free_slots = gAgentAvatarp->getMaxAttachments() - mAttachments->size();
 
 		LLStringUtil::format_map_t args_attachments;
 		args_attachments["[COUNT]"] = llformat ("%d", free_slots);
