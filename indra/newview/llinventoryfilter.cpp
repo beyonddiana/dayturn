@@ -81,8 +81,8 @@ LLInventoryFilter::LLInventoryFilter(const Params& p)
 	mFilterSubString(p.substring),
 	mCurrentGeneration(0),
 	mFirstRequiredGeneration(0),
-	mFirstSuccessGeneration(0)
-	mSearchType(SEARCHTYPE_NAME),
+	mFirstSuccessGeneration(0),
+	mSearchType(SEARCHTYPE_NAME)
 {
 	//	Begin Multi-substring inventory search
 	mSubStringMatchOffsets.clear();
@@ -1375,7 +1375,6 @@ LLInventoryFilter& LLInventoryFilter::operator=( const  LLInventoryFilter&  othe
 	setHoursAgo(other.getHoursAgo());
 	setDateSearchDirection(other.getDateSearchDirection());
 	setShowFolderState(other.getShowFolderState());
-	setFilterCreator(params.filter_ops.creator_type);	
 	setFilterPermissions(other.getFilterPermissions());
 	setFilterSubString(other.getFilterSubString());
 	setDateRangeLastLogoff(other.isSinceLogoff());
