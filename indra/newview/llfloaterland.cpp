@@ -1867,6 +1867,7 @@ LLPanelLandOptions::LLPanelLandOptions(LLParcelSelectionHandle& parcel)
 	mLandingTypeCombo(NULL),
 	mSnapshotCtrl(NULL),
 	mLocationText(NULL),
+	mSeeAvatarsText(NULL),
 	mSetBtn(NULL),
 	mClearBtn(NULL),
 	mMatureCtrl(NULL),
@@ -1913,11 +1914,12 @@ BOOL LLPanelLandOptions::postBuild()
 	mSeeAvatarsCtrl = getChild<LLCheckBoxCtrl>( "SeeAvatarsCheck");
 	childSetCommitCallback("SeeAvatarsCheck", onCommitAny, this);
 
-	if (hasChild("allow_see_label", TRUE))
+	mSeeAvatarsText = getChild<LLTextBox>("allow_see_label");
+	if (mSeeAvatarsText)
 	{
-		getChild<LLTextBox>("allow_see_label")->setShowCursorHand(false);
-		getChild<LLTextBox>("allow_see_label")->setSoundFlags(LLView::MOUSE_UP);
-		getChild<LLTextBox>("allow_see_label")->setClickedCallback(boost::bind(&toggleSeeAvatars, this));
+		mSeeAvatarsText->setShowCursorHand(false);
+		mSeeAvatarsText->setSoundFlags(LLView::MOUSE_UP);
+		mSeeAvatarsText->setClickedCallback(boost::bind(&toggleSeeAvatars, this));
 	}
 
 	mCheckShowDirectory = getChild<LLCheckBoxCtrl>( "ShowDirectoryCheck");
@@ -2013,6 +2015,7 @@ void LLPanelLandOptions::refresh()
 
 		mSeeAvatarsCtrl->set(TRUE);
 		mSeeAvatarsCtrl->setEnabled(FALSE);
+		mSeeAvatarsText->setEnabled(FALSE);
 
 		mLandingTypeCombo->setCurrentByIndex(0);
 		mLandingTypeCombo->setEnabled(FALSE);
@@ -2071,6 +2074,7 @@ void LLPanelLandOptions::refresh()
 
 		mSeeAvatarsCtrl->set(parcel->getSeeAVs());
 		mSeeAvatarsCtrl->setEnabled(can_change_options && parcel->getHaveNewParcelLimitData());
+		mSeeAvatarsText->setEnabled(can_change_options && parcel->getHaveNewParcelLimitData());
 
 		BOOL can_change_landing_point = LLViewerParcelMgr::isParcelModifiableByAgent(parcel, 
 														GP_LAND_SET_LANDING_POINT);
