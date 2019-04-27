@@ -89,11 +89,7 @@ std::string LLFloater::sButtonToolTips[BUTTON_COUNT];
 
 std::string LLFloater::sButtonToolTipsIndex[BUTTON_COUNT]=
 {
-#ifdef LL_DARWIN
-	"BUTTON_CLOSE_DARWIN",	//"Close (Cmd-W)",	//BUTTON_CLOSE
-#else
 	"BUTTON_CLOSE_WIN",		//"Close (Ctrl-W)",	//BUTTON_CLOSE
-#endif
 	"BUTTON_RESTORE",		//"Restore",	//BUTTON_RESTORE
 	"BUTTON_MINIMIZE",		//"Minimize",	//BUTTON_MINIMIZE
 	"BUTTON_TEAR_OFF",		//"Tear Off",	//BUTTON_TEAR_OFF
