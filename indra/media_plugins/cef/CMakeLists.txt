@@ -45,7 +45,7 @@ include_directories(SYSTEM
 if(NOT WORD_SIZE EQUAL 32)
   if(WINDOWS)
     add_definitions(/FIXED:NO)
-  else(WINDOWS) # not windows therefore gcc LINUX and DARWIN
+  else(WINDOWS) # not windows therefore gcc LINUX
     add_definitions(-fPIC)
   endif(WINDOWS)
 endif(NOT WORD_SIZE EQUAL 32)
@@ -79,14 +79,6 @@ if (LINUX)
        ${UI_LIBRARIES}     # for glib/GTK
        Xext #<FS:ND/> force pulling libXext in, otherwise we get undefined symbols.
        )
-elseif (DARWIN)
-  list(APPEND media_plugin_cef_SOURCE_FILES mac_volume_catcher.cpp)
-  find_library(CORESERVICES_LIBRARY CoreServices)
-  find_library(AUDIOUNIT_LIBRARY AudioUnit)
-  list(APPEND media_plugin_cef_LINK_LIBRARIES
-       ${CORESERVICES_LIBRARY}     # for Component Manager calls
-       ${AUDIOUNIT_LIBRARY}        # for AudioUnit calls
-       )
 elseif (WINDOWS)
   list(APPEND media_plugin_cef_SOURCE_FILES windows_volume_catcher.cpp)
 endif (LINUX)
@@ -118,24 +110,3 @@ if (WINDOWS)
     )
 endif (WINDOWS)
 
-if (DARWIN)
-  # Don't prepend 'lib' to the executable name, and don't embed a full path in the library's install name
-  set_target_properties(
-    media_plugin_cef
-    PROPERTIES
-    PREFIX ""
-    BUILD_WITH_INSTALL_RPATH 1
-    INSTALL_NAME_DIR "@executable_path"
-    CXX_FLAGS "-std=c++11 -stdlib=libc++"
-    LINK_FLAGS "-stdlib=libc++ -exported_symbols_list ${CMAKE_CURRENT_SOURCE_DIR}/../base/media_plugin_base.exp"
-  )
-
-  add_custom_command(TARGET media_plugin_cef
-    POST_BUILD COMMAND ${CMAKE_INSTALL_NAME_TOOL} -change "@executable_path/Chromium Embedded Framework"
-        "@executable_path/../../../../Frameworks/Chromium Embedded Framework.framework/Chromium Embedded Framework"
-        "$<TARGET_FILE:media_plugin_cef>"
-    VERBATIM
-    COMMENT "Fixing path to CEF Framework"
-  )
-
-endif (DARWIN)

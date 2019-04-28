@@ -863,10 +863,7 @@ MediaPluginGStreamer010::startup()
 #endif
 
 		// Get symbols!
-#if LL_DARWIN
-		if (! grab_gst_syms("libgstreamer-0.10.dylib",
-				    "libgstvideo-0.10.dylib") )
-#elseif LL_WINDOWS
+#if LL_WINDOWS
 		if (! grab_gst_syms("libgstreamer-0.10.dll",
 				    "libgstvideo-0.10.dll") )
 #else // linux or other ELFy unixoid
