@@ -31,7 +31,7 @@ include_directories(SYSTEM
 if(NOT WORD_SIZE EQUAL 32)
   if(WINDOWS)
     add_definitions(/FIXED:NO)
-  else(WINDOWS) # not windows therefore gcc LINUX and DARWIN
+  else(WINDOWS) # not windows therefore gcc LINUX
     add_definitions(-fPIC)
   endif(WINDOWS)
 endif(NOT WORD_SIZE EQUAL 32)

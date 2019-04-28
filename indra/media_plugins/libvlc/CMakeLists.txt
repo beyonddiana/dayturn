@@ -36,7 +36,7 @@ include_directories(SYSTEM
 if(NOT WORD_SIZE EQUAL 32)
   if(WINDOWS)
     add_definitions(/FIXED:NO)
-  else(WINDOWS) # not windows therefore gcc LINUX and DARWIN
+  else(WINDOWS) # not windows therefore gcc LINUX
     add_definitions(-fPIC)
   endif(WINDOWS)
 endif(NOT WORD_SIZE EQUAL 32)
@@ -71,16 +71,3 @@ if (WINDOWS)
     LINK_FLAGS "/MANIFEST:NO /SAFESEH:NO /LTCG /NODEFAULTLIB:LIBCMT"
     )
 endif (WINDOWS)
-
-if (DARWIN)
-  # Don't prepend 'lib' to the executable name, and don't embed a full path in the library's install name
-  set_target_properties(
-    media_plugin_libvlc
-    PROPERTIES
-    PREFIX ""
-    BUILD_WITH_INSTALL_RPATH 1
-    INSTALL_NAME_DIR "@executable_path"
-    LINK_FLAGS "-exported_symbols_list ${CMAKE_CURRENT_SOURCE_DIR}/../base/media_plugin_base.exp"
-  )
-
-endif (DARWIN)

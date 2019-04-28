@@ -8,10 +8,6 @@ if (LINUX)
     add_subdirectory(libvlc)
 endif (LINUX)
 
-if (DARWIN)
-    add_subdirectory(cef)
-endif (DARWIN)
-
 if (WINDOWS)
 	add_subdirectory(cef)
     add_subdirectory(winmmshim)

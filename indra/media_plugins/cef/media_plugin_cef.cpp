@@ -661,39 +661,6 @@ void MediaPluginCEF::receiveMessage(const char* message_string)
 			}
 			else if (message_name == "key_event")
 			{
-#if LL_DARWIN
-				std::string event = message_in.getValue("event");
-				S32 key = message_in.getValueS32("key");
-                LLSD native_key_data = message_in.getValueLLSD("native_key_data");
-
-#if 0
-				if (event == "down")
-				{
-					//mLLCEFLib->keyPress(key, true);
-					mLLCEFLib->keyboardEvent(LLCEFLib::KE_KEY_DOWN, (uint32_t)key, 0, LLCEFLib::KM_MODIFIER_NONE, 0, 0, 0);
-
-				}
-				else if (event == "up")
-				{
-					//mLLCEFLib->keyPress(key, false);
-					mLLCEFLib->keyboardEvent(LLCEFLib::KE_KEY_UP, (uint32_t)key, 0, LLCEFLib::KM_MODIFIER_NONE, 0, 0, 0);
-				}
-#else
-                // Treat unknown events as key-up for safety.
-                LLCEFLib::EKeyEvent key_event = LLCEFLib::KE_KEY_UP;
-                if (event == "down")
-                {
-                    key_event = LLCEFLib::KE_KEY_DOWN;
-                }
-                else if (event == "repeat")
-                {
-                    key_event = LLCEFLib::KE_KEY_REPEAT;
-                }
-
-                keyEvent(key_event, key, LLCEFLib::KM_MODIFIER_NONE, native_key_data);
-
-#endif
-#else //Windows and Linux
 				std::string event = message_in.getValue("event");
 				S32 key = message_in.getValueS32("key");
 				std::string modifiers = message_in.getValue("modifiers");
@@ -711,7 +678,6 @@ void MediaPluginCEF::receiveMessage(const char* message_string)
 				}
 
 				keyEvent(key_event, key, decodeModifiers(modifiers), native_key_data);
-#endif
 			}
 			else if (message_name == "enable_media_plugin_debugging")
 			{
@@ -826,11 +792,7 @@ void MediaPluginCEF::deserializeKeyboardData(LLSD native_key_data, uint32_t& nat
 
 	if (native_key_data.isMap())
 	{
-#if LL_DARWIN
-		native_scan_code = (uint32_t)(native_key_data["char_code"].asInteger());
-		native_virtual_key = (uint32_t)(native_key_data["key_code"].asInteger());
-		native_modifiers = (uint32_t)(native_key_data["modifiers"].asInteger());
-#elif LL_WINDOWS
+#if LL_WINDOWS
 		native_scan_code = (uint32_t)(native_key_data["scan_code"].asInteger());
 		native_virtual_key = (uint32_t)(native_key_data["virtual_key"].asInteger());
 		// TODO: I don't think we need to do anything with native modifiers here -- please verify
@@ -851,27 +813,7 @@ void MediaPluginCEF::deserializeKeyboardData(LLSD native_key_data, uint32_t& nat
 //
 void MediaPluginCEF::keyEvent(LLCEFLib::EKeyEvent key_event, int key, LLCEFLib::EKeyboardModifier modifiers_x, LLSD native_key_data = LLSD::emptyMap())
 {
-#if LL_DARWIN
-
-    if (!native_key_data.has("event_type") ||
-            !native_key_data.has("event_modifiers") ||
-            !native_key_data.has("event_keycode") ||
-            !native_key_data.has("event_isrepeat"))
-        return;
-
-    uint32_t eventType = native_key_data["event_type"].asInteger();
-    if (!eventType)
-        return;
-    uint32_t eventModifiers = native_key_data["event_modifiers"].asInteger();
-    uint32_t eventKeycode = native_key_data["event_keycode"].asInteger();
-    char eventChars = static_cast<char>(native_key_data["event_chars"].isUndefined() ? 0 : native_key_data["event_chars"].asInteger());
-    char eventUChars = static_cast<char>(native_key_data["event_umodchars"].isUndefined() ? 0 : native_key_data["event_umodchars"].asInteger());
-    bool eventIsRepeat = native_key_data["event_isrepeat"].asBoolean();
-
-    mLLCEFLib->keyboardEventOSX(eventType, eventModifiers, (eventChars) ? &eventChars : NULL,
-                                (eventUChars) ? &eventUChars : NULL, eventIsRepeat, eventKeycode);
-
-#elif LL_WINDOWS
+#if LL_WINDOWS
 	U32 msg = ll_U32_from_sd(native_key_data["msg"]);
 	U32 wparam = ll_U32_from_sd(native_key_data["w_param"]);
 	U64 lparam = ll_U32_from_sd(native_key_data["l_param"]);
@@ -893,20 +835,7 @@ void MediaPluginCEF::keyEvent(LLCEFLib::EKeyEvent key_event, int key, LLCEFLib::
 
 void MediaPluginCEF::unicodeInput(const std::string &utf8str, LLCEFLib::EKeyboardModifier modifiers, LLSD native_key_data = LLSD::emptyMap())
 {
-#if LL_DARWIN
-	//mLLCEFLib->keyPress(utf8str[0], true);
-	//mLLCEFLib->keyboardEvent(LLCEFLib::KE_KEY_DOWN, (uint32_t)(utf8str[0]), 0, LLCEFLib::KM_MODIFIER_NONE, 0, 0, 0);
-    if (!native_key_data.has("event_chars") || !native_key_data.has("event_umodchars") ||
-            !native_key_data.has("event_keycode") || !native_key_data.has("event_modifiers"))
-        return;
-    uint32_t unicodeChar = native_key_data["event_chars"].asInteger();
-    uint32_t unmodifiedChar = native_key_data["event_umodchars"].asInteger();
-    uint32_t keyCode = native_key_data["event_keycode"].asInteger();
-    uint32_t rawmodifiers = native_key_data["event_modifiers"].asInteger();
-
-    mLLCEFLib->injectUnicodeText(unicodeChar, unmodifiedChar, keyCode, rawmodifiers);
-
-#elif LL_WINDOWS
+#if LL_WINDOWS
 	U32 msg = ll_U32_from_sd(native_key_data["msg"]);
 	U32 wparam = ll_U32_from_sd(native_key_data["w_param"]);
 	U64 lparam = ll_U32_from_sd(native_key_data["l_param"]);
