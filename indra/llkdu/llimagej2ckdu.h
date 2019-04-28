@@ -38,15 +38,7 @@
 #include "kdu_params.h"
 
 // don't *really* want to rebuild KDU so turn off specific warnings for this header
-#if LL_DARWIN
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunused-private-field"
 #include "kdu_compressed.h"
-#pragma clang diagnostic pop
-#else
-#include "kdu_compressed.h"
-#endif
-
 #include "kdu_sample_processing.h"
 #include <boost/scoped_ptr.hpp>
 #include <boost/noncopyable.hpp>
