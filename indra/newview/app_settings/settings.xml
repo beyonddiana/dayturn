@@ -7604,7 +7604,7 @@
       <key>Type</key>
       <string>F32</string>
       <key>Value</key>
-      <integer>130</integer>
+      <integer>130.0</integer>
     </map>
     <key>NewObjectCreationThrottle</key>
     <map>
@@ -17744,6 +17744,39 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
+    <key>RadarReportChatRange</key>
+    <map>
+        <key>Comment</key>
+        <string>Display a chat message when avatar leaves/enters chat distance</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Boolean</string>
+        <key>Value</key>
+        <integer>0</integer>
+    </map>
+    <key>RadarReportDrawRange</key>
+    <map>
+        <key>Comment</key>
+        <string>Display a chat message when avatar leaves/enters draw distance</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Boolean</string>
+        <key>Value</key>
+        <integer>0</integer>
+    </map>
+    <key>RadarReportSimRange</key>
+    <map>
+        <key>Comment</key>
+        <string>Display a chat message when avatar leaves/enters this region</string>
+        <key>Persist</key>
+        <integer>1</integer>
+        <key>Type</key>
+        <string>Boolean</string>
+        <key>Value</key>
+        <integer>0</integer>
+    </map>    
   </map>
 </llsd>
 
