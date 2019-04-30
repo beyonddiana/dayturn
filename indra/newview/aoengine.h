@@ -180,6 +180,8 @@ class AOEngine
 		BOOL createAnimationLink(const AOSet* set,AOSet::AOState* state,const LLInventoryItem* item);
 		BOOL findForeignItems(const LLUUID& uuid) const;
 		void purgeFolder(const LLUUID& uuid) const;
+    
+        void onRegionChange();
 
 		void onToggleAOControl();
 		static void onNotecardLoadComplete(	LLVFS* vfs,const LLUUID& assetUUID,LLAssetType::EType type,
@@ -209,6 +211,8 @@ class AOEngine
 		std::vector<AOSet*> mOldImportSets;
 		LLUUID mImportCategory;
 		S32 mImportRetryCount;
+    
+        boost::signals2::connection mRegionChangeConnection;
 };
 
 #endif // AOENGINE_H
