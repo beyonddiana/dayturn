@@ -53,23 +53,30 @@ const F32 INVENTORY_POLLING_INTERVAL=5.0f;
 
 AOEngine::AOEngine() :
 	LLSingleton<AOEngine>(),
-	mCurrentSet(0),
-	mDefaultSet(0),
+	mCurrentSet(NULL),
+	mDefaultSet(NULL),
 	mEnabled(FALSE),
 	mInMouselook(FALSE),
 	mUnderWater(FALSE),
-	mImportSet(0),
+	mImportSet(NULL),
 	mImportCategory(LLUUID::null),
 	mAOFolder(LLUUID::null),
 	mLastMotion(ANIM_AGENT_STAND),
 	mLastOverriddenMotion(ANIM_AGENT_STAND)
 {
 	gSavedPerAccountSettings.getControl("UseAO")->getCommitSignal()->connect(boost::bind(&AOEngine::onToggleAOControl, this));
+    
+    mRegionChangeConnection = gAgent.addRegionChangedCallback(boost::bind(&AOEngine::onRegionChange, this));
 }
 
 AOEngine::~AOEngine()
 {
 	clear(false);
+
+	if (mRegionChangeConnection.connected())
+	{
+		mRegionChangeConnection.disconnect();
+	}
 }
 
 void AOEngine::init()
@@ -1757,6 +1764,50 @@ const LLUUID& AOEngine::getAOFolder() const
 	return mAOFolder;
 }
 
+void AOEngine::onRegionChange()
+{
+	// do nothing if the AO is off
+	if (!mEnabled)
+	{
+		return;
+	}
+
+	// catch errors without crashing
+	if (!mCurrentSet)
+	{
+		LL_DEBUGS("AOEngine") << "Current set was NULL" << LL_ENDL;
+		return;
+	}
+
+	// sitting needs special attention
+	if (mCurrentSet->getMotion() == ANIM_AGENT_SIT)
+	{
+		// do nothing if sit overrides was disabled
+		if (!mCurrentSet->getSitOverride())
+		{
+			return;
+		}
+
+		// do nothing if the last overridden motion wasn't a sit.
+		// happens when sit override is enabled but there were no
+		// sit animations added to the set yet
+		if (mLastOverriddenMotion != ANIM_AGENT_SIT)
+		{
+			return;
+		}
+
+		// do nothing if smart sit is enabled because we have no
+		// animation running from the AO
+		if (mCurrentSet->getSmart())
+		{
+			return;
+		}
+	}
+
+	// restart current animation on region crossing
+	gAgent.sendAnimationRequest(mLastMotion, ANIM_REQUEST_START);
+}
+        
 // ----------------------------------------------------
 
 AOSitCancelTimer::AOSitCancelTimer()
