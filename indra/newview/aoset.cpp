@@ -19,6 +19,7 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -38,7 +39,7 @@ AOSet::AOSet(const LLUUID inventoryID)
 	mDirty(FALSE),
 	mCurrentMotion(LLUUID())
 {
-	LL_DEBUGS() << "Creating new AO set: " << this << LL_ENDL;
+	LL_DEBUGS("AO") << "Creating new AO set: " << this << LL_ENDL;
 
 	// ZHAO names first, alternate names following, separated by | characters
 	// keep number and order in sync with the enum in the declaration
@@ -78,7 +79,7 @@ AOSet::AOSet(const LLUUID inventoryID)
 		ANIM_AGENT_WALK,
 		ANIM_AGENT_RUN,
 		ANIM_AGENT_SIT,
-		ANIM_AGENT_SIT_GROUND,
+		ANIM_AGENT_SIT_GROUND_CONSTRAINED,
 		ANIM_AGENT_CROUCH,
 		ANIM_AGENT_CROUCHWALK,
 		ANIM_AGENT_LAND,
@@ -123,7 +124,7 @@ AOSet::AOSet(const LLUUID inventoryID)
 
 AOSet::~AOSet()
 {
-	LL_DEBUGS() << "Set deleted: " << this << LL_ENDL;
+	LL_DEBUGS("AO") << "Set deleted: " << this << LL_ENDL;
 }
 
 AOSet::AOState* AOSet::getState(S32 eName)
@@ -149,9 +150,14 @@ AOSet::AOState* AOSet::getStateByName(const std::string& name)
 
 AOSet::AOState* AOSet::getStateByRemapID(const LLUUID& id)
 {
-	for(S32 index=0;index<AOSTATES_MAX;index++)
+	LLUUID remap_id = id;
+	if (remap_id == ANIM_AGENT_SIT_GROUND)
 	{
-		if(mStates[index].mRemapID==id)
+		remap_id = ANIM_AGENT_SIT_GROUND_CONSTRAINED;
+    }
+	for (S32 index = 0; index < AOSTATES_MAX; ++index)
+	{
+		if (mStates[index].mRemapID == remap_id)
 		{
 			return &mStates[index];
 		}
@@ -171,20 +177,20 @@ const LLUUID& AOSet::getAnimationForState(AOState* state) const
 				if(state->mRandom)
 				{
 					state->mCurrentAnimation=ll_frand()*numOfAnimations;
-					LL_DEBUGS() << "randomly chosen " << state->mCurrentAnimation << " of " << numOfAnimations << LL_ENDL;
+					LL_DEBUGS("AO") << "randomly chosen " << state->mCurrentAnimation << " of " << numOfAnimations << LL_ENDL;
 				}
 				else
 				{
 					state->mCurrentAnimation++;
 					if(state->mCurrentAnimation>=state->mAnimations.size())
 						state->mCurrentAnimation=0;
-					LL_DEBUGS() << "cycle " << state->mCurrentAnimation << " of " << numOfAnimations << LL_ENDL;
+					LL_DEBUGS("AO") << "cycle " << state->mCurrentAnimation << " of " << numOfAnimations << LL_ENDL;
 				}
 			}
 			return state->mAnimations[state->mCurrentAnimation].mAssetUUID;
 		}
 		else
-			LL_DEBUGS() << "animation state has no animations assigned" << LL_ENDL;
+			LL_DEBUGS("AO") << "animation state has no animations assigned" << LL_ENDL;
 	}
 	return LLUUID::null;
 }
@@ -194,12 +200,12 @@ void AOSet::startTimer(F32 timeout)
 	mEventTimer.stop();
 	mPeriod=timeout;
 	mEventTimer.start();
-	LL_DEBUGS() << "Starting state timer for " << getName() << " at " << timeout << LL_ENDL;
+	LL_DEBUGS("AO") << "Starting state timer for " << getName() << " at " << timeout << LL_ENDL;
 }
 
 void AOSet::stopTimer()
 {
-	LL_DEBUGS() << "State timer for " << getName() << " stopped." << LL_ENDL;
+	LL_DEBUGS("AO") << "State timer for " << getName() << " stopped." << LL_ENDL;
 	mEventTimer.stop();
 }
 
