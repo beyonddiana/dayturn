@@ -131,15 +131,14 @@ struct LightsharePacket
 
 class FSLightshare : public LLSingleton<FSLightshare>
 {
-	LOG_CLASS(FSLightshare);
+    LLSINGLETON(FSLightshare);
+    LOG_CLASS(FSLightshare);
 public:
-	FSLightshare();
 	virtual ~FSLightshare();
 	void processLightshareMessage(LLMessageSystem* msg);
 	void processLightshareReset();
 	bool getState() { return mLightshareState; };
 private:
-	friend class LLSingleton<FSLightshare>;
 	static void processWater(LightsharePacket* ls_packet);
 	static void processSky(LightsharePacket* ls_packet);
 	void setState(bool has_lightshare);
