@@ -501,16 +501,6 @@ void LLCOFWearables::refresh()
 
 		list->scrollToShowRect(scroll_pos);
 	}
-
-//MK
-	// If we are trying to wear more attachments than we are allowed, we need to set the COF straight, otherwise
-	// we'll have a problem after the next relog (some links are not currently worn, but in the COF, and they will
-	// try to be worn after relogging, removing other links that should not have been removed).
-	if (gRRenabled && mAttachments->size() > MAX_AGENT_ATTACHMENTS)
-	{
-		RRInterface::sLastOutfitChange = gFrameTimeSeconds + 10.0f;
-	}
-//mk
 }
 
 
