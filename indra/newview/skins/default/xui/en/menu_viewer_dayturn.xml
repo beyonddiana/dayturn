@@ -621,6 +621,42 @@
         function="SideTray.PanelPeopleTab"
         parameter="nearby_panel" />
      </menu_item_call>
+        <menu
+         create_jump_keys="true"
+         label="Radar"
+         name="Radar"
+         tear_off="false">
+          <menu_item_check
+            label="Report avatar entering chat range"
+            name="RadarReportChatRange">
+           <menu_item_check.on_check
+            function="CheckControl"
+            parameter="RadarReportChatRange" />
+           <menu_item_check.on_click
+            function="ToggleControl"
+            parameter="RadarReportChatRange" />
+          </menu_item_check>
+          <menu_item_check
+            label="Report avatar entering draw range"
+            name="RadarReportDrawRange">
+           <menu_item_check.on_check
+            function="CheckControl"
+            parameter="RadarReportDrawRange" />
+           <menu_item_check.on_click
+            function="ToggleControl"
+            parameter="RadarReportDrawRange" />
+          </menu_item_check>
+          <menu_item_check
+            label="Report avatar entering region"
+            name="RadarReportRegionRange">
+           <menu_item_check.on_check
+            function="CheckControl"
+            parameter="RadarReportSimRange" />
+           <menu_item_check.on_click
+            function="ToggleControl"
+            parameter="RadarReportSimRange" />
+          </menu_item_check>
+        </menu>     
     <menu_item_separator/>
     <menu_item_check
 	 label="Search"
@@ -1835,37 +1871,6 @@
        function="ToggleControl"
        parameter="RestrainedLoveDoubleClickWear" />
     </menu_item_check>
-    <menu_item_separator/>
-    <menu_item_check
-     label="Report avatar entering chat range"
-     name="RadarReportChatRange">
-      <menu_item_check.on_check
-       function="CheckControl"
-       parameter="RadarReportChatRange" />
-      <menu_item_check.on_click
-       function="ToggleControl"
-       parameter="RadarReportChatRange" />
-    </menu_item_check>
-    <menu_item_check
-     label="Report avatar entering draw range"
-     name="RadarReportDrawRange">
-      <menu_item_check.on_check
-       function="CheckControl"
-       parameter="RadarReportDrawRange" />
-      <menu_item_check.on_click
-       function="ToggleControl"
-       parameter="RadarReportDrawRange" />
-    </menu_item_check>
-    <menu_item_check
-     label="Report avatar entering region"
-     name="RadarReportRegionRange">
-      <menu_item_check.on_check
-       function="CheckControl"
-       parameter="RadarReportSimRange" />
-      <menu_item_check.on_click
-       function="ToggleControl"
-       parameter="RadarReportSimRange" />
-    </menu_item_check>    
     <menu_item_separator/>
     <menu
      create_jump_keys="true"
