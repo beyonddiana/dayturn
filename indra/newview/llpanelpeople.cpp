@@ -75,6 +75,16 @@
 #include "llagentui.h"
 #include "llslurl.h"
 
+//MK
+#include "llfloaterimnearbychat.h"
+#include "llviewerregion.h"
+//mk
+
+//CA
+#include "llnotificationhandler.h"
+#include "llnotificationmanager.h"
+//ca
+
 #define FRIEND_LIST_UPDATE_TIMEOUT	0.5
 #define NEARBY_LIST_UPDATE_INTERVAL 1
 
@@ -166,7 +176,10 @@ public:
 			mAvatarsPositions[*id_it] = *pos_it;
 		}
 	};
-
+//MK
+	// Used for Range Display, originally from KB/Catznip
+	const id_to_pos_map_t& getAvatarsPositions() { return mAvatarsPositions; }
+//mk
 protected:
 	virtual bool doCompare(const LLAvatarListItem* item1, const LLAvatarListItem* item2) const
 	{
@@ -660,7 +673,9 @@ BOOL LLPanelPeople::postBuild()
 	mAllFriendList->setShowCompleteName(!gSavedSettings.getBOOL("FriendsListHideUsernames"));
 
 	LLPanel* nearby_tab = getChild<LLPanel>(NEARBY_TAB_NAME);
-	nearby_tab->setVisibleCallback(boost::bind(&Updater::setActive, mNearbyListUpdater, _2));
+//CA switching to always active	(commenting this line was missed when the other always active change was merged in
+//	nearby_tab->setVisibleCallback(boost::bind(&Updater::setActive, mNearbyListUpdater, _2));
+//ca		
 	mNearbyList = nearby_tab->getChild<LLAvatarList>("avatar_list");
 	mNearbyList->setNoItemsCommentText(getString("no_one_near"));
 	mNearbyList->setNoItemsMsg(getString("no_one_near"));
@@ -670,7 +685,20 @@ BOOL LLPanelPeople::postBuild()
 	mMiniMap = (LLNetMap*)getChildView("Net Map",true);
 	mMiniMap->setToolTipMsg(gSavedSettings.getBOOL("DoubleClickTeleport") ? 
 		getString("AltMiniMapToolTipMsg") :	getString("MiniMapToolTipMsg"));
-
+//MK
+	mNearbyList->showRange(true); 
+	mNearbyList->showFirstSeen(true);
+	mNearbyList->showAvatarAge(true);
+	mNearbyList->showStatusFlags(true);
+	mNearbyList->showUsername(false);
+	mNearbyList->showPaymentStatus(true);
+	mNearbyList->showPermissions(false);
+	// [Ansariel: Colorful radar]
+	mNearbyList->setUseRangeColors(true);
+	// [/Ansariel: Colorful radar]
+	//nearby_tab->setVisibleCallback(boost::bind(&Updater::setActive, mNearbyListUpdater, _2));
+	mNearbyListUpdater->setActive(true); // AO: always keep radar active, for chat and channel integration
+//mk
 	mRecentList = getChild<LLPanel>(RECENT_TAB_NAME)->getChild<LLAvatarList>("avatar_list");
 	mRecentList->setNoItemsCommentText(getString("no_recent_people"));
 	mRecentList->setNoItemsMsg(getString("no_recent_people"));
@@ -834,20 +862,249 @@ void LLPanelPeople::updateFriendList()
 	showFriendsAccordionsIfNeeded();
 }
 
+void LLPanelPeople::giveMessage(const LLUUID& agent_id, const LLAvatarName& av_name, const std::string& postMsg)
+{
+	//LLPanelPeople::reportToNearbyChat(av_name.getCompleteName(TRUE, FALSE) + postMsg);
+	LLChat chat;
+	chat.mText = postMsg;
+	chat.mSourceType = CHAT_SOURCE_SYSTEM;
+	chat.mFromName = av_name.getCompleteName(TRUE, FALSE);
+	chat.mFromID = agent_id;
+	chat.mChatType = CHAT_TYPE_RADAR;
+	// FS:LO FIRE-1439 - Clickable avatar names on local chat radar crossing reports
+	LLSD args;
+	LLNotificationsUI::LLNotificationManager::instance().onChat(chat, args);
+}
 
+
+//CA WARNING: Between Marine's original changes and mine, this routine has undergone many changes. Be very
+//            careful with automated merges!
+//ca
 
 void LLPanelPeople::updateNearbyList()
 {
 	if (!mNearbyList)
 		return;
+//MK
+	std::vector<LLPanel*> items;
+	F32 drawRadius = gSavedSettings.getF32("RenderFarClip");
+	mNearbyList->getItems(items);	
 
+	// Fetch new list of surrounding Avs
+//mk
 	std::vector<LLVector3d> positions;
-
-	LLWorld::getInstance()->getAvatars(&mNearbyList->getIDs(), &positions, gAgent.getPositionGlobal(), gSavedSettings.getF32("NearMeRange"));
-	mNearbyList->setDirty();
-
+//CA get our region to help with region alerts
+	LLViewerRegion* reg = gAgent.getRegion();
+	LLUUID regionSelf;
+	if (reg)
+	{
+		regionSelf = reg->getRegionID();
+	}
+	LLWorld* world = LLWorld::getInstance();		
+//ca
+//MK
+  LLWorld::getInstance()->getAvatars(&mNearbyList->getIDs(), &positions, gAgent.getPositionGlobal(), gSavedSettings.getF32("NearMeRange"));
+	mNearbyList->setDirty(true,true); // AO: These optional arguements force updating even when we're not a visible window.
 	DISTANCE_COMPARATOR.updateAvatarsPositions(positions, mNearbyList->getIDs());
-	LLActiveSpeakerMgr::instance().update(TRUE);
+
+	//Compare new list with last radar cache, updating fields and processing changes
+	items.clear();
+	mNearbyList->getItems(items);
+//CA get the distances fixed so that first-time alerts will work with distance messages
+	updateNearbyRange();
+//ca
+	for (std::vector<LLPanel*>::const_iterator itItem = items.begin(); itItem != items.end(); ++itItem)
+	{
+		LLAvatarListItem* av = static_cast<LLAvatarListItem*>(*itItem);
+		LLUUID avId = av->getAvatarId();
+		F32 r = av->getRange();
+		
+		if (lastRadarSweep.count(avId) > 0)
+		{
+			av->setFirstSeen(lastRadarSweep[avId].firstSeen);
+
+			// Hide some of the fields if the window is too small
+			int width = getRect().getWidth();
+			int nb = 5;
+			if (width < 330) nb = 4;
+			if (width < 280) nb = 3;
+			if (width < 230) nb = 2;
+			if (width < 160) nb = 1;
+			av->updateFirstSeen(nb);
+
+//CA after adding the region alerts problems started appearing with using avatar names before they had been retrieved
+//   so all messages now go through an avatar name cache callback to ensure they've been loaded
+//ca
+
+        
+			if ( 1 )
+			{
+//CA it doesn't look pretty getting all three messages if someone pops up within chat range, so add logic to only give the
+//   closest active message
+				BOOL messaged = FALSE;
+				if (gSavedSettings.getBOOL("RadarReportChatRange"))
+				{
+					if ((r <= CHAT_NORMAL_RADIUS) && (lastRadarSweep[avId].lastDistance > CHAT_NORMAL_RADIUS))
+					{
+						LLAvatarNameCache::get(avId, boost::bind(&LLPanelPeople::giveMessage, this, _1, _2, "entered chat range"));
+						messaged = TRUE;
+					}
+					else if ((r > CHAT_NORMAL_RADIUS) && (lastRadarSweep[avId].lastDistance <= CHAT_NORMAL_RADIUS))
+					{
+						LLAvatarNameCache::get(avId, boost::bind(&LLPanelPeople::giveMessage, this, _1, _2, "left chat range"));
+						messaged = TRUE;
+					}
+				}
+				if (! messaged && gSavedSettings.getBOOL("RadarReportDrawRange"))
+				{
+					if ((r <= drawRadius) && (lastRadarSweep[avId].lastDistance > drawRadius))
+					{
+						LLAvatarNameCache::get(avId, boost::bind(&LLPanelPeople::giveMessage, this, _1, _2, "entered draw distance"));
+						messaged = TRUE;
+					}
+					else if ((r > drawRadius) && (lastRadarSweep[avId].lastDistance <= drawRadius))
+					{
+						LLAvatarNameCache::get(avId, boost::bind(&LLPanelPeople::giveMessage, this, _1, _2, "left draw distance"));
+						messaged = TRUE;
+					}			
+				}
+//CA add sim range
+				if (!messaged && gSavedSettings.getBOOL("RadarReportSimRange"))
+				{
+					LLVector3d avPos = av->getPosition();
+					LLUUID avRegion;
+					LLViewerRegion *reg = world->getRegionFromPosGlobal(avPos);
+					if (reg)
+					{
+						avRegion = reg->getRegionID();						
+						if ((avRegion == regionSelf) && (avRegion != lastRadarSweep[avId].lastRegion))
+						{
+							LLAvatarNameCache::get(avId, boost::bind(&LLPanelPeople::giveMessage, this, _1, _2, "entered the region"));
+						}
+						else if ((lastRadarSweep[avId].lastRegion == regionSelf) && (avRegion != regionSelf))
+						{
+							LLAvatarNameCache::get(avId, boost::bind(&LLPanelPeople::giveMessage, this, _1, _2, "left the region"));
+						}
+					}
+				}
+//ca
+			}		
+			lastRadarSweep.erase(avId);
+		}
+		// Handle new entries
+		else 
+		{
+			av->setFirstSeen(time(NULL));
+
+			if ( 1 )
+			{
+				BOOL messaged = FALSE;
+				if (gSavedSettings.getBOOL("RadarReportChatRange") && (r <= CHAT_NORMAL_RADIUS))
+				{			
+					LLAvatarNameCache::get(avId, boost::bind(&LLPanelPeople::giveMessage, this, _1, _2, llformat("entered chat range (%3.2f m)",r)));
+					messaged = TRUE;
+				}
+				if (!messaged && gSavedSettings.getBOOL("RadarReportDrawRange") && (r <= drawRadius))
+				{
+					LLAvatarNameCache::get(avId, boost::bind(&LLPanelPeople::giveMessage, this, _1, _2, llformat("entered draw distance (%3.2f m)",r)));
+					messaged = TRUE;
+				}
+//CA add sim range				
+				if (!messaged && gSavedSettings.getBOOL("RadarReportSimRange"))
+				{
+					LLVector3d avPos = av->getPosition();
+					LLUUID avRegion;
+					LLViewerRegion *reg = world->getRegionFromPosGlobal(avPos);
+					if (reg)
+					{
+						avRegion = reg->getRegionID();
+						if (avRegion == regionSelf)
+						{
+							// don't give a distance because it's probably capped at ~1020m (FS gets around this with the bridge script)
+							LLAvatarNameCache::get(avId, boost::bind(&LLPanelPeople::giveMessage, this, _1, _2, "entered the region"));
+						}
+					}
+				}
+//ca					
+			}
+		}
+	}
+	// At this point, anything left in the lastRadarSweep map is an avatar that disappeared from scans.
+	for (std::map <LLUUID, radarFields>::const_iterator i = lastRadarSweep.begin(); i != lastRadarSweep.end(); ++i)
+	{
+		radarFields rf = i->second;
+		
+		if ( 1 )
+		{
+			BOOL messaged = FALSE;
+//CA in the case of departures it makes more sense to prioritise these the other may around so if someone leaves
+//   the region you don't get chat and drawdistance too, or just chat as was the case before this change
+//CA add region alerts
+//CA add check that they were in the region (rather than disappearing from a neighbouring one)
+			if (gSavedSettings.getBOOL("RadarReportSimRange"))
+			{
+				if (rf.lastRegion == regionSelf)
+				{
+					LLAvatarNameCache::get(i->first, boost::bind(&LLPanelPeople::giveMessage, this, _1, _2, "left the region"));
+					messaged = TRUE;
+				}
+			}
+			if (!messaged && gSavedSettings.getBOOL("RadarReportDrawRange") && (rf.lastDistance <= drawRadius))
+			{
+				LLAvatarNameCache::get(i->first, boost::bind(&LLPanelPeople::giveMessage, this, _1, _2, "left draw distance"));
+				messaged = TRUE;
+			}
+			if (!messaged && gSavedSettings.getBOOL("RadarReportChatRange") && (rf.lastDistance <= CHAT_NORMAL_RADIUS))
+			{
+				LLAvatarNameCache::get(i->first, boost::bind(&LLPanelPeople::giveMessage, this, _1, _2, "left chat range"));
+			}
+//ca
+//ca
+//ca
+		}
+	}
+
+	lastRadarSweep.clear();
+	for (std::vector<LLPanel*>::const_iterator itItem = items.begin(); itItem != items.end(); ++itItem)
+	{
+		LLAvatarListItem* av = static_cast<LLAvatarListItem*>(*itItem);
+		radarFields rf;
+		rf.avName = av->getAvatarName();
+		rf.lastDistance = av->getRange();
+		av->setShowPermissions (false);
+		if (av->getPosition() != LLVector3d(0.0f,0.0f,0.0f))
+		{
+			LLViewerRegion* r = LLWorld::getInstance()->getRegionFromPosGlobal(av->getPosition());
+			if (r)
+			{
+				rf.lastRegion = r->getRegionID();
+			}
+		}
+		else 
+		{
+			rf.lastRegion = LLUUID(0);
+		}
+		
+		rf.firstSeen = av->getFirstSeen();
+		rf.lastStatus = av->getAvStatus();
+		rf.lastGlobalPos = av->getPosition();
+		
+		lastRadarSweep[av->getAvatarId()] = rf;
+	}
+
+    // Update various display fields
+    //CA now done earlier because we need it for the arrival tests
+    //    updateNearbyRange();
+    //
+    LLActiveSpeakerMgr::instance().update(TRUE);
+    //mk
+    //CA merge error - these are duplicated above where they're used for the radar messages
+    //    LLWorld::getInstance()->getAvatars(&mNearbyList->getIDs(), &positions, gAgent.getPositionGlobal(), gSavedSettings.getF32("NearMeRange"));
+    //    mNearbyList->setDirty();
+    //
+    //    DISTANCE_COMPARATOR.updateAvatarsPositions(positions, mNearbyList->getIDs());
+    //    LLActiveSpeakerMgr::instance().update(TRUE);
+    //ca
 }
 
 void LLPanelPeople::updateRecentList()
@@ -857,8 +1114,39 @@ void LLPanelPeople::updateRecentList()
 
 	LLRecentPeople::instance().get(mRecentList->getIDs());
 	mRecentList->setDirty();
+
+//MK
+{
+		LLPanel* nearby_tab = getChild<LLPanel>(NEARBY_TAB_NAME);
+		if (nearby_tab && nearby_tab->getVisible())
+		{
+//			nearby_tab->setVisible(FALSE);
+			nearby_tab->childSetVisible("avatar_list", FALSE);
+		}
+		return;
+	}
+//mk
 }
 
+//MK
+void LLPanelPeople::updateNearbyRange()
+// Iterates through nearbyList elements, updating the range field.
+// Thanks to Kitty Barnett for this logic.
+{
+	
+	// Make sure we're using the same data as the distance comparator
+	const LLAvatarItemDistanceComparator::id_to_pos_map_t& posAvatars = DISTANCE_COMPARATOR.getAvatarsPositions();
+	const LLVector3d& posSelf = gAgent.getPositionGlobal();
+	std::vector<LLPanel*> items;
+	mNearbyList->getItems(items);
+	for (std::vector<LLPanel*>::const_iterator itItem = items.begin(); itItem != items.end(); ++itItem)
+	{
+		LLAvatarListItem* pItem = static_cast<LLAvatarListItem*>(*itItem);
+		const LLVector3d& posOtherAvatar = posAvatars.find(pItem->getAvatarId())->second;
+		pItem->setPosition(posOtherAvatar);
+		pItem->setRange(dist_vec(posOtherAvatar, posSelf));
+	}
+}
 
 void LLPanelPeople::updateButtons()
 {
@@ -1392,6 +1680,14 @@ void LLPanelPeople::onNearbyViewSortMenuItemClicked(const LLSD& userdata)
 	    mNearbyList->setShowCompleteName(!hide_usernames);
 	    mNearbyList->handleDisplayNamesOptionChanged();
 	}
+	else if (chosen_item == "view_login_names") {
+		gSavedSettings.setBOOL(
+			"useCompleteNameInLists",
+			!gSavedSettings.getBOOL("useCompleteNameInLists")
+		);
+
+		mNearbyList->handleDisplayNamesOptionChanged();
+	}
 }
 
 bool LLPanelPeople::onNearbyViewSortMenuItemCheck(const LLSD& userdata)
@@ -1447,7 +1743,6 @@ void LLPanelPeople::onRecentViewSortMenuItemClicked(const LLSD& userdata)
 bool LLPanelPeople::onFriendsViewSortMenuItemCheck(const LLSD& userdata) 
 {
 	std::string item = userdata.asString();
-
 	static LLCachedControl<U32> sort_order(gSavedSettings, "FriendsSortOrder", E_SORT_BY_NAME);
 
 	if (item == "sort_name") {

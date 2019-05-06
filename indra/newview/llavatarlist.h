@@ -79,6 +79,13 @@ public:
 	void toggleIcons();
 	void setSpeakingIndicatorsVisible(bool visible);
 	void showPermissions(bool visible);
+	void showRange(bool visible);
+	void showFirstSeen(bool visible);
+	void showStatusFlags(bool visible);
+	void showPaymentStatus(bool visible);
+	void showDisplayName(bool visible);
+	void showAvatarAge(bool visible);
+	void showUsername(bool visible);	
 	void sortByName();
 	void setShowIcons(std::string param_name);
 	bool getIconsVisible() const { return mShowIcons; }
@@ -88,6 +95,10 @@ public:
 	/*virtual*/ BOOL handleMouseDown( S32 x, S32 y, MASK mask );
 	/*virtual*/ BOOL handleMouseUp(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL handleHover(S32 x, S32 y, MASK mask);
+
+	// [Ansariel: Colorful radar]
+	void setUseRangeColors(bool UseRangeColors);
+	// [/Ansariel: Colorful radar]
 
 	// Return true if filter has at least one match.
 	bool filterHasMatches();
@@ -132,6 +143,19 @@ private:
 	bool mShowSpeakingIndicator;
 	bool mShowPermissions;
 	bool mShowCompleteName;
+	bool mShowRange;
+	bool mShowFirstSeen;
+	bool mShowStatusFlags;
+	bool mShowPaymentStatus;
+	bool mShowAge;
+	bool mShowDisplayName;
+	bool mShowUsername;
+	bool mIgnoreGlobalIcons;
+	S32  mItemHeight;
+	
+	// [Ansariel: Colorful radar]
+	bool mUseRangeColors;
+	// [/Ansariel: Colorful radar]	
 
 	LLTimer*				mLITUpdateTimer; // last interaction time update timer
 	std::string				mIconParamName;

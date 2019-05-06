@@ -48,6 +48,10 @@
 #include "llviewercontrol.h"	// for gSavedSettings
 #include "lltooldraganddrop.h"
 
+//MK
+#include "llagent.h"
+//mk
+
 static LLDefaultChildRegistry::Register<LLAvatarList> r("avatar_list");
 
 // Last interaction time update period.
@@ -106,6 +110,89 @@ void LLAvatarList::showPermissions(bool visible)
 	}
 }
 
+void LLAvatarList::showRange(bool visible)
+{
+	mShowRange = visible;
+	// Enable or disable showing distance field for all detected avatars.
+	std::vector<LLPanel*> items;
+	getItems(items);
+	for(std::vector<LLPanel*>::const_iterator it = items.begin(), end_it = items.end(); it != end_it; ++it)
+	{
+		static_cast<LLAvatarListItem*>(*it)->showRange(mShowRange);
+	}	
+}
+
+void LLAvatarList::showFirstSeen(bool visible)
+{
+	mShowFirstSeen = visible;
+	// Enable or disable showing time since noticed, for all detected avatars.
+	std::vector<LLPanel*> items;
+	getItems(items);
+	for(std::vector<LLPanel*>::const_iterator it = items.begin(), end_it = items.end(); it != end_it; ++it)
+	{
+		static_cast<LLAvatarListItem*>(*it)->showFirstSeen(visible);
+	}	
+}
+
+void LLAvatarList::showStatusFlags(bool visible)
+{
+	mShowStatusFlags = visible;
+	// Enable or disable showing movement flags for all detected avatars.
+	std::vector<LLPanel*> items;
+	getItems(items);
+	for(std::vector<LLPanel*>::const_iterator it = items.begin(), end_it = items.end(); it != end_it; ++it)
+	{
+		static_cast<LLAvatarListItem*>(*it)->showStatusFlags(visible);
+	}	
+}
+
+void LLAvatarList::showDisplayName(bool visible)
+{
+	mShowDisplayName = visible;
+	std::vector<LLPanel*> items;
+	getItems(items);
+	for(std::vector<LLPanel*>::const_iterator it = items.begin(), end_it = items.end(); it != end_it; ++it)
+	{
+		static_cast<LLAvatarListItem*>(*it)->showDisplayName(visible);
+	}
+	mNeedUpdateNames = true;
+}
+
+void LLAvatarList::showUsername(bool visible)
+{
+	mShowUsername = visible;
+	std::vector<LLPanel*> items;
+	getItems(items);
+	for(std::vector<LLPanel*>::const_iterator it = items.begin(), end_it = items.end(); it != end_it; ++it)
+	{
+		static_cast<LLAvatarListItem*>(*it)->showUsername(visible);
+	}
+	mNeedUpdateNames = true;
+}
+
+void LLAvatarList::showAvatarAge(bool visible)
+{
+	mShowAge = visible;
+	std::vector<LLPanel*> items;
+	getItems(items);
+	for(std::vector<LLPanel*>::const_iterator it = items.begin(), end_it = items.end(); it != end_it; ++it)
+	{
+		static_cast<LLAvatarListItem*>(*it)->showAvatarAge(visible);
+	}
+}
+
+void LLAvatarList::showPaymentStatus(bool visible)
+{
+	mShowPaymentStatus = visible;
+	std::vector<LLPanel*> items;
+	getItems(items);
+	for(std::vector<LLPanel*>::const_iterator it = items.begin(), end_it = items.end(); it != end_it; ++it)
+	{
+		static_cast<LLAvatarListItem*>(*it)->showPaymentStatus(visible);
+	}
+	mNeedUpdateNames = true;
+}
+
 static bool findInsensitive(std::string haystack, const std::string& needle_upper)
 {
     LLStringUtil::toUpper(haystack);
@@ -141,6 +228,17 @@ LLAvatarList::LLAvatarList(const Params& p)
 , mShowSpeakingIndicator(p.show_speaking_indicator)
 , mShowPermissions(p.show_permissions_granted)
 , mShowCompleteName(false)
+, mShowRange(false)
+, mShowStatusFlags(false)
+, mShowUsername(true)
+, mShowDisplayName(true)
+, mIgnoreGlobalIcons(false)
+, mShowAge(false)
+, mShowPaymentStatus(false)
+, mItemHeight(0)
+// [Ansariel: Colorful radar]
+, mUseRangeColors(false)
+// [Ansariel: Colorful radar]
 {
 	setCommitOnSelectionChange(true);
 
@@ -174,6 +272,19 @@ void LLAvatarList::setShowIcons(std::string param_name)
 	mIconParamName= param_name;
 	mShowIcons = gSavedSettings.getBOOL(mIconParamName);
 }
+// [Ansariel: Colorful radar]
+void LLAvatarList::setUseRangeColors(bool UseRangeColors)
+{
+	mUseRangeColors = UseRangeColors;
+
+	std::vector<LLPanel*> items;
+	getItems(items);
+	for( std::vector<LLPanel*>::const_iterator it = items.begin(); it != items.end(); it++)
+	{
+		static_cast<LLAvatarListItem*>(*it)->setUseRangeColors(mUseRangeColors);
+	}
+}
+// [Ansariel: Colorful radar]
 
 std::string LLAvatarList::getAvatarName(LLAvatarName av_name)
 {
@@ -440,6 +551,13 @@ S32 LLAvatarList::notifyParent(const LLSD& info)
 
 void LLAvatarList::addNewItem(const LLUUID& id, const std::string& name, BOOL is_online, EAddPosition pos)
 {
+//MK
+	// Do not add ourselves to the list
+	if (id == gAgent.getID())
+	{
+		return;
+	}
+//mk
 	LLAvatarListItem* item = new LLAvatarListItem();
 	item->setShowCompleteName(mShowCompleteName);
 	// This sets the name as a side effect
@@ -453,6 +571,20 @@ void LLAvatarList::addNewItem(const LLUUID& id, const std::string& name, BOOL is
 	item->showSpeakingIndicator(mShowSpeakingIndicator);
 	item->setShowPermissions(mShowPermissions);
 
+	item->showUsername(mShowUsername);
+	item->showDisplayName(mShowDisplayName);
+	item->showRange(mShowRange);
+	item->showFirstSeen(mShowFirstSeen);
+	item->showStatusFlags(mShowStatusFlags);
+	item->showPaymentStatus(mShowPaymentStatus);
+	item->showAvatarAge(mShowAge);
+	
+	// [Ansariel: Colorful radar]
+	item->setUseRangeColors(mUseRangeColors);
+	LLUIColorTable* colorTable = &LLUIColorTable::instance();
+	item->setShoutRangeColor(colorTable->getColor("AvatarListItemShoutRange", LLColor4::yellow));
+	item->setBeyondShoutRangeColor(colorTable->getColor("AvatarListItemBeyondShoutRange", LLColor4::red));
+	// [/Ansariel: Colorful radar]
 
 	item->setDoubleClickCallback(boost::bind(&LLAvatarList::onItemDoubleClicked, this, _1, _2, _3, _4));
 

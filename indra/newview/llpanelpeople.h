@@ -83,18 +83,26 @@ private:
     void				    removePicker();
 
 	// methods indirectly called by the updaters
+//CA
+	void					giveMessage(const LLUUID& agent_id, const LLAvatarName& av_name, const std::string& postMsg);
+//ca
 	void					updateFriendListHelpText();
 	void					updateFriendList();
 	void					updateNearbyList();
 	void					updateRecentList();
-
+//MK
+    void                    updateNearbyRange();
+//mk
 	bool					isItemsFreeOfFriends(const uuid_vec_t& uuids);
 
 	void					updateButtons();
 	std::string				getActiveTabName() const;
 	LLUUID					getCurrentItemID() const;
 	void					getCurrentItemIDs(uuid_vec_t& selected_uuids) const;
-	void					showGroupMenu(LLMenuGL* menu);
+//MK
+    void                    reportToNearbyChat(std::string message);
+//mk
+    void					showGroupMenu(LLMenuGL* menu);
 	void					setSortOrder(LLAvatarList* list, ESortOrder order, bool save = true);
 
 	// UI callbacks
@@ -167,6 +175,26 @@ private:
 	Updater*				mRecentListUpdater;
 	Updater*				mButtonsUpdater;
     LLHandle< LLFloater >	mPicker;
+//MK
+    LLMenuButton*            mNearbyGearButton;
+    LLMenuButton*            mFriendsGearButton;
+    LLMenuButton*            mGroupsGearButton;
+    LLMenuButton*            mRecentGearButton;
+    
+    std::string                mFilterSubString;
+    std::string                mFilterSubStringOrig;
+    
+    struct radarFields
+    {
+        std::string avName;
+        F32 lastDistance;
+        LLVector3d lastGlobalPos;
+        LLUUID lastRegion;
+        time_t firstSeen;
+        S32 lastStatus;
+    };
+    std::map < LLUUID, radarFields > lastRadarSweep;
+//mk    
 };
 
 #endif //LL_LLPANELPEOPLE_H
