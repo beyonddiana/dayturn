@@ -52,7 +52,7 @@ LLToolSelectLand::LLToolSelectLand( )
 	mDragStartY(0),
 	mDragEndX(0),
 	mDragEndY(0),
-	mMouseOutsideSlop(FALSE),
+	mMouseOutsideSlop(false),
 	mWestSouthBottom(),
 	mEastNorthTop()
 { }
@@ -85,7 +85,7 @@ BOOL LLToolSelectLand::handleMouseDown(S32 x, S32 y, MASK mask)
 		roundXY(mWestSouthBottom);
 		roundXY(mEastNorthTop);
 
-		mMouseOutsideSlop = TRUE; //FALSE;
+		mMouseOutsideSlop = true; //false;
 
 		LLViewerParcelMgr::getInstance()->deselectLand();
 	}
@@ -132,7 +132,7 @@ BOOL LLToolSelectLand::handleMouseUp(S32 x, S32 y, MASK mask)
 			mSelection = LLViewerParcelMgr::getInstance()->selectLand( mWestSouthBottom, mEastNorthTop, FALSE );
 		}
 
-		mMouseOutsideSlop = FALSE;
+		mMouseOutsideSlop = false;
 		mDragEndValid = FALSE;
 		
 		return TRUE;
@@ -147,7 +147,7 @@ bool LLToolSelectLand::handleHover(S32 x, S32 y, MASK mask)
 	{
 		if (mMouseOutsideSlop || outsideSlop(x, y, mDragStartX, mDragStartY))
 		{
-			mMouseOutsideSlop = TRUE;
+			mMouseOutsideSlop = true;
 
 			// Must do this every frame, in case the camera moved or the land moved
 			// since last frame.

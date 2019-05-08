@@ -62,7 +62,7 @@ LLToolSelectRect::LLToolSelectRect( LLToolComposite* composite )
 	mDragEndY(0),
 	mDragLastWidth(0),
 	mDragLastHeight(0),
-	mMouseOutsideSlop(FALSE)
+	mMouseOutsideSlop(false)
 
 { }
 
@@ -91,7 +91,7 @@ void LLToolSelectRect::handlePick(const LLPickInfo& pick)
 	mDragEndX = pick.mMousePt.mX;
 	mDragEndY = pick.mMousePt.mY;
 
-	mMouseOutsideSlop = FALSE;
+	mMouseOutsideSlop = false;
 }
 
 
@@ -104,7 +104,7 @@ BOOL LLToolSelectRect::handleMouseUp(S32 x, S32 y, MASK mask)
 		mDragLastWidth = 0;
 		mDragLastHeight = 0;
 
-		mMouseOutsideSlop = FALSE;
+		mMouseOutsideSlop = false;
 		
 		if (mask == MASK_CONTROL)
 		{
@@ -134,7 +134,7 @@ bool LLToolSelectRect::handleHover(S32 x, S32 y, MASK mask)
 				// just started rect select, and not adding to current selection
 				LLSelectMgr::getInstance()->deselectAll();
 			}
-			mMouseOutsideSlop = TRUE;
+			mMouseOutsideSlop = true;
 			mDragEndX = x;
 			mDragEndY = y;
 

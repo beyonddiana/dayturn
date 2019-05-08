@@ -64,7 +64,7 @@ protected:
 	S32				mDragEndX;
 	S32				mDragEndY;
 
-	BOOL			mMouseOutsideSlop;		// has mouse ever gone outside slop region?
+	bool			mMouseOutsideSlop;		// has mouse ever gone outside slop region?
 
 	LLVector3d		mWestSouthBottom;		// global coords, from drag
 	LLVector3d		mEastNorthTop;			// global coords, from drag

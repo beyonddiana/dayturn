@@ -85,7 +85,7 @@ protected:
 private:
 	S32			mLastHoverMouseX;
 	S32			mLastHoverMouseY;
-	BOOL		mMouseOutsideSlop;		// true after mouse goes outside slop region
+	bool		mMouseOutsideSlop;		// true after mouse goes outside slop region
 	BOOL		mCopyMadeThisDrag;
 	S32			mMouseDownX;
 	S32			mMouseDownY;
