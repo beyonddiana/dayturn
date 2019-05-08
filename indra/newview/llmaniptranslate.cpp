@@ -112,7 +112,7 @@ LLManipTranslate::LLManipTranslate( LLToolComposite* composite )
 	mLastHoverMouseX(-1),
 	mLastHoverMouseY(-1),
 	mMouseOutsideSlop(false),
-	mCopyMadeThisDrag(FALSE),
+	mCopyMadeThisDrag(false),
 	mMouseDownX(-1),
 	mMouseDownY(-1),
 	mAxisArrowLength(50),
@@ -396,7 +396,7 @@ BOOL LLManipTranslate::handleMouseDownOnPart( S32 x, S32 y, MASK mask )
 	LLVector3d object_start_global = gAgent.getPosGlobalFromAgent(getPivotPoint());
 	getMousePointOnPlaneGlobal(mDragCursorStartGlobal, x, y, object_start_global, mManipNormal);
 	mDragSelectionStartGlobal = object_start_global;
-	mCopyMadeThisDrag = FALSE;
+	mCopyMadeThisDrag = false;
 
 	// Route future Mouse messages here preemptively.  (Release on mouse up.)
 	setMouseCapture( TRUE );
@@ -472,7 +472,7 @@ bool LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 			{
 				// ...we're trying to make a copy
 				LLSelectMgr::getInstance()->selectDuplicate(LLVector3::zero, FALSE);
-				mCopyMadeThisDrag = TRUE;
+				mCopyMadeThisDrag = true;
 
 				// When we make the copy, we don't want to do any other processing.
 				// If so, the object will also be moved, and the copy will be offset.
