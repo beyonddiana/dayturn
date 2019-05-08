@@ -175,12 +175,7 @@ private:
 	Updater*				mRecentListUpdater;
 	Updater*				mButtonsUpdater;
     LLHandle< LLFloater >	mPicker;
-//MK
-    LLMenuButton*            mNearbyGearButton;
-    LLMenuButton*            mFriendsGearButton;
-    LLMenuButton*            mGroupsGearButton;
-    LLMenuButton*            mRecentGearButton;
-    
+//MK    
     std::string                mFilterSubString;
     std::string                mFilterSubStringOrig;
     
