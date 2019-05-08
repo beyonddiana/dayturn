@@ -86,7 +86,7 @@ private:
 	S32			mLastHoverMouseX;
 	S32			mLastHoverMouseY;
 	bool		mMouseOutsideSlop;		// true after mouse goes outside slop region
-	BOOL		mCopyMadeThisDrag;
+	bool		mCopyMadeThisDrag;
 	S32			mMouseDownX;
 	S32			mMouseDownY;
 	F32			mAxisArrowLength;		// pixels
