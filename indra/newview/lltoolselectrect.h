@@ -57,7 +57,7 @@ protected:
 	S32				mDragLastWidth;
 	S32				mDragLastHeight;
 
-	BOOL			mMouseOutsideSlop;		// has mouse ever gone outside slop region?
+	bool			mMouseOutsideSlop;		// has mouse ever gone outside slop region?
 };
 
 

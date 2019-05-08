@@ -1,4 +1,4 @@
-﻿/** 
+/** 
  * @file llmaniptranslate.cpp
  * @brief LLManipTranslate class implementation
  *
@@ -111,7 +111,7 @@ LLManipTranslate::LLManipTranslate( LLToolComposite* composite )
 :	LLManip( std::string("Move"), composite ),
 	mLastHoverMouseX(-1),
 	mLastHoverMouseY(-1),
-	mMouseOutsideSlop(FALSE),
+	mMouseOutsideSlop(false),
 	mCopyMadeThisDrag(FALSE),
 	mMouseDownX(-1),
 	mMouseDownY(-1),
@@ -344,7 +344,7 @@ BOOL LLManipTranslate::handleMouseDownOnPart( S32 x, S32 y, MASK mask )
 	mManipPart = (EManipPart)hit_part;
 	mMouseDownX = x;
 	mMouseDownY = y;
-	mMouseOutsideSlop = FALSE;
+	mMouseOutsideSlop = false;
 
 	LLVector3		axis;
 
@@ -466,7 +466,7 @@ bool LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 		else
 		{
 			// ...just went outside the slop region
-			mMouseOutsideSlop = TRUE;
+			mMouseOutsideSlop = true;
 			// If holding down shift, leave behind a copy.
 			if (mask == MASK_COPY)
 			{

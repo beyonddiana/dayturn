@@ -113,7 +113,7 @@ BOOL LLToolPie::handleMouseDown(S32 x, S32 y, MASK mask)
         mDoubleClickTimer.stop();
     }
 
-    mMouseOutsideSlop = FALSE;
+    mMouseOutsideSlop = false;
 	mMouseDownX = x;
 	mMouseDownY = y;
     LLTimer pick_timer;
