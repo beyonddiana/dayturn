@@ -5530,6 +5530,19 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 					continue;
 				}
 
+//MK
+				// Do not render surfaces with 0% alpha (unless we are in alpha debug mode)
+				if (!LLDrawPoolAlpha::sShowDebugAlpha && !gAgent.mRRInterface.sRestrainedLoveRenderInvisibleSurfaces)
+				{
+					const LLTextureEntry* tep = facep->getTextureEntry();
+					LLColor4 color = tep->getColor();
+					if (color.mV[3] < 0.0001f)
+					{
+						continue;
+					}
+				}
+//mk
+
 				//ALWAYS null out vertex buffer on rebuild -- if the face lands in a render
 				// batch, it will recover its vertex buffer reference from the spatial group
 				facep->setVertexBuffer(NULL);
