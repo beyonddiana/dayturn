@@ -248,6 +248,7 @@
         <menu_item_check label="Offre des offres à #RLV"  name="Forbid offers to #RLV"/>
         <menu_item_check label="Montrez '...'"  name="ShowEllipsis"/>
         <menu_item_check label="Double - cliquez pour remplacer l'objet"  name="RestrainedLoveDoubleClickWear"/>
+        <menu_item_check label="Rendent les surfaces invisibles"  name="RenderInvisibleSurfaces"/>
         <menu label="Centre"  name="Focus">
             <menu_item_call label="Tête"  name="RLV.FocusHead"/>
             <menu_item_call label="Bassin"  name="RLV.FocusPelvis"/>

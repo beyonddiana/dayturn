@@ -233,6 +233,17 @@
       <key>Value</key>
       <integer>1</integer>
     </map>
+    <key>RestrainedLoveRenderInvisibleSurfaces</key>
+    <map>
+      <key>Comment</key>
+      <string>If TRUE, surfaces with 0% alpha are still rendered. Use if you have issues seeing some transparent surfaces.</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+    </map>
     <key>RestrainedLoveHeadMouselookRenderRigged</key>
     <map>
       <key>Comment</key>
