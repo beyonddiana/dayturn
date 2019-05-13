@@ -5530,19 +5530,6 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 					continue;
 				}
 
-//MK
-				// Do not render surfaces with 0% alpha (unless we are in alpha debug mode)
-				if (!LLDrawPoolAlpha::sShowDebugAlpha && !gAgent.mRRInterface.sRestrainedLoveRenderInvisibleSurfaces)
-				{
-					const LLTextureEntry* tep = facep->getTextureEntry();
-					LLColor4 color = tep->getColor();
-					if (color.mV[3] < 0.0001f)
-					{
-						continue;
-					}
-				}
-//mk
-
 				//ALWAYS null out vertex buffer on rebuild -- if the face lands in a render
 				// batch, it will recover its vertex buffer reference from the spatial group
 				facep->setVertexBuffer(NULL);
@@ -5575,6 +5562,17 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 						{
 							((LLDrawPoolAvatar*) old_pool)->removeRiggedFace(facep);
 						}
+
+//MK
+						// Do not render surfaces with 0% alpha (unless we are in alpha debug mode)
+						if (!LLDrawPoolAlpha::sShowDebugAlpha && !gAgent.mRRInterface.sRestrainedLoveRenderInvisibleSurfaces)
+						{
+							if (te->getColor().mV[3] < 0.0001f)
+							{
+								continue;
+							}
+						}
+//mk
 
 						//add face to new pool
 						LLViewerTexture* tex = facep->getTexture();
@@ -5645,66 +5643,65 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 						}
 						else
 						{
-						if (type == LLDrawPool::POOL_ALPHA)
-						{
-							if (te->getColor().mV[3] > 0.f)
+							if (type == LLDrawPool::POOL_ALPHA)
+							{
+								if (te->getColor().mV[3] > 0.f)
+								{
+									if (te->getFullbright())
+									{
+										pool->addRiggedFace(facep, LLDrawPoolAvatar::RIGGED_FULLBRIGHT_ALPHA);
+									}
+									else
+									{
+										pool->addRiggedFace(facep, LLDrawPoolAvatar::RIGGED_ALPHA);
+									}
+								}
+							}
+							else if (te->getShiny())
 							{
 								if (te->getFullbright())
 								{
-									pool->addRiggedFace(facep, LLDrawPoolAvatar::RIGGED_FULLBRIGHT_ALPHA);
+									pool->addRiggedFace(facep, LLDrawPoolAvatar::RIGGED_FULLBRIGHT_SHINY);
 								}
 								else
 								{
-									pool->addRiggedFace(facep, LLDrawPoolAvatar::RIGGED_ALPHA);
+									if (LLPipeline::sRenderDeferred)
+									{
+										pool->addRiggedFace(facep, LLDrawPoolAvatar::RIGGED_SIMPLE);
+									}
+									else
+									{
+										pool->addRiggedFace(facep, LLDrawPoolAvatar::RIGGED_SHINY);
+									}
 								}
-							}
-						}
-						else if (te->getShiny())
-						{
-							if (te->getFullbright())
-							{
-								pool->addRiggedFace(facep, LLDrawPoolAvatar::RIGGED_FULLBRIGHT_SHINY);
 							}
 							else
 							{
-								if (LLPipeline::sRenderDeferred)
+								if (te->getFullbright())
+								{
+                                    pool->addRiggedFace(facep, LLDrawPoolAvatar::RIGGED_FULLBRIGHT);								}
+								else
 								{
 									pool->addRiggedFace(facep, LLDrawPoolAvatar::RIGGED_SIMPLE);
 								}
-								else
-								{
-									pool->addRiggedFace(facep, LLDrawPoolAvatar::RIGGED_SHINY);
-								}
 							}
-						}
-						else
-						{
-							if (te->getFullbright())
-							{
-								pool->addRiggedFace(facep, LLDrawPoolAvatar::RIGGED_FULLBRIGHT);
-							}
-							else
-							{
-								pool->addRiggedFace(facep, LLDrawPoolAvatar::RIGGED_SIMPLE);
-							}
-						}
 
 
-						if (LLPipeline::sRenderDeferred)
-						{
-							if (type != LLDrawPool::POOL_ALPHA && !te->getFullbright())
+							if (LLPipeline::sRenderDeferred)
 							{
-								if (te->getBumpmap())
+								if (type != LLDrawPool::POOL_ALPHA && !te->getFullbright())
 								{
-									pool->addRiggedFace(facep, LLDrawPoolAvatar::RIGGED_DEFERRED_BUMP);
-								}
-								else
-								{
-									pool->addRiggedFace(facep, LLDrawPoolAvatar::RIGGED_DEFERRED_SIMPLE);
+									if (te->getBumpmap())
+									{
+										pool->addRiggedFace(facep, LLDrawPoolAvatar::RIGGED_DEFERRED_BUMP);
+									}
+									else
+									{
+										pool->addRiggedFace(facep, LLDrawPoolAvatar::RIGGED_DEFERRED_SIMPLE);
+									}
 								}
 							}
 						}
-					}
 					}
 
 					continue;
@@ -5721,7 +5718,6 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 						facep->clearState(LLFace::RIGGED);
 					}
 				}
-
 
 				if (cur_total > max_total || facep->getIndicesCount() <= 0 || facep->getGeomCount() <= 0)
 				{
@@ -5740,6 +5736,17 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 					{
 						emissive = true;
 					}
+
+//MK
+					// Do not render surfaces with 0% alpha (unless we are in alpha debug mode or they glow)
+					if (!emissive && !LLDrawPoolAlpha::sShowDebugAlpha && !gAgent.mRRInterface.sRestrainedLoveRenderInvisibleSurfaces)
+					{
+						if (te->getColor().mV[3] < 0.0001f)
+						{
+							continue;
+						}
+					}
+//mk
 
 					if (facep->isState(LLFace::TEXTURE_ANIM))
 					{

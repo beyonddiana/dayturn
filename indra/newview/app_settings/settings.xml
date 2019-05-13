@@ -236,7 +236,7 @@
     <key>RestrainedLoveRenderInvisibleSurfaces</key>
     <map>
       <key>Comment</key>
-      <string>If TRUE, surfaces with 0% alpha are still rendered. Use if you have issues seeing some transparent surfaces.</string>
+      <string>If TRUE, surfaces with 0% alpha are still rendered. Keep FALSE unless you have issues seeing some transparent surfaces. Press Ctrl-Alt-Shift-V after changing this setting to refresh all objects and see the difference immediately.</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
