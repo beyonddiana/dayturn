@@ -1865,6 +1865,27 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 	stop_glerror();
 
 //MK
+	// Calculate the position of the avatar here so we don't have to do it for each face
+	if (!gAgentAvatarp)
+	{
+		return;
+	}
+	bool vision_restricted = (gRRenabled && gAgent.mRRInterface.mCamDistDrawMax < EXTREMUM);
+	bool is_self = (avatar == gAgentAvatarp);
+
+	// Optimization : Rather than compare the distances for every face (which involves square roots, which are costly), we compare squared distances.
+	LLVector3 joint_pos = LLVector3::zero;
+	F32 cam_dist_draw_max_squared = EXTREMUM;
+	// We don't need to calculate all that stuff if the vision is not restricted.
+	if (vision_restricted)
+	{
+		joint_pos = gAgent.mRRInterface.getCamDistDrawFromJoint()->getWorldPosition();
+		cam_dist_draw_max_squared = gAgent.mRRInterface.mCamDistDrawMax * gAgent.mRRInterface.mCamDistDrawMax;
+	}
+//mk
+
+
+//MK
 	// A little optimization, nothing much but why calculate size() of an array at every step along that very array?
 	////for (U32 i = 0; i < mRiggedFace[type].size(); ++i)
 	U32 size = mRiggedFace[type].size();
@@ -1905,6 +1926,34 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 		{
 			continue;
 		}
+
+//MK
+		LLVector3 face_pos = LLVector3::zero;
+		LLVector3 face_avatar_offset = LLVector3::zero;
+		F32 face_distance_to_avatar_squared = EXTREMUM;
+
+		// We don't need to calculate all that stuff if the vision is not restricted.
+		if (vision_restricted)
+		{
+			// We need the position of the face for later, as well as the square of the distance from this face to the avatar
+			face_pos = face->getPositionAgent();
+			face_avatar_offset = face_pos - joint_pos;
+			face_distance_to_avatar_squared = (F32)face_avatar_offset.magVecSquared();
+
+			// If the vision is restricted, rendering alpha rigged attachments may allow to cheat through the vision spheres.
+			if (!is_self) // Other avatars only
+			{
+				if (face_distance_to_avatar_squared > cam_dist_draw_max_squared)
+				{
+					U32 type = gPipeline.getPoolTypeFromTE(face->getTextureEntry(), face->getTexture());
+					if (type == LLDrawPool::POOL_ALPHA)
+					{
+						continue;
+					}
+				}
+			}
+		}
+//mk
 
 		LLVolume* volume = vobj->getVolume();
 		S32 te = face->getTEOffset();

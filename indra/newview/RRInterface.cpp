@@ -5103,7 +5103,7 @@ BOOL RRInterface::updateCameraLimits ()
 	mVisionRestricted = (mCamDistDrawMin < EXTREMUM || mCamDistDrawMax < EXTREMUM);
 
 	// Use impostors if we use silhouettes or if the outer sphere is 99% opaque or more
-	if (mShowavsDistMax < EXTREMUM || mCamDistDrawAlphaMax >= 0.99f) {
+	if (mShowavsDistMax < EXTREMUM || mCamDistDrawAlphaMax >= ALPHA_ALMOST_OPAQUE) {
 		LLVOAvatar::sUseImpostors = TRUE;
 	}
 	else {

@@ -8164,7 +8164,7 @@ bool LLVOAvatar::isTooComplex() const
 	{
 		if (!isSelf())
 		{
-			if (gAgent.mRRInterface.mCamDistDrawAlphaMax >= 0.99f)
+			if (gAgent.mRRInterface.mCamDistDrawAlphaMax >= ALPHA_ALMOST_OPAQUE)
 			{
 				LLVector3 avatar_pos = getPositionAgent();
 				LLVector3 joint_pos = gAgent.mRRInterface.getCamDistDrawFromJoint()->getWorldPosition();

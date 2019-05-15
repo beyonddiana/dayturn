@@ -45,6 +45,8 @@
 
 #define EXTREMUM 1000000.f
 
+#define ALPHA_ALMOST_OPAQUE 0.99f
+
 // wearable types as strings
 #define WS_ALL "all"
 #define WS_EYES "eyes"
