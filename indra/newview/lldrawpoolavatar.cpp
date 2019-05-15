@@ -1865,39 +1865,6 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 	stop_glerror();
 
 //MK
-	// Calculate the position of the avatar here so we don't have to do it for each face
-	if (!gAgentAvatarp)
-	{
-		return;
-	}
-	bool vision_restricted = (gRRenabled && gAgent.mRRInterface.mVisionRestricted);
-	bool in_mouselook = gAgentCamera.cameraMouselook();
-	bool is_self = (avatar == gAgentAvatarp);
-
-	// Optimization : Rather than compare the distances for every face (which involves square roots, which are costly), we compare squared distances.
-	LLVector3 joint_pos = LLVector3::zero;
-	F32 cam_dist_draw_max_squared = EXTREMUM;
-	// We don't need to calculate all that stuff if the vision is not restricted.
-	if (vision_restricted)
-	{
-		joint_pos = gAgent.mRRInterface.getCamDistDrawFromJoint()->getWorldPosition();
-		cam_dist_draw_max_squared = gAgent.mRRInterface.mCamDistDrawMax * gAgent.mRRInterface.mCamDistDrawMax;
-
-		if (!is_self && gAgent.mRRInterface.mCamDistDrawAlphaMax >= 0.999999f)
- 		{
- 			// If the outer sphere is opaque and the avatar is farther than its radius, no need to render it at all.
-			LLVector3 my_pos(gAgent.getPosGlobalFromAgent(gAgentAvatarp->mHeadp->getWorldPosition()));
-			LLVector3 their_pos(gAgent.getPosGlobalFromAgent(avatar->mHeadp->getWorldPosition()));
-			LLVector3 offset(their_pos - (LLVector3)gAgent.getPosGlobalFromAgent(joint_pos));
- 			F32 distance_squared = (F32)offset.magVecSquared();
-            if (distance_squared > cam_dist_draw_max_squared + 2.5f) {
-     				return;
- 			}
- 		}
-	}
-//mk
-
-//MK
 	// A little optimization, nothing much but why calculate size() of an array at every step along that very array?
 	////for (U32 i = 0; i < mRiggedFace[type].size(); ++i)
 	U32 size = mRiggedFace[type].size();
@@ -1922,7 +1889,7 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 		// Our own rigged objects worn on our head attach points should not be rendered when we are in mouselook.
 		// Those objects are already marked as "don't render" but without these lines here, they would render anyway.
 		// We can change this behavior to revert to the old one by switching "RestrainedLoveHeadMouselookRenderRigged" to FALSE.
-		if (in_mouselook)
+		if (gAgentCamera.cameraMouselook())
 		{
 			LLSpatialBridge* bridge = drawable->isRoot() ? drawable->getSpatialBridge() : drawable->getParent()->getSpatialBridge();
 			if (bridge && bridge->mDrawableType == 0 && !RRInterface::sRestrainedLoveHeadMouselookRenderRigged)
@@ -1938,34 +1905,6 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 		{
 			continue;
 		}
-
-//MK
-		LLVector3 face_pos = LLVector3::zero;
-		LLVector3 face_avatar_offset = LLVector3::zero;
-		F32 face_distance_to_avatar_squared = EXTREMUM;
-
-		// We don't need to calculate all that stuff if the vision is not restricted.
-		if (vision_restricted)
-		{
-			// We need the position of the face for later, as well as the square of the distance from this face to the avatar
-			face_pos = face->getPositionAgent();
-			face_avatar_offset = face_pos - joint_pos;
-			face_distance_to_avatar_squared = (F32)face_avatar_offset.magVecSquared();
-
-			// If the vision is restricted, rendering alpha rigged attachments may allow to cheat through the vision spheres.
-			if (!is_self) // Other avatars only
-			{
-				if (face_distance_to_avatar_squared > cam_dist_draw_max_squared + 2.5f)
-				{
-					U32 type = gPipeline.getPoolTypeFromTE(face->getTextureEntry(), face->getTexture());
-					if (type == LLDrawPool::POOL_ALPHA)
-					{
-						continue;
-					}
-				}
-			}			
-		}
-//mk
 
 		LLVolume* volume = vobj->getVolume();
 		S32 te = face->getTEOffset();

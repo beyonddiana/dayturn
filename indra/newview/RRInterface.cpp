@@ -4979,16 +4979,6 @@ BOOL RRInterface::updateCameraLimits ()
 	// Update the min and max 
 	mShowavsDistMax = getMin ("camavdist", EXTREMUM);
 
-	if (mShowavsDistMax < EXTREMUM) {
-		LLVOAvatar::sUseImpostors = TRUE;
-	}
-	else {
-		if (LLStartUp::getStartupState() >= STATE_STARTED) {
-			LLVOAvatar::sUseImpostors = gSavedSettings.getBOOL ("RenderUseImpostors");
-		}
-
-	}
-
 	F32 old_mCamDistDrawMax = mCamDistDrawMax;
 	F32 old_mCamDistDrawMin = mCamDistDrawMin;
 	F32 old_mCamDistDrawAlphaMax = mCamDistDrawAlphaMax;
@@ -5111,6 +5101,17 @@ BOOL RRInterface::updateCameraLimits ()
 	}
 
 	mVisionRestricted = (mCamDistDrawMin < EXTREMUM || mCamDistDrawMax < EXTREMUM);
+
+	// Use impostors if we use silhouettes or if the outer sphere is 99% opaque or more
+	if (mShowavsDistMax < EXTREMUM || mCamDistDrawAlphaMax >= 0.99f) {
+		LLVOAvatar::sUseImpostors = TRUE;
+	}
+	else {
+		if (LLStartUp::getStartupState() >= STATE_STARTED) {
+			LLVOAvatar::sUseImpostors = gSavedSettings.getBOOL("RenderUseImpostors");
+		}
+
+	}
 
 	// And check the camera is still within the limits
 	return checkCameraLimits (TRUE);
