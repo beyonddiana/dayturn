@@ -1008,6 +1008,9 @@ F32 gpu_benchmark()
 	//number of samples to take
 	const S32 samples = 64;
 
+	//time limit, allocation operations shouldn't take longer then 30 seconds, same for actual benchmark.
+	const F32 time_limit = 30;
+
 	ShaderProfileHelper initProfile;
 
 	std::vector<LLRenderTarget> dest(count);
@@ -1025,12 +1028,14 @@ F32 gpu_benchmark()
 	gGL.setColorMask(true, true);
 	LLGLDepthTest depth(GL_FALSE);
 
+	LLTimer alloc_timer;
+	alloc_timer.start();
 	for (U32 i = 0; i < count; ++i)
 	{
 		//allocate render targets and textures
 		if (!dest[i].allocate(res, res, GL_RGBA, false, false, LLTexUnit::TT_TEXTURE, true))
 		{
-			LL_WARNS() << "Failed to allocate render target." << LL_ENDL;
+			LL_WARNS("Benchmark") << "Failed to allocate render target." << LL_ENDL;
 			// abandon the benchmark test
 			delete[] pixels;
 			return -1.f;
@@ -1042,12 +1047,20 @@ F32 gpu_benchmark()
 		if (!texHolder.bind(i))
 		{
 			// can use a dummy value mDummyTexUnit = new LLTexUnit(-1);
-			LL_WARNS() << "Failed to bind tex unit." << LL_ENDL;
+			LL_WARNS("Benchmark") << "Failed to bind tex unit." << LL_ENDL;
 			// abandon the benchmark test
 			delete[] pixels;
 			return -1.f;
 		}
 		LLImageGL::setManualImage(GL_TEXTURE_2D, 0, GL_RGBA, res,res,GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+
+		if (alloc_timer.getElapsedTimeF32() > time_limit)
+		{
+			// abandon the benchmark test
+			LL_WARNS("Benchmark") << "Allocation operation took longer then 30 seconds, stopping." << LL_ENDL;
+			delete[] pixels;
+			return -1.f;
+		}		
 	}
 
     delete [] pixels;
@@ -1057,7 +1070,7 @@ F32 gpu_benchmark()
 
 	if (!buff->allocateBuffer(3, 0, true))
 	{
-		LL_WARNS() << "Failed to allocate buffer during benchmark." << LL_ENDL;
+		LL_WARNS("Benchmark") << "Failed to allocate buffer during benchmark." << LL_ENDL;
 		// abandon the benchmark test
 		return -1.f;
 	}
@@ -1067,7 +1080,7 @@ F32 gpu_benchmark()
 
 	if (! buff->getVertexStrider(v))
 	{
-		LL_WARNS() << "GL LLVertexBuffer::getVertexStrider() returned false, "
+		LL_WARNS("Benchmark") << "GL LLVertexBuffer::getVertexStrider() returned false, "
 				   << "buff->getMappedData() is"
 				   << (buff->getMappedData()? " not" : "")
 				   << " NULL" << LL_ENDL;
@@ -1088,7 +1101,8 @@ F32 gpu_benchmark()
 	buff->setBuffer(LLVertexBuffer::MAP_VERTEX);
 	glFinish();
 
-	for (S32 c = -1; c < samples; ++c)
+	F32 time_passed = 0; // seconds
+	for (S32 c = -1; c < samples && time_passed < time_limit; ++c)
 	{
 		LLTimer timer;
 		timer.start();
@@ -1105,7 +1119,8 @@ F32 gpu_benchmark()
 		glFinish();
 
 		F32 time = timer.getElapsedTimeF32();
-
+		time_passed += time;
+		
 		if (c >= 0) // <-- ignore the first sample as it tends to be artificially slow
 		{ 
 			//store result in gigabytes per second
@@ -1119,16 +1134,16 @@ F32 gpu_benchmark()
 
 	F32 gbps = results[results.size()/2];
 
-	LL_INFOS() << "Memory bandwidth is " << llformat("%.3f", gbps) << "GB/sec according to CPU timers" << LL_ENDL;
+	LL_INFOS("Benchmark") << "Memory bandwidth is " << llformat("%.3f", gbps) << "GB/sec according to CPU timers, " << (F32)results.size() << " tests took " << time_passed << " seconds" << LL_ENDL;
 
 	F32 ms = gBenchmarkProgram.mTimeElapsed/1000000.f;
 	F32 seconds = ms/1000.f;
 
-	F64 samples_drawn = res*res*count*samples;
+	F64 samples_drawn = res*res*count*results.size();
 	F32 samples_sec = (samples_drawn/1000000000.0)/seconds;
 	gbps = samples_sec*8;
 
-	LL_INFOS() << "Memory bandwidth is " << llformat("%.3f", gbps) << "GB/sec according to ARB_timer_query" << LL_ENDL;
+	LL_INFOS("Benchmark") << "Memory bandwidth is " << llformat("%.3f", gbps) << "GB/sec according to ARB_timer_query, total time " << seconds << " seconds" << LL_ENDL;
 
 	return gbps;
 }
