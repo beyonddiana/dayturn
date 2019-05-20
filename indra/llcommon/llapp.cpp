@@ -30,12 +30,6 @@
 
 #include <cstdlib>
 
-#ifdef LL_DARWIN
-#include <sys/types.h>
-#include <unistd.h>
-#include <sys/sysctl.h>
-#endif
-
 #include "llcommon.h"
 #include "llapr.h"
 #include "llerrorcontrol.h"
@@ -86,11 +80,7 @@ bool unix_post_minidump_callback(const char *dump_dir,
 					  void *context, bool succeeded);
 #endif
 
-# if LL_DARWIN
-/* OSX doesn't support SIGRT* */
-S32 LL_SMACKDOWN_SIGNAL = SIGUSR1;
-S32 LL_HEARTBEAT_SIGNAL = SIGUSR2;
-# else // linux or (assumed) other similar unixoid
+#if LL_LINUX
 /* We want reliable delivery of our signals - SIGRT* is it. */
 /* Old LinuxThreads versions eat SIGRTMIN+0 to SIGRTMIN+2, avoid those. */
 /* Note that SIGRTMIN/SIGRTMAX may expand to a glibc function call with a
@@ -98,7 +88,7 @@ S32 LL_HEARTBEAT_SIGNAL = SIGUSR2;
    expressions.  SIGRTMAX may return -1 on rare broken setups. */
 S32 LL_SMACKDOWN_SIGNAL = (SIGRTMAX >= 0) ? (SIGRTMAX-1) : SIGUSR1;
 S32 LL_HEARTBEAT_SIGNAL = (SIGRTMAX >= 0) ? (SIGRTMAX-0) : SIGUSR2;
-# endif // LL_DARWIN
+#endif // LL_LINUX
 #endif // LL_WINDOWS
 
 // the static application instance
@@ -458,45 +448,8 @@ void LLApp::setupErrorHandling(bool second_instance)
 	
 	// Add google breakpad exception handler configured for Darwin/Linux.
 	bool installHandler = true;
-#if LL_DARWIN
-	// For the special case of Darwin, we do not want to install the handler if
-	// the process is being debugged as the app will exit with value ABRT (6) if
-	// we do.  Unfortunately, the code below which performs that test relies on
-	// the structure kinfo_proc which has been tagged by apple as an unstable
-	// API.  We disable this test for shipping versions to avoid conflicts with
-	// future releases of Darwin.  This test is really only needed for developers
-	// starting the app from a debugger anyway.
-	#ifndef LL_RELEASE_FOR_DOWNLOAD
-    int mib[4];
-	mib[0] = CTL_KERN;
-	mib[1] = KERN_PROC;
-	mib[2] = KERN_PROC_PID;
-	mib[3] = getpid();
-	
-	struct kinfo_proc info;
-	memset(&info, 0, sizeof(info));
-	
-	size_t size = sizeof(info);
-	int result = sysctl(mib, sizeof(mib) / sizeof(*mib), &info, &size, NULL, 0);
-	if((result == 0) || (errno == ENOMEM))
-	{
-		// P_TRACED flag is set, so this process is being debugged; do not install
-		// the handler
-		if(info.kp_proc.p_flag & P_TRACED) installHandler = false;
-	}
-	else
-	{
-		// Failed to discover if the process is being debugged; default to
-		// installing the handler.
-		installHandler = true;
-	}
-	#endif
 
-	if(installHandler && (mExceptionHandler == 0))
-	{
-		mExceptionHandler = new google_breakpad::ExceptionHandler(mDumpPath, 0, &unix_post_minidump_callback, 0, true, 0);
-	}
-#elif LL_LINUX
+#if LL_LINUX
 	if(installHandler && (mExceptionHandler == 0))
 	{
 		if (mDumpPath.empty())

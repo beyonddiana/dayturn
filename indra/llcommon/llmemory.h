@@ -51,8 +51,6 @@ class LLMutex ;
 
 #if LL_WINDOWS
 #define LL_DEFAULT_HEAP_ALIGN 8
-#elif LL_DARWIN
-#define LL_DEFAULT_HEAP_ALIGN 16
 #elif LL_LINUX
 #define LL_DEFAULT_HEAP_ALIGN 8
 #endif
@@ -86,7 +84,7 @@ template <typename T> T* LL_NEXT_ALIGNED_ADDRESS_64(T* address)
 		(uintptr_t(address) + 0x3F) & ~0x3F);
 }
 
-#if LL_LINUX || LL_DARWIN
+#if LL_LINUX
 
 #define			LL_ALIGN_PREFIX(x)
 #define			LL_ALIGN_POSTFIX(x)		__attribute__((aligned(x)))
@@ -145,8 +143,6 @@ inline void* ll_aligned_malloc_16(size_t size) // returned hunk MUST be freed wi
 {
 #if defined(LL_WINDOWS)
 	return _aligned_malloc(size, 16);
-#elif defined(LL_DARWIN)
-	return malloc(size); // default osx malloc is 16 byte aligned.
 #else
 	void *rtn;
 	if (LL_LIKELY(0 == posix_memalign(&rtn, 16, size)))
@@ -160,8 +156,6 @@ inline void ll_aligned_free_16(void *p)
 {
 #if defined(LL_WINDOWS)
 	_aligned_free(p);
-#elif defined(LL_DARWIN)
-	return free(p);
 #else
 	free(p); // posix_memalign() is compatible with heap deallocator
 #endif
@@ -171,8 +165,6 @@ inline void* ll_aligned_realloc_16(void* ptr, size_t size, size_t old_size) // r
 {
 #if defined(LL_WINDOWS)
 	return _aligned_realloc(ptr, size, 16);
-#elif defined(LL_DARWIN)
-	return realloc(ptr,size); // default osx malloc is 16 byte aligned.
 #else
 	//FIXME: memcpy is SLOW
 	void* ret = ll_aligned_malloc_16(size);
@@ -193,8 +185,6 @@ inline void* ll_aligned_malloc_32(size_t size) // returned hunk MUST be freed wi
 {
 #if defined(LL_WINDOWS)
 	return _aligned_malloc(size, 32);
-#elif defined(LL_DARWIN)
-	return ll_aligned_malloc_fallback( size, 32 );
 #else
 	void *rtn;
 	if (LL_LIKELY(0 == posix_memalign(&rtn, 32, size)))
@@ -208,8 +198,6 @@ inline void ll_aligned_free_32(void *p)
 {
 #if defined(LL_WINDOWS)
 	_aligned_free(p);
-#elif defined(LL_DARWIN)
-	ll_aligned_free_fallback( p );
 #else
 	free(p); // posix_memalign() is compatible with heap deallocator
 #endif

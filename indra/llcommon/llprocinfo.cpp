@@ -34,17 +34,12 @@
 #include "windows.h"
 #include "psapi.h"
 
-#elif LL_DARWIN
-
-#include <sys/resource.h>
-#include <mach/mach.h>
-	
 #else
 
 #include <sys/time.h>
 #include <sys/resource.h>
 
-#endif // LL_WINDOWS/LL_DARWIN
+#endif // LL_WINDOWS
 
 
 // static
@@ -64,18 +59,6 @@ void LLProcInfo::getCPUUsage(time_type & user_time, time_type & system_time)
 	uli.u.HighPart = ft_user.dwHighDateTime;
 	user_time = uli.QuadPart / U64L(10);
 	
-#elif LL_DARWIN
-
-	struct rusage usage;
-
-	if (getrusage(RUSAGE_SELF, &usage))
-	{
-		user_time = system_time = time_type(0U);
-		return;
-	}
-	user_time = U64(usage.ru_utime.tv_sec) * U64L(1000000) + usage.ru_utime.tv_usec;
-	system_time = U64(usage.ru_stime.tv_sec) * U64L(1000000) + usage.ru_stime.tv_usec;
-
 #else // Linux
 
 	struct rusage usage;
@@ -88,7 +71,7 @@ void LLProcInfo::getCPUUsage(time_type & user_time, time_type & system_time)
 	user_time = U64(usage.ru_utime.tv_sec) * U64L(1000000) + usage.ru_utime.tv_usec;
 	system_time = U64(usage.ru_stime.tv_sec) * U64L(1000000) + usage.ru_stime.tv_usec;
 	
-#endif // LL_WINDOWS/LL_DARWIN/Linux
+#endif // LL_WINDOWS/Linux
 }
 
 

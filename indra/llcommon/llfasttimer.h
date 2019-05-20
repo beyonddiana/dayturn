@@ -173,7 +173,7 @@ public:
 
 // <FS:ND> Linux/Mac should honour LL_FASTTIMER_USE_RDTSC too
 //#if (LL_LINUXΩ || LL_DARWIN) && (defined(__i386__) || defined(__amd64__))
-#if (LL_LINUX || LL_DARWIN) && (defined(__i386__) || defined(__amd64__)) && LL_FASTTIMER_USE_RDTSC
+#if (LL_LINUX) && (defined(__i386__) || defined(__amd64__)) && LL_FASTTIMER_USE_RDTSC
 // </FS:ND>
 	//
 	// Mac+Linux FAST x86 implementation of CPU clock

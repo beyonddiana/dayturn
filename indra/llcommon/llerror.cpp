@@ -226,7 +226,7 @@ namespace {
 
 		bool checkANSI(void)
 		{
-#if LL_LINUX || LL_DARWIN
+#if LL_LINUX
 			// Check whether it's okay to use ANSI; if stderr is
 			// a tty then we assume yes.  Can be turned off with
 			// the LL_NO_ANSI_COLOR env var.
@@ -653,18 +653,7 @@ namespace
 {
 	bool shouldLogToStderr()
 	{
-#if LL_DARWIN
-		// On Mac OS X, stderr from apps launched from the Finder goes to the
-		// console log.  It's generally considered bad form to spam too much
-		// there.
-		
-		// If stdin is a tty, assume the user launched from the command line and
-		// therefore wants to see stderr.  Otherwise, assume we've been launched
-		// from the finder and shouldn't spam stderr.
-		return isatty(0);
-#else
 		return true;
-#endif
 	}
 	
 	bool stderrLogWantsTime()
