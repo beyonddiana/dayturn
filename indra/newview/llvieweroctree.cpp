@@ -1237,12 +1237,8 @@ void LLOcclusionCullingGroup::doOcclusion(LLCamera* camera, const LLVector4a* sh
 												mSpatialPartition->mDrawableType == LLDrawPool::POOL_VOIDWATER);
 
 					LLGLEnable clamp(use_depth_clamp ? GL_DEPTH_CLAMP : 0);				
-						
-#if !LL_DARWIN					
+											
 					U32 mode = gGLManager.mHasOcclusionQuery2 ? GL_ANY_SAMPLES_PASSED : GL_SAMPLES_PASSED_ARB;
-#else
-					U32 mode = GL_SAMPLES_PASSED_ARB;
-#endif
 					
 #if LL_TRACK_PENDING_OCCLUSION_QUERIES
 					sPendingQueries.insert(mOcclusionQuery[LLViewerCamera::sCurCameraID]);

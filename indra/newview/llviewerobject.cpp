@@ -1309,12 +1309,6 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 						resetRot();
 					}
 					setAngularVelocity(new_angv);
-#if LL_DARWIN
-					if (length == 76)
-					{
-						setAngularVelocity(LLVector3::zero);
-					}
-#endif
 					break;
 				case(32 + 16):
 					// pull out collision normal for avatar
@@ -1600,12 +1594,6 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 						resetRot();
 					}
 					setAngularVelocity(new_angv);
-#if LL_DARWIN
-					if (length == 76)
-					{
-						setAngularVelocity(LLVector3::zero);
-					}
-#endif
 					break;
 				case(32 + 16):
 					// pull out collision normal for avatar

@@ -128,9 +128,8 @@
 #include "llcoros.h"
 #include "llexception.h"
 #include "cef/llceflib.h"
-#if !LL_DARWIN
-	#include "vlc/libvlc_version.h"
-#endif  // Ll_WINDOWS
+#include "vlc/libvlc_version.h"
+
 
 // Third party library includes
 #include <boost/bind.hpp>
@@ -273,11 +272,6 @@ static LLAppViewerListener sAppViewerListener(LLAppViewer::instance);
 //----------------------------------------------------------------------------
 // viewer.cpp - these are only used in viewer, should be easily moved.
 
-#if LL_DARWIN
-const char * const LL_VERSION_BUNDLE_ID = "com.dayturn.dayturn.viewer";
-extern void init_apple_menu(const char* product);
-#endif // LL_DARWIN
-
 extern BOOL gRandomizeFramerate;
 extern BOOL gPeriodicSlowFrame;
 extern BOOL gDebugGL;
@@ -295,8 +289,6 @@ S32 gLastExecDuration = -1; // (<0 indicates unknown)
 
 #if LL_WINDOWS  
 #   define LL_PLATFORM_KEY "win"
-#elif LL_DARWIN
-#   define LL_PLATFORM_KEY "mac"
 #elif LL_LINUX
 #   define LL_PLATFORM_KEY "lnx"
 #else
@@ -774,10 +766,6 @@ bool LLAppViewer::init()
 	//
 	// Start of the application
 	//
-#ifdef LL_DARWIN
-	mMainLoopInitialized = false;
-#endif
-
 	// initialize LLWearableType translation bridge.
 	// Memory will be cleaned up in ::cleanupClass()
 	LLWearableType::initClass(new LLUITranslationBridge());
@@ -951,9 +939,7 @@ bool LLAppViewer::init()
 
 	// load MIME type -> media impl mappings
 	std::string mime_types_name;
-#if LL_DARWIN
-	mime_types_name = "mime_types_mac.xml";
-#elif LL_LINUX
+#if LL_LINUX
 	mime_types_name = "mime_types_linux.xml";
 #else
 	mime_types_name = "mime_types.xml";
@@ -1303,9 +1289,6 @@ LLTrace::BlockTimerStatHandle FTM_FRAME("Frame");
 
 bool LLAppViewer::mainLoop()
 {
-#ifdef LL_DARWIN
-	if (!mMainLoopInitialized)
-#endif
 	{
         LL_INFOS() << "Entering main_loop" << LL_ENDL;
 		mMainloopTimeout = new LLWatchdogTimeout();
@@ -1327,13 +1310,7 @@ bool LLAppViewer::mainLoop()
 		
 		joystick = LLViewerJoystick::getInstance();
 		joystick->setNeedsReset(true);
-        
 
-		
-#ifdef LL_DARWIN
-		// Ensure that this section of code never gets called again on OS X.
-		mMainLoopInitialized = true;
-#endif
 	}
 	// As we do not (yet) send data on the mainloop LLEventPump that varies
 	// with each frame, no need to instantiate a new LLSD event object each
@@ -1350,11 +1327,7 @@ bool LLAppViewer::mainLoop()
 	BOOL restore_rendering_masks = FALSE;
 
 	// Handle messages
-#ifdef LL_DARWIN
-	if (!LLApp::isExiting())
-#else
 	while (!LLApp::isExiting())
-#endif
 	{
 		LL_RECORD_BLOCK_TIME(FTM_FRAME);
 		LLTrace::BlockTimer::processTimes();
@@ -3240,17 +3213,12 @@ LLSD LLAppViewer::getViewerInfo() const
 
 #if LL_LINUX
 	info["LLCEFLIB_VERSION"] = LLCEFLIB_VERSION;
-#elif LL_DARWIN
-    info["LLCEFLIB_VERSION"] = LLCEFLIB_VERSION;
 #elif LL_WINDOWS
 	info["LLCEFLIB_VERSION"] = LLCEFLIB_VERSION;
 #else
 	info["LLCEFLIB_VERSION"] = "Undefined";
 #endif
 
-#if LL_DARWIN
-	info["LIBVLC_VERSION"] = "Unsupported";
-#else
 	std::ostringstream ver_codec;
 	ver_codec << LIBVLC_VERSION_MAJOR;
 	ver_codec << ".";
@@ -3258,7 +3226,6 @@ LLSD LLAppViewer::getViewerInfo() const
 	ver_codec << ".";
 	ver_codec << LIBVLC_VERSION_REVISION;
 	info["LIBVLC_VERSION"] = ver_codec.str();
-#endif
 
 	S32 packets_in = LLViewerStats::instance().getRecording().getSum(LLStatViewer::PACKETS_IN);
 	if (packets_in > 0)
@@ -4058,7 +4025,7 @@ void LLAppViewer::abortQuit()
 
 void LLAppViewer::migrateCacheDirectory()
 {
-#if LL_WINDOWS || LL_DARWIN
+#if LL_WINDOWS
 	// NOTE: (Nyx) as of 1.21, cache for mac is moving to /library/caches/Kokua from
 	// /library/application support/Kokua/cache This should clear/delete the old dir.
 
@@ -4109,21 +4076,13 @@ void LLAppViewer::migrateCacheDirectory()
 			purgeCache();
 			gDirUtilp->setCacheDir(new_cache_dir);
 
-#if LL_DARWIN
-			// Clean up Mac files not deleted by removing *.*
-			std::string ds_store = old_cache_dir + "/.DS_Store";
-			if (gDirUtilp->fileExists(ds_store))
-			{
-				LLFile::remove(ds_store);
-			}
-#endif
 			if (LLFile::rmdir(old_cache_dir) != 0)
 			{
 				LL_WARNS() << "could not delete old cache directory " << old_cache_dir << LL_ENDL;
 			}
 		}
 	}
-#endif // LL_WINDOWS || LL_DARWIN
+#endif // LL_WINDOWS
 }
 
 void dumpVFSCaches()
@@ -4838,9 +4797,6 @@ void LLAppViewer::idle()
 	// hover callbacks
 	//
 
-#ifdef LL_DARWIN
-	if (!mQuitRequested)  //MAINT-4243
-#endif
 	{
 // 		LL_RECORD_BLOCK_TIME(FTM_IDLE_CB);
 

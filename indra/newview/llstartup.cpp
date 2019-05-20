@@ -589,17 +589,6 @@ bool idle_startup()
 			{
 				message_template_path = gDirUtilp->getExpandedFilename(LL_PATH_EXECUTABLE, "app_settings", "message_template.msg");
 				found_template = LLFile::fopen(message_template_path.c_str(), "r");		/* Flawfinder: ignore */
-			}	
-		#elif LL_DARWIN
-			// On Mac dev builds, message_template.msg lives in:
-			// indra/build-*/newview/<config>/Second Life/Contents/Resources/app_settings
-			if (!found_template)
-			{
-				message_template_path =
-					gDirUtilp->getExpandedFilename(LL_PATH_EXECUTABLE,
-												   "../Resources/app_settings",
-												   "message_template.msg");
-				found_template = LLFile::fopen(message_template_path.c_str(), "r");		/* Flawfinder: ignore */
 			}		
 		#endif
 

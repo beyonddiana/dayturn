@@ -1095,7 +1095,7 @@ bool LLViewerJoystick::isLikeSpaceNavigator() const
 // -----------------------------------------------------------------------------
 void LLViewerJoystick::setSNDefaults()
 {
-#if LL_DARWIN || LL_LINUX
+#if LL_LINUX
 	const float platformScale = 20.f;
 	const float platformScaleAvXZ = 1.f;
 	// The SpaceNavigator doesn't act as a 3D cursor on OS X / Linux. 
