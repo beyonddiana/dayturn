@@ -34,13 +34,6 @@ set(llvfs_HEADER_FILES
     llvfsthread.h
     )
 
-if (DARWIN)
-  LIST(APPEND llvfs_SOURCE_FILES lldir_mac.cpp)
-  LIST(APPEND llvfs_HEADER_FILES lldir_mac.h)
-  LIST(APPEND llvfs_SOURCE_FILES llvfs_objc.mm)
-  LIST(APPEND llvfs_HEADER_FILES llvfs_objc.h)
-endif (DARWIN)
-
 if (LINUX)
   LIST(APPEND llvfs_SOURCE_FILES lldir_linux.cpp)
   LIST(APPEND llvfs_HEADER_FILES lldir_linux.h)
@@ -74,12 +67,6 @@ target_link_libraries(llvfs
     ${LLCOMMON_LIBRARIES}
     ${vfs_BOOST_LIBRARIES}
     )
-
-if (DARWIN)
-  include(CMakeFindFrameworks)
-  find_library(COCOA_LIBRARY Cocoa)
-  target_link_libraries(llvfs ${COCOA_LIBRARY})
-endif (DARWIN)
 
 
 # Add tests
