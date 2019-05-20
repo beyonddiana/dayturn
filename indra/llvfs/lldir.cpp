@@ -57,9 +57,6 @@ using boost::assign::map_list_of;
 #if LL_WINDOWS
 #include "lldir_win32.h"
 LLDir_Win32 gDirUtil;
-#elif LL_DARWIN
-#include "lldir_mac.h"
-LLDir_Mac gDirUtil;
 #else
 #include "lldir_linux.h"
 LLDir_Linux gDirUtil;
