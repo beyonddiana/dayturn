@@ -62,13 +62,6 @@ struct sockaddr_in stDstAddr;
 struct sockaddr_in stSrcAddr;
 struct sockaddr_in stLclAddr;
 
-#if LL_DARWIN
-#ifndef _SOCKLEN_T
-#define _SOCKLEN_T
-typedef int socklen_t;
-#endif
-#endif
-
 #endif
 
 static U32 gsnReceivingIFAddr = INVALID_HOST_IP_ADDRESS; // Address to which datagram was sent
@@ -76,17 +69,8 @@ static U32 gsnReceivingIFAddr = INVALID_HOST_IP_ADDRESS; // Address to which dat
 const char* LOOPBACK_ADDRESS_STRING = "127.0.0.1";
 const char* BROADCAST_ADDRESS_STRING = "255.255.255.255";
 
-#if LL_DARWIN
-	// Mac OS X returns an error when trying to set these to 400000.  Smaller values succeed.
-	// System (default) values can be found by sysctl kern.ipc.maxsockbuf which is the combined value
-	// of the send and receive buffer. Numbers below is 256kB per buffer for a total of 
-	// 262144 * 2 * 8 = 4194304 bit. Default on most newer systems is 6291456, so the setting is conservative. 
-	const int	SEND_BUFFER_SIZE	= 262144;
-	const int	RECEIVE_BUFFER_SIZE	= 262144;
-#else // LL_DARWIN
-	const int	SEND_BUFFER_SIZE	= 400000;
-	const int	RECEIVE_BUFFER_SIZE	= 400000;
-#endif // LL_DARWIN
+const int	SEND_BUFFER_SIZE	= 400000;
+const int	RECEIVE_BUFFER_SIZE	= 400000;
 
 // universal functions (cross-platform)
 
