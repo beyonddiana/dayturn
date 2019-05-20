@@ -154,42 +154,6 @@ if(WINDOWS)
         endif()
     endforeach()
 
-elseif(DARWIN)
-    set(SHARED_LIB_STAGING_DIR_DEBUG            "${SHARED_LIB_STAGING_DIR}/Debug/Resources")
-    set(SHARED_LIB_STAGING_DIR_RELWITHDEBINFO   "${SHARED_LIB_STAGING_DIR}/RelWithDebInfo/Resources")
-    set(SHARED_LIB_STAGING_DIR_RELEASE          "${SHARED_LIB_STAGING_DIR}/Release/Resources")
-
-    set(vivox_src_dir "${ARCH_PREBUILT_DIRS_RELEASE}")
-    set(vivox_files
-        SLVoice
-        libortp.dylib
-        libvivoxplatform.dylib
-        libvivoxsdk.dylib
-       )
-    set(debug_src_dir "${ARCH_PREBUILT_DIRS_DEBUG}")
-    set(debug_files
-       )
-    set(release_src_dir "${ARCH_PREBUILT_DIRS_RELEASE}")
-    set(release_files
-#        libalut.0.dylib
-#        libopenal.1.dylib
-        libapr-1.0.dylib
-        libapr-1.dylib
-        libaprutil-1.0.dylib
-        libaprutil-1.dylib
-        libexception_handler.dylib
-        libexpat.1.5.2.dylib
-        libexpat.dylib
-        libGLOD.dylib
-#        libopenal.1.dylib
-        libhunspell-1.3.0.dylib
-        libndofdev.dylib
-       )
-
-    if (FMODEX)
-      set(debug_files ${debug_files} libfmodexL.dylib)
-      set(release_files ${release_files} libfmodex.dylib)
-    endif (FMODEX)
 
 elseif(LINUX)
     # linux is weird, multiple side by side configurations aren't supported

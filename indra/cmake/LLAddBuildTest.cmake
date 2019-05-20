@@ -262,11 +262,6 @@ MACRO(SET_TEST_PATH LISTVAR)
     # libraries, so append the Release staging dir in case the library being
     # sought doesn't have a debug variant.
     set(${LISTVAR} ${SHARED_LIB_STAGING_DIR}/${CMAKE_CFG_INTDIR} ${SHARED_LIB_STAGING_DIR}/Release)
-  ELSEIF(DARWIN)
-    # We typically build/package only Release variants of third-party
-    # libraries, so append the Release staging dir in case the library being
-    # sought doesn't have a debug variant.
-    set(${LISTVAR} ${SHARED_LIB_STAGING_DIR}/${CMAKE_CFG_INTDIR}/Resources ${SHARED_LIB_STAGING_DIR}/Release/Resources /usr/lib)
   ELSE(WINDOWS)
     # Linux uses a single staging directory anyway.
     IF (USESYSTEMLIBS)

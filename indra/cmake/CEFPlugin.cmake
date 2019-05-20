@@ -18,23 +18,6 @@ if (WINDOWS)
         libcef_dll_wrapper.lib
         llceflib.lib
     )
-elseif (DARWIN)
-    FIND_LIBRARY(APPKIT_LIBRARY AppKit)
-    if (NOT APPKIT_LIBRARY)
-        message(FATAL_ERROR "AppKit not found")
-    endif()
-
-    FIND_LIBRARY(CEF_LIBRARY "Chromium Embedded Framework" ${ARCH_PREBUILT_DIRS_RELEASE})
-    if (NOT CEF_LIBRARY)
-        message(FATAL_ERROR "CEF not found")
-    endif()
-
-    set(CEF_PLUGIN_LIBRARIES
-        ${ARCH_PREBUILT_DIRS_RELEASE}/libcef_dll_wrapper.a
-        ${ARCH_PREBUILT_DIRS_RELEASE}/libLLCefLib.a
-        ${APPKIT_LIBRARY}
-        ${CEF_LIBRARY}
-       )
 
 elseif (LINUX)
     set(CEF_PLUGIN_LIBRARIES

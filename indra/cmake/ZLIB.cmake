@@ -28,8 +28,6 @@ else (USESYSTEMLIBS)
     #
     set(ZLIB_PRELOAD_ARCHIVES -Wl,--whole-archive z -Wl,--no-whole-archive)
     set(ZLIB_LIBRARIES z)
-  elseif (DARWIN)
-    set(ZLIB_LIBRARIES z)
   endif (WINDOWS)
   set(ZLIB_INCLUDE_DIRS ${LIBS_PREBUILT_DIR}/include/zlib)
 endif (USESYSTEMLIBS)

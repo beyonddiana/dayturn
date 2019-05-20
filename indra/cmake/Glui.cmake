@@ -16,10 +16,10 @@ if (LINUX)
         "llplugin media apps HACK for Linux.")
 endif (LINUX)
 
-if (DARWIN OR LINUX)
+if (LINUX)
     set(GLUI_LIBRARY
         glui)
-endif (DARWIN OR LINUX)
+endif (LINUX)
 
 if (WINDOWS)
     set(GLUI_LIBRARY

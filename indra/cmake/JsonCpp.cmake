@@ -13,8 +13,6 @@ else (USESYSTEMLIBS)
     set(JSONCPP_LIBRARIES 
       debug json_libmdd.lib
       optimized json_libmd.lib)
-  elseif (DARWIN)
-    set(JSONCPP_LIBRARIES libjson_darwin_libmt.a)
   elseif (LINUX)
     if(${ARCH} STREQUAL "x86_64")
       set(JSONCPP_LIBRARIES libjson_linux-gcc-4.6_libmt.a)
