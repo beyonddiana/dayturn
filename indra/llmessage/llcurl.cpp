@@ -28,8 +28,6 @@
 
 #if LL_WINDOWS
 #define SAFE_SSL 1
-#elif LL_DARWIN
-#define SAFE_SSL 1
 #else
 #define SAFE_SSL 1
 #endif
