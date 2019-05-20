@@ -450,7 +450,7 @@ LLVivoxVoiceClient::LLVivoxVoiceClient() :
 //	gMuteListp->addObserver(&mutelist_listener);
 	
 	
-#if LL_DARWIN || LL_LINUX
+#if LL_LINUX
 		// HACK: THIS DOES NOT BELONG HERE
 		// When the vivox daemon dies, the next write attempt on our socket generates a SIGPIPE, which kills us.
 		// This should cause us to ignore SIGPIPE and handle the error through proper channels.
@@ -926,8 +926,6 @@ void LLVivoxVoiceClient::stateMachine()
 					exe_path += gDirUtilp->getDirDelimiter();
 #if LL_WINDOWS
 					exe_path += "SLVoice.exe";
-#elif LL_DARWIN
-					exe_path += "../Resources/SLVoice";
 #else
 					exe_path += "SLVoice";
 #endif

@@ -60,9 +60,7 @@
 #include "lldxhardware.h"
 #endif
 
-#if LL_DARWIN
-const char FEATURE_TABLE_FILENAME[] = "featuretable_mac.txt";
-#elif LL_LINUX
+#if LL_LINUX
 const char FEATURE_TABLE_FILENAME[] = "featuretable_linux.txt";
 #else
 const char FEATURE_TABLE_FILENAME[] = "featuretable.txt";
@@ -389,11 +387,6 @@ bool LLFeatureManager::loadGPUClass()
 	
 		if (gbps < 0.f)
 		{ //couldn't bench, use GLVersion
-	#if LL_DARWIN
-		//GLVersion is misleading on OSX, just default to class 3 if we can't bench
-		LL_WARNS("RenderInit") << "Unable to get an accurate benchmark; defaulting to class 3" << LL_ENDL;
-		mGPUClass = GPU_CLASS_3;
-	#else
 			if (gGLManager.mGLVersion < 2.f)
 			{
 				mGPUClass = GPU_CLASS_0;
@@ -414,7 +407,6 @@ bool LLFeatureManager::loadGPUClass()
 			{
 				mGPUClass = GPU_CLASS_4;
 			}
-	#endif
 		}
 		else if (gGLManager.mGLVersion <= 2.f)
 		{
@@ -627,15 +619,8 @@ void LLFeatureManager::setGraphicsLevel(U32 level, bool skipFeatures)
 	std::string features(isValidGraphicsLevel(level)? getNameForGraphicsLevel(level) : "Low");
 	if (features == "Low")
 	{
-#if LL_DARWIN
-		// This Mac-specific change is to insure that we force 'Basic Shaders' for all Mac
-		// systems which support them instead of falling back to fixed-function unnecessarily
-		// MAINT-2157
-		if (gGLManager.mGLVersion < 2.1f)
-#else
 		// only use fixed function by default if GL version < 3.0 or this is an intel graphics chip
 		if (gGLManager.mGLVersion < 3.f || gGLManager.mIsIntel)
-#endif
 		{
             // same as Low, but with "Basic Shaders" disabled
 			features = "LowFixedFunction";
@@ -745,9 +730,6 @@ void LLFeatureManager::applyBaseMasks()
 		maskFeatures("VRAMGT512");
 	}
 
-#if LL_DARWIN
-	const LLOSInfo& osInfo = LLOSInfo::instance();
-#endif
 
 	// now mask by gpu string
 	// Replaces ' ' with '_' in mGPUString to deal with inability for parser to handle spaces

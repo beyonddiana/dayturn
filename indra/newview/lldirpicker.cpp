@@ -37,7 +37,7 @@
 #include "llviewercontrol.h"
 #include "llwin32headerslean.h"
 
-#if LL_LINUX || LL_DARWIN
+#if LL_LINUX
 # include "llfilepicker.h"
 #endif
 
@@ -141,42 +141,6 @@ BOOL LLDirPicker::getDir(std::string* filename)
 std::string LLDirPicker::getDirName()
 {
 	return mDir;
-}
-
-/////////////////////////////////////////////DARWIN
-#elif LL_DARWIN
-
-LLDirPicker::LLDirPicker() :
-mFileName(NULL),
-mLocked(false)
-{
-	mFilePicker = new LLFilePicker();
-	reset();
-}
-
-LLDirPicker::~LLDirPicker()
-{
-	delete mFilePicker;
-}
-
-void LLDirPicker::reset()
-{
-	if (mFilePicker)
-		mFilePicker->reset();
-}
-
-
-//static
-BOOL LLDirPicker::getDir(std::string* filename)
-{
-    LLFilePicker::ELoadFilter filter=LLFilePicker::FFLOAD_DIRECTORY;
-    
-    return mFilePicker->getOpenFile(filter, true);
-}
-
-std::string LLDirPicker::getDirName()
-{
-	return mFilePicker->getFirstFile();
 }
 
 #elif LL_LINUX

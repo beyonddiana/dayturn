@@ -4765,11 +4765,7 @@ class LLViewToggleUI : public view_listener_t
 			LLNotification::Params params("ConfirmHideUI");
 			params.functor.function(boost::bind(&LLViewToggleUI::confirm, this, _1, _2));
 			LLSD substitutions;
-#if LL_DARWIN
-			substitutions["SHORTCUT"] = "Cmd+Shift+U";
-#else
 			substitutions["SHORTCUT"] = "Ctrl+Shift+U";
-#endif
 			params.substitutions = substitutions;
 			if (!gSavedSettings.getBOOL("HideUIControls"))
 			{

@@ -36,18 +36,6 @@
 #include "stdtypes.h"
 #include "llbool.h"
 
-#if LL_DARWIN
-#include <Carbon/Carbon.h>
-
-// AssertMacros.h does bad things.
-#undef verify
-#undef check
-#undef require
-
-#include <vector>
-#include "llstring.h"
-
-#endif
 
 // Need commdlg.h for OPENFILENAMEA
 #ifdef LL_WINDOWS
@@ -168,14 +156,6 @@ private:
 	BOOL setupFilter(ELoadFilter filter);
 #endif
 
-#if LL_DARWIN
-    S32 mPickOptions;
-	std::vector<std::string> mFileVector;
-	
-	bool doNavChooseDialog(ELoadFilter filter);
-	bool doNavSaveDialog(ESaveFilter filter, const std::string& filename);
-    std::vector<std::string>* navOpenFilterProc(ELoadFilter filter);
-#endif
 
 #if LL_GTK
 	static void add_to_selectedfiles(gpointer data, gpointer user_data);

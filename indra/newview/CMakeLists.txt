@@ -1409,65 +1409,6 @@ set_source_files_properties(
    COMPILE_DEFINITIONS "${VIEWER_CHANNEL_VERSION_DEFINES}" # see BuildVersion.cmake
    )
 
-if (DARWIN)
-  LIST(APPEND viewer_SOURCE_FILES main-objc.mm)
-  LIST(APPEND viewer_SOURCE_FILES llappviewermacosx.cpp)
-  LIST(APPEND viewer_SOURCE_FILES llappviewermacosx-objc.mm)
-  LIST(APPEND viewer_HEADER_FILES llappviewermacosx-objc.h)
-  LIST(APPEND viewer_SOURCE_FILES llfilepicker_mac.mm)
-  LIST(APPEND viewer_HEADER_FILES llfilepicker_mac.h)
-
-  # This should be compiled with the viewer.
-  LIST(APPEND viewer_SOURCE_FILES llappdelegate-objc.mm)
-
-  find_library(AGL_LIBRARY AGL)
-  find_library(APPKIT_LIBRARY AppKit)
-  find_library(COCOA_LIBRARY Cocoa)
-  find_library(IOKIT_LIBRARY IOKit)
-  find_library(COREAUDIO_LIBRARY CoreAudio)
-
-  set(viewer_LIBRARIES
-    ${COCOA_LIBRARY}
-    ${AGL_LIBRARY}
-    ${IOKIT_LIBRARY}
-    ${COREAUDIO_LIBRARY}
-    )
-
-   # Add resource files to the project.
-   set(viewer_RESOURCE_FILES
-    kokua_icon.icns
-    Base.lproj/Info-Dayturn.plist
-    Base.lproj/Dayturn.xib
-    Base.lproj/Main.storyboard
-     # CMake doesn't seem to support Xcode language variants well just yet
-    da.lproj/Dayturn.strings
-    en.lproj/InfoPlist.strings
-    en.lproj/Dayturn.strings
-    es.lproj/Dayturn.strings
-    fr.lproj/Dayturn.strings
-    ge.lproj/Dayturn.strings
-    hu-HU.lproj/Dayturn.strings
-    it.lproj/Dayturn.strings
-    ja.lproj/Dayturn.strings
-    ko.lproj/Dayturn.strings
-    nl.lproj/Dayturn.strings
-    pl.lproj/Dayturn.strings
-    pt-PT.lproj/Dayturn.strings
-    ru.lproj/Dayturn.strings
-    tr.lproj/Dayturn.strings
-    en-GB.lproj/Dayturn.strings
-    zh-Hans.lproj/Dayturn.strings
-     )
-   set_source_files_properties(
-     ${viewer_RESOURCE_FILES}
-    PROPERTIES
-    HEADER_FILE_ONLY TRUE
-    #MACOSX_PACKAGE_LOCATION Resources #don't do this! this tells cmake to copy the files.
-    )
-  SOURCE_GROUP("Resources" FILES ${viewer_RESOURCE_FILES})
-  list(APPEND viewer_SOURCE_FILES ${viewer_RESOURCE_FILES})
-endif (DARWIN)
-
 if (LINUX)
     LIST(APPEND viewer_SOURCE_FILES llappviewerlinux.cpp)
     LIST(APPEND viewer_SOURCE_FILES llappviewerlinux_api_dbus.cpp)
@@ -1964,11 +1905,6 @@ if (WINDOWS)
         #${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/event_host.tar.bz2)
 
     endif (PACKAGE)
-elseif (DARWIN)
-    set_target_properties(${VIEWER_BINARY_NAME}
-        PROPERTIES
-        LINK_FLAGS_RELEASE "${LINK_FLAGS_RELEASE} -Xlinker -dead_strip -Xlinker -map -Xlinker ${CMAKE_CURRENT_BINARY_DIR}/${VIEWER_BINARY_NAME}.MAP"
-        )
 else (WINDOWS)
         # Linux
     set_target_properties(${VIEWER_BINARY_NAME}
@@ -2127,90 +2063,6 @@ if (LINUX)
   endif (PACKAGE)
 endif (LINUX)
 
-if (DARWIN)
-  # These all get set with PROPERTIES
-  set(product "Dayturn")
-  set(MACOSX_BUNDLE_INFO_STRING "Dayturn Viewer")
-  set(MACOSX_BUNDLE_ICON_FILE "kokua_icon.icns")
-  set(MACOSX_BUNDLE_EXECUTABLE_NAME "Dayturn")
-  set(MACOSX_BUNDLE_GUI_IDENTIFIER "com.dayturn.Dayturn")
-  set(MACOSX_BUNDLE_LONG_VERSION_STRING "${VIEWER_CHANNEL} ${VIEWER_SHORT_VERSION}.${VIEWER_VERSION_REVISION}")
-  set(MACOSX_BUNDLE_BUNDLE_NAME "Dayturn")
-  set(MACOSX_BUNDLE_SHORT_VERSION_STRING "${VIEWER_SHORT_VERSION}")
-  set(MACOSX_BUNDLE_BUNDLE_VERSION "${VIEWER_SHORT_VERSION}${VIEWER_MACOSX_PHASE}${VIEWER_REVISION}")
-  set(MACOSX_BUNDLE_COPYRIGHT "Copyright © Geir Nøklebye, Dayturn Viewer for OpenSim, 2017")
-  set(MACOSX_BUNDLE_NSMAIN_NIB_FILE "Dayturn.nib")
-  set(MACOSX_BUNDLE_NSPRINCIPAL_CLASS "NSApplication")
-  set(CMAKE_XCODE_ATTRIBUTE_PRODUCT_NAME “Dayturn“)
-  
-  set_target_properties(
-    ${VIEWER_BINARY_NAME}
-    PROPERTIES
-    OUTPUT_NAME "${product}"
-    MACOSX_BUNDLE_INFO_PLIST
-    "${CMAKE_CURRENT_SOURCE_DIR}/Base.lproj/Info-Dayturn.plist"
-    )
-
-  configure_file(
-     "${CMAKE_CURRENT_SOURCE_DIR}/Base.lproj/Info-Dayturn.plist"
-     "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/${product}.app/Contents/Info.plist"
-    )
-
-  add_custom_command(
-    TARGET ${VIEWER_BINARY_NAME} POST_BUILD
-    COMMAND ${PYTHON_EXECUTABLE}
-    ARGS
-      ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
-      --actions=copy
-      --arch=${ARCH}
-      --artwork=${ARTWORK_DIR}
-      --build=${CMAKE_CURRENT_BINARY_DIR}
-      --buildtype=${CMAKE_BUILD_TYPE}
-      --configuration=${CMAKE_CFG_INTDIR}
-      --dest=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/${product}.app
-      --grid=${GRID}
-      --channel=${VIEWER_CHANNEL}
-      --versionfile=${CMAKE_CURRENT_BINARY_DIR}/viewer_version.txt
-      --source=${CMAKE_CURRENT_SOURCE_DIR}
-    DEPENDS
-      ${VIEWER_BINARY_NAME}
-      ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
-    )
-
-  add_dependencies(${VIEWER_BINARY_NAME} SLPlugin media_plugin_cef mac-crash-logger)
-  add_dependencies(${VIEWER_BINARY_NAME} mac-crash-logger)
-  if (ENABLE_SIGNING)
-      set(SIGNING_SETTING "--signature=${SIGNING_IDENTITY}")
-  else (ENABLE_SIGNING)
-      set(SIGNING_SETTING "")
-  endif (ENABLE_SIGNING)
-
-  if (PACKAGE)
-      add_custom_target(llpackage ALL DEPENDS ${VIEWER_BINARY_NAME})
-
-      add_custom_command(
-        TARGET llpackage POST_BUILD
-        COMMAND ${PYTHON_EXECUTABLE}
-        ARGS
-          ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
-          --arch=${ARCH}
-          --artwork=${ARTWORK_DIR}
-          --build=${CMAKE_CURRENT_BINARY_DIR}
-          --buildtype=${CMAKE_BUILD_TYPE}
-          --channel=${VIEWER_CHANNEL}
-          --configuration=${CMAKE_CFG_INTDIR}
-          --dest=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/${product}.app
-          --grid=${GRID}
-          --channel=${VIEWER_CHANNEL}
-          --versionfile=${CMAKE_CURRENT_BINARY_DIR}/viewer_version.txt
-          --source=${CMAKE_CURRENT_SOURCE_DIR}
-          --touch=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/.${product}.touched
-          ${SIGNING_SETTING}
-        DEPENDS
-          ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
-      )
-  endif (PACKAGE)
-endif (DARWIN)
 
 if (INSTALL)
   include(${CMAKE_CURRENT_SOURCE_DIR}/ViewerInstall.cmake)
@@ -2227,13 +2079,6 @@ if (PACKAGE)
     set(VIEWER_LIB_GLOB "*${CMAKE_SHARED_MODULE_SUFFIX}")
     set(VIEWER_COPY_MANIFEST copy_w_viewer_manifest)
   endif (WINDOWS)
-  if (DARWIN)
-    list(APPEND SYMBOL_SEARCH_DIRS "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}")
-    # *TODO: Generate these search dirs in the cmake files related to each binary.
-    list(APPEND SYMBOL_SEARCH_DIRS "${CMAKE_BINARY_DIR}/llplugin/slplugin/${CMAKE_CFG_INTDIR}")
-    set(VIEWER_EXE_GLOBS "'Dayturn' SLPlugin")
-    set(VIEWER_LIB_GLOB "*.dylib")
-  endif (DARWIN)
   if (LINUX)
     list(APPEND SYMBOL_SEARCH_DIRS "${CMAKE_CURRENT_BINARY_DIR}/packaged")
     set(VIEWER_SYMBOL_FILE "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/dayturn-symbols-linux.tar.bz2")
