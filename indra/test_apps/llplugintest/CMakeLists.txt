@@ -29,11 +29,6 @@ include_directories(SYSTEM
     ${LLCOMMON_SYSTEM_INCLUDE_DIRS}
     )
 
-if (DARWIN)
-    include(CMakeFindFrameworks)
-    find_library(COREFOUNDATION_LIBRARY CoreFoundation)
-endif (DARWIN)
-
 ### demo_plugin
 
 #set(demo_plugin_SOURCE_FILES
@@ -56,16 +51,6 @@ endif (DARWIN)
 #  ${LLCOMMON_LIBRARIES}
 #)
 #
-#if (DARWIN)
-#  # Don't prepend 'lib' to the executable name, and don't embed a full path in the library's install name
-#  set_target_properties(
-#    demo_plugin
-#    PROPERTIES
-#    PREFIX ""
-#    BUILD_WITH_INSTALL_RPATH 1
-#    INSTALL_NAME_DIR "@executable_path"
-#  )
-#endif (DARWIN)
 
 ### plugin_host
 
@@ -210,16 +195,6 @@ endif (DARWIN)
 #  ${LLCOMMON_LIBRARIES}
 #)
 #
-#if (DARWIN)
-#  # Don't prepend 'lib' to the executable name, and don't embed a full path in the library's install name
-#  set_target_properties(
-#    demo_media_plugin
-#    PROPERTIES
-#    PREFIX ""
-#    BUILD_WITH_INSTALL_RPATH 1
-#    INSTALL_NAME_DIR "@executable_path"
-#  )
-#endif (DARWIN)
 
 ### demo_media_plugin_2
 
@@ -243,16 +218,6 @@ endif (DARWIN)
 #  ${LLCOMMON_LIBRARIES}
 #)
 #
-#if (DARWIN)
-#  # Don't prepend 'lib' to the executable name, and don't embed a full path in the library's install name
-#  set_target_properties(
-#    demo_media_plugin_2
-#    PROPERTIES
-#    PREFIX ""
-#    BUILD_WITH_INSTALL_RPATH 1
-#    INSTALL_NAME_DIR "@executable_path"
-#  )
-#endif (DARWIN)
 
 # Gather build products of the various dependencies into the build directory for the testbed.
 
@@ -311,15 +276,4 @@ if(WINDOWS)
 
 endif(WINDOWS)
 
-    out_targets
-    ${plugintest_release_files}
-    )
-  set(plugin_test_targets ${plugin_test_targets} ${out_targets})
-
-  add_custom_target(copy_plugintest_libs ALL
-    DEPENDS 
-    ${plugin_test_targets}
-    )
-
-endif (DARWIN)
 
