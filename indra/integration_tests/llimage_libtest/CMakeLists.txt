@@ -49,17 +49,13 @@ set_target_properties(llimage_libtest
 )
 
 # OS-specific libraries
-if (DARWIN)
-  include(CMakeFindFrameworks)
-  find_library(COREFOUNDATION_LIBRARY CoreFoundation)
-  set(OS_LIBRARIES ${COREFOUNDATION_LIBRARY})
-elseif (WINDOWS)
+if (WINDOWS)
   set(OS_LIBRARIES)
 elseif (LINUX)
   set(OS_LIBRARIES)
-else (DARWIN)
+else (WINDOWS)
   message(FATAL_ERROR "Unknown platform")
-endif (DARWIN)
+endif (WINDOWS)
 
 # Libraries on which this application depends on
 # Sort by high-level to low-level
@@ -74,26 +70,9 @@ target_link_libraries(llimage_libtest
     ${OS_LIBRARIES}
     )
     
-if (DARWIN)
-  # Path inside the app bundle where we'll need to copy libraries
-  set(LLIMAGE_LIBTEST_DESTINATION_DIR
-    ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/llimage_libtest.app/Contents/Resources
-  )
-  # Create the Contents/Resources directory
-  add_custom_command(
-    TARGET llimage_libtest POST_BUILD
-    COMMAND ${CMAKE_COMMAND}
-    ARGS
-      -E
-      make_directory
-      ${LLIMAGE_LIBTEST_DESTINATION_DIR}
-    COMMENT "Creating Resources directory in app bundle."
-  ) 
-else (DARWIN)
   set(LLIMAGE_LIBTEST_DESTINATION_DIR
     ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/
   )
-endif (DARWIN)
 
 get_target_property(BUILT_LLCOMMON llcommon LOCATION)
 add_custom_command(TARGET llimage_libtest POST_BUILD
@@ -101,25 +80,6 @@ add_custom_command(TARGET llimage_libtest POST_BUILD
   DEPENDS ${BUILT_LLCOMMON}
 )
 
-if (DARWIN)
-  # Copy the required libraries to the package app
-  add_custom_command(TARGET llimage_libtest POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/../build-darwin/packages/lib/release/libapr-1.0.dylib ${LLIMAGE_LIBTEST_DESTINATION_DIR}
-    DEPENDS ${CMAKE_SOURCE_DIR}/../build-darwin/packages/lib/release/libapr-1.0.dylib
-  )
-  add_custom_command(TARGET llimage_libtest POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/../build-darwin/packages/lib/release/libaprutil-1.0.dylib ${LLIMAGE_LIBTEST_DESTINATION_DIR}
-    DEPENDS ${CMAKE_SOURCE_DIR}/../build-darwin/packages/lib/release/libaprutil-1.0.dylib
-  )
-  add_custom_command(TARGET llimage_libtest POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/../build-darwin/packages/lib/release/libexception_handler.dylib ${LLIMAGE_LIBTEST_DESTINATION_DIR}
-    DEPENDS ${CMAKE_SOURCE_DIR}/../build-darwin/packages/lib/release/libexception_handler.dylib
-  )
-  add_custom_command(TARGET llimage_libtest POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/../build-darwin/packages/lib/release/libexpat.1.5.2.dylib ${LLIMAGE_LIBTEST_DESTINATION_DIR}
-    DEPENDS ${CMAKE_SOURCE_DIR}/../build-darwin/packages/lib/release/libexpat.1.5.2.dylib
-  )
-endif (DARWIN)
 
 if (WINDOWS)
   # Check indra/test_apps/llplugintest/CMakeLists.txt for an example of what to copy over for Windows and how
