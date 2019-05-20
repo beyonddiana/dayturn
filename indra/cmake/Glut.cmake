@@ -12,8 +12,3 @@ endif (WINDOWS)
 if (LINUX)
   FIND_LIBRARY(GLUT_LIBRARY glut)
 endif (LINUX)
-
-if (DARWIN)
-  include(CMakeFindFrameworks)
-  find_library(GLUT_LIBRARY GLUT)
-endif (DARWIN)

@@ -209,25 +209,7 @@ if (LINUX)
 endif (LINUX)
 
 
-if (DARWIN)
-  add_definitions(-DLL_DARWIN=1)
-  set(CMAKE_CXX_LINK_FLAGS "-Wl,-headerpad_max_install_names,-search_paths_first")
-  set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_CXX_LINK_FLAGS}")
-  set(DARWIN_extra_cstar_flags "-g -Wno-unused-local-typedef -Wno-deprecated-declarations")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${DARWIN_extra_cstar_flags}")
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  ${DARWIN_extra_cstar_flags}")
-  # NOTE: it's critical that the optimization flag is put in front.
-  # NOTE: it's critical to have both CXX_FLAGS and C_FLAGS covered.
-  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O3 ${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
-  set(CMAKE_C_FLAGS_RELWITHDEBINFO "-O3 ${CMAKE_C_FLAGS_RELWITHDEBINFO}")
-  set(CMAKE_CXX_FLAGS_RELEASE "-O3 ${CMAKE_CXX_FLAGS_RELEASE}")
-  set(CMAKE_C_FLAGS_RELEASE "-O3 ${CMAKE_C_FLAGS_RELEASE}")  
-  set(ENABLE_SIGNING TRUE)
-  set(SIGNING_IDENTITY "Developer ID Application: Geir Noklebye")
-endif (DARWIN)
-
-
-if (LINUX OR DARWIN)
+if (LINUX)
   if (CMAKE_CXX_COMPILER MATCHES ".*clang")
     set(CMAKE_COMPILER_IS_CLANGXX 1)
   endif (CMAKE_CXX_COMPILER MATCHES ".*clang")
@@ -261,7 +243,7 @@ if (LINUX OR DARWIN)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m64")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m64")
   endif (WORD_SIZE EQUAL 32)
-endif (LINUX OR DARWIN)
+endif (LINUX)
 
 
 if (USESYSTEMLIBS)

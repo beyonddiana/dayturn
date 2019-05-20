@@ -11,9 +11,6 @@ else (USESYSTEMLIBS)
   if (WINDOWS)
     set(PNG_LIBRARIES libpng16)
     set(PNG_INCLUDE_DIRS ${LIBS_PREBUILT_DIR}/include/libpng16)
-  elseif(DARWIN)
-    set(PNG_LIBRARIES png16)
-    set(PNG_INCLUDE_DIRS ${LIBS_PREBUILT_DIR}/include/libpng16)
   else()
     #
     # When we have updated static libraries in competition with older

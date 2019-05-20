@@ -24,17 +24,6 @@ if (WINDOWS)
         optimized pcre
         ${BOOST_SYSTEM_LIBRARIES}
         )
-elseif (DARWIN)
-    set(LLPRIMITIVE_LIBRARIES 
-        llprimitive
-        debug collada14dom-d
-        optimized collada14dom
-        minizip
-        xml2
-        pcrecpp
-        pcre
-        iconv           # Required by libxml2
-        )
 elseif (LINUX)
     set(LLPRIMITIVE_LIBRARIES 
         llprimitive

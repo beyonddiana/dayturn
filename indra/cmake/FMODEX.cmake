@@ -29,10 +29,6 @@ if (FMODEX)
         set(FMODEX_LIBRARY 
             debug fmodexL_vc
             optimized fmodex_vc)
-      elseif (DARWIN)
-        set(FMODEX_LIBRARY 
-            debug fmodexL
-            optimized fmodex)
       elseif (LINUX AND ${ARCH} STREQUAL "i686")
         set(FMODEX_LIBRARY 
             debug fmodexL

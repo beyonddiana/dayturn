@@ -15,26 +15,24 @@ macro(ll_deploy_sharedlibs_command target_exe)
   # clear that we have long since accomplished by other means what this was
   # originally supposed to do. Skipping it only eliminates an annoying
   # non-fatal error.
-  if(NOT DARWIN)
-    if(WINDOWS)
-      SET_TEST_PATH(SEARCH_DIRS)
-      LIST(APPEND SEARCH_DIRS "$ENV{SystemRoot}/system32")
-    elseif(LINUX)
-      SET_TEST_PATH(SEARCH_DIRS)
-      set(OUTPUT_PATH ${OUTPUT_PATH}/lib)
-    endif(WINDOWS)
+if(WINDOWS)
+  SET_TEST_PATH(SEARCH_DIRS)
+  LIST(APPEND SEARCH_DIRS "$ENV{SystemRoot}/system32")
+elseif(LINUX)
+  SET_TEST_PATH(SEARCH_DIRS)
+  set(OUTPUT_PATH ${OUTPUT_PATH}/lib)
+endif(WINDOWS)
 
-    add_custom_command(
-      TARGET ${target_exe} POST_BUILD
-      COMMAND ${CMAKE_COMMAND} 
-      ARGS
-      "-DBIN_NAME=\"${TARGET_LOCATION}\""
-      "-DSEARCH_DIRS=\"${SEARCH_DIRS}\""
-      "-DDST_PATH=\"${OUTPUT_PATH}\""
-      "-P"
-      "${CMAKE_SOURCE_DIR}/cmake/DeploySharedLibs.cmake"
-      )
-  endif(NOT DARWIN)
+add_custom_command(
+  TARGET ${target_exe} POST_BUILD
+  COMMAND ${CMAKE_COMMAND} 
+  ARGS
+  "-DBIN_NAME=\"${TARGET_LOCATION}\""
+  "-DSEARCH_DIRS=\"${SEARCH_DIRS}\""
+  "-DDST_PATH=\"${OUTPUT_PATH}\""
+  "-P"
+  "${CMAKE_SOURCE_DIR}/cmake/DeploySharedLibs.cmake"
+  )
 
 endmacro(ll_deploy_sharedlibs_command)
 
@@ -47,11 +45,7 @@ macro(ll_stage_sharedlib DSO_TARGET)
   if(NOT WINDOWS)
     get_target_property(DSO_PATH ${DSO_TARGET} LOCATION)
     get_filename_component(DSO_FILE ${DSO_PATH} NAME)
-    if(DARWIN)
-      set(SHARED_LIB_STAGING_DIR_CONFIG ${SHARED_LIB_STAGING_DIR}/${CMAKE_CFG_INTDIR}/Resources)
-    else(DARWIN)
-      set(SHARED_LIB_STAGING_DIR_CONFIG ${SHARED_LIB_STAGING_DIR}/${CMAKE_CFG_INTDIR})
-    endif(DARWIN)
+    set(SHARED_LIB_STAGING_DIR_CONFIG ${SHARED_LIB_STAGING_DIR}/${CMAKE_CFG_INTDIR})
 
       # *TODO - maybe make this a symbolic link? -brad
       add_custom_command(
@@ -65,12 +59,5 @@ macro(ll_stage_sharedlib DSO_TARGET)
           COMMENT "Copying llcommon to the staging folder."
         )
     endif(NOT WINDOWS)
-
-  if (DARWIN)
-    set_target_properties(${DSO_TARGET} PROPERTIES
-      BUILD_WITH_INSTALL_RPATH 1
-      INSTALL_NAME_DIR "@executable_path/../Resources"
-      )
-  endif(DARWIN)
 
 endmacro(ll_stage_sharedlib)

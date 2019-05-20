@@ -17,7 +17,6 @@ if (WINDOWS)
         libvlc.lib
         libvlccore.lib
     )
-elseif (DARWIN)
 elseif (LINUX)
     # Specify a full path to make sure we get a static link
     set(VLC_PLUGIN_LIBRARIES

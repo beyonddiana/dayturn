@@ -19,11 +19,6 @@ if (OPENAL)
       OpenAL32
       alut
     )
-  elseif (DARWIN)
-	set(OPENAL_LIBRARIES
-	  libopenal.1.dylib # different from the lib vivox uses -- MC
-	  libalut.0.dylib
-	)
   else (WINDOWS)
     set(OPENAL_LIBRARIES 
       openal
