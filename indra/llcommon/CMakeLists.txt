@@ -257,13 +257,6 @@ set(llcommon_HEADER_FILES
     )
 
 
-# <AV:CR>
-if (DARWIN)
-  list(APPEND llcommon_HEADER_FILES llsys_objc.h)
-  list(APPEND llcommon_SOURCE_FILES llsys_objc.mm)
-endif (DARWIN)
-# </AV:CR>
-
 set_source_files_properties(${llcommon_HEADER_FILES}
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
@@ -272,7 +265,7 @@ list(APPEND llcommon_SOURCE_FILES ${llcommon_HEADER_FILES})
 if(NOT WORD_SIZE EQUAL 32)
   if(WINDOWS)
     add_definitions(/FIXED:NO)
-  else(WINDOWS) # not windows therefore gcc LINUX and DARWIN
+  else(WINDOWS) # not windows therefore gcc LINUX
     add_definitions(-fPIC)
   endif(WINDOWS)
 endif(NOT WORD_SIZE EQUAL 32)
@@ -289,7 +282,7 @@ else(LLCOMMON_LINK_SHARED)
   if(NOT WORD_SIZE EQUAL 32)
     if(WINDOWS)
       add_definitions(/FIXED:NO)
-    else(WINDOWS) # not windows therefore gcc LINUX and DARWIN
+    else(WINDOWS) # not windows therefore gcc LINUX
       add_definitions(-fPIC)
     endif(WINDOWS)
   endif(NOT WORD_SIZE EQUAL 32)
@@ -316,12 +309,6 @@ target_link_libraries(
     ${GOOGLE_PERFTOOLS_LIBRARIES}
     ${URIPARSER_LIBRARIES}
     )
-
-if (DARWIN)
-  include(CMakeFindFrameworks)
-  find_library(CARBON_LIBRARY Carbon)
-  target_link_libraries(llcommon ${CARBON_LIBRARY})
-endif (DARWIN)
 
 add_dependencies(llcommon stage_third_party_libs)
 

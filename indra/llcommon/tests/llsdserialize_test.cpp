@@ -1729,7 +1729,7 @@ namespace tut
                 ensure_equals(STRINGIZE(desc << " script terminated with rc " << rc), rc, expect);
             }
 
-#else  // LL_DARWIN, LL_LINUX
+#else  // LL_LINUX
             LLProcess::Params params;
             params.executable = PYTHON;
             params.args.add(scriptfile.getName());

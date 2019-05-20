@@ -32,7 +32,7 @@
 
 #if LL_WINDOWS
 #	include "llwin32headerslean.h"
-#elif LL_LINUX || LL_DARWIN
+#elif LL_LINUX
 #   include <errno.h>
 #	include <sys/time.h>
 #else 
@@ -74,7 +74,7 @@ U32 micro_sleep(U64 us, U32 max_yields)
 	ms_sleep((U32)(us / 1000));
     return 0;
 }
-#elif LL_LINUX || LL_DARWIN
+#elif LL_LINUX
 static void _sleep_loop(struct timespec& thiswait)
 {
 	struct timespec nextwait;
@@ -187,7 +187,7 @@ F64 calc_clock_frequency()
 #endif // LL_WINDOWS
 
 
-#if LL_LINUX || LL_DARWIN 
+#if LL_LINUX 
 // Both Linux and Mac use gettimeofday for accurate time
 F64 calc_clock_frequency()
 {

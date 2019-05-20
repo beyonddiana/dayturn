@@ -564,137 +564,6 @@ private:
 	}
 };
 
-#elif LL_DARWIN
-
-#include <mach/machine.h>
-#include <sys/sysctl.h>
-
-class LLProcessorInfoDarwinImpl : public LLProcessorInfoImpl
-{
-public:
-	LLProcessorInfoDarwinImpl() 
-	{
-		getCPUIDInfo();
-		uint64_t frequency = getSysctlInt64("hw.cpufrequency");
-		setInfo(eFrequency, (F64)frequency  / (F64)1000000);
-	}
-
-	virtual ~LLProcessorInfoDarwinImpl() {}
-
-private:
-	int getSysctlInt(const char* name)
-   	{
-		int result = 0;
-		size_t len = sizeof(int);
-		int error = sysctlbyname(name, (void*)&result, &len, NULL, 0);
-		return error == -1 ? 0 : result;
-   	}
-
-	uint64_t getSysctlInt64(const char* name)
-   	{
-		uint64_t value = 0;
-		size_t size = sizeof(value);
-		int result = sysctlbyname(name, (void*)&value, &size, NULL, 0);
-		if ( result == 0 ) 
-		{ 
-			if ( size == sizeof( uint64_t ) ) 
-				; 
-			else if ( size == sizeof( uint32_t ) ) 
-				value = (uint64_t)(( uint32_t *)&value); 
-			else if ( size == sizeof( uint16_t ) ) 
-				value =  (uint64_t)(( uint16_t *)&value); 
-			else if ( size == sizeof( uint8_t ) ) 
-				value =  (uint64_t)(( uint8_t *)&value); 
-			else
-			{
-				LL_WARNS("Unknown type returned from sysctl!") << LL_ENDL;
-			}
-		}
-				
-		return result == -1 ? 0 : value;
-   	}
-	
-	void getCPUIDInfo()
-	{
-		size_t len = 0;
-
-		char cpu_brand_string[0x40];
-		len = sizeof(cpu_brand_string);
-		memset(cpu_brand_string, 0, len);
-		sysctlbyname("machdep.cpu.brand_string", (void*)cpu_brand_string, &len, NULL, 0);
-		cpu_brand_string[0x3f] = 0;
-		setInfo(eBrandName, cpu_brand_string);
-		
-		char cpu_vendor[0x20];
-		len = sizeof(cpu_vendor);
-		memset(cpu_vendor, 0, len);
-		sysctlbyname("machdep.cpu.vendor", (void*)cpu_vendor, &len, NULL, 0);
-		cpu_vendor[0x1f] = 0;
-		setInfo(eVendor, cpu_vendor);
-
-		setInfo(eStepping, getSysctlInt("machdep.cpu.stepping"));
-		setInfo(eModel, getSysctlInt("machdep.cpu.model"));
-		int family = getSysctlInt("machdep.cpu.family");
-		int ext_family = getSysctlInt("machdep.cpu.extfamily");
-		setInfo(eFamily, family);
-		setInfo(eExtendedFamily, ext_family);
-		setInfo(eFamilyName, compute_CPUFamilyName(cpu_vendor, family, ext_family));
-		setInfo(eExtendedModel, getSysctlInt("machdep.cpu.extmodel"));
-		setInfo(eBrandID, getSysctlInt("machdep.cpu.brand"));
-		setInfo(eType, 0); // ? where to find this?
-
-		//setConfig(eCLFLUSHCacheLineSize, ((cpu_info[1] >> 8) & 0xff) * 8);
-		//setConfig(eAPICPhysicalID, (cpu_info[1] >> 24) & 0xff);
-		setConfig(eCacheLineSize, getSysctlInt("machdep.cpu.cache.linesize"));
-		setConfig(eL2Associativity, getSysctlInt("machdep.cpu.cache.L2_associativity"));
-		setConfig(eCacheSizeK, getSysctlInt("machdep.cpu.cache.size"));
-		
-		uint64_t feature_info = getSysctlInt64("machdep.cpu.feature_bits");
-		S32 *feature_infos = (S32*)(&feature_info);
-		
-		setConfig(eFeatureBits, feature_infos[0]);
-
-		for(unsigned int index = 0, bit = 1; index < eSSE3_Features; ++index, bit <<= 1)
-		{
-			if(feature_info & bit)
-			{
-				setExtension(cpu_feature_names[index]);
-			}
-		}
-
-		// *NOTE:Mani - I didn't find any docs that assure me that machdep.cpu.feature_bits will always be
-		// The feature bits I think it is. Here's a test:
-#ifndef LL_RELEASE_FOR_DOWNLOAD
-	#if defined(__i386__) && defined(__PIC__)
-			/* %ebx may be the PIC register.  */
-		#define __cpuid(level, a, b, c, d)			\
-		__asm__ ("xchgl\t%%ebx, %1\n\t"			\
-				"cpuid\n\t"					\
-				"xchgl\t%%ebx, %1\n\t"			\
-				: "=a" (a), "=r" (b), "=c" (c), "=d" (d)	\
-				: "0" (level))
-	#else
-		#define __cpuid(level, a, b, c, d)			\
-		__asm__ ("cpuid\n\t"					\
-				 : "=a" (a), "=b" (b), "=c" (c), "=d" (d)	\
-				 : "0" (level))
-	#endif
-
-		unsigned int eax, ebx, ecx, edx;
-		__cpuid(0x1, eax, ebx, ecx, edx);
-		if(feature_infos[0] != (S32)edx)
-		{
-			LL_ERRS() << "machdep.cpu.feature_bits doesn't match expected cpuid result!" << LL_ENDL;
-		} 
-#endif // LL_RELEASE_FOR_DOWNLOAD 	
-
-
-		uint64_t ext_feature_info = getSysctlInt64("machdep.cpu.extfeature_bits");
-		S32 *ext_feature_infos = (S32*)(&ext_feature_info);
-		setConfig(eExtFeatureBits, ext_feature_infos[0]);
-	}
-};
-
 #elif LL_LINUX
 const char CPUINFO_FILE[] = "/proc/cpuinfo";
 
@@ -835,7 +704,7 @@ private:
 };
 
 
-#endif // LL_MSVC elif LL_DARWIN elif LL_LINUX
+#endif // LL_MSVC elif LL_LINUX
 
 //////////////////////////////////////////////////////
 // Interface definition
@@ -846,9 +715,6 @@ LLProcessorInfo::LLProcessorInfo() : mImpl(NULL)
 	{
 #ifdef LL_MSVC
 		static LLProcessorInfoWindowsImpl the_impl; 
-		mImpl = &the_impl;
-#elif LL_DARWIN
-		static LLProcessorInfoDarwinImpl the_impl; 
 		mImpl = &the_impl;
 #else
 		static LLProcessorInfoLinuxImpl the_impl; 

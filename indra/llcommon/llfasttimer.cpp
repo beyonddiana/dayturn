@@ -47,9 +47,6 @@
 #include <sys/time.h>
 #include <sched.h>
 #include "lltimer.h"
-#elif LL_DARWIN
-#include <sys/time.h>
-#include "lltimer.h"	// get_clock_count()
 #else 
 #error "architecture not supported"
 #endif
@@ -151,7 +148,7 @@ void BlockTimer::setLogLock(LLMutex* lock)
 
 
 //static
-#if (LL_DARWIN || LL_LINUX) && !(defined(__i386__) || defined(__amd64__))
+#if (LL_LINUX) && !(defined(__i386__) || defined(__amd64__))
 U64 BlockTimer::countsPerSecond()
 {
 	return sClockResolution;

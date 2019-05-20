@@ -31,11 +31,6 @@
 
 #if defined(LL_WINDOWS)
 # include <psapi.h>
-#elif defined(LL_DARWIN)
-# include <sys/types.h>
-# include <mach/mach.h>
-# include <mach/task.h>
-# include <mach/mach_init.h>
 #elif LL_LINUX
 # include <unistd.h>
 #endif
@@ -243,39 +238,6 @@ U64 LLMemory::getCurrentRSS()
 	}
 
 	return counters.WorkingSetSize;
-}
-
-#elif defined(LL_DARWIN)
-
-// 	if (sysctl(ctl, 2, &page_size, &size, NULL, 0) == -1)
-// 	{
-// 		LL_WARNS() << "Couldn't get page size" << LL_ENDL;
-// 		return 0;
-// 	} else {
-// 		return page_size;
-// 	}
-// }
-
-U64 LLMemory::getCurrentRSS()
-{
-	U64 residentSize = 0;
-	mach_task_basic_info_data_t basicInfo;
-	mach_msg_type_number_t  basicInfoCount = MACH_TASK_BASIC_INFO_COUNT;
-	if (task_info(mach_task_self(), MACH_TASK_BASIC_INFO, (task_info_t)&basicInfo, &basicInfoCount) == KERN_SUCCESS)
-	{
-		residentSize = basicInfo.resident_size;
-
-		// If we ever wanted it, the process virtual size is also available as:
-		// virtualSize = basicInfo.virtual_size;
-		
-//		LL_INFOS() << "resident size is " << residentSize << LL_ENDL;
-	}
-	else
-	{
-		LL_WARNS() << "task_info failed" << LL_ENDL;
-	}
-
-	return residentSize;
 }
 
 #elif defined(LL_LINUX)
