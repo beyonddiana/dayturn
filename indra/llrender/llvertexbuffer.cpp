@@ -1529,13 +1529,11 @@ void LLVertexBuffer::setupVertexArray()
 
 			if (attrib_integer[i])
 			{
-#if !LL_DARWIN
 				//glVertexattribIPointer requires GLSL 1.30 or later
 				if (gGLManager.mGLSLVersionMajor > 1 || gGLManager.mGLSLVersionMinor >= 30)
 				{
 					glVertexAttribIPointer(i, attrib_size[i], attrib_type[i], sTypeSize[i], (void*)(ptrdiff_t) mOffsets[i]); 
 				}
-#endif
 			}
 			else
 			{
@@ -2608,11 +2606,9 @@ void LLVertexBuffer::setupVertexBuffer(U32 data_mask)
 		if (data_mask & MAP_TEXTURE_INDEX && 
 				(gGLManager.mGLSLVersionMajor >= 2 || gGLManager.mGLSLVersionMinor >= 30)) //indexed texture rendering requires GLSL 1.30 or later
 		{
-#if !LL_DARWIN
 			S32 loc = TYPE_TEXTURE_INDEX;
 			void *ptr = (void*) (base + mOffsets[TYPE_VERTEX] + 12);
 			glVertexAttribIPointer(loc, 1, GL_UNSIGNED_INT, LLVertexBuffer::sTypeSize[TYPE_VERTEX], ptr);
-#endif
 		}
 		if (data_mask & MAP_VERTEX)
 		{

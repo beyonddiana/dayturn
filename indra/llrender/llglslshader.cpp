@@ -33,10 +33,6 @@
 #include "llrender.h"
 #include "llvertexbuffer.h"
 
-#if LL_DARWIN
-#include "OpenGL/OpenGL.h"
-#endif
-
 #ifdef LL_RELEASE_FOR_DOWNLOAD
 #define UNIFORM_ERRS LL_WARNS_ONCE("Shader")
 #else
@@ -222,7 +218,6 @@ void LLGLSLShader::stopProfile(U32 count, U32 mode)
 
 void LLGLSLShader::placeProfileQuery()
 {
-#if !LL_DARWIN
     if (mTimerQuery == 0)
     {
         glGenQueriesARB(1, &mSamplesQuery);
@@ -264,12 +259,10 @@ void LLGLSLShader::placeProfileQuery()
 
     glBeginQueryARB(GL_SAMPLES_PASSED, mSamplesQuery);
     glBeginQueryARB(GL_TIME_ELAPSED, mTimerQuery);
-#endif
 }
 
 void LLGLSLShader::readProfileQuery(U32 count, U32 mode)
 {
-#if !LL_DARWIN
     glEndQueryARB(GL_TIME_ELAPSED);
     glEndQueryARB(GL_SAMPLES_PASSED);
     
@@ -307,7 +300,6 @@ void LLGLSLShader::readProfileQuery(U32 count, U32 mode)
 
     sTotalDrawCalls++;
     mDrawCalls++;
-#endif
 }
 
 
@@ -403,11 +395,7 @@ BOOL LLGLSLShader::createShader(std::vector<LLStaticHashedString> * attributes,
 
     // Create program
     mProgramObject = glCreateProgramObjectARB();
-    
-#if LL_DARWIN
-    // work-around missing mix(vec3,vec3,bvec3)
-    mDefines["OLD_SELECT"] = "1";
-#endif
+
     
     //compile new source
     vector< pair<string,GLenum> >::iterator fileIter = mShaderFiles.begin();
@@ -437,13 +425,11 @@ BOOL LLGLSLShader::createShader(std::vector<LLStaticHashedString> * attributes,
         mFeatures.mIndexedTextureChannels = llmin(mFeatures.mIndexedTextureChannels, 1);
     }
 
-#if !LL_DARWIN
 #ifdef GL_INTERLEAVED_ATTRIBS
     if (varying_count > 0 && varyings)
     {
         glTransformFeedbackVaryings(mProgramObject, varying_count, varyings, GL_INTERLEAVED_ATTRIBS);
     }
-#endif
 #endif
 
     // Map attributes and uniforms
@@ -600,7 +586,6 @@ void LLGLSLShader::mapUniform(GLint index, const vector<LLStaticHashedString> * 
 
 
     glGetActiveUniformARB(mProgramObject, index, 1024, &length, &size, &type, (GLcharARB *)name);
-#if !LL_DARWIN
     if (size > 0)
     {
         switch(type)
@@ -642,7 +627,6 @@ void LLGLSLShader::mapUniform(GLint index, const vector<LLStaticHashedString> * 
         }
         mTotalUniformSize += size;
     }
-#endif
 
     S32 location = glGetUniformLocationARB(mProgramObject, name);
     if (location != -1)

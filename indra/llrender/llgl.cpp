@@ -456,9 +456,7 @@ LLGLManager::LLGLManager() :
 	mIsGFFX(FALSE),
 	mATIOffsetVerticalLines(FALSE),
 	mATIOldDriver(FALSE),
-#if LL_DARWIN
-	mIsMobileGF(FALSE),
-#endif
+
 	mHasRequirements(TRUE),
 
 	mHasSeparateSpecularColor(FALSE),
@@ -585,15 +583,6 @@ bool LLGLManager::initGL()
 	if (mGLVersion >= 2.f)
 	{
 		parse_glsl_version(mGLSLVersionMajor, mGLSLVersionMinor);
-
-#if LL_DARWIN
-		//never use GLSL greater than 1.20 on OSX
-		if (mGLSLVersionMajor > 1 || mGLSLVersionMinor >= 30)
-		{
-			mGLSLVersionMajor = 1;
-			mGLSLVersionMinor = 20;
-		}
-#endif
 	}
 
 	if (mGLVersion >= 2.1f && LLImageGL::sCompressTextures)
@@ -651,15 +640,6 @@ bool LLGLManager::initGL()
 		{
 			mIsGF3 = TRUE;
 		}
-#if LL_DARWIN
-		else if ((mGLRenderer.find("9400M") != std::string::npos)
-			  || (mGLRenderer.find("9600M") != std::string::npos)
-			  || (mGLRenderer.find("9800M") != std::string::npos))
-		{
-			mIsMobileGF = TRUE;
-		}
-#endif
-
 	}
 	else if (mGLVendor.find("INTEL") != std::string::npos
 #if LL_LINUX
@@ -1007,11 +987,8 @@ void LLGLManager::initExtensions()
 	mHasTextureMultisample = ExtensionExists("GL_ARB_texture_multisample", gGLHExts.mSysExts);
 	mHasDebugOutput = ExtensionExists("GL_ARB_debug_output", gGLHExts.mSysExts);
 	mHasTransformFeedback = mGLVersion >= 4.f ? TRUE : FALSE;
-#if !LL_DARWIN
 	mHasPointParameters = !mIsATI && ExtensionExists("GL_ARB_point_parameters", gGLHExts.mSysExts);
-#else
-	mHasPointParameters = ExtensionExists("GL_ARB_point_parameters", gGLHExts.mSysExts);	
-#endif
+
 	mHasShaderObjects = ExtensionExists("GL_ARB_shader_objects", gGLHExts.mSysExts) && (LLRender::sGLCoreProfile || ExtensionExists("GL_ARB_shading_language_100", gGLHExts.mSysExts));
 	mHasVertexShader = ExtensionExists("GL_ARB_vertex_program", gGLHExts.mSysExts) && ExtensionExists("GL_ARB_vertex_shader", gGLHExts.mSysExts)
 		&& (LLRender::sGLCoreProfile || ExtensionExists("GL_ARB_shading_language_100", gGLHExts.mSysExts));
@@ -1153,13 +1130,11 @@ void LLGLManager::initExtensions()
 		LL_INFOS("RenderInit") << "Disabling mip-map generation for Intel GPUs" << LL_ENDL;
 		mHasMipMapGeneration = FALSE;
 	}
-#if !LL_DARWIN
 	if (mIsATI && mHasMipMapGeneration)
 	{
 		LL_INFOS("RenderInit") << "Disabling mip-map generation for ATI GPUs (performance opt)" << LL_ENDL;
 		mHasMipMapGeneration = FALSE;
 	}
-#endif
 	
 	// Misc
 	glGetIntegerv(GL_MAX_ELEMENTS_VERTICES, (GLint*) &mGLMaxVertexRange);

@@ -1082,9 +1082,6 @@ std::string LLFontGL::getFontPathSystem()
 #if LL_WINDOWS
 		// HACK for windows 98/Me
 		system_path = "/WINDOWS/FONTS/";
-#elif LL_DARWIN
-		// HACK for Mac OS X
-		system_path = "/System/Library/Fonts/";
 #endif
 	}
 	return system_path;
