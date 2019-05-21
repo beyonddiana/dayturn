@@ -129,11 +129,6 @@ public:
 	BOOL mIsGFFX;
 	BOOL mATIOffsetVerticalLines;
 	BOOL mATIOldDriver;
-
-#if LL_DARWIN
-	// Needed to distinguish problem cards on older Macs that break with Materials
-	BOOL mIsMobileGF;
-#endif
 	
 	// Whether this version of GL is good enough for SL to use
 	BOOL mHasRequirements;

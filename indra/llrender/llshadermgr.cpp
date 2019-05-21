@@ -31,10 +31,6 @@
 #include "llfile.h"
 #include "llrender.h"
 
-#if LL_DARWIN
-#include "OpenGL/OpenGL.h"
-#endif
-
 #ifdef LL_RELEASE_FOR_DOWNLOAD
 #define UNIFORM_ERRS LL_WARNS_ONCE("Shader")
 #else
@@ -976,43 +972,6 @@ BOOL LLShaderMgr::linkProgramObject(GLhandleARB obj, BOOL suppress_errors)
 		LL_WARNS("ShaderLoading") << "GLSL Linker Error:" << LL_ENDL;
 	}
 
-#if LL_DARWIN
-
-	// For some reason this absolutely kills the frame rate when VBO's are enabled
-	if (0)
-	{
-		// Force an evaluation of the gl state so the driver can tell if the shader will run in hardware or software
-		// per Apple's suggestion
-		LLGLSLShader::sNoFixedFunction = false;
-		
-		glUseProgramObjectARB(obj);
-
-		gGL.begin(LLRender::TRIANGLES);
-		gGL.vertex3f(0.0f, 0.0f, 0.0f);
-		gGL.vertex3f(0.0f, 0.0f, 0.0f);
-		gGL.vertex3f(0.0f, 0.0f, 0.0f);
-		gGL.end();
-		gGL.flush();
-		
-		glUseProgramObjectARB(0);
-		
-		LLGLSLShader::sNoFixedFunction = true;
-
-		// Query whether the shader can or cannot run in hardware
-		// http://developer.apple.com/qa/qa2007/qa1502.html
-		GLint vertexGPUProcessing, fragmentGPUProcessing;
-		CGLContextObj ctx = CGLGetCurrentContext();
-		CGLGetParameter(ctx, kCGLCPGPUVertexProcessing, &vertexGPUProcessing);	
-		CGLGetParameter(ctx, kCGLCPGPUFragmentProcessing, &fragmentGPUProcessing);
-		if (!fragmentGPUProcessing || !vertexGPUProcessing)
-		{
-			LL_WARNS("ShaderLoading") << "GLSL Linker: Running in Software:" << LL_ENDL;
-			success = GL_FALSE;
-			suppress_errors = FALSE;		
-		}
-	}
-
-#else
 	std::string log = get_object_log(obj);
 	LLStringUtil::toLower(log);
 	if (log.find("software") != std::string::npos)
@@ -1021,7 +980,6 @@ BOOL LLShaderMgr::linkProgramObject(GLhandleARB obj, BOOL suppress_errors)
 		success = GL_FALSE;
 		suppress_errors = FALSE;
 	}
-#endif
 	return success;
 }
 

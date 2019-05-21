@@ -225,8 +225,6 @@ std::string currentOsName()
 {
 #if LL_WINDOWS
 	return "Windows";
-#elif LL_DARWIN
-	return "Mac";
 #elif LL_SDL || LL_MESA_HEADLESS
 	return "Linux";
 #else
@@ -439,9 +437,6 @@ LLFontGL *LLFontRegistry::createFont(const LLFontDescriptor& desc)
 		string_vec_t font_paths;
 		font_paths.push_back(local_path + *file_name_it);
 		font_paths.push_back(sys_path + *file_name_it);
-#if LL_DARWIN
-		font_paths.push_back(MACOSX_FONT_PATH_LIBRARY + *file_name_it);
-#endif
 		// *HACK: Fallback fonts don't render, so we can use that to suppress
 		// creation of OpenGL textures for test apps. JC
 		BOOL is_fallback = !is_first_found || !mCreateGLTextures;
