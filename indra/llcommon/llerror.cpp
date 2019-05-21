@@ -1371,10 +1371,6 @@ namespace LLError
 		static std::string indra_prefix = "indra/";
 		f = removePrefix(f, indra_prefix);
 
-#if LL_DARWIN
-		static std::string newview_prefix = "newview/../";
-		f = removePrefix(f, newview_prefix);
-#endif
 
 		return f;
 	}
