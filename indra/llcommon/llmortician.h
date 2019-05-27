@@ -35,6 +35,8 @@ class LL_COMMON_API LLMortician
 {
 public:
 	LLMortician() { mIsDead = false; }
+	static U32 graveyardCount() { return sGraveyard.size(); };
+	static U32 logClass(std::stringstream &str);
 	static void updateClass();
 	virtual ~LLMortician();
 	void die();
