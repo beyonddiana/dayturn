@@ -252,8 +252,9 @@ private:
 
 public:
 	// no-copy
-	BlockTimer(const BlockTimer& other) {};
-
+	BlockTimer(const BlockTimer& other);
+	BlockTimer& operator=(const BlockTimer& other);
+	
 private:
 	U64						mStartTime;
 	BlockTimerStackRecord	mParentTimerData;
