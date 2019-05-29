@@ -231,8 +231,7 @@
    </menu_item_call>
    <menu_item_call label="Hover Height"
      layout="topleft"
-     name="Hover Height"
-	 only_in_sl="true">
+     name="Hover Height">
      <menu_item_call.on_click
       function="HoverHeight" />
      <menu_item_call.on_enable
