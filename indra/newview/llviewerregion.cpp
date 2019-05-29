@@ -2890,6 +2890,7 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
         capabilityNames.append("DirectDelivery");
         capabilityNames.append("GetExperiences");
         capabilityNames.append("AgentExperiences");
+        capabilityNames.append("EstateAccess");
         capabilityNames.append("FindExperienceByName");
         capabilityNames.append("GetExperienceInfo");
         capabilityNames.append("GetAdminExperiences");
