@@ -22342,7 +22342,20 @@
             </array>
             <key>tooltip</key>
             <string>Returns the parameters of a primitive, specified by its key.</string>
-         </map>           
+         </map>
+         <key>osGetPSTWallclock</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>float</string>
+            <key>arguments</key>
+            <undef/>
+            <key>tooltip</key>
+            <string>Returns wall clock in PST or PDT.</string>
+         </map>                      
          <key>osGetRegionMapTexture</key>
          <map>
             <key>energy</key>
