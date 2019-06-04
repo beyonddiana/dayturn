@@ -219,7 +219,7 @@ bool LLPanelPrimMediaControls::postBuild()
 
 	mCurrentZoom = ZOOM_NONE;
 	// clicks on buttons do not remove keyboard focus from media
-	setIsChrome(TRUE);
+	setIsChrome(true);
 	return true;
 }
 

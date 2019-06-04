@@ -115,7 +115,7 @@ LLExpandableTextBox::LLTextBoxEx::LLTextBoxEx(const Params& p)
 	mExpanderLabel(p.label.isProvided() ? p.label : LLTrans::getString("More")),
 	mExpanderVisible(false)
 {
-	setIsChrome(TRUE);
+	setIsChrome(true);
 	setMaxTextLength(p.max_text_length);
 }
 
@@ -386,7 +386,7 @@ void LLExpandableTextBox::expandTextBox()
 	reshape(expanded_screen_rect.getWidth(), expanded_screen_rect.getHeight(), false);
 	setRect(expanded_screen_rect);
 
-	setFocus(TRUE);
+	setFocus(true);
 	// this lets us receive top_lost event(needed to collapse text box)
 	// it also draws text box above all other ui elements
 	gViewerWindow->addPopup(this);

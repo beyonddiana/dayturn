@@ -507,7 +507,7 @@ BOOL LLMultiSlider::handleMouseDown(S32 x, S32 y, MASK mask)
 	// only do sticky-focus on non-chrome widgets
 	if (!getIsChrome())
 	{
-		setFocus(TRUE);
+		setFocus(true);
 	}
 	if (mMouseDownSignal)
 		(*mMouseDownSignal)( this, LLSD() );

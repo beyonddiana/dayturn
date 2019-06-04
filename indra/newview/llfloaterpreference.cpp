@@ -161,7 +161,7 @@ LLVoiceSetKeyDialog::LLVoiceSetKeyDialog(const LLSD& key)
 bool LLVoiceSetKeyDialog::postBuild()
 {
 	childSetAction("Cancel", onCancel, this);
-	getChild<LLUICtrl>("Cancel")->setFocus(TRUE);
+	getChild<LLUICtrl>("Cancel")->setFocus(true);
 	
 	gFocusMgr.setKeystrokesOnly(TRUE);
 	

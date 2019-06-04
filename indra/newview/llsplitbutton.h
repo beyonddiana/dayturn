@@ -71,7 +71,7 @@ public:
 
 	//Overridden
 	virtual void	onFocusLost();
-	virtual void	setFocus(BOOL b);
+	virtual void	setFocus(bool b);
 	virtual void	setEnabled(bool enabled);
 
 	//Callbacks

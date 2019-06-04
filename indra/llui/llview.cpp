@@ -527,7 +527,7 @@ BOOL LLView::focusNext(LLView::child_list_t & result)
 		if((*next)->isCtrl())
 		{
 			LLUICtrl * ctrl = static_cast<LLUICtrl*>(*next);
-			ctrl->setFocus(TRUE);
+			ctrl->setFocus(true);
 			ctrl->onTabInto();  
 			gFocusMgr.triggerFocusFlash();
 			return TRUE;
@@ -565,7 +565,7 @@ BOOL LLView::focusPrev(LLView::child_list_t & result)
 			LLUICtrl * ctrl = static_cast<LLUICtrl*>(*next);
 			if (!ctrl->hasFocus())
 			{
-				ctrl->setFocus(TRUE);
+				ctrl->setFocus(true);
 				ctrl->onTabInto();  
 				gFocusMgr.triggerFocusFlash();
 			}

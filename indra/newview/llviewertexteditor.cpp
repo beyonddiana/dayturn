@@ -724,7 +724,7 @@ BOOL LLViewerTextEditor::handleMouseDown(S32 x, S32 y, MASK mask)
 
 				if (hasTabStop())
 				{
-					setFocus( TRUE );
+					setFocus(true);
 				}
 
 				handled = TRUE;

@@ -81,7 +81,7 @@ protected:
 	{
 		S32		    mWidth;
 		S32		    mHeight;
-		BOOL	    mCanMinimize;
+		bool	    mCanMinimize;
 		BOOL	    mCanResize;
 		BOOL        mSaveRect;
 	};

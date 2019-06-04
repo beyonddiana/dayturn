@@ -167,7 +167,7 @@ void LLPanel::clearCtrls()
 	for (LLPanel::ctrl_list_t::iterator ctrl_it = ctrls.begin(); ctrl_it != ctrls.end(); ++ctrl_it)
 	{
 		LLUICtrl* ctrl = *ctrl_it;
-		ctrl->setFocus( FALSE );
+		ctrl->setFocus(false);
 		ctrl->setEnabled( false );
 		ctrl->clear();
 	}
@@ -261,7 +261,7 @@ void LLPanel::updateDefaultBtn()
 void LLPanel::refresh()
 {
 	// do nothing by default
-	// but is automatically called in setFocus(TRUE)
+	// but is automatically called in setFocus(true)
 }
 
 void LLPanel::setDefaultBtn(LLButton* btn)
@@ -299,7 +299,7 @@ bool LLPanel::handleKeyHere( KEY key, MASK mask )
 	// handle user hitting ESC to defocus
 	if (key == KEY_ESCAPE)
 	{
-		setFocus(FALSE);
+		setFocus(false);
 		return true;
 	}
 	else if( (mask == MASK_SHIFT) && (KEY_TAB == key))
@@ -361,12 +361,12 @@ void LLPanel::onVisibilityChange ( bool new_visibility )
 		(*mVisibleSignal)(this, LLSD(new_visibility) ); // Pass BOOL as LLSD
 }
 
-void LLPanel::setFocus(BOOL b)
+void LLPanel::setFocus(bool b)
 {
 	if( b && !hasFocus())
 	{
 		// give ourselves focus preemptively, to avoid infinite loop
-		LLUICtrl::setFocus(TRUE);
+		LLUICtrl::setFocus(true);
 		// then try to pass to first valid child
 		focusFirstItem();
 	}

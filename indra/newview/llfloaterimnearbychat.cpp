@@ -118,7 +118,7 @@ LLFloaterIMNearbyChat* LLFloaterIMNearbyChat::buildFloater(const LLSD& key)
 //virtual
 bool LLFloaterIMNearbyChat::postBuild()
 {
-    setIsSingleInstance(TRUE);
+    setIsSingleInstance(true);
     bool result = LLFloaterIMSessionTab::postBuild();
 
 	mInputEditor->setAutoreplaceCallback(boost::bind(&LLAutoReplace::autoreplaceCallback, LLAutoReplace::getInstance(), _1, _2, _3, _4, _5));
@@ -390,7 +390,7 @@ void LLFloaterIMNearbyChat::showHistory()
 	}
 	else
 	{
-		LLFloaterIMContainer::getInstance()->setFocus(TRUE);
+		LLFloaterIMContainer::getInstance()->setFocus(true);
 	}
 	setResizeLimits(getMinWidth(), EXPANDED_MIN_HEIGHT);
 }
@@ -791,7 +791,7 @@ void LLFloaterIMNearbyChat::startChat(const char* line)
 			nearby_chat->setMinimized(false);
 		}
 		nearby_chat->show();
-		nearby_chat->setFocus(TRUE);
+		nearby_chat->setFocus(true);
 
 		if (line)
 		{
@@ -810,7 +810,7 @@ void LLFloaterIMNearbyChat::stopChat()
 	LLFloaterIMNearbyChat* nearby_chat = LLFloaterReg::getTypedInstance<LLFloaterIMNearbyChat>("nearby_chat");
 	if (nearby_chat)
 	{
-		nearby_chat->mInputEditor->setFocus(FALSE);
+		nearby_chat->mInputEditor->setFocus(false);
 	    gAgent.stopTyping();
 	}
 }

@@ -108,7 +108,7 @@ void LLDockableFloater::toggleInstance(const LLSD& sdname)
 	// if floater undocked
 	else if (instance != NULL)
 	{
-		instance->setMinimized(FALSE);
+		instance->setMinimized(false);
 		if (instance->getVisible())
 		{
 			instance->setVisible(false);
@@ -160,7 +160,7 @@ void LLDockableFloater::setVisible(bool visible)
 	LLFloater::setVisible(visible);
 }
 
-void LLDockableFloater::setMinimized(BOOL minimize)
+void LLDockableFloater::setMinimized(bool minimize)
 {
 	if(minimize && isDocked())
 	{
@@ -185,14 +185,14 @@ LLView * LLDockableFloater::getDockWidget()
 
 void LLDockableFloater::onDockHidden()
 {
-	setCanDock(FALSE);
+	setCanDock(false);
 }
 
 void LLDockableFloater::onDockShown()
 {
 	if (!isMinimized())
 	{
-		setCanDock(TRUE);
+		setCanDock(true);
 	}
 }
 

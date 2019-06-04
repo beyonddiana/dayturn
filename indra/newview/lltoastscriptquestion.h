@@ -39,7 +39,7 @@ public:
 	virtual bool postBuild();
 	virtual ~LLToastScriptQuestion(){};
 
-	/*virtual*/ void setFocus(BOOL b);
+	/*virtual*/ void setFocus(bool b);
 
 private:
 	void snapToMessageHeight();

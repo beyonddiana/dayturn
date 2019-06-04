@@ -471,7 +471,7 @@ BOOL LLButton::handleMouseDown(S32 x, S32 y, MASK mask)
 
 		if (hasTabStop() && !getIsChrome())
 		{
-			setFocus(TRUE);
+			setFocus(true);
 		}
 
 		/*
@@ -554,7 +554,7 @@ BOOL	LLButton::handleRightMouseDown(S32 x, S32 y, MASK mask)
 
 		if (hasTabStop() && !getIsChrome())
 		{
-			setFocus(TRUE);
+			setFocus(true);
 		}
 
 //		if (pointInView(x, y))

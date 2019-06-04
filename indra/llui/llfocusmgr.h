@@ -45,8 +45,8 @@ public:
 	LLFocusableElement();
 	virtual ~LLFocusableElement();
 
-	virtual void	setFocus( BOOL b );
-	virtual BOOL	hasFocus() const;
+	virtual void	setFocus( bool b );
+	virtual bool	hasFocus() const;
 
 	typedef boost::signals2::signal<void(LLFocusableElement*)> focus_signal_t;
 	
@@ -92,13 +92,13 @@ public:
 	BOOL			childHasMouseCapture( const LLView* parent ) const;
 
 	// Keyboard Focus
-	void			setKeyboardFocus(LLFocusableElement* new_focus, BOOL lock = FALSE, BOOL keystrokes_only = FALSE);		// new_focus = NULL to release the focus.
+	void			setKeyboardFocus(LLFocusableElement* new_focus, bool lock = false, bool keystrokes_only = false);		// new_focus = NULL to release the focus.
 	LLFocusableElement*		getKeyboardFocus() const { return mKeyboardFocus; }  
 	LLFocusableElement*		getLastKeyboardFocus() const { return mLastKeyboardFocus; }  
 	bool			childHasKeyboardFocus( const LLView* parent ) const;
 	void			removeKeyboardFocusWithoutCallback( const LLFocusableElement* focus );
-	BOOL			getKeystrokesOnly() { return mKeystrokesOnly; }
-	void			setKeystrokesOnly(BOOL keystrokes_only) { mKeystrokesOnly = keystrokes_only; }
+	bool			getKeystrokesOnly() { return mKeystrokesOnly; }
+	void			setKeystrokesOnly(bool keystrokes_only) { mKeystrokesOnly = keystrokes_only; }
 
 	F32				getFocusFlashAmt() const;
 	S32				getFocusFlashWidth() const { return ll_round(lerp(1.f, 3.f, getFocusFlashAmt())); }

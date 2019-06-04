@@ -147,7 +147,7 @@ void LLSearchEditor::clear()
 }
 
 //virtual
-void LLSearchEditor::setFocus( BOOL b )
+void LLSearchEditor::setFocus( bool b )
 {
 	if (mSearchEditor)
 	{

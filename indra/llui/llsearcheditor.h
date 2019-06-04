@@ -79,7 +79,7 @@ public:
 	virtual bool	setLabelArg( const std::string& key, const LLStringExplicit& text );
 	virtual void	setLabel( const LLStringExplicit &new_label );
 	virtual void	clear();
-	virtual void	setFocus( BOOL b );
+	virtual void	setFocus( bool b );
 
 	void			setKeystrokeCallback( commit_callback_t cb ) { mKeystrokeCallback = cb; }
 	void			setTextChangedCallback( commit_callback_t cb ) { mTextChangedCallback = cb; }

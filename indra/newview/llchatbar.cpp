@@ -94,7 +94,7 @@ LLChatBar::LLChatBar()
 	mGestureCombo(NULL),
 	mObserver(NULL)
 {
-	//setIsChrome(TRUE);
+	//setIsChrome(true);
 }
 
 
@@ -239,13 +239,13 @@ void LLChatBar::refreshGestures()
 }
 
 // Move the cursor to the correct input field.
-void LLChatBar::setKeyboardFocus(BOOL focus)
+void LLChatBar::setKeyboardFocus(bool focus)
 {
 	if (focus)
 	{
 		if (mInputEditor)
 		{
-			mInputEditor->setFocus(TRUE);
+			mInputEditor->setFocus(true);
 			mInputEditor->selectAll();
 		}
 	}
@@ -255,13 +255,13 @@ void LLChatBar::setKeyboardFocus(BOOL focus)
 		{
 			mInputEditor->deselect();
 		}
-		setFocus(FALSE);
+		setFocus(false);
 	}
 }
 
 
 // Ignore arrow keys in chat bar
-void LLChatBar::setIgnoreArrowKeys(BOOL b)
+void LLChatBar::setIgnoreArrowKeys(bool b)
 {
 	if (mInputEditor)
 	{
@@ -269,7 +269,7 @@ void LLChatBar::setIgnoreArrowKeys(BOOL b)
 	}
 }
 
-BOOL LLChatBar::inputEditorHasFocus()
+bool LLChatBar::inputEditorHasFocus()
 {
 	return mInputEditor && mInputEditor->hasFocus();
 }
@@ -410,13 +410,13 @@ void LLChatBar::startChat(const char* line)
 	//if(gBottomTray && gBottomTray->getChatBox())
 	//{
 	//	gBottomTray->setVisible(true);
-	//	gBottomTray->getChatBox()->setFocus(TRUE);
+	//	gBottomTray->getChatBox()->setFocus(true);
 	//}
 
 	// *TODO Vadim: Why was this code commented out?
 
 // 	gChatBar->setVisible(true);
-// 	gChatBar->setKeyboardFocus(TRUE);
+// 	gChatBar->setKeyboardFocus(true);
 // 	gSavedSettings.setBOOL("ChatVisible", TRUE);
 // 
 // 	if (line && gChatBar->mInputEditor)
@@ -436,13 +436,13 @@ void LLChatBar::stopChat()
 	//TODO* remove DUMMY chat
 	//if(gBottomTray && gBottomTray->getChatBox())
 	///{
-	//	gBottomTray->getChatBox()->setFocus(FALSE);
+	//	gBottomTray->getChatBox()->setFocus(false);
 	//}
 
 	// *TODO Vadim: Why was this code commented out?
 
 // 	// In simple UI mode, we never release focus from the chat bar
-// 	gChatBar->setKeyboardFocus(FALSE);
+// 	gChatBar->setKeyboardFocus(false);
 // 
 // 	// If we typed a movement key and pressed return during the
 // 	// same frame, the keyboard handlers will see the key as having
@@ -648,6 +648,6 @@ void LLChatBar::onCommitGesture(LLUICtrl* ctrl)
 	if (mGestureCombo != NULL)
 	{
 		// free focus back to chat bar
-		mGestureCombo->setFocus(FALSE);
+		mGestureCombo->setFocus(false);
 	}
 }

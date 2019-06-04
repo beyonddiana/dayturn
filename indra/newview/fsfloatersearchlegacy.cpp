@@ -1234,7 +1234,7 @@ void FSFloaterSearchLegacy::processSearchPeopleReply(LLMessageSystem* msg, void*
 	}
 	
 	if (found_one) {
-		search_results->setFocus(TRUE);
+		search_results->setFocus(true);
 	}
 	self->setLoadingProgress(FALSE);
 }
@@ -1381,7 +1381,7 @@ void FSFloaterSearchLegacy::processSearchGroupsReply(LLMessageSystem* msg, void*
 	}
 	
 	if (found_one) {
-		search_results->setFocus(TRUE);
+		search_results->setFocus(true);
 	}
 	self->setLoadingProgress(FALSE);
 }
@@ -1543,7 +1543,7 @@ void FSFloaterSearchLegacy::processSearchPlacesReply(LLMessageSystem* msg, void*
 	}
 	
 	if (found_one) {
-		search_results->setFocus(TRUE);
+		search_results->setFocus(true);
 	}
 	self->setLoadingProgress(FALSE);
 }
@@ -1696,7 +1696,7 @@ void FSFloaterSearchLegacy::processSearchLandReply(LLMessageSystem* msg, void**)
 	self->showNextButton(for_sale);
 	
 	if (found_one) {
-		search_results->setFocus(TRUE);
+		search_results->setFocus(true);
 	}
 	self->setLoadingProgress(FALSE);
 }
@@ -1859,7 +1859,7 @@ void FSFloaterSearchLegacy::processSearchClassifiedsReply(LLMessageSystem* msg, 
 	}
 
 	if (found_one) {
-		search_results->setFocus(TRUE);
+		search_results->setFocus(true);
 	}
 	self->setLoadingProgress(FALSE);
 }

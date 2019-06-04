@@ -120,7 +120,7 @@ public:
 	/*virtual*/ void 	onVisibilityChange ( bool new_visibility );
 
 	// From LLFocusableElement
-	/*virtual*/ void	setFocus( BOOL b );
+	/*virtual*/ void	setFocus( bool b );
 	
 	// New virtuals
 	virtual 	void	refresh();	// called in setFocus()
@@ -239,7 +239,7 @@ protected:
 	std::string		mXMLFilename;
 	
 private:
-	BOOL			mBgVisible;				// any background at all?
+	bool			mBgVisible;				// any background at all?
 	BOOL			mBgOpaque;				// use opaque color or image
 	LLUIColor		mBgOpaqueColor;
 	LLUIColor		mBgAlphaColor;

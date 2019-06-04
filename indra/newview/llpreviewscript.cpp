@@ -1042,7 +1042,7 @@ void LLScriptEdCore::onBtnInsertFunction(LLUICtrl *ui, void* userdata)
 	{
 		self->mEditor->insertText(self->mFunctions->getSimple());
 	}
-	self->mEditor->setFocus(TRUE);
+	self->mEditor->setFocus(true);
 	self->setHelpPage(self->mFunctions->getSimple());
 }
 
@@ -1142,7 +1142,7 @@ void LLScriptEdCore::onErrorList(LLUICtrl*, void* user_data)
 		//LL_INFOS() << "LLScriptEdCore::onErrorList() - " << row << ", "
 		//<< column << LL_ENDL;
 		self->mEditor->setCursor(row, column);
-		self->mEditor->setFocus(TRUE);
+		self->mEditor->setFocus(true);
 	}
 }
 
@@ -1938,7 +1938,7 @@ bool LLLiveLSLEditor::postBuild()
 	getChildView("mono")->setEnabled(false);
 
 	mScriptEd->mEditor->makePristine();
-	mScriptEd->mEditor->setFocus(TRUE);
+	mScriptEd->mEditor->setFocus(true);
 
 
 	mExperiences = getChild<LLComboBox>("Experiences...");

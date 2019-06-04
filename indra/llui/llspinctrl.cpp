@@ -391,7 +391,7 @@ void LLSpinCtrl::forceEditorCommit()
 }
 
 
-void LLSpinCtrl::setFocus(BOOL b)
+void LLSpinCtrl::setFocus(bool b)
 {
 	LLUICtrl::setFocus( b );
 	mEditor->setFocus( b );
@@ -498,7 +498,7 @@ bool LLSpinCtrl::handleKeyHere(KEY key, MASK mask)
 			// but not allowing revert on a spinner seems dangerous
 			updateEditor();
 			mEditor->resetScrollPosition();
-			mEditor->setFocus(FALSE);
+			mEditor->setFocus(false);
 			return true;
 		}
 		if(key == KEY_UP)

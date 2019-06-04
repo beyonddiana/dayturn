@@ -120,7 +120,7 @@ public:
 	virtual bool	isDirty() const;			// Returns TRUE if the user has modified this control.
 	virtual void	resetDirty();				// Clear dirty state
 
-	virtual void	setFocus(BOOL b);
+	virtual void	setFocus(bool b);
 
 	// Selects item by underlying LLSD value, using LLSD::asString() matching.  
 	// For simple items, this is just the name of the label.

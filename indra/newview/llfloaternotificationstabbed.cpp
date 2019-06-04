@@ -85,7 +85,7 @@ bool LLFloaterNotificationsTabbed::postBuild()
 }
 
 //---------------------------------------------------------------------------------
-void LLFloaterNotificationsTabbed::setMinimized(BOOL minimize)
+void LLFloaterNotificationsTabbed::setMinimized(bool minimize)
 {
     LLTransientDockableFloater::setMinimized(minimize);
 }

@@ -796,7 +796,7 @@ bool LLFloaterMarketplaceValidation::postBuild()
     // This widget displays the validation messages
     mEditor = getChild<LLTextEditor>("validation_text");
     mEditor->setEnabled(false);
-    mEditor->setFocus(TRUE);
+    mEditor->setFocus(true);
     mEditor->setValue(LLSD());
     
 	return true;

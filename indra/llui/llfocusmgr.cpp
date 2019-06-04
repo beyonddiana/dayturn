@@ -96,12 +96,12 @@ void LLFocusableElement::onTopLost()
 	if (mTopLostCallback) (*mTopLostCallback)(this);
 }
 
-BOOL LLFocusableElement::hasFocus() const
+bool LLFocusableElement::hasFocus() const
 {
 	return gFocusMgr.getKeyboardFocus() == this;
 }
 
-void LLFocusableElement::setFocus(BOOL b)
+void LLFocusableElement::setFocus(bool b)
 {
 }
 
@@ -151,7 +151,7 @@ LLFocusMgr::LLFocusMgr()
 	mDefaultKeyboardFocus( NULL ),
 	mKeystrokesOnly(FALSE),
 	mTopCtrl( NULL ),
-	mAppHasFocus(TRUE),   // Macs don't seem to notify us that we've gotten focus, so default to true
+	mAppHasFocus(true),   // Macs don't seem to notify us that we've gotten focus, so default to true
 	mImpl(new LLFocusMgr::Impl)
 {
 }
@@ -186,7 +186,7 @@ void LLFocusMgr::releaseFocusIfNeeded( LLView* view )
 	LLUI::removePopup(view);
 }
 
-void LLFocusMgr::setKeyboardFocus(LLFocusableElement* new_focus, BOOL lock, BOOL keystrokes_only)
+void LLFocusMgr::setKeyboardFocus(LLFocusableElement* new_focus, bool lock, bool keystrokes_only)
 {
 	// notes if keyboard focus is changed again (by onFocusLost/onFocusReceived)
     // making the rest of our processing unnecessary since it will already be
@@ -269,7 +269,7 @@ void LLFocusMgr::setKeyboardFocus(LLFocusableElement* new_focus, BOOL lock, BOOL
 		// releasing keyboard focus, move to the default.
 		if (mDefaultKeyboardFocus != NULL && mKeyboardFocus == NULL)
 		{
-			mDefaultKeyboardFocus->setFocus(TRUE);
+			mDefaultKeyboardFocus->setFocus(true);
 		}
 
 		LLView* focus_subtree = dynamic_cast<LLView*>(mKeyboardFocus);

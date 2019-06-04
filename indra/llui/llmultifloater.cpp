@@ -363,7 +363,7 @@ bool LLMultiFloater::handleKeyHere(KEY key, MASK mask)
 			// bring back focus on tab container if there are any tab left
 			if(mTabContainer->getTabCount() > 0)
 			{
-				mTabContainer->setFocus(TRUE);
+				mTabContainer->setFocus(true);
 			}
 		}
 		return true;

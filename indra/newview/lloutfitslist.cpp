@@ -306,7 +306,7 @@ void LLOutfitsList::onSetSelectedOutfitByUUID(const LLUUID& outfit_uuid)
 			LLWearableItemsList* list = dynamic_cast<LLWearableItemsList*>(tab->getAccordionView());
 			if (!list) continue;
 
-			tab->setFocus(TRUE);
+			tab->setFocus(true);
 			ChangeOutfitSelection(list, outfit_uuid);
 
 			tab->changeOpenClose(false);
@@ -758,7 +758,7 @@ void LLOutfitsList::onOutfitRightClick(LLUICtrl* ctrl, S32 x, S32 y, const LLUUI
         LLUICtrl* header = tab->findChild<LLUICtrl>("dd_header");
         if (header)
         {
-            header->setFocus(TRUE);
+            header->setFocus(true);
         }
 
         uuid_vec_t selected_uuids;

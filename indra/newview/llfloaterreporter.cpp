@@ -137,7 +137,7 @@ bool LLFloaterReporter::postBuild()
 	getChild<LLUICtrl>("owner_name")->setValue(LLStringUtil::null);
 	mOwnerName = LLStringUtil::null;
 
-	getChild<LLUICtrl>("summary_edit")->setFocus(TRUE);
+	getChild<LLUICtrl>("summary_edit")->setFocus(true);
 	getChild<LLCheckBoxCtrl>("screen_check")->set(TRUE);
 
 	mDefaultSummary = getChild<LLUICtrl>("details_edit")->getValue().asString();

@@ -75,7 +75,7 @@ void LLFloaterSoundDevices::setDocked(bool docked, bool pop_on_undock/* = true*/
 }
 
 // virtual
-void LLFloaterSoundDevices::setFocus( BOOL b )
+void LLFloaterSoundDevices::setFocus( bool b )
 {
 	LLTransientDockableFloater::setFocus(b);
 

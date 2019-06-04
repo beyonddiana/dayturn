@@ -662,7 +662,7 @@ void LLComboBox::showList()
 	// NB: this call will trigger the focuslost callback which will hide the list, so do it first
 	// before finally showing the list
 
-	mList->setFocus(TRUE);
+	mList->setFocus(true);
 
 	// Show the list and push the button down
 	mButton->setToggleState(true);
@@ -718,7 +718,7 @@ void LLComboBox::onButtonMouseDown()
 			showList();
 		}
 
-		setFocus( TRUE );
+		setFocus(true);
 
 		// pass mouse capture on to list if button is depressed
 		if (mButton->hasMouseCapture())
@@ -998,7 +998,7 @@ void LLComboBox::onTextCommit(const LLSD& data)
 	mTextEntry->selectAll();
 }
 
-void LLComboBox::setFocus(BOOL b)
+void LLComboBox::setFocus(bool b)
 {
 	LLUICtrl::setFocus(b);
 
@@ -1007,7 +1007,7 @@ void LLComboBox::setFocus(BOOL b)
 		mList->clearSearchString();
 		if (mList->getVisible())
 		{
-			mList->setFocus(TRUE);
+			mList->setFocus(true);
 		}
 	}
 }

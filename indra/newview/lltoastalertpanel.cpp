@@ -358,7 +358,7 @@ LLToastAlertPanel::LLToastAlertPanel( LLNotificationPtr notification, bool modal
 
 			if( i == mDefaultOption )
 			{
-				btn->setFocus(TRUE);
+				btn->setFocus(true);
 			}
 		}
 		button_left += ((mButtonData[i].mWidth == 0) ? button_width : mButtonData[i].mWidth) + BTN_HPAD;
@@ -371,7 +371,7 @@ LLToastAlertPanel::LLToastAlertPanel( LLNotificationPtr notification, bool modal
 	if (mLineEditor)
 	{
 		mLineEditor->selectAll();
-		mLineEditor->setFocus(TRUE);
+		mLineEditor->setFocus(true);
 	}
 	if(mDefaultOption >= 0)
 	{
@@ -417,11 +417,11 @@ LLToastAlertPanel::~LLToastAlertPanel()
         if (current_selection)
         {
             // If the focus moved to some other view though, move the focus there
-            current_selection->setFocus(TRUE);
+            current_selection->setFocus(true);
         }
         else
         {
-            mPreviouslyFocusedView.get()->setFocus(TRUE);
+            mPreviouslyFocusedView.get()->setFocus(true);
         }
 	}
 }

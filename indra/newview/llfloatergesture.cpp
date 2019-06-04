@@ -224,7 +224,7 @@ bool LLFloaterGesture::postBuild()
 	{
 		buildGestureList();
 	
-		mGestureList->setFocus(TRUE);
+		mGestureList->setFocus(true);
 
 		const BOOL ascending = TRUE;
 		mGestureList->sortByColumn(std::string("name"), ascending);
