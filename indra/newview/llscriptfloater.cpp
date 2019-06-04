@@ -89,7 +89,7 @@ bool LLScriptFloater::toggle(const LLUUID& notification_id)
 		else
 		{
 			floater->setVisible(true);
-			floater->setFocus(FALSE);
+			floater->setFocus(false);
 		}
 	}
 	// create and show new floater

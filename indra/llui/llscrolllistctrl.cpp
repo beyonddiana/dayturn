@@ -1848,7 +1848,7 @@ BOOL LLScrollListCtrl::handleMouseDown(S32 x, S32 y, MASK mask)
 	if( !handled )
 	{
 		// set keyboard focus first, in case click action wants to move focus elsewhere
-		setFocus(TRUE);
+		setFocus(true);
 
 		// clear selection changed flag because user is starting a selection operation
 		mSelectionChanged = false;
@@ -3239,7 +3239,7 @@ BOOL LLScrollListCtrl::operateOnAll(EOperation op)
 	return FALSE;
 }
 //virtual 
-void LLScrollListCtrl::setFocus(BOOL b)
+void LLScrollListCtrl::setFocus(bool b)
 {
 	// for tabbing into pristine scroll lists (Finder)
 	if (!getFirstSelected())

@@ -61,7 +61,7 @@ bool LLSysWellWindow::postBuild()
 }
 
 //---------------------------------------------------------------------------------
-void LLSysWellWindow::setMinimized(BOOL minimize)
+void LLSysWellWindow::setMinimized(bool minimize)
 {
 	LLTransientDockableFloater::setMinimized(minimize);
 }

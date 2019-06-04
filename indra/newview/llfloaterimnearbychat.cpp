@@ -119,7 +119,7 @@ LLFloaterIMNearbyChat* LLFloaterIMNearbyChat::buildFloater(const LLSD& key)
 //virtual
 bool LLFloaterIMNearbyChat::postBuild()
 {
-    setIsSingleInstance(TRUE);
+    setIsSingleInstance(true);
     bool result = LLFloaterIMSessionTab::postBuild();
 
 	mInputEditor->setAutoreplaceCallback(boost::bind(&LLAutoReplace::autoreplaceCallback, LLAutoReplace::getInstance(), _1, _2, _3, _4, _5));
@@ -391,7 +391,7 @@ void LLFloaterIMNearbyChat::showHistory()
 	}
 	else
 	{
-		LLFloaterIMContainer::getInstance()->setFocus(TRUE);
+		LLFloaterIMContainer::getInstance()->setFocus(true);
 	}
 	setResizeLimits(getMinWidth(), EXPANDED_MIN_HEIGHT);
 }
@@ -915,7 +915,7 @@ void LLFloaterIMNearbyChat::startChat(const char* line)
 			nearby_chat->setMinimized(false);
 		}
 		nearby_chat->show();
-		nearby_chat->setFocus(TRUE);
+		nearby_chat->setFocus(true);
 
 		if (line)
 		{
@@ -930,30 +930,30 @@ void LLFloaterIMNearbyChat::startChat(const char* line)
 // Exit "chat mode" and do the appropriate focus changes
 // static
 void LLFloaterIMNearbyChat::stopChat()
-	{
+{
 	LLFloaterIMNearbyChat* nearby_chat = LLFloaterReg::getTypedInstance<LLFloaterIMNearbyChat>("nearby_chat");
 	if (nearby_chat)
-		{
-		nearby_chat->mInputEditor->setFocus(FALSE);
+	{
+		nearby_chat->mInputEditor->setFocus(false);
 	    gAgent.stopTyping();
-		}
- 		}
+	}
+}
 
 // If input of the form "/20foo" or "/20 foo", returns "foo" and channel 20.
 // Otherwise returns input and channel 0.
 LLWString LLFloaterIMNearbyChat::stripChannelNumber(const LLWString &mesg, S32* channel)
-		{	
+{	
 	if (mesg[0] == '/'
 		&& mesg[1] == '/')
 	{
 		// This is a "repeat channel send"
 		*channel = sLastSpecialChatChannel;
 		return mesg.substr(2, mesg.length() - 2);
-		}
+	}
 	else if (mesg[0] == '/'
 			 && mesg[1]
 			 && LLStringOps::isDigit(mesg[1]))
-		{
+	{
 		// This a special "/20" speak on a channel
 		S32 pos = 0;
 

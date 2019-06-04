@@ -98,7 +98,7 @@ public:
 	//========================================================================
 
 	// LLUICtrl interface
-	/*virtual*/ void		setFocus(BOOL b);
+	/*virtual*/ void		setFocus(bool b);
 	//========================================================================
 
 	// LLComboBox interface

@@ -124,7 +124,7 @@ void LLSearchComboBox::onTextEntry(LLLineEditor* line_editor)
 
 void LLSearchComboBox::focusTextEntry()
 {
-	// We can't use "mTextEntry->setFocus(TRUE)" instead because
+	// We can't use "mTextEntry->setFocus(true)" instead because
 	// if the "select_on_focus" parameter is true it places the cursor
 	// at the beginning (after selecting text), thus screwing up updateSelection().
 	if (mTextEntry)

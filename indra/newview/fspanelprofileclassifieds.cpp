@@ -631,7 +631,7 @@ void FSPanelClassifieds::openPanel(LLPanel* panel, const LLSD& params)
 	}
 
 	panel->setVisible(true);
-	panel->setFocus(TRUE); // prevent losing focus by the floater
+	panel->setFocus(true); // prevent losing focus by the floater
 	panel->onOpen(params);
 
 	LLRect new_rect = getRect();
@@ -653,7 +653,7 @@ void FSPanelClassifieds::closePanel(LLPanel* panel)
 		const child_list_t* child_list = getChildList();
 		if (child_list->size() > 0)
 		{
-			child_list->front()->setFocus(TRUE);
+			child_list->front()->setFocus(true);
 		}
 		else
 		{

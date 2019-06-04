@@ -762,7 +762,7 @@ void LLFloaterIMSession::setDocked(bool docked, bool pop_on_undock)
 	}
 }
 
-void LLFloaterIMSession::setMinimized(BOOL b)
+void LLFloaterIMSession::setMinimized(bool b)
 {
 	bool wasMinimized = isMinimized();
 	LLFloaterIMSessionTab::setMinimized(b);
@@ -846,7 +846,7 @@ bool LLFloaterIMSession::getVisible()
 	return visible;
 }
 
-void LLFloaterIMSession::setFocus(BOOL focus)
+void LLFloaterIMSession::setFocus(bool focus)
 {
 	LLFloaterIMSessionTab::setFocus(focus);
 
@@ -875,7 +875,7 @@ bool LLFloaterIMSession::toggle(const LLUUID& session_id)
 		else if(floater && ((!floater->isDocked() || floater->getVisible()) && !floater->hasFocus()))
 		{
 			floater->setVisible(true);
-			floater->setFocus(TRUE);
+			floater->setFocus(true);
 			return true;
 		}
 	}

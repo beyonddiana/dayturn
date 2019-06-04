@@ -2739,7 +2739,7 @@ void LLPanelGroupRolesSubTab::handleCreateRole()
 	// put focus on name field and select its contents
 	if(mRoleName)
 	{
-		mRoleName->setFocus(TRUE);
+		mRoleName->setFocus(true);
 		mRoleName->onTabInto();
 		gFocusMgr.triggerFocusFlash();
 	}

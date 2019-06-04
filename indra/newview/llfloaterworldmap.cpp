@@ -383,7 +383,7 @@ void LLFloaterWorldMap::onOpen(const LLSD& key)
 		const LLUUID landmark_folder_id = gInventory.findCategoryUUIDForType(LLFolderType::FT_LANDMARK);
 		LLInventoryModelBackgroundFetch::instance().start(landmark_folder_id);
 		
-		getChild<LLUICtrl>("location")->setFocus( TRUE);
+		getChild<LLUICtrl>("location")->setFocus(true);
 		gFocusMgr.triggerFocusFlash();
 		
 		buildAvatarIDList();
@@ -1573,7 +1573,7 @@ void LLFloaterWorldMap::updateSims(bool found_null_sim)
 		{
 			list->selectFirstItem();
 		}
-		getChild<LLUICtrl>("search_results")->setFocus(TRUE);
+		getChild<LLUICtrl>("search_results")->setFocus(true);
 		onCommitSearchResult();
 	}
 	else

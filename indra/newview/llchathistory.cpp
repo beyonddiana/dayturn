@@ -762,7 +762,7 @@ public:
 		//
 		//	focus the floater
 		//
-		floater->setFocus(TRUE);
+		floater->setFocus(true);
 	}
 
 

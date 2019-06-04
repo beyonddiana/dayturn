@@ -3806,7 +3806,7 @@ void LLViewerWindow::updateKeyboardFocus()
 				{
 					if (!parent->focusFirstItem())
 					{
-						parent->setFocus(TRUE);
+						parent->setFocus(true);
 					}
 					new_focus_found = true;
 					break;

@@ -722,13 +722,12 @@ void LLPanelStandStopFlying::onStandButtonClick()
  	{
 		return;
 	}
-	gAgent.setFlying(FALSE);
+	gAgent.setFlying(false);
 //mk
 
 	LLSelectMgr::getInstance()->deselectAllForStandingUp();
 	gAgent.setControlFlags(AGENT_CONTROL_STAND_UP);
 
-	setFocus(FALSE); 
 //MK
 	if (gAgent.mRRInterface.mContainsStandtp && gAgent.mRRInterface.mParcelLandingType == LLParcel::L_DIRECT)
 	//if (!gAgent.mRRInterface.mLastStandingLocation.isExactlyZero() && gAgent.mRRInterface.mParcelLandingType == LLParcel::L_DIRECT)
@@ -738,13 +737,14 @@ void LLPanelStandStopFlying::onStandButtonClick()
 		gAgent.mRRInterface.mSnappingBackToLastStandingLocation = FALSE;
 	}
 //mk
+	setFocus(false);
 }
 
 void LLPanelStandStopFlying::onStopFlyingButtonClick()
 {
 	gAgent.setFlying(false);
 
-	setFocus(FALSE); // EXT-482
+	setFocus(false); // EXT-482
 }
 
 /**

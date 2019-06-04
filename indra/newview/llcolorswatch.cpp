@@ -184,7 +184,7 @@ BOOL LLColorSwatchCtrl::handleMouseUp(S32 x, S32 y, MASK mask)
 
 			// Focus the widget now in order to return the focus
 			// after the color picker is closed.
-			setFocus(TRUE);
+			setFocus(true);
 
 			showPicker(FALSE);
 		}
@@ -358,7 +358,7 @@ void LLColorSwatchCtrl::showPicker(BOOL take_focus)
 
 	if (take_focus)
 	{
-		pickerp->setFocus(TRUE);
+		pickerp->setFocus(true);
 	}
 }
 

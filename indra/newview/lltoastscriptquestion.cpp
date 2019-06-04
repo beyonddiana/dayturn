@@ -56,7 +56,7 @@ bool LLToastScriptQuestion::postBuild()
 }
 
 // virtual
-void LLToastScriptQuestion::setFocus(BOOL b)
+void LLToastScriptQuestion::setFocus(bool b)
 {
     LLToastPanel::setFocus(b);
     // toast can fade out and disappear with focus ON, so reset to default anyway
@@ -134,7 +134,7 @@ void LLToastScriptQuestion::createButtons()
 
 			if (form_element.has("default") && form_element["default"].asBoolean())
 			{
-				button->setFocus(TRUE);
+				button->setFocus(true);
 				setDefaultBtn(button);
 			}
 		}

@@ -102,7 +102,7 @@ void LLInspectToast::onOpen(const LLSD& notification_id)
 		LLInspect::removeChild(mPanel);
 	}
 	addChild(panel);
-	panel->setFocus(TRUE);
+	panel->setFocus(true);
 	mPanel = panel;
 
 

@@ -672,7 +672,7 @@ BOOL LLTextEditor::handleMouseDown(S32 x, S32 y, MASK mask)
 	// RN: do we really need to have a tab stop?
 	if (hasTabStop())
 	{
-		setFocus( TRUE );
+		setFocus(true);
 	}
 
 	// Let scrollbar have first dibs
@@ -730,7 +730,7 @@ BOOL LLTextEditor::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
 	if (hasTabStop())
 	{
-		setFocus(TRUE);
+		setFocus(true);
 	}
 
 	bool show_menu = false;
@@ -765,7 +765,7 @@ BOOL LLTextEditor::handleMiddleMouseDown(S32 x, S32 y, MASK mask)
 {
 	if (hasTabStop())
 	{
-		setFocus(TRUE);
+		setFocus(true);
 	}
 
 	if (!LLTextBase::handleMouseDown(x, y, mask))
@@ -2062,7 +2062,7 @@ void LLTextEditor::showContextMenu(S32 x, S32 y)
 	// Route menu to this class
 	// previously this was done in ::handleRightMoseDown:
 	//if(hasTabStop())
-	// setFocus(TRUE)  - why? weird...
+	// setFocus(true)  - why? weird...
 	// and then inside setFocus
 	// ....
 	//    gEditMenuHandler = this;
@@ -2240,9 +2240,9 @@ void LLTextEditor::draw()
 
 // Start or stop the editor from accepting text-editing keystrokes
 // see also LLLineEditor
-void LLTextEditor::setFocus( BOOL new_state )
+void LLTextEditor::setFocus( bool new_state )
 {
-	BOOL old_state = hasFocus();
+	bool old_state = hasFocus();
 
 	// Don't change anything if the focus state didn't change
 	if (new_state == old_state) return;

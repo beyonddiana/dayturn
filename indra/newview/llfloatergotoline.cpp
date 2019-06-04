@@ -111,7 +111,7 @@ void LLFloaterGotoLine::handleBtnGoto()
                 {
 			mEditorCore->mEditor->deselect();
 			mEditorCore->mEditor->setCursor(row, column);
-			mEditorCore->mEditor->setFocus(TRUE);
+			mEditorCore->mEditor->setFocus(true);
                 }
         }
 }
@@ -152,7 +152,7 @@ void LLFloaterGotoLine::onGotoBoxCommit()
 			if (rownew == row && columnnew == column)
 			{
 			        mEditorCore->mEditor->deselect();
-			        mEditorCore->mEditor->setFocus(TRUE);
+			        mEditorCore->mEditor->setFocus(true);
 			        sInstance->closeFloater();
 			} //else do nothing (if the cursor-position didn't change)
                 }

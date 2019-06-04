@@ -354,7 +354,7 @@ void LLFloaterIMContainer::addFloater(LLFloater* floaterp,
 void LLFloaterIMContainer::onCloseFloater(LLUUID& id)
 {
 	mSessions.erase(id);
-	setFocus(TRUE);
+	setFocus(true);
 }
 
 void LLFloaterIMContainer::onNewMessageReceived(const LLSD& data)
@@ -699,7 +699,7 @@ void LLFloaterIMContainer::returnFloaterToHost()
 	floater->onTearOffClicked();
 }
 
-void LLFloaterIMContainer::setMinimized(BOOL b)
+void LLFloaterIMContainer::setMinimized(bool b)
 {
 	bool was_minimized = isMinimized();
 	LLMultiFloater::setMinimized(b);
@@ -1885,7 +1885,7 @@ bool LLFloaterIMContainer::removeConversationListItem(const LLUUID& uuid, bool c
 	// Don't let the focus fall IW, select and refocus on the first conversation in the list
 	if (change_focus)
 	{
-		setFocus(TRUE);
+		setFocus(true);
 		if (new_selection)
 		{
 			if (mConversationsWidgets.size() == 1)
@@ -2370,12 +2370,12 @@ bool LLFloaterIMContainer::isParticipantListExpanded()
 	return is_expanded;
 }
 
-// By default, if torn off session is currently frontmost, LLFloater::isFrontmost() will return FALSE, which can lead to some bugs
+// By default, if torn off session is currently frontmost, LLFloater::isFrontmost() will return false, which can lead to some bugs
 // So LLFloater::isFrontmost() is overriden here to check both selected session and the IM floater itself
 // Exclude "Nearby Chat" session from the check, as "Nearby Chat" window and "Conversations" floater can be brought
 // to front independently
 /*virtual*/
-BOOL LLFloaterIMContainer::isFrontmost()
+bool LLFloaterIMContainer::isFrontmost()
 {
 	LLFloaterIMSessionTab* selected_session = LLFloaterIMSessionTab::getConversation(mSelectedSession);
 	LLFloaterIMNearbyChat* nearby_chat = LLFloaterReg::findTypedInstance<LLFloaterIMNearbyChat>("nearby_chat");

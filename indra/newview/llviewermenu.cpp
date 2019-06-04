@@ -7061,7 +7061,7 @@ class LLAvatarToggleMyProfile : public view_listener_t
 		if (LLFloater::isMinimized(instance))
 		{
 			instance->setMinimized(FALSE);
-			instance->setFocus(TRUE);
+			instance->setFocus(true);
 		}
 		else if (!LLFloater::isShown(instance))
 		{
@@ -7069,7 +7069,7 @@ class LLAvatarToggleMyProfile : public view_listener_t
 		}
 		else if (!instance->hasFocus() && !instance->getIsChrome())
 		{
-			instance->setFocus(TRUE);
+			instance->setFocus(true);
 		}
 		else
 		{

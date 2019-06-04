@@ -420,7 +420,7 @@ BOOL LLFolderView::setSelection(LLFolderViewItem* selection, BOOL openitem,
 
 	if( selection && take_keyboard_focus)
 	{
-		mParentPanel.get()->setFocus(TRUE);
+		mParentPanel.get()->setFocus(true);
 	}
 
 	// clear selection down here because change of keyboard focus can potentially
@@ -1050,7 +1050,7 @@ void LLFolderView::startRenamingSelectedItem( void )
 		mRenamer->selectAll();
 		mRenamer->setVisible(true);
 		// set focus will fail unless item is visible
-		mRenamer->setFocus( TRUE );
+		mRenamer->setFocus(true);
 		mRenamer->setTopLostCallback(boost::bind(&LLFolderView::onRenamerLost, this));
 		LLUI::addPopup(mRenamer);
 	}
@@ -1332,7 +1332,7 @@ BOOL LLFolderView::handleMouseDown( S32 x, S32 y, MASK mask )
 	mKeyboardSelection = FALSE;
 	mSearchString.clear();
 
-	mParentPanel.get()->setFocus(TRUE);
+	mParentPanel.get()->setFocus(true);
 
 	LLEditMenuHandler::gEditMenuHandler = this;
 
@@ -1416,7 +1416,7 @@ BOOL LLFolderView::handleRightMouseDown( S32 x, S32 y, MASK mask )
 {
 	// all user operations move keyboard focus to inventory
 	// this way, we know when to stop auto-updating a search
-	mParentPanel.get()->setFocus(TRUE);
+	mParentPanel.get()->setFocus(true);
 
 	BOOL handled = childrenHandleRightMouseDown(x, y, mask) != NULL;
 	S32 count = mSelectedItems.size();
@@ -1941,7 +1941,7 @@ void LLFolderView::onRenamerLost()
 		mRenamer->setVisible(false);
 
 		// will commit current name (which could be same as original name)
-		mRenamer->setFocus(FALSE);
+		mRenamer->setFocus(false);
 	}
 
 	if( mRenameItem )

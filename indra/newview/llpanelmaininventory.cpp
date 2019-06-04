@@ -350,7 +350,7 @@ bool LLPanelMainInventory::handleKeyHere(KEY key, MASK mask)
 		    && mask == MASK_NONE)
 		{
 			// move focus to inventory proper
-			mActivePanel->setFocus(TRUE);
+			mActivePanel->setFocus(true);
 			root_folder->scrollToShowSelection();
 			return true;
 		}
@@ -1393,7 +1393,7 @@ void LLPanelMainInventory::onCustomAction(const LLSD& userdata)
 		filter.setFindAllLinksMode(item_name, item_id);
 
 		mFilterEditor->setText(item_name);
-		mFilterEditor->setFocus(TRUE);
+		mFilterEditor->setFocus(true);
 	}
 
 	if (command_name == "replace_links")

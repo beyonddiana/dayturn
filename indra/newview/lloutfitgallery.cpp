@@ -759,13 +759,13 @@ void LLOutfitGalleryItem::setSelected(bool value)
 
 BOOL LLOutfitGalleryItem::handleMouseDown(S32 x, S32 y, MASK mask)
 {
-    setFocus(TRUE);
+    setFocus(true);
     return LLUICtrl::handleMouseDown(x, y, mask);
 }
 
 BOOL LLOutfitGalleryItem::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
-    setFocus(TRUE);
+    setFocus(true);
     return LLUICtrl::handleRightMouseDown(x, y, mask);
 }
 
@@ -1104,7 +1104,7 @@ void LLOutfitGallery::refreshOutfit(const LLUUID& category_id)
                     LLFloater* appearance_floater = LLFloaterReg::getInstance("appearance");
                     if (appearance_floater)
                     {
-                        appearance_floater->setFocus(TRUE);
+                        appearance_floater->setFocus(true);
                     }
                 }
                 if (item_name == LLAppearanceMgr::sExpectedTextureName)
@@ -1380,7 +1380,7 @@ void LLOutfitGallery::onSelectPhoto(LLUUID selected_outfit_id)
 
             floaterp->openFloater();
         }
-        floaterp->setFocus(TRUE);
+        floaterp->setFocus(true);
     }
 }
 

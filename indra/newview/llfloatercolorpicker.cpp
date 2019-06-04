@@ -172,7 +172,7 @@ void LLFloaterColorPicker::showUI ()
 {
 	openFloater(getKey());
 	setVisible ( TRUE );
-	setFocus ( TRUE );
+	setFocus ( true );
 	setRevertOnCancel(FALSE);
 
 	// HACK: if system color picker is required - close the SL one we made and use default system dialog
@@ -209,7 +209,7 @@ bool LLFloaterColorPicker::postBuild()
 
 	mSelectBtn = getChild<LLButton>( "select_btn");
     mSelectBtn->setClickedCallback ( onClickSelect, this );
-	mSelectBtn->setFocus ( TRUE );
+	mSelectBtn->setFocus ( true );
 
 	mPipetteBtn = getChild<LLButton>("color_pipette" );
 
@@ -890,7 +890,7 @@ BOOL LLFloaterColorPicker::handleMouseDown ( S32 x, S32 y, MASK mask )
 		// release keyboard focus so we can change text values
 		if (gFocusMgr.childHasKeyboardFocus(this))
 		{
-			mSelectBtn->setFocus(TRUE);
+			mSelectBtn->setFocus(true);
 		}
 
 		// calculate which palette index we selected
@@ -1086,7 +1086,7 @@ void LLFloaterColorPicker::setMouseDownInHueRegion ( BOOL mouse_down_in_region )
 		if (gFocusMgr.childHasKeyboardFocus(this))
 		{
 			// get focus out of spinners so that they can update freely
-			mSelectBtn->setFocus(TRUE);
+			mSelectBtn->setFocus(true);
 		}
 	}
 }
@@ -1099,7 +1099,7 @@ void LLFloaterColorPicker::setMouseDownInLumRegion ( BOOL mouse_down_in_region )
 		if (gFocusMgr.childHasKeyboardFocus(this))
 		{
 			// get focus out of spinners so that they can update freely
-			mSelectBtn->setFocus(TRUE);
+			mSelectBtn->setFocus(true);
 		}
 	}
 }
@@ -1112,7 +1112,7 @@ void LLFloaterColorPicker::setMouseDownInSwatch (BOOL mouse_down_in_swatch)
 		if (gFocusMgr.childHasKeyboardFocus(this))
 		{
 			// get focus out of spinners so that they can update freely
-			mSelectBtn->setFocus(TRUE);
+			mSelectBtn->setFocus(true);
 		}
 	}
 }

@@ -55,12 +55,12 @@ public:
 	void		refreshGestures();
 
 	// Move cursor into chat input field.
-	void		setKeyboardFocus(BOOL b);
+	void		setKeyboardFocus(bool b);
 
 	// Ignore arrow keys for chat bar
-	void		setIgnoreArrowKeys(BOOL b);
+	void		setIgnoreArrowKeys(bool b);
 
-	BOOL		inputEditorHasFocus();
+	bool		inputEditorHasFocus();
 	std::string	getCurrentChat();
 
 	// since chat bar logic is reused for chat history

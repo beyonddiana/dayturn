@@ -158,7 +158,7 @@ void LLProgressView::revealIntroPanel()
 		// flag as having seen the new user post login intro
 		gSavedSettings.setBOOL("PostFirstLoginIntroViewed", TRUE );
 
-		mMediaCtrl->setFocus(TRUE);
+		mMediaCtrl->setFocus(true);
 	}
 
 	mFadeFromLoginTimer.start();
@@ -191,7 +191,7 @@ void LLProgressView::setVisible(bool visible)
 	// showing progress view
 	else if (visible && (!getVisible() || mFadeToWorldTimer.getStarted()))
 	{
-		setFocus(TRUE);
+		setFocus(true);
 		mFadeToWorldTimer.stop();
 		LLPanel::setVisible(true);
 	} 

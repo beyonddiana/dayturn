@@ -81,7 +81,7 @@ public:
 	/*virtual*/ bool postBuild();
 	/*virtual*/ void draw();
 	/*virtual*/ void setVisible(bool visible);
-	/*virtual*/ void setFocus(BOOL focus);
+	/*virtual*/ void setFocus(bool focus);
 	
 	// Handle the left hand participant list widgets
 	void addConversationViewParticipant(LLConversationItem* item, bool update_view = true);

@@ -51,7 +51,7 @@ public:
 
 	virtual bool handleKeyHere(KEY key, MASK mask);
 	virtual void draw();
-	virtual void setFocus( BOOL b );
+	virtual void setFocus( bool b );
 
 	// Show the XUI first name, last name, and password widgets.  They are
 	// hidden on startup for reg-in-client

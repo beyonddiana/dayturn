@@ -93,7 +93,7 @@ LLFloaterTopObjects::~LLFloaterTopObjects()
 bool LLFloaterTopObjects::postBuild()
 {
 	LLScrollListCtrl *objects_list = getChild<LLScrollListCtrl>("objects_list");
-	getChild<LLUICtrl>("objects_list")->setFocus(TRUE);
+	getChild<LLUICtrl>("objects_list")->setFocus(true);
 	objects_list->setDoubleClickCallback(onDoubleClickObjectsList, this);
 	objects_list->setCommitOnSelectionChange(TRUE);
 

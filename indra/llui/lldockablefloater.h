@@ -94,7 +94,7 @@ public:
 	 *  If descendant class overrides setMinimized() then it must still invoke its
 	 *  superclass' implementation.
 	 */
-	/*virtual*/ void setMinimized(BOOL minimize);
+	/*virtual*/ void setMinimized(bool minimize);
 
 	LLView * getDockWidget();
 

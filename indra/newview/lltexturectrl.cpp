@@ -322,7 +322,7 @@ bool LLFloaterTexturePicker::handleKeyHere(KEY key, MASK mask)
 			root_folder->scrollToShowSelection();
 			
 			// move focus to inventory proper
-			mInventoryPanel->setFocus(TRUE);
+			mInventoryPanel->setFocus(true);
 			
 			// treat this as a user selection of the first filtered result
 			commitIfImmediateSet();
@@ -1442,7 +1442,7 @@ void LLTextureCtrl::showPicker(BOOL take_focus)
 
 	if (take_focus)
 	{
-		floaterp->setFocus(TRUE);
+		floaterp->setFocus(true);
 	}
 }
 

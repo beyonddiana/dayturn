@@ -599,7 +599,7 @@ void LLFlatListView::onItemMouseClick(item_pair_t* item_pair, MASK mask)
 		return;
 	}
 
-	setFocus(TRUE);
+	setFocus(true);
 	
 	bool select_item = !isSelected(item_pair);
 
@@ -742,7 +742,7 @@ bool LLFlatListView::handleKeyHere(KEY key, MASK mask)
 		{
 			if (mask == MASK_NONE)
 			{
-				setFocus(FALSE); // pass focus to the game area (EXT-8357)
+				setFocus(false); // pass focus to the game area (EXT-8357)
 			}
 			break;
 		}

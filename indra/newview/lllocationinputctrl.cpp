@@ -559,13 +559,13 @@ void LLLocationInputCtrl::setText(const LLStringExplicit& text)
 	mHasAutocompletedText = FALSE;
 }
 
-void LLLocationInputCtrl::setFocus(BOOL b)
+void LLLocationInputCtrl::setFocus(bool b)
 {
 	LLComboBox::setFocus(b);
 
 	if (mTextEntry && b && !mList->getVisible())
 	{
-		mTextEntry->setFocus(TRUE);
+		mTextEntry->setFocus(true);
 	}
 }
 
@@ -1054,7 +1054,7 @@ void LLLocationInputCtrl::rebuildLocationHistory(const std::string& filter)
 
 void LLLocationInputCtrl::focusTextEntry()
 {
-	// We can't use "mTextEntry->setFocus(TRUE)" instead because
+	// We can't use "mTextEntry->setFocus(true)" instead because
 	// if the "select_on_focus" parameter is true it places the cursor
 	// at the beginning (after selecting text), thus screwing up updateSelection().
 	if (mTextEntry)

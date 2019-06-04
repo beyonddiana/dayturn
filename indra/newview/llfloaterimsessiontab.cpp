@@ -161,7 +161,7 @@ void LLFloaterIMSessionTab::setVisible(bool visible)
 }
 
 /*virtual*/
-void LLFloaterIMSessionTab::setFocus(BOOL focus)
+void LLFloaterIMSessionTab::setFocus(bool focus)
 {
 	LLTransientDockableFloater::setFocus(focus);
 
@@ -180,7 +180,7 @@ void LLFloaterIMSessionTab::setFocus(BOOL focus)
     	    //
     	    //	redirect focus to input editor
     	    //
-    	    mInputEditor->setFocus(TRUE);
+    	    mInputEditor->setFocus(true);
         }
 	}
 }

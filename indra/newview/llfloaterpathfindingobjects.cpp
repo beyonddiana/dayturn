@@ -498,7 +498,7 @@ void LLFloaterPathfindingObjects::showFloaterWithSelectionObjects()
 		}
 		setVisibleAndFrontmost();
 	}
-	setFocus(TRUE);
+	setFocus(true);
 }
 
 BOOL LLFloaterPathfindingObjects::isShowBeacons() const

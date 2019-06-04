@@ -82,10 +82,10 @@ const F32 SECONDS_BETWEEN_UPDATE_REQUESTS = 5.0f;
 void LLFloaterGodTools::onOpen(const LLSD& key)
 {
 	center();
-	setFocus(TRUE);
+	setFocus(true);
 // 	LLPanel *panel = getChild<LLTabContainer>("GodTools Tabs")->getCurrentPanel();
 // 	if (panel)
-// 		panel->setFocus(TRUE);
+// 		panel->setFocus(true);
 	if (mPanelObjectTools)
 		mPanelObjectTools->setTargetAvatar(LLUUID::null);
 
@@ -200,7 +200,7 @@ void LLFloaterGodTools::showPanel(const std::string& panel_name)
 	openFloater();
 	LLPanel *panel = getChild<LLTabContainer>("GodTools Tabs")->getCurrentPanel();
 	if (panel)
-		panel->setFocus(TRUE);
+		panel->setFocus(true);
 }
 
 // static
@@ -460,7 +460,7 @@ void LLPanelRegionTools::clearAllWidgets()
 {
 	// clear all widgets
 	getChild<LLUICtrl>("region name")->setValue("unknown");
-	getChild<LLUICtrl>("region name")->setFocus( FALSE);
+	getChild<LLUICtrl>("region name")->setFocus( false);
 
 	getChild<LLUICtrl>("check prelude")->setValue(FALSE);
 	getChildView("check prelude")->setEnabled(false);

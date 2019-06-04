@@ -63,7 +63,7 @@ public:
 	void adjustWindowPosition();
 	/*virtual*/ void	setDocked(bool docked, bool pop_on_undock = true);
 	// override LLFloater's minimization according to EXT-1216
-	/*virtual*/ void	setMinimized(BOOL minimize);
+	/*virtual*/ void	setMinimized(bool minimize);
 	/*virtual*/ void	handleReshape(const LLRect& rect, bool by_user);
 
 	void onStartUpToastClick(S32 x, S32 y, MASK mask);

@@ -252,7 +252,7 @@ LLFloater* LLFloaterReg::showInstance(const std::string& name, const LLSD& key, 
 	{
 		instance->openFloater(key);
 		if (focus)
-			instance->setFocus(TRUE);
+			instance->setFocus(true);
 	}
 	return instance;
 }
@@ -494,7 +494,7 @@ void LLFloaterReg::toggleInstanceOrBringToFront(const LLSD& sdname, const LLSD& 
 		{
 			instance->openFloater(key);
 			instance->setVisibleAndFrontmost(true, key);
-			instance->setFocus(TRUE);
+			instance->setFocus(true);
 		}
 		else
 		{

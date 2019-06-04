@@ -99,7 +99,7 @@ const LLUICtrl::Params& LLUICtrl::getDefaultParams()
 
 LLUICtrl::LLUICtrl(const LLUICtrl::Params& p, const LLViewModelPtr& viewmodel) 
 :	LLView(p),
-	mIsChrome(FALSE),
+	mIsChrome(false),
 	mRequestsFront(p.requests_front),
 	mTabStop(false),
 	mTentative(FALSE),
@@ -662,12 +662,12 @@ LLCtrlScrollInterface* LLUICtrl::getScrollInterface()
 	return NULL; 
 }
 
-BOOL LLUICtrl::hasFocus() const
+bool LLUICtrl::hasFocus() const
 {
 	return (gFocusMgr.childHasKeyboardFocus(this));
 }
 
-void LLUICtrl::setFocus(BOOL b)
+void LLUICtrl::setFocus(bool b)
 {
 	// focus NEVER goes to ui ctrls that are disabled!
 	if (!getEnabled())
@@ -732,7 +732,7 @@ void LLUICtrl::clear()
 }
 
 // virtual
-void LLUICtrl::setIsChrome(BOOL is_chrome)
+void LLUICtrl::setIsChrome(bool is_chrome)
 {
 	mIsChrome = is_chrome; 
 }
@@ -775,7 +775,7 @@ BOOL LLUICtrl::focusFirstItem(BOOL prefer_text_fields, BOOL focus_flash)
 		LLUICtrl * ctrl = static_cast<LLUICtrl*>(result.back());
 		if(!ctrl->hasFocus())
 		{
-			ctrl->setFocus(TRUE);
+			ctrl->setFocus(true);
 			ctrl->onTabInto();  
 			if(focus_flash)
 			{
@@ -795,7 +795,7 @@ BOOL LLUICtrl::focusFirstItem(BOOL prefer_text_fields, BOOL focus_flash)
 			LLUICtrl * ctrl = static_cast<LLUICtrl*>(result.back());
 			if(!ctrl->hasFocus())
 			{
-				ctrl->setFocus(TRUE);
+				ctrl->setFocus(true);
 				ctrl->onTabInto();  
 				if(focus_flash)
 				{
@@ -812,7 +812,7 @@ BOOL LLUICtrl::focusFirstItem(BOOL prefer_text_fields, BOOL focus_flash)
 		LLUICtrl * ctrl = static_cast<LLUICtrl*>(result.back());
 		if(!ctrl->hasFocus())
 		{
-			ctrl->setFocus(TRUE);
+			ctrl->setFocus(true);
 			ctrl->onTabInto();  
 			if(focus_flash)
 			{

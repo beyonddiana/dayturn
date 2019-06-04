@@ -374,7 +374,7 @@ bool LLPanelLogin::handleKeyHere(KEY key, MASK mask)
 }
 
 // virtual 
-void LLPanelLogin::setFocus(BOOL b)
+void LLPanelLogin::setFocus(bool b)
 {
 	if(b != hasFocus())
 	{
@@ -417,12 +417,12 @@ void LLPanelLogin::giveFocus()
 
 		if (edit)
 		{
-			edit->setFocus(TRUE);
+			edit->setFocus(true);
 			edit->selectAll();
 		}
 		else if (combo)
 		{
-			combo->setFocus(TRUE);
+			combo->setFocus(true);
 		}
 	}
 }
@@ -439,7 +439,7 @@ void LLPanelLogin::showLoginWidgets()
 	std::string splash_screen_url = LLGridManager::getInstance()->getLoginPage();
 		web_browser->navigateTo( splash_screen_url, HTTP_CONTENT_TEXT_HTML );
 	LLUICtrl* username_combo = sInstance->getChild<LLUICtrl>("username_combo");
-	username_combo->setFocus(TRUE);
+	username_combo->setFocus(true);
 }
 
 // static
@@ -455,7 +455,7 @@ void LLPanelLogin::show(const LLRect &rect,
 	if( !gFocusMgr.getKeyboardFocus() )
 	{
 		// Grab focus and move cursor to first enabled control
-		sInstance->setFocus(TRUE);
+		sInstance->setFocus(true);
 	}
 
 	// Make sure that focus always goes here (and use the latest sInstance that was just created)
@@ -927,7 +927,7 @@ void LLPanelLogin::onClickConnect(void *)
 		}
 //mk
 		// JC - Make sure the fields all get committed.
-		sInstance->setFocus(FALSE);
+		sInstance->setFocus(false);
 
 		LLComboBox* combo = sInstance->getChild<LLComboBox>("server_combo");
 		LLSD combo_val = combo->getSelectedValue();

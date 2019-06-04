@@ -41,7 +41,7 @@ public:
 
 	/*virtual*/ bool postBuild();
 	/*virtual*/ void setDocked(bool docked, bool pop_on_undock = true);
-	/*virtual*/ void setFocus( BOOL b );
+	/*virtual*/ void setFocus( bool b );
 };
 
 

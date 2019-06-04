@@ -599,7 +599,7 @@ BOOL LLTabContainer::handleMouseDown( S32 x, S32 y, MASK mask )
 			index = llclamp(index, 0, tab_count-1);
 			LLButton* tab_button = getTab(index)->mButton;
 			gFocusMgr.setMouseCapture(this);
-			tab_button->setFocus(TRUE);
+			tab_button->setFocus(true);
 		}
 	}
 	if (handled) {
@@ -703,7 +703,7 @@ BOOL LLTabContainer::handleMouseUp( S32 x, S32 y, MASK mask )
 			{
 				// if nothing in the panel gets focus, make sure the new tab does
 				// otherwise the last tab might keep focus
-				getTab(getCurrentPanelIndex())->mButton->setFocus(TRUE);
+				getTab(getCurrentPanelIndex())->mButton->setFocus(true);
 			}
 		}
 		gFocusMgr.setMouseCapture(NULL);
@@ -779,7 +779,7 @@ bool LLTabContainer::handleKeyHere(KEY key, MASK mask)
 	{
 		if (getCurrentPanel())
 		{
-			getCurrentPanel()->setFocus(TRUE);
+			getCurrentPanel()->setFocus(true);
 		}
 	}
 
@@ -804,7 +804,7 @@ bool LLTabContainer::handleKeyHere(KEY key, MASK mask)
 			  case KEY_RIGHT:
 				if (getTabPosition() == LEFT && getCurrentPanel())
 				{
-					getCurrentPanel()->setFocus(TRUE);
+					getCurrentPanel()->setFocus(true);
 				}
 				handled = true;
 				break;
@@ -819,14 +819,14 @@ bool LLTabContainer::handleKeyHere(KEY key, MASK mask)
 			  case KEY_UP:
 				if (getTabPosition() == BOTTOM && getCurrentPanel())
 				{
-					getCurrentPanel()->setFocus(TRUE);
+					getCurrentPanel()->setFocus(true);
 				}
 				handled = true;
 				break;
 			  case KEY_DOWN:
 				if (getTabPosition() == TOP && getCurrentPanel())
 				{
-					getCurrentPanel()->setFocus(TRUE);
+					getCurrentPanel()->setFocus(true);
 				}
 				handled = true;
 				break;
@@ -1292,7 +1292,7 @@ void LLTabContainer::removeTabPanel(LLPanel* child)
 		LLPanel* panelp = getPanelByIndex(mCurrentTabIdx);
 		if (panelp)
 		{
-			panelp->setFocus(TRUE);
+			panelp->setFocus(true);
 		}
 	}
 
@@ -1450,7 +1450,7 @@ void LLTabContainer::selectNextTab()
 
 	if (tab_has_focus)
 	{
-		mTabList[idx]->mButton->setFocus(TRUE);
+		mTabList[idx]->mButton->setFocus(true);
 	}
 }
 
@@ -1472,7 +1472,7 @@ void LLTabContainer::selectPrevTab()
 	}
 	if (tab_has_focus)
 	{
-		mTabList[idx]->mButton->setFocus(TRUE);
+		mTabList[idx]->mButton->setFocus(true);
 	}
 }	
 
@@ -1792,7 +1792,7 @@ void LLTabContainer::onTabBtn( const LLSD& data, LLPanel* panel )
 
 	if (tuple)
 	{
-		tuple->mTabPanel->setFocus(TRUE);
+		tuple->mTabPanel->setFocus(true);
 	}
 }
 

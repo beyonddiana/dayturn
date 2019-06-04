@@ -1507,7 +1507,7 @@ void LLInventoryPanel::openInventoryPanelAndSetSelection(BOOL auto_open, const L
 			LLFloater* floater_inventory = LLFloaterReg::getInstance("inventory");
 			if (floater_inventory)
 			{
-				floater_inventory->setFocus(TRUE);
+				floater_inventory->setFocus(true);
 			}
 			active_panel->setSelection(obj_id, take_keyboard_focus);
 		}
