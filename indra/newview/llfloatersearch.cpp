@@ -136,6 +136,7 @@ void LLFloaterSearch::onOpen(const LLSD& key)
     }
 
 	LLFloaterWebContent::onOpen(p);
+	mWebBrowser->setFocus(TRUE);
 	search(p.search);
 }
 
