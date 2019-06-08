@@ -2100,16 +2100,16 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>9e30c9e228d6a825b6774b97ff052973</string>
+              <string>22c7be12c1d2ee87b059be903d7f2fbd</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/nvapi_3p-update-nvapi/rev/295118/arch/CYGWIN/installer/nvapi-304-windows-295118.tar.bz2</string>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/p64_3p-nvapi/rev/314405/arch/CYGWIN/installer/nvapi-352.314405-windows-314405.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
           </map>
         </map>
         <key>version</key>
-        <string>304</string>
+        <string>352.314405</string>
       </map>
       <key>ogg_vorbis</key>
       <map>
