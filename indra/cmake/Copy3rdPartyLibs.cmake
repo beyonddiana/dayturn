@@ -65,7 +65,7 @@ if(WINDOWS)
 
     if (FMODEX)
       set(debug_files ${debug_files} fmodexL.dll)
-#      set(release_files ${release_files} fmodex.dll)
+      set(release_files ${release_files} fmodex.dll)
     endif (FMODEX)
 
     #*******************************
