@@ -262,7 +262,7 @@ list(APPEND llcommon_SOURCE_FILES ${llcommon_HEADER_FILES})
 
 if(NOT ADDRESS_SIZE EQUAL 32)
   if(WINDOWS)
-    add_definitions(/FIXED:NO)
+    ##add_definitions(/FIXED:NO)
   else(WINDOWS) # not windows therefore gcc LINUX
     add_definitions(-fPIC)
   endif(WINDOWS)
@@ -279,7 +279,7 @@ else(LLCOMMON_LINK_SHARED)
     add_library (llcommon ${llcommon_SOURCE_FILES})
   if(NOT ADDRESS_SIZE EQUAL 32)
     if(WINDOWS)
-      add_definitions(/FIXED:NO)
+      ##add_definitions(/FIXED:NO)
     else(WINDOWS) # not windows therefore gcc LINUX
       add_definitions(-fPIC)
     endif(WINDOWS)
