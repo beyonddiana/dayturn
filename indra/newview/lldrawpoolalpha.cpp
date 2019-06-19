@@ -262,15 +262,15 @@ void LLDrawPoolAlpha::render(S32 pass)
 
 		if (mVertexShaderLevel > 0)
 		{
-		if (LLPipeline::sImpostorRender)
-		{
+			if (LLPipeline::sImpostorRender)
+			{
 				fullbright_shader->bind();
 				fullbright_shader->setMinimumAlpha(0.5f);
 				simple_shader->bind();
 				simple_shader->setMinimumAlpha(0.5f);
-		}
-		else
-		{
+			}				
+			else
+			{
 				fullbright_shader->bind();
 				fullbright_shader->setMinimumAlpha(0.f);
 				simple_shader->bind();
