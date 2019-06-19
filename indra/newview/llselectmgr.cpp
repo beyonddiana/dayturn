@@ -637,6 +637,7 @@ bool LLSelectMgr::unlinkObjects()
 		LLNotificationsUtil::add("ConfirmUnlink", LLSD(), LLSD(), boost::bind(&LLSelectMgr::confirmUnlinkObjects, this, _1, _2));
 		return true;
 	}
+
 	LLSelectMgr::getInstance()->sendDelink();
 	return true;
 }
@@ -5919,13 +5920,6 @@ void LLSelectMgr::renderSilhouettes(BOOL for_hud)
 	{
 		return;
 	}
-
-//MK
-	if (gRRenabled && gAgent.mRRInterface.mCamDistDrawMax < EXTREMUM)
-	{
-		return;
-	}
-//mk
 
 //MK
 	if (gRRenabled && gAgent.mRRInterface.mCamDistDrawMax < EXTREMUM)

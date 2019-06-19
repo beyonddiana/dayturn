@@ -369,9 +369,9 @@ public:
     S32 getAnimatedObjectMaxTris() const;
     F32 recursiveGetEstTrianglesMax() const;
     virtual F32 getEstTrianglesMax() const;
-    virtual F32 getEstTrianglesStreamingCost() const;    
+    virtual F32 getEstTrianglesStreamingCost() const;
 	virtual F32 getStreamingCost() const;
-    virtual bool getCostData(LLMeshCostData& costs) const;	
+    virtual bool getCostData(LLMeshCostData& costs) const;
 	virtual U32 getTriangleCount(S32* vcount = NULL) const;
 	virtual U32 getHighLODTriangleCount();
     F32 recursiveGetScaledSurfaceArea() const;

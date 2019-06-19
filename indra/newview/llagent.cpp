@@ -518,11 +518,10 @@ LLAgent::LLAgent() :
 
 	mMouselookModeInSignal(NULL),
 	mMouselookModeOutSignal(NULL),
-//MK from Kokua
+
 	restoreToWorld(false),
 	restoreToWorldGroup(NULL),
 	restoreToWorldItem(NULL)
-//mk from Kokua
 {
 	for (U32 i = 0; i < TOTAL_CONTROLS; i++)
 	{
@@ -655,18 +654,10 @@ void LLAgent::moveAt(S32 direction, bool reset)
 
 	if (direction > 0)
 	{
-//MK
-		//if (gRRenabled && gAgent.mRRInterface.mContainsMoveForward) {}
-		//else
-//mk
 		setControlFlags(AGENT_CONTROL_AT_POS | AGENT_CONTROL_FAST_AT);
 	}
 	else if (direction < 0)
 	{
-//MK
-		//if (gRRenabled && gAgent.mRRInterface.mContainsMoveBackward) {}
-		//else
-//mk
 		setControlFlags(AGENT_CONTROL_AT_NEG | AGENT_CONTROL_FAST_AT);
 	}
 
@@ -699,18 +690,10 @@ void LLAgent::moveAtNudge(S32 direction)
 
 	if (direction > 0)
 	{
-//MK
-		//if (gRRenabled && gAgent.mRRInterface.mContainsMoveForward) {}
-		//else
-//mk
 		setControlFlags(AGENT_CONTROL_NUDGE_AT_POS);
 	}
 	else if (direction < 0)
 	{
-//MK
-		//if (gRRenabled && gAgent.mRRInterface.mContainsMoveBackward) {}
-		//else
-//mk
 		setControlFlags(AGENT_CONTROL_NUDGE_AT_NEG);
 	}
 
@@ -740,18 +723,10 @@ void LLAgent::moveLeft(S32 direction)
 
 	if (direction > 0)
 	{
-//MK
-		//if (gRRenabled && gAgent.mRRInterface.mContainsMoveStrafeRight) {}
-		//else
-//mk
 		setControlFlags(AGENT_CONTROL_LEFT_POS | AGENT_CONTROL_FAST_LEFT);
 	}
 	else if (direction < 0)
 	{
-//MK
-		//if (gRRenabled && gAgent.mRRInterface.mContainsMoveStrafeLeft) {}
-		//else
-//mk
 		setControlFlags(AGENT_CONTROL_LEFT_NEG | AGENT_CONTROL_FAST_LEFT);
 	}
 
@@ -781,18 +756,10 @@ void LLAgent::moveLeftNudge(S32 direction)
 
 	if (direction > 0)
 	{
-//MK
-		//if (gRRenabled && gAgent.mRRInterface.mContainsMoveStrafeRight) {}
-		//else
-//mk
 		setControlFlags(AGENT_CONTROL_NUDGE_LEFT_POS);
 	}
 	else if (direction < 0)
 	{
-//MK
-		//if (gRRenabled && gAgent.mRRInterface.mContainsMoveStrafeLeft) {}
-		//else
-//mk
 		setControlFlags(AGENT_CONTROL_NUDGE_LEFT_NEG);
 	}
 
@@ -822,18 +789,10 @@ void LLAgent::moveUp(S32 direction)
 
 	if (direction > 0)
 	{
-//MK
-		//if (gRRenabled && gAgent.mRRInterface.mContainsMoveUp) {}
-		//else
-//mk
 		setControlFlags(AGENT_CONTROL_UP_POS | AGENT_CONTROL_FAST_UP);
 	}
 	else if (direction < 0)
 	{
-//MK
-		//if (gRRenabled && gAgent.mRRInterface.mContainsMoveDown) {}
-		//else
-//mk
 		setControlFlags(AGENT_CONTROL_UP_NEG | AGENT_CONTROL_FAST_UP);
 	}
 
@@ -857,18 +816,10 @@ void LLAgent::moveYaw(F32 mag, bool reset_view)
 
 	if (mag > 0)
 	{
-//MK
-		//if (gRRenabled && gAgent.mRRInterface.mContainsMoveTurnRight) {}
-		//else
-//mk
 		setControlFlags(AGENT_CONTROL_YAW_POS);
 	}
 	else if (mag < 0)
 	{
-//MK
-		//if (gRRenabled && gAgent.mRRInterface.mContainsMoveTurnLeft) {}
-		//else
-//mk
 		setControlFlags(AGENT_CONTROL_YAW_NEG);
 	}
 
@@ -895,18 +846,10 @@ void LLAgent::movePitch(F32 mag)
 
 	if (mag > 0)
 	{
-//MK
-		//if (gRRenabled && gAgent.mRRInterface.mContainsMoveTurnUp) {}
-		//else
-//mk
 		setControlFlags(AGENT_CONTROL_PITCH_POS);
 	}
 	else if (mag < 0)
 	{
-//MK
-		//if (gRRenabled && gAgent.mRRInterface.mContainsMoveTurnDown) {}
-		//else
-//mk
 		setControlFlags(AGENT_CONTROL_PITCH_NEG);
 	}
 }
@@ -1055,9 +998,6 @@ void LLAgent::standUp()
 	{
 		return;
 	}
-//LC - fix for issue #58
-//	gAgent.setFlying(FALSE);
-//lc
 //mk
 	setControlFlags(AGENT_CONTROL_STAND_UP);
 //MK
@@ -1123,7 +1063,7 @@ void LLAgent::setRegion(LLViewerRegion *regionp)
 		if (!gRRenabled || !gAgent.mRRInterface.mContainsShowloc)
 		{
 //mk
-			LL_INFOS() << "Moving agent into region: " << regionp->getName()
+			LL_INFOS("AgentLocation") << "Moving agent into region: " << regionp->getName()
 				<< " located at " << ip << LL_ENDL;
 //MK
 		}
@@ -1214,13 +1154,6 @@ void LLAgent::setRegion(LLViewerRegion *regionp)
 
 	if (notifyRegionChange)
 	{
-////MK from HB
-//	// Make sure to use the proper method to account for the Z-Offset: as the
-//	// value for the Hover shape visual parameter in SSB sims, or as a simple
-//	// offset added to the size sent by sendAgentSetAppearance() in non-SSB
-//	// sims (with the shape Hover reset to zero in that latter case).
-//	gAgentWearables.setShapeAvatarOffset();
-////mk from HB
 	LL_DEBUGS("AgentLocation") << "Calling RegionChanged callbacks" << LL_ENDL;
 	mRegionChangedSignal();
 }
@@ -2388,7 +2321,10 @@ void LLAgent::endAnimationUpdateUI()
 			{
 				skip_list.insert(LLFloaterReg::findInstance("mini_map"));
 			}
-
+			if (LLFloaterReg::findInstance("beacons"))
+			{
+				skip_list.insert(LLFloaterReg::findInstance("beacons"));
+			}
 			LLFloaterIMContainer* im_box = LLFloaterReg::getTypedInstance<LLFloaterIMContainer>("im_container");
 			LLFloaterIMContainer::floater_list_t conversations;
 			im_box->getDetachedConversationFloaters(conversations);
@@ -2994,7 +2930,7 @@ void LLAgent::handlePreferredMaturityResult(U8 pServerMaturity)
 			mMaturityPreferenceNumRetries = 0;
 			reportPreferredMaturitySuccess();
 			llassert(static_cast<U8>(gSavedSettings.getU32("PreferredMaturity")) == mLastKnownResponseMaturity);
-}
+		}
 		// Else, the viewer is out of sync with the server, so let's try to re-sync with the
 		// server by re-sending our last known request.  Cap the re-tries at 3 just to be safe.
 		else if (++mMaturityPreferenceNumRetries <= 3)
@@ -3047,7 +2983,7 @@ void LLAgent::reportPreferredMaturitySuccess()
 	if (hasPendingTeleportRequest())
 	{
 		startTeleportRequest();
-}
+	}
 }
 
 void LLAgent::reportPreferredMaturityError()
@@ -3064,7 +3000,7 @@ void LLAgent::reportPreferredMaturityError()
 	// Get the last known maturity request from the user activity
 	std::string preferredMaturity = LLViewerRegion::accessToString(mLastKnownRequestMaturity);
 	LLStringUtil::toLower(preferredMaturity);
-	
+
 	// Get the last known maturity response from the server
 	std::string actualMaturity = LLViewerRegion::accessToString(mLastKnownResponseMaturity);
 	LLStringUtil::toLower(actualMaturity);
@@ -3089,15 +3025,15 @@ void LLAgent::reportPreferredMaturityError()
 }
 
 bool LLAgent::isMaturityPreferenceSyncedWithServer() const
-		{
+{
 	return (mMaturityPreferenceRequestId == mMaturityPreferenceResponseId);
-		}
+}
 
 void LLAgent::sendMaturityPreferenceToServer(U8 pPreferredMaturity)
 {
 	// Only send maturity preference to the server if enabled
 	if (mIsDoSendMaturityPreferenceToServer)
-		{
+	{
 		// Increment the number of requests.  The handlers manage a separate count of responses.
 		++mMaturityPreferenceRequestId;
 
@@ -3122,15 +3058,15 @@ void LLAgent::sendMaturityPreferenceToServer(U8 pPreferredMaturity)
 			{
 				responderPtr->failureResult(0U, 
 							"capability 'UpdateAgentInformation' is not defined for region", LLSD());
-		}
+			}
 			else
 			{
 				// Set new access preference
 				LLSD access_prefs = LLSD::emptyMap();
 				access_prefs["max"] = LLViewerRegion::accessToShortString(pPreferredMaturity);
-		
-		LLSD body = LLSD::emptyMap();
-		body["access_prefs"] = access_prefs;
+
+				LLSD body = LLSD::emptyMap();
+				body["access_prefs"] = access_prefs;
 				LL_INFOS() << "Sending viewer preferred maturity to '" << LLViewerRegion::accessToString(pPreferredMaturity)
 					<< "' via capability to: " << url << LL_ENDL;
 				LLSD headers;
@@ -3899,7 +3835,6 @@ void LLAgent::processAgentDataUpdate(LLMessageSystem *msg, void **)
 		gAgent.mGroupName.clear();
 	}		
 
-//MK from Kokua
 	if (gAgent.restoreToWorld) {
 		LLViewerInventoryItem *inv_item = gAgent.restoreToWorldItem;
 		const LLUUID trash_id = gInventory.findCategoryUUIDForType(LLFolderType::FT_TRASH);
@@ -3958,7 +3893,7 @@ void LLAgent::processAgentDataUpdate(LLMessageSystem *msg, void **)
 		gAgent.restoreToWorld = false;
 		gAgent.sendReliableMessage();
 	}
-//mk from Kokua
+
 	update_group_floaters(active_id);
 }
 
@@ -4466,11 +4401,8 @@ void LLAgent::teleportRequest(
     LLViewerRegion* regionp = getRegion();
 	if (regionp && teleportCore(region_handle == regionp->getHandle()))
 	{
-//MK
-		// This crashes when we are logging off
-		////LL_INFOS("") << "TeleportLocationRequest: '" << region_handle << "':"
-		////			 << pos_local << LL_ENDL;
-//mk
+		LL_INFOS("") << "TeleportLocationRequest: '" << region_handle << "':"
+					 << pos_local << LL_ENDL;
 		LLMessageSystem* msg = gMessageSystem;
 		msg->newMessage("TeleportLocationRequest");
 		msg->nextBlockFast(_PREHASH_AgentData);
@@ -4528,13 +4460,6 @@ void LLAgent::teleportViaLure(const LLUUID& lure_id, BOOL godlike)
 
 void LLAgent::doTeleportViaLure(const LLUUID& lure_id, BOOL godlike)
 {
-//MK
-	//// eliminate all restrictions issued from objects the avatar is not wearing
-	//if (gRRenabled)
-	//{
-	//	gAgent.mRRInterface.garbageCollector ();
-	//}
-//mk
 	LLViewerRegion* regionp = getRegion();
 	if(regionp && teleportCore())
 	{
@@ -4568,16 +4493,16 @@ void LLAgent::teleportCancel()
 {
 	if (!hasPendingTeleportRequest())
 	{
-	LLViewerRegion* regionp = getRegion();
-	if(regionp)
-	{
-		// send the message
-		LLMessageSystem* msg = gMessageSystem;
-		msg->newMessage("TeleportCancel");
-		msg->nextBlockFast(_PREHASH_Info);
-		msg->addUUIDFast(_PREHASH_AgentID, getID());
-		msg->addUUIDFast(_PREHASH_SessionID, getSessionID());
-		sendReliableMessage();
+		LLViewerRegion* regionp = getRegion();
+		if(regionp)
+		{
+			// send the message
+			LLMessageSystem* msg = gMessageSystem;
+			msg->newMessage("TeleportCancel");
+			msg->nextBlockFast(_PREHASH_Info);
+			msg->addUUIDFast(_PREHASH_AgentID, getID());
+			msg->addUUIDFast(_PREHASH_SessionID, getSessionID());
+			sendReliableMessage();
 		}
 		mTeleportCanceled = mTeleportRequest;
 	}
@@ -5311,7 +5236,6 @@ LLAgentQueryManager::LLAgentQueryManager() :
 	}
 }
 
-
 LLAgentQueryManager::~LLAgentQueryManager()
 {
 }
@@ -5469,4 +5393,3 @@ void LLTeleportRequestViaLocationLookAt::restartTeleport()
 }
 
 // EOF
-

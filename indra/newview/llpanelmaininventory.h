@@ -90,6 +90,8 @@ public:
 
 	void setFocusFilterEditor();
 
+	static void newWindow();
+
 	void toggleFindOptions();
 
 protected:
@@ -117,7 +119,6 @@ protected:
 	// menu callbacks
 	void doToSelected(const LLSD& userdata);
 	void closeAllFolders();
-	void newWindow();
 	void doCreate(const LLSD& userdata);
 	void resetFilters();
 	void setSortBy(const LLSD& userdata);

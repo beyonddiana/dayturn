@@ -271,13 +271,6 @@ void LLVOAvatarSelf::initInstance()
 
 void LLVOAvatarSelf::setHoverIfRegionEnabled()
 {
-//MK from HB
-	if (!isAgentAvatarValid())
-	{
-		return;
-	}
-//mk from hb
-
 	if (getRegion() && getRegion()->simulatorFeaturesReceived())
 	{
 		if (getRegion()->avatarHoverHeightEnabled())
@@ -1293,66 +1286,6 @@ const LLViewerJointAttachment *LLVOAvatarSelf::attachObject(LLViewerObject *view
 		return 0;
 	}
 
-//MK
-	if (gRRenabled)
-	{
-		// if this inventory item is shared and does not contain any attachment info in its name, rename it for later (truncate the name first if needed)
-		const LLUUID& id = attachment->getItemID();
-		LLViewerInventoryItem* item = gInventory.getItem (id);
-		if (item && gAgent.mRRInterface.isUnderRlvShare (item))
-		{
-			if (gAgent.mRRInterface.findAttachmentPointFromName (item->getName()) == NULL && gSavedSettings.controlExists("RestrainedLoveAutomaticRenameItems") && gSavedSettings.getBOOL("RestrainedLoveAutomaticRenameItems"))
-			{
-				if (item->isFinished())
-				{
-					std::string attach_name;
-					if (getAttachedPointName (item->getUUID(), attach_name))
-					{
-						LLStringUtil::toLower (attach_name);
-						std::string item_name = item->getName();
-						if (item_name.length() >= DB_INV_ITEM_NAME_STR_LEN - 16)
-						{
-							// truncate if the original name is too long
-							item_name = item_name.substr (0, DB_INV_ITEM_NAME_STR_LEN - 16);
-						}
-					
-						if (item->getPermissions().allowModifyBy(gAgent.getID()))
-						{
-							// add the name of the attach point at the end of the name of the item
-							item->rename(item_name + " (" + attach_name + ")");
-							item->updateServer (FALSE);
-						}
-						else
-						{
-							// this item is no-mod, so we have to rename its parent directory instead,
-							// provided it is at least 2 levels below the shared root (we already know
-							// that the item is shared)
-							LLViewerInventoryCategory* cat_parent;
-							LLViewerInventoryCategory* cat_grandparent;
-							LLInventoryCategory* rlv_share = gAgent.mRRInterface.getRlvShare();
-							const LLUUID& parent_id = item->getParentUUID();
-							cat_parent = gInventory.getCategory (parent_id);
-							const LLUUID& grandparent_id = cat_parent->getParentUUID();
-							cat_grandparent = gInventory.getCategory (grandparent_id);
-							if (cat_parent && cat_grandparent
-								&& (LLInventoryCategory*)cat_parent != rlv_share
-								&& (LLInventoryCategory*)cat_grandparent != rlv_share)
-							{
-								if (gAgent.mRRInterface.findAttachmentPointFromName (cat_parent->getName())
-									 == NULL)
-								{
-									cat_parent->rename(".(" + attach_name + ")"); // don't write the whole name, it could contain commas (",") and fool @getinv
-									cat_parent->updateServer (FALSE);
-									gInventory.updateCategory (cat_parent);
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-//mk
 	updateAttachmentVisibility(gAgentCamera.getCameraMode());
 	
 	// Then make sure the inventory is in sync with the avatar.
@@ -1706,17 +1639,7 @@ BOOL LLVOAvatarSelf::isTextureVisible(LLAvatarAppearanceDefines::ETextureIndex t
 	}
 
 	LLUUID tex_id = getLocalTextureID(type,index);
-//MK
-	if (LLPipeline::sShadowRender)
-	{
-		static LLCachedControl<U32> RestrainedLoveAvatarShadows(gSavedSettings, "RestrainedLoveAvatarShadows", 2);
-		if (RestrainedLoveAvatarShadows == 1)
-		{
-			return TRUE;
-		}
-	}
-	//mk
-	return (tex_id != IMG_INVISIBLE)
+	return (tex_id != IMG_INVISIBLE) 
 			|| (LLDrawPoolAlpha::sShowDebugAlpha);
 }
 

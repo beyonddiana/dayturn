@@ -146,7 +146,7 @@ public:
     /*virtual*/	F32		getEstTrianglesStreamingCost() const;
     /* virtual*/ F32	getStreamingCost() const;
     /*virtual*/ bool getCostData(LLMeshCostData& costs) const;
-        
+
 	/*virtual*/ U32		getTriangleCount(S32* vcount = NULL) const;
 	/*virtual*/ U32		getHighLODTriangleCount();
 	/*virtual*/ BOOL lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end, 

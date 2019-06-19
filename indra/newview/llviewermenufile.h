@@ -30,7 +30,6 @@
 #include "llfoldertype.h"
 #include "llassetstorage.h"
 #include "llinventorytype.h"
-#include "llinventorydefines.h"
 #include "llfilepicker.h"
 #include "llthread.h"
 #include <queue>
@@ -42,34 +41,34 @@ void init_menu_file();
 
 LLUUID upload_new_resource(
 	const std::string& src_filename, 
-			 std::string name,
-			 std::string desc, 
-			 S32 compression_info,
-			 LLFolderType::EType destination_folder_type,
-			 LLInventoryType::EType inv_type,
-			 U32 next_owner_perms,
-			 U32 group_perms,
-			 U32 everyone_perms,
-			 const std::string& display_name,
-			 LLAssetStorage::LLStoreAssetCallback callback,
-			 S32 expected_upload_cost,
-			 void *userdata);
+	std::string name,
+	std::string desc, 
+	S32 compression_info,
+	LLFolderType::EType destination_folder_type,
+	LLInventoryType::EType inv_type,
+	U32 next_owner_perms,
+	U32 group_perms,
+	U32 everyone_perms,
+	const std::string& display_name,
+	LLAssetStorage::LLStoreAssetCallback callback,
+	S32 expected_upload_cost,
+	void *userdata);
 
 void upload_new_resource(
 	const LLTransactionID &tid, 
-			 LLAssetType::EType type,
-			 std::string name,
-			 std::string desc, 
-			 S32 compression_info,
-			 LLFolderType::EType destination_folder_type,
-			 LLInventoryType::EType inv_type,
-			 U32 next_owner_perms,
-			 U32 group_perms,
-			 U32 everyone_perms,
-			 const std::string& display_name,
-			 LLAssetStorage::LLStoreAssetCallback callback,
-			 S32 expected_upload_cost,
-			 void *userdata);
+	LLAssetType::EType type,
+	std::string name,
+	std::string desc, 
+	S32 compression_info,
+	LLFolderType::EType destination_folder_type,
+	LLInventoryType::EType inv_type,
+	U32 next_owner_perms,
+	U32 group_perms,
+	U32 everyone_perms,
+	const std::string& display_name,
+	LLAssetStorage::LLStoreAssetCallback callback,
+	S32 expected_upload_cost,
+	void *userdata);
 
 
 LLAssetID generate_asset_id_for_new_upload(const LLTransactionID& tid);

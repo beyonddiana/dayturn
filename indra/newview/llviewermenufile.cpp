@@ -286,7 +286,7 @@ std::string build_extensions_string(LLFilePicker::ELoadFilter filter)
 #endif
 	case LLFilePicker::FFLOAD_XML:
 	    return XML_EXTENSIONS;
-	case LLFilePicker::FFLOAD_ALL:
+    case LLFilePicker::FFLOAD_ALL:
     case LLFilePicker::FFLOAD_EXE:
 		return ALL_FILE_EXTENSIONS;
 #endif
@@ -517,7 +517,7 @@ class LLFileUploadBulk : public view_listener_t
 				LLFloaterPerms::getNextOwnerPerms("Uploads"),
 				LLFloaterPerms::getGroupPerms("Uploads"),
 				LLFloaterPerms::getEveryonePerms("Uploads"),
-					    display_name,
+				display_name,
 				callback,
 				expected_upload_cost,
 				userdata);
@@ -660,6 +660,7 @@ class LLFileQuit : public view_listener_t
 	}
 };
 
+
 void handle_compress_image(void*)
 {
 	LLFilePicker& picker = LLFilePicker::instance();
@@ -696,15 +697,15 @@ LLUUID upload_new_resource(
 	std::string name,
 	std::string desc,
 	S32 compression_info,
-			 LLFolderType::EType destination_folder_type,
-			 LLInventoryType::EType inv_type,
-			 U32 next_owner_perms,
-			 U32 group_perms,
-			 U32 everyone_perms,
-			 const std::string& display_name,
-			 LLAssetStorage::LLStoreAssetCallback callback,
-			 S32 expected_upload_cost,
-			 void *userdata)
+	LLFolderType::EType destination_folder_type,
+	LLInventoryType::EType inv_type,
+	U32 next_owner_perms,
+	U32 group_perms,
+	U32 everyone_perms,
+	const std::string& display_name,
+	LLAssetStorage::LLStoreAssetCallback callback,
+	S32 expected_upload_cost,
+	void *userdata)
 {	
 	// Generate the temporary UUID.
 	std::string filename = gDirUtilp->getTempFilename();
@@ -1066,6 +1067,7 @@ void upload_done_callback(
 			args["REASON"] = std::string(LLAssetStorage::getErrorString(result));
 			LLNotificationsUtil::add("CannotUploadReason", args);
 		}
+
 		delete data;
 		data = NULL;
 	}
@@ -1097,10 +1099,10 @@ void upload_done_callback(
 			LLFloaterPerms::getNextOwnerPerms("Uploads"),
 			LLFloaterPerms::getGroupPerms("Uploads"),
 			LLFloaterPerms::getEveryonePerms("Uploads"),
-				    display_name,
-				    callback,
-				    expected_upload_cost, // assuming next in a group of uploads is of roughly the same type, i.e. same upload cost
-				    userdata);
+			display_name,
+			callback,
+			expected_upload_cost, // assuming next in a group of uploads is of roughly the same type, i.e. same upload cost
+			userdata);
 	}
 }
 
@@ -1256,24 +1258,24 @@ void upload_new_resource(
 	}
 	else
 	{
-			LL_INFOS() << "NewAgentInventory capability not found, new agent inventory via asset system." << LL_ENDL;
-			// check for adequate funds
-			// TODO: do this check on the sim
-			if (LLAssetType::AT_SOUND == asset_type ||
-				LLAssetType::AT_TEXTURE == asset_type ||
-				LLAssetType::AT_ANIMATION == asset_type)
+		LL_INFOS() << "NewAgentInventory capability not found, new agent inventory via asset system." << LL_ENDL;
+		// check for adequate funds
+		// TODO: do this check on the sim
+		if (LLAssetType::AT_SOUND == asset_type ||
+			LLAssetType::AT_TEXTURE == asset_type ||
+			LLAssetType::AT_ANIMATION == asset_type)
+		{
+			S32 balance = gStatusBar->getBalance();
+			if (balance < expected_upload_cost)
 			{
-				S32 balance = gStatusBar->getBalance();
-				if (balance < expected_upload_cost)
-				{
-					// insufficient funds, bail on this upload
-					LLStringUtil::format_map_t args;
-					args["NAME"] = name;
-					args["AMOUNT"] = llformat("%d", expected_upload_cost);
-					LLBuyCurrencyHTML::openCurrencyFloater( LLTrans::getString("UploadingCosts", args), expected_upload_cost );
-					return;
-				}
+				// insufficient funds, bail on this upload
+				LLStringUtil::format_map_t args;
+				args["NAME"] = name;
+				args["AMOUNT"] = llformat("%d", expected_upload_cost);
+				LLBuyCurrencyHTML::openCurrencyFloater( LLTrans::getString("UploadingCosts", args), expected_upload_cost );
+				return;
 			}
+		}
 
 		LLResourceData* data = new LLResourceData;
 		data->mAssetInfo.mTransactionID = tid;
@@ -1296,8 +1298,8 @@ void upload_new_resource(
 		gAssetStorage->storeAssetData(
 			data->mAssetInfo.mTransactionID,
 			data->mAssetInfo.mType,
-										asset_callback,
-										(void*)data,
+			asset_callback,
+			(void*)data,
 			FALSE);
 	}
 }
@@ -1381,6 +1383,6 @@ void init_menu_file()
 	view_listener_t::addEnable(new LLFileEnableUploadModel(), "File.EnableUploadModel");
 	view_listener_t::addMenu(new LLMeshEnabled(), "File.MeshEnabled");
 	view_listener_t::addMenu(new LLMeshUploadVisible(), "File.VisibleUploadModel");
-	
+
 	// "File.SaveTexture" moved to llpanelmaininventory so that it can be properly handled.
 }

@@ -1488,9 +1488,6 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 					mHudText = temp_string;
 					mHudTextColor = LLColor4(coloru);
 
-					mHudText = temp_string;
-					mHudTextColor = LLColor4(coloru);
-
 					setChanged(MOVED | SILHOUETTE);
 				}
 				else
@@ -1866,9 +1863,6 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 //MK
 					mText->mLastMessageText = temp_string;
 //mk
-
-                    mHudText = temp_string;
-                    mHudTextColor = LLColor4(coloru);
 
                     mHudText = temp_string;
                     mHudTextColor = LLColor4(coloru);
@@ -3764,7 +3758,7 @@ F32 LLViewerObject::recursiveGetEstTrianglesMax() const
 S32 LLViewerObject::getAnimatedObjectMaxTris() const
 {
     S32 max_tris = 0;
-    if (gSavedSettings.getBOOL("AnimatedObjectsIgnoreLimits")) // AXON REMOVE AFTER SERVER TESTING DONE
+    if (gSavedSettings.getBOOL("AnimatedObjectsIgnoreLimits")) 
     {
         max_tris = S32_MAX;
     }

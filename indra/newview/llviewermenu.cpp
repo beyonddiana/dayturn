@@ -95,6 +95,7 @@
 #include "lllogininstance.h" // <FS:AW  opensim destinations and avatar picker>
 #include "llpanellogin.h"
 #include "llpanelblockedlist.h"
+#include "llpanelmaininventory.h"
 #include "llmarketplacefunctions.h"
 #include "llmenuoptionpathfindingrebakenavmesh.h"
 #include "llmoveview.h"
@@ -516,6 +517,7 @@ void init_menus()
 //Dayturn we could add a legacy menu here
 
 	LLView* menu_bar_holder = gViewerWindow->getRootView()->getChildView("menu_bar_holder");
+
 	gMenuBarView->setRect(LLRect(0, menu_bar_holder->getRect().mTop, 0, menu_bar_holder->getRect().mTop - MENU_BAR_HEIGHT));
 	gMenuBarView->setBackgroundColor( color );
 
@@ -1278,6 +1280,7 @@ class LLAdvancedToggleWireframe : public view_listener_t
 	bool handleEvent(const LLSD& userdata)
 	{
 		gUseWireframe = !(gUseWireframe);
+		gWindowResized = TRUE;
 //MK
 		// If we are supposed to be blindfolded (i.e. there is at least one locked HUD or the vision restrictions are in effect)
 		// then force wireframe to FALSE, as it could help cheating through.
@@ -1289,14 +1292,13 @@ class LLAdvancedToggleWireframe : public view_listener_t
 			}
 		}
 //mk
+		LLPipeline::updateRenderDeferred();
 
 		if (gUseWireframe)
 		{
 			gInitialDeferredModeForWireframe = LLPipeline::sRenderDeferred;
 		}
 
-		gWindowResized = TRUE;
-		LLPipeline::updateRenderDeferred();
 		gPipeline.resetVertexBuffers();
 
 		if (!gUseWireframe && !gInitialDeferredModeForWireframe && LLPipeline::sRenderDeferred != bool(gInitialDeferredModeForWireframe) && gPipeline.isInit())
@@ -1872,6 +1874,31 @@ class LLAdvancedReloadVertexShader : public view_listener_t
 };
 
 
+
+////////////////////
+// ANIMATION INFO //
+////////////////////
+
+
+class LLAdvancedToggleAnimationInfo : public view_listener_t
+{
+	bool handleEvent(const LLSD& userdata)
+	{
+		LLVOAvatar::sShowAnimationDebug = !(LLVOAvatar::sShowAnimationDebug);
+		return true;
+	}
+};
+
+class LLAdvancedCheckAnimationInfo : public view_listener_t
+{
+	bool handleEvent(const LLSD& userdata)
+	{
+		bool new_value = LLVOAvatar::sShowAnimationDebug;
+		return new_value;
+	}
+};
+
+
 //////////////////
 // SHOW LOOK AT //
 //////////////////
@@ -1920,29 +1947,6 @@ class LLAdvancedCheckShowPointAt : public view_listener_t
 	}
 };
 
-
-////////////////////
-// ANIMATION INFO //
-////////////////////
-
-
-class LLAdvancedToggleAnimationInfo : public view_listener_t
-{
-	bool handleEvent(const LLSD& userdata)
-	{
-		LLVOAvatar::sShowAnimationDebug = !(LLVOAvatar::sShowAnimationDebug);
-		return true;
-	}
-};
-
-class LLAdvancedCheckAnimationInfo : public view_listener_t
-{
-	bool handleEvent(const LLSD& userdata)
-	{
-		bool new_value = LLVOAvatar::sShowAnimationDebug;
-		return new_value;
-	}
-};
 
 
 /////////////////////////
@@ -2271,7 +2275,6 @@ class LLAdvancedCompressImage : public view_listener_t
 		return true;
 	}
 };
-
 
 
 /////////////////////////
@@ -2775,10 +2778,10 @@ class LLObjectEnableReportAbuse : public view_listener_t
 
 void handle_object_touch()
 {
-		LLViewerObject* object = LLSelectMgr::getInstance()->getSelection()->getPrimaryObject();
-		if (!object) return;
+	LLViewerObject* object = LLSelectMgr::getInstance()->getSelection()->getPrimaryObject();
+	if (!object) return;
 
-		LLPickInfo pick = LLToolPie::getInstance()->getPick();
+	LLPickInfo pick = LLToolPie::getInstance()->getPick();
 
 //MK
 	if (gRRenabled && !gAgent.mRRInterface.canTouch (object, pick.mIntersection))
@@ -2787,9 +2790,9 @@ void handle_object_touch()
 	}
 //mk
 
-		// *NOTE: Hope the packets arrive safely and in order or else
-		// there will be some problems.
-		// *TODO: Just fix this bad assumption.
+	// *NOTE: Hope the packets arrive safely and in order or else
+	// there will be some problems.
+	// *TODO: Just fix this bad assumption.
 	send_ObjectGrab_message(object, pick, LLVector3::zero);
 	send_ObjectDeGrab_message(object, pick);
 }
@@ -2831,14 +2834,7 @@ bool enable_object_touch(LLUICtrl* ctrl)
 		LLViewerObject* parent = (LLViewerObject*)obj->getParent();
 		new_value = obj->flagHandleTouch() || (parent && parent->flagHandleTouch());
 	}
-//Adapted from
-// [RLVa:KB] - Checked: 2010-11-12 (RLVa-1.2.1g) | Added: RLVa-1.2.1g
-	if ( (gRRenabled) && (new_value) )
-	{
-		// RELEASE-RLVa: [RLVa-1.2.1] Make sure this stays in sync with handle_object_touch()
-		new_value = gAgent.mRRInterface.canTouch(obj, LLToolPie::getInstance()->getPick().mObjectOffset);
-	}
-// [/RLVa:KB]
+
 	std::string item_name = ctrl->getName();
 	init_default_item_label(item_name);
 
@@ -2886,7 +2882,6 @@ void handle_object_open()
 //mk
 	LLFloaterReg::showInstance("openobject");
 }
-//mk
 
 bool enable_object_open()
 {
@@ -3252,8 +3247,7 @@ bool enable_object_edit()
 	{
 		return false;
 	}
-//mk 
-	
+//mk
 	// *HACK:  The new "prelude" Help Islands have a build sandbox area,
 	// so users need the Edit and Create pie menu options when they are
 	// there.  Eventually this needs to be replaced with code that only 
@@ -4802,6 +4796,8 @@ void handle_duplicate_in_place(void*)
 		}
 //mk		
 
+	LL_INFOS() << "handle_duplicate_in_place" << LL_ENDL;
+
 	LLVector3 offset(0.f, 0.f, 0.f);
 	LLSelectMgr::getInstance()->selectDuplicate(offset, TRUE);
 }
@@ -5096,7 +5092,7 @@ static void derez_objects(
 		}
 
 		objectsp = &derez_objects;
-		}
+	}
 
 
 	if(gAgentCamera.cameraMouselook())
@@ -5219,30 +5215,6 @@ private:
 			&& gAgent.mRRInterface.isSittingOnAnySelectedObject())
 		{
 			return false;
-		}
-
-		// Don't let another avatar return a locked object
-		if (gRRenabled)
-		{
-			BOOL locked_but_takeable_object = FALSE;
-	
-			for (LLObjectSelection::root_iterator iter = LLSelectMgr::getInstance()->getSelection()->root_begin();
-				 iter != LLSelectMgr::getInstance()->getSelection()->root_end(); iter++)
-			{
-				LLSelectNode* node = *iter;
-				LLViewerObject* object = node->getObject();
-				if(object)
-				{
-					if(!object->permMove())
-					{
-						locked_but_takeable_object = TRUE;
-					}
-				}
-			}
-			if (locked_but_takeable_object)
-			{
-				return false;
-			}
 		}
 //mk
 		
@@ -5911,11 +5883,15 @@ class LLToolsSelectNextPartFace : public view_listener_t
             if (!to_select) return false;
 
             S32 te_count = to_select->getNumTEs();
-            S32 selected_te = nodep->getLastSelectedTE();
+            S32 selected_te = nodep->getLastOperatedTE();
 
-            if ((fwd || ifwd) && selected_te >= 0)
+            if (fwd || ifwd)
             {
-                if (selected_te + 1 < te_count)
+                if (selected_te < 0)
+                {
+                    new_te = 0;
+                }
+                else if (selected_te + 1 < te_count)
                 {
                     // select next face
                     new_te = selected_te + 1;
@@ -5926,9 +5902,13 @@ class LLToolsSelectNextPartFace : public view_listener_t
                     restart_face_on_part = true;
                 }
             }
-            else if ((prev || iprev) && selected_te < te_count)
+            else if (prev || iprev)
             {
-                if (selected_te - 1 >= 0)
+                if (selected_te > te_count)
+                {
+                    new_te = te_count - 1;
+                }
+                else if (selected_te - 1 >= 0)
                 {
                     // select previous face
                     new_te = selected_te - 1;
@@ -6064,8 +6044,6 @@ class LLToolsRestartAllAnimations : public view_listener_t
 		return true;
 	}
 };
-//mk
-
 
 class LLToolsRefreshVisibility : public view_listener_t
 {
@@ -7147,6 +7125,7 @@ class LLAvatarEnableResetSkeleton: public view_listener_t
         return false;
     }
 };
+
 
 class LLAvatarResetSkeletonAndAnimations : public view_listener_t
 {
@@ -10306,7 +10285,6 @@ void initialize_edit_menu()
 	view_listener_t::addMenu(new LLEditEnableDelete(), "Edit.EnableDelete");
 	view_listener_t::addMenu(new LLEditEnableSelectAll(), "Edit.EnableSelectAll");
 	view_listener_t::addMenu(new LLEditEnableDeselect(), "Edit.EnableDeselect");
-
 }
 
 //MK
@@ -10629,6 +10607,10 @@ void initialize_menus()
 	view_listener_t::addMenu(new LLAdvancedReloadVertexShader(), "Advanced.ReloadVertexShader");
 	view_listener_t::addMenu(new LLAdvancedToggleAnimationInfo(), "Advanced.ToggleAnimationInfo");
 	view_listener_t::addMenu(new LLAdvancedCheckAnimationInfo(), "Advanced.CheckAnimationInfo");
+	view_listener_t::addMenu(new LLAdvancedToggleShowLookAt(), "Advanced.ToggleShowLookAt");
+	view_listener_t::addMenu(new LLAdvancedCheckShowLookAt(), "Advanced.CheckShowLookAt");
+	view_listener_t::addMenu(new LLAdvancedToggleShowPointAt(), "Advanced.ToggleShowPointAt");
+	view_listener_t::addMenu(new LLAdvancedCheckShowPointAt(), "Advanced.CheckShowPointAt");
 	view_listener_t::addMenu(new LLAdvancedToggleDebugJointUpdates(), "Advanced.ToggleDebugJointUpdates");
 	view_listener_t::addMenu(new LLAdvancedCheckDebugJointUpdates(), "Advanced.CheckDebugJointUpdates");
 	view_listener_t::addMenu(new LLAdvancedToggleDisableLOD(), "Advanced.ToggleDisableLOD");
@@ -10831,7 +10813,7 @@ void initialize_menus()
 	view_listener_t::addMenu(new LLGoToObject(), "GoToObject");
 	commit.add("PayObject", boost::bind(&handle_give_money_dialog));
 
-	commit.add("Inventory.NewWindow", boost::bind(&LLFloaterInventory::showAgentInventory));
+	commit.add("Inventory.NewWindow", boost::bind(&LLPanelMainInventory::newWindow));
 
 	enable.add("EnablePayObject", boost::bind(&enable_pay_object));
 	enable.add("EnablePayAvatar", boost::bind(&enable_pay_avatar));
@@ -10853,7 +10835,6 @@ void initialize_menus()
 	view_listener_t::addMenu(new LLSomethingSelectedNoHUD(), "SomethingSelectedNoHUD");
 	view_listener_t::addMenu(new LLEditableSelected(), "EditableSelected");
 	view_listener_t::addMenu(new LLEditableSelectedMono(), "EditableSelectedMono");
-
 	view_listener_t::addMenu(new LLToggleUIHints(), "ToggleUIHints");
 //MK
 	view_listener_t::addMenu(new LLRlvListRlvRestrictions(), "Rlv.ListRlvRestrictions");

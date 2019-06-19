@@ -723,14 +723,12 @@ bool cmd_line_chat(std::string revised_text, EChatType type, bool from_gesture)
                     S32 agent_z = llround( (F32)agentPos.mdV[VZ] );
                     std::string region_name = LLWeb::escapeURL(revised_text.substr(command.length()+1));
                     std::string url;
-
                     if(!sFSCmdLineMapToKeepPos)
                     {
                         agent_x = 128;
                         agent_y = 128;
                         agent_z = 0;
                     }
-
                     url = llformat("secondlife:///app/teleport/%s/%d/%d/%d",region_name.c_str(),agent_x,agent_y,agent_z);
                     LLURLDispatcher::dispatch(url, "clicked", NULL, true);
                 }
