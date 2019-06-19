@@ -1330,8 +1330,8 @@ void LLAgentWearables::setWearableOutfit(const LLInventoryItem::item_array_t& it
 {
 	LL_INFOS() << "setWearableOutfit() start" << LL_ENDL;
 
-					S32 count = wearables.size();
-					llassert(items.size() == count);
+	S32 count = wearables.size();
+	llassert(items.size() == count);
 
 	// Check for whether outfit already matches the one requested
 	S32 matched = 0, mismatched = 0;
@@ -1346,11 +1346,11 @@ void LLAgentWearables::setWearableOutfit(const LLInventoryItem::item_array_t& it
 
 		const LLWearableType::EType type = new_wearable->getType();
 		if (type < 0 || type>=LLWearableType::WT_COUNT)
-						{
+		{
 			LL_WARNS() << "invalid type " << type << LL_ENDL;
 			mismatched++;
 			continue;
-						}
+		}
 		S32 index = type_counts[type];
 		type_counts[type]++;
 
@@ -1363,25 +1363,24 @@ void LLAgentWearables::setWearableOutfit(const LLInventoryItem::item_array_t& it
 								<< " names " << (new_wearable ? new_wearable->getName() : "NONE")  << LL_ENDL;
 			mismatched++;
 			continue;
-					}
+		}
 
 		// Update only inventory in this case - ordering of wearables with the same asset id has no effect.
 		// Updating wearables in this case causes the two-alphas error in MAINT-4158.
 		// We should actually disallow wearing two wearables with the same asset id.
 		if (curr_wearable->getName() != new_item->getName() ||
 			curr_wearable->getItemID() != new_item->getUUID())
-					{
+		{
 			LL_DEBUGS("Avatar") << "mismatch on name or inventory id, names "
 								<< curr_wearable->getName() << " vs " << new_item->getName()
 								<< " item ids " << curr_wearable->getItemID() << " vs " << new_item->getUUID()
 								<< LL_ENDL;
 			update_inventory = TRUE;
 			continue;
-					}
+		}
 		// If we got here, everything matches.
 		matched++;
 	}
-
 	LL_DEBUGS("Avatar") << "matched " << matched << " mismatched " << mismatched << LL_ENDL;
 	for (S32 j=0; j<LLWearableType::WT_COUNT; j++)
 	{
@@ -1871,14 +1870,14 @@ void LLAgentWearables::findAttachmentsAddRemoveInfo(LLInventoryModel::item_array
 				if (remove_attachment)
 				{
 					// LL_INFOS() << "found object to remove, id " << objectp->getID() << ", item " << objectp->getAttachmentItemID() << LL_ENDL;
-						objects_to_remove.push_back(objectp);
+					objects_to_remove.push_back(objectp);
 				}
 				else
 				{
 					// LL_INFOS() << "found object to keep, id " << objectp->getID() << ", item " << objectp->getAttachmentItemID() << LL_ENDL;
 					current_item_ids.insert(object_item_id);
 					objects_to_retain.push_back(objectp);
-					}
+				}
 			}
 		}
 	}
@@ -1948,7 +1947,10 @@ void LLAgentWearables::userAttachMultipleAttachments(LLInventoryModel::item_arra
 	// Build a compound message to send all the objects that need to be rezzed.
 	S32 obj_count = obj_item_array.size();
 	if (obj_count > 0)
+	{
 		LL_DEBUGS("Avatar") << "ATT attaching multiple, total obj_count " << obj_count << LL_ENDL;
+	}
+
     for(LLInventoryModel::item_array_t::const_iterator it = obj_item_array.begin();
         it != obj_item_array.end();
         ++it)
