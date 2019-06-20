@@ -1214,7 +1214,8 @@
        tear_off="false">
       <menu_item_call
          label="Recompile Scripts (Mono)"
-         name="Mono">
+         name="Mono"
+         only_in_sl="true">
         <menu_item_call.on_click
            function="Tools.SelectedScriptAction"
            parameter="compile mono" />
@@ -1223,7 +1224,8 @@
       </menu_item_call>
       <menu_item_call
          label="Recompile Scripts (LSL)"
-         name="LSL">
+         name="LSL"
+         only_in_sl="true">
         <menu_item_call.on_click
            function="Tools.SelectedScriptAction"
            parameter="compile lsl" />
