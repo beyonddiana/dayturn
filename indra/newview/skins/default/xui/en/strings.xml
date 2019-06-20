@@ -22,7 +22,7 @@
 
 	<!-- about dialog/support string-->
 	<string name="AboutHeader">
-[APP_NAME] [VIEWER_VERSION_0].[VIEWER_VERSION_1].[VIEWER_VERSION_2] ([VIEWER_VERSION_3]) [BUILD_DATE] [BUILD_TIME] ([CHANNEL])
+[APP_NAME] RLV [VIEWER_VERSION_0].[VIEWER_VERSION_1].[VIEWER_VERSION_2] ([VIEWER_VERSION_3]) [BUILD_DATE] [BUILD_TIME] ([CHANNEL])
 [[VIEWER_RELEASE_NOTES_URL] [ReleaseNotes]]
 	</string>
 	<string name="BuildConfig">Build Configuration [BUILD_CONFIG]</string>
@@ -34,7 +34,6 @@ SLURL: &lt;nolink&gt;[SLURL]&lt;/nolink&gt;
 (global coordinates [POSITION_0,number,1], [POSITION_1,number,1], [POSITION_2,number,1])
 [POSITION_DECIMAL]
 [SERVER_VERSION]
-[SERVER_RELEASE_NOTES_URL]
 	</string>
 	<!-- *NOTE: Do not translate text like GPU, Graphics Card, etc -
        Most PC users who know what these mean will be used to the English versions,
