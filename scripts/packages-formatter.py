@@ -120,4 +120,4 @@ for pkg, pkg_version in version:
         print info['copyrights'][pkg]
     except KeyError:
         sys.exit("No copyright for %s" % pkg)
-        print
+    print
