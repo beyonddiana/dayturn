@@ -80,9 +80,9 @@
      layout="topleft"
      left="8"
      name="inventory filter tabs"
-     tab_height="15"
+     tab_height="30"
      tab_position="top"
-     tab_min_width="50"
+     tab_min_width="100"
      top_pad="7"
      width="312">
     <inventory_panel

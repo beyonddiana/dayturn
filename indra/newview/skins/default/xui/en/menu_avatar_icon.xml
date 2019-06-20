@@ -99,7 +99,6 @@
      name="Report Abuse">
        <on_click function="AvatarIcon.Action" parameter="report_abuse" />
     </menu_item_call>
-    </menu_item_check>
     <menu_item_separator layout="topleft" name="Moderator Options Separator"/>
     <context_menu
      label="Moderator Options"

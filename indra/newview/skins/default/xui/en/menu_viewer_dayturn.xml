@@ -288,7 +288,8 @@
        </menu_item_call>
        <menu_item_call
            label="Choose an avatar..."
-           name="Avatar Picker">
+           name="Avatar Picker"
+           only_in_sl="true">
            <menu_item_call.on_click
                 function="Floater.ToggleOrBringToFront"
                 parameter="avatar" />
@@ -511,7 +512,6 @@
              function="Tools.EnableReleaseKeys"
              parameter="" />
         </menu_item_call>
-        <menu_item_separator/>
     </menu>
 <!-- END OF AVATAR MENU -->
     
@@ -808,13 +808,14 @@
     </menu_item_call>
     <menu_item_call
      label="Marketplace Listings..."
-     name="MarketplaceListings">
+     name="MarketplaceListings"
+     only_in_sl="true">
      <menu_item_call.on_click
         function="Floater.ToggleOrBringToFront"
         parameter="marketplace_listings" />
     </menu_item_call>
     <menu_item_separator/>
-        <menu
+    <menu
          create_jump_keys="true"
          label="Sun"
          name="Sun"
@@ -977,6 +978,17 @@
         </menu_item_call>
       </menu>
     </menu>
+    
+    <menu_item_check
+         label="LightShare"
+         name="Toggle LightShare On or Off">
+            <menu_item_check.on_check
+             function="CheckControl"
+             parameter="EnableLightShare" />
+            <menu_item_check.on_click
+             function="ToggleControl"
+             parameter="EnableLightShare" />
+    </menu_item_check>
   </menu>
 <!-- END OF WORLD MENU -->   
 
@@ -2067,6 +2079,7 @@
              function="ToggleControl"
              parameter="LimitSelectDistance" />
         </menu_item_check>
+
         <menu_item_check
         label="Disable Build Constraints"
         name="Disable Max Build Constraints">
@@ -2077,6 +2090,7 @@
           function="CheckControl"
           parameter="DisableMaxBuildConstraints" />
         </menu_item_check>
+
         <menu_item_check
          label="Disable Camera Constraints"
          name="Disable Camera Distance">
@@ -3069,16 +3083,6 @@
                 <menu_item_check.on_click
                  function="ToggleControl"
                  parameter="DebugShowColor" />
-            </menu_item_check>
-            <menu_item_check
-               label="Show Memory"
-               name="Show Memory">
-              <menu_item_check.on_check
-               function="CheckControl"
-               parameter="DebugShowMemory" />
-              <menu_item_check.on_click
-               function="ToggleControl"
-               parameter="DebugShowMemory" />
             </menu_item_check>
             
             <menu_item_separator/>

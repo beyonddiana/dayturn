@@ -30,8 +30,10 @@
 	    left="1"
 	    mouse_opaque="true"
 	    name="dayturn_general"
-	    width="517">
+	    width="517" >
     <check_box
+        name="automatic_fly"
+        label="Do not let me Fly"
 		top_pad="15"
 		layout="topleft"
 		follows="left|top"

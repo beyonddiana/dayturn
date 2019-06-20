@@ -225,10 +225,10 @@ Looking for people to hang out with? Try the [secondlife:///app/worldmap World M
 	       width="200"
                height="16"
                decimal_digits="0"
-               increment="5.0"
-               initial_value="130"
-               max_val="4200"
-               min_val="5" />
+               increment="8"
+               initial_value="128"
+               max_val="1024"
+               min_val="8" />
            </layout_panel>
            <layout_panel
              height="213"
@@ -255,9 +255,9 @@ Looking for people to hang out with? Try the [secondlife:///app/worldmap World M
 
 <!-- ================================= FRIENDS tab ========================== -->
 
-         <panel
+        <panel
          background_opaque="true"
-             background_visible="true"
+       background_visible="true"
          bg_alpha_color="DkGray"
          bg_opaque_color="DkGray"
          bottom="-1"
@@ -304,46 +304,46 @@ Looking for people to hang out with? Try the [secondlife:///app/worldmap World M
                  tool_tip="Actions on selected person"
                  top="3"
                  width="31" />
-             <menu_button
+                <menu_button
                  follows="right"
-             height="25"
+                 height="25"
                  image_hover_unselected="Toolbar_Middle_Over"
                  image_overlay="Conv_toolbar_sort"
                  image_selected="Toolbar_Middle_Selected"
                  image_unselected="Toolbar_Middle_Off"
-             layout="topleft"
+                 layout="topleft"
                  left_pad="2"
                  menu_filename="menu_people_friends_view.xml"
                  menu_position="bottomleft"
                  name="friends_view_btn"
                  tool_tip="View/sort options"
                  top_delta="0"
-             width="31" />
-             <button
+                 width="31" />
+                <button
                  follows="right"
                  height="25"
                  image_hover_unselected="Toolbar_Middle_Over"
-             	 image_overlay="AddItem_Off"
+                 image_overlay="AddItem_Off"
                  image_selected="Toolbar_Middle_Selected"
-             	 image_unselected="Toolbar_Middle_Off"
+                 image_unselected="Toolbar_Middle_Off"
                  layout="topleft"
                  left_pad="2"
                  name="friends_add_btn"
                  tool_tip="Offer friendship to a resident"
                  top_delta="0"
                  width="31">
-               <commit_callback
+                    <commit_callback
                      function="People.AddFriendWizard" />
-             </button>
+                </button>
                 <dnd_button
                  follows="right"
-             height="25"
+                 height="25"
                  image_hover_unselected="Toolbar_Middle_Over"
                  image_overlay="TrashItem_Off"
                  image_selected="Toolbar_Middle_Selected"
                  image_unselected="Toolbar_Middle_Off"
                  left_pad="2"
-             layout="topleft"
+                 layout="topleft"
                  name="friends_del_btn"
                  tool_tip="Remove selected person as a friend"
                  top_delta="0"
@@ -469,19 +469,19 @@ Looking for people to hang out with? Try the [secondlife:///app/worldmap World M
                  text_pad_left="10"
                  top="4"
                  width="177" />
-               <menu_button
+                <menu_button
                  follows="right"
-               height="25"
+                 height="25"
                  image_hover_unselected="Toolbar_Middle_Over"
-               image_overlay="OptionsMenu_Off"
+                 image_overlay="OptionsMenu_Off"
                  image_selected="Toolbar_Middle_Selected"
                  image_unselected="Toolbar_Middle_Off"
-               layout="topleft"
+                 layout="topleft"
                  left_pad="8"
                  name="groups_gear_btn"
                  tool_tip="Actions on selected group"
                  top="3"
-               width="31" />
+                 width="31" />
                 <menu_button
                  follows="right"
                  height="25"
@@ -532,7 +532,6 @@ Looking for people to hang out with? Try the [secondlife:///app/worldmap World M
                      function="People.Group.Minus" />
                 </dnd_button>
             </panel>
-<!--
             <text
                 type="string"
                 length="1"
@@ -546,12 +545,11 @@ Looking for people to hang out with? Try the [secondlife:///app/worldmap World M
                 name="groupcount">
               You belong to [COUNT] groups, and can join [REMAINING] more.
             </text>
--->
             <group_list
              allow_select="true" 
              follows="all"
              height="382"
-                 layout="topleft"
+             layout="topleft"
              left="3"
              keep_one_selected="false"
              name="group_list"
@@ -663,7 +661,7 @@ Looking for people to hang out with? Try the [secondlife:///app/worldmap World M
                  tool_tip="Offer friendship to a resident"
                  top_delta="0"
                  width="31">
-                <commit_callback
+                    <commit_callback
                      function="People.AddFriend" />
               </button>
                 <dnd_button
