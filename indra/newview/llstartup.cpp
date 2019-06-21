@@ -3056,9 +3056,6 @@ void LLStartUp::multimediaInit()
 	set_startup_status(0.42f, msg.c_str(), gAgent.mMOTD.c_str());
 	display_startup();
 
-	// LLViewerMedia::initClass();
-	LLViewerParcelMedia::initClass();
-
 	// Also initialise the stream titles.
 	new StreamTitleDisplay();
 }
