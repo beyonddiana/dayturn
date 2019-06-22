@@ -32,13 +32,13 @@ private:
 	void            align();
 	void            computeManipulatorSize();
 	void            renderManipulators();
-	BOOL            findSelectedManipulator(S32 x, S32 y);
+	bool            findSelectedManipulator(S32 x, S32 y);
 	
 	LLBBox          mBBox;
 	F32             mManipulatorSize;
 	S32             mHighlightedAxis;
 	F32             mHighlightedDirection;
-	BOOL            mForce;
+	bool            mForce;
 };
 
 #endif // Q_QTOOLALIGN_H

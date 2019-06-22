@@ -115,7 +115,7 @@ void QToolAlign::handleDeselect()
 }
 
 
-BOOL QToolAlign::findSelectedManipulator(S32 x, S32 y)
+bool QToolAlign::findSelectedManipulator(S32 x, S32 y)
 {
 	mHighlightedAxis = -1;
 	mHighlightedDirection = 0;
@@ -175,13 +175,13 @@ BOOL QToolAlign::findSelectedManipulator(S32 x, S32 y)
 			{
 				mHighlightedAxis = axis;
 				mHighlightedDirection = direction;
-				return TRUE;
+				return true;
 			}
 
 		}
 	}
 
-	return FALSE;
+	return false;
 }
 
 
@@ -189,11 +189,11 @@ BOOL QToolAlign::handleHover(S32 x, S32 y, MASK mask)
 {
 	if (mask & MASK_SHIFT)
 	{
-		mForce = FALSE;
+		mForce = false;
 	}
 	else
 	{
-		mForce = TRUE;
+		mForce = true;
 	}
 	
 	gViewerWindow->setCursor(UI_CURSOR_ARROW);
