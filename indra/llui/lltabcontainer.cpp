@@ -611,10 +611,10 @@ BOOL LLTabContainer::handleMouseDown( S32 x, S32 y, MASK mask )
 }
 
 // virtual
-BOOL LLTabContainer::handleHover( S32 x, S32 y, MASK mask )
+bool LLTabContainer::handleHover( S32 x, S32 y, MASK mask )
 {
-	BOOL handled = FALSE;
-	BOOL has_scroll_arrows = !mHideScrollArrows && (getMaxScrollPos() > 0) && !getTabsHidden();
+	bool handled = false;
+	bool has_scroll_arrows = !mHideScrollArrows && (getMaxScrollPos() > 0) && !getTabsHidden();
 
 	if (has_scroll_arrows)
 	{

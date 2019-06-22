@@ -85,7 +85,7 @@ public:
 		void setTakeFocusOnClick( bool take_focus );
 
 		// handle mouse related methods
-		virtual BOOL handleHover( S32 x, S32 y, MASK mask );
+		virtual bool handleHover( S32 x, S32 y, MASK mask );
 		virtual BOOL handleMouseUp( S32 x, S32 y, MASK mask );
 		virtual BOOL handleMouseDown( S32 x, S32 y, MASK mask );
 		virtual BOOL handleMiddleMouseDown(S32 x, S32 y, MASK mask);

@@ -781,9 +781,9 @@ BOOL LLTextEditor::handleMiddleMouseDown(S32 x, S32 y, MASK mask)
 }
 
 
-BOOL LLTextEditor::handleHover(S32 x, S32 y, MASK mask)
+bool LLTextEditor::handleHover(S32 x, S32 y, MASK mask)
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 
 	if(hasMouseCapture() )
 	{
@@ -800,7 +800,7 @@ BOOL LLTextEditor::handleHover(S32 x, S32 y, MASK mask)
 		}
 		LL_DEBUGS("UserInput") << "hover handled by " << getName() << " (active)" << LL_ENDL;		
 		getWindow()->setCursor(UI_CURSOR_IBEAM);
-		handled = TRUE;
+		handled = true;
 	}
 
 	if( !handled )
@@ -818,7 +818,7 @@ BOOL LLTextEditor::handleHover(S32 x, S32 y, MASK mask)
 	if( !handled )
 	{
 		getWindow()->setCursor(UI_CURSOR_IBEAM);
-		handled = TRUE;
+		handled = true;
 	}
 
 	return handled;

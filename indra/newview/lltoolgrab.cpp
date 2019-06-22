@@ -453,13 +453,13 @@ void LLToolGrabBase::startGrab()
 }
 
 
-BOOL LLToolGrabBase::handleHover(S32 x, S32 y, MASK mask)
+bool LLToolGrabBase::handleHover(S32 x, S32 y, MASK mask)
 {
 	if (!gViewerWindow->getLeftMouseDown())
 	{
 		gViewerWindow->setCursor(UI_CURSOR_TOOLGRAB);
 		setMouseCapture(FALSE);
-		return TRUE;
+		return true;
 	}
 
 	// Do the right hover based on mode
@@ -487,7 +487,7 @@ BOOL LLToolGrabBase::handleHover(S32 x, S32 y, MASK mask)
 	mLastMouseX = x;
 	mLastMouseY = y;
 	
-	return TRUE;
+	return true;
 }
 
 const F32 GRAB_SENSITIVITY_X = 0.0075f;

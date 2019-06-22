@@ -182,9 +182,9 @@ BOOL LLResizeBar::handleMouseUp(S32 x, S32 y, MASK mask)
 }
 
 
-BOOL LLResizeBar::handleHover(S32 x, S32 y, MASK mask)
+bool LLResizeBar::handleHover(S32 x, S32 y, MASK mask)
 {
-	BOOL	handled = FALSE;
+	bool	handled = false;
 
 	// We only handle the click if the click both started and ended within us
 	if( hasMouseCapture() )
@@ -348,11 +348,11 @@ BOOL LLResizeBar::handleHover(S32 x, S32 y, MASK mask)
 			}
 		}
 
-		handled = TRUE;
+		handled = true;
 	}
 	else
 	{
-		handled = TRUE;
+		handled = true;
 	}
 
 	if( handled && canResize() )

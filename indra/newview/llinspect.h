@@ -40,7 +40,7 @@ public:
 	/// Inspectors have a custom fade-in/fade-out animation
 	/*virtual*/ void draw();
 	
-	/*virtual*/ BOOL handleHover(S32 x, S32 y, MASK mask);
+	/*virtual*/ bool handleHover(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL handleToolTip(S32 x, S32 y, MASK mask);
 	/*virtual*/ void onMouseLeave(S32 x, S32 y, MASK mask);
 	

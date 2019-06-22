@@ -95,10 +95,10 @@ public:
 	// eat handleMouseDown event so we get the mouseup event
 	/*virtual*/ BOOL	handleMouseDown(S32 x, S32 y, MASK mask) { return TRUE; }
 	/*virtual*/ BOOL	handleMouseUp(S32 x, S32 y, MASK mask) { mEditor.onCommit(); return TRUE; }
-	/*virtual*/ BOOL	handleHover(S32 x, S32 y, MASK mask) 
+	/*virtual*/ bool	handleHover(S32 x, S32 y, MASK mask)
 	{
 		LLUI::getWindow()->setCursor(UI_CURSOR_HAND);
-		return TRUE; 
+		return true;
 	}
 private:
 	LLTextBase& mEditor;

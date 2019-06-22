@@ -190,7 +190,7 @@ BOOL LLModalDialog::handleMouseDown(S32 x, S32 y, MASK mask)
 	return TRUE;
 }
 
-BOOL LLModalDialog::handleHover(S32 x, S32 y, MASK mask)		
+bool LLModalDialog::handleHover(S32 x, S32 y, MASK mask)
 { 
 	if( childrenHandleHover(x, y, mask) == NULL )
 	{
@@ -213,7 +213,7 @@ BOOL LLModalDialog::handleHover(S32 x, S32 y, MASK mask)
 		}
 	}
 
-	return TRUE;
+	return true;
 }
 
 BOOL LLModalDialog::handleMouseUp(S32 x, S32 y, MASK mask)

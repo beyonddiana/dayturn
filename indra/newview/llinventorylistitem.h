@@ -130,7 +130,7 @@ public:
 	/*virtual*/ S32  notify(const LLSD& info);
 
 	/* Highlights item */
-	/*virtual*/ BOOL handleHover(S32 x, S32 y, MASK mask);
+	/*virtual*/ bool handleHover(S32 x, S32 y, MASK mask);
 	/* Removes item highlight */
 	/*virtual*/ void onMouseLeave(S32 x, S32 y, MASK mask);
 

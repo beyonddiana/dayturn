@@ -703,7 +703,7 @@ void LLToolPie::selectionPropertiesReceived()
 	LLToolPie::getInstance()->resetSelection();
 }
 
-BOOL LLToolPie::handleHover(S32 x, S32 y, MASK mask)
+bool LLToolPie::handleHover(S32 x, S32 y, MASK mask)
 {
     BOOL pick_rigged = false; //gSavedSettings.getBOOL("AnimatedObjectsAllowLeftClick");
 	mHoverPick = gViewerWindow->pickImmediate(x, y, FALSE, pick_rigged);
@@ -809,7 +809,7 @@ BOOL LLToolPie::handleHover(S32 x, S32 y, MASK mask)
 	}
 	gPipeline.setHighlightObject(drawable);
 
-	return TRUE;
+	return true;
 }
 
 BOOL LLToolPie::handleMouseUp(S32 x, S32 y, MASK mask)

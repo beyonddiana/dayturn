@@ -1208,7 +1208,7 @@ bool LLNetMap::outsideSlop( S32 x, S32 y, S32 start_x, S32 start_y, S32 slop )
 	return (dx <= -slop || slop <= dx || dy <= -slop || slop <= dy);
 }
 
-BOOL LLNetMap::handleHover( S32 x, S32 y, MASK mask )
+bool LLNetMap::handleHover( S32 x, S32 y, MASK mask )
 {
 	if (hasMouseCapture())
 	{
@@ -1247,7 +1247,7 @@ BOOL LLNetMap::handleHover( S32 x, S32 y, MASK mask )
 		}
 	}
 
-	return TRUE;
+	return true;
 }
 
 void LLNetMap::handleZoom(const LLSD& userdata)

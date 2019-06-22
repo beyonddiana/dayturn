@@ -601,7 +601,7 @@ ECursorType LLToolDragAndDrop::acceptanceToCursor( EAcceptance acceptance )
 	return mCursor;
 }
 
-BOOL LLToolDragAndDrop::handleHover( S32 x, S32 y, MASK mask )
+bool LLToolDragAndDrop::handleHover( S32 x, S32 y, MASK mask )
 {
 	EAcceptance acceptance = ACCEPT_NO;
 	dragOrDrop( x, y, mask, FALSE, &acceptance );
@@ -610,7 +610,7 @@ BOOL LLToolDragAndDrop::handleHover( S32 x, S32 y, MASK mask )
 	gViewerWindow->getWindow()->setCursor( cursor );
 
 	LL_DEBUGS("UserInput") << "hover handled by LLToolDragAndDrop" << LL_ENDL;
-	return TRUE;
+	return true;
 }
 
 BOOL LLToolDragAndDrop::handleKey(KEY key, MASK mask)

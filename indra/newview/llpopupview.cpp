@@ -206,9 +206,9 @@ BOOL LLPopupView::handleDoubleClick(S32 x, S32 y, MASK mask)
 	return handled;	
 }
 
-BOOL LLPopupView::handleHover(S32 x, S32 y, MASK mask)
+bool LLPopupView::handleHover(S32 x, S32 y, MASK mask)
 {
-	BOOL handled = handleMouseEvent(boost::bind(&LLMouseHandler::handleHover, _1, _2, _3, mask), view_visible_and_enabled, x, y, false);
+	bool handled = handleMouseEvent(boost::bind(&LLMouseHandler::handleHover, _1, _2, _3, mask), view_visible_and_enabled, x, y, false);
 	if (!handled)
 	{
 		handled = LLPanel::handleHover(x, y, mask);

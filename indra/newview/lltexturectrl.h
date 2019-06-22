@@ -116,7 +116,7 @@ public:
 						bool drop, EDragAndDropType cargo_type, void *cargo_data,
 						EAcceptance *accept,
 						std::string& tooltip_msg);
-	virtual BOOL	handleHover(S32 x, S32 y, MASK mask);
+	virtual bool	handleHover(S32 x, S32 y, MASK mask);
 	virtual BOOL	handleUnicodeCharHere(llwchar uni_char);
 
 	virtual void	draw();

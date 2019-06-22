@@ -74,7 +74,7 @@ public:
 	virtual BOOL      handleRightMouseUp(S32 pX, S32 pY, MASK pMask);
 	virtual BOOL      handleDoubleClick(S32 x, S32 y, MASK mask);
 
-	virtual BOOL      handleHover(S32 pX, S32 pY, MASK pMask);
+	virtual bool      handleHover(S32 pX, S32 pY, MASK pMask);
 
 	virtual BOOL      handleKey(KEY pKey, MASK pMask);
 

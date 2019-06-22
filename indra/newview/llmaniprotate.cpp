@@ -507,7 +507,7 @@ BOOL LLManipRotate::handleMouseUp(S32 x, S32 y, MASK mask)
 }
 
 
-BOOL LLManipRotate::handleHover(S32 x, S32 y, MASK mask)
+bool LLManipRotate::handleHover(S32 x, S32 y, MASK mask)
 {
 	if( hasMouseCapture() )
 	{
@@ -530,7 +530,7 @@ BOOL LLManipRotate::handleHover(S32 x, S32 y, MASK mask)
 	}
 
 	gViewerWindow->setCursor(UI_CURSOR_TOOLROTATE);
-	return TRUE;
+	return true;
 }
 
 

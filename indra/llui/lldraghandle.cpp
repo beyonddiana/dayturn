@@ -298,86 +298,86 @@ BOOL LLDragHandle::handleMouseUp(S32 x, S32 y, MASK mask)
 }
 
 
-BOOL LLDragHandle::handleHover(S32 x, S32 y, MASK mask)
+bool LLDragHandle::handleHover(S32 x, S32 y, MASK mask)
 {
-	BOOL	handled = FALSE;
+    bool	handled = false;
 
-	// We only handle the click if the click both started and ended within us
-	if( hasMouseCapture() )
-	{
-		S32 screen_x;
-		S32 screen_y;
-		localPointToScreen(x, y, &screen_x, &screen_y);
+    // We only handle the click if the click both started and ended within us
+    if( hasMouseCapture() )
+    {
+        S32 screen_x;
+        S32 screen_y;
+        localPointToScreen(x, y, &screen_x, &screen_y);
 
-		// Resize the parent
-		S32 delta_x = screen_x - mDragLastScreenX;
-		S32 delta_y = screen_y - mDragLastScreenY;
+        // Resize the parent
+        S32 delta_x = screen_x - mDragLastScreenX;
+        S32 delta_y = screen_y - mDragLastScreenY;
 
-		// if dragging a docked floater we want to undock
-		LLFloater * parent = dynamic_cast<LLFloater *>(getParent());
-		if (parent && parent->isDocked())
-		{
-			const S32 SLOP = 12;
+        // if dragging a docked floater we want to undock
+        LLFloater * parent = dynamic_cast<LLFloater *>(getParent());
+        if (parent && parent->isDocked())
+        {
+            const S32 SLOP = 12;
 
-			if (delta_y <= -SLOP || 
-				delta_y >= SLOP)
-			{
-				parent->setDocked(false, false);
-				return TRUE;
-			}
-			else
-			{
-				return FALSE;
-			}
-		}
+            if (delta_y <= -SLOP ||
+                delta_y >= SLOP)
+            {
+                parent->setDocked(false, false);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
-		LLRect original_rect = getParent()->getRect();
-		LLRect translated_rect = getParent()->getRect();
-		translated_rect.translate(delta_x, delta_y);
-		// temporarily slam dragged window to new position
-		getParent()->setRect(translated_rect);
-		S32 pre_snap_x = getParent()->getRect().mLeft;
-		S32 pre_snap_y = getParent()->getRect().mBottom;
-		mDragLastScreenX = screen_x;
-		mDragLastScreenY = screen_y;
+        LLRect original_rect = getParent()->getRect();
+        LLRect translated_rect = getParent()->getRect();
+        translated_rect.translate(delta_x, delta_y);
+        // temporarily slam dragged window to new position
+        getParent()->setRect(translated_rect);
+        S32 pre_snap_x = getParent()->getRect().mLeft;
+        S32 pre_snap_y = getParent()->getRect().mBottom;
+        mDragLastScreenX = screen_x;
+        mDragLastScreenY = screen_y;
 
-		LLRect new_rect;
-		LLCoordGL mouse_dir;
-		// use hysteresis on mouse motion to preserve user intent when mouse stops moving
-		mouse_dir.mX = (screen_x == mLastMouseScreenX) ? mLastMouseDir.mX : screen_x - mLastMouseScreenX;
-		mouse_dir.mY = (screen_y == mLastMouseScreenY) ? mLastMouseDir.mY : screen_y - mLastMouseScreenY;
-		mLastMouseDir = mouse_dir;
-		mLastMouseScreenX = screen_x;
-		mLastMouseScreenY = screen_y;
+        LLRect new_rect;
+        LLCoordGL mouse_dir;
+        // use hysteresis on mouse motion to preserve user intent when mouse stops moving
+        mouse_dir.mX = (screen_x == mLastMouseScreenX) ? mLastMouseDir.mX : screen_x - mLastMouseScreenX;
+        mouse_dir.mY = (screen_y == mLastMouseScreenY) ? mLastMouseDir.mY : screen_y - mLastMouseScreenY;
+        mLastMouseDir = mouse_dir;
+        mLastMouseScreenX = screen_x;
+        mLastMouseScreenY = screen_y;
 
-		LLView* snap_view = getParent()->findSnapRect(new_rect, mouse_dir, SNAP_PARENT_AND_SIBLINGS, sSnapMargin);
+        LLView* snap_view = getParent()->findSnapRect(new_rect, mouse_dir, SNAP_PARENT_AND_SIBLINGS, sSnapMargin);
 
-		getParent()->setSnappedTo(snap_view);
-		delta_x = new_rect.mLeft - pre_snap_x;
-		delta_y = new_rect.mBottom - pre_snap_y;
-		translated_rect.translate(delta_x, delta_y);
+        getParent()->setSnappedTo(snap_view);
+        delta_x = new_rect.mLeft - pre_snap_x;
+        delta_y = new_rect.mBottom - pre_snap_y;
+        translated_rect.translate(delta_x, delta_y);
 
-		// restore original rect so delta are detected, then call user reshape method to handle snapped floaters, etc
-		getParent()->setRect(original_rect);
-		getParent()->setShape(translated_rect, true);
+        // restore original rect so delta are detected, then call user reshape method to handle snapped floaters, etc
+        getParent()->setRect(original_rect);
+        getParent()->setShape(translated_rect, true);
 
-		mDragLastScreenX += delta_x;
-		mDragLastScreenY += delta_y;
+        mDragLastScreenX += delta_x;
+        mDragLastScreenY += delta_y;
 
-		getWindow()->setCursor(UI_CURSOR_ARROW);
-		LL_DEBUGS("UserInput") << "hover handled by " << getName() << " (active)" <<LL_ENDL;		
-		handled = TRUE;
-	}
-	else
-	{
-		getWindow()->setCursor(UI_CURSOR_ARROW);
-		LL_DEBUGS("UserInput") << "hover handled by " << getName() << " (inactive)" << LL_ENDL;		
-		handled = TRUE;
-	}
+        getWindow()->setCursor(UI_CURSOR_ARROW);
+        LL_DEBUGS("UserInput") << "hover handled by " << getName() << " (active)" <<LL_ENDL;
+        handled = true;
+    }
+    else
+    {
+        getWindow()->setCursor(UI_CURSOR_ARROW);
+        LL_DEBUGS("UserInput") << "hover handled by " << getName() << " (inactive)" << LL_ENDL;
+        handled = true;
+    }
 
-	// Note: don't pass on to children
+    // Note: don't pass on to children
 
-	return handled;
+    return handled;
 }
 
 void LLDragHandle::setValue(const LLSD& value)

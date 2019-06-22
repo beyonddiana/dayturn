@@ -223,7 +223,7 @@ void LLPanelNearByMedia::draw()
 }
 
 /*virtual*/
-BOOL LLPanelNearByMedia::handleHover(S32 x, S32 y, MASK mask)
+bool LLPanelNearByMedia::handleHover(S32 x, S32 y, MASK mask)
 {
 	LLPanelPulldown::handleHover(x, y, mask);
 	

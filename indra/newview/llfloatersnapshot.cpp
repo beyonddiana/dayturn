@@ -1600,7 +1600,7 @@ BOOL LLSnapshotFloaterView::handleMouseUp(S32 x, S32 y, MASK mask)
 	return TRUE;
 }
 
-BOOL LLSnapshotFloaterView::handleHover(S32 x, S32 y, MASK mask)
+bool LLSnapshotFloaterView::handleHover(S32 x, S32 y, MASK mask)
 {
 	// use default handler when not in freeze-frame mode
 	if(!gSavedSettings.getBOOL("FreezeTime"))
@@ -1612,5 +1612,5 @@ BOOL LLSnapshotFloaterView::handleHover(S32 x, S32 y, MASK mask)
 	{
 		LLToolMgr::getInstance()->getCurrentTool()->handleHover( x, y, mask );
 	}
-	return TRUE;
+	return true;
 }

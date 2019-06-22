@@ -209,16 +209,16 @@ BOOL LLStatGraph::handleMouseUp(S32 x, S32 y, MASK mask)
 	return handled;
 }
 
-BOOL LLStatGraph::handleHover(S32 x, S32 y, MASK mask)
+bool LLStatGraph::handleHover(S32 x, S32 y, MASK mask)
 {
-	BOOL handled = LLView::handleHover(x, y, mask);
+	bool handled = LLView::handleHover(x, y, mask);
 
 	if (!handled && mClickedCallback) {
 		//
 		//	clickable statistics graphs change the cursor to a hand
 		//
 		LLUI::getWindow()->setCursor(UI_CURSOR_HAND);
-		handled = TRUE;
+		handled = true;
 	}
 
 	return handled;

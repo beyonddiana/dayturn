@@ -179,7 +179,7 @@ public:
 		return TRUE;
 	}
 
-	/*virtual*/ BOOL	handleHover(S32 x, S32 y, MASK mask)
+	/*virtual*/ bool	handleHover(S32 x, S32 y, MASK mask)
 	{
 		LLFavoritesBarCtrl* fb = dynamic_cast<LLFavoritesBarCtrl*>(getParent());
 
@@ -253,14 +253,14 @@ public:
 		return LLMenuItemCallGL::handleMouseUp(x, y, mask);
 	}
 
-	virtual BOOL handleHover(S32 x, S32 y, MASK mask)
+	virtual bool handleHover(S32 x, S32 y, MASK mask)
 	{
 		if (fb)
 		{
 			fb->handleHover(x, y, mask);
 		}
 
-		return TRUE;
+		return true;
 	}
 
 	void initFavoritesBarPointer(LLFavoritesBarCtrl* fb) { this->fb = fb; }
@@ -1425,7 +1425,7 @@ void LLFavoritesBarCtrl::onEndDrag()
 	LLView::getWindow()->setCursor(UI_CURSOR_ARROW);
 }
 
-BOOL LLFavoritesBarCtrl::handleHover(S32 x, S32 y, MASK mask)
+bool LLFavoritesBarCtrl::handleHover(S32 x, S32 y, MASK mask)
 {
 	if (mDragItemId != LLUUID::null && mStartDrag)
 	{
@@ -1444,7 +1444,7 @@ BOOL LLFavoritesBarCtrl::handleHover(S32 x, S32 y, MASK mask)
 		}
 	}
 
-	return TRUE;
+	return true;
 }
 
 LLUICtrl* LLFavoritesBarCtrl::findChildByLocalCoords(S32 x, S32 y)

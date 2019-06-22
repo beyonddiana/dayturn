@@ -126,7 +126,7 @@ LLButton::LLButton(const LLButton::Params& p)
 	mMouseDownFrame(0),
 	mMouseHeldDownCount(0),
 	mBorderEnabled( FALSE ),
-	mFlashing( FALSE ),
+	mFlashing( false ),
 	mCurGlowStrength(0.f),
 	mNeedsHighlight(FALSE),
 	mUnselectedLabel(p.label()),
@@ -611,7 +611,7 @@ void LLButton::setHighlight(bool b)
 	mNeedsHighlight = b;
 }
 
-BOOL LLButton::handleHover(S32 x, S32 y, MASK mask)
+bool LLButton::handleHover(S32 x, S32 y, MASK mask)
 {
 	if (isInEnabledChain() 
 		&& (!gFocusMgr.getMouseCapture() || gFocusMgr.getMouseCapture() == this))
@@ -634,7 +634,7 @@ BOOL LLButton::handleHover(S32 x, S32 y, MASK mask)
 		getWindow()->setCursor(UI_CURSOR_ARROW);
 		LL_DEBUGS("UserInput") << "hover handled by " << getName() << LL_ENDL;
 	}
-	return TRUE;
+	return true;
 }
 
 void LLButton::getOverlayImageSize(S32& overlay_width, S32& overlay_height)

@@ -141,7 +141,7 @@ BOOL LLToolSelectLand::handleMouseUp(S32 x, S32 y, MASK mask)
 }
 
 
-BOOL LLToolSelectLand::handleHover(S32 x, S32 y, MASK mask)
+bool LLToolSelectLand::handleHover(S32 x, S32 y, MASK mask)
 {
 	if(	hasMouseCapture() )
 	{
@@ -157,7 +157,7 @@ BOOL LLToolSelectLand::handleHover(S32 x, S32 y, MASK mask)
 			BOOL hit_land = gViewerWindow->mousePointOnLandGlobal(x, y, &land_global);
 			if (hit_land)
 			{
-				mDragEndValid = TRUE;
+				mDragEndValid = true;
 				mDragEndGlobal = land_global;
 
 				sanitize_corners(mDragStartGlobal, mDragEndGlobal, mWestSouthBottom, mEastNorthTop);
@@ -173,7 +173,7 @@ BOOL LLToolSelectLand::handleHover(S32 x, S32 y, MASK mask)
 			}
 			else
 			{
-				mDragEndValid = FALSE;
+				mDragEndValid = false;
 				LL_DEBUGS("UserInput") << "hover handled by LLToolSelectLand (active, no land)" << LL_ENDL;
 				gViewerWindow->setCursor(UI_CURSOR_NO);
 			}
@@ -193,7 +193,7 @@ BOOL LLToolSelectLand::handleHover(S32 x, S32 y, MASK mask)
 		gViewerWindow->setCursor(UI_CURSOR_ARROW);
 	}
 
-	return TRUE;
+	return true;
 }
 
 

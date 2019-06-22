@@ -1045,23 +1045,25 @@ void LLInventoryPanel::unSelectAll()
 }
 
 
-BOOL LLInventoryPanel::handleHover(S32 x, S32 y, MASK mask)
+bool LLInventoryPanel::handleHover(S32 x, S32 y, MASK mask)
 {
-	BOOL handled = LLView::handleHover(x, y, mask);
-	if(handled)
-	{
-		ECursorType cursor = getWindow()->getCursor();
-		if (LLInventoryModelBackgroundFetch::instance().folderFetchActive() && cursor == UI_CURSOR_ARROW)
-		{
-			// replace arrow cursor with arrow and hourglass cursor
-			getWindow()->setCursor(UI_CURSOR_WORKING);
-		}
-	}
-	else
-	{
-		getWindow()->setCursor(UI_CURSOR_ARROW);
-	}
-	return TRUE;
+	LLView::handleHover(x, y, mask);
+// AW: commenting out because this flickers badly
+// 	BOOL handled = LLView::handleHover(x, y, mask);
+// 	if(handled)
+// 	{
+// 		ECursorType cursor = getWindow()->getCursor();
+// 		if (LLInventoryModelBackgroundFetch::instance().folderFetchActive() && cursor == UI_CURSOR_ARROW)
+// 		{
+// 			// replace arrow cursor with arrow and hourglass cursor
+// 			getWindow()->setCursor(UI_CURSOR_WORKING);
+// 		}
+// 	}
+// 	else
+// 	{
+// 		getWindow()->setCursor(UI_CURSOR_ARROW);
+// 	}
+	return true;
 }
 
 bool LLInventoryPanel::handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,

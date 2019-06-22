@@ -683,7 +683,7 @@ void LLView::setSnappedTo(const LLView* snap_view)
 {
 }
 
-BOOL LLView::handleHover(S32 x, S32 y, MASK mask)
+bool LLView::handleHover(S32 x, S32 y, MASK mask)
 {
 	return childrenHandleHover( x, y, mask ) != NULL;
 }

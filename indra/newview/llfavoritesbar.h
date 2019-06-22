@@ -64,7 +64,7 @@ public:
 								   EAcceptance* accept,
 								   std::string& tooltip_msg);
 
-	/*virtual*/ BOOL	handleHover(S32 x, S32 y, MASK mask);
+	/*virtual*/ bool	handleHover(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL	handleRightMouseDown(S32 x, S32 y, MASK mask);
 	// LLInventoryObserver observer trigger
 	virtual void changed(U32 mask);

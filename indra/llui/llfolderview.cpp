@@ -1481,7 +1481,7 @@ BOOL LLFolderView::addNoOptions(LLMenuGL* menu) const
 	return FALSE;
 }
 
-BOOL LLFolderView::handleHover( S32 x, S32 y, MASK mask )
+bool LLFolderView::handleHover( S32 x, S32 y, MASK mask )
 {
 	return LLView::handleHover( x, y, mask );
 }

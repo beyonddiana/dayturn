@@ -173,7 +173,7 @@ BOOL LLJoystick::handleMouseUp(S32 x, S32 y, MASK mask)
 }
 
 
-BOOL LLJoystick::handleHover(S32 x, S32 y, MASK mask)
+bool LLJoystick::handleHover(S32 x, S32 y, MASK mask)
 {
 	if( hasMouseCapture() )
 	{

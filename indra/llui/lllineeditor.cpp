@@ -821,15 +821,15 @@ BOOL LLLineEditor::handleRightMouseDown(S32 x, S32 y, MASK mask)
 	return TRUE;
 }
 
-BOOL LLLineEditor::handleHover(S32 x, S32 y, MASK mask)
+bool LLLineEditor::handleHover(S32 x, S32 y, MASK mask)
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 	// Check first whether the "clear search" button wants to deal with this.
 	if(!hasMouseCapture())
 	{
 		if(childrenHandleHover(x, y, mask) != NULL) 
 		{
-			return TRUE;
+			return true;
 		}
 	}
 
@@ -872,14 +872,14 @@ BOOL LLLineEditor::handleHover(S32 x, S32 y, MASK mask)
 
 		getWindow()->setCursor(UI_CURSOR_IBEAM);
 		LL_DEBUGS("UserInput") << "hover handled by " << getName() << " (active)" << LL_ENDL;		
-		handled = TRUE;
+		handled = true;
 	}
 
 	if( !handled  )
 	{
 		getWindow()->setCursor(UI_CURSOR_IBEAM);
 		LL_DEBUGS("UserInput") << "hover handled by " << getName() << " (inactive)" << LL_ENDL;		
-		handled = TRUE;
+		handled = true;
 	}
 
 	return handled;

@@ -115,10 +115,10 @@ BOOL LLToolObjPicker::handleMouseUp(S32 x, S32 y, MASK mask)
 }
 
 
-BOOL LLToolObjPicker::handleHover(S32 x, S32 y, MASK mask)
+bool LLToolObjPicker::handleHover(S32 x, S32 y, MASK mask)
 {
 	LLView *viewp = gViewerWindow->getRootView();
-	BOOL handled = viewp->handleHover(x, y, mask);
+	bool handled = viewp->handleHover(x, y, mask);
 	if (!handled) 
 	{
 		// Used to do pick on hover.  Now we just always display the cursor.

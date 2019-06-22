@@ -52,7 +52,7 @@ public:
 	/*virtual*/ void draw();
 	void drawStartTexture(F32 alpha);
 
-	/*virtual*/ BOOL handleHover(S32 x, S32 y, MASK mask);
+	/*virtual*/ bool handleHover(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL handleKeyHere(KEY key, MASK mask);
 	/*virtual*/ void setVisible(BOOL visible);
 

@@ -42,7 +42,7 @@ public:
 	/*virtual*/ BOOL		handleMouseDown(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL		handleDoubleClick(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL		handleMouseUp(S32 x, S32 y, MASK mask);
-	/*virtual*/ BOOL		handleHover(S32 x, S32 y, MASK mask);
+	/*virtual*/ bool		handleHover(S32 x, S32 y, MASK mask);
 	/*virtual*/ void		render();				// draw the select rectangle
 	/*virtual*/ BOOL		isAlwaysRendered()		{ return TRUE; }
 
@@ -56,7 +56,7 @@ protected:
 protected:
 	LLVector3d		mDragStartGlobal;		// global coords
 	LLVector3d		mDragEndGlobal;			// global coords
-	BOOL			mDragEndValid;			// is drag end a valid point in the world?
+	bool			mDragEndValid;			// is drag end a valid point in the world?
 
 	S32				mDragStartX;			// screen coords, from left
 	S32				mDragStartY;			// screen coords, from bottom

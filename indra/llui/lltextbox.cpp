@@ -103,14 +103,14 @@ BOOL LLTextBox::handleMouseUp(S32 x, S32 y, MASK mask)
 	return handled;
 }
 
-BOOL LLTextBox::handleHover(S32 x, S32 y, MASK mask)
+bool LLTextBox::handleHover(S32 x, S32 y, MASK mask)
 {
-	BOOL handled = LLTextBase::handleHover(x, y, mask);
+	bool handled = LLTextBase::handleHover(x, y, mask);
 	if (!handled && mClickedCallback && mShowCursorHand)
 	{
 		// Clickable text boxes change the cursor to a hand
 		LLUI::getWindow()->setCursor(UI_CURSOR_HAND);
-		return TRUE;
+		return true;
 	}
 	return handled;
 }
