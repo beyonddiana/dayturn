@@ -72,7 +72,7 @@ void LLToolTipView::draw()
 	LLView::draw();
 }
 
-BOOL LLToolTipView::handleHover(S32 x, S32 y, MASK mask)
+bool LLToolTipView::handleHover(S32 x, S32 y, MASK mask)
 {
 	static S32 last_x = x;
 	static S32 last_y = y;
@@ -334,7 +334,7 @@ void LLToolTip::setVisible(BOOL visible)
 	}
 }
 
-BOOL LLToolTip::handleHover(S32 x, S32 y, MASK mask)
+bool LLToolTip::handleHover(S32 x, S32 y, MASK mask)
 {
 	//mInfoButton->setFlashing(true);
 	if(mInfoButton)
@@ -345,7 +345,7 @@ BOOL LLToolTip::handleHover(S32 x, S32 y, MASK mask)
 	{
 		getWindow()->setCursor(UI_CURSOR_HAND);
 	}
-	return TRUE;
+	return true;
 }
 
 void LLToolTip::onMouseLeave(S32 x, S32 y, MASK mask)

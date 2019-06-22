@@ -156,7 +156,7 @@ public:
 	/*virtual*/ void onVisibilityChange(bool new_visibility);
 	void draw();
 	/*virtual*/ BOOL handleKeyHere( KEY key, MASK mask );
-	BOOL handleHover(S32 x, S32 y, MASK mask);
+	bool handleHover(S32 x, S32 y, MASK mask);
 	bool handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
 								   EDragAndDropType cargo_type,
 								   void* cargo_data,

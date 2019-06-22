@@ -706,7 +706,7 @@ public:
 	void setTop(S32 loaded, S32 bound, F32 scale) {mTopLoaded = loaded ; mTopBound = bound; mScale = scale ;}
 
 	void draw();	
-	BOOL handleHover(S32 x, S32 y, MASK mask, BOOL set_pick_size) ;
+	bool handleHover(S32 x, S32 y, MASK mask, BOOL set_pick_size) ;
 	
 private:
 	S32 mIndex ;
@@ -719,13 +719,13 @@ private:
 	F32 mScale ;
 };
 
-BOOL LLGLTexSizeBar::handleHover(S32 x, S32 y, MASK mask, BOOL set_pick_size) 
+bool LLGLTexSizeBar::handleHover(S32 x, S32 y, MASK mask, BOOL set_pick_size)
 {
 	if(y > mBottom && (y < mBottom + (S32)(mTopLoaded * mScale) || y < mBottom + (S32)(mTopBound * mScale)))
 	{
 		LLImageGL::setCurTexSizebar(mIndex, set_pick_size);
 	}
-	return TRUE ;
+	return true ;
 }
 void LLGLTexSizeBar::draw()
 {

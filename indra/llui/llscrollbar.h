@@ -87,7 +87,7 @@ public:
 	virtual BOOL	handleMouseDown(S32 x, S32 y, MASK mask);
 	virtual BOOL	handleMouseUp(S32 x, S32 y, MASK mask);
 	virtual BOOL	handleDoubleClick(S32 x, S32 y, MASK mask);
-	virtual BOOL	handleHover(S32 x, S32 y, MASK mask);
+	virtual bool	handleHover(S32 x, S32 y, MASK mask);
 	virtual BOOL	handleScrollWheel(S32 x, S32 y, S32 clicks);
     virtual bool    handleScrollHWheel(S32 x, S32 y, S32 clicks);
 	virtual bool	handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
@@ -139,7 +139,7 @@ private:
 	S32					mDocPos;		// Position within the doc that the scrollbar is modeling, in "lines" (user size)
 	S32					mPageSize;		// Maximum number of lines that can be seen at one time.
 	S32					mStepSize;
-	BOOL				mDocChanged;
+	bool				mDocChanged;
 
 	LLRect				mThumbRect;
 	S32					mDragStartX;

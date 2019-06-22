@@ -23,7 +23,7 @@ public:
 	virtual void	handleSelect();
 	virtual void	handleDeselect();
 	virtual BOOL	handleMouseDown(S32 x, S32 y, MASK mask);
-	virtual BOOL    handleHover(S32 x, S32 y, MASK mask);
+	virtual bool    handleHover(S32 x, S32 y, MASK mask);
 	virtual void	render();
 
 	static void pickCallback(const LLPickInfo& pick_info);

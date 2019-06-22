@@ -2140,9 +2140,9 @@ S32 LLScrollListCtrl::getRowOffsetFromIndex(S32 index)
 }
 
 
-BOOL LLScrollListCtrl::handleHover(S32 x,S32 y,MASK mask)
+bool LLScrollListCtrl::handleHover(S32 x,S32 y,MASK mask)
 {
-	BOOL	handled = FALSE;
+	bool handled = false;
 
 	if (hasMouseCapture())
 	{

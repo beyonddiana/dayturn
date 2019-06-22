@@ -237,7 +237,7 @@ public:
 	/*virtual*/ bool			canEdit() const { return false; }
 
 
-	/*virtual*/ BOOL			handleHover(S32 x, S32 y, MASK mask)
+	/*virtual*/ bool			handleHover(S32 x, S32 y, MASK mask)
 	{
 		LLUI::getWindow()->setCursor(UI_CURSOR_HAND);
 		return TRUE;
@@ -745,9 +745,9 @@ BOOL LLViewerTextEditor::handleMouseDown(S32 x, S32 y, MASK mask)
 }
 
 
-BOOL LLViewerTextEditor::handleHover(S32 x, S32 y, MASK mask)
+bool LLViewerTextEditor::handleHover(S32 x, S32 y, MASK mask)
 {
-	BOOL handled = LLTextEditor::handleHover(x, y, mask);
+	bool handled = LLTextEditor::handleHover(x, y, mask);
 
 	if(hasMouseCapture() && mDragItem)
 	{
@@ -767,7 +767,7 @@ BOOL LLViewerTextEditor::handleHover(S32 x, S32 y, MASK mask)
 			return LLToolDragAndDrop::getInstance()->handleHover( x, y, mask );
 		}
 		getWindow()->setCursor(UI_CURSOR_HAND);
-		handled = TRUE;
+		handled = true;
 	}
 
 	return handled;

@@ -71,7 +71,7 @@ public:
 	/*virtual*/ BOOL	handleScrollWheel(S32 x, S32 y, S32 clicks);
 	/*virtual*/ BOOL	handleMouseDown(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL	handleMouseUp(S32 x, S32 y, MASK mask);
-	/*virtual*/ BOOL	handleHover( S32 x, S32 y, MASK mask );
+	/*virtual*/ bool	handleHover( S32 x, S32 y, MASK mask );
 	/*virtual*/ BOOL	handleToolTip( S32 x, S32 y, MASK mask);
 	/*virtual*/ void	reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
 

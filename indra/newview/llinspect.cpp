@@ -93,7 +93,7 @@ void LLInspect::onFocusLost()
 }
 
 // virtual
-BOOL LLInspect::handleHover(S32 x, S32 y, MASK mask)
+bool LLInspect::handleHover(S32 x, S32 y, MASK mask)
 {
 	mOpenTimer.pause();
 	return LLView::handleHover(x, y, mask);

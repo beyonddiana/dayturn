@@ -55,7 +55,7 @@ public:
 	static	void	restoreGL();
 	virtual BOOL	handleMouseDown(S32 x, S32 y, MASK mask);
 	virtual BOOL	handleMouseUp(S32 x, S32 y, MASK mask);
-	virtual BOOL	handleHover(S32 x, S32 y, MASK mask);
+	virtual bool	handleHover(S32 x, S32 y, MASK mask);
 	virtual void	render();
 	virtual void	handleSelect();
 
@@ -105,7 +105,7 @@ private:
 	LLVector3	mGridOrigin;
 	LLVector3	mGridScale;
 	F32			mSubdivisions;
-	BOOL		mInSnapRegime;
+	bool		mInSnapRegime;
 	LLVector3	mArrowScales;
 	LLVector3	mPlaneScales;
 	LLVector4	mPlaneManipPositions;

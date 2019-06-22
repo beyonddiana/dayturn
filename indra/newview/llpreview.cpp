@@ -322,7 +322,7 @@ BOOL LLPreview::handleMouseUp(S32 x, S32 y, MASK mask)
 	return LLFloater::handleMouseUp(x, y, mask);
 }
 
-BOOL LLPreview::handleHover(S32 x, S32 y, MASK mask)
+bool LLPreview::handleHover(S32 x, S32 y, MASK mask)
 {
 	if(hasMouseCapture())
 	{

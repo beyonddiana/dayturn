@@ -184,7 +184,7 @@ bool QToolAlign::findSelectedManipulator(S32 x, S32 y)
 }
 
 
-BOOL QToolAlign::handleHover(S32 x, S32 y, MASK mask)
+bool QToolAlign::handleHover(S32 x, S32 y, MASK mask)
 {
 	if (mask & MASK_SHIFT)
 	{

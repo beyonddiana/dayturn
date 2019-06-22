@@ -314,7 +314,7 @@ public:
 	// Grr... the only thing I want as an LLMouseHandler are the onMouseCaptureLost and handleMouseUp calls.
 	// Sadly, these are all pure virtual, so I have to supply implementations here:
 	/*virtual*/ BOOL	handleMouseDown(S32 x, S32 y, MASK mask) { return FALSE; };
-	/*virtual*/ BOOL	handleHover(S32 x, S32 y, MASK mask) { return FALSE; };
+	/*virtual*/ bool	handleHover(S32 x, S32 y, MASK mask) { return false; };
 	/*virtual*/ BOOL	handleScrollWheel(S32 x, S32 y, S32 clicks) { return FALSE; };
     /*virtual*/ bool    handleScrollHWheel(S32 x, S32 y, S32 clicks) { return false; };
 	/*virtual*/ BOOL	handleDoubleClick(S32 x, S32 y, MASK mask) { return FALSE; };

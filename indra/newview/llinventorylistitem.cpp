@@ -182,7 +182,7 @@ void LLPanelInventoryListItemBase::setValue(const LLSD& value)
 	mSelected = value["selected"];
 }
 
-BOOL LLPanelInventoryListItemBase::handleHover(S32 x, S32 y, MASK mask)
+bool LLPanelInventoryListItemBase::handleHover(S32 x, S32 y, MASK mask)
 {
 	mHovered = true;
 	return LLPanel::handleHover(x, y, mask);

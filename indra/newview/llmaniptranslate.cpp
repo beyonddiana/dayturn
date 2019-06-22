@@ -404,7 +404,7 @@ BOOL LLManipTranslate::handleMouseDownOnPart( S32 x, S32 y, MASK mask )
 	return TRUE;
 }
 
-BOOL LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
+bool LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 {
 	// Translation tool only works if mouse button is down.
 	// Bail out if mouse not down.
@@ -416,7 +416,7 @@ BOOL LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 		gViewerWindow->setCursor(UI_CURSOR_TOOLTRANSLATE);
 
 		highlightManipulators(x, y);
-		return TRUE;
+		return true;
 	}
 	
 	// Handle auto-rotation if necessary.
@@ -424,7 +424,7 @@ BOOL LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 	const F32 ROTATE_ANGLE_PER_SECOND = 30.f * DEG_TO_RAD;
 	const S32 ROTATE_H_MARGIN = world_rect.getWidth() / 20;
 	const F32 rotate_angle = ROTATE_ANGLE_PER_SECOND / gFPSClamped;
-	BOOL rotated = FALSE;
+	bool rotated = false;
 
 	// ...build mode moves camera about focus point
 	if (mObjectSelection->getSelectType() != SELECT_TYPE_HUD)
@@ -432,12 +432,12 @@ BOOL LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 		if (x < ROTATE_H_MARGIN)
 		{
 			gAgentCamera.cameraOrbitAround(rotate_angle);
-			rotated = TRUE;
+			rotated = true;
 		}
 		else if (x > world_rect.getWidth() - ROTATE_H_MARGIN)
 		{
 			gAgentCamera.cameraOrbitAround(-rotate_angle);
-			rotated = TRUE;
+			rotated = true;
 		}
 	}
 
@@ -448,7 +448,7 @@ BOOL LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 	{
 		LL_DEBUGS("UserInput") << "hover handled by LLManipTranslate (mouse unmoved)" << LL_ENDL;
 		gViewerWindow->setCursor(UI_CURSOR_TOOLTRANSLATE);
-		return TRUE;
+		return true;
 	}
 	mLastHoverMouseX = x;
 	mLastHoverMouseY = y;
@@ -461,7 +461,7 @@ BOOL LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 		{
 			LL_DEBUGS("UserInput") << "hover handled by LLManipTranslate (mouse inside slop)" << LL_ENDL;
 			gViewerWindow->setCursor(UI_CURSOR_TOOLTRANSLATE);
-			return TRUE;
+			return true;
 		}
 		else
 		{
@@ -495,7 +495,7 @@ BOOL LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 		// somehow we lost the object!
 		LL_WARNS() << "Translate manip lost the object, no selectNode" << LL_ENDL;
 		gViewerWindow->setCursor(UI_CURSOR_TOOLTRANSLATE);
-		return TRUE;
+		return true;
 	}
 
 	LLViewerObject* object = selectNode->getObject();
@@ -504,11 +504,11 @@ BOOL LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 		// somehow we lost the object!
 		LL_WARNS() << "Translate manip lost the object, no object in selectNode" << LL_ENDL;
 		gViewerWindow->setCursor(UI_CURSOR_TOOLTRANSLATE);
-		return TRUE;
+		return true;
 	}
 
 	// Compute unit vectors for arrow hit and a plane through that vector
-	BOOL axis_exists = getManipAxis(object, mManipPart, axis_f);		// TODO: move this
+	bool axis_exists = getManipAxis(object, mManipPart, axis_f);		// TODO: move this
 
 	axis_d.setVec(axis_f);
 
@@ -531,7 +531,7 @@ BOOL LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 		{
 			LL_DEBUGS("UserInput") << "hover handled by LLManipTranslate (too far)" << LL_ENDL;
 			gViewerWindow->setCursor(UI_CURSOR_NOLOCKED);
-			return TRUE;
+			return true;
 		}
 	}
 
@@ -547,7 +547,7 @@ BOOL LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 	{
 		if (off_axis_magnitude > mSnapOffsetMeters)
 		{
-			mInSnapRegime = TRUE;
+			mInSnapRegime = true;
 			LLVector3 cursor_snap_agent = gAgent.getPosAgentFromGlobal(cursor_point_snap_line);
 
 			F32 cursor_grid_dist = (cursor_snap_agent - mGridOrigin) * axis_f;
@@ -631,16 +631,16 @@ BOOL LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 			}
 			cursor_point_agent = (cursor_point_grid * mGridRotation) + mGridOrigin;
 			relative_move.setVec(cursor_point_agent - gAgent.getPosAgentFromGlobal(mDragSelectionStartGlobal));
-			mInSnapRegime = TRUE;
+			mInSnapRegime = true;
 		}
 		else
 		{
-			mInSnapRegime = FALSE;
+			mInSnapRegime = false;
 		}
 	}
 	else
 	{
-		mInSnapRegime = FALSE;
+		mInSnapRegime = false;
 	}
 
 	// Clamp to arrow direction
@@ -776,7 +776,7 @@ BOOL LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 
 	LL_DEBUGS("UserInput") << "hover handled by LLManipTranslate (active)" << LL_ENDL;
 	gViewerWindow->setCursor(UI_CURSOR_TOOLTRANSLATE);
-	return TRUE;
+	return true;
 }
 
 void LLManipTranslate::highlightManipulators(S32 x, S32 y)

@@ -923,7 +923,7 @@ BOOL LLFloaterColorPicker::handleMouseDown ( S32 x, S32 y, MASK mask )
 
 //////////////////////////////////////////////////////////////////////////////
 //
-BOOL LLFloaterColorPicker::handleHover ( S32 x, S32 y, MASK mask )
+bool LLFloaterColorPicker::handleHover ( S32 x, S32 y, MASK mask )
 {
 	// if we're the front most window
 	if ( isFrontmost () )
@@ -981,7 +981,7 @@ BOOL LLFloaterColorPicker::handleHover ( S32 x, S32 y, MASK mask )
 				highlightEntry = xOffset + yOffset * numPaletteColumns;
 			}
 
-			return TRUE;
+			return true;
 		}
 	}
 

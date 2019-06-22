@@ -113,10 +113,10 @@ BOOL LLColorSwatchCtrl::handleDoubleClick(S32 x, S32 y, MASK mask)
 	return handleMouseDown(x, y, mask);
 }
 
-BOOL LLColorSwatchCtrl::handleHover(S32 x, S32 y, MASK mask)
+bool LLColorSwatchCtrl::handleHover(S32 x, S32 y, MASK mask)
 {
 	getWindow()->setCursor(UI_CURSOR_HAND);
-	return TRUE;
+	return true;
 }
 
 BOOL LLColorSwatchCtrl::handleUnicodeCharHere(llwchar uni_char)

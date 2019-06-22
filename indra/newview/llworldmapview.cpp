@@ -1679,7 +1679,7 @@ void LLWorldMapView::updateVisibleBlocks()
 	LLWorldMap::getInstance()->updateRegions(world_left, world_bottom, world_right, world_top);
 }
 
-BOOL LLWorldMapView::handleHover( S32 x, S32 y, MASK mask )
+bool LLWorldMapView::handleHover( S32 x, S32 y, MASK mask )
 {
 	if (hasMouseCapture())
 	{
@@ -1706,7 +1706,7 @@ BOOL LLWorldMapView::handleHover( S32 x, S32 y, MASK mask )
 
 		// doesn't matter, cursor should be hidden
 		gViewerWindow->setCursor(UI_CURSOR_CROSS );
-		return TRUE;
+		return true;
 	}
 	else
 	{
@@ -1722,7 +1722,7 @@ BOOL LLWorldMapView::handleHover( S32 x, S32 y, MASK mask )
 			gViewerWindow->setCursor( UI_CURSOR_CROSS );
 		}
 		LL_DEBUGS("UserInput") << "hover handled by LLWorldMapView" << LL_ENDL;		
-		return TRUE;
+		return true;
 	}
 }
 

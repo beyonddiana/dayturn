@@ -213,10 +213,10 @@ BOOL LLMenuItemGL::handleAcceleratorKey(KEY key, MASK mask)
 	return FALSE;
 }
 
-BOOL LLMenuItemGL::handleHover(S32 x, S32 y, MASK mask)
+bool LLMenuItemGL::handleHover(S32 x, S32 y, MASK mask)
 {
 	getWindow()->setCursor(UI_CURSOR_ARROW);
-	return TRUE;
+	return true;
 }
 
 //virtual
@@ -614,18 +614,18 @@ BOOL LLMenuItemSeparatorGL::handleMouseUp(S32 x, S32 y, MASK mask)
 	}
 }
 
-BOOL LLMenuItemSeparatorGL::handleHover(S32 x, S32 y, MASK mask) 
+bool LLMenuItemSeparatorGL::handleHover(S32 x, S32 y, MASK mask)
 {
 	LLMenuGL* parent_menu = getMenu();
 	if (y > getRect().getHeight() / 2)
 	{
 		parent_menu->highlightPrevItem(this, FALSE);
-		return FALSE;
+		return false;
 	}
 	else
 	{
 		parent_menu->highlightNextItem(this, FALSE);
-		return FALSE;
+		return false;
 	}
 }
 
@@ -3023,10 +3023,10 @@ BOOL LLMenuGL::handleUnicodeCharHere( llwchar uni_char )
 	return FALSE;
 }
 
-BOOL LLMenuGL::handleHover( S32 x, S32 y, MASK mask )
+bool LLMenuGL::handleHover( S32 x, S32 y, MASK mask )
 {
 	// leave submenu in place if slope of mouse < MAX_MOUSE_SLOPE_SUB_MENU
-	BOOL no_mouse_data = mLastMouseX == 0 && mLastMouseY == 0;
+	bool no_mouse_data = mLastMouseX == 0 && mLastMouseY == 0;
 	S32 mouse_delta_x = no_mouse_data ? 0 : x - mLastMouseX;
 	S32 mouse_delta_y = no_mouse_data ? 0 : y - mLastMouseY;
 	LLVector2 mouse_dir((F32)mouse_delta_x, (F32)mouse_delta_y);
@@ -3093,7 +3093,7 @@ BOOL LLMenuGL::handleHover( S32 x, S32 y, MASK mask )
 	// drop-down menu is shown. Otherwise any other view won't be able to handle mouse events
 	// until the user chooses one of the drop-down menu items.
 
-	return TRUE;
+	return true;
 }
 
 BOOL LLMenuGL::handleScrollWheel( S32 x, S32 y, S32 clicks )
@@ -3548,12 +3548,12 @@ BOOL LLMenuBarGL::appendMenu( LLMenuGL* menu )
 	return success;
 }
 
-BOOL LLMenuBarGL::handleHover( S32 x, S32 y, MASK mask )
+bool LLMenuBarGL::handleHover( S32 x, S32 y, MASK mask )
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 	LLView* active_menu = NULL;
 
-	BOOL no_mouse_data = mLastMouseX == 0 && mLastMouseY == 0;
+	bool no_mouse_data = mLastMouseX == 0 && mLastMouseY == 0;
 	S32 mouse_delta_x = no_mouse_data ? 0 : x - mLastMouseX;
 	S32 mouse_delta_y = no_mouse_data ? 0 : y - mLastMouseY;
 	mMouseVelX = (mMouseVelX / 2) + (mouse_delta_x / 2);
@@ -3587,7 +3587,7 @@ BOOL LLMenuBarGL::handleHover( S32 x, S32 y, MASK mask )
 				viewp->handleHover(local_x, local_y, mask))
 			{
 				((LLMenuItemGL*)viewp)->setHighlight(TRUE);
-				handled = TRUE;
+				handled = true;
 				if (active_menu && active_menu != viewp)
 				{
 					((LLMenuItemGL*)viewp)->onCommit();
@@ -3615,7 +3615,7 @@ BOOL LLMenuBarGL::handleHover( S32 x, S32 y, MASK mask )
 
 	getWindow()->setCursor(UI_CURSOR_ARROW);
 	
-	return TRUE;
+	return true;
 }
 
 ///============================================================================
@@ -4056,7 +4056,7 @@ static MenuRegistry::Register<LLContextMenu> context_menu_register2("context_men
 
 LLContextMenu::LLContextMenu(const Params& p)
 :	LLMenuGL(p),
-	mHoveredAnyItem(FALSE),
+	mHoveredAnyItem(false),
 	mHoverItem(NULL)
 {
 	//setBackgroundVisible(TRUE);
@@ -4148,18 +4148,18 @@ void LLContextMenu::hide()
 }
 
 
-BOOL LLContextMenu::handleHover( S32 x, S32 y, MASK mask )
+bool LLContextMenu::handleHover( S32 x, S32 y, MASK mask )
 {
 	LLMenuGL::handleHover(x,y,mask);
 
-	BOOL handled = FALSE;
+	bool handled = false;
 
 	LLMenuItemGL *item = getHighlightedItem();
 
 	if (item && item->getEnabled())
 	{
 		getWindow()->setCursor(UI_CURSOR_ARROW);
-		handled = TRUE;
+		handled = true;
 
 		if (item != mHoverItem)
 		{
@@ -4170,7 +4170,7 @@ BOOL LLContextMenu::handleHover( S32 x, S32 y, MASK mask )
 			mHoverItem = item;
 			mHoverItem->setHighlight( TRUE );
 		}
-		mHoveredAnyItem = TRUE;
+		mHoveredAnyItem = true;
 	}
 	else
 	{
@@ -4185,7 +4185,7 @@ BOOL LLContextMenu::handleHover( S32 x, S32 y, MASK mask )
 	if( !handled && pointInView( x, y ) )
 	{
 		getWindow()->setCursor(UI_CURSOR_ARROW);
-		handled = TRUE;
+		handled = true;
 	}
 
 	return handled;
@@ -4239,7 +4239,7 @@ BOOL LLContextMenu::handleRightMouseUp( S32 x, S32 y, MASK mask )
 
 
 	BOOL result = handleMouseUp( x, y, mask );
-	mHoveredAnyItem = FALSE;
+	mHoveredAnyItem = false;
 	
 	return result;
 }

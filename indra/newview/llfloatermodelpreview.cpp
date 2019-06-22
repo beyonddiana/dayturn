@@ -960,7 +960,7 @@ BOOL LLFloaterModelPreview::handleMouseUp(S32 x, S32 y, MASK mask)
 //-----------------------------------------------------------------------------
 // handleHover()
 //-----------------------------------------------------------------------------
-BOOL LLFloaterModelPreview::handleHover	(S32 x, S32 y, MASK mask)
+bool LLFloaterModelPreview::handleHover	(S32 x, S32 y, MASK mask)
 {
 	MASK local_mask = mask & ~MASK_ALT;
 
@@ -1011,7 +1011,7 @@ BOOL LLFloaterModelPreview::handleHover	(S32 x, S32 y, MASK mask)
 		gViewerWindow->setCursor(UI_CURSOR_TOOLZOOMIN);
 	}
 
-	return TRUE;
+	return true;
 }
 
 //-----------------------------------------------------------------------------

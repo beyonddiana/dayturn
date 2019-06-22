@@ -101,7 +101,7 @@ public:
 	/*virtual*/ BOOL			handleRightMouseDown(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL			handleRightMouseUp(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL			handleDoubleClick(S32 x, S32 y, MASK mask);
-	/*virtual*/ BOOL			handleHover(S32 x, S32 y, MASK mask);
+	/*virtual*/ bool			handleHover(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL			handleScrollWheel(S32 x, S32 y, S32 clicks);
     /*virtual*/ bool            handleScrollHWheel(S32 x, S32 y, S32 clicks);
 	/*virtual*/ BOOL			handleToolTip(S32 x, S32 y, MASK mask);
@@ -142,7 +142,7 @@ public:
 	/*virtual*/ void				setToolTip(const std::string& tooltip);
 	/*virtual*/ void				dump() const;
 
-	/*virtual*/ BOOL				handleHover(S32 x, S32 y, MASK mask);
+	/*virtual*/ bool				handleHover(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL				handleRightMouseDown(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL				handleMouseDown(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL				handleMouseUp(S32 x, S32 y, MASK mask);
@@ -184,7 +184,7 @@ class LLOnHoverChangeableTextSegment : public LLNormalTextSegment
 public:
 	LLOnHoverChangeableTextSegment( LLStyleConstSP style, LLStyleConstSP normal_style, S32 start, S32 end, LLTextBase& editor );
 	/*virtual*/ F32 draw(S32 start, S32 end, S32 selection_start, S32 selection_end, const LLRectf& draw_rect);
-	/*virtual*/ BOOL handleHover(S32 x, S32 y, MASK mask);
+	/*virtual*/ bool handleHover(S32 x, S32 y, MASK mask);
 protected:
 	// Style used for text when mouse pointer is over segment
 	LLStyleConstSP		mHoveredStyle;
@@ -344,7 +344,7 @@ public:
 	/*virtual*/ BOOL		handleRightMouseDown(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL		handleRightMouseUp(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL		handleDoubleClick(S32 x, S32 y, MASK mask);
-	/*virtual*/ BOOL		handleHover(S32 x, S32 y, MASK mask);
+	/*virtual*/ bool		handleHover(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL		handleScrollWheel(S32 x, S32 y, S32 clicks);
 	/*virtual*/ BOOL		handleToolTip(S32 x, S32 y, MASK mask);
 

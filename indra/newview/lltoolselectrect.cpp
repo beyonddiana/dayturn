@@ -123,7 +123,7 @@ BOOL LLToolSelectRect::handleMouseUp(S32 x, S32 y, MASK mask)
 }
 
 
-BOOL LLToolSelectRect::handleHover(S32 x, S32 y, MASK mask)
+bool LLToolSelectRect::handleHover(S32 x, S32 y, MASK mask)
 {
 	if(	hasMouseCapture() )
 	{
@@ -153,7 +153,7 @@ BOOL LLToolSelectRect::handleHover(S32 x, S32 y, MASK mask)
 	}
 
 	gViewerWindow->setCursor(UI_CURSOR_ARROW);
-	return TRUE;
+	return true;
 }
 
 

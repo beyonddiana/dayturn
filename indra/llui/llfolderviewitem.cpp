@@ -546,7 +546,7 @@ BOOL LLFolderViewItem::handleMouseDown( S32 x, S32 y, MASK mask )
 	return TRUE;
 }
 
-BOOL LLFolderViewItem::handleHover( S32 x, S32 y, MASK mask )
+bool LLFolderViewItem::handleHover( S32 x, S32 y, MASK mask )
 {
 	static LLCachedControl<S32> drag_and_drop_threshold(*LLUI::sSettingGroups["config"],"DragAndDropDistanceThreshold", 3);
 
@@ -576,14 +576,14 @@ BOOL LLFolderViewItem::handleHover( S32 x, S32 y, MASK mask )
 			getWindow()->setCursor(UI_CURSOR_NOLOCKED);
 		}
 
-		return TRUE;
+		return true;
 	}
 	else
 	{
 		getRoot()->setShowSelectionContext(FALSE);
 		getWindow()->setCursor(UI_CURSOR_ARROW);
 		// let parent handle this then...
-		return FALSE;
+		return false;
 	}
 }
 
@@ -1910,11 +1910,11 @@ BOOL LLFolderViewFolder::handleRightMouseDown( S32 x, S32 y, MASK mask )
 }
 
 
-BOOL LLFolderViewFolder::handleHover(S32 x, S32 y, MASK mask)
+bool LLFolderViewFolder::handleHover(S32 x, S32 y, MASK mask)
 {
 	mIsMouseOverTitle = (y > (getRect().getHeight() - mItemHeight));
 
-	BOOL handled = LLView::handleHover(x, y, mask);
+	bool handled = LLView::handleHover(x, y, mask);
 
 	if (!handled)
 	{

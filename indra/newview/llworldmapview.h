@@ -63,7 +63,7 @@ public:
 	virtual BOOL	handleMiddleMouseDown(S32 x, S32 y, MASK mask) { return handleMouseDown(x, y, mask); }
 	virtual BOOL	handleMiddleMouseUp(S32 x, S32 y, MASK mask) { return handleMouseUp(x, y, mask); }
 	virtual BOOL	handleDoubleClick( S32 x, S32 y, MASK mask );
-	virtual BOOL	handleHover( S32 x, S32 y, MASK mask );
+	virtual bool	handleHover( S32 x, S32 y, MASK mask );
 	virtual BOOL	handleToolTip( S32 x, S32 y, MASK mask);
 
 	bool			checkItemHit(S32 x, S32 y, LLItemInfo& item, LLUUID* id, bool track);

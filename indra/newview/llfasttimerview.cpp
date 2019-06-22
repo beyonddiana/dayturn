@@ -216,14 +216,14 @@ BOOL LLFastTimerView::handleMouseUp(S32 x, S32 y, MASK mask)
 	return LLFloater::handleMouseUp(x, y, mask);;
 }
 
-BOOL LLFastTimerView::handleHover(S32 x, S32 y, MASK mask)
+bool LLFastTimerView::handleHover(S32 x, S32 y, MASK mask)
 {
 	if (hasMouseCapture())
 	{
 		F32 lerp = llclamp(1.f - (F32) (x - mGraphRect.mLeft) / (F32) mGraphRect.getWidth(), 0.f, 1.f);
 		mScrollIndex = ll_round( lerp * (F32)(mRecording.getNumRecordedPeriods() - MAX_VISIBLE_HISTORY));
 		mScrollIndex = llclamp(	mScrollIndex, 0, (S32)mRecording.getNumRecordedPeriods());
-		return TRUE;
+		return true;
 	}
 	mHoverTimer = NULL;
 	mHoverID = NULL;
@@ -238,7 +238,7 @@ BOOL LLFastTimerView::handleHover(S32 x, S32 y, MASK mask)
 								MAX_VISIBLE_HISTORY);
 		if (mHoverBarIndex == 0)
 		{
-			return TRUE;
+			return true;
 		}
 		else if (mHoverBarIndex < 0)
 		{

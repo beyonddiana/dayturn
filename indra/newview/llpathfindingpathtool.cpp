@@ -152,9 +152,9 @@ BOOL LLPathfindingPathTool::handleDoubleClick(S32 pX, S32 pY, MASK pMask)
 	return TRUE;
 }
 
-BOOL LLPathfindingPathTool::handleHover(S32 pX, S32 pY, MASK pMask)
+bool LLPathfindingPathTool::handleHover(S32 pX, S32 pY, MASK pMask)
 {
-	BOOL returnVal = FALSE;
+	bool returnVal = false;
 
 	if (!mIsLeftMouseButtonHeld && !mIsMiddleMouseButtonHeld && !mIsRightMouseButtonHeld && !isAnyPathToolModKeys(pMask))
 	{
@@ -167,7 +167,7 @@ BOOL LLPathfindingPathTool::handleHover(S32 pX, S32 pY, MASK pMask)
 			? (mIsLeftMouseButtonHeld ? UI_CURSOR_TOOLPATHFINDING_PATH_START_ADD : UI_CURSOR_TOOLPATHFINDING_PATH_START)
 			: (mIsLeftMouseButtonHeld ? UI_CURSOR_TOOLPATHFINDING_PATH_END_ADD : UI_CURSOR_TOOLPATHFINDING_PATH_END));
 		computeTempPoints(pX, pY, pMask);
-		returnVal = TRUE;
+		returnVal = true;
 	}
 	else
 	{

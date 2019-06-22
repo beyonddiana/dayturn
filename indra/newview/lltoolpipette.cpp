@@ -76,15 +76,15 @@ BOOL LLToolPipette::handleMouseUp(S32 x, S32 y, MASK mask)
 	return TRUE;
 }
 
-BOOL LLToolPipette::handleHover(S32 x, S32 y, MASK mask)
+bool LLToolPipette::handleHover(S32 x, S32 y, MASK mask)
 {
 	gViewerWindow->setCursor(mSuccess ? UI_CURSOR_PIPETTE : UI_CURSOR_NO);
 	if (hasMouseCapture()) // mouse button is down
 	{
 		gViewerWindow->pickAsync(x, y, mask, pickCallback);
-		return TRUE;
+		return true;
 	}
-	return FALSE;
+	return false;
 }
 
 BOOL LLToolPipette::handleToolTip(S32 x, S32 y, MASK mask)

@@ -412,7 +412,7 @@ BOOL LLManipScale::handleMouseUp(S32 x, S32 y, MASK mask)
 }
 
 
-BOOL LLManipScale::handleHover(S32 x, S32 y, MASK mask)
+bool LLManipScale::handleHover(S32 x, S32 y, MASK mask)
 {
 	if( hasMouseCapture() )
 	{
@@ -446,7 +446,7 @@ BOOL LLManipScale::handleHover(S32 x, S32 y, MASK mask)
 	LLSelectMgr::getInstance()->adjustTexturesByScale(FALSE, getStretchTextures());
 
 	gViewerWindow->setCursor(UI_CURSOR_TOOLSCALE);
-	return TRUE;
+	return true;
 }
 
 void LLManipScale::highlightManipulators(S32 x, S32 y)

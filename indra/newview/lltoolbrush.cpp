@@ -403,7 +403,7 @@ BOOL LLToolBrushLand::handleMouseDown(S32 x, S32 y, MASK mask)
 	return handled;
 }
 
-BOOL LLToolBrushLand::handleHover( S32 x, S32 y, MASK mask )
+bool LLToolBrushLand::handleHover( S32 x, S32 y, MASK mask )
 {
 	LL_DEBUGS("UserInput") << "hover handled by LLToolBrushLand ("
 								<< (hasMouseCapture() ? "active":"inactive")
@@ -422,7 +422,7 @@ BOOL LLToolBrushLand::handleHover( S32 x, S32 y, MASK mask )
 
 		LLViewerParcelMgr::getInstance()->setHoverParcel(spot);
 	}
-	return TRUE;
+	return true;
 }
 
 BOOL LLToolBrushLand::handleMouseUp(S32 x, S32 y, MASK mask)

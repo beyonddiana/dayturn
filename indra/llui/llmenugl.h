@@ -83,7 +83,7 @@ protected:
 public:
 	// LLView overrides
 	/*virtual*/ void onVisibilityChange(bool new_visibility);
-	/*virtual*/ BOOL handleHover(S32 x, S32 y, MASK mask);
+	/*virtual*/ bool handleHover(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL handleRightMouseDown(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL handleRightMouseUp(S32 x, S32 y, MASK mask);
 
@@ -233,7 +233,7 @@ public:
 	/*virtual*/ void draw( void );
 	/*virtual*/ BOOL handleMouseDown(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL handleMouseUp(S32 x, S32 y, MASK mask);
-	/*virtual*/ BOOL handleHover(S32 x, S32 y, MASK mask);
+	/*virtual*/ bool handleHover(S32 x, S32 y, MASK mask);
 
 	/*virtual*/ U32 getNominalHeight( void ) const;
 };
@@ -428,7 +428,7 @@ public:
 
 	// LLView Functionality
 	/*virtual*/ BOOL handleUnicodeCharHere( llwchar uni_char );
-	/*virtual*/ BOOL handleHover( S32 x, S32 y, MASK mask );
+	/*virtual*/ bool handleHover( S32 x, S32 y, MASK mask );
 	/*virtual*/ BOOL handleScrollWheel( S32 x, S32 y, S32 clicks );
 	/*virtual*/ void draw( void );
 	/*virtual*/ void drawBackground(LLMenuItemGL* itemp, F32 alpha);
@@ -700,7 +700,7 @@ public:
 	virtual void	show				(S32 x, S32 y, LLView* spawning_view = NULL);
 	virtual void	hide				();
 
-	virtual BOOL	handleHover			( S32 x, S32 y, MASK mask );
+	virtual bool	handleHover			( S32 x, S32 y, MASK mask );
 	virtual BOOL	handleRightMouseDown( S32 x, S32 y, MASK mask );
 	virtual BOOL	handleRightMouseUp	( S32 x, S32 y, MASK mask );
 
@@ -712,7 +712,7 @@ public:
 			void	setSpawningView(LLHandle<LLView> spawning_view) { mSpawningViewHandle = spawning_view; }
 
 protected:
-	BOOL						mHoveredAnyItem;
+	bool						mHoveredAnyItem;
 	LLMenuItemGL*				mHoverItem;
 	LLRootHandle<LLContextMenu>	mHandle;
 	LLHandle<LLView>			mSpawningViewHandle;
@@ -778,7 +778,7 @@ public:
 	virtual BOOL addSeparator();
 
 	// LLView Functionality
-	virtual BOOL handleHover( S32 x, S32 y, MASK mask );
+	virtual bool handleHover( S32 x, S32 y, MASK mask );
 
 	// Returns x position of rightmost child, usually Help menu
 	S32 getRightmostMenuEdge();

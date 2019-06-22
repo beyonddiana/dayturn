@@ -73,7 +73,7 @@ LLScrollbar::LLScrollbar(const Params & p)
 		mDocPos( p.doc_pos ),
 		mPageSize( p.page_size ),
 		mStepSize( p.step_size ),
-		mDocChanged(FALSE),
+		mDocChanged(false),
 		mDragStartX( 0 ),
 		mDragStartY( 0 ),
 		mHoverGlowStrength(0.15f),
@@ -136,7 +136,7 @@ void LLScrollbar::setDocParams( S32 size, S32 pos )
 {
 	mDocSize = size;
 	setDocPos(pos);
-	mDocChanged = TRUE;
+	mDocChanged = true;
 
 	updateThumbRect();
 }
@@ -148,7 +148,7 @@ bool LLScrollbar::setDocPos(S32 pos, BOOL update_thumb)
 	if (pos != mDocPos)
 	{
 		mDocPos = pos;
-		mDocChanged = TRUE;
+		mDocChanged = true;
 
 		if( mChangeCallback )
 		{
@@ -170,7 +170,7 @@ void LLScrollbar::setDocSize(S32 size)
 	{
 		mDocSize = size;
 		setDocPos(mDocPos);
-		mDocChanged = TRUE;
+		mDocChanged = true;
 
 		updateThumbRect();
 	}
@@ -182,7 +182,7 @@ void LLScrollbar::setPageSize( S32 page_size )
 	{
 		mPageSize = page_size;
 		setDocPos(mDocPos);
-		mDocChanged = TRUE;
+		mDocChanged = true;
 
 		updateThumbRect();
 	}
@@ -283,12 +283,12 @@ BOOL LLScrollbar::handleMouseDown(S32 x, S32 y, MASK mask)
 }
 
 
-BOOL LLScrollbar::handleHover(S32 x, S32 y, MASK mask)
+bool LLScrollbar::handleHover(S32 x, S32 y, MASK mask)
 {
 	// Note: we don't bother sending the event to the children (the arrow buttons)
 	// because they'll capture the mouse whenever they need hover events.
 	
-	BOOL handled = FALSE;
+	bool handled = false;
 	if( hasMouseCapture() )
 	{
 		S32 height = getRect().getHeight();
@@ -382,7 +382,7 @@ BOOL LLScrollbar::handleHover(S32 x, S32 y, MASK mask)
 
 		getWindow()->setCursor(UI_CURSOR_ARROW);
 		LL_DEBUGS("UserInput") << "hover handled by " << getName() << " (active)" << LL_ENDL;		
-		handled = TRUE;
+		handled = true;
 	}
 	else
 	{
@@ -394,10 +394,10 @@ BOOL LLScrollbar::handleHover(S32 x, S32 y, MASK mask)
 	{
 		getWindow()->setCursor(UI_CURSOR_ARROW);
 		LL_DEBUGS("UserInput") << "hover handled by " << getName() << " (inactive)"  << LL_ENDL;		
-		handled = TRUE;
+		handled = true;
 	}
 
-	mDocChanged = FALSE;
+	mDocChanged = false;
 	return handled;
 } // end handleHover
 

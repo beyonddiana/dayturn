@@ -323,7 +323,7 @@ BOOL LLToolCamera::handleMouseUp(S32 x, S32 y, MASK mask)
 }
 
 
-BOOL LLToolCamera::handleHover(S32 x, S32 y, MASK mask)
+bool LLToolCamera::handleHover(S32 x, S32 y, MASK mask)
 {
 	static LLCachedControl<F32> camera_mouse_speed_multiplier(gSavedSettings, "CameraMouseSpeedMultiplier", 1.0f);
 	
@@ -353,7 +353,7 @@ BOOL LLToolCamera::handleHover(S32 x, S32 y, MASK mask)
 			LL_DEBUGS("UserInput") << "hover handled by LLToolFocus [invalid point]" << LL_ENDL;
 			gViewerWindow->setCursor(UI_CURSOR_NO);
 			gViewerWindow->showCursor();
-			return TRUE;
+			return true;
 		}
 
 		if (gCameraBtnOrbit ||
@@ -458,7 +458,7 @@ BOOL LLToolCamera::handleHover(S32 x, S32 y, MASK mask)
 		gViewerWindow->setCursor(UI_CURSOR_TOOLZOOMIN);
 	}
 	
-	return TRUE;
+	return true;
 }
 
 

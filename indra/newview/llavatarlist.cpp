@@ -626,7 +626,7 @@ BOOL LLAvatarList::handleMouseUp( S32 x, S32 y, MASK mask )
 	return LLFlatListViewEx::handleMouseUp(x, y, mask);
 }
 
-BOOL LLAvatarList::handleHover(S32 x, S32 y, MASK mask)
+bool LLAvatarList::handleHover(S32 x, S32 y, MASK mask)
 {
 	bool handled = hasMouseCapture();
 	if(handled)

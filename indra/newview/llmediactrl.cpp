@@ -175,9 +175,9 @@ void LLMediaCtrl::setTakeFocusOnClick( bool take_focus )
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-BOOL LLMediaCtrl::handleHover( S32 x, S32 y, MASK mask )
+bool LLMediaCtrl::handleHover( S32 x, S32 y, MASK mask )
 {
-	if (LLPanel::handleHover(x, y, mask)) return TRUE;
+	if (LLPanel::handleHover(x, y, mask)) return true;
 	convertInputCoords(x, y);
 
 	if (mMediaSource)
@@ -193,7 +193,7 @@ BOOL LLMediaCtrl::handleHover( S32 x, S32 y, MASK mask )
 		handleToolTip(x, y, mask);
 	}
 
-	return TRUE;
+	return true;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

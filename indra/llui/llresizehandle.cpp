@@ -109,9 +109,9 @@ BOOL LLResizeHandle::handleMouseUp(S32 x, S32 y, MASK mask)
 }
 
 
-BOOL LLResizeHandle::handleHover(S32 x, S32 y, MASK mask)
+bool LLResizeHandle::handleHover(S32 x, S32 y, MASK mask)
 {
-	BOOL	handled = FALSE;
+	bool	handled = false;
 
 	// We only handle the click if the click both started and ended within us
 	if( hasMouseCapture() )
@@ -322,13 +322,13 @@ BOOL LLResizeHandle::handleHover(S32 x, S32 y, MASK mask)
 			}
 		}
 
-		handled = TRUE;
+		handled = true;
 	}
 	else // don't have mouse capture
 	{
 		if( pointInHandle( x, y ) )
 		{
-			handled = TRUE;
+			handled = true;
 		}
 	}
 

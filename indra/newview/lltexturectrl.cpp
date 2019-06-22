@@ -1465,10 +1465,10 @@ public:
 	}
 };
 
-BOOL LLTextureCtrl::handleHover(S32 x, S32 y, MASK mask)
+bool LLTextureCtrl::handleHover(S32 x, S32 y, MASK mask)
 {
 	getWindow()->setCursor(mBorder->parentPointInView(x,y) ? UI_CURSOR_HAND : UI_CURSOR_ARROW);
-	return TRUE;
+	return true;
 }
 
 

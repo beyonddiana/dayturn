@@ -398,9 +398,9 @@ void LLFloaterWorldMap::reloadIcons(void*)
 }
 
 // virtual
-BOOL LLFloaterWorldMap::handleHover(S32 x, S32 y, MASK mask)
+bool LLFloaterWorldMap::handleHover(S32 x, S32 y, MASK mask)
 {
-	BOOL handled;
+	bool handled;
 	handled = LLFloater::handleHover(x, y, mask);
 	return handled;
 }
