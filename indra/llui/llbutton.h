@@ -257,9 +257,9 @@ public:
 	void			setScaleImage(bool scale)			{ mScaleImage = scale; }
 	bool			getScaleImage() const				{ return mScaleImage; }
 
-	void			setDropShadowedText(BOOL b)			{ mDropShadowedText = b; }
+	void			setDropShadowedText(bool b)			{ mDropShadowedText = b; }
 
-	void			setBorderEnabled(BOOL b)					{ mBorderEnabled = b; }
+	void			setBorderEnabled(bool b)					{ mBorderEnabled = b; }
 
 	void			setHoverGlowStrength(F32 strength) { mHoverGlowStrength = strength; }
 
@@ -401,7 +401,7 @@ protected:
 // Build time optimization, generate once in .cpp file
 #ifndef LLBUTTON_CPP
 extern template class LLButton* LLView::getChild<class LLButton>(
-	const std::string& name, BOOL recurse) const;
+	const std::string& name, bool recurse) const;
 #endif
 
 #endif  // LL_LLBUTTON_H
