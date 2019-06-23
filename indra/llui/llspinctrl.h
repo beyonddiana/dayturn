@@ -84,7 +84,7 @@ public:
 
 	virtual void	onTabInto();
 
-	virtual void	setTentative(BOOL b);			// marks value as tentative
+	virtual void	setTentative(bool b);			// marks value as tentative
 	virtual void	onCommit();						// mark not tentative, then commit
 
 	void 			forceEditorCommit();			// for commit on external button
