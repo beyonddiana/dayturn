@@ -1322,7 +1322,7 @@ void LLToolBarButton::onMouseEnter(S32 x, S32 y, MASK mask)
 	// Always highlight toolbar buttons, even if they are disabled
 	if (!gFocusMgr.getMouseCapture() || gFocusMgr.getMouseCapture() == this)
 	{
-		mNeedsHighlight = TRUE;
+		mNeedsHighlight = true;
 	}
 
 	LLToolBar* parent_toolbar = getParentByType<LLToolBar>();

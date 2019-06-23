@@ -55,7 +55,7 @@ LLPanel::factory_stack_t	LLPanel::sFactoryStack;
 
 // Compiler optimization, generate extern template
 template class LLPanel* LLView::getChild<class LLPanel>(
-	const std::string& name, BOOL recurse) const;
+	const std::string& name, bool recurse) const;
 
 LLPanel::LocalizedString::LocalizedString()
 :	name("name"),
@@ -253,7 +253,7 @@ void LLPanel::updateDefaultBtn()
 		}
 		else
 		{
-			mDefaultBtn->setBorderEnabled(FALSE);
+			mDefaultBtn->setBorderEnabled(false);
 		}
 	}
 }
@@ -268,12 +268,12 @@ void LLPanel::setDefaultBtn(LLButton* btn)
 {
 	if (mDefaultBtn && mDefaultBtn->getEnabled())
 	{
-		mDefaultBtn->setBorderEnabled(FALSE);
+		mDefaultBtn->setBorderEnabled(false);
 	}
 	mDefaultBtn = btn; 
 	if (mDefaultBtn)
 	{
-		mDefaultBtn->setBorderEnabled(TRUE);
+		mDefaultBtn->setBorderEnabled(true);
 	}
 }
 

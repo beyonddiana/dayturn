@@ -439,7 +439,7 @@ public:
 
 	virtual BOOL handleAcceleratorKey(KEY key, MASK mask);
 
-	LLMenuGL* findChildMenuByName(const std::string& name, BOOL recurse) const;
+	LLMenuGL* findChildMenuByName(const std::string& name, bool recurse) const;
 	
 	bool clearHoverItem();
 
@@ -661,8 +661,8 @@ public:
 
 	virtual void openMenu();
 
-	virtual LLView* getChildView(const std::string& name, BOOL recurse = TRUE) const;
-	virtual LLView* findChildView(const std::string& name, BOOL recurse = TRUE) const;
+	virtual LLView* getChildView(const std::string& name, bool recurse = true) const;
+	virtual LLView* findChildView(const std::string& name, bool recurse = true) const;
 
 private:
 	LLHandle<LLView> mBranchHandle;
