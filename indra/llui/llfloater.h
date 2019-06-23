@@ -314,7 +314,7 @@ public:
     virtual void	setVisibleAndFrontmost(bool take_focus=true, const LLSD& key = LLSD());
 	
 	// Defaults to false.
-	virtual BOOL	canSaveAs() const { return FALSE; }
+	virtual bool	canSaveAs() const { return false; }
 
 	virtual void	saveAs() {}
 
@@ -385,8 +385,8 @@ protected:
 	void			setExpandedRect(const LLRect& rect) { mExpandedRect = rect; } // size when not minimized
 	const LLRect&	getExpandedRect() const { return mExpandedRect; }
 
-	void			setAutoFocus(BOOL focus) { mAutoFocus = focus; } // whether to automatically take focus when opened
-	BOOL			getAutoFocus() const { return mAutoFocus; }
+	void			setAutoFocus(bool focus) { mAutoFocus = focus; } // whether to automatically take focus when opened
+	bool			getAutoFocus() const { return mAutoFocus; }
 	LLDragHandle*	getDragHandle() const { return mDragHandle; }
 
 	void			destroy(); // Don't call this directly.  You probably want to call closeFloater()
@@ -396,7 +396,7 @@ protected:
 	virtual void	updateTitleButtons();
 
 private:
-	void			setForeground(BOOL b);	// called only by floaterview
+	void			setForeground(bool b);	// called only by floaterview
 	void			cleanupHandles(); // remove handles to dead floaters
 	void			createMinimizeButton();
 	void			buildButtons(const Params& p);
@@ -413,7 +413,7 @@ private:
 	 */
 	static std::string	getButtonTooltip(const Params& p, EFloaterButton e, bool is_chrome);
 
-	BOOL			offerClickToButton(S32 x, S32 y, MASK mask, EFloaterButton index);
+	bool			offerClickToButton(S32 x, S32 y, MASK mask, EFloaterButton index);
 	void			addResizeCtrls();
 	void			layoutResizeCtrls();
 	void 			addDragHandle();
@@ -474,7 +474,7 @@ private:
 	S32				mLegacyHeaderHeight;// HACK see initFloaterXML()
 	
 	bool			mMinimized;
-	BOOL			mForeground;
+	bool			mForeground;
 	LLHandle<LLFloater>	mDependeeHandle;
 	
 
@@ -486,7 +486,7 @@ private:
 
 	bool			mButtonsEnabled[BUTTON_COUNT];
 	F32				mButtonScale;
-	BOOL			mAutoFocus;
+	bool			mAutoFocus;
 	LLHandle<LLFloater> mSnappedTo;
 	
 	LLHandle<LLFloater> mHostHandle;
@@ -497,7 +497,7 @@ private:
 	bool            mTornOff;
 
 	static LLMultiFloater* sHostp;
-	static BOOL		sQuitting;
+	static bool		sQuitting;
 	static std::string	sButtonNames[BUTTON_COUNT];
 	static std::string	sButtonToolTips[BUTTON_COUNT];
 	static std::string  sButtonToolTipsIndex[BUTTON_COUNT];
@@ -505,7 +505,7 @@ private:
 	typedef void(*click_callback)(LLFloater*);
 	static click_callback sButtonCallbacks[BUTTON_COUNT];
 
-	BOOL			mHasBeenDraggedWhileMinimized;
+	bool			mHasBeenDraggedWhileMinimized;
 	S32				mPreviousMinimizedBottom;
 	S32				mPreviousMinimizedLeft;
 };

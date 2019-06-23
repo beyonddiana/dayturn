@@ -131,12 +131,12 @@ void LLFloaterTranslationSettings::onOpen(const LLSD& key)
 	if (!bing_key.empty())
 	{
 		mBingAPIKeyEditor->setText(bing_key);
-		mBingAPIKeyEditor->setTentative(FALSE);
+		mBingAPIKeyEditor->setTentative(false);
 		verifyKey(LLTranslate::SERVICE_BING, bing_key, false);
 	}
 	else
 	{
-		mBingAPIKeyEditor->setTentative(TRUE);
+		mBingAPIKeyEditor->setTentative(true);
 		mBingKeyVerified = FALSE;
 	}
 
@@ -144,12 +144,12 @@ void LLFloaterTranslationSettings::onOpen(const LLSD& key)
 	if (!google_key.empty())
 	{
 		mGoogleAPIKeyEditor->setText(google_key);
-		mGoogleAPIKeyEditor->setTentative(FALSE);
+		mGoogleAPIKeyEditor->setTentative(false);
 		verifyKey(LLTranslate::SERVICE_GOOGLE, google_key, false);
 	}
 	else
 	{
-		mGoogleAPIKeyEditor->setTentative(TRUE);
+		mGoogleAPIKeyEditor->setTentative(true);
 		mGoogleKeyVerified = FALSE;
 	}
 
@@ -246,7 +246,7 @@ void LLFloaterTranslationSettings::onEditorFocused(LLFocusableElement* control)
 		if (editor->getTentative())
 		{
 			editor->setText(LLStringUtil::null);
-			editor->setTentative(FALSE);
+			editor->setTentative(false);
 		}
 	}
 }

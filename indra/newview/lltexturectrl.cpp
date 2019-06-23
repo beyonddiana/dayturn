@@ -1528,7 +1528,7 @@ void LLTextureCtrl::onFloaterCommit(ETexturePickOp op, LLUUID id)
 			
 		if(floaterp->isDirty() || id.notNull()) // mModelView->setDirty does not work.
 		{
-			setTentative( FALSE );
+			setTentative(false);
 
 			if (id.notNull())
 			{
@@ -1637,7 +1637,7 @@ bool LLTextureCtrl::handleDragAndDrop(S32 x, S32 y, MASK mask,
 
 				// This removes the 'Multiple' overlay, since
 				// there is now only one texture selected.
-				setTentative( FALSE ); 
+				setTentative(false); 
 				onCommit();
 			}
 		}

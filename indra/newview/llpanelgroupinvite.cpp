@@ -625,7 +625,7 @@ void LLPanelGroupInvite::updateLists()
 
 bool LLPanelGroupInvite::postBuild()
 {
-	BOOL recurse = TRUE;
+	bool recurse = true;
 
 	mImplementation->mLoadingText = getString("loading");
 	mImplementation->mRoleNames = getChild<LLComboBox>("role_name",

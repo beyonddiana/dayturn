@@ -292,7 +292,7 @@ void LLPreviewTexture::draw()
 
 
 // virtual
-BOOL LLPreviewTexture::canSaveAs() const
+bool LLPreviewTexture::canSaveAs() const
 {
 	return mIsFullPerm && !mLoadingFullImage && mImage.notNull() && !mImage->isMissingAsset();
 }

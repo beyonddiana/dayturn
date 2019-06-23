@@ -716,7 +716,7 @@ bool LLFloaterExperienceProfile::handleSaveChangesDialog( const LLSD& notificati
     case 1:  // "No"
         if(action != NOTHING)
         {
-            mForceClose = TRUE;
+            mForceClose = true;
             if(action==CLOSE)
             {
                 closeFloater();

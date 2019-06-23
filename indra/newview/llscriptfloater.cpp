@@ -114,7 +114,7 @@ LLScriptFloater* LLScriptFloater::show(const LLUUID& notification_id)
 	floater->createForm(notification_id);
 
 	//LLDialog(LLGiveInventory and LLLoadURL) should no longer steal focus (see EXT-5445)
-	floater->setAutoFocus(FALSE);
+	floater->setAutoFocus(false);
 
 	if(LLScriptFloaterManager::OBJ_SCRIPT == LLScriptFloaterManager::getObjectType(notification_id))
 	{

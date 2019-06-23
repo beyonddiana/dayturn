@@ -566,19 +566,19 @@ void LLPanelObject::getState( )
 		{
 			// owner can move, so not locked
 			mCheckLock->set(FALSE);
-			mCheckLock->setTentative(FALSE);
+			mCheckLock->setTentative(false);
 		}
 		else if(owner_mask_off & PERM_MOVE)
 		{
 			// owner can't move, so locked
 			mCheckLock->set(TRUE);
-			mCheckLock->setTentative(FALSE);
+			mCheckLock->setTentative(false);
 		}
 		else
 		{
 			// some locked, some not locked
 			mCheckLock->set(FALSE);
-			mCheckLock->setTentative(TRUE);
+			mCheckLock->setTentative(true);
 		}
 	}
 
@@ -1185,7 +1185,7 @@ void LLPanelObject::getState( )
 			LLTextureCtrl*  mTextureCtrl = getChild<LLTextureCtrl>("sculpt texture control");
 			if(mTextureCtrl)
 			{
-				mTextureCtrl->setTentative(FALSE);
+				mTextureCtrl->setTentative(false);
 				mTextureCtrl->setEnabled(editable && !isMesh);
 				if (editable)
 					mTextureCtrl->setImageAssetID(sculpt_params->getSculptTexture());

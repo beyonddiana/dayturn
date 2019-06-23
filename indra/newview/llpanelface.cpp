@@ -1045,7 +1045,7 @@ void LLPanelFace::updateUI(bool force_set_values /*false*/)
 				{
 				if (identical_diffuse)
 				{
-					texture_ctrl->setTentative( FALSE );
+					texture_ctrl->setTentative(false);
 					texture_ctrl->setEnabled( editable );
 					texture_ctrl->setImageAssetID( id );
 					getChildView("combobox alphamode")->setEnabled(editable && mIsAlpha && transparency <= 0.f);
@@ -1058,7 +1058,7 @@ void LLPanelFace::updateUI(bool force_set_values /*false*/)
 				else if (id.isNull())
 				{
 					// None selected
-					texture_ctrl->setTentative( FALSE );
+					texture_ctrl->setTentative(false);
 					texture_ctrl->setEnabled(false);
 					texture_ctrl->setImageAssetID( LLUUID::null );
 					getChildView("combobox alphamode")->setEnabled(false);
@@ -1071,7 +1071,7 @@ void LLPanelFace::updateUI(bool force_set_values /*false*/)
 				else
 				{
 					// Tentative: multiple selected with different textures
-					texture_ctrl->setTentative( TRUE );
+					texture_ctrl->setTentative(true);
 					texture_ctrl->setEnabled( editable );
 					texture_ctrl->setImageAssetID( id );
 					getChildView("combobox alphamode")->setEnabled(editable && mIsAlpha && transparency <= 0.f);

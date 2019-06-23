@@ -459,7 +459,7 @@ void LLFloaterProperties::refreshFromItem(LLInventoryItem* item)
 		LLCheckBoxCtrl* ctl = getChild<LLCheckBoxCtrl>("CheckShareWithGroup");
 		if(ctl)
 		{
-			ctl->setTentative(FALSE);
+			ctl->setTentative(false);
 		}
 	}
 	else if (!is_group_copy && !is_group_modify && !is_group_move)
@@ -468,7 +468,7 @@ void LLFloaterProperties::refreshFromItem(LLInventoryItem* item)
 		LLCheckBoxCtrl* ctl = getChild<LLCheckBoxCtrl>("CheckShareWithGroup");
 		if(ctl)
 		{
-			ctl->setTentative(FALSE);
+			ctl->setTentative(false);
 		}
 	}
 	else
@@ -476,7 +476,7 @@ void LLFloaterProperties::refreshFromItem(LLInventoryItem* item)
 		LLCheckBoxCtrl* ctl = getChild<LLCheckBoxCtrl>("CheckShareWithGroup");
 		if(ctl)
 		{
-			ctl->setTentative(TRUE);
+			ctl->setTentative(true);
 			ctl->set(TRUE);
 		}
 	}
