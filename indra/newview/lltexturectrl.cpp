@@ -760,7 +760,7 @@ void LLFloaterTexturePicker::onBtnSelect(void* userdata)
 			local_id = LLLocalBitmapMgr::getInstance()->getWorldID(temp_id);
 		}
 	}
-	self->mViewModel->setDirty();
+	
 	if (self->mOnFloaterCommitCallback)
 	{
 		self->mOnFloaterCommitCallback(LLTextureCtrl::TEXTURE_SELECT, local_id);
@@ -1603,7 +1603,6 @@ void LLTextureCtrl::setBakeTextureEnabled(BOOL enabled)
 	if (floaterp)
 	{
 		floaterp->setBakeTextureEnabled(enabled);
-		floaterp->resetDirty();
 	}
 }
 
