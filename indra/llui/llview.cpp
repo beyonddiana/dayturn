@@ -84,7 +84,7 @@ BOOL LLView::sIsDrawing = FALSE;
 
 // Compiler optimization, generate extern template
 template class LLView* LLView::getChild<class LLView>(
-	const std::string& name, BOOL recurse) const;
+	const std::string& name, bool recurse) const;
 
 static LLDefaultChildRegistry::Register<LLView> r("view");
 
@@ -1590,14 +1590,14 @@ bool LLView::hasChild(const std::string& childname, bool recurse) const
 //-----------------------------------------------------------------------------
 // getChildView()
 //-----------------------------------------------------------------------------
-LLView* LLView::getChildView(const std::string& name, BOOL recurse) const
+LLView* LLView::getChildView(const std::string& name, bool recurse) const
 {
 	return getChild<LLView>(name, recurse);
 }
 
 static LLTrace::BlockTimerStatHandle FTM_FIND_VIEWS("Find Widgets");
 
-LLView* LLView::findChildView(const std::string& name, BOOL recurse) const
+LLView* LLView::findChildView(const std::string& name, bool recurse) const
 {
 	LL_RECORD_BLOCK_TIME(FTM_FIND_VIEWS);
 	//richard: should we allow empty names?
