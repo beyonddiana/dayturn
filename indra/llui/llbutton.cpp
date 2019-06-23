@@ -56,7 +56,7 @@ static LLDefaultChildRegistry::Register<LLButton> r("button");
 
 // Compiler optimization, generate extern template
 template class LLButton* LLView::getChild<class LLButton>(
-	const std::string& name, BOOL recurse) const;
+	const std::string& name, bool recurse) const;
 
 // globals loaded from settings.xml
 S32	LLBUTTON_H_PAD	= 0;
@@ -125,10 +125,10 @@ LLButton::LLButton(const LLButton::Params& p)
 	LLBadgeOwner(getHandle()),
 	mMouseDownFrame(0),
 	mMouseHeldDownCount(0),
-	mBorderEnabled( FALSE ),
-	mFlashing( false ),
+	mBorderEnabled(false),
+	mFlashing(false),
 	mCurGlowStrength(0.f),
-	mNeedsHighlight(FALSE),
+	mNeedsHighlight(false),
 	mUnselectedLabel(p.label()),
 	mSelectedLabel(p.label_selected()),
 	mGLFont(p.font),
@@ -169,7 +169,7 @@ LLButton::LLButton(const LLButton::Params& p)
 	mBottomVPad(p.pad_bottom),
 	mHoverGlowStrength(p.hover_glow_amount),
 	mCommitOnReturn(p.commit_on_return),
-	mFadeWhenDisabled(FALSE),
+	mFadeWhenDisabled(false),
 	mForcePressedState(false),
 	mDisplayPressedState(p.display_pressed_state),
 	mLastDrawCharsCount(0),
@@ -229,7 +229,7 @@ LLButton::LLButton(const LLButton::Params& p)
 		if (p.image_disabled() == default_params.image_disabled() )
 		{
 			mImageDisabled = p.image_unselected;
-			mFadeWhenDisabled = TRUE;
+			mFadeWhenDisabled = true;
 		}
 
 		if (p.image_pressed_selected == default_params.image_pressed_selected)
@@ -245,7 +245,7 @@ LLButton::LLButton(const LLButton::Params& p)
 		if (p.image_disabled_selected() == default_params.image_disabled_selected())
 		{
 			mImageDisabledSelected = p.image_selected;
-			mFadeWhenDisabled = TRUE;
+			mFadeWhenDisabled = true;
 		}
 
 		if (p.image_pressed == default_params.image_pressed)
@@ -603,7 +603,7 @@ void LLButton::onMouseLeave(S32 x, S32 y, MASK mask)
 {
 	LLUICtrl::onMouseLeave(x, y, mask);
 
-	mNeedsHighlight = FALSE;
+	mNeedsHighlight = false;
 }
 
 void LLButton::setHighlight(bool b)
@@ -615,7 +615,7 @@ bool LLButton::handleHover(S32 x, S32 y, MASK mask)
 {
 	if (isInEnabledChain() 
 		&& (!gFocusMgr.getMouseCapture() || gFocusMgr.getMouseCapture() == this))
-		mNeedsHighlight = TRUE;
+		mNeedsHighlight = true;
 
 	if (!childrenHandleHover(x, y, mask))
 	{
@@ -654,7 +654,7 @@ void LLButton::draw()
 	static LLCachedControl<bool> sEnableButtonFlashing(*LLUI::sSettingGroups["config"], "EnableButtonFlashing", true);
 	F32 alpha = mUseDrawContextAlpha ? getDrawContext().mAlpha : getCurrentTransparency();
 
-	bool pressed_by_keyboard = FALSE;
+	bool pressed_by_keyboard = false;
 	if (hasFocus())
 	{
 		pressed_by_keyboard = gKeyboard->getKeyDown(' ') || (mCommitOnReturn && gKeyboard->getKeyDown(KEY_RETURN));
@@ -676,7 +676,7 @@ void LLButton::draw()
 					|| mForcePressedState;
 	bool selected = getToggleState();
 	
-	bool use_glow_effect = FALSE;
+	bool use_glow_effect = false;
 	LLColor4 highlighting_color = LLColor4::white;
 	LLColor4 glow_color = LLColor4::white;
 	LLRender::eBlendType glow_type = LLRender::BT_ADD_WITH_ALPHA;
@@ -708,7 +708,7 @@ void LLButton::draw()
 			else
 			{
 				imagep = mImageSelected;
-				use_glow_effect = TRUE;
+				use_glow_effect = true;
 			}
 		}
 		else
@@ -720,7 +720,7 @@ void LLButton::draw()
 			else
 			{
 				imagep = mImageUnselected;
-				use_glow_effect = TRUE;
+				use_glow_effect = true;
 			}
 		}
 	}
@@ -762,7 +762,7 @@ void LLButton::draw()
 		if (mFlashingTimer)
 		{
 			LLColor4 flash_color = mFlashBgColor.get();
-			use_glow_effect = TRUE;
+			use_glow_effect = true;
 			glow_type = LLRender::BT_ALPHA; // blend the glow
 
 			if (mFlashingTimer->isCurrentlyHighlighted() || !mFlashingTimer->isFlashingInProgress())
@@ -783,7 +783,7 @@ void LLButton::draw()
 
 	if (mNeedsHighlight && !imagep)
 	{
-		use_glow_effect = TRUE;
+		use_glow_effect = true;
 	}
 
 	// Figure out appropriate color for the text
@@ -1173,14 +1173,14 @@ void LLButton::setImageDisabled(LLPointer<LLUIImage> image)
 {
 	mImageDisabled = image;
 	mDisabledImageColor = mImageColor;
-	mFadeWhenDisabled = TRUE;
+	mFadeWhenDisabled = true;
 }
 
 void LLButton::setImageDisabledSelected(LLPointer<LLUIImage> image)
 {
 	mImageDisabledSelected = image;
 	mDisabledImageColor = mImageColor;
-	mFadeWhenDisabled = TRUE;
+	mFadeWhenDisabled = true;
 }
 
 void LLButton::setImagePressed(LLPointer<LLUIImage> image)
