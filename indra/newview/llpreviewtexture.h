@@ -43,7 +43,7 @@ public:
 
 	virtual void		draw();
 
-	virtual BOOL		canSaveAs() const;
+	virtual bool		canSaveAs() const;
 	virtual void		saveAs();
 
 	virtual void		loadAsset();

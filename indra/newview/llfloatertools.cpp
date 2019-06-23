@@ -441,7 +441,7 @@ LLFloaterTools::LLFloaterTools(const LLSD& key)
 {
 	gFloaterTools = this;
 
-	setAutoFocus(FALSE);
+	setAutoFocus(false);
 	mFactoryMap["General"] = LLCallbackMap(createPanelPermissions, this);//LLPanelPermissions
 	mFactoryMap["Object"] = LLCallbackMap(createPanelObject, this);//LLPanelObject
 	mFactoryMap["Features"] = LLCallbackMap(createPanelVolume, this);//LLPanelVolume

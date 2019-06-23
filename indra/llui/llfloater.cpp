@@ -108,7 +108,7 @@ LLFloater::click_callback LLFloater::sButtonCallbacks[BUTTON_COUNT] =
 };
 
 LLMultiFloater* LLFloater::sHostp = NULL;
-BOOL			LLFloater::sQuitting = FALSE; // Flag to prevent storing visibility controls while quitting
+bool			LLFloater::sQuitting = false; // Flag to prevent storing visibility controls while quitting
 
 LLFloaterView* gFloaterView = NULL;
 
@@ -249,14 +249,14 @@ LLFloater::LLFloater(const LLSD& key, const LLFloater::Params& p)
 	mHeaderHeight(p.header_height),
 	mLegacyHeaderHeight(p.legacy_header_height),
 	mMinimized(false),
-	mForeground(FALSE),
+	mForeground(false),
 	mFirstLook(true),
 	mButtonScale(1.0f),
-	mAutoFocus(TRUE), // automatically take focus when opened
+	mAutoFocus(true), // automatically take focus when opened
 	mCanDock(false),
 	mDocked(false),
 	mTornOff(false),
-	mHasBeenDraggedWhileMinimized(FALSE),
+	mHasBeenDraggedWhileMinimized(false),
 	mPreviousMinimizedBottom(0),
 	mPreviousMinimizedLeft(0),
 	mMinimizeSignal(NULL)
@@ -1197,11 +1197,11 @@ void LLFloater::handleReshape(const LLRect& new_rect, bool by_user)
 	else
 	{
 		// If minimized, and origin has changed, set
-		// mHasBeenDraggedWhileMinimized to TRUE
+		// mHasBeenDraggedWhileMinimized to true
 		if ((new_rect.mLeft != old_rect.mLeft) ||
 			(new_rect.mBottom != old_rect.mBottom))
 		{
-			mHasBeenDraggedWhileMinimized = TRUE;
+			mHasBeenDraggedWhileMinimized = true;
 		}
 	}
 }
@@ -1399,7 +1399,7 @@ void LLFloater::setIsChrome(bool is_chrome)
 }
 
 // Change the draw style to account for the foreground state.
-void LLFloater::setForeground(BOOL front)
+void LLFloater::setForeground(bool front)
 {
 	if (front != mForeground)
 	{
@@ -1526,7 +1526,7 @@ void LLFloater::removeDependentFloater(LLFloater* floaterp)
 	floaterp->mDependeeHandle = LLHandle<LLFloater>();
 }
 
-BOOL LLFloater::offerClickToButton(S32 x, S32 y, MASK mask, EFloaterButton index)
+bool LLFloater::offerClickToButton(S32 x, S32 y, MASK mask, EFloaterButton index)
 {
 	if( mButtonsEnabled[index] )
 	{
@@ -1539,10 +1539,10 @@ BOOL LLFloater::offerClickToButton(S32 x, S32 y, MASK mask, EFloaterButton index
 			my_butt->handleMouseDown(local_x, local_y, mask))
 		{
 			// the button handled it
-			return TRUE;
+			return true;
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 BOOL LLFloater::handleScrollWheel(S32 x, S32 y, S32 clicks)
@@ -2561,7 +2561,7 @@ void LLFloaterView::unhighlightFocusedFloater()
 	{
 		LLFloater *floater = (LLFloater *)(*child_it);
 
-		floater->setForeground(FALSE);
+		floater->setForeground(false);
 	}
 }
 

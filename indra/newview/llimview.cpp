@@ -1979,7 +1979,7 @@ LLCallDialog::LLCallDialog(const LLSD& payload)
 	  mPayload(payload),
 	  mLifetime(DEFAULT_LIFETIME)
 {
-	setAutoFocus(FALSE);
+	setAutoFocus(false);
 	// force docked state since this floater doesn't save it between recreations
 	setDocked(true);
 }

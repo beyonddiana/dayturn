@@ -57,7 +57,7 @@ LLFloaterScriptDebug::LLFloaterScriptDebug(const LLSD& key)
 	// the initial size of the tabbed-childs, whenever a tab is opened or closed
 	mAutoResize = FALSE;
 	// enabled autocous blocks controling focus via  LLFloaterReg::showInstance
-	setAutoFocus(FALSE);
+	setAutoFocus(false);
 }
 
 LLFloaterScriptDebug::~LLFloaterScriptDebug()
@@ -184,7 +184,7 @@ LLFloaterScriptDebugOutput::LLFloaterScriptDebugOutput(const LLSD& object_id)
 	mObjectID(object_id.asUUID())
 {
 	// enabled autocous blocks controling focus via  LLFloaterReg::showInstance
-	setAutoFocus(FALSE);
+	setAutoFocus(false);
 }
 
 bool LLFloaterScriptDebugOutput::postBuild()

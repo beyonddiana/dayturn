@@ -521,11 +521,11 @@ void LLSidepanelTaskInfo::refresh()
 			// set to the actual cost.
 			if ((num_for_sale > 0) && is_for_sale_mixed)
 			{
-				edit_price->setTentative(TRUE);
+				edit_price->setTentative(true);
 			}
 			else if ((num_for_sale > 0) && is_sale_price_mixed)
 			{
-				edit_price->setTentative(TRUE);
+				edit_price->setTentative(true);
 			}
 			else 
 			{
@@ -699,19 +699,19 @@ void LLSidepanelTaskInfo::refresh()
 		if ((group_mask_on & PERM_COPY) && (group_mask_on & PERM_MODIFY) && (group_mask_on & PERM_MOVE))
 		{
 			getChild<LLUICtrl>("checkbox share with group")->setValue(TRUE);
-			getChild<LLUICtrl>("checkbox share with group")->setTentative(	FALSE);
+			getChild<LLUICtrl>("checkbox share with group")->setTentative(false);
 			getChildView("button deed")->setEnabled(gAgent.hasPowerInGroup(group_id, GP_OBJECT_DEED) && (owner_mask_on & PERM_TRANSFER) && !group_owned && can_transfer);
 		}
 		else if ((group_mask_off & PERM_COPY) && (group_mask_off & PERM_MODIFY) && (group_mask_off & PERM_MOVE))
 		{
 			getChild<LLUICtrl>("checkbox share with group")->setValue(FALSE);
-			getChild<LLUICtrl>("checkbox share with group")->setTentative(	FALSE);
+			getChild<LLUICtrl>("checkbox share with group")->setTentative(false);
 			getChildView("button deed")->setEnabled(false);
 		}
 		else
 		{
 			getChild<LLUICtrl>("checkbox share with group")->setValue(TRUE);
-			getChild<LLUICtrl>("checkbox share with group")->setTentative(	TRUE);
+			getChild<LLUICtrl>("checkbox share with group")->setTentative(true);
 			getChildView("button deed")->setEnabled(gAgent.hasPowerInGroup(group_id, GP_OBJECT_DEED) && (group_mask_on & PERM_MOVE) && (owner_mask_on & PERM_TRANSFER) && !group_owned && can_transfer);
 		}
 	}			
@@ -722,34 +722,34 @@ void LLSidepanelTaskInfo::refresh()
 		if (everyone_mask_on & PERM_MOVE)
 		{
 			getChild<LLUICtrl>("checkbox allow everyone move")->setValue(TRUE);
-			getChild<LLUICtrl>("checkbox allow everyone move")->setTentative( 	FALSE);
+			getChild<LLUICtrl>("checkbox allow everyone move")->setTentative(false);
 		}
 		else if (everyone_mask_off & PERM_MOVE)
 		{
 			getChild<LLUICtrl>("checkbox allow everyone move")->setValue(FALSE);
-			getChild<LLUICtrl>("checkbox allow everyone move")->setTentative( 	FALSE);
+			getChild<LLUICtrl>("checkbox allow everyone move")->setTentative(false);
 		}
 		else
 		{
 			getChild<LLUICtrl>("checkbox allow everyone move")->setValue(TRUE);
-			getChild<LLUICtrl>("checkbox allow everyone move")->setTentative( 	TRUE);
+			getChild<LLUICtrl>("checkbox allow everyone move")->setTentative(true);
 		}
 
 		// Copy == everyone can't copy
 		if (everyone_mask_on & PERM_COPY)
 		{
 			getChild<LLUICtrl>("checkbox allow everyone copy")->setValue(TRUE);
-			getChild<LLUICtrl>("checkbox allow everyone copy")->setTentative( 	!can_copy || !can_transfer);
+			getChild<LLUICtrl>("checkbox allow everyone copy")->setTentative(!can_copy || !can_transfer);
 		}
 		else if (everyone_mask_off & PERM_COPY)
 		{
 			getChild<LLUICtrl>("checkbox allow everyone copy")->setValue(FALSE);
-			getChild<LLUICtrl>("checkbox allow everyone copy")->setTentative(	FALSE);
+			getChild<LLUICtrl>("checkbox allow everyone copy")->setTentative(false);
 		}
 		else
 		{
 			getChild<LLUICtrl>("checkbox allow everyone copy")->setValue(TRUE);
-			getChild<LLUICtrl>("checkbox allow everyone copy")->setTentative(	TRUE);
+			getChild<LLUICtrl>("checkbox allow everyone copy")->setTentative(true);
 		}
 	}
 
@@ -759,51 +759,51 @@ void LLSidepanelTaskInfo::refresh()
 		if (next_owner_mask_on & PERM_MODIFY)
 		{
 			getChild<LLUICtrl>("checkbox next owner can modify")->setValue(TRUE);
-			getChild<LLUICtrl>("checkbox next owner can modify")->setTentative(	FALSE);
+			getChild<LLUICtrl>("checkbox next owner can modify")->setTentative(false);
 		}
 		else if (next_owner_mask_off & PERM_MODIFY)
 		{
 			getChild<LLUICtrl>("checkbox next owner can modify")->setValue(FALSE);
-			getChild<LLUICtrl>("checkbox next owner can modify")->setTentative(	FALSE);
+			getChild<LLUICtrl>("checkbox next owner can modify")->setTentative(false);
 		}
 		else
 		{
 			getChild<LLUICtrl>("checkbox next owner can modify")->setValue(TRUE);
-			getChild<LLUICtrl>("checkbox next owner can modify")->setTentative(	TRUE);
+			getChild<LLUICtrl>("checkbox next owner can modify")->setTentative(true);
 		}
 
 		// Copy == next owner cannot copy
 		if (next_owner_mask_on & PERM_COPY)
 		{			
 			getChild<LLUICtrl>("checkbox next owner can copy")->setValue(TRUE);
-			getChild<LLUICtrl>("checkbox next owner can copy")->setTentative(	!can_copy);
+			getChild<LLUICtrl>("checkbox next owner can copy")->setTentative(!can_copy);
 		}
 		else if (next_owner_mask_off & PERM_COPY)
 		{
 			getChild<LLUICtrl>("checkbox next owner can copy")->setValue(FALSE);
-			getChild<LLUICtrl>("checkbox next owner can copy")->setTentative(	FALSE);
+			getChild<LLUICtrl>("checkbox next owner can copy")->setTentative(false);
 		}
 		else
 		{
 			getChild<LLUICtrl>("checkbox next owner can copy")->setValue(TRUE);
-			getChild<LLUICtrl>("checkbox next owner can copy")->setTentative(	TRUE);
+			getChild<LLUICtrl>("checkbox next owner can copy")->setTentative(true);
 		}
 
 		// Transfer == next owner cannot transfer
 		if (next_owner_mask_on & PERM_TRANSFER)
 		{
 			getChild<LLUICtrl>("checkbox next owner can transfer")->setValue(TRUE);
-			getChild<LLUICtrl>("checkbox next owner can transfer")->setTentative( !can_transfer);
+			getChild<LLUICtrl>("checkbox next owner can transfer")->setTentative(!can_transfer);
 		}
 		else if (next_owner_mask_off & PERM_TRANSFER)
 		{
 			getChild<LLUICtrl>("checkbox next owner can transfer")->setValue(FALSE);
-			getChild<LLUICtrl>("checkbox next owner can transfer")->setTentative( FALSE);
+			getChild<LLUICtrl>("checkbox next owner can transfer")->setTentative(false);
 		}
 		else
 		{
 			getChild<LLUICtrl>("checkbox next owner can transfer")->setValue(TRUE);
-			getChild<LLUICtrl>("checkbox next owner can transfer")->setTentative( TRUE);
+			getChild<LLUICtrl>("checkbox next owner can transfer")->setTentative(true);
 		}
 	}
 
@@ -816,13 +816,13 @@ void LLSidepanelTaskInfo::refresh()
 	if (valid_sale_info)
 	{
 		combo_sale_type->setValue(					sale_type == LLSaleInfo::FS_NOT ? LLSaleInfo::FS_COPY : sale_type);
-		combo_sale_type->setTentative(				FALSE); // unfortunately this doesn't do anything at the moment.
+		combo_sale_type->setTentative(false); // unfortunately this doesn't do anything at the moment.
 	}
 	else
 	{
 		// default option is sell copy, determined to be safest
 		combo_sale_type->setValue(					LLSaleInfo::FS_COPY);
-		combo_sale_type->setTentative(				TRUE); // unfortunately this doesn't do anything at the moment.
+		combo_sale_type->setTentative(true); // unfortunately this doesn't do anything at the moment.
 	}
 
 	getChild<LLUICtrl>("checkbox for sale")->setValue((num_for_sale != 0));
@@ -845,7 +845,7 @@ void LLSidepanelTaskInfo::refresh()
 	const BOOL all_include_in_search = LLSelectMgr::getInstance()->selectionGetIncludeInSearch(&include_in_search);
 	getChildView("search_check")->setEnabled(has_change_sale_ability && all_volume);
 	getChild<LLUICtrl>("search_check")->setValue(include_in_search);
-	getChild<LLUICtrl>("search_check")->setTentative( 				!all_include_in_search);
+	getChild<LLUICtrl>("search_check")->setTentative(!all_include_in_search);
 
 	// Click action (touch, sit, buy)
 	U8 click_action = 0;

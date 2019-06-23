@@ -161,7 +161,7 @@ bool LLPreviewNotecard::canClose()
 	{
 		if(!mSaveDialogShown)
 		{
-			mSaveDialogShown = TRUE;
+			mSaveDialogShown = true;
 			// Bring up view-modal dialog: Save changes? Yes, No, Cancel
 			LLNotificationsUtil::add("SaveChanges", LLSD(), LLSD(), boost::bind(&LLPreviewNotecard::handleSaveChangesDialog,this, _1, _2));
 		}
@@ -391,7 +391,7 @@ void LLPreviewNotecard::onLoadComplete(LLVFS *vfs,
 			}
 
 			previewEditor->makePristine();
-			BOOL modifiable = preview->canModify(preview->mObjectID, preview->getItem());
+			bool modifiable = preview->canModify(preview->mObjectID, preview->getItem());
 			preview->setEnabled(modifiable);
 			preview->mAssetStatus = PREVIEW_ASSET_LOADED;
 		}
@@ -673,17 +673,17 @@ void LLPreviewNotecard::onSaveComplete(const LLUUID& asset_uuid, void* user_data
 
 bool LLPreviewNotecard::handleSaveChangesDialog(const LLSD& notification, const LLSD& response)
 {
-	mSaveDialogShown = FALSE;
+	mSaveDialogShown = false;
 	S32 option = LLNotificationsUtil::getSelectedOption(notification, response);
 	switch(option)
 	{
 	case 0:  // "Yes"
-		mCloseAfterSave = TRUE;
+		mCloseAfterSave = true;
 		LLPreviewNotecard::onClickSave((void*)this);
 		break;
 
 	case 1:  // "No"
-		mForceClose = TRUE;
+		mForceClose = true;
 		closeFloater();
 		break;
 
@@ -730,7 +730,7 @@ bool LLPreviewNotecard::handleConfirmDeleteDialog(const LLSD& notification, cons
 	}
 
 	// close floater, ignore unsaved changes
-	mForceClose = TRUE;
+	mForceClose = true;
 	closeFloater();
 	return false;
 }

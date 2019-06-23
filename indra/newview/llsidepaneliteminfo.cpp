@@ -633,7 +633,7 @@ void LLSidepanelItemInfo::refreshFromItem(LLViewerInventoryItem* item)
 		LLCheckBoxCtrl* ctl = getChild<LLCheckBoxCtrl>("CheckShareWithGroup");
 		if(ctl)
 		{
-			ctl->setTentative(FALSE);
+			ctl->setTentative(false);
 		}
 	}
 	else if (!is_group_copy && !is_group_modify && !is_group_move)
@@ -642,7 +642,7 @@ void LLSidepanelItemInfo::refreshFromItem(LLViewerInventoryItem* item)
 		LLCheckBoxCtrl* ctl = getChild<LLCheckBoxCtrl>("CheckShareWithGroup");
 		if(ctl)
 		{
-			ctl->setTentative(FALSE);
+			ctl->setTentative(false);
 		}
 	}
 	else

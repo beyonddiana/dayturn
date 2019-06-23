@@ -50,17 +50,16 @@ const S32 LEFT_PAD = BORDER_PAD + TITLE_HPAD + LEADING_PAD;
 S32 LLDragHandle::sSnapMargin = 5;
 
 LLDragHandle::LLDragHandle(const LLDragHandle::Params& p)
-:	LLView(p),
-	mDragLastScreenX( 0 ),
-	mDragLastScreenY( 0 ),
-	mLastMouseScreenX( 0 ),
-	mLastMouseScreenY( 0 ),
-	mTitleBox( NULL ),
-	mMaxTitleWidth( 0 ),
-	mForeground( TRUE ),
-	mDragHighlightColor(p.drag_highlight_color()),
-	mDragShadowColor(p.drag_shadow_color())
-
+    :	LLView(p),
+         mDragLastScreenX( 0 ),
+         mDragLastScreenY( 0 ),
+         mLastMouseScreenX( 0 ),
+         mLastMouseScreenY( 0 ),
+         mTitleBox( NULL ),
+         mMaxTitleWidth( 0 ),
+         mForeground(true),
+         mDragHighlightColor(p.drag_highlight_color()),
+         mDragShadowColor(p.drag_shadow_color())
 {
 	static LLUICachedControl<S32> snap_margin ("SnapMargin", 0);
 	sSnapMargin = snap_margin;

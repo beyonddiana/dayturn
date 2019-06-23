@@ -92,7 +92,7 @@ public:
 	static void			onDiscardBtn(void* data);
 	/*virtual*/ void	handleReshape(const LLRect& new_rect, bool by_user = false);
 
-	void userResized() { mUserResized = TRUE; };
+	void userResized() { mUserResized = true; };
 
 	virtual void loadAsset() { mAssetStatus = PREVIEW_ASSET_LOADED; }
 	virtual EAssetStatus getAssetStatus() { return mAssetStatus;}
@@ -108,7 +108,7 @@ public:
 
 	// We can't modify Item or description in preview if either in-world Object
 	// or Item  itself is unmodifiable
-	static BOOL canModify(const LLUUID taskUUID, const LLInventoryItem* item);
+	static bool canModify(const LLUUID taskUUID, const LLInventoryItem* item);
 
 protected:
 	virtual void onCommit();
@@ -121,7 +121,7 @@ protected:
 	// for LLInventoryObserver 
 	virtual void changed(U32 mask);	
 	bool mDirty;
-	BOOL mSaveDialogShown;
+	bool mSaveDialogShown;
 
 protected:
 	LLUUID mItemUUID;
@@ -138,13 +138,13 @@ protected:
 	LLButton* mCopyToInvBtn;
 
 	// Close without saving changes
-	BOOL mForceClose;
+	bool mForceClose;
 
-	BOOL mUserResized;
+	bool mUserResized;
 
 	// When closing springs a "Want to save?" dialog, we want
 	// to keep the preview open until the save completes.
-	BOOL mCloseAfterSave;
+	bool mCloseAfterSave;
 
 	EAssetStatus mAssetStatus;
 

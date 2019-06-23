@@ -56,7 +56,7 @@ public:
 
 	inline bool        isTerrain() const                   {return mIsTerrain;};
 	inline U32         getLandImpact() const               {return mLandImpact;};
-	BOOL               isModifiable() const                {return mIsModifiable;};
+	bool               isModifiable() const                {return mIsModifiable;};
 	BOOL               isPhantom() const;
 	BOOL               canBeVolume() const                 {return mCanBeVolume;};
 	static ELinksetUse getLinksetUseWithToggledPhantom(ELinksetUse pLinksetUse);
@@ -100,7 +100,7 @@ private:
 
 	bool         mIsTerrain;
 	U32          mLandImpact;
-	BOOL         mIsModifiable;
+	bool         mIsModifiable;
 	BOOL         mCanBeVolume;
 	BOOL         mIsScripted;
 	BOOL         mHasIsScripted;

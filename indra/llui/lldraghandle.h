@@ -61,8 +61,8 @@ public:
 
 	virtual void setValue(const LLSD& value);
 
-	void			setForeground(BOOL b)		{ mForeground = b; }
-	BOOL			getForeground() const		{ return mForeground; }
+	void			setForeground(bool b)		{ mForeground = b; }
+	bool			getForeground() const		{ return mForeground; }
 	void			setMaxTitleWidth(S32 max_width) {mMaxTitleWidth = llmin(max_width, mMaxTitleWidth); }
 	S32				getMaxTitleWidth() const { return mMaxTitleWidth; }
 	void			setButtonsRect(const LLRect& rect){ mButtonsRect = rect; }
@@ -93,7 +93,7 @@ private:
 	LLUIColor		mDragHighlightColor;
 	LLUIColor		mDragShadowColor;
 	S32				mMaxTitleWidth;
-	BOOL			mForeground;
+	bool			mForeground;
 
 	// Pixels near the edge to snap floaters.
 	static S32		sSnapMargin;
