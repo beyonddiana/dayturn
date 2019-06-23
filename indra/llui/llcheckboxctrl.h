@@ -101,8 +101,8 @@ public:
 			BOOL		get() { return (BOOL)getValue().asBoolean(); }
 			void		set(BOOL value) { setValue(value); }
 
-	virtual void		setTentative(BOOL b);
-	virtual BOOL		getTentative() const;
+	virtual void		setTentative(bool b);
+	virtual bool		getTentative() const;
 
 	virtual bool		setLabelArg( const std::string& key, const LLStringExplicit& text );
 
@@ -110,7 +110,7 @@ public:
 	virtual void		onCommit();
 
 	// LLCheckBoxCtrl interface
-	virtual BOOL		toggle()				{ return mButton->toggleState(); }		// returns new state
+	virtual bool		toggle()				{ return mButton->toggleState(); }		// returns new state
 
 	void				setBtnFocus() { mButton->setFocus(true); }
 

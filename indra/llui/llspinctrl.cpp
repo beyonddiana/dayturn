@@ -405,7 +405,7 @@ void LLSpinCtrl::setEnabled(bool b)
 }
 
 
-void LLSpinCtrl::setTentative(BOOL b)
+void LLSpinCtrl::setTentative(bool b)
 {
 	mEditor->setTentative(b);
 	LLUICtrl::setTentative(b);
@@ -421,7 +421,7 @@ BOOL LLSpinCtrl::isMouseHeldDown() const
 
 void LLSpinCtrl::onCommit()
 {
-	setTentative(FALSE);
+	setTentative(false);
 	setControlValue(getValueF32());
 	LLF32UICtrl::onCommit();
 }

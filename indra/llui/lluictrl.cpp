@@ -991,13 +991,13 @@ boost::signals2::connection LLUICtrl::setValidateBeforeCommit( boost::function<b
 }
 
 // virtual
-void LLUICtrl::setTentative(BOOL b)									
+void LLUICtrl::setTentative(bool b)									
 { 
 	mTentative = b; 
 }
 
 // virtual
-BOOL LLUICtrl::getTentative() const									
+bool LLUICtrl::getTentative() const
 { 
 	return mTentative; 
 }
