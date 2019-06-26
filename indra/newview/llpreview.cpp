@@ -266,7 +266,7 @@ void LLPreview::onRadio(LLUICtrl*, void* userdata)
 }
 
 // static
-void LLPreview::hide(const LLUUID& item_uuid, BOOL no_saving /* = FALSE */ )
+void LLPreview::hide(const LLUUID& item_uuid, bool no_saving /* = false */ )
 {
 	LLFloater* floater = LLFloaterReg::findInstance("preview", LLSD(item_uuid));
 	if (!floater) floater = LLFloaterReg::findInstance("preview_avatar", LLSD(item_uuid));
