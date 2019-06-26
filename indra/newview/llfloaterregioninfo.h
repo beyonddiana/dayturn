@@ -367,8 +367,8 @@ public:
 	virtual bool estateUpdate(LLMessageSystem* msg);
 
 	// LLView overrides
-	BOOL handleDragAndDrop(S32 x, S32 y, MASK mask,
-						   BOOL drop, EDragAndDropType cargo_type,
+	bool handleDragAndDrop(S32 x, S32 y, MASK mask,
+						   bool drop, EDragAndDropType cargo_type,
 						   void *cargo_data, EAcceptance *accept,
 						   std::string& tooltip_msg);
 	static bool confirmChangeCovenantCallback(const LLSD& notification, const LLSD& response);

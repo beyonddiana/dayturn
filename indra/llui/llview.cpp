@@ -1044,7 +1044,7 @@ BOOL LLView::handleUnicodeCharHere(llwchar uni_char )
 }
 
 
-BOOL LLView::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
+bool LLView::handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
 							   EDragAndDropType cargo_type, void* cargo_data,
 							   EAcceptance* accept,
 							   std::string& tooltip_msg)

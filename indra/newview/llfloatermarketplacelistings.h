@@ -52,7 +52,7 @@ class LLPanelMarketplaceListings : public LLPanel
 public:
     LLPanelMarketplaceListings();
 	bool postBuild();
-	BOOL handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
+	bool handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
 						   EDragAndDropType cargo_type,
 						   void* cargo_data,
 						   EAcceptance* accept,
@@ -99,7 +99,7 @@ public:
     
 	// virtuals
 	bool postBuild();
-	BOOL handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
+	bool handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
 						   EDragAndDropType cargo_type,
 						   void* cargo_data,
 						   EAcceptance* accept,

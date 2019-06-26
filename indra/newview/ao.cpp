@@ -747,7 +747,7 @@ void FloaterAO::onAnimationChanged(const LLUUID& animation)
 }
 
 // virtual
-BOOL FloaterAO::handleDragAndDrop(S32 x,S32 y,MASK mask,BOOL drop,EDragAndDropType type,void* data,
+bool FloaterAO::handleDragAndDrop(S32 x,S32 y,MASK mask,bool drop,EDragAndDropType type,void* data,
 									EAcceptance* accept,std::string& tooltipMsg)
 {
 	// no drag & drop on small interface
@@ -755,7 +755,7 @@ BOOL FloaterAO::handleDragAndDrop(S32 x,S32 y,MASK mask,BOOL drop,EDragAndDropTy
 	{
 		tooltipMsg = getString("ao_dnd_only_on_full_interface");
 		*accept=ACCEPT_NO;
-		return TRUE;
+		return true;
 	}
 
 	LLInventoryItem* item=(LLInventoryItem*) data;
@@ -765,7 +765,7 @@ BOOL FloaterAO::handleDragAndDrop(S32 x,S32 y,MASK mask,BOOL drop,EDragAndDropTy
 		if(mImportRunning)
 		{
 			*accept=ACCEPT_NO;
-			return TRUE;
+			return true;
 		}
 		*accept=ACCEPT_YES_SINGLE;
 		if(item && drop)
@@ -783,7 +783,7 @@ BOOL FloaterAO::handleDragAndDrop(S32 x,S32 y,MASK mask,BOOL drop,EDragAndDropTy
 		if(!drop && (!mSelectedSet || !mSelectedState || !mCanDragAndDrop))
 		{
 			*accept=ACCEPT_NO;
-			return TRUE;
+			return true;
 		}
 		*accept=ACCEPT_YES_MULTI;
 		if(item && drop)
@@ -801,5 +801,5 @@ BOOL FloaterAO::handleDragAndDrop(S32 x,S32 y,MASK mask,BOOL drop,EDragAndDropTy
 	else
 		*accept=ACCEPT_NO;
 
-	return TRUE;
+	return true;
 }

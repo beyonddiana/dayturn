@@ -89,7 +89,7 @@ public:
 	virtual BOOL	handleDoubleClick(S32 x, S32 y, MASK mask);
 	virtual BOOL	handleHover(S32 x, S32 y, MASK mask);
 	virtual BOOL	handleScrollWheel(S32 x, S32 y, S32 clicks);
-	virtual BOOL	handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop, 
+	virtual bool	handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
 		EDragAndDropType cargo_type, void *cargo_data, EAcceptance *accept, std::string &tooltip_msg);
 
 	virtual void	reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);

@@ -80,7 +80,7 @@ public:
 	virtual void onMouseEnter(S32 x, S32 y, MASK mask);
 	virtual void onMouseLeave(S32 x, S32 y, MASK mask);
 	virtual BOOL handleKey(KEY key, MASK mask, BOOL called_from_parent);
-	virtual BOOL handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
+	virtual bool handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
 								   EDragAndDropType cargo_type,
 								   void* cargo_data,
 								   EAcceptance* accept,
@@ -286,8 +286,8 @@ BOOL LLAccordionCtrlTab::LLAccordionCtrlTabHeader::handleKey(KEY key, MASK mask,
 	}
 	return LLUICtrl::handleKey(key, mask, called_from_parent);
 }
-BOOL LLAccordionCtrlTab::LLAccordionCtrlTabHeader::handleDragAndDrop(S32 x, S32 y, MASK mask,
-																	 BOOL drop,
+bool LLAccordionCtrlTab::LLAccordionCtrlTabHeader::handleDragAndDrop(S32 x, S32 y, MASK mask,
+																	 bool drop,
 																	 EDragAndDropType cargo_type,
 																	 void* cargo_data,
 																	 EAcceptance* accept,
@@ -303,7 +303,7 @@ BOOL LLAccordionCtrlTab::LLAccordionCtrlTabHeader::handleDragAndDrop(S32 x, S32 
 			{
 				parent->changeOpenClose(false);
 				mAutoOpenTimer.stop();
-				return TRUE;
+				return true;
 			}
 		}
 		else

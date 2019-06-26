@@ -1683,14 +1683,14 @@ void LLPanelObjectInventory::deleteAllChildren()
 	LLView::deleteAllChildren();
 }
 
-BOOL LLPanelObjectInventory::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop, EDragAndDropType cargo_type, void *cargo_data, EAcceptance *accept, std::string& tooltip_msg)
+bool LLPanelObjectInventory::handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop, EDragAndDropType cargo_type, void *cargo_data, EAcceptance *accept, std::string& tooltip_msg)
 {
 	if (mFolders)
 	{
 		LLFolderViewItem* folderp = mFolders->getNextFromChild(NULL);
 		if (!folderp)
 		{
-			return FALSE;
+			return false;
 		}
 		// Try to pass on unmodified mouse coordinates
 		S32 local_x = x - mFolders->getRect().mLeft;
@@ -1708,7 +1708,7 @@ BOOL LLPanelObjectInventory::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL dro
 	}
 	else
 	{
-		return FALSE;
+		return false;
 	}
 }
 

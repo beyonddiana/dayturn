@@ -2304,7 +2304,7 @@ void LLPanelEstateCovenant::updateChild(LLUICtrl* child_ctrl)
 }
 
 // virtual
-BOOL LLPanelEstateCovenant::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
+bool LLPanelEstateCovenant::handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
 								  EDragAndDropType cargo_type,
 								  void* cargo_data,
 								  EAcceptance* accept,
@@ -2315,8 +2315,266 @@ BOOL LLPanelEstateCovenant::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop
 	if (!gAgent.canManageEstate())
 	{
 		*accept = ACCEPT_NO;
-		return TRUE;
+		return true;
 	}
+	else
+	{
+		// for normal estates, just make the change
+		LLNotifications::instance().forceResponse(params, 0);
+	}
+	return true;
+}
+
+bool LLPanelEstateInfo::callbackChangeLindenEstate(const LLSD& notification, const LLSD& response)
+{
+	S32 option = LLNotificationsUtil::getSelectedOption(notification, response);
+	switch(option)
+	{
+	case 0:
+		{
+			LLEstateInfoModel& estate_info = LLEstateInfoModel::instance();
+
+			// update model
+			estate_info.setUseFixedSun(false); // we don't support fixed sun estates anymore
+			estate_info.setIsExternallyVisible(getChild<LLUICtrl>("externally_visible_check")->getValue().asBoolean());
+			estate_info.setAllowDirectTeleport(getChild<LLUICtrl>("allow_direct_teleport")->getValue().asBoolean());
+			estate_info.setDenyAnonymous(getChild<LLUICtrl>("limit_payment")->getValue().asBoolean());
+			estate_info.setDenyAgeUnverified(getChild<LLUICtrl>("limit_age_verified")->getValue().asBoolean());
+			estate_info.setAllowVoiceChat(getChild<LLUICtrl>("voice_chat_check")->getValue().asBoolean());
+
+			// send the update to sim
+			estate_info.sendEstateInfo();
+		}
+
+		// we don't want to do this because we'll get it automatically from the sim
+		// after the spaceserver processes it
+//		else
+//		{
+//			// caps method does not automatically send this info
+//			LLFloaterRegionInfo::requestRegionInfo();
+//		}
+		break;
+	case 1:
+	default:
+		// do nothing
+		break;
+	}
+	return false;
+}
+
+
+/*
+// Request = "getowner"
+// SParam[0] = "" (empty string)
+// IParam[0] = serial
+void LLPanelEstateInfo::getEstateOwner()
+{
+	// TODO -- disable the panel
+	// and call this function whenever we cross a region boundary
+	// re-enable when owner matches, and get new estate info
+	LLMessageSystem* msg = gMessageSystem;
+	msg->newMessageFast(_PREHASH_EstateOwnerRequest);
+	msg->nextBlockFast(_PREHASH_AgentData);
+	msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
+
+	msg->nextBlockFast(_PREHASH_RequestData);
+	msg->addStringFast(_PREHASH_Request, "getowner");
+
+	// we send an empty string so that the variable block is not empty
+	msg->nextBlockFast(_PREHASH_StringData);
+	msg->addStringFast(_PREHASH_SParam, "");
+
+	msg->nextBlockFast(_PREHASH_IntegerData);
+	msg->addS32Fast(_PREHASH_IParam, LLFloaterRegionInfo::getSerial());
+
+	gAgent.sendMessage();
+}
+*/
+
+class LLEstateChangeInfoResponder : public LLHTTPClient::Responder
+{
+	LOG_CLASS(LLEstateChangeInfoResponder);
+public:
+	LLEstateChangeInfoResponder(LLPanelEstateInfo* panel)
+	{
+		mpPanel = panel->getHandle();
+	}
+	
+protected:
+	// if we get a normal response, handle it here
+	virtual void httpSuccess()
+	{
+		LL_INFOS("Windlight") << "Successfully committed estate info" << LL_ENDL;
+
+	    // refresh the panel from the database
+		LLPanelEstateInfo* panel = dynamic_cast<LLPanelEstateInfo*>(mpPanel.get());
+		if (panel)
+			panel->refresh();
+	}
+	
+	// if we get an error response
+	virtual void httpFailure()
+	{
+		LL_WARNS("Windlight") << dumpResponse() << LL_ENDL;
+	}
+private:
+	LLHandle<LLPanel> mpPanel;
+};
+
+const std::string LLPanelEstateInfo::getOwnerName() const
+{
+	return getChild<LLUICtrl>("estate_owner")->getValue().asString();
+}
+
+void LLPanelEstateInfo::setOwnerName(const std::string& name)
+{
+	getChild<LLUICtrl>("estate_owner")->setValue(LLSD(name));
+}
+
+void LLPanelEstateInfo::clearAccessLists() 
+{
+	LLNameListCtrl* name_list = getChild<LLNameListCtrl>("allowed_avatar_name_list");
+	if (name_list)
+	{
+		name_list->deleteAllItems();
+	}
+
+	name_list = getChild<LLNameListCtrl>("banned_avatar_name_list");
+	if (name_list)
+	{
+		name_list->deleteAllItems();
+	}
+	updateControls(gAgent.getRegion());
+}
+
+// static
+void LLPanelEstateInfo::onClickMessageEstate(void* userdata)
+{
+	LL_INFOS() << "LLPanelEstateInfo::onClickMessageEstate" << LL_ENDL;
+	LLNotificationsUtil::add("MessageEstate", LLSD(), LLSD(), boost::bind(&LLPanelEstateInfo::onMessageCommit, (LLPanelEstateInfo*)userdata, _1, _2));
+}
+
+bool LLPanelEstateInfo::onMessageCommit(const LLSD& notification, const LLSD& response)
+{
+	S32 option = LLNotificationsUtil::getSelectedOption(notification, response);
+	std::string text = response["message"].asString();
+	if(option != 0) return false;
+	if(text.empty()) return false;
+	LL_INFOS() << "Message to everyone: " << text << LL_ENDL;
+	strings_t strings;
+	//integers_t integers;
+	std::string name;
+	LLAgentUI::buildFullname(name);
+	strings.push_back(strings_t::value_type(name));
+	strings.push_back(strings_t::value_type(text));
+	LLUUID invoice(LLFloaterRegionInfo::getLastInvoice());
+	sendEstateOwnerMessage(gMessageSystem, "instantmessage", invoice, strings);
+	return false;
+}
+
+LLPanelEstateCovenant::LLPanelEstateCovenant()
+	:
+	mCovenantID(LLUUID::null),
+	mAssetStatus(ASSET_ERROR)
+{
+}
+
+// virtual 
+bool LLPanelEstateCovenant::refreshFromRegion(LLViewerRegion* region)
+{
+	LLTextBox* region_name = getChild<LLTextBox>("region_name_text");
+	if (region_name)
+	{
+		region_name->setText(region->getName());
+	}
+
+	LLTextBox* resellable_clause = getChild<LLTextBox>("resellable_clause");
+	if (resellable_clause)
+	{
+		if (region->getRegionFlag(REGION_FLAGS_BLOCK_LAND_RESELL))
+		{
+			resellable_clause->setText(getString("can_not_resell"));
+		}
+		else
+		{
+			resellable_clause->setText(getString("can_resell"));
+		}
+	}
+	
+	LLTextBox* changeable_clause = getChild<LLTextBox>("changeable_clause");
+	if (changeable_clause)
+	{
+		if (region->getRegionFlag(REGION_FLAGS_ALLOW_PARCEL_CHANGES))
+		{
+			changeable_clause->setText(getString("can_change"));
+		}
+		else
+		{
+			changeable_clause->setText(getString("can_not_change"));
+		}
+	}
+
+	LLTextBox* region_maturity = getChild<LLTextBox>("region_maturity_text");
+	if (region_maturity)
+	{
+		region_maturity->setText(region->getSimAccessString());
+	}
+	
+	LLTextBox* region_landtype = getChild<LLTextBox>("region_landtype_text");
+	region_landtype->setText(region->getLocalizedSimProductName());
+	
+	// let the parent class handle the general data collection. 
+	bool rv = LLPanelRegionInfo::refreshFromRegion(region);
+	LLMessageSystem *msg = gMessageSystem;
+	msg->newMessage("EstateCovenantRequest");
+	msg->nextBlockFast(_PREHASH_AgentData);
+	msg->addUUIDFast(_PREHASH_AgentID,	gAgent.getID());
+	msg->addUUIDFast(_PREHASH_SessionID,gAgent.getSessionID());
+	msg->sendReliable(region->getHost());
+	return rv;
+}
+
+// virtual 
+bool LLPanelEstateCovenant::estateUpdate(LLMessageSystem* msg)
+{
+	LL_INFOS() << "LLPanelEstateCovenant::estateUpdate()" << LL_ENDL;
+	return true;
+}
+	
+// virtual 
+bool LLPanelEstateCovenant::postBuild()
+{
+	mEstateNameText = getChild<LLTextBox>("estate_name_text");
+	mEstateOwnerText = getChild<LLTextBox>("estate_owner_text");
+	mLastModifiedText = getChild<LLTextBox>("covenant_timestamp_text");
+	mEditor = getChild<LLViewerTextEditor>("covenant_editor");
+	LLButton* reset_button = getChild<LLButton>("reset_covenant");
+	reset_button->setEnabled(gAgent.canManageEstate());
+	reset_button->setClickedCallback(LLPanelEstateCovenant::resetCovenantID, NULL);
+
+	return LLPanelRegionInfo::postBuild();
+}
+
+// virtual 
+void LLPanelEstateCovenant::updateChild(LLUICtrl* child_ctrl)
+{
+}
+
+// virtual
+bool LLPanelEstateCovenant::handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
+								  EDragAndDropType cargo_type,
+								  void* cargo_data,
+								  EAcceptance* accept,
+								  std::string& tooltip_msg)
+{
+	LLInventoryItem* item = (LLInventoryItem*)cargo_data;
+
+	if (!gAgent.canManageEstate())
+	{
+		*accept = ACCEPT_NO;
+		return true;
+	}
+>>>>>>> 51f8bc355f... DAYTW-32 Convert BOOL handleDragAndDrop
 
 	switch(cargo_type)
 	{
@@ -2335,7 +2593,7 @@ BOOL LLPanelEstateCovenant::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop
 		break;
 	}
 
-	return TRUE;
+	return true;
 } 
 
 // static 
