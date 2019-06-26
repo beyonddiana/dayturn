@@ -75,7 +75,7 @@ public:
 	void setAssetId(const LLUUID& asset_id);
 	const LLInventoryItem* getItem() const; // searches if not constructed with it
 
-	static void hide(const LLUUID& item_uuid, BOOL no_saving = FALSE );
+	static void hide(const LLUUID& item_uuid, bool no_saving = false );
 	static void	dirty(const LLUUID& item_uuid);
 	
 	virtual BOOL handleMouseDown(S32 x, S32 y, MASK mask);
