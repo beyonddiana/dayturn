@@ -1486,7 +1486,7 @@ BOOL LLFolderView::handleHover( S32 x, S32 y, MASK mask )
 	return LLView::handleHover( x, y, mask );
 }
 
-BOOL LLFolderView::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
+bool LLFolderView::handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
 									 EDragAndDropType cargo_type,
 									 void* cargo_data, 
 									 EAcceptance* accept,
@@ -1494,7 +1494,7 @@ BOOL LLFolderView::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
 {
 	mDragAndDropThisFrame = TRUE;
 	// have children handle it first
-	BOOL handled = LLView::handleDragAndDrop(x, y, mask, drop, cargo_type, cargo_data,
+	bool handled = LLView::handleDragAndDrop(x, y, mask, drop, cargo_type, cargo_data,
 											 accept, tooltip_msg);
 
 	// when drop is not handled by child, it should be handled

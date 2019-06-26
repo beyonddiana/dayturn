@@ -241,9 +241,9 @@ void LLFloaterTexturePicker::updateImageStats()
 }
 
 // virtual
-BOOL LLFloaterTexturePicker::handleDragAndDrop( 
+bool LLFloaterTexturePicker::handleDragAndDrop(
 		S32 x, S32 y, MASK mask,
-		BOOL drop,
+		bool drop,
 		EDragAndDropType cargo_type, void *cargo_data, 
 		EAcceptance *accept,
 		std::string& tooltip_msg)
@@ -255,7 +255,7 @@ BOOL LLFloaterTexturePicker::handleDragAndDrop(
 		return TRUE; 
 	}
 //mk
-	BOOL handled = FALSE;
+	bool handled = false;
 
 	bool is_mesh = cargo_type == DAD_MESH;
 
@@ -263,9 +263,9 @@ BOOL LLFloaterTexturePicker::handleDragAndDrop(
 	{
 		LLInventoryItem *item = (LLInventoryItem *)cargo_data;
 
-		BOOL copy = item->getPermissions().allowCopyBy(gAgent.getID());
-		BOOL mod = item->getPermissions().allowModifyBy(gAgent.getID());
-		BOOL xfer = item->getPermissions().allowOperationBy(PERM_TRANSFER,
+		bool copy = item->getPermissions().allowCopyBy(gAgent.getID());
+		bool mod = item->getPermissions().allowModifyBy(gAgent.getID());
+		bool xfer = item->getPermissions().allowOperationBy(PERM_TRANSFER,
 															gAgent.getID());
 
 		PermissionMask item_perm_mask = 0;
@@ -295,7 +295,7 @@ BOOL LLFloaterTexturePicker::handleDragAndDrop(
 		*accept = ACCEPT_NO;
 	}
 
-	handled = TRUE;
+	handled = true;
 	LL_DEBUGS("UserInput") << "dragAndDrop handled by LLFloaterTexturePicker " << getName() << LL_ENDL;
 
 	return handled;
@@ -1611,12 +1611,12 @@ void LLTextureCtrl::setBakeTextureEnabled(BOOL enabled)
 	}
 }
 
-BOOL LLTextureCtrl::handleDragAndDrop(S32 x, S32 y, MASK mask,
-					  BOOL drop, EDragAndDropType cargo_type, void *cargo_data,
+bool LLTextureCtrl::handleDragAndDrop(S32 x, S32 y, MASK mask,
+					  bool drop, EDragAndDropType cargo_type, void *cargo_data,
 					  EAcceptance *accept,
 					  std::string& tooltip_msg)
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 
 	// this downcast may be invalid - but if the second test below
 	// returns true, then the cast was valid, and we can perform
@@ -1649,7 +1649,7 @@ BOOL LLTextureCtrl::handleDragAndDrop(S32 x, S32 y, MASK mask,
 		*accept = ACCEPT_NO;
 	}
 
-	handled = TRUE;
+	handled = true;
 	LL_DEBUGS("UserInput") << "dragAndDrop handled by LLTextureCtrl " << getName() << LL_ENDL;
 
 	return handled;

@@ -389,7 +389,7 @@ public:
 	/* virtual */ BOOL	handleKeyUp(KEY key, MASK mask, BOOL called_from_parent);
 	/* virtual */ BOOL	handleUnicodeChar(llwchar uni_char, BOOL called_from_parent);
 
-	virtual BOOL	handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
+	virtual bool	handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
 									  EDragAndDropType cargo_type,
 									  void* cargo_data,
 									  EAcceptance* accept,

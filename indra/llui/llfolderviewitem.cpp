@@ -637,14 +637,14 @@ void LLFolderViewItem::onMouseLeave(S32 x, S32 y, MASK mask)
 	mIsMouseOverTitle = false;
 }
 
-BOOL LLFolderViewItem::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
+bool LLFolderViewItem::handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
 										 EDragAndDropType cargo_type,
 										 void* cargo_data,
 										 EAcceptance* accept,
 										 std::string& tooltip_msg)
 {
-	BOOL handled = FALSE;
-	BOOL accepted = getViewModelItem()->dragOrDrop(mask,drop,cargo_type,cargo_data, tooltip_msg);
+	bool handled = false;
+	bool accepted = getViewModelItem()->dragOrDrop(mask,drop,cargo_type,cargo_data, tooltip_msg);
 		handled = accepted;
 		if (accepted)
 		{
@@ -1835,14 +1835,14 @@ void LLFolderViewFolder::applyFunctorRecursively(LLFolderViewFunctor& functor)
 }
 
 // LLView functionality
-BOOL LLFolderViewFolder::handleDragAndDrop(S32 x, S32 y, MASK mask,
-										   BOOL drop,
+bool LLFolderViewFolder::handleDragAndDrop(S32 x, S32 y, MASK mask,
+										   bool drop,
 										   EDragAndDropType cargo_type,
 										   void* cargo_data,
 										   EAcceptance* accept,
 										   std::string& tooltip_msg)
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 
 	if (isOpen())
 	{
@@ -1856,7 +1856,7 @@ BOOL LLFolderViewFolder::handleDragAndDrop(S32 x, S32 y, MASK mask,
 		LL_DEBUGS("UserInput") << "dragAndDrop handled by LLFolderViewFolder" << LL_ENDL;
 	}
 
-	return TRUE;
+	return true;
 }
 
 BOOL LLFolderViewFolder::handleDragAndDropToThisFolder(MASK mask,

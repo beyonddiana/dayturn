@@ -58,7 +58,7 @@ public:
 
 	/*virtual*/ bool postBuild();
 
-	/*virtual*/ BOOL handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
+	/*virtual*/ bool handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
 								   EDragAndDropType cargo_type,
 								   void* cargo_data,
 								   EAcceptance* accept,
@@ -71,7 +71,7 @@ public:
 	virtual void reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
 	virtual void draw();
 
-	void showDragMarker(BOOL show) { mShowDragMarker = show; }
+	void showDragMarker(bool show) { mShowDragMarker = show; }
 	void setLandingTab(LLUICtrl* tab) { mLandingTab = tab; }
 
 protected:
@@ -151,7 +151,7 @@ private:
 
 	void positionAndShowMenu(LLToggleableMenu* menu);
 
-	BOOL mShowDragMarker;
+	bool mShowDragMarker;
 	LLUICtrl* mLandingTab;
 	LLUICtrl* mLastTab;
 	LLTextBox* mMoreTextBox;

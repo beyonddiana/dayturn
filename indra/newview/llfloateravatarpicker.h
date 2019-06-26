@@ -60,8 +60,8 @@ public:
 	static void processAvatarPickerReply(class LLMessageSystem* msg, void**);
 	void processResponse(const LLUUID& query_id, const LLSD& content);
 
-	BOOL handleDragAndDrop(S32 x, S32 y, MASK mask,
-						   BOOL drop, EDragAndDropType cargo_type,
+	bool handleDragAndDrop(S32 x, S32 y, MASK mask,
+						   bool drop, EDragAndDropType cargo_type,
 						   void *cargo_data, EAcceptance *accept,
 						   std::string& tooltip_msg);
 

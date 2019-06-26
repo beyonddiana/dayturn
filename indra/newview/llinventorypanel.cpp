@@ -1064,13 +1064,13 @@ BOOL LLInventoryPanel::handleHover(S32 x, S32 y, MASK mask)
 	return TRUE;
 }
 
-BOOL LLInventoryPanel::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
+bool LLInventoryPanel::handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
 								   EDragAndDropType cargo_type,
 								   void* cargo_data,
 								   EAcceptance* accept,
 								   std::string& tooltip_msg)
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 
 	if (mAcceptsDragAndDrop)
 	{

@@ -847,9 +847,9 @@ BOOL LLTabContainer::handleKeyHere(KEY key, MASK mask)
 }
 
 // virtual
-BOOL LLTabContainer::handleDragAndDrop(S32 x, S32 y, MASK mask,	BOOL drop,	EDragAndDropType type, void* cargo_data, EAcceptance *accept, std::string	&tooltip)
+bool LLTabContainer::handleDragAndDrop(S32 x, S32 y, MASK mask,	bool drop,	EDragAndDropType type, void* cargo_data, EAcceptance *accept, std::string	&tooltip)
 {
-	BOOL has_scroll_arrows = !mHideScrollArrows && (getMaxScrollPos() > 0);
+	bool has_scroll_arrows = !mHideScrollArrows && (getMaxScrollPos() > 0);
 
 	if(mOpenTabsOnDragAndDrop && !getTabsHidden())
 	{

@@ -571,8 +571,8 @@ BOOL LLAccordionCtrl::handleKeyHere			(KEY key, MASK mask)
 	return LLPanel::handleKeyHere(key,mask);
 }
 
-BOOL LLAccordionCtrl::handleDragAndDrop		(S32 x, S32 y, MASK mask,
-											 BOOL drop,
+bool LLAccordionCtrl::handleDragAndDrop		(S32 x, S32 y, MASK mask,
+											 bool drop,
 											 EDragAndDropType cargo_type,
 											 void* cargo_data,
 											 EAcceptance* accept,
@@ -580,14 +580,14 @@ BOOL LLAccordionCtrl::handleDragAndDrop		(S32 x, S32 y, MASK mask,
 {
 	// Scroll folder view if needed.  Never accepts a drag or drop.
 	*accept = ACCEPT_NO;
-	BOOL handled = autoScroll(x, y);
+	bool handled = autoScroll(x, y);
 
 	if( !handled )
 	{
 		handled = childrenHandleDragAndDrop(x, y, mask, drop, cargo_type,
 											cargo_data, accept, tooltip_msg) != NULL;
 	}
-	return TRUE;
+	return true;
 }
 
 BOOL LLAccordionCtrl::autoScroll		(S32 x, S32 y)

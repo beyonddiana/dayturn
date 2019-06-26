@@ -684,7 +684,7 @@ void LLToolDragAndDrop::dragOrDrop( S32 x, S32 y, MASK mask, BOOL drop,
 
 			if (cargo)
 			{
-				handled = handled && top_view->handleDragAndDrop(local_x, local_y, mask, FALSE,
+				handled = handled && top_view->handleDragAndDrop(local_x, local_y, mask, false,
 													mCargoTypes[mCurItemIndex],
 													(void*)cargo,
 													&item_acceptance,
@@ -692,7 +692,7 @@ void LLToolDragAndDrop::dragOrDrop( S32 x, S32 y, MASK mask, BOOL drop,
 			}
 			else if (is_uuid_dragged)
 			{
-				handled = handled && top_view->handleDragAndDrop(local_x, local_y, mask, FALSE,
+				handled = handled && top_view->handleDragAndDrop(local_x, local_y, mask, false,
 													mCargoTypes[mCurItemIndex],
 													(void*)&mCargoIDs[mCurItemIndex],
 													&item_acceptance,
@@ -725,7 +725,7 @@ void LLToolDragAndDrop::dragOrDrop( S32 x, S32 y, MASK mask, BOOL drop,
 
 				if (cargo)
 				{
-					handled = handled && top_view->handleDragAndDrop(local_x, local_y, mask, TRUE,
+					handled = handled && top_view->handleDragAndDrop(local_x, local_y, mask, true,
 														mCargoTypes[mCurItemIndex],
 														(void*)cargo,
 														&item_acceptance,
@@ -733,7 +733,7 @@ void LLToolDragAndDrop::dragOrDrop( S32 x, S32 y, MASK mask, BOOL drop,
 				}
 				else if (is_uuid_dragged)
 				{
-					handled = handled && top_view->handleDragAndDrop(local_x, local_y, mask, FALSE,
+					handled = handled && top_view->handleDragAndDrop(local_x, local_y, mask, false,
 														mCargoTypes[mCurItemIndex],
 														(void*)&mCargoIDs[mCurItemIndex],
 														&item_acceptance,
@@ -761,15 +761,15 @@ void LLToolDragAndDrop::dragOrDrop( S32 x, S32 y, MASK mask, BOOL drop,
 			// fix for EXT-3191
 			if (cargo)
 			{
-			handled = handled && root_view->handleDragAndDrop(x, y, mask, FALSE,
-												mCargoTypes[mCurItemIndex],
-												(void*)cargo,
-												&item_acceptance,
-												mToolTipMsg);
+				handled = handled && root_view->handleDragAndDrop(x, y, mask, false,
+													mCargoTypes[mCurItemIndex],
+													(void*)cargo,
+													&item_acceptance,
+													mToolTipMsg);
 			}
 			else if (is_uuid_dragged)
 			{
-				handled = handled && root_view->handleDragAndDrop(x, y, mask, FALSE,
+				handled = handled && root_view->handleDragAndDrop(x, y, mask, false,
 													mCargoTypes[mCurItemIndex],
 													(void*)&mCargoIDs[mCurItemIndex],
 													&item_acceptance,
@@ -799,7 +799,7 @@ void LLToolDragAndDrop::dragOrDrop( S32 x, S32 y, MASK mask, BOOL drop,
 
 				if (cargo)
 				{
-					handled = handled && root_view->handleDragAndDrop(x, y, mask, TRUE,
+					handled = handled && root_view->handleDragAndDrop(x, y, mask, true,
 											  mCargoTypes[mCurItemIndex],
 											  (void*)cargo,
 											  &item_acceptance,
@@ -807,7 +807,7 @@ void LLToolDragAndDrop::dragOrDrop( S32 x, S32 y, MASK mask, BOOL drop,
 				}
 				else if (is_uuid_dragged)
 				{
-					handled = handled && root_view->handleDragAndDrop(x, y, mask, TRUE,
+					handled = handled && root_view->handleDragAndDrop(x, y, mask, true,
 											  mCargoTypes[mCurItemIndex],
 											  (void*)&mCargoIDs[mCurItemIndex],
 											  &item_acceptance,

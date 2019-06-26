@@ -144,7 +144,7 @@ public:
 	/*virtual*/ BOOL handleMouseUp( S32 x, S32 y, MASK mask );
 	/*virtual*/ BOOL handleToolTip(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL handleKeyHere(KEY key, MASK mask);
-	/*virtual*/ BOOL handleDragAndDrop(S32 x, S32 y, MASK mask,	BOOL drop,
+	/*virtual*/ bool handleDragAndDrop(S32 x, S32 y, MASK mask,	bool drop,
 									   EDragAndDropType type, void* cargo_data,
 									   EAcceptance* accept, std::string& tooltip);
 	/*virtual*/ LLView* getChildView(const std::string& name, BOOL recurse = TRUE) const;

@@ -1196,14 +1196,14 @@ boost::signals2::connection LLToolBar::setButtonRemoveCallback(const button_sign
 	return connectSignal(mButtonRemoveSignal, cb);
 }
 
-BOOL LLToolBar::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
+bool LLToolBar::handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
 										EDragAndDropType cargo_type,
 										void* cargo_data,
 										EAcceptance* accept,
 										std::string& tooltip_msg)
 {
 	// If we have a drop callback, that means that we can handle the drop
-	BOOL handled = (mHandleDropCallback ? TRUE : FALSE);
+	bool handled = (mHandleDropCallback ? true : false);
 	
 	// if drop is set, it's time to call the callback to get the operation done
 	if (handled && drop)
@@ -1237,7 +1237,7 @@ BOOL LLToolBar::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
 		}
 		else
 		{
-			handled = FALSE;
+			handled = false;
 		}
 	}
 	

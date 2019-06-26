@@ -1205,7 +1205,7 @@ void LLFloaterIMSession::draw()
 }
 
 // virtual
-BOOL LLFloaterIMSession::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
+bool LLFloaterIMSession::handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
 									EDragAndDropType cargo_type,
 									void* cargo_data,
 									EAcceptance* accept,
@@ -1228,7 +1228,7 @@ BOOL LLFloaterIMSession::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
 				cargo_type, cargo_data, accept);
 			}
 
-	return TRUE;
+	return true;
 }
 
 bool LLFloaterIMSession::dropPerson(LLUUID* person_id, bool drop)

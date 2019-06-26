@@ -125,10 +125,10 @@ void LLPanelMarketplaceInbox::onFocusReceived()
 	gSavedPerAccountSettings.setU32("LastInventoryInboxActivity", time_corrected());
 }
 
-BOOL LLPanelMarketplaceInbox::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop, EDragAndDropType cargo_type, void *cargo_data, EAcceptance *accept, std::string& tooltip_msg)
+bool LLPanelMarketplaceInbox::handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop, EDragAndDropType cargo_type, void *cargo_data, EAcceptance *accept, std::string& tooltip_msg)
 {
 	*accept = ACCEPT_NO;
-	return TRUE;
+	return true;
 }
 
 U32 LLPanelMarketplaceInbox::getFreshItemCount() const

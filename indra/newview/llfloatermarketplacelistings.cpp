@@ -73,14 +73,14 @@ bool LLPanelMarketplaceListings::postBuild()
     return LLPanel::postBuild();
 }
 
-BOOL LLPanelMarketplaceListings::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
+bool LLPanelMarketplaceListings::handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
                        EDragAndDropType cargo_type,
                        void* cargo_data,
                        EAcceptance* accept,
                        std::string& tooltip_msg)
 {
     LLView * handled_view = childrenHandleDragAndDrop(x, y, mask, drop, cargo_type, cargo_data, accept, tooltip_msg);
-    BOOL handled = (handled_view != NULL);
+    bool handled = (handled_view != NULL);
     // Special case the drop zone
     if (handled && (handled_view->getName() == "marketplace_drop_zone"))
     {
@@ -617,7 +617,7 @@ bool LLFloaterMarketplaceListings::isAccepted(EAcceptance accept)
     return (accept >= ACCEPT_YES_COPY_SINGLE);
 }
 
-BOOL LLFloaterMarketplaceListings::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
+bool LLFloaterMarketplaceListings::handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
 										EDragAndDropType cargo_type,
 										void* cargo_data,
 										EAcceptance* accept,
@@ -626,14 +626,14 @@ BOOL LLFloaterMarketplaceListings::handleDragAndDrop(S32 x, S32 y, MASK mask, BO
     // If there's no panel to accept drops or no existing marketplace listings folder, we refuse all drop
 	if (!mPanelListings || mRootFolderId.isNull())
 	{
-		return FALSE;
+		return false;
 	}
 	
     tooltip_msg = "";
     
     // Pass to the children
 	LLView * handled_view = childrenHandleDragAndDrop(x, y, mask, drop, cargo_type, cargo_data, accept, tooltip_msg);
-	BOOL handled = (handled_view != NULL);
+	bool handled = (handled_view != NULL);
     
 	// If no one handled it or it was not accepted and we drop on an empty panel, we try to accept it at the floater level
     // as if it was dropped on the marketplace listings root folder

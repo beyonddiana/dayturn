@@ -835,19 +835,19 @@ BOOL LLViewerTextEditor::handleDoubleClick(S32 x, S32 y, MASK mask)
 
 
 // virtual
-BOOL LLViewerTextEditor::handleDragAndDrop(S32 x, S32 y, MASK mask,
-					  BOOL drop, EDragAndDropType cargo_type, void *cargo_data,
+bool LLViewerTextEditor::handleDragAndDrop(S32 x, S32 y, MASK mask,
+					  bool drop, EDragAndDropType cargo_type, void *cargo_data,
 					  EAcceptance *accept,
 					  std::string& tooltip_msg)
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 	
 	LLToolDragAndDrop::ESource source = LLToolDragAndDrop::getInstance()->getSource();
 	if (LLToolDragAndDrop::SOURCE_NOTECARD == source)
 	{
 		// We currently do not handle dragging items from one notecard to another
 		// since items in a notecard must be in Inventory to be verified. See DEV-2891.
-		return FALSE;
+		return false;
 	}
 	
 	if (getEnabled() && acceptsTextInput())
@@ -921,7 +921,7 @@ BOOL LLViewerTextEditor::handleDragAndDrop(S32 x, S32 y, MASK mask,
 		*accept = ACCEPT_NO;
 	}
 
-	handled = TRUE;
+	handled = true;
 	LL_DEBUGS("UserInput") << "dragAndDrop handled by LLViewerTextEditor " << getName() << LL_ENDL;
 
 	return handled;

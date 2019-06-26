@@ -284,14 +284,14 @@ private:
 class LLFavoriteLandmarkToggleableMenu : public LLToggleableMenu
 {
 public:
-	virtual BOOL handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
+	virtual bool handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
 								   EDragAndDropType cargo_type,
 								   void* cargo_data,
 								   EAcceptance* accept,
 								   std::string& tooltip_msg)
 	{
 		*accept = ACCEPT_NO;
-		return TRUE;
+		return true;
 	}
 
 protected:
@@ -377,7 +377,7 @@ LLFavoritesBarCtrl::LLFavoritesBarCtrl(const LLFavoritesBarCtrl::Params& p)
 	mOverflowMenuHandle(),
 	mContextMenuHandle(),
 	mImageDragIndication(p.image_drag_indication),
-	mShowDragMarker(FALSE),
+	mShowDragMarker(false),
 	mLandingTab(NULL),
 	mLastTab(NULL),
 	mTabsHighlightEnabled(TRUE),
@@ -417,7 +417,7 @@ LLFavoritesBarCtrl::~LLFavoritesBarCtrl()
 	if (mContextMenuHandle.get()) mContextMenuHandle.get()->die();
 }
 
-BOOL LLFavoritesBarCtrl::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
+bool LLFavoritesBarCtrl::handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
 								   EDragAndDropType cargo_type,
 								   void* cargo_data,
 								   EAcceptance* accept,
@@ -426,7 +426,7 @@ BOOL LLFavoritesBarCtrl::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
 	*accept = ACCEPT_NO;
 
 	LLToolDragAndDrop::ESource source = LLToolDragAndDrop::getInstance()->getSource();
-	if (LLToolDragAndDrop::SOURCE_AGENT != source && LLToolDragAndDrop::SOURCE_LIBRARY != source) return FALSE;
+	if (LLToolDragAndDrop::SOURCE_AGENT != source && LLToolDragAndDrop::SOURCE_LIBRARY != source) return false;
 
 	switch (cargo_type)
 	{
@@ -470,7 +470,7 @@ BOOL LLFavoritesBarCtrl::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
 			{
 				*accept = ACCEPT_YES_SINGLE;
 
-				showDragMarker(TRUE);
+				showDragMarker(true);
 
 				if (drop)
 				{
@@ -488,7 +488,7 @@ BOOL LLFavoritesBarCtrl::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
 
 				*accept = ACCEPT_YES_COPY_MULTI;
 
-				showDragMarker(TRUE);
+				showDragMarker(true);
 
 				if (drop)
 				{
@@ -505,7 +505,7 @@ BOOL LLFavoritesBarCtrl::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
 		break;
 	}
 
-	return TRUE;
+	return true;
 }
 
 void LLFavoritesBarCtrl::handleExistingFavoriteDragAndDrop(S32 x, S32 y)
@@ -707,7 +707,7 @@ void LLFavoritesBarCtrl::draw()
 			mImageDragIndication->draw(rect.mRight, rect.getHeight(), w, h);
 		}
 		// Once drawn, mark this false so we won't draw it again (unless we hit the favorite bar again)
-		mShowDragMarker = FALSE;
+		mShowDragMarker = false;
 	}
 	if (mItemsChangedTimer.getStarted())
 	{
