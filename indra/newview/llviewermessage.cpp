@@ -2660,7 +2660,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 			{
 				info = new LLOfferInfo();
 				
-				info->mIM = IM_GROUP_NOTICE;
+				info->mIM = dialog;
 				info->mFromID = from_id;
 				info->mFromGroup = from_group;
 				info->mTransactionID = session_id;
