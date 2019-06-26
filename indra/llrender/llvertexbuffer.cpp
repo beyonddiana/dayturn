@@ -1489,7 +1489,6 @@ void LLVertexBuffer::setupVertexArray()
 				// pointer value. Ruslan asserts that in this case the last
 				// param is interpreted as an array data offset within the VBO
 				// rather than as an actual pointer, so it's okay.
-				uintptr_t fake_offset(mOffsets[i]);
 				glVertexAttribPointerARB(i, attrib_size[i], attrib_type[i],
 										 attrib_normalized[i], sTypeSize[i],
 										 reinterpret_cast<GLvoid*>(mOffsets[i])); 			
