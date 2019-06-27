@@ -1488,7 +1488,7 @@ void LLOfferInfo::fromLLSD(const LLSD& params)
 	*this = params;
 }
 
-void LLOfferInfo::sendReceiveResponse(const LLUUID &destination_folder_id)
+void LLOfferInfo::sendReceiveResponse(bool accept, const LLUUID &destination_folder_id)
 {
 	if(IM_INVENTORY_OFFERED == mIM)
 	{
@@ -1536,9 +1536,17 @@ void LLOfferInfo::sendReceiveResponse(const LLUUID &destination_folder_id)
 		im = IM_GROUP_NOTICE;
 	}
 
-	msg->addU8Fast(_PREHASH_Dialog, (U8)(im + 1));
-	msg->addBinaryDataFast(_PREHASH_BinaryBucket, &(destination_folder_id.mData),
-						   sizeof(destination_folder_id.mData));
+	if (accept)
+	{
+		msg->addU8Fast(_PREHASH_Dialog, (U8)(im + 1));
+		msg->addBinaryDataFast(_PREHASH_BinaryBucket, &(destination_folder_id.mData),
+								sizeof(destination_folder_id.mData));
+	}
+	else
+	{
+		msg->addU8Fast(_PREHASH_Dialog, (U8)(im + 2));
+		msg->addBinaryDataFast(_PREHASH_BinaryBucket, EMPTY_BINARY_BUCKET, EMPTY_BINARY_BUCKET_SIZE);
+	}
 	// send the message
 	msg->sendReliable(mHost);
 
@@ -1607,7 +1615,10 @@ bool LLOfferInfo::inventory_offer_callback(const LLSD& notification, const LLSD&
 	
 	// TODO: when task inventory offers can also be handled the new way, migrate the code that sets these strings here:
 	from_string = chatHistory_string = mFromName;
-	
+
+	// accept goes to proper folder, decline gets accepted to trash, muted gets declined
+	bool accept_to_trash = true;
+
 	LLNotificationFormPtr modified_form(notification_ptr ? new LLNotificationForm(*notification_ptr->getForm()) : new LLNotificationForm());
 	
 //MK
@@ -1671,7 +1682,7 @@ bool LLOfferInfo::inventory_offer_callback(const LLSD& notification, const LLSD&
 		case IM_GROUP_NOTICE:
 		case IM_GROUP_NOTICE_REQUESTED:
 			opener = new LLOpenTaskGroupOffer;
-			sendReceiveResponse(mFolderID);
+			sendReceiveResponse(true, mFolderID);
 			break;
 		case IM_TASK_INVENTORY_OFFERED:
 			// This is an offer from a task or group.
@@ -1708,6 +1719,7 @@ bool LLOfferInfo::inventory_offer_callback(const LLSD& notification, const LLSD&
 		{
 			modified_form->setElementEnabled("Mute", false);
 		}
+		accept_to_trash = false; // for notices, but IOR_MUTE normally doesn't happen for notices
 		// MUTE falls through to decline
 	case IOR_DECLINE:
 		{
@@ -1721,6 +1733,7 @@ bool LLOfferInfo::inventory_offer_callback(const LLSD& notification, const LLSD&
 			if( LLMuteList::getInstance()->isMuted(mFromID ) && ! LLMuteList::getInstance()->isLinden(mFromName) )  // muting for SL-42269
 			{
 				chat.mMuted = true;
+				accept_to_trash = false; // will send decline message
 			}
 
 			// *NOTE dzaporozhan
@@ -1743,8 +1756,9 @@ bool LLOfferInfo::inventory_offer_callback(const LLSD& notification, const LLSD&
 			else if (mIM == IM_GROUP_NOTICE)
 			{
 				// group notice needs to request object to trash so that user will see it later
+				// Note: muted agent offers go to trash, not sure if we should do same for notices
 				LLUUID trash = gInventory.findCategoryUUIDForType(LLFolderType::FT_TRASH);
-				sendReceiveResponse(trash);
+				sendReceiveResponse(accept_to_trash, trash);
 			}
 
 			if (modified_form != NULL)
@@ -1763,7 +1777,7 @@ bool LLOfferInfo::inventory_offer_callback(const LLSD& notification, const LLSD&
 		if (mIM == IM_GROUP_NOTICE)
 		{
 			LLUUID trash = gInventory.findCategoryUUIDForType(LLFolderType::FT_TRASH);
-			sendReceiveResponse(trash);
+			sendReceiveResponse(true, trash);
 		}
 		break;
 	}
@@ -1876,8 +1890,8 @@ bool LLOfferInfo::inventory_task_offer_callback(const LLSD& notification, const 
 		from_string = chatHistory_string = mFromName;
 	}
 	
-	bool is_do_not_disturb = gAgent.isDoNotDisturb();
 	LLUUID destination;
+	bool accept = true;
 
 //MK
 	// mDesc looks like '#RLV/~foldername' ( http://slurl.com/secondlife/Sim/X/Y/Z )
@@ -1947,15 +1961,16 @@ bool LLOfferInfo::inventory_task_offer_callback(const LLSD& notification, const 
 			break;
 		case IOR_MUTE:
 			// MUTE falls through to decline
+			accept = false;
 		case IOR_DECLINE:
 		default:
 			// close button probably (or any of the fall-throughs from above)
 			destination = gInventory.findCategoryUUIDForType(LLFolderType::FT_TRASH);
-			
-			if (is_do_not_disturb &&	(!mFromGroup && !mFromObject))
+			if (accept && LLMuteList::getInstance()->isMuted(mFromID, mFromName))
 			{
-				LLMessageSystem* msg = gMessageSystem;
-				send_do_not_disturb_message(msg,mFromID);
+				// Note: muted offers are usually declined automatically,
+				// but user can mute object after receiving message
+				accept = false;
 			}
 //MK
 			if (gRRenabled)
@@ -1981,11 +1996,6 @@ bool LLOfferInfo::inventory_task_offer_callback(const LLSD& notification, const 
 		break;
 	}
 	
-	if(opener)
-	{
-		gInventory.addObserver(opener);
-	}
-
 	if(!mPersist)
 	{
 		delete this;
@@ -3216,12 +3226,18 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 			if (is_muted)
 			{
 				// Prefetch the offered item so that it can be discarded by the appropriate observer. (EXT-4331)
-				LLInventoryFetchItemsObserver* fetch_item = new LLInventoryFetchItemsObserver(info->mObjectID);
-				fetch_item->startFetch();
-				delete fetch_item;
-
-				// Same as closing window
-				info->forceResponse(IOR_DECLINE);
+                if (IM_INVENTORY_OFFERED == dialog)
+                {
+                    LLInventoryFetchItemsObserver* fetch_item = new LLInventoryFetchItemsObserver(info->mObjectID);
+                    fetch_item->startFetch();
+                    delete fetch_item;
+                    // Same as closing window
+                    info->forceResponse(IOR_DECLINE);
+                }
+                else
+                {
+                    info->forceResponse(IOR_MUTE);
+                }
 			}
 			// old logic: busy mode must not affect interaction with objects (STORM-565)
 			// new logic: inventory offers from in-world objects should be auto-declined (CHUI-519)
