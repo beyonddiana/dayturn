@@ -2175,8 +2175,12 @@ void LLPanelObject::onPastePos(const LLSD& data)
 	//clamp pos on non-attachments, just keep the prims on the sim
 	if (!mObject->isAttachment())
 	{
-		mClipboardPos.mV[VX] = llclamp( mClipboardPos.mV[VX], 0.f, 256.f);
-		mClipboardPos.mV[VY] = llclamp( mClipboardPos.mV[VY], 0.f, 256.f);
+// Aurora Sim
+		//mClipboardPos.mV[VX] = llclamp( mClipboardPos.mV[VX], 0.f, 256.f);
+		//mClipboardPos.mV[VY] = llclamp( mClipboardPos.mV[VY], 0.f, 256.f);
+		mClipboardPos.mV[VX] = llclamp( mClipboardPos.mV[VX], 0.f, gAgent.getRegion()->getWidth());
+		mClipboardPos.mV[VY] = llclamp( mClipboardPos.mV[VY], 0.f, gAgent.getRegion()->getWidth());
+// Aurora Sim
 		//height will get properly clammed by sendPosition
 	}
 
