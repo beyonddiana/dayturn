@@ -125,7 +125,15 @@ void MediaPluginExample::receiveMessage( const char* message_string )
             }
             else if(message_name == "cleanup")
             {
+ 				LLPluginMessage message("base", "goodbye");
+ 				sendMessage(message);
+ 
+ 				mDeleteMe = true;            
             }
+			else if (message_name == "force_exit")
+			{
+				mDeleteMe = true;
+			}            
             else if(message_name == "shm_added")
             {
                 SharedSegmentInfo info;
