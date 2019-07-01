@@ -273,6 +273,9 @@ void MediaPluginCEF::onRequestExitCallback()
 
 	LLPluginMessage message("base", "goodbye");
 	sendMessage(message);
+
+	// Will trigger delete on next staticReceiveMessage()
+ 	mDeleteMe = true;	
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -449,6 +452,10 @@ void MediaPluginCEF::receiveMessage(const char* message_string)
 				mVolumeCatcher.setVolume(0);
 				mLLCEFLib->requestExit();
 			}
+			else if (message_name == "force_exit")
+			{
+				mDeleteMe = true;
+			}			
 			else if (message_name == "shm_added")
 			{
 				SharedSegmentInfo info;
