@@ -142,6 +142,32 @@
    min_val="0.75"
    name="ui_scale_slider"
    top_pad="-14"
+   width="250" />  
+  <text
+  type="string"
+  length="1"
+  follows="left|top"
+  height="12"
+  layout="topleft"
+  left="33"
+  name="HUD Size:"
+  top_pad="12"
+  width="100">
+    HUD Scale:
+  </text>
+  <slider
+   control_name="HUDScaleFactor"
+   decimal_digits="2"
+   follows="left|top"
+   height="17"
+   increment="0.1"
+   initial_value="1"
+   layout="topleft"
+   left_pad="0"
+   max_val="2.0"
+   min_val="1.0"
+   name="ui_scale_slider"
+   top_pad="-14"
    width="250" />
    <text
    type="string"
@@ -178,7 +204,8 @@
    left="33"
    name="Font Restart:"
    top_pad="3"
-   width="400">
+   width="400"
+   text_color="White_25">
     Font size change is active after a  viewer restart
   </text>
     <check_box
@@ -300,7 +327,7 @@
      layout="topleft"
      name="Default Creation Permissions"
      left="30"
-     top_pad = "10"
+     top_pad = "-15"
      width="250">
 	<button.commit_callback
 	 function="Pref.PermsDefault" />

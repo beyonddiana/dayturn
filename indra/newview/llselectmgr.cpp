@@ -6859,8 +6859,7 @@ void LLSelectMgr::updateSelectionCenter()
 		if (mSelectedObjects->mSelectType != SELECT_TYPE_HUD && isAgentAvatarValid())
 		{
 			// reset hud ZOOM
-			gAgentCamera.mHUDTargetZoom = 1.f;
-			gAgentCamera.mHUDCurZoom = 1.f;
+			resetAgentHUDZoom();
 		}
 
 		mShowSelection = FALSE;
@@ -7233,8 +7232,11 @@ BOOL LLSelectMgr::setForceSelection(BOOL force)
 
 void LLSelectMgr::resetAgentHUDZoom()
 {
-	gAgentCamera.mHUDTargetZoom = 1.f;
-	gAgentCamera.mHUDCurZoom = 1.f;
+	if (gAgentCamera.mHUDTargetZoom != 1)
+	{
+		gAgentCamera.mHUDTargetZoom = 1.f;
+		gAgentCamera.mHUDCurZoom = 1.f;
+	}
 }
 
 void LLSelectMgr::getAgentHUDZoom(F32 &target_zoom, F32 &current_zoom) const
