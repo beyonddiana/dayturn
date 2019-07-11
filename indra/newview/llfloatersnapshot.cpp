@@ -908,7 +908,7 @@ void LLFloaterSnapshot::Impl::onCommitLayerTypes(LLUICtrl* ctrl, void*data)
 		{
 			previewp->setSnapshotBufferType((LLViewerWindow::ESnapshotType)combobox->getCurrentIndex());
 		}
-		checkAutoSnapshot(previewp, TRUE);
+		previewp->updateSnapshot(TRUE, TRUE);
 	}
 }
 
