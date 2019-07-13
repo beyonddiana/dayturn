@@ -95,28 +95,28 @@ void AOEngine::onToggleAOControl()
 	enable(gSavedPerAccountSettings.getBOOL("UseAO"));
 }
 
-void AOEngine::clear( bool aFromTimer )
+void AOEngine::clear(bool aFromTimer)
 {
-	mOldSets.insert( mOldSets.end(), mSets.begin(), mSets.end() );
+	mOldSets.insert(mOldSets.end(), mSets.begin(), mSets.end());
 	mSets.clear();
 
-	mCurrentSet=0;
+	mCurrentSet=NULL;
 
 	//<ND/> FIRE-3801; We cannot delete any AOSet object if we're called from a timer tick. AOSet is derived from LLEventTimer and destruction will
 	// fail in ~LLInstanceTracker when a destructor runs during iteration.
-	if( !aFromTimer )
+	if(!aFromTimer)
 	{
-		std::for_each( mOldSets.begin(), mOldSets.end(), DeletePointer( ) );
+		std::for_each(mOldSets.begin(), mOldSets.end(), DeletePointer( ));
 		mOldSets.clear();
 
-		std::for_each( mOldImportSets.begin(), mOldImportSets.end(), DeletePointer() );
+		std::for_each(mOldImportSets.begin(), mOldImportSets.end(), DeletePointer());
 		mOldImportSets.clear();
 	}
 }
 
 void AOEngine::stopAllStandVariants()
 {
-	LL_DEBUGS() << "stopping all STAND variants." << LL_ENDL;
+	LL_DEBUGS("AOEngine") << "stopping all STAND variants." << LL_ENDL;
 	gAgent.sendAnimationRequest(ANIM_AGENT_STAND_1,ANIM_REQUEST_STOP);
 	gAgent.sendAnimationRequest(ANIM_AGENT_STAND_2,ANIM_REQUEST_STOP);
 	gAgent.sendAnimationRequest(ANIM_AGENT_STAND_3,ANIM_REQUEST_STOP);
@@ -129,7 +129,7 @@ void AOEngine::stopAllStandVariants()
 
 void AOEngine::stopAllSitVariants()
 {
-	LL_DEBUGS() << "stopping all SIT variants." << LL_ENDL;
+	LL_DEBUGS("AOEngine") << "stopping all SIT variants." << LL_ENDL;
 	gAgent.sendAnimationRequest(ANIM_AGENT_SIT_FEMALE,ANIM_REQUEST_STOP);
 	gAgent.sendAnimationRequest(ANIM_AGENT_SIT_GENERIC,ANIM_REQUEST_STOP);
 	gAgent.sendAnimationRequest(ANIM_AGENT_SIT_GROUND,ANIM_REQUEST_STOP);
@@ -201,25 +201,25 @@ void AOEngine::checkBelowWater(BOOL yes)
 
 void AOEngine::enable(BOOL yes)
 {
-	LL_DEBUGS() << "using " << mLastMotion << " enable " << yes << LL_ENDL;
-	mEnabled=yes;
+	LL_DEBUGS("AOEngine") << "using " << mLastMotion << " enable " << yes << LL_ENDL;
+	mEnabled = yes;
 
-	if(!mCurrentSet)
+	if (!mCurrentSet)
 	{
-		LL_DEBUGS() << "enable(" << yes << ") without animation set loaded." << LL_ENDL;
+		LL_DEBUGS("AOEngine") << "enable(" << yes << ") without animation set loaded." << LL_ENDL;
 		return;
 	}
 
 	AOSet::AOState* state=mCurrentSet->getStateByRemapID(mLastMotion);
-	if(mEnabled)
+	if (mEnabled)
 	{
 		if(state && !state->mAnimations.empty())
 		{
-			LL_DEBUGS() << "Enabling animation state " << state->mName << LL_ENDL;
+			LL_DEBUGS("AOEngine") << "Enabling animation state " << state->mName << LL_ENDL;
 
 			gAgent.sendAnimationRequest(mLastOverriddenMotion,ANIM_REQUEST_STOP);
 
-			LLUUID animation=override(mLastMotion,TRUE);
+			LLUUID animation = override(mLastMotion,TRUE);
 			if(animation.isNull())
 				return;
 
@@ -229,7 +229,7 @@ void AOEngine::enable(BOOL yes)
 			}
 			else if(mLastMotion==ANIM_AGENT_WALK)
 			{
-				LL_DEBUGS() << "Last motion was a WALK, stopping all variants." << LL_ENDL;
+				LL_DEBUGS("AOEngine") << "Last motion was a WALK, stopping all variants." << LL_ENDL;
 				gAgent.sendAnimationRequest(ANIM_AGENT_WALK_NEW,ANIM_REQUEST_STOP);
 				gAgent.sendAnimationRequest(ANIM_AGENT_FEMALE_WALK,ANIM_REQUEST_STOP);
 				gAgent.sendAnimationRequest(ANIM_AGENT_FEMALE_WALK_NEW,ANIM_REQUEST_STOP);
@@ -239,7 +239,7 @@ void AOEngine::enable(BOOL yes)
 			}
 			else if(mLastMotion==ANIM_AGENT_RUN)
 			{
-				LL_DEBUGS() << "Last motion was a RUN, stopping all variants." << LL_ENDL;
+				LL_DEBUGS("AOEngine") << "Last motion was a RUN, stopping all variants." << LL_ENDL;
 				gAgent.sendAnimationRequest(ANIM_AGENT_RUN_NEW,ANIM_REQUEST_STOP);
 				gAgent.sendAnimationRequest(ANIM_AGENT_FEMALE_RUN_NEW,ANIM_REQUEST_STOP);
 				gAgentAvatarp->LLCharacter::stopMotion(ANIM_AGENT_RUN_NEW);
@@ -251,7 +251,7 @@ void AOEngine::enable(BOOL yes)
 				gAgent.sendAnimationRequest(ANIM_AGENT_SIT_GENERIC,ANIM_REQUEST_START);
 			}
 			else
-				LL_WARNS() << "Unhandled last motion id " << mLastMotion << LL_ENDL;
+				LL_WARNS("AOEngine") << "Unhandled last motion id " << mLastMotion << LL_ENDL;
 
 			gAgent.sendAnimationRequest(animation,ANIM_REQUEST_START);
 			mAnimationChangedSignal(state->mAnimations[state->mCurrentAnimation].mInventoryUUID);
@@ -263,7 +263,7 @@ void AOEngine::enable(BOOL yes)
 
 		gAgent.sendAnimationRequest(ANIM_AGENT_SIT_GENERIC,ANIM_REQUEST_STOP);
 		// stop all overriders, catch leftovers
-		for(S32 index=0;index<AOSet::AOSTATES_MAX;index++)
+		for(S32 index = 0; index < AOSet::AOSTATES_MAX; index++)
 		{
 			state=mCurrentSet->getState(index);
 			if(state)
@@ -271,14 +271,14 @@ void AOEngine::enable(BOOL yes)
 				LLUUID animation=state->mCurrentAnimationID;
 				if(animation.notNull())
 				{
-					LL_DEBUGS() << "Stopping leftover animation from state " << state->mName << LL_ENDL;
+					LL_DEBUGS("AOEngine") << "Stopping leftover animation from state " << state->mName << LL_ENDL;
 					gAgent.sendAnimationRequest(animation,ANIM_REQUEST_STOP);
 					gAgentAvatarp->LLCharacter::stopMotion(animation);
 					state->mCurrentAnimationID.setNull();
 				}
 			}
 			else
-				LL_DEBUGS() << "state "<< index <<" returned NULL." << LL_ENDL;
+				LL_DEBUGS("AOEngine") << "state "<< index <<" returned NULL." << LL_ENDL;
 		}
 
 		if(!foreignAnimations(LLUUID::null))
@@ -291,7 +291,7 @@ void AOEngine::enable(BOOL yes)
 void AOEngine::setStateCycleTimer(const AOSet::AOState* state)
 {
 	F32 timeout=state->mCycleTime;
-	LL_DEBUGS() << "Setting cycle timeout for state " << state->mName << " of " << timeout << LL_ENDL;
+	LL_DEBUGS("AOEngine") << "Setting cycle timeout for state " << state->mName << " of " << timeout << LL_ENDL;
 	if(timeout>0.0f)
 		mCurrentSet->startTimer(timeout);
 }
@@ -310,11 +310,11 @@ const LLUUID AOEngine::override(const LLUUID& pMotion,BOOL start)
 			if(state)
 			{
 				setLastMotion(motion);
-				LL_DEBUGS() << "(disabled AO) setting last motion id to " <<  gAnimLibrary.animationName(mLastMotion) << LL_ENDL;
+				LL_DEBUGS("AOEngine") << "(disabled AO) setting last motion id to " <<  gAnimLibrary.animationName(mLastMotion) << LL_ENDL;
 				if(!state->mAnimations.empty())
 				{
 					setLastOverriddenMotion(motion);
-					LL_DEBUGS() << "(disabled AO) setting last overridden motion id to " <<  gAnimLibrary.animationName(mLastOverriddenMotion) << LL_ENDL;
+					LL_DEBUGS("AOEngine") << "(disabled AO) setting last overridden motion id to " <<  gAnimLibrary.animationName(mLastOverriddenMotion) << LL_ENDL;
 				}
 			}
 		}
@@ -323,13 +323,13 @@ const LLUUID AOEngine::override(const LLUUID& pMotion,BOOL start)
 
 	if(mSets.empty())
 	{
-		LL_DEBUGS() << "No sets loaded. Skipping overrider." << LL_ENDL;
+		LL_DEBUGS("AOEngine") << "No sets loaded. Skipping overrider." << LL_ENDL;
 		return animation;
 	}
 
 	if(!mCurrentSet)
 	{
-		LL_DEBUGS() << "No current AO set chosen. Skipping overrider." << LL_ENDL;
+		LL_DEBUGS("AOEngine") << "No current AO set chosen. Skipping overrider." << LL_ENDL;
 		return animation;
 	}
 
@@ -340,17 +340,17 @@ const LLUUID AOEngine::override(const LLUUID& pMotion,BOOL start)
 	AOSet::AOState* state=mCurrentSet->getStateByRemapID(motion);
 	if(!state)
 	{
-		LL_DEBUGS() << "No current AO state for motion " << motion << " (" << gAnimLibrary.animationName(motion) << ")." << LL_ENDL;
+		LL_DEBUGS("AOEngine") << "No current AO state for motion " << motion << " (" << gAnimLibrary.animationName(motion) << ")." << LL_ENDL;
 		if(!gAnimLibrary.animStateToString(motion) && !start)
 		{
 			state=mCurrentSet->getStateByRemapID(mLastOverriddenMotion);
 			if(state && state->mCurrentAnimationID==motion)
 			{
-				LL_DEBUGS() << "Stop requested for current overridden animation UUID " << motion << " - Skipping." << LL_ENDL;
+				LL_DEBUGS("AOEngine") << "Stop requested for current overridden animation UUID " << motion << " - Skipping." << LL_ENDL;
 			}
 			else
 			{
-				LL_DEBUGS() << "Stop requested for unknown UUID " << motion << " - Stopping it just in case." << LL_ENDL;
+				LL_DEBUGS("AOEngine") << "Stop requested for unknown UUID " << motion << " - Stopping it just in case." << LL_ENDL;
 				gAgent.sendAnimationRequest(motion,ANIM_REQUEST_STOP);
 				gAgentAvatarp->LLCharacter::stopMotion(motion);
 			}
@@ -369,7 +369,7 @@ const LLUUID AOEngine::override(const LLUUID& pMotion,BOOL start)
 			mInMouselook)
 		{
 			setLastMotion(motion);
-			LL_DEBUGS() << "(enabled AO, mouselook stand stopped) setting last motion id to " <<  gAnimLibrary.animationName(mLastMotion) << LL_ENDL;
+			LL_DEBUGS("AOEngine") << "(enabled AO, mouselook stand stopped) setting last motion id to " <<  gAnimLibrary.animationName(mLastMotion) << LL_ENDL;
 			return animation;
 		}
 
@@ -377,17 +377,17 @@ const LLUUID AOEngine::override(const LLUUID& pMotion,BOOL start)
 		if(!mCurrentSet->getSitOverride() && motion==ANIM_AGENT_SIT)
 		{
 			setLastMotion(motion);
-			LL_DEBUGS() << "(enabled AO, sit override stopped) setting last motion id to " <<  gAnimLibrary.animationName(mLastMotion) << LL_ENDL;
+			LL_DEBUGS("AOEngine") << "(enabled AO, sit override stopped) setting last motion id to " <<  gAnimLibrary.animationName(mLastMotion) << LL_ENDL;
 			return animation;
 		}
 
 		setLastMotion(motion);
-		LL_DEBUGS() << "(enabled AO) setting last motion id to " <<  gAnimLibrary.animationName(mLastMotion) << LL_ENDL;
+		LL_DEBUGS("AOEngine") << "(enabled AO) setting last motion id to " <<  gAnimLibrary.animationName(mLastMotion) << LL_ENDL;
 
 		if(!state->mAnimations.empty())
 		{
 			setLastOverriddenMotion(motion);
-			LL_DEBUGS() << "(enabled AO) setting last overridden motion id to " <<  gAnimLibrary.animationName(mLastOverriddenMotion) << LL_ENDL;
+			LL_DEBUGS("AOEngine") << "(enabled AO) setting last overridden motion id to " <<  gAnimLibrary.animationName(mLastOverriddenMotion) << LL_ENDL;
 		}
 
 		// do not remember typing as set-wide motion
@@ -403,7 +403,7 @@ const LLUUID AOEngine::override(const LLUUID& pMotion,BOOL start)
 
 		if(state->mCurrentAnimationID.notNull())
 		{
-			LL_DEBUGS()	<< "Previous animation for state "
+			LL_DEBUGS("AOEngine")	<< "Previous animation for state "
 						<< gAnimLibrary.animationName(motion)
 						<< " was not stopped, but we were asked to start a new one. Killing old animation." << LL_ENDL;
 			gAgent.sendAnimationRequest(state->mCurrentAnimationID,ANIM_REQUEST_STOP);
@@ -411,7 +411,7 @@ const LLUUID AOEngine::override(const LLUUID& pMotion,BOOL start)
 		}
 
 		state->mCurrentAnimationID=animation;
-		LL_DEBUGS()	<< "overriding " <<  gAnimLibrary.animationName(motion)
+		LL_DEBUGS("AOEngine")	<< "overriding " <<  gAnimLibrary.animationName(motion)
 					<< " with " << animation
 					<< " in state " << state->mName
 					<< " of set " << mCurrentSet->getName()
@@ -459,7 +459,7 @@ const LLUUID AOEngine::override(const LLUUID& pMotion,BOOL start)
 
 		if(motion!=mCurrentSet->getMotion())
 		{
-			LL_WARNS() << "trying to stop-override motion " <<  gAnimLibrary.animationName(motion)
+			LL_WARNS("AOEngine") << "trying to stop-override motion " <<  gAnimLibrary.animationName(motion)
 					<< " but the current set has motion " <<  gAnimLibrary.animationName(mCurrentSet->getMotion()) << LL_ENDL;
 			return animation;
 		}
@@ -484,7 +484,7 @@ const LLUUID AOEngine::override(const LLUUID& pMotion,BOOL start)
 		if(mLastMotion==ANIM_AGENT_SIT)
 			stopAllSitVariants();
 
-		LL_DEBUGS() << "stopping cycle timer for motion " <<  gAnimLibrary.animationName(motion) <<
+		LL_DEBUGS("AOEngine") << "stopping cycle timer for motion " <<  gAnimLibrary.animationName(motion) <<
 					" using animation " << animation <<
 					" in state " << state->mName << LL_ENDL;
 	}
@@ -528,7 +528,7 @@ void AOEngine::cycleTimeout(const AOSet* set)
 
 	if(set!=mCurrentSet)
 	{
-		LL_WARNS() << "cycleTimeout for set " << set->getName() << " but current set is " << mCurrentSet->getName() << LL_ENDL;
+		LL_WARNS("AOEngine") << "cycleTimeout for set " << set->getName() << " but current set is " << mCurrentSet->getName() << LL_ENDL;
 		return;
 	}
 
@@ -539,7 +539,7 @@ void AOEngine::cycle(eCycleMode cycleMode)
 {
 	if(!mCurrentSet)
 	{
-		LL_DEBUGS() << "cycle without set." << LL_ENDL;
+		LL_DEBUGS("AOEngine") << "cycle without set." << LL_ENDL;
 		return;
 	}
 
@@ -569,20 +569,20 @@ void AOEngine::cycle(eCycleMode cycleMode)
 	AOSet::AOState* state=mCurrentSet->getStateByRemapID(motion);
 	if(!state)
 	{
-		LL_DEBUGS() << "cycle without state." << LL_ENDL;
+		LL_DEBUGS("AOEngine") << "cycle without state." << LL_ENDL;
 		return;
 	}
 
 	if(!state->mAnimations.size())
 	{
-		LL_DEBUGS() << "cycle without animations in state." << LL_ENDL;
+		LL_DEBUGS("AOEngine") << "cycle without animations in state." << LL_ENDL;
 		return;
 	}
 
 	// make sure we disable cycling only for timed cycle, so manual cycling still works, even with cycling switched off
 	if(!state->mCycle && cycleMode==CycleAny)
 	{
-		LL_DEBUGS() << "cycle timeout, but state is set to not cycling." << LL_ENDL;
+		LL_DEBUGS("AOEngine") << "cycle timeout, but state is set to not cycling." << LL_ENDL;
 		return;
 	}
 
@@ -646,7 +646,7 @@ void AOEngine::updateSortOrder(AOSet::AOState* state)
 			std::ostringstream numStr("");
 			numStr << index;
 
-			LL_DEBUGS()	<< "sort order is " << sortOrder << " but index is " << index
+			LL_DEBUGS("AOEngine")	<< "sort order is " << sortOrder << " but index is " << index
 						<< ", setting sort order description: " << numStr.str() << LL_ENDL;
 
 			state->mAnimations[index].mSortOrder=index;
@@ -654,7 +654,7 @@ void AOEngine::updateSortOrder(AOSet::AOState* state)
 			LLViewerInventoryItem* item=gInventory.getItem(state->mAnimations[index].mInventoryUUID);
 			if(!item)
 			{
-				LL_WARNS() << "NULL inventory item found while trying to copy " << state->mAnimations[index].mInventoryUUID << LL_ENDL;
+				LL_WARNS("AOEngine") << "NULL inventory item found while trying to copy " << state->mAnimations[index].mInventoryUUID << LL_ENDL;
 				continue;
 			}
 			LLPointer<LLViewerInventoryItem> newItem=
@@ -673,14 +673,14 @@ LLUUID AOEngine::addSet(const std::string& name,BOOL reload)
 {
 	if(mAOFolder.isNull())
 	{
-		LL_WARNS() << ROOT_AO_FOLDER << " folder not there yet. Requesting recreation." << LL_ENDL;
+		LL_WARNS("AOEngine") << ROOT_AO_FOLDER << " folder not there yet. Requesting recreation." << LL_ENDL;
 		tick();
 		return LLUUID::null;
 	}
 
 	BOOL wasProtected=gSavedPerAccountSettings.getBOOL("ProtectAOFolders");
 	gSavedPerAccountSettings.setBOOL("ProtectAOFolders",FALSE);
-	LL_DEBUGS() << "adding set folder " << name << LL_ENDL;
+	LL_DEBUGS("AOEngine") << "adding set folder " << name << LL_ENDL;
 	LLUUID newUUID=gInventory.createNewCategory(mAOFolder,LLFolderType::FT_NONE,name);
 	gSavedPerAccountSettings.setBOOL("ProtectAOFolders",wasProtected);
 
@@ -691,13 +691,13 @@ LLUUID AOEngine::addSet(const std::string& name,BOOL reload)
 
 BOOL AOEngine::createAnimationLink(const AOSet* set,AOSet::AOState* state,const LLInventoryItem* item)
 {
-	LL_DEBUGS() << "Asset ID " << item->getAssetUUID() << " inventory id " << item->getUUID() << " category id " << state->mInventoryUUID << LL_ENDL;
+	LL_DEBUGS("AOEngine") << "Asset ID " << item->getAssetUUID() << " inventory id " << item->getUUID() << " category id " << state->mInventoryUUID << LL_ENDL;
 	if(state->mInventoryUUID.isNull())
 	{
-		LL_DEBUGS() << "no " << state->mName << " folder yet. Creating ..." << LL_ENDL;
+		LL_DEBUGS("AOEngine") << "no " << state->mName << " folder yet. Creating ..." << LL_ENDL;
 		gInventory.createNewCategory(set->getInventoryUUID(),LLFolderType::FT_NONE,state->mName);
 
-		LL_DEBUGS() << "looking for folder to get UUID ..." << LL_ENDL;
+		LL_DEBUGS("AOEngine") << "looking for folder to get UUID ..." << LL_ENDL;
 		LLUUID newStateFolderUUID;
 
 		LLInventoryModel::item_array_t* items;
@@ -708,7 +708,7 @@ BOOL AOEngine::createAnimationLink(const AOSet* set,AOSet::AOState* state,const 
 		{
 			if(cats->operator[](index)->getName().compare(state->mName)==0)
 			{
-				LL_DEBUGS() << "UUID found!" << LL_ENDL;
+				LL_DEBUGS("AOEngine") << "UUID found!" << LL_ENDL;
 				newStateFolderUUID=cats->operator[](index)->getUUID();
 				state->mInventoryUUID=newStateFolderUUID;
 				break;
@@ -801,7 +801,7 @@ BOOL AOEngine::findForeignItems(const LLUUID& uuid) const
 			moved=TRUE;
 			LLInventoryModel* model = &gInventory;
 			model->changeItemParent(item,gInventory.findCategoryUUIDForType(LLFolderType::FT_LOST_AND_FOUND),FALSE);
-			LL_DEBUGS() << item->getName() << " moved to lost and found!" << LL_ENDL;
+			LL_DEBUGS("AOEngine") << item->getName() << " moved to lost and found!" << LL_ENDL;
 		}
 	}
 	gSavedPerAccountSettings.setBOOL("ProtectAOFolders",wasProtected);
@@ -881,7 +881,7 @@ BOOL AOEngine::removeAnimation(const AOSet* set,AOSet::AOState* state,S32 index)
 	}
 
 	// purge the item from inventory
-	LL_DEBUGS() << __LINE__ << " purging: " << state->mAnimations[index].mInventoryUUID << LL_ENDL;
+	LL_DEBUGS("AOEngine") << __LINE__ << " purging: " << state->mAnimations[index].mInventoryUUID << LL_ENDL;
 //	gInventory.purgeObject(state->mAnimations[index].mInventoryUUID); // item->getUUID());
 	gInventory.notifyObservers();
 
@@ -889,7 +889,7 @@ BOOL AOEngine::removeAnimation(const AOSet* set,AOSet::AOState* state,S32 index)
 
 	if(state->mAnimations.size()==0)
 	{
-		LL_DEBUGS() << "purging folder " << state->mName << " from inventory because it's empty." << LL_ENDL;
+		LL_DEBUGS("AOEngine") << "purging folder " << state->mName << " from inventory because it's empty." << LL_ENDL;
 
 		LLInventoryModel::item_array_t* items;
 		LLInventoryModel::cat_array_t* cats;
@@ -903,7 +903,7 @@ BOOL AOEngine::removeAnimation(const AOSet* set,AOSet::AOState* state,S32 index)
 
 			if(state->mName.compare(stateName)==0)
 			{
-				LL_DEBUGS() << "folder found: " << cats->operator[](index)->getName() << " purging uuid " << cats->operator[](index)->getUUID() << LL_ENDL;
+				LL_DEBUGS("AOEngine") << "folder found: " << cats->operator[](index)->getName() << " purging uuid " << cats->operator[](index)->getUUID() << LL_ENDL;
 
 				purgeFolder(cats->operator[](index)->getUUID());
 				state->mInventoryUUID.setNull();
@@ -1044,7 +1044,7 @@ void AOEngine::update()
 		AOSet* newSet=getSetByName(params[0]);
 		if(newSet==0)
 		{
-			LL_DEBUGS() << "Adding set " << setFolderName << " to AO." << LL_ENDL;
+			LL_DEBUGS("AOEngine") << "Adding set " << setFolderName << " to AO." << LL_ENDL;
 			newSet=new AOSet(currentCategory->getUUID());
 			newSet->setName(params[0]);
 			mSets.push_back(newSet);
@@ -1076,12 +1076,12 @@ void AOEngine::update()
 				mCurrentSet=newSet;
 			}
 			else
-				LL_WARNS() << "Unknown AO set option " << params[num] << LL_ENDL;
+				LL_WARNS("AOEngine") << "Unknown AO set option " << params[num] << LL_ENDL;
 		}
 
 		if(gInventory.isCategoryComplete(currentCategory->getUUID()))
 		{
-			LL_DEBUGS() << "Set " << params[0] << " is complete, reading states ..." << LL_ENDL;
+			LL_DEBUGS("AOEngine") << "Set " << params[0] << " is complete, reading states ..." << LL_ENDL;
 
 			LLInventoryModel::cat_array_t* stateCategories;
 			gInventory.getDirectDescendentsOf(currentCategory->getUUID(),stateCategories,items);
@@ -1096,10 +1096,10 @@ void AOEngine::update()
 				AOSet::AOState* state=newSet->getStateByName(stateName);
 				if(state==NULL)
 				{
-					LL_WARNS() << "Unknown state " << stateName << ". Skipping." << LL_ENDL;
+					LL_WARNS("AOEngine") << "Unknown state " << stateName << ". Skipping." << LL_ENDL;
 					continue;
 				}
-				LL_DEBUGS() << "Reading state " << stateName << LL_ENDL;
+				LL_DEBUGS("AOEngine") << "Reading state " << stateName << LL_ENDL;
 
 				state->mInventoryUUID = stateCategories->at(state_index)->getUUID();
 				for(U32 num = 1; num < params.size(); num++)
@@ -1136,7 +1136,7 @@ void AOEngine::update()
 		}
 		else
 		{
-			LL_DEBUGS() << "Set " << params[0] << " is incomplete, fetching descendents" << LL_ENDL;
+			LL_DEBUGS("AOEngine") << "Set " << params[0] << " is incomplete, fetching descendents" << LL_ENDL;
 			gInventory.fetchDescendentsOf(currentCategory->getUUID());
 		}
 	}
@@ -1224,7 +1224,7 @@ void AOEngine::selectSet(AOSet* set)
 
 	if(mEnabled)
 	{
-		LL_DEBUGS() << "enabling with motion " << gAnimLibrary.animationName(mLastMotion) << LL_ENDL;
+		LL_DEBUGS("AOEngine") << "enabling with motion " << gAnimLibrary.animationName(mLastMotion) << LL_ENDL;
 		gAgent.sendAnimationRequest(override(mLastMotion,TRUE),ANIM_REQUEST_START);
 	}
 }
@@ -1237,7 +1237,7 @@ AOSet* AOEngine::selectSetByName(const std::string& name)
 		selectSet(set);
 		return set;
 	}
-	LL_WARNS() << "Could not find AO set " << name << LL_ENDL;
+	LL_WARNS("AOEngine") << "Could not find AO set " << name << LL_ENDL;
 	return NULL;
 }
 
@@ -1266,7 +1266,7 @@ void AOEngine::saveSet(const AOSet* set)
 	// so let's make use of them. This code is just for reference
 
 	LLViewerInventoryCategory* cat=gInventory.getCategory(set->getInventoryUUID());
-	LL_WARNS() << cat << LL_ENDL;
+	LL_WARNS("AOEngine") << cat << LL_ENDL;
 	cat->rename(setParams);
 	cat->updateServer(FALSE);
 	gInventory.addChangedMask(LLInventoryObserver::LABEL, cat->getUUID());
@@ -1277,7 +1277,7 @@ void AOEngine::saveSet(const AOSet* set)
 	rename_category(&gInventory,set->getInventoryUUID(),setParams);
 	gSavedPerAccountSettings.setBOOL("ProtectAOFolders",wasProtected);
 
-	LL_WARNS() << "sending update signal" << LL_ENDL;
+	LL_INFOS("AOEngine") << "sending update signal" << LL_ENDL;
 	mUpdatedSignal();
 }
 
@@ -1368,7 +1368,7 @@ void AOEngine::inMouselook(BOOL yes)
 			gAgent.sendAnimationRequest(animation,ANIM_REQUEST_STOP);
 			gAgentAvatarp->LLCharacter::stopMotion(animation);
 			state->mCurrentAnimationID.setNull();
-			LL_DEBUGS() << " stopped animation " << animation << " in state " << state->mName << LL_ENDL;
+			LL_DEBUGS("AOEngine") << " stopped animation " << animation << " in state " << state->mName << LL_ENDL;
 		}
 		gAgent.sendAnimationRequest(ANIM_AGENT_STAND,ANIM_REQUEST_START);
 	}
@@ -1463,7 +1463,7 @@ void AOEngine::tick()
 
 	if(categoryID.isNull())
 	{
-		LL_WARNS() << "no " << ROOT_VIEWERSUPPORT_FOLDER << " folder yet. Creating ..." << LL_ENDL;
+		LL_WARNS("AOEngine") << "no " << ROOT_VIEWERSUPPORT_FOLDER << " folder yet. Creating ..." << LL_ENDL;
 		gInventory.createNewCategory(gInventory.getRootFolderID(),LLFolderType::FT_NONE,ROOT_VIEWERSUPPORT_FOLDER);
 		mAOFolder.setNull();
 	}
@@ -1472,7 +1472,7 @@ void AOEngine::tick()
 		LLInventoryModel::cat_array_t* categories;
 		LLInventoryModel::item_array_t* items;
 		gInventory.getDirectDescendentsOf(categoryID,categories,items);
-		LL_DEBUGS() << "cat " << categories->size() << " items " << items->size() << LL_ENDL;
+		LL_DEBUGS("AOEngine") << "cat " << categories->size() << " items " << items->size() << LL_ENDL;
 
 		for(S32 index=0;index<categories->size();index++)
 		{
@@ -1486,12 +1486,12 @@ void AOEngine::tick()
 
 		if(mAOFolder.isNull())
 		{
-			LL_WARNS() << "no " << ROOT_AO_FOLDER << " folder yet. Creating ..." << LL_ENDL;
+			LL_WARNS("AOEngine") << "no " << ROOT_AO_FOLDER << " folder yet. Creating ..." << LL_ENDL;
 			gInventory.createNewCategory(categoryID,LLFolderType::FT_NONE,ROOT_AO_FOLDER);
 		}
 		else
 		{
-			LL_WARNS() << "AO basic folder structure intact." << LL_ENDL;
+			LL_INFOS("AOEngine") << "AO basic folder structure intact." << LL_ENDL;
 			update();
 		}
 	}
@@ -1501,7 +1501,7 @@ BOOL AOEngine::importNotecard(const LLInventoryItem* item)
 {
 	if(item)
 	{
-		LL_WARNS() << "importing AO notecard: " << item->getName() << LL_ENDL;
+		LL_INFOS("AOEngine") << "importing AO notecard: " << item->getName() << LL_ENDL;
 		if(getSetByName(item->getName()))
 		{
 			LLNotificationsUtil::add("AOImportSetAlreadyExists", LLSD());
@@ -1527,8 +1527,7 @@ BOOL AOEngine::importNotecard(const LLInventoryItem* item)
 			LLUUID* newUUID = new LLUUID(item->getAssetUUID());
 			const LLHost sourceSim=LLHost();
 
-			gAssetStorage->getInvItemAsset
-			(
+			gAssetStorage->getInvItemAsset(
 				sourceSim,
 				gAgent.getID(),
 				gAgent.getSessionID(),
@@ -1560,7 +1559,7 @@ void AOEngine::onNotecardLoadComplete(	LLVFS* vfs,const LLUUID& assetUUID,LLAsse
 		AOEngine::instance().parseNotecard(NULL);
 		return;
 	}
-	LL_DEBUGS() << "Downloading import notecard complete." << LL_ENDL;
+	LL_DEBUGS("AOEngine") << "Downloading import notecard complete." << LL_ENDL;
 
 	S32 notecardSize = vfs->getSize(assetUUID,type);
 	char* buffer = new char[notecardSize];
@@ -1577,13 +1576,13 @@ void AOEngine::onNotecardLoadComplete(	LLVFS* vfs,const LLUUID& assetUUID,LLAsse
 
 void AOEngine::parseNotecard(const char* buffer)
 {
-	LL_DEBUGS() << "parsing import notecard" << LL_ENDL;
+	LL_DEBUGS("AOEngine") << "parsing import notecard" << LL_ENDL;
 
 	bool isValid = false;
 
 	if(!buffer)
 	{
-		LL_WARNS() << "buffer==NULL - aborting import" << LL_ENDL;
+		LL_WARNS("AOEngine") << "buffer==NULL - aborting import" << LL_ENDL;
 		// NOTE: cleanup is always the same, needs streamlining
 		delete mImportSet;
 		mImportSet = 0;
@@ -1634,7 +1633,7 @@ void AOEngine::parseNotecard(const char* buffer)
 	for(U32 index=0;index<items->size();index++)
 	{
 		animationMap[items->operator[](index)->getName()]=items->operator[](index)->getUUID();
-		LL_DEBUGS()	<<	"animation " << items->operator[](index)->getName() <<
+		LL_DEBUGS("AOEngine")	<<	"animation " << items->operator[](index)->getName() <<
 						" has inventory UUID " << animationMap[items->operator[](index)->getName()] << LL_ENDL;
 	}
 
@@ -1893,22 +1892,22 @@ bool AOTimerCollection::tick()
 {
 	if(mInventoryTimer)
 	{
-		LL_DEBUGS() << "Inventory timer tick()" << LL_ENDL;
+		LL_DEBUGS("AOEngine") << "Inventory timer tick()" << LL_ENDL;
 		AOEngine::instance().tick();
 	}
 	if(mSettingsTimer)
 	{
-		LL_DEBUGS() << "Settings timer tick()" << LL_ENDL;
+		LL_DEBUGS("AOEngine") << "Settings timer tick()" << LL_ENDL;
 		AOEngine::instance().saveSettings();
 	}
 	if(mReloadTimer)
 	{
-		LL_DEBUGS() << "Reload timer tick()" << LL_ENDL;
+		LL_DEBUGS("AOEngine") << "Reload timer tick()" << LL_ENDL;
 		AOEngine::instance().reload(true);
 	}
 	if(mImportTimer)
 	{
-		LL_DEBUGS() << "Import timer tick()" << LL_ENDL;
+		LL_DEBUGS("AOEngine") << "Import timer tick()" << LL_ENDL;
 		AOEngine::instance().processImport(true);
 	}
 
@@ -1944,12 +1943,12 @@ void AOTimerCollection::updateTimers()
 {
 	if(!mInventoryTimer && !mSettingsTimer && !mReloadTimer && !mImportTimer)
 	{
-		LL_DEBUGS() << "no timer needed, stopping internal timer." << LL_ENDL;
+		LL_DEBUGS("AOEngine") << "no timer needed, stopping internal timer." << LL_ENDL;
 		mEventTimer.stop();
 	}
 	else
 	{
-		LL_DEBUGS() << "timer needed, starting internal timer." << LL_ENDL;
+		LL_DEBUGS("AOEngine") << "timer needed, starting internal timer." << LL_ENDL;
 		mEventTimer.start();
 	}
 }
