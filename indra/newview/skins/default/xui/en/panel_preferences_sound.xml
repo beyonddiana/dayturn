@@ -21,6 +21,14 @@
      name="button5_mouse">
      Mouse Button 5
     </panel.string>
+    <panel.string
+     name="button4_mouse">
+     Mouse Button 4
+    </panel.string>
+    <panel.string
+     name="button5_mouse">
+     Mouse Button 5
+    </panel.string>
     <slider
      control_name="AudioLevelMaster"
      follows="left|top"

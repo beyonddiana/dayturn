@@ -954,6 +954,12 @@ BOOL LLViewerWindow::handleAnyMouseClick(LLWindow *window,  LLCoordGL pos, MASK 
 		case LLMouseHandler::CLICK_BUTTON5:
 			buttonname = "Button 5";
 			break;
+		case LLMouseHandler::CLICK_BUTTON4:
+			buttonname = "Button 4";
+			break;
+		case LLMouseHandler::CLICK_BUTTON5:
+			buttonname = "Button 5";
+			break;
 		}
 		
 		LLView::sMouseHandlerMessage.clear();
