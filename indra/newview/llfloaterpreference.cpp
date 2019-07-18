@@ -206,7 +206,9 @@ BOOL LLVoiceSetKeyDialog::handleAnyMouseClick(S32 x, S32 y, MASK mask, LLMouseHa
 BOOL LLVoiceSetKeyDialog::handleAnyMouseClick(S32 x, S32 y, MASK mask, LLMouseHandler::EClickType clicktype, BOOL down)
 {
     BOOL result = FALSE;
-    if (down && clicktype >= 3 && mask == 0)
+    if (down
+        && (clicktype == LLMouseHandler::CLICK_MIDDLE || clicktype == LLMouseHandler::CLICK_BUTTON4 || clicktype == LLMouseHandler::CLICK_BUTTON5)
+        && mask == 0)
     {
         mParent->setMouse(clicktype);
         result = TRUE;
@@ -1663,29 +1665,30 @@ void LLFloaterPreference::setMouse(LLMouseHandler::EClickType click)
 
 void LLFloaterPreference::setMouse(LLMouseHandler::EClickType click)
 {
-    if (click >= LLMouseHandler::CLICK_MIDDLE)
+    std::string bt_name;
+    std::string ctrl_value;
+    switch (click)
     {
-        std::string bt_name;
-        std::string ctrl_value;
-        switch (click)
-        {
-            case LLMouseHandler::CLICK_MIDDLE:
-                bt_name = "middle_mouse";
-                ctrl_value = MIDDLE_MOUSE_CV;
-                break;
-            case LLMouseHandler::CLICK_BUTTON4:
-                bt_name = "button4_mouse";
-                ctrl_value = MOUSE_BUTTON_4_CV;
-                break;
-            case LLMouseHandler::CLICK_BUTTON5:
-                bt_name = "button5_mouse";
-                ctrl_value = MOUSE_BUTTON_5_CV;
-                break;
-            default:
-                break;
-        }
-        // We are using text names for readability
+        case LLMouseHandler::CLICK_MIDDLE:
+            bt_name = "middle_mouse";
+            ctrl_value = MIDDLE_MOUSE_CV;
+            break;
+        case LLMouseHandler::CLICK_BUTTON4:
+            bt_name = "button4_mouse";
+            ctrl_value = MOUSE_BUTTON_4_CV;
+            break;
+        case LLMouseHandler::CLICK_BUTTON5:
+            bt_name = "button5_mouse";
+            ctrl_value = MOUSE_BUTTON_5_CV;
+            break;
+        default:
+            break;
+    }
+
+    if (!ctrl_value.empty())
+    {
         LLUICtrl* p2t_line_editor = getChild<LLUICtrl>("modifier_combo");
+        // We are using text control names for readability and compatibility with voice
         p2t_line_editor->setControlValue(ctrl_value);
         LLPanel* advanced_preferences = dynamic_cast<LLPanel*>(p2t_line_editor->getParent());
         if (advanced_preferences)
