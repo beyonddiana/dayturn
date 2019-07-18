@@ -201,6 +201,23 @@ BOOL LLVoiceSetKeyDialog::handleAnyMouseClick(S32 x, S32 y, MASK mask, LLMouseHa
     return result;
 }
 
+BOOL LLVoiceSetKeyDialog::handleAnyMouseClick(S32 x, S32 y, MASK mask, LLMouseHandler::EClickType clicktype, BOOL down)
+{
+    BOOL result = FALSE;
+    if (down && clicktype >= 3 && mask == 0)
+    {
+        mParent->setMouse(clicktype);
+        result = TRUE;
+        closeFloater();
+    }
+    else
+    {
+        result = LLMouseHandler::handleAnyMouseClick(x, y, mask, clicktype, down);
+    }
+
+    return result;
+}
+
 //static
 void LLVoiceSetKeyDialog::onCancel(void* user_data)
 {
@@ -1628,6 +1645,40 @@ void LLFloaterPreference::setKey(KEY key)
 	getChild<LLUICtrl>("modifier_combo")->setValue(LLKeyboard::stringFromKey(key));
 	// update the control right away since we no longer wait for apply
 	getChild<LLUICtrl>("modifier_combo")->onCommit();
+}
+
+void LLFloaterPreference::setMouse(LLMouseHandler::EClickType click)
+{
+    if (click >= LLMouseHandler::CLICK_MIDDLE)
+    {
+        std::string bt_name;
+        std::string ctrl_value;
+        switch (click)
+        {
+            case LLMouseHandler::CLICK_MIDDLE:
+                bt_name = "middle_mouse";
+                ctrl_value = MIDDLE_MOUSE_CV;
+                break;
+            case LLMouseHandler::CLICK_BUTTON4:
+                bt_name = "button4_mouse";
+                ctrl_value = MOUSE_BUTTON_4_CV;
+                break;
+            case LLMouseHandler::CLICK_BUTTON5:
+                bt_name = "button5_mouse";
+                ctrl_value = MOUSE_BUTTON_5_CV;
+                break;
+            default:
+                break;
+        }
+        // We are using text names for readability
+        LLUICtrl* p2t_line_editor = getChild<LLUICtrl>("modifier_combo");
+        p2t_line_editor->setControlValue(ctrl_value);
+        LLPanel* advanced_preferences = dynamic_cast<LLPanel*>(p2t_line_editor->getParent());
+        if (advanced_preferences)
+        {
+            p2t_line_editor->setValue(advanced_preferences->getString(bt_name));
+        }
+    }
 }
 
 void LLFloaterPreference::setMouse(LLMouseHandler::EClickType click)
