@@ -691,25 +691,28 @@ class Windows_i686_Manifest(ViewerManifest):
         # http://www.scratchpaper.com/
         # Check two paths, one for Program Files, and one for Program Files (x86).
         # Yay 64bit windows.
-        NSIS_path = os.path.expandvars('${ProgramFiles}\\NSIS\\Unicode\\makensis.exe')
-        if not os.path.exists(NSIS_path):
-            NSIS_path = os.path.expandvars('${ProgramFiles(x86)}\\NSIS\\Unicode\\makensis.exe')
+        for ProgramFiles in 'ProgramFiles', 'ProgramFiles(x86)':
+            NSIS_path = os.path.expandvars(r'${%s}\NSIS\Unicode\makensis.exe' % ProgramFiles)
+            if os.path.exists(NSIS_path):
+                break
         installer_created=False
         nsis_attempts=3
         nsis_retry_wait=15
-        while (not installer_created) and (nsis_attempts > 0):
+        for attempt in xrange(nsis_attempts):
             try:
-                nsis_attempts-=1;
-                self.run_command('"' + NSIS_path + '" ' + self.dst_path_of(tempfile))
-                installer_created=True # if no exception was raised, the codesign worked
-            except ManifestError, err:
-                if nsis_attempts:
+                self.run_command([NSIS_path, '/V2', self.dst_path_of(tempfile)])
+            except ManifestError as err:
+                if attempt+1 < nsis_attempts:
                     print >> sys.stderr, "nsis failed, waiting %d seconds before retrying" % nsis_retry_wait
                     time.sleep(nsis_retry_wait)
                     nsis_retry_wait*=2
-                else:
-                    print >> sys.stderr, "Maximum nsis attempts exceeded; giving up"
-                    raise
+            else:
+                # NSIS worked! Done!
+                break
+        else:
+            print >> sys.stderr, "Maximum nsis attempts exceeded; giving up"
+            raise
+
         # self.remove(self.dst_path_of(tempfile))
         # If we're on a build machine, sign the code using our Authenticode certificate. JC
         sign_py = os.path.expandvars("${SIGN}")
