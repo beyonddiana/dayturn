@@ -1278,7 +1278,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 				{
 				case (60 + 16):
 					// pull out collision normal for avatar
-					htonmemcpy(collision_plane.mV, &data[count], MVT_LLVector4, sizeof(LLVector4));
+					htolememcpy(collision_plane.mV, &data[count], MVT_LLVector4, sizeof(LLVector4));
 					((LLVOAvatar*)this)->setFootPlane(collision_plane);
 					count += sizeof(LLVector4);
 					// fall through
@@ -1286,23 +1286,23 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 					this_update_precision = 32;
 					// this is a terse update
 					// pos
-					htonmemcpy(new_pos_parent.mV, &data[count], MVT_LLVector3, sizeof(LLVector3));
+					htolememcpy(new_pos_parent.mV, &data[count], MVT_LLVector3, sizeof(LLVector3));
 					count += sizeof(LLVector3);
 					// vel
-					htonmemcpy((void*)getVelocity().mV, &data[count], MVT_LLVector3, sizeof(LLVector3));
+					htolememcpy((void*)getVelocity().mV, &data[count], MVT_LLVector3, sizeof(LLVector3));
 					count += sizeof(LLVector3);
 					// acc
-					htonmemcpy((void*)getAcceleration().mV, &data[count], MVT_LLVector3, sizeof(LLVector3));
+					htolememcpy((void*)getAcceleration().mV, &data[count], MVT_LLVector3, sizeof(LLVector3));
 					count += sizeof(LLVector3);
 					// theta
 					{
 						LLVector3 vec;
-						htonmemcpy(vec.mV, &data[count], MVT_LLVector3, sizeof(LLVector3));
+						htolememcpy(vec.mV, &data[count], MVT_LLVector3, sizeof(LLVector3));
 						new_rot.unpackFromVector3(vec);
 					}
 					count += sizeof(LLVector3);
 					// omega
-					htonmemcpy((void*)new_angv.mV, &data[count], MVT_LLVector3, sizeof(LLVector3));
+					htolememcpy((void*)new_angv.mV, &data[count], MVT_LLVector3, sizeof(LLVector3));
 					if (new_angv.isExactlyZero())
 					{
 						// reset rotation time
@@ -1312,7 +1312,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 					break;
 				case(32 + 16):
 					// pull out collision normal for avatar
-					htonmemcpy(collision_plane.mV, &data[count], MVT_LLVector4, sizeof(LLVector4));
+					htolememcpy(collision_plane.mV, &data[count], MVT_LLVector4, sizeof(LLVector4));
 					((LLVOAvatar*)this)->setFootPlane(collision_plane);
 					count += sizeof(LLVector4);
 					// fall through
@@ -1322,7 +1322,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 
 					// This is a terse 16 update, so treat data as an array of U16's.
 #ifdef LL_BIG_ENDIAN
-					htonmemcpy(valswizzle, &data[count], MVT_U16Vec3, 6); 
+					htolememcpy(valswizzle, &data[count], MVT_U16Vec3, 6); 
 					val = valswizzle;
 #else
 					val = (U16 *) &data[count];
@@ -1333,7 +1333,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 					new_pos_parent.mV[VZ] = U16_to_F32(val[VZ], MIN_HEIGHT, MAX_HEIGHT);
 
 #ifdef LL_BIG_ENDIAN
-					htonmemcpy(valswizzle, &data[count], MVT_U16Vec3, 6); 
+					htolememcpy(valswizzle, &data[count], MVT_U16Vec3, 6); 
 					val = valswizzle;
 #else
 					val = (U16 *) &data[count];
@@ -1344,7 +1344,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 													   U16_to_F32(val[VZ], -size, size)));
 
 #ifdef LL_BIG_ENDIAN
-					htonmemcpy(valswizzle, &data[count], MVT_U16Vec3, 6); 
+					htolememcpy(valswizzle, &data[count], MVT_U16Vec3, 6); 
 					val = valswizzle;
 #else
 					val = (U16 *) &data[count];
@@ -1355,7 +1355,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 														   U16_to_F32(val[VZ], -size, size)));
 
 #ifdef LL_BIG_ENDIAN
-					htonmemcpy(valswizzle, &data[count], MVT_U16Quat, 4); 
+					htolememcpy(valswizzle, &data[count], MVT_U16Quat, 4); 
 					val = valswizzle;
 #else
 					val = (U16 *) &data[count];
@@ -1367,7 +1367,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 					new_rot.mQ[VW] = U16_to_F32(val[VW], -1.f, 1.f);
 
 #ifdef LL_BIG_ENDIAN
-					htonmemcpy(valswizzle, &data[count], MVT_U16Vec3, 6); 
+					htolememcpy(valswizzle, &data[count], MVT_U16Vec3, 6); 
 					val = valswizzle;
 #else
 					val = (U16 *) &data[count];
@@ -1563,7 +1563,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 				{
 				case(60 + 16):
 					// pull out collision normal for avatar
-					htonmemcpy(collision_plane.mV, &data[count], MVT_LLVector4, sizeof(LLVector4));
+					htolememcpy(collision_plane.mV, &data[count], MVT_LLVector4, sizeof(LLVector4));
 					((LLVOAvatar*)this)->setFootPlane(collision_plane);
 					count += sizeof(LLVector4);
 					// fall through
@@ -1571,23 +1571,23 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 					// this is a terse 32 update
 					// pos
 					this_update_precision = 32;
-					htonmemcpy(new_pos_parent.mV, &data[count], MVT_LLVector3, sizeof(LLVector3));
+					htolememcpy(new_pos_parent.mV, &data[count], MVT_LLVector3, sizeof(LLVector3));
 					count += sizeof(LLVector3);
 					// vel
-					htonmemcpy((void*)getVelocity().mV, &data[count], MVT_LLVector3, sizeof(LLVector3));
+					htolememcpy((void*)getVelocity().mV, &data[count], MVT_LLVector3, sizeof(LLVector3));
 					count += sizeof(LLVector3);
 					// acc
-					htonmemcpy((void*)getAcceleration().mV, &data[count], MVT_LLVector3, sizeof(LLVector3));
+					htolememcpy((void*)getAcceleration().mV, &data[count], MVT_LLVector3, sizeof(LLVector3));
 					count += sizeof(LLVector3);
 					// theta
 					{
 						LLVector3 vec;
-						htonmemcpy(vec.mV, &data[count], MVT_LLVector3, sizeof(LLVector3));
+						htolememcpy(vec.mV, &data[count], MVT_LLVector3, sizeof(LLVector3));
 						new_rot.unpackFromVector3(vec);
 					}
 					count += sizeof(LLVector3);
 					// omega
-					htonmemcpy((void*)new_angv.mV, &data[count], MVT_LLVector3, sizeof(LLVector3));
+					htolememcpy((void*)new_angv.mV, &data[count], MVT_LLVector3, sizeof(LLVector3));
 					if (new_angv.isExactlyZero())
 					{
 						// reset rotation time
@@ -1597,7 +1597,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 					break;
 				case(32 + 16):
 					// pull out collision normal for avatar
-					htonmemcpy(collision_plane.mV, &data[count], MVT_LLVector4, sizeof(LLVector4));
+					htolememcpy(collision_plane.mV, &data[count], MVT_LLVector4, sizeof(LLVector4));
 					((LLVOAvatar*)this)->setFootPlane(collision_plane);
 					count += sizeof(LLVector4);
 					// fall through
@@ -1607,7 +1607,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 					test_pos_parent.quantize16(-0.5f*size, 1.5f*size, MIN_HEIGHT, MAX_HEIGHT);
 
 #ifdef LL_BIG_ENDIAN
-					htonmemcpy(valswizzle, &data[count], MVT_U16Vec3, 6); 
+					htolememcpy(valswizzle, &data[count], MVT_U16Vec3, 6); 
 					val = valswizzle;
 #else
 					val = (U16 *) &data[count];
@@ -1618,7 +1618,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 					new_pos_parent.mV[VZ] = U16_to_F32(val[VZ], MIN_HEIGHT, MAX_HEIGHT);
 
 #ifdef LL_BIG_ENDIAN
-					htonmemcpy(valswizzle, &data[count], MVT_U16Vec3, 6); 
+					htolememcpy(valswizzle, &data[count], MVT_U16Vec3, 6); 
 					val = valswizzle;
 #else
 					val = (U16 *) &data[count];
@@ -1629,7 +1629,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 								U16_to_F32(val[VZ], -size, size));
 
 #ifdef LL_BIG_ENDIAN
-					htonmemcpy(valswizzle, &data[count], MVT_U16Vec3, 6); 
+					htolememcpy(valswizzle, &data[count], MVT_U16Vec3, 6); 
 					val = valswizzle;
 #else
 					val = (U16 *) &data[count];
@@ -1640,7 +1640,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 									U16_to_F32(val[VZ], -size, size));
 
 #ifdef LL_BIG_ENDIAN
-					htonmemcpy(valswizzle, &data[count], MVT_U16Quat, 8); 
+					htolememcpy(valswizzle, &data[count], MVT_U16Quat, 8); 
 					val = valswizzle;
 #else
 					val = (U16 *) &data[count];
@@ -1652,7 +1652,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 					new_rot.mQ[VW] = U16_to_F32(val[VW], -1.f, 1.f);
 
 #ifdef LL_BIG_ENDIAN
-					htonmemcpy(valswizzle, &data[count], MVT_U16Vec3, 6); 
+					htolememcpy(valswizzle, &data[count], MVT_U16Vec3, 6); 
 					val = valswizzle;
 #else
 					val = (U16 *) &data[count];
