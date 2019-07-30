@@ -253,7 +253,7 @@ void LLConsole::Paragraph::makeParagraphColorSegments (const LLColor4 &color)
 		LLSD color_llsd = (*color_segment_it)["color"];
 		std::string color_str  = (*color_segment_it)["text"].asString();
 
-		ParagraphColorSegment color_segment;
+		ParagraphColorSegment color_segment = ParagraphColorSegment();
 		
 		color_segment.mColor.setValue(color_llsd);
 		color_segment.mNumChars = color_str.length();

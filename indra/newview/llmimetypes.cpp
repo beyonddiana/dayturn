@@ -80,7 +80,7 @@ bool LLMIMETypes::parseMIMETypes(const std::string& xml_filename)
 		{
 			std::string mime_type;
 			node->getAttributeString("name", mime_type);
-			LLMIMEInfo info;
+			LLMIMEInfo info = LLMIMEInfo();
 			for (LLXMLNode* child = node->getFirstChild();
 				 child != NULL;
 				 child = child->getNextSibling())
@@ -104,7 +104,7 @@ bool LLMIMETypes::parseMIMETypes(const std::string& xml_filename)
 		{
 			std::string set_name;
 			node->getAttributeString("name", set_name);
-			LLMIMEWidgetSet info;
+			LLMIMEWidgetSet info = LLMIMEWidgetSet();
 			for (LLXMLNode* child = node->getFirstChild();
 				child != NULL;
 				child = child->getNextSibling())
