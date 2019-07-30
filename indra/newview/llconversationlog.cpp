@@ -537,7 +537,7 @@ bool LLConversationLog::loadFromFile(const std::string& filename)
 				conv_id_buffer,
 				history_file_name);
 
-		ConversationParams params;
+		ConversationParams params = ConversationParams();
 		params.time(LLUnits::Seconds::fromValue(time))
 			.conversation_type((SessionType)stype)
 			.has_offline_ims(has_offline_ims)

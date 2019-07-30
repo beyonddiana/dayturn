@@ -116,7 +116,7 @@ LLToastAlertPanel::LLToastAlertPanel( LLNotificationPtr notification, bool modal
 
 			supplied_options.push_back(std::make_pair((*it)["name"].asString(), (*it)["text"].asString()));
 
-			ButtonData data;
+			ButtonData data = ButtonData();
 			if (option_index == mNotification->getURLOption())
 			{
 				data.mURL = mNotification->getURL();
@@ -147,7 +147,7 @@ LLToastAlertPanel::LLToastAlertPanel( LLNotificationPtr notification, bool modal
 		options.push_back(std::make_pair(std::string("close"), LLNotifications::instance().getGlobalString("implicitclosebutton")));
 
 		// add data for ok button.
-		ButtonData ok_button;
+		ButtonData ok_button = ButtonData();
 		mButtonData.push_back(ok_button);
 		mDefaultOption = 0;
 	}
