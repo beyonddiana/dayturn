@@ -332,11 +332,14 @@ private:
 
 	EFilterModified 		mFilterModified;
 	LLTimer                 mFilterTime;
-    
+
 	std::string 			mFilterText;
 	std::string 			mEmptyLookupMessage;
 
 	ESearchType 			mSearchType;
+
+	std::vector<std::string> mFilterTokens;
+	std::string				 mExactToken;
 };
 
 #endif
