@@ -207,7 +207,7 @@ void LLJoint::touch(U32 flags)
 			child_flags |= POSITION_DIRTY;
 		}
 
-		for (child_list_t::iterator iter = mChildren.begin();
+		for (joints_t::iterator iter = mChildren.begin();
 			 iter != mChildren.end(); ++iter)
 		{
 			LLJoint* joint = *iter;
@@ -249,7 +249,7 @@ LLJoint *LLJoint::findJoint( const std::string &name )
 	if (name == getName())
 		return this;
 
-	for (child_list_t::iterator iter = mChildren.begin();
+	for (joints_t::iterator iter = mChildren.begin();
 		 iter != mChildren.end(); ++iter)
 	{
 		LLJoint* joint = *iter;
@@ -284,7 +284,7 @@ void LLJoint::addChild(LLJoint* joint)
 //--------------------------------------------------------------------
 void LLJoint::removeChild(LLJoint* joint)
 {
-	child_list_t::iterator iter = std::find(mChildren.begin(), mChildren.end(), joint);
+	joints_t::iterator iter = std::find(mChildren.begin(), mChildren.end(), joint);
 	if (iter != mChildren.end())
 	{
 		mChildren.erase(iter);
@@ -301,10 +301,10 @@ void LLJoint::removeChild(LLJoint* joint)
 //--------------------------------------------------------------------
 void LLJoint::removeAllChildren()
 {
-	for (child_list_t::iterator iter = mChildren.begin();
+	for (joints_t::iterator iter = mChildren.begin();
 		 iter != mChildren.end();)
 	{
-		child_list_t::iterator curiter = iter++;
+		joints_t::iterator curiter = iter++;
 		LLJoint* joint = *curiter;
 		mChildren.erase(curiter);
 		joint->mXform.setParent(NULL);
@@ -990,7 +990,7 @@ void LLJoint::updateWorldMatrixChildren()
 	{
 		updateWorldMatrix();
 	}
-	for (child_list_t::iterator iter = mChildren.begin();
+	for (joints_t::iterator iter = mChildren.begin();
 		 iter != mChildren.end(); ++iter)
 	{
 		LLJoint* joint = *iter;
@@ -1036,7 +1036,7 @@ void LLJoint::clampRotation(LLQuaternion old_rot, LLQuaternion new_rot)
 {
 	LLVector3 main_axis(1.f, 0.f, 0.f);
 
-	for (child_list_t::iterator iter = mChildren.begin();
+	for (joints_t::iterator iter = mChildren.begin();
 		 iter != mChildren.end(); ++iter)
 	{
 		LLJoint* joint = *iter;
