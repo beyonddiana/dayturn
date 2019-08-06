@@ -265,7 +265,6 @@
         <menu_item_check label="Minimale Kamerazoom Objekt deaktivieren"  name="Disable Minimum Camera Object Zoom"/>
         <menu_item_check label="Hochauflösendes Foto"  name="HighResSnapshot"/>
         <menu_item_check label="Fotos auf Festplatte leise speichern"  name="QuietSnapshotsToDisk"/>
-        <menu_item_check label="Fotos auf Festplatte komprimieren"  name="CompressSnapshotsToDisk"/>
         <menu label="Leistung Werkzeuge"  name="Performance Tools">
             <menu_item_call label="Lag-Anzeig"  name="Lag Meter"/>
             <menu_item_check label="Statistikleiste"  name="Statistics Bar"/>
