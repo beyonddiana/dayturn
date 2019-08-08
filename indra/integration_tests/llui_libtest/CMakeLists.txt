@@ -80,7 +80,6 @@ target_link_libraries(llui_libtest
     ${KDU_LIBRARY}
     ${LLIMAGEJ2COJ_LIBRARIES}
     ${OS_LIBRARIES}
-    ${GOOGLE_PERFTOOLS_LIBRARIES}
     ${HUNSPELL_LIBRARY}
     )
 

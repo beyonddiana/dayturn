@@ -9,7 +9,6 @@ include(Linking)
 include(Boost)
 include(LLSharedLibs)
 include(JsonCpp)
-include(GoogleBreakpad)
 include(Copy3rdPartyLibs)
 include(ZLIB)
 include(URIPARSER)
@@ -19,7 +18,6 @@ include_directories(
     ${LLCOMMON_INCLUDE_DIRS}
     ${JSONCPP_INCLUDE_DIR}
     ${ZLIB_INCLUDE_DIRS}
-    ${BREAKPAD_INCLUDE_DIRECTORIES}
     ${URIPARSER_INCLUDE_DIRS}
     )
     
@@ -294,7 +292,6 @@ endif(LLCOMMON_LINK_SHARED)
 
 target_link_libraries(
     llcommon
-    ${BREAKPAD_EXCEPTION_HANDLER_LIBRARIES}
     ${APRUTIL_LIBRARIES}
     ${APR_LIBRARIES}
     ${EXPAT_LIBRARIES}
@@ -306,7 +303,6 @@ target_link_libraries(
     ${BOOST_PROGRAM_OPTIONS_LIBRARY}
     ${BOOST_REGEX_LIBRARY}
     ${BOOST_SYSTEM_LIBRARY}
-    ${GOOGLE_PERFTOOLS_LIBRARIES}
     ${URIPARSER_LIBRARIES}
     )
 

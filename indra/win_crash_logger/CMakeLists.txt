@@ -12,7 +12,6 @@ include(LLWindow)
 include(LLXML)
 include(Linking)
 include(LLSharedLibs)
-include(GoogleBreakpad)
 
 include_directories(
     ${LLCOMMON_INCLUDE_DIRS}
@@ -21,7 +20,6 @@ include_directories(
     ${LLWINDOW_INCLUDE_DIRS}
     ${LLXML_INCLUDE_DIRS}
     ${LLVFS_INCLUDE_DIRS}
-    ${BREAKPAD_INCLUDE_DIRECTORIES}
     )
 include_directories(SYSTEM
     ${LLCOMMON_SYSTEM_INCLUDE_DIRS}
@@ -70,7 +68,6 @@ find_library(DXGUID_LIBRARY dxguid ${DIRECTX_LIBRARY_DIR})
 add_executable(windows-crash-logger WIN32 ${win_crash_logger_SOURCE_FILES})
 
 target_link_libraries(windows-crash-logger
-    ${BREAKPAD_EXCEPTION_HANDLER_LIBRARIES}
     ${LLCRASHLOGGER_LIBRARIES}
     ${LLWINDOW_LIBRARIES}
     ${LLVFS_LIBRARIES}

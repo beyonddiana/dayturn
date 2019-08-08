@@ -45,8 +45,6 @@
 #include "llsdutil.h"
 #include "stringize.h"
 
-#include <client/windows/crash_generation/crash_generation_server.h>
-#include <client/windows/crash_generation/client_info.h>
 
 #define MAX_LOADSTRING 100
 #define MAX_STRING 2048
@@ -316,91 +314,9 @@ int LLCrashLoggerWindows::processingLoop() {
 	return 0;
 }
 
-
-void LLCrashLoggerWindows::OnClientConnected(void* context,
-				const google_breakpad::ClientInfo* client_info) 
-{
-	sInstance->mClientsConnected++;
-	LL_INFOS("CRASHREPORT") << "Client connected. pid = " << client_info->pid() << " total clients " << sInstance->mClientsConnected << LL_ENDL;
-}
-
-void LLCrashLoggerWindows::OnClientExited(void* context,
-		const google_breakpad::ClientInfo* client_info) 
-{
-	sInstance->mClientsConnected--;
-	LL_INFOS("CRASHREPORT") << "Client disconnected. pid = " << client_info->pid() << " total clients " << sInstance->mClientsConnected << LL_ENDL;
-}
-
-
-void LLCrashLoggerWindows::OnClientDumpRequest(void* context,
-	const google_breakpad::ClientInfo* client_info,
-	const std::wstring* file_path) 
-{
-	if (!file_path) 
-	{
-		LL_WARNS() << "dump with no file path" << LL_ENDL;
-		return;
-	}
-	if (!client_info) 
-	{
-		LL_WARNS() << "dump with no client info" << LL_ENDL;
-		return;
-	}
-
-	LLCrashLoggerWindows* self = static_cast<LLCrashLoggerWindows*>(context);
-	if (!self) 
-	{
-		LL_WARNS() << "dump with no context" << LL_ENDL;
-		return;
-	}
-
-	//DWORD pid = client_info->pid();
-}
-
-
 bool LLCrashLoggerWindows::initCrashServer()
 {
-	//For Breakpad on Windows we need a full Out of Process service to get good data.
-	//This routine starts up the service on a named pipe that the viewer will then
-	//communicate with. 
-	using namespace google_breakpad;
-
-	LLSD options = getOptionData( LLApp::PRIORITY_COMMAND_LINE );
-	std::string dump_path = options["dumpdir"].asString();
-	mClientsConnected = 0;
-	mPID = options["pid"].asInteger();
-	mProcName = options["procname"].asString();
-
-	//Generate a quasi-uniq name for the named pipe.  For our purposes
-	//this is unique-enough with least hassle.  Worst case for duplicate name
-	//is a second instance of the viewer will not do crash reporting. 
-	std::wstring wpipe_name;
-	wpipe_name = mCrashReportPipeStr + std::wstring(wstringize(mPID));
-
-	std::wstring wdump_path(utf8str_to_utf16str(dump_path));
-		
-	//Pipe naming conventions:  http://msdn.microsoft.com/en-us/library/aa365783%28v=vs.85%29.aspx
-	mCrashHandler = new CrashGenerationServer( wpipe_name,
-		NULL, 
- 		&LLCrashLoggerWindows::OnClientConnected, this,
-		/*NULL, NULL,    */ &LLCrashLoggerWindows::OnClientDumpRequest, this,
- 		&LLCrashLoggerWindows::OnClientExited, this,
- 		NULL, NULL,
- 		true, &wdump_path);
-	
- 	if (!mCrashHandler) {
-		//Failed to start the crash server.
- 		LL_WARNS() << "Failed to init crash server." << LL_ENDL;
-		return false; 
- 	}
-
-	// Start servicing clients.
-    if (!mCrashHandler->Start()) {
-		LL_WARNS() << "Failed to start crash server." << LL_ENDL;
-		return false;
-	}
-
-	LL_INFOS("CRASHREPORT") << "Initialized OOP server with pipe named " << stringize(wpipe_name) << LL_ENDL;
+    // noop
 	return true;
 }
 
