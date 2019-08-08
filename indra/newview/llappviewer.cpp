@@ -712,8 +712,6 @@ LLAppViewer::LLAppViewer()
 		LL_ERRS() << "Oh no! An instance of LLAppViewer already exists! LLAppViewer is sort of like a singleton." << LL_ENDL;
 	}
 
-    mDumpPath ="";
-
 	// Need to do this initialization before we do anything else, since anything
 	// that touches files should really go through the lldir API
 	gDirUtilp->initAppDirs("Dayturn");
@@ -806,10 +804,9 @@ bool LLAppViewer::init()
 	initMaxHeapSize() ;
 	LLCoros::instance().setStackSize(gSavedSettings.getS32("CoroutineStackSize"));
 
-	// write Google Breakpad minidump files to a per-run dump directory to avoid multiple viewer issues.
+	// write dump files to a per-run dump directory to avoid multiple viewer issues.
 	std::string logdir = gDirUtilp->getExpandedFilename(LL_PATH_DUMP, "");
-	mDumpPath = logdir;
-	setMiniDumpDir(logdir);
+	
 	logdir += gDirUtilp->getDirDelimiter();
     setDebugFileNames(logdir);
 
@@ -3633,45 +3630,6 @@ void LLAppViewer::writeSystemInfo()
 	writeDebugInfo(); // Save out debug_info.log early, in case of crash.
 }
 
-#ifdef LL_WINDOWS
-//For whatever reason, in Windows when using OOP server for breakpad, the callback to get the 
-//name of the dump file is not getting triggered by the breakpad library.   Unfortunately they 
-//also didn't see fit to provide a simple query request across the pipe to get this name either.
-//Since we are putting our output in a runtime generated directory and we know the header data in
-//the dump format, we can however use the following hack to identify our file. 
-// TODO make this a member function.
-void getFileList()
-{
-	std::stringstream filenames;
-
-	typedef std::vector<std::string> vec;
-	std::string pathname = gDirUtilp->getExpandedFilename(LL_PATH_DUMP,"");
-	vec file_vec = gDirUtilp->getFilesInDir(pathname);
-	for(vec::const_iterator iter=file_vec.begin(); iter!=file_vec.end(); ++iter)
-	{
-		filenames << *iter << " ";
-		if ( ( iter->length() > 30 ) && (iter->rfind(".dmp") == (iter->length()-4) ) )
-		{
-			std::string fullname = pathname + *iter;
-			std::ifstream fdat( fullname.c_str(), std::ifstream::binary);
-			if (fdat)
-			{
-				char buf[5];
-				fdat.read(buf,4);
-				fdat.close();
-				if (!strncmp(buf,"MDMP",4))
-				{
-					gDebugInfo["Dynamic"]["MinidumpPath"] = fullname;
-					break;
-				}
-			}
-		}
-	}
-	filenames << std::endl;
-	gDebugInfo["Dynamic"]["DumpDirContents"] = filenames.str();
-}
-#endif
-
 void LLAppViewer::handleViewerCrash()
 {
 	LL_INFOS() << "Handle viewer crash entry." << LL_ENDL;
@@ -3779,24 +3737,7 @@ void LLAppViewer::handleViewerCrash()
 		LL_WARNS("MarkerFile") << "No gDirUtilp with which to create error marker file name" << LL_ENDL;
 	}		
 	
-#ifdef LL_WINDOWS
-	Sleep(200);
-#endif 
-
-	char *minidump_file = pApp->getMiniDumpFilename();
-    LL_DEBUGS("CRASHREPORT") << "minidump file name " << minidump_file << LL_ENDL;
-	if(minidump_file && minidump_file[0] != 0)
-	{
-		gDebugInfo["Dynamic"]["MinidumpPath"] = minidump_file;
-	}
-	else	
-	{
-#ifdef LL_WINDOWS
-		getFileList();
-#else
-        LL_WARNS("CRASHREPORT") << "no minidump file?" << LL_ENDL;		
-#endif		
-	}
+    LL_WARNS("CRASHREPORT") << "no minidump file? - so what?" << LL_ENDL;		
     gDebugInfo["Dynamic"]["CrashType"]="crash";
 
 	if (gMessageSystem && gDirUtilp)
@@ -3851,13 +3792,12 @@ bool LLAppViewer::markerIsSameVersion(const std::string& marker_name) const
 
 	std::string my_version(LLVersionInfo::getChannelAndVersion());
 	char marker_version[MAX_MARKER_LENGTH];
-	S32  marker_version_length;
 
 	LLAPRFile marker_file;
 	marker_file.open(marker_name, LL_APR_RB);
 	if (marker_file.getFileHandle())
 	{
-		marker_version_length = marker_file.read(marker_version, sizeof(marker_version));
+		S32 marker_version_length = marker_file.read(marker_version, sizeof(marker_version));
 		std::string marker_string(marker_version, marker_version_length);
 		if ( 0 == my_version.compare( 0, my_version.length(), marker_version, 0, marker_version_length ) )
 		{
@@ -4643,8 +4583,6 @@ void LLAppViewer::badNetworkHandler()
 		"If the problem continues, see the Tech Support FAQ at: \n"
 		"www.secondlife.com/support";
 	forceDisconnect(message.str());
-
-	LLApp::instance()->writeMiniDump();
 }
 
 // This routine may get called more than once during the shutdown process.

@@ -1086,60 +1086,6 @@
         <key>version</key>
         <string>2.36.297273</string>
       </map>
-      <key>google_breakpad</key>
-      <map>
-        <key>copyright</key>
-        <string>Copyright (c) 2006, Google Inc.</string>
-        <key>description</key>
-        <string>Breakpad is a crossplatform library for capturing crash callstacks and runtime data.</string>
-        <key>license</key>
-        <string>bsd</string>
-        <key>license_file</key>
-        <string>LICENSES/google_breakpad.txt</string>
-        <key>name</key>
-        <string>google_breakpad</string>
-        <key>platforms</key>
-        <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>e294e6ca721e271b4bae8046cfbc3c9b</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/google-breakpad_3p-update-google-breakpad/rev/298127/arch/Linux/installer/google_breakpad-1413.298127-linux-298127.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>c493451c04f5527c76d92c863454f76f</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-google-breakpad/downloads/google_breakpad-1413.201506071040-linux64-201506071040.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
-          <key>windows</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>6a7929c7280a5c9b528fdd334da5c2d1</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/ct2/1838/4108/google_breakpad-1413.501824-windows-501824.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>windows</string>
-          </map>
-        </map>
-        <key>version</key>
-        <string>1413.501824</string>
-      </map>
       <key>gstreamer</key>
       <map>
         <key>copyright</key>

@@ -187,7 +187,6 @@ elseif(LINUX)
           libapr-1.so.0
           libaprutil-1.so.0
           libatk-1.0.so.0 
-#          libbreakpad_client.so.0
 #          libcares.so.2
 #          libcrypto.so
 #          libcrypto.so.1.0.0
