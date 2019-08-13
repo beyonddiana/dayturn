@@ -51,7 +51,6 @@ mMediaParcelLocalID(0)
 	LLMessageSystem* msg = gMessageSystem;
 	msg->setHandlerFunc("ParcelMediaCommandMessage", parcelMediaCommandMessageHandler );
 	msg->setHandlerFunc("ParcelMediaUpdate", parcelMediaUpdateHandler );
-	LLViewerParcelMediaAutoPlay::initClass();
 }
 
 LLViewerParcelMedia::~LLViewerParcelMedia()
