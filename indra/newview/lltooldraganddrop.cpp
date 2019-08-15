@@ -1811,6 +1811,7 @@ EAcceptance LLToolDragAndDrop::dad3dRezAttachmentFromInv(
 	const LLUUID &outbox_id = gInventory.findCategoryUUIDForType(LLFolderType::FT_OUTBOX, false);
 	if(gInventory.isObjectDescendentOf(item->getUUID(), outbox_id))
 	{
+		// Legacy
 		return ACCEPT_NO;
 	}
 
@@ -2237,6 +2238,7 @@ EAcceptance LLToolDragAndDrop::dad3dWearCategory(
 		const LLUUID &outbox_id = gInventory.findCategoryUUIDForType(LLFolderType::FT_OUTBOX, false);
 		if(gInventory.isObjectDescendentOf(category->getUUID(), outbox_id))
 		{
+			// Legacy
 			return ACCEPT_NO;
 		}
 
