@@ -657,7 +657,7 @@ void LLUUID::getCurrentTime(uuid_time_t *timestamp)
       getSystemTime(&time_last);
       uuids_this_tick = uuids_per_tick;
       init = true;
-	  mMutex = new LLMutex(NULL);
+	  mMutex = new LLMutex();
    }
 
    uuid_time_t time_now = {0,0};
@@ -858,6 +858,13 @@ LLAssetID LLTransactionID::makeAssetID(const LLUUID& session) const
 	}
 	return result;
 }
+
+// Construct
+LLUUID::LLUUID()
+{
+	setNull();
+}
+
 
 // Faster than copying from memory
  void LLUUID::setNull()
