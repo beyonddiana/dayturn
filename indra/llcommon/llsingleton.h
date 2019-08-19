@@ -66,7 +66,6 @@ private:
     // This, on the other hand, is a stack whose top indicates the LLSingleton
     // currently being initialized.
     static list_t& get_initializing();
-    static list_t& get_initializing_from(MasterList*);
     // Produce a vector<LLSingletonBase*> of master list, in dependency order.
     typedef std::vector<LLSingletonBase*> vec_t;
     static vec_t dep_sort();
@@ -123,6 +122,9 @@ protected:
     // That being the case, we control exactly when it happens -- and we can
     // pop the stack immediately thereafter.
     void pop_initializing();
+    // Remove 'this' from the init stack in case of exception in the
+    // LLSingleton subclass constructor.
+    static void reset_initializing(list_t::size_type size);    
 private:
     // logging
     static void log_initializing(const char* verb, const char* name);
@@ -192,6 +194,45 @@ public:
     static void deleteAll();
 }; 
  
+// Most of the time, we want LLSingleton_manage_master() to forward its
+// methods to real LLSingletonBase methods.
+template <class T>
+struct LLSingleton_manage_master
+{
+    void add(LLSingletonBase* sb) { sb->add_master(); }
+    void remove(LLSingletonBase* sb) { sb->remove_master(); }
+    void push_initializing(LLSingletonBase* sb) { sb->push_initializing(typeid(T).name()); }
+    void pop_initializing (LLSingletonBase* sb) { sb->pop_initializing(); }
+   // used for init stack cleanup in case an LLSingleton subclass constructor
+   // throws an exception
+   void reset_initializing(LLSingletonBase::list_t::size_type size)
+   {
+       LLSingletonBase::reset_initializing(size);
+   }
+   // For any LLSingleton subclass except the MasterList, obtain the init
+   // stack from the MasterList singleton instance.
+   LLSingletonBase::list_t& get_initializing() { return LLSingletonBase::get_initializing(); }
+}; 
+ 
+ 
+// But for the specific case of LLSingletonBase::MasterList, don't.
+template <>
+struct LLSingleton_manage_master<LLSingletonBase::MasterList>
+{
+    void add(LLSingletonBase*) {}
+    void remove(LLSingletonBase*) {}
+    void push_initializing(LLSingletonBase*) {}
+    void pop_initializing (LLSingletonBase*) {}
+    // since we never pushed, no need to clean up
+    void reset_initializing(LLSingletonBase::list_t::size_type size) {}
+    LLSingletonBase::list_t& get_initializing()
+    {
+        // The MasterList shouldn't depend on any other LLSingletons. We'd
+        // get into trouble if we tried to recursively engage that machinery.
+        static LLSingletonBase::list_t sDummyList;
+        return sDummyList;
+    }
+}; 
  
 template <typename DERIVED_TYPE>
 class LLSingleton : private boost::noncopyable
