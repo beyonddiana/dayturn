@@ -125,16 +125,11 @@
 #include "llnotificationmanager.h" //
 #include "tea.h"
 #include "llexperiencecache.h"
-#if LL_MSVC
-// disable boost::lexical_cast warning
-#pragma warning (disable:4702)
-#endif
 
 #include "fslightshare.h" // <FS:CR> FIRE-5118 - Lightshare support
 #include "fsareasearch.h"
 
 extern void on_new_message(const LLSD& msg);
-
 //
 // Constants
 //
@@ -4413,7 +4408,7 @@ void process_crossed_region(LLMessageSystem* msg, void**)
 	U32 region_size_x = 256;
 	U32 region_size_y = 256;
 
-	if (LLGridManager::getInstance()->isInOpenSim())
+	if (!gIsInSecondLife)
 	{
 		msg->getU32(_PREHASH_RegionData, _PREHASH_RegionSizeX, region_size_x);
 		msg->getU32(_PREHASH_RegionData, _PREHASH_RegionSizeY, region_size_y);

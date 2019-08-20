@@ -57,10 +57,9 @@
 #include "llscrollcontainer.h"
 #include "llstatusbar.h"
 #include "llviewertexture.h"
-#ifdef OPENSIM
 #include "llviewernetwork.h"
-#endif // OPENSIM
 
+extern bool gIsInSecondLife; //Opensim or SecondLife
 
 const S32 MINIMUM_PRICE_FOR_LISTING = 50;	// L$
 
@@ -852,13 +851,11 @@ void LLPanelClassifiedEdit::resetControls()
 S32 LLPanelClassifiedEdit::getClassifiedFee()
 {
 	S32 fee = MINIMUM_PRICE_FOR_LISTING;
-#ifdef OPENSIM
-	if (LLGridManager::getInstance()->isInOpenSim())
+	if (!gIsInSecondLife)
 	{
 		fee = LLGridManager::getInstance()->getClassifiedFee();
 		LL_WARNS("Classified") << "Classified fee from grid manager " << fee << LL_ENDL;
 	}
-#endif // OPENSIM
 	return fee;
 }
 // </FS:CR>
