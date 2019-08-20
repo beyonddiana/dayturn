@@ -36,10 +36,6 @@
 #include "llviewerregion.h"
 #include "llvoavatarself.h"
 
-#ifdef OPENSIM
-#include "llviewernetwork.h"
-#endif
-
 LLFloaterHoverHeight::LLFloaterHoverHeight(const LLSD& key) : LLFloater(key)
 {
 }

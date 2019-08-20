@@ -65,6 +65,7 @@
 #include <map>
 #include <cstring>
 
+extern bool gIsInSecondLife; //Opensim or SecondLife
 
 //
 // Globals
@@ -236,7 +237,7 @@ void LLWorld::refreshLimits()
 
 	mLimitsNeedRefresh = false;
 
-	if(!(LLGridManager::getInstance()->isInSecondLife()))
+	if (!gIsInSecondLife)
 	{
 		//llmath/xform.h
 		mRegionMaxHeight = OS_MAX_OBJECT_Z; //llmath/xform.h
@@ -481,7 +482,7 @@ void LLWorld::setMinPrimZPos(F32 val)
 {
 	F32 minZLimit = SL_MIN_OBJECT_Z;
     
-    if (!LLGridManager::instance().isInSecondLife())
+	if (!gIsInSecondLife)
     {
         minZLimit = OS_MIN_OBJECT_Z;
     }
@@ -1638,11 +1639,9 @@ void process_enable_simulator(LLMessageSystem *msg, void **user_data)
 	LLHost sim(ip_u32, port);
 
 	U32 region_size_x = 256;
-
 	U32 region_size_y = 256;
 
-#ifdef OPENSIM
-	if (LLGridManager::getInstance()->isInOpenSim())
+	if (!gIsInSecondLife)
 	{
 		msg->getU32Fast(_PREHASH_SimulatorInfo, _PREHASH_RegionSizeX, region_size_x);
 		msg->getU32Fast(_PREHASH_SimulatorInfo, _PREHASH_RegionSizeY, region_size_y);
@@ -1652,7 +1651,7 @@ void process_enable_simulator(LLMessageSystem *msg, void **user_data)
 			region_size_y = 256;
 		}
  	}
-#endif
+
  	// Viewer trusts the simulator.
 	msg->enableCircuit(sim, TRUE);
 	LLWorld::getInstance()->addRegion(handle, sim, region_size_x, region_size_y);

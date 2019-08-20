@@ -217,6 +217,7 @@
 //
 bool gAgentMovementCompleted = false;
 S32  gMaxAgentGroups;
+extern bool gIsInSecondLife; //Opensim or SecondLife
 
 std::string SCREEN_HOME_FILENAME = "screen_home.bmp";
 std::string SCREEN_LAST_FILENAME = "screen_last.bmp";
@@ -3749,31 +3750,31 @@ bool process_login_success_response(U32 &first_sim_size_x, U32 &first_sim_size_y
 		LL_INFOS("LLStartup") << "web_profile_url : no web_profile_url answer, we use the default setting for the web : " << web_profile_url << LL_ENDL;
 	}
 
-#ifdef OPENSIM	
-// <FS:CR> FIRE-10567 - Set classified fee, if it's available.
-
-	if (response.has("classified_fee"))
-	{
-		S32 classified_fee = response["classified_fee"];
-		LL_INFOS("LLStartup") << "Classified fee from server " << classified_fee << LL_ENDL;
-		LLGridManager::getInstance()->setClassifiedFee(classified_fee);
-	}
-	else
-	{
-		LLGridManager::getInstance()->setClassifiedFee(0);	// Free is a sensible default
-	}
-// <FS:CR> Set a parcel listing fee, if it's available
-	if (response.has("directory_fee"))
-	{
-		S32 directory_fee = response["directory_fee"];
-		LL_INFOS("LLStartup") << "Directory fee from server " << directory_fee << LL_ENDL;
-		LLGridManager::getInstance()->setDirectoryFee(directory_fee);
-	}
-	else
-	{
-		LLGridManager::getInstance()->setDirectoryFee(0);
-	}
-#endif // OPENSIM
+    if (!gIsInSecondLife)
+    {	
+        // <FS:CR> FIRE-10567 - Set classified fee, if it's available.
+        if (response.has("classified_fee"))
+        {
+            S32 classified_fee = response["classified_fee"];
+            LL_INFOS("LLStartup") << "Classified fee from server " << classified_fee << LL_ENDL;
+            LLGridManager::getInstance()->setClassifiedFee(classified_fee);
+        }
+        else
+        {
+            LLGridManager::getInstance()->setClassifiedFee(0);	// Free is a sensible default
+        }
+        // <FS:CR> Set a parcel listing fee, if it's available
+        if (response.has("directory_fee"))
+        {
+            S32 directory_fee = response["directory_fee"];
+            LL_INFOS("LLStartup") << "Directory fee from server " << directory_fee << LL_ENDL;
+            LLGridManager::getInstance()->setDirectoryFee(directory_fee);
+        }
+        else
+        {
+            LLGridManager::getInstance()->setDirectoryFee(0);
+        }
+	} // OPENSIM
 	// Default male and female avatars allowing the user to choose their avatar on first login.
 	// These may be passed up by SLE to allow choice of enterprise avatars instead of the standard
 	// "new ruth."  Not to be confused with 'initial-outfit' below 

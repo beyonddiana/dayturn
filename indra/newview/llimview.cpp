@@ -70,9 +70,9 @@
 #include "message.h"
 #include "llviewerregion.h"
 
-#ifdef OPENSIM
 #include "llviewernetwork.h"
-#endif // OPENSIM
+
+extern bool gIsInSecondLife; //Opensim or SecondLife
 
 const static std::string ADHOC_NAME_SUFFIX(" Conference");
 
@@ -3698,12 +3698,7 @@ public:
 			std::string buffer = saved + message;
 
 // <FS:CR> FIRE-9762 - Don't bail here on OpenSim, we'll need to echo local posts
-#ifdef OPENSIM
-			bool is_opensim = LLGridManager::getInstance()->isInOpenSim();
-			if (!is_opensim && from_id == gAgentID)
-#else // OPENSIM
-			if(from_id == gAgentID)
-#endif // OPENSIM
+			if (gIsInSecondLife && from_id == gAgentID)
 // </FS:CR>
 			{
 				return;
@@ -3721,12 +3716,10 @@ public:
 				ll_vector3_from_sd(message_params["position"]),
 				true);
 // <FS:CR> FIRE-9762 - OK, return here if we must!
-#ifdef OPENSIM
-			if (is_opensim && from_id == gAgentID)
+			if (!gIsInSecondLife && from_id == gAgentID)
 			{
 				return;
 			}
-#endif // OPENSIM
 // </FS:CR>
 			if (LLMuteList::getInstance()->isMuted(from_id, name, LLMute::flagTextChat))
 			{
