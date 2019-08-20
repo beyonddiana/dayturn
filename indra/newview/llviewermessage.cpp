@@ -4413,7 +4413,6 @@ void process_crossed_region(LLMessageSystem* msg, void**)
 	U32 region_size_x = 256;
 	U32 region_size_y = 256;
 
-#ifdef OPENSIM
 	if (LLGridManager::getInstance()->isInOpenSim())
 	{
 		msg->getU32(_PREHASH_RegionData, _PREHASH_RegionSizeX, region_size_x);
@@ -4425,7 +4424,6 @@ void process_crossed_region(LLMessageSystem* msg, void**)
 			region_size_y = 256;
 		}
 	}
-#endif
 
 	send_complete_agent_movement(sim_host);
 
