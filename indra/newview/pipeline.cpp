@@ -775,6 +775,11 @@ void LLPipeline::destroyGL()
 
 static LLTrace::BlockTimerStatHandle FTM_RESIZE_SCREEN_TEXTURE("Resize Screen Texture");
 
+void LLPipeline::requestResizeScreenTexture()
+{
+    gResizeScreenTexture = true;
+}
+
 void LLPipeline::resizeScreenTexture()
 {
 	LL_RECORD_BLOCK_TIME(FTM_RESIZE_SCREEN_TEXTURE);
