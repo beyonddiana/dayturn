@@ -542,6 +542,10 @@ void main()
 	final_color.a = max(final_color.a, emissive_brightness);
 #endif
 
+#if !defined(HAS_NORMAL_MAP)
+    final_color.a = 0.0f;
+#endif
+
 	vec4 final_specular = spec;
 #if HAS_SPECULAR_MAP
 	vec4 final_normal = vec4(encode_normal(normalize(tnorm)), env_intensity * spec.a, 0.0);
