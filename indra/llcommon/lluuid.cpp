@@ -859,6 +859,13 @@ LLAssetID LLTransactionID::makeAssetID(const LLUUID& session) const
 	return result;
 }
 
+// Construct
+LLUUID::LLUUID()
+{
+	setNull();
+}
+
+
 // Faster than copying from memory
  void LLUUID::setNull()
 {

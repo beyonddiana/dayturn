@@ -52,7 +52,7 @@ public:
 	//
 	// CREATORS
 	//
-	LLUUID() = default;
+	LLUUID();
 	explicit LLUUID(const char *in_string); // Convert from string.
 	explicit LLUUID(const std::string& in_string); // Convert from string.
 	LLUUID(const LLUUID &in);
@@ -129,10 +129,8 @@ public:
 
 	static bool parseUUID(const std::string& buf, LLUUID* value);
 
-	U8 mData[UUID_BYTES] = {};
+	U8 mData[UUID_BYTES];
 };
-
-static_assert(std::is_standard_layout<LLUUID>{}, "LLUUID must be a standard layout type");
 
 typedef std::vector<LLUUID> uuid_vec_t;
 typedef std::set<LLUUID> uuid_set_t;
