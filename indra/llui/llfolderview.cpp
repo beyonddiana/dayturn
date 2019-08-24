@@ -156,7 +156,7 @@ LLFolderView::LLFolderView(const Params& p)
 	mNeedsScroll( FALSE ),
 	mUseLabelSuffix(p.use_label_suffix),
 	mPinningSelectedItem(FALSE),
-	mNeedsAutoSelect( FALSE ),
+	mNeedsAutoSelect(false),
 	mAutoSelectOverride(FALSE),
 	mNeedsAutoRename(FALSE),
 	mShowSelectionContext(FALSE),
@@ -1619,7 +1619,7 @@ void LLFolderView::update()
 
 	if (filter_object.isModified() && filter_object.isNotDefault() && mParentPanel.get()->getVisible())
 	{
-		mNeedsAutoSelect = TRUE;
+		mNeedsAutoSelect = true;
 	}
     
 	// Filter to determine visibility before arranging
@@ -1668,7 +1668,7 @@ void LLFolderView::update()
 		|| gFocusMgr.childHasMouseCapture(mParentPanel.get()))
 	{
 		// finishing the filter process, giving focus to the folder view, or dragging the scrollbar all stop the auto select process
-		mNeedsAutoSelect = FALSE;
+		mNeedsAutoSelect = false;
 	}
 
   bool is_visible = isInVisibleChain();

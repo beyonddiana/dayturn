@@ -95,10 +95,10 @@ public:
 	void fromParams(Params& p) 
 	{ 
 		mSortOrder = p.order; 
-		mByDate = (mSortOrder & LLInventoryFilter::SO_DATE);
-		mSystemToTop = (mSortOrder & LLInventoryFilter::SO_SYSTEM_FOLDERS_TO_TOP);
-		mFoldersByName = (mSortOrder & LLInventoryFilter::SO_FOLDERS_BY_NAME);
-		mFoldersByWeight = (mSortOrder & LLInventoryFilter::SO_FOLDERS_BY_WEIGHT);
+		mByDate = static_cast<bool>(mSortOrder & LLInventoryFilter::SO_DATE);
+		mSystemToTop = static_cast<bool>(mSortOrder & LLInventoryFilter::SO_SYSTEM_FOLDERS_TO_TOP);
+		mFoldersByName = static_cast<bool>(mSortOrder & LLInventoryFilter::SO_FOLDERS_BY_NAME);
+		mFoldersByWeight = static_cast<bool>(mSortOrder & LLInventoryFilter::SO_FOLDERS_BY_WEIGHT);
 	}
 
 	bool operator()(const LLFolderViewModelItemInventory* const& a, const LLFolderViewModelItemInventory* const& b) const;
