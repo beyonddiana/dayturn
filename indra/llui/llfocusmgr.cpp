@@ -149,7 +149,7 @@ LLFocusMgr::LLFocusMgr()
 	mKeyboardFocus( NULL ),
 	mLastKeyboardFocus( NULL ),
 	mDefaultKeyboardFocus( NULL ),
-	mKeystrokesOnly(FALSE),
+	mKeystrokesOnly(false),
 	mTopCtrl( NULL ),
 	mAppHasFocus(true),   // Macs don't seem to notify us that we've gotten focus, so default to true
 	mImpl(new LLFocusMgr::Impl)

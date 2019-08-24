@@ -211,9 +211,9 @@ public:
 
 	void setUnselected() { mIsSelected = FALSE; }
 
-	void setIsCurSelection(BOOL select) { mIsCurSelection = select; }
+	void setIsCurSelection(bool select) { mIsCurSelection = select; }
 
-	BOOL getIsCurSelection() { return mIsCurSelection; }
+	bool getIsCurSelection() { return mIsCurSelection; }
 
 	BOOL hasVisibleChildren() { return mHasVisibleChildren; }
 

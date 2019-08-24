@@ -141,7 +141,7 @@ private:
 	LLFocusableElement*	mKeyboardFocus;				// Keyboard events are preemptively routed to this object
 	LLFocusableElement*	mLastKeyboardFocus;			// who last had focus
 	LLFocusableElement*	mDefaultKeyboardFocus;
-	BOOL				mKeystrokesOnly;
+	bool				mKeystrokesOnly;
 	
 	// Top View
 	LLUICtrl*			mTopCtrl;
