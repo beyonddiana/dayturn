@@ -812,9 +812,9 @@ bool LLViewerTexture::bindDefaultImage(S32 stage)
 }
 
 //virtual 
-BOOL LLViewerTexture::isMissingAsset()const		
+bool LLViewerTexture::isMissingAsset()const		
 { 
-	return FALSE; 
+	return false; 
 }
 
 //virtual 

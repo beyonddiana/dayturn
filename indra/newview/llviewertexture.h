@@ -122,7 +122,7 @@ public:
 	LLViewerTexture(const U32 width, const U32 height, const U8 components, BOOL usemipmaps) ;
 
 	virtual S8 getType() const;
-	virtual BOOL isMissingAsset() const ;
+	virtual bool isMissingAsset() const ;
 	virtual void dump();	// debug info to LL_INFOS()
 	
 	/*virtual*/ bool bindDefaultImage(const S32 stage = 0) ;
@@ -384,7 +384,7 @@ public:
 	/*virtual*/ void setKnownDrawSize(S32 width, S32 height);
 
 	void setIsMissingAsset(BOOL is_missing = true);
-	/*virtual*/ BOOL isMissingAsset() const { return mIsMissingAsset; }
+	/*virtual*/ bool isMissingAsset() const { return mIsMissingAsset; }
 
 	// returns dimensions of original image for local files (before power of two scaling)
 	// and returns 0 for all asset system images
