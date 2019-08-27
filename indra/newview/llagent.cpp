@@ -837,13 +837,13 @@ bool LLAgent::canFly()
 	if (gSavedSettings.getBOOL("DisableFly"))
 	{
 		LL_INFOS() << "Flying disbled by:  'Do not let me fly'." << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 	LLViewerRegion* regionp = getRegion();
-	if (regionp && regionp->getBlockFly()) return FALSE;
+	if (regionp && regionp->getBlockFly()) return false;
 	
 	LLParcel* parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
-	if (!parcel) return FALSE;
+	if (!parcel) return false;
 
 	// Allow owners to fly on their own land.
 	if (LLViewerParcelMgr::isParcelOwnedByAgent(parcel, GP_LAND_ALLOW_FLY))
