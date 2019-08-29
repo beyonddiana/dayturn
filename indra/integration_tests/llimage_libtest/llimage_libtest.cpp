@@ -575,7 +575,7 @@ int main(int argc, char** argv)
 	// Create the logging thread if required
 	if (LLFastTimer::sMetricLog)
 	{
-		LLFastTimer::sLogLock = new LLMutex(NULL);
+		LLFastTimer::sLogLock = new LLMutex();
 		fast_timer_log_thread = new LogThread(LLFastTimer::sLogName);
 		fast_timer_log_thread->start();
 	}
