@@ -122,12 +122,16 @@ void LLThread::threadRun()
     set_thread_name(-1, mName.c_str());
 #endif
 
-	// for now, hard code all LLThreads to report to single master thread recorder, which is known to be running on main thread
+    // for now, hard code all LLThreads to report to single master thread recorder, which is known to be running on main thread
     mRecorder = new LLTrace::ThreadRecorder(*LLTrace::get_master_thread_recorder());
 
+    sThreadID = mID;
+
     // Run the user supplied function
-    try 
+    do 
     {
+        try
+        {
             run();
         }
         catch (const LLContinueError &e)
@@ -145,6 +149,7 @@ void LLThread::threadRun()
     } while (true);
 
     //LL_INFOS() << "LLThread::staticRun() Exiting: " << threadp->mName << LL_ENDL;
+
 
     delete mRecorder;
     mRecorder = NULL;
