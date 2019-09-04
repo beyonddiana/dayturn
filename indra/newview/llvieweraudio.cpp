@@ -489,15 +489,8 @@ void audio_update_volume(bool force_update)
 			LLViewerAudio::getInstance()->setForcedTeleportFade(false);
 		}
 
-		// <FS:Ansariel> Use faster LLCachedControls for frequently visited locations
-		//F32 music_volume = gSavedSettings.getF32("AudioLevelMusic");
-		//BOOL music_muted = gSavedSettings.getBOOL("MuteMusic");
-
-		static LLCachedControl<F32> audioLevelMusic(gSavedSettings, "AudioLevelMusic", 0.5f);
-		static LLCachedControl<bool> muteMusic(gSavedSettings, "MuteMusic", false);
-		F32 music_volume = (F32)audioLevelMusic;
-		BOOL music_muted = (BOOL)muteMusic;
-		// </FS:Ansariel>
+		F32 music_volume = gSavedSettings.getF32("AudioLevelMusic");
+		BOOL music_muted = gSavedSettings.getBOOL("MuteMusic");
 		F32 fade_volume = LLViewerAudio::getInstance()->getFadeVolume();
 
 		music_volume = mute_volume * master_volume * music_volume * fade_volume;
@@ -505,52 +498,30 @@ void audio_update_volume(bool force_update)
 	}
 
 	// Streaming Media
-	// <FS:Ansariel> Use faster LLCachedControls for frequently visited locations
-	//F32 media_volume = gSavedSettings.getF32("AudioLevelMedia");
-	//BOOL media_muted = gSavedSettings.getBOOL("MuteMedia");
-
-	static LLCachedControl<F32> audioLevelMedia(gSavedSettings, "AudioLevelMedia", 0.5f);
-	static LLCachedControl<bool> muteMedia(gSavedSettings, "MuteMedia", false);
-	F32 media_volume = (F32)audioLevelMedia;
-	BOOL media_muted = (BOOL)muteMedia;
-	// </FS:Ansariel>
+	F32 media_volume = gSavedSettings.getF32("AudioLevelMedia");
+	BOOL media_muted = gSavedSettings.getBOOL("MuteMedia");
 	media_volume = mute_volume * master_volume * media_volume;
 	LLViewerMedia::setVolume( media_muted ? 0.0f : media_volume );
 
-	// Voice
-	if (LLVoiceClient::getInstance())
-	{
-		// <FS:Ansariel> Use faster LLCachedControls for frequently visited locations
-		//F32 voice_volume = gSavedSettings.getF32("AudioLevelVoice");
-		static LLCachedControl<F32> audioLevelVoice(gSavedSettings, "AudioLevelVoice", 0.5f);
-		F32 voice_volume = (F32)audioLevelVoice;
-		// </FS:Ansariel>
-		voice_volume = mute_volume * master_volume * voice_volume;
-		// <FS:Ansariel> Use faster LLCachedControls for frequently visited locations
-		//BOOL voice_mute = gSavedSettings.getBOOL("MuteVoice");
-		static LLCachedControl<bool> muteVoice(gSavedSettings, "MuteVoice", false);
-		BOOL voice_mute = (BOOL)muteVoice;
-		// </FS:Ansariel>
-		LLVoiceClient::getInstance()->setVoiceVolume(voice_mute ? 0.f : voice_volume);
-		// <FS:Ansariel> Use faster LLCachedControls for frequently visited locations
-		//LLVoiceClient::getInstance()->setMicGain(voice_mute ? 0.f : gSavedSettings.getF32("AudioLevelMic"));
-		static LLCachedControl<F32> audioLevelMic(gSavedSettings, "AudioLevelMic", 1.0f);
-		LLVoiceClient::getInstance()->setMicGain(voice_mute ? 0.f : (F32)audioLevelMic);
-		// </FS:Ansariel>
-
-		// <FS:Ansariel> Use faster LLCachedControls for frequently visited locations
-		//if (!gViewerWindow->getActive() && (gSavedSettings.getBOOL("MuteWhenMinimized")))
-		static LLCachedControl<bool> muteWhenMinimized(gSavedSettings, "MuteWhenMinimized" , false);
-		if (!gViewerWindow->getActive() && muteWhenMinimized)
-		// </FS:Ansariel>
-		{
-			LLVoiceClient::getInstance()->setMuteMic(true);
-		}
-		else
-		{
-			LLVoiceClient::getInstance()->setMuteMic(false);
-		}
-	}
+    // Voice, this is parametric singleton, it gets initialized when ready
+    if (LLVoiceClient::instanceExists())
+    {
+        F32 voice_volume = gSavedSettings.getF32("AudioLevelVoice");
+        voice_volume = mute_volume * master_volume * voice_volume;
+        BOOL voice_mute = gSavedSettings.getBOOL("MuteVoice");
+        LLVoiceClient *voice_inst = LLVoiceClient::getInstance();
+        voice_inst->setVoiceVolume(voice_mute ? 0.f : voice_volume);
+        voice_inst->setMicGain(voice_mute ? 0.f : gSavedSettings.getF32("AudioLevelMic"));
+        
+        if (!gViewerWindow->getActive() && (gSavedSettings.getBOOL("MuteWhenMinimized")))
+        {
+            voice_inst->setMuteMic(true);
+        }
+        else
+        {
+            voice_inst->setMuteMic(false);
+        }
+    }
 }
 
 void audio_update_listener()
