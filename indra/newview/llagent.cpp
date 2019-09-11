@@ -4687,7 +4687,7 @@ void LLAgent::sendAgentSetAppearance()
 	// NOTE -- when we start correcting all of the other Havok geometry 
 	// to compensate for the COLLISION_TOLERANCE ugliness we will have 
 	// to tweak this number again
-	const LLVector3 body_size = gAgentAvatarp->mBodySize + gAgentAvatarp->mAvatarOffset;
+	const LLVector3 body_size = gAgentAvatarp->mBodySize; //+ gAgentAvatarp->mAvatarOffset;
 	msg->addVector3Fast(_PREHASH_Size, body_size);
 	
 	LL_DEBUGS("Avatar") << gAgentAvatarp->avString() << "Sent AgentSetAppearance with height: " << body_size.mV[VZ] << " base: " << gAgentAvatarp->mBodySize.mV[VZ] << " hover: " << gAgentAvatarp->mAvatarOffset.mV[VZ] << LL_ENDL;	
