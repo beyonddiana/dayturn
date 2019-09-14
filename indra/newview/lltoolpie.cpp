@@ -1363,19 +1363,22 @@ BOOL LLToolPie::handleToolTip(S32 local_x, S32 local_y, MASK mask)
 	if (!mHoverPick.isValid()) return TRUE;
 
 	LLViewerObject* hover_object = mHoverPick.getObject();
-	
-//MK
-	// Don't show a tooltip for an object we can't reach or see
-	if (gRRenabled && !gAgent.mRRInterface.canTouchFar (hover_object))
-	{
-		return TRUE;
-	}
-//mk
 
+//MK
+//CA @interact suppresses all tooltips, @touchworld/touchall all objects
+ 	// Don't show a tooltip for an object we can't reach or see
+	if (gRRenabled && ( !gAgent.mRRInterface.canTouchFar (hover_object)
+		                || !gAgent.mRRInterface.canTouch (hover_object)
+		                || gAgent.mRRInterface.mContainsInteract))
+ 	{
+ 		return TRUE;
+ 	}
+ //mk
+	
 	// update hover object and hover parcel
 	LLSelectMgr::getInstance()->setHoverObject(hover_object, mHoverPick.mObjectFace);
-	
-	
+
+
 	std::string tooltip_msg;
 	std::string line;
 
