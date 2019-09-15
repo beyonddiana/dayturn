@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <menu_bar name="Login Menu">
     <menu label="Datei"  name="File">
-        <menu_item_call label="[APP_NAME] Shließen"  name="Quit"/>
+        <menu_item_call label="[APP_NAME] shließen"  name="Quit"/>
     </menu>
     
     <menu label="Bearbeiten" name="Edit">
+        <menu_item_call label="Fenstergröße einstelle..."  name="Set Window Size..."/>
         <menu_item_call label="Einstellungen"  name="Preferences..."/>
     </menu>
     
     <menu label="Hilfe"  name="Help">
-        <menu_item_call label="[APP_NAME] Hilfe"  name="Second Life Help"/>
-        <menu_item_call label="Second Life Grid Status"  name="Second Life Grid Status"/>
-        <menu_item_call label="About [APP_NAME]"  name="About Second Life"/>
+        <menu_item_call label="[APP_NAME] Hilfe"  name="Dayturn Help"/>
+        <menu_item_call label="[APP_NAME] Forum"  name="Dayturn Forum"/>
+        <menu_item_check label="Debug-Menü anzeigen"  name="Show Debug Menu"/>
+        <menu_item_call label="Über [APP_NAME]"  name="About Second Life"/>
     </menu>
     
-    <menu_item_check label="Debug-Menü anzeigen"  name="Show Debug Menu"/>
+    
     
     <menu label="Debug"  name="Debug">
         <menu_item_call label="Debug-Einstellungen anzeigen"  name="Debug Settings"/>
@@ -25,7 +27,6 @@
             <menu_item_call label="Widgets"  name="Widgets"/>
             <menu_item_call label="Inspectors"  name="Inspectors"/>
         </menu>
-        <menu_item_call label="Fenstergröße einstelle..."  name="Set Window Size..."/>
         <menu_item_call label="Servicebedingungen anzeigen"  name="TOS"/>
         <menu_item_call label="Wichtige Meldung anzeigen"  name="Critical"/>
         <menu_item_call label="Web Content Floater Debug Test"  name="Web Content Floater Debug Test"/>
