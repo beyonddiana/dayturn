@@ -98,74 +98,6 @@
         <key>slurl_base</key>
             <string>hop://127.0.0.1:8080/</string>
         </map>                  
-    <key>hg.sirinhgpole.com:8002</key>
-        <map>
-        <key>LastModified</key>
-            <date>2014-12-04T20:32:02.88Z</date>
-        <key>about</key>
-            <string>http://hg.sirinhgpole.com/elgg/blog/owner/sirinPeccable</string>
-        <key>gatekeeper</key>
-            <string>hg.sirinhgpole.com:8002</string>
-        <key>gridname</key>
-            <string>SirinHGpole-Grid</string>
-        <key>gridnick</key>
-            <string>SirinHGgrid</string>
-        <key>help</key>
-            <string>http://sirinhgpole.com/website/contactfor</string>
-        <key>login_identifier_types</key>
-            <array>
-                <string>agent</string>
-                <string>account</string>
-            </array>
-        <key>loginpage</key>
-            <string>http://hg.sirinhgpole.com/splash/index.php</string>
-        <key>loginuri</key>
-            <array>
-                <string>http://hg.sirinhgpole.com:8002/</string>
-            </array>
-        <key>name</key>
-            <string>hg.sirinhgpole.com:8002</string>
-        <key>password</key>
-            <string>http://hg.sirinhgpole.com:8002/wifi/forgotpassword</string>
-        <key>register</key>
-            <string>http://hg.sirinhgpole.com:8002/wifi/user/account</string>
-        <key>slurl_base</key>
-            <string>hop://hg.sirinhgpole.com:8002/</string>
-        </map>
-    <key>tanglegrid.net:8002</key>
-        <map>
-        <key>LastModified</key>
-            <date>2014-06-22T13:58:25.03Z</date>
-        <key>about</key>
-            <string>http://tanglegrid.com/</string>
-        <key>gridname</key>
-            <string>TanGLe Grid</string>
-        <key>gridnick</key>
-            <string>TanGLe</string>
-        <key>help</key>
-            <string>http://tanglegrid.com/contact.php</string>
-        <key>helperuri</key>
-            <string>http://tanglegrid.net/scripts/helper/</string>
-        <key>login_identifier_types</key>
-            <array>
-                <string>agent</string>
-                <string>account</string>
-            </array>
-        <key>loginpage</key>
-            <string>http://tanglegrid.net/web_interface/loginscreen.php</string>
-        <key>loginuri</key>
-            <array>
-                <string>http://tanglegrid.net:8002/</string>
-            </array>
-        <key>name</key>
-            <string>tanglegrid.net:8002</string>
-        <key>password</key>
-            <string>http://www.tanglegrid.net/web_interface/index.php?page=forgotpass</string>
-        <key>register</key>
-            <string>http://www.tanglegrid.net/web_interface/index.php?page=create</string>
-        <key>slurl_base</key>
-            <string>hop://tanglegrid.net:8002/</string>
-        </map>
     <key>grid.kitely.com:8002</key>
         <map>
         <key>LastModified</key>
@@ -324,42 +256,46 @@
         <key>slurl_base</key>
             <string>hop://login.francogrid.org/</string>
 		</map>
-	<key>hypergrid.org:8002</key>
+    <key>login.metro.land</key>
         <map>
         <key>LastModified</key>
-            <date>2017-04-20T10:00:00.00Z</date>
+            <date>2019-09-15T08:56:02.39Z</date>
         <key>about</key>
-            <string>http://www.hypergrid.org/metropolis/wiki</string>
+            <string>http://www.metro.land</string>
+        <key>gatekeeper</key>
+            <string>hg.metro.land:80</string>
         <key>gridname</key>
             <string>Metropolis Metaversum</string>
         <key>gridnick</key>
             <string>Metropolis</string>
         <key>help</key>
-            <string>http://metropolis.hypergrid.org/forum</string>
+            <string>http://www.metro.land</string>
         <key>helperuri</key>
-            <string>http://metropolis.hypergrid.org/currency/helper</string>
+            <string>http://metro.land/helper/</string>
         <key>login_identifier_types</key>
             <array>
                 <string>agent</string>
                 <string>account</string>
             </array>
         <key>loginpage</key>
-            <string>http://metropolis.hypergrid.org/</string>
+            <string>http://metro.land/splash/</string>
         <key>loginuri</key>
             <array>
-                <string>http://hypergrid.org:8002/</string>
+                <string>http://login.metro.land/</string>
             </array>
         <key>name</key>
-            <string>hypergrid.org:8002</string>
+            <string>login.metro.land</string>
         <key>password</key>
-            <string>http://metropolis.hypergrid.org/password</string>
-        <key>register</key>
-            <string>http://www.hypergrid.org/metropolis/metro_rg.php</string>
-        <key>slurl_base</key>
-            <string>hop://hypergrid.org:8002/</string>
+            <string>http://www.metro.land/password.php</string>
         <key>platform</key>
-        	<string>OpenSim</string>
-		</map>	
+            <string>OpenSim</string>
+        <key>register</key>
+            <string>http://www.metro.land/metro_rg.php</string>
+        <key>search</key>
+            <string>http://metro.land/obj_search.php?query=</string>
+        <key>slurl_base</key>
+            <string>hop://login.metro.land/</string>
+        </map>		
     <key>login.osgrid.org</key>
         <map>
         <key>LastModified</key>
@@ -432,6 +368,112 @@
         <key>slurl_base</key>
             <string>hop://grid.spellscape.co.uk/</string>
         </map>
+    <key>hg.sirinhgpole.com:8002</key>
+        <map>
+        <key>LastModified</key>
+            <date>2014-12-04T20:32:02.88Z</date>
+        <key>about</key>
+            <string>http://hg.sirinhgpole.com/elgg/blog/owner/sirinPeccable</string>
+        <key>gatekeeper</key>
+            <string>hg.sirinhgpole.com:8002</string>
+        <key>gridname</key>
+            <string>SirinHGpole-Grid</string>
+        <key>gridnick</key>
+            <string>SirinHGgrid</string>
+        <key>help</key>
+            <string>http://sirinhgpole.com/website/contactfor</string>
+        <key>login_identifier_types</key>
+            <array>
+                <string>agent</string>
+                <string>account</string>
+            </array>
+        <key>loginpage</key>
+            <string>http://hg.sirinhgpole.com/splash/index.php</string>
+        <key>loginuri</key>
+            <array>
+                <string>http://hg.sirinhgpole.com:8002/</string>
+            </array>
+        <key>name</key>
+            <string>hg.sirinhgpole.com:8002</string>
+        <key>password</key>
+            <string>http://hg.sirinhgpole.com:8002/wifi/forgotpassword</string>
+        <key>register</key>
+            <string>http://hg.sirinhgpole.com:8002/wifi/user/account</string>
+        <key>slurl_base</key>
+            <string>hop://hg.sirinhgpole.com:8002/</string>
+        </map>        
+    <key>tanglegrid.net:8002</key>
+        <map>
+        <key>LastModified</key>
+            <date>2014-06-22T13:58:25.03Z</date>
+        <key>about</key>
+            <string>http://tanglegrid.com/</string>
+        <key>gridname</key>
+            <string>TanGLe Grid</string>
+        <key>gridnick</key>
+            <string>TanGLe</string>
+        <key>help</key>
+            <string>http://tanglegrid.com/contact.php</string>
+        <key>helperuri</key>
+            <string>http://tanglegrid.net/scripts/helper/</string>
+        <key>login_identifier_types</key>
+            <array>
+                <string>agent</string>
+                <string>account</string>
+            </array>
+        <key>loginpage</key>
+            <string>http://tanglegrid.net/web_interface/loginscreen.php</string>
+        <key>loginuri</key>
+            <array>
+                <string>http://tanglegrid.net:8002/</string>
+            </array>
+        <key>name</key>
+            <string>tanglegrid.net:8002</string>
+        <key>password</key>
+            <string>http://www.tanglegrid.net/web_interface/index.php?page=forgotpass</string>
+        <key>register</key>
+            <string>http://www.tanglegrid.net/web_interface/index.php?page=create</string>
+        <key>slurl_base</key>
+            <string>hop://tanglegrid.net:8002/</string>
+        </map>
+    <key>tranquility-grid.info:8002</key>
+        <map>
+        <key>LastModified</key>
+            <date>2019-09-15T08:44:30.13Z</date>
+        <key>about</key>
+            <string>http://tranquility-grid.info/</string>
+        <key>gatekeeper</key>
+            <string>tranquility-grid.info:8002</string>
+        <key>gridname</key>
+            <string>Tranquility Virtual Grid</string>
+        <key>gridnick</key>
+            <string>Tranquility</string>
+        <key>help</key>
+            <string>http://tranquility-grid.info/</string>
+        <key>helperuri</key>
+            <string>http://tranquility-grid.info/components/com_opensim/</string>
+        <key>login_identifier_types</key>
+            <array>
+                <string>agent</string>
+                <string>account</string>
+            </array>
+        <key>loginpage</key>
+            <string>http://tranquility-grid.info/osloginscreen/</string>
+        <key>loginuri</key>
+            <array>
+                <string>http://tranquility-grid.info:8002</string>
+            </array>
+        <key>name</key>
+            <string>tranquility-grid.info:8002</string>
+        <key>password</key>
+            <string>http://tranquility-grid.info/index.php/component/users/?view=reset</string>
+        <key>platform</key>
+            <string>OpenSim</string>
+        <key>register</key>
+            <string>http://tranquility-grid.info/index.php/component/users/?view=registration</string>
+        <key>slurl_base</key>
+            <string>hop://tranquility-grid.info:8002/</string>
+        </map>                 
     <key>grid.xmir.org:8002</key>
         <map>
         <key>LastModified</key>
@@ -467,6 +509,6 @@
             <string>http://www.xmir.org/register-avatar.html</string>
         <key>slurl_base</key>
             <string>hop://grid.xmir.org:8002/</string>
-        </map>        
+        </map>       
     </map>
 </llsd>
