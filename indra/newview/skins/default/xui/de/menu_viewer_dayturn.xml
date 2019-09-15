@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <menu_bar name="Main Menu">
-    <menu label="Ablage"  name="File">
+    <menu label="Datei"  name="File">
         <menu_item_call label="Bild ([COST])..."   name="Upload Image"/>
         <menu_item_call label="Sound ([COST])..."   name="Upload Sound"/>
         <menu_item_call label="Animation ([COST])..."  name="Upload Animation"/>
@@ -11,7 +11,7 @@
         <menu_item_call label="Foto auf Datenträger"  name="Snapshot to Disk"/>
         <menu_item_call label="Fenster schließen"  name="Close Window"/>
         <menu_item_call label="Alle Fenster schließen"  name="Close All Windows"/>
-        <menu_item_call label="Shließen [APP_NAME]"  name="Quit"/>
+        <menu_item_call label="[APP_NAME] schließen"  name="Quit"/>
     </menu>
     
 <!-- START OF EDIT MENU -->    
@@ -253,7 +253,7 @@
 <!-- END OF HELP MENU -->    
     
 <!-- START OF ADVANCED MENU -->    
-    <menu label="Advanced"  name="Advanced">
+    <menu label="Erweitert"  name="Advanced">
         <menu_item_call label="Textur neu laden"  name="Rebake Texture"/>
         <menu_item_call label="Szene neu laden"  name="Refresh Scene"/>
         <menu_item_call label="UI-Größe auf Standard setzen"  name="Set UI Size to Default"/>
