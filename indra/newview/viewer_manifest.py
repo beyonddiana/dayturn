@@ -42,7 +42,7 @@ viewer_dir = os.path.dirname(__file__)
 # Put it FIRST because some of our build hosts have an ancient install of
 # indra.util.llmanifest under their system Python!
 sys.path.insert(0, os.path.join(viewer_dir, os.pardir, "lib", "python"))
-from indra.util.llmanifest import LLManifest, main, path_ancestors, CHANNEL_VENDOR_BASE, RELEASE_CHANNEL, ManifestError
+from indra.util.llmanifest import LLManifest, main, path_ancestors, CHANNEL_VENDOR_BASE, RELEASE_CHANNEL, ManifestError, MissingError
 try:
     from llbase import llsd
 except ImportError:
@@ -181,9 +181,6 @@ class ViewerManifest(LLManifest):
             with self.prefix(src="local_assets"):
                 self.path("*.j2c")
                 self.path("*.tga")
-
-            # File in the newview/ directory
-            self.path("gpu_table.txt")
 
             #summary.json.  Standard with exception handling is fine.  If we can't open a new file for writing, we have worse problems
             summary_dict = {"Type":"viewer","Version":'.'.join(self.args['version']),"Channel":self.channel_with_pkg_suffix()}
@@ -371,7 +368,7 @@ class Windows_i686_Manifest(ViewerManifest):
                 self.path('libaprutil-1.dll')
                 self.path('libapriconv-1.dll')
                 
-            except RuntimeError as err:
+            except MissingError as err:
                 print err.message
                 print "Skipping llcommon.dll (assuming llcommon was linked statically)"
 
@@ -1171,4 +1168,10 @@ def symlinkf(src, dst):
                 raise
 
 if __name__ == "__main__":
-    main()
+
+    try:
+        main()
+    except (ManifestError, MissingError) as err:
+        sys.exit("\nviewer_manifest.py failed: "+err.msg)
+    except:
+        raise

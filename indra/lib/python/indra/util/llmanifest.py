@@ -822,6 +822,8 @@ class LLManifest(object):
                 if not try_prefixes:
                     # no more prefixes left to try
                     print "unable to find '%s'; looked in:\n  %s" % (src, '\n  '.join(tried))
+                    #raise MissingError("unable to find '%s'; looked in:\n  %s" % (src, '\n  '.join(tried)))
+                    
         print "%d files" % count
 
         # Let caller check whether we processed as many files as expected. In
