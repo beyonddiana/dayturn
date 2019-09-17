@@ -72,8 +72,11 @@ Dayturn is an open source viewer for connection to and interaction with OpenSim-
        top_pad="10"
        width="435"
        word_wrap="true">
-Dayturn is developed by Geir Nøklebye.
-      </text_editor>
+Dayturn is developed by Geir Nøklebye 
+with contributions from:
+
+Manfred Aabye, Ubit Umarov and others.
+      </text_editor>        
     </panel>     
     <panel
       border="true" 
