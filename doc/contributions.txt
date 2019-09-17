@@ -877,6 +877,7 @@ Malarthi Behemoth
 Mallory Destiny
 Malwina Dollinger
 	CT-138
+Manfred Aabye
 Manx Wharton
 march Korda
 	SVC-1020
@@ -1456,6 +1457,7 @@ Twisted Laws
 	STORM-643
 	STORM-954
 	STORM-1103
+Ubit Umarov
 Unlikely Quintessa
 UsikuFarasi Kanarik
 Vadim Bigbear
