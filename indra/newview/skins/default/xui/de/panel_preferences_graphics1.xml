@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel label="Grafik" name="Display panel">
-	<text name="QualitySpeed">
+	<text name="QualitySpeed" top_delta="20">
 		Qualität und Geschwindigkeit:
 	</text>
 	<text name="FasterText">
@@ -9,7 +9,7 @@
 	<text name="BetterText">
 		Besser
 	</text>
-	<text name="ShadersPrefText">
+	<text name="ShadersPrefText" top_delta="15">
 		Niedrig
 	</text>
 	<text name="ShadersPrefText2">
