@@ -88,7 +88,7 @@ class ViewerManifest(LLManifest):
                 # ... and the entire image filters directory
                 self.path("filters")
             
-                # ... and the included spell checking dictionaries
+                # ... and the included spell checking dictionaries and certificates
                 pkgdir = os.path.join(self.args['build'], os.pardir, 'packages')
                 with self.prefix(src=pkgdir,dst=""):
                     self.path("dictionaries")
@@ -149,16 +149,12 @@ class ViewerManifest(LLManifest):
 
             # skins
             with self.prefix(src="skins"):
-                    self.path("paths.xml")
                     # include the entire textures directory recursively
                     with self.prefix(src="*/textures"):
-                            self.path("*/*.tga")
-                            self.path("*/*.j2c")
                             self.path("*/*.jpg")
                             self.path("*/*.png")
                             self.path("*.tga")
                             self.path("*.j2c")
-                            self.path("*.jpg")
                             self.path("*.png")
                             self.path("textures.xml")
                     self.path("*/xui/*/*.xml")
@@ -174,13 +170,8 @@ class ViewerManifest(LLManifest):
                     with self.prefix(src="*/html", dst="*/html.old"):
                             self.path("*.png")
                             self.path("*/*/*.html")
-                            self.path("*/*/*.gif")
+                            #self.path("*/*/*.gif")
 
-
-            # local_assets dir (for pre-cached textures)
-            with self.prefix(src="local_assets"):
-                self.path("*.j2c")
-                self.path("*.tga")
 
             #summary.json.  Standard with exception handling is fine.  If we can't open a new file for writing, we have worse problems
             summary_dict = {"Type":"viewer","Version":'.'.join(self.args['version']),"Channel":self.channel_with_pkg_suffix()}
@@ -361,17 +352,6 @@ class Windows_i686_Manifest(ViewerManifest):
         with self.prefix(src=os.path.join(os.pardir, 'sharedlibs', self.args['configuration']),
                        dst=""):
 
-            # Get llcommon and deps. If missing assume static linkage and continue.
-            try:
-                self.path('llcommon.dll')
-                self.path('libapr-1.dll')
-                self.path('libaprutil-1.dll')
-                self.path('libapriconv-1.dll')
-                
-            except MissingError as err:
-                print err.message
-                print "Skipping llcommon.dll (assuming llcommon was linked statically)"
-
             # Mesh 3rd party libs needed for auto LOD and collada reading
             try:
                 self.path("glod.dll")
@@ -405,14 +385,6 @@ class Windows_i686_Manifest(ViewerManifest):
             self.path("SLVoice.exe")
             self.path("vivoxsdk.dll")
             self.path("ortp.dll")
-#           added from archive
-            self.path("libsndfile-1.dll")
-            self.path("vivoxoal.dll")
-            self.path("vivoxplatform.dll")
-            try:
-                self.path("zlib1.dll")
-            except:
-                print "Skipping zlib1.dll"
 
 				# Security
             self.path("ssleay32.dll")
@@ -420,38 +392,10 @@ class Windows_i686_Manifest(ViewerManifest):
 
             # Hunspell
             self.path("libhunspell.dll")
-
-        #OpenAL
-        try:
-            self.path("openal32.dll")
-            self.path("alut.dll")
-        except:
-            print "Skipping openal"
-			
-		# For google-perftools tcmalloc allocator.
-	try:
-		if self.args['configuration'].lower() == 'debug':
-			self.path('libtcmalloc_minimal-debug.dll')
-		else:
-			self.path('libtcmalloc_minimal.dll')
-	except:
-			print "Skipping libtcmalloc_minimal.dll"
-			
-			self.path(src="licenses-win32.txt", dst="licenses.txt")
-			self.path("featuretable.txt")
-			self.path("featuretable_xp.txt")
-
-	self.path(src="licenses-win32.txt", dst="licenses.txt")
-	self.path("featuretable.txt")
-	self.path("featuretable_xp.txt")
-	self.path("VivoxAUP.txt")
-    
-        # On first build tries to copy before it is built.
-        with self.prefix(src='../media_plugins/gstreamer010/%s' % self.args['configuration'], dst="llplugin"):
-            try:
-                self.path("media_plugin_gstreamer010.dll")
-            except:
-                print "Skipping media_plugin_gstreamer010.dll" 
+            
+	    #self.path(src="licenses-win32.txt", dst="licenses.txt")
+	    #self.path("featuretable.txt")
+	    
 
         # Media plugins - CEF
         with self.prefix(src='../media_plugins/cef/%s' % self.args['configuration'], dst="llplugin"):        
