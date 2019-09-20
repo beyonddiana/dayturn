@@ -266,12 +266,6 @@ else(WINDOWS)
     # or ARCH_PREBUILT_DIRS
     set(release_src_dir "${CMAKE_SOURCE_DIR}/../libraries/${ARCH}-linux/lib/release")
     set(release_files "")
-
-    set(debug_llkdu_src "")
-    set(debug_llkdu_dst "")
-    set(release_llkdu_src "")
-    set(release_llkdu_dst "")
-    set(relwithdebinfo_llkdu_dst "")
 endif(WINDOWS)
 
 

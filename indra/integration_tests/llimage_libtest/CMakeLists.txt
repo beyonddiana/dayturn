@@ -9,7 +9,6 @@ include(LLCommon)
 include(LLImage)
 include(LLMath)
 include(LLImageJ2COJ) 
-include(LLKDU)
 include(LLVFS)
 
 include_directories(
@@ -64,8 +63,6 @@ target_link_libraries(llimage_libtest
     ${LLVFS_LIBRARIES}
     ${LLMATH_LIBRARIES}
     ${LLIMAGE_LIBRARIES}
-    ${LLKDU_LIBRARIES}
-    ${KDU_LIBRARY}
     ${LLIMAGEJ2COJ_LIBRARIES}
     ${OS_LIBRARIES}
     )
