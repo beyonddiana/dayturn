@@ -2,7 +2,8 @@
 <panel label="Text-Chat" name="chat">
 	<check_box initial_value="true" label="Automatische Gestenvervollständigung beim Chat in der Nähe" name="auto_complete_gestures"/>
 	<panel name="general_chat_settings">
-		<check_box initial_value="true" label="Beim Chatten Tippanimation abspielen" name="play_typing_animation"/>
+		<check_box label="Beim Chatten Tippanimation abspielen" name="play_typing_animation"/>
+		<check_box label="Textchat als einfach enziegen" name="plain_test_chat_history"/>
 		<check_box label="IMs per E-Mail zustellen, wenn ich offline bin" name="send_im_to_email"/>
 		<check_box label="Nur IMs und Anrufe von Freunden oder Gruppen durchstellen" name="voice_call_friends_only_check"/>
 		<text name="font_size">
@@ -13,7 +14,7 @@
 			<item label="Mittel" name="Medium" value="1"/>
 			<item label="Groß" name="Large" value="2"/>
 		</combo_box>
-		<check_box label="Blasen-Chat" name="bubble_text_chat" left_delta="8"/>
+		<check_box label="Blasen-Chat" name="bubble_text_chat"/>
 	</panel>
 	<panel name="im_notification_settings">
 		<text name="friend_ims">
