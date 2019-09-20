@@ -7,7 +7,6 @@ include(LLCommon)
 include(LLImage)
 include(LLMath)
 include(LLVFS)
-include(LLKDU)
 include(LLImageJ2COJ)
 include(ZLIB)
 include(LLAddBuildTest)
@@ -61,11 +60,8 @@ list(APPEND llimage_SOURCE_FILES ${llimage_HEADER_FILES})
 add_library (llimage ${llimage_SOURCE_FILES})
 # Libraries on which this library depends, needed for Linux builds
 # Sort by high-level to low-level
-if (USE_KDU)
-    target_link_libraries(llimage ${LLKDU_LIBRARIES})
-else (USE_KDU)
-    target_link_libraries(llimage ${LLIMAGEJ2COJ_LIBRARIES})
-endif (USE_KDU)
+
+target_link_libraries(llimage ${LLIMAGEJ2COJ_LIBRARIES})
 
 target_link_libraries(llimage
     ${LLVFS_LIBRARIES}

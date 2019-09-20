@@ -49,7 +49,6 @@ set(cmake_SOURCE_FILES
     GStreamer010Plugin.cmake
     Glui.cmake
     Glut.cmake
-    Havok.cmake
     Hunspell.cmake
     JPEG.cmake
     JsonCpp.cmake
@@ -63,7 +62,6 @@ set(cmake_SOURCE_FILES
     LLImage.cmake
     LLImageJ2COJ.cmake
     LLInventory.cmake
-    LLKDU.cmake
     LLLogin.cmake
     LLMath.cmake
     LLMessage.cmake
@@ -143,7 +141,6 @@ set(cmake_SOURCE_FILES
     GLH.cmake
     GLOD.cmake
     Glut.cmake
-    Havok.cmake
     Hunspell.cmake
     JPEG.cmake
     JsonCpp.cmake
@@ -157,7 +154,6 @@ set(cmake_SOURCE_FILES
     LLImage.cmake
     LLImageJ2COJ.cmake
     LLInventory.cmake
-    LLKDU.cmake
     LLLogin.cmake
     LLMath.cmake
     LLMessage.cmake
