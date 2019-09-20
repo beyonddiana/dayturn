@@ -673,7 +673,7 @@
         Zoom
     </text>
   </panel>
-    <panel
+  <panel
  follows="right|bottom"
   height="30"
   min_height="30"
@@ -689,7 +689,7 @@
      mouse_opaque="true"
      name="zoom_icon"
      top_pad="7"
-     width="16" ></icon>
+     width="16" />
     <slider
      follows="left|bottom"
      height="16"
@@ -702,5 +702,5 @@
      name="zoom slider"
      show_text="false"
      width="200" />
-     </panel>
+   </panel>
 </floater>
