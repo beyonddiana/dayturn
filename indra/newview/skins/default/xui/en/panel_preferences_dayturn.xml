@@ -32,8 +32,6 @@
 	    name="dayturn_general"
 	    width="517" >
     <check_box
-        name="automatic_fly"
-        label="Do not let me Fly"
 		top_pad="15"
 		layout="topleft"
 		follows="left|top"
@@ -42,12 +40,12 @@
 		height="20"
 		initial_value="false"
 		control_name="DisableFly"
+		label="Do not let me Fly"
 		left="15"
+		name="automatic_fly"
 		tool_tip="Prevents your avatar from flying even when the region allows avatars to fly."
-		width="270" />
+		width="270"/>
     <check_box
-        name="automatic_jump"
-        label="Do not jump with page up keys"
 		top_pad="5"
 		layout="topleft"
 		follows="left|top"
@@ -56,9 +54,11 @@
 		height="20"
 		initial_value="false"
 		control_name="DisableJump"
+		label="Do not jump with page up keys."
 		left="15"
+		name="automatic_fly"
 		tool_tip="Prevents your avatar from jumping with 'PgUp' 'PAGE UP' and 'E' keys."
-		width="270" />
+		width="270"/>
     <check_box
 		top_pad="5"
 		layout="topleft"
@@ -334,7 +334,7 @@
 	    left="1"
 	    mouse_opaque="true"
 	    name="wabbit_chat"
-	    width="517" >
+	    width="517">
 	    <check_box
 		top_pad="15"
 		control_name="FSCmdLine"

@@ -54,7 +54,7 @@ UI Scaling: [UI_SCALE]
 Draw distance: [DRAW_DISTANCE]m
 Bandwidth: [NET_BANDWITH]kbit/s
 LOD factor: [LOD_FACTOR]
-Render quality: [RENDER_QUALITY] / 7
+Render quality: [RENDER_QUALITY]
 Advanced Lighting Model: [GPU_SHADERS]
 Texture memory: [TEXTURE_MEMORY]MB
 VFS (cache) creation time: [VFS_TIME]
@@ -4302,6 +4302,7 @@ If you continue to receive this message, please contact Second Life support for 
 	<string name="Debits">Debits</string>
 	<string name="Total">Total</string>
 	<string name="NoGroupDataFound">No group data found for group </string>
+	<string name="AlreadyInGroup">You are already in this group </string>
 
 	<!-- floater IM bonus_info: When a Linden with Admin/god status receives a new IM this displays the estate (Mainland vs. teen grid) of the source avatar.
 		This is to help Lindens when answering questions. -->
