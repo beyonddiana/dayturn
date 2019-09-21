@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Dayturn" name="dayturn_viewer">
+	<tab_container name="tabs">
+	    <panel label="Allgemein" name="dayturn_general">
+	        <check_box label="Nicht fliegen" name="automatic_fly"/>
+	        <check_box label="Nicht mit den Bild Tasten Springen" name="disable_jump"/>
+	        <check_box label="Rez Objekte unter der Landgruppe" name="grouplandrez"/>
+	        <check_box label="Zeigt den Namen Ihres Avatars in der Viewer Titelleiste an" name="WindowTitleAvatarName"/>
+	        <check_box label="Zeigt den Namen des Rasters in der Titelleiste des Viewer-Fensters an" name="WindowTitleGridName"/>
+	        <check_box label="Chat und Rufbereichsring auf der Minikarte anzeigen" name="MiniMapChatRing"/>
+	        <color_swatch label="" name="netmap_chatring_color_swatch"/>
+	        <text name="netmap_chatring_color_label">
+	            Sprechweite
+	        </text>
+	        <color_swatch label="" name="netmap_shoutring_color_swatch"/>
+	        <text name="netmap_shoutring_color_label">
+	            Rufweite
+	        </text> 
+	        <check_box label="Zeigt das Alter jedes Avatars in seinem Namensschild an" name="NameTagShowAge"/>
+	        <text name="nametag_show_age_limit_label">
+	            Zeigt das Alter des Avatars nicht in seinem Namensschild an, wenn er älter ist als:
+	        </text>
+	        <spinner label="" name="NameTagShowAgeLimit"/>
+	        <text name="nametag_show_age_limit_note">
+	            0 = Immer das Alter jedes Avatars anzeigen
+	        </text>
+	        <text name="web_browser_home_page_label" width="150">
+	                Startseite des Webbrowsers:
+	        </text>
+	        <line_editor name="web_browser_home_page" width="335"/>       
+	    </panel>
+	    <panel label="Chat" name="wabbit_chat">
+	        <check_box label="Aktiviere Chatbar Befehle (tph und tp2cam etc.)" name="FSCmdLine"/>
+	        <check_box label="Färben die Chat-Eingabefelder entsprechend dem Sitzungstyp ein" name="ColourCodedChat"/>    	        
+	        <text name="show_stream_metadata_text">
+	            Anzeige von Künstlern/Titeln:
+	        </text>
+	        <radio_group name="ShowStreamMetadata">
+		        <radio_item label="None" name="radio_off"/>
+		        <radio_item label="Toasts" name="radio_toasts"/>
+		        <radio_item label="Nearby chat" name="radio_chat"/>
+	        </radio_group>
+	        <check_box label="Verkünde den Stream Titel für den Chat Kanal:" name="StreamMetadataAnnounceToChat"/>	        
+            <spinner label="" name="StreamMetadataAnnounceChannel"/>
+	        <text name="clip_names_label">
+	            Anzahl der Namen, die im Texteingabebereich der Ad hoc Konferenz aufgelistet werden sollen:
+	        </text>
+	        <spinner label="" name="ConferenceClipNames"/>
+	        <text name="clip_names_note">
+	            (0 = Alle Namen anzeigen)
+	        </text>         
+	    </panel>
+	    <panel label="Privat" name="wabbit_view">
+	        <check_box label="Blickrichtung verbergen" name="PrivateLookAtTarget"/>
+	        <check_box label="Nicht zu ausgewählte Objekte drehen" name="PreventAvatarTurnToSelected"/>
+	        <check_box label="Den Kontostand nicht auf Bildern anzeigen" name="HideBalanceInSnapshots"/>
+	        <check_box label="Anderen nicht verraten, wohin ich zeige (klicke)" name="PrivatePointAtTarget"/>
+	        <check_box label="Zeigt wo andere suchen" name="ShowLookAt"/>
+	        <check_box label="Namen anzeigen" name="ShowLookAtNames"/>
+	        <check_box label="Nur Fadenkreuz für aktive Avatare anzeigen" name="ShowLookAtLimited"/>
+	        <check_box label="Zeigt wohin andere hinzeigen (klicken)" name="ShowPointAt"/> 
+	        <check_box label="Namen anzeigen" name="ShowPointAtNames"/>
+	        <check_box label="Zeige mir nicht mein eigenes Fadenkreuz an" name="ShowPointAtLimited"/>  
+	    </panel>	    
+	    <panel label="Inventar" name="dayturn_inv">
+	        <check_box label="Verstecke leere Systemordner aus dem Inventar" name="DebugHideEmptySystemFolders"/>
+	        <check_box label="Zeigt den Ordner Received Items im normalen Inventar an" name="FSShowInboxFolder"/>  
+	    </panel>
+	    <panel label="Skripten" name="dayturn_scripting">
+	        <check_box label="Speichert Skripte im Inventar als Mono anstelle von LSL2" name="SaveInventoryScriptsAsMono"/>
+	        <text name="friend_ims" width="195">
+	            Einschränkungen des Skriptdialogs:
+	        </text>
+	        <combo_box label="" name="script_dialog_limitations" left_pad="5">
+		        <item label="Per Object" name="script_dialog_limitations"/>
+		        <item label="Per Channel" name="script_dialog_limitations"/>
+		        <item label="Per Channel for Attachments" name="script_dialog_limitations"/>
+		        <item label="Per Channel for HUDs" name="script_dialog_limitations"/>
+		        <item label="Unconstrained for HUDs" name="script_dialog_limitations"/>
+	</combo_box>
+	    </panel>	    	    
+	</tab_container>
+</panel>
