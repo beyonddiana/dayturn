@@ -56,7 +56,7 @@
 		control_name="DisableJump"
 		label="Do not jump with page up keys."
 		left="15"
-		name="automatic_fly"
+		name="disable_jump"
 		tool_tip="Prevents your avatar from jumping with 'PgUp' 'PAGE UP' and 'E' keys."
 		width="270"/>
     <check_box
