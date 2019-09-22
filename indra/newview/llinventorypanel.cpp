@@ -1443,31 +1443,23 @@ LLInventoryPanel* LLInventoryPanel::getActiveInventoryPanel(BOOL auto_open)
 
 	// Iterate through the inventory floaters and return whichever is on top.
 	LLFloaterReg::const_instance_list_t& inst_list = LLFloaterReg::getFloaterList("inventory");
-	// <FS:Ansariel> Fix for sharing inventory when multiple inventory floaters are open:
-	//               For the secondary floaters, we have registered those as
-	//               "secondary_inventory" in LLFloaterReg, so we have to add those
-	//               instances to the instance list!
-	//for (LLFloaterReg::const_instance_list_t::const_iterator iter = inst_list.begin(); iter != inst_list.end(); ++iter)
-	LLFloaterReg::const_instance_list_t& inst_list_secondary = LLFloaterReg::getFloaterList("secondary_inventory");
-	LLFloaterReg::instance_list_t combined_list;
-	combined_list.insert(combined_list.end(), inst_list.begin(), inst_list.end());
-	combined_list.insert(combined_list.end(), inst_list_secondary.begin(), inst_list_secondary.end());
-	for (LLFloaterReg::instance_list_t::const_iterator iter = combined_list.begin(); iter != combined_list.end(); ++iter)
-	// </FS:Ansariel>
+	for (LLFloaterReg::const_instance_list_t::const_iterator iter = inst_list.begin(); iter != inst_list.end(); ++iter)
 	{
 		LLFloaterSidePanelContainer* inventory_floater = dynamic_cast<LLFloaterSidePanelContainer*>(*iter);
-		inventory_panel = inventory_floater->findChild<LLSidepanelInventory>("main_panel");
-
-		if (inventory_floater && inventory_panel && inventory_floater->getVisible())
-		{
-			S32 z_order = gFloaterView->getZOrder(inventory_floater);
-			if (z_order < z_min)
-			{
-				res = inventory_panel->getActivePanel();
-				z_min = z_order;
-				active_inv_floaterp = inventory_floater;
-			}
-		}
+		if (inventory_floater)
+        {
+            inventory_panel = inventory_floater->findChild<LLSidepanelInventory>("main_panel");
+            if (inventory_panel && inventory_floater->getVisible())
+            {
+                S32 z_order = gFloaterView->getZOrder(inventory_floater);
+                if (z_order < z_min)
+                {
+                    res = inventory_panel->getActivePanel();
+                    z_min = z_order;
+                    active_inv_floaterp = inventory_floater;
+                }
+            }
+        }
 	}
 
 	if (res)
@@ -1491,25 +1483,43 @@ LLInventoryPanel* LLInventoryPanel::getActiveInventoryPanel(BOOL auto_open)
 //static
 void LLInventoryPanel::openInventoryPanelAndSetSelection(BOOL auto_open, const LLUUID& obj_id, BOOL main_panel)
 {
-	LLInventoryPanel *active_panel;
-	bool in_inbox = (gInventory.isObjectDescendentOf(obj_id, gInventory.findCategoryUUIDForType(LLFolderType::FT_INBOX)));
-
-	if (main_panel && !in_inbox)
-	{
-		LLFloaterSidePanelContainer::getPanel<LLSidepanelInventory>("inventory")->selectAllItemsPanel();
-	}
-	active_panel = LLInventoryPanel::getActiveInventoryPanel(auto_open);
+	LLInventoryPanel *active_panel = LLInventoryPanel::getActiveInventoryPanel(auto_open);
 
 	if (active_panel)
 	{
 		LL_DEBUGS("Messaging") << "Highlighting" << obj_id  << LL_ENDL;
-
+		
+		LLViewerInventoryItem * item = gInventory.getItem(obj_id);
+		LLViewerInventoryCategory * cat = gInventory.getCategory(obj_id);
+		
+		bool in_inbox = false;
+		
+		LLViewerInventoryCategory * parent_cat = nullptr;
+		
+		if (item)
+		{
+			parent_cat = gInventory.getCategory(item->getParentUUID());
+		}
+		else if (cat)
+		{
+			parent_cat = gInventory.getCategory(cat->getParentUUID());
+		}
+		
+		if (parent_cat)
+		{
+			in_inbox = (LLFolderType::FT_INBOX == parent_cat->getPreferredType());
+		}
+		
 		if (in_inbox)
 		{
 			LLSidepanelInventory * sidepanel_inventory =	LLFloaterSidePanelContainer::getPanel<LLSidepanelInventory>("inventory");
-			LLInventoryPanel * inventory_panel = NULL;
-			sidepanel_inventory->openInbox();
-			inventory_panel = sidepanel_inventory->getInboxPanel();
+			LLInventoryPanel * inventory_panel = nullptr;
+			
+			if (in_inbox)
+			{
+				sidepanel_inventory->openInbox();
+				inventory_panel = sidepanel_inventory->getInboxPanel();
+			}
 
 			if (inventory_panel)
 			{
@@ -1578,7 +1588,7 @@ LLFolderViewItem* LLInventoryPanel::getItemByID(const LLUUID& id)
 		return map_it->second;
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 LLFolderViewFolder* LLInventoryPanel::getFolderByID(const LLUUID& id)
@@ -1642,6 +1652,7 @@ BOOL LLInventoryPanel::handleKeyHere( KEY key, MASK mask )
 // 					return handled;
 // 				}
 // 			}
+
 			LLInventoryAction::doToSelected(mInventory, mFolderRoot.get(), "open");
 			handled = TRUE;
 		}
