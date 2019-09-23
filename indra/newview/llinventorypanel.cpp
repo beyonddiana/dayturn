@@ -34,7 +34,6 @@
 #include "llappearancemgr.h"
 #include "llavataractions.h"
 #include "llclipboard.h"
-#include "llfloaterinventory.h"
 #include "llfloaterreg.h"
 #include "llfloatersidepanelcontainer.h"
 #include "llfolderview.h"
@@ -56,7 +55,7 @@ static LLDefaultChildRegistry::Register<LLInventoryPanel> r("inventory_panel");
 const std::string LLInventoryPanel::DEFAULT_SORT_ORDER = std::string("InventorySortOrder");
 const std::string LLInventoryPanel::RECENTITEMS_SORT_ORDER = std::string("RecentItemsSortOrder");
 const std::string LLInventoryPanel::INHERIT_SORT_ORDER = std::string("");
-static LLInventoryFolderViewModelBuilder INVENTORY_BRIDGE_BUILDER;
+static const LLInventoryFolderViewModelBuilder INVENTORY_BRIDGE_BUILDER;
 
 // statics 
 bool LLInventoryPanel::sColorSetInitialized = false;
@@ -288,19 +287,16 @@ void LLInventoryPanel::initFromParams(const LLInventoryPanel::Params& params)
 	}
 
 	// hide inbox
-	// <FS:Ansariel> Optional hiding of Received Items folder aka Inbox
-	//getFilter()->setFilterCategoryTypes(getFilter()->getFilterCategoryTypes() & ~(1ULL << LLFolderType::FT_INBOX));
-	if (!gSavedSettings.getBOOL("FSShowInboxFolder"))
+	if (!gSavedSettings.getBOOL("InventoryOutboxMakeVisible"))
 	{
 		getFilter().setFilterCategoryTypes(getFilter().getFilterCategoryTypes() & ~(1ULL << LLFolderType::FT_INBOX));
-	}	
+		getFilter().setFilterCategoryTypes(getFilter().getFilterCategoryTypes() & ~(1ULL << LLFolderType::FT_OUTBOX));
+	}
     // hide marketplace listing box, unless we are a marketplace panel
 	if (!gSavedSettings.getBOOL("InventoryOutboxMakeVisible") && !mParams.use_marketplace_folders)
 	{
 		getFilter().setFilterCategoryTypes(getFilter().getFilterCategoryTypes() & ~(1ULL << LLFolderType::FT_MARKETPLACE_LISTINGS));
-    	}
-	gSavedSettings.getControl("FSShowInboxFolder")->getSignal()->connect(boost::bind(&LLInventoryPanel::updateShowInboxFolder, this, _2));
-	// </FS:Ansariel> Optional hiding of Received Items folder aka Inbox
+    }
     
 	// set the filter for the empty folder if the debug setting is on
 	if (gSavedSettings.getBOOL("DebugHideEmptySystemFolders"))
@@ -331,13 +327,6 @@ LLInventoryPanel::~LLInventoryPanel()
 
 void LLInventoryPanel::draw()
 {
-//MK
-	if (gRRenabled && gAgent.mRRInterface.mContainsShowinv)
-	{
-//		LLFloaterInventory::hideAll(); // close all the secondary inventory floaters
-//		return;
-	}
-//mk
 	// Select the desired item (in case it wasn't loaded when the selection was requested)
 	updateSelection();
 	
@@ -394,7 +383,6 @@ void LLInventoryPanel::setFilterSubString(const std::string& string)
 {
 	getFilter().setFilterSubString(string);
 }
-
 
 const std::string LLInventoryPanel::getFilterSubString() 
 { 
@@ -508,6 +496,11 @@ void LLInventoryPanel::modelChanged(U32 mask)
 					bridge->clearDisplayName();
 
 					view_item->refresh();
+				}
+				LLFolderViewFolder* parent = view_item->getParentFolder();
+				if(parent)
+				{
+					parent->getViewModelItem()->dirtyDescendantsFilter();
 				}
 			}
 		}
@@ -1376,22 +1369,6 @@ void LLInventoryPanel::updateHideEmptySystemFolders(const LLSD &data)
 }
 // </FS:Ansariel> Optional hiding of empty system folders
 
-// <FS:Ansariel> Optional hiding of Inbox folder
-void LLInventoryPanel::updateShowInboxFolder(const LLSD &data)
-{
-	LLInventoryFilter& filter = getFilter();
-	if (data.asBoolean())
-	{
-		filter.setFilterCategoryTypes(filter.getFilterCategoryTypes() | (1ULL << LLFolderType::FT_INBOX));
-	}
-	else
-	{
-		filter.setFilterCategoryTypes(filter.getFilterCategoryTypes() & ~(1ULL << LLFolderType::FT_INBOX));
-	}
-	filter.setModified(LLInventoryFilter::FILTER_RESTART);
-}
-// </FS:Ansariel> Optional hiding of Inbox folder
-
 // DEBUG ONLY
 // static 
 void LLInventoryPanel::dumpSelectionInformation(void* user_data)
@@ -1428,20 +1405,18 @@ LLInventoryPanel* LLInventoryPanel::getActiveInventoryPanel(BOOL auto_open)
 	for (LLFloaterReg::const_instance_list_t::const_iterator iter = inst_list.begin(); iter != inst_list.end(); ++iter)
 	{
 		LLFloaterSidePanelContainer* inventory_floater = dynamic_cast<LLFloaterSidePanelContainer*>(*iter);
-		if (inventory_floater)
-        {
-            inventory_panel = inventory_floater->findChild<LLSidepanelInventory>("main_panel");
-            if (inventory_panel && inventory_floater->getVisible())
-            {
-                S32 z_order = gFloaterView->getZOrder(inventory_floater);
-                if (z_order < z_min)
-                {
-                    res = inventory_panel->getActivePanel();
-                    z_min = z_order;
-                    active_inv_floaterp = inventory_floater;
-                }
-            }
-        }
+		inventory_panel = inventory_floater->findChild<LLSidepanelInventory>("main_panel");
+
+		if (inventory_floater && inventory_panel && inventory_floater->getVisible())
+		{
+			S32 z_order = gFloaterView->getZOrder(inventory_floater);
+			if (z_order < z_min)
+			{
+				res = inventory_panel->getActivePanel();
+				z_min = z_order;
+				active_inv_floaterp = inventory_floater;
+			}
+		}
 	}
 
 	if (res)
@@ -1463,49 +1438,38 @@ LLInventoryPanel* LLInventoryPanel::getActiveInventoryPanel(BOOL auto_open)
 }
 
 //static
-void LLInventoryPanel::openInventoryPanelAndSetSelection(BOOL auto_open, const LLUUID& obj_id, BOOL main_panel)
+void LLInventoryPanel::openInventoryPanelAndSetSelection(BOOL auto_open, const LLUUID& obj_id, BOOL main_panel, BOOL take_keyboard_focus, BOOL reset_filter)
 {
+	LLSidepanelInventory* sidepanel_inventory = LLFloaterSidePanelContainer::getPanel<LLSidepanelInventory>("inventory");
+	sidepanel_inventory->showInventoryPanel();
+
+	bool in_inbox = (gInventory.isObjectDescendentOf(obj_id, gInventory.findCategoryUUIDForType(LLFolderType::FT_INBOX)));
+
+	if (main_panel && !in_inbox)
+	{
+		sidepanel_inventory->selectAllItemsPanel();
+	}
 	LLInventoryPanel *active_panel = LLInventoryPanel::getActiveInventoryPanel(auto_open);
 
 	if (active_panel)
 	{
 		LL_DEBUGS("Messaging") << "Highlighting" << obj_id  << LL_ENDL;
-		
-		LLViewerInventoryItem * item = gInventory.getItem(obj_id);
-		LLViewerInventoryCategory * cat = gInventory.getCategory(obj_id);
-		
-		bool in_inbox = false;
-		
-		LLViewerInventoryCategory * parent_cat = nullptr;
-		
-		if (item)
+
+		if (reset_filter)
 		{
-			parent_cat = gInventory.getCategory(item->getParentUUID());
+			reset_inventory_filter();
 		}
-		else if (cat)
-		{
-			parent_cat = gInventory.getCategory(cat->getParentUUID());
-		}
-		
-		if (parent_cat)
-		{
-			in_inbox = (LLFolderType::FT_INBOX == parent_cat->getPreferredType());
-		}
-		
+
 		if (in_inbox)
 		{
-			LLSidepanelInventory * sidepanel_inventory =	LLFloaterSidePanelContainer::getPanel<LLSidepanelInventory>("inventory");
-			LLInventoryPanel * inventory_panel = nullptr;
 			
-			if (in_inbox)
-			{
-				sidepanel_inventory->openInbox();
-				inventory_panel = sidepanel_inventory->getInboxPanel();
-			}
+			LLInventoryPanel * inventory_panel = NULL;
+			sidepanel_inventory->openInbox();
+			inventory_panel = sidepanel_inventory->getInboxPanel();
 
 			if (inventory_panel)
 			{
-				inventory_panel->setSelection(obj_id, TAKE_FOCUS_YES);
+				inventory_panel->setSelection(obj_id, take_keyboard_focus);
 			}
 		}
 		else
@@ -1515,7 +1479,7 @@ void LLInventoryPanel::openInventoryPanelAndSetSelection(BOOL auto_open, const L
 			{
 				floater_inventory->setFocus(TRUE);
 			}
-			active_panel->setSelection(obj_id, TAKE_FOCUS_YES);
+			active_panel->setSelection(obj_id, take_keyboard_focus);
 		}
 	}
 }
@@ -1570,7 +1534,7 @@ LLFolderViewItem* LLInventoryPanel::getItemByID(const LLUUID& id)
 		return map_it->second;
 	}
 
-	return nullptr;
+	return NULL;
 }
 
 LLFolderViewFolder* LLInventoryPanel::getFolderByID(const LLUUID& id)
@@ -1687,7 +1651,7 @@ bool LLInventoryPanel::isSelectionRemovable()
 class LLInventoryRecentItemsPanel;
 static LLDefaultChildRegistry::Register<LLInventoryRecentItemsPanel> t_recent_inventory_panel("recent_inventory_panel");
 
-static LLRecentInventoryBridgeBuilder RECENT_ITEMS_BUILDER;
+static const LLRecentInventoryBridgeBuilder RECENT_ITEMS_BUILDER;
 class LLInventoryRecentItemsPanel : public LLInventoryPanel
 {
 public:
