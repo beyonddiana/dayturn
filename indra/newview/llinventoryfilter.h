@@ -31,10 +31,6 @@
 #include "llpermissionsflags.h"
 #include "llfolderviewmodel.h"
 
-//	Begin Multi-substring inventory search
-#include <vector>
-//	End Multi-substring inventory search
-
 class LLFolderViewItem;
 class LLFolderViewFolder;
 class LLInventoryItem;
@@ -52,14 +48,14 @@ public:
 	enum EFilterType	{
 		FILTERTYPE_NONE = 0,
 		FILTERTYPE_OBJECT = 0x1 << 0,	// normal default search-by-object-type
-		FILTERTYPE_CATEGORY = 0x1 << 1,// search by folder type
-		FILTERTYPE_UUID	= 0x1 << 2, // find the object with UUID and any links to it
-		FILTERTYPE_DATE = 0x1 << 3, // search by date range
-		FILTERTYPE_WEARABLE = 0x1 << 4, // search by wearable type
-		FILTERTYPE_EMPTYFOLDERS = 0x1 << 5, // pass if folder is not a system folder to be hidden if empty-
-		FILTERTYPE_MARKETPLACE_ACTIVE = 0x1 << 6,		// pass if folder is a marketplace active folder
-        FILTERTYPE_MARKETPLACE_INACTIVE = 0x1 << 7, // pass if folder is a marketplace inactive folder
-        FILTERTYPE_MARKETPLACE_UNASSOCIATED = 0x1 << 8, // pass if folder is a marketplace non associated (no market ID) folder
+		FILTERTYPE_CATEGORY = 0x1 << 1,	// search by folder type
+		FILTERTYPE_UUID	= 0x1 << 2,		// find the object with UUID and any links to it
+		FILTERTYPE_DATE = 0x1 << 3,		// search by date range
+		FILTERTYPE_WEARABLE = 0x1 << 4,	// search by wearable type
+		FILTERTYPE_EMPTYFOLDERS = 0x1 << 5,		// pass if folder is not a system folder to be hidden if empty
+        FILTERTYPE_MARKETPLACE_ACTIVE = 0x1 << 6,		// pass if folder is a marketplace active folder
+        FILTERTYPE_MARKETPLACE_INACTIVE = 0x1 << 7,		// pass if folder is a marketplace inactive folder
+        FILTERTYPE_MARKETPLACE_UNASSOCIATED = 0x1 << 8,	// pass if folder is a marketplace non associated (no market ID) folder
         FILTERTYPE_MARKETPLACE_LISTING_FOLDER = 0x1 << 9,	// pass iff folder is a listing folder
         FILTERTYPE_NO_MARKETPLACE_ITEMS = 0x1 << 10,         // pass iff folder is not under the marketplace
 		FILTERTYPE_WORN = 0x1 << 11, // search by wearable type
@@ -87,17 +83,6 @@ public:
 		SO_SYSTEM_FOLDERS_TO_TOP = 0x1 << 2,// Force system folders to be on top
 		SO_FOLDERS_BY_WEIGHT = 0x1 << 3,    // Force folder sort by weight, usually, amount of some elements in their descendents
 	};
-	// ## Zi: Extended Inventory Search
-	enum EFilterSubstringTarget
-	{
-		SUBST_TARGET_NAME = 0,			// Classic search for item name
-		SUBST_TARGET_CREATOR,			// Search for creator name
-		SUBST_TARGET_DESCRIPTION,		// Search for item description
-		SUBST_TARGET_UUID,				// Search for asset UUID
-		SUBST_TARGET_ALL					// Search in all fields at the same time
-	};
-	// ## Zi: Extended Inventory Search
-
 
 	enum ESearchType
 	{
@@ -216,25 +201,17 @@ public:
 	void				setFilterMarketplaceActiveFolders();
 	void				setFilterMarketplaceInactiveFolders();
 	void				setFilterMarketplaceUnassociatedFolders();
-	void				setFilterMarketplaceListingFolders(bool select_only_listing_folders);
-	void				setFilterNoMarketplaceFolder();
+    void                setFilterMarketplaceListingFolders(bool select_only_listing_folders);
+    void                setFilterNoMarketplaceFolder();
 	void				updateFilterTypes(U64 types, U64& current_types);
-
 	void 				setSearchType(ESearchType type);
 	ESearchType			getSearchType() { return mSearchType; }
 	void 				setFilterCreator(EFilterCreatorType type);
-	
+
 	void 				setFilterSubString(const std::string& string);
 	const std::string& 	getFilterSubString(BOOL trim = FALSE) const;
 	const std::string& 	getFilterSubStringOrig() const { return mFilterSubStringOrig; } 
 	bool 				hasFilterString() const;
-
-	//	Begin Multi-substring inventory search
-	//	For use by LLFolderViewItem for highlighting
-	U32					getFilterSubStringCount() const;
-	std::string::size_type getFilterSubStringPos(U32 index) const;
-	std::string::size_type getFilterSubStringLen(U32 index) const;
-	//	End Multi-substring inventory search
 
 	void 				setFilterPermissions(PermissionMask perms);
 	PermissionMask 		getFilterPermissions() const;
@@ -273,7 +250,6 @@ public:
 
 	std::string::size_type getStringMatchOffset(LLFolderViewModelItem* item) const;
 	std::string::size_type getFilterStringSize() const;
-
 	// +-------------------------------------------------------------------+
 	// + Presentation
 	// +-------------------------------------------------------------------+
@@ -342,13 +318,6 @@ private:
 	FilterOps				mBackupFilterOps; // for backup purposes when leaving 'search link' mode
 
 	std::string				mFilterSubString;
-	
-	//	Begin Multi-substring inventory search
-	std::vector<std::string::size_type>	mSubStringMatchOffsets;
-	std::vector<std::string>			mFilterSubStrings;
-	EFilterSubstringTarget mFilterSubStringTarget;		// ## Zi: Extended Inventory Search
-	//	End Multi-substring inventory search
-
 	std::string				mFilterSubStringOrig;
 	std::string				mUsername;
 	const std::string		mName;
@@ -367,9 +336,6 @@ private:
 	std::string 			mEmptyLookupMessage;
 
 	ESearchType 			mSearchType;
-
-	std::vector<std::string> mFilterTokens;
-	std::string				 mExactToken;
 };
 
 #endif

@@ -75,7 +75,6 @@ LLInventoryFilter::LLInventoryFilter(const Params& p)
 :	mName(p.name),
 	mFilterModified(FILTER_NONE),
 	mEmptyLookupMessage("InventoryNoMatchingItems"),
-	mFilterSubStringTarget(SUBST_TARGET_NAME),	// ## Zi: Extended Inventory Search
 	mFilterOps(p.filter_ops),
 	mBackupFilterOps(mFilterOps),
 	mFilterSubString(p.substring),
@@ -84,84 +83,22 @@ LLInventoryFilter::LLInventoryFilter(const Params& p)
 	mFirstSuccessGeneration(0),
 	mSearchType(SEARCHTYPE_NAME)
 {
-	//	Begin Multi-substring inventory search
-	mSubStringMatchOffsets.clear();
-	mFilterSubStrings.clear();
-	//	End Multi-substring inventory search
-
 	// copy mFilterOps into mDefaultFilterOps
 	markDefault();
 	mUsername = gAgentUsername;
-	LLStringUtil::toUpper(mUsername);	
+	LLStringUtil::toUpper(mUsername);
 }
 
 bool LLInventoryFilter::check(const LLFolderViewModelItem* item) 
 {
 	const LLFolderViewModelItemInventory* listener = dynamic_cast<const LLFolderViewModelItemInventory*>(item);
+
 	// If it's a folder and we're showing all folders, return automatically.
 	const BOOL is_folder = listener->getInventoryType() == LLInventoryType::IT_CATEGORY;
 	if (is_folder && (mFilterOps.mShowFolderState == LLInventoryFilter::SHOW_ALL_FOLDERS))
 	{
 		return true;
 	}
-
-	//bool passed = (mFilterSubString.size() ? listener->getSearchableName().find(mFilterSubString) != std::string::npos : true); <FS:TM> 3.6.4 check this, ll repoaced the line in CHUI (2 down) with this
-	//mSubStringMatchOffset = mFilterSubString.size() ? item->getSearchableLabel().find(mFilterSubString) : std::string::npos; <FS:TM> CHUI Merge LL origonal removed in FS, replaced with enhanced search
-	//std::string::size_type string_offset = mFilterSubString.size() ? listener->getSearchableName().find(mFilterSubString) : std::string::npos; <FS:TM> CHUI Merge LL new line 
-	//	Begin Multi-substring inventory search
-	std::string::size_type string_offset = std::string::npos;
-	if (mFilterSubStrings.size())
-	{
-		//const std::string& searchLabel=getSearchableTarget(item);		// ## Zi: Extended Inventory Search
-		std::string searchLabel;
-		switch(mFilterSubStringTarget)
-		{
-			case SUBST_TARGET_NAME:
-				searchLabel = listener->getSearchableName();
-				break;
-			case SUBST_TARGET_CREATOR:
-				searchLabel = listener->getSearchableCreator();
-				break;
-			case SUBST_TARGET_DESCRIPTION:
-				searchLabel = listener->getSearchableDescription();
-				break;
-			case SUBST_TARGET_UUID:
-				searchLabel = listener->getSearchableUUID();
-				break;
-			case SUBST_TARGET_ALL:
-				searchLabel = listener->getSearchableAll();
-				break;
-			default:
-				LL_WARNS() << "Unknown search substring target: " << mFilterSubStringTarget << LL_ENDL;
-				searchLabel = listener->getSearchableName();
-				break;
-		}
-
-		U32 index = 0;
-		for (std::vector<std::string>::iterator it=mFilterSubStrings.begin();
-			it<mFilterSubStrings.end(); it++, index++)
-		{
-			std::string::size_type sub_string_offset = searchLabel.find(*it);
-
-			mSubStringMatchOffsets[index] = sub_string_offset;
-
-			if (sub_string_offset == std::string::npos)
-			{
-				string_offset = std::string::npos;
-				for (std::vector<std::string::size_type>::iterator it=mSubStringMatchOffsets.begin();
-					it<mSubStringMatchOffsets.end(); it++)
-				{
-					*it = std::string::npos;
-				}
-				break;
-			}
-			else if (string_offset == std::string::npos)
-			{
-				string_offset = sub_string_offset;
-			}
-		}
-	}
-	//	End Multi-substring inventory search
 
 	std::string desc = listener->getSearchableCreatorName();
 	switch(mSearchType)
@@ -181,39 +118,7 @@ bool LLInventoryFilter::check(const LLFolderViewModelItem* item)
 			break;
 	}
 
-
-	bool passed = true;
-	if (!mExactToken.empty() && (mSearchType == SEARCHTYPE_NAME))
-	{
-		passed = false;
-		typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
-		boost::char_separator<char> sep(" ");
-		tokenizer tokens(desc, sep);
-
-		for (auto token_iter : tokens)
-		{
-			if (token_iter == mExactToken)
-			{
-				passed = true;
-				break;
-			}
-		}	
-	}
-	else if ((mFilterTokens.size() > 0) && (mSearchType == SEARCHTYPE_NAME))
-	{
-		for (auto token_iter : mFilterTokens)
-		{
-			if (desc.find(token_iter) == std::string::npos)
-			{
-				return false;
-			}
-		}
-	}
-	else
-	{
-		passed = (mFilterSubString.size() ? desc.find(mFilterSubString) != std::string::npos : true);
-	}
-
+	bool passed = (mFilterSubString.size() ? desc.find(mFilterSubString) != std::string::npos : true);
 	passed = passed && checkAgainstFilterType(listener);
 	passed = passed && checkAgainstPermissions(listener);
 	passed = passed && checkAgainstFilterLinks(listener);
@@ -246,7 +151,7 @@ bool LLInventoryFilter::checkFolder(const LLFolderViewModelItem* item) const
 }
 
 bool LLInventoryFilter::checkFolder(const LLUUID& folder_id) const
-{	
+{
 	// we're showing all folders, overriding filter
 	if (mFilterOps.mShowFolderState == LLInventoryFilter::SHOW_ALL_FOLDERS)
 	{
@@ -258,13 +163,6 @@ bool LLInventoryFilter::checkFolder(const LLUUID& folder_id) const
 	if (isNotDefault()
 		&& !gInventory.isCategoryComplete(folder_id)
 		&& LLStartUp::getStartupState() > STATE_WEARABLES_WAIT)
-	{
-		LLInventoryModelBackgroundFetch::instance().start(folder_id);
-	}
-
-	// when applying a filter, matching folders get their contents downloaded first
-	if (mFilterSubString.size()
-		&& !gInventory.isCategoryComplete(folder_id))
 	{
 		LLInventoryModelBackgroundFetch::instance().start(folder_id);
 	}
@@ -828,65 +726,8 @@ void LLInventoryFilter::setFilterSubString(const std::string& string)
 	LLStringUtil::trimHead(filter_sub_string_new);
 	LLStringUtil::toUpper(filter_sub_string_new);
 
-	//	Begin Multi-substring inventory search
-	//	Cut filter string into several substrings, separated by +
-	{
-		mFilterSubStrings.clear();
-		mSubStringMatchOffsets.clear();
-		std::string::size_type frm = 0;
-		std::string::size_type to;
-		do
-		{
-			to = filter_sub_string_new.find_first_of('+',frm);
-
-			std::string subSubString = (to == std::string::npos) ? filter_sub_string_new.substr(frm, to) : filter_sub_string_new.substr(frm, to-frm);
-		
-			if (subSubString.size())
-			{
-				mFilterSubStrings.push_back(subSubString);
-				mSubStringMatchOffsets.push_back(std::string::npos);
-			}
-
-			frm = to+1;
-		}
-		while (to != std::string::npos);
-	}
-
-
 	if (mFilterSubString != filter_sub_string_new)
 	{
-		
-		mFilterTokens.clear();
-		if (filter_sub_string_new.find_first_of("+") != std::string::npos)
-		{
-			typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
-			boost::char_separator<char> sep("+");
-			tokenizer tokens(filter_sub_string_new, sep);
-
-			for (auto token_iter : tokens)
-			{
-				mFilterTokens.push_back(token_iter);
-			}
-		}
-
-		std::string old_token = mExactToken;
-		mExactToken.clear();
-		bool exact_token_changed = false;
-		if (mFilterTokens.empty() && filter_sub_string_new.size() > 2)
-		{
-			boost::regex mPattern = boost::regex("\"\\s*([^<]*)?\\s*\"",
-				boost::regex::perl | boost::regex::icase);
-			boost::match_results<std::string::const_iterator> matches;
-			mExactToken = (boost::regex_match(filter_sub_string_new, matches, mPattern) && matches[1].matched)
-				? matches[1]
-				: LLStringUtil::null;
-			if ((old_token.empty() && !mExactToken.empty()) 
-				|| (!old_token.empty() && mExactToken.empty()))
-			{
-				exact_token_changed = true;
-			}
-		}
-
 		// hitting BACKSPACE, for example
 		const BOOL less_restrictive = mFilterSubString.size() >= filter_sub_string_new.size()
 			&& !mFilterSubString.substr(0, filter_sub_string_new.size()).compare(filter_sub_string_new);
@@ -896,11 +737,7 @@ void LLInventoryFilter::setFilterSubString(const std::string& string)
 			&& !filter_sub_string_new.substr(0, mFilterSubString.size()).compare(mFilterSubString);
 
 		mFilterSubString = filter_sub_string_new;
-		if (exact_token_changed)
-		{
-			setModified(FILTER_RESTART);
-		}
-		else if (less_restrictive)
+		if (less_restrictive)
 		{
 			setModified(FILTER_LESS_RESTRICTIVE);
 		}
@@ -935,11 +772,7 @@ void LLInventoryFilter::setFilterSubString(const std::string& string)
 			mFilterOps.mFilterUUID = LLUUID::null;
 			setModified(FILTER_RESTART);
 		}
-		// ## Zi: Filter Links Menu
-		// We don't do this anymore, we have a menu option for it now. -Zi
-		// ## Zi: Filter Links Menu
 	}
-	//	End Multi-substring inventory search
 }
 
 void LLInventoryFilter::setFilterPermissions(PermissionMask perms)
@@ -1102,34 +935,15 @@ U32 LLInventoryFilter::getDateSearchDirection() const
 
 void LLInventoryFilter::setFilterLinks(U64 filter_links)
 {
-	// <FS:Zi> Filter Links Menu
-	// if (mFilterOps.mFilterLinks != filter_links)
-	// {
-	// 	if (mFilterOps.mFilterLinks == FILTERLINK_EXCLUDE_LINKS ||
-	// 		mFilterOps.mFilterLinks == FILTERLINK_ONLY_LINKS)
-	// 		setModified(FILTER_MORE_RESTRICTIVE);
-	// 	else
-	// 		setModified(FILTER_LESS_RESTRICTIVE);
-	// }
-	// mFilterOps.mFilterLinks = filter_links;
 	if (mFilterOps.mFilterLinks != filter_links)
 	{
-		LLInventoryFilter::EFilterModified modifyMode=FILTER_RESTART;
-
-		if(filter_links==FILTERLINK_INCLUDE_LINKS)
-			modifyMode=FILTER_LESS_RESTRICTIVE;
-		else if(mFilterOps.mFilterLinks==FILTERLINK_INCLUDE_LINKS)
-			modifyMode=FILTER_MORE_RESTRICTIVE;
-
-		else if(filter_links==FILTERLINK_EXCLUDE_LINKS && mFilterOps.mFilterLinks==FILTERLINK_INCLUDE_LINKS)
-			modifyMode=FILTER_MORE_RESTRICTIVE;
-		else if(filter_links==FILTERLINK_ONLY_LINKS && mFilterOps.mFilterLinks==FILTERLINK_INCLUDE_LINKS)
-			modifyMode=FILTER_MORE_RESTRICTIVE;
-
-		mFilterOps.mFilterLinks=filter_links;
-		setModified(modifyMode);
+		if (mFilterOps.mFilterLinks == FILTERLINK_EXCLUDE_LINKS ||
+			mFilterOps.mFilterLinks == FILTERLINK_ONLY_LINKS)
+			setModified(FILTER_MORE_RESTRICTIVE);
+		else
+			setModified(FILTER_LESS_RESTRICTIVE);
 	}
-	// </FS:Zi>
+	mFilterOps.mFilterLinks = filter_links;
 }
 
 void LLInventoryFilter::setShowFolderState(EFolderShow state)
@@ -1453,55 +1267,21 @@ void LLInventoryFilter::fromParams(const Params& params)
 		return;
 	}
 
-	// <FS:Ansariel> FIRE-12418: Only apply filter params if they are really provided
-	//setFilterObjectTypes(params.filter_ops.types);
-	//setFilterCategoryTypes(params.filter_ops.category_types);
-	//setFilterWearableTypes(params.filter_ops.wearable_types);
-	//setDateRange(params.filter_ops.date_range.min_date,   params.filter_ops.date_range.max_date);
-	//setHoursAgo(params.filter_ops.hours_ago);
-	//setShowFolderState(params.filter_ops.show_folder_state);
-	//setFilterPermissions(params.filter_ops.permissions);
-	//setFilterSubString(params.substring);
-	//setDateRangeLastLogoff(params.since_logoff);
-	if (params.filter_ops.types.isProvided())
-	{
-		setFilterObjectTypes(params.filter_ops.types);
-	}
-	if (params.filter_ops.category_types.isProvided())
-	{
-		setFilterCategoryTypes(params.filter_ops.category_types);
-    }
-		if (params.filter_ops.wearable_types.isProvided())
+	setFilterObjectTypes(params.filter_ops.types);
+	setFilterCategoryTypes(params.filter_ops.category_types);
+	if (params.filter_ops.wearable_types.isProvided())
 	{
 		setFilterWearableTypes(params.filter_ops.wearable_types);
 	}
-	if (params.filter_ops.date_range.min_date.isProvided() && params.filter_ops.date_range.max_date.isProvided())
-	{
-		setDateRange(params.filter_ops.date_range.min_date,   params.filter_ops.date_range.max_date);
-	}
-	if (params.filter_ops.hours_ago.isProvided())
-	{
-		setHoursAgo(params.filter_ops.hours_ago);
-		setDateSearchDirection(params.filter_ops.date_search_direction);
-	}
-	if (params.filter_ops.show_folder_state.isProvided())
-	{
-		setShowFolderState(params.filter_ops.show_folder_state);
-	}
-	if (params.filter_ops.permissions.isProvided())
-	{
-		setFilterPermissions(params.filter_ops.permissions);
-	}
-	if (params.substring.isProvided())
-	{
-		setFilterSubString(params.substring);
-	}
-	if (params.since_logoff.isProvided())
-	{
-		setDateRangeLastLogoff(params.since_logoff);
-	}
+	setDateRange(params.filter_ops.date_range.min_date,   params.filter_ops.date_range.max_date);
+	setHoursAgo(params.filter_ops.hours_ago);
+	setDateSearchDirection(params.filter_ops.date_search_direction);
+	setShowFolderState(params.filter_ops.show_folder_state);
+	setFilterCreator(params.filter_ops.creator_type);
+	setFilterPermissions(params.filter_ops.permissions);
+	setFilterSubString(params.substring);
+	setDateRangeLastLogoff(params.since_logoff);
 }
-	// </FS:Ansariel>
 
 U64 LLInventoryFilter::getFilterTypes() const
 {
@@ -1631,25 +1411,3 @@ bool LLInventoryFilter::FilterOps::DateRange::validateBlock( bool   emit_errors 
 	}
 	return valid;
 }
-
-//	Begin Multi-substring inventory search
-
-//	For use by LLFolderViewItem for highlighting
-
-U32	LLInventoryFilter::getFilterSubStringCount() const 
-{
-	return mFilterSubStrings.size();
-}
-
-std::string::size_type LLInventoryFilter::getFilterSubStringPos(U32 index) const
-{
-	if (index >= mSubStringMatchOffsets.size()) return std::string::npos;
-	return mSubStringMatchOffsets[index];
-}
-
-std::string::size_type LLInventoryFilter::getFilterSubStringLen(U32 index) const
-{
-	if (index >= mFilterSubStrings.size()) return 0;
-	return mFilterSubStrings[index].size();
-}
-//	End Multi-substring inventory search
