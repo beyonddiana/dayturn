@@ -2084,25 +2084,21 @@ void LLViewerRegion::getInfo(LLSD& info)
 	info["Region"]["Handle"]["y"] = (LLSD::Integer)y;
 }
 
-//void LLViewerRegion::requestSimulatorFeatures() //GN. We probalby want this to work in the future
-//{
-//    LL_DEBUGS("SimulatorFeatures") << "region " << getName() << " ptr " << this
-//                                   << " trying to request SimulatorFeatures" << LL_ENDL;
-//    // kick off a request for simulator features
-//    std::string url = getCapability("SimulatorFeatures");
-//    if (!url.empty())
-//    {
-//        std::string coroname =
-//            LLCoros::instance().launch("LLViewerRegionImpl::requestSimulatorFeatureCoro",
-//                                       boost::bind(&LLViewerRegionImpl::requestSimulatorFeatureCoro, mImpl, url, getHandle()));
-//
-//        LL_INFOS("AppInit", "SimulatorFeatures") << "Launching " << coroname << " requesting simulator features from " << url << LL_ENDL;
-//    }
-//    else
-//    {
-//        LL_WARNS("AppInit", "SimulatorFeatures") << "SimulatorFeatures cap not set" << LL_ENDL;
-//    }
-//}
+void LLViewerRegion::requestSimulatorFeatures() //GN. We want this to work much better in the future
+{
+   LL_INFOS("SimulatorFeatures") << "region " << getName() << " ptr " << this
+                                  << " trying to request SimulatorFeatures" << LL_ENDL;
+   // kick off a request for simulator features
+   std::string url = getCapability("SimulatorFeatures");
+   if (!url.empty())
+   {
+       LL_INFOS("AppInit", "SimulatorFeatures") << "Requesting simulator features from " << url << LL_ENDL;
+   }
+   else
+   {
+       LL_WARNS("AppInit", "SimulatorFeatures") << "SimulatorFeatures cap not set" << LL_ENDL;
+   }
+}
 
 boost::signals2::connection LLViewerRegion::setSimulatorFeaturesReceivedCallback(const caps_received_signal_t::slot_type& cb)
 {
@@ -2816,7 +2812,6 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
 	capabilityNames.append("EventQueueGet");
 	capabilityNames.append("FlickrConnect");
 	capabilityNames.append("TwitterConnect");
-
 	
 	if (gSavedSettings.getBOOL("UseHTTPInventory"))
 	{	
@@ -2827,7 +2822,6 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
 		capabilityNames.append("IncrementCOFVersion");
 		AISCommand::getCapabilityNames(capabilityNames);
 	}
-
 	
 	capabilityNames.append("GetDisplayNames");
 	capabilityNames.append("GetMesh");
@@ -2844,12 +2838,12 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
 	capabilityNames.append("MapLayer");
 	capabilityNames.append("MapLayerGod");
 	capabilityNames.append("MeshUploadFlag");	
-
+	
 	capabilityNames.append("NewFileAgentInventory");
 	capabilityNames.append("ObjectAnimation");
 	capabilityNames.append("ObjectMedia");
 	capabilityNames.append("ObjectMediaNavigate");
-
+	
 	capabilityNames.append("ParcelPropertiesUpdate");
 	capabilityNames.append("ParcelVoiceInfoRequest");
 	capabilityNames.append("ProductInfoRequest");
@@ -2887,6 +2881,9 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
     // Capabilities unique to SecondLife
     if(gIsInSecondLife)
     {
+        //capabilityNames.append("AbuseCategories"); // Not implemented in this viewer
+        //capabilityNames.append("AcceptFriendship");  // Not implemented in this viewer
+        //capabilityNames.append("DeclineFriendship");  // Not implemented in this viewer
         capabilityNames.append("DirectDelivery");
         capabilityNames.append("GetExperiences");
         capabilityNames.append("AgentExperiences");
@@ -2904,8 +2901,10 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
         capabilityNames.append("RegionExperiences");
         capabilityNames.append("NavMeshGenerationStatus");
         capabilityNames.append("ObjectNavMeshProperties");
+        //capabilityNames.append("ReadOfflineMsgs");  // Not implemented in this viewer
         capabilityNames.append("RetrieveNavMeshSrc");
         capabilityNames.append("TerrainNavMeshProperties");
+        //capabilityNames.append("UserInfo");   // Not implemented in this viewer
         capabilityNames.append("ViewerStartAuction");
         capabilityNames.append("ViewerStats");
 
