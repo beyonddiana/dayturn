@@ -94,29 +94,6 @@ LLInventoryFilter::LLInventoryFilter(const Params& p)
 	mUsername = gAgentUsername;
 	LLStringUtil::toUpper(mUsername);	
 }
-// ## Zi: Extended Inventory Search
-void LLInventoryFilter::setFilterSubStringTarget(const std::string& targetName)
-{
-	if(targetName=="name")
-		mFilterSubStringTarget=SUBST_TARGET_NAME;
-	else if(targetName=="creator")
-		mFilterSubStringTarget=SUBST_TARGET_CREATOR;
-	else if(targetName=="description")
-		mFilterSubStringTarget=SUBST_TARGET_DESCRIPTION;
-	else if(targetName=="uuid")
-		mFilterSubStringTarget=SUBST_TARGET_UUID;
-	else if(targetName=="all")
-		mFilterSubStringTarget=SUBST_TARGET_ALL;
-	else
-		LL_WARNS() << "Unknown sub string target: " << targetName << LL_ENDL;
-}
-
-LLInventoryFilter::EFilterSubstringTarget LLInventoryFilter::getFilterSubStringTarget() const
-{
-	return mFilterSubStringTarget;
-}
-
-// ## Zi: Extended Inventory Search
 
 bool LLInventoryFilter::check(const LLFolderViewModelItem* item) 
 {
@@ -1574,10 +1551,7 @@ U32 LLInventoryFilter::getHoursAgo() const
 { 
 	return mFilterOps.mHoursAgo; 
 }
-U64 LLInventoryFilter::getFilterLinks() const
-{
-	return mFilterOps.mFilterLinks;
-}
+
 LLInventoryFilter::EFolderShow LLInventoryFilter::getShowFolderState() const
 { 
 	return mFilterOps.mShowFolderState; 
