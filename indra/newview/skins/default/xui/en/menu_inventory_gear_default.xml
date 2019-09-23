@@ -137,18 +137,7 @@
     <!-- ## Zi: Extended Inventory Search -->
 
     <menu_item_separator
-     layout="topleft" />
-    <menu_item_check
-         label="Received Items as a folder"
-         layout="topleft"
-         name="FSShowInboxFolder">
-            <menu_item_check.on_check
-             function="CheckControl"
-             parameter="FSShowInboxFolder" />
-            <menu_item_check.on_click
-             function="ToggleControl"
-             parameter="FSShowInboxFolder" />
-    </menu_item_check> 
+     layout="topleft" /> 
     <menu_item_check
          label="Hide empty system folders"
          layout="topleft"

@@ -243,9 +243,6 @@ BOOL LLSidepanelInventory::postBuild()
 
 	gSavedSettings.getControl("InventoryDisplayInbox")->getCommitSignal()->connect(boost::bind(&handleInventoryDisplayInboxChanged));
 
-	// <FS:Ansariel> Optional hiding of Received Items folder aka Inbox
-//	gSavedSettings.getControl("FSShowInboxFolder")->getSignal()->connect(boost::bind(&LLSidepanelInventory::refreshInboxVisibility, this));
-
 	// Update the verbs buttons state.
 	updateVerbs();
 
