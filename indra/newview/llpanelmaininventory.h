@@ -165,17 +165,6 @@ protected:
 	BOOL isActionChecked(const LLSD& userdata);
 	void onCustomAction(const LLSD& command_name);
 
-	// ## Zi: Filter Links Menu
-	BOOL isFilterLinksChecked(const LLSD& userdata);
-	void onFilterLinksChecked(const LLSD& userdata);
-	// ## Zi: Filter Links Menu
-
-	// ## Zi: Extended Inventory Search
-	BOOL isSearchTargetChecked(const LLSD& userdata);
-	void onSearchTargetChecked(const LLSD& userdata);
-	LLInventoryFilter::EFilterSubstringTarget getSearchTarget() const;
-	// ## Zi: Extended Inventory Search
-
 	bool handleDragAndDropToTrash(BOOL drop, EDragAndDropType cargo_type, EAcceptance* accept);
 	/**
 	 * Set upload cost in "Upload" sub menu.

@@ -135,16 +135,6 @@ LLPanelMainInventory::LLPanelMainInventory(const LLPanel::Params& p)
 	mCommitCallbackRegistrar.add("Inventory.SetSortBy", boost::bind(&LLPanelMainInventory::setSortBy, this, _2));
 	mCommitCallbackRegistrar.add("Inventory.Share",  boost::bind(&LLAvatarActions::shareWithAvatars, this));
 
-	// ## Zi: Filter Links Menu
-	mCommitCallbackRegistrar.add("Inventory.FilterLinks.Set", boost::bind(&LLPanelMainInventory::onFilterLinksChecked, this, _2));
-	mEnableCallbackRegistrar.add("Inventory.FilterLinks.Check", boost::bind(&LLPanelMainInventory::isFilterLinksChecked, this, _2));
-	// ## Zi: Filter Links Menu
-
-	// ## Zi: Extended Inventory Search
-	mCommitCallbackRegistrar.add("Inventory.SearchTarget.Set", boost::bind(&LLPanelMainInventory::onSearchTargetChecked, this, _2));
-	mEnableCallbackRegistrar.add("Inventory.SearchTarget.Check", boost::bind(&LLPanelMainInventory::isSearchTargetChecked, this, _2));
-	// ## Zi: Extended Inventory Search
-
 	mSavedFolderState = new LLSaveFolderState();
 	mSavedFolderState->setApply(FALSE);
 }
@@ -1565,26 +1555,6 @@ BOOL LLPanelMainInventory::isActionChecked(const LLSD& userdata)
 	}
 
 	return FALSE;
-}
-
-// ## Zi: Filter Links Menu
-void LLPanelMainInventory::onFilterLinksChecked(const LLSD& userdata)
-{
-	const std::string command_name = userdata.asString();
-	if (command_name == "show_links")
-	{
-		getActivePanel()->setFilterLinks(LLInventoryFilter::FILTERLINK_INCLUDE_LINKS);
-	}
-
-	if (command_name == "only_links")
-	{
-		getActivePanel()->setFilterLinks(LLInventoryFilter::FILTERLINK_ONLY_LINKS);
-	}
-
-	if (command_name == "hide_links")
-	{
-		getActivePanel()->setFilterLinks(LLInventoryFilter::FILTERLINK_EXCLUDE_LINKS);
-	}
 }
 
 
