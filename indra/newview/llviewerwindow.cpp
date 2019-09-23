@@ -227,6 +227,8 @@ extern BOOL gDisplaySwapBuffers;
 extern BOOL gDepthDirty;
 extern BOOL gResizeScreenTexture;
 
+extern bool gIsInSecondLife; //Opensim or SecondLife
+
 LLViewerWindow	*gViewerWindow = NULL;
 
 LLFrameTimer	gAwayTimer;
@@ -2188,8 +2190,8 @@ void LLViewerWindow::initWorldUI()
 // 		avatar_picker->navigateTo(url, "text/html");
 // 	}
 	std::string destination_guide_url;
-#ifdef HAS_OPENSIM_SUPPORT // <FS:AW optional opensim support>
-	if (LLGridManager::getInstance()->isInOpenSim())
+    // <FS:AW opensim support>
+    if (!gIsInSecondLife)
 	{
 		if (LLLoginInstance::getInstance()->hasResponse("destination_guide_url"))
 		{
@@ -2197,7 +2199,7 @@ void LLViewerWindow::initWorldUI()
 		}
 	}
 	else
-#endif // HAS_OPENSIM_SUPPORT  // <FS:AW optional opensim support>
+    // <FS:AW opensim support>
 	{
 		destination_guide_url = gSavedSettings.getString("DestinationGuideURL");
 	}
@@ -2214,8 +2216,8 @@ void LLViewerWindow::initWorldUI()
 	}
 
 	std::string avatar_picker_url;
-#ifdef HAS_OPENSIM_SUPPORT // <FS:AW optional opensim support>
-	if (LLGridManager::getInstance()->isInOpenSim())
+    // <FS:AW opensim support>
+	if (!gIsInSecondLife)
 	{
 		if (LLLoginInstance::getInstance()->hasResponse("avatar_picker_url"))
 		{
@@ -2223,7 +2225,7 @@ void LLViewerWindow::initWorldUI()
 		}
 	}
 	else
-#endif // HAS_OPENSIM_SUPPORT  // <FS:AW optional opensim support>
+    // <FS:AW opensim support>
 	{
 		avatar_picker_url = gSavedSettings.getString("AvatarPickerURL");
 	}
