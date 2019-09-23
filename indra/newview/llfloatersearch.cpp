@@ -41,6 +41,7 @@
 #include "llweb.h"
 #include "llviewernetwork.h"// </FS:AW  opensim search support>
 
+extern bool gIsInSecondLife; //Opensim or SecondLife
 
 // support secondlife:///app/search/{CATEGORY}/{QUERY} SLapps
 class LLSearchHandler : public LLCommandHandler
@@ -123,14 +124,16 @@ void LLFloaterSearch::onOpen(const LLSD& key)
 	p.trusted_content = true;
 // <FS:AW  opensim search support>
 //	p.allow_address_entry = false;
-#ifdef HAS_OPENSIM_SUPPORT // <FS:AW optional opensim support>
-	bool debug = gSavedSettings.getBOOL("DebugSearch");
-	p.allow_address_entry = debug;
-// <FS:AW optional opensim support>
-#else // HAS_OPENSIM_SUPPORT
-	p.allow_address_entry = false;
-#endif // HAS_OPENSIM_SUPPORT 
-// </FS:AW optional opensim support>
+    // <FS:AW opensim support>
+    if (!gIsInSecondLife)
+    {
+        bool debug = gSavedSettings.getBOOL("DebugSearch");
+        p.allow_address_entry = debug;
+    }
+    else // <FS:AW opensim support>
+    {
+        p.allow_address_entry = false;
+    }
 
 	LLFloaterWebContent::onOpen(p);
 	search(p.search);
@@ -215,20 +218,20 @@ void LLFloaterSearch::search(const SearchQuery &p)
 //	std::string url = gSavedSettings.getString("SearchURL");
 	std::string url;
 
-#ifdef HAS_OPENSIM_SUPPORT // <FS:AW optional opensim support>
+    // <FS:AW opensim support>
 	std::string debug_url = gSavedSettings.getString("SearchURLDebug");
 	if (gSavedSettings.getBOOL("DebugSearch") && !debug_url.empty())
 	{
 		url = debug_url;
 	}
-	else if(LLGridManager::getInstance()->isInOpenSim())
+	else if (!gIsInSecondLife)
 	{
 		url = LLLoginInstance::getInstance()->hasResponse("search")
 			? LLLoginInstance::getInstance()->getResponse("search").asString()
 			: gSavedSettings.getString("SearchURLOpenSim");
 	}
 	else // we are in SL or SL beta
-#endif // HAS_OPENSIM_SUPPORT // <FS:AW optional opensim support>
+    // <FS:AW opensim support>
 	{
 		url = gSavedSettings.getString("SearchURL");
 	}

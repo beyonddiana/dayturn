@@ -6648,14 +6648,13 @@ void process_economy_data(LLMessageSystem *msg, void** /*user_data*/)
 	std::string upload_cost;
 
 
-#ifdef HAS_OPENSIM_SUPPORT // <FS:AW optional opensim support>
-	bool in_opensim = LLGridManager::getInstance()->isInOpenSim();
-	if(in_opensim)
+    // <FS:AW opensim support>
+	if (!gIsInSecondLife)
 	{
 		upload_cost = cost > 0 ? llformat("%s%d", "L$", cost) : LLTrans::getString("free");
 	}
 	else
-#endif // HAS_OPENSIM_SUPPORT // <FS:AW optional opensim support>
+    // <FS:AW opensim support>
 	{
 		upload_cost = cost > 0 ? llformat("%s%d", "L$", cost) : llformat("%d", gSavedSettings.getU32("DefaultUploadCost"));
 	}
