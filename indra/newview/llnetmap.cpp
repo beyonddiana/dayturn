@@ -463,9 +463,15 @@ void LLNetMap::draw()
 			}
 
 			pos_map = globalPosToView(positions[i]);
+			
 			bool show_as_friend = (LLAvatarTracker::instance().getBuddyInfo(uuid) != NULL);
+			
 			LLColor4 color = show_as_friend ? map_avatar_friend_color : map_avatar_color;
+			
+			unknown_relative_z = positions[i].mdV[VZ] >= COARSEUPDATE_MAX_Z &&
+					camera_position.mV[VZ] >= COARSEUPDATE_MAX_Z;
 
+/* 
 			unknown_relative_z = false;
 
 			if (positions[i].mdV[VZ] == -1.f) {
@@ -489,6 +495,7 @@ void LLNetMap::draw()
 					pos_map.mV[VZ] = F32_MAX;
 				}
 			}
+ */
 
 			LLWorldMapView::drawAvatar(
 				pos_map.mV[VX], pos_map.mV[VY], 
