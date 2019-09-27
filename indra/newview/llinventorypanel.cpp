@@ -1025,22 +1025,20 @@ void LLInventoryPanel::unSelectAll()
 
 BOOL LLInventoryPanel::handleHover(S32 x, S32 y, MASK mask)
 {
-	LLView::handleHover(x, y, mask);
-// AW: commenting out because this flickers badly
-// 	BOOL handled = LLView::handleHover(x, y, mask);
-// 	if(handled)
-// 	{
-// 		ECursorType cursor = getWindow()->getCursor();
-// 		if (LLInventoryModelBackgroundFetch::instance().folderFetchActive() && cursor == UI_CURSOR_ARROW)
-// 		{
-// 			// replace arrow cursor with arrow and hourglass cursor
-// 			getWindow()->setCursor(UI_CURSOR_WORKING);
-// 		}
-// 	}
-// 	else
-// 	{
-// 		getWindow()->setCursor(UI_CURSOR_ARROW);
-// 	}
+	BOOL handled = LLView::handleHover(x, y, mask);
+	if(handled)
+	{
+		ECursorType cursor = getWindow()->getCursor();
+		if (LLInventoryModelBackgroundFetch::instance().folderFetchActive() && cursor == UI_CURSOR_ARROW)
+		{
+			// replace arrow cursor with arrow and hourglass cursor
+			getWindow()->setCursor(UI_CURSOR_WORKING);
+		}
+	}
+	else
+	{
+		getWindow()->setCursor(UI_CURSOR_ARROW);
+	}
 	return TRUE;
 }
 
@@ -1718,6 +1716,6 @@ namespace LLInitParam
 		declare(LLFolderType::lookup(LLFolderType::FT_MARKETPLACE_LISTINGS)   , LLFolderType::FT_MARKETPLACE_LISTINGS);
 		declare(LLFolderType::lookup(LLFolderType::FT_MARKETPLACE_STOCK), LLFolderType::FT_MARKETPLACE_STOCK);
 		declare(LLFolderType::lookup(LLFolderType::FT_MARKETPLACE_VERSION), LLFolderType::FT_MARKETPLACE_VERSION);
-		declare(LLFolderType::lookup(LLFolderType::FT_SUITCASE), LLFolderType::FT_SUITCASE);
+		declare(LLFolderType::lookup(LLFolderType::FT_SUITCASE)         , LLFolderType::FT_SUITCASE);
 	}
 }
