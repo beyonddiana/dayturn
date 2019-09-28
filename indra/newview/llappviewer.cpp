@@ -2943,7 +2943,6 @@ bool LLAppViewer::initConfiguration()
 	if (mSecondInstance && !gSavedSettings.getBOOL("AllowMultipleViewers"))
 		{
 			OSMessageBox(
-				msg.str(),
 			    LLTrans::getString("MBAlreadyRunning"),
 			    LLStringUtil::null,
 				OSMB_OK);
