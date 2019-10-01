@@ -54,6 +54,18 @@ class LLScrollListCtrl : public LLUICtrl, public LLEditMenuHandler,
 	public LLCtrlListInterface, public LLCtrlScrollInterface
 {
 public:
+    typedef enum e_selection_type
+    {
+        ROW, // default
+        CELL, // does not support multi-selection
+        HEADER, // when pointing to cells in column 0 will highlight whole row, otherwise cell, no multi-select
+    } ESelectionType;
+
+    struct SelectionTypeNames : public LLInitParam::TypeValuesHelper<LLScrollListCtrl::ESelectionType, SelectionTypeNames>
+    {
+        static void declareValues();
+    };
+
 	struct Contents : public LLInitParam::Block<Contents>
 	{
 		Multiple<LLScrollListColumn::Params>	columns;
@@ -99,6 +111,8 @@ public:
 						commit_on_keyboard_movement,
 						commit_on_selection_change,
 						mouse_wheel_opaque;
+
+		Optional<ESelectionType, SelectionTypeNames> selection_type;
 
 		// display flags
 		Optional<bool>	has_border,
@@ -430,7 +444,7 @@ private:
 	void            updateLineHeightInsert(LLScrollListItem* item);
 	void			reportInvalidInput();
 	bool			isRepeatedChars(const LLWString& string) const;
-	void			selectItem(LLScrollListItem* itemp, bool single_select = true);
+	void			selectItem(LLScrollListItem* itemp, S32 cell, bool single_select = true);
 	void			deselectItem(LLScrollListItem* itemp);
 	void			commitIfChanged();
 	bool			setSort(S32 column, bool ascending);
@@ -455,6 +469,7 @@ private:
 	bool			mCommitOnKeyboardMovement;
 	bool			mCommitOnSelectionChange;
 	bool			mSelectionChanged;
+	ESelectionType	mSelectionType;
 	bool			mNeedsScroll;
 	bool			mMouseWheelOpaque;
 	bool			mCanSelect;

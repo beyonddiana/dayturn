@@ -157,6 +157,7 @@ private:
 	S32				mTextWidth;
 	const LLFontGL*	mFont;
 	LLColor4		mColor;
+	LLColor4		mHighlightColor;
 	U8				mUseColor;
 	LLFontGL::HAlign mFontAlignment;
 	BOOL			mVisible;
