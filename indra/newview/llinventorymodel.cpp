@@ -160,9 +160,9 @@ LLInventoryModel::LLInventoryModel()
 	mHttpHeaders(NULL),
 	mHttpPolicyClass(LLCore::HttpRequest::DEFAULT_POLICY_ID),
 	mHttpPriorityFG(0),
-//	mHttpPriorityBG(0),
 	mHttpPriorityBG(0)
 #ifdef LL_DEBUG
+    ,
 	mCategoryLock(),
 	mItemLock()
 #endif
