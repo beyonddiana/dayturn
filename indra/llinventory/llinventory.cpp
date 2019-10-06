@@ -31,7 +31,6 @@
 #include "llfasttimer.h"
 #include "llinventorydefines.h"
 #include "llxorcipher.h"
-#include "llsd.h"
 #include "message.h"
 #include <boost/tokenizer.hpp>
 

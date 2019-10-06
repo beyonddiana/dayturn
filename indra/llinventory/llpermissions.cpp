@@ -31,7 +31,6 @@
 
 // library includes
 #include "message.h"
-#include "llsd.h"
 
 ///----------------------------------------------------------------------------
 /// Class LLPermissions
