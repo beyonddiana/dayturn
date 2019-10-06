@@ -745,9 +745,9 @@ bool LLPrimitive::setVolume(const LLVolumeParams &volume_params, const S32 detai
 		// build the new object
 		setChanged(GEOMETRY);
 		sVolumeManager->unrefVolume(mVolumep);
-		mVolumep = new LLVolume(volume_params, 0, TRUE, TRUE);
+		mVolumep = new LLVolume(volume_params, 0, true, true);
 		setNumTEs(mVolumep->getNumFaces());
-		return FALSE;
+		return false;
 	}
 
 	LLVolume *volumep;
