@@ -524,7 +524,7 @@ public:
 	enum
 	{
 		NO_LOD = -1
-	};		
+	};	
 };
 
 inline bool LLPrimitive::isAvatar() const

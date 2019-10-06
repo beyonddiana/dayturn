@@ -185,12 +185,12 @@ bool LLPrimLinkInfo< DATA_TYPE >::canLink(const LLPrimLinkInfo& other_info)
 	if (span <= max_span)
 	{
 		// The entire other_info fits inside the max span.
-		return TRUE;
+		return true;
 	}
 	else if (span > max_span + 2.f * other_info.mBoundingSphere.getRadius())
 	{
 		// there is no way any piece of other_info could link with this one
-		return FALSE;
+		return false;
 	}
 
 	// there may be a piece of other_info that is linkable
@@ -205,10 +205,10 @@ bool LLPrimLinkInfo< DATA_TYPE >::canLink(const LLPrimLinkInfo& other_info)
 		if (span <= max_span)
 		{
 			// found one piece that is linkable
-			return TRUE;
+			return true;
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 // merges elements of 'unlinked' 
