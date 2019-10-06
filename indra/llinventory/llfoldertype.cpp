@@ -28,7 +28,6 @@
 
 #include "llfoldertype.h"
 #include "lldictionary.h"
-#include "llmemory.h"
 #include "llsingleton.h"
 
 ///----------------------------------------------------------------------------

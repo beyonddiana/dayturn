@@ -28,7 +28,6 @@
 
 #include "llinventorytype.h"
 #include "lldictionary.h"
-#include "llmemory.h"
 #include "llsingleton.h"
 
 static const std::string empty_string;
