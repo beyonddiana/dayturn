@@ -82,6 +82,12 @@
 
 #include "llvoavatarself.h"
 
+#include <boost/bind.hpp>
+
+
+const F32 DEFAULT_GRAVITY_MULTIPLIER = 1.f;
+const F32 DEFAULT_DENSITY = 1000.f;
+
 // "Features" Tab
 
 BOOL	LLPanelVolume::postBuild()
@@ -807,7 +813,7 @@ void LLPanelVolume::onLightSelectTexture(const LLSD& data)
 // static
 void LLPanelVolume::onCommitMaterial( LLUICtrl* ctrl, void* userdata )
 {
-	//LLPanelObject* self = (LLPanelObject*) userdata;
+	LLPanelVolume* self = (LLPanelVolume*)userdata;
 	LLComboBox* box = (LLComboBox*) ctrl;
 
 	if (box)
@@ -818,6 +824,19 @@ void LLPanelVolume::onCommitMaterial( LLUICtrl* ctrl, void* userdata )
 		if (material_name != LEGACY_FULLBRIGHT_DESC)
 		{
 			U8 material_code = LLMaterialTable::basic.getMCode(material_name);
+			if (self)
+			{
+				LLViewerObject* objectp = self->mObject;
+				if (objectp)
+				{
+					objectp->setPhysicsGravity(DEFAULT_GRAVITY_MULTIPLIER);
+					objectp->setPhysicsFriction(LLMaterialTable::basic.getFriction(material_code));
+					//currently density is always set to 1000 serverside regardless of chosen material,
+					//actual material density should be used here, if this behavior change
+					objectp->setPhysicsDensity(DEFAULT_DENSITY);
+					objectp->setPhysicsRestitution(LLMaterialTable::basic.getRestitution(material_code));
+				}
+			}
 			LLSelectMgr::getInstance()->selectionSetMaterial(material_code);
 		}
 	}
