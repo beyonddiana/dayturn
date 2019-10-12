@@ -28,11 +28,10 @@
 //#endif
 
 #include "lldiriterator.h"
-#include <string.h>
+
 #include "fix_macros.h"
 #include <boost/filesystem.hpp>
 #include <boost/regex.hpp>
-
 
 namespace fs = boost::filesystem;
 
@@ -55,7 +54,11 @@ private:
 LLDirIterator::Impl::Impl(const std::string &dirname, const std::string &mask)
 	: mIsValid(false)
 {
+#ifdef LL_WINDOWS // or BOOST_WINDOWS_API
+	fs::path dir_path(utf8str_to_utf16str(dirname));
+#else
 	fs::path dir_path(dirname);
+#endif
 
 	bool is_dir = false;
 
@@ -113,7 +116,7 @@ LLDirIterator::Impl::~Impl()
 
 bool LLDirIterator::Impl::next(std::string &fname)
 {
-	fname.clear();
+	fname = "";
 
 	if (!mIsValid)
 	{
@@ -140,7 +143,6 @@ bool LLDirIterator::Impl::next(std::string &fname)
 			++mIter;
 		}
 	}
-
 	catch (const fs::filesystem_error& e)
 	{
 		LL_WARNS() << e.what() << LL_ENDL;
