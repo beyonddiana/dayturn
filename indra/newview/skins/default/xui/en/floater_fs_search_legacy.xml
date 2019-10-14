@@ -561,11 +561,11 @@
 		<columns
 			label="Group Name"
 			name="group_name"
-			width="345" />
+			width="330" />
 		<columns
 			label="Members"
 			name="members"
-			width="60" />
+			width="45" />
 	</scroll_list>
 	<scroll_list
 		draw_heading="true"
@@ -583,11 +583,11 @@
 		<columns
 			label="Name"
 			name="place_name"
-			width="370" />
+			width="330" />
 		<columns
 			label="Traffic"
 			name="dwell"
-			width="35" />
+			width="45" />
 	</scroll_list>
 	<scroll_list
 		draw_heading="true"
