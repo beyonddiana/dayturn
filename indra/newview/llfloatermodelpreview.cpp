@@ -476,7 +476,7 @@ void LLFloaterModelPreview::initModelPreview()
 	mModelPreview = new LLModelPreview(tex_width, tex_height, this);
 	mModelPreview->setPreviewTarget(16.f);
 	mModelPreview->setDetailsCallback(boost::bind(&LLFloaterModelPreview::setDetails, this, _1, _2, _3, _4, _5));
-	mModelPreview->setModelUpdatedCallback(boost::bind(&LLFloaterModelPreview::toggleCalculateButton, this, _1));
+	mModelPreview->setModelUpdatedCallback(boost::bind(&LLFloaterModelPreview::modelUpdated, this, _1));
 }
 
 void LLFloaterModelPreview::onViewOptionChecked(LLUICtrl* ctrl)
@@ -4994,6 +4994,12 @@ void LLFloaterModelPreview::toggleCalculateButton()
 	toggleCalculateButton(true);
 }
 
+void LLFloaterModelPreview::modelUpdated(bool calculate_visible)
+{
+    mModelPhysicsFee.clear();
+    toggleCalculateButton(calculate_visible);
+}
+
 void LLFloaterModelPreview::toggleCalculateButton(bool visible)
 {
 	mCalculateBtn->setVisible(visible);
@@ -5019,7 +5025,10 @@ void LLFloaterModelPreview::toggleCalculateButton(bool visible)
 		childSetTextArg("download_weight", "[ST]", tbd);
 		childSetTextArg("server_weight", "[SIM]", tbd);
 		childSetTextArg("physics_weight", "[PH]", tbd);
-		childSetTextArg("upload_fee", "[FEE]", tbd);
+		if (!mModelPhysicsFee.isMap() || mModelPhysicsFee.emptyMap())
+		{
+			childSetTextArg("upload_fee", "[FEE]", tbd);
+		}
 		childSetTextArg("price_breakdown", "[STREAMING]", tbd);
 		childSetTextArg("price_breakdown", "[PHYSICS]", tbd);
 		childSetTextArg("price_breakdown", "[INSTANCES]", tbd);
@@ -5117,7 +5126,7 @@ void LLFloaterModelPreview::handleModelPhysicsFeeReceived()
 	mUploadBtn->setEnabled(isModelUploadAllowed());
 }
 
-void LLFloaterModelPreview::setModelPhysicsFeeErrorStatus(S32 status, const std::string& reason)
+void LLFloaterModelPreview::setModelPhysicsFeeErrorStatus(S32 status, const std::string& reason, const LLSD& result)
 {
 	std::ostringstream out;
 	out << "LLFloaterModelPreview::setModelPhysicsFeeErrorStatus(" << status;
@@ -5125,6 +5134,17 @@ void LLFloaterModelPreview::setModelPhysicsFeeErrorStatus(S32 status, const std:
 	LL_WARNS() << out.str() << LL_ENDL;
 	LLFloaterModelPreview::addStringToLog(out, false);
 	doOnIdleOneTime(boost::bind(&LLFloaterModelPreview::toggleCalculateButton, this, true));
+
+    if (result.has("upload_price"))
+    {
+        mModelPhysicsFee = result;
+        childSetTextArg("upload_fee", "[FEE]", llformat("%d", result["upload_price"].asInteger()));
+        childSetVisible("upload_fee", true);
+    }
+    else
+    {
+        mModelPhysicsFee.clear();
+    }
 }
 
 /*virtual*/
