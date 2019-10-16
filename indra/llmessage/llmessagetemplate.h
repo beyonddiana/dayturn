@@ -302,8 +302,8 @@ public:
 		LLMessageBlock** member_blockp = &mMemberBlocks[blockp->mName];
 		if (*member_blockp != NULL)
 		{
-			LL_WARNS() << "FIXME was LL_ERRS" << " Block " << blockp->mName
-				<< " has already been used as a block name!" << LL_ENDL;
+			LL_ERRS() << "Block " << blockp->mName
+				<< "has already been used as a block name!" << LL_ENDL;
 		}
 		*member_blockp = blockp;
 		if (  (mTotalSize != -1)
