@@ -130,6 +130,7 @@
 #include "cef/llceflib.h"
 #include "vlc/libvlc_version.h"
 
+
 // Third party library includes
 #include <boost/bind.hpp>
 #include <boost/foreach.hpp>
@@ -1747,7 +1748,6 @@ bool LLAppViewer::mainLoop()
 	return LLApp::isExiting();
 }
 
-
 S32 LLAppViewer::updateTextureThreads(F32 max_time)
 {
 	S32 work_pending = 0;
@@ -1907,13 +1907,14 @@ bool LLAppViewer::cleanup()
 
 	if (gAudiop)
 	{
-		// shut down the streaming audio sub-subsystem first, in case it relies on not outliving the general audio subsystem.
-
-		LLStreamingAudioInterface *sai = gAudiop->getStreamingAudioImpl();
+        // be sure to stop the internet stream cleanly BEFORE destroying the interface to stop it.
+        gAudiop->stopInternetStream();
+        // shut down the streaming audio sub-subsystem first, in case it relies on not outliving the general audio subsystem.
+        LLStreamingAudioInterface *sai = gAudiop->getStreamingAudioImpl();
 		delete sai;
 		gAudiop->setStreamingAudioImpl(NULL);
 
-		// shut down the audio subsystem
+        // shut down the audio subsystem
         gAudiop->shutdown();
 
 		delete gAudiop;
@@ -2385,7 +2386,6 @@ void LLAppViewer::initLoggingAndGetLastDuration()
 
 	// Rename current log file to ".old"
 	LLFile::rename(log_file, old_log_file);
-
 
 	// Set the log file to Dayturn.log
 	LLError::logToFile(log_file);
@@ -3256,6 +3256,7 @@ LLSD LLAppViewer::getViewerInfo() const
 	info["COMPILER"] = "GCC";
 	info["COMPILER_VERSION"] = GCC_VERSION;
 #endif
+
 	// Position
 	LLViewerRegion* region = gAgent.getRegion();
 	if (region)
@@ -3769,7 +3770,7 @@ void LLAppViewer::recordMarkerVersion(LLAPRFile& marker_file)
 }
 
 bool LLAppViewer::markerIsSameVersion(const std::string& marker_name) const
-	{
+{
 	bool sameVersion = false;
 
 	std::string my_version(LLVersionInfo::getChannelAndVersion());
@@ -3839,7 +3840,7 @@ void LLAppViewer::processMarkerFiles()
 		}
 
 		if (mSecondInstance)
-	{
+		{
 			LL_INFOS("MarkerFile") << "Exec marker '"<< mMarkerFileName << "' owned by another instance" << LL_ENDL;
 		}
 		else if (marker_is_same_version)
@@ -3852,8 +3853,8 @@ void LLAppViewer::processMarkerFiles()
 		else
 		{
 			LL_INFOS("MarkerFile") << "Exec marker '"<< mMarkerFileName << "' found, but versions did not match" << LL_ENDL;
-	}    
-	}    
+		}
+	}
 	else // marker did not exist... last exec (if any) did not freeze
 	{
 		// Create the marker file for this execution & lock it; it will be deleted on a clean exit
@@ -3888,7 +3889,7 @@ void LLAppViewer::processMarkerFiles()
 	{
 		if (markerIsSameVersion(logout_marker_file))
 		{
-		gLastExecEvent = LAST_EXEC_LOGOUT_FROZE;
+			gLastExecEvent = LAST_EXEC_LOGOUT_FROZE;
 			LL_INFOS("MarkerFile") << "Logout crash marker '"<< logout_marker_file << "', changing LastExecEvent to LOGOUT_FROZE" << LL_ENDL;
 		}
 		else
@@ -3907,12 +3908,12 @@ void LLAppViewer::processMarkerFiles()
 			{
 				gLastExecEvent = LAST_EXEC_LOGOUT_CRASH;
 				LL_INFOS("MarkerFile") << "LLError marker '"<< llerror_marker_file << "' crashed, setting LastExecEvent to LOGOUT_CRASH" << LL_ENDL;
-		}
-		else
-		{
+			}
+			else
+			{
 				gLastExecEvent = LAST_EXEC_LLERROR_CRASH;
 				LL_INFOS("MarkerFile") << "LLError marker '"<< llerror_marker_file << "' crashed, setting LastExecEvent to LLERROR_CRASH" << LL_ENDL;
-		}
+			}
 		}
 		else
 		{
@@ -3928,19 +3929,21 @@ void LLAppViewer::processMarkerFiles()
 	{
 			if (gLastExecEvent == LAST_EXEC_LOGOUT_FROZE)
 		{
+			if (gLastExecEvent == LAST_EXEC_LOGOUT_FROZE)
+			{
 				gLastExecEvent = LAST_EXEC_LOGOUT_CRASH;
 				LL_INFOS("MarkerFile") << "Error marker '"<< error_marker_file << "' crashed, setting LastExecEvent to LOGOUT_CRASH" << LL_ENDL;
+			}
+			else
+			{
+				gLastExecEvent = LAST_EXEC_OTHER_CRASH;
+				LL_INFOS("MarkerFile") << "Error marker '"<< error_marker_file << "' crashed, setting LastExecEvent to " << gLastExecEvent << LL_ENDL;
+			}
 		}
 		else
 		{
-				gLastExecEvent = LAST_EXEC_OTHER_CRASH;
-				LL_INFOS("MarkerFile") << "Error marker '"<< error_marker_file << "' crashed, setting LastExecEvent to " << gLastExecEvent << LL_ENDL;
-		}
-	}
-	else
-	{
 			LL_INFOS("MarkerFile") << "Error marker '"<< error_marker_file << "' marker found, but versions did not match" << LL_ENDL;
-	}
+		}
 		LLAPRFile::remove(error_marker_file);
 	}
 }
@@ -3954,9 +3957,9 @@ void LLAppViewer::removeMarkerFiles()
 			mMarkerFile.close() ;
 			LLAPRFile::remove( mMarkerFileName );
 			LL_DEBUGS("MarkerFile") << "removed exec marker '"<<mMarkerFileName<<"'"<< LL_ENDL;
-	    }
-	    else
-	    {
+		}
+		else
+		{
 			LL_WARNS("MarkerFile") << "marker '"<<mMarkerFileName<<"' not open"<< LL_ENDL;
  		}
 
@@ -5700,6 +5703,7 @@ void LLAppViewer::metricsUpdateRegion(U64 region_handle)
 
 
 
+
 /**
  * Attempts to start a multi-threaded metrics report to be sent back to
  * the grid for consumption.
@@ -5726,7 +5730,7 @@ void LLAppViewer::metricsSend(bool enable_reporting)
 			// Receiving thread takes ownership.
 			LLViewerAssetStats * main_stats(new LLViewerAssetStats(*gViewerAssetStats));
 			main_stats->stop();
-
+			
 			// Send a report request into 'thread1' to get the rest of the data
 			// and provide some additional parameters while here.
 			LLAppViewer::sTextureFetch->commandSendMetrics(caps_url,
