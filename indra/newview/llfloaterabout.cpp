@@ -144,13 +144,13 @@ BOOL LLFloaterAbout::postBuild()
 	static const LLUIColor about_color = LLUIColorTable::instance().getColor("TextFgReadOnlyColor");
 
 	if (gAgent.getRegion())
-		{
+	{
 		// start fetching server release notes URL
 		setSupportText(LLTrans::getString("RetrievingData"));
 		LLServerReleaseNotesURLFetcher::startFetch();
-			}
+	}
 	else // not logged in
-			{
+	{
 		LL_DEBUGS("ViewerInfo") << "cannot display region info when not connected" << LL_ENDL;
 		setSupportText(LLTrans::getString("NotConnected"));
 	}
