@@ -64,7 +64,6 @@ endif (NOT HAVOK_TPV)
 # <FS:ND>
 endif( LLPHYSICSEXTENSIONS_SRC_DIR )
 # </FS:ND>
-
 if(FMODEX)
   include_directories(${FMODEX_INCLUDE_DIR})
 endif(FMODEX)
@@ -1382,7 +1381,6 @@ set(viewer_HEADER_FILES
     pipeline.h
     streamtitledisplay.h
     roles_constants.h
-    qtoolalign.h
     VertexCache.h
     viewerinfo.h
     VorbisFramework.h
@@ -1988,7 +1986,6 @@ target_link_libraries(${VIEWER_BINARY_NAME}
 set(ARTWORK_DIR ${CMAKE_CURRENT_SOURCE_DIR} CACHE PATH
     "Path to artwork files.")
 
-
 if (LINUX)
   set(product dayturn-${ARCH}-${VIEWER_SHORT_VERSION}.${VIEWER_VERSION_REVISION})
 
@@ -2025,6 +2022,7 @@ if (LINUX)
 
   if (PACKAGE)
   endif (PACKAGE)
+
   add_custom_command(
     OUTPUT  ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/.${product}.copy_touched
     COMMAND ${PYTHON_EXECUTABLE}
@@ -2128,6 +2126,7 @@ if (LL_TESTS)
     llworldmap.cpp
     llworldmipmap.cpp
   )
+
   set_source_files_properties(
     llworldmap.cpp
     llworldmipmap.cpp
