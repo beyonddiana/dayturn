@@ -1855,6 +1855,105 @@
             <key>tooltip</key>
             <string/>
          </map>
+         <key>IMG_USE_BAKED_AUX1</key>
+         <map>
+            <key>type</key>
+            <string>string</string>
+            <key>value</key>
+            <uuid>9742065b-19b5-297c-858a-29711d539043</uuid>
+            <key>tooltip</key>
+            <string/>
+         </map>
+         <key>IMG_USE_BAKED_AUX2</key>
+         <map>
+            <key>type</key>
+            <string>string</string>
+            <key>value</key>
+            <uuid>03642e83-2bd1-4eb9-34b4-4c47ed586d2d</uuid>
+            <key>tooltip</key>
+            <string/>
+         </map> 
+         <key>IMG_USE_BAKED_AUX3</key>
+         <map>
+            <key>type</key>
+            <string>string</string>
+            <key>value</key>
+            <uuid>edd51b77-fc10-ce7a-4b3d-011dfc349e4f</uuid>
+            <key>tooltip</key>
+            <string/>
+         </map> 
+         <key>IMG_USE_BAKED_EYES</key>
+         <map>
+            <key>type</key>
+            <string>string</string>
+            <key>value</key>
+            <uuid>52cc6bb6-2ee5-e632-d3ad-50197b1dcb8a</uuid>
+            <key>tooltip</key>
+            <string/>
+         </map> 
+         <key>IMG_USE_BAKED_HAIR</key>
+         <map>
+            <key>type</key>
+            <string>string</string>
+            <key>value</key>
+            <uuid>09aac1fb-6bce-0bee-7d44-caac6dbb6c63</uuid>
+            <key>tooltip</key>
+            <string/>
+         </map> 
+         <key>IMG_USE_BAKED_HEAD</key>
+         <map>
+            <key>type</key>
+            <string>string</string>
+            <key>value</key>
+            <uuid>5a9f4a74-30f2-821c-b88d-70499d3e7183</uuid>
+            <key>tooltip</key>
+            <string/>
+         </map>
+         <key>IMG_USE_BAKED_LEFTARM</key>
+         <map>
+            <key>type</key>
+            <string>string</string>
+            <key>value</key>
+            <uuid>ff62763f-d60a-9855-890b-0c96f8f8cd98</uuid>
+            <key>tooltip</key>
+            <string/>
+         </map>
+         <key>IMG_USE_BAKED_LEFTLEG</key>
+         <map>
+            <key>type</key>
+            <string>string</string>
+            <key>value</key>
+            <uuid>8e915e25-31d1-cc95-ae08-d58a47488251</uuid>
+            <key>tooltip</key>
+            <string/>
+         </map>
+         <key>IMG_USE_BAKED_LOWER</key>
+         <map>
+            <key>type</key>
+            <string>string</string>
+            <key>value</key>
+            <uuid>24daea5f-0539-cfcf-047f-fbc40b2786ba</uuid>
+            <key>tooltip</key>
+            <string/>
+         </map>
+         <key>IMG_USE_BAKED_SKIRT</key>
+         <map>
+            <key>type</key>
+            <string>string</string>
+            <key>value</key>
+            <uuid>43529ce8-7faa-ad92-165a-bc4078371687</uuid>
+            <key>tooltip</key>
+            <string/>
+         </map>
+         <key>IMG_USE_BAKED_UPPER</key>
+         <map>
+            <key>type</key>
+            <string>string</string>
+            <key>value</key>
+            <uuid>ae2de45c-d252-50b8-5c6e-19f39ce79317</uuid>
+            <key>tooltip</key>
+            <string/>
+         </map>               
          <key>INVENTORY_ALL</key>
          <map>
             <key>type</key>
@@ -20499,7 +20598,7 @@
                 </map>                
             </array>
             <key>tooltip</key>
-            <string></string> 
+            <string>Returns 1 (true) if the quantities or all their components do not differ by the margin value, or 1e-6 (0.000001), if margin is not provided. Returns 0 (false) otherwise.</string> 
          </map>
          <key>osDetectedCountry</key>
          <map>
@@ -20522,7 +20621,7 @@
                </map>                          
             </array>
             <key>tooltip</key>
-            <string></string> 
+            <string>Returns a string that indicates the country in which the avatar is located.</string> 
          </map>                                                
          <key>osAgentSaveAppearance</key>
          <map>
@@ -22048,6 +22147,29 @@
             <key>tooltip</key>
             <string>Returns the description of inventory item.</string>
          </map>
+         <key>osGetInventoryItemKey</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>string</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>name</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>            
+            </array>
+            <key>tooltip</key>
+            <string>Returns id(key) of a inventory item within the prim inventory. If name is not unique result maybe unpredictable. Note that unlike this function, llGetInventoryKey does not return the item ID but the ID of its asset. Returns NULL_KEY if the item is not found or Owner has no rights</string>
+         </map>         
          <key>osGetInventoryLastOwner</key>
          <map>
             <key>energy</key>
@@ -23647,6 +23769,29 @@
             <key>tooltip</key>
             <string>Requests one HTTP:// url (opensim version 0.9 or over).</string>
          </map>
+         <key>osResetAllScripts</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>AllLinkset</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>                
+            <key>tooltip</key>
+            <string>Resets all the scripts on the same prim if AllLinkSet is FALSE( or 0) or on same linkset if AllLinkSet is TRUE ( or 1 ).</string>
+         </map>         
          <key>osRezObject</key>
          <map>
             <key>energy</key>
@@ -25368,6 +25513,47 @@
             <key>tooltip</key>
             <string>Sets value of param property for plugin module.;SimpleRandomWind plugin param is: strength.;ConfigurableWind plugin params are: avgStrength, avgDirection, varStrength, varDirection, rateChange.</string>
          </map>
+         <key>osSlerp</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>rotation</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>a</key>
+                  <map>
+                     <key>type</key>
+                     <string>rotation</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>                              
+               <map>
+                  <key>b</key>
+                  <map>
+                     <key>type</key>
+                     <string>rotation</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>amount</key>
+                  <map>
+                     <key>type</key>
+                     <string>float</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>                
+            <key>tooltip</key>
+            <string>Returns a rotation that is the spherical interpolation of a and b, acording to ratio that can be from 0 (result is a) to 1 (result is b).</string>
+         </map>         
          <key>osStopSound</key>
          <map>
             <key>energy</key>
