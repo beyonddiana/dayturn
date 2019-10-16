@@ -135,7 +135,7 @@ bool AISCommand::getInvCap(std::string& cap)
 {
 	if (gAgent.getRegion())
 	{
-		cap = gAgent.getRegionCapability("InventoryAPIv3");
+		cap = gAgent.getRegion()->getCapability("InventoryAPIv3");
 	}
 	if (!cap.empty())
 	{
