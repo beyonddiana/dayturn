@@ -3926,8 +3926,6 @@ void LLAppViewer::processMarkerFiles()
 	if(LLAPRFile::isExist(error_marker_file, NULL, LL_APR_RB))
 	{
 		if (markerIsSameVersion(error_marker_file))
-	{
-			if (gLastExecEvent == LAST_EXEC_LOGOUT_FROZE)
 		{
 			if (gLastExecEvent == LAST_EXEC_LOGOUT_FROZE)
 			{
