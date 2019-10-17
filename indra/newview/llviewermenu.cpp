@@ -9270,37 +9270,6 @@ void force_error_driver_crash(void *)
     LLAppViewer::instance()->forceErrorDriverCrash();
 }
 
-//MK
-class LLGridModeWorld : public view_listener_t
-{
-	bool handleEvent(const LLSD& userdata)
-	{
-		LLSelectMgr::getInstance()->setGridMode(GRID_MODE_WORLD);
-		LLFloaterTools::setGridMode(GRID_MODE_WORLD);
-		return true;
-	}
-};
-
-class LLGridModeLocal : public view_listener_t
-{
-	bool handleEvent(const LLSD& userdata)
-	{
-		LLSelectMgr::getInstance()->setGridMode(GRID_MODE_LOCAL);
-		LLFloaterTools::setGridMode(GRID_MODE_LOCAL);
-		return true;
-	}
-};
-
-class LLGridModeReference : public view_listener_t
-{
-	bool handleEvent(const LLSD& userdata)
-	{
-		LLSelectMgr::getInstance()->setGridMode(GRID_MODE_REF_OBJECT);
-		LLFloaterTools::setGridMode(GRID_MODE_REF_OBJECT);
-		return true;
-	}
-};
-//mk
 
 class LLToolsUseSelectionForGrid : public view_listener_t
 {
@@ -9317,19 +9286,7 @@ class LLToolsUseSelectionForGrid : public view_listener_t
 		} func;
 		LLSelectMgr::getInstance()->getSelection()->applyToRootObjects(&func);
 		LLSelectMgr::getInstance()->setGridMode(GRID_MODE_REF_OBJECT);
-
-//MK
-		LLFloaterBuildOptions* build_options_floater = LLFloaterReg::getTypedInstance<LLFloaterBuildOptions>("build_options");
-		if (build_options_floater && build_options_floater->getVisible())
-		{
-			build_options_floater->setGridMode(GRID_MODE_REF_OBJECT);
-		}
-		LLFloaterTools* tools_floater = LLFloaterReg::getTypedInstance<LLFloaterTools>("build");
-		if (tools_floater && tools_floater->getVisible())
-		{
-			LLFloaterTools::setGridMode((S32)GRID_MODE_REF_OBJECT);
-		}
-//mk
+		LLFloaterTools::setGridMode((S32)GRID_MODE_REF_OBJECT);
 		return true;
 	}
 };
@@ -10447,11 +10404,6 @@ void initialize_menus()
 	commit.add("Tools.Unlink", boost::bind(&LLSelectMgr::unlinkObjects, LLSelectMgr::getInstance()));
 	view_listener_t::addMenu(new LLToolsStopAllAnimations(), "Tools.StopAllAnimations");
 //MK
-	view_listener_t::addMenu(new LLToolsRestartAllAnimations(), "Tools.RestartAllAnimations");
-//mk
-	view_listener_t::addMenu(new LLGridModeWorld(), "Tools.GridModeWorld");
-	view_listener_t::addMenu(new LLGridModeLocal(), "Tools.GridModeLocal");
-	view_listener_t::addMenu(new LLGridModeReference(), "Tools.GridModeReference");
 	view_listener_t::addMenu(new LLToolsRestartAllAnimations(), "Tools.RestartAllAnimations");
 	view_listener_t::addMenu(new LLToolsRefreshVisibility(), "Tools.RefreshVisibility");
 	view_listener_t::addMenu(new LLRlvFocusHead(), "RLV.FocusHead");
