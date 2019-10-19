@@ -36,7 +36,9 @@
 #include "llpluginmessageclasses.h"
 #include "media_plugin_base.h"
 
-#include "boost/function.hpp"
+//#include "boost/function.hpp"
+#include <functional>
+
 #include "boost/bind.hpp"
 #include "llCEFLib.h"
 #include "volume_catcher.h"
