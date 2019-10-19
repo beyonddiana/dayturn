@@ -2947,6 +2947,14 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 				}
 
 				LLNotificationsUI::LLNotificationManager::instance().onChat(chat, args);
+                if (message != "")
+                {
+                    LLSD msg_notify;
+                    msg_notify["session_id"] = LLUUID();
+                    msg_notify["from_id"] = chat.mFromID;
+                    msg_notify["source_type"] = chat.mSourceType;
+                    on_new_message(msg_notify);
+                }
 			}
 
 
