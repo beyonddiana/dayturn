@@ -296,6 +296,11 @@ LLAgentCamera::~LLAgentCamera()
 //-----------------------------------------------------------------------------
 void LLAgentCamera::resetView(BOOL reset_camera, BOOL change_camera)
 {
+	if (gDisconnected)
+	{
+		return;
+	}
+
 //MK
 	if (gRRenabled)
 	{
@@ -306,6 +311,7 @@ void LLAgentCamera::resetView(BOOL reset_camera, BOOL change_camera)
 		}
 	}
 //mk
+
 	if (gAgent.getAutoPilot())
 	{
 		gAgent.stopAutoPilot(TRUE);

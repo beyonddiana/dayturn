@@ -1845,6 +1845,11 @@ bool LLAppViewer::cleanup()
 	disconnectViewer();
 
 	LL_INFOS() << "Viewer disconnected" << LL_ENDL;
+	
+	if (gKeyboard)
+	{
+		gKeyboard->resetKeys();
+	}
 
 	display_cleanup();
 
