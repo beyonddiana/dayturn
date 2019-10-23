@@ -1147,7 +1147,7 @@ bool LLAppViewer::init()
 	try {
 		initializeSecHandler();
 	}
-	catch (LLProtectedDataException ex)
+	catch (LLProtectedDataException&)
 	{
 	  LLNotificationsUtil::add("CorruptedProtectedDataStore");
 	}
@@ -1693,7 +1693,7 @@ bool LLAppViewer::mainLoop()
 				pingMainloopTimeout("Main:End");
 			}	
 		}
-		catch(std::bad_alloc)
+		catch(std::bad_alloc&)
 		{			
 			LLMemory::logMemoryInfo(TRUE) ;
 
