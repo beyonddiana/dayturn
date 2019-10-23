@@ -2245,7 +2245,7 @@ LLUZipHelper::EZipRresult LLUZipHelper::unzip_llsd(LLSD& data, std::istream& is,
 			return ZR_SIZE_ERROR;
 		}
 #endif
-		catch (std::bad_alloc)
+		catch (std::bad_alloc&)
 		{
 			free(result);
 			return ZR_MEM_ERROR;
