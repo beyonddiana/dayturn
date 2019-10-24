@@ -444,20 +444,17 @@ class Windows_i686_Manifest(ViewerManifest):
 			self.path("featuretable.txt")
 			self.path("featuretable_xp.txt")
 
-        self.end_prefix()
-
 	self.path(src="licenses-win32.txt", dst="licenses.txt")
 	self.path("featuretable.txt")
 	self.path("featuretable_xp.txt")
 	self.path("VivoxAUP.txt")
     
         # On first build tries to copy before it is built.
-        if self.prefix(src='../media_plugins/gstreamer010/%s' % self.args['configuration'], dst="llplugin"):
+        with self.prefix(src='../media_plugins/gstreamer010/%s' % self.args['configuration'], dst="llplugin"):
             try:
                 self.path("media_plugin_gstreamer010.dll")
             except:
                 print "Skipping media_plugin_gstreamer010.dll" 
-            self.end_prefix()
 
         # Media plugins - CEF
         with self.prefix(src='../media_plugins/cef/%s' % self.args['configuration'], dst="llplugin"):        
@@ -751,9 +748,8 @@ class LinuxManifest(ViewerManifest):
         print "DEBUG: icon_path '%s'" % icon_path
         with self.prefix(src=icon_path, dst="") :
             self.path("dayturn_icon.png","dayturn_icon.png" )
-            if self.prefix(src="", dst="res-sdl") :
+            with self.prefix(src="", dst="res-sdl") :
                 self.path("dayturn_icon.bmp","dayturn_icon.bmp")
-                self.end_prefix("res-sdl")
 
         # plugins
         with self.prefix(src="", dst="bin/llplugin"):
@@ -988,7 +984,6 @@ class Linux_i686_Manifest(LinuxManifest):
                 print "Skipping libfmodex.so - not found"
                 pass
 
-            self.end_prefix("lib")
 
             # Vivox runtimes
             with self.prefix(src=relpkgdir, dst="bin"):
