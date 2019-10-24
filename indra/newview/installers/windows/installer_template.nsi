@@ -300,16 +300,6 @@ SetOutPath "$INSTDIR"
 CreateShortCut	"$SMPROGRAMS\$INSTSHORTCUT\$INSTSHORTCUT.lnk" \
 				"$INSTDIR\$INSTEXE" "$SHORTCUT_LANG_PARAM"
 
-
-WriteINIStr		"$SMPROGRAMS\$INSTSHORTCUT\SL Create Account.url" \
-				"InternetShortcut" "URL" \
-				"http://join.secondlife.com/"
-WriteINIStr		"$SMPROGRAMS\$INSTSHORTCUT\SL Your Account.url" \
-				"InternetShortcut" "URL" \
-				"http://www.secondlife.com/account/"
-WriteINIStr		"$SMPROGRAMS\$INSTSHORTCUT\SL Scripting Language Help.url" \
-				"InternetShortcut" "URL" \
-                "http://wiki.secondlife.com/wiki/LSL_Portal"
 CreateShortCut	"$SMPROGRAMS\$INSTSHORTCUT\Uninstall $INSTSHORTCUT.lnk" \
 				'"$INSTDIR\uninst.exe"' ''
 
@@ -333,9 +323,6 @@ WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\Dayturn\$INSTPROG" "Version" "${VERSION
 WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\Dayturn\$INSTPROG" "Shortcut" "$INSTSHORTCUT"
 WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\Dayturn\$INSTPROG" "Exe" "$INSTEXE"
 WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\$INSTPROG" "Publisher" "Dayturn"
-WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\$INSTPROG" "URLInfoAbout" "http://secondlife.com/whatis/"
-WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\$INSTPROG" "URLUpdateInfo" "http://secondlife.com/support/downloads/"
-WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\$INSTPROG" "HelpLink" "https://support.secondlife.com/contact-support/"
 WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\$INSTPROG" "DisplayName" "$INSTPROG"
 WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\$INSTPROG" "UninstallString" '"$INSTDIR\uninst.exe"'
 WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\$INSTPROG" "DisplayVersion" "${VERSION_LONG}"
