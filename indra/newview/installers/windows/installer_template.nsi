@@ -147,7 +147,7 @@ Function .onInit
 
 # read the current location of the install for this version
 # if $0 is empty, this is the first time for this viewer name
-ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\\Linden Research, Inc.\\${INSTNAME}" ""
+ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\\Dayturn\\${INSTNAME}" ""
 
 # viewer with this name not installed before
 ${If} $0 == ""
@@ -181,7 +181,7 @@ Call CheckWindowsVersion					# Don't install On unsupported systems
 lbl_configure_default_lang:
 # If we currently have a version of SL installed, default to the language of that install
 # Otherwise don't change $LANGUAGE and it will default to the OS UI language.
-    ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\${INSTNAME}" "InstallerLanguage"
+    ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Dayturn\${INSTNAME}" "InstallerLanguage"
     IfErrors +2 0	# If error skip the copy instruction 
 	StrCpy $LANGUAGE $0
 
@@ -332,7 +332,7 @@ WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\Dayturn\$INSTPROG" "" "$INSTDIR"
 WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\Dayturn\$INSTPROG" "Version" "${VERSION_LONG}"
 WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\Dayturn\$INSTPROG" "Shortcut" "$INSTSHORTCUT"
 WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\Dayturn\$INSTPROG" "Exe" "$INSTEXE"
-WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\$INSTPROG" "Publisher" "Linden Research, Inc."
+WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\$INSTPROG" "Publisher" "Dayturn"
 WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\$INSTPROG" "URLInfoAbout" "http://secondlife.com/whatis/"
 WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\$INSTPROG" "URLUpdateInfo" "http://secondlife.com/support/downloads/"
 WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\$INSTPROG" "HelpLink" "https://support.secondlife.com/contact-support/"
