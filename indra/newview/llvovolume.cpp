@@ -4853,6 +4853,10 @@ U32 LLVOVolume::getPartitionType() const
 	{
 		return LLViewerRegion::PARTITION_CONTROL_AV;
 	}
+	if (isAttachment())
+	{
+		return LLViewerRegion::PARTITION_AVATAR;
+	}
 
 	return LLViewerRegion::PARTITION_VOLUME;
 }
@@ -4881,6 +4885,13 @@ LLVolumeGeometryManager()
 	mBufferUsage = GL_DYNAMIC_DRAW_ARB;
 
 	mSlopRatio = 0.25f;
+}
+
+LLAvatarBridge::LLAvatarBridge(LLDrawable* drawablep, LLViewerRegion* regionp)
+	: LLVolumeBridge(drawablep, regionp)
+{
+	mDrawableType = LLPipeline::RENDER_TYPE_AVATAR;
+	mPartitionType = LLViewerRegion::PARTITION_AVATAR;
 }
 
 LLControlAVBridge::LLControlAVBridge(LLDrawable* drawablep, LLViewerRegion* regionp)
