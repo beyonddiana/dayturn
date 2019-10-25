@@ -2221,7 +2221,6 @@
             <menu_item_check
              label="Animeshes"
              name="Rendering Type Control Avatar"
-             shortcut="control|alt|shift|5">
                 <menu_item_check.on_check
                  function="Advanced.CheckRenderType"
                  parameter="controlAV" />
