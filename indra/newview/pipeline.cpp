@@ -1619,6 +1619,7 @@ LLDrawPool *LLPipeline::findPool(const U32 type, LLViewerTexture *tex0)
 		break;
 
 	case LLDrawPool::POOL_AVATAR:
+	case LLDrawPool::POOL_CONTROL_AV:
 		break; // Do nothing
 
 	case LLDrawPool::POOL_SKY:
@@ -3394,6 +3395,7 @@ static LLTrace::BlockTimerStatHandle FTM_RESET_DRAWORDER("Reset Draw Order");
 void LLPipeline::stateSort(LLCamera& camera, LLCullResult &result)
 {
 	if (hasAnyRenderType(LLPipeline::RENDER_TYPE_AVATAR,
+					  LLPipeline::RENDER_TYPE_CONTROL_AV,
 					  LLPipeline::RENDER_TYPE_GROUND,
 					  LLPipeline::RENDER_TYPE_TERRAIN,
 					  LLPipeline::RENDER_TYPE_TREE,
@@ -5792,6 +5794,7 @@ void LLPipeline::addToQuickLookup( LLDrawPool* new_poolp )
 		break;
 
 	case LLDrawPool::POOL_AVATAR:
+	case LLDrawPool::POOL_CONTROL_AV:
 		break; // Do nothing
 
 	case LLDrawPool::POOL_SKY:
@@ -5940,6 +5943,7 @@ void LLPipeline::removeFromQuickLookup( LLDrawPool* poolp )
 		break;
 
 	case LLDrawPool::POOL_AVATAR:
+	case LLDrawPool::POOL_CONTROL_AV:
 		break; // Do nothing
 
 	case LLDrawPool::POOL_SKY:
@@ -7133,7 +7137,8 @@ LLViewerObject* LLPipeline::lineSegmentIntersectInWorld(const LLVector4a& start,
 		for (U32 j = 0; j < LLViewerRegion::NUM_PARTITIONS; j++)
 		{
 			if ((j == LLViewerRegion::PARTITION_VOLUME) || 
-				(j == LLViewerRegion::PARTITION_BRIDGE) || 
+				(j == LLViewerRegion::PARTITION_BRIDGE) ||
+				(j == LLViewerRegion::PARTITION_CONTROL_AV) ||
 				(j == LLViewerRegion::PARTITION_TERRAIN) ||
 				(j == LLViewerRegion::PARTITION_TREE) ||
 				(j == LLViewerRegion::PARTITION_GRASS))  // only check these partitions for now

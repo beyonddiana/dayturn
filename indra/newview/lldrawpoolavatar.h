@@ -177,7 +177,7 @@ typedef enum
 
 	virtual S32 getVertexShaderLevel() const;
 
-	LLDrawPoolAvatar();
+	LLDrawPoolAvatar(U32 type);
     ~LLDrawPoolAvatar();
     /*virtual*/ BOOL isDead();
 
