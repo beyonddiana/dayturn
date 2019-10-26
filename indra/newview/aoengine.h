@@ -170,8 +170,9 @@ class AOEngine
 		void stopAllStandVariants();
 		void stopAllSitVariants();
 
-		bool foreignAnimations(const LLUUID& seat);
-		const LLUUID& mapSwimming(const LLUUID& motion) const;
+		bool foreignAnimations();
+        AOSet::AOState* mapSwimming(const LLUUID& motion) const;
+        AOSet::AOState* getStateForMotion(const LLUUID& motion) const;
 
 		void updateSortOrder(AOSet::AOState* state);
 		void saveSet(const AOSet* set);
