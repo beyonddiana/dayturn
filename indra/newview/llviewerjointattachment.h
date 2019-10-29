@@ -100,7 +100,7 @@ public:
 //mk
 
 	// list of attachments for this joint
-	typedef std::vector<LLViewerObject *> attachedobjs_vec_t;
+	typedef std::vector<LLPointer<LLViewerObject> > attachedobjs_vec_t;
 	attachedobjs_vec_t mAttachedObjects;
 
 protected:
