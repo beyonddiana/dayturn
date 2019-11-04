@@ -37,6 +37,8 @@
 #include "llviewerwindow.h"
 
 #include "lltoastalertpanel.h"
+#include "llagent.h"
+#include "RRInterface.h"
 
 using namespace LLNotificationsUI;
 
@@ -71,6 +73,12 @@ void LLAlertHandler::initChannel()
 //--------------------------------------------------------------------------
 bool LLAlertHandler::processNotification(const LLNotificationPtr& notification)
 {
+	// if in RLV and mouselook is being forced with @camdistmax:0 make the notification non-modal 
+	// otherwise it's impossible to  use the mouse on the notification (usually the viewer reverts to
+	// third person view for that reason - see processNotification below)
+	bool localIsModal = mIsModal;
+	if (gRRenabled && gAgent.mRRInterface.mCamDistMax <= 0.f) localIsModal = false;
+
 	if(mChannel.isDead())
 	{
 		return false;
@@ -95,14 +103,14 @@ bool LLAlertHandler::processNotification(const LLNotificationPtr& notification)
 		LLHandlerUtil::logToIMP2P(notification);
 	}
 
-	LLToastAlertPanel* alert_dialog = new LLToastAlertPanel(notification, mIsModal);
+	LLToastAlertPanel* alert_dialog = new LLToastAlertPanel(notification, localIsModal);
 	LLToast::Params p;
 	p.notif_id = notification->getID();
 	p.notification = notification;
 	p.panel = dynamic_cast<LLToastPanel*>(alert_dialog);
 	p.enable_hide_btn = false;
 	p.can_fade = false;
-	p.is_modal = mIsModal;
+	p.is_modal = localIsModal;
 	p.on_delete_toast = boost::bind(&LLAlertHandler::onDeleteToast, this, _1);
 
 	// Show alert in middle of progress view (during teleport) (EXT-1093)
