@@ -1495,6 +1495,12 @@ bool idle_startup()
 		LLStartUp::initExperiences();
 
 		display_startup();
+
+		// If logging should be enebled, turns it on and loads history from disk
+		// Note: does not happen on init of singleton because preferences can use
+		// this instance without logging in
+		LLConversationLog::getInstance()->initLoggingState();
+
 		LLStartUp::setStartupState( STATE_MULTIMEDIA_INIT );
 		
 		LLConversationLog::getInstance();
