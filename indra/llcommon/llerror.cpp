@@ -998,54 +998,54 @@ namespace LLError
 
 namespace
 {
-	void writeToRecorders(const LLError::CallSite& site, const std::string& message, bool show_location = true, bool show_time = true, bool show_tags = true, bool show_level = true, bool show_function = true)
-	{
-		LLError::ELevel level = site.mLevel;
-		LLError::SettingsConfigPtr s = LLError::Settings::getInstance()->getSettingsConfig();
-	
-		for (Recorders::const_iterator i = s->mRecorders.begin();
-			i != s->mRecorders.end();
-			++i)
-		{
-			LLError::RecorderPtr r = *i;
-
-            if (!r->enabled())
-            {
-                continue;
-            }
-            
-			std::ostringstream message_stream;
-
-			if (show_time && r->wantsTime() && s->mTimeFunction != NULL)
-			{
-				message_stream << s->mTimeFunction() << " ";
-			}
-
-			if (show_level && r->wantsLevel())
-            {
-				message_stream << site.mLevelString << " ";
-            }
-				
-			if (show_tags && r->wantsTags())
-			{
-				message_stream << site.mTagString;
-			}
-
-            if (show_location && (r->wantsLocation() || level == LLError::LEVEL_ERROR || s->mPrintLocation))
-            {
-                message_stream << site.mLocationString << " ";
-            }
-
-			if (show_function && r->wantsFunctionName())
-			{
-				message_stream << site.mFunctionString << " ";
-			}
-
-			message_stream << message;
-
-			r->recordMessage(level, message_stream.str());
-		}
-	}
+    void writeToRecorders(const LLError::CallSite& site, const std::string& escaped_message)
+ 	{
+ 		LLError::ELevel level = site.mLevel;
+ 		LLError::SettingsConfigPtr s = LLError::Settings::getInstance()->getSettingsConfig();
+ 	
+ 		for (Recorders::const_iterator i = s->mRecorders.begin();
+ 			i != s->mRecorders.end();
+ 			++i)
+ 		{
+ 			LLError::RecorderPtr r = *i;
+ 			
+ 			std::ostringstream message_stream;
+ 
+ 			if (r->wantsTime() && s->mTimeFunction != NULL)
+ 			{
+ 				message_stream << s->mTimeFunction();
+ 			}
+             message_stream << " ";
+             
+			if (r->wantsLevel())
+             {
+ 				message_stream << site.mLevelString;
+             }
+             message_stream << " ";
+ 				
+ 			if (r->wantsTags())
+ 			{
+ 				message_stream << site.mTagString;
+ 			}
+             message_stream << " ";
+ 
+             if (r->wantsLocation() || level == LLError::LEVEL_ERROR || s->mPrintLocation)
+             {
+                 message_stream << site.mLocationString;
+             }
+             message_stream << " ";
+ 
+			if (r->wantsFunctionName())
+ 			{
+ 				message_stream << site.mFunctionString;
+ 			}
+             message_stream << " : ";
+ 
+ 			message_stream << escaped_message;
+ 
+ 			r->recordMessage(level, message_stream.str());
+ 		}
+ 	}
 }
 
 namespace {
@@ -1236,11 +1236,6 @@ namespace LLError
 		else
 		{
 			delete out;
-		}
-
-		if (site.mLevel == LEVEL_ERROR)
-		{
-			writeToRecorders(site, "error", true, true, true, false, false);
 		}
 		
 		std::ostringstream message_stream;
