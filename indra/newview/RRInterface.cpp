@@ -89,6 +89,9 @@
 #include <cstdlib>
 
 #include "RRInterface.h"
+#include "lloutfitslist.h"				// @showinv - "Appearance / My Outfits" panel
+#include "llpaneloutfitsinventory.h"	// @showinv - "Appearance" floater
+#include "llpanelwearing.h"				// @showinv - "Appearance / Current Outfit" panel
 
 // Global and static variables initialization.
 BOOL gRRenabled = TRUE;
@@ -259,6 +262,29 @@ void refreshCachedVariable (std::string var)
 //			setVisibleAll("inventory", TRUE);
 //			LLSideTray::getInstance()->childSetVisible("panel_main_inventory", true);
 //			LLBottomTray::getInstance()->childSetEnabled("inventory_btn", true);
+		}
+
+		//
+		// Enable/disable the "My Outfits" panel on the "My Appearance" sidebar tab (lifted from RLVa and plumbed in here)
+		//
+		bool fHasBhvr = gAgent.mRRInterface.mContainsShowinv;
+		LLPanelOutfitsInventory* pAppearancePanel = LLPanelOutfitsInventory::findInstance();
+		if (pAppearancePanel)
+		{
+			LLTabContainer* pAppearanceTabs = pAppearancePanel->getAppearanceTabs();
+			LLOutfitsList* pMyOutfitsPanel = pAppearancePanel->getMyOutfitsPanel();
+			if ( (pAppearanceTabs) && (pMyOutfitsPanel) )
+			{
+				S32 idxTab = pAppearanceTabs->getIndexForPanel(pMyOutfitsPanel);
+				if (-1 != idxTab)
+				{
+					pAppearanceTabs->enableTabButton(idxTab, !fHasBhvr);
+
+					// When disabling, switch to the COF tab if "My Outfits" is currently active
+					if ( (fHasBhvr) && (pAppearanceTabs->getCurrentPanelIndex() == idxTab) )
+						pAppearanceTabs->selectTabPanel(pAppearancePanel->getCurrentOutfitPanel());
+				}
+			}
 		}
 	}
 
