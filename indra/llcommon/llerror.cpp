@@ -291,6 +291,8 @@ namespace LLError
 {
 	std::string Log::demangle(const char* mangled)
 	{
+
+
 #ifdef __GNUC__
 		// GCC: type_info::name() returns a mangled class name,st demangle
 
@@ -850,7 +852,6 @@ namespace LLError
 		
 		setPrintLocation(config["print-location"]);
 		setDefaultLevel(decodeLevel(config["default-level"]));
-		
         if (config.has("log-always-flush"))
         {
             setAlwaysFlush(config["log-always-flush"]);
@@ -858,8 +859,8 @@ namespace LLError
         if (config.has("enabled-log-types-mask"))
         {
             setEnabledLogTypesMask(config["enabled-log-types-mask"].asInteger());
-        } 		
-		
+        }
+        
         if (config.has("settings") && config["settings"].isArray())
         {
             LLSD sets = config["settings"];
@@ -1059,11 +1060,11 @@ namespace {
 		LevelMap::const_iterator i = map.find(key);
 		if (i == map.end())
 		{
-			return stop_checking = false;
+			return (stop_checking = false);
 		}
 		
 			level = i->second;
-		return stop_checking = true;
+		return (stop_checking = true);
 	}
 	
 	bool checkLevelMap(	const LevelMap& map, 
@@ -1143,7 +1144,7 @@ namespace LLError
 
 		site.mCached = true;
 		Globals::getInstance()->addCallSite(site);
-		return site.mShouldLog = site.mLevel >= compareLevel;
+		return (site.mShouldLog = site.mLevel >= compareLevel);
 	}
 
 
@@ -1318,7 +1319,6 @@ namespace LLError
 #endif
 		static std::string indra_prefix = "indra/";
 		f = removePrefix(f, indra_prefix);
-
 
 		return f;
 	}
