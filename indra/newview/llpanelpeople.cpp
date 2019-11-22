@@ -1447,8 +1447,8 @@ void LLPanelPeople::onGroupLimitInfo()
 			max_premium = features["MaxAgentGroupsPremium"].asInteger();
 		}
 	}
-	args["MAX_BASIC"] = max_basic; 
-	args["MAX_PREMIUM"] = max_premium; 
+	args["MAX_BASIC"] = max_basic;
+	args["MAX_PREMIUM"] = max_premium;
 
 	LLNotificationsUtil::add("GroupLimitInfo", args);
 }

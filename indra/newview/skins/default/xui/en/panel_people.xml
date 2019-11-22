@@ -541,6 +541,7 @@
                 top_pad="8"
                 left="7"
                 use_ellipses="true"
+                skip_link_underline="true"
                 name="groupcount">
               You belong to [COUNT] groups, and can join [REMAINING] more.
             </text>
