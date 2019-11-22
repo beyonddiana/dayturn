@@ -227,6 +227,7 @@ elseif(LINUX)
           libsndfile.so.1
           libortp.so
           libvivoxoal.so.1
+          libvivoxplatform.so
           libvivoxsdk.so
           SLVoice
           )

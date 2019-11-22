@@ -935,6 +935,8 @@ class Linux_i686_Manifest(LinuxManifest):
                 self.path("libsndfile.so.1")
                 self.path("libvivoxoal.so.1") # no - we'll re-use the viewer's own OpenAL lib
                 self.path("libvivoxsdk.so")
+                self.path("libvivoxplatform.so")
+
 
             #cef plugin
             with self.prefix(src=os.path.join(os.pardir, 'packages', 'lib', 'release'), dst="lib"):
