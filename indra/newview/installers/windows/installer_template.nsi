@@ -536,7 +536,7 @@ FunctionEnd
 Function RemoveProgFilesOnInst
 
 # Remove old DayturnViewer.exe to invalidate any old shortcuts to it that may be in non-standard locations. See MAINT-3575
-Delete "$INSTDIR\$VIEWER_EXE"
+Delete "$INSTDIR\$INSTEXE"
 
 # Remove old shader files first so fallbacks will work. See DEV-5663
 RMDir /r "$INSTDIR\app_settings\shaders"
@@ -603,7 +603,7 @@ Pop $0
 
 # Delete files in ProgramData\Dayturn
 Push $0
-  ReadRegStr $0 SHELL_CONTEXT "${MSCURRVER_KEY}\Explorer\Shell Folders" "Common AppData"
+  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" "Common AppData"
   StrCmp $0 "" +2
   RMDir /r "$0\Dayturn"
 Pop $0
