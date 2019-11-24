@@ -167,7 +167,7 @@ Call CheckWindowsVersion					# Don't install On unsupported systems
         StrCpy $SKIP_DIALOGS "true"
 
 	${GetOptions} $COMMANDLINE "/SKIP_AUTORUN" $0
-	IfErrors +2 0 ; If error jump past setting SKIP_AUTORUN
+	IfErrors +2 0 # If error jump past setting SKIP_AUTORUN
 		StrCpy $SKIP_AUTORUN "true"
 
     ${GetOptions} $COMMANDLINE "/LANGID=" $0	# /LANGID=1033 implies US English
@@ -536,7 +536,7 @@ FunctionEnd
 Function RemoveProgFilesOnInst
 
 # Remove old DayturnViewer.exe to invalidate any old shortcuts to it that may be in non-standard locations. See MAINT-3575
-Delete "$INSTDIR\$INSTEXE"
+Delete "$INSTDIR\$VIEWER_EXE"
 
 # Remove old shader files first so fallbacks will work. See DEV-5663
 RMDir /r "$INSTDIR\app_settings\shaders"
@@ -603,7 +603,7 @@ Pop $0
 
 # Delete files in ProgramData\Dayturn
 Push $0
-  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" "Common AppData"
+  ReadRegStr $0 SHELL_CONTEXT "${MSCURRVER_KEY}\Explorer\Shell Folders" "Common AppData"
   StrCmp $0 "" +2
   RMDir /r "$0\Dayturn"
 Pop $0
@@ -671,25 +671,35 @@ FunctionEnd
 ;; After install completes, launch app
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 Function .onInstSuccess
-Call CheckWindowsServPack				; Warn if not on the latest SP before asking to launch.
-    Push $R0	# Option value, unused
+         Push $0
+         FileOpen $0 "$INSTDIR\InstallMode.txt" w
+         # No newline -- this is for our use, not for users to read.
+         FileWrite $0 "$MultiUser.InstallMode"
+         FileClose $0
+         Pop $0
+         
+         ClearErrors
+         Pop $0
+         Pop $R0
+         Push $R0					# Option value, unused#          
 
-    StrCmp $SKIP_DIALOGS "true" label_launch 
+         Call CheckWindowsServPack				; Warn if not on the latest SP before asking to launch.
+                StrCmp $SKIP_DIALOGS "true" label_launch 
 
-    ${GetOptions} $COMMANDLINE "/AUTOSTART" $R0
-    # If parameter was there (no error) just launch
-    # Otherwise ask
-    IfErrors label_ask_launch label_launch
+                ${GetOptions} $COMMANDLINE "/AUTOSTART" $R0
+                # If parameter was there (no error) just launch
+                # Otherwise ask
+                IfErrors label_ask_launch label_launch
     
 label_ask_launch:
-    # Don't launch by default when silent
-    IfSilent label_no_launch
-	MessageBox MB_YESNO $(InstSuccesssQuestion) \
-        IDYES label_launch IDNO label_no_launch
+                # Don't launch by default when silent
+                IfSilent label_no_launch
+	            MessageBox MB_YESNO $(InstSuccesssQuestion) \
+                        IDYES label_launch IDNO label_no_launch
         
 label_launch:
-	# Assumes SetOutPath $INSTDIR
-	Exec '"$INSTDIR\$INSTEXE" $SHORTCUT_LANG_PARAM'
+# Assumes SetOutPath $INSTDIR
+	Exec '"$WINDIR\explorer.exe" "$INSTDIR\$INSTSHORTCUT.lnk"'
 label_no_launch:
 	Pop $R0
 FunctionEnd
@@ -736,7 +746,7 @@ FunctionEnd
 ;# Required since ProfileImagePath is of type REG_EXPAND_SZ
 ;    ExpandEnvStrings $2 $2
 ;
-;    RMDir /r "$2\Application Data\SecondLife\"
+;    RMDir /r "$2\Application Data\Dayturn\"
 ;
 ;  CONTINUE:
 ;    IntOp $0 $0 + 1
@@ -751,7 +761,7 @@ FunctionEnd
 ;Push $0
 ;    ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" "Common AppData"
 ;    StrCmp $0 "" +2
-;    RMDir /r "$2\Application Data\SecondLife\"
+;    RMDir /r "$2\Application Data\Dayturn\"
 ;Pop $0
 ;
 ;FunctionEnd
