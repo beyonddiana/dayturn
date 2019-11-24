@@ -3,48 +3,6 @@
 <map>
     <key>installables</key>
     <map>
-      <key>SDL</key>
-      <map>
-        <key>copyright</key>
-        <string>Copyright (C) 1997-2012 Sam Lantinga</string>
-        <key>description</key>
-        <string>Simple DirectMedia Layer is a cross-platform multimedia library designed to provide low level access to audio, keyboard, mouse, joystick, 3D hardware via OpenGL, and 2D video framebuffer.</string>
-        <key>license</key>
-        <string>lgpl</string>
-        <key>license_file</key>
-        <string>LICENSES/SDL.txt</string>
-        <key>name</key>
-        <string>SDL</string>
-        <key>platforms</key>
-        <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>fe724581a16ff7bf3f2e261b8c4ee80e</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/sdl_3p-update-sdl/rev/301425/arch/Linux/installer/SDL-1.2.15-linux-301425.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>44e213cc79d66cc4f332d828e49e05dc</string>
-              <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-sdl/downloads/SDL-1.2.15-linux64-201505170936.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
-        </map>
-        <key>version</key>
-        <string>1.2.15</string>
-      </map>
       <key>apr_suite</key>
       <map>
         <key>copyright</key>
@@ -59,30 +17,6 @@
         <string>apr_suite</string>
         <key>platforms</key>
         <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>402552cf158e2fe953b7224f4615a957</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/apr_3p-update-apr/rev/297252/arch/Linux/installer/apr_suite-1.4.5.297252-linux-297252.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>f609bdacb3fa461890889bc4e659bac5</string>
-              <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-apr/downloads/apr_suite-1.4.5.201505112108-linux64-201505112108.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
@@ -113,30 +47,6 @@
         <string>ares</string>
         <key>platforms</key>
         <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>7771d3653a0daf22d35bf96055d02d9a</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/ares_3p-update-ares/rev/295506/arch/Linux/installer/ares-1.10.0.295506-linux-295506.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>6078b2a47f4231ed9822738c07d6bb39</string>
-              <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-ares/downloads/ares-1.10.0.201505130838-linux64-201505130838.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
@@ -153,50 +63,6 @@
         <key>version</key>
         <string>1.10.0.295506</string>
       </map>
-      <key>atk</key>
-      <map>
-        <key>copyright</key>
-        <string>Copyright 2001, 2002, 2003, 2006, 2007 Sun Microsystems Inc. See source code for additional copyright holders.</string>
-        <key>description</key>
-        <string>ATK provides the set of accessibility interfaces that are implemented by other toolkits and applications. Using the ATK interfaces, accessibility tools have full access to view and control running applications.</string>
-        <key>license</key>
-        <string>GNOME LPGL(2)</string>
-        <key>license_file</key>
-        <string>LICENSES/atk.txt</string>
-        <key>name</key>
-        <string>atk</string>
-        <key>platforms</key>
-        <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>ad9889e60710414d6242219d505af199</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-atk/downloads/atk-2.16.0-linux-201507162046.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>498557fac76f02fab5af14382ca4df8b</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-atk/downloads/atk-2.16.0-linux64-201506010908.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
-        </map>
-        <key>version</key>
-        <string>2.16.0</string>
-      </map>
       <key>boost</key>
       <map>
         <key>copyright</key>
@@ -211,34 +77,6 @@
         <string>boost</string>
         <key>platforms</key>
         <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>137b180149defda6b671a2f7121d6b43</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-boost-bm/downloads/boost-1.57-linux-201601261128.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>a8befbc4bf31a07f3d4e8e2fc09a0a4b</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-boost-bm/downloads/boost-1.57-linux64-201601261153.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
@@ -255,50 +93,6 @@
         <key>version</key>
         <string>1.57</string>
       </map>
-      <key>cairo</key>
-      <map>
-        <key>copyright</key>
-        <string>Copyright © 2002 University of Southern California Copyright © 2005 Red Hat, In</string>
-        <key>description</key>
-        <string>Cairo is a 2D graphics library with support for multiple output devices.</string>
-        <key>license</key>
-        <string>LGPL(2.1)</string>
-        <key>license_file</key>
-        <string>LICENSES/cairo.txt</string>
-        <key>name</key>
-        <string>cairo</string>
-        <key>platforms</key>
-        <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>17b59cc991c8d7a50ec55a99c1c21e8b</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-cairo/downloads/cairo-1.14.2-linux-201507192252.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>d9e8ebccffc6434b8e0eafca8b4d5c93</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-cairo/downloads/cairo-1.14.2-linux64-201506040945.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
-        </map>
-        <key>version</key>
-        <string>1.14.2</string>
-      </map>
       <key>colladadom</key>
       <map>
         <key>copyright</key>
@@ -311,30 +105,6 @@
         <string>colladadom</string>
         <key>platforms</key>
         <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>cefa37661a7d8fb5016b425d20cd07a3</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/colladadom-ll/downloads/colladadom-2.3.201601261914-linux-201601261914.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>bdc7c0ba484f97828b8ccc1b44c04be9</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/colladadom-ll/downloads/colladadom-2.3.201601261224-linux64-201601261224.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
@@ -365,32 +135,6 @@
         <string>curl</string>
         <key>platforms</key>
         <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>f49d4ed203b03852a3f6b01b18319f7a</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/3p-curl/rev/312763/arch/Linux/installer/curl-7.47.0.312763-linux-312763.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>ab183bf38d32b017a0bb937622a18e13</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-curl/downloads/curl-7.38.0.201505290832-linux64-201505290832.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
@@ -406,92 +150,6 @@
         </map>
         <key>version</key>
         <string>7.47.0.312763</string>
-      </map>
-      <key>db</key>
-      <map>
-        <key>copyright</key>
-        <string>Copyright (c) 1990, 2010 Oracle and/or its affiliates.  All rights reserved.</string>
-        <key>description</key>
-        <string>Berkeley DB (libdb) is a programmatic toolkit that provides embedded database support for both traditional and client/server applications.</string>
-        <key>license</key>
-        <string>bsd</string>
-        <key>license_file</key>
-        <string>LICENSES/db.txt</string>
-        <key>name</key>
-        <string>db</string>
-        <key>platforms</key>
-        <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>1cc7940e500858a9754e9a3cc3ba2237</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/db_3p-update-db/rev/295315/arch/Linux/installer/db-5.1.25-linux-295315.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>56e138c9de910c68bef28b37abc3630a</string>
-              <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-update-db/downloads/db-5.1.25-linux64-201505111210.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
-        </map>
-        <key>version</key>
-        <string>5.1.25</string>
-      </map>
-      <key>dbus_glib</key>
-      <map>
-        <key>copyright</key>
-        <string>Copyright (C) Red Hat Inc.</string>
-        <key>description</key>
-        <string>D-Bus bindings for glib</string>
-        <key>license</key>
-        <string>Academic Free License v. 2.1</string>
-        <key>license_file</key>
-        <string>LICENSES/dbus-glib.txt</string>
-        <key>name</key>
-        <string>dbus_glib</string>
-        <key>platforms</key>
-        <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>c11ff7e2e0bd59e6e59628f24902bbcd</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/dbus-glib_3p-update-dbus-glib/rev/297768/arch/Linux/installer/dbus_glib-0.76-linux-297768.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>4068ae75858d5eaf44d9ac19d2cf27c9</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-dbus-glib/downloads/dbus_glib-0.76-linux64-201505171442.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
-        </map>
-        <key>version</key>
-        <string>0.76</string>
       </map>
       <key>dictionaries</key>
       <map>
@@ -519,45 +177,9 @@
             <key>name</key>
             <string>common</string>
           </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>6909a15bdf7beddecbaae71c45cba05e</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-dictionaries/downloads/dictionaries-1.201506061533-linux64-201506061533.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
         </map>
         <key>version</key>
         <string>1.500564</string>
-      </map>
-      <key>elfio</key>
-      <map>
-        <key>license</key>
-        <string>lgpl</string>
-        <key>license_file</key>
-        <string>LICENSES/elfio.txt</string>
-        <key>name</key>
-        <string>elfio</string>
-        <key>platforms</key>
-        <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>031e6315a5c0829c9b9a2ec18aeb7ae3</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/3p-elfio/rev/222074/arch/Linux/installer/elfio-1.0.3-linux-20110225.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-        </map>
       </map>
       <key>expat</key>
       <map>
@@ -573,30 +195,6 @@
         <string>expat</string>
         <key>platforms</key>
         <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>f546615d76bc0f9e8bc2b9ef89f0ca86</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/expat_3p-update-expat/rev/297014/arch/Linux/installer/expat-2.0.1.297014-linux-297014.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>7eee24f7309849b14283a4c529b384b2</string>
-              <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-expat/downloads/expat-2.0.1.201505112037-linux64-201505112037.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
@@ -627,34 +225,6 @@
         <string>fmodex</string>
         <key>platforms</key>
         <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>6eea87a1d6f5ce90217daef97c12d05e</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-fmodex/downloads/fmodex-4.44.64-linux-201612101845.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>b6126650242ed8dd03d5469a017d7d33</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-fmodex/downloads/fmodex-4.44.64-linux64-201612101748.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
@@ -672,48 +242,6 @@
         </map>
         <key>version</key>
         <string>4.44.64</string>
-      </map>
-      <key>fontconfig</key>
-      <map>
-        <key>copyright</key>
-        <string>Copyright (C) 2000,2001,2002,2003,2004,2006,2007 Keith Packard, 2005 Patrick Lam, 2009 Roozbeh Pournader, 2008,2009 Red Hat, Inc., 2008 Danilo Šegan, 2012 Google, Inc.</string>
-        <key>description</key>
-        <string>Fontconfig is a library for configuring and customizing font access.</string>
-        <key>license</key>
-        <string>bsd</string>
-        <key>license_file</key>
-        <string>LICENSES/fontconfig.txt</string>
-        <key>name</key>
-        <string>fontconfig</string>
-        <key>platforms</key>
-        <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>864f9361661748ecf0e2cec7110d70b3</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/fontconfig_3p-update-fontconfig/rev/297551/arch/Linux/installer/fontconfig-2.11.0-linux-297551.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>926b3873f51f18ead54bef5b88c5fb9f</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-fontconfig/downloads/fontconfig-2.11.0-linux64-201505182117.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
-        </map>
-        <key>version</key>
-        <string>2.11.0</string>
       </map>
       <key>freeglut</key>
       <map>
@@ -759,30 +287,6 @@
         <string>freetype</string>
         <key>platforms</key>
         <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>1ac3152b440287c58509d8af0a50326d</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/freetype_3p-update-freetype/rev/297053/arch/Linux/installer/freetype-2.4.4.297053-linux-297053.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>5e529c5fd598cf16972e2d096630a791</string>
-              <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-freetype/downloads/freetype-2.4.4.201505162052-linux64-201505162052.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
@@ -799,50 +303,6 @@
         <key>version</key>
         <string>2.4.4.297053</string>
       </map>
-      <key>gdk-pixbuf</key>
-      <map>
-        <key>copyright</key>
-        <string>Original Authors:Peter Mattis, Spencer Kimball, Josh MacDonald. See top of code file for others.</string>
-        <key>description</key>
-        <string>GdkPixbuf is a toolkit for image loading and pixel buffer manipulation. In GTK+ version 2.22 from 2010-09-23 GdkPixbuf was split off from GDK into a separate package in preparation for the transition to GTK+ 3.</string>
-        <key>license</key>
-        <string>LGPL(2)</string>
-        <key>license_file</key>
-        <string>LICENSES/gdk-pixbuf.txt</string>
-        <key>name</key>
-        <string>gdk-pixbuf</string>
-        <key>platforms</key>
-        <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>87358dc3e3bcfd220e77b08de50272e3</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-gdk-pixbuf/downloads/gdk_pixbuf-2.30.8-linux-201507210933.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>04ca7ec5d4ff232c2012132b95955f7e</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-gdk-pixbuf/downloads/gdk_pixbuf-2.30.8-linux64-201506041921.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
-        </map>
-        <key>version</key>
-        <string>2.30.8</string>
-      </map>
       <key>glext</key>
       <map>
         <key>copyright</key>
@@ -857,30 +317,6 @@
         <string>glext</string>
         <key>platforms</key>
         <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>4bf4f9e65168138eebbc769e9e12230b</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/glext_3p-update-glext/rev/296893/arch/Linux/installer/glext-68-linux-296893.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>b26cf6cb678d63b28600bdf3fc354033</string>
-              <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-glext/downloads/glext-68-linux64-201505150822.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
@@ -927,65 +363,6 @@
         <key>version</key>
         <string>0.0.0</string>
       </map>
-      <key>glib</key>
-      <map>
-        <key>copyright</key>
-        <string>Unknown. Sources maintained by GNOME Library.</string>
-        <key>description</key>
-        <string>GLib provides the core application building blocks for libraries and applications written in C. It provides the core object system used in GNOME, the main loop implementation, and a large set of utility functions for strings and common data structures.</string>
-        <key>license</key>
-        <string>GLib is released under the GNU Library General Public License (GNU LGPL).</string>
-        <key>license-url</key>
-        <string>http://www.gnu.org/licenses/gpl.html</string>
-        <key>license_file</key>
-        <string>LICENSES/glib.txt</string>
-        <key>name</key>
-        <string>glib</string>
-        <key>platforms</key>
-        <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>0891aac3dd4be134d72d08b2d0a4165c</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-glib/downloads/glib-2.44.1-linux-201507131131.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>dir_structure</key>
-              <map>
-                <key>LICENSES</key>
-                <string>LICENSES</string>
-                <key>libraries/include</key>
-                <string>include</string>
-                <key>libraries/x86_64-linux/include</key>
-                <string>include</string>
-                <key>libraries/x86_64-linux/lib_release_client</key>
-                <string>lib/release</string>
-              </map>
-              <key>hash</key>
-              <string>c133c727dd787a811d8dec925a64fa5a</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-glib/downloads/glib-2.45.1-linux64-201505312131.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
-        </map>
-        <key>version</key>
-        <string>2.44.1</string>
-      </map>
       <key>glod</key>
       <map>
         <key>copyright</key>
@@ -998,34 +375,6 @@
         <string>glod</string>
         <key>platforms</key>
         <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>fffd130f17cbbe2b93cc241b27262647</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/glod_3p-update-glod/rev/296895/arch/Linux/installer/glod-1.0pre4.296895-linux-296895.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>1217cefeeb77db7cdb338f7bc48f9f21</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-glod/downloads/glod-1.0pre4.201506061259-linux64-201506061259.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
@@ -1058,18 +407,6 @@
         <string>glui</string>
         <key>platforms</key>
         <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>f330b3acd03526d827030eefeeb06240</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/glui_3p-update-glui/rev/297273/arch/Linux/installer/glui-2.36.297273-linux-297273.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
@@ -1100,45 +437,6 @@
         <string>gstreamer</string>
         <key>platforms</key>
         <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>c0725ea0bbf2a59b45f920cb837a83ef</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-gstreamer/downloads/gstreamer-0.10.36.201602051851-linux-201602051851.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>dir_structure</key>
-              <map>
-                <key>LICENSES</key>
-                <string>LICENSES</string>
-                <key>libraries/include</key>
-                <string>include</string>
-                <key>libraries/x86_64-linux/include</key>
-                <string>include</string>
-                <key>libraries/x86_64-linux/lib_release_client</key>
-                <string>lib/release</string>
-              </map>
-              <key>hash</key>
-              <string>c1f48f8256c756ed9a5b57e4ccae4bb4</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-gstreamer/downloads/gstreamer-0.10.36.201602041656-linux64-201602041656.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
@@ -1155,129 +453,6 @@
         <key>version</key>
         <string>0.10.36.201602051851</string>
       </map>
-      <key>gtk</key>
-      <map>
-        <key>copyright</key>
-        <string>Copyright (C) 2001 CodeFactory AB, Copyright (C) 2001, 2002 Anders Carlsson, Copyright (C) 2003, 2004 Matthias Clasen</string>
-        <key>description</key>
-        <string>GTK+, or the GIMP Toolkit, is a multi-platform toolkit for creating graphical user interfaces. Offering a complete set of widgets, GTK+ is suitable for projects ranging from small one-off tools to complete application suites.</string>
-        <key>license</key>
-        <string>LGPL(2)</string>
-        <key>license_file</key>
-        <string>LICENSES/gtk.txt</string>
-        <key>name</key>
-        <string>gtk</string>
-        <key>platforms</key>
-        <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>db3c9a733395f2b1b45acf4afae6e77d</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-gtk/downloads/gtk-2.24.28-linux-201507211717.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>742d44a6609a29ca4bf101370f8300fb</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-gtk/downloads/gtk-2.24.28-linux64-201506051634.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
-        </map>
-        <key>version</key>
-        <string>2.24.28</string>
-      </map>
-      <key>gtk-etc</key>
-      <map>
-        <key>license</key>
-        <string>lgpl</string>
-        <key>license-file</key>
-        <string>LICENSES/gtk-etc.txt</string>
-        <key>name</key>
-        <string>gtk-etc</string>
-        <key>platforms</key>
-        <map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>dir_structure</key>
-              <map>
-                <key>LICENSES</key>
-                <string>LICENSES</string>
-                <key>libraries/include</key>
-                <string>include</string>
-                <key>libraries/x86_64-linux/include</key>
-                <string>include</string>
-                <key>libraries/x86_64-linux/lib_release_client</key>
-                <string>lib/release</string>
-              </map>
-              <key>hash</key>
-              <string>e8cb3f28379b7730004da44f04263936</string>
-              <key>url</key>
-              <string>http://imprudenceviewer.org/download/libs/gtk-etc-linux64-20091231.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
-        </map>
-      </map>
-      <key>harfbuzz</key>
-      <map>
-        <key>copyright</key>
-        <string>Copyright © 2010,2011,2012  Google, Inc., Copyright © 2012  Mozilla Foundation, Copyright © 2011  Codethink Limited, Copyright © 2008,2010  Nokia Corporation and/or its subsidiary(-ies), Copyright © 2009  Keith Stribley, Copyright © 2009  Martin Hosken and SIL International, Copyright © 2007  Chris Wilson, Copyright © 2006  Behdad Esfahbod, Copyright © 2005  David Turner, Copyright © 2004,2007,2008,2009,2010  Red Hat, Inc., Copyright © 1998-2004  David Turner and Werner Lemberg; For full copyright notices consult the individual files in the package.</string>
-        <key>description</key>
-        <string>HarfBuzz is an OpenType text shaping engine.</string>
-        <key>license</key>
-        <string>HarfBuzz is licensed under the so-called "Old MIT" license.</string>
-        <key>license_file</key>
-        <string>LICENSES/harfbuzz.txt</string>
-        <key>name</key>
-        <string>harfbuzz</string>
-        <key>platforms</key>
-        <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>622c10c4361a9b8de46c9a885d270402</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-harfbuzz/downloads/harfbuzz-0.9.40-linux-201507201105.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>b927e0337a72d146718a393730ecde0d</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-harfbuzz/downloads/harfbuzz-0.9.40-linux64-201506041046.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
-        </map>
-        <key>version</key>
-        <string>0.9.40</string>
-      </map>
       <key>jpeglib</key>
       <map>
         <key>copyright</key>
@@ -1292,30 +467,6 @@
         <string>jpeglib</string>
         <key>platforms</key>
         <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>0a6641f030e173a7bc0dc8a3087b6c7d</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/jpeglib_3p-update-jpeglib/rev/296854/arch/Linux/installer/jpeglib-8c.296854-linux-296854.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>56f8925102d9e17498fbe7b0f0119b68</string>
-              <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-jpeglib/downloads/jpeglib-8c.201505141845-linux64-201505141845.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
@@ -1346,30 +497,6 @@
         <string>jsoncpp</string>
         <key>platforms</key>
         <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>910bf12e4b4635170e462b739887cda9</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/jsoncpp_3p-update-jsoncpp/rev/297580/arch/Linux/installer/jsoncpp-0.5.0.297580-linux-297580.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>93be1f25037bf118be445bb3399522d7</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-jsoncpp/downloads/jsoncpp-0.5.0.201506061927-linux64-201506061927.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
@@ -1400,30 +527,6 @@
         <string>libhunspell</string>
         <key>platforms</key>
         <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>988deae5c63ec638ad222b400a431f5b</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/hunspell_3p-update-hunspell/rev/296916/arch/Linux/installer/libhunspell-1.3.2.296916-linux-296916.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>6a60d6a82b8be6ed3a97c125905b1339</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-hunspell/downloads/libhunspell-1.3.2.201506061803-linux64-201506061803.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
@@ -1484,30 +587,6 @@
         <string>libpng</string>
         <key>platforms</key>
         <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>744e22c5fcaaf3483a60e29f217daa9c</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/libpng_3p-update-libpng/rev/301387/arch/Linux/installer/libpng-1.6.8.301387-linux-301387.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>05efb58926b4bf4d00491380fb77647f</string>
-              <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-libpng/downloads/libpng-1.6.8.201505162036-linux64-201505162036.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
@@ -1524,59 +603,6 @@
         <key>version</key>
         <string>1.6.8.301387</string>
       </map>
-      <key>libuuid</key>
-      <map>
-        <key>copyright</key>
-        <string>Copyright (c) 2004-2008 The OSSP Project &lt;http://www.ossp.org/&gt;</string>
-        <key>description</key>
-        <string>OSSP uuid is a ISO-C:1999 application programming interface (API) and corresponding command line interface (CLI) for the generation of DCE 1.1, ISO/IEC 11578:1996 and RFC 4122 compliant Universally Unique Identifier (UUID). </string>
-        <key>license</key>
-        <string>UUID</string>
-        <key>license_file</key>
-        <string>LICENSES/uuid.txt</string>
-        <key>name</key>
-        <string>libuuid</string>
-        <key>platforms</key>
-        <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>f231b6ec8bc2f050cfb1ee20bd83190d</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/libuuid_3p-update-libuuid/rev/295209/arch/Linux/installer/libuuid-1.6.2-linux-295209.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>dir_structure</key>
-              <map>
-                <key>LICENSES</key>
-                <string>LICENSES</string>
-                <key>libraries/include</key>
-                <string>include</string>
-                <key>libraries/x86_64-linux/include</key>
-                <string>include</string>
-                <key>libraries/x86_64-linux/lib_release_client</key>
-                <string>lib/release</string>
-              </map>
-              <key>hash</key>
-              <string>4f5ca7f26ffa697a72f6217c820ae5de</string>
-              <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-libuuid/downloads/libuuid-1.6.2-linux64-201505172012.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
-        </map>
-        <key>version</key>
-        <string>1.6.2</string>
-      </map>
       <key>libxml2</key>
       <map>
         <key>copyright</key>
@@ -1591,30 +617,6 @@
         <string>libxml2</string>
         <key>platforms</key>
         <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>b8b584853dc1344bb3571c13b06ec39e</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/libxml_3p-update-libxml/rev/297050/arch/Linux/installer/libxml2-2.9.1.297050-linux-297050.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>b8b0c54cedcf1b77b9dfdfdcd6221cfb</string>
-              <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-libxml/downloads/libxml2-2.9.1.201505161544-linux64-201505161544.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
@@ -1630,36 +632,6 @@
         </map>
         <key>version</key>
         <string>2.9.1.297050</string>
-      </map>
-      <key>llappearance_utility</key>
-      <map>
-        <key>copyright</key>
-        <string>Copyright (c) 2000-2012, Linden Research, Inc.</string>
-        <key>description</key>
-        <string>Linden Lab appearance utility for server-side avatar baking services.</string>
-        <key>license</key>
-        <string>Proprietary</string>
-        <key>license_file</key>
-        <string>LICENSES/llappearanceutility.txt</string>
-        <key>name</key>
-        <string>llappearance_utility</string>
-        <key>platforms</key>
-        <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>ce1261a54d877ab5530ae6a9134a77a3</string>
-              <key>url</key>
-              <string>http://s3-proxy.lindenlab.com/private-builds-secondlife-com/hg/repo/llappearance_viewer-update-llappearance-utility/rev/294906/arch/Linux/installer/llappearance_utility-0.0.1-linux-294906.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-        </map>
-        <key>version</key>
-        <string>0.0.1</string>
       </map>
       <key>llca</key>
       <map>
@@ -1704,34 +676,6 @@
         <string>llceflib</string>
         <key>platforms</key>
         <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>4691ed0d746c27a9f5fb2345dab3d2bc</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-llceflib-dko/downloads/llceflib-1.5.3.201611052240-kokua-linux-201611052240.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>73b26f574b4531c0a831b1c149ec8e56</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-llceflib-dko/downloads/llceflib-1.5.3.201611051707-kokua-linux64-201611051707.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
@@ -1762,30 +706,6 @@
         <string>llphysicsextensions_stub</string>
         <key>platforms</key>
         <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>e99afb25a4fd5b08c5cd3060ae9c1d59</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/llphysicsextensions/rev/313563/arch/Linux/installer/llphysicsextensions_stub-1.0.313563-linux-313563.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>a74e21beaf739563d323c55386c05296</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-llqtwebkit2/downloads/llqtwebkit-4.7.1-linux64-201506082044.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
@@ -1802,53 +722,6 @@
         <key>version</key>
         <string>1.0.504712</string>
       </map>
-      <key>mesa</key>
-      <map>
-        <key>license</key>
-        <string>mesa</string>
-        <key>license_file</key>
-        <string>LICENSES/mesa.txt</string>
-        <key>name</key>
-        <string>mesa</string>
-        <key>platforms</key>
-        <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>22c50a5d362cad311b4f413cfcffbba2</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/mesa_3p-update-mesa/rev/297294/arch/Linux/installer/mesa-7.11.1.297294-linux-297294.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>dir_structure</key>
-              <map>
-                <key>LICENSES</key>
-                <string>LICENSES</string>
-                <key>libraries/include</key>
-                <string>include</string>
-                <key>libraries/x86_64-linux/include</key>
-                <string>include</string>
-                <key>libraries/x86_64-linux/lib_release_client</key>
-                <string>lib/release</string>
-              </map>
-              <key>hash</key>
-              <string>56630977f9261bd82039b0da08a0685c</string>
-              <key>url</key>
-              <string>http://s3.amazonaws.com/viewer-source-downloads/install_pkgs/mesa-6.2.1-linux64-20081016.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
-        </map>
-      </map>
       <key>ndPhysicsStub</key>
       <map>
         <key>copyright</key>
@@ -1863,30 +736,6 @@
         <string>ndPhysicsStub</string>
         <key>platforms</key>
         <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>084a1e92472b066b62f15755f34978de</string>
-              <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-ndphysicsstub/downloads/ndPhysicsStub-1.201504301548-linux-201504301548.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>54c312d898f08609a71acb22cfe80406</string>
-              <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-ndphysicsstub/downloads/ndPhysicsStub-1.201505151905-linux64-201505151905.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
@@ -1947,30 +796,6 @@
         <string>ogg_vorbis</string>
         <key>platforms</key>
         <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>b0cd31d5b07a9fc25c4d69ba2f95eace</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/oggvorbis_3p-update-oggvorbis/rev/296878/arch/Linux/installer/ogg_vorbis-1.2.2-1.3.2.296878-linux-296878.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>a9a603958c5e9fb6511abe229da012c3</string>
-              <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-ogvorbis/downloads/ogg_vorbis-1.2.2-1.3.2.201505102205-linux64-201505102205.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
@@ -1987,48 +812,6 @@
         <key>version</key>
         <string>1.3.3-1.3.6.520171</string>
       </map>
-      <key>open-libndofdev</key>
-      <map>
-        <key>copyright</key>
-        <string>Copyright (c) 2008, Jan Ciger (jan.ciger (at) gmail.com)</string>
-        <key>description</key>
-        <string>Open Source replacement for 3DConnection SDK</string>
-        <key>license</key>
-        <string>BSD</string>
-        <key>license_file</key>
-        <string>LICENSES/libndofdev.txt</string>
-        <key>name</key>
-        <string>open-libndofdev</string>
-        <key>platforms</key>
-        <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>65f58cc0b17ebd29fe2b8bccc6bcbf64</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/libndofdev_3p-update-libndofdev/rev/301464/arch/Linux/installer/open_libndofdev-0.3-linux-301464.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>b09df0298a9659962e3e10a25718dd03</string>
-              <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-libndofdev-linux/downloads/open_libndofdev-0.3-linux64-201505171912.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
-        </map>
-        <key>version</key>
-        <string>0.3</string>
-      </map>
       <key>openal</key>
       <map>
         <key>copyright</key>
@@ -2043,34 +826,6 @@
         <string>openal</string>
         <key>platforms</key>
         <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>4fa14f9746b34e109af68af7759969bb</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-openal/downloads/openal-1.15.1-1.1.0.201506211217-linux-201506211217.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>43fd028ba47dd35cbb6e8dd853ef1cfb</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-openal/downloads/openal-1.15.1-1.1.0.201506132204-linux64-201506132204.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
@@ -2103,30 +858,6 @@
         <string>openjpeg</string>
         <key>platforms</key>
         <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>71fd0075e56a4833f6a395302d1a9369</string>
-              <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-update-openjpeg/downloads/openjpeg-1.4.201503062230-linux-201503062230.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>109696609aeec4e31b10f982422426f7</string>
-              <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-openjpeg/downloads/openjpeg-1.4.201505151441-linux64-201505151441.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
@@ -2157,32 +888,6 @@
         <string>openssl</string>
         <key>platforms</key>
         <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>c310ba9971cbd796b303c3be67fb11c6</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/openssl_3p-update-openssl/rev/297168/arch/Linux/installer/openssl-1.0.1h.297168-linux-297168.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>328c247a063e35657c224973e27eaa19</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-openssl-ll/downloads/openssl-1.0.1h-linux64-20140815.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
@@ -2199,52 +904,6 @@
         <key>version</key>
         <string>1.0.1h.20140815</string>
       </map>
-      <key>pango</key>
-      <map>
-        <key>copyright</key>
-        <string>on internationalization.Copyright (C) 1999 Red Hat Software</string>
-        <key>description</key>
-        <string>Pango is a library for layout and rendering of text, with an emphasis</string>
-        <key>license</key>
-        <string>GNU LGPL(2)</string>
-        <key>license_file</key>
-        <string>LICENSES/pango.txt</string>
-        <key>name</key>
-        <string>pango</string>
-        <key>platforms</key>
-        <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>6dca707cb897d3c360f5dd0ffcb2cd2c</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-pango/downloads/pango-1.36.8-linux-201507201400.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>5dc224dc6d4e0288f9503b1627fad3a1</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-pango/downloads/pango-1.36.8-linux64-201506041413.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
-        </map>
-        <key>version</key>
-        <string>1.36.8</string>
-      </map>
       <key>pcre</key>
       <map>
         <key>copyright</key>
@@ -2259,30 +918,6 @@
         <string>pcre</string>
         <key>platforms</key>
         <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>b82817bcc2f63094d9c915d018d0b036</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/pcre_3p-update-pcre/rev/297155/arch/Linux/installer/pcre-8.35.-linux-297155.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>4707e7dcee810c401eb65c79d93bd8ee</string>
-              <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-pcre/downloads/pcre-8.35.-linux64-201505161257.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
@@ -2299,52 +934,6 @@
         <key>version</key>
         <string>8.35.</string>
       </map>
-      <key>pixman</key>
-      <map>
-        <key>copyright</key>
-        <string>Copyright © 2000 Keith Packard, member of The XFree86 Project, Inc.  2005 Lars Knoll Zack Rusin, Trolltech 2008 Aaron Plattner, NVIDIA Corporation. See code headers</string>
-        <key>description</key>
-        <string>Pixman is a low-level software library for pixel manipulation, providing features such as image compositing and trapezoid rasterization.</string>
-        <key>license</key>
-        <string>MIT License</string>
-        <key>license_file</key>
-        <string>LICENSES/pixman.txt</string>
-        <key>name</key>
-        <string>pixman</string>
-        <key>platforms</key>
-        <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>c99e94652ddf7d72691d16eb0bc61efa</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-pixman/downloads/pixman-0.32.6-linux-201507192238.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>504c19255873cea1273e2d5e3214a61d</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-pixman/downloads/pixman-0.32.6-linux64-201506011032.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
-        </map>
-        <key>version</key>
-        <string>0.32.6</string>
-      </map>
       <key>slvoice</key>
       <map>
         <key>copyright</key>
@@ -2359,34 +948,6 @@
         <string>slvoice</string>
         <key>platforms</key>
         <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>785c86999b56e1838cefb430f674cba7</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/oz-426-slvoice/rev/330003/arch/Linux/installer/slvoice-3.2.0002.10426.330003-linux-330003.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>86d3150b2505ee11da14fdcc956b80fd</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-slvoice/downloads/slvoice-3.2.0002.10426.298329.201607192012-linux64-201607192012.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
@@ -2447,32 +1008,6 @@
         <string>uriparser</string>
         <key>platforms</key>
         <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>dddfc8dea540801f93ba0382cb1e3685</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/uriparser_3p-update-uriparser/rev/299435/arch/Linux/installer/uriparser-0.8.0.1-linux-299435.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>baa5a4f37d4e222ee1e46a900015e623</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-uriparser/downloads/uriparser-0.8.0.1-linux64-201506060849.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
@@ -2501,32 +1036,6 @@
         <string>vlc-bin</string>
         <key>platforms</key>
         <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>2f410640df3f9812d1abff02a414cfa8</string>
-              <key>url</key>
-              <string>https://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/3p-vlc-bin/rev/315283/arch/Linux/vlc_bin-2.2.3-linux-201606011750-r10.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>9673ebf6b274e8852232a5f437190c4b</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-vlc-linux/downloads/vlc_bin-2.2.4-linux64-201608170713.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
@@ -2557,30 +1066,6 @@
         <string>xmlrpc-epi</string>
         <key>platforms</key>
         <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>30bb26d6cc78c16047fc85a63f48fcdb</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/xmlrpc-emi_3p-update-xmlrpc-epi/rev/297075/arch/Linux/installer/xmlrpc_epi-0.54.1.297075-linux-297075.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>b438780c670b00b53d01d3efe622ac82</string>
-              <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-xmlrpc-epi/downloads/xmlrpc_epi-0.54.1.201505141438-linux64-201505141438.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
@@ -2611,32 +1096,6 @@
         <string>zlib</string>
         <key>platforms</key>
         <map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>2eb8e59b6464222dcf4435016ad5f618</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/zlib_3p-update-zlib/rev/296881/arch/Linux/installer/zlib-1.2.8.296881-linux-296881.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>3a7334ad1e1aa55439a7e73720cae770</string>
-              <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-zlib/downloads/zlib-1.2.8.201505161535-linux64-201505161535.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
@@ -2780,305 +1239,6 @@
           </map>
           <key>name</key>
           <string>common</string>
-        </map>
-        <key>linux</key>
-        <map>
-          <key>build_directory</key>
-          <string>build-linux-i686</string>
-          <key>configurations</key>
-          <map>
-            <key>Doxygen</key>
-            <map>
-              <key>build</key>
-              <map>
-              </map>
-              <key>configure</key>
-              <map>
-                <key>arguments</key>
-                <array>
-                  <string>../indra</string>
-                </array>
-                <key>options</key>
-                <array>
-                  <string>-G</string>
-                  <string>'Unix Makefiles'</string>
-                </array>
-              </map>
-              <key>name</key>
-              <string>Doxygen</string>
-            </map>
-            <key>RelWithDebInfo</key>
-            <map>
-              <key>build</key>
-              <map>
-                <key>command</key>
-                <string>make</string>
-                <key>options</key>
-                <array>
-                  <string>-j 12</string>
-                </array>
-              </map>
-              <key>configure</key>
-              <map>
-                <key>options</key>
-                <array>
-                  <string>-G</string>
-                  <string>'Unix Makefiles'</string>
-                </array>
-              </map>
-              <key>default</key>
-              <string>True</string>
-              <key>name</key>
-              <string>RelWithDebInfo</string>
-            </map>
-            <key>RelWithDebInfoOS</key>
-            <map>
-              <key>build</key>
-              <map>
-                <key>command</key>
-                <string>make</string>
-                <key>options</key>
-                <array>
-                  <string>-j 7</string>
-                </array>
-              </map>
-              <key>configure</key>
-              <map>
-                <key>options</key>
-                <array>
-                  <string>-G</string>
-                  <string>'Unix Makefiles'</string>
-                </array>
-              </map>
-              <key>name</key>
-              <string>RelWithDebInfoOS</string>
-            </map>
-            <key>Release</key>
-            <map>
-              <key>build</key>
-              <map>
-                <key>command</key>
-                <string>make</string>
-                <key>options</key>
-                <array>
-                  <string>-j 12</string>
-                </array>
-              </map>
-              <key>configure</key>
-              <map>
-                <key>options</key>
-                <array>
-                  <string>-G</string>
-                  <string>'Unix Makefiles'</string>
-                </array>
-              </map>
-              <key>name</key>
-              <string>Release</string>
-            </map>
-            <key>ReleaseOS</key>
-            <map>
-              <key>build</key>
-              <map>
-                <key>command</key>
-                <string>make</string>
-                <key>options</key>
-                <array>
-                  <string>-j 7</string>
-                </array>
-              </map>
-              <key>configure</key>
-              <map>
-                <key>options</key>
-                <array>
-                  <string>-G</string>
-                  <string>'Unix Makefiles'</string>
-                </array>
-              </map>
-              <key>name</key>
-              <string>ReleaseOS</string>
-            </map>
-            <key>default</key>
-            <map>
-              <key>build</key>
-              <map>
-              </map>
-              <key>name</key>
-              <string>default</string>
-            </map>
-          </map>
-          <key>name</key>
-          <string>linux</string>
-        </map>
-        <key>linux64</key>
-        <map>
-          <key>build_directory</key>
-          <string>build-linux-x86_64</string>
-          <key>configurations</key>
-          <map>
-            <key>Debug</key>
-            <map>
-              <key>build</key>
-              <map>
-                <key>command</key>
-                <string>make</string>
-                <key>options</key>
-                <array>
-                  <string>-j 12</string>
-                </array>
-              </map>
-              <key>configure</key>
-              <map>
-                <key>arguments</key>
-                <array>
-                  <string>../indra</string>
-                </array>
-                <key>options</key>
-                <array>
-                  <string>-G</string>
-                  <string>'Unix Makefiles'</string>
-                  <string>-DADDRESS_SIZE:STRING=64</string>
-                </array>
-              </map>
-              <key>name</key>
-              <string>Debug</string>
-            </map>
-            <key>DebugOS</key>
-            <map>
-              <key>build</key>
-              <map>
-                <key>command</key>
-                <string>make</string>
-                <key>options</key>
-                <array>
-                  <string>-j 2</string>
-                </array>
-              </map>
-              <key>configure</key>
-              <map>
-                <key>options</key>
-                <array>
-                  <string>-G</string>
-                  <string>'Unix Makefiles'</string>
-                  <string>-DADDRESS_SIZE:STRING=64</string>
-                </array>
-              </map>
-              <key>name</key>
-              <string>DebugOS</string>
-            </map>
-            <key>RelWithDebInfo</key>
-            <map>
-              <key>build</key>
-              <map>
-                <key>command</key>
-                <string>make</string>
-                <key>options</key>
-                <array>
-                  <string>-j 12</string>
-                </array>
-              </map>
-              <key>configure</key>
-              <map>
-                <key>arguments</key>
-                <array>
-                  <string>../indra</string>
-                </array>
-                <key>options</key>
-                <array>
-                  <string>-G</string>
-                  <string>'Unix Makefiles'</string>
-                  <string>-DADDRESS_SIZE:STRING=64</string>
-                </array>
-              </map>
-              <key>default</key>
-              <string>True</string>
-              <key>name</key>
-              <string>RelWithDebInfo</string>
-            </map>
-            <key>RelWithDebInfoOS</key>
-            <map>
-              <key>build</key>
-              <map>
-                <key>command</key>
-                <string>make</string>
-                <key>options</key>
-                <array>
-                  <string>-j 2</string>
-                </array>
-              </map>
-              <key>configure</key>
-              <map>
-                <key>options</key>
-                <array>
-                  <string>-G</string>
-                  <string>'Unix Makefiles'</string>
-                  <string>--</string>
-                  <string>-DADDRESS_SIZE:INTEGER=64</string>
-                </array>
-              </map>
-              <key>name</key>
-              <string>RelWithDebInfoOS</string>
-            </map>
-            <key>Release</key>
-            <map>
-              <key>build</key>
-              <map>
-                <key>command</key>
-                <string>make</string>
-                <key>options</key>
-                <array>
-                  <string>-j 12</string>
-                </array>
-              </map>
-              <key>configure</key>
-              <map>
-                <key>arguments</key>
-                <array>
-                  <string>../indra</string>
-                </array>
-                <key>options</key>
-                <array>
-                  <string>-G</string>
-                  <string>'Unix Makefiles'</string>
-                  <string>-DADDRESS_SIZE:STRING=64</string>
-                </array>
-              </map>
-              <key>name</key>
-              <string>Release</string>
-            </map>
-            <key>ReleaseOS</key>
-            <map>
-              <key>build</key>
-              <map>
-                <key>command</key>
-                <string>make</string>
-                <key>options</key>
-                <array>
-                  <string>-j 2</string>
-                </array>
-              </map>
-              <key>configure</key>
-              <map>
-                <key>options</key>
-                <array>
-                  <string>-G</string>
-                  <string>'Unix Makefiles'</string>
-                  <string>-DADDRESS_SIZE:STRING=64</string>
-                </array>
-              </map>
-              <key>name</key>
-              <string>ReleaseOS</string>
-            </map>
-            <key>default</key>
-            <map>
-              <key>build</key>
-              <map>
-              </map>
-              <key>name</key>
-              <string>default</string>
-            </map>
-          </map>
-          <key>name</key>
-          <string>linux64</string>
         </map>
         <key>windows</key>
         <map>
