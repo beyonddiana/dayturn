@@ -175,7 +175,7 @@ Linden Lab's development system for their viewer is referenced in: https://wiki.
 
 ***NSIS (Unicode)***
 
--  You must install the Unicode version http://www.scratchpaper.com/ and not the one from the NSIS page
+-  You must install a version 3.x from https://nsis.sourceforge.io/Download
 
 -  Not strictly required for developers (although it's useful)
 
