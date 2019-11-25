@@ -32,7 +32,7 @@ SetCompress auto			# Compress if saves space
 SetCompressor /solid lzma	# Compress whole installer as one block
 SetDatablockOptimize off	# Only saves us 0.1%, not worth it
 XPStyle on                  # Add an XP manifest to the installer
-RequestExecutionLevel admin	# For when we write to Program Files
+RequestExecutionLevel highest           # match MULTIUSER_EXECUTIONLEVEL
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Project flags
@@ -81,9 +81,12 @@ Name ${INSTNAME}
 
 SubCaption 0 $(LicenseSubTitleSetup)	# Override "license agreement" text
 
+!define MUI_ICON   "%%SOURCE%%\installers\windows\install_icon.ico"
+!define MUI_UNICON "%%SOURCE%%\installers\windows\uninstall_icon.ico"
+
 BrandingText " "						# Bottom of window text
-Icon          %%SOURCE%%\installers\windows\install_icon.ico
-UninstallIcon %%SOURCE%%\installers\windows\uninstall_icon.ico
+Icon          "${MUI_ICON}"
+UninstallIcon "${MUI_UNICON}"
 WindowIcon on							# Show our icon in left corner
 BGGradient off							# No big background window
 CRCCheck on								# Make sure CRC is OK
@@ -91,27 +94,51 @@ InstProgressFlags smooth colored		# New colored smooth look
 SetOverwrite on							# Overwrite files by default
 AutoCloseWindow true					# After all files install, close window
 
-# initial location of install (default when not already installed)
-#   note: Now we defer looking for existing install until onInit when we
-#   are able to engage the 32/64 registry function
-InstallDir "%%PROGRAMFILES%%\${INSTNAME}"
+# Registry key paths, ours and Microsoft's
+!define DAYTURN_KEY      "SOFTWARE\Dayturn"
+!define INSTNAME_KEY    "${DAYTURN_KEY}\${INSTNAME}"
+!define MSCURRVER_KEY   "SOFTWARE\Microsoft\Windows\CurrentVersion"
+!define MSNTCURRVER_KEY "SOFTWARE\Microsoft\Windows NT\CurrentVersion"
+!define MSUNINSTALL_KEY "${MSCURRVER_KEY}\Uninstall\${INSTNAME}"
+
+# from http://nsis.sourceforge.net/Docs/MultiUser/Readme.html
+# Highest level permitted for user: Admin for Admin, Standard for Standard
+!define MULTIUSER_EXECUTIONLEVEL Highest
+!define MULTIUSER_MUI
+# Look for /AllUsers or /CurrentUser switches
+!define MULTIUSER_INSTALLMODE_COMMANDLINE
+# appended to $PROGRAMFILES, as affected by MULTIUSER_USE_PROGRAMFILES64
+!define MULTIUSER_INSTALLMODE_INSTDIR "${INSTNAME}"
+# expands to !define MULTIUSER_USE_PROGRAMFILES64 or nothing
+%%PROGRAMFILES%%
+# should make MultiUser.nsh initialization read existing INSTDIR from registry
+!define MULTIUSER_INSTALLMODE_INSTDIR_REGISTRY_KEY "${INSTNAME_KEY}"
+!define MULTIUSER_INSTALLMODE_INSTDIR_REGISTRY_VALUENAME ""
+# should make MultiUser.nsh initialization write $MultiUser.InstallMode to registry
+!define MULTIUSER_INSTALLMODE_DEFAULT_REGISTRY_KEY "${INSTNAME_KEY}"
+!define MULTIUSER_INSTALLMODE_DEFAULT_REGISTRY_VALUENAME "InstallMode"
+!include MultiUser.nsh
+!include MUI2.nsh
+!define MUI_BGCOLOR FFFFFF
+!insertmacro MUI_FUNCTION_GUIINIT
 
 UninstallText $(UninstallTextMsg)
 DirText $(DirectoryChooseTitle) $(DirectoryChooseSetup)
-Page directory dirPre
-Page instfiles
+!insertmacro MULTIUSER_PAGE_INSTALLMODE
+!define MUI_PAGE_CUSTOMFUNCTION_PRE dirPre
+!insertmacro MUI_PAGE_DIRECTORY
+!insertmacro MUI_PAGE_INSTFILES
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Variables
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-Var INSTPROG
+Var INSTNAME
 Var INSTEXE
 Var INSTSHORTCUT
 Var COMMANDLINE         # Command line passed to this installer, set in .onInit
 Var SHORTCUT_LANG_PARAM # "--set InstallLanguage de", Passes language to viewer
 Var SKIP_DIALOGS        # Set from command line in  .onInit. autoinstall GUI and the defaults.
 Var SKIP_AUTORUN		# Skip automatic launch of the viewer after install
-Var DO_UNINSTALL_V2     # If non-null, path to a previous Viewer 2 installation that will be uninstalled.
 
 # Function definitions should go before file includes, because calls to
 # DLLs like LangDLL trigger an implicit file include, so if that call is at
@@ -145,14 +172,15 @@ Function .onInit
 
 %%ENGAGEREGISTRY%%
 
-# read the current location of the install for this version
-# if $0 is empty, this is the first time for this viewer name
-ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\\Dayturn\\${INSTNAME}" ""
+# Setting MULTIUSER_INSTALLMODE_INSTDIR_REGISTRY_KEY and
+# MULTIUSER_INSTALLMODE_INSTDIR_REGISTRY_VALUENAME should
+# read the current location of the install for this version into INSTDIR.
 
-# viewer with this name not installed before
-${If} $0 == ""
-    # nothing to do here
-${Else}
+# if $0 is empty, this is the first time for this viewer name
+ReadRegStr $0 SHELL_CONTEXT "${INSTNAME_KEY}" ""
+
+# viewer with this name was installed before
+${If} $0 != ""
 	# use the value we got from registry as install location
     StrCpy $INSTDIR $0
 ${EndIf}
@@ -181,7 +209,7 @@ Call CheckWindowsVersion					# Don't install On unsupported systems
 lbl_configure_default_lang:
 # If we currently have a version of SL installed, default to the language of that install
 # Otherwise don't change $LANGUAGE and it will default to the OS UI language.
-    ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Dayturn\${INSTNAME}" "InstallerLanguage"
+    ReadRegStr $0 SHELL_CONTEXT "${INSTNAME_KEY}" "InstallerLanguage"
     IfErrors +2 0	# If error skip the copy instruction 
 	StrCpy $LANGUAGE $0
 
@@ -203,7 +231,7 @@ lbl_configure_default_lang:
     StrCpy $LANGUAGE $0
 
 # Save language in registry		
-	ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Dayturn\${INSTNAME}" "InstallerLanguage"
+	WriteRegStr SHELL_CONTEXT "${INSTNAME_KEY}" "InstallerLanguage" $LANGUAGE
 lbl_return:
     Pop $0
     Return
@@ -214,14 +242,33 @@ FunctionEnd
 ;; Prep Uninstaller Section
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 Function un.onInit
+    # Save $INSTDIR -- it appears to have the correct value before
+    # MULTIUSER_UNINIT, but then gets munged by MULTIUSER_UNINIT?!
+    Push $INSTDIR
+    !insertmacro MULTIUSER_UNINIT
+    Pop $INSTDIR
+
+    # Now read InstallMode.txt from $INSTDIR
+    Push $0
+    ClearErrors
+    FileOpen $0 "$INSTDIR\InstallMode.txt" r
+    IfErrors skipread
+    FileRead $0 $MultiUser.InstallMode
+    FileClose $0
+skipread:
+    Pop $0
 
 %%ENGAGEREGISTRY%%
 
 # Read language from registry and set for uninstaller. Key will be removed on successful uninstall
-	ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Dayturn\${INSTNAME}" "InstallerLanguage"
+	ReadRegStr $0 SHELL_CONTEXT "${INSTNAME_KEY}" "InstallerLanguage"
     IfErrors lbl_end
 	StrCpy $LANGUAGE $0
 lbl_end:
+    Return
+    
+##  MessageBox MB_OK "After restoring:$\n$$INSTDIR = '$INSTDIR'$\n$$MultiUser.InstallMode = '$MultiUser.InstallMode'$\n$$LANGUAGE = '$LANGUAGE'"
+
     Return
 
 FunctionEnd
@@ -271,18 +318,16 @@ FunctionEnd
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 Section ""
 
-SetShellVarContext all			# Install for all users (if you change this, change it in the uninstall as well)
+# SetShellVarContext is set by MultiUser.nsh initialization.
 
 # Start with some default values.
-StrCpy $INSTPROG "${INSTNAME}"
+StrCpy $INSTNAME "${INSTNAME}"
 StrCpy $INSTEXE "${INSTEXE}"
 StrCpy $INSTSHORTCUT "${SHORTCUT}"
 
-Call CheckIfAdministrator		# Make sure the user can install/uninstall
-Call CloseSecondLife			# Make sure Second Life not currently running
-Call CheckWillUninstallV2		# Check if Second Life is already installed
+Call CloseViewer			# Make sure the viewer not currently running
+Call CheckIfAlreadyCurrent	# Check if the viewer is already current
 
-StrCmp $DO_UNINSTALL_V2 "" PRESERVE_DONE
 PRESERVE_DONE:
 
 Call RemoveProgFilesOnInst		# Remove existing files to prevent certain errors when running the new version of the viewer
@@ -317,21 +362,21 @@ FileWrite $9 'start "$INSTDIR\$INSTEXE" "$INSTDIR\$INSTEXE" $SHORTCUT_LANG_PARAM
 FileClose $9
 
 # Write registry
-WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\Dayturn\$INSTPROG" "" "$INSTDIR"
-WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\Dayturn\$INSTPROG" "Version" "${VERSION_LONG}"
-WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\Dayturn\$INSTPROG" "Shortcut" "$INSTSHORTCUT"
-WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\Dayturn\$INSTPROG" "Exe" "$INSTEXE"
-WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\$INSTPROG" "Publisher" "Dayturn"
-WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\$INSTPROG" "DisplayName" "$INSTPROG"
-WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\$INSTPROG" "UninstallString" '"$INSTDIR\uninst.exe"'
-WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\$INSTPROG" "DisplayVersion" "${VERSION_LONG}"
-WriteRegDWORD HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\$INSTPROG" "EstimatedSize" "0x0001D500"		# ~117 MB
+WriteRegStr SHELL_CONTEXT "${INSTNAME_KEY}" "" "$INSTDIR"
+WriteRegStr SHELL_CONTEXT "${INSTNAME_KEY}" "Version" "${VERSION_LONG}"
+WriteRegStr SHELL_CONTEXT "${INSTNAME_KEY}" "Shortcut" "$INSTSHORTCUT"
+WriteRegStr SHELL_CONTEXT "${INSTNAME_KEY}" "Exe" "$INSTEXE"
+WriteRegStr SHELL_CONTEXT "${MSUNINSTALL_KEY}" "Publisher" "Dayturn"
+WriteRegStr SHELL_CONTEXT "${MSUNINSTALL_KEY}" "DisplayName" "$INSTEXE"
+WriteRegStr SHELL_CONTEXT "${MSUNINSTALL_KEY}" "UninstallString" '"$INSTDIR\uninst.exe"'
+WriteRegStr SHELL_CONTEXT "${MSUNINSTALL_KEY}" "DisplayVersion" "${VERSION_LONG}"
+WriteRegStr SHELL_CONTEXT "${MSUNINSTALL_KEY}" "EstimatedSize" "0x0001D500"		# ~117 MB
 
 # from FS:Ansariel
-WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\$INSTPROG" "DisplayIcon" '"$INSTDIR\$INSTEXE"'
+WriteRegStr SHELL_CONTEXT "${MSUNINSTALL_KEY}" "DisplayIcon" '"$INSTDIR\$INSTEXE"'
 
 # BUG-2707 Disable SEHOP for installed viewer.
-WriteRegDWORD HKEY_LOCAL_MACHINE "Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\$INSTEXE" "DisableExceptionChainValidation" 1
+WriteRegDWORD SHELL_CONTEXT "${MSNTCURRVER_KEY}\Image File Execution Options\$VIEWER_EXE" "DisableExceptionChainValidation" 1
 
 # Write URL registry info
 WriteRegStr HKEY_CLASSES_ROOT "${URLNAME}" "(default)" "URL:Second Life"
@@ -350,13 +395,6 @@ WriteRegExpandStr HKEY_CLASSES_ROOT "x-grid-location-info\shell\open\command" ""
 # Write out uninstaller
 WriteUninstaller "$INSTDIR\uninst.exe"
 
-# Uninstall existing "Second Life Viewer 2" install if needed.
-StrCmp $DO_UNINSTALL_V2 "" REMOVE_SLV2_DONE
-  ExecWait '"$PROGRAMFILES\SecondLifeViewer2\uninst.exe" /S _?=$PROGRAMFILES\SecondLifeViewer2'
-  Delete "$PROGRAMFILES\SecondLifeViewer2\uninst.exe"	# With _? option above, uninst.exe will be left behind.
-  RMDir "$PROGRAMFILES\SecondLifeViewer2"	# Will remove only if empty.
-
-REMOVE_SLV2_DONE:
 
 SectionEnd
 
@@ -366,24 +404,28 @@ SectionEnd
 Section Uninstall
 
 # Start with some default values.
-StrCpy $INSTPROG "${INSTNAME}"
+StrCpy $INSTNAME "${INSTNAME}"
 StrCpy $INSTEXE "${INSTEXE}"
 StrCpy $INSTSHORTCUT "${SHORTCUT}"
 
-# Make sure the user can install/uninstall
-Call un.CheckIfAdministrator
-
-# Uninstall for all users (if you change this, change it in the install as well)
-SetShellVarContext all			
+# SetShellVarContext per the mode saved at install time in registry at
+# MULTIUSER_INSTALLMODE_DEFAULT_REGISTRY_KEY
+# MULTIUSER_INSTALLMODE_DEFAULT_REGISTRY_VALUENAME
+# Couln't get NSIS to expand $MultiUser.InstallMode into the function name at Call time
+${If} $MultiUser.InstallMode == 'AllUsers'
+  Call un.MultiUser.InstallMode.AllUsers
+${Else}
+  Call un.MultiUser.InstallMode.CurrentUser
+${EndIf}
 
 # Make sure we're not running
-Call un.CloseSecondLife
+Call un.CloseViewer
 
 # Clean up registry keys and subkeys (these should all be !defines somewhere)
-DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG"
-DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$INSTPROG"
+DeleteRegKey SHELL_CONTEXT "${INSTNAME_KEY}"
+DeleteRegKey SHELL_CONTEXT "${MSCURRVER_KEY}\Uninstall\$INSTNAME"
 # BUG-2707 Remove entry that disabled SEHOP
-DeleteRegKey HKEY_LOCAL_MACHINE "Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\$INSTEXE"
+DeleteRegKey SHELL_CONTEXT "${MSNTCURRVER_KEY}\Image File Execution Options\$VIEWER_EXE"
 
 # Clean up shortcuts
 Delete "$SMPROGRAMS\$INSTSHORTCUT\*.*"
@@ -401,35 +443,6 @@ Call un.UserSettingsFiles
 
 SectionEnd
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Make sure the user can install
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-Function CheckIfAdministrator
-    DetailPrint $(CheckAdministratorInstDP)
-    UserInfo::GetAccountType
-    Pop $R0
-    StrCmp $R0 "Admin" lbl_is_admin
-        MessageBox MB_OK $(CheckAdministratorInstMB)
-        Quit
-lbl_is_admin:
-    Return
-
-FunctionEnd
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Make sure the user can uninstall
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-Function un.CheckIfAdministrator
-    DetailPrint $(CheckAdministratorUnInstDP)
-    UserInfo::GetAccountType
-    Pop $R0
-    StrCmp $R0 "Admin" lbl_is_admin
-        MessageBox MB_OK $(CheckAdministratorUnInstMB)
-        Quit
-lbl_is_admin:
-    Return
-
-FunctionEnd
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Checks to see if the current version has already been installed (according to the registry).
@@ -437,7 +450,7 @@ FunctionEnd
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 Function CheckIfAlreadyCurrent
     Push $0
-    ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Dayturn\$INSTPROG" "Version"
+    ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Dayturn\$INSTEXE" "Version"
     StrCmp $0 ${VERSION_LONG} 0 continue_install
     StrCmp $SKIP_DIALOGS "true" continue_install
     MessageBox MB_OKCANCEL $(CheckIfCurrentMB) /SD IDOK IDOK continue_install
@@ -447,46 +460,24 @@ continue_install:
     Return
 
 FunctionEnd
-	
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Function CheckWillUninstallV2               
-;;
-;; If called through auto-update, need to uninstall any existing V2 installation.
-;; Don't want to end up with SecondLifeViewer2 and SecondLifeViewer installations
-;;  existing side by side with no indication on which to use.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-Function CheckWillUninstallV2
-
-  StrCpy $DO_UNINSTALL_V2 ""
-
-  StrCmp $SKIP_DIALOGS "true" 0 CHECKV2_DONE
-  StrCmp $INSTDIR "$PROGRAMFILES\SecondLifeViewer2" CHECKV2_DONE	# Don't uninstall our own install dir.
-  IfFileExists "$PROGRAMFILES\SecondLifeViewer2\uninst.exe" CHECKV2_FOUND CHECKV2_DONE
-
-CHECKV2_FOUND:
-  StrCpy $DO_UNINSTALL_V2 "true"
-
-CHECKV2_DONE:
-
-FunctionEnd
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Close the program, if running. Modifies no variables.
 ;; Allows user to bail out of install process.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-Function CloseSecondLife
+Function CloseViewer
   Push $0
   FindWindow $0 "Dayturn" ""
   IntCmp $0 0 DONE
   
   StrCmp $SKIP_DIALOGS "true" CLOSE
-    MessageBox MB_OKCANCEL $(CloseSecondLifeInstMB) IDOK CLOSE IDCANCEL CANCEL_INSTALL
+    MessageBox MB_OKCANCEL $(CloseViewerInstMB) IDOK CLOSE IDCANCEL CANCEL_INSTALL
 
   CANCEL_INSTALL:
     Quit
 
   CLOSE:
-    DetailPrint $(CloseSecondLifeInstDP)
+    DetailPrint $(CloseViewerInstDP)
     SendMessage $0 16 0 0
 
   LOOP:
@@ -505,17 +496,17 @@ FunctionEnd
 ;; Close the program, if running. Modifies no variables.
 ;; Allows user to bail out of uninstall process.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-Function un.CloseSecondLife
+Function un.CloseViewer
   Push $0
   FindWindow $0 "Dayturn" ""
   IntCmp $0 0 DONE
-  MessageBox MB_OKCANCEL $(CloseSecondLifeUnInstMB) IDOK CLOSE IDCANCEL CANCEL_UNINSTALL
+  MessageBox MB_OKCANCEL $(CloseViewerUnInstMB) IDOK CLOSE IDCANCEL CANCEL_UNINSTALL
 
   CANCEL_UNINSTALL:
     Quit
 
   CLOSE:
-    DetailPrint $(CloseSecondLifeUnInstDP)
+    DetailPrint $(CloseViewerUnInstDP)
     SendMessage $0 16 0 0
 
   LOOP:
@@ -555,7 +546,6 @@ FunctionEnd
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 Function un.UserSettingsFiles
 
-StrCmp $DO_UNINSTALL_V2 "true" Keep			# Don't remove user's settings files on auto upgrade
 
 # Ask if user wants to keep data files or not
 MessageBox MB_YESNO|MB_ICONQUESTION $(RemoveDataFilesMB) IDYES Remove IDNO Keep
@@ -570,10 +560,10 @@ Push $2
   StrCpy $0 0	# Index number used to iterate via EnumRegKey
 
   LOOP:
-    EnumRegKey $1 HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList" $0
+    EnumRegKey $1 SHELL_CONTEXT "${MSNTCURRVER_KEY}\ProfileList" $0
     StrCmp $1 "" DONE               # No more users
 
-    ReadRegStr $2 HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList\$1" "ProfileImagePath" 
+    ReadRegStr $2 SHELL_CONTEXT "${MSNTCURRVER_KEY}\ProfileList\$1" "ProfileImagePath" 
     StrCmp $2 "" CONTINUE 0         # "ProfileImagePath" value is missing
 
 # Required since ProfileImagePath is of type REG_EXPAND_SZ
@@ -603,7 +593,7 @@ Pop $0
 
 # Delete files in ProgramData\Dayturn
 Push $0
-  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" "Common AppData"
+  ReadRegStr $0 SHELL_CONTEXT "${MSCURRVER_KEY}\Explorer\Shell Folders" "Common AppData"
   StrCmp $0 "" +2
   RMDir /r "$0\Dayturn"
 Pop $0
@@ -638,6 +628,14 @@ Delete "$INSTDIR\motions\*.lla"
 Delete "$INSTDIR\trial\*.html"
 Delete "$INSTDIR\newview.exe"
 Delete "$INSTDIR\DayturnViewer.exe"
+Delete "$INSTDIR\debug"
+Delete "$INSTDIR\featuretable"
+Delete "$INSTDIR\winmm.dll"
+Delete "$INSTDIR\msvcp100.dll"
+Delete "$INSTDIR\msvcr100.dll"
+Delete "$INSTDIR\licenses"
+Delete "$INSTDIR\VivoxAUP"
+Delete "$INSTDIR\libapr*-1.dll"
 
 # MAINT-3099 workaround - prevent these log files, if present, from causing a user alert
 Delete "$INSTDIR\VivoxVoiceService-*.log"
@@ -658,8 +656,8 @@ NOFOLDER:
 MessageBox MB_YESNO $(DeleteRegistryKeysMB) IDYES DeleteKeys IDNO NoDelete
 
 DeleteKeys:
-  DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Classes\x-grid-location-info"
-  DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Classes\secondlife"
+  DeleteRegKey SHELL_CONTEXT "SOFTWARE\Classes\x-grid-location-info"
+  DeleteRegKey SHELL_CONTEXT "SOFTWARE\Classes\secondlife"
   DeleteRegKey HKEY_CLASSES_ROOT "x-grid-location-info"
   DeleteRegKey HKEY_CLASSES_ROOT "secondlife"
 
@@ -737,10 +735,10 @@ FunctionEnd
 ;    StrCpy $0 0	# Index number used to iterate via EnumRegKey
 ;
 ;  LOOP:
-;    EnumRegKey $1 HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList" $0
+;    EnumRegKey $1 SHELL_CONTEXT "${MSNTCURRVER_KEY}\ProfileList" $0
 ;    StrCmp $1 "" DONE               # no more users
 ;
-;    ReadRegStr $2 HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList\$1" "ProfileImagePath"
+;    ReadRegStr $2 SHELL_CONTEXT "${MSNTCURRVER_KEY}\ProfileList\$1" "ProfileImagePath"
 ;    StrCmp $2 "" CONTINUE 0         # "ProfileImagePath" value is missing
 ;
 ;# Required since ProfileImagePath is of type REG_EXPAND_SZ
@@ -757,9 +755,9 @@ FunctionEnd
 ;Pop $1
 ;Pop $0
 ;
-;# Copy files in Documents and Settings\All Users\SecondLife
+;# Copy files in Documents and Settings\All Users\Dayturn
 ;Push $0
-;    ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" "Common AppData"
+;    ReadRegStr $0 SHELL_CONTEXT "${MSCURRVER_KEY}\Explorer\Shell Folders" "Common AppData"
 ;    StrCmp $0 "" +2
 ;    RMDir /r "$2\Application Data\Dayturn\"
 ;Pop $0

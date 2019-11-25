@@ -595,10 +595,10 @@ class Windows_i686_Manifest(ViewerManifest):
             
         if(self.args['arch'].lower() == 'x86_64'):
             engage_registry="SetRegView 64"
-            program_files="$PROGRAMFILES64"
+            program_files="!define MULTIUSER_USE_PROGRAMFILES64"
         else:
             engage_registry="SetRegView 32"
-            program_files="$PROGRAMFILES32"
+            program_files=""
 
         tempfile = "dayturn_setup_tmp.nsi"
         # the following replaces strings in the nsi template
