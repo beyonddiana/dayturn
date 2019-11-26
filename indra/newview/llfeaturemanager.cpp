@@ -60,11 +60,7 @@
 #include "lldxhardware.h"
 #endif
 
-#if LL_LINUX
-const char FEATURE_TABLE_FILENAME[] = "featuretable_linux.txt";
-#else
 const char FEATURE_TABLE_FILENAME[] = "featuretable.txt";
-#endif
 
 #if 0                               // consuming code in #if 0 below
 #endif
@@ -90,6 +86,10 @@ void LLFeatureList::addFeature(const std::string& name, const BOOL available, co
 	}
 
 	LLFeatureInfo fi(name, available, level);
+    LL_DEBUGS_ONCE("RenderInit") << "Feature '" << name << "' "
+                                 << (available ? "" : "not " ) << "available"
+                                 << " at " << level
+                                 << LL_ENDL;
 	mFeatures[name] = fi;
 }
 
@@ -111,6 +111,7 @@ F32 LLFeatureList::getRecommendedValue(const std::string& name)
 {
 	if (mFeatures.count(name) && isFeatureAvailable(name))
 	{
+        LL_DEBUGS_ONCE("RenderInit") << "Setting '" << name << "' to recommended value " <<  mFeatures[name].mRecommendedLevel << LL_ENDL;
 		return mFeatures[name].mRecommendedLevel;
 	}
 
@@ -120,7 +121,7 @@ F32 LLFeatureList::getRecommendedValue(const std::string& name)
 
 BOOL LLFeatureList::maskList(LLFeatureList &mask)
 {
-	//LL_INFOS() << "Masking with " << mask.mName << LL_ENDL;
+	LL_DEBUGS_ONCE() << "Masking with " << mask.mName << LL_ENDL;
 	//
 	// Lookup the specified feature mask, and overlay it on top of the
 	// current feature mask.
@@ -292,18 +293,19 @@ bool LLFeatureManager::parseFeatureTable(std::string filename)
 
 	// Check file version
 	file >> name;
-	file >> version;
 	if (name != "version")
 	{
 		LL_WARNS("RenderInit") << filename << " does not appear to be a valid feature table!" << LL_ENDL;
 		return false;
 	}
+	file >> version;
 
 	mTableVersion = version;
+	LL_INFOS("RenderInit") << "Found feature table version " << version << LL_ENDL;
 
 	LLFeatureList *flp = NULL;
 	bool parse_ok = true;
-	while (file >> name && parse_ok)
+	while (parse_ok && file >> name )
 	{
 		char buffer[MAX_STRING];		 /*Flawfinder: ignore*/
 		
@@ -313,7 +315,7 @@ bool LLFeatureManager::parseFeatureTable(std::string filename)
 			file.getline(buffer, MAX_STRING);
 			continue;
 		}
-
+        
 		if (name == "list")
 		{
 			LL_DEBUGS("RenderInit") << "Before new list" << std::endl;
@@ -331,12 +333,12 @@ bool LLFeatureManager::parseFeatureTable(std::string filename)
 			file >> name;
 			if (!mMaskList.count(name))
 			{
-			flp = new LLFeatureList(name);
-			mMaskList[name] = flp;
-		}
-		else
-		{
-				LL_WARNS("RenderInit") << "Overriding mask " << name << ", this is invalid!" << LL_ENDL;
+                flp = new LLFeatureList(name);
+                mMaskList[name] = flp;
+            }
+            else
+            {
+				LL_WARNS("RenderInit") << "Overriding mask '" << name << "'; this is invalid!" << LL_ENDL;
 				parse_ok = false;
 			}
 		}
@@ -344,11 +346,11 @@ bool LLFeatureManager::parseFeatureTable(std::string filename)
 		{
 			if (flp)
 			{
-			S32 available;
-			F32 recommended;
-			file >> available >> recommended;
-			flp->addFeature(name, available, recommended);
-		}
+                S32 available;
+                F32 recommended;
+                file >> available >> recommended;
+                flp->addFeature(name, available, recommended);
+            }
 			else
 			{
 				LL_WARNS("RenderInit") << "Specified parameter before <list> keyword!" << LL_ENDL;
@@ -369,6 +371,43 @@ bool LLFeatureManager::parseFeatureTable(std::string filename)
 
 F32 gpu_benchmark();
 
+#if LL_WINDOWS
+
+static const U32 STATUS_MSC_EXCEPTION = 0xE06D7363; // compiler specific
+
+U32 exception_benchmark_filter(U32 code, struct _EXCEPTION_POINTERS *exception_infop)
+{
+    if (code == STATUS_MSC_EXCEPTION)
+    {
+        // C++ exception, go on
+        return EXCEPTION_CONTINUE_SEARCH;
+    }
+    else
+    {
+        // handle it
+        return EXCEPTION_EXECUTE_HANDLER;
+    }
+}
+
+F32 logExceptionBenchmark()
+{
+    // Todo: make a wrapper/class for SEH exceptions
+    F32 gbps = -1;
+    __try
+    {
+        gbps = gpu_benchmark();
+    }
+    __except (exception_benchmark_filter(GetExceptionCode(), GetExceptionInformation()))
+    {
+        // convert to C++ styled exception
+        char integer_string[32];
+        sprintf(integer_string, "SEH, code: %lu\n", GetExceptionCode());
+        throw std::exception(integer_string);
+    }
+    return gbps;
+}
+#endif
+
 bool LLFeatureManager::loadGPUClass()
 {
 	if (!gSavedSettings.getBOOL("SkipBenchmark"))
@@ -377,7 +416,11 @@ bool LLFeatureManager::loadGPUClass()
 		F32 gbps;
 		try
 		{
+#if LL_WINDOWS
+			gbps = logExceptionBenchmark();
+#else
 			gbps = gpu_benchmark();
+#endif
 		}
 		catch (const std::exception& e)
 		{
@@ -387,11 +430,11 @@ bool LLFeatureManager::loadGPUClass()
 	
 		if (gbps < 0.f)
 		{ //couldn't bench, use GLVersion
-			if (gGLManager.mGLVersion < 2.f)
+			if (gGLManager.mGLVersion <= 2.f)
 			{
 				mGPUClass = GPU_CLASS_0;
 			}
-			else if (gGLManager.mGLVersion < 3.f)
+			else if (gGLManager.mGLVersion <= 3.f)
 			{
 				mGPUClass = GPU_CLASS_1;
 			}
@@ -407,6 +450,12 @@ bool LLFeatureManager::loadGPUClass()
 			{
 				mGPUClass = GPU_CLASS_4;
 			}
+			if (gGLManager.mIsIntel && mGPUClass > GPU_CLASS_1)
+			{
+				// Intels are generally weaker then other GPUs despite having advanced features
+				mGPUClass = (EGPUClass)(mGPUClass - 1);
+			}
+	#endif
 		}
 		else if (gGLManager.mGLVersion <= 2.f)
 		{
@@ -456,67 +505,13 @@ bool LLFeatureManager::loadGPUClass()
 	return true; // indicates that a gpu value was established
 }
 
-	
-// responder saves table into file
-class LLHTTPFeatureTableResponder : public LLHTTPClient::Responder
-{
-	LOG_CLASS(LLHTTPFeatureTableResponder);
-public:
-
-	LLHTTPFeatureTableResponder(std::string filename) :
-		mFilename(filename)
-	{
-	}
-
-	
-	virtual void completedRaw(const LLChannelDescriptors& channels,
-							  const LLIOPipe::buffer_ptr_t& buffer)
-	{
-		if (isGoodStatus())
-		{
-			// write to file
-
-			LL_INFOS() << "writing feature table to " << mFilename << LL_ENDL;
-			
-			S32 file_size = buffer->countAfter(channels.in(), NULL);
-			if (file_size > 0)
-			{
-				// read from buffer
-				U8* copy_buffer = new U8[file_size];
-				buffer->readAfter(channels.in(), NULL, copy_buffer, file_size);
-
-				// write to file
-				LLAPRFile out(mFilename, LL_APR_WB);
-				out.write(copy_buffer, file_size);
-				out.close();
-			}
-		}
-		else
-		{
-			char body[1025]; 
-			body[1024] = '\0';
-			LLBufferStream istr(channels, buffer.get());
-			istr.get(body,1024);
-			if (strlen(body) > 0)
-			{
-				mContent["body"] = body;
-			}
-			LL_WARNS() << dumpResponse() << LL_ENDL;
-		}
-	}
-	
-private:
-	std::string mFilename;
-};
-
-
 void LLFeatureManager::cleanupFeatureTables()
 {
 	std::for_each(mMaskList.begin(), mMaskList.end(), DeletePairedPointer());
 	mMaskList.clear();
 }
 
-void LLFeatureManager::init()
+void LLFeatureManager::initSingleton()
 {
 	// load the tables
 	loadFeatureTables();
@@ -535,7 +530,7 @@ void LLFeatureManager::applyRecommendedSettings()
 	// cap the level at 2 (high)
 	U32 level = llmax(GPU_CLASS_0, llmin(mGPUClass, GPU_CLASS_5));
 
-	LL_INFOS() << "Applying Recommended Features" << LL_ENDL;
+	LL_INFOS("RenderInit") << "Applying Recommended Features for level " << level << LL_ENDL;
 
 	setGraphicsLevel(level, false);
 	gSavedSettings.setU32("RenderQualityPerformance", level);
@@ -761,6 +756,7 @@ void LLFeatureManager::applyBaseMasks()
 		maskFeatures("safe");
 	}
 }
+
 LLSD LLFeatureManager::getRecommendedSettingsMap()
 {
 	// Create the map and fill it with the hardware recommended settings.

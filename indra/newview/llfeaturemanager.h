@@ -99,9 +99,10 @@ class LLFeatureManager : public LLFeatureList, public LLSingleton<LLFeatureManag
 	LLSINGLETON(LLFeatureManager);
 	~LLFeatureManager() {cleanupFeatureTables();}
 
-public:
 	// initialize this by loading feature table and gpu table
-	void init();
+	void initSingleton();
+
+public:
 
 	void maskCurrentList(const std::string& name); // Mask the current feature list with the named list
 
@@ -143,9 +144,9 @@ public:
 	// apply the basic masks.  Also, skip one saved
 	// in the skip list if true
 	void applyFeatures(bool skipFeatures);
-    
-   	LLSD getRecommendedSettingsMap();
-	
+
+	LLSD getRecommendedSettingsMap();
+
 protected:
 	bool loadGPUClass();
 
