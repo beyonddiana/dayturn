@@ -4080,6 +4080,7 @@ If you continue to receive this message, please contact Second Life support for 
 	<string name="InvFolder Animations">Animations</string>
 	<string name="InvFolder Gestures">Gestures</string>
 	<string name="InvFolder Favorite">My Favorites</string>
+	<string name="InvFolder Suitcase">My Suitcase</string>
 	<!-- inventory folder Opensim Standard folders -->
 	<string name="InvFolder OpenSim Library">OpenSim Library</string>
 	<string name="InvFolder OpenSim Specific Scripts">OpenSim-Specific Scripts</string>
