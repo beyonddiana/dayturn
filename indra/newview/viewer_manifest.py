@@ -167,7 +167,7 @@ class ViewerManifest(LLManifest):
                     # we're wrong, a user actually does have the relevant
                     # files; s/he just needs to rename every html.old
                     # directory back to html to recover them.
-                    with self.prefix(src="*/html", dst="*/html.old"):
+                    with self.prefix(src="*/html", dst="*/html"):
                             self.path("*.png")
                             self.path("*/*/*.html")
                             #self.path("*/*/*.gif")
