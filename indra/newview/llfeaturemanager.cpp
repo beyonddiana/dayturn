@@ -455,7 +455,6 @@ bool LLFeatureManager::loadGPUClass()
 				// Intels are generally weaker then other GPUs despite having advanced features
 				mGPUClass = (EGPUClass)(mGPUClass - 1);
 			}
-	#endif
 		}
 		else if (gGLManager.mGLVersion <= 2.f)
 		{
