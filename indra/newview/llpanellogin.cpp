@@ -223,7 +223,7 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 
 
 	// Clear the browser's cache to avoid any potential for the cache messing up the login screen.
-	// web_browser->clearCache(); // Kokua: we don't need to get rid of other viewers hijacking of the login page
+    web_browser->clearCache(); // Kokua: we don't need to get rid of other viewers hijacking of the login page
 
 	reshapeBrowser();
 
