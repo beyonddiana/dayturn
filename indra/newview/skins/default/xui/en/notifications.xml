@@ -192,7 +192,7 @@ No tutorial is currently available.
    icon="alertmodal.tga"
    name="BadInstallation"
    type="alertmodal">
- An error occurred while updating [APP_NAME].  Please [https://sourceforge.net/projects/kokua.team-purple.p/files/  download the latest version] of the Viewer.
+ An error occurred while updating [APP_NAME].  Please [https://www.dayturn.com/viewer/index.php?resources/  download the latest version] of the Viewer.
     <tag>fail</tag>
     <usetemplate
      name="okbutton"
