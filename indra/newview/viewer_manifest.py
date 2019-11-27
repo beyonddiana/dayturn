@@ -386,16 +386,15 @@ class Windows_i686_Manifest(ViewerManifest):
             self.path("vivoxsdk.dll")
             self.path("ortp.dll")
 
-				# Security
+            # Security
             self.path("ssleay32.dll")
-            self.path("libeay32.dll")				
+            self.path("libeay32.dll")
 
             # Hunspell
             self.path("libhunspell.dll")
             
-	    #self.path(src="licenses-win32.txt", dst="licenses.txt")
-	    #self.path("featuretable.txt")
-	    
+        self.path(src="licenses-win32.txt", dst="licenses.txt")
+        self.path("featuretable.txt", dst="featuretable.txt")
 
         # Media plugins - CEF
         with self.prefix(src='../media_plugins/cef/%s' % self.args['configuration'], dst="llplugin"):        
