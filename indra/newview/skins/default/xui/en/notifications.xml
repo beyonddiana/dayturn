@@ -4015,7 +4015,7 @@ Download to your Applications folder?
    type="alertmodal">
 An error occurred installing the viewer update.
 Please download and install the latest viewer from
-https://sourceforge.net/projects/kokua.team-purple.p/files/ .
+https://www.dayturn.com/viewer/index.php?resources/ .
     <usetemplate
      name="okbutton"
      yestext="OK"/>
@@ -4029,7 +4029,7 @@ We were unable to install a required update.
 You will be unable to log in until [APP_NAME] has been updated.
 
 Please download and install the latest viewer from
-https://sourceforge.net/projects/kokua.team-purple.p/files/ .
+https://www.dayturn.com/viewer/index.php?resources/ .
   <tag>fail</tag>
     <usetemplate
      name="okbutton"
@@ -4040,14 +4040,14 @@ https://sourceforge.net/projects/kokua.team-purple.p/files/ .
    icon="alertmodal.tga"
    name="UpdaterServiceNotRunning"
    type="alertmodal">
-There is a required update for your Kokua Installation.
+There is a required update for your Dayturn Installation.
 
-You may download this update from https://sourceforge.net/projects/kokua.team-purple.p/files/ .
+You may download this update from https://www.dayturn.com/viewer/index.php?resources/ .
 or you can install it now.
     <tag>confirm</tag>
     <usetemplate
      name="okcancelbuttons"
-     notext="Quit Kokua"
+     notext="Quit Dayturn"
      yestext="Download and install now"/>
   </notification>
 
