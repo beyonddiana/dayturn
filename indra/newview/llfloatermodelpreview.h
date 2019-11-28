@@ -188,6 +188,7 @@ protected:
 	LLModelPreview*	mModelPreview;
 
 	LLPhysicsDecomp::decomp_params mDecompParams;
+	LLPhysicsDecomp::decomp_params mDefaultDecompParams;
 
 	S32				mLastMouseX;
 	S32				mLastMouseY;
@@ -221,6 +222,9 @@ private:
 
 	// resets display options of model preview to their defaults.
 	void resetDisplayOptions();
+	
+	void resetUploadOptions();
+	void clearLogTab();
 
 	void createSmoothComboBox(LLComboBox* combo_box, float min, float max);
 
