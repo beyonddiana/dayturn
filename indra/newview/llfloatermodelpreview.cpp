@@ -517,6 +517,8 @@ void LLFloaterModelPreview::loadModel(S32 lod, const std::string& file_name, boo
 
 void LLFloaterModelPreview::onClickCalculateBtn()
 {
+	clearLogTab();
+
 	mModelPreview->rebuildUploadData();
 
 	bool upload_skinweights = childGetValue("upload_skin").asBoolean();
@@ -1202,6 +1204,7 @@ void LLFloaterModelPreview::initDecompControls()
 		}
 	}
 
+	mDefaultDecompParams = mDecompParams;
 	childSetCommitCallback("physics_explode", LLFloaterModelPreview::onExplodeCommit, this);
 }
 
@@ -2348,7 +2351,6 @@ void LLModelPreview::loadModelCallback(S32 loaded_lod)
 	mLoading = false;
 	if (mFMP)
 	{
-		mFMP->getChild<LLCheckBoxCtrl>("confirm_checkbox")->set(FALSE);
 		if (!mBaseModel.empty())
 		{
 			const std::string& model_name = mBaseModel[0]->getName();
@@ -4510,12 +4512,6 @@ void LLModelPreview::setPreviewLOD(S32 lod)
 		combo_box->setCurrentByIndex((NUM_LOD-1)-mPreviewLOD); // combo box list of lods is in reverse order
 		mFMP->childSetValue("lod_file_" + lod_name[mPreviewLOD], mLODFile[mPreviewLOD]);
 
-		LLComboBox* combo_box2 = mFMP->getChild<LLComboBox>("preview_lod_combo2");
-		combo_box2->setCurrentByIndex((NUM_LOD-1)-mPreviewLOD); // combo box list of lods is in reverse order
-
-		LLComboBox* combo_box3 = mFMP->getChild<LLComboBox>("preview_lod_combo3");
-		combo_box3->setCurrentByIndex((NUM_LOD-1)-mPreviewLOD); // combo box list of lods is in reverse order
-
 		LLColor4 highlight_color = LLUIColorTable::instance().getColor("MeshImportTableHighlightColor");
 		LLColor4 normal_color = LLUIColorTable::instance().getColor("MeshImportTableNormalColor");
 
@@ -4545,12 +4541,15 @@ void LLFloaterModelPreview::onReset(void* user_data)
 {
 	assert_main_thread();
 
+
 	LLFloaterModelPreview* fmp = (LLFloaterModelPreview*) user_data;
 	fmp->childDisable("reset_btn");
+	fmp->clearLogTab();
 	LLModelPreview* mp = fmp->mModelPreview;
 	std::string filename = mp->mLODFile[LLModel::LOD_HIGH];
 
 	fmp->resetDisplayOptions();
+	fmp->resetUploadOptions();
 	//reset model preview
 	fmp->initModelPreview();
 
@@ -4564,6 +4563,7 @@ void LLFloaterModelPreview::onUpload(void* user_data)
 	assert_main_thread();
 
 	LLFloaterModelPreview* mp = (LLFloaterModelPreview*) user_data;
+	mp->clearLogTab();
 
 	mp->mUploadBtn->setEnabled(false);
 
@@ -4724,6 +4724,44 @@ void LLFloaterModelPreview::resetDisplayOptions()
 		LLUICtrl* ctrl = getChild<LLUICtrl>(option_it->first);
 		ctrl->setValue(false);
 	}
+}
+
+void LLFloaterModelPreview::resetUploadOptions()
+{
+	childSetValue("import_scale", 1);
+	childSetValue("pelvis_offset", 0);
+	childSetValue("physics_explode", 0);
+	childSetValue("physics_file", "");
+	childSetVisible("Retain%", false);
+	childSetVisible("Retain%_label", false);
+	childSetVisible("Detail Scale", true);
+	childSetVisible("Detail Scale label", true);
+
+	getChild<LLComboBox>("lod_source_" + lod_name[NUM_LOD - 1])->setCurrentByIndex(LLModelPreview::LOD_FROM_FILE);
+	for (S32 lod = 0; lod < NUM_LOD - 1; ++lod)
+	{
+		getChild<LLComboBox>("lod_source_" + lod_name[lod])->setCurrentByIndex(LLModelPreview::GENERATE);
+		childSetValue("lod_file_" + lod_name[lod], "");
+	}
+
+	for(auto& p : mDefaultDecompParams)
+	{
+		std::string ctrl_name(p.first);
+		LLUICtrl* ctrl = getChild<LLUICtrl>(ctrl_name);
+		if (ctrl)
+		{
+			ctrl->setValue(p.second);
+		}
+	}
+	getChild<LLComboBox>("physics_lod_combo")->setCurrentByIndex(0);
+	getChild<LLComboBox>("Cosine%")->setCurrentByIndex(0);
+}
+
+void LLFloaterModelPreview::clearLogTab()
+{
+    mUploadLogText->clear();
+    LLPanel* panel = mTabContainer->getPanelByName("logs_panel");
+    mTabContainer->setTabPanelFlashing(panel, false);
 }
 
 void LLFloaterModelPreview::onModelPhysicsFeeReceived(const LLSD& result, std::string upload_url)
