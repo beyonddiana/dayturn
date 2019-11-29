@@ -276,8 +276,7 @@ LLEventPumps::~LLEventPumps()
 
 LLEventPump::LLEventPump(const std::string& name, bool tweak):
     // Register every new instance with LLEventPumps
-    mRegistry(LLEventPumps::instance().getHandle()),
-    mName(mRegistry.get()->registerNew(*this, name, tweak)),
+    mName(LLEventPumps::instance().registerNew(*this, name, tweak)),
     mSignal(new LLStandardSignal()),
     mEnabled(true)
 {}
@@ -288,13 +287,8 @@ LLEventPump::LLEventPump(const std::string& name, bool tweak):
 
 LLEventPump::~LLEventPump()
 {
-    // Unregister this doomed instance from LLEventPumps -- but only if
-    // LLEventPumps is still around!
-    LLEventPumps* registry = mRegistry.get();
-    if (registry)
-    {
-        registry->unregister(*this);
-    }
+    // Unregister this doomed instance from LLEventPumps
+    LLEventPumps::instance().unregister(*this);
 }
 
 // static data member
@@ -510,6 +504,41 @@ bool LLEventStream::post(const LLSD& event)
     // LLEventPump.
     return (*signal)(event);
 }
+
+/*****************************************************************************
+ *   LLEventMailDrop
+ *****************************************************************************/
+bool LLEventMailDrop::post(const LLSD& event)
+{
+    bool posted = LLEventStream::post(event);
+    
+    if (!posted)
+
+    {   // if the event was not handled we will save it for later so that it can 
+        // be posted to any future listeners when they attach.
+        mEventHistory.push_back(event);
+    }
+    
+    return posted;
+}
+
+LLBoundListener LLEventMailDrop::listen_impl(const std::string& name,
+                                    const LLEventListener& listener,
+                                    const NameList& after,
+                                    const NameList& before)
+{
+    if (!mEventHistory.empty())
+    {
+        if (listener(mEventHistory.front()))
+        {
+            mEventHistory.pop_front();
+        }
+    }
+
+    return LLEventStream::listen_impl(name, listener, after, before);
+}
+
+
 
 /*****************************************************************************
 *   LLEventQueue
