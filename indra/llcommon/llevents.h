@@ -537,7 +537,7 @@ public:
         // at the boost::bind object itself before that happens.
         return LLEventDetail::visit_and_connect(name,
                                                 listener,
-                                                boost::bind(&LLEventPump::listen_impl,
+                                                boost::bind(&LLEventPump::listen_invoke,
                                                             this,
                                                             name,
                                                             _1,
@@ -582,18 +582,15 @@ private:
 
     virtual void reset();
     
- private:
-     LLBoundListener listen_invoke(const std::string& name, const LLEventListener& listener,
-         const NameList& after,
-         const NameList& before)
-     {
-         return this->listen_impl(name, listener, after, before);
-     }
- 
-    // must precede mName; see LLEventPump::LLEventPump()
-    LLHandle<LLEventPumps> mRegistry;
+private:
+    LLBoundListener listen_invoke(const std::string& name, const LLEventListener& listener,
+        const NameList& after,
+        const NameList& before)
+    {
+        return this->listen_impl(name, listener, after, before);
+    }
 
-     std::string mName;
+    std::string mName;
 
 protected:
     virtual LLBoundListener listen_impl(const std::string& name, const LLEventListener&,
@@ -638,10 +635,38 @@ public:
 };
 
 /*****************************************************************************
+ *   LLEventMailDrop
+ *****************************************************************************/
+/**
+ * LLEventMailDrop is a specialization of LLEventStream. Events are posted normally, 
+ * however if no listeners return that they have handled the event it is placed in 
+ * a queue. Subsequent attaching listeners will receive stored events from the queue 
+ * until a listener indicates that the event has been handled.  In order to receive 
+ * multiple events from a mail drop the listener must disconnect and reconnect. */
+class LL_COMMON_API LLEventMailDrop: public LLEventStream
+{
+public:
+    LLEventMailDrop(const std::string& name, bool tweak = false): LLEventStream(name, tweak) {}
+    virtual ~LLEventMailDrop() {}
+    
+    /// Post an event to all listeners
+    virtual bool post(const LLSD& event);
+    
+protected:
+    virtual LLBoundListener listen_impl(const std::string& name, const LLEventListener&,
+                                        const NameList& after,
+                                        const NameList& before);
+
+private:
+    typedef std::list<LLSD> EventList;
+    EventList mEventHistory;
+};
+
+/*****************************************************************************
 *   LLEventQueue
 *****************************************************************************/
 /**
- * LLEventQueue isa LLEventPump whose post() method defers calling registered
+ * LLEventQueue is a LLEventPump whose post() method defers calling registered
  * listeners until flush() is called.
  */
 class LL_COMMON_API LLEventQueue: public LLEventPump
