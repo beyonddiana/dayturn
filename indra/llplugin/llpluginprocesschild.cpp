@@ -32,15 +32,6 @@
 #include "llplugininstance.h"
 #include "llpluginmessagepipe.h"
 #include "llpluginmessageclasses.h"
-#include "llpluginclassmedia.h"
-
-#if LL_WINDOWS
-#include <windows.h>
-#include <fcntl.h>
-#include <io.h>
-#include <iostream>
-#include <fstream>
-#endif
 
 static const F32 GOODBYE_SECONDS = 20.0f;
 static const F32 HEARTBEAT_SECONDS = 1.0f;
@@ -231,16 +222,6 @@ void LLPluginProcessChild::idle(void)
 			}
 			break;
 
-			// Special case for when the plugin knows it's cleaned up -- MC
-			case STATE_UNLOADING_CLEANED:
-				if (mInstance)
-				{
-					delete mInstance;
-					mInstance = NULL;
-				}
-				setState(STATE_UNLOADED);
-			break;
-			
 		case STATE_UNLOADED:
 			killSockets();
 			delete mInstance;
@@ -453,12 +434,6 @@ void LLPluginProcessChild::receiveMessageRaw(const std::string &message)
 			{
 				mSleepTime = llmax(parsed.getValueReal("time"), 1.0 / 100.0); // clamp to maximum of 100Hz
 			}
-     		#if LL_WINDOWS
-			else if(message_name == "show_console")
-			{
-				createConsole();
-			}
-			#endif
 			else if (message_name == "crash")
 			{
 				// Crash the plugin
@@ -571,17 +546,6 @@ void LLPluginProcessChild::receivePluginMessage(const std::string &message)
 					LL_WARNS("Plugin") << "shm_remove_response for unknown memory segment!" << LL_ENDL;
 				}
 			}
-			else if (message_name == "cleanup_reply")
-			{
-				LL_DEBUGS("PluginChild") << "cleanup_reply message received" << LL_ENDL;
-				passMessage = false;
-
-				setState(STATE_UNLOADING_CLEANED);
-
-				// Clean up this and tell the parent
-				LLPluginMessage message(LLPLUGIN_MESSAGE_CLASS_INTERNAL, "cleanup_reply");
-				sendMessageToParent(message);
-			}
 		}
 	}
 
@@ -623,63 +587,3 @@ void LLPluginProcessChild::deliverQueuedMessages()
 		}
 	}
 }
-
-#if LL_WINDOWS
-void LLPluginProcessChild::createConsole()
-{
-	if (!AttachConsole(-1))
-	{
-		// error creating console
-		TCHAR buffer[1024];
-		if (FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS, NULL , GetLastError(), 0, buffer, 1024, NULL))
-		{
-			LL_WARNS("PluginChild") << "Error creating console: " << buffer << LL_ENDL;
-		}
-		else
-		{
-			LL_WARNS("PluginChild") << "Error creating console, error code: " << GetLastError() << LL_ENDL;
-		}
-		return;
-	}
-
-	HANDLE std_o_handle = GetStdHandle(STD_OUTPUT_HANDLE);
-	HANDLE std_e_handle = GetStdHandle(STD_ERROR_HANDLE);
-	if ((std_o_handle == INVALID_HANDLE_VALUE) || (std_e_handle == INVALID_HANDLE_VALUE))
-	{
-		LL_WARNS("PluginChild") << "couldn't create console, std out or err not available" << LL_ENDL;
-		return;
-	}
-
-	int crt_o_filedesc = _open_osfhandle((long)std_o_handle, _O_TEXT);
-	int crt_e_filedesc = _open_osfhandle((long)std_e_handle, _O_TEXT);
-	if ((crt_o_filedesc == -1) || (crt_e_filedesc == -1))
-	{
-		LL_WARNS("PluginChild") << "_open_osfhandle failed" << LL_ENDL;
-		return;
-	}
-	// replace stdout handle
-	FILE* fp_crt_o = _fdopen(crt_o_filedesc, "w");
-	if (!fp_crt_o)
-	{
-		LL_WARNS("PluginChild") << "_fdopen stdout handle failed" << LL_ENDL;
-		return;
-	}
-	*stdout = *fp_crt_o;
-	std::cout.clear(); // clear anything before AllocCo
-
-	// replace stderr handle
-	FILE* fp_crt_e = _fdopen(crt_e_filedesc, "w");
-	if (!fp_crt_e)
-	{
-		LL_WARNS("PluginChild") << "_fdopen stderr handle failed" << LL_ENDL;
-		return;
-	}
-	*stderr = *fp_crt_e;
-	std::cerr.clear(); // clear anything before AllocConsole();
-
-	// set the screen buffer to be big enough to let us scroll text
-	CONSOLE_SCREEN_BUFFER_INFO coninfo;
-	GetConsoleScreenBufferInfo(std_o_handle, &coninfo);
-	coninfo.dwSize.Y = 500; // max console lines
-	SetConsoleScreenBufferSize(std_o_handle, coninfo.dwSize);}
-#endif

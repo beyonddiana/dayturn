@@ -69,10 +69,6 @@ public:
 	// Inherited from LLPluginInstanceMessageListener
 	/* virtual */ void receivePluginMessage(const std::string &message);
 	
-#if LL_WINDOWS
-	void createConsole();
-#endif
-
 private:
 
 	enum EState
@@ -86,7 +82,6 @@ private:
 		STATE_RUNNING,				// steady state (processing messages)
         STATE_SHUTDOWNREQ,          // Parent has requested a shutdown.
 		STATE_UNLOADING,			// plugin has sent shutdown_response and needs to be unloaded
-		STATE_UNLOADING_CLEANED,	// plugin has (hopefully) cleaned up what it has allocated, now it wants to be cleaned
 		STATE_UNLOADED,				// plugin has been unloaded
 		STATE_ERROR,				// generic bailout state
 		STATE_DONE					// state machine will sit in this state after either error or normal termination.

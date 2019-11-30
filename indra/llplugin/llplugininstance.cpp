@@ -118,7 +118,7 @@ int LLPluginInstance::load(const std::string& plugin_dir, std::string &plugin_fi
 	{
 		result = init_function(staticReceiveMessage, (void*)this, &mPluginSendMessageFunction, &mPluginUserData);
 
-		if((result != APR_SUCCESS) || (mPluginUserData == NULL))
+		if(result != APR_SUCCESS)
 		{
 			LL_WARNS("Plugin") << "call to init function failed with error " << result << LL_ENDL;
 		}
@@ -134,8 +134,7 @@ int LLPluginInstance::load(const std::string& plugin_dir, std::string &plugin_fi
  */
 void LLPluginInstance::sendMessage(const std::string &message)
 {
-	// Don't check for a NULL mPluginUserData *ON PAIN OF DEATH* -- MC
-	if (mPluginSendMessageFunction && mPluginUserData)
+	if(mPluginSendMessageFunction)
 	{
 		LL_DEBUGS("Plugin") << "sending message to plugin: \"" << message << "\"" << LL_ENDL;
 		mPluginSendMessageFunction(message.c_str(), &mPluginUserData);
