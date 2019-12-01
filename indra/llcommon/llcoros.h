@@ -33,10 +33,8 @@
 #include "llsingleton.h"
 #include <boost/ptr_container/ptr_map.hpp>
 #include <boost/function.hpp>
+#include <boost/thread/tss.hpp>
 #include <string>
-#include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/repetition/enum_binary_params.hpp>
-#include <boost/preprocessor/iteration/local.hpp>
 #include <stdexcept>
 #include "llcoro_get_id.h"          // for friend declaration
 
@@ -135,32 +133,72 @@ public:
     bool kill(const std::string& name);
 
     /**
-     * From within a coroutine, pass its @c self object to look up the
-     * (tweaked) name string by which this coroutine is registered. Returns
-     * the empty string if not found (e.g. if the coroutine was launched by
-     * hand rather than using LLCoros::launch()).
+     * From within a coroutine, look up the (tweaked) name string by which
+     * this coroutine is registered. Returns the empty string if not found
+     * (e.g. if the coroutine was launched by hand rather than using
+     * LLCoros::launch()).
      */
     std::string getName() const;
-    
+
     /// for delayed initialization
     void setStackSize(S32 stacksize);
+
+    /// get the current coro::self& for those who really really care
+    static coro::self& get_self();
 
 private:
     LLCoros();
     friend class LLSingleton<LLCoros>;
+    friend class llcoro::Suspending;
     std::string generateDistinctName(const std::string& prefix) const;
     bool cleanup(const LLSD&);
+    struct CoroData;
+    static void no_cleanup(CoroData*);
+    static void toplevel(coro::self& self, CoroData* data, const callable_t& callable);
 
     S32 mStackSize;
-    typedef boost::ptr_map<std::string, coro> CoroMap;
+
+    // coroutine-local storage, as it were: one per coro we track
+    struct CoroData
+    {
+        CoroData(CoroData* prev, const std::string& name,
+                 const callable_t& callable, S32 stacksize);
+
+        // The boost::dcoroutines library supports asymmetric coroutines. Every
+        // time we context switch out of a coroutine, we pass control to the
+        // previously-active one (or to the non-coroutine stack owned by the
+        // thread). So our management of the "current" coroutine must be able to
+        // restore the previous value when we're about to switch away.
+        CoroData* mPrev;
+        // tweaked name of the current coroutine
+        const std::string mName;
+        // the actual coroutine instance
+        LLCoros::coro mCoro;
+        // When the dcoroutine library calls a top-level callable, it implicitly
+        // passes coro::self& as the first parameter. All our consumer code used
+        // to explicitly pass coro::self& down through all levels of call stack,
+        // because at the leaf level we need it for context-switching. But since
+        // coroutines are based on cooperative switching, we can cause the
+        // top-level entry point to stash a pointer to the currently-running
+        // coroutine, and manage it appropriately as we switch out and back in.
+        // That eliminates the need to pass it as an explicit parameter down
+        // through every level, which is unfortunately viral in nature. Finding it
+        // implicitly rather than explicitly allows minor maintenance in which a
+        // leaf-level function adds a new async I/O call that suspends the calling
+        // coroutine, WITHOUT having to propagate coro::self& through every
+        // function signature down to that point -- and of course through every
+        // other caller of every such function.
+        LLCoros::coro::self* mSelf;
+    };
+    typedef boost::ptr_map<std::string, CoroData> CoroMap;
     CoroMap mCoros;
+
+    // identify the current coroutine's CoroData
+    static boost::thread_specific_ptr<LLCoros::CoroData> sCurrentCoro;
 };
 
 namespace llcoro
 {
-
-/// get the current coro::self& for those who really really care
-LLCoros::coro::self& get_self();
 
 /// Instantiate one of these in a block surrounding any leaf point when
 /// control literally switches away from this coroutine.
@@ -171,7 +209,7 @@ public:
     ~Suspending();
 
 private:
-    LLCoros::coro::self* mSuspended;
+    LLCoros::CoroData* mSuspended;
 };
 
 } // namespace llcoro
