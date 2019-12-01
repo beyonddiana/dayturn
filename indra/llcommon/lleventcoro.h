@@ -110,6 +110,10 @@ VoidListener<LISTENER> voidlistener(const LISTENER& listener)
 void suspend();
 
 /**
+ * Yield control from a coroutine for at least the specified number of seconds
+ */
+void suspendUntilTimeout(float seconds);
+/**
  * Post specified LLSD event on the specified LLEventPump, then wait for a
  * response on specified other LLEventPump. This is more than mere
  * convenience: the difference between this function and the sequence
