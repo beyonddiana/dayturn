@@ -37,8 +37,12 @@
 #include <boost/noncopyable.hpp>
 #include <string>
 #include <stdexcept>
-#include "llcoro_get_id.h"          // for friend declaration
 
+// forward-declare helper class
+namespace llcoro
+{
+class Suspending;
+}
 
 /**
  * Registry of named Boost.Coroutine instances
