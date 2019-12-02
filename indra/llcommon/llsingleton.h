@@ -25,8 +25,6 @@
 #ifndef LLSINGLETON_H
 #define LLSINGLETON_H
 
-#include "llerror.h"	// *TODO: eliminate this
-
 #include <boost/noncopyable.hpp>
 #include <boost/unordered_set.hpp>
 #include <list>
@@ -79,10 +77,11 @@ protected:
     typedef enum e_init_state
     {
         UNINITIALIZED = 0,          // must be default-initialized state
-        CONSTRUCTING,
-        INITIALIZING,
-        INITIALIZED,
-        DELETED
+        CONSTRUCTING,               // within DERIVED_TYPE constructor
+        CONSTRUCTED,                // finished DERIVED_TYPE constructor
+        INITIALIZING,               // within DERIVED_TYPE::initSingleton()
+        INITIALIZED,                // normal case
+        DELETED                     // deleteSingleton() or deleteAll() called
     } EInitState;
 
     // Define tag<T> to pass to our template constructor. You can't explicitly
@@ -140,6 +139,10 @@ protected:
     static void logwarns(const char* p1, const char* p2="",
                          const char* p3="", const char* p4="");
     static std::string demangle(const char* mangled);
+    template <typename T>
+    static std::string classname()       { return demangle(typeid(T).name()); }
+    template <typename T>
+    static std::string classname(T* ptr) { return demangle(typeid(*ptr).name()); }
 
     // Default methods in case subclass doesn't declare them.
     virtual void initSingleton() {}
