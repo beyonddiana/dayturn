@@ -38,15 +38,14 @@
 #include <sstream>
 #include <stdexcept>
 
-
 namespace {
-    void log(LLError::ELevel level,
-             const char* p1, const char* p2, const char* p3, const char* p4);
-    
-    void logdebugs(const char* p1="", const char* p2="", const char* p3="", const char* p4="");
-    
-    bool oktolog();
-}
+void log(LLError::ELevel level,
+         const char* p1, const char* p2, const char* p3, const char* p4);
+
+void logdebugs(const char* p1="", const char* p2="", const char* p3="", const char* p4="");
+
+bool oktolog();
+} // anonymous namespace
 
 // Our master list of all LLSingletons is itself an LLSingleton. We used to
 // store it in a function-local static, but that could get destroyed before
@@ -151,7 +150,7 @@ void LLSingletonBase::pop_initializing()
     if (list.empty())
     {
         logerrs("Underflow in stack of currently-initializing LLSingletons at ",
-                demangle(typeid(*this).name()).c_str(), "::getInstance()");
+                classname(this).c_str(), "::getInstance()");
     }
     
     // Now we know list.back() exists: capture it
@@ -173,8 +172,8 @@ void LLSingletonBase::pop_initializing()
     if (back != this)
     {
         logerrs("Push/pop mismatch in stack of currently-initializing LLSingletons: ",
-                demangle(typeid(*this).name()).c_str(), "::getInstance() trying to pop ",
-                demangle(typeid(*back).name()).c_str());
+                classname(this).c_str(), "::getInstance() trying to pop ",
+                classname(back).c_str());
     }
     
     // log AFTER popping so logging singletons don't cry circularity
@@ -206,7 +205,6 @@ void LLSingletonBase::reset_initializing(list_t::size_type size)
     }
 }
 
-
 //static
 void LLSingletonBase::log_initializing(const char* verb, const char* name)
 {
@@ -218,12 +216,80 @@ void LLSingletonBase::log_initializing(const char* verb, const char* name)
              ri != rend; ++ri)
         {
             LLSingletonBase* sb(*ri);
-            LL_CONT << ' ' << demangle(typeid(*sb).name());
+            LL_CONT << ' ' << classname(sb);
         }
         LL_ENDL;
     }
 }
 
+
+//static
+void LLSingletonBase::cleanupAll()
+{
+    // It's essential to traverse these in dependency order.
+    BOOST_FOREACH(LLSingletonBase* sp, dep_sort())
+    {
+        // Call cleanupSingleton() only if we haven't already done so for this
+        // instance.
+        if (! sp->mCleaned)
+        {
+            sp->mCleaned = true;
+            
+            logdebugs("calling ",
+                      classname(sp).c_str(), "::cleanupSingleton()");
+            try
+            {
+                sp->cleanupSingleton();
+            }
+            catch (const std::exception& e)
+            {
+                logwarns("Exception in ", classname(sp).c_str(),
+                         "::cleanupSingleton(): ", e.what());
+            }
+            catch (...)
+            {
+                logwarns("Unknown exception in ", classname(sp).c_str(),
+                         "::cleanupSingleton()");
+            }
+        }
+    }
+}
+
+//static
+void LLSingletonBase::deleteAll()
+{
+    // It's essential to traverse these in dependency order.
+    BOOST_FOREACH(LLSingletonBase* sp, dep_sort())
+    {
+        // Capture the class name first: in case of exception, don't count on
+        // being able to extract it later.
+        const std::string name = classname(sp);
+        try
+        {
+            // Call static method through instance function pointer.
+            if (! sp->mDeleteSingleton)
+            {
+                // This Should Not Happen... but carry on.
+                logwarns(name.c_str(), "::mDeleteSingleton not initialized!");
+            }
+            else
+            {
+                // properly initialized: call it.
+                logdebugs("calling ", name.c_str(), "::deleteSingleton()");
+                // From this point on, DO NOT DEREFERENCE sp!
+                sp->mDeleteSingleton();
+            }
+        }
+        catch (const std::exception& e)
+        {
+            logwarns("Exception in ", name.c_str(), "::deleteSingleton(): ", e.what());
+        }
+        catch (...)
+        {
+            logwarns("Unknown exception in ", name.c_str(), "::deleteSingleton()");
+        }
+    }
+}
 
 
 /*---------------------------- Logging helpers -----------------------------*/
@@ -237,51 +303,58 @@ bool oktolog()
 void log(LLError::ELevel level,
          const char* p1, const char* p2, const char* p3, const char* p4)
 {
-     // The is_available() test below ensures that we'll stop logging once
-     // LLError has been cleaned up. If we had a similar portable test for
-     // std::cerr, this would be a good place to use it.
- 
-     // Check LLError::is_available() because some of LLError's infrastructure
-     // is itself an LLSingleton. If that LLSingleton has not yet been
-     // initialized, trying to log will engage LLSingleton machinery... and
-     // around and around we go.
-     if (LLError::is_available())
-     {
-         LL_VLOGS(level, "LLSingleton") << p1 << p2 << p3 << p4 << LL_ENDL;
-     }
-     else
-     {
-         // Caller may be a test program, or something else whose stderr is
-         // visible to the user.
-         std::cerr << p1 << p2 << p3 << p4 << std::endl;
-     }
- }
- 
- void logdebugs(const char* p1, const char* p2, const char* p3, const char* p4)
- {
-     log(LLError::LEVEL_DEBUG, p1, p2, p3, p4);
- }
- } // anonymous namespace 
- 
-  //static
- void LLSingletonBase::logwarns(const char* p1, const char* p2, const char* p3, const char* p4)
- {
-     log(LLError::LEVEL_WARN, p1, p2, p3, p4);
- }
- 
- //static
- void LLSingletonBase::logerrs(const char* p1, const char* p2, const char* p3, const char* p4)
- {
-     log(LLError::LEVEL_ERROR, p1, p2, p3, p4);
-     // The other important side effect of LL_ERRS() is
-     // https://www.youtube.com/watch?v=OMG7paGJqhQ (emphasis on OMG)
-     LLError::crashAndLoop(std::string());
- }
+    // The is_available() test below ensures that we'll stop logging once
+    // LLError has been cleaned up. If we had a similar portable test for
+    // std::cerr, this would be a good place to use it.
 
+    // Check LLError::is_available() because some of LLError's infrastructure
+    // is itself an LLSingleton. If that LLSingleton has not yet been
+    // initialized, trying to log will engage LLSingleton machinery... and
+    // around and around we go.
+    if (LLError::is_available())
+    {
+        LL_VLOGS(level, "LLSingleton") << p1 << p2 << p3 << p4 << LL_ENDL;
+    }
+    else
+    {
+        // Caller may be a test program, or something else whose stderr is
+        // visible to the user.
+        std::cerr << p1 << p2 << p3 << p4 << std::endl;
+    }
+}
 
+void logdebugs(const char* p1, const char* p2, const char* p3, const char* p4)
+{
+    log(LLError::LEVEL_DEBUG, p1, p2, p3, p4);
+}
+} // anonymous namespace        
 
+//static
+void LLSingletonBase::logwarns(const char* p1, const char* p2, const char* p3, const char* p4)
+{
+    log(LLError::LEVEL_WARN, p1, p2, p3, p4);
+}
 
- std::string LLSingletonBase::demangle(const char* mangled)
- {
-     return LLError::Log::demangle(mangled);
- }
+//static
+void LLSingletonBase::logerrs(const char* p1, const char* p2, const char* p3, const char* p4)
+{
+    log(LLError::LEVEL_ERROR, p1, p2, p3, p4);
+    // The other important side effect of LL_ERRS() is
+    // https://www.youtube.com/watch?v=OMG7paGJqhQ (emphasis on OMG)
+    std::ostringstream out;
+    out << p1 << p2 << p3 << p4;
+    auto crash = LLError::getFatalFunction();
+    if (crash)
+    {
+        crash(out.str());
+    }
+    else
+    {
+        LLError::crashAndLoop(out.str());
+    }
+}
+
+std::string LLSingletonBase::demangle(const char* mangled)
+{
+    return LLError::Log::demangle(mangled);
+}
