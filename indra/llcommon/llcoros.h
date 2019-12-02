@@ -37,6 +37,7 @@
 #include <boost/noncopyable.hpp>
 #include <string>
 #include <stdexcept>
+#include "llcoro_get_id.h"          // for friend declaration
 
 // forward-declare helper class
 namespace llcoro
@@ -145,10 +146,6 @@ public:
      */
     std::string getName() const;
 
-    /// Get an opaque, distinct token for the running coroutine (or main).
-    typedef void* id;
-    static id get_id() { return Current(); }
-
     /// for delayed initialization
     void setStackSize(S32 stacksize);
 
@@ -174,6 +171,7 @@ private:
     LLCoros();
     friend class LLSingleton<LLCoros>;
     friend class llcoro::Suspending;
+    friend llcoro::id llcoro::get_id();
     std::string generateDistinctName(const std::string& prefix) const;
     bool cleanup(const LLSD&);
     struct CoroData;

@@ -146,7 +146,7 @@ set(llcommon_HEADER_FILES
     llcleanup.h
     llcommon.h
     llcommonutils.h
-    llcoro_get_id.cpp
+    llcoro_get_id.h
     llcoros.h
     llcrc.h
     llcriticaldamp.h
