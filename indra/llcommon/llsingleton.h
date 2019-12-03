@@ -31,6 +31,8 @@
 #include <vector>
 #include <typeinfo>
 
+#include "mutex.h"
+
 /**
  * LLSingleton implements the getInstance() method part of the Singleton
  * pattern. It can't make the derived class constructors protected, though, so
