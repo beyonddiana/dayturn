@@ -47,6 +47,7 @@
 #include "llvoavatar.h"
 #include "llvoavatarself.h"
 #include "llwearableitemslist.h"
+#include "lleconomy.h"
 
 static bool is_tab_header_clicked(LLAccordionCtrlTab* tab, S32 y);
 
@@ -1127,6 +1128,13 @@ LLOutfitListGearMenuBase::LLOutfitListGearMenuBase(LLOutfitListBase* olist)
     mMenu = LLUICtrlFactory::getInstance()->createFromFile<LLToggleableMenu>(
         "menu_outfit_gear.xml", gMenuHolder, LLViewerMenuHolderGL::child_registry_t::instance());
     llassert(mMenu);
+    
+    // Show correct upload fee in context menu
+    LLMenuItemCallGL* upload_item = mMenu->findChild<LLMenuItemCallGL>("upload_photo");
+    if (upload_item)
+    {
+        upload_item->setLabelArg("[AMOUNT]", llformat("%d", LLGlobalEconomy::getInstance()->getPriceUpload()));
+    }
 }
 
 LLOutfitListGearMenuBase::~LLOutfitListGearMenuBase()
