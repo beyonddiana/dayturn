@@ -32,7 +32,6 @@
 #include "llbufferstream.h"
 #include "llhttpclient.h"
 #include "llimagepng.h"
-#include "llplugincookiestore.h"
 
 // newview
 #include "llpanelprofile.h" // for getProfileURL(). FIXME: move the method to LLAvatarActions
