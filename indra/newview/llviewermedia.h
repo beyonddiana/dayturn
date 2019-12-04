@@ -47,7 +47,6 @@ class LLViewerMediaTexture;
 class LLMediaEntry;
 class LLVOVolume;
 class LLMimeDiscoveryResponder;
-class LLPluginCookieStore;
 
 typedef LLPointer<LLViewerMediaImpl> viewer_media_t;
 ///////////////////////////////////////////////////////////////////////////////
@@ -149,13 +148,6 @@ public:
 	// Set the proxy config for all loaded plugins
 	static void setProxyConfig(bool enable, const std::string &host, int port);
 	
-	static LLPluginCookieStore *getCookieStore();
-	static void loadCookieFile();
-	static void saveCookieFile();
-	static void addCookie(const std::string &name, const std::string &value, const std::string &domain, const LLDate &expires, const std::string &path = std::string("/"), bool secure = false );
-	static void addSessionCookie(const std::string &name, const std::string &value, const std::string &domain, const std::string &path = std::string("/"), bool secure = false );
-	static void removeCookie(const std::string &name, const std::string &domain, const std::string &path = std::string("/") );
-
 	static void openIDSetup(const std::string &openid_url, const std::string &openid_token);
 	static void openIDCookieResponse(const std::string& url, const std::string &cookie);
 	
@@ -174,7 +166,6 @@ private:
 	static void setOpenIDCookie(const std::string& url);
 	static void onTeleportFinished();
 	
-	static LLPluginCookieStore *sCookieStore;
 	static LLURL sOpenIDURL;
 	static std::string sOpenIDCookie;
 	static LLPluginClassMedia* sSpareBrowserMediaSource;
@@ -334,7 +325,6 @@ public:
 
 	// Inherited from LLPluginClassMediaOwner
 	/*virtual*/ void handleMediaEvent(LLPluginClassMedia* plugin, LLPluginClassMediaOwner::EMediaEvent);
-	/*virtual*/ void handleCookieSet(LLPluginClassMedia* self, const std::string &cookie);
 
 	// LLEditMenuHandler overrides
 	/*virtual*/ void	cut();
