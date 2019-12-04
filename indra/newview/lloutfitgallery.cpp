@@ -46,11 +46,13 @@
 #include "llinventoryfunctions.h"
 #include "llinventorymodel.h"
 #include "lllocalbitmaps.h"
+#include "llmenubutton.h"
 #include "llnotificationsutil.h"
 #include "llpaneloutfitsinventory.h"
 #include "lltabcontainer.h"
 #include "lltexturectrl.h"
 #include "lltrans.h"
+#include "lltransutil.h"
 #include "llviewercontrol.h"
 #include "llviewermenufile.h"
 #include "llviewertexturelist.h"
@@ -834,7 +836,16 @@ LLContextMenu* LLOutfitGalleryContextMenu::createMenu()
     enable_registrar.add("Outfit.OnEnable", boost::bind(&LLOutfitGalleryContextMenu::onEnable, this, _2));
     enable_registrar.add("Outfit.OnVisible", boost::bind(&LLOutfitGalleryContextMenu::onVisible, this, _2));
     
-    return createFromFile("menu_gallery_outfit_tab.xml");
+    LLContextMenu* mMenu = createFromFile("menu_gallery_outfit_tab.xml");
+    
+    // Show correct upload fee in context menu
+    LLMenuItemCallGL* upload_item = mMenu->findChild<LLMenuItemCallGL>("upload_photo");
+    if (upload_item)
+    {
+        upload_item->setLabelArg("[AMOUNT]", llformat("%d", LLGlobalEconomy::getInstance()->getPriceUpload()));
+    }
+    return mMenu;
+    //
 }
 
 void LLOutfitGalleryContextMenu::onUploadPhoto(const LLUUID& outfit_cat_id)
