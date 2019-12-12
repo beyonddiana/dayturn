@@ -1311,7 +1311,7 @@ BOOL LLViewerWindow::handleMiddleMouseUp(LLWindow *window,  LLCoordGL pos, MASK 
 	return TRUE;
 }
 
-BOOL LLViewerWindow::handleOtherMouse(LLWindow *window, LLCoordGL pos, MASK mask, S32 button, bool down)
+bool LLViewerWindow::handleOtherMouse(LLWindow *window, LLCoordGL pos, MASK mask, S32 button, bool down)
 {
     switch (button)
     {
@@ -1328,17 +1328,17 @@ BOOL LLViewerWindow::handleOtherMouse(LLWindow *window, LLCoordGL pos, MASK mask
     }
 
     // Always handled as far as the OS is concerned.
-    return TRUE;
+    return true;
 }
 
-BOOL LLViewerWindow::handleOtherMouseDown(LLWindow *window, LLCoordGL pos, MASK mask, S32 button)
+bool LLViewerWindow::handleOtherMouseDown(LLWindow *window, LLCoordGL pos, MASK mask, S32 button)
 {
-    return handleOtherMouse(window, pos, mask, button, TRUE);
+    return handleOtherMouse(window, pos, mask, button, true);
 }
 
-BOOL LLViewerWindow::handleOtherMouseUp(LLWindow *window, LLCoordGL pos, MASK mask, S32 button)
+bool LLViewerWindow::handleOtherMouseUp(LLWindow *window, LLCoordGL pos, MASK mask, S32 button)
 {
-    return handleOtherMouse(window, pos, mask, button, FALSE);
+    return handleOtherMouse(window, pos, mask, button, false);
 }
 
 // WARNING: this is potentially called multiple times per frame
