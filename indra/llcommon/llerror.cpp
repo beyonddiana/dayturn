@@ -346,42 +346,37 @@ namespace LLError
 {
 	std::string Log::demangle(const char* mangled)
 	{
-
-
 #ifdef __GNUC__
 		// GCC: type_info::name() returns a mangled class name,st demangle
-
-		static size_t abi_name_len = 100;
-		static char* abi_name_buf = (char*)malloc(abi_name_len);
-			// warning: above is voodoo inferred from the GCC manual,
-			// do NOT change
-
-		int status;
-			// We don't use status, and shouldn't have to pass apointer to it
-			// but gcc 3.3 libstc++'s implementation of demangling is broken
-			// and fails without.
-			
-		char* name = abi::__cxa_demangle(mangled,
-										abi_name_buf, &abi_name_len, &status);
-			// this call can realloc the abi_name_buf pointer (!)
-
-		return name ? name : mangled;
+		// passing nullptr, 0 forces allocation of a unique buffer we can free
+		// fixing MAINT-8724 on OSX 10.14
+		int status = -1;
+		char* name = abi::__cxa_demangle(mangled, nullptr, 0, &status);
+		std::string result(name ? name : mangled);
+		free(name);
+		return result;
 
 #elif LL_WINDOWS
-		// DevStudio: type_info::name() includes the text "class " at the start
-
-		static const std::string class_prefix = "class ";
-
+		// Visual Studio: type_info::name() includes the text "class " at the start
 		std::string name = mangled;
-		std::string::size_type p = name.find(class_prefix);
-		if (p == std::string::npos)
+		for (const auto& prefix : std::vector<std::string>{ "class ", "struct " })
 		{
-			return name;
+			if (0 == name.compare(0, prefix.length(), prefix))
+			{
+				return name.substr(prefix.length());
+			}
 		}
+		// huh, that's odd, we should see one or the other prefix -- but don't
+		// try to log unless logging is already initialized
+		if (is_available())
+		{
+			// in Python, " or ".join(vector) -- but in C++, a PITB
+			LL_DEBUGS() << "Did not see 'class' or 'struct' prefix on '"
+				<< name << "'" << LL_ENDL;
+		}
+		return name;
 
-		return name.substr(p + class_prefix.size());
-
-#else		
+#else	// neither GCC nor Visual Studio	
 		return mangled;
 #endif
 	}
