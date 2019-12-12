@@ -98,14 +98,14 @@ BOOL LLWindowCallbacks::handleMiddleMouseUp(LLWindow *window, const LLCoordGL po
 	return FALSE;
 }
 
-BOOL LLWindowCallbacks::handleOtherMouseDown(LLWindow *window, const LLCoordGL pos, MASK mask, S32 button)
+bool LLWindowCallbacks::handleOtherMouseDown(LLWindow *window, const LLCoordGL pos, MASK mask, S32 button)
 {
-    return FALSE;
+    return false;
 }
 
-BOOL LLWindowCallbacks::handleOtherMouseUp(LLWindow *window, const LLCoordGL pos, MASK mask, S32 button)
+bool LLWindowCallbacks::handleOtherMouseUp(LLWindow *window, const LLCoordGL pos, MASK mask, S32 button) 
 {
-    return FALSE;
+    return false;
 }
 
 bool LLWindowCallbacks::handleActivate(LLWindow *window, bool activated)

@@ -49,8 +49,8 @@ public:
 	virtual BOOL handleRightMouseUp(LLWindow *window,  LLCoordGL pos, MASK mask);
 	virtual BOOL handleMiddleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask);
 	virtual BOOL handleMiddleMouseUp(LLWindow *window,  LLCoordGL pos, MASK mask);
-	virtual BOOL handleOtherMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask, S32 button);
-	virtual BOOL handleOtherMouseUp(LLWindow *window,  LLCoordGL pos, MASK mask, S32 button);
+	virtual bool handleOtherMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask, S32 button);
+	virtual bool handleOtherMouseUp(LLWindow *window,  LLCoordGL pos, MASK mask, S32 button);
 	virtual bool handleActivate(LLWindow *window, bool activated);
 	virtual bool handleActivateApp(LLWindow *window, bool activating);
 	virtual void handleMouseMove(LLWindow *window,  LLCoordGL pos, MASK mask);
