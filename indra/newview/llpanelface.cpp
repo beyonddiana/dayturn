@@ -1043,6 +1043,7 @@ void LLPanelFace::updateUI(bool force_set_values /*false*/)
 
 			bool enabled = (editable && isIdenticalPlanarTexgen());
 			childSetValue("checkbox planar align", align_planar && enabled);
+			childSetVisible("checkbox planar align", enabled);
 			childSetEnabled("checkbox planar align", enabled);
 
 			if (align_planar && enabled)
