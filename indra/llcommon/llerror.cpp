@@ -1050,8 +1050,25 @@ namespace
 }
 
 namespace {
-	LLMutex gLogMutex;
-	LLMutex gCallStacksLogMutex;
+	// We need a couple different mutexes, but we want to use the same mechanism
+	// for both. Make getMutex() a template function with different instances
+	// for different MutexDiscriminator values.
+	enum MutexDiscriminator
+	{
+		LOG_MUTEX,
+		STACKS_MUTEX
+	};
+	// Some logging calls happen very early in processing -- so early that our
+	// module-static variables aren't yet initialized. getMutex() wraps a
+	// function-static LLMutex so that early calls can still have a valid
+	// LLMutex instance.
+	template <MutexDiscriminator MTX>
+	LLMutex* getMutex()
+	{
+		// guaranteed to be initialized the first time control reaches here
+		static LLMutex sMutex;
+		return &sMutex;
+	}
 
 	bool checkLevelMap(const LevelMap& map, const std::string& key,
 						LLError::ELevel& level)
@@ -1099,7 +1116,7 @@ namespace LLError
 
 	bool Log::shouldLog(CallSite& site)
 	{
-		LLMutexTrylock lock(&gLogMutex, 5);
+		LLMutexTrylock lock(getMutex<LOG_MUTEX>(), 5);
 		if (!lock.isLocked())
 		{
 			return false;
@@ -1150,7 +1167,7 @@ namespace LLError
 
 	std::ostringstream* Log::out()
 	{
-		LLMutexTrylock lock(&gLogMutex,5);
+		LLMutexTrylock lock(getMutex<LOG_MUTEX>(),5);
 		// If we hit a logging request very late during shutdown processing,
 		// when either of the relevant LLSingletons has already been deleted,
 		// DO NOT resurrect them.
@@ -1170,7 +1187,7 @@ namespace LLError
 
 	void Log::flush(std::ostringstream* out, char* message)
 	{
-		LLMutexTrylock lock(&gLogMutex,5);
+		LLMutexTrylock lock(getMutex<LOG_MUTEX>(),5);
 		if (!lock.isLocked())
 		{
 			return;
@@ -1210,7 +1227,7 @@ namespace LLError
 
 	void Log::flush(std::ostringstream* out, const CallSite& site)
 	{
-		LLMutexTrylock lock(&gLogMutex,5);
+		LLMutexTrylock lock(getMutex<LOG_MUTEX>(),5);
 		if (!lock.isLocked())
 		{
 			return;
@@ -1399,7 +1416,7 @@ namespace LLError
    //static
    void LLCallStacks::push(const char* function, const int line)
    {
-       LLMutexTrylock lock(&gCallStacksLogMutex, 5);
+       LLMutexTrylock lock(getMutex<STACKS_MUTEX>(), 5);
        if (!lock.isLocked())
        {
            return;
@@ -1434,7 +1451,7 @@ namespace LLError
    //static
    void LLCallStacks::end(std::ostringstream* _out)
    {
-       LLMutexTrylock lock(&gCallStacksLogMutex, 5);
+       LLMutexTrylock lock(getMutex<STACKS_MUTEX>(), 5);
        if (!lock.isLocked())
        {
            return;
@@ -1450,13 +1467,13 @@ namespace LLError
 		   clear() ;
 	   }
 
-	   LLError::Log::flush(_out, sBuffer[sIndex++]) ;	   
+	   LLError::Log::flush(_out, sBuffer[sIndex++]) ;
    }
 
    //static
    void LLCallStacks::print()
    {
-       LLMutexTrylock lock(&gCallStacksLogMutex, 5);
+       LLMutexTrylock lock(getMutex<STACKS_MUTEX>(), 5);
        if (!lock.isLocked())
        {
            return;
@@ -1494,7 +1511,7 @@ namespace LLError
 
 bool debugLoggingEnabled(const std::string& tag)
 {
-    LLMutexTrylock lock(&gLogMutex, 5);
+    LLMutexTrylock lock(getMutex<LOG_MUTEX>(), 5);
     if (!lock.isLocked())
     {
         return false;
