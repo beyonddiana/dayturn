@@ -19,7 +19,7 @@ Linden Lab's development system for their viewer is referenced in: https://wiki.
 
 **You will need these items before you begin:**
 
--  An installer for Windows 7 Pro 64-bit
+-  An installer for Windows 10 Pro 64-bit
 
 -  A valid Windows Product key
 
@@ -27,7 +27,7 @@ Linden Lab's development system for their viewer is referenced in: https://wiki.
 
 -  A valid license for Visual Studio 2013
 
-- Install Windows 7 Pro 64-bit using your own product key
+- Install Windows 10 Pro 64-bit using your own product key
 
 - Keep running Windows Update (Start Menu -> All Programs -> Windows Update) until clicking on "Check for Updates" there tells you everything is up to date.
 
@@ -40,7 +40,7 @@ Linden Lab's development system for their viewer is referenced in: https://wiki.
 - Install VS 2013 Pro
 
 - Note: If you don't own a copy of VS 2013 Pro, you might consider installing the Community Version from
-  [https://visualstudio.microsoft.com/vs/older-downloads/ ] as the Express version does not have devenv.exe
+  [https://visualstudio.microsoft.com/vs/older-downloads/ ] as the Express version does not have devenv.exe,
   and therefore will not be able to build the viewer. 
 
 - Run the installer as Administrator (right click, "Run as administrator")
@@ -61,7 +61,7 @@ Linden Lab's development system for their viewer is referenced in: https://wiki.
 
 - At the Installation Options screen, set everything except the DirectX Headers and Libs to "This feature will not be installed"
 
-***Tortoise Hg***
+***Tortoise Hg (optional)***
 
 - Download and install [http://tortoisehg.bitbucket.org/download/ TortoiseHg 3.2.3] (64-bit)
 
