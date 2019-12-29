@@ -653,7 +653,7 @@ F32 LLVOAvatar::sUnbakedUpdateTime = 0.f;
 F32 LLVOAvatar::sGreyTime = 0.f;
 F32 LLVOAvatar::sGreyUpdateTime = 0.f;
 	//<FS:Beq> BOM bake limits
-int	LLVOAvatar::sMaxBakes;
+S32	LLVOAvatar::sMaxBakes;
 	//</FS:Beq>
 
 //-----------------------------------------------------------------------------
@@ -10013,6 +10013,18 @@ void LLVOAvatar::removeMissingBakedTextures()
 //virtual
 void LLVOAvatar::updateRegion(LLViewerRegion *regionp)
 {
+	//<FS:Beq> BOM constrain number of bake requests when BOM not supported,
+	// TEX_HEAD_TATTOO and BAKED_LEFT_ARM are the first new entries
+	
+	sMaxBakes = gAgent.getRegion()->bakesOnMeshEnabled()?BAKED_NUM_INDICES:BAKED_LEFT_ARM;
+	if(!gSavedSettings.getBOOL("RegionUsingBakesOnMesh") != getRegion()->bakesOnMeshEnabled())
+	{
+		// force a rebake when the last grid we were on (including previous login) had different BOM support
+		// This replicates forceAppearanceUpdate rather than pulling in the whole of llavatarself.
+		doAfterInterval(boost::bind(&LLVOAvatarSelf::forceBakeAllTextures,	gAgentAvatarp.get(), true), 5.0);
+		gSavedSettings.setBOOL("RegionUsingBakesOnMesh", getRegion()->bakesOnMeshEnabled());
+	}
+	//</FS:Beq>
 	LLViewerObject::updateRegion(regionp);
 }
 
