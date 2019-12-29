@@ -5006,7 +5006,10 @@ void LLAgent::sendAgentSetAppearance()
 	// KLW - TAT this will probably need to check the local queue.
 	BOOL textures_current = gAgentAvatarp->areTexturesCurrent();
 
-	for(U8 baked_index = 0; baked_index < BAKED_NUM_INDICES; baked_index++ )
+	//<FS:Beq> BOM fallback legacy opensim
+	// for(U8 baked_index = 0; baked_index < BAKED_NUM_INDICES; baked_index++ )
+	for(U8 baked_index = 0; baked_index < LLVOAvatar::sMaxBakes; baked_index++ )
+	//</FS:Beq>
 	{
 		const ETextureIndex texture_index = LLAvatarAppearanceDictionary::bakedToLocalTextureIndex((EBakedTextureIndex)baked_index);
 
@@ -5039,7 +5042,10 @@ void LLAgent::sendAgentSetAppearance()
 			dumpSentAppearance(dump_prefix);
 		}
 		LL_DEBUGS("Avatar") << gAgentAvatarp->avString() << "TAT: Sending cached texture data" << LL_ENDL;
-		for (U8 baked_index = 0; baked_index < BAKED_NUM_INDICES; baked_index++)
+		//<FS:Beq> BOM fallback for legacy opensim
+		// for (U8 baked_index = 0; baked_index < BAKED_NUM_INDICES; baked_index++)
+		for (U8 baked_index = 0; baked_index < LLVOAvatar::sMaxBakes; baked_index++)
+		//</FS:Beq>
 		{
 			BOOL generate_valid_hash = TRUE;
 			if (isAgentAvatarValid() && !gAgentAvatarp->isBakedTextureFinal((LLAvatarAppearanceDefines::EBakedTextureIndex)baked_index))
@@ -5241,7 +5247,10 @@ LLAgentQueryManager::LLAgentQueryManager() :
 	mNumPendingQueries(0),
 	mUpdateSerialNum(0)
 {
-	for (U32 i = 0; i < BAKED_NUM_INDICES; i++)
+	//<FS:Beq> BOM fallback legacy opensim
+	// for (U32 i = 0; i < BAKED_NUM_INDICES; i++)
+	for (U32 i = 0; i < LLVOAvatar::sMaxBakes; i++)
+	// </FS:Beq>
 	{
 		mActiveCacheQueries[i] = 0;
 	}
