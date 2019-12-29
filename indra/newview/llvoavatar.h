@@ -320,6 +320,9 @@ public:
 	static F32		sPhysicsLODFactor; // user-settable physics LOD factor
 	static BOOL		sJointDebug; // output total number of joints being touched for each avatar
 	static BOOL		sDebugAvatarRotation;
+		//<FS:Beq> BOM bake limits
+	static int		sMaxBakes;
+	//</FS:Beq>
 
 	//--------------------------------------------------------------------
 	// Region state

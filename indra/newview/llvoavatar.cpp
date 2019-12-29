@@ -652,6 +652,9 @@ F32 LLVOAvatar::sUnbakedTime = 0.f;
 F32 LLVOAvatar::sUnbakedUpdateTime = 0.f;
 F32 LLVOAvatar::sGreyTime = 0.f;
 F32 LLVOAvatar::sGreyUpdateTime = 0.f;
+	//<FS:Beq> BOM bake limits
+int	LLVOAvatar::sMaxBakes;
+	//</FS:Beq>
 
 //-----------------------------------------------------------------------------
 // Helper functions
@@ -751,6 +754,10 @@ LLVOAvatar::LLVOAvatar(const LLUUID& id,
 	mImpostorDistance = 0;
 	mImpostorPixelArea = 0;
 
+	//<FS:Beq> BOM constrain number of bake requests when BOM not supported
+	// BAKED_LEFT_ARM is equal to the pre-BOM BAKED_NUM_INDICES
+	sMaxBakes = gAgent.getRegion()->bakesOnMeshEnabled()?BAKED_NUM_INDICES:BAKED_LEFT_ARM;
+	//</FS:Beq>
 	setNumTEs(TEX_NUM_INDICES);
 
 	mbCanSelect = TRUE;
