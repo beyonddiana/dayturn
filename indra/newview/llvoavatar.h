@@ -322,7 +322,7 @@ public:
 	static bool		sUseImpostors; //use impostors for far away avatars
 	static bool		sShowFootPlane;	// show foot collision plane reported by server
 	static bool		sShowCollisionVolumes;	// show skeletal collision volumes
-	static BOOL		sVisibleInFirstPerson;
+	static bool		sVisibleInFirstPerson;
 	static S32		sNumLODChangesThisFrame;
 	static S32		sNumVisibleChatBubbles;
 	static bool		sDebugInvisible;
@@ -593,9 +593,9 @@ private:
 	//--------------------------------------------------------------------
 public:
 	static void	cullAvatarsByPixelArea();
-	BOOL		isCulled() const { return mCulled; }
+	bool		isCulled() const { return mCulled; }
 private:
-	BOOL		mCulled;
+	bool		mCulled;
 
 	//--------------------------------------------------------------------
 	// Freeze counter
@@ -653,16 +653,16 @@ protected:
 
 
 	LLLoadedCallbackEntry::source_callback_list_t mCallbackTextureList ; 
-	BOOL mLoadedCallbacksPaused;
+	bool mLoadedCallbacksPaused;
 	std::set<LLUUID>	mTextureIDs;
 	//--------------------------------------------------------------------
 	// Local Textures
 	//--------------------------------------------------------------------
 protected:
-	virtual void	setLocalTexture(LLAvatarAppearanceDefines::ETextureIndex type, LLViewerTexture* tex, BOOL baked_version_exits, U32 index = 0);
-	virtual void	addLocalTextureStats(LLAvatarAppearanceDefines::ETextureIndex type, LLViewerFetchedTexture* imagep, F32 texel_area_ratio, BOOL rendered, BOOL covered_by_baked);
+	virtual void	setLocalTexture(LLAvatarAppearanceDefines::ETextureIndex type, LLViewerTexture* tex, bool baked_version_exits, U32 index = 0);
+	virtual void	addLocalTextureStats(LLAvatarAppearanceDefines::ETextureIndex type, LLViewerFetchedTexture* imagep, F32 texel_area_ratio, bool rendered, bool covered_by_baked);
 	// MULTI-WEARABLE: make self-only?
-	virtual void	setBakedReady(LLAvatarAppearanceDefines::ETextureIndex type, BOOL baked_version_exists, U32 index = 0);
+	virtual void	setBakedReady(LLAvatarAppearanceDefines::ETextureIndex type, bool baked_version_exists, U32 index = 0);
 
 	//--------------------------------------------------------------------
 	// Texture accessors
@@ -709,8 +709,8 @@ private:
 public:
 	void 			onFirstTEMessageReceived();
 private:
-	BOOL			mFirstTEMessageReceived;
-	BOOL			mFirstAppearanceMessageReceived;
+	bool			mFirstTEMessageReceived;
+	bool			mFirstAppearanceMessageReceived;
 	
 /**                    Textures
  **                                                                            **
@@ -819,11 +819,11 @@ public:
 public:
 	void 				clampAttachmentPositions();
 	virtual const LLViewerJointAttachment* attachObject(LLViewerObject *viewer_object);
-	virtual BOOL 		detachObject(LLViewerObject *viewer_object);
+	virtual bool 		detachObject(LLViewerObject *viewer_object);
 	static bool		    getRiggedMeshID( LLViewerObject* pVO, LLUUID& mesh_id );
 	void				cleanupAttachedMesh( LLViewerObject* pVO );
 	static LLVOAvatar*  findAvatarFromAttachment(LLViewerObject* obj);
-	/*virtual*/ BOOL	isWearingWearableType(LLWearableType::EType type ) const;
+	/*virtual*/ bool	isWearingWearableType(LLWearableType::EType type ) const;
 	LLViewerObject *	findAttachmentByID( const LLUUID & target_id ) const;
 	LLViewerJointAttachment* getTargetAttachmentPoint(LLViewerObject* viewer_object);
 
@@ -844,13 +844,13 @@ public:
 	// HUD functions
 	//--------------------------------------------------------------------
 public:
-	BOOL 				hasHUDAttachment() const;
+	bool 				hasHUDAttachment() const;
 	LLBBox 				getHUDBBox() const;
 	void 				resetHUDAttachments();
 	S32					getMaxAttachments() const;
-	BOOL				canAttachMoreObjects(U32 n=1) const;
+	bool				canAttachMoreObjects(U32 n=1) const;
     S32					getMaxAnimatedObjectAttachments() const;
-    BOOL				canAttachMoreAnimatedObjects(U32 n=1) const;
+    bool				canAttachMoreAnimatedObjects(U32 n=1) const;
 protected:
 	U32					getNumAttachments() const; // O(N), not O(1)
 	U32					getNumAnimatedObjectAttachments() const; // O(N), not O(1)
@@ -868,10 +868,10 @@ protected:
 	// Animations
 	//--------------------------------------------------------------------
 public:
-	BOOL 			isAnyAnimationSignaled(const LLUUID *anim_array, const S32 num_anims) const;
+	bool 			isAnyAnimationSignaled(const LLUUID *anim_array, const S32 num_anims) const;
 	void 			processAnimationStateChanges();
 protected:
-	BOOL 			processSingleAnimationStateChange(const LLUUID &anim_id, BOOL start);
+	bool 			processSingleAnimationStateChange(const LLUUID &anim_id, bool start);
 	void 			resetAnimations();
 private:
 	LLTimer			mAnimTimer;
@@ -930,7 +930,7 @@ public:
 
 private:
 	F32 		mSpeedAccum; // measures speed (for diagnostics mostly).
-	BOOL 		mTurning; // controls hysteresis on avatar rotation
+	bool 		mTurning; // controls hysteresis on avatar rotation
 	F32			mSpeed; // misc. animation repeated state
 
 	//--------------------------------------------------------------------
@@ -948,7 +948,7 @@ protected:
 	// Material being stepped on
 	//--------------------------------------------------------------------
 private:
-	BOOL		mStepOnLand;
+	bool		mStepOnLand;
 	U8			mStepMaterial;
 	LLVector3	mStepObjectVelocity;
 
@@ -978,7 +978,7 @@ public:
 ////private:
 //mk
 	// set this property only with LLVOAvatar::sitDown method
-	BOOL 			mIsSitting;
+	bool 			mIsSitting;
 	// position backup in case of missing data
 	LLVector3		mLastRootPos;
 
@@ -1064,8 +1064,8 @@ public:
 	void 				setFootPlane(const LLVector4 &plane) { mFootPlane = plane; }
 	LLVector4			mFootPlane;
 private:
-	BOOL				mWasOnGroundLeft;
-	BOOL				mWasOnGroundRight;
+	bool				mWasOnGroundLeft;
+	bool				mWasOnGroundRight;
 
 /**                    Sounds
  **                                                                            **
@@ -1094,7 +1094,7 @@ public:
 	static F32 			sGreyUpdateTime; // Last time stats were updated (to prevent multiple updates per frame) 
 protected:
 	S32					getUnbakedPixelAreaRank();
-	BOOL				mHasGrey;
+	bool				mHasGrey;
 private:
 	F32					mMinPixelArea;
 	F32					mMaxPixelArea;

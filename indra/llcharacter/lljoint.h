@@ -130,7 +130,7 @@ protected:
     
 public:
 	U32				mDirtyFlags;
-	BOOL			mUpdateXform;
+	bool			mUpdateXform;
 
 	// describes the skin binding pose
 	LLVector3		mSkinOffset;

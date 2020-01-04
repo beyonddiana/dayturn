@@ -156,7 +156,7 @@ public:
 protected:
 	static BOOL			parseSkeletonFile(const std::string& filename, LLXmlTree& skeleton_xml_tree);
 	virtual void		buildCharacter();
-	virtual BOOL		loadAvatar();
+	virtual bool		loadAvatar();
 	virtual F32 getAvatarOffset();
 
 	BOOL				setupBone(const LLAvatarBoneInfo* info, LLJoint* parent, S32 &current_volume_num, S32 &current_joint_num);
@@ -303,7 +303,7 @@ public:
 	LLWearableData*			getWearableData() { return mWearableData; }
 	const LLWearableData*	getWearableData() const { return mWearableData; }
 	virtual bool isTextureDefined(LLAvatarAppearanceDefines::ETextureIndex te, U32 index = 0 ) const = 0;
-	virtual BOOL			isWearingWearableType(LLWearableType::EType type ) const;
+	virtual bool			isWearingWearableType(LLWearableType::EType type ) const;
 
 private:
 	LLWearableData* mWearableData;
@@ -405,7 +405,7 @@ protected:
 		{
 			LLAvatarAttachmentInfo()
 				: mGroup(-1), mAttachmentID(-1), mVisibleFirstPerson(FALSE),
-				  mIsHUDAttachment(FALSE), mHasPosition(FALSE), mHasRotation(FALSE) {}
+				  mIsHUDAttachment(false), mHasPosition(FALSE), mHasRotation(FALSE) {}
 			std::string mName;
 			std::string mJointName;
 			LLVector3 mPosition;

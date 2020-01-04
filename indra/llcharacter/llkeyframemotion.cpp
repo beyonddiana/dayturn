@@ -907,14 +907,14 @@ void LLKeyframeMotion::deactivateConstraint(JointConstraint *constraintp)
 {
 	if (constraintp->mSourceVolume)
 	{
-		constraintp->mSourceVolume->mUpdateXform = FALSE;
+		constraintp->mSourceVolume->mUpdateXform = false;
 	}
 
 	if (constraintp->mSharedData->mConstraintTargetType != CONSTRAINT_TARGET_TYPE_GROUND)
 	{
 		if (constraintp->mTargetVolume)
 		{
-			constraintp->mTargetVolume->mUpdateXform = FALSE;
+			constraintp->mTargetVolume->mUpdateXform = false;
 		}
 	}
 	constraintp->mActive = false;

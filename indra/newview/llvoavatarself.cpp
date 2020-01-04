@@ -227,7 +227,7 @@ bool check_for_unsupported_baked_appearance()
 
 void LLVOAvatarSelf::initInstance()
 {
-	BOOL status = TRUE;
+	bool status = true;
 	// creates hud joint(mScreen) among other things
 	status &= loadAvatarSelf();
 
@@ -333,9 +333,9 @@ void LLVOAvatarSelf::markDead()
 	LLVOAvatar::markDead();
 }
 
-/*virtual*/ BOOL LLVOAvatarSelf::loadAvatar()
+/*virtual*/ bool LLVOAvatarSelf::loadAvatar()
 {
-	BOOL success = LLVOAvatar::loadAvatar();
+	bool success = LLVOAvatar::loadAvatar();
 
 	// set all parameters stored directly in the avatar to have
 	// the isSelfParam to be TRUE - this is used to prevent
@@ -355,20 +355,20 @@ void LLVOAvatarSelf::markDead()
 }
 
 
-BOOL LLVOAvatarSelf::loadAvatarSelf()
+bool LLVOAvatarSelf::loadAvatarSelf()
 {
-	BOOL success = TRUE;
+	bool success = true;
 	// avatar_skeleton.xml
 	if (!buildSkeletonSelf(sAvatarSkeletonInfo))
 	{
 		LL_WARNS() << "avatar file: buildSkeleton() failed" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 
 	return success;
 }
 
-BOOL LLVOAvatarSelf::buildSkeletonSelf(const LLAvatarSkeletonInfo *info)
+bool LLVOAvatarSelf::buildSkeletonSelf(const LLAvatarSkeletonInfo *info)
 {
 	// add special-purpose "screen" joint
 	mScreenp = new LLViewerJoint("mScreen", NULL);
@@ -380,11 +380,11 @@ BOOL LLVOAvatarSelf::buildSkeletonSelf(const LLAvatarSkeletonInfo *info)
 	// SL-315
 	mScreenp->setWorldPosition(LLVector3::zero);
 	// need to update screen agressively when sidebar opens/closes, for example
-	mScreenp->mUpdateXform = TRUE;
-	return TRUE;
+	mScreenp->mUpdateXform = true;
+	return true;
 }
 
-BOOL LLVOAvatarSelf::buildMenus()
+bool LLVOAvatarSelf::buildMenus()
 {
 	//-------------------------------------------------------------------------
 	// build the attach and detach menus
@@ -684,7 +684,7 @@ BOOL LLVOAvatarSelf::buildMenus()
 			}
 		}
 	}
-	return TRUE;
+	return true;
 }
 
 void LLVOAvatarSelf::cleanup()
@@ -1147,7 +1147,7 @@ void LLVOAvatarSelf::updateAttachmentVisibility(U32 camera_mode)
 		LLViewerJointAttachment* attachment = iter->second;
 		if (attachment->getIsHUDAttachment())
 		{
-			attachment->setAttachmentVisibility(TRUE);
+			attachment->setAttachmentVisibility(true);
 		}
 		else
 		{
@@ -1156,15 +1156,15 @@ void LLVOAvatarSelf::updateAttachmentVisibility(U32 camera_mode)
 				case CAMERA_MODE_MOUSELOOK:
 					if (LLVOAvatar::sVisibleInFirstPerson && attachment->getVisibleInFirstPerson())
 					{
-						attachment->setAttachmentVisibility(TRUE);
+						attachment->setAttachmentVisibility(true);
 					}
 					else
 					{
-						attachment->setAttachmentVisibility(FALSE);
+						attachment->setAttachmentVisibility(false);
 					}
 					break;
 				default:
-					attachment->setAttachmentVisibility(TRUE);
+					attachment->setAttachmentVisibility(true);
 					break;
 			}
 		}
@@ -1217,7 +1217,7 @@ void LLVOAvatarSelf::wearableUpdated( LLWearableType::EType type, bool upload_re
 //-----------------------------------------------------------------------------
 // isWearingAttachment()
 //-----------------------------------------------------------------------------
-BOOL LLVOAvatarSelf::isWearingAttachment(const LLUUID& inv_item_id) const
+bool LLVOAvatarSelf::isWearingAttachment(const LLUUID& inv_item_id) const
 {
 	const LLUUID& base_inv_item_id = gInventory.getLinkedItemID(inv_item_id);
 	for (attachment_map_t::const_iterator iter = mAttachmentPoints.begin(); 
@@ -1227,10 +1227,10 @@ BOOL LLVOAvatarSelf::isWearingAttachment(const LLUUID& inv_item_id) const
 		const LLViewerJointAttachment* attachment = iter->second;
 		if (attachment->getAttachedObject(base_inv_item_id))
 		{
-			return TRUE;
+			return true;
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 //-----------------------------------------------------------------------------
@@ -1366,7 +1366,7 @@ const LLViewerJointAttachment *LLVOAvatarSelf::attachObject(LLViewerObject *view
 }
 
 //virtual
-BOOL LLVOAvatarSelf::detachObject(LLViewerObject *viewer_object)
+bool LLVOAvatarSelf::detachObject(LLViewerObject *viewer_object)
 {
 	const LLUUID attachment_id = viewer_object->getAttachmentItemID();
 	if ( LLVOAvatar::detachObject(viewer_object) )
@@ -1401,9 +1401,9 @@ BOOL LLVOAvatarSelf::detachObject(LLViewerObject *viewer_object)
 			LLAppearanceMgr::instance().unregisterAttachment(attachment_id);
 		}
 		
-		return TRUE;
+		return true;
 	}
-	return FALSE;
+	return false;
 }
 
 // static
@@ -1497,20 +1497,20 @@ void LLVOAvatarSelf::localTextureLoaded(bool success, LLViewerFetchedTexture *sr
 }
 
 // virtual
-BOOL LLVOAvatarSelf::getLocalTextureGL(ETextureIndex type, LLViewerTexture** tex_pp, U32 index) const
+bool LLVOAvatarSelf::getLocalTextureGL(ETextureIndex type, LLViewerTexture** tex_pp, U32 index) const
 {
 	*tex_pp = NULL;
 
-	if (!isIndexLocalTexture(type)) return FALSE;
-	if (getLocalTextureID(type, index) == IMG_DEFAULT_AVATAR) return TRUE;
+	if (!isIndexLocalTexture(type)) return false;
+	if (getLocalTextureID(type, index) == IMG_DEFAULT_AVATAR) return true;
 
 	const LLLocalTextureObject *local_tex_obj = getLocalTextureObject(type, index);
 	if (!local_tex_obj)
 	{
-		return FALSE;
+		return false;
 	}
 	*tex_pp = dynamic_cast<LLViewerTexture*> (local_tex_obj->getImage());
-	return TRUE;
+	return true;
 }
 
 LLViewerFetchedTexture* LLVOAvatarSelf::getLocalTextureGL(LLAvatarAppearanceDefines::ETextureIndex type, U32 index) const
@@ -1624,7 +1624,7 @@ bool LLVOAvatarSelf::isLocalTextureDataFinal(const LLViewerTexLayerSet* layerset
 }
 
 
-BOOL LLVOAvatarSelf::isAllLocalTextureDataFinal() const
+bool LLVOAvatarSelf::isAllLocalTextureDataFinal() const
 {
 	const U32 desired_tex_discard_level = gSavedSettings.getU32("TextureDiscardLevel"); 
 	// const U32 desired_tex_discard_level = 0; // hack to not bake textures on lower discard levels
@@ -1645,20 +1645,20 @@ BOOL LLVOAvatarSelf::isAllLocalTextureDataFinal() const
 				if ((local_discard_level > (S32)(desired_tex_discard_level)) ||
 					(local_discard_level < 0 ))
 				{
-					return FALSE;
+					return false;
 				}
 			}
 		}
 	}
-	return TRUE;
+	return true;
 }
 
-BOOL LLVOAvatarSelf::isBakedTextureFinal(const LLAvatarAppearanceDefines::EBakedTextureIndex index) const
+bool LLVOAvatarSelf::isBakedTextureFinal(const LLAvatarAppearanceDefines::EBakedTextureIndex index) const
 {
 	const LLViewerTexLayerSet *layerset = getLayerSet(index);
-	if (!layerset) return FALSE;
+	if (!layerset) return false;
 	const LLViewerTexLayerSetBuffer *layerset_buffer = layerset->getViewerComposite();
-	if (!layerset_buffer) return FALSE;
+	if (!layerset_buffer) return false;
 	return !layerset_buffer->uploadNeeded();
 }
 
@@ -1922,7 +1922,7 @@ void LLVOAvatarSelf::getLocalTextureByteCount(S32* gl_bytes) const
 }
 
 // virtual 
-void LLVOAvatarSelf::setLocalTexture(ETextureIndex type, LLViewerTexture* src_tex, BOOL baked_version_ready, U32 index)
+void LLVOAvatarSelf::setLocalTexture(ETextureIndex type, LLViewerTexture* src_tex, bool baked_version_ready, U32 index)
 {
 	if (!isIndexLocalTexture(type)) return;
 
@@ -1999,7 +1999,7 @@ void LLVOAvatarSelf::setLocalTexture(ETextureIndex type, LLViewerTexture* src_te
 }
 
 //virtual
-void LLVOAvatarSelf::setBakedReady(LLAvatarAppearanceDefines::ETextureIndex type, BOOL baked_version_exists, U32 index)
+void LLVOAvatarSelf::setBakedReady(LLAvatarAppearanceDefines::ETextureIndex type, bool baked_version_exists, U32 index)
 {
 	if (!isIndexLocalTexture(type)) return;
 	LLLocalTextureObject *local_tex_obj = getLocalTextureObject(type,index);
@@ -2096,7 +2096,7 @@ void LLVOAvatarSelf::onLocalTextureLoaded(bool success, LLViewerFetchedTexture *
 {
 	if (isIndexLocalTexture((ETextureIndex)te))
 	{
-		setLocalTexture((ETextureIndex)te, imagep, FALSE ,index);
+		setLocalTexture((ETextureIndex)te, imagep, false ,index);
 	}
 	else 
 	{
@@ -2675,22 +2675,22 @@ const LLUUID& LLVOAvatarSelf::grabBakedTexture(EBakedTextureIndex baked_index) c
 	return LLUUID::null;
 }
 
-BOOL LLVOAvatarSelf::canGrabBakedTexture(EBakedTextureIndex baked_index) const
+bool LLVOAvatarSelf::canGrabBakedTexture(EBakedTextureIndex baked_index) const
 {
 	ETextureIndex tex_index = LLAvatarAppearanceDictionary::bakedToLocalTextureIndex(baked_index);
 	if (tex_index == TEX_NUM_INDICES)
 	{
-		return FALSE;
+		return false;
 	}
 	// Check if the texture hasn't been baked yet.
 	if (!isTextureDefined(tex_index, 0))
 	{
 		LL_DEBUGS() << "getTEImage( " << (U32) tex_index << " )->getID() == IMG_DEFAULT_AVATAR" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 
 	if (gAgent.isGodlikeWithoutAdminMenuFakery())
-		return TRUE;
+		return true;
 
 	// Check permissions of textures that show up in the
 	// baked texture.  We don't want people copying people's
@@ -2725,7 +2725,7 @@ BOOL LLVOAvatarSelf::canGrabBakedTexture(EBakedTextureIndex baked_index) const
 													LLInventoryModel::INCLUDE_TRASH,
 													asset_id_matches);
 
-					BOOL can_grab = FALSE;
+					bool can_grab = false;
 					LL_DEBUGS() << "item count for asset " << texture_id << ": " << items.size() << LL_ENDL;
 					if (items.size())
 					{
@@ -2735,22 +2735,22 @@ BOOL LLVOAvatarSelf::canGrabBakedTexture(EBakedTextureIndex baked_index) const
 							LLViewerInventoryItem* itemp = items[i];
 												if (itemp->getIsFullPerm())
 							{
-								can_grab = TRUE;
+								can_grab = true;
 								break;
 							}
 						}
 					}
-					if (!can_grab) return FALSE;
+					if (!can_grab) return false;
 				}
 			}
 		}
 	}
 
-	return TRUE;
+	return true;
 }
 
 void LLVOAvatarSelf::addLocalTextureStats( ETextureIndex type, LLViewerFetchedTexture* imagep,
-										   F32 texel_area_ratio, BOOL render_avatar, BOOL covered_by_baked)
+										   F32 texel_area_ratio, bool render_avatar, bool covered_by_baked)
 {
 	if (!isIndexLocalTexture(type)) return;
 
@@ -2776,14 +2776,14 @@ void LLVOAvatarSelf::addLocalTextureStats( ETextureIndex type, LLViewerFetchedTe
 				imagep->forceUpdateBindStats() ;
 				if (imagep->getDiscardLevel() < 0)
 				{
-					mHasGrey = TRUE; // for statistics gathering
+					mHasGrey = true; // for statistics gathering
 				}
 			}
 		}
 		else
 		{
 			// texture asset is missing
-			mHasGrey = TRUE; // for statistics gathering
+			mHasGrey = true; // for statistics gathering
 		}
 	}
 }
@@ -3277,16 +3277,16 @@ void LLVOAvatarSelf::setHoverOffset(const LLVector3& hover_offset, bool send_upd
 //------------------------------------------------------------------------
 // needsRenderBeam()
 //------------------------------------------------------------------------
-BOOL LLVOAvatarSelf::needsRenderBeam()
+bool LLVOAvatarSelf::needsRenderBeam()
 {
 	LLTool *tool = LLToolMgr::getInstance()->getCurrentTool();
 
-	BOOL is_touching_or_grabbing = (tool == LLToolGrab::getInstance() && LLToolGrab::getInstance()->isEditing());
+	bool is_touching_or_grabbing = (tool == LLToolGrab::getInstance() && LLToolGrab::getInstance()->isEditing());
 	if (LLToolGrab::getInstance()->getEditingObject() && 
 		LLToolGrab::getInstance()->getEditingObject()->isAttachment())
 	{
 		// don't render selection beam on hud objects
-		is_touching_or_grabbing = FALSE;
+		is_touching_or_grabbing = false;
 	}
 	return is_touching_or_grabbing || (getAttachmentState() & AGENT_STATE_EDITING && LLSelectMgr::getInstance()->shouldShowSelection());
 }

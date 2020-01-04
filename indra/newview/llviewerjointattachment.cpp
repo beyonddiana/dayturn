@@ -58,13 +58,13 @@ extern LLPipeline gPipeline;
 // LLViewerJointAttachment()
 //-----------------------------------------------------------------------------
 LLViewerJointAttachment::LLViewerJointAttachment() :
-	mVisibleInFirst(FALSE),
+	mVisibleInFirst(false),
 	mGroup(0),
 	mIsHUDAttachment(FALSE),
 	mPieSlice(-1)
 {
 	mValid = false;
-	mUpdateXform = FALSE;
+	mUpdateXform = false;
 	mAttachedObjects.clear();
 }
 
@@ -171,7 +171,7 @@ void LLViewerJointAttachment::setupDrawable(LLViewerObject *object)
 //-----------------------------------------------------------------------------
 // addObject()
 //-----------------------------------------------------------------------------
-BOOL LLViewerJointAttachment::addObject(LLViewerObject* object)
+bool LLViewerJointAttachment::addObject(LLViewerObject* object)
 {
 	object->extractAttachmentItemID();
 //MK
@@ -225,7 +225,7 @@ BOOL LLViewerJointAttachment::addObject(LLViewerObject* object)
 		}
 	}
 	calcLOD();
-	mUpdateXform = TRUE;
+	mUpdateXform = true;
 
 //MK
 	if (gRRenabled)
@@ -313,7 +313,7 @@ BOOL LLViewerJointAttachment::addObject(LLViewerObject* object)
 	}
 //mk
 
-	return TRUE;
+	return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -400,7 +400,7 @@ void LLViewerJointAttachment::removeObject(LLViewerObject *object)
 	}
 
 	// force object visibile
-	setAttachmentVisibility(TRUE);
+	setAttachmentVisibility(true);
 
 	mAttachedObjects.erase(iter);
 	if (object->mDrawable.notNull())
@@ -475,7 +475,7 @@ void LLViewerJointAttachment::removeObject(LLViewerObject *object)
 	}
 	if (mAttachedObjects.size() == 0)
 	{
-		mUpdateXform = FALSE;
+		mUpdateXform = false;
 	}
 	object->setAttachmentItemID(LLUUID::null);
 }
@@ -483,7 +483,7 @@ void LLViewerJointAttachment::removeObject(LLViewerObject *object)
 //-----------------------------------------------------------------------------
 // setAttachmentVisibility()
 //-----------------------------------------------------------------------------
-void LLViewerJointAttachment::setAttachmentVisibility(BOOL visible)
+void LLViewerJointAttachment::setAttachmentVisibility(bool visible)
 {
 	for (attachedobjs_vec_t::const_iterator iter = mAttachedObjects.begin();
 		 iter != mAttachedObjects.end();
@@ -601,7 +601,7 @@ bool LLViewerJointAttachment::updateLOD(F32 pixel_area, bool activate)
 	return res;
 }
 
-BOOL LLViewerJointAttachment::isObjectAttached(const LLViewerObject *viewer_object) const
+bool LLViewerJointAttachment::isObjectAttached(const LLViewerObject *viewer_object) const
 {
 	for (attachedobjs_vec_t::const_iterator iter = mAttachedObjects.begin();
 		 iter != mAttachedObjects.end();
@@ -610,10 +610,10 @@ BOOL LLViewerJointAttachment::isObjectAttached(const LLViewerObject *viewer_obje
 		const LLViewerObject* attached_object = iter->get();
 		if (attached_object == viewer_object)
 		{
-			return TRUE;
+			return true;
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 //MK
