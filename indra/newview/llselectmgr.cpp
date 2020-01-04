@@ -6026,7 +6026,7 @@ void LLSelectMgr::renderSilhouettes(BOOL for_hud)
 		gGL.matrixMode(LLRender::MM_MODELVIEW);
 		gGL.pushMatrix();
 
-		BOOL is_hud_object = objectp->isHUDAttachment();
+		bool is_hud_object = objectp->isHUDAttachment();
 
 		if (!is_hud_object)
 		{

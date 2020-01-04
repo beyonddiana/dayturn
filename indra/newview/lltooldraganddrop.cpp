@@ -1560,7 +1560,7 @@ EAcceptance LLToolDragAndDrop::willObjectAcceptInventory(LLViewerObject* obj, LL
 	//BOOL copy = (perm.allowCopyBy(gAgent.getID(),
 	//							  gAgent.getGroupID())
 	//			 && (obj->mPermModify || obj->mFlagAllowInventoryAdd));
-	BOOL worn = FALSE;
+	bool worn = false;
 	LLVOAvatarSelf* my_avatar = NULL;
 	switch(item->getType())
 	{
@@ -1568,14 +1568,14 @@ EAcceptance LLToolDragAndDrop::willObjectAcceptInventory(LLViewerObject* obj, LL
 		my_avatar = gAgentAvatarp;
 		if(my_avatar && my_avatar->isWearingAttachment(item->getUUID()))
 		{
-				worn = TRUE;
+				worn = true;
 		}
 		break;
 	case LLAssetType::AT_BODYPART:
 	case LLAssetType::AT_CLOTHING:
 		if(gAgentWearables.isWearingItem(item->getUUID()))
 		{
-			worn = TRUE;
+			worn = true;
 		}
 		break;
 	case LLAssetType::AT_CALLINGCARD:
@@ -1586,16 +1586,16 @@ EAcceptance LLToolDragAndDrop::willObjectAcceptInventory(LLViewerObject* obj, LL
 			break;
 	}
 	const LLPermissions& perm = item->getPermissions();
-	BOOL modify = (obj->permModify() || obj->flagAllowInventoryAdd());
-	BOOL transfer = FALSE;
+	bool modify = (obj->permModify() || obj->flagAllowInventoryAdd());
+	bool transfer = false;
 	if((obj->permYouOwner() && (perm.getOwner() == gAgent.getID()))
 	   || perm.allowOperationBy(PERM_TRANSFER, gAgent.getID()))
 	{
-		transfer = TRUE;
+		transfer = true;
 	}
-	BOOL volume = (LL_PCODE_VOLUME == obj->getPCode());
-	BOOL attached = obj->isAttachment();
-	BOOL unrestricted = ((perm.getMaskBase() & PERM_ITEM_UNRESTRICTED) == PERM_ITEM_UNRESTRICTED) ? TRUE : FALSE;
+	bool volume = (LL_PCODE_VOLUME == obj->getPCode());
+	bool attached = obj->isAttachment();
+	bool unrestricted = ((perm.getMaskBase() & PERM_ITEM_UNRESTRICTED) == PERM_ITEM_UNRESTRICTED) ? true : false;
 	if(attached && !unrestricted)
 	{
 		return ACCEPT_NO_LOCKED;

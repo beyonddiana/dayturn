@@ -64,11 +64,11 @@ public:
 	//
 
     void setPieSlice(S32 pie_slice) { mPieSlice = pie_slice; }
-	void setVisibleInFirstPerson(BOOL visibility) { mVisibleInFirst = visibility; }
-	BOOL getVisibleInFirstPerson() const { return mVisibleInFirst; }
+	void setVisibleInFirstPerson(bool visibility) { mVisibleInFirst = visibility; }
+	bool getVisibleInFirstPerson() const { return mVisibleInFirst; }
 	void setGroup(S32 group) { mGroup = group; }
 	void setOriginalPosition(LLVector3 &position);
-	void setAttachmentVisibility(BOOL visible);
+	void setAttachmentVisibility(bool visible);
 	void setIsHUDAttachment(BOOL is_hud) { mIsHUDAttachment = is_hud; }
 	BOOL getIsHUDAttachment() const { return mIsHUDAttachment; }
 
@@ -84,13 +84,13 @@ public:
 	//
 	// unique methods
 	//
-	BOOL addObject(LLViewerObject* object);
+	bool addObject(LLViewerObject* object);
 	void removeObject(LLViewerObject *object);
 
 	// 
 	// attachments operations
 	//
-	BOOL isObjectAttached(const LLViewerObject *viewer_object) const;
+	bool isObjectAttached(const LLViewerObject *viewer_object) const;
 	const LLViewerObject *getAttachedObject(const LLUUID &object_id) const;
 	LLViewerObject *getAttachedObject(const LLUUID &object_id);
 
@@ -103,7 +103,7 @@ protected:
 	void setupDrawable(LLViewerObject *object);
 
 private:
-	BOOL			mVisibleInFirst;
+	bool			mVisibleInFirst;
 	LLVector3		mOriginalPos;
 	S32				mGroup;
 	BOOL			mIsHUDAttachment;

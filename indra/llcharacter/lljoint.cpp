@@ -107,7 +107,7 @@ void LLJoint::init()
 	mXform.setScaleChildOffset(true);
 	mXform.setScale(LLVector3(1.0f, 1.0f, 1.0f));
 	mDirtyFlags = MATRIX_DIRTY | ROTATION_DIRTY | POSITION_DIRTY;
-	mUpdateXform = TRUE;
+	mUpdateXform = true;
     mSupport = SUPPORT_BASE;
     mEnd = LLVector3(0.0f, 0.0f, 0.0f);
 }
@@ -134,7 +134,7 @@ LLJoint::LLJoint(const std::string &name, LLJoint *parent) :
 	mJointNum(-2)
 {
 	init();
-	mUpdateXform = FALSE;
+	mUpdateXform = false;
 
 	setName(name);
 	if (parent)

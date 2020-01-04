@@ -231,7 +231,7 @@ void LLAvatarJoint::setMeshesToChildren()
 
 LLAvatarJointCollisionVolume::LLAvatarJointCollisionVolume()
 {
-	mUpdateXform = FALSE;
+	mUpdateXform = false;
 }
 
 /*virtual*/
@@ -243,7 +243,7 @@ U32 LLAvatarJointCollisionVolume::render( F32 pixelArea, BOOL first_pass, BOOL i
 
 LLVector3 LLAvatarJointCollisionVolume::getVolumePos(LLVector3 &offset)
 {
-	mUpdateXform = TRUE;
+	mUpdateXform = true;
 	
 	LLVector3 result = offset;
 	result.scaleVec(getScale());

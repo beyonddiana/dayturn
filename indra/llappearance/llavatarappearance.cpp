@@ -836,7 +836,7 @@ void LLAvatarAppearance::buildCharacter()
 	//-------------------------------------------------------------------------
 	LLTimer timer;
 
-	BOOL status = loadAvatar();
+	bool status = loadAvatar();
 	stop_glerror();
 
 // 	gPrintMessagesThisFrame = true;
@@ -914,7 +914,7 @@ void LLAvatarAppearance::buildCharacter()
 
 }
 
-BOOL LLAvatarAppearance::loadAvatar()
+bool LLAvatarAppearance::loadAvatar()
 {
 // 	LL_RECORD_BLOCK_TIME(FTM_LOAD_AVATAR);
 	
@@ -922,21 +922,21 @@ BOOL LLAvatarAppearance::loadAvatar()
 	if( !buildSkeleton(sAvatarSkeletonInfo) )
 	{
 		LL_ERRS() << "avatar file: buildSkeleton() failed" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 
 	// avatar_lad.xml : <skeleton>
 	if( !loadSkeletonNode() )
 	{
 		LL_ERRS() << "avatar file: loadNodeSkeleton() failed" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 	
 	// avatar_lad.xml : <mesh>
 	if( !loadMeshNodes() )
 	{
 		LL_ERRS() << "avatar file: loadNodeMesh() failed" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 	
 	// avatar_lad.xml : <global_color>
@@ -946,13 +946,13 @@ BOOL LLAvatarAppearance::loadAvatar()
 		if( !mTexSkinColor->setInfo( sAvatarXmlInfo->mTexSkinColorInfo ) )
 		{
 			LL_ERRS() << "avatar file: mTexSkinColor->setInfo() failed" << LL_ENDL;
-			return FALSE;
+			return false;
 		}
 	}
 	else
 	{
 		LL_ERRS() << "<global_color> name=\"skin_color\" not found" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 	if( sAvatarXmlInfo->mTexHairColorInfo )
 	{
@@ -960,13 +960,13 @@ BOOL LLAvatarAppearance::loadAvatar()
 		if( !mTexHairColor->setInfo( sAvatarXmlInfo->mTexHairColorInfo ) )
 		{
 			LL_ERRS() << "avatar file: mTexHairColor->setInfo() failed" << LL_ENDL;
-			return FALSE;
+			return false;
 		}
 	}
 	else
 	{
 		LL_ERRS() << "<global_color> name=\"hair_color\" not found" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 	if( sAvatarXmlInfo->mTexEyeColorInfo )
 	{
@@ -974,26 +974,26 @@ BOOL LLAvatarAppearance::loadAvatar()
 		if( !mTexEyeColor->setInfo( sAvatarXmlInfo->mTexEyeColorInfo ) )
 		{
 			LL_ERRS() << "avatar file: mTexEyeColor->setInfo() failed" << LL_ENDL;
-			return FALSE;
+			return false;
 		}
 	}
 	else
 	{
 		LL_ERRS() << "<global_color> name=\"eye_color\" not found" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 	
 	// avatar_lad.xml : <layer_set>
 	if (sAvatarXmlInfo->mLayerInfoList.empty())
 	{
 		LL_ERRS() << "avatar file: missing <layer_set> node" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 
 	if (sAvatarXmlInfo->mMorphMaskInfoList.empty())
 	{
 		LL_ERRS() << "avatar file: missing <morph_masks> node" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 
 	// avatar_lad.xml : <morph_masks>
@@ -1042,12 +1042,12 @@ BOOL LLAvatarAppearance::loadAvatar()
 		{
 			delete driver_param;
 			LL_WARNS() << "avatar file: driver_param->parseData() failed" << LL_ENDL;
-			return FALSE;
+			return false;
 		}
 	}
 
 	
-	return TRUE;
+	return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -1063,7 +1063,7 @@ bool LLAvatarAppearance::loadSkeletonNode ()
 		 ++iter)
 	{
 		LLAvatarJoint *joint = *iter;
-		joint->mUpdateXform = FALSE;
+		joint->mUpdateXform = false;
 		joint->setMeshesToChildren();
 	}
 
@@ -1564,7 +1564,7 @@ LLColor4 LLAvatarAppearance::getGlobalColor( const std::string& color_name ) con
 
 // Unlike most wearable functions, this works for both self and other.
 // virtual
-BOOL LLAvatarAppearance::isWearingWearableType(LLWearableType::EType type) const
+bool LLAvatarAppearance::isWearingWearableType(LLWearableType::EType type) const
 {
 	return mWearableData->getWearableCount(type) > 0;
 }

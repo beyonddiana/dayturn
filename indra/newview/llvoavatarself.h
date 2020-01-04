@@ -57,10 +57,10 @@ public:
 	virtual void 			initInstance(); // Called after construction to initialize the class.
 	void					cleanup();
 protected:
-	/*virtual*/ BOOL		loadAvatar();
-	BOOL					loadAvatarSelf();
-	BOOL					buildSkeletonSelf(const LLAvatarSkeletonInfo *info);
-	BOOL					buildMenus();
+	/*virtual*/ bool		loadAvatar();
+	bool					loadAvatarSelf();
+	bool					buildSkeletonSelf(const LLAvatarSkeletonInfo *info);
+	bool					buildMenus();
 
 /**                    Initialization
  **                                                                            **
@@ -164,7 +164,7 @@ private:
 	// Render beam
 	//--------------------------------------------------------------------
 protected:
-	BOOL 		needsRenderBeam();
+	bool 		needsRenderBeam();
 private:
 	LLPointer<LLHUDEffectSpiral> mBeam;
 	LLFrameTimer mBeamTimer;
@@ -195,7 +195,7 @@ public:
 	bool				areTexturesCurrent() const;
 	bool				isLocalTextureDataAvailable(const LLViewerTexLayerSet* layerset) const;
 	bool				isLocalTextureDataFinal(const LLViewerTexLayerSet* layerset) const;
-	BOOL				isBakedTextureFinal(const LLAvatarAppearanceDefines::EBakedTextureIndex index) const;
+	bool				isBakedTextureFinal(const LLAvatarAppearanceDefines::EBakedTextureIndex index) const;
 	// If you want to check all textures of a given type, pass gAgentWearables.getWearableCount() for index
 	/*virtual*/ bool    isTextureDefined(LLAvatarAppearanceDefines::ETextureIndex type, U32 index) const;
 	/*virtual*/ bool	isTextureVisible(LLAvatarAppearanceDefines::ETextureIndex type, U32 index = 0) const;
@@ -206,16 +206,16 @@ public:
 	// Local Textures
 	//--------------------------------------------------------------------
 public:
-	BOOL				getLocalTextureGL(LLAvatarAppearanceDefines::ETextureIndex type, LLViewerTexture** image_gl_pp, U32 index) const;
+	bool				getLocalTextureGL(LLAvatarAppearanceDefines::ETextureIndex type, LLViewerTexture** image_gl_pp, U32 index) const;
 	LLViewerFetchedTexture*	getLocalTextureGL(LLAvatarAppearanceDefines::ETextureIndex type, U32 index) const;
 	const LLUUID&		getLocalTextureID(LLAvatarAppearanceDefines::ETextureIndex type, U32 index) const;
 	void				setLocalTextureTE(U8 te, LLViewerTexture* image, U32 index);
-	/*virtual*/ void	setLocalTexture(LLAvatarAppearanceDefines::ETextureIndex type, LLViewerTexture* tex, BOOL baked_version_exits, U32 index);
+	/*virtual*/ void	setLocalTexture(LLAvatarAppearanceDefines::ETextureIndex type, LLViewerTexture* tex, bool baked_version_exits, U32 index);
 protected:
-	/*virtual*/ void	setBakedReady(LLAvatarAppearanceDefines::ETextureIndex type, BOOL baked_version_exists, U32 index);
+	/*virtual*/ void	setBakedReady(LLAvatarAppearanceDefines::ETextureIndex type, bool baked_version_exists, U32 index);
 	void				localTextureLoaded(bool succcess, LLViewerFetchedTexture *src_vi, LLImageRaw* src, LLImageRaw* aux_src, S32 discard_level, bool final, void* userdata);
 	void				getLocalTextureByteCount(S32* gl_byte_count) const;
-	/*virtual*/ void	addLocalTextureStats(LLAvatarAppearanceDefines::ETextureIndex i, LLViewerFetchedTexture* imagep, F32 texel_area_ratio, BOOL rendered, BOOL covered_by_baked);
+	/*virtual*/ void	addLocalTextureStats(LLAvatarAppearanceDefines::ETextureIndex i, LLViewerFetchedTexture* imagep, F32 texel_area_ratio, bool rendered, bool covered_by_baked);
 	LLLocalTextureObject* getLocalTextureObject(LLAvatarAppearanceDefines::ETextureIndex i, U32 index) const;
 
 private:
@@ -262,7 +262,7 @@ public:
 	void				updateComposites();
 
 	const LLUUID&		grabBakedTexture(LLAvatarAppearanceDefines::EBakedTextureIndex baked_index) const;
-	BOOL				canGrabBakedTexture(LLAvatarAppearanceDefines::EBakedTextureIndex baked_index) const;
+	bool				canGrabBakedTexture(LLAvatarAppearanceDefines::EBakedTextureIndex baked_index) const;
 
 
 	//--------------------------------------------------------------------
@@ -304,11 +304,11 @@ protected:
 	//--------------------------------------------------------------------
 public:
 	void 				updateAttachmentVisibility(U32 camera_mode);
-	BOOL 				isWearingAttachment(const LLUUID& inv_item_id) const;
+	bool 				isWearingAttachment(const LLUUID& inv_item_id) const;
 	LLViewerObject* 	getWornAttachment(const LLUUID& inv_item_id);
 	bool				getAttachedPointName(const LLUUID& inv_item_id, std::string& name) const;
 	/*virtual*/ const LLViewerJointAttachment *attachObject(LLViewerObject *viewer_object);
-	/*virtual*/ BOOL 	detachObject(LLViewerObject *viewer_object);
+	/*virtual*/ bool 	detachObject(LLViewerObject *viewer_object);
 	static BOOL			detachAttachmentIntoInventory(const LLUUID& item_id);
 
 	//--------------------------------------------------------------------
@@ -396,7 +396,7 @@ public:
 	void 					debugBakedTextureUpload(LLAvatarAppearanceDefines::EBakedTextureIndex index, bool finished);
 	static void				debugOnTimingLocalTexLoaded(bool success, LLViewerFetchedTexture *src_vi, LLImageRaw* src, LLImageRaw* aux_src, S32 discard_level, bool final, void* userdata);
 
-	BOOL					isAllLocalTextureDataFinal() const;
+	bool					isAllLocalTextureDataFinal() const;
 
 	const LLViewerTexLayerSet*	debugGetLayerSet(LLAvatarAppearanceDefines::EBakedTextureIndex index) const { return (LLViewerTexLayerSet*)(mBakedTextureDatas[index].mTexLayerSet); }
 	const std::string		verboseDebugDumpLocalTextureDataInfo(const LLViewerTexLayerSet* layerset) const; // Lists out state of this particular baked texture layer
