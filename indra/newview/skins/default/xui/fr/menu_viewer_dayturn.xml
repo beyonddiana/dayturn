@@ -55,7 +55,7 @@
         <menu_item_check label="Voler"  name="Fly"/>
         <menu_item_check label="M&apos;asseoir"  name="Sit Down Here"/>
         <menu_item_call label="Arrêter mon animation"  name="Stop Animating My Avatar"/>
-        <menu_item_call label="Alle Animationen neustart"  name="Restart All Animations"/>
+        <menu_item_call label="Redémarrez toutes les animations"  name="Restart All Animations"/>
         <menu_item_check label="Désactivant Voler"  name="Disable Fly"/>
         <menu_item_check label="Désactivant Sauter"  name="Disable Jump"/>
         <menu_item_call label="Libérer les touches" name="Release Keys"/>
@@ -299,7 +299,7 @@
             <menu_item_check label="Ombres des pieds"  name="Foot Shadows"/>
             <menu_item_check label="Brouillard"  name="Fog"/>
             <menu_item_check label="Tester FRInfo"  name="Test FRInfo"/>
-            <menu_item_check label="Objets flexibles  name="Flexible Objects" />
+            <menu_item_check label="Objets flexibles"  name="Flexible Objects" />
         </menu>        
         <menu_item_check label="Utiliser le thread de lecture de plug-in"  name="Use Plugin Read Thread"/>
         <menu_item_call label="Effacer le cache du groupe"  name="ClearGroupCache"/>
