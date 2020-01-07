@@ -521,11 +521,7 @@
 		</menu>
 		<menu_item_call label="Admin-Status anfordern" name="Request Admin Options"/>
 		<menu_item_call label="Admin-Status verlassen" name="Leave Admin Options"/>
-		<menu_item_check label="Admin-Menü anzeigen" name="View Admin Options"/>
-		
-		<menu_item_call label="Admin-Status anfordern"  name="Request Admin Options"/>
-        <menu_item_call label="Admin-Status verlassen"  name="Leave Admin Options"/>
-		
+		<menu_item_check label="Admin-Menü anzeigen" name="View Admin Options"/>		
 	</menu>
 <!-- END OF DEVELOP MENU -->    
   
@@ -550,7 +546,5 @@
 		</menu>
 		<menu_item_call label="Gott-Werkzeuge" name="God Tools"/>
 	</menu>
-<!-- END OF ADMIN MENU -->    
-    
-
+<!-- END OF ADMIN MENU -->
 </menu_bar>
