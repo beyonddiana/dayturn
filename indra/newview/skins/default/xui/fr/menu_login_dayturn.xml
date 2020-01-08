@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<menu_bar name="Login Menu">
+    <menu label="Fichier"  name="File">
+        <menu_item_call label="Quitter [APP_NAME]"  name="Quit"/>
+    </menu>
+    
+    <menu label="Éditer" name="Edit">
+        <menu_item_call label="Définir la taille de la fenêtre..."  name="Set Window Size..."/>
+        <menu_item_call label="Préférences"  name="Preferences..."/>
+    </menu>
+    
+    <menu label="Aide"  name="Help">
+        <menu_item_call label="[APP_NAME] Aide"  name="Dayturn Help"/>
+        <menu_item_call label="[APP_NAME] Tribune"  name="Dayturn Forum"/>
+        <menu_item_check label="Menu Déboguer"  name="Show Debug Menu"/>
+        <menu_item_call label="À propos de [APP_NAME]"  name="About Second Life"/>
+    </menu>
+    
+    
+    
+    <menu label="Déboguer"  name="Debug">
+        <menu_item_call label="Afficher les paramètres de débogage"  name="Debug Settings"/>
+        <menu_item_call label="Outil d&apos;aperçu XUI"  name="UI Preview Tool"/>
+        <menu label="Tests de l&apos;interface"  name="UI Tests">
+            <menu_item_call label="Textbox"  name="Textbox"/>
+            <menu_item_call label="Texteditierprogramm"  name="Text Editor"/>
+            <menu_item_call label="Widgets"  name="Widgets"/>
+            <menu_item_call label="Inspectors"  name="Inspectors"/>
+        </menu>
+        <menu_item_call label="Afficher les conditions d&apos;utilisation"  name="TOS"/>
+        <menu_item_call label="Afficher le message critique"  name="Critical"/>
+        <menu_item_call label="Test de navigateur web"  name="Web Content Floater Debug Test"/>
+        <menu label="Définir le niveau de connexion"  name="Set Logging Level">
+            <menu_item_check label="Débogage"  name="Debug"/>
+            <menu_item_check label="Infos"  name="Info"/>
+            <menu_item_check label="Avertissement" name="Warning"/>
+            <menu_item_check label="Erreur"  name="Error"/>
+            <menu_item_check label="Aucun"  name="None"/>
+        </menu>
+        <menu_item_call label="Afficher la console des notifications"  name="Show Notifications Console"/>
+    </menu>
+</menu_bar>
