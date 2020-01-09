@@ -566,6 +566,7 @@ void LLHUDEffectLookAt::render()
 			)
 		)
 	)) {
+	    LLGLDisable gls_stencil(GL_STENCIL_TEST);
 		LLVector3 target = mTargetPos + ((LLVOAvatar*)(LLViewerObject*)mSourceObject)->mHeadp->getWorldPosition();
 		LLColor3 color = (*mAttentions)[mTargetType].mColor;
 		
