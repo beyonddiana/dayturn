@@ -337,6 +337,7 @@ void LLHUDEffectPointAt::render()
 	if (show_pointat && mTargetType != POINTAT_TARGET_NONE && (
 		!pointat_limited || !((LLVOAvatar*)(LLViewerObject*)mSourceObject)->isSelf()
 	)) {
+	    LLGLDisable gls_stencil(GL_STENCIL_TEST);
 		LLVector3 target = mTargetPos + mSourceObject->getRenderPosition();
 		
 		//CA: squash pointat_names if @shownames is in effect
