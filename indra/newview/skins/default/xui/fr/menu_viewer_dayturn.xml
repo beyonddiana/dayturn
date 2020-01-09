@@ -240,7 +240,25 @@
   </menu>
 <!-- END OF COMMANDS MENU -->
  
- 
+ <!-- MK -->
+<!-- START OF RLV MENU -->
+    <menu label="RLV"  name="RLV">
+        <menu_item_call label="Énumérez les restrictions"  name="List restrictions"/>
+        <menu_item_check label="Montrez messages de débogage"  name="Show Debug Messages"/>
+        <menu_item_check label="Offre des offres à #RLV"  name="Forbid offers to #RLV"/>
+        <menu_item_check label="Montrez '...'"  name="ShowEllipsis"/>
+        <menu_item_check label="Double - cliquez pour remplacer l'objet"  name="RestrainedLoveDoubleClickWear"/>
+        <menu label="Centre"  name="Focus">
+            <menu_item_call label="Tête"  name="RLV.FocusHead"/>
+            <menu_item_call label="Bassin"  name="RLV.FocusPelvis"/>
+            <menu_item_call label="Main gauche"  name="RLV.FocusLeftHand"/>
+            <menu_item_call label="Main droite"  name="RLV.FocusRightHand"/>
+            <menu_item_call label="Pied gauche"  name="RLV.FocusLeftFoot"/>
+            <menu_item_call label="Pied droit"  name="RLV.FocusRightFoot"/>
+        </menu>
+    </menu>
+<!-- END OF RLV MENU -->
+<!-- mk -->
  
   
 <!-- START OF HELP MENU -->   
