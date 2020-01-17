@@ -339,14 +339,14 @@
     <view_border
      bevel_style="none"
      follows="top|left"
-     height="400"
+     height="370"
      layout="topleft"
      left="10"
      top_pad="-5"
      width="498" />
     <name_list
      follows="left|top"
-     height="400"
+     height="370"
      layout="topleft"
      left_delta="0"
      multi_select="true"
