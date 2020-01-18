@@ -293,6 +293,12 @@ void LLFloaterRegionInfo::onOpen(const LLSD& key)
 	{
 		mGodLevelChangeSlot = gAgent.registerGodLevelChanageListener(boost::bind(&LLFloaterRegionInfo::onGodLevelChange, this, _1));
 	}
+
+	std::string cap_url = gAgent.getRegionCapability("EstateAccess");
+	if (!cap_url.empty())
+	{
+		LL_INFOS() << "Received Estate Access CAP " << LL_ENDL;
+	}
 }
 
 void LLFloaterRegionInfo::onClose(bool app_quitting)
