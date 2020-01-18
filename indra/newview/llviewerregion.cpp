@@ -2810,6 +2810,7 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
 	capabilityNames.append("EnvironmentSettings");
 	capabilityNames.append("DispatchOpenRegionSettings");
 	//capabilityNames.append("DispatchWindLightSettings"); // now using EnvironmentSettings for windlight settings
+	capabilityNames.append("EstateAccess");
 	capabilityNames.append("EstateChangeInfo");
 	capabilityNames.append("EventQueueGet");
 	
@@ -2887,7 +2888,6 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
         capabilityNames.append("DirectDelivery");
         capabilityNames.append("GetExperiences");
         capabilityNames.append("AgentExperiences");
-        capabilityNames.append("EstateAccess");
         capabilityNames.append("FindExperienceByName");
         capabilityNames.append("GetExperienceInfo");
         capabilityNames.append("GetAdminExperiences");
