@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel label="Dayturn" name="dayturn_viewer">
+	<tab_container name="tabs">
+	    <panel label="Général" name="dayturn_general">
+	        <check_box label="Ne vole pas" name="automatic_fly"/>
+	        <check_box label="Ne saute pas" name="disable_jump"/>
+	        <check_box label="Rez des objets sous le groupe terrestre" name="grouplandrez"/>
+	        <check_box label="Montrez le nom avatar dans le titre de fenêtre" name="WindowTitleAvatarName"/>
+	        <check_box label="Montrez le nom de la grid dans le titre de fenêtre" name="WindowTitleGridName"/>
+	        <check_box label="Montrez les anneaux de chat et de cris sur la carte mini." name="MiniMapChatRing"/>
+	        <color_swatch label="" name="netmap_chatring_color_swatch"/>
+	        <text name="netmap_chatring_color_label">
+	            Distance de parole
+	        </text>
+	        <color_swatch label="" name="netmap_shoutring_color_swatch"/>
+	        <text name="netmap_shoutring_color_label">
+	            Distance de crier
+	        </text> 
+	        <check_box label="Montrez l'âge d avatar sur le nom de balise" name="NameTagShowAge"/>
+	        <text name="nametag_show_age_limit_label">
+	            Ne montre pas l'âge d avatar sur le nom de tag s'il est plus vieux que:
+	        </text>
+	        <spinner label="" name="NameTagShowAgeLimit"/>
+	        <text name="nametag_show_age_limit_note">
+	            0 = Montrez toujours l'âge avatar
+	        </text>
+	        <text name="web_browser_home_page_label" width="150">
+	                Page d'accueil pour navigateur web:
+	        </text>
+	        <line_editor name="web_browser_home_page" width="335"/>       
+	    </panel>
+	    <panel label="Chat" name="wabbit_chat">
+	        <check_box label="Activez les commandes de chat (tph und tp2cam etc.)" name="FSCmdLine"/>
+	        <check_box label="Code couleur les entrées de chat selon le type de session" name="ColourCodedChat"/>    	        
+	        <text name="show_stream_metadata_text">
+	            Annonce artiste/titre pour stream:
+	        </text>
+	        <radio_group name="ShowStreamMetadata">
+		        <radio_item label="Aucun" name="radio_off"/>
+		        <radio_item label="Message" name="radio_toasts"/>
+		        <radio_item label="Chat à proximité" name="radio_chat"/>
+	        </radio_group>
+	        <check_box label="Annonce le titre de stream dans le canal de discussion:" name="StreamMetadataAnnounceToChat"/>	        
+            <spinner label="" name="StreamMetadataAnnounceChannel"/>
+	        <text name="clip_names_label">
+	            Nombre de noms figurant dans la zone de la conférence ad hoc:
+	        </text>
+	        <spinner label="" name="ConferenceClipNames"/>
+	        <text name="clip_names_note">
+	            (0 = Montrez tous les noms)
+	        </text>         
+	    </panel>
+	    <panel label="Discrétion" name="wabbit_view">
+	        <check_box label="Ne révèle pas les gens où je regarde" name="PrivateLookAtTarget"/>
+	        <check_box label="Ne pas se tourner vers des objets sélectionnés" name="PreventAvatarTurnToSelected"/>
+	        <check_box label="Ne pas montrer l'équilibre monétaire sur les instantanés" name="HideBalanceInSnapshots"/>
+	        <check_box label="Ne révèle pas les autres là où je veux (déclic)" name="PrivatePointAtTarget"/>
+	        <check_box label="Montre où d'autres regardent" name="ShowLookAt"/>
+	        <check_box label="Montrez les nom" name="ShowLookAtNames"/>
+	        <check_box label="Seulement montrer viseuur pour les avatars actifs" name="ShowLookAtLimited"/>
+	        <check_box label="Montrer où d'autres pointent (déclic)" name="ShowPointAt"/> 
+	        <check_box label="Montrez les nom" name="ShowPointAtNames"/>
+	        <check_box label="Ne me montre pas mon propre viseuse." name="ShowPointAtLimited"/>  
+	    </panel>	    
+	    <panel label="Inventaire" name="dayturn_inv">
+	        <check_box label="Masquer le dossier système vide de l'inventaire" name="DebugHideEmptySystemFolders"/>
+	    </panel>
+	    <panel label="Scripte" name="dayturn_scripting">
+	        <check_box label="Enregistrez les scripts dans l'inventaire sous Mono au lieu de LSL2" name="SaveInventoryScriptsAsMono"/>
+	        <text name="friend_ims" width="195">
+	            Einschränkungen des Skriptdialogs:
+	        </text>
+	        <combo_box label="" name="script_dialog_limitations" left_pad="5">
+		        <item label="Par objet" name="script_dialog_limitations"/>
+		        <item label="Par canal" name="script_dialog_limitations"/>
+		        <item label="Par canal pour les pièces jointes" name="script_dialog_limitations"/>
+		        <item label="Par canal pour les HUDs" name="script_dialog_limitations"/>
+		        <item label="Incontrôlable pour les HUDs" name="script_dialog_limitations"/>
+	</combo_box>
+	    </panel>	    	    
+	</tab_container>
+</panel>
