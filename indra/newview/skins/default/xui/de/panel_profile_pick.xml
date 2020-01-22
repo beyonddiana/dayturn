@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="panel_pick_info">
+    <panel.string name="location_notice">
+(Wird nach Speichern aktualisiert
+    </panel.string>
+
+    <texture_picker
+     top="10"
+     left="10"
+     height="180"
+     width="290"
+     layout="topleft"
+     follows="left|top"
+     name="pick_snapshot"
+     fallback_image="default_land_picture.j2c" />
+
+    <line_editor name="pick_name" />
+        Wird geladen...
+    </line_editor>
+    <button label="Teleportieren" name="teleport_btn" />
+    <button label="Auf Karte zeigen" name="show_on_map_btn" />
+    <button label="Standort einstellen" tool_tip="Auf aktuellen Standort einstellen" name="set_to_curr_location_btn" />     
+    <button label="Auswahl speichern" name="save_changes_btn" />
+
+</panel>

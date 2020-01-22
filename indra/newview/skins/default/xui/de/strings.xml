@@ -2445,6 +2445,19 @@ Falls diese Meldung weiterhin angezeigt wird, wenden Sie sich unter http://suppo
 	<string name="PicksClassifiedsLoadingText">
 		Wird geladen...
 	</string>
+ <!-- FS:KC legacy profiles -->
+	<string name="NoPicksText">
+		Du hast noch keine Auswahl erstellt.
+	</string>
+	<string name="NoAvatarPicksText">
+		Der Einwohner hat keine Auswahl.
+	</string>
+	<string name="NoClassifiedsText">
+		Sie haben keine Anzeige erstelllt. Klicken Sie auf die „Plus“-Schaltfläche, um eine Anzeige zu erstellen.
+	</string>
+	<string name="NoAvatarClassifiedsText">
+		Der Einwohner hat keine Anzeigen.
+	</string>
 	<string name="MultiPreviewTitle">
 		Vorschau
 	</string>
