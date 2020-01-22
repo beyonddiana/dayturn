@@ -2360,6 +2360,11 @@ Si vous continuez de recevoir ce message, contactez l’assistance Second Life �
 	<string name="PicksClassifiedsLoadingText">
 		Chargement...
 	</string>
+ <!-- FS:KC legacy profiles -->
+  <string name="NoPicksText">Tu n'as pas créé de pick.</string>
+  <string name="NoAvatarPicksText">L'utilisateur n a pas de choix</string>
+  <string name="NoClassifiedsText">Tu n'as pas créé d Classifieds.</string>
+  <string name="NoAvatarClassifiedsText">L'utilisateur n a pas de classificateur</string>
 	<string name="MultiPreviewTitle">
 		Prévisualiser
 	</string>

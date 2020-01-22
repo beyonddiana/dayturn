@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="panel_profile_web" label="Web">
+    <panel.string name="LoadTime" value="Temps de chargement: [TIME] Sec."/>
+    <flyout_button name="load" label="Page Web" label_selected="Page Web" tool_tip="Afficher cette page de Web." >
+        <flyout_button.item label="Ouvrir dans le navigateur interne" name="open_item" />
+        <flyout_button.item label="Ouvrir le navigateur par défaut" name="home_item" />
+    </flyout_button>
+    <flyout_button name="web_profile" label="Profil" label_selected="Profil" >
+        <flyout_button.item label="Ouvrir dans une fenêtre séparée" value="popout" name="builtin_item" />
+        <flyout_button.item label="Ouvrir le navigateur par défaut" value="external" name="open_item" />
+    </flyout_button>
+</panel>
+

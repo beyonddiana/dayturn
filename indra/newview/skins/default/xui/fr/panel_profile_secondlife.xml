@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="panel_profile" label="Profil">
+    <string name="status_online">
+Connecté
+    </string>
+    <string name="status_offline">
+Déconnecté
+    </string>
+    <string name="payment_update_link_url">
+http://www.secondlife.com/account/billing.php?lang=en
+    </string>
+    <string name="partner_edit_link_url">
+http://www.secondlife.com/account/partners.php?lang=en
+    </string>
+    <string name="my_account_link_url"
+     value="http://secondlife.com/account" />
+    <string name="no_partner_text" value="Pas de partenaire" />
+    <string name="no_group_text" value="Aucun" />
+    <string name="FSDev" value="-Concepteur" />
+    <string name="FSSupp" value="-Supporter" />
+
+<!--
+
+KC: Use view_border's around text_editor's due to text render issues with border_visible
+
+-->
+        <text name="Name:" value="Nom:" />
+        <text_editor
+         name="complete_name" value="(chargement...)" />
+        <button name="set_name" tool_tip="Définir le nom d'affichage" />
+        <text name="Key:" value="UUID:" />
+        <text_editor name="user_key" value="(chargement...)" />
+        <button name="avatar_key_copy" label="Copier" tool_tip="Kopiere Avatar UUID in die Klemmbrettung" />
+        <text name="label" value="Né le:" />
+        <text name="label2" value="Compte:" />
+        <text name="partner_label" value="Partenaire:" />
+        <text name="Groups:" value="Groupes:" />
+        <button name="group_invite" label="Inviter" label_selected="Inviter" tool_tip="Inviter dans un groupe" />
+        <text name="About:" value="À propos:" />
+        <text name="Give item:" value="Partager:" />
+        <text name="Give inventory" tool_tip="Faites glisser des objets pour les donner à cette personne.">
+            Glissez un objet pour l'offrir.
+        </text>
+
+        <layout_stack name="buttonstack">
+            <layout_panel name="left_buttonstack">
+                <button name="show_on_map_btn" label="Trouver sur la carte" label_selected="Trouver sur la carte" tool_tip="Localiser cette personne sur la carte" />
+                <button name="pay" label="Payer" label_selected="Payer" tool_tip="Envoyer de l'argent à cette personne" />
+            </layout_panel>
+
+            <layout_panel name="middle_buttonstack">
+                <button name="teleport" label="Téléporter" label_selected="Téléporter" tool_tip="Proposer de téléporter cette personne" />
+                <button name="im" label="Message instantané" label_selected="Message instantané" tool_tip="Ouvrir une session de conversation privée avec cette personne" />
+            </layout_panel>
+            
+            <layout_panel name="right_buttonstack">
+                <button name="add_friend" label="Devenir amis" label_selected="Devenir amis" tool_tip="Devenir ami avec cette personne" />
+                <button name="block" label="Ignorer" tool_tip="Ignorer ce résident" />
+                <button name="unblock" label="Cesser d'ignorer" tool_tip="Cesser d'ignorer cette personne" />
+            </layout_panel>
+        </layout_stack>
+        
+        <check_box name="show_in_search_checkbox" label="Afficher dans la recherche" />
+</panel>
+

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="panel_picks" label="Favoris">
+    <string name="no_picks" value="Pas de pick" />
+    <string name="no_classifieds" value="Pas de classificés" />
+    <text name="Tell everyone about your favorite places in Second Life.">
+        Montrez à tout le monde vos endroits préférés.
+    </text>
+    <button name="new_btn" label="Nouveau..." />
+    <button name="delete_btn" label="Supprimer..." />
+<!--
+    <button  name="Import..."  label="Import..." />
+    <button name="Export..." label="Export..." />
+-->
+    <text name="picks_panel_text" >
+        Chargement...
+    </text>
+</panel>
