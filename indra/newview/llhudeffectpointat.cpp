@@ -44,8 +44,6 @@
 #include "llviewerwindow.h"
 #include "llavatarnamecache.h"
 
-//CA for @shownames
-#include "RRInterface.h"
 
 // packet layout
 const S32 SOURCE_AVATAR = 0;
@@ -340,27 +338,6 @@ void LLHUDEffectPointAt::render()
 	    LLGLDisable gls_stencil(GL_STENCIL_TEST);
 		LLVector3 target = mTargetPos + mSourceObject->getRenderPosition();
 		
-		//CA: squash pointat_names if @shownames is in effect
-		
-		if (pointat_names && (!gRRenabled || (gRRenabled && !gAgent.mRRInterface.mContainsShownames))) {
-			//
-			//	render name above crosshairs
-			//
-			const LLFontGL *fontp = LLFontGL::getFont(LLFontDescriptor("SansSerif", "Small", LLFontGL::BOLD));
-			glMatrixMode(GL_MODELVIEW);
-			glPushMatrix();
-			LLVector3 position = target + LLVector3(0.0f, 0.0f, 0.3f);
-
-			LLAvatarName nameBuffer;
-			LLAvatarNameCache::get(((LLVOAvatar*)(LLViewerObject*)mSourceObject)->getID(), &nameBuffer);
-			std::string name = nameBuffer.mDisplayName;
-
-			gViewerWindow->setup3DRender();
-			hud_render_utf8text(name, position, *fontp, LLFontGL::NORMAL, LLFontGL::NO_SHADOW, -0.5*fontp->getWidthF32(name), 3.0, LLColor3(1.f, 0.f, 0.f), FALSE);
-
-			glPopMatrix();
-		}
-
 		//
 		//	render crosshairs
 		//
