@@ -335,7 +335,7 @@
         layout="topleft"
         height="15"
         left="27"
-        top_pad="3"
+        top_pad="5"
         width="105"
         halign="left"
         name="media_autoplay_label">
