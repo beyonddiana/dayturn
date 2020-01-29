@@ -97,9 +97,11 @@ top="10"
           font="SansSerifSmall"
           height="16"
           label="Remember password"
+          label_text.word_wrap="true"
+          label_text.width="150"
           top_pad="3"
           name="remember_check"
-          width="135" />
+          width="170" />
       <button
         follows="left|bottom"
           height="23"
