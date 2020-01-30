@@ -163,6 +163,7 @@
 #include "llviewermessage.h"
 #include "llviewernetwork.h"
 #include "llviewerobjectlist.h"
+#include "llviewerparcelaskplay.h"
 #include "llviewerparcelmedia.h"
 #include "llviewerparcelmgr.h"
 #include "llviewerregion.h"
@@ -1656,6 +1657,10 @@ bool idle_startup()
 		// create a container's instance for start a controlling conversation windows
 		// by the voice's events
 		LLFloaterIMContainer::getInstance();
+		if (gSavedSettings.getS32("ParcelMediaAutoPlayEnable") == 2)
+		{
+			LLViewerParcelAskPlay::getInstance()->loadSettings();
+		}
 
 		// *Note: this is where gWorldMap used to be initialized.
 
