@@ -436,43 +436,43 @@
         <key>slurl_base</key>
             <string>hop://tanglegrid.net:8002/</string>
         </map>
-    <key>tranquility-grid.info:8002</key>
+    <key>tranquility-life.info:8002</key>
         <map>
         <key>LastModified</key>
-            <date>2019-09-15T08:44:30.13Z</date>
+            <date>2020-01-29T12:33:18.48Z</date>
         <key>about</key>
-            <string>http://tranquility-grid.info/</string>
+            <string>http://tranquility-life.info/</string>
         <key>gatekeeper</key>
-            <string>tranquility-grid.info:8002</string>
+            <string>tranquility-life.info:8002</string>
         <key>gridname</key>
-            <string>Tranquility Virtual Grid</string>
+            <string>Tranquility Life Virtual Grid</string>
         <key>gridnick</key>
-            <string>Tranquility</string>
+            <string>TranquilityLife</string>
         <key>help</key>
-            <string>http://tranquility-grid.info/</string>
+            <string>http://tranquility-life.info/</string>
         <key>helperuri</key>
-            <string>http://tranquility-grid.info/components/com_opensim/</string>
+            <string>http://tranquility-life.info/register/components/com_opensim/</string>
         <key>login_identifier_types</key>
             <array>
                 <string>agent</string>
                 <string>account</string>
             </array>
         <key>loginpage</key>
-            <string>http://tranquility-grid.info/osloginscreen/</string>
+            <string>http://tranquility-life.info/register/index.php?option=com_opensim</string>
         <key>loginuri</key>
             <array>
-                <string>http://tranquility-grid.info:8002</string>
+                <string>http://tranquility-life.info:8002</string>
             </array>
         <key>name</key>
-            <string>tranquility-grid.info:8002</string>
+            <string>tranquility-life.info:8002</string>
         <key>password</key>
-            <string>http://tranquility-grid.info/index.php/component/users/?view=reset</string>
+            <string>http://tranquility-life.info/index.php/component/users/?view=reset</string>
         <key>platform</key>
             <string>OpenSim</string>
         <key>register</key>
-            <string>http://tranquility-grid.info/index.php/component/users/?view=registration</string>
+            <string>http://tranquility-life.info/index.php/component/users/?view=registration</string>
         <key>slurl_base</key>
-            <string>hop://tranquility-grid.info:8002/</string>
+            <string>hop://tranquility-life.info:8002/</string>
         </map>                 
     <key>grid.xmir.org:8002</key>
         <map>
