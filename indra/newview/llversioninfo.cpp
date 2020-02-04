@@ -64,7 +64,7 @@ S32 LLVersionInfo::getPatch()
 //static
 S32 LLVersionInfo::getBuild()
 {
-	return LL_VIEWER_VERSION_BUILD;
+	return (S32) LL_VIEWER_VERSION_BUILD;
 }
 
 //static
@@ -102,7 +102,7 @@ namespace
 	/// Storage of the channel name the viewer is using.
 	//  The channel name is set by hardcoded constant, 
 	//  or by calling LLVersionInfo::resetChannel()
-	std::string sWorkingChannelName(LL_VIEWER_CHANNEL);
+	std::string sWorkingChannelName(LL_TO_STRING(LL_VIEWER_CHANNEL));
 
 	// Storage for the "version and channel" string.
 	// This will get reset too.
