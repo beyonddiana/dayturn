@@ -64,7 +64,7 @@ S32 LLVersionInfo::getPatch()
 //static
 S32 LLVersionInfo::getBuild()
 {
-	return LL_VIEWER_VERSION_BUILD;
+	return (S32) LL_VIEWER_VERSION_BUILD;
 }
 
 //static
@@ -105,9 +105,10 @@ namespace
 	//  The channel name is set by hardcoded constant, 
 	//  or by calling LLVersionInfo::resetChannel()
 //MK
-	std::string sWorkingChannelName(LL_VIEWER_CHANNEL);
 ///	std::string sWorkingChannelName("Restrained Love Release");
 //mk
+	std::string sWorkingChannelName(LL_TO_STRING(LL_VIEWER_CHANNEL));
+
 	// Storage for the "version and channel" string.
 	// This will get reset too.
 	std::string sVersionChannel("");
