@@ -1033,7 +1033,6 @@ set(viewer_HEADER_FILES
     llinventorymodelbackgroundfetch.h
     llinventoryobserver.h
     llinventorypanel.h
-    lljointoverridedata.h
     lljoystickbutton.h
     lllandmarkactions.h
     lllandmarklist.h
