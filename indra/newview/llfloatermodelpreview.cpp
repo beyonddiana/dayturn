@@ -3659,7 +3659,7 @@ BOOL LLModelPreview::render()
 	bool use_shaders = LLGLSLShader::sNoFixedFunction;
 
 	bool edges = mViewOption["show_edges"];
-	bool joints = mViewOption["show_joint_overrides"];
+	bool joint_overrides = mViewOption["show_joint_overrides"];
 	bool joint_positions = mViewOption["show_joint_positions"];
 	bool skin_weight = mViewOption["show_skin_weight"];
 	bool textures = mViewOption["show_textures"];
@@ -4155,6 +4155,10 @@ BOOL LLModelPreview::render()
 		else
 		{
 			target_pos = getPreviewAvatar()->getPositionAgent();
+            getPreviewAvatar()->clearAttachmentOverrides(); // removes pelvis fixup
+            LLUUID fake_mesh_id;
+            fake_mesh_id.generate();
+            getPreviewAvatar()->addPelvisFixup(mPelvisZOffset, fake_mesh_id);
 			bool pelvis_recalc = false;
 
 			LLViewerCamera::getInstance()->setOriginAndLookAt(
@@ -4171,6 +4175,40 @@ BOOL LLModelPreview::render()
 
 					if (!model->mSkinWeights.empty())
 					{
+                        const LLMeshSkinInfo *skin = &model->mSkinInfo;
+                        U32 count = LLSkinningUtil::getMeshJointCount(skin);
+                        if (joint_overrides)
+                        {
+                            LLUUID fake_mesh_id;
+                            fake_mesh_id.generate();
+                            for (U32 j = 0; j < count; ++j)
+                            {
+                                LLJoint *joint = getPreviewAvatar()->getJoint(skin->mJointNums[j]);
+                                if (joint && skin->mAlternateBindMatrix.size() > 0)
+                                {
+                                    const LLVector3& jointPos = skin->mAlternateBindMatrix[j].getTranslation();
+                                    if (joint->aboveJointPosThreshold(jointPos))
+                                    {
+                                        bool override_changed;
+                                        joint->addAttachmentPosOverride(jointPos, fake_mesh_id, "model", override_changed);
+                                        if (override_changed)
+                                        {
+                                            //If joint is a pelvis then handle old/new pelvis to foot values
+                                            if (joint->getName() == "mPelvis")
+                                            {
+                                                pelvis_recalc = true;
+                                            }
+                                        }
+                                        if (skin->mLockScaleIfJointPosition)
+                                        {
+                                            // Note that unlike positions, there's no threshold check here,
+                                            // just a lock at the default value.
+                                            joint->addAttachmentScaleOverride(joint->getDefaultScale(), fake_mesh_id, "model");
+                                        }
+                                    }
+                                }
+                            }
+                        }
 						for (U32 i = 0, e = mVertexBuffer[mPreviewLOD][model].size(); i < e; ++i)
 						{
 							LLVertexBuffer* buffer = mVertexBuffer[mPreviewLOD][model][i];
@@ -4188,43 +4226,8 @@ BOOL LLModelPreview::render()
 							//build matrix palette
 
 							LLMatrix4a mat[LL_MAX_JOINTS_PER_MESH_OBJECT];
-                            const LLMeshSkinInfo *skin = &model->mSkinInfo;
-							U32 count = LLSkinningUtil::getMeshJointCount(skin);
                             LLSkinningUtil::initSkinningMatrixPalette((LLMatrix4*)mat, count,
                                                                         skin, getPreviewAvatar());
-                            getPreviewAvatar()->clearAttachmentOverrides();
-                            if (joints)
-                            {
-                                LLUUID fake_mesh_id;
-                                fake_mesh_id.generate();
-                                for (U32 j = 0; j < count; ++j)
-                                {
-                                    LLJoint *joint = getPreviewAvatar()->getJoint(skin->mJointNums[j]);
-                                    if (joint && skin->mAlternateBindMatrix.size() > 0)
-                                    {
-                                        const LLVector3& jointPos = skin->mAlternateBindMatrix[j].getTranslation();
-                                        if (joint->aboveJointPosThreshold(jointPos))
-                                        {
-                                            bool override_changed;
-                                            joint->addAttachmentPosOverride(jointPos, fake_mesh_id, "model", override_changed);
-                                            if (override_changed)
-                                            {
-                                                //If joint is a pelvis then handle old/new pelvis to foot values
-                                                if (joint->getName() == "mPelvis")
-                                                {
-                                                    pelvis_recalc = true;
-                                                }
-                                            }
-                                            if (skin->mLockScaleIfJointPosition)
-                                            {
-                                                // Note that unlike positions, there's no threshold check here,
-                                                // just a lock at the default value.
-                                                joint->addAttachmentScaleOverride(joint->getDefaultScale(), fake_mesh_id, "model");
-                                            }
-                                        }
-                                    }
-                                }
-                            }
 
                             LLMatrix4a bind_shape_matrix;
                             bind_shape_matrix.loadu(skin->mBindShapeMatrix);

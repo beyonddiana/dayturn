@@ -1472,7 +1472,7 @@
       label_text.text_color="White"
       layout="topleft"
       name="show_joint_positions"
-      top_pad="17">
+      top_pad="8">
     </check_box>
     <text
       follows="top|left"
