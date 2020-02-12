@@ -94,7 +94,7 @@ bool LLProgressView::postBuild()
 
 	getChild<LLTextBox>("title_text")->setText(LLStringExplicit(
 		LLAppViewer::instance()->getSecondLifeTitle() + " " +
-		LLVersionInfo::getShortVersion()
+		LLVersionInfo::instance().getShortVersion()
 	));
 
 	getChild<LLTextBox>("message_text")->setClickedCallback(onClickMessage, this);

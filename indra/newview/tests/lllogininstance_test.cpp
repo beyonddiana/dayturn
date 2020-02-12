@@ -1,25 +1,25 @@
 /**
  * @file   lllogininstance_test.cpp
  * @brief  Test for lllogininstance.cpp.
- * 
+ *
  * $LicenseInfo:firstyear=2008&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation;
  * version 2.1 of the License only.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
- * 
+ *
  * Linden Research, Inc., 945 Battery Street, San Francisco, CA  94111  USA
  * $/LicenseInfo$
  */
@@ -73,20 +73,20 @@ void LLViewerWindow::setShowProgress(BOOL show) {}
 LLProgressView * LLViewerWindow::getProgressView(void) const { return 0; }
 
 LLViewerWindow* gViewerWindow;
-	
+
 class LLLogin::Impl
 {
 };
 LLLogin::LLLogin() {}
 LLLogin::~LLLogin() {}
 LLEventPump& LLLogin::getEventPump() { return gTestPump; }
-void LLLogin::connect(const std::string& uri, const LLSD& credentials) 
+void LLLogin::connect(const std::string& uri, const LLSD& credentials)
 {
 	gLoginURI = uri;
 	gLoginCreds = credentials;
 }
 
-void LLLogin::disconnect() 
+void LLLogin::disconnect()
 {
 	gDisconnectCalled = true;
 }
@@ -122,7 +122,7 @@ bool LLGridManager::addGrid(LLSD& grid_data)
 LLGridManager::LLGridManager()
 :
 	mIsInProductionGrid(false)
-{	
+{
 }
 
 void LLGridManager::getLoginURIs(std::vector<std::string>& uris)
@@ -130,9 +130,9 @@ void LLGridManager::getLoginURIs(std::vector<std::string>& uris)
 	uris.push_back(VIEWERLOGIN_URI);
 }
 
-void LLGridManager::addSystemGrid(const std::string& label, 
-								  const std::string& name, 
-								  const std::string& login, 
+void LLGridManager::addSystemGrid(const std::string& label,
+								  const std::string& name,
+								  const std::string& login,
 								  const std::string& helper,
 								  const std::string& login_page,
 								  const std::string& update_url_base,
@@ -193,11 +193,9 @@ void LLUIColorTable::saveUserSettings(void)const {}
 
 //-----------------------------------------------------------------------------
 #include "../llversioninfo.h"
-const std::string &LLVersionInfo::getVersion() { return VIEWERLOGIN_VERSION; }
-const std::string &LLVersionInfo::getChannel() { return VIEWERLOGIN_CHANNEL; }
 const int MD5HEX_STR_SIZE = 33;  // char hex[MD5HEX_STR_SIZE]; with null
 
-bool llHashedUniqueID(unsigned char* id) 
+bool llHashedUniqueID(unsigned char* id)
 {
 	memcpy( id, "66666666666666666666666666666666", MD5HEX_STR_SIZE );
 	return true;
@@ -235,7 +233,7 @@ class MockNotifications : public LLNotificationsInterface
 	boost::function<void (const LLSD&, const LLSD&)> mResponder;
 	int mAddedCount;
 
-public: 
+public:
 	MockNotifications() :
 		mResponder(0),
 		mAddedCount(0)
@@ -247,7 +245,7 @@ public:
 	/* virtual */ LLNotificationPtr add(
 					const std::string& name,
 					const LLSD& substitutions,
-					const LLSD& payload, 
+					const LLSD& payload,
 					LLNotificationFunctorRegistry::ResponseFunctor functor)
 	{
 		mResponder = functor;
@@ -336,14 +334,14 @@ namespace tut
 			authenticator["passwd"] = "testpass";
 			agentCredential = new LLCredential();
 			agentCredential->setCredentialData(identifier, authenticator);
-			
+
 			authenticator = LLSD::emptyMap();
 			identifier = LLSD::emptyMap();
 			identifier["type"] = "account";
 			identifier["username"] = "testuser";
 			authenticator["secret"] = "testsecret";
 			accountCredential = new LLCredential();
-			accountCredential->setCredentialData(identifier, authenticator);			
+			accountCredential->setCredentialData(identifier, authenticator);
 
 			logininstance->setNotificationsInterface(&notifications);
 			logininstance->setPlatformInfo("win", "1.3.5");
@@ -367,7 +365,7 @@ namespace tut
 		// Test default connect.
 		logininstance->connect(agentCredential);
 
-		ensure_equals("Default connect uri", gLoginURI, VIEWERLOGIN_URI); 
+		ensure_equals("Default connect uri", gLoginURI, VIEWERLOGIN_URI);
 
 		// Dummy success response.
 		LLSD response;
@@ -409,7 +407,7 @@ namespace tut
 		logininstance->connect(test_uri, agentCredential);
 
 		// connect should call LLLogin::connect to init gLoginURI and gLoginCreds.
-		ensure_equals("Default connect uri", gLoginURI, "testing-uri"); 
+		ensure_equals("Default connect uri", gLoginURI, "testing-uri");
 		ensure_equals("Default for agree to tos", gLoginCreds["params"]["agree_to_tos"].asBoolean(), false);
 		ensure_equals("Default for read critical", gLoginCreds["params"]["read_critical"].asBoolean(), false);
 
@@ -433,7 +431,7 @@ namespace tut
 		gTOSReplyPump->post(true); // Accept tos, should reconnect w/ agree_to_tos.
 		ensure_equals("Accepted agree to tos", gLoginCreds["params"]["agree_to_tos"].asBoolean(), true);
 		ensure("Incomplete login status", !logininstance->authFailure() && !logininstance->authSuccess());
-	
+
 		// Fail connection, attempt connect again.
 		// The new request should have reset agree to tos to default.
 		response["data"]["reason"] = "key"; // bad creds.
@@ -450,7 +448,7 @@ namespace tut
 
 		ensure_equals("TOS Dialog type", gTOSType, "message_critical");
 		ensure("TOS callback given", gTOSReplyPump != 0);
-		gTOSReplyPump->post(true); 
+		gTOSReplyPump->post(true);
 		ensure_equals("Accepted read critical message", gLoginCreds["params"]["read_critical"].asBoolean(), true);
 		ensure("Incomplete login status", !logininstance->authFailure() && !logininstance->authSuccess());
 
