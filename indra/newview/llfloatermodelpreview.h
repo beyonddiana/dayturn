@@ -5,21 +5,21 @@
  * $LicenseInfo:firstyear=2004&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation;
  * version 2.1 of the License only.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
- * 
+ *
  * Linden Research, Inc., 945 Battery Street, San Francisco, CA  94111  USA
  * $/LicenseInfo$
  */
@@ -62,20 +62,20 @@ class LLToggleableMenu;
 class LLFloaterModelPreview : public LLFloaterModelUploadBase
 {
 public:
-	
+
 	class DecompRequest : public LLPhysicsDecomp::Request
 	{
 	public:
 		S32 mContinue;
 		LLPointer<LLModel> mModel;
-		
+
 		DecompRequest(const std::string& stage, LLModel* mdl);
 		virtual S32 statusCallback(const char* status, S32 p1, S32 p2);
 		virtual void completed();
-		
+
 	};
 	static LLFloaterModelPreview* sInstance;
-	
+
 	LLFloaterModelPreview(const LLSD& key);
 	virtual ~LLFloaterModelPreview();
 	
@@ -87,7 +87,7 @@ public:
 	BOOL handleMouseUp(S32 x, S32 y, MASK mask);
 	BOOL handleHover(S32 x, S32 y, MASK mask);
 	BOOL handleScrollWheel(S32 x, S32 y, S32 clicks); 
-	
+
 	/*virtual*/ void onOpen(const LLSD& key);
 	/*virtual*/ void onClose(bool app_quitting);
 
@@ -96,24 +96,26 @@ public:
 
 	void setDetails(F32 x, F32 y, F32 z, F32 streaming_cost, F32 physics_cost);
 	void setPreviewLOD(S32 lod);
-	
+
 	void onBrowseLOD(S32 lod);
-	
+
 	static void onReset(void* data);
 
 	static void onUpload(void* data);
-	
+
 	void refresh();
-	
+
 	void			loadModel(S32 lod);
 	void 			loadModel(S32 lod, const std::string& file_name, bool force_disable_slm = true);
-	
+
 	void onViewOptionChecked(LLUICtrl* ctrl);
 	bool isViewOptionChecked(const LLSD& userdata);
 	bool isViewOptionEnabled(const LLSD& userdata);
 	void setViewOptionEnabled(const std::string& option, bool enabled);
 	void enableViewOption(const std::string& option);
 	void disableViewOption(const std::string& option);
+
+	bool isModelLoading();
 
 	// shows warning message if agent has no permissions to upload model
 	/*virtual*/ void onPermissionsReceived(const LLSD& result);
@@ -144,30 +146,30 @@ protected:
 	static void		onUploadSkinCommit(LLUICtrl*,void*);
 
 	static void		onPreviewLODCommit(LLUICtrl*,void*);
-	
+
 	static void		onGenerateNormalsCommit(LLUICtrl*,void*);
-	
+
 	void toggleGenarateNormals();
 
 	static void		onAutoFillCommit(LLUICtrl*,void*);
-	
+
 	void onLODParamCommit(S32 lod, bool enforce_tri_limit);
 
 	static void		onExplodeCommit(LLUICtrl*, void*);
-	
+
 	static void onPhysicsParamCommit(LLUICtrl* ctrl, void* userdata);
 	static void onPhysicsStageExecute(LLUICtrl* ctrl, void* userdata);
 	static void onCancel(LLUICtrl* ctrl, void* userdata);
 	static void onPhysicsStageCancel(LLUICtrl* ctrl, void* userdata);
-	
+
 	static void onPhysicsBrowse(LLUICtrl* ctrl, void* userdata);
 	static void onPhysicsUseLOD(LLUICtrl* ctrl, void* userdata);
 	static void onPhysicsOptimize(LLUICtrl* ctrl, void* userdata);
 	static void onPhysicsDecomposeBack(LLUICtrl* ctrl, void* userdata);
 	static void onPhysicsSimplifyBack(LLUICtrl* ctrl, void* userdata);
-		
+
 	void			draw();
-	
+
 	void initDecompControls();
 
     // FIXME - this function and mStatusMessage have no visible effect, and the
@@ -176,20 +178,20 @@ protected:
 	void setStatusMessage(const std::string& msg);
 
 	LLModelPreview*	mModelPreview;
-	
+
 	LLPhysicsDecomp::decomp_params mDecompParams;
-	
+
 	S32				mLastMouseX;
 	S32				mLastMouseY;
 	LLRect			mPreviewRect;
 	static S32		sUploadAmount;
-	
+
 	std::set<LLPointer<DecompRequest> > mCurRequest;
 	std::string mStatusMessage;
 
 	//use "disabled" as false by default
 	std::map<std::string, bool> mViewOptionDisabled;
-	
+
 	//store which lod mode each LOD is using
 	// 0 - load from file
 	// 1 - auto generate
@@ -231,7 +233,7 @@ private:
 
 
 class LLModelPreview : public LLViewerDynamicTexture, public LLMutex
-{	
+{
 	typedef boost::signals2::signal<void (F32 x, F32 y, F32 z, F32 streaming_cost, F32 physics_cost)> details_signal_t;
 	typedef boost::signals2::signal<void (void)> model_loaded_signal_t;
 	typedef boost::signals2::signal<void (bool)> model_updated_signal_t;
@@ -283,7 +285,7 @@ public:
 	void clearGLODGroup();
 	void onLODParamCommit(S32 lod, bool enforce_tri_limit);
 	void addEmptyFace( LLModel* pTarget );
-	
+
 	const bool getModelPivot( void ) const { return mHasPivot; }
 	void setHasPivot( bool val ) { mHasPivot = val; }
 	void setModelPivot( const LLVector3& pivot ) { mModelPivot = pivot; }
@@ -295,18 +297,18 @@ public:
 
 	//Accessors for the legacy rigs
 	const bool isLegacyRigValid( void ) const { return mLegacyRigValid; }
-	void setLegacyRigValid( bool rigValid ) { mLegacyRigValid = rigValid; }		
+	void setLegacyRigValid( bool rigValid ) { mLegacyRigValid = rigValid; }
 
 	static void	textureLoadedCallback( BOOL success, LLViewerFetchedTexture *src_vi, LLImageRaw* src, LLImageRaw* src_aux, S32 discard_level, BOOL final, void* userdata );
     static bool lodQueryCallback();
-	
+
 	boost::signals2::connection setDetailsCallback( const details_signal_t::slot_type& cb ){  return mDetailsSignal.connect(cb);  }
 	boost::signals2::connection setModelLoadedCallback( const model_loaded_signal_t::slot_type& cb ){  return mModelLoadedSignal.connect(cb);  }
 	boost::signals2::connection setModelUpdatedCallback( const model_updated_signal_t::slot_type& cb ){  return mModelUpdatedSignal.connect(cb);  }
-	
+
 	void setLoadState( U32 state ) { mLoadState = state; }
 	U32 getLoadState() { return mLoadState; }
-	
+
 	static bool 		sIgnoreLoadedCallback;
     std::vector<S32> mLodsQuery;
     std::vector<S32> mLodsWithParsingError;
@@ -384,14 +386,14 @@ private:
 
 	typedef std::vector<LLVolumeFace>		v_LLVolumeFace_t;
 	typedef std::vector<v_LLVolumeFace_t>	vv_LLVolumeFace_t;
-	
+
 	vv_LLVolumeFace_t mModelFacesCopy[LLModel::NUM_LODS];
 	vv_LLVolumeFace_t mBaseModelFacesCopy;
 
 	U32 mGroup;
 	std::map<LLPointer<LLModel>, U32> mObject;
 	U32 mMaxTriangleLimit;
-	
+
 	LLMeshUploadThread::instance_list mUploadData;
 	std::set<LLViewerFetchedTexture * > mTextureSet;
 
@@ -401,12 +403,12 @@ private:
 	details_signal_t mDetailsSignal;
 	model_loaded_signal_t mModelLoadedSignal;
 	model_updated_signal_t mModelUpdatedSignal;
-	
+
 	LLVector3	mModelPivot;
 	bool		mHasPivot;
-	
+
 	float		mPelvisZOffset;
-	
+
 	bool		mRigValidJointUpload;
 	bool		mLegacyRigValid;
 

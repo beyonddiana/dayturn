@@ -1,25 +1,25 @@
-/** 
+/**
  * @file llviewermenufile.cpp
  * @brief "File" menu in the main menu bar.
  *
  * $LicenseInfo:firstyear=2002&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation;
  * version 2.1 of the License only.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
- * 
+ *
  * Linden Research, Inc., 945 Battery Street, San Francisco, CA  94111  USA
  * $/LicenseInfo$
  */
@@ -93,8 +93,13 @@ class LLFileEnableUploadModel : public view_listener_t
 {
 	bool handleEvent(const LLSD& userdata)
 	{
-		bool new_value = gStatusBar && LLGlobalEconomy::getInstance() && (gStatusBar->getBalance() >= LLGlobalEconomy::getInstance()->getPriceUpload());
-		return new_value;
+		LLFloaterModelPreview* fmp = (LLFloaterModelPreview*) LLFloaterReg::findInstance("upload_model");
+		if (fmp && fmp->isModelLoading())
+		{
+			return false;
+		}
+
+		return true;
 	}
 };
 
@@ -126,7 +131,7 @@ void LLFilePickerThread::getFile()
 #endif
 }
 
-//virtual 
+//virtual
 void LLFilePickerThread::run()
 {
 #if LL_WINDOWS
@@ -177,7 +182,7 @@ void LLFilePickerThread::initClass()
 void LLFilePickerThread::cleanupClass()
 {
 	clearDead();
-	
+
 	delete sMutex;
 	sMutex = NULL;
 }
@@ -329,7 +334,7 @@ const std::string upload_pick(void* data)
 		return std::string();
 	}
 
-	
+
 	const std::string& filename = picker.getFirstFile();
 	std::string ext = gDirUtilp->getExtension(filename);
 
@@ -337,7 +342,7 @@ const std::string upload_pick(void* data)
 	if (ext.empty())
 	{
 		std::string short_name = gDirUtilp->getBaseFileName(filename);
-		
+
 		// No extension
 		LLSD args;
 		args["FILE"] = short_name;
@@ -354,7 +359,7 @@ const std::string upload_pick(void* data)
 		std::string valid_extensions = build_extensions_string(type);
 
 		BOOL ext_valid = FALSE;
-		
+
 		typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
 		boost::char_separator<char> sep(" ");
 		tokenizer tokens(valid_extensions, sep);
@@ -390,7 +395,7 @@ const std::string upload_pick(void* data)
 	}//end else (non-null extension)
 
 	//valid file extension
-	
+
 	//now we check to see
 	//if the file is actually a valid image/sound/etc.
 	if (type == LLFilePicker::FFLOAD_WAV)
@@ -407,7 +412,7 @@ const std::string upload_pick(void* data)
 		}
 	}//end if a wave/sound file
 
-	
+
 	return filename;
 }
 
@@ -429,15 +434,15 @@ class LLFileUploadModel : public view_listener_t
 	bool handleEvent(const LLSD& userdata)
 	{
 		LLFloaterModelPreview* fmp = (LLFloaterModelPreview*) LLFloaterReg::getInstance("upload_model");
-		if (fmp)
+		if (fmp && !fmp->isModelLoading())
 		{
 			fmp->loadModel(3);
 		}
-		
+
 		return TRUE;
 	}
 };
-	
+
 class LLFileUploadSound : public view_listener_t
 {
 	bool handleEvent(const LLSD& userdata)
@@ -495,13 +500,13 @@ class LLFileUploadBulk : public view_listener_t
 		{
 			const std::string& filename = picker.getFirstFile();
 			std::string name = gDirUtilp->getBaseFileName(filename, true);
-			
+
 			std::string asset_name = name;
 			LLStringUtil::replaceNonstandardASCII( asset_name, '?' );
 			LLStringUtil::replaceChar(asset_name, '|', '?');
 			LLStringUtil::stripNonprintable(asset_name);
 			LLStringUtil::trim(asset_name);
-			
+
 			std::string display_name = LLStringUtil::null;
 			LLAssetStorage::LLStoreAssetCallback callback = NULL;
 			S32 expected_upload_cost = LLGlobalEconomy::getInstance()->getPriceUpload();
@@ -533,7 +538,7 @@ class LLFileUploadBulk : public view_listener_t
 	}
 };
 
-void upload_error(const std::string& error_message, const std::string& label, const std::string& filename, const LLSD& args) 
+void upload_error(const std::string& error_message, const std::string& label, const std::string& filename, const LLSD& args)
 {
 	LL_WARNS() << error_message << LL_ENDL;
 	LLNotificationsUtil::add(label, args);
@@ -541,7 +546,7 @@ void upload_error(const std::string& error_message, const std::string& label, co
 	{
 		LL_DEBUGS() << "unable to remove temp file" << LL_ENDL;
 	}
-	LLFilePicker::instance().reset();						
+	LLFilePicker::instance().reset();
 }
 
 class LLFileEnableCloseWindow : public view_listener_t
@@ -706,12 +711,12 @@ LLUUID upload_new_resource(
 	LLAssetStorage::LLStoreAssetCallback callback,
 	S32 expected_upload_cost,
 	void *userdata)
-{	
+{
 	// Generate the temporary UUID.
 	std::string filename = gDirUtilp->getTempFilename();
 	LLTransactionID tid;
 	LLAssetID uuid;
-	
+
 	LLSD args;
 
 	std::string exten = gDirUtilp->getExtension(src_filename);
@@ -720,11 +725,11 @@ LLUUID upload_new_resource(
 	std::string error_message;
 
 	BOOL error = FALSE;
-	
+
 	if (exten.empty())
 	{
 		std::string short_name = gDirUtilp->getBaseFileName(filename);
-		
+
 		// No extension
 		error_message = llformat(
 				"No file extension for the file: '%s'\nPlease make sure the file has a correct file extension",
@@ -755,7 +760,7 @@ LLUUID upload_new_resource(
 		LL_INFOS() << "Attempting to encode wav as an ogg file" << LL_ENDL;
 
 		encode_result = encode_vorbis_file(src_filename, filename);
-		
+
 		if (LLVORBISENC_NOERR != encode_result)
 		{
 			switch(encode_result)
@@ -766,131 +771,131 @@ LLUUID upload_new_resource(
 					upload_error(error_message, "CannotOpenTemporarySoundFile", filename, args);
 					break;
 
-				default:	
+				default:
 				  error_message = llformat("Unknown vorbis encode failure on: %s\n", src_filename.c_str());
 					args["FILE"] = src_filename;
 					upload_error(error_message, "UnknownVorbisEncodeFailure", filename, args);
-					break;	
-			}	
+					break;
+			}
 			return LLUUID();
 		}
 	}
-	else if(exten == "tmp")	 	
-	{	 	
-		// This is a generic .lin resource file	 	
-         asset_type = LLAssetType::AT_OBJECT;	 	
-         LLFILE* in = LLFile::fopen(src_filename, "rb");		/* Flawfinder: ignore */	 	
-         if (in)	 	
-         {	 	
-                 // read in the file header	 	
-                 char buf[16384];		/* Flawfinder: ignore */ 	
+	else if(exten == "tmp")
+	{
+		// This is a generic .lin resource file
+         asset_type = LLAssetType::AT_OBJECT;
+         LLFILE* in = LLFile::fopen(src_filename, "rb");		/* Flawfinder: ignore */
+         if (in)
+         {
+                 // read in the file header
+                 char buf[16384];		/* Flawfinder: ignore */
                  size_t readbytes;
-                 S32  version;	 	
-                 if (fscanf(in, "LindenResource\nversion %d\n", &version))	 	
-                 {	 	
-                         if (2 == version)	 	
+                 S32  version;
+                 if (fscanf(in, "LindenResource\nversion %d\n", &version))
+                 {
+                         if (2 == version)
                          {
 								// *NOTE: This buffer size is hard coded into scanf() below.
-                                 char label[MAX_STRING];		/* Flawfinder: ignore */	 	
-                                 char value[MAX_STRING];		/* Flawfinder: ignore */	 	
-                                 S32  tokens_read;	 	
-                                 while (fgets(buf, 1024, in))	 	
-                                 {	 	
-                                         label[0] = '\0';	 	
-                                         value[0] = '\0';	 	
+                                 char label[MAX_STRING];		/* Flawfinder: ignore */
+                                 char value[MAX_STRING];		/* Flawfinder: ignore */
+                                 S32  tokens_read;
+                                 while (fgets(buf, 1024, in))
+                                 {
+                                         label[0] = '\0';
+                                         value[0] = '\0';
                                          tokens_read = sscanf(	/* Flawfinder: ignore */
 											 buf,
 											 "%254s %254s\n",
-											 label, value);	 	
+											 label, value);
 
-                                         LL_INFOS() << "got: " << label << " = " << value	 	
-                                                         << LL_ENDL;	 	
+                                         LL_INFOS() << "got: " << label << " = " << value
+                                                         << LL_ENDL;
 
-                                         if (EOF == tokens_read)	 	
-                                         {	 	
-                                                 fclose(in);	 	
+                                         if (EOF == tokens_read)
+                                         {
+                                                 fclose(in);
                                                  error_message = llformat("corrupt resource file: %s", src_filename.c_str());
 												 args["FILE"] = src_filename;
 												 upload_error(error_message, "CorruptResourceFile", filename, args);
                                                  return LLUUID();
-                                         }	 	
+                                         }
 
-                                         if (2 == tokens_read)	 	
-                                         {	 	
-                                                 if (! strcmp("type", label))	 	
-                                                 {	 	
-                                                         asset_type = (LLAssetType::EType)(atoi(value));	 	
-                                                 }	 	
-                                         }	 	
-                                         else	 	
-                                         {	 	
-                                                 if (! strcmp("_DATA_", label))	 	
-                                                 {	 	
-                                                         // below is the data section	 	
-                                                         break;	 	
-                                                 }	 	
-                                         }	 	
-                                         // other values are currently discarded	 	
-                                 }	 	
+                                         if (2 == tokens_read)
+                                         {
+                                                 if (! strcmp("type", label))
+                                                 {
+                                                         asset_type = (LLAssetType::EType)(atoi(value));
+                                                 }
+                                         }
+                                         else
+                                         {
+                                                 if (! strcmp("_DATA_", label))
+                                                 {
+                                                         // below is the data section
+                                                         break;
+                                                 }
+                                         }
+                                         // other values are currently discarded
+                                 }
 
-                         }	 	
-                         else	 	
-                         {	 	
-                                 fclose(in);	 	
+                         }
+                         else
+                         {
+                                 fclose(in);
                                  error_message = llformat("unknown linden resource file version in file: %s", src_filename.c_str());
 								 args["FILE"] = src_filename;
 								 upload_error(error_message, "UnknownResourceFileVersion", filename, args);
                                  return LLUUID();
-                         }	 	
-                 }	 	
-                 else	 	
-                 {	 	
-                         // this is an original binary formatted .lin file	 	
-                         // start over at the beginning of the file	 	
-                         fseek(in, 0, SEEK_SET);	 	
+                         }
+                 }
+                 else
+                 {
+                         // this is an original binary formatted .lin file
+                         // start over at the beginning of the file
+                         fseek(in, 0, SEEK_SET);
 
-                         const S32 MAX_ASSET_DESCRIPTION_LENGTH = 256;	 	
-                         const S32 MAX_ASSET_NAME_LENGTH = 64;	 	
-                         S32 header_size = 34 + MAX_ASSET_DESCRIPTION_LENGTH + MAX_ASSET_NAME_LENGTH;	 	
-                         S16     type_num;	 	
+                         const S32 MAX_ASSET_DESCRIPTION_LENGTH = 256;
+                         const S32 MAX_ASSET_NAME_LENGTH = 64;
+                         S32 header_size = 34 + MAX_ASSET_DESCRIPTION_LENGTH + MAX_ASSET_NAME_LENGTH;
+                         S16     type_num;
 
-                         // read in and throw out most of the header except for the type	 	
+                         // read in and throw out most of the header except for the type
                          if (fread(buf, header_size, 1, in) != 1)
 						 {
 							 LL_WARNS() << "Short read" << LL_ENDL;
 						 }
-                         memcpy(&type_num, buf + 16, sizeof(S16));		/* Flawfinder: ignore */	 	
-                         asset_type = (LLAssetType::EType)type_num;	 	
-                 }	 	
+                         memcpy(&type_num, buf + 16, sizeof(S16));		/* Flawfinder: ignore */
+                         asset_type = (LLAssetType::EType)type_num;
+                 }
 
-                 // copy the file's data segment into another file for uploading	 	
-                 LLFILE* out = LLFile::fopen(filename, "wb");		/* Flawfinder: ignore */	
-                 if (out)	 	
-                 {	 	
-                         while((readbytes = fread(buf, 1, 16384, in)))		/* Flawfinder: ignore */	 	
-                         {	 	
+                 // copy the file's data segment into another file for uploading
+                 LLFILE* out = LLFile::fopen(filename, "wb");		/* Flawfinder: ignore */
+                 if (out)
+                 {
+                         while((readbytes = fread(buf, 1, 16384, in)))		/* Flawfinder: ignore */
+                         {
 							 if (fwrite(buf, 1, readbytes, out) != readbytes)
 							 {
 								 LL_WARNS() << "Short write" << LL_ENDL;
 							 }
-                         }	 	
-                         fclose(out);	 	
-                 }	 	
-                 else	 	
-                 {	 	
-                         fclose(in);	 	
+                         }
+                         fclose(out);
+                 }
+                 else
+                 {
+                         fclose(in);
                          error_message = llformat( "Unable to create output file: %s", filename.c_str());
 						 args["FILE"] = filename;
 						 upload_error(error_message, "UnableToCreateOutputFile", filename, args);
                          return LLUUID();
-                 }	 	
+                 }
 
-                 fclose(in);	 	
-         }	 	
-         else	 	
-         {	 	
-                 LL_INFOS() << "Couldn't open .lin file " << src_filename << LL_ENDL;	 	
-         }	 	
+                 fclose(in);
+         }
+         else
+         {
+                 LL_INFOS() << "Couldn't open .lin file " << src_filename << LL_ENDL;
+         }
 	}
 	else if (exten == "bvh")
 	{
@@ -995,14 +1000,14 @@ void upload_done_callback(
 		if (result >= 0)
 		{
 			LLFolderType::EType dest_loc = (data->mPreferredLocation == LLFolderType::FT_NONE) ? LLFolderType::assetTypeToFolderType(data->mAssetInfo.mType) : data->mPreferredLocation;
-			
+
 			if (LLAssetType::AT_SOUND == data->mAssetInfo.mType ||
 			    LLAssetType::AT_TEXTURE == data->mAssetInfo.mType ||
 			    LLAssetType::AT_ANIMATION == data->mAssetInfo.mType)
 			{
 				// Charge the user for the upload.
 				LLViewerRegion* region = gAgent.getRegion();
-				
+
 				if(!(can_afford_transaction(expected_upload_cost)))
 				{
 					LLStringUtil::format_map_t args;
@@ -1015,7 +1020,7 @@ void upload_done_callback(
 				{
 					// Charge user for upload
 					gStatusBar->debitBalance(expected_upload_cost);
-					
+
 					LLMessageSystem* msg = gMessageSystem;
 					msg->newMessageFast(_PREHASH_MoneyTransferRequest);
 					msg->nextBlockFast(_PREHASH_AgentData);
@@ -1176,8 +1181,8 @@ void upload_new_resource(
 	{
 		return ;
 	}
-	
-	LLAssetID uuid = 
+
+	LLAssetID uuid =
 		upload_new_resource_prep(
 			tid,
 			asset_type,
@@ -1185,7 +1190,7 @@ void upload_new_resource(
 			name,
 			display_name,
 			desc);
-	
+
 	if( LLAssetType::AT_SOUND == asset_type )
 	{
 		add(LLStatViewer::UPLOAD_SOUND, 1);
@@ -1215,7 +1220,7 @@ void upload_new_resource(
 	{
 		desc = "(No Description)";
 	}
-	
+
 	// At this point, we're ready for the upload.
 	std::string upload_message = "Uploading...\n\n";
 	upload_message.append(display_name);
@@ -1307,7 +1312,7 @@ void upload_new_resource(
 LLAssetID generate_asset_id_for_new_upload(const LLTransactionID& tid)
 {
 	if ( gDisconnected )
-	{	
+	{
 		LLAssetID rv;
 
 		rv.setNull();
