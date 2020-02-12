@@ -1151,7 +1151,7 @@ bool LLAppViewer::init()
 
 	// Save the current version to the prefs file
 	gSavedSettings.setString("LastRunVersion",
-							 LLVersionInfo::getChannelAndVersion());
+                             LLVersionInfo::instance().getChannelAndVersion());
 
 	gSimLastTime = gRenderStartTime.getElapsedTimeF32();
 	gSimFrames = (F32)gFrameCount;
@@ -2742,8 +2742,8 @@ bool LLAppViewer::initConfiguration()
 
 	std::string CmdLineChannel(gSavedSettings.getString("CmdLineChannel"));
 	if(! CmdLineChannel.empty())
-	{
-		LLVersionInfo::resetChannel(CmdLineChannel);
+    {
+        LLVersionInfo::instance().resetChannel(CmdLineChannel);
 	}
 
 	// If we have specified crash on startup, set the global so we'll trigger the crash at the right time
@@ -2917,7 +2917,7 @@ bool LLAppViewer::initConfiguration()
 	//
 	// Set the name of the window
 	//
-	gWindowTitle = LLTrans::getString("APP_NAME") + " " + LLVersionInfo::getVersion();
+	gWindowTitle = LLTrans::getString("APP_NAME") + " " + LLVersionInfo::instance().getVersion();
 #if LL_DEBUG
     gWindowTitle += std::string(" [DEBUG]");
 #endif
@@ -3209,17 +3209,17 @@ LLSD LLAppViewer::getViewerInfo() const
 	// LLFloaterAbout.
 	LLSD info;
 	LLSD version;
-	version.append(LLVersionInfo::getMajor());
-	version.append(LLVersionInfo::getMinor());
-	version.append(LLVersionInfo::getPatch());
-	version.append(LLVersionInfo::getBuild());
+    version.append(LLVersionInfo::instance().getMajor());
+    version.append(LLVersionInfo::instance().getMinor());
+    version.append(LLVersionInfo::instance().getPatch());
+    version.append(LLVersionInfo::instance().getBuild());
 	info["VIEWER_VERSION"] = version;
-	info["VIEWER_VERSION_STR"] = LLVersionInfo::getVersion();
+    info["VIEWER_VERSION_STR"] = LLVersionInfo::instance().getVersion();
 	info["BUILD_DATE"] = __DATE__;
 	info["BUILD_TIME"] = __TIME__;
-	info["CHANNEL"] = LLVersionInfo::getChannel();
+    info["CHANNEL"] = LLVersionInfo::instance().getChannel();
 	info["ADDRESS_SIZE"] = ADDRESS_SIZE;
-    std::string build_config = LLVersionInfo::getBuildConfig();
+    std::string build_config = LLVersionInfo::instance().getBuildConfig();
     if (build_config != "Release")
     {
         info["BUILD_CONFIG"] = build_config;
@@ -3230,6 +3230,7 @@ LLSD LLAppViewer::getViewerInfo() const
 	std::string url = LLTrans::getString("RELEASE_NOTES_BASE_URL");
 	if (! LLStringUtil::endsWith(url, "/"))
 		url += "/";
+    url += LLURI::escape(LLVersionInfo::instance().getVersion()) + ".html";
 //	std::string channel = LLVersionInfo::getChannel();
 // 	if (LLStringUtil::endsWith(boost::to_lower_copy(channel), " edu")) // Release Notes url shouldn't include the EDU parameter
 // 	{
@@ -3544,12 +3545,12 @@ void LLAppViewer::writeSystemInfo()
     gDebugInfo["SLLog"] = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"Dayturn.old");  //LLError::logFileName();
 #endif
 
-	gDebugInfo["ClientInfo"]["Name"] = LLVersionInfo::getChannel();
-	gDebugInfo["ClientInfo"]["MajorVersion"] = LLVersionInfo::getMajor();
-	gDebugInfo["ClientInfo"]["MinorVersion"] = LLVersionInfo::getMinor();
-	gDebugInfo["ClientInfo"]["PatchVersion"] = LLVersionInfo::getPatch();
-	gDebugInfo["ClientInfo"]["BuildVersion"] = LLVersionInfo::getBuild();
-	gDebugInfo["ClientInfo"]["AddressSize"] = LLVersionInfo::getAddressSize();
+    gDebugInfo["ClientInfo"]["Name"] = LLVersionInfo::instance().getChannel();
+    gDebugInfo["ClientInfo"]["MajorVersion"] = LLVersionInfo::instance().getMajor();
+    gDebugInfo["ClientInfo"]["MinorVersion"] = LLVersionInfo::instance().getMinor();
+    gDebugInfo["ClientInfo"]["PatchVersion"] = LLVersionInfo::instance().getPatch();
+    gDebugInfo["ClientInfo"]["BuildVersion"] = LLVersionInfo::instance().getBuild();
+    gDebugInfo["ClientInfo"]["AddressSize"] = LLVersionInfo::instance().getAddressSize();
 
 	gDebugInfo["CAFilename"] = gDirUtilp->getCAFile();
 
@@ -3591,7 +3592,7 @@ void LLAppViewer::writeSystemInfo()
 
 	// Dump some debugging info
 	LL_INFOS("SystemInfo") << "Application: " << LLTrans::getString("APP_NAME") << LL_ENDL;
-	LL_INFOS("SystemInfo") << "Version: " << LLVersionInfo::getChannelAndVersion() << LL_ENDL;
+    LL_INFOS("SystemInfo") << "Version: " << LLVersionInfo::instance().getChannelAndVersion() << LL_ENDL;
 //			<< " version " << ViewerInfo::versionNumber() << LL_ENDL;
 
 	// Dump the local time and time zone
@@ -3766,7 +3767,7 @@ void LLAppViewer::handleViewerCrash()
 // static
 void LLAppViewer::recordMarkerVersion(LLAPRFile& marker_file) 
 {
-	std::string marker_version(LLVersionInfo::getChannelAndVersion());
+    std::string marker_version(LLVersionInfo::instance().getChannelAndVersion());
 	if ( marker_version.length() > MAX_MARKER_LENGTH )
 	{
 		LL_WARNS_ONCE("MarkerFile") << "Version length ("<< marker_version.length()<< ")"
@@ -3783,7 +3784,7 @@ bool LLAppViewer::markerIsSameVersion(const std::string& marker_name) const
 {
 	bool sameVersion = false;
 
-	std::string my_version(LLVersionInfo::getChannelAndVersion());
+    std::string my_version(LLVersionInfo::instance().getChannelAndVersion());
 	char marker_version[MAX_MARKER_LENGTH];
 
 	LLAPRFile marker_file;
@@ -5621,12 +5622,12 @@ void LLAppViewer::handleLoginComplete()
 	initMainloopTimeout("Mainloop Init");
 
 	// Store some data to DebugInfo in case of a freeze.
-	gDebugInfo["ClientInfo"]["Name"] = LLVersionInfo::getChannel();
+    gDebugInfo["ClientInfo"]["Name"] = LLVersionInfo::instance().getChannel();
 
-	gDebugInfo["ClientInfo"]["MajorVersion"] = LLVersionInfo::getMajor();
-	gDebugInfo["ClientInfo"]["MinorVersion"] = LLVersionInfo::getMinor();
-	gDebugInfo["ClientInfo"]["PatchVersion"] = LLVersionInfo::getPatch();
-	gDebugInfo["ClientInfo"]["BuildVersion"] = LLVersionInfo::getBuild();
+    gDebugInfo["ClientInfo"]["MajorVersion"] = LLVersionInfo::instance().getMajor();
+    gDebugInfo["ClientInfo"]["MinorVersion"] = LLVersionInfo::instance().getMinor();
+    gDebugInfo["ClientInfo"]["PatchVersion"] = LLVersionInfo::instance().getPatch();
+    gDebugInfo["ClientInfo"]["BuildVersion"] = LLVersionInfo::instance().getBuild();
 
 	LLParcel* parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
 	if ( parcel && parcel->getMusicURL()[0])
