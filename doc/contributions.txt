@@ -208,6 +208,7 @@ Ansariel Hiller
 	MAINT-8085
 	MAINT-8723			
 	STORM-2151
+	MAINT-6912
 Aralara Rajal
 Arare Chantilly
 	CHUIBUG-191
@@ -823,7 +824,7 @@ Kitty Barnett
 	MAINT-6154
 	MAINT-7581
 	MAINT-6568
-    MAINT-7081	
+    MAINT-7081
 Kolor Fall
 Komiko Okamoto
 Korvel Noh
@@ -1271,7 +1272,7 @@ Shnurui Troughton
 Shyotl Kuhr
 	MAINT-1138
 	MAINT-2334
-	MAINT-6913	
+	MAINT-6913
 	STORM-2143
 Siana Gearz
 	STORM-960
@@ -1306,7 +1307,7 @@ Sovereign Engineer
     MAINT-6107
     STORM-2107
     MAINT-6218
-    MAINT-6913    
+    MAINT-6913
     STORM-2143
     STORM-2148
     SL-11079
