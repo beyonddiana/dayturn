@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<context_menu name="Toolbars Popup">
+  <menu_item_call label="Schaltflächen bearbeiten" name="Choose Buttons"/>
+  <menu_item_call label="Schaltfläche entfernen" name="Remove button"/>
+  <menu_item_check label="Links Anpassung" name="left_aligned"/>
+  <menu_item_check label="Zentrum Anpassung" name="center_aligned"/>
+  <menu_item_check label="Richtig Anpassung" name="right_aligned"/>
+  <menu_item_check label="Symbole und Beschriftungen" name="icons_with_text"/>
+  <menu_item_check label="Nur Symbole" name="icons_only"/>
+  <menu_item_check label="Nur Beschriftungen" name="text_only"/>
+  <menu_item_check label="Kein Layout" name="layout_style_none"/>
+  <menu_item_check label="Regelmäßig Layout" name="layout_style_equalize"/>
+  <menu_item_check label="Automatisches Layout" name="layout_style_fill"/>
+</context_menu>
+ 
