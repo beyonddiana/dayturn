@@ -22283,7 +22283,53 @@
             </array>
             <key>tooltip</key>
             <string>Returns prim params for the prim specified by link_num.</string>
-         </map>   
+         </map>
+         <key>osGetLinkSitActiveRange</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>float</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>linkNumber</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>                
+            <key>tooltip</key>
+            <string>Returns the sit active range of the selected prim, see osSetLinkSitActiveRange. linkNumber: the link number of the prim, LINK_THIS or LINK_ROOT</string>
+         </map>
+         <key>osGetLinkStandTarget</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>vector</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>linkNumber</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>                
+            <key>tooltip</key>
+            <string>Returns the stand target set on the prim see osSetLinkStandTarget. linkNumber: the link number of the prim, LINK_THIS or LINK_ROOT</string>
+         </map>  
          <key>osGetMapTexture</key>
          <map>
             <key>energy</key>
@@ -22591,7 +22637,43 @@
             <undef/>
             <key>tooltip</key>
             <string>Returns the current simulator version.</string>
-         </map> 
+         </map>
+         <key>osGetSitActiveRange</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>float</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>linkNumber</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>                
+            <key>tooltip</key>
+            <string>Returns the sit active range of the prim. See osSetSitActiveRange</string>
+         </map>
+         <key>osGetStandTarget</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>vector</string>
+            <key>arguments</key>
+            <undef/>
+            <key>tooltip</key>
+            <string>Returns the stand target set on the prim. See osSetStandTarget</string>
+         </map>
          <key>osGetSunParam</key>
          <map>
             <key>energy</key>
@@ -24823,6 +24905,38 @@
             <key>tooltip</key>
             <string>Allows creators to set the link set total mass, center of mass and moment of inertia. Moment of inertia will be the one of a sphere of radius radius, placed at the center of mass. Call osClearInertia to undo.</string>
          </map>
+         <key>osSetLinkSitActiveRange</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>linkNumber</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>range</key>
+                  <map>
+                     <key>type</key>
+                     <string>float</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>                
+            <key>tooltip</key>
+            <string>Sets a limit on how far an avatar can be to have a sit request accepted, or disable sits. linkNumber is link number of the prim to change or one of LINK_SET,LINK_ROOT, LINK_ALL_OTHERS,LINK_ALL_CHILDREN or LINK_THIS</string>
+         </map> 
          <key>osSetOwnerSpeed</key>
          <map>
             <key>energy</key>
@@ -25239,6 +25353,29 @@
             <key>tooltip</key>
             <string>Adjusts water height in current region.</string>
          </map>
+         <key>osSetSitActiveRange</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>range</key>
+                  <map>
+                     <key>type</key>
+                     <string>float</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>                
+            <key>tooltip</key>
+            <string>Sets a limit on how far a avatar can be to have a sit request accepted, or disable sits</string>
+         </map>
          <key>osSetSoundRadius</key>
          <map>
             <key>energy</key>
@@ -25303,6 +25440,29 @@
             <key>tooltip</key>
             <string>Modify the speed of movement for the given avatar.</string>
          </map>
+         <key>osSetStandTarget</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>feetTarget</key>
+                  <map>
+                     <key>type</key>
+                     <string>vector</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>                
+            <key>tooltip</key>
+            <string>Sets a position, relative to prim local frame, where to place the feet of a standing avatar. The final position may not be exactly that. </string>
+         </map> 
          <key>osSetStateEvents</key>
          <map>
             <key>energy</key>
