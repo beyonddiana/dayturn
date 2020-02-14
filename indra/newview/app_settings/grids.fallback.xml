@@ -186,42 +186,6 @@
         <key>slurl_base</key>
             <string>hop://grid.3rdrockgrid.com:8002/</string>
         </map>
-    <key>login.islandzvw.com:8002</key>
-        <map>
-        <key>LastModified</key>
-            <date>2018-11-25T13:41:11.46Z</date>
-        <key>about</key>
-            <string>http://www.islandzvw.com/about/</string>
-        <key>gridname</key>
-            <string>Islandz Virtual World</string>
-        <key>gridnick</key>
-            <string>islandz</string>
-        <key>help</key>
-            <string>http://www.islandzvw.com/help</string>
-        <key>helperuri</key>
-            <string>http://www.islandzvw.com/</string>
-        <key>login_identifier_types</key>
-            <array>
-                <string>agent</string>
-                <string>account</string>
-            </array>
-        <key>loginpage</key>
-            <string>http://www.islandzvw.com/loginscreen.php</string>
-        <key>loginuri</key>
-            <array>
-                <string>http://login.islandzvw.com:8002/</string>
-            </array>
-        <key>name</key>
-            <string>login.islandzvw.com:8002</string>
-        <key>password</key>
-            <string>http://www.islandzvw.com/password</string>
-        <key>platform</key>
-            <string>Halcyon</string>
-        <key>register</key>
-            <string>http://www.islandzvw.com/register/</string>
-        <key>slurl_base</key>
-            <string>hop://login.islandzvw.com:8002/</string>
-        </map>
     <key>login.francogrid.org</key>
         <map>
         <key>LastModified</key>
@@ -473,7 +437,41 @@
             <string>http://tranquility-life.info/index.php/component/users/?view=registration</string>
         <key>slurl_base</key>
             <string>hop://tranquility-life.info:8002/</string>
-        </map>                 
+        </map> 
+    <key>login.zetaworlds.com</key>
+        <map>
+        <key>LastModified</key>
+            <date>2020-02-13T23:39:43.90Z</date>
+        <key>about</key>
+            <string>https://zetaworlds.com/</string>
+        <key>gridname</key>
+            <string>ZetaWorlds</string>
+        <key>gridnick</key>
+            <string>ZetaWorlds</string>
+        <key>helperuri</key>
+            <string>http://money.zetaworlds.com/</string>
+        <key>login_identifier_types</key>
+            <array>
+                <string>agent</string>
+                <string>account</string>
+            </array>
+        <key>loginpage</key>
+            <string>http://zetaworlds.com/splash</string>
+        <key>loginuri</key>
+            <array>
+                <string>https://login.zetaworlds.com/</string>
+            </array>
+        <key>name</key>
+            <string>login.zetaworlds.com</string>
+        <key>password</key>
+            <string>https://zetaworlds.com/user/forgot</string>
+        <key>platform</key>
+            <string>OpenSim</string>
+        <key>register</key>
+            <string>http://zetaworlds.com/user/register</string>
+        <key>slurl_base</key>
+            <string>hop://login.zetaworlds.com/</string>
+        </map>                
     <key>grid.xmir.org:8002</key>
         <map>
         <key>LastModified</key>
