@@ -1384,20 +1384,22 @@
  Preview:
  </text>
 <panel
+ follows="all"
+ layout="topleft"
  border="true"
  bevel_style="none"
- follows="top|left"
  name="preview_panel"
  top_pad="4"
  width="325"
  height="408"/>
 <panel
-  follows="all"
-  height="140"
-  layout="topleft"
-  name="right_panel"
-  top_pad="5"
-  width="340">
+ follows="right|bottom"
+ can_resize="false"
+ height="140"
+ layout="topleft"
+ name="right_panel"
+ top_pad="5"
+ width="340">
     <combo_box
       top_pad="3"
       follows="left|top"
