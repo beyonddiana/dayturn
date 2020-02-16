@@ -108,6 +108,8 @@ public:
 	void			loadModel(S32 lod);
 	void 			loadModel(S32 lod, const std::string& file_name, bool force_disable_slm = true);
 
+	void onUploadOptionChecked(LLUICtrl* ctrl);
+	void onShowSkinWeightChecked(LLUICtrl* ctrl);
 	void onViewOptionChecked(LLUICtrl* ctrl);
 	bool isViewOptionChecked(const LLSD& userdata);
 	bool isViewOptionEnabled(const LLSD& userdata);
