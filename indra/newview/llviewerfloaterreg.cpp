@@ -149,9 +149,6 @@
 #include "llfloaterimnearbychat.h"
 #include "llpanelblockedlist.h"
 #include "llpanelclassified.h"
-//MK from firestorm
-#include "llpanelprofileview.h"
-//mk
 #include "llpreviewanim.h"
 #include "llpreviewgesture.h"
 #include "llpreviewnotecard.h"
