@@ -1227,19 +1227,6 @@ void LLFloater::setMinimized(BOOL minimize)
 		mMinimized = TRUE;
 		mExpandedRect = getRect();
 
-//MK
-		// Change the way a floater is minimized : make it so the minimized
-		// bar is at the same spot as the normal floater, so that both the
-		// Minimize/Restore and the Close buttons 
-		if (TRUE)
-		{
-			LLRect rect = getRect();
-			S32 desired_left = rect.mRight - minimized_width;
-			S32 desired_bottom = rect.mTop - floater_header_size;
-			setOrigin(desired_left, desired_bottom);
-		}
-		else
-//mk
 		// If the floater has been dragged while minimized in the
 		// past, then locate it at its previous minimized location.
 		// Otherwise, ask the view for a minimize position.
@@ -1309,17 +1296,7 @@ void LLFloater::setMinimized(BOOL minimize)
 			mPreviousMinimizedBottom = currentRect.mBottom;
 		}
 
-//MK
-////		setOrigin( mExpandedRect.mLeft, mExpandedRect.mBottom );
-		// Change the way a floater is minimized : make it so the minimized
-		// bar is at the same spot as the normal floater, so that both the
-		// Minimize/Restore and the Close buttons 
-		LLRect rect = getRect();
-		S32 desired_left = rect.mRight - mExpandedRect.getWidth();
-		S32 desired_bottom = rect.mTop -  mExpandedRect.getHeight();
-		setOrigin(desired_left, desired_bottom);
-//mk
-
+		setOrigin( mExpandedRect.mLeft, mExpandedRect.mBottom );
 		if (mButtonsEnabled[BUTTON_RESTORE])
 		{
 			mButtonsEnabled[BUTTON_MINIMIZE] = TRUE;

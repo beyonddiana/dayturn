@@ -993,15 +993,6 @@ void LLButton::draw()
 	}
 	// <FS:Zi>
 
-	// <FS:Zi> Add checkbox control toggle
-	if(mCheckboxControlPanel)
-	{
-		mCheckboxControlPanel->setOrigin(0,0);
-		mCheckboxControlPanel->reshape(getRect().getWidth(),getRect().getHeight());
-		mCheckboxControlPanel->draw();
-	}
-	// <FS:Zi>
-
 	LLUICtrl::draw();
 }
 

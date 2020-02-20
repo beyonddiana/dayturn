@@ -450,9 +450,9 @@ std::string LLUrlEntrySLURL::getLocation(const std::string &url) const
 		return "";
 	}
 
-		pos += search_string.size() + 1;
+	pos += search_string.size() + 1;
 	return url.substr(pos, url.size() - pos);
-	}
+}
 
 //
 // LLUrlEntrySeconlifeURL Describes *secondlife.com/ *lindenlab.com/ and *tilia-inc.com/ urls to substitute icon 'hand.png' before link
@@ -463,7 +463,7 @@ LLUrlEntrySecondlifeURL::LLUrlEntrySecondlifeURL()
 							"|"
 							"(https://([-\\w\\.]*\\.)?(secondlife|lindenlab|tilia-inc)\\.com(:\\d{1,5})?))"
 							"\\/\\S*",
-	boost::regex::perl|boost::regex::icase);
+		boost::regex::perl|boost::regex::icase);
 	
 	mIcon = "Hand";
 	mMenuName = "menu_url_http.xml";

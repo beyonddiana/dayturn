@@ -58,12 +58,6 @@ namespace LLTextUtil
 	        const std::string& text,
 	        const std::string& greyed);
 
-	void textboxSetGreyedVal(
-	        LLTextBox *txtbox,
-	        const LLStyle::Params& normal_style,
-	        const std::string& text,
-	        const std::string& greyed);
-
 	/**
 	 * Formats passed phone number to be more human readable.
 	 *
