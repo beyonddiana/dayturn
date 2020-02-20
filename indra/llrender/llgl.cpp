@@ -567,9 +567,9 @@ bool LLGLManager::initGL()
 			PFNWGLGETEXTENSIONSSTRINGARBPROC wglGetExtensionsStringARB = 0;
 			wglGetExtensionsStringARB = (PFNWGLGETEXTENSIONSSTRINGARBPROC)wglGetProcAddress("wglGetExtensionsStringARB");
 			if(wglGetExtensionsStringARB)
-	{
+			{
 				str << (const char*) wglGetExtensionsStringARB(wglGetCurrentDC());
-	}
+			}
 		}
 
 		free(gGLHExts.mSysExts);
@@ -595,7 +595,7 @@ bool LLGLManager::initGL()
 		&mGLVersionString);
 
 	mGLVersion = mDriverVersionMajor + mDriverVersionMinor * .1f;
-	
+
 	if (mGLVersion >= 2.f)
 	{
 		parse_glsl_version(mGLSLVersionMajor, mGLSLVersionMinor);
@@ -830,7 +830,7 @@ bool LLGLManager::initGL()
 	{
 		glGetIntegerv(GL_MAX_SAMPLES, &mMaxSamples);
 	}
-	
+
 	stop_glerror();
 	
 	setToDebugGPU();
