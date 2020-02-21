@@ -520,7 +520,7 @@ public:
 		RENDER_DEBUG_BATCH_SIZE			= 0x00004000,
 		RENDER_DEBUG_ALPHA_BINS			= 0x00008000, // not used
 		RENDER_DEBUG_RAYCAST            = 0x00010000,
-		RENDER_DEBUG_SHAME				= 0x00020000,
+		RENDER_DEBUG_SHAME              = 0x00020000,
 		RENDER_DEBUG_AVATAR_DRAW_INFO	= 0x00020000,
 		RENDER_DEBUG_SHADOW_FRUSTA		= 0x00040000,
 		RENDER_DEBUG_SCULPTED           = 0x00080000,
@@ -588,7 +588,7 @@ public:
 	static bool				sRenderDeferred;
 	static bool             sMemAllocationThrottled;
 	static S32				sVisibleLightCount;
-	static F32				sMinRenderSize;	
+	static F32				sMinRenderSize;
 	static bool				sRenderingHUDs;
 
 	static LLTrace::EventStatHandle<S64> sStatBatchSize;
