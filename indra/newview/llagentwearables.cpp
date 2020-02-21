@@ -1005,8 +1005,8 @@ public:
 		LL_INFOS() << "All items created" << LL_ENDL;
 		LLPointer<LLInventoryCallback> link_waiter = new LLUpdateAppearanceOnDestroy;
 		link_inventory_array(LLAppearanceMgr::instance().getCOF(),
-											mItemsToLink,
-											link_waiter);
+							 mItemsToLink,
+							 link_waiter);
 	}
 	void addPendingWearable(LLViewerWearable *wearable)
 	{
@@ -1116,7 +1116,7 @@ void LLAgentWearables::sendDummyAgentWearablesUpdate()
 
 	// Send the AgentIsNowWearing 
 	gMessageSystem->newMessageFast(_PREHASH_AgentIsNowWearing);
-
+	
 	gMessageSystem->nextBlockFast(_PREHASH_AgentData);
 	gMessageSystem->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
 	gMessageSystem->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
@@ -1129,7 +1129,7 @@ void LLAgentWearables::sendDummyAgentWearablesUpdate()
 	gMessageSystem->nextBlockFast(_PREHASH_WearableData);
 	gMessageSystem->addU8Fast(_PREHASH_WearableType, U8(2));
 	gMessageSystem->addUUIDFast(_PREHASH_ItemID, LLUUID("6969c7cc-f72f-4a76-a19b-c293cce8ce4f"));			
-	
+
 	gMessageSystem->nextBlockFast(_PREHASH_WearableData);
 	gMessageSystem->addU8Fast(_PREHASH_WearableType, U8(3));
 	gMessageSystem->addUUIDFast(_PREHASH_ItemID, LLUUID("7999702b-b291-48f9-8903-c91dfb828408"));			
@@ -1402,7 +1402,6 @@ void LLAgentWearables::setWearableOutfit(const LLInventoryItem::item_array_t& it
 			mismatched++;
 		}
 	}
-
 	if (mismatched == 0 && !update_inventory)
 	{
 		LL_DEBUGS("Avatar") << "no changes, bailing out" << LL_ENDL;

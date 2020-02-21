@@ -663,15 +663,7 @@ void LLAgent::moveAt(S32 direction, bool reset)
 
 	if (reset)
 	{
-//MK
-		// If we are sitting on something, don't reset the view when moving (we can press Escape for that)
-		if (!gAgentAvatarp->isSitting())
-		{
-//mk
 		gAgentCamera.resetView();
-//MK
-		}
-//mk
 	}
 }
 
@@ -697,15 +689,7 @@ void LLAgent::moveAtNudge(S32 direction)
 		setControlFlags(AGENT_CONTROL_NUDGE_AT_NEG);
 	}
 
-//MK
-	// If we are sitting on something, don't reset the view when moving (we can press Escape for that)
-	if (!gAgentAvatarp->isSitting())
-	{
-//mk
 	gAgentCamera.resetView();
-//MK
-	}
-//mk
 }
 
 //-----------------------------------------------------------------------------
@@ -730,15 +714,7 @@ void LLAgent::moveLeft(S32 direction)
 		setControlFlags(AGENT_CONTROL_LEFT_NEG | AGENT_CONTROL_FAST_LEFT);
 	}
 
-//MK
-	// If we are sitting on something, don't reset the view when moving (we can press Escape for that)
-	if (!gAgentAvatarp->isSitting())
-	{
-//mk
 	gAgentCamera.resetView();
-//MK
-	}
-//mk
 }
 
 //-----------------------------------------------------------------------------
@@ -763,15 +739,7 @@ void LLAgent::moveLeftNudge(S32 direction)
 		setControlFlags(AGENT_CONTROL_NUDGE_LEFT_NEG);
 	}
 
-//MK
-	// If we are sitting on something, don't reset the view when moving (we can press Escape for that)
-	if (!gAgentAvatarp->isSitting())
-	{
-//mk
-		gAgentCamera.resetView();
-//MK
-	}
-//mk
+	gAgentCamera.resetView();
 }
 
 //-----------------------------------------------------------------------------
@@ -797,7 +765,6 @@ void LLAgent::moveUp(S32 direction)
 	}
 
 //MK
-	// If we are sitting on something, don't reset the view when moving (we can press Escape for that)
 	if (!gAgentAvatarp->isSitting())
 	{
 //mk
@@ -825,15 +792,7 @@ void LLAgent::moveYaw(F32 mag, bool reset_view)
 
     if (reset_view)
 	{
-//MK
-		// If we are sitting on something, don't reset the view when moving (we can press Escape for that)
-		if (!gAgentAvatarp->isSitting())
-		{
-//mk
-			gAgentCamera.resetView();
-//MK
-		}
-//mk
+        gAgentCamera.resetView();
 	}
 }
 
@@ -3523,19 +3482,12 @@ void LLAgent::initOriginGlobal(const LLVector3d &origin_global)
 }
 
 BOOL LLAgent::leftButtonGrabbed() const	
-{
+{ 
 	const BOOL camera_mouse_look = gAgentCamera.cameraMouselook();
 	return (!camera_mouse_look && mControlsTakenCount[CONTROL_LBUTTON_DOWN_INDEX] > 0) 
 		|| (camera_mouse_look && mControlsTakenCount[CONTROL_ML_LBUTTON_DOWN_INDEX] > 0)
 		|| (!camera_mouse_look && mControlsTakenPassedOnCount[CONTROL_LBUTTON_DOWN_INDEX] > 0)
 		|| (camera_mouse_look && mControlsTakenPassedOnCount[CONTROL_ML_LBUTTON_DOWN_INDEX] > 0);
-}
-
-BOOL LLAgent::leftButtonBlocked() const
-{
-    const BOOL camera_mouse_look = gAgentCamera.cameraMouselook();
-    return (!camera_mouse_look && mControlsTakenCount[CONTROL_LBUTTON_DOWN_INDEX] > 0)
-        || (camera_mouse_look && mControlsTakenCount[CONTROL_ML_LBUTTON_DOWN_INDEX] > 0);
 }
 
 BOOL LLAgent::rotateGrabbed() const		
@@ -4130,14 +4082,7 @@ BOOL LLAgent::anyControlGrabbed() const
 
 BOOL LLAgent::isControlGrabbed(S32 control_index) const
 {
-    if (gAgent.mControlsTakenCount[control_index] > 0)
-        return TRUE;
-    return gAgent.mControlsTakenPassedOnCount[control_index] > 0;
-}
-
-BOOL LLAgent::isControlBlocked(S32 control_index) const
-{
-    return mControlsTakenCount[control_index] > 0;
+	return mControlsTakenCount[control_index] > 0;
 }
 
 void LLAgent::forceReleaseControls()
@@ -4409,7 +4354,7 @@ void LLAgent::teleportRequest(
 	const LLVector3& pos_local,
 	bool look_at_from_camera)
 {
-    LLViewerRegion* regionp = getRegion();
+	LLViewerRegion* regionp = getRegion();
 	if (regionp && teleportCore(region_handle == regionp->getHandle()))
 	{
 		LL_INFOS("") << "TeleportLocationRequest: '" << region_handle << "':"

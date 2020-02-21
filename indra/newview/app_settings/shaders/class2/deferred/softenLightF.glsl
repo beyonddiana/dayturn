@@ -412,7 +412,7 @@ void main()
 
 	//convert to gamma space
 	diffuse.rgb = linear_to_srgb(diffuse.rgb);
-
+	
 	vec3 col;
 	float bloom = 0.0;
 	{
@@ -438,19 +438,19 @@ void main()
 		col.rgb *= ambient;
 
 		col += atmosAffectDirectionalLight(max(min(da, scol), 0.0));
-
+	
 		col *= diffuse.rgb;
 	
 		vec3 refnormpersp = normalize(reflect(pos.xyz, norm.xyz));
 
 		if (spec.a > 0.0) // specular reflection
 		{
-		  			// the old infinite-sky shiny reflection
+			// the old infinite-sky shiny reflection
 			//
 			
 			float sa = dot(refnormpersp, sun_dir.xyz);
 			vec3 dumbshiny = vary_SunlitColor*scol_ambocc.r*(texture2D(lightFunc, vec2(sa, spec.a)).r);
-
+			
 			// add the two types of shiny together
 			vec3 spec_contrib = dumbshiny * spec.rgb;
 			bloom = dot(spec_contrib, spec_contrib) / 6;

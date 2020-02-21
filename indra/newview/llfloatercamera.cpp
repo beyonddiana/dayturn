@@ -538,19 +538,8 @@ void LLFloaterCamera::updateItemsSelection()
 	LLSD argument;
 	argument["selected"] = preset == CAMERA_PRESET_REAR_VIEW;
 	getChild<LLPanelCameraItem>("rear_view")->setValue(argument);
-	argument["selected"] = preset == CAMERA_PRESET_TOPDOWN_VIEW;
-	getChild<LLPanelCameraItem>("top_view")->setValue(argument);
-	argument["selected"] = preset == CAMERA_PRESET_FPS_VIEW;
-	getChild<LLPanelCameraItem>("fps_view")->setValue(argument);
 	argument["selected"] = preset == CAMERA_PRESET_GROUP_VIEW;
 	getChild<LLPanelCameraItem>("group_view")->setValue(argument);
-//MK
-	// More camera presets
-	argument["selected"] = preset == CAMERA_PRESET_LEFT_VIEW;
-	getChild<LLPanelCameraItem>("left_view")->setValue(argument);
-	argument["selected"] = preset == CAMERA_PRESET_RIGHT_VIEW;
-	getChild<LLPanelCameraItem>("right_view")->setValue(argument);
-//mk
 	argument["selected"] = preset == CAMERA_PRESET_FRONT_VIEW;
 	getChild<LLPanelCameraItem>("front_view")->setValue(argument);
 	argument["selected"] = gAgentCamera.getCameraMode() == CAMERA_MODE_MOUSELOOK;
@@ -614,25 +603,6 @@ void LLFloaterCamera::switchToPreset(const std::string& name)
 	else if ("group_view" == name)
 	{
 		gAgentCamera.switchCameraPreset(CAMERA_PRESET_GROUP_VIEW);
-	}
-//MK
-	// More camera presets
-	else if ("left_view" == name)
-	{
-		gAgentCamera.switchCameraPreset(CAMERA_PRESET_LEFT_VIEW);
-	}
-	else if ("right_view" == name)
-	{
-		gAgentCamera.switchCameraPreset(CAMERA_PRESET_RIGHT_VIEW);
-	}
-//mk
-	else if ("top_view" == name)
-	{
-		gAgentCamera.switchCameraPreset(CAMERA_PRESET_TOPDOWN_VIEW);
-	}
-	else if ("fps_view" == name)
-	{
-		gAgentCamera.switchCameraPreset(CAMERA_PRESET_FPS_VIEW);
 	}
 	else if ("front_view" == name)
 	{

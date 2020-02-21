@@ -742,15 +742,10 @@ BOOL LLToolCompGun::handleHover(S32 x, S32 y, MASK mask)
 
 BOOL LLToolCompGun::handleMouseDown(S32 x, S32 y, MASK mask)
 { 
-    // if the left button is blocked, don't put up the pie menu
-    if (gAgent.leftButtonBlocked())
+	// if the left button is grabbed, don't put up the pie menu
+	if (gAgent.leftButtonGrabbed())
 	{
-        // in case of "grabbed" control flag will be set later
 		gAgent.setControlFlags(AGENT_CONTROL_ML_LBUTTON_DOWN);
-//MK
-		// Allow left clicking on things while holding Alt down
-		if (!(mask & MASK_ALT) && !(mask & MASK_SHIFT) && !(mask & MASK_CONTROL))
-//mk
 		return FALSE;
 	}
 
@@ -764,10 +759,9 @@ BOOL LLToolCompGun::handleMouseDown(S32 x, S32 y, MASK mask)
 
 BOOL LLToolCompGun::handleDoubleClick(S32 x, S32 y, MASK mask)
 {
-    // if the left button is blocked, don't put up the pie menu
-    if (gAgent.leftButtonBlocked())
+	// if the left button is grabbed, don't put up the pie menu
+	if (gAgent.leftButtonGrabbed())
 	{
-        // in case of "grabbed" control flag will be set later
 		gAgent.setControlFlags(AGENT_CONTROL_ML_LBUTTON_DOWN);
 		return FALSE;
 	}
