@@ -1010,10 +1010,10 @@ void LLPanelLogin::onClickSelectGrid(void *)
 	LLFloaterPreference* prefsfloater = dynamic_cast<LLFloaterPreference*>(LLFloaterReg::showInstance("preferences"));
 	if (prefsfloater)
 	{
-		// grab the 'grids' panel from the preferences floater and
+		// grab the 'opensim' panel from the preferences floater and
 		// bring it the front!
 		LLTabContainer* tabcontainer = prefsfloater->getChild<LLTabContainer>("pref core");
-		LLPanel* gridspanel = tabcontainer->getChild<LLPanel>("opensim");
+		LLPanel* gridspanel = tabcontainer->getChild<LLPanel>("grid_manager_panel");
 		if (tabcontainer && gridspanel)
 		{
 			tabcontainer->selectTabPanel(gridspanel);
