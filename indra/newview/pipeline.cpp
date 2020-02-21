@@ -1169,7 +1169,7 @@ void LLPipeline::refreshCachedSettings()
 	RenderAutoHideSurfaceAreaLimit = gSavedSettings.getF32("RenderAutoHideSurfaceAreaLimit");
 	
 	updateRenderDeferred();
-	}
+}
 
 void LLPipeline::releaseGLBuffers()
 {
@@ -1223,13 +1223,13 @@ void LLPipeline::releaseScreenBuffers()
 	mDeferredDepth.release();
 	mDeferredLight.release();
 	mOcclusionDepth.release();
-	
+		
 	for (U32 i = 0; i < 6; i++)
 	{
 		mShadow[i].release();
 		mShadowOcclusion[i].release();
 	}
-	}
+}
 
 
 void LLPipeline::createGLBuffers()
@@ -1285,7 +1285,6 @@ void LLPipeline::createGLBuffers()
 		allocateScreenBuffer(resX,resY);
 		mScreenWidth = 0;
 		mScreenHeight = 0;
-
 	}
 	
 	if (sRenderDeferred)
@@ -1296,7 +1295,6 @@ void LLPipeline::createGLBuffers()
 			LLVector3 noise[noiseRes*noiseRes];
 
 			F32 scaler = gSavedSettings.getF32("RenderDeferredNoise")/100.f;
-
 			for (U32 i = 0; i < noiseRes*noiseRes; ++i)
 			{
 				noise[i] = LLVector3(ll_frand()-0.5f, ll_frand()-0.5f, 0.f);
@@ -1345,7 +1343,6 @@ void LLPipeline::createLUTBuffers()
 		{
 			U32 lightResX = gSavedSettings.getU32("RenderSpecularResX");
 			U32 lightResY = gSavedSettings.getU32("RenderSpecularResY");
-
 			F32* ls = new F32[lightResX*lightResY];
 			F32 specExp = gSavedSettings.getF32("RenderSpecularExponent");
             // Calculate the (normalized) blinn-phong specular lookup texture. (with a few tweaks)
@@ -1357,10 +1354,10 @@ void LLPipeline::createLUTBuffers()
 					F32 sa = (F32) x/(lightResX-1);
 					F32 spec = (F32) y/(lightResY-1);
 					F32 n = spec * spec * specExp;
-
+					
 					// Nothing special here.  Just your typical blinn-phong term.
 					spec = powf(sa, n);
-
+					
 					// Apply our normalization function.
 					// Note: This is the full equation that applies the full normalization curve, not an approximation.
 					// This is fine, given we only need to create our LUT once per buffer initialization.
@@ -1371,7 +1368,7 @@ void LLPipeline::createLUTBuffers()
 					ls[y*lightResX+x] = spec;
 				}
 			}
-
+			
 			U32 pix_format = GL_R16F;
 			LLImageGL::generateTextures(1, &mLightFunc);
 			gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, mLightFunc);
@@ -1380,14 +1377,14 @@ void LLPipeline::createLUTBuffers()
 			gGL.getTexUnit(0)->setTextureFilteringOption(LLTexUnit::TFO_TRILINEAR);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-
+			
 			delete [] ls;
 		}
 	}
 }
 
 
-void LLPipeline::restoreGL() 
+void LLPipeline::restoreGL()
 {
 	assertInitialized();
 
@@ -1495,8 +1492,8 @@ S32 LLPipeline::setLightingDetail(S32 level)
 		}
 	}
 	level = llclamp(level, 0, getMaxLightingDetail());
-		mLightingDetail = level;
-
+	mLightingDetail = level;
+	
 	return mLightingDetail;
 }
 
@@ -1789,16 +1786,17 @@ void LLPipeline::unlinkDrawable(LLDrawable *drawable)
 
 	{
 		LL_RECORD_BLOCK_TIME(FTM_REMOVE_FROM_LIGHT_SET);
-	mLights.erase(drawablep);
-	for (light_set_t::iterator iter = mNearbyLights.begin();
-				iter != mNearbyLights.end(); iter++)
-	{
-		if (iter->drawable == drawablep)
+		mLights.erase(drawablep);
+
+		for (light_set_t::iterator iter = mNearbyLights.begin();
+					iter != mNearbyLights.end(); iter++)
 		{
-			mNearbyLights.erase(iter);
-			break;
+			if (iter->drawable == drawablep)
+			{
+				mNearbyLights.erase(iter);
+				break;
+			}
 		}
-	}
 	}
 
 	{
@@ -6392,6 +6390,7 @@ void LLPipeline::setupHWLights(LLDrawPool* pool)
 				light_state->setQuadraticAttenuation(0.f);
 			}
 			
+
 			if (light->isLightSpotlight() // directional (spot-)light
 			    && (LLPipeline::sRenderDeferred || RenderSpotLightsInNondeferred)) // these are only rendered as GL spotlights if we're in deferred rendering mode *or* the setting forces them on
 			{
@@ -7787,7 +7786,7 @@ void LLPipeline::renderBloom(bool for_snapshot, F32 zoom_factor, int subfield)
 					{
 						focus_point = LLVector3(gAgentCamera.getFocusGlobal()-region->getOriginGlobal());
 					}
-			}
+				}
 			}
 
 			LLVector3 eye = LLViewerCamera::getInstance()->getOrigin();
@@ -7897,7 +7896,7 @@ void LLPipeline::renderBloom(bool for_snapshot, F32 zoom_factor, int subfield)
 
 				shader->uniform1f(LLShaderMgr::DOF_MAX_COF, CameraMaxCoF);
 				shader->uniform1f(LLShaderMgr::DOF_RES_SCALE, CameraDoFResScale);
-
+				
 				gGL.begin(LLRender::TRIANGLE_STRIP);
 				gGL.texCoord2f(tc1.mV[0], tc1.mV[1]);
 				gGL.vertex2f(-1,-1);
