@@ -303,8 +303,8 @@ protected:
 	void onClickClearGrid();
 	void onClickRefreshGrid();
 	void onClickRemoveGrid();
+	void onSelectGrid();
 	bool removeGridCB(const LLSD& notification, const LLSD& response);
-// </FS:AW  grid management>
 // <FS:AW  opensim search support>
 	void onClickClearDebugSearchURL();
 	void onClickPickDebugSearchURL();
@@ -312,6 +312,20 @@ protected:
 
 	void refreshGridList(bool success = true);
 	LLScrollListCtrl* mGridListControl;
+private:
+	LLLineEditor* mEditorGridName;
+	LLLineEditor* mEditorGridURI;
+	LLLineEditor* mEditorLoginPage;
+	LLLineEditor* mEditorHelperURI;
+	LLLineEditor* mEditorWebsite;
+	LLLineEditor* mEditorSupport;
+	LLLineEditor* mEditorRegister;
+	LLLineEditor* mEditorPassword;
+	LLLineEditor* mEditorSearch;
+	LLLineEditor* mEditorGridMessage;
+
+	LOG_CLASS(LLPanelPreferenceOpensim);
+// </FS:AW  grid management>
 };
 // </FS:AW  opensim preferences>
 

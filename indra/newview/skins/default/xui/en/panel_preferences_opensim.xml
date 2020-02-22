@@ -152,6 +152,17 @@
 			  width="130">
 			  Grid Name:
 		  </text>
+		  <line_editor
+		  follows="left|top|right"
+		  height="16"
+		  layout="topleft"
+		  left_pad="5"
+		  name="grid_detail_name"
+		  top_delta="0"
+		  width="300"
+		  enabled="false"
+		  text_readonly_color="EmphasisColor"
+		  background_image_disabled="Window_NoTitle_Foreground" />
 		  <text
 			  top_pad="2"
 			  follows="left|top"
@@ -162,6 +173,17 @@
 			  width="130">
 			  Grid URI:
 		  </text>
+		  <line_editor
+		  follows="left|top|right"
+		  height="16"
+		  layout="topleft"
+		  left_pad="5"
+		  name="grid_detail_uri"
+		  top_delta="0"
+		  width="300"
+		  enabled="false"
+		  text_readonly_color="EmphasisColor"
+		  background_image_disabled="Window_NoTitle_Foreground" />
 		  <text
 			  top_pad="2"
 			  follows="left|top"
@@ -172,6 +194,17 @@
 			  width="130">
 			  Login Page:
 		  </text>
+		  <line_editor
+		  follows="left|top|right"
+		  height="16"
+		  layout="topleft"
+		  left_pad="5"
+		  name="grid_detail_login_page"
+		  top_delta="0"
+		  width="300"
+		  enabled="false"
+		  text_readonly_color="EmphasisColor"
+		  background_image_disabled="Window_NoTitle_Foreground" />
 		  <text
 			  top_pad="2"
 			  follows="left|top"
@@ -182,6 +215,17 @@
 			  width="130">
 			  Helper URI:
 		  </text>
+		  <line_editor
+		  follows="left|top|right"
+		  height="16"
+		  layout="topleft"
+		  left_pad="5"
+		  name="grid_detail_helper_uri"
+		  top_delta="0"
+		  width="300"
+		  enabled="false"
+		  text_readonly_color="EmphasisColor"
+		  background_image_disabled="Window_NoTitle_Foreground" />
 		  <text
 			  top_pad="2"
 			  follows="left|top"
@@ -192,6 +236,17 @@
 			  width="130">
 			  Grid Website:
 		  </text>
+		  <line_editor
+		  follows="left|top|right"
+		  height="16"
+		  layout="topleft"
+		  left_pad="5"
+		  name="grid_detail_website"
+		  top_delta="0"
+		  width="300"
+		  enabled="false"
+		  text_readonly_color="EmphasisColor"
+		  background_image_disabled="Window_NoTitle_Foreground" />
 		  <text
 			  top_pad="2"
 			  follows="left|top"
@@ -202,6 +257,17 @@
 			  width="130">
 			  Grid Support:
 		  </text>
+		  <line_editor
+		  follows="left|top|right"
+		  height="16"
+		  layout="topleft"
+		  left_pad="5"
+		  name="grid_detail_support"
+		  top_delta="0"
+		  width="300"
+		  enabled="false"
+		  text_readonly_color="EmphasisColor"
+		  background_image_disabled="Window_NoTitle_Foreground" />
 		  <text
 			  top_pad="2"
 			  follows="left|top"
@@ -212,6 +278,17 @@
 			  width="130">
 			  Grid Registration:
 		  </text>
+		  <line_editor
+		  follows="left|top|right"
+		  height="16"
+		  layout="topleft"
+		  left_pad="5"
+		  name="grid_detail_register"
+		  top_delta="0"
+		  width="300"
+		  enabled="false"
+		  text_readonly_color="EmphasisColor"
+		  background_image_disabled="Window_NoTitle_Foreground" />
 		  <text
 			  top_pad="2"
 			  follows="left|top"
@@ -222,6 +299,17 @@
 			  width="130">
 			  Grid Password URI:
 		  </text>
+		  <line_editor
+		  follows="left|top|right"
+		  height="16"
+		  layout="topleft"
+		  left_pad="5"
+		  name="grid_detail_password"
+		  top_delta="0"
+		  width="300"
+		  enabled="false"
+		  text_readonly_color="EmphasisColor"
+		  background_image_disabled="Window_NoTitle_Foreground" />
 		  <text
 			  top_pad="2"
 			  follows="left|top"
@@ -232,6 +320,17 @@
 			  width="130">
 			  Grid Search:
 		  </text>
+		  <line_editor
+		  follows="left|top|right"
+		  height="16"
+		  layout="topleft"
+		  left_pad="5"
+		  name="grid_detail_search"
+		  top_delta="0"
+		  width="300"
+		  enabled="false"
+		  text_readonly_color="EmphasisColor"
+		  background_image_disabled="Window_NoTitle_Foreground" />
 		  <text
 			  top_pad="2"
 			  follows="left|top"
@@ -242,6 +341,17 @@
 			  width="130">
 			  Grid Message URI:
 		  </text>
+		  <line_editor
+		  follows="left|top|right"
+		  height="16"
+		  layout="topleft"
+		  left_pad="5"
+		  name="grid_detail_message"
+		  top_delta="0"
+		  width="300"
+		  enabled="false"
+		  text_readonly_color="EmphasisColor"
+		  background_image_disabled="Window_NoTitle_Foreground" />
 	    </panel>
   </panel>
   <panel
