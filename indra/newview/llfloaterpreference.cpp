@@ -2511,7 +2511,6 @@ LLPanelPreferenceOpensim::LLPanelPreferenceOpensim() : LLPanelPreference(),
 }
 
 BOOL LLPanelPreferenceOpensim::postBuild()
-=======
 {
     mEditorGridName = findChild<LLLineEditor>("grid_detail_name");
     mEditorGridURI = findChild<LLLineEditor>("grid_detail_uri");
