@@ -2551,16 +2551,47 @@ LLPanelPreferenceOpensim::LLPanelPreferenceOpensim() : LLPanelPreference(),
 	mCommitCallbackRegistrar.add("Pref.ClearGrid", boost::bind(&LLPanelPreferenceOpensim::onClickClearGrid, this));
 	mCommitCallbackRegistrar.add("Pref.RefreshGrid", boost::bind( &LLPanelPreferenceOpensim::onClickRefreshGrid, this));
 	mCommitCallbackRegistrar.add("Pref.RemoveGrid", boost::bind( &LLPanelPreferenceOpensim::onClickRemoveGrid, this));
-// </FS:AW  grid management>
 }
-// <FS:AW  grid management>
+
 BOOL LLPanelPreferenceOpensim::postBuild()
+=======
 {
+    mEditorGridName = findChild<LLLineEditor>("grid_detail_name");
+    mEditorGridURI = findChild<LLLineEditor>("grid_detail_uri");
+	mEditorLoginPage = findChild<LLLineEditor>("grid_detail_login_page");
+	mEditorHelperURI = findChild<LLLineEditor>("grid_detail_helper_uri");
+	mEditorWebsite = findChild<LLLineEditor>("grid_detail_website");
+	mEditorSupport = findChild<LLLineEditor>("grid_detail_support");
+	mEditorRegister = findChild<LLLineEditor>("grid_detail_register");
+	mEditorPassword = findChild<LLLineEditor>("grid_detail_password");
+	mEditorSearch = findChild<LLLineEditor>("grid_detail_search");
+	mEditorGridMessage = findChild<LLLineEditor>("grid_detail_message");
 	mGridListControl = getChild<LLScrollListCtrl>("grid_list");
+	mGridListControl->setCommitCallback(boost::bind(&LLPanelPreferenceOpensim::onSelectGrid, this));
 	refreshGridList();
 
 	return LLPanelPreference::postBuild();
 }
+
+
+void LLPanelPreferenceOpensim::onSelectGrid()
+{
+	LLSD  grid_info;
+	std::string grid = mGridListControl->getSelectedValue();
+	LLGridManager::getInstance()->getGridData(grid, grid_info);
+	
+	mEditorGridName->setText(grid_info[GRID_LABEL_VALUE].asString());
+	mEditorGridURI->setText(grid_info[GRID_LOGIN_URI_VALUE][0].asString());
+	mEditorLoginPage->setText(grid_info[GRID_LOGIN_PAGE_VALUE].asString());
+	mEditorHelperURI->setText(grid_info[GRID_HELPER_URI_VALUE].asString());
+	mEditorWebsite->setText(grid_info["about"].asString());
+	mEditorSupport->setText(grid_info["help"].asString());
+	mEditorRegister->setText(grid_info[GRID_REGISTER_NEW_ACCOUNT].asString());
+	mEditorPassword->setText(grid_info[GRID_FORGOT_PASSWORD].asString());
+	mEditorSearch->setText(grid_info["search"].asString());
+	mEditorGridMessage->setText(grid_info["message"].asString());
+}
+// <FS:AW  grid management>
 
 void LLPanelPreferenceOpensim::apply()
 {
