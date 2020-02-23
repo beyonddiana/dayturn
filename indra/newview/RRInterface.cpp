@@ -92,6 +92,8 @@
 
 #include "RRInterface.h"
 #include "RRInterfaceVersion.h"
+#include "llversioninfo.h"
+
 #include "lloutfitslist.h"				// @showinv - "Appearance / My Outfits" panel
 #include "llpaneloutfitsinventory.h"	// @showinv - "Appearance" floater
 #include "llpanelwearing.h"				// @showinv - "Appearance / Current Outfit" panel
@@ -595,14 +597,12 @@ RRInterface::~RRInterface()
 
 std::string RRInterface::getVersion ()
 {
-	return RR_VIEWER_NAME " viewer v" RR_VERSION " (" RR_SLV_VERSION")"; // there is no '+' between the string and the macro
-//	return RR_VIEWER_NAME" viewer v"RR_VERSION" ("+LLViewerInfo::getVersion()+")";
+	return RR_VIEWER_NAME" viewer v"RR_VERSION" ("+LLVersionInfo::getShortVersion()+")";
 }
 
 std::string RRInterface::getVersion2 ()
 {
-	return RR_VIEWER_NAME_NEW " viewer v" RR_VERSION " (" RR_SLV_VERSION")"; // there is no '+' between the string and the macro
-//	return RR_VIEWER_NAME_NEW" viewer v"RR_VERSION" ("+LLViewerInfo::getVersion()+")";
+	return RR_VIEWER_NAME_NEW" viewer v"RR_VERSION" ("+LLVersionInfo::getShortVersion()+")";
 }
 
 std::string RRInterface::getVersionNum ()
@@ -5193,7 +5193,7 @@ void RRInterface::drawRenderLimit (BOOL force_opaque /*= FALSE*/)
 
 	gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 	gGL.matrixMode(LLRender::MM_MODELVIEW);
-	gPipeline.disableLights();	
+	gPipeline.disableLights();
 
 	// Calculate the center of the spheres
 	LLVector3 center = isAgentAvatarValid() 
