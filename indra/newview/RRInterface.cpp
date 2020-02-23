@@ -94,6 +94,7 @@
 #include "lloutfitslist.h"				// @showinv - "Appearance / My Outfits" panel
 #include "llpaneloutfitsinventory.h"	// @showinv - "Appearance" floater
 #include "llpanelwearing.h"				// @showinv - "Appearance / Current Outfit" panel
+#include "llteleporthistory.h"		// KKA-682 to allow another try at storing login location in TP history
 
 // Global and static variables initialization.
 bool gRRenabled = true;
@@ -1253,7 +1254,14 @@ BOOL RRInterface::garbageCollector (BOOL all) {
 			it++;
 		}
     }
-	mGarbageCollectorCalledOnce = TRUE;
+	// KKA-682 There's a fair chance that handleLoginComplete gets fired before the initial restrictions
+	// get lifted, which means that the login location doesn't get stored in teleport history since showloc
+	// is active as part of the login restrictions
+	if (!mGarbageCollectorCalledOnce)
+	{
+		mGarbageCollectorCalledOnce = TRUE;
+		LLTeleportHistory::getInstance()->handleLoginComplete();
+	}
     return res;
 }
 
