@@ -216,9 +216,9 @@ Linden Lab's development system for their viewer is referenced in: https://wiki.
 
 -   cd dayturn-viewer-windows 
 
--   Check that you have the two bookmarks with 		hg bookmark
+-   Check your git branches with git branch -a
 
--   Change to the dayturn bookmark with
+-   Change to the dayturn branch with
 	 	git checkout dayturn
 
 -   Run
