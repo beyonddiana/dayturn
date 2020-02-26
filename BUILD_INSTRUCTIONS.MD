@@ -1,13 +1,14 @@
 # ** Dayturn Windows Build Instructions **
 
-This [repository](https://bitbucket.org/dayturn/dayturn-windows) is dedicated to build a Windows version of the Dayturn viewer for OpenSim grids and standalone installations.
+This [repository](https://bitbucket.org/dayturn/dayturn-viewer-windows) is dedicated to build a Windows version of the Dayturn viewer for OpenSim grids and standalone installations.
 
-At this time there also exist [repository](https://bitbucket.org/dayturn/dayturn) for a macOS version of the Dayturn viewer.
+At this time there also exist [repository](https://bitbucket.org/dayturn/dayturn-viewer) for a macOS version of the Dayturn viewer.
 
-The Linux version is currently not developed, but people who want develop such a version are referred to the KokuaOS [repository](https://bitbucket.org/dayturn/kokua-opensim) as the starting point.  
+The Linux version is currently not developed, but people who want develop such a version are referred to the Dayturn Linux [repository](https://bitbucket.org/dayturn/dayturn-viewer-linux/src/dayturn-mkrlv/) as the starting point.  
 
+As of version 1.6.0 the repositories have been converted to Git, from which development will continue.
  
-There are two active bookmarks; dayturn and dayturn-mkrlv for developing versions without and with support for Marine Kelley's RLV.  
+There are two active branches; dayturn and dayturn-mkrlv for developing versions without and with support for Marine Kelley's RLV.  
 
 
 **Development system:**
@@ -61,13 +62,9 @@ Linden Lab's development system for their viewer is referenced in: https://wiki.
 
 - At the Installation Options screen, set everything except the DirectX Headers and Libs to "This feature will not be installed"
 
-***Tortoise Hg (optional)***
+***Git client Sourcetree (optional)***
 
-- Download and install [http://tortoisehg.bitbucket.org/download/ TortoiseHg 3.2.3] (64-bit)
-
-- Note: No option available to install as Administrator
-
-- Use default options (path, components etc.)
+- Download and install [https://www.sourcetreeapp.com] (64-bit)
 
 ***CMake***
 
@@ -97,6 +94,10 @@ Linden Lab's development system for their viewer is referenced in: https://wiki.
 
 - Devel/patch
 
+- Devel/git
+
+- Devel/git-clang-format
+
 - Use default options for everything else
 
 
@@ -122,9 +123,9 @@ Linden Lab's development system for their viewer is referenced in: https://wiki.
 
 -  flex --version
 
--  hg --version
-
 -  python --version
+
+- 	git --version
 
 - If they all report sensible values and not "Command not found" errors, then you are in good shape}}
 
@@ -194,7 +195,7 @@ Linden Lab's development system for their viewer is referenced in: https://wiki.
 
 	-  cmake --version
 
-	-  hg --version
+	-  git --version
 
 	-  python --version
 
@@ -205,20 +206,20 @@ Linden Lab's development system for their viewer is referenced in: https://wiki.
 
 -  Stable source code repositories
 
--   OpenSim https://bitbucket.org/dayturn/dayturn-windows
+-   OpenSim https://bitbucket.org/dayturn/dayturn-viewer-windows
 
--   Use mercurial to clone the repository 
+-   Use git to clone the repository 
 
--   hg clone https://bitbucket.org/dayturn/dayturn-windows
+-   git clone https://dayturn@bitbucket.org/dayturn/dayturn-viewer-windows.git
 
--   This will place a folder with the source code typically in /Users/xxxx/dayturn-windows 
+-   This will place a folder with the source code typically in /Users/xxxx/dayturn-viewer-windows 
 
--   cd dayturn-windows 
+-   cd dayturn-viewer-windows 
 
 -   Check that you have the two bookmarks with 		hg bookmark
 
 -   Change to the dayturn bookmark with
-	 	hg update -C --rev dayturn
+	 	git checkout dayturn
 
 -   Run
 		autobuild configure -c ReleaseOS -- -DFMODEX:BOOL=TRUE -DLL_TESTS:BOOL=FALSE -DOPENAL:BOOL=FALSE -DPACKAGE=ON -DVIEWER_CHANNEL="\"Release\""
@@ -228,17 +229,17 @@ Linden Lab's development system for their viewer is referenced in: https://wiki.
  
 -  The above will produce a command line build with an install program.
 
--  To test the build without running the full installer, in folder /Users/xxxx/dayturn-windows/build-vs/newview/Release find, right click on file dayturn-bin.exe and select Send to->Desktop (create shortcut)
+-  To test the build without running the full installer, in folder /Users/xxxx/dayturn-viewer-windows/build-vs/newview/Release find, right click on file dayturn-bin.exe and select Send to->Desktop (create shortcut)
 
 -  Select Desktop and right click the dayturn-bin.exe shortcut and click Properties.
 
--  Edit Start in to "C:\Users\xxxx\dayturn-windows\indra\newview". This allows use of working tree skin and settings files.
+-  Edit Start in to "C:\Users\xxxx\dayturn-viewer-windows\indra\newview". This allows use of working tree skin and settings files.
 
 -  Click on the dayturn.exe shortcut and the viewer should startup and run.
 
 ***Optional Visual Studio 2013 build***
 
--  After the autobuild configure step, start Visual Studio 2013 and open the solution from C:\Users\xxxx\dayturn-windows\build-vs\Dayturn.sln
+-  After the autobuild configure step, start Visual Studio 2013 and open the solution from C:\Users\xxxx\dayturn-viewer-windows\build-vs\Dayturn.sln
 
 
 ***Disclaimer***
