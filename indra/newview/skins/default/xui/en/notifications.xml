@@ -2510,6 +2510,13 @@ Sorry, but the system was unable to complete your region crossing in a timely fa
   </notification>
   <notification
    icon="alertmodal.tga"
+   name="preexisting_tport"
+   type="alertmodal">
+   <tag>fail</tag>
+Sorry, but the system was unable to start your teleport. Please try again in a few minutes.
+  </notification>
+  <notification
+   icon="alertmodal.tga"
    name="no_host"
    type="alertmodal">
    <tag>fail</tag>
@@ -3974,48 +3981,6 @@ This update is not required, but we suggest you install it to improve performanc
   <notification
    icon="alertmodal.tga"
    name="DownloadWindowsReleaseForDownload"
-   type="alertmodal">
-An updated version of [APP_NAME] is available.
-[MESSAGE]
-This update is not required, but we suggest you install it to improve performance and stability.
-    <tag>confirm</tag>
-    <usetemplate
-     name="okcancelbuttons"
-     notext="Continue"
-     yestext="Download"/>
-  </notification>
-
-  <notification
-   icon="alertmodal.tga"
-   name="DownloadLinuxMandatory"
-   type="alertmodal">
-A new version of [APP_NAME] is available.
-[MESSAGE]
-You must download this update to use [APP_NAME].
-    <tag>confirm</tag>
-    <usetemplate
-     name="okcancelbuttons"
-     notext="Quit"
-     yestext="Download"/>
-  </notification>
-
-  <notification
-   icon="alertmodal.tga"
-   name="DownloadLinux"
-   type="alertmodal">
-An updated version of [APP_NAME] is available.
-[MESSAGE]
-This update is not required, but we suggest you install it to improve performance and stability.
-    <tag>confirm</tag>
-    <usetemplate
-     name="okcancelbuttons"
-     notext="Continue"
-     yestext="Download"/>
-  </notification>
-
-  <notification
-   icon="alertmodal.tga"
-   name="DownloadLinuxReleaseForDownload"
    type="alertmodal">
 An updated version of [APP_NAME] is available.
 [MESSAGE]
@@ -7828,7 +7793,8 @@ Your object named &lt;nolink&gt;[OBJECTFROMNAME]&lt;/nolink&gt; has given you th
    name="TeleportOffered_MaturityExceeded"
    log_to_im="true"
    log_to_chat="false"
-   type="offer">
+   type="offer"
+   sound="UISndNewIncomingIMSession">
 [NAME_SLURL] has offered to teleport you to their location:
 
 “[MESSAGE]”
@@ -7853,7 +7819,8 @@ This region contains [REGION_CONTENT_MATURITY] content, but your current prefere
    name="TeleportOffered_MaturityBlocked"
    log_to_im="true"
    log_to_chat="false"
-   type="notifytip">
+   type="notifytip"
+   sound="UISndNewIncomingIMSession">
 [NAME_SLURL] has offered to teleport you to their location:
 
 “[MESSAGE]”
@@ -9073,14 +9040,14 @@ We're having trouble connecting to your voice server:
 
 [HOSTID]
 
-:UDP: 3478, 3479, 5060, 5062, 12000-17000
-
 Ports that must be allowed for voice are:
 :TCP: 80, 443
 :UDP: 3478, 3479, 5060, 5062, 6250, 12000-32000
 
 Please check your network and firewall setup.
 Disable any SIP ALG feature in your router.
+
+:UDP: 3478, 3479, 5060, 5062, 12000-17000
 
 Voice communications will not be available.
     <tag>voice</tag>
@@ -9089,6 +9056,21 @@ Voice communications will not be available.
      ignoretext="Warn me when the viewer can't connect to the voice server"
      name="okignore"
      yestext="OK" />
+  </notification>
+
+  <notification
+   icon="alertmodal.tga"
+   name="NoVoiceConnect-GIAB"
+   type="alertmodal">
+We're having trouble connecting to your voice server.
+
+Voice communications will not be available.
+Please check your network and firewall setup.
+    <tag>voice</tag>
+  <tag>fail</tag>
+    <usetemplate
+     name="okbutton"
+     yestext="OK"/>
   </notification>
 
   <notification
@@ -11928,7 +11910,7 @@ Shape import failed. Are you sure [FILENAME] is an avatar file?
 
 [ARTIST_TITLE]
     </notification>
-	
+
   <notification
    icon="alertmodal.tga"
    name="RLVTouchRestricted"

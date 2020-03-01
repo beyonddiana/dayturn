@@ -267,7 +267,7 @@
 		follows="top|left|right"
 		top_delta="-5"
 		right="-10"
-		max_length="4096"
+		max_length_bytes="4096"
 		name="web_browser_home_page"
 		width="345">
 	    </line_editor>
