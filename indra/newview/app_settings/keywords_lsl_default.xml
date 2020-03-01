@@ -2539,6 +2539,24 @@
             <key>tooltip</key>
             <string/>
          </map>
+         <key>OBJECT_ANIMATED_COUNT</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>39</integer>
+            <key>tooltip</key>
+            <string/>
+         </map>
+         <key>OBJECT_ANIMATED_SLOTS_AVAILABLE</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>40</integer>
+            <key>tooltip</key>
+            <string/>
+         </map>                  
          <key>OBJECT_ATTACHED_POINT</key>
          <map>
             <key>type</key>
@@ -2546,8 +2564,17 @@
             <key>value</key>
             <integer>19</integer>
             <key>tooltip</key>
-            <string>Gets the attachment point to which the object is attached.\nReturns 0 if the object is not an attachment (or is an avatar, etc).</string>
+            <string>Used with llGetObjectDetails, returns the value llGetAttached would return.</string>
          </map>
+         <key>OBJECT_ATTACHED_SLOTS_AVAILABLE</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>35</integer>
+            <key>tooltip</key>
+            <string>This is a flag used with llGetObjectDetails to gets the avatar's available attachment slot count.</string>
+         </map>         
          <key>OBJECT_BODY_SHAPE_TYPE</key>
          <map>
             <key>type</key>
@@ -2575,6 +2602,15 @@
             <key>tooltip</key>
             <string>This is a flag used with llGetObjectDetails to get the click action.\nThe default is 0</string>
          </map>
+         <key>OBJECT_CREATION_TIME</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>36</integer>
+            <key>tooltip</key>
+            <string/>
+         </map>         
          <key>OBJECT_CREATOR</key>
          <map>
             <key>type</key>
@@ -2602,6 +2638,15 @@
             <key>tooltip</key>
             <string>Gets the prims's group key. If id is an avatar, a NULL_KEY is returned.</string>
          </map>
+         <key>OBJECT_GROUP_TAG</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>33</integer>
+            <key>tooltip</key>
+            <string/>
+         </map>         
          <key>OBJECT_HOVER_HEIGHT</key>
          <map>
             <key>type</key>
@@ -2800,6 +2845,15 @@
             <key>tooltip</key>
             <string/>
          </map>
+         <key>OBJECT_SELECT_COUNT</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>37</integer>
+            <key>tooltip</key>
+            <string>This is a flag used with llGetObjectDetails to get the total number of agents selecting any links in the object.</string>
+         </map>         
          <key>OBJECT_SERVER_COST</key>
          <map>
             <key>type</key>
@@ -2809,6 +2863,15 @@
             <key>tooltip</key>
             <string/>
          </map>
+         <key>OBJECT_SIT_COUNT</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>38</integer>
+            <key>tooltip</key>
+            <string/>
+         </map>         
          <key>OBJECT_STREAMING_COST</key>
          <map>
             <key>type</key>
@@ -2818,6 +2881,15 @@
             <key>tooltip</key>
             <string/>
          </map>
+         <key>OBJECT_TEMP_ATTACHED</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>34</integer>
+            <key>tooltip</key>
+            <string/>
+         </map>         
          <key>OBJECT_TEMP_ON_REZ</key>
          <map>
             <key>type</key>
