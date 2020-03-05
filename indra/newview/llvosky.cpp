@@ -1211,6 +1211,10 @@ LLDrawable *LLVOSky::createDrawable(LLPipeline *pipeline)
 	mFace[FACE_MOON] = mDrawable->addFace(poolp, mMoonTexturep);
 	mFace[FACE_BLOOM] = mDrawable->addFace(poolp, mBloomTexturep);
 
+	mFace[FACE_SUN]->setMediaAllowed(false);
+	mFace[FACE_MOON]->setMediaAllowed(false);
+	mFace[FACE_BLOOM]->setMediaAllowed(false);
+
 	return mDrawable;
 }
 
