@@ -3526,11 +3526,14 @@ bool LLViewerMediaTexture::findFaces()
 		{
 			const ll_face_list_t* face_list = tex->getFaceList(ch);
 			U32 end = tex->getNumFaces(ch);
-		for(U32 i = 0; i < end; i++)
-		{
-			mMediaFaceList.push_back((*face_list)[i]);
-		}
-	}
+            for(U32 i = 0; i < end; i++)
+            {
+                if ((*face_list)[i]->isMediaAllowed())
+                {
+                    mMediaFaceList.push_back((*face_list)[i]);
+                }
+            }
+	    }
 	}
 	
 	if(!mMediaImplp)

@@ -168,7 +168,8 @@ void LLFace::init(LLDrawable* drawablep, LLViewerObject* objp)
 	mImportanceToCamera = 0.f ;
 	mBoundingSphereRadius = 0.0f ;
 
-	mHasMedia = FALSE ;
+	mHasMedia = false ;
+	mIsMediaAllowed = true;
 }
 
 void LLFace::destroy()
@@ -202,7 +203,7 @@ void LLFace::destroy()
 		else
 		{
 			mDrawPoolp->removeFace(this);
-		}	
+		}
 		mDrawPoolp = NULL;
 	}
 
@@ -570,7 +571,7 @@ void LLFace::renderSelected(LLViewerTexture *imagep, const LLColor4& color)
 				LLRiggedVolume* rigged = volume->getRiggedVolume();
 				if (rigged)
 				{
-                    // BENTO - called when selecting a face during edit of a mesh object
+                    // called when selecting a face during edit of a mesh object
 					LLGLEnable offset(GL_POLYGON_OFFSET_FILL);
 					glPolygonOffset(-1.f, -1.f);
 					gGL.multMatrix((F32*) volume->getRelativeXform().mMatrix);
@@ -904,7 +905,7 @@ BOOL LLFace::genVolumeBBoxes(const LLVolume &volume, S32 f,
 		}
 
 		const LLVolumeFace &face = volume.getVolumeFace(f);
-        
+		
         LL_DEBUGS("RiggedBox") << "updating extents for face " << f 
                                << " starting extents " << mExtents[0] << ", " << mExtents[1] 
                                << " starting vf extents " << face.mExtents[0] << ", " << face.mExtents[1] 
@@ -1429,10 +1430,9 @@ BOOL LLFace::getGeometryVolume(const LLVolume& volume,
 
 			if (shiny_in_alpha)
 			{
-
 				static const GLfloat alpha[4] =
 				{
-					0.00f,
+					0.0000f,
 					0.25f,
 					0.5f,
 					0.75f
@@ -1990,17 +1990,17 @@ BOOL LLFace::getGeometryVolume(const LLVolume& volume,
 							}
 						}
 
-						if (tex_mode && mTextureMatrix)
-						{
-							LLVector3 tmp(tc.mV[0], tc.mV[1], 0.f);
-							tmp = tmp * *mTextureMatrix;
-							tc.mV[0] = tmp.mV[0];
-							tc.mV[1] = tmp.mV[1];
-						}
-						else
-						{
-							xform(tc, cos_ang, sin_ang, os, ot, ms, mt);
-						}
+                        if (tex_mode && mTextureMatrix)
+                        {
+                            LLVector3 tmp(tc.mV[0], tc.mV[1], 0.f);
+                            tmp = tmp * *mTextureMatrix;
+                            tc.mV[0] = tmp.mV[0];
+                            tc.mV[1] = tmp.mV[1];
+                        }
+                        else
+                        {
+                            xform(tc, cos_ang, sin_ang, os, ot, ms, mt);
+                        }
 
 						*dst++ = tc;
 
@@ -2285,11 +2285,10 @@ BOOL LLFace::getGeometryVolume(const LLVolume& volume,
 			U8 glow = (U8) llclamp((S32) (getTextureEntry()->getGlow()*255), 0, 255);
 
 			LLVector4a src;
+		
+			LLColor4U glow4u = LLColor4U(0,0,0,glow);
 
-
- 			LLColor4U glow4u = LLColor4U(0,0,0,glow);
- 			
- 			U32 glow32 = glow4u.asRGBA();
+			U32 glow32 = glow4u.asRGBA();
 
 			U32 vec[4];
 			vec[0] = vec[1] = vec[2] = vec[3] = glow32;
