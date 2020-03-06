@@ -135,9 +135,12 @@ class FSLightshare : public LLSingleton<FSLightshare>
     LOG_CLASS(FSLightshare);
 public:
 	virtual ~FSLightshare();
+
+public:
 	void processLightshareMessage(LLMessageSystem* msg);
 	void processLightshareReset();
 	bool getState() { return mLightshareState; };
+
 private:
 	static void processWater(LightsharePacket* ls_packet);
 	static void processSky(LightsharePacket* ls_packet);

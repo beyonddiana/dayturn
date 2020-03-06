@@ -365,13 +365,13 @@
 	label="Settings"
 	name="opensim_misc_panel">
 	  <check_box
-      control_name="Lightshare"
+      control_name="EnableLightShare"
       height="16"
       initial_value="false"
       label="Enable Region Lightshare"
       layout="topleft"
       left="30"
-      name="Lightshare"
+      name="EnableLightShare"
       top="15"
       width="256" />
 	  <check_box
