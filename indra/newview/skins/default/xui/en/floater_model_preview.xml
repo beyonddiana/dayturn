@@ -1523,7 +1523,7 @@
       label="Joint position overrides"
       label_text.text_color="White"
       word_wrap="down"
-      width="130"
+      width="140"
       layout="topleft"
       name="show_joint_overrides"
       top_pad="8">
