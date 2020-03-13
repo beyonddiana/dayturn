@@ -3813,7 +3813,7 @@ BOOL LLModelPreview::render()
 		{
 			gUIProgram.bind();
 		}
-		//clear background to blue
+		//clear background to grey
 		gGL.matrixMode(LLRender::MM_PROJECTION);
 		gGL.pushMatrix();
 		gGL.loadIdentity();
