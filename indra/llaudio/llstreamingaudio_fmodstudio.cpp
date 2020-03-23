@@ -172,20 +172,102 @@ void LLStreamingAudio_FMODSTUDIO::update()
 
             if (sound->getNumTags(&tagcount, &dirtytagcount) == FMOD_OK && dirtytagcount)
             {
+				// <FS:CR> Stream metadata - originally by Shyotl Khur
+				mMetadata.clear();
+				mNewMetadata = true;
+				// </FS:CR>
                 for (S32 i = 0; i < tagcount; ++i)
                 {
                     if (sound->getTag(NULL, i, &tag) != FMOD_OK)
                         continue;
 
-                    if (tag.type == FMOD_TAGTYPE_FMOD)
-                    {
-                        if (!strcmp(tag.name, "Sample Rate Change"))
-                        {
-                            LL_INFOS() << "Stream forced changing sample rate to " << *((float *)tag.data) << LL_ENDL;
-                            mFMODInternetStreamChannelp->setFrequency(*((float *)tag.data));
-                        }
-                        continue;
-                    }
+					// <FS:CR> Stream metadata - originally by Shyotl Khur
+					//if (tag.type == FMOD_TAGTYPE_FMOD)
+					//{
+					//	if (!strcmp(tag.name, "Sample Rate Change"))
+					//	{
+					//		LL_INFOS("FmodEX") << "Stream forced changing sample rate to " << *((float *)tag.data) << LL_ENDL;
+					//		mFMODInternetStreamChannelp->setFrequency(*((float *)tag.data));
+					//	}
+					//	continue;
+					//}
+					std::string name = tag.name;
+					switch(tag.type)
+					{
+						case(FMOD_TAGTYPE_ID3V2):
+						{
+							if(name == "TIT2") name = "TITLE";
+							else if(name == "TPE1") name = "ARTIST";
+							break;
+						}
+						case(FMOD_TAGTYPE_ASF):
+						{
+							if(name == "Title") name = "TITLE";
+							else if(name == "WM/AlbumArtist") name = "ARTIST";
+							break;
+						}
+						case(FMOD_TAGTYPE_FMOD):
+						{
+							if (!strcmp(tag.name, "Sample Rate Change"))
+							{
+							LL_INFOS() << "Stream forced changing sample rate to " << *((float *)tag.data) << LL_ENDL;
+								mFMODInternetStreamChannelp->setFrequency(*((float *)tag.data));
+							}
+							continue;
+						}
+						default:
+					    	{
+							if(name == "icy-name") {
+								name = "STREAM_NAME";
+							}
+							else if(name == "icy-url") {
+								name = "STREAM_LOCATION";
+							}
+							break;
+						}
+					}
+					switch(tag.datatype)
+					{
+						case(FMOD_TAGDATATYPE_INT):
+						{
+							(mMetadata)[name]=*(LLSD::Integer*)(tag.data);
+							LL_DEBUGS("StreamMetadata") << tag.name << ": " << *(int*)(tag.data) << LL_ENDL;
+							break;
+						}
+						case(FMOD_TAGDATATYPE_FLOAT):
+						{
+							(mMetadata)[name]=*(LLSD::Real*)(tag.data);
+							LL_DEBUGS("StreamMetadata") << tag.name << ": " << *(float*)(tag.data) << LL_ENDL;
+							break;
+						}
+						case(FMOD_TAGDATATYPE_STRING):
+						{
+							std::string out = rawstr_to_utf8(std::string((char*)tag.data,tag.datalen));
+							(mMetadata)[name]=out;
+							LL_DEBUGS("StreamMetadata") << tag.name << ": " << out << LL_ENDL;
+							break;
+						}
+						case(FMOD_TAGDATATYPE_STRING_UTF16):
+						{
+							std::string out((char*)tag.data,tag.datalen);
+							(mMetadata)[std::string(tag.name)]=out;
+							LL_DEBUGS("StreamMetadata") << tag.name << ": " << out << LL_ENDL;
+							break;
+						}
+						case(FMOD_TAGDATATYPE_STRING_UTF16BE):
+						{
+							std::string out((char*)tag.data,tag.datalen);
+							//U16* buf = (U16*)out.c_str();
+							//for(U32 j = 0; j < out.size()/2; ++j)
+								//(((buf[j] & 0xff)<<8) | ((buf[j] & 0xff00)>>8));
+							(mMetadata)[std::string(tag.name)]=out;
+							LL_DEBUGS("StreamMetadata") << tag.name << ": " << out << LL_ENDL;
+							break;
+						}
+						default:
+							break;
+					}
+					// </FS:CR> Stream metadata - originally by Shyotl Khur
                 }
             }
 
@@ -297,6 +379,36 @@ void LLStreamingAudio_FMODSTUDIO::setGain(F32 vol)
 
         mFMODInternetStreamChannelp->setVolume(vol);
     }
+}
+
+bool LLStreamingAudio_FMODSTUDIO::hasNewMetadata()
+{
+	if (mCurrentInternetStreamp && mNewMetadata) {
+		mNewMetadata = false;
+		return true;
+	}
+
+	return false;
+}
+
+std::string LLStreamingAudio_FMODSTUDIO::getCurrentArtist()
+{
+	return mMetadata["ARTIST"].asString();
+}
+
+std::string LLStreamingAudio_FMODSTUDIO::getCurrentTitle()
+{
+	return mMetadata["TITLE"].asString();
+}
+
+std::string LLStreamingAudio_FMODSTUDIO::getCurrentStreamName()
+{
+	return mMetadata["STREAM_NAME"].asString();
+}
+
+std::string LLStreamingAudio_FMODSTUDIO::getCurrentStreamLocation()
+{
+	return mMetadata["STREAM_LOCATION"].asString();
 }
 
 ///////////////////////////////////////////////////////
