@@ -32,6 +32,7 @@
 #include "llstreamingaudio.h"
 #include "lltimer.h"
 
+#include "llsd.h"
 //Stubs
 class LLAudioStreamManagerFMODSTUDIO;
 namespace FMOD
@@ -58,6 +59,13 @@ public:
 
     /*virtual*/ bool supportsAdjustableBufferSizes(){return true;}
     /*virtual*/ void setBufferSizes(U32 streambuffertime, U32 decodebuffertime);
+    
+	/* virtual */ bool hasNewMetadata();
+	/* virtual */ std::string getCurrentArtist();
+	/* virtual */ std::string getCurrentTitle();
+	/* virtual */ std::string getCurrentStreamName();
+	/* virtual */ std::string getCurrentStreamLocation();
+	    
 private:
     FMOD::System *mSystem;
 
@@ -67,6 +75,11 @@ private:
 
     std::string mURL;
     F32 mGain;
+    
+	// <FS:CR> Streamtitle display
+	bool mNewMetadata;
+	LLSD mMetadata;
+	// </FS:CR> Streamtitle display
 };
 
 
