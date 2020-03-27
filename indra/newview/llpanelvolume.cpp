@@ -302,9 +302,9 @@ void LLPanelVolume::getState( )
 		LLColorSwatchCtrl* LightColorSwatch = getChild<LLColorSwatchCtrl>("colorswatch");
 		if(LightColorSwatch)
 		{
-			LightColorSwatch->setEnabled( TRUE );
-			LightColorSwatch->setValid( TRUE );
-			LightColorSwatch->set(volobjp->getLightBaseColor());
+			LightColorSwatch->setEnabled(TRUE);
+			LightColorSwatch->setValid(TRUE);
+			LightColorSwatch->set(volobjp->getLightSRGBBaseColor());
 		}
 
 		LLTextureCtrl* LightTextureCtrl = getChild<LLTextureCtrl>("light texture control");
@@ -332,7 +332,7 @@ void LLPanelVolume::getState( )
 		getChild<LLUICtrl>("Light Focus")->setValue(params.mV[1]);
 		getChild<LLUICtrl>("Light Ambiance")->setValue(params.mV[2]);
 
-		mLightSavedColor = volobjp->getLightColor();
+		mLightSavedColor = volobjp->getLightSRGBColor();
 	}
 	else
 	{
@@ -814,7 +814,7 @@ void LLPanelVolume::onLightSelectColor(const LLSD& data)
 	{
 		LLColor4	clr = LightColorSwatch->get();
 		LLColor3	clr3( clr );
-		volobjp->setLightColor(clr3);
+		volobjp->setLightSRGBColor(clr3);
 		mLightSavedColor = clr;
 	}
 }
@@ -888,7 +888,7 @@ void LLPanelVolume::onCommitLight( LLUICtrl* ctrl, void* userdata )
 	if(LightColorSwatch)
 	{
 		LLColor4	clr = LightColorSwatch->get();
-		volobjp->setLightColor(LLColor3(clr));
+		volobjp->setLightSRGBColor(LLColor3(clr));
 	}
 
 	LLTextureCtrl*	LightTextureCtrl = self->getChild<LLTextureCtrl>("light texture control");

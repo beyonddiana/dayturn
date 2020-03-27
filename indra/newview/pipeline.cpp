@@ -6371,8 +6371,8 @@ void LLPipeline::setupHWLights(LLDrawPool* pool)
 				mLightMovingMask |= (1<<cur_light);
 			}
 			
-            //NOTE: for legacy reasons, send sRGB color to light shader for both deferred and non-deferred path
-			LLColor4  light_color = light->getLightColor();
+            //send linear light color to shader
+			LLColor4  light_color = light->getLightLinearColor();
 			light_color.mV[3] = 0.0f;
 
 			F32 fade = iter->fade;
@@ -8714,8 +8714,8 @@ void LLPipeline::renderDeferredLighting()
 					const F32* c = center.getF32ptr();
 					F32 s = volume->getLightRadius()*1.5f;
 
-                    //NOTE: for legacy reasons, send sRGB color to light shader
-                    LLColor3 col = volume->getLightColor();
+                    //send light color to shader in linear space
+                    LLColor3 col = volume->getLightLinearColor();
 
                     // fade also works as flicker prevention during reparenting
                     // because reparenting causes distance to jump temporary
@@ -8833,8 +8833,8 @@ void LLPipeline::renderDeferredLighting()
 
 					setupSpotLight(gDeferredSpotLightProgram, drawablep);
 					
-                    //NOTE: for legacy reasons, send sRGB color to light shader
-                    LLColor3 col = volume->getLightColor();
+                    //send light color to shader in linear space
+                    LLColor3 col = volume->getLightLinearColor();
 					/*col.mV[0] = powf(col.mV[0], 2.2f);
 					col.mV[1] = powf(col.mV[1], 2.2f);
 					col.mV[2] = powf(col.mV[2], 2.2f);*/
@@ -8930,8 +8930,8 @@ void LLPipeline::renderDeferredLighting()
 					
 					setupSpotLight(gDeferredMultiSpotLightProgram, drawablep);
 
-                    //NOTE: for legacy reasons, send sRGB color to light shader
-                    LLColor3 col = volume->getLightColor();
+                    //send light color to shader in linear space
+                    LLColor3 col = volume->getLightLinearColor();
 					
 					/*col.mV[0] = powf(col.mV[0], 2.2f);
 					col.mV[1] = powf(col.mV[1], 2.2f);

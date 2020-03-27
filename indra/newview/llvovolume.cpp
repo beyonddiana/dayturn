@@ -3189,14 +3189,19 @@ void LLVOVolume::setIsLight(BOOL is_light)
 	}
 }
 
-void LLVOVolume::setLightColor(const LLColor3& color)
+void LLVOVolume::setLightSRGBColor(const LLColor3& color)
+{
+    setLightLinearColor(linearColor3(color));
+}
+
+void LLVOVolume::setLightLinearColor(const LLColor3& color)
 {
 	LLLightParams *param_block = (LLLightParams *)getParameterEntry(LLNetworkData::PARAMS_LIGHT);
 	if (param_block)
 	{
-		if (param_block->getColor() != color)
+		if (param_block->getLinearColor() != color)
 		{
-			param_block->setColor(LLColor4(color, param_block->getColor().mV[3]));
+			param_block->setLinearColor(LLColor4(color, param_block->getLinearColor().mV[3]));
 			parameterChanged(LLNetworkData::PARAMS_LIGHT, true);
 			gPipeline.markTextured(mDrawable);
 			mFaceMappingChanged = true;
@@ -3209,9 +3214,9 @@ void LLVOVolume::setLightIntensity(F32 intensity)
 	LLLightParams *param_block = (LLLightParams *)getParameterEntry(LLNetworkData::PARAMS_LIGHT);
 	if (param_block)
 	{
-		if (param_block->getColor().mV[3] != intensity)
+		if (param_block->getLinearColor().mV[3] != intensity)
 		{
-			param_block->setColor(LLColor4(LLColor3(param_block->getColor()), intensity));
+			param_block->setLinearColor(LLColor4(LLColor3(param_block->getLinearColor()), intensity));
 			parameterChanged(LLNetworkData::PARAMS_LIGHT, true);
 		}
 	}
@@ -3263,12 +3268,17 @@ BOOL LLVOVolume::getIsLight() const
 	return getParameterEntryInUse(LLNetworkData::PARAMS_LIGHT);
 }
 
-LLColor3 LLVOVolume::getLightBaseColor() const
+LLColor3 LLVOVolume::getLightSRGBBaseColor() const
+{
+    return srgbColor3(getLightLinearColor());
+}
+
+LLColor3 LLVOVolume::getLightLinearBaseColor() const
 {
 	const LLLightParams *param_block = (const LLLightParams *)getParameterEntry(LLNetworkData::PARAMS_LIGHT);
 	if (param_block)
 	{
-		return LLColor3(param_block->getColor());
+		return LLColor3(param_block->getLinearColor());
 	}
 	else
 	{
@@ -3278,22 +3288,22 @@ LLColor3 LLVOVolume::getLightBaseColor() const
 
 LLColor3 LLVOVolume::getLightLinearColor() const
 {
-    LLColor3 ret = getLightSRGBColor();
-    ret = linearColor3(ret);
-    return ret;
-}
-
-LLColor3 LLVOVolume::getLightSRGBColor() const
-{
 	const LLLightParams *param_block = (const LLLightParams *)getParameterEntry(LLNetworkData::PARAMS_LIGHT);
 	if (param_block)
 	{
-        return LLColor3(param_block->getSRGBColor()) * param_block->getSRGBColor().mV[3];
+        return LLColor3(param_block->getLinearColor()) * param_block->getLinearColor().mV[3];
 	}
 	else
 	{
 		return LLColor3(1, 1, 1);
 	}
+}
+
+LLColor3 LLVOVolume::getLightSRGBColor() const
+{
+    LLColor3 ret = getLightLinearColor();
+    ret = srgbColor3(ret);
+    return ret;
 }
 
 LLUUID LLVOVolume::getLightTextureID() const
@@ -3389,7 +3399,7 @@ F32 LLVOVolume::getLightIntensity() const
 	const LLLightParams *param_block = (const LLLightParams *)getParameterEntry(LLNetworkData::PARAMS_LIGHT);
 	if (param_block)
 	{
-		return param_block->getColor().mV[3];
+		return param_block->getLinearColor().mV[3];
 	}
 	else
 	{

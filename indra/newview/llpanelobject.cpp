@@ -2385,7 +2385,7 @@ void LLPanelObject::onCopyParams(const LLSD& data)
 		mPramsClipboard["Light Intensity"] = volobjp->getLightIntensity();
 		mPramsClipboard["Light Radius"] = volobjp->getLightRadius();
 		mPramsClipboard["Light Falloff"] = volobjp->getLightFalloff();
-		LLColor3 color = volobjp->getLightColor();
+		LLColor3 color = volobjp->getLightSRGBColor();
 		mPramsClipboard["r"] = color.mV[0];
 		mPramsClipboard["g"] = color.mV[1];
 		mPramsClipboard["b"] = color.mV[2];
@@ -2454,7 +2454,7 @@ void LLPanelObject::onPasteParams(const LLSD& data)
 		F32 r = (F32)mPramsClipboard["r"].asReal();
 		F32 g = (F32)mPramsClipboard["g"].asReal();
 		F32 b = (F32)mPramsClipboard["b"].asReal();
-		volobjp->setLightColor(LLColor3(r,g,b));
+		volobjp->setLightSRGBColor(LLColor3(r,g,b));
 	}
 	
 	if(mHasParamClipboard)
