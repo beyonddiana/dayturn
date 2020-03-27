@@ -771,6 +771,11 @@ void LLButton::draw()
 			{
                 glow_color = highlighting_color;
 			}
+            else
+            {
+                // will fade from highlight color
+                glow_color = flash_color;
+            }
 		}
 	}
 
