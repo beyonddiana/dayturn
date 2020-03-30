@@ -411,14 +411,11 @@ BOOL LLFloaterModelPreview::postBuild()
     // Disable Overrides tab untill it has something to show and set callbacks
     LLPanel *panel = mTabContainer->getPanelByName("overrides_panel");
     S32 index = mTabContainer->getIndexForPanel(panel);
-    mTabContainer->enableTabButton(index, false);
     panel->getChild<LLScrollListCtrl>("joints_list")->setCommitCallback(boost::bind(&LLFloaterModelPreview::onJointListSelection, this));
 	
 	// Disable Logs tab untill it has something to show
 	panel = mTabContainer->getPanelByName("logs_panel");
 	index = mTabContainer->getIndexForPanel(panel);
- 
-	mTabContainer->enableTabButton(index, false);
 
 	if (LLConvexDecomposition::getInstance() != NULL)
 	{
@@ -1382,7 +1379,7 @@ void LLFloaterModelPreview::resetOverridesTab()
     }
 }
 
-void LLFloaterModelPreview::showOverridesTab()
+void LLFloaterModelPreview::updateOverridesTab()
 {
     S32 display_lod = mModelPreview->mPreviewLOD;
     if (mModelPreview->mModel[display_lod].empty())
@@ -1427,9 +1424,6 @@ void LLFloaterModelPreview::showOverridesTab()
     }
     
     LLPanel *panel = mTabContainer->getPanelByName("overrides_panel");
-    S32 index = mTabContainer->getIndexForPanel(panel);
-    mTabContainer->enableTabButton(index, true);
-
     LLScrollListCtrl *joints_list = panel->getChild<LLScrollListCtrl>("joints_list");
 
     if (joints_list->isEmpty())
@@ -1467,13 +1461,6 @@ void LLFloaterModelPreview::showOverridesTab()
     }
 }
 
-void LLFloaterModelPreview::hideOverridesTab()
-{
-    LLPanel *panel = mTabContainer->getPanelByName("overrides_panel");
-    S32 index = mTabContainer->getIndexForPanel(panel);
-    mTabContainer->enableTabButton(index, false);
-}
-
 
 //-----------------------------------------------------------------------------
 // addStringToLogTab()
@@ -1491,9 +1478,9 @@ void LLFloaterModelPreview::addStringToLogTab(const std::string& str, bool flash
     {
         return;
     }
+
     LLPanel* panel = mTabContainer->getPanelByName("logs_panel");
-    S32 index = mTabContainer->getIndexForPanel(panel);
-    mTabContainer->enableTabButton(index, true);
+
     // Make sure we have space for new string
     S32 editor_text_len = mUploadLogText->getLength();
     while (editor_max_len < (editor_text_len + add_text_len))
@@ -2418,7 +2405,6 @@ void LLModelPreview::loadModelCallback(S32 loaded_lod)
             else
             {
                 fmp->resetOverridesTab();
-                fmp->hideOverridesTab();
             }
 
 			if (lock_scale_if_joint_position)
@@ -4118,7 +4104,7 @@ BOOL LLModelPreview::render()
         mFMP->childEnable("lock_scale_if_joint_position");
         if (fmp)
         {
-            fmp->showOverridesTab();
+            fmp->updateOverridesTab();
         }
     }
     else
@@ -4127,7 +4113,7 @@ BOOL LLModelPreview::render()
         mFMP->childSetValue("lock_scale_if_joint_position", false);
         if (fmp)
         {
-            fmp->hideOverridesTab();
+            fmp->resetOverridesTab();
         }
     }
 
