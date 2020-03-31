@@ -273,7 +273,8 @@ LLFloaterModelUploadBase(key),
 mUploadBtn(NULL),
 mCalculateBtn(NULL),
 mUploadLogText(NULL),
-mTabContainer(NULL)
+mTabContainer(NULL),
+mAvatarTabIndex(0)
 {
 	sInstance = this;
 	mLastMouseX = 0;
@@ -417,14 +418,10 @@ BOOL LLFloaterModelPreview::postBuild()
 	mTabContainer = getChild<LLTabContainer>("import_tab");
 	
     // Disable Overrides tab untill it has something to show and set callbacks
-    LLPanel *panel = mTabContainer->getPanelByName("overrides_panel");
-    S32 index = mTabContainer->getIndexForPanel(panel);
+    LLPanel *panel = mTabContainer->getPanelByName("avatar_panel");
+    mAvatarTabIndex = mTabContainer->getIndexForPanel(panel);
     panel->getChild<LLScrollListCtrl>("joints_list")->setCommitCallback(boost::bind(&LLFloaterModelPreview::onJointListSelection, this));
 	
-	// Disable Logs tab untill it has something to show
-	panel = mTabContainer->getPanelByName("logs_panel");
-	index = mTabContainer->getIndexForPanel(panel);
-
 	if (LLConvexDecomposition::getInstance() != NULL)
 	{
 	mCalculateBtn->setClickedCallback(boost::bind(&LLFloaterModelPreview::onClickCalculateBtn, this));
@@ -596,7 +593,7 @@ void populate_list_with_map(LLScrollListCtrl *list, const std::map<std::string, 
 void LLFloaterModelPreview::onJointListSelection()
 {
     S32 display_lod = mModelPreview->mPreviewLOD;
-    LLPanel *panel = mTabContainer->getPanelByName("overrides_panel");
+    LLPanel *panel = mTabContainer->getPanelByName("avatar_panel");
     LLScrollListCtrl *joints_list = panel->getChild<LLScrollListCtrl>("joints_list");
     LLScrollListCtrl *joints_pos = panel->getChild<LLScrollListCtrl>("pos_overrides_list");
     LLScrollListCtrl *joints_scale = panel->getChild<LLScrollListCtrl>("scale_overrides_list");
@@ -613,12 +610,14 @@ void LLFloaterModelPreview::onJointListSelection()
         populate_list_with_map(joints_pos, data.mPosOverrides);
 
         joint_pos_descr->setTextArg("[JOINT]", label);
+        mSelectedJointName = label;
     }
     else
     {
         // temporary value (shouldn't happen)
         std::string label = "mPelvis";
         joint_pos_descr->setTextArg("[JOINT]", label);
+        mSelectedJointName.clear();
     }
 
     // Note: We can make a version of renderBones() to highlight selected joint
@@ -1366,13 +1365,14 @@ void LLFloaterModelPreview::addStringToLog(const std::ostringstream& strm, bool 
     }
 }
 
-void LLFloaterModelPreview::clearOverridesTab()
+void LLFloaterModelPreview::clearAvatarTab()
 {
-    LLPanel *panel = mTabContainer->getPanelByName("overrides_panel");
+    LLPanel *panel = mTabContainer->getPanelByName("avatar_panel");
     LLScrollListCtrl *joints_list = panel->getChild<LLScrollListCtrl>("joints_list");
     joints_list->deleteAllItems();
     LLScrollListCtrl *joints_pos = panel->getChild<LLScrollListCtrl>("pos_overrides_list");
-    joints_pos->deleteAllItems();
+
+    joints_pos->deleteAllItems();    mSelectedJointName.clear();
 
     for (U32 i = 0; i < LLModel::NUM_LODS; ++i)
     {
@@ -1387,11 +1387,12 @@ void LLFloaterModelPreview::clearOverridesTab()
     joint_pos_descr->setTextArg("[JOINT]", std::string("mPelvis")); // Might be better to hide it
 }
 
-void LLFloaterModelPreview::updateOverridesTab()
+void LLFloaterModelPreview::updateAvatarTab()
 {
     S32 display_lod = mModelPreview->mPreviewLOD;
     if (mModelPreview->mModel[display_lod].empty())
     {
+        mSelectedJointName.clear();
         return;
     }
 
@@ -1431,7 +1432,7 @@ void LLFloaterModelPreview::updateOverridesTab()
         }
     }
     
-    LLPanel *panel = mTabContainer->getPanelByName("overrides_panel");
+    LLPanel *panel = mTabContainer->getPanelByName("avatar_panel");
     LLScrollListCtrl *joints_list = panel->getChild<LLScrollListCtrl>("joints_list");
 
     if (joints_list->isEmpty())
@@ -1472,6 +1473,11 @@ void LLFloaterModelPreview::updateOverridesTab()
             joint_iter++;
         }
         joints_list->selectFirstItem();
+        LLScrollListItem *selected = joints_list->getFirstSelected();
+        if (selected)
+        {
+            mSelectedJointName = selected->getValue().asString();
+        }
 
         LLTextBox *joint_conf_descr = panel->getChild<LLTextBox>("conflicts_description");
         joint_conf_descr->setTextArg("[CONFLICTS]", llformat("%d", conflicts));
@@ -2422,7 +2428,7 @@ void LLModelPreview::loadModelCallback(S32 loaded_lod)
 			}
             else
             {
-                fmp->clearOverridesTab();
+                fmp->clearAvatarTab();
             }
 
 			if (lock_scale_if_joint_position)
@@ -4125,7 +4131,7 @@ BOOL LLModelPreview::render()
         mFMP->childEnable("lock_scale_if_joint_position");
         if (fmp)
         {
-            fmp->updateOverridesTab();
+            fmp->updateAvatarTab();
         }
     }
     else
@@ -4134,7 +4140,7 @@ BOOL LLModelPreview::render()
         mFMP->childSetValue("lock_scale_if_joint_position", false);
         if (fmp)
         {
-            fmp->clearOverridesTab();
+            fmp->clearAvatarTab();
         }
     }
 
@@ -4660,7 +4666,14 @@ BOOL LLModelPreview::render()
 					gDebugProgram.bind();
 				}
 				getPreviewAvatar()->renderCollisionVolumes();
-				getPreviewAvatar()->renderBones();
+                if (fmp->mTabContainer->getCurrentPanelIndex() == fmp->mAvatarTabIndex)
+                {
+                    getPreviewAvatar()->renderBones(fmp->mSelectedJointName);
+                }
+                else
+                {
+                    getPreviewAvatar()->renderBones();
+                }
 				if (shader)
 				{
 					shader->bind();
@@ -4748,7 +4761,7 @@ void LLModelPreview::setPreviewLOD(S32 lod)
         if (fmp)
         {
             // make preview repopulate tab
-            fmp->clearOverridesTab();
+            fmp->clearAvatarTab();
         }
 	}
 	refresh();
@@ -4771,7 +4784,7 @@ void LLFloaterModelPreview::onReset(void* user_data)
 	LLFloaterModelPreview* fmp = (LLFloaterModelPreview*) user_data;
 	fmp->childDisable("reset_btn");
 	fmp->clearLogTab();
-	fmp->clearOverridesTab();
+	fmp->clearAvatarTab();
 	LLModelPreview* mp = fmp->mModelPreview;
 	std::string filename = mp->mLODFile[LLModel::LOD_HIGH];
 
