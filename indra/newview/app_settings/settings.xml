@@ -10819,6 +10819,17 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
+  <key>RenderAutoMuteSurfaceAreaLimit</key>
+  <map>
+    <key>Comment</key>
+    <string>Maximum surface area of attachments before an avatar is rendered as a simple impostor (to not use this limit, set to 0.0) Default off.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>F32</string>
+    <key>Value</key>
+    <real>1000.0</real>
+  </map>
   <key>RenderAutoMuteLogging</key>
   <map>
     <key>Comment</key>
@@ -10833,7 +10844,7 @@
   <key>RenderAutoHideSurfaceAreaLimit</key>
   <map>
     <key>Comment</key>
-    <string>(If RenderGeometryOverloadProtection is true) Maximum surface area of a set of proximal objects inworld before automatically hiding geometry to prevent system overload.</string>
+    <string>Maximum surface area of a set of proximal objects inworld before automatically hiding geometry to prevent system overload.</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
