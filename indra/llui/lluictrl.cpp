@@ -642,7 +642,6 @@ void LLUICtrl::setFocus(BOOL b)
 		if (!hasFocus())
 		{
 			gFocusMgr.setKeyboardFocus( this );
-			onChildGotFocus(this);
 		}
 	}
 	else
@@ -687,6 +686,7 @@ void LLUICtrl::resetDirty()
 // virtual
 void LLUICtrl::onTabInto()				
 {
+    onUpdateScrollToChild(this);
 }
 
 // virtual
