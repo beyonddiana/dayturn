@@ -452,7 +452,7 @@ void LLAccordionCtrlTab::onVisibilityChange(BOOL new_visibility)
 }
 
 // virtual
-void LLAccordionCtrlTab::onChildGotFocus(const LLUICtrl *cntrl)
+void LLAccordionCtrlTab::onUpdateScrollToChild(const LLUICtrl *cntrl)
 {
     if (mScrollbar && mScrollbar->getVisible())
     {
@@ -477,7 +477,7 @@ void LLAccordionCtrlTab::onChildGotFocus(const LLUICtrl *cntrl)
         }
     }
 
-    LLUICtrl::onChildGotFocus(cntrl);
+    LLUICtrl::onUpdateScrollToChild(cntrl);
 }
 
 BOOL LLAccordionCtrlTab::handleMouseDown(S32 x, S32 y, MASK mask)
