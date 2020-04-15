@@ -227,11 +227,11 @@ protected:
 private:
     void onClickCalculateBtn();
     void onJointListSelection();
-	void toggleCalculateButton();
 
 	void onLoDSourceCommit(S32 lod);
 
 	// Toggles between "Calculate weights & fee" and "Upload" buttons.
+	void toggleCalculateButton();
 	void toggleCalculateButton(bool visible);
 
 	// resets display options of model preview to their defaults.
