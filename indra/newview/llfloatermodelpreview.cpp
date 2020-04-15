@@ -1536,6 +1536,7 @@ LLModelPreview::LLModelPreview(S32 width, S32 height, LLFloater* fmp)
 , mResetJoints( false )
 , mModelNoErrors( true )
 , mLastJointUpdate( false )
+, mImporterDebug(LLCachedControl<bool>(gSavedSettings, "ImporterDebug", false))
 {
 	mNeedsUpdate = TRUE;
 	mCameraDistance = 0.f;
@@ -1745,7 +1746,6 @@ void LLModelPreview::rebuildUploadData()
 
 	F32 max_scale = 0.f;
 
-	BOOL importerDebug = gSavedSettings.getBOOL("ImporterDebug");
 	BOOL legacyMatching = gSavedSettings.getBOOL("ImporterLegacyMatching");
 
 	for (LLModelLoader::scene::iterator iter = mBaseScene.begin(); iter != mBaseScene.end(); ++iter)
@@ -1825,9 +1825,14 @@ void LLModelPreview::rebuildUploadData()
 
 					if (!lod_model && i != LLModel::LOD_PHYSICS)
 					{
-						if (importerDebug)
-						{
-							LL_INFOS() << "Search of" << name_to_match << " in LOD" << i << " list failed. Searching for alternative among LOD lists." << LL_ENDL;
+						if (mImporterDebug)
+                        {
+                            std::ostringstream out;
+                            out << "Search of" << name_to_match;
+                            out << " in LOD" << i;
+                            out << " list failed. Searching for alternative among LOD lists.";
+                            LL_INFOS() << out.str() << LL_ENDL;
+                            LLFloaterModelPreview::addStringToLog(out, false);
 						}
 
 						int searchLOD = (i > LLModel::LOD_HIGH) ? LLModel::LOD_HIGH : i;
@@ -1867,9 +1872,14 @@ void LLModelPreview::rebuildUploadData()
 						// find reference instance for this model
 						if (mBaseModel[idx] == base_model)
 						{
-							if (importerDebug)
+							if (mImporterDebug)
 							{
-								LL_INFOS() << "Attempting to use model index " << idx << " for LOD " << i << " of " << instance.mLabel << LL_ENDL;
+                                std::ostringstream out;
+                                out << "Attempting to use model index " << idx;
+                                out << " for LOD" << i;
+                                out << " of " << instance.mLabel;
+                                LL_INFOS() << out.str() << LL_ENDL;
+                                LLFloaterModelPreview::addStringToLog(out, false);
 							}
 							break;
 						}
@@ -1882,29 +1892,38 @@ void LLModelPreview::rebuildUploadData()
 						// Assign that index from the model list for our LOD as the LOD model for this instance
 						//
 						lod_model = mModel[i][idx];
-						if (importerDebug)
-						{
-							LL_INFOS() << "Indexed match of model index " << idx << " at LOD " << i << " to model named " << lod_model->mLabel << LL_ENDL;
+						if (mImporterDebug)
+                        {
+                            std::ostringstream out;
+                            out << "Indexed match of model index " << idx << " at LOD " << i << " to model named " << lod_model->mLabel;
+                            LL_INFOS() << out.str() << LL_ENDL;
+                            LLFloaterModelPreview::addStringToLog(out, false);
 						}
 					}
-					else if (importerDebug)
+					else if (mImporterDebug)
 					{
-						LL_INFOS() << "List of models does not include index " << idx << LL_ENDL;
+                        std::ostringstream out;
+                        out << "List of models does not include index " << idx;
+                        LL_INFOS() << out.str() << LL_ENDL;
+                        LLFloaterModelPreview::addStringToLog(out, false);
 					}
 				}
 
 				if (lod_model)
 				{
-					if (importerDebug)
-					{
+					if (mImporterDebug)
+                    {
+                        std::ostringstream out;
 						if (i == LLModel::LOD_PHYSICS)
-						{
-							LL_INFOS() << "Assigning collision for " << instance.mLabel << " to match " << lod_model->mLabel << LL_ENDL;
+                        {
+                            out << "Assigning collision for " << instance.mLabel << " to match " << lod_model->mLabel;
 						}
 						else
-						{
-							LL_INFOS() << "Assigning LOD" << i << " for " << instance.mLabel << " to found match " << lod_model->mLabel << LL_ENDL;
-						}
+                        {
+                            out << "Assigning LOD" << i << " for " << instance.mLabel << " to found match " << lod_model->mLabel;
+                        }
+                        LL_INFOS() << out.str() << LL_ENDL;
+                        LLFloaterModelPreview::addStringToLog(out, false);
 					}
 					instance.mLOD[i] = lod_model;
 				}
@@ -1916,9 +1935,12 @@ void LLModelPreview::rebuildUploadData()
 						// Note: we might need to assign it regardless of conditions like named search does, to prevent crashes.
 						instance.mLOD[i] = instance.mLOD[i + 1];
 					}
-					if (importerDebug)
+					if (mImporterDebug)
 					{
-						LL_INFOS() << "List of models does not include " << instance.mLabel << LL_ENDL;
+                        std::ostringstream out;
+                        out << "List of models does not include " << instance.mLabel;
+                        LL_INFOS() << out.str() << LL_ENDL;
+                        LLFloaterModelPreview::addStringToLog(out, false);
 					}
 				}
 			}
@@ -1985,9 +2007,12 @@ void LLModelPreview::rebuildUploadData()
 			}
 			if (!found_model && mModel[lod][model_ind] && !mModel[lod][model_ind]->mSubmodelID)
 			{
-				if (importerDebug)
-				{
-					LL_INFOS() << "Model " << mModel[lod][model_ind]->mLabel << " was not used - mismatching lod models." <<  LL_ENDL;
+				if (mImporterDebug)
+                {
+                    std::ostringstream out;
+                    out << "Model " << mModel[lod][model_ind]->mLabel << " was not used - mismatching lod models.";
+                    LL_INFOS() << out.str() << LL_ENDL;
+                    LLFloaterModelPreview::addStringToLog(out, false);
 				}
 				setLoadState( LLModelLoader::ERROR_MATERIALS );
 				mFMP->childDisable( "calculate_btn" );
@@ -2469,7 +2494,6 @@ void LLModelPreview::loadModelCallback(S32 loaded_lod)
 		}
 		else
 		{
-			BOOL importerDebug = gSavedSettings.getBOOL("ImporterDebug");
 			BOOL legacyMatching = gSavedSettings.getBOOL("ImporterLegacyMatching");
 			if (!legacyMatching)
 			{
@@ -2482,9 +2506,12 @@ void LLModelPreview::loadModelCallback(S32 loaded_lod)
 						if (mBaseModel[idx]->mSubmodelID)
 						{ // don't do index-based renaming when the base model has submodels
 							has_submodels = TRUE;
-							if (importerDebug)
+							if (mImporterDebug)
 							{
-								LL_INFOS() << "High LOD has submodels" << LL_ENDL;
+                                std::ostringstream out;
+                                out << "High LOD has submodels";
+                                LL_INFOS() << out.str() << LL_ENDL;
+                                LLFloaterModelPreview::addStringToLog(out, false);
 							}
 							break;
 						}
@@ -2508,9 +2535,12 @@ void LLModelPreview::loadModelCallback(S32 loaded_lod)
 						}
 					}
 
-					if (importerDebug)
+					if (mImporterDebug)
 					{
-						LL_INFOS() << "Loaded LOD " << loaded_lod << ": correct names" << (name_based ? "" : "NOT ") << "found; submodels " << (has_submodels ? "" : "NOT ") << "found" << LL_ENDL;
+                        std::ostringstream out;
+                        out << "Loaded LOD " << loaded_lod << ": correct names" << (name_based ? "" : "NOT ") << "found; submodels " << (has_submodels ? "" : "NOT ") << "found";
+                        LL_INFOS() << out.str() << LL_ENDL;
+                        LLFloaterModelPreview::addStringToLog(out, false);
 					}
 
 					if (!name_based && !has_submodels)
@@ -2532,7 +2562,7 @@ void LLModelPreview::loadModelCallback(S32 loaded_lod)
 								case LLModel::LOD_HIGH:                      break;
 								}
 
-								if (importerDebug)
+								if (mImporterDebug)
 								{
 									std::ostringstream out;
 									out << "Loded model name " << mModel[loaded_lod][idx]->mLabel;
@@ -3128,20 +3158,34 @@ void LLModelPreview::updateStatusMessages()
 
                 std::string instance_name = instance.mLabel;
 
-                BOOL importerDebug = gSavedSettings.getBOOL("ImporterDebug");
-                if (importerDebug)
+                if (mImporterDebug)
                 {
                     // Useful for debugging generalized complaints below about total submeshes which don't have enough
                     // context to address exactly what needs to be fixed to move towards compliance with the rules.
                     //
-                    LL_INFOS() << "Instance " << lod_model->mLabel << " LOD " << i << " Verts: "   << cur_verts     << LL_ENDL;
-                    LL_INFOS() << "Instance " << lod_model->mLabel << " LOD " << i << " Tris:  "   << cur_tris      << LL_ENDL;
-                    LL_INFOS() << "Instance " << lod_model->mLabel << " LOD " << i << " Faces: "   << cur_submeshes << LL_ENDL;
+                    std::ostringstream out;
+                    out << "Instance " << lod_model->mLabel << " LOD " << i << " Verts: " << cur_verts;
+                    LL_INFOS() << out.str() << LL_ENDL;
+                    LLFloaterModelPreview::addStringToLog(out, false);
 
+                    out.str("");
+                    out << "Instance " << lod_model->mLabel << " LOD " << i << " Tris:  " << cur_tris;
+                    LL_INFOS() << out.str() << LL_ENDL;
+                    LLFloaterModelPreview::addStringToLog(out, false);
+
+                    out.str("");
+                    out << "Instance " << lod_model->mLabel << " LOD " << i << " Faces: " << cur_submeshes;
+                    LL_INFOS() << out.str() << LL_ENDL;
+                    LLFloaterModelPreview::addStringToLog(out, false);
+
+                    out.str("");
                     LLModel::material_list::iterator mat_iter = lod_model->mMaterialList.begin();
                     while (mat_iter != lod_model->mMaterialList.end())
                     {
-                        LL_INFOS() << "Instance " << lod_model->mLabel << " LOD " << i << " Material " << *(mat_iter) << LL_ENDL;
+                        out << "Instance " << lod_model->mLabel << " LOD " << i << " Material " << *(mat_iter);
+                        LL_INFOS() << out.str() << LL_ENDL;
+                        LLFloaterModelPreview::addStringToLog(out, false);
+                        out.str("");
                         mat_iter++;
                     }
                 }
