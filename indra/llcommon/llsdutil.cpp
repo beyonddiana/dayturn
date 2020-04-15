@@ -323,29 +323,7 @@ bool compare_llsd_with_template(
 /*****************************************************************************
 *   Helpers for llsd_matches()
 *****************************************************************************/
-// raw data used for LLSD::Type lookup
-struct Data
-{
-    LLSD::Type type;
-    const char* name;
-} typedata[] =
-{
-#define def(type) { LLSD::type, &#type[4] }
-    def(TypeUndefined),
-    def(TypeBoolean),
-    def(TypeInteger),
-    def(TypeReal),
-    def(TypeString),
-    def(TypeUUID),
-    def(TypeDate),
-    def(TypeURI),
-    def(TypeBinary),
-    def(TypeMap),
-    def(TypeArray)
-#undef  def
-};
-
-// LLSD::Type lookup class into which we load the above static data
+// LLSD::Type lookup class to translate LLSD::Type enums to string descriptions
 class TypeLookup
 {
     typedef std::map<LLSD::Type, std::string> MapType;
@@ -353,10 +331,17 @@ class TypeLookup
 public:
     TypeLookup()
     {
-        for (const Data *di(boost::begin(typedata)), *dend(boost::end(typedata)); di != dend; ++di)
-        {
-            mMap[di->type] = di->name;
-        }
+        mMap[LLSD::TypeUndefined] = "Undefined";
+        mMap[LLSD::TypeBoolean] = "Boolean";
+        mMap[LLSD::TypeInteger] = "Integer";
+        mMap[LLSD::TypeReal] = "Real";
+        mMap[LLSD::TypeString] = "String";
+        mMap[LLSD::TypeUUID] = "UUID";
+        mMap[LLSD::TypeDate] = "Date";
+        mMap[LLSD::TypeURI] = "URI";
+        mMap[LLSD::TypeBinary] = "Binary";
+        mMap[LLSD::TypeMap] = "Map";
+        mMap[LLSD::TypeArray] = "Array";
     }
 
     std::string lookup(LLSD::Type type) const
