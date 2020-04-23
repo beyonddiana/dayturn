@@ -65,7 +65,8 @@ class LLJointOverrideData
 {
 public:
     LLJointOverrideData() : mHasConflicts(false) {};
-    std::map<std::string, LLVector3> mPosOverrides;
+    std::map<std::string, LLVector3> mPosOverrides; // models with overrides
+    std::set<std::string> mModelsNoOverrides; // models without defined overrides
     bool mHasConflicts;
 };
 typedef std::map<std::string, LLJointOverrideData> joint_override_data_map_t;
@@ -109,7 +110,7 @@ public:
 	static void addStringToLog(const std::string& str, bool flash);
 	static void addStringToLog(const std::ostringstream& strm, bool flash);
 	void clearAvatarTab(); // clears table
-	void updateAvatarTab(); // populates table and data as nessesary
+	void updateAvatarTab(bool highlight_overrides); // populates table and data as nessesary
 
     void setDetails(F32 x, F32 y, F32 z);
 	void setPreviewLOD(S32 lod);
