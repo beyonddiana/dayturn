@@ -4038,8 +4038,8 @@ U32 LLModelPreview::loadTextures(LLImportMaterial& material,void* opaque)
 		material.mOpaqueData = new LLPointer< LLViewerFetchedTexture >;
 		LLPointer< LLViewerFetchedTexture >& tex = (*reinterpret_cast< LLPointer< LLViewerFetchedTexture > * >(material.mOpaqueData));
 
-		tex = LLViewerTextureManager::getFetchedTextureFromUrl("file://" + material.mDiffuseMapFilename, FTT_LOCAL_FILE, TRUE, LLGLTexture::BOOST_PREVIEW);
-		tex->setLoadedCallback(LLModelPreview::textureLoadedCallback, 0, TRUE, FALSE, opaque, NULL, FALSE);
+        tex = LLViewerTextureManager::getFetchedTextureFromUrl("file://" + LLURI::unescape(material.mDiffuseMapFilename), FTT_LOCAL_FILE, TRUE, LLGLTexture::BOOST_PREVIEW);
+		tex->setLoadedCallback(LLModelPreview::textureLoadedCallback, 0, true, false, opaque, NULL, FALSE);
 		tex->forceToSaveRawImage(0, F32_MAX);
 		material.setDiffuseMap(tex->getID()); // record tex ID
 		return 1;
