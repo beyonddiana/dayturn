@@ -172,6 +172,7 @@ protected:
 	static void		onAutoFillCommit(LLUICtrl*,void*);
 
 	void onLODParamCommit(S32 lod, bool enforce_tri_limit);
+	void draw3dPreview();
 
 	static void		onExplodeCommit(LLUICtrl*, void*);
 
