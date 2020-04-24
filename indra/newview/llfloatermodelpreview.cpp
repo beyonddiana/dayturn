@@ -594,6 +594,7 @@ void LLFloaterModelPreview::onClickCalculateBtn()
 {
 	clearLogTab();
 
+    addStringToLog("Calculating model data.", false);
 	mModelPreview->rebuildUploadData();
 
 	bool upload_skinweights = childGetValue("upload_skin").asBoolean();
@@ -2041,6 +2042,7 @@ void LLModelPreview::rebuildUploadData()
 			LLModel* high_lod_model = instance.mLOD[LLModel::LOD_HIGH];
 			if (!high_lod_model)
 			{
+			    LLFloaterModelPreview::addStringToLog("Model " + instance.mLabel + " has no High Lod (LOD3).", true);
 				setLoadState( LLModelLoader::ERROR_MATERIALS );
 				mFMP->childDisable( "calculate_btn" );
 			}
@@ -2053,6 +2055,7 @@ void LLModelPreview::rebuildUploadData()
 					llassert(instance.mLOD[i]);
 					if (instance.mLOD[i] && !instance.mLOD[i]->matchMaterialOrder(high_lod_model, refFaceCnt, modelFaceCnt ) )
 					{
+                        LLFloaterModelPreview::addStringToLog("Model " + instance.mLabel + " has mismatching materials between lods." , true);
 						setLoadState( LLModelLoader::ERROR_MATERIALS );
 						mFMP->childDisable( "calculate_btn" );
 					}
@@ -2072,7 +2075,7 @@ void LLModelPreview::rebuildUploadData()
                         out << bind_rot;
                         LL_WARNS() << out.str() << LL_ENDL;
  
-                        LLFloaterModelPreview::addStringToLog(out, false);
+                        LLFloaterModelPreview::addStringToLog(out, getLoadState() != LLModelLoader::WARNING_BIND_SHAPE_ORIENTATION);
                         setLoadState( LLModelLoader::WARNING_BIND_SHAPE_ORIENTATION );
                     }
                 }
@@ -2105,7 +2108,7 @@ void LLModelPreview::rebuildUploadData()
                     std::ostringstream out;
                     out << "Model " << mModel[lod][model_ind]->mLabel << " was not used - mismatching lod models.";
                     LL_INFOS() << out.str() << LL_ENDL;
-                    LLFloaterModelPreview::addStringToLog(out, false);
+                    LLFloaterModelPreview::addStringToLog(out, true);
 				}
 				setLoadState( LLModelLoader::ERROR_MATERIALS );
 				mFMP->childDisable( "calculate_btn" );
