@@ -2,8 +2,8 @@
 <floater
  can_close="true"
  can_drag_on_left="false"
- can_minimize="false"
- can_resize="false"
+ can_minimize="true"
+ can_resize="true"
  height="625"
  min_height="625"
  width="980"
