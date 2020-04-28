@@ -573,6 +573,17 @@ bool LLPanelPicks::isActionEnabled(const LLSD& userdata) const
 {
 	std::string command_name = userdata.asString();
 
+//MK
+	// Don't allow to create a new pick or a new classified when prevented from seeing the location, as they create a landmark that contains the region name and location.
+	if (gRRenabled && gAgent.mRRInterface.mContainsShowloc)
+	{
+		if (command_name == "new_pick" || command_name == "new_classified") // note that for the moment, the "New Classified" menu item is NOT controlled by this method, so the second part of the if will not be evaluated for now.
+		{
+			return false;
+		}
+	}
+//mk
+
 	if (command_name == "new_pick" && LLAgentPicksInfo::getInstance()->isPickLimitReached())
 	{
 		return false;
@@ -867,6 +878,13 @@ void LLPanelPicks::onClickPlusBtn()
 
 void LLPanelPicks::createNewPick()
 {
+//MK
+	// Don't allow to create a new pick or a new classified when prevented from seeing the location, as they create a landmark that contains the region name and location.
+	if (gRRenabled && gAgent.mRRInterface.mContainsShowloc)
+	{
+		return;
+	}
+//mk
 	createPickEditPanel();
 
 	getProfilePanel()->openPanel(mPanelPickEdit, LLSD());
@@ -874,6 +892,13 @@ void LLPanelPicks::createNewPick()
 
 void LLPanelPicks::createNewClassified()
 {
+//MK
+	// Don't allow to create a new pick or a new classified when prevented from seeing the location, as they create a landmark that contains the region name and location.
+	if (gRRenabled && gAgent.mRRInterface.mContainsShowloc)
+	{
+		return;
+	}
+//mk
 	LLPanelClassifiedEdit* panel = NULL;
 	createClassifiedEditPanel(&panel);
 
