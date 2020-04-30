@@ -258,10 +258,13 @@ LLVOVolume::~LLVOVolume()
 
 void LLVOVolume::markDead()
 {
-	LLSculptIDSize::instance().rem(getVolume()->getParams().getSculptID());
-
 	if (!mDead)
 	{
+        if (getVolume())
+        {
+            LLSculptIDSize::instance().rem(getVolume()->getParams().getSculptID());
+        }
+
 		if(getMDCImplCount() > 0)
 		{
 			LLMediaDataClientObject::ptr_t obj = new LLMediaDataClientObjectImpl(const_cast<LLVOVolume*>(this), false);
