@@ -814,7 +814,7 @@ void LLFloaterIMContainer::setVisibleAndFrontmost(bool take_focus, const LLSD& k
 	{
 		collapseMessagesPane(gSavedPerAccountSettings.getBOOL("ConversationsMessagePaneCollapsed"));
 		mIsFirstLaunch = false;
-}
+    }
 }
 
 void LLFloaterIMContainer::updateResizeLimits()

@@ -4527,16 +4527,16 @@ bool LLVivoxVoiceClient::isVoiceWorking() const
 
 // Returns true if the indicated participant in the current audio session is really an SL avatar.
 // Currently this will be false only for PSTN callers into group chats, and PSTN p2p calls.
-BOOL LLVivoxVoiceClient::isParticipantAvatar(const LLUUID &id)
+bool LLVivoxVoiceClient::isParticipantAvatar(const LLUUID &id)
 {
-	BOOL result = TRUE; 
+	bool result = true; 
 	sessionState *session = findSession(id);
 	
 	if(session != NULL)
 	{
 		// this is a p2p session with the indicated caller, or the session with the specified UUID.
 		if(session->mSynthesizedCallerID)
-			result = FALSE;
+			result = false;
 	}
 	else
 	{

@@ -182,7 +182,7 @@ public:
 	//@{
 	virtual BOOL getVoiceEnabled(const LLUUID& id);		// true if we've received data for this avatar
 	virtual std::string getDisplayName(const LLUUID& id);
-	virtual BOOL isParticipantAvatar(const LLUUID &id);
+	virtual bool isParticipantAvatar(const LLUUID &id);
 	virtual BOOL getIsSpeaking(const LLUUID& id);
 	virtual BOOL getIsModeratorMuted(const LLUUID& id);
 	virtual F32 getCurrentPower(const LLUUID& id);		// "power" is related to "amplitude" in a defined way.  I'm just not sure what the formula is...
