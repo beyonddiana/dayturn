@@ -148,7 +148,7 @@ private:
 
 	bool dropPerson(LLUUID* person_id, bool drop);
 
-	BOOL isInviteAllowed() const;
+	bool isInviteAllowed() const;
 	BOOL inviteToSession(const uuid_vec_t& agent_ids);
 	static void onInputEditorFocusReceived( LLFocusableElement* caller,void* userdata );
 	static void onInputEditorFocusLost(LLFocusableElement* caller, void* userdata);

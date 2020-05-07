@@ -577,9 +577,9 @@ BOOL LLFloaterIMPanel::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
 	return TRUE;
 } 
 
-BOOL LLFloaterIMPanel::dropCallingCard(LLInventoryItem* item, BOOL drop)
+bool LLFloaterIMPanel::dropCallingCard(LLInventoryItem* item, bool drop)
 {
-	BOOL rv = isInviteAllowed();
+	bool rv = isInviteAllowed();
 	if(rv && item && item->getCreatorUUID().notNull())
 	{
 		if(drop)
@@ -592,14 +592,14 @@ BOOL LLFloaterIMPanel::dropCallingCard(LLInventoryItem* item, BOOL drop)
 	else
 	{
 		// set to false if creator uuid is null.
-		rv = FALSE;
+		rv = false;
 	}
 	return rv;
 }
 
-BOOL LLFloaterIMPanel::dropCategory(LLInventoryCategory* category, BOOL drop)
+bool LLFloaterIMPanel::dropCategory(LLInventoryCategory* category, bool drop)
 {
-	BOOL rv = isInviteAllowed();
+	bool rv = isInviteAllowed();
 	if(rv && category)
 	{
 		LLInventoryModel::cat_array_t cats;
@@ -613,7 +613,7 @@ BOOL LLFloaterIMPanel::dropCategory(LLInventoryCategory* category, BOOL drop)
 		S32 count = items.count();
 		if(count == 0)
 		{
-			rv = FALSE;
+			rv = false;
 		}
 		else if(drop)
 		{
@@ -629,7 +629,7 @@ BOOL LLFloaterIMPanel::dropCategory(LLInventoryCategory* category, BOOL drop)
 	return rv;
 }
 
-BOOL LLFloaterIMPanel::isInviteAllowed() const
+bool LLFloaterIMPanel::isInviteAllowed() const
 {
 
 	return ( (IM_SESSION_CONFERENCE_START == mDialog) 
