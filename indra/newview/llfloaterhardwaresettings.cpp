@@ -52,7 +52,7 @@ LLFloaterHardwareSettings::LLFloaterHardwareSettings(const LLSD& key)
 	  // these should be set on imminent refresh() call,
 	  // but init them anyway
 	  mUseVBO(0),
-	  mUseAnisoSamples(0.f),
+	  mUseAnisoSamples(0),
 	  mFSAASamples(0),
 	  mGamma(0.0),
 	  mVideoCardMem(0),
@@ -86,7 +86,7 @@ void LLFloaterHardwareSettings::refresh()
 	mCompressTextures = gSavedSettings.getBOOL("RenderCompressTextures");
 
 	getChild<LLUICtrl>("fsaa")->setValue((LLSD::Integer) mFSAASamples);
-	getChild<LLUICtrl>("ani")->setValue((LLSD::Real)mUseAnisoSamples);
+	getChild<LLUICtrl>("ani")->setValue((LLSD::Boolean)mUseAnisoSamples);
 	refreshEnabledState();
 }
 
