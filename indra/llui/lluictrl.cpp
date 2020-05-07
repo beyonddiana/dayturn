@@ -738,7 +738,7 @@ void LLUICtrl::setIsChrome(bool is_chrome)
 }
 
 // virtual
-BOOL LLUICtrl::getIsChrome() const
+bool LLUICtrl::getIsChrome() const
 { 
 	LLView* parent_ctrl = getParent();
 	while(parent_ctrl)
