@@ -579,10 +579,10 @@ bool LLGLManager::initGL()
 
 	// Extract video card strings and convert to upper case to
 	// work around driver-to-driver variation in capitalization.
-	mGLVendor = std::string((const char *)glGetString(GL_VENDOR));
+	mGLVendor = ll_safe_string((const char *)glGetString(GL_VENDOR));
 	LLStringUtil::toUpper(mGLVendor);
 
-	mGLRenderer = std::string((const char *)glGetString(GL_RENDERER));
+	mGLRenderer = ll_safe_string((const char *)glGetString(GL_RENDERER));
 	LLStringUtil::toUpper(mGLRenderer);
 
 	parse_gl_version( &mDriverVersionMajor, 
@@ -848,9 +848,9 @@ void LLGLManager::getGLInfo(LLSD& info)
 	}
 	else
 	{
-		info["GLInfo"]["GLVendor"] = std::string((const char *)glGetString(GL_VENDOR));
-		info["GLInfo"]["GLRenderer"] = std::string((const char *)glGetString(GL_RENDERER));
-		info["GLInfo"]["GLVersion"] = std::string((const char *)glGetString(GL_VERSION));
+		info["GLInfo"]["GLVendor"] = ll_safe_string((const char *)glGetString(GL_VENDOR));
+		info["GLInfo"]["GLRenderer"] = ll_safe_string((const char *)glGetString(GL_RENDERER));
+		info["GLInfo"]["GLVersion"] = ll_safe_string((const char *)glGetString(GL_VERSION));
 	}
 
 #if !LL_MESA_HEADLESS
@@ -900,9 +900,9 @@ void LLGLManager::printGLInfoString()
 	}
 	else
 	{
-		LL_INFOS("RenderInit") << "GL_VENDOR:     " << ((const char *)glGetString(GL_VENDOR)) << LL_ENDL;
-		LL_INFOS("RenderInit") << "GL_RENDERER:   " << ((const char *)glGetString(GL_RENDERER)) << LL_ENDL;
-		LL_INFOS("RenderInit") << "GL_VERSION:    " << ((const char *)glGetString(GL_VERSION)) << LL_ENDL;
+		LL_INFOS("RenderInit") << "GL_VENDOR:     " << ll_safe_string((const char *)glGetString(GL_VENDOR)) << LL_ENDL;
+		LL_INFOS("RenderInit") << "GL_RENDERER:   " << ll_safe_string((const char *)glGetString(GL_RENDERER)) << LL_ENDL;
+		LL_INFOS("RenderInit") << "GL_VERSION:    " << ll_safe_string((const char *)glGetString(GL_VERSION)) << LL_ENDL;
 	}
 
 #if !LL_MESA_HEADLESS
@@ -1032,11 +1032,11 @@ void LLGLManager::initExtensions()
 	mHassRGBFramebuffer = ExtensionExists("GL_EXT_framebuffer_sRGB", gGLHExts.mSysExts);
 #endif
 	
-    #ifdef GL_EXT_texture_sRGB_decode
-        mHasTexturesRGBDecode = ExtensionExists("GL_EXT_texture_sRGB_decode", gGLHExts.mSysExts);
-    #else
-        mHasTexturesRGBDecode = ExtensionExists("GL_ARB_texture_sRGB_decode", gGLHExts.mSysExts);
-    #endif
+#ifdef GL_EXT_texture_sRGB_decode
+    mHasTexturesRGBDecode = ExtensionExists("GL_EXT_texture_sRGB_decode", gGLHExts.mSysExts);
+#else
+    mHasTexturesRGBDecode = ExtensionExists("GL_ARB_texture_sRGB_decode", gGLHExts.mSysExts);
+#endif
 
 	mHasMipMapGeneration = mHasFramebufferObject || mGLVersion >= 1.4f;
 
@@ -2081,7 +2081,8 @@ LLGLState::LLGLState(LLGLenum state, S32 enabled) :
 	if (mState)
 	{
 		mWasEnabled = sStateMap[state];
-//		llassert(mWasEnabled == glIsEnabled(state));
+        // we can't actually assert on this as queued changes to state are not reflected by glIsEnabled
+		//llassert(mWasEnabled == glIsEnabled(state));
 		setEnabled(enabled);
 		stop_glerror();
 	}
