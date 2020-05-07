@@ -988,7 +988,7 @@ void LLAssetStorage::processUploadComplete(LLMessageSystem *msg, void **user_dat
     msg->getBOOLFast(_PREHASH_AssetBlock, _PREHASH_Success, success);
 
     asset_type = (LLAssetType::EType)asset_type_s8;
-    this_ptr->_callUploadCallbacks(uuid, asset_type, success, LL_EXSTAT_NONE);
+    this_ptr->_callUploadCallbacks(uuid, asset_type, static_cast<bool>(success), LL_EXSTAT_NONE);
 }
 
 void LLAssetStorage::_callUploadCallbacks(const LLUUID &uuid, LLAssetType::EType asset_type, bool success, LLExtStat ext_status )
