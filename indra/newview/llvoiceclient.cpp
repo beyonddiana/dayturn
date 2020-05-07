@@ -757,7 +757,7 @@ bool LLVoiceClient::isVoiceWorking() const
 	return false;
 }
 
-BOOL LLVoiceClient::isParticipantAvatar(const LLUUID& id)
+bool LLVoiceClient::isParticipantAvatar(const LLUUID& id)
 {
 	if (mVoiceModule) 
 	{
@@ -765,7 +765,7 @@ BOOL LLVoiceClient::isParticipantAvatar(const LLUUID& id)
 	}
 	else
 	{
-		return FALSE;
+		return false;
 	}
 }
 

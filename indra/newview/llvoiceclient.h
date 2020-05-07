@@ -216,7 +216,7 @@ public:
 	//@{
 	virtual BOOL getVoiceEnabled(const LLUUID& id)=0;		// true if we've received data for this avatar
 	virtual std::string getDisplayName(const LLUUID& id)=0;
-	virtual BOOL isParticipantAvatar(const LLUUID &id)=0;
+	virtual bool isParticipantAvatar(const LLUUID &id)=0;
 	virtual BOOL getIsSpeaking(const LLUUID& id)=0;
 	virtual BOOL getIsModeratorMuted(const LLUUID& id)=0;
 	virtual F32 getCurrentPower(const LLUUID& id)=0;		// "power" is related to "amplitude" in a defined way.  I'm just not sure what the formula is...
@@ -431,7 +431,7 @@ public:
 	BOOL getVoiceEnabled(const LLUUID& id);		// true if we've received data for this avatar
 	std::string getDisplayName(const LLUUID& id);	
 	BOOL isOnlineSIP(const LLUUID &id);
-	BOOL isParticipantAvatar(const LLUUID &id);
+	bool isParticipantAvatar(const LLUUID &id);
 	BOOL getIsSpeaking(const LLUUID& id);
 	BOOL getIsModeratorMuted(const LLUUID& id);
 	F32 getCurrentPower(const LLUUID& id);		// "power" is related to "amplitude" in a defined way.  I'm just not sure what the formula is...
