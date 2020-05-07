@@ -1275,7 +1275,7 @@ bool LLFloaterIMSession::dropPerson(LLUUID* person_id, bool drop)
 	return res;
 }
 
-BOOL LLFloaterIMSession::isInviteAllowed() const
+bool LLFloaterIMSession::isInviteAllowed() const
 {
 
 	return ( (IM_SESSION_CONFERENCE_START == mDialog)

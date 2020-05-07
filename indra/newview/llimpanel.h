@@ -126,11 +126,11 @@ private:
 	void sendMsg();
 
 	// for adding agents via the UI. Return TRUE if possible, do it if 
-	BOOL dropCallingCard(LLInventoryItem* item, BOOL drop);
-	BOOL dropCategory(LLInventoryCategory* category, BOOL drop);
+	bool dropCallingCard(LLInventoryItem* item, bool drop);
+	bool dropCategory(LLInventoryCategory* category, bool drop);
 
 	// test if local agent can add agents.
-	BOOL isInviteAllowed() const;
+	bool isInviteAllowed() const;
 
 	// Called whenever the user starts or stops typing.
 	// Sends the typing state to the other user if necessary.
