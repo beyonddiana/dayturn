@@ -2478,7 +2478,6 @@ void LLAgent::endAnimationUpdateUI()
 			}
 
 			// hide all floaters except the mini map
-
 	#if 0 // Use this once all floaters are registered
 			std::set<std::string> exceptions;
 			exceptions.insert("mini_map");
@@ -2487,7 +2486,7 @@ void LLAgent::endAnimationUpdateUI()
 	#else // Use this for now
 			LLFloaterView::skip_list_t skip_list;
 			skip_list.insert(LLFloaterReg::findInstance("mini_map"));
-			gFloaterView->pushVisibleAll(FALSE, skip_list);
+			gFloaterView->pushVisibleAll(false, skip_list);
 			} //if (!gRRenabled)
 	#endif
 	//MK
