@@ -1264,7 +1264,7 @@ void open_inventory_offer(const uuid_vec_t& objects, const std::string& from_nam
 			{
 				LL_DEBUGS("Messaging") << "Highlighting inventory item: " << item->getUUID()  << LL_ENDL;
 				// If we opened this ourselves, focus it
-				const BOOL take_focus = from_name.empty() ? TAKE_FOCUS_YES : TAKE_FOCUS_NO;
+				const bool take_focus = from_name.empty() ? TAKE_FOCUS_YES : TAKE_FOCUS_NO;
 				switch(asset_type)
 				{
 					case LLAssetType::AT_NOTECARD:
@@ -2131,7 +2131,7 @@ void inventory_offer_handler(LLOfferInfo* info)
 		p.name = info->mFromID == gAgentID ? "OwnObjectGiveItem" : "ObjectGiveItem";
 
 		// Pop up inv offer chiclet and let the user accept (keep), or reject (and silently delete) the inventory.
-	    LLPostponedNotification::add<LLPostponedOfferNotification>(p, info->mFromID, info->mFromGroup == TRUE);
+	    LLPostponedNotification::add<LLPostponedOfferNotification>(p, info->mFromID, info->mFromGroup == true);
 	}
 	else // Agent -> Agent Inventory Offer
 	{
@@ -2549,14 +2549,14 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 	// IDEVO convert new-style "Resident" names for display
 	name = clean_name_from_im(name, dialog);
 
-	BOOL is_do_not_disturb = gAgent.isDoNotDisturb();
-	BOOL is_muted = LLMuteList::getInstance()->isMuted(from_id, name, LLMute::flagTextChat)
+	bool is_do_not_disturb = gAgent.isDoNotDisturb();
+	bool is_muted = LLMuteList::getInstance()->isMuted(from_id, name, LLMute::flagTextChat)
 		// object IMs contain sender object id in session_id (STORM-1209)
 		|| (dialog == IM_FROM_TASK && LLMuteList::getInstance()->isMuted(session_id));
-	BOOL is_owned_by_me = FALSE;
+	bool is_owned_by_me = false;
 	BOOL is_friend = (LLAvatarTracker::instance().getBuddyInfo(from_id) == NULL) ? false : true;
 	BOOL accept_im_from_only_friend = gSavedSettings.getBOOL("VoiceCallsFriendsOnly");
-	BOOL is_linden = chat.mSourceType != CHAT_SOURCE_OBJECT &&
+	bool is_linden = chat.mSourceType != CHAT_SOURCE_OBJECT &&
 			LLMuteList::getInstance()->isLinden(name);
 
 	chat.mMuted = is_muted;
@@ -4194,10 +4194,10 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 		chat.mFromName = from_name;
 	}
 
-	BOOL is_do_not_disturb = gAgent.isDoNotDisturb();
+	bool is_do_not_disturb = gAgent.isDoNotDisturb();
 
-	BOOL is_muted = FALSE;
-	BOOL is_linden = FALSE;
+	bool is_muted = false;
+	bool is_linden = false;
 	is_muted = LLMuteList::getInstance()->isMuted(
 		from_id,
 		from_name,

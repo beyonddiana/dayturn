@@ -3063,7 +3063,7 @@ void LLIMMgr::inviteToSession(
 	// voice invite question is different from default only for group call (EXT-7118)
 	std::string question_type = "VoiceInviteQuestionDefault";
 
-	BOOL voice_invite = FALSE;
+	BOOL voice_invite = false;
 	bool is_linden = LLMuteList::getInstance()->isLinden(caller_name);
 
 
@@ -3071,21 +3071,21 @@ void LLIMMgr::inviteToSession(
 	{
 		//P2P is different...they only have voice invitations
 		notify_box_type = "VoiceInviteP2P";
-		voice_invite = TRUE;
+		voice_invite = true;
 	}
 	else if ( gAgent.isInGroup(session_id) )
 	{
 		//only really old school groups have voice invitations
 		notify_box_type = "VoiceInviteGroup";
 		question_type = "VoiceInviteQuestionGroup";
-		voice_invite = TRUE;
+		voice_invite = true;
 	}
 	else if ( inv_type == INVITATION_TYPE_VOICE )
 	{
 		//else it's an ad-hoc
 		//and a voice ad-hoc
 		notify_box_type = "VoiceInviteAdHoc";
-		voice_invite = TRUE;
+		voice_invite = true;
 	}
 	else if ( inv_type == INVITATION_TYPE_IMMEDIATE )
 	{
@@ -3710,7 +3710,7 @@ public:
 			time_t timestamp =
 				(time_t) message_params["timestamp"].asInteger();
 
-			BOOL is_do_not_disturb = gAgent.isDoNotDisturb();
+			bool is_do_not_disturb = gAgent.isDoNotDisturb();
 
 			//don't return if user is muted b/c proper way to ignore a muted user who
 			//initiated an adhoc/group conference is to create then leave the session (see STORM-1731)
