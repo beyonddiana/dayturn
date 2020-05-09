@@ -95,10 +95,10 @@ public:
 	BOOL autoRemove(const LLUUID& agent_id, const EAutoReason reason);
 	
 	// Name is required to test against legacy text-only mutes.
-	BOOL isMuted(const LLUUID& id, const std::string& name = LLStringUtil::null, U32 flags = 0) const;
+	bool isMuted(const LLUUID& id, const std::string& name = LLStringUtil::null, U32 flags = 0) const;
 
 	// Workaround for username-based mute search, a lot of string conversions so use cautiously
-	BOOL isMuted(const std::string& username, U32 flags = 0) const;
+	bool isMuted(const std::string& username, U32 flags = 0) const;
 
 //MK
 	// Search in the mute list for any name that is contained in the message "s"

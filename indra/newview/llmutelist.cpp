@@ -625,7 +625,7 @@ BOOL LLMuteList::saveToFile(const std::string& filename)
 }
 
 
-BOOL LLMuteList::isMuted(const LLUUID& id, const std::string& name, U32 flags) const
+bool LLMuteList::isMuted(const LLUUID& id, const std::string& name, U32 flags) const
 {
 	// for objects, check for muting on their parent prim
 	LLViewerObject* mute_object = get_object_to_mute_from_id(id);
@@ -639,21 +639,21 @@ BOOL LLMuteList::isMuted(const LLUUID& id, const std::string& name, U32 flags) c
 		// If any of the flags the caller passed are set, this item isn't considered muted for this caller.
 		if(flags & mute_it->mFlags)
 		{
-			return FALSE;
+			return false;
 		}
-		return TRUE;
+		return true;
 	}
 
 	// empty names can't be legacy-muted
 	bool avatar = mute_object && mute_object->isAvatar();
-	if (name.empty() || avatar) return FALSE;
+	if (name.empty() || avatar) return false;
 
 	// Look in legacy pile
 	string_set_t::const_iterator legacy_it = mLegacyMutes.find(name);
 	return legacy_it != mLegacyMutes.end();
 }
 
-BOOL LLMuteList::isMuted(const std::string& username, U32 flags) const
+bool LLMuteList::isMuted(const std::string& username, U32 flags) const
 {
 	mute_set_t::const_iterator mute_iter = mMutes.begin();
 	while(mute_iter != mMutes.end())
@@ -662,11 +662,11 @@ BOOL LLMuteList::isMuted(const std::string& username, U32 flags) const
 		if (mute_iter->mType == LLMute::AGENT
 			&& LLCacheName::buildUsername(mute_iter->mName) == username)
 		{
-			return TRUE;
+			return true;
 		}
 		mute_iter++;
 	}
-	return FALSE;
+	return false;
 }
 
 //MK

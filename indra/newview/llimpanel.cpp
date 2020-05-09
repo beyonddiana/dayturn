@@ -273,7 +273,7 @@ void LLFloaterIMPanel::onClickMuteVoice(void* user_data)
 	LLFloaterIMPanel* floaterp = (LLFloaterIMPanel*)user_data;
 	if (floaterp)
 	{
-		BOOL is_muted = LLMuteList::getInstance()->isMuted(floaterp->mOtherParticipantUUID, LLMute::flagVoiceChat);
+		bool is_muted = LLMuteList::getInstance()->isMuted(floaterp->mOtherParticipantUUID, LLMute::flagVoiceChat);
 
 		LLMute mute(floaterp->mOtherParticipantUUID, floaterp->getTitle(), LLMute::AGENT);
 		if (!is_muted)
