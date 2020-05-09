@@ -85,7 +85,7 @@ class LLMessageReader
 
 	virtual void copyToBuilder(LLMessageBuilder&) const = 0;
 
-	static void setTimeDecodes(BOOL b);
+	static void setTimeDecodes(bool b);
 	static BOOL getTimeDecodes();
 	static void setTimeDecodesSpamThreshold(F32 seconds);
 	static F32 getTimeDecodesSpamThreshold();

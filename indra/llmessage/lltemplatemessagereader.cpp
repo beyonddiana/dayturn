@@ -452,7 +452,7 @@ S32 LLTemplateMessageReader::getMessageSize() const
 }
 
 // Returns template for the message contained in buffer
-BOOL LLTemplateMessageReader::decodeTemplate(  
+bool LLTemplateMessageReader::decodeTemplate(
 		const U8* buffer, S32 buffer_size,  // inputs
 		LLMessageTemplate** msg_template ) // outputs
 {
@@ -766,7 +766,7 @@ BOOL LLTemplateMessageReader::validateMessage(const U8* buffer,
 											  bool trusted)
 {
 	mReceiveSize = buffer_size;
-	BOOL valid = decodeTemplate(buffer, buffer_size, &mCurrentRMessageTemplate );
+	bool valid = decodeTemplate(buffer, buffer_size, &mCurrentRMessageTemplate );
 	if(valid)
 	{
 		mCurrentRMessageTemplate->mReceiveCount++;

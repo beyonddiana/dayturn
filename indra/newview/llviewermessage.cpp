@@ -4107,7 +4107,7 @@ void process_teleport_finish(LLMessageSystem* msg, void**)
 	LLHost sim_host(sim_ip, sim_port);
 
 	// Viewer trusts the simulator.
-	gMessageSystem->enableCircuit(sim_host, TRUE);
+	gMessageSystem->enableCircuit(sim_host, true);
 	LLViewerRegion* regionp =  LLWorld::getInstance()->addRegion(region_handle, sim_host, region_size_x, region_size_y);
 
 /*

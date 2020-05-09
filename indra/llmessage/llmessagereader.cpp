@@ -38,7 +38,7 @@ LLMessageReader::~LLMessageReader()
 }
 
 //static 
-void LLMessageReader::setTimeDecodes(BOOL b)
+void LLMessageReader::setTimeDecodes(bool b)
 {
 	sTimeDecodes = b;
 }
