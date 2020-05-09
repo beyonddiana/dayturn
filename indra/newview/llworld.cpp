@@ -115,7 +115,7 @@ LLWorld::LLWorld() :
 	*(default_texture++) = MAX_WATER_COLOR.mV[2];
 	*(default_texture++) = MAX_WATER_COLOR.mV[3];
 	
-	mDefaultWaterTexturep = LLViewerTextureManager::getLocalTexture(raw.get(), FALSE);
+	mDefaultWaterTexturep = LLViewerTextureManager::getLocalTexture(raw.get(), false);
 	gGL.getTexUnit(0)->bind(mDefaultWaterTexturep);
 	mDefaultWaterTexturep->setAddressMode(LLTexUnit::TAM_CLAMP);
 	LLViewerRegion::sVOCacheCullingEnabled = gSavedSettings.getBOOL("RequestFullRegionCache") && gSavedSettings.getBOOL("ObjectCacheEnabled");
@@ -275,8 +275,8 @@ void LLWorld::refreshLimits()
 		mMaxPhysLinkedPrims = 10000;
 		mMaxInventoryItemsTransfer = 42;
 		mAllowRenderName = gSavedSettings.getS32("AvatarNameTagMode");
-		mAllowMinimap = TRUE;
-		mAllowPhysicalPrims = TRUE;
+		mAllowMinimap = true;
+		mAllowPhysicalPrims = true;
 
 		mMaxPrimXPos = OS_MAX_OBJECT_XY;
 		mMaxPrimYPos = OS_MAX_OBJECT_XY;
@@ -285,11 +285,11 @@ void LLWorld::refreshLimits()
 		mMinPrimYPos = 0;
 		mMinPrimZPos = OS_MIN_OBJECT_Z;
 		mMaxDragDistance = gSavedSettings.getF32("MaxDragDistance");
-		mClassicCloudsEnabled = FALSE;
-		mAllowParcelWindLight = TRUE;
-		mEnableTeenMode = FALSE; //get saved settings?
-		mEnforceMaxBuild = FALSE;
-		mLockedDrawDistance = FALSE;
+		mClassicCloudsEnabled = false;
+		mAllowParcelWindLight = true;
+		mEnableTeenMode = false; //get saved settings?
+		mEnforceMaxBuild = false;
+		mLockedDrawDistance = false;
 
 		mWhisperDistance = CHAT_WHISPER_RADIUS;
 		mSayDistance = CHAT_NORMAL_RADIUS;
@@ -318,8 +318,8 @@ void LLWorld::refreshLimits()
 		mMaxPhysLinkedPrims = MAX_CHILDREN_PER_PHYSICAL_TASK;
 		mMaxInventoryItemsTransfer = 42;
 		mAllowRenderName = gSavedSettings.getS32("AvatarNameTagMode");
-		mAllowMinimap = TRUE;
-		mAllowPhysicalPrims = TRUE;
+		mAllowMinimap = true;
+		mAllowPhysicalPrims = true;
 
 		mMaxPrimXPos = 256;
 		mMaxPrimYPos = 256;
@@ -328,11 +328,11 @@ void LLWorld::refreshLimits()
 		mMinPrimYPos = 0;
 		mMinPrimZPos = SL_MIN_OBJECT_Z;
 		mMaxDragDistance = gSavedSettings.getF32("MaxDragDistance");
-		mClassicCloudsEnabled = FALSE;
-		mAllowParcelWindLight = FALSE;
-		mEnableTeenMode = FALSE; //get saved settings?
-		mEnforceMaxBuild = FALSE;
-		mLockedDrawDistance = FALSE;
+		mClassicCloudsEnabled = false;
+		mAllowParcelWindLight = false;
+		mEnableTeenMode = false; //get saved settings?
+		mEnforceMaxBuild = false;
+		mLockedDrawDistance = false;
 
 		mWhisperDistance = CHAT_WHISPER_RADIUS;
 		mSayDistance = CHAT_NORMAL_RADIUS;
@@ -533,13 +533,13 @@ void LLWorld::setTerrainDetailScale(F32 val)
 		mTerrainDetailScale = val;
 }
 
-void LLWorld::setAllowMinimap(BOOL val)			{ mAllowMinimap = val; }
-void LLWorld::setAllowPhysicalPrims(BOOL val)	{ mAllowPhysicalPrims = val; }
-void LLWorld::setSkyUseClassicClouds(BOOL val)	{ mClassicCloudsEnabled = val; }
-void LLWorld::setAllowParcelWindLight(BOOL val) { mAllowParcelWindLight = val; }
-void LLWorld::setEnableTeenMode(BOOL val)		{ mEnableTeenMode = val; }
-void LLWorld::setEnforceMaxBuild(BOOL val)		{ mEnforceMaxBuild = val; }
-void LLWorld::setLockedDrawDistance(BOOL val)	{ mLockedDrawDistance = val; }
+void LLWorld::setAllowMinimap(bool val)			{ mAllowMinimap = val; }
+void LLWorld::setAllowPhysicalPrims(bool val)	{ mAllowPhysicalPrims = val; }
+void LLWorld::setSkyUseClassicClouds(bool val)	{ mClassicCloudsEnabled = val; }
+void LLWorld::setAllowParcelWindLight(bool val) { mAllowParcelWindLight = val; }
+void LLWorld::setEnableTeenMode(bool val)		{ mEnableTeenMode = val; }
+void LLWorld::setEnforceMaxBuild(bool val)		{ mEnforceMaxBuild = val; }
+void LLWorld::setLockedDrawDistance(bool val)	{ mLockedDrawDistance = val; }
 void LLWorld::setAllowRenderName(S32 val)		{ mAllowRenderName = val; }
 
 void LLWorld::updateLimits()
@@ -981,7 +981,7 @@ void LLWorld::updateAgentOffset(const LLVector3d &offset_global)
 }
 
 
-BOOL LLWorld::positionRegionValidGlobal(const LLVector3d &pos_global)
+bool LLWorld::positionRegionValidGlobal(const LLVector3d &pos_global)
 {
 	for (region_list_t::iterator iter = mRegionList.begin();
 		 iter != mRegionList.end(); ++iter)
@@ -989,10 +989,10 @@ BOOL LLWorld::positionRegionValidGlobal(const LLVector3d &pos_global)
 		LLViewerRegion* regionp = *iter;
 		if (regionp->pointInRegionGlobal(pos_global))
 		{
-			return TRUE;
+			return true;
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 
@@ -1471,7 +1471,7 @@ void LLWorld::updateWaterObjects()
 			if (!getRegionFromHandle(region_handle))
 			{	// No region at that area, so make water
 				LLVOWater* waterp = (LLVOWater *)gObjectList.createObjectViewer(LLViewerObject::LL_VO_WATER, gAgent.getRegion());
-				waterp->setUseTexture(FALSE);
+				waterp->setUseTexture(false);
 				waterp->setPositionGlobal(LLVector3d(x + step/2,
 													 y + step/2,
 													 256.f + water_height));
@@ -1525,8 +1525,8 @@ void LLWorld::updateWaterObjects()
 			mEdgeWaterObjects[dir] = (LLVOWater *)gObjectList.createObjectViewer(LLViewerObject::LL_VO_VOID_WATER,
 																				 gAgent.getRegion());
 			waterp = mEdgeWaterObjects[dir];
-			waterp->setUseTexture(FALSE);
-			waterp->setIsEdgePatch(TRUE);
+			waterp->setUseTexture(false);
+			waterp->setIsEdgePatch(true);
 			gPipeline.createObject(waterp);
 		}
 
