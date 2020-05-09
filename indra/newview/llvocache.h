@@ -198,7 +198,7 @@ public:
 	void processOccluders(LLCamera* camera);
 	void removeOccluder(LLVOCacheGroup* group);
 
-	void setCullHistory(bool has_new_object);
+	void setCullHistory(U32 has_new_object);
 
 	bool isFrontCull() const {return mFrontCull;}
 

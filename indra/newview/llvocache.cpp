@@ -963,7 +963,7 @@ S32 LLVOCachePartition::cull(LLCamera &camera, bool do_occlusion)
 	return 1;
 }
 
-void LLVOCachePartition::setCullHistory(bool has_new_object)
+void LLVOCachePartition::setCullHistory(U32 has_new_object)
 {
 	mCullHistory <<= 1;
 	mCullHistory |= has_new_object;
