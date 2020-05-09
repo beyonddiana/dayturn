@@ -1409,8 +1409,8 @@ std::string LLOfferInfo::mResponderType = "offer_info";
 
 LLOfferInfo::LLOfferInfo()
  : LLNotificationResponderInterface()
- , mFromGroup(FALSE)
- , mFromObject(FALSE)
+ , mFromGroup(false)
+ , mFromObject(false)
  , mIM(IM_NOTHING_SPECIAL)
  , mType(LLAssetType::AT_NONE)
  , mPersist(false)
@@ -1768,7 +1768,7 @@ bool LLOfferInfo::inventory_task_offer_callback(const LLSD& notification, const 
 	std::string from_string; // Used in the pop-up.
 	std::string chatHistory_string;  // Used in chat history.
 
-	if (mFromObject == TRUE)
+	if (mFromObject == true)
 	{
 		if (mFromGroup)
 		{
@@ -2794,7 +2794,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 				bucketp = (struct offer_agent_bucket_t*) &binary_bucket[0];
 				info->mType = (LLAssetType::EType) bucketp->asset_type;
 				info->mObjectID = bucketp->object_id;
-				info->mFromObject = FALSE;
+				info->mFromObject = false;
 			}
 			else // IM_TASK_INVENTORY_OFFERED
 			{
@@ -2806,7 +2806,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 				}
 				info->mType = (LLAssetType::EType) binary_bucket[0];
 				info->mObjectID = LLUUID::null;
-				info->mFromObject = TRUE;
+				info->mFromObject = true;
 			}
 
 			info->mIM = dialog;
