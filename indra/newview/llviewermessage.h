@@ -63,7 +63,7 @@ enum InventoryOfferResponse
 	IOR_SHOW
 };
 
-BOOL can_afford_transaction(S32 cost);
+bool can_afford_transaction(S32 cost);
 void give_money(const LLUUID& uuid, LLViewerRegion* region, S32 amount, BOOL is_group = FALSE,
 				S32 trx_type = TRANS_GIFT, const std::string& desc = LLStringUtil::null);
 

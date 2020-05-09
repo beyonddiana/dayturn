@@ -560,7 +560,7 @@ void LLStatusBar::onClickMediaToggle(void* data)
 	LLViewerMedia::setAllMediaEnabled(enable);
 }
 
-BOOL can_afford_transaction(S32 cost)
+bool can_afford_transaction(S32 cost)
 {
 	return((cost <= 0) || ((gStatusBar) && (gStatusBar->getBalance() >= cost)));
 }
