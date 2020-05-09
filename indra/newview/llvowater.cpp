@@ -60,8 +60,8 @@ LLVOWater::LLVOWater(const LLUUID &id,
 	mbCanSelect = FALSE;
 	setScale(LLVector3(mRegionp->getWidth(), mRegionp->getWidth(), 0.f)); // Hack for setting scale for bounding boxes/visibility.
 
-	mUseTexture = TRUE;
-	mIsEdgePatch = FALSE;
+	mUseTexture = true;
+	mIsEdgePatch = false;
 }
 
 
@@ -254,12 +254,12 @@ void setVecZ(LLVector3& v)
 	v.mV[VZ] = 1;
 }
 
-void LLVOWater::setUseTexture(const BOOL use_texture)
+void LLVOWater::setUseTexture(const bool use_texture)
 {
 	mUseTexture = use_texture;
 }
 
-void LLVOWater::setIsEdgePatch(const BOOL edge_patch)
+void LLVOWater::setIsEdgePatch(const bool edge_patch)
 {
 	mIsEdgePatch = edge_patch;
 }
