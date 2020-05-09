@@ -49,7 +49,7 @@ public:
 	virtual void newMessage(const char* name);
 
 	virtual void nextBlock(const char* blockname);
-	virtual BOOL removeLastBlock(); // TODO: babbage: remove this horror...
+	virtual bool removeLastBlock(); // TODO: babbage: remove this horror...
 
 	/** All add* methods expect pointers to canonical varname strings. */
 	virtual void addBinaryData(const char *varname, const void *data, 
@@ -78,7 +78,7 @@ public:
 	virtual void compressMessage(U8*& buf_ptr, U32& buffer_length);
 
 	virtual BOOL isBuilt() const;
-	virtual BOOL isClear() const;
+	virtual bool isClear() const;
 	virtual U32 buildMessage(U8* buffer, U32 buffer_size, U8 offset_to_data);
         /**< Return built message size */
 	

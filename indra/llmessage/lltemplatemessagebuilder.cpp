@@ -220,7 +220,7 @@ void LLTemplateMessageBuilder::nextBlock(const char* blockname)
 }
 
 // TODO: Remove this horror...
-BOOL LLTemplateMessageBuilder::removeLastBlock()
+bool LLTemplateMessageBuilder::removeLastBlock()
 {
 	if (mCurrentSBlockName)
 	{
@@ -268,18 +268,18 @@ BOOL LLTemplateMessageBuilder::removeLastBlock()
 							<< ". Block: " << block_name
 							<< ". Number: " << num_blocks
 							<< LL_ENDL;
-					return FALSE;
+					return false;
 				}
 				else
 				{
 					// Decrement the counter.
 					block_data->mBlockNumber--;
-					return TRUE;
+					return true;
 				}
 			}
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 // add data to variable in current block
@@ -883,7 +883,7 @@ void LLTemplateMessageBuilder::setBuilt(BOOL b) { mbSBuilt = b; }
 BOOL LLTemplateMessageBuilder::isBuilt() const {return mbSBuilt;}
 
 //virtual 
-BOOL LLTemplateMessageBuilder::isClear() const {return mbSClear;}
+bool LLTemplateMessageBuilder::isClear() const {return mbSClear;}
 
 //virtual 
 S32 LLTemplateMessageBuilder::getMessageSize() {return mCurrentSendTotal;}

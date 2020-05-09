@@ -96,10 +96,10 @@ void LLSDMessageBuilder::nextBlock(const char* blockname)
 }
 
 // TODO: Remove this horror...
-BOOL LLSDMessageBuilder::removeLastBlock()
+bool LLSDMessageBuilder::removeLastBlock()
 {
 	/* TODO: finish implementing this */
-	return FALSE;
+	return false;
 }
 
 void LLSDMessageBuilder::addBinaryData(
@@ -406,7 +406,7 @@ void LLSDMessageBuilder::setBuilt(BOOL b) { mbSBuilt = b; }
 BOOL LLSDMessageBuilder::isBuilt() const {return mbSBuilt;}
 
 //virtual 
-BOOL LLSDMessageBuilder::isClear() const {return mbSClear;}
+bool LLSDMessageBuilder::isClear() const {return mbSClear;}
 
 //virtual 
 S32 LLSDMessageBuilder::getMessageSize()

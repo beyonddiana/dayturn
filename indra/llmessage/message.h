@@ -72,7 +72,7 @@ public:
 	char *getString(const char *str);
 
 	U32	 mUsed;
-	BOOL mEmpty[MESSAGE_NUMBER_OF_HASH_BUCKETS];
+	bool mEmpty[MESSAGE_NUMBER_OF_HASH_BUCKETS];
 	char mString[MESSAGE_NUMBER_OF_HASH_BUCKETS][MESSAGE_MAX_STRINGS_LENGTH];	/* Flawfinder: ignore */
 };
 
@@ -209,7 +209,7 @@ class LLMessageSystem : public LLMessageSenderInterface
 	LLReliablePacketParams		mReliablePacketParams;
 
 	// Set this flag to TRUE when you want *very* verbose logs.
-	BOOL						mVerboseLog;
+	bool						mVerboseLog;
 
 	F32                         mMessageFileVersionNumber;
 
@@ -227,7 +227,7 @@ public:
 	S32					mSystemVersionServer;
 	U32					mVersionFlags;
 
-	BOOL				mbProtected;
+	bool				mbProtected;
 
 	U32					mNumberHighFreqMessages;
 	U32					mNumberMediumFreqMessages;
@@ -260,7 +260,7 @@ public:
 	S64					mTotalBytesIn;		    // total size of all uncompressed packets in
 	S64					mTotalBytesOut;		    // total size of all uncompressed packets out
 
-	BOOL                mSendReliable;              // does the outgoing message require a pos ack?
+	bool                mSendReliable;              // does the outgoing message require a pos ack?
 
 	LLCircuit 	 		mCircuitInfo;
 	F64Seconds			mCircuitPrintTime;	    // used to print circuit debug info every couple minutes
@@ -283,7 +283,7 @@ public:
 
 	~LLMessageSystem();
 
-	BOOL isOK() const { return !mbError; }
+	bool isOK() const { return !mbError; }
 	S32 getErrorCode() const { return mErrorCode; }
 
 	// Read file and build message templates filename must point to a
@@ -303,7 +303,7 @@ public:
 	void setExceptionFunc(EMessageException exception, msg_exception_callback func, void* data = NULL);
 	// Call the specified exception func, and return TRUE if a
 	// function was found and called. Otherwise return FALSE.
-	BOOL callExceptionFunc(EMessageException exception);
+	bool callExceptionFunc(EMessageException exception);
 
 	// Set a function that will be called once per packet processed with the 
 	// hashed message name and the time spent in the processing handler function
@@ -320,18 +320,18 @@ public:
 	}
 
 	// This method returns true if the code is in the circuit codes map.
-	BOOL isCircuitCodeKnown(U32 code) const;
+	bool isCircuitCodeKnown(U32 code) const;
 
 	// usually called in response to an AddCircuitCode message, but
 	// may also be called by the login process.
 	bool addCircuitCode(U32 code, const LLUUID& session_id);
 
-	BOOL	poll(F32 seconds); // Number of seconds that we want to block waiting for data, returns if data was received
-	BOOL	checkMessages( S64 frame_count = 0 );
+	bool	poll(F32 seconds); // Number of seconds that we want to block waiting for data, returns if data was received
+	bool	checkMessages( S64 frame_count = 0 );
 	void	processAcks(F32 collect_time = 0.f);
 
-	BOOL	isMessageFast(const char *msg);
-	BOOL	isMessage(const char *msg)
+	bool	isMessageFast(const char *msg);
+	bool	isMessage(const char *msg)
 	{
 		return isMessageFast(LLMessageStringTable::getInstance()->getString(msg));
 	}
@@ -409,7 +409,7 @@ public:
 	void	addF32(	const char *varname, F32 f);						// typed, checks storage space
 	void	addS32Fast(	const char *varname, S32 s);						// typed, checks storage space
 	void	addS32(	const char *varname, S32 s);						// typed, checks storage space
-	void addU32Fast(	const char *varname, U32 u);						// typed, checks storage space
+	void    addU32Fast(	const char *varname, U32 u);						// typed, checks storage space
 	void	addU32(	const char *varname, U32 u);						// typed, checks storage space
 	void	addU64Fast(	const char *varname, U64 lu);						// typed, checks storage space
 	void	addU64(	const char *varname, U64 lu);						// typed, checks storage space
@@ -423,7 +423,7 @@ public:
 	void	addVector3d( const char *varname, const LLVector3d& vec);	// typed, checks storage space
 	void	addQuatFast( const char *varname, const LLQuaternion& quat);	// typed, checks storage space
 	void	addQuat( const char *varname, const LLQuaternion& quat);	// typed, checks storage space
-	void addUUIDFast( const char *varname, const LLUUID& uuid);			// typed, checks storage space
+	void    addUUIDFast( const char *varname, const LLUUID& uuid);			// typed, checks storage space
 	void	addUUID( const char *varname, const LLUUID& uuid);			// typed, checks storage space
 	void	addIPAddrFast( const char *varname, const U32 ip);			// typed, checks storage space
 	void	addIPAddr( const char *varname, const U32 ip);			// typed, checks storage space
@@ -431,8 +431,8 @@ public:
 	void	addIPPort( const char *varname, const U16 port);			// typed, checks storage space
 	void	addStringFast( const char* varname, const char* s);				// typed, checks storage space
 	void	addString( const char* varname, const char* s);				// typed, checks storage space
-	void	addStringFast( const char* varname, const std::string& s);				// typed, checks storage space
-	void	addString( const char* varname, const std::string& s);				// typed, checks storage space
+	void	addStringFast( const char* varname, const std::string& s);		// typed, checks storage space
+	void	addString( const char* varname, const std::string& s);			// typed, checks storage space
 
 	S32 getCurrentSendTotal() const;
 	TPACKETID getCurrentRecvPacketID() { return mCurrentRecvPacketID; }
@@ -441,10 +441,10 @@ public:
 	// you need to go to the next block type or need to start a new
 	// message. Specify the current blockname to check block counts,
 	// otherwise the method only checks against MTU.
-	BOOL isSendFull(const char* blockname = NULL);
-	BOOL isSendFullFast(const char* blockname = NULL);
+	bool isSendFull(const char* blockname = NULL);
+	bool isSendFullFast(const char* blockname = NULL);
 
-	BOOL removeLastBlock();
+	bool removeLastBlock();
 
 	//void	buildMessage();
 
@@ -461,7 +461,7 @@ public:
 	// Use this one if you DON'T want automatic ping-based retry.
 	S32	sendReliable(	const LLHost &host, 
 							S32 retries, 
-							BOOL ping_based_retries,
+							bool ping_based_retries,
 							F32Seconds timeout, 
 							void (*callback)(void **,S32), 
 							void ** callback_data);
@@ -481,7 +481,7 @@ public:
 	S32 forwardReliable(
 		const LLHost &host, 
 		S32 retries, 
-		BOOL ping_based_timeout,
+		bool ping_based_timeout,
 		F32Seconds timeout, 
 		void (*callback)(void **,S32), 
 		void ** callback_data);
@@ -551,6 +551,7 @@ public:
 	void	getString(	const char *block, const char *var, S32 buffer_size, char *buffer, S32 blocknum = 0);
 	void getStringFast(	const char *block, const char *var, std::string& outstr, S32 blocknum = 0);
 	void	getString(	const char *block, const char *var, std::string& outstr, S32 blocknum = 0);
+    
 
 
 	// Utility functions to generate a replay-resistant digest check
@@ -573,7 +574,7 @@ public:
 
 	U32 getOurCircuitCode();
 	
-	void	enableCircuit(const LLHost &host, BOOL trusted);
+	void	enableCircuit(const LLHost &host, bool trusted);
 	void	disableCircuit(const LLHost &host);
 	
 	// Use this to establish trust on startup and in response to
@@ -626,20 +627,20 @@ public:
 
 	// returns whether the given host is on a trusted circuit
 	// Note:DaveH/Babbage some trusted messages can be received without a circuit
-	BOOL    getCircuitTrust(const LLHost &host);
+	bool    getCircuitTrust(const LLHost &host);
 	
-	void	setCircuitAllowTimeout(const LLHost &host, BOOL allow);
+	void	setCircuitAllowTimeout(const LLHost &host, bool allow);
 	void	setCircuitTimeoutCallback(const LLHost &host, void (*callback_func)(const LLHost &host, void *user_data), void *user_data);
 
-	BOOL	checkCircuitBlocked(const U32 circuit);
-	BOOL	checkCircuitAlive(const U32 circuit);
-	BOOL	checkCircuitAlive(const LLHost &host);
-	void	setCircuitProtection(BOOL b_protect);
+	bool	checkCircuitBlocked(const U32 circuit);
+	bool	checkCircuitAlive(const U32 circuit);
+	bool	checkCircuitAlive(const LLHost &host);
+	void	setCircuitProtection(bool b_protect);
 	U32		findCircuitCode(const LLHost &host);
 	LLHost	findHost(const U32 circuit_code);
 	void	sanityCheck();
 
-	BOOL	has(const char *blockname) const;
+	bool	has(const char *blockname) const;
 	S32		getNumberOfBlocksFast(const char *blockname) const;
 	S32		getNumberOfBlocks(const char *blockname) const;
 	S32		getSizeFast(const char *blockname, const char *varname) const;
@@ -652,7 +653,7 @@ public:
 	void	dumpReceiveCounts();				// dumps receive count for each message type to LL_INFOS()
 	void	dumpCircuitInfo();					// Circuit information to LL_INFOS()
 
-	BOOL	isClear() const;					// returns mbSClear;
+	bool	isClear() const;					// returns mbSClear;
 	S32 	flush(const LLHost &host);
 
 	U32		getListenPort( void ) const;
@@ -676,10 +677,10 @@ public:
 	void setMaxMessageTime(const F32 seconds);	// Max time to process messages before warning and dumping (neg to disable)
 	void setMaxMessageCounts(const S32 num);	// Max number of messages before dumping (neg to disable)
 	
-	static U64Microseconds getMessageTimeUsecs(const BOOL update = FALSE);	// Get the current message system time in microseconds
-	static F64Seconds getMessageTimeSeconds(const BOOL update = FALSE); // Get the current message system time in seconds
+	static U64Microseconds getMessageTimeUsecs(const bool update = false);	// Get the current message system time in microseconds
+	static F64Seconds getMessageTimeSeconds(const bool update = false); // Get the current message system time in seconds
 
-	static void setTimeDecodes(BOOL b);
+	static void setTimeDecodes(bool b);
 	static void setTimeDecodesSpamThreshold(F32 seconds); 
 
 	// message handlers internal to the message systesm
@@ -750,11 +751,11 @@ private:
 	LLUUID mSessionID;
 	
 	void	addTemplate(LLMessageTemplate *templatep);
-	BOOL		decodeTemplate( const U8* buffer, S32 buffer_size, LLMessageTemplate** msg_template );
+	bool		decodeTemplate( const U8* buffer, S32 buffer_size, LLMessageTemplate** msg_template );
 
-	void		logMsgFromInvalidCircuit( const LLHost& sender, BOOL recv_reliable );
+	void		logMsgFromInvalidCircuit( const LLHost& sender, bool recv_reliable );
 	void		logTrustedMsgFromUntrustedCircuit( const LLHost& sender );
-	void		logValidMsg(LLCircuitData *cdp, const LLHost& sender, BOOL recv_reliable, BOOL recv_resent, BOOL recv_acks );
+	void		logValidMsg(LLCircuitData *cdp, const LLHost& sender, bool recv_reliable, bool recv_resent, bool recv_acks );
 	void		logRanOffEndOfPacket( const LLHost& sender );
 
 	class LLMessageCountInfo
@@ -762,7 +763,7 @@ private:
 	public:
 		U32 mMessageNum;
 		U32 mMessageBytes;
-		BOOL mInvalid;
+		bool mInvalid;
 	};
 
 	LLMessagePollInfo						*mPollInfop;
@@ -773,7 +774,7 @@ private:
 
 	// Must be valid during decode
 	
-	BOOL	mbError;
+	bool	mbError;
 	S32	mErrorCode;
 
 	F64Seconds										mResendDumpTime; // The last time we dumped resends
@@ -796,7 +797,7 @@ private:
 	LLTimer mMessageSystemTimer;
 
 	static F32 mTimeDecodesSpamThreshold;  // If mTimeDecodes is on, all this many seconds for each msg decode before spamming
-	static BOOL mTimeDecodes;  // Measure time for all message decodes if TRUE;
+	static bool mTimeDecodes;  // Measure time for all message decodes if TRUE;
 
 	msg_timing_callback mTimingCallback;
 	void* mTimingCallbackData;

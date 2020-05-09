@@ -170,7 +170,7 @@ LLBaseDownloadRequest::LLBaseDownloadRequest(const LLUUID &uuid, const LLAssetTy
 {
     // Need to guarantee that this time is up to date, we may be creating a circuit even though we haven't been
     //  running a message system loop.
-    mTime = LLMessageSystem::getMessageTimeSeconds(TRUE);
+    mTime = LLMessageSystem::getMessageTimeSeconds(true);
 }
 
 // virtual

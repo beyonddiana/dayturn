@@ -1236,7 +1236,7 @@ public:
 		{
 			if (AABBInFrustumObjectBounds(group) > 0)
 			{
-				mEmpty = FALSE;
+				mEmpty = false;
 				const LLVector4a* exts = group->getObjectExtents();
 				update_min_max(mMin, mMax, exts[0]);
 				update_min_max(mMin, mMax, exts[1]);
@@ -1244,14 +1244,14 @@ public:
 		}
 		else
 		{
-			mEmpty = FALSE;
+			mEmpty = false;
 			const LLVector4a* exts = group->getExtents();
 			update_min_max(mMin, mMax, exts[0]);
 			update_min_max(mMin, mMax, exts[1]);
 		}
 	}
 
-	BOOL mEmpty;
+	bool mEmpty;
 	LLVector4a& mMin;
 	LLVector4a& mMax;
 };

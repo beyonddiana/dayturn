@@ -1621,7 +1621,7 @@ bool idle_startup()
 		display_startup();
 
 		#ifndef	LL_RELEASE_FOR_DOWNLOAD
-			gMessageSystem->setTimeDecodes( TRUE );				// Time the decode of each msg
+			gMessageSystem->setTimeDecodes( true );				// Time the decode of each msg
 			gMessageSystem->setTimeDecodesSpamThreshold( 0.05f );  // Spam if a single msg takes over 50ms to decode
 		#endif
 		display_startup();
@@ -1732,7 +1732,7 @@ bool idle_startup()
 
 		gUseCircuitCallbackCalled = false;
 
-		msg->enableCircuit(gFirstSim, TRUE);
+		msg->enableCircuit(gFirstSim, true);
 		// now, use the circuit info to tell simulator about us!
 		LL_INFOS("AppInit") << "viewer: UserLoginLocationReply() Enabling " << gFirstSim << " with code " << msg->mOurCircuitCode << LL_ENDL;
 		msg->newMessageFast(_PREHASH_UseCircuitCode);
@@ -3666,7 +3666,7 @@ bool process_login_success_response(U32 &first_sim_size_x, U32 &first_sim_size_y
 		gFirstSim.setPort(sim_port);
 		if (gFirstSim.isOk())
 		{
-			gMessageSystem->enableCircuit(gFirstSim, TRUE);
+			gMessageSystem->enableCircuit(gFirstSim, true);
 		}
 	}
 	std::string region_x_str = response["region_x"];
