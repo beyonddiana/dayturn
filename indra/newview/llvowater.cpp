@@ -116,7 +116,7 @@ LLDrawable *LLVOWater::createDrawable(LLPipeline *pipeline)
 
 static LLTrace::BlockTimerStatHandle FTM_UPDATE_WATER("Update Water");
 
-BOOL LLVOWater::updateGeometry(LLDrawable *drawable)
+bool LLVOWater::updateGeometry(LLDrawable *drawable)
 {
 	LL_RECORD_BLOCK_TIME(FTM_UPDATE_WATER);
 	LLFace *face;
@@ -129,7 +129,7 @@ BOOL LLVOWater::updateGeometry(LLDrawable *drawable)
 	face = drawable->getFace(0);
 	if (!face)
 	{
-		return TRUE;
+		return true;
 	}
 
 //	LLVector2 uvs[4];
@@ -236,7 +236,7 @@ BOOL LLVOWater::updateGeometry(LLDrawable *drawable)
 
 	mDrawable->movePartition();
 	LLPipeline::sCompiles++;
-	return TRUE;
+	return true;
 }
 
 void LLVOWater::initClass()

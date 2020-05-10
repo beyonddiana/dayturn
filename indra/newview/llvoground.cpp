@@ -73,7 +73,7 @@ LLDrawable *LLVOGround::createDrawable(LLPipeline *pipeline)
 }
 
 // TO DO - this always returns TRUE, 
-BOOL LLVOGround::updateGeometry(LLDrawable *drawable)
+bool LLVOGround::updateGeometry(LLDrawable *drawable)
 {
 	LLStrider<LLVector3> verticesp;
 	LLStrider<LLVector3> normalsp;
@@ -88,7 +88,7 @@ BOOL LLVOGround::updateGeometry(LLDrawable *drawable)
 		drawable->addFace(poolp, NULL);
 	face = drawable->getFace(0); 
 	if (!face)
-		return TRUE;
+		return true;
 		
 	if (!face->getVertexBuffer())
 	{
@@ -108,7 +108,7 @@ BOOL LLVOGround::updateGeometry(LLDrawable *drawable)
 	index_offset = face->getGeometry(verticesp,normalsp,texCoordsp, indicesp);
 	if (-1 == index_offset)
 	{
-		return TRUE;
+		return true;
 	}
 
 	///////////////////////////////////////
@@ -162,5 +162,5 @@ BOOL LLVOGround::updateGeometry(LLDrawable *drawable)
 	
 	face->getVertexBuffer()->flush();
 	LLPipeline::sCompiles++;
-	return TRUE;
+	return true;
 }

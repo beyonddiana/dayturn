@@ -217,17 +217,17 @@ LLVOVolume::LLVOVolume(const LLUUID &id, const LLPCode pcode, LLViewerRegion *re
 	mRelativeXform.setIdentity();
 	mRelativeXformInvTrans.setIdentity();
 
-	mFaceMappingChanged = FALSE;
+	mFaceMappingChanged = false;
 	mLOD = MIN_LOD;
     mLODDistance = 0.0f;
     mLODAdjustedDistance = 0.0f;
     mLODRadius = 0.0f;
     mTextureAnimp = NULL;
-	mVolumeChanged = FALSE;
+	mVolumeChanged = false;
 	mVObjRadius = LLVector3(1,1,0.5f).length();
 	mNumFaces = 0;
-	mLODChanged = FALSE;
-	mSculptChanged = FALSE;
+	mLODChanged = false;
+	mSculptChanged = false;
 	mSpotLightPriority = 0.f;
 
 	mMediaImplList.resize(getNumTEs());
@@ -376,7 +376,7 @@ U32 LLVOVolume::processUpdateMessage(LLMessageSystem *mesgsys,
 					delete mTextureAnimp;
 					mTextureAnimp = NULL;
 					gPipeline.markTextured(mDrawable);
-					mFaceMappingChanged = TRUE;
+					mFaceMappingChanged = true;
 					mTexAnimMode = 0;
 				}
 			}
@@ -475,7 +475,7 @@ U32 LLVOVolume::processUpdateMessage(LLMessageSystem *mesgsys,
 				delete mTextureAnimp;
 				mTextureAnimp = NULL;
 				gPipeline.markTextured(mDrawable);
-				mFaceMappingChanged = TRUE;
+				mFaceMappingChanged = true;
 				mTexAnimMode = 0;
 			}
 
@@ -540,7 +540,7 @@ void LLVOVolume::animateTextures()
 		{
 			if (!mTexAnimMode)
 			{
-				mFaceMappingChanged = TRUE;
+				mFaceMappingChanged = true;
 				gPipeline.markTextured(mDrawable);
 			}
 			mTexAnimMode = result | mTextureAnimp->mMode;
@@ -636,7 +636,7 @@ void LLVOVolume::animateTextures()
 				}
 
 				gPipeline.markTextured(mDrawable);
-				mFaceMappingChanged = TRUE;
+				mFaceMappingChanged = true;
 				mTexAnimMode = 0;
 			}
 		}
@@ -834,7 +834,7 @@ void LLVOVolume::updateTextureVirtualSize(bool forced)
 				current_discard < 0)) //no previous rebuild
 			{
 				gPipeline.markRebuild(mDrawable, LLDrawable::REBUILD_VOLUME, FALSE);
-				mSculptChanged = TRUE;
+				mSculptChanged = true;
 			}
 
 			if (gPipeline.hasRenderDebugMask(LLPipeline::RENDER_DEBUG_SCULPTED))
@@ -1027,7 +1027,7 @@ bool LLVOVolume::setVolume(const LLVolumeParams &params_in, const S32 detail, bo
 
 	if ((LLPrimitive::setVolume(volume_params, lod, (mVolumeImpl && mVolumeImpl->isVolumeUnique()))) || mSculptChanged)
 	{
-		mFaceMappingChanged = TRUE;
+		mFaceMappingChanged = true;
 		
 		if (mVolumeImpl)
 		{
@@ -1142,7 +1142,7 @@ void LLVOVolume::updateVisualComplexity()
 
 void LLVOVolume::notifyMeshLoaded()
 { 
-	mSculptChanged = TRUE;
+	mSculptChanged = true;
 	gPipeline.markRebuild(mDrawable, LLDrawable::REBUILD_GEOMETRY, TRUE);
 
     if (getAvatar() && !isAnimatedObject())
@@ -1465,14 +1465,14 @@ BOOL LLVOVolume::calcLOD()
 	return FALSE;
 }
 
-BOOL LLVOVolume::updateLOD()
+bool LLVOVolume::updateLOD()
 {
 	if (mDrawable.isNull())
 	{
-		return FALSE;
+		return false;
 	}
 	
-	BOOL lod_changed = FALSE;
+	bool lod_changed = false;
 
 	if (!LLSculptIDSize::instance().isUnloaded(getVolume()->getParams().getSculptID())) 
 	{
@@ -1496,7 +1496,7 @@ BOOL LLVOVolume::updateLOD()
         }
 
 		gPipeline.markRebuild(mDrawable, LLDrawable::REBUILD_VOLUME, FALSE);
-		mLODChanged = TRUE;
+		mLODChanged = true;
 	}
 	else
 	{
@@ -1848,7 +1848,7 @@ static LLTrace::BlockTimerStatHandle FTM_GEN_FLEX("Generate Flexies");
 static LLTrace::BlockTimerStatHandle FTM_UPDATE_PRIMITIVES("Update Primitives");
 static LLTrace::BlockTimerStatHandle FTM_UPDATE_RIGGED_VOLUME("Update Rigged");
 
-bool LLVOVolume::lodOrSculptChanged(LLDrawable *drawable, BOOL &compiled)
+bool LLVOVolume::lodOrSculptChanged(LLDrawable *drawable, bool &compiled)
 {
 	bool regen_faces = false;
 
@@ -1874,7 +1874,7 @@ bool LLVOVolume::lodOrSculptChanged(LLDrawable *drawable, BOOL &compiled)
 
 	if ((new_lod != old_lod) || mSculptChanged)
 	{
-		compiled = TRUE;
+		compiled = true;
 		sNumLODChanges += new_num_faces;
 
 		if ((S32)getNumTEs() != getVolume()->getNumFaces())
@@ -1908,7 +1908,7 @@ bool LLVOVolume::lodOrSculptChanged(LLDrawable *drawable, BOOL &compiled)
 	return regen_faces;
 }
 
-BOOL LLVOVolume::updateGeometry(LLDrawable *drawable)
+bool LLVOVolume::updateGeometry(LLDrawable *drawable)
 {
 	LL_RECORD_BLOCK_TIME(FTM_UPDATE_PRIMITIVES);
 	
@@ -1924,7 +1924,7 @@ BOOL LLVOVolume::updateGeometry(LLDrawable *drawable)
 
 	if (mVolumeImpl != NULL)
 	{
-		BOOL res;
+		bool res;
 		{
 			LL_RECORD_BLOCK_TIME(FTM_GEN_FLEX);
 			res = mVolumeImpl->doUpdateGeometry(drawable);
@@ -1939,13 +1939,13 @@ BOOL LLVOVolume::updateGeometry(LLDrawable *drawable)
 		group->dirtyMesh();
 	}
 
-	BOOL compiled = FALSE;
+	bool compiled = false;
 			
 	updateRelativeXform();
 	
 	if (mDrawable.isNull()) // Not sure why this is happening, but it is...
 	{
-		return TRUE; // No update to complete
+		return true; // No update to complete
 	}
 
 	if (mVolumeChanged || mFaceMappingChanged)
@@ -1961,7 +1961,7 @@ BOOL LLVOVolume::updateGeometry(LLDrawable *drawable)
 		}
 		else if (mSculptChanged || mLODChanged)
 		{
-			compiled = TRUE;
+			compiled = true;
 			was_regen_faces = lodOrSculptChanged(drawable, compiled);
 		}
 
@@ -1987,7 +1987,7 @@ BOOL LLVOVolume::updateGeometry(LLDrawable *drawable)
 	// it has its own drawable (it's moved) or it has changed UVs or it has changed xforms from global<->local
 	else
 	{
-		compiled = TRUE;
+		compiled = true;
 		// All it did was move or we changed the texture coordinate offset
 		LL_RECORD_BLOCK_TIME(FTM_GEN_TRIANGLES);
 		genBBoxes(FALSE);
@@ -2001,10 +2001,10 @@ BOOL LLVOVolume::updateGeometry(LLDrawable *drawable)
 		LLPipeline::sCompiles++;
 	}
 		
-	mVolumeChanged = FALSE;
-	mLODChanged = FALSE;
-	mSculptChanged = FALSE;
-	mFaceMappingChanged = FALSE;
+	mVolumeChanged = false;
+	mLODChanged = false;
+	mSculptChanged = false;
+	mFaceMappingChanged = false;
 	
 	return LLViewerObject::updateGeometry(drawable);
 }
@@ -2090,7 +2090,7 @@ void LLVOVolume::changeTEImage(S32 index, LLViewerTexture* imagep)
 	if (changed)
 	{
 		gPipeline.markTextured(mDrawable);
-		mFaceMappingChanged = TRUE;
+		mFaceMappingChanged = true;
 	}
 }
 
@@ -2101,7 +2101,7 @@ void LLVOVolume::setTEImage(const U8 te, LLViewerTexture *imagep)
 	if (changed)
 	{
 		gPipeline.markTextured(mDrawable);
-		mFaceMappingChanged = TRUE;
+		mFaceMappingChanged = true;
 	}
 }
 
@@ -2111,7 +2111,7 @@ S32 LLVOVolume::setTETexture(const U8 te, const LLUUID &uuid)
 	if (res)
 	{
 		gPipeline.markTextured(mDrawable);
-		mFaceMappingChanged = TRUE;
+		mFaceMappingChanged = true;
 	}
 	return res;
 }
@@ -2136,7 +2136,7 @@ S32 LLVOVolume::setTEColor(const U8 te, const LLColor4& color)
 		{
 			gPipeline.markTextured(mDrawable);
 			//treat this alpha change as an LoD update since render batches may need to get rebuilt
-			mLODChanged = TRUE;
+			mLODChanged = true;
 			gPipeline.markRebuild(mDrawable, LLDrawable::REBUILD_VOLUME, FALSE);
 		}
 		retval = LLPrimitive::setTEColor(te, color);
@@ -2157,7 +2157,7 @@ S32 LLVOVolume::setTEBumpmap(const U8 te, const U8 bumpmap)
 	if (res)
 	{
 		gPipeline.markTextured(mDrawable);
-		mFaceMappingChanged = TRUE;
+		mFaceMappingChanged = true;
 	}
 	return  res;
 }
@@ -2168,7 +2168,7 @@ S32 LLVOVolume::setTETexGen(const U8 te, const U8 texgen)
 	if (res)
 	{
 		gPipeline.markTextured(mDrawable);
-		mFaceMappingChanged = TRUE;
+		mFaceMappingChanged = true;
 	}
 	return  res;
 }
@@ -2179,7 +2179,7 @@ S32 LLVOVolume::setTEMediaTexGen(const U8 te, const U8 media)
 	if (res)
 	{
 		gPipeline.markTextured(mDrawable);
-		mFaceMappingChanged = TRUE;
+		mFaceMappingChanged = true;
 	}
 	return  res;
 }
@@ -2190,7 +2190,7 @@ S32 LLVOVolume::setTEShiny(const U8 te, const U8 shiny)
 	if (res)
 	{
 		gPipeline.markTextured(mDrawable);
-		mFaceMappingChanged = TRUE;
+		mFaceMappingChanged = true;
 	}
 	return  res;
 }
@@ -2201,7 +2201,7 @@ S32 LLVOVolume::setTEFullbright(const U8 te, const U8 fullbright)
 	if (res)
 	{
 		gPipeline.markTextured(mDrawable);
-		mFaceMappingChanged = TRUE;
+		mFaceMappingChanged = true;
 	}
 	return  res;
 }
@@ -2212,7 +2212,7 @@ S32 LLVOVolume::setTEBumpShinyFullbright(const U8 te, const U8 bump)
 	if (res)
 	{
 		gPipeline.markTextured(mDrawable);
-		mFaceMappingChanged = TRUE;
+		mFaceMappingChanged = true;
 	}
 	return res;
 }
@@ -2223,7 +2223,7 @@ S32 LLVOVolume::setTEMediaFlags(const U8 te, const U8 media_flags)
 	if (res)
 	{
 		gPipeline.markTextured(mDrawable);
-		mFaceMappingChanged = TRUE;
+		mFaceMappingChanged = true;
 	}
 	return  res;
 }
@@ -2234,7 +2234,7 @@ S32 LLVOVolume::setTEGlow(const U8 te, const F32 glow)
 	if (res)
 	{
 		gPipeline.markTextured(mDrawable);
-		mFaceMappingChanged = TRUE;
+		mFaceMappingChanged = true;
 	}
 	return  res;
 }
@@ -2274,7 +2274,7 @@ S32 LLVOVolume::setTEMaterialID(const U8 te, const LLMaterialID& pMaterialID)
 			gPipeline.markTextured(mDrawable);
 			gPipeline.markRebuild(mDrawable,LLDrawable::REBUILD_ALL);
 		}
-		mFaceMappingChanged = TRUE;
+		mFaceMappingChanged = true;
 	}
 	return res;
 }
@@ -2524,7 +2524,7 @@ S32 LLVOVolume::setTEMaterialParams(const U8 te, const LLMaterialPtr pMaterialPa
 		gPipeline.markTextured(mDrawable);
 		gPipeline.markRebuild(mDrawable,LLDrawable::REBUILD_ALL);
 	}
-	mFaceMappingChanged = TRUE;
+	mFaceMappingChanged = true;
 	return TEM_CHANGE_TEXTURE;
 }
 
@@ -2534,7 +2534,7 @@ S32 LLVOVolume::setTEScale(const U8 te, const F32 s, const F32 t)
 	if (res)
 	{
 		gPipeline.markTextured(mDrawable);
-		mFaceMappingChanged = TRUE;
+		mFaceMappingChanged = true;
 	}
 	return res;
 }
@@ -2545,7 +2545,7 @@ S32 LLVOVolume::setTEScaleS(const U8 te, const F32 s)
 	if (res)
 	{
 		gPipeline.markTextured(mDrawable);
-		mFaceMappingChanged = TRUE;
+		mFaceMappingChanged = true;
 	}
 	return res;
 }
@@ -2556,7 +2556,7 @@ S32 LLVOVolume::setTEScaleT(const U8 te, const F32 t)
 	if (res)
 	{
 		gPipeline.markTextured(mDrawable);
-		mFaceMappingChanged = TRUE;
+		mFaceMappingChanged = true;
 	}
 	return res;
 }
@@ -3159,7 +3159,7 @@ void LLVOVolume::setLightColor(const LLColor3& color)
 			param_block->setColor(LLColor4(color, param_block->getColor().mV[3]));
 			parameterChanged(LLNetworkData::PARAMS_LIGHT, true);
 			gPipeline.markTextured(mDrawable);
-			mFaceMappingChanged = TRUE;
+			mFaceMappingChanged = true;
 		}
 	}
 }
@@ -4401,7 +4401,7 @@ void LLVOVolume::markForUpdate(BOOL priority)
     }
 
     LLViewerObject::markForUpdate(priority); 
-    mVolumeChanged = TRUE; 
+    mVolumeChanged = true; 
 }
 
 LLVector3 LLVOVolume::agentPositionToVolume(const LLVector3& pos) const

@@ -303,7 +303,7 @@ void LLVOWLSky::restoreGL()
 
 static LLTrace::BlockTimerStatHandle FTM_GEO_SKY("Windlight Sky Geometry");
 
-BOOL LLVOWLSky::updateGeometry(LLDrawable * drawable)
+bool LLVOWLSky::updateGeometry(LLDrawable * drawable)
 {
 	LL_RECORD_BLOCK_TIME(FTM_GEO_SKY);
 	LLStrider<LLVector3>	vertices;
@@ -320,7 +320,7 @@ BOOL LLVOWLSky::updateGeometry(LLDrawable * drawable)
 				<< getFanNumIndices() << " indices" << LL_ENDL;
 		}
 
-		BOOL success = mFanVerts->getVertexStrider(vertices)
+		bool success = mFanVerts->getVertexStrider(vertices)
 			&& mFanVerts->getTexCoord0Strider(texCoords)
 			&& mFanVerts->getIndexStrider(indices);
 
@@ -389,7 +389,7 @@ BOOL LLVOWLSky::updateGeometry(LLDrawable * drawable)
 			}
 
 			// lock the buffer
-			BOOL success = segment->getVertexStrider(vertices)
+			bool success = segment->getVertexStrider(vertices)
 				&& segment->getTexCoord0Strider(texCoords)
 				&& segment->getIndexStrider(indices);
 
@@ -415,7 +415,7 @@ BOOL LLVOWLSky::updateGeometry(LLDrawable * drawable)
 	LLPointer<LLVertexBuffer> temp = new LLVertexBuffer(LLVertexBuffer::MAP_VERTEX, 0);
 	temp->allocateBuffer(12, 60, TRUE);
 
-	BOOL success = temp->getVertexStrider(vertices)
+	bool success = temp->getVertexStrider(vertices)
 		&& temp->getIndexStrider(indices);
 
 	if (success)
@@ -492,7 +492,7 @@ BOOL LLVOWLSky::updateGeometry(LLDrawable * drawable)
 
 	LLPipeline::sCompiles++;
 
-	return TRUE;
+	return true;
 }
 
 void LLVOWLSky::drawStars(void)

@@ -307,7 +307,7 @@ LLVector3 LLVOPartGroup::getCameraPosition() const
 }
 
 static LLTrace::BlockTimerStatHandle FTM_UPDATE_PARTICLES("Update Particles");
-BOOL LLVOPartGroup::updateGeometry(LLDrawable *drawable)
+bool LLVOPartGroup::updateGeometry(LLDrawable *drawable)
 {
 	LL_RECORD_BLOCK_TIME(FTM_UPDATE_PARTICLES);
 
@@ -335,12 +335,12 @@ BOOL LLVOPartGroup::updateGeometry(LLDrawable *drawable)
 		}
 		drawable->setNumFaces(0, NULL, getTEImage(0));
 		LLPipeline::sCompiles++;
-		return TRUE;
+		return true;
 	}
 
  	if (!(gPipeline.hasRenderType(LLPipeline::RENDER_TYPE_PARTICLES)))
 	{
-		return TRUE;
+		return true;
 	}
 
 	if (num_parts > drawable->getNumFaces())
@@ -478,7 +478,7 @@ BOOL LLVOPartGroup::updateGeometry(LLDrawable *drawable)
 
 	mDrawable->movePartition();
 	LLPipeline::sCompiles++;
-	return TRUE;
+	return true;
 }
 
 

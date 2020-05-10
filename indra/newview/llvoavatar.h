@@ -138,8 +138,8 @@ public:
 													 const EObjectUpdateType update_type,
 													 LLDataPacker *dp);
 	virtual void   	 	 	idleUpdate(LLAgent &agent, const F64 &time);
-	/*virtual*/ BOOL   	 	 	updateLOD();
-	BOOL  	 	 	 	 	updateJointLODs();
+	/*virtual*/ bool   	 	 	updateLOD();
+	bool  	 	 	 	 	updateJointLODs();
 	void					updateLODRiggedAttachments( void );
 	/*virtual*/ BOOL   	 	 	isActive() const; // Whether this object needs to do an idleUpdate.
 	S32Bytes				totalTextureMemForUUIDS(std::set<LLUUID>& ids);
@@ -161,7 +161,7 @@ public:
 	/*virtual*/ const  	 	 	LLVector3 getRenderPosition() const;
 	/*virtual*/ void   	 	 	updateDrawable(BOOL force_damped);
 	/*virtual*/ LLDrawable* 	createDrawable(LLPipeline *pipeline);
-	/*virtual*/ BOOL   	 	 	updateGeometry(LLDrawable *drawable);
+	/*virtual*/ bool   	 	 	updateGeometry(LLDrawable *drawable);
 	/*virtual*/ void   	 	 	setPixelAreaAndAngle(LLAgent &agent);
 	/*virtual*/ void   	 	 	updateRegion(LLViewerRegion *regionp);
 	/*virtual*/ void   	 	 	updateSpatialExtents(LLVector4a& newMin, LLVector4a &newMax);
@@ -474,7 +474,7 @@ public:
 private:
 	bool		shouldAlphaMask();
 
-	BOOL 		mNeedsSkin; // avatar has been animated and verts have not been updated
+	bool 		mNeedsSkin; // avatar has been animated and verts have not been updated
 	F32			mLastSkinTime; //value of gFrameTimeSeconds at last skin update
 
 	S32	 		mUpdatePeriod;

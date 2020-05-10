@@ -292,13 +292,13 @@ void LLSkyTex::create(const F32 brightness)
 
 
 
-void LLSkyTex::createGLImage(S32 which)
+void LLSkyTex::createGLImage(bool which)
 {	
 	mTexture[which]->createGLTexture(0, mImageRaw[which], 0, TRUE, LLGLTexture::LOCAL);
 	mTexture[which]->setAddressMode(LLTexUnit::TAM_CLAMP);
 }
 
-void LLSkyTex::bindTexture(BOOL curr)
+void LLSkyTex::bindTexture(bool curr)
 {
 	gGL.getTexUnit(0)->bind(mTexture[getWhich(curr)], true);
 }
@@ -1037,7 +1037,7 @@ void LLVOSky::idleUpdate(LLAgent &agent, const F64 &time)
 {
 }
 
-BOOL LLVOSky::updateSky()
+bool LLVOSky::updateSky()
 {
 	if (mDead || !(gPipeline.hasRenderType(LLPipeline::RENDER_TYPE_SKY)))
 	{
@@ -1254,7 +1254,7 @@ void LLVOSky::updateDummyVertexBuffer()
 //----------------------------------
 static LLTrace::BlockTimerStatHandle FTM_GEO_SKY("Sky Geometry");
 
-BOOL LLVOSky::updateGeometry(LLDrawable *drawable)
+bool LLVOSky::updateGeometry(LLDrawable *drawable)
 {
 	LL_RECORD_BLOCK_TIME(FTM_GEO_SKY);
 	if (mFace[FACE_REFLECTION] == NULL)
@@ -1351,7 +1351,7 @@ BOOL LLVOSky::updateGeometry(LLDrawable *drawable)
 	const F32 camera_height = mCameraPosAgent.mV[2];
 	const F32 height_above_water = camera_height - water_height;
 
-	BOOL sun_flag = FALSE;
+	bool sun_flag = false;
 
 	if (mSun.isVisible())
 	{
@@ -1361,7 +1361,7 @@ BOOL LLVOSky::updateGeometry(LLDrawable *drawable)
 		}
 		else
 		{
-			sun_flag = TRUE;
+			sun_flag = true;
 		}
 	}
 	
@@ -1395,7 +1395,7 @@ BOOL LLVOSky::updateGeometry(LLDrawable *drawable)
 	return true;
 }
 
-BOOL LLVOSky::updateHeavenlyBodyGeometry(LLDrawable *drawable, const S32 f, const BOOL is_sun,
+bool LLVOSky::updateHeavenlyBodyGeometry(LLDrawable *drawable, const S32 f, const bool is_sun,
 										 LLHeavenBody& hb, const F32 cos_max_angle,
 										 const LLVector3 &up, const LLVector3 &right)
 {
@@ -1525,7 +1525,7 @@ BOOL LLVOSky::updateHeavenlyBodyGeometry(LLDrawable *drawable, const S32 f, cons
 
 // Clips quads with top and bottom sides parallel to horizon.
 
-BOOL clip_quad_to_horizon(F32& t_left, F32& t_right, LLVector3 v_clipped[4],
+bool clip_quad_to_horizon(F32& t_left, F32& t_right, LLVector3 v_clipped[4],
 						  const LLVector3 v_corner[4], const F32 cos_max_angle)
 {
 	t_left = clip_side_to_horizon(v_corner[1], v_corner[0], cos_max_angle);
@@ -1536,8 +1536,8 @@ BOOL clip_quad_to_horizon(F32& t_left, F32& t_right, LLVector3 v_clipped[4],
 		return FALSE;
 	}
 
-	//const BOOL left_clip = (t_left > 0);
-	//const BOOL right_clip = (t_right > 0);
+	//const bool left_clip = (t_left > 0);
+	//const bool right_clip = (t_right > 0);
 
 	//if (!left_clip && !right_clip)
 	{
@@ -2039,7 +2039,7 @@ void LLVOSky::updateFog(const F32 distance)
 		return;
 	}
 
-	const BOOL hide_clip_plane = TRUE;
+	const bool hide_clip_plane = true;
 	LLColor4 target_fog(0.f, 0.2f, 0.5f, 0.f);
 
 	const F32 water_height = gAgent.getRegion() ? gAgent.getRegion()->getWaterHeight() : 0.f;
@@ -2176,7 +2176,7 @@ void LLVOSky::updateFog(const F32 distance)
 
 
 // Functions used a lot.
-F32 color_norm_pow(LLColor3& col, F32 e, BOOL postmultiply)
+F32 color_norm_pow(LLColor3& col, F32 e, bool postmultiply)
 {
 	F32 mv = color_max(col);
 	if (0 == mv)

@@ -56,7 +56,7 @@ public:
 	void updateDrawable(BOOL force_damped);
 
 	/*virtual*/ LLDrawable* createDrawable(LLPipeline *pipeline);
-	/*virtual*/ BOOL		updateGeometry(LLDrawable *drawable);
+	/*virtual*/ bool		updateGeometry(LLDrawable *drawable);
 	/*virtual*/ void		getGeometry(S32 idx,
 								LLStrider<LLVector4a>& verticesp,
 								LLStrider<LLVector3>& normalsp, 
@@ -67,7 +67,7 @@ public:
 
 	void updateFaceSize(S32 idx) { }
 	/*virtual*/ void updateTextures();											
-	/*virtual*/ BOOL updateLOD();
+	/*virtual*/ bool updateLOD();
 	/*virtual*/ void setPixelAreaAndAngle(LLAgent &agent); // generate accurate apparent angle and area
 
 	void plantBlades();

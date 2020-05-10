@@ -222,7 +222,7 @@ void LLVOSurfacePatch::updateGL()
 	}
 }
 
-BOOL LLVOSurfacePatch::updateGeometry(LLDrawable *drawable)
+bool LLVOSurfacePatch::updateGeometry(LLDrawable *drawable)
 {
 	LL_RECORD_BLOCK_TIME(FTM_UPDATE_TERRAIN);
 
@@ -284,7 +284,7 @@ BOOL LLVOSurfacePatch::updateGeometry(LLDrawable *drawable)
 	mLastNorthStride = north_stride;
 	mLastEastStride = east_stride;
 
-	return TRUE;
+	return true;
 }
 
 void LLVOSurfacePatch::updateFaceSize(S32 idx)
@@ -312,9 +312,9 @@ void LLVOSurfacePatch::updateFaceSize(S32 idx)
 	}
 }
 
-BOOL LLVOSurfacePatch::updateLOD()
+bool LLVOSurfacePatch::updateLOD()
 {
-	return TRUE;
+	return true;
 }
 
 void LLVOSurfacePatch::getGeometry(LLStrider<LLVector3> &verticesp,
