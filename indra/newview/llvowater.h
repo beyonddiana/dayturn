@@ -60,7 +60,7 @@ public:
 
 	/*virtual*/ void idleUpdate(LLAgent &agent, const F64 &time);
 	/*virtual*/ LLDrawable* createDrawable(LLPipeline *pipeline);
-	/*virtual*/ BOOL        updateGeometry(LLDrawable *drawable);
+	/*virtual*/ bool        updateGeometry(LLDrawable *drawable);
 	/*virtual*/ void		updateSpatialExtents(LLVector4a& newMin, LLVector4a& newMax);
 
 	/*virtual*/ void updateTextures();

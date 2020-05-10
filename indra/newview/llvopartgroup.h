@@ -84,7 +84,7 @@ public:
 	/*virtual*/ void updateTextures();
 
 	/*virtual*/ LLDrawable* createDrawable(LLPipeline *pipeline);
-	/*virtual*/ BOOL        updateGeometry(LLDrawable *drawable);
+	/*virtual*/ bool        updateGeometry(LLDrawable *drawable);
 	void		getGeometry(const LLViewerPart& part,							
 								LLStrider<LLVector4a>& verticesp);
 				

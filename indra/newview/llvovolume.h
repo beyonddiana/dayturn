@@ -166,13 +166,13 @@ public:
 				LLVector3 volumeDirectionToAgent(const LLVector3& dir) const;
 
 				
-				BOOL	getVolumeChanged() const				{ return mVolumeChanged; }
+				bool	getVolumeChanged() const				{ return mVolumeChanged; }
 				
 	/*virtual*/ F32  	getRadius() const						{ return mVObjRadius; };
 				const LLMatrix4& getWorldMatrix(LLXformMatrix* xform) const;
 
 				void	markForUpdate(BOOL priority);
-                void    markForUnload()                         { LLViewerObject::markForUnload(true); mVolumeChanged = TRUE; }                
+                void    markForUnload()                         { LLViewerObject::markForUnload(true); mVolumeChanged = true; }                
 				void    faceMappingChanged()                    { mFaceMappingChanged=TRUE; };
 
 	/*virtual*/ void	onShift(const LLVector4a &shift_vector); // Called when the drawable shifts
@@ -226,9 +226,9 @@ public:
 														  void* user_data, S32 status, LLExtStat ext_status);
 					
 				void	updateRelativeXform(bool force_identity = false);
-	/*virtual*/ BOOL	updateGeometry(LLDrawable *drawable);
+	/*virtual*/ bool	updateGeometry(LLDrawable *drawable);
 	/*virtual*/ void	updateFaceSize(S32 idx);
-	/*virtual*/ BOOL	updateLOD();
+	/*virtual*/ bool	updateLOD();
 				void	updateRadius();
 	/*virtual*/ void	updateTextures();
 				void	updateTextureVirtualSize(bool forced = false);
@@ -375,7 +375,7 @@ protected:
 	void removeMediaImpl(S32 texture_index) ;
 
 private:
-	bool lodOrSculptChanged(LLDrawable *drawable, BOOL &compiled);
+	bool lodOrSculptChanged(LLDrawable *drawable, bool &compiled);
 
 public:
 
@@ -391,15 +391,15 @@ private:
 	friend class LLDrawable;
 	friend class LLFace;
 
-	BOOL		mFaceMappingChanged;
+	bool		mFaceMappingChanged;
 	LLFrameTimer mTextureUpdateTimer;
 	S32			mLOD;
-	BOOL		mLODChanged;
-	BOOL		mSculptChanged;
+	bool		mLODChanged;
+	bool		mSculptChanged;
 	F32			mSpotLightPriority;
 	LLMatrix4	mRelativeXform;
 	LLMatrix3	mRelativeXformInvTrans;
-	BOOL		mVolumeChanged;
+	bool		mVolumeChanged;
 	F32			mVObjRadius;
 	LLVolumeInterface *mVolumeImpl;
 	LLPointer<LLViewerFetchedTexture> mSculptTexture;

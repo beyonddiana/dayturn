@@ -700,7 +700,7 @@ LLVOAvatar::LLVOAvatar(const LLUUID& id,
 	mFirstAppearanceMessageReceived( FALSE ),
 	mCulled( FALSE ),
 	mVisibilityRank(0),
-	mNeedsSkin(FALSE),
+	mNeedsSkin(false),
 	mLastSkinTime(0.f),
 	mUpdatePeriod(1),
 	mFirstFullyVisible(TRUE),
@@ -4596,7 +4596,7 @@ BOOL LLVOAvatar::updateCharacter(LLAgent &agent)
 	mRoot->updateWorldMatrixChildren();
 
 	// System avatar mesh vertices need to be reskinned.
-    mNeedsSkin = TRUE;
+    mNeedsSkin = true;
 
 	return TRUE;
 }
@@ -4873,7 +4873,7 @@ U32 LLVOAvatar::renderSkinned()
 		{
 			updateMeshData();
 			mDirtyMesh = 0;
-			mNeedsSkin = TRUE;
+			mNeedsSkin = true;
 			mDrawable->clearState(LLDrawable::REBUILD_GEOMETRY);
 		}
 	}
@@ -4922,7 +4922,7 @@ U32 LLVOAvatar::renderSkinned()
 					hair_mesh->updateJointGeometry();
 				}
 			}
-			mNeedsSkin = FALSE;
+			mNeedsSkin = false;
 			mLastSkinTime = gFrameTimeSeconds;
 
 			LLFace * face = mDrawable->getFace(0);
@@ -4938,7 +4938,7 @@ U32 LLVOAvatar::renderSkinned()
 	}
 	else
 	{
-		mNeedsSkin = FALSE;
+		mNeedsSkin = false;
 	}
 
 	if (sDebugInvisible)
@@ -7013,7 +7013,7 @@ void LLVOAvatar::setPixelAreaAndAngle(LLAgent &agent)
 //-----------------------------------------------------------------------------
 // updateJointLODs()
 //-----------------------------------------------------------------------------
-BOOL LLVOAvatar::updateJointLODs()
+bool LLVOAvatar::updateJointLODs()
 {
 	const F32 MAX_PIXEL_AREA = 100000000.f;
 	F32 lod_factor = (sLODFactor * AVATAR_LOD_TWEAK_RANGE + (1.f - AVATAR_LOD_TWEAK_RANGE));
@@ -7044,7 +7044,7 @@ BOOL LLVOAvatar::updateJointLODs()
 
 		// now select meshes to render based on adjusted pixel area
 		LLViewerJoint* root = dynamic_cast<LLViewerJoint*>(mRoot);
-		BOOL res = FALSE;
+		bool res = false;
 		if (root)
 		{
 			res = root->updateLOD(mAdjustedPixelArea, TRUE);
@@ -7053,10 +7053,10 @@ BOOL LLVOAvatar::updateJointLODs()
 		{
 			sNumLODChangesThisFrame++;
 			dirtyMesh(2);
-			return TRUE;
+			return true;
 		}
 
-	return FALSE;
+	return false;
 }
 
 //-----------------------------------------------------------------------------
@@ -7095,17 +7095,17 @@ void LLVOAvatar::updateGL()
 // updateGeometry()
 //-----------------------------------------------------------------------------
 static LLTrace::BlockTimerStatHandle FTM_UPDATE_AVATAR("Update Avatar");
-BOOL LLVOAvatar::updateGeometry(LLDrawable *drawable)
+bool LLVOAvatar::updateGeometry(LLDrawable *drawable)
 {
 	LL_RECORD_BLOCK_TIME(FTM_UPDATE_AVATAR);
 	if (!(gPipeline.hasRenderType(mIsControlAvatar ? LLPipeline::RENDER_TYPE_CONTROL_AV : LLPipeline::RENDER_TYPE_AVATAR)))
 	{
-		return TRUE;
+		return true;
 	}
 	
 	if (!mMeshValid)
 	{
-		return TRUE;
+		return true;
 	}
 
 	if (!drawable)
@@ -7113,7 +7113,7 @@ BOOL LLVOAvatar::updateGeometry(LLDrawable *drawable)
 		LL_ERRS() << "LLVOAvatar::updateGeometry() called with NULL drawable" << LL_ENDL;
 	}
 
-	return TRUE;
+	return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -10147,11 +10147,11 @@ void LLVOAvatar::updateFreezeCounter(S32 counter)
 	}
 }
 
-BOOL LLVOAvatar::updateLOD()
+bool LLVOAvatar::updateLOD()
 {
     if (mDrawable.isNull())
     {
-        return FALSE;
+        return false;
     }
 
 	if (isImpostor())
@@ -10159,7 +10159,7 @@ BOOL LLVOAvatar::updateLOD()
 		return TRUE;
 	}
 
-	BOOL res = updateJointLODs();
+	bool res = updateJointLODs();
 
 	LLFace* facep = mDrawable->getFace(0);
 	if (!facep || !facep->getVertexBuffer())
@@ -10171,7 +10171,7 @@ BOOL LLVOAvatar::updateLOD()
 	{	//LOD changed or new mesh created, allocate new vertex buffer if needed
 		updateMeshData();
 		mDirtyMesh = 0;
-		mNeedsSkin = TRUE;
+		mNeedsSkin = true;
 		mDrawable->clearState(LLDrawable::REBUILD_GEOMETRY);
 	}
 	updateVisibility();

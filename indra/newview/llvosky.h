@@ -82,7 +82,7 @@ LL_FORCE_INLINE LLColor3 color_div(const LLColor3 &col1, const LLColor3 &col2)
 }
 
 LLColor3 color_norm(const LLColor3 &col);
-BOOL clip_quad_to_horizon(F32& t_left, F32& t_right, LLVector3 v_clipped[4],
+bool clip_quad_to_horizon(F32& t_left, F32& t_right, LLVector3 v_clipped[4],
 						  const LLVector3 v_corner[4], const F32 cos_max_angle);
 F32 clip_side_to_horizon(const LLVector3& v0, const LLVector3& v1, const F32 cos_max_angle);
 
@@ -127,9 +127,9 @@ private:
 public:
 	static F32 getInterpVal()					{ return sInterpVal; }
 	static void setInterpVal(const F32 v)		{ sInterpVal = v; }
-	static BOOL doInterpolate()					{ return sInterpVal > 0.001f; }
+	static bool doInterpolate()					{ return sInterpVal > 0.001f; }
 
-	void bindTexture(BOOL curr = TRUE);
+	void bindTexture(bool curr = true);
 	
 protected:
 	LLSkyTex();
@@ -144,7 +144,7 @@ protected:
 	static S32 getCurrent()						{ return sCurrent; }
 	static S32 stepCurrent()					{ sCurrent++; sCurrent &= 1; return sCurrent; }
 	static S32 getNext()						{ return ((sCurrent+1) & 1); }
-	static S32 getWhich(const BOOL curr)		{ return curr ? sCurrent : getNext(); }
+	static S32 getWhich(const bool curr)		{ return curr ? sCurrent : getNext(); }
 
 	void initEmpty(const S32 tex);
 	
@@ -184,8 +184,8 @@ protected:
 		return col;
 	}
 
-	LLImageRaw* getImageRaw(BOOL curr=TRUE)			{ return mImageRaw[getWhich(curr)]; }
-	void createGLImage(BOOL curr=TRUE);
+	LLImageRaw* getImageRaw(bool curr=true)			{ return mImageRaw[getWhich(curr)]; }
+	void createGLImage(bool curr=true);
 };
 
 /// TODO Move into the stars draw pool (and rename them appropriately).
@@ -201,10 +201,10 @@ protected:
 	LLVector3		mAngularVelocity;		// velocity of the local heavenly body
 
 	F32				mDiskRadius;
-	BOOL			mDraw;					// FALSE - do not draw.
+	bool			mDraw;					// FALSE - do not draw.
 	F32				mHorizonVisibility;		// number [0, 1] due to how horizon
 	F32				mVisibility;			// same but due to other objects being in throng.
-	BOOL			mVisible;
+	bool			mVisible;
 	static F32		sInterpVal;
 	LLVector3		mQuadCorner[4];
 	LLVector3		mU;
@@ -256,8 +256,8 @@ public:
 	{
 		return llmax(0.f, llmin(0.9f, mHorizonVisibility)) * mVisibility;
 	}
-	BOOL isVisible() const								{ return mVisible; }
-	void setVisible(const BOOL v)						{ mVisible = v; }
+	bool isVisible() const								{ return mVisible; }
+	void setVisible(const bool v)						{ mVisible = v; }
 
 	const F32& getIntensity() const						{ return mIntensity; }
 	void setIntensity(const F32 c)						{ mIntensity = c; }
@@ -265,8 +265,8 @@ public:
 	void setDiskRadius(const F32 radius)				{ mDiskRadius = radius; }
 	F32	getDiskRadius()	const							{ return mDiskRadius; }
 
-	void setDraw(const BOOL draw)						{ mDraw = draw; }
-	BOOL getDraw() const								{ return mDraw; }
+	void setDraw(const bool draw)						{ mDraw = draw; }
+	bool getDraw() const								{ return mDraw; }
 
 	const LLVector3& corner(const S32 n) const			{ return mQuadCorner[n]; }
 	LLVector3& corner(const S32 n)						{ return mQuadCorner[n]; }
@@ -463,13 +463,13 @@ public:
 	void restoreGL();
 
 	/*virtual*/ void idleUpdate(LLAgent &agent, const F64 &time);
-	BOOL updateSky();
+	bool updateSky();
 	
 	// Graphical stuff for objects - maybe broken out into render class
 	// later?
 	/*virtual*/ void updateTextures();
 	/*virtual*/ LLDrawable* createDrawable(LLPipeline *pipeline);
-	/*virtual*/ BOOL		updateGeometry(LLDrawable *drawable);
+	/*virtual*/ bool		updateGeometry(LLDrawable *drawable);
 
 	void initSkyTextureDirs(const S32 side, const S32 tile);
 	void createSkyTexture(const S32 side, const S32 tile);
@@ -489,7 +489,7 @@ public:
 	const LLVector3& getToSun() const						{ return mSun.getDirection(); }
 	const LLVector3& getToMoon() const						{ return mMoon.getDirection(); }
 	const LLVector3& getToMoonLast() const					{ return mMoon.getDirectionCached(); }
-	BOOL isSunUp() const									{ return mSun.getDirectionCached().mV[2] > -0.05f; }
+	bool isSunUp() const									{ return mSun.getDirectionCached().mV[2] > -0.05f; }
 	void calculateColors();
 
 	LLColor3 getSunDiffuseColor() const						{ return mSunDiffuse; }
@@ -500,13 +500,13 @@ public:
 	LLColor4 getFogColor() const							{ return mFogColor; }
 	LLColor4 getGLFogColor() const							{ return mGLFogCol; }
 	
-	BOOL isSameFace(S32 idx, const LLFace* face) const { return mFace[idx] == face; }
+	bool isSameFace(S32 idx, const LLFace* face) const { return mFace[idx] == face; }
 
 	void initSunDirection(const LLVector3 &sun_dir, const LLVector3 &sun_ang_velocity);
 
 	void setSunDirection(const LLVector3 &sun_dir, const LLVector3 &sun_ang_velocity);
 
-	BOOL updateHeavenlyBodyGeometry(LLDrawable *drawable, const S32 side, const BOOL is_sun,
+	bool updateHeavenlyBodyGeometry(LLDrawable *drawable, const S32 side, const bool is_sun,
 									LLHeavenBody& hb, const F32 sin_max_angle,
 									const LLVector3 &up, const LLVector3 &right);
 
@@ -539,7 +539,7 @@ public:
 	LLCubeMap *getCubeMap() const						{ return mCubeMap; }
 	S32 getDrawRefl() const								{ return mDrawRefl; }
 	void setDrawRefl(const S32 r)						{ mDrawRefl = r; }
-	BOOL isReflFace(const LLFace* face) const			{ return face == mFace[FACE_REFLECTION]; }
+	bool isReflFace(const LLFace* face) const			{ return face == mFace[FACE_REFLECTION]; }
 	LLFace* getReflFace() const							{ return mFace[FACE_REFLECTION]; }
 
 	LLViewerTexture*	getSunTex() const					{ return mSunTexturep; }
@@ -578,12 +578,12 @@ protected:
 	LLColor3			mBrightestPointGuess;
 	LLHaze				mHaze;
 	F32					mHazeConcentration;
-	BOOL				mWeatherChange;
+	bool				mWeatherChange;
 	F32					mCloudDensity;
 	F32					mWind;
 	
-	BOOL				mInitialized;
-	BOOL				mForceUpdate;				//flag to force instantaneous update of cubemap
+	bool				mInitialized;
+	bool				mForceUpdate;				//flag to force instantaneous update of cubemap
 	LLVector3			mLastLightingDirection;
 	LLColor3			mLastTotalAmbient;
 	F32					mAmbientScale;
@@ -617,7 +617,7 @@ public:
 	void createDummyVertexBuffer() ;
 	void updateDummyVertexBuffer() ;
 
-	BOOL mHeavenlyBodyUpdated ;
+	bool mHeavenlyBodyUpdated ;
 };
 
 // turn it off
@@ -627,7 +627,7 @@ public:
 
 // Utility functions
 F32 azimuth(const LLVector3 &v);
-F32 color_norm_pow(LLColor3& col, F32 e, BOOL postmultiply = FALSE);
+F32 color_norm_pow(LLColor3& col, F32 e, bool postmultiply = false);
 
 
 /* Proportion of light that is scattered into 'path' from 'in' over distance dt. */

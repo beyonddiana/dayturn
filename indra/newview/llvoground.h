@@ -48,7 +48,7 @@ public:
 	// later?
 	/*virtual*/ void updateTextures();
 	/*virtual*/ LLDrawable* createDrawable(LLPipeline *pipeline);
-	/*virtual*/ BOOL		updateGeometry(LLDrawable *drawable);
+	/*virtual*/ bool		updateGeometry(LLDrawable *drawable);
 
 	void cleanupGL();
 };

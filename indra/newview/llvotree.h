@@ -66,7 +66,7 @@ public:
 	/*virtual*/ void updateTextures();
 
 	/*virtual*/ LLDrawable* createDrawable(LLPipeline *pipeline);
-	/*virtual*/ BOOL		updateGeometry(LLDrawable *drawable);
+	/*virtual*/ bool		updateGeometry(LLDrawable *drawable);
 	/*virtual*/ void		updateSpatialExtents(LLVector4a &min, LLVector4a &max);
 
 	virtual U32 getPartitionType() const;
