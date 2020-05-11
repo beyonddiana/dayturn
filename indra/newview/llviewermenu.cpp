@@ -3014,22 +3014,6 @@ void handle_object_edit()
 }
 
 // [SL:KB] - Patch: Inventory-AttachmentActions - Checked: 2012-05-05 (Catznip-3.3)
-void handle_attachment_edit(const LLUUID& idItem)
-{
-	const LLInventoryItem* pItem = gInventory.getItem(idItem);
-	if ( (isAgentAvatarValid()) && (pItem) )
-	{
-		LLViewerObject* pAttachObj = gAgentAvatarp->getWornAttachment(pItem->getLinkedUUID());
-		if (pAttachObj)
-		{
-			LLSelectMgr::getInstance()->deselectAll();
-			LLSelectMgr::getInstance()->selectObjectAndFamily(pAttachObj);
-
-			handle_object_edit();
-		}
-	}
-}
-
 bool enable_item_edit(const LLUUID& idItem)
 {
 	const LLInventoryItem* pItem = gInventory.getItem(idItem);
@@ -3061,6 +3045,20 @@ bool enable_attachment_touch(const LLUUID& idItem)
 }
 // [/SL:KB]
 
+
+void handle_attachment_edit(const LLUUID& inv_item_id)
+{
+	if (isAgentAvatarValid())
+	{
+		if (LLViewerObject* attached_obj = gAgentAvatarp->getWornAttachment(inv_item_id))
+		{
+			LLSelectMgr::getInstance()->deselectAll();
+			LLSelectMgr::getInstance()->selectObjectAndFamily(attached_obj);
+
+			handle_object_edit();
+		}
+	}
+}
 
 void handle_object_inspect()
 {
@@ -8691,6 +8689,8 @@ void handle_dump_attachments(void*)
 // these are used in the gl menus to set control values, generically.
 class LLToggleControl : public view_listener_t
 {
+protected:
+
 	bool handleEvent(const LLSD& userdata)
 	{
 		std::string control_name = userdata.asString();
@@ -9435,6 +9435,7 @@ void handle_show_url(const LLSD& param)
 	}
 
 }
+
 void handle_show_grid_status()
 {
 	std::string grid = LLGridManager::getInstance()->getGridLabel();
@@ -9445,6 +9446,7 @@ void handle_show_grid_status()
 		handle_show_url(LLSD(status_link));
 	}
 }
+
 void handle_show_group()
 {
 	std::string grid = LLGridManager::getInstance()->getGridLabel();
@@ -9517,6 +9519,7 @@ void handle_rebake_textures(void*)
 		LLAppearanceMgr::instance().requestServerAppearanceUpdate();
 	}
 }
+
 void handle_refresh_scene(void*)
 {
 	if (!isAgentAvatarValid()) return;
