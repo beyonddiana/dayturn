@@ -197,6 +197,8 @@ protected:
     void setStatusMessage(const std::string& msg);
     void addStringToLogTab(const std::string& str, bool flash);
 
+    void setCtrlLoadFromFile(S32 lod);
+
 	LLModelPreview*	mModelPreview;
 
 	LLPhysicsDecomp::decomp_params mDecompParams;
@@ -368,6 +370,8 @@ private:
 	// Count amount of original models, excluding sub-models
 	static U32 countRootModels(LLModelLoader::model_list models);
 
+    void lookupLODModelFiles(S32 lod);
+
  protected:
 	friend class LLModelLoader;
 	friend class LLFloaterModelPreview;
@@ -391,6 +395,7 @@ private:
 	S32			mPhysicsSearchLOD;
 	std::string mLODFile[LLModel::NUM_LODS];
 	bool		mLoading;
+    bool        mLookUpLodFiles = false;
 	U32			mLoadState;
 	bool		mResetJoints;
 	bool		mModelNoErrors;
