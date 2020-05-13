@@ -3123,7 +3123,10 @@ void LLPipeline::markVisible(LLDrawable *drawablep, LLCamera& camera)
 					if (vobj) // this test may not be needed, see above
 					{
 						LLVOAvatar* av = vobj->asAvatar();
-						if (av && av->isImpostor())
+						if (av && 
+						    (av->isImpostor()
+						    || av->isInMuteList() 
+							|| (LLVOAvatar::AOA_NORMAL != av->getOverallAppearance() && !av->needsImpostorUpdate()) ))
 						{
 							return;
 						}
