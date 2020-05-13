@@ -378,6 +378,7 @@ bool	LLPipeline::sDelayVBUpdate = true;
 bool	LLPipeline::sAutoMaskAlphaDeferred = true;
 bool	LLPipeline::sAutoMaskAlphaNonDeferred = false;
 bool	LLPipeline::sDisableShaders = false;
+bool	LLPipeline::sRenderTransparentWater = true;
 bool	LLPipeline::sRenderBump = true;
 bool	LLPipeline::sBakeSunlight = false;
 bool	LLPipeline::sNoAlpha = false;
@@ -1052,6 +1053,12 @@ bool LLPipeline::allocateScreenBuffer(U32 resX, U32 resY, U32 samples)
 }
 
 //static
+void LLPipeline::updateRenderTransparentWater()
+{
+	sRenderTransparentWater = gSavedSettings.getBOOL("RenderTransparentWater");
+}
+
+//static
 void LLPipeline::updateRenderBump()
 {
 	sRenderBump = gSavedSettings.getBOOL("RenderObjectBump");
@@ -1062,7 +1069,8 @@ void LLPipeline::updateRenderDeferred()
 {
 	bool deferred = (bool(RenderDeferred && 
 					 LLRenderTarget::sUseFBO &&
-					 LLFeatureManager::getInstance()->isFeatureAvailable("RenderDeferred") &&	 
+					 LLFeatureManager::getInstance()->isFeatureAvailable("RenderDeferred") &&
+					 LLPipeline::sRenderTransparentWater &&	 
 					 LLPipeline::sRenderBump &&
 					 VertexShaderEnable && 
 					 RenderAvatarVP &&
