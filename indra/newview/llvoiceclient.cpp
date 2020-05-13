@@ -103,7 +103,7 @@ std::string LLVoiceClientStatusObserver::status2string(LLVoiceClientStatusObserv
                 std::ostringstream stream;
                 stream << "UNKNOWN(" << (int)inStatus << ")";
                 result = stream.str();
-            }		
+            }
 			break;
 	}
 	
@@ -179,7 +179,7 @@ void LLVoiceClient::terminate()
 {
 	if (mVoiceModule) mVoiceModule->terminate();
 	mVoiceModule = NULL;
-	
+
 
     // Shutdown speaker volume storage before LLSingletonBase::deleteAll() does it
     if (LLSpeakerVolumeStorage::instanceExists())
@@ -547,7 +547,10 @@ bool LLVoiceClient::voiceEnabled()
 
 void LLVoiceClient::setVoiceEnabled(bool enabled)
 {
-	if (mVoiceModule) mVoiceModule->setVoiceEnabled(enabled);
+	if (mVoiceModule)
+    {
+        mVoiceModule->setVoiceEnabled(enabled);
+    }
 }
 
 void LLVoiceClient::updateMicMuteLogic()
@@ -981,7 +984,12 @@ LLSpeakerVolumeStorage::LLSpeakerVolumeStorage()
 
 LLSpeakerVolumeStorage::~LLSpeakerVolumeStorage()
 {
-	save();
+}
+
+//virtual
+void LLSpeakerVolumeStorage::cleanupSingleton()
+{
+    save();
 }
 
 void LLSpeakerVolumeStorage::storeSpeakerVolume(const LLUUID& speaker_id, F32 volume)
