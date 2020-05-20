@@ -1437,8 +1437,10 @@ AOSet* AOEngine::getSetByName(const std::string& name) const
 
 const std::string AOEngine::getCurrentSetName() const
 {
-	if(mCurrentSet)
+	if (mCurrentSet)
+	{
 		return mCurrentSet->getName();
+	}
 	return std::string();
 }
 
@@ -1449,7 +1451,17 @@ const AOSet* AOEngine::getDefaultSet() const
 
 void AOEngine::selectSet(AOSet* set)
 {
-	if(mEnabled && mCurrentSet)
+	LL_DEBUGS("AOEngine") << "select set " << set << " current " << mCurrentSet << LL_ENDL;
+	
+	// take an early exit to prevent cycling rapidly through animations as the set is reselected
+	// during a make default operation
+	if (mEnabled && (mCurrentSet == set))
+	{
+		LL_DEBUGS("AOEngine") << "selectSet called for currently selected set, returning early" << LL_ENDL;
+		return;
+	}
+	
+	if (mEnabled && mCurrentSet)
 	{
 		AOSet::AOState* state=mCurrentSet->getStateByRemapID(mLastOverriddenMotion);
 		if(state)
@@ -1462,7 +1474,7 @@ void AOEngine::selectSet(AOSet* set)
 
 	mCurrentSet=set;
 
-	if(mEnabled)
+	if (mEnabled)
 	{
 		LL_DEBUGS("AOEngine") << "enabling with motion " << gAnimLibrary.animationName(mLastMotion) << LL_ENDL;
 		gAgent.sendAnimationRequest(override(mLastMotion,true),ANIM_REQUEST_START);
@@ -1472,7 +1484,7 @@ void AOEngine::selectSet(AOSet* set)
 AOSet* AOEngine::selectSetByName(const std::string& name)
 {
 	AOSet* set=getSetByName(name);
-	if(set)
+	if (set)
 	{
 		selectSet(set);
 		return set;
@@ -1488,23 +1500,23 @@ const std::vector<AOSet*> AOEngine::getSetList() const
 
 void AOEngine::saveSet(const AOSet* set)
 {
-	if(!set)
+	if (!set)
 		return;
 
 	std::string setParams=set->getName();
-	if(set->getSitOverride())
+	if (set->getSitOverride())
 	{
 		setParams+=":SO";
 	}
-	if(set->getSmart())
+	if (set->getSmart())
 	{
 		setParams+=":SM";
 	}
-	if(set->getMouselookDisable())
+	if (set->getMouselookDisable())
 	{
 		setParams+=":DM";
 	}
-	if(set==mDefaultSet)
+	if (set==mDefaultSet)
 	{
 		setParams+=":**";
     }
