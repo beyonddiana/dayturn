@@ -51,8 +51,9 @@ FloaterAO::FloaterAO(const LLSD& key)
 	mCanDragAndDrop(false),
 	mImportRunning(false),
 	mCurrentBoldItem(NULL),
-	mLastSet(""),
+	mLastState(""),
 	mLastName(""),
+	mLastUUID(LLUUID::null),
 	mMore(true)
 {
 	mEventTimer.stop();
@@ -457,6 +458,9 @@ void FloaterAO::onSelectState()
 	mCycleTimeSpinner->setValue(mSelectedState->mCycleTime);
 
 	updateCycleParameters();
+	// see if the new state contains the current anim and get it bolded if so
+	LL_DEBUGS("AOEngine") << "Trying to reinstate: " << mLastState << " / " << mLastName << LL_ENDL;
+	onAnimationChanged(mLastUUID, mLastState, mLastName);
 }
 
 void FloaterAO::onClickReload()
@@ -752,7 +756,7 @@ void FloaterAO::onClickLess()
 	gSavedPerAccountSettings.setRect("floater_rect_animation_overrider_full",fullSize);
 }
 
-void FloaterAO::onAnimationChanged(const LLUUID& animation, const std::string set, const std::string name)
+void FloaterAO::onAnimationChanged(const LLUUID& animation, const std::string state, const std::string name)
 {
 	LL_DEBUGS("AOEngine") << "Received animation change to " << animation << LL_ENDL;
 
@@ -766,35 +770,43 @@ void FloaterAO::onAnimationChanged(const LLUUID& animation, const std::string se
 
 	if(animation.isNull())
 	{
+		mLastName = name;
+		mLastState = state;
+		mLastUUID = animation;
 		return;
 	}
 
 	// we have to do our own de-dupe check because we can't rely on the bold item - it's possible that the
-	// anim concerned isn't from the group being displayed so there's match in the currently displayed scroll list
-	if (gSavedPerAccountSettings.getbool("AOChatNotifications") && ((mLastSet.compare(set) != 0) || (mLastName.compare(name) != 0)))
+	// anim concerned isn't from the group being displayed so there's no match in the currently displayed scroll list
+	if (gSavedPerAccountSettings.getbool("AOChatNotifications") && ((mLastState.compare(state) != 0) || (mLastName.compare(name) != 0)))
 	{
 		LLChat chat;
 		chat.mFromID = LLUUID::null;
 		chat.mSourceType = CHAT_SOURCE_SYSTEM;
-		chat.mText = "Starting animation: " + set + " / " + name;
+		chat.mText = "Starting animation: " + state + " / " + name;
 
 		LLSD none;
 		LLNotificationsUI::LLNotificationManager::instance().onChat(chat, none);
 		mLastName = name;
-		mLastSet = set;
+		mLastState = state;
+		mLastUUID = animation;
 	}
 
 	// why do we have no LLScrollListCtrl::getItemByUserdata() ? -Zi
 	std::vector<LLScrollListItem*> item_list=mAnimationList->getAllData();
 	std::vector<LLScrollListItem*>::const_iterator iter;
-	for(iter=item_list.begin();iter!=item_list.end();iter++)
+	for(iter = item_list.begin();iter!=item_list.end();iter++)
 	{
-		LLScrollListItem* item=*iter;
+		LLScrollListItem* item = *iter;
 		LLUUID* id=(LLUUID*) item->getUserdata();
 
-		if(id==&animation)
+		// compare uuids rather than memory pointers so that we can get a match if someone displays a different state and
+		// then comes back to the original state with an item in it that needs to be boldened. The original pointer is no
+		// longer valid because the scroll list has been rebuilt at least twice, but uuids won't have changed
+		//if (id == &animation)
+		if (*id == animation)
 		{
-			mCurrentBoldItem=item;
+			mCurrentBoldItem = item;
 
 			LLScrollListText* column=(LLScrollListText*) mCurrentBoldItem->getColumn(1);
 			column->setFontStyle(LLFontGL::BOLD);
