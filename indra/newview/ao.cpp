@@ -37,6 +37,12 @@
 #include "llviewercontrol.h"
 #include "llviewerinventory.h"
 
+// additional includes for chat notification
+#include "llchat.h"
+#include "llnotificationhandler.h"
+#include "llnotificationmanager.h"
+#include "llnotificationsutil.h"
+
 FloaterAO::FloaterAO(const LLSD& key)
 :	LLTransientDockableFloater(NULL, true, key), LLEventTimer(10.f),
 	mSetList(0),
@@ -45,6 +51,8 @@ FloaterAO::FloaterAO(const LLSD& key)
 	mCanDragAndDrop(false),
 	mImportRunning(false),
 	mCurrentBoldItem(NULL),
+	mLastSet(""),
+	mLastName(""),
 	mMore(true)
 {
 	mEventTimer.stop();
@@ -191,6 +199,7 @@ bool FloaterAO::postBuild()
 	mAddButton=mMainInterfacePanel->getChild<LLButton>("ao_add");
 	mRemoveButton=mMainInterfacePanel->getChild<LLButton>("ao_remove");
 	mDefaultCheckBox=mMainInterfacePanel->getChild<LLCheckBoxCtrl>("ao_default");
+	mChatCheckBox = mMainInterfacePanel->getChild<LLCheckBoxCtrl>("ao_chat");
 	mOverrideSitsCheckBox=mMainInterfacePanel->getChild<LLCheckBoxCtrl>("ao_sit_override");
 	mSmartCheckBox=mMainInterfacePanel->getChild<LLCheckBoxCtrl>("ao_smart");
 	mDisableMouselookCheckBox=mMainInterfacePanel->getChild<LLCheckBoxCtrl>("ao_disable_stands_in_mouselook");
@@ -222,6 +231,7 @@ bool FloaterAO::postBuild()
 	mAddButton->setCommitCallback(boost::bind(&FloaterAO::onClickAdd,this));
 	mRemoveButton->setCommitCallback(boost::bind(&FloaterAO::onClickRemove,this));
 	mDefaultCheckBox->setCommitCallback(boost::bind(&FloaterAO::onCheckDefault,this));
+	mChatCheckBox->setCommitCallback(boost::bind(&FloaterAO::onCheckChat, this));
 	mOverrideSitsCheckBox->setCommitCallback(boost::bind(&FloaterAO::onCheckOverrideSits,this));
 	mSmartCheckBox->setCommitCallback(boost::bind(&FloaterAO::onCheckSmart,this));
 	mDisableMouselookCheckBox->setCommitCallback(boost::bind(&FloaterAO::onCheckDisableStands,this));
@@ -251,7 +261,7 @@ bool FloaterAO::postBuild()
 	updateSmart();
 
 	AOEngine::instance().setReloadCallback(boost::bind(&FloaterAO::updateList,this));
-	AOEngine::instance().setAnimationChangedCallback(boost::bind(&FloaterAO::onAnimationChanged,this,_1));
+	AOEngine::instance().setAnimationChangedCallback(boost::bind(&FloaterAO::onAnimationChanged, this, _1, _2, _3));
 
 	onChangeAnimationSelection();
 	mMainInterfacePanel->setVisible(true);
@@ -261,9 +271,15 @@ bool FloaterAO::postBuild()
 	updateList();
 
 	if(gSavedPerAccountSettings.getbool("UseFullAOInterface"))
+	{
 		onClickMore();
+	}
 	else
+	{
 		onClickLess();
+	}
+	mChatCheckBox->setValue(gSavedPerAccountSettings.getbool("AOChatNotifications"));
+
 
 	return LLDockableFloater::postBuild();
 }
@@ -275,6 +291,7 @@ void FloaterAO::enableSetControls(bool yes)
 	mActivateSetButton->setEnabled(yes);
 	mRemoveButton->setEnabled(yes);
 	mDefaultCheckBox->setEnabled(yes && (mSelectedSet != AOEngine::instance().getDefaultSet()));
+	mChatCheckBox->setEnabled(yes);
 	mOverrideSitsCheckBox->setEnabled(yes);
 	mOverrideSitsCheckBoxSmall->setEnabled(yes);
 	mDisableMouselookCheckBox->setEnabled(yes);
@@ -534,6 +551,13 @@ void FloaterAO::onCheckDefault()
 		AOEngine::instance().setDefaultSet(mSelectedSet);
 }
 
+void FloaterAO::onCheckChat()
+{
+	bool value = !(gSavedPerAccountSettings.getbool("AOChatNotifications"));
+	mChatCheckBox->setValue(value);
+	gSavedPerAccountSettings.setbool("AOChatNotifications",value);
+}
+
 void FloaterAO::onCheckOverrideSits()
 {
 	mOverrideSitsCheckBoxSmall->setValue(mOverrideSitsCheckBox->getValue());
@@ -728,7 +752,7 @@ void FloaterAO::onClickLess()
 	gSavedPerAccountSettings.setRect("floater_rect_animation_overrider_full",fullSize);
 }
 
-void FloaterAO::onAnimationChanged(const LLUUID& animation)
+void FloaterAO::onAnimationChanged(const LLUUID& animation, const std::string set, const std::string name)
 {
 	LL_DEBUGS("AOEngine") << "Received animation change to " << animation << LL_ENDL;
 
@@ -743,6 +767,21 @@ void FloaterAO::onAnimationChanged(const LLUUID& animation)
 	if(animation.isNull())
 	{
 		return;
+	}
+
+	// we have to do our own de-dupe check because we can't rely on the bold item - it's possible that the
+	// anim concerned isn't from the group being displayed so there's match in the currently displayed scroll list
+	if (gSavedPerAccountSettings.getbool("AOChatNotifications") && ((mLastSet.compare(set) != 0) || (mLastName.compare(name) != 0)))
+	{
+		LLChat chat;
+		chat.mFromID = LLUUID::null;
+		chat.mSourceType = CHAT_SOURCE_SYSTEM;
+		chat.mText = "Starting animation: " + set + " / " + name;
+
+		LLSD none;
+		LLNotificationsUI::LLNotificationManager::instance().onChat(chat, none);
+		mLastName = name;
+		mLastSet = set;
 	}
 
 	// why do we have no LLScrollListCtrl::getItemByUserdata() ? -Zi

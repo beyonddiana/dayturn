@@ -73,6 +73,7 @@ class FloaterAO
 		void onClickRemove();
 		void onClickActivate();
 		void onCheckDefault();
+		void onCheckChat();
 		void onCheckOverrideSits();
 		void onCheckOverrideSitsSmall();
 		void onCheckSmart();
@@ -89,7 +90,7 @@ class FloaterAO
 		void onClickMore();
 		void onClickLess();
 
-		void onAnimationChanged(const LLUUID& animation);
+		void onAnimationChanged(const LLUUID& animation, const std::string set, const std::string name);
 
 		void reloading(bool yes);
 
@@ -109,6 +110,8 @@ class FloaterAO
 		AOSet::AOState* mSelectedState;
 
 		LLPanel* mReloadCoverPanel;
+		std::string mLastSet;
+		std::string mLastName;
 
 		// Full interface
 
@@ -119,6 +122,7 @@ class FloaterAO
 		LLButton* mAddButton;
 		LLButton* mRemoveButton;
 		LLCheckBoxCtrl* mDefaultCheckBox;
+		LLCheckBoxCtrl* mChatCheckBox;
 		LLCheckBoxCtrl* mOverrideSitsCheckBox;
 		LLCheckBoxCtrl* mSmartCheckBox;
 		LLCheckBoxCtrl* mDisableMouselookCheckBox;
