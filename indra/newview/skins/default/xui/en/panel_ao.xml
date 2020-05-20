@@ -62,6 +62,16 @@
 			follows="left|top"
 			layout="topleft" />
 
+		<check_box
+			name="ao_chat"
+			label="Chat"
+			tool_tip="Give a chat notification for each animation started"
+			left_pad="50"
+			width="20"
+			height="20"
+			follows="left|top"
+			layout="topleft" />
+
 		<button
 			name="ao_add"
 			tool_tip="Create a new animation set."

@@ -403,12 +403,12 @@ void AOEngine::enable(bool yes)
 				LL_WARNS("AOEngine") << "Unhandled last motion id " << mLastMotion << LL_ENDL;
 
 			gAgent.sendAnimationRequest(animation,ANIM_REQUEST_START);
-			mAnimationChangedSignal(state->mAnimations[state->mCurrentAnimation].mInventoryUUID);
+			mAnimationChangedSignal(state->mAnimations[state->mCurrentAnimation].mInventoryUUID, state->mName, state->mAnimations[state->mCurrentAnimation].mName);
 		}
 	}
 	else
 	{
-		mAnimationChangedSignal(LLUUID::null);
+		mAnimationChangedSignal(LLUUID::null, "", "");
 
         if (mLastOverriddenMotion == ANIM_AGENT_SIT)
         {
@@ -515,7 +515,7 @@ const LLUUID AOEngine::override(const LLUUID& pMotion,bool start)
 		return animation;
 	}
 
-	mAnimationChangedSignal(LLUUID::null);
+	mAnimationChangedSignal(LLUUID::null, "", "");
 
     // clean up stray animations as an additional safety measure
     // unless current motion is ANIM_AGENT_TYPE, which is a special
@@ -628,21 +628,21 @@ const LLUUID AOEngine::override(const LLUUID& pMotion,bool start)
 			gAgentAvatarp->LLCharacter::stopMotion(state->mCurrentAnimationID);
 		}
 
-		state->mCurrentAnimationID=animation;
+		state->mCurrentAnimationID = animation;
 		LL_DEBUGS("AOEngine")	<< "overriding " <<  gAnimLibrary.animationName(motion)
 					<< " with " << animation
 					<< " in state " << state->mName
 					<< " of set " << mCurrentSet->getName()
 					<< " (" << mCurrentSet << ")" << LL_ENDL;
 
-		if(animation.notNull())
+		if (animation.notNull())
 		{
-			mAnimationChangedSignal(state->mAnimations[state->mCurrentAnimation].mInventoryUUID);
+			mAnimationChangedSignal(state->mAnimations[state->mCurrentAnimation].mInventoryUUID, state->mName, state->mAnimations[state->mCurrentAnimation].mName);
 		}
 
 		setStateCycleTimer(state);
 
-		if(motion==ANIM_AGENT_SIT)
+		if (motion==ANIM_AGENT_SIT)
 		{
 			// Use ANIM_AGENT_SIT_GENERIC, so we don't create an overrider loop with ANIM_AGENT_SIT
 			// while still having a base sitting pose to cover up cycle points
@@ -651,7 +651,7 @@ const LLUUID AOEngine::override(const LLUUID& pMotion,bool start)
 				mSitCancelTimer.oneShot();
 		}
 		// special treatment for "transient animations" because the viewer needs the Linden animation to know the agent's state
-		else if(motion==ANIM_AGENT_SIT_GROUND ||
+		else if (motion==ANIM_AGENT_SIT_GROUND ||
 				motion==ANIM_AGENT_PRE_JUMP ||
 				motion==ANIM_AGENT_STANDUP ||
 				motion==ANIM_AGENT_LAND ||
@@ -681,7 +681,7 @@ const LLUUID AOEngine::override(const LLUUID& pMotion,bool start)
 		state->mCurrentAnimationID.setNull();
 		
 		// for typing animaiton, just return the stored animation, reset the state timer, and don't memorize anything else
-		if(motion==ANIM_AGENT_TYPE)
+		if (motion==ANIM_AGENT_TYPE)
 		{
 			AOSet::AOState* previousState=mCurrentSet->getStateByRemapID(mLastMotion);
 			if(previousState)
@@ -689,7 +689,7 @@ const LLUUID AOEngine::override(const LLUUID& pMotion,bool start)
 			return animation;
 		}
 
-		if(motion!=mCurrentSet->getMotion())
+		if (motion!=mCurrentSet->getMotion())
 		{
 			LL_WARNS("AOEngine") << "trying to stop-override motion " <<  gAnimLibrary.animationName(motion)
 					<< " but the current set has motion " <<  gAnimLibrary.animationName(mCurrentSet->getMotion()) << LL_ENDL;
@@ -699,7 +699,7 @@ const LLUUID AOEngine::override(const LLUUID& pMotion,bool start)
 		mCurrentSet->setMotion(LLUUID::null);
 
 		// again, special treatment for "transient" animations to make sure our own animation gets stopped properly
-		if(	motion==ANIM_AGENT_SIT_GROUND ||
+		if (motion==ANIM_AGENT_SIT_GROUND ||
 			motion==ANIM_AGENT_PRE_JUMP ||
 			motion==ANIM_AGENT_STANDUP ||
 			motion==ANIM_AGENT_LAND ||
@@ -831,14 +831,14 @@ void AOEngine::cycle(eCycleMode cycleMode)
 	if(animation==oldAnimation)
 		return;
 		
-	mAnimationChangedSignal(LLUUID::null);
+	mAnimationChangedSignal(LLUUID::null, "", "");
 
 	state->mCurrentAnimationID=animation;
 	if(animation.notNull())
 	{
         LL_DEBUGS("AOEngine") << "requesting animation start for motion " << gAnimLibrary.animationName(mLastMotion) << ": " << animation << LL_ENDL;
 		gAgent.sendAnimationRequest(animation,ANIM_REQUEST_START);
-		mAnimationChangedSignal(state->mAnimations[state->mCurrentAnimation].mInventoryUUID);
+		mAnimationChangedSignal(state->mAnimations[state->mCurrentAnimation].mInventoryUUID, state->mName, state->mAnimations[state->mCurrentAnimation].mName);
 	}
 	else
     {

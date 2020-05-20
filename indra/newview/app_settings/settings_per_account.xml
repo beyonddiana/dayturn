@@ -123,6 +123,17 @@
                 <integer>0</integer>
             </array>
         </map>
+    <key>AOChatNotifications</key>
+        <map>
+        <key>Comment</key>
+            <string>Report type+name of animations to chat when started by AO</string>
+        <key>Persist</key>
+            <integer>1</integer>
+        <key>Type</key>
+            <string>Boolean</string>
+        <key>Value</key>
+            <integer>0</integer>
+        </map>
 
 <!--LL settings-->
     <key>DoNotDisturbResponseChanged</key>

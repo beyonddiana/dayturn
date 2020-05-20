@@ -156,7 +156,7 @@ class AOEngine
 			return mUpdatedSignal.connect(cb);
 		};
 
-		typedef boost::signals2::signal<void (const LLUUID&)> animation_changed_signal_t;
+		typedef boost::signals2::signal<void (const LLUUID&, const std::string, const std::string)> animation_changed_signal_t;
 		boost::signals2::connection setAnimationChangedCallback(const animation_changed_signal_t::slot_type& cb)
 		{
 			return mAnimationChangedSignal.connect(cb);
