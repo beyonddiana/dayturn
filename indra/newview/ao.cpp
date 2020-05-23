@@ -182,10 +182,14 @@ void FloaterAO::updateList()
 		}
 	}
 	enableSetControls(true);
-	if (mSetSelector->getSelectedItemLabel().empty())
-	{
-		onClickReload();
-	}
+	// not only does this addition causes crashes due to onClickReload not expecting to be called from a timer
+	// it also can lead to a recursive crash since onClickReload calls this routine again so it's a matter of
+	// pure luck how quickly things load and the chance of recursion goes away. It's time to do the login refresh
+	// a different way
+	//if (mSetSelector->getSelectedItemLabel().empty())
+	//{
+	//	onClickReload();
+	//}
 }
 
 bool FloaterAO::postBuild()
@@ -470,9 +474,8 @@ void FloaterAO::onClickReload()
 	mSelectedSet=0;
 	mSelectedState=0;
 
-	AOEngine::instance().reload(AOEngine::instance().mReloadCalledFromTimer);
+	AOEngine::instance().reload(false);
 	updateList();
-	AOEngine::instance().mReloadCalledFromTimer = false;
 }
 
 void FloaterAO::onClickAdd()
@@ -759,6 +762,16 @@ void FloaterAO::onClickLess()
 void FloaterAO::onAnimationChanged(const LLUUID& animation, const std::string state, const std::string name)
 {
 	LL_DEBUGS("AOEngine") << "Received animation change to " << animation << LL_ENDL;
+
+	// This is the relocated fix to make sure the UI is populated if login happens with the full size
+	// panel selected - the original of this (calling onClickReload from updateList() ) caused problems
+	// with recursive crashes (because onClickReload calls back to updateList) and instance tracker
+	// exits because onClickReload was getting called from timer and didn't expect to be (since it calls
+	// clear(false) to assert it's not in a timer but it actually was)
+	if (mSetSelector->getSelectedItemLabel().empty())
+	{
+		updateList();
+	}
 
 	if(mCurrentBoldItem)
 	{
