@@ -1393,7 +1393,6 @@ void AOEngine::update(bool aFromTimer)
 		mTimerCollection.enableInventoryTimer(false);
 		mTimerCollection.enableSettingsTimer(true);
 
-		mReloadCalledFromTimer = aFromTimer;
 		LL_INFOS("AOEngine") << "sending update signal" << LL_ENDL;
 		mUpdatedSignal();
 		enable(mEnabled);

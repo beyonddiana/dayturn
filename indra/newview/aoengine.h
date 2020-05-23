@@ -97,8 +97,6 @@ class AOEngine
 			CycleNext,
 			CyclePrevious
 		};
-		bool mReloadCalledFromTimer;
-
 		void enable(bool yes);
 		void enable_stands(bool yes);
 		const LLUUID override(const LLUUID& motion,bool start);
