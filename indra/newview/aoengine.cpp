@@ -811,25 +811,35 @@ void AOEngine::cycle(eCycleMode cycleMode)
 	}
 	else
 	{
-		if(cycleMode==CyclePrevious)
+		if (cycleMode == CyclePrevious)
 		{
-			if(state->mCurrentAnimation==0)
-				state->mCurrentAnimation=state->mAnimations.size()-1;
+			if (state->mCurrentAnimation == 0)
+			{
+				state->mCurrentAnimation = state->mAnimations.size()-1;
+			}
 			else
+			{
 				state->mCurrentAnimation--;
+			}
 		}
-		else if(cycleMode==CycleNext)
+		else if (cycleMode == CycleNext)
 		{
 			state->mCurrentAnimation++;
-			if(state->mCurrentAnimation==state->mAnimations.size())
-				state->mCurrentAnimation=0;
+			// if some anims have just been deleted, this can be beyond the end of the list
+			// so make this check >= instead of == to catch it and avoid a crash
+			if (state->mCurrentAnimation >= state->mAnimations.size())
+            {
+				state->mCurrentAnimation = 0;
+			}
 		}
 		animation=state->mAnimations[state->mCurrentAnimation].mAssetUUID;
 	}
 
 	// don't do anything if the animation didn't change
-	if(animation==oldAnimation)
+	if (animation == oldAnimation)
+	{
 		return;
+	}
 		
 	mAnimationChangedSignal(LLUUID::null, "", "");
 
@@ -1141,20 +1151,24 @@ bool AOEngine::removeAnimation(const AOSet* set,AOSet::AOState* state,S32 index)
 		}
 	}
 	else
+	{
 		updateSortOrder(state);
+	}
 
+	// we need the UI to resync since we deleted something
+	mTimerCollection.enableReloadTimer(true);
 	return true;
 }
 
 bool AOEngine::swapWithPrevious(AOSet::AOState* state,S32 index)
 {
 	S32 numOfAnimations=state->mAnimations.size();
-	if(numOfAnimations<2 || index==0)
+	if(numOfAnimations<2 || index == 0)
 		return false;
 
 	AOSet::AOAnimation tmpAnim=state->mAnimations[index];
-	state->mAnimations.erase(state->mAnimations.begin()+index);
-	state->mAnimations.insert(state->mAnimations.begin()+index-1,tmpAnim);
+	state->mAnimations.erase(state->mAnimations.begin() + index);
+	state->mAnimations.insert(state->mAnimations.begin() + index-1,tmpAnim);
 
 	updateSortOrder(state);
 
@@ -1163,13 +1177,15 @@ bool AOEngine::swapWithPrevious(AOSet::AOState* state,S32 index)
 
 bool AOEngine::swapWithNext(AOSet::AOState* state,S32 index)
 {
-	S32 numOfAnimations=state->mAnimations.size();
-	if(numOfAnimations<2 || index==(numOfAnimations-1))
+	S32 numOfAnimations = state->mAnimations.size();
+	if(numOfAnimations<2 || index == (numOfAnimations-1))
+	{
 		return false;
+	}
 
-	AOSet::AOAnimation tmpAnim=state->mAnimations[index];
-	state->mAnimations.erase(state->mAnimations.begin()+index);
-	state->mAnimations.insert(state->mAnimations.begin()+index+1,tmpAnim);
+	AOSet::AOAnimation tmpAnim = state->mAnimations[index];
+	state->mAnimations.erase(state->mAnimations.begin() + index);
+	state->mAnimations.insert(state->mAnimations.begin() + index+1,tmpAnim);
 
 	updateSortOrder(state);
 
