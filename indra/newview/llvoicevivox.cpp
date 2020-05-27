@@ -944,6 +944,21 @@ void LLVivoxVoiceClient::stateMachine()
 						LLProcess::Params params;
 						params.executable = exe_path;
 
+                        // VOICE-88: Cycle through [portbase..portbase+portrange) on
+                        // successive tries because attempting to relaunch (after manually
+                        // disabling and then re-enabling voice) with the same port can
+                        // cause SLVoice's bind() call to fail with EADDRINUSE. We expect
+                        // that eventually the OS will time out previous ports, which is
+                        // why we cycle instead of incrementing indefinitely.
+                        U32 portbase = gSavedSettings.getU32("VivoxVoicePort");
+                        static U32 portoffset = 0;
+                        static const U32 portrange = 100;
+                        std::string host(gSavedSettings.getString("VivoxVoiceHost"));
+                        U32 port = portbase + portoffset;
+                        portoffset = (portoffset + 1) % portrange;
+                        params.args.add("-i");
+                        params.args.add(STRINGIZE(host << ':' << port));
+
 						std::string loglevel = gSavedSettings.getString("VivoxDebugLevel");
 						if(loglevel.empty())
 						{
