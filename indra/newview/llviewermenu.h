@@ -78,11 +78,7 @@ void handle_detach_from_avatar(const LLSD& user_data);
 void attach_label(std::string& label, const LLSD&);
 void detach_label(std::string& label, const LLSD&);
 void handle_detach(void*);
-// [SL:KB] - Patch: Inventory-AttachmentActions - Checked: 2012-05-05 (Catznip-3.3)
-bool enable_item_edit(const LLUUID& idItem);
-void handle_attachment_touch(const LLUUID& idItem);
-bool enable_attachment_touch(const LLUUID& idItem);
-// [/SL:KB]
+
 bool enable_god_full(void* user_data);
 bool enable_god_liaison(void* user_data);
 bool enable_god_basic(void* user_data);
@@ -112,7 +108,10 @@ void handle_zoom_to_object(LLUUID object_id);
 void handle_object_return();
 void handle_object_delete();
 void handle_object_edit();
+
 void handle_attachment_edit(const LLUUID& inv_item_id);
+void handle_attachment_touch(const LLUUID& inv_item_id);
+bool enable_attachment_touch(const LLUUID& inv_item_id);
 
 void handle_buy_land();
 
