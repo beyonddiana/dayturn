@@ -1209,13 +1209,7 @@ void LLAgentWearables::removeWearable(const LLWearableType::EType type, bool do_
 		}
 	}
 //mk
-	if (gAgent.isTeen() &&
-		(type == LLWearableType::WT_UNDERSHIRT || type == LLWearableType::WT_UNDERPANTS))
-	{
-		// Can't take off underclothing in simple UI mode or on PG accounts
-		// TODO: enable the removing of a single undershirt/underpants if multiple are worn. - Nyx
-		return;
-	}
+
 	if (getWearableCount(type) == 0)
 	{
 		// no wearables to remove
