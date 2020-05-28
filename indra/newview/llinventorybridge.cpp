@@ -6483,71 +6483,6 @@ LLInventoryObject* LLObjectBridge::getObject() const
 	return object;
 }
 
-// <FS:Ansariel> Touch worn objects
-bool is_attachment_touchable(const LLUUID& idItem)
-{
-	const LLInventoryItem* pItem = gInventory.getItem(idItem);
-	if ( (!isAgentAvatarValid()) || (!pItem) )
-		return false;
-
-	LLViewerObject* pAttachObj = gAgentAvatarp->getWornAttachment(pItem->getLinkedUUID());
-	if (!pAttachObj)
-		return false;
-
-	return pAttachObj->flagHandleTouch();
-}
-
-void handle_attachment_touch(const LLUUID& idItem)
-{
-	const LLInventoryItem* pItem = gInventory.getItem(idItem);
-	if ( (!isAgentAvatarValid()) || (!pItem) )
-		return;
-
-	LLViewerObject* pAttachObj = gAgentAvatarp->getWornAttachment(pItem->getLinkedUUID());
-	if (!pAttachObj)
-		return;
-	LLPickInfo pick = LLToolPie::getInstance()->getPick();
-
-	if (gRRenabled && !gAgent.mRRInterface.canTouch (pAttachObj, pick.mIntersection))
-	{
-		LLNotificationsUtil::add("RLVTouchRestricted");
-		return;
-	}
-	LLMessageSystem	*msg = gMessageSystem;
-
-	msg->newMessageFast(_PREHASH_ObjectGrab);
-	msg->nextBlockFast( _PREHASH_AgentData);
-	msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
-	msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
-	msg->nextBlockFast( _PREHASH_ObjectData);
-	msg->addU32Fast(    _PREHASH_LocalID, pAttachObj->mLocalID);
-	msg->addVector3Fast(_PREHASH_GrabOffset, LLVector3::zero);
-	msg->nextBlock("SurfaceInfo");
-	msg->addVector3("UVCoord", LLVector3::zero);
-	msg->addVector3("STCoord", LLVector3::zero);
-	msg->addS32Fast(_PREHASH_FaceIndex, 0);
-	msg->addVector3("Position", pAttachObj->getPosition());
-	msg->addVector3("Normal", LLVector3::zero);
-	msg->addVector3("Binormal", LLVector3::zero);
-	msg->sendMessage( pAttachObj->getRegion()->getHost());
-
-	msg->newMessageFast(_PREHASH_ObjectDeGrab);
-	msg->nextBlockFast(_PREHASH_AgentData);
-	msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
-	msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
-	msg->nextBlockFast(_PREHASH_ObjectData);
-	msg->addU32Fast(_PREHASH_LocalID, pAttachObj->mLocalID);
-	msg->nextBlock("SurfaceInfo");
-	msg->addVector3("UVCoord", LLVector3::zero);
-	msg->addVector3("STCoord", LLVector3::zero);
-	msg->addS32Fast(_PREHASH_FaceIndex, 0);
-	msg->addVector3("Position", pAttachObj->getPosition());
-	msg->addVector3("Normal", LLVector3::zero);
-	msg->addVector3("Binormal", LLVector3::zero);
-	msg->sendMessage(pAttachObj->getRegion()->getHost());
-}
-// </FS:Ansariel>
-
 // virtual
 void LLObjectBridge::performAction(LLInventoryModel* model, std::string action)
 {
@@ -6628,7 +6563,10 @@ void LLObjectBridge::performAction(LLInventoryModel* model, std::string action)
 			gFocusMgr.setKeyboardFocus(NULL);
 		}
 	}
-	// [SL:KB] - Patch: Inventory-AttachmentActions - Checked: 2012-05-05 (Catznip-3.3)
+	else if ("wear_add" == action)
+	{
+		LLAppearanceMgr::instance().wearItemOnAvatar(mUUID, true, false); // Don't replace if adding.
+	}
 	else if ("touch" == action)
 	{
 		handle_attachment_touch(mUUID);
@@ -6637,17 +6575,6 @@ void LLObjectBridge::performAction(LLInventoryModel* model, std::string action)
 	{
 		handle_attachment_edit(mUUID);
 	}
-	else if ("wear_add" == action)
-	{
-		LLAppearanceMgr::instance().wearItemOnAvatar(mUUID, true, false); // Don't replace if adding.
-	}
-	// <FS:Ansariel> Touch worn objects
-// [/SL:KB]
-	else if ("touch" == action)
-	{
-		handle_attachment_touch(mUUID);
-	}
-	// </FS:Ansariel>
 	else if (isRemoveAction(action))
 	{
 //MK
@@ -6835,20 +6762,16 @@ void LLObjectBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 
 			if( get_is_item_worn( mUUID ) )
 			{
-// [SL:KB] - Patch: Inventory-AttachmentActions - Checked: 2012-05-05 (Catznip-3.3)
-				items.push_back(std::string("Attachment Touch"));
-				if ( ((flags & FIRST_SELECTED_ITEM) == 0) || (!enable_attachment_touch(mUUID)) )
-					disabled_items.push_back(std::string("Attachment Touch"));
-				// <FS:Ansariel> Touch worn objects
-				if (is_attachment_touchable(mUUID))
-				{
-					items.push_back(std::string("Touch Attachment"));
-				}
-// [/SL:KB]
 				items.push_back(std::string("Wearable And Object Separator"));
 
-				items.push_back(std::string("Wearable Edit"));			
-				if ( ((flags & FIRST_SELECTED_ITEM) == 0) || (!enable_item_edit(mUUID)) )
+				items.push_back(std::string("Attachment Touch"));
+				if ( ((flags & FIRST_SELECTED_ITEM) == 0) || !enable_attachment_touch(mUUID) )
+				{
+					disabled_items.push_back(std::string("Attachment Touch"));
+				}
+
+				items.push_back(std::string("Wearable Edit"));
+				if ( ((flags & FIRST_SELECTED_ITEM) == 0) || !get_is_item_editable(mUUID) )
 				{
 					disabled_items.push_back(std::string("Wearable Edit"));
 				}
@@ -6882,10 +6805,6 @@ void LLObjectBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 				items.push_back(std::string("Wearable Add"));
 				items.push_back(std::string("Attach To"));
 				items.push_back(std::string("Attach To HUD"));
-				items.push_back(std::string("Restore to Last Position"));
-//MK from Kokua
-				items.push_back(std::string("Restore to Last Position"));
-//mk from Kokua
 
 //MK
 				if (gRRenabled && gAgent.mRRInterface.mContainsRez)
