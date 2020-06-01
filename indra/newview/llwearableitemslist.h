@@ -416,6 +416,8 @@ public:
 	public:
 		/*virtual*/ void show(LLView* spawning_view, const uuid_vec_t& uuids, S32 x, S32 y);
 
+		void show(LLView* spawning_view, LLWearableType::EType w_type, S32 x, S32 y);
+
 	protected:
 		enum {
 			MASK_CLOTHING		= 0x01,
@@ -432,6 +434,7 @@ public:
 		static void setMenuItemEnabled(LLContextMenu* menu, const std::string& name, bool val);
 		static void updateMask(U32& mask, LLAssetType::EType at);
 		static void createNewWearable(const LLUUID& item_id);
+		static void createNewWearableByType(LLWearableType::EType type);
 
 		LLWearableItemsList*	mParent;
 	};
@@ -470,6 +473,8 @@ public:
 
 	void setSortOrder(ESortOrder sort_order, bool sort_now = true);
 
+	void setMenuWearableType(LLWearableType::EType type) { mMenuWearableType = type; }
+
 protected:
 	friend class LLUICtrlFactory;
 	LLWearableItemsList(const LLWearableItemsList::Params& p);
@@ -480,6 +485,8 @@ protected:
 	bool mWornIndicationEnabled;
 
 	ESortOrder		mSortOrder;
+
+	LLWearableType::EType mMenuWearableType;
 };
 
 #endif //LL_LLWEARABLEITEMSLIST_H
