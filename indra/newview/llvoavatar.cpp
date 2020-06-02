@@ -6010,6 +6010,7 @@ BOOL LLVOAvatar::startMotion(const LLUUID& id, F32 time_offset)
 		if(remap_id.isNull())
 			remap_id=remapMotionID(id);
 		else
+		{
 			gAgent.sendAnimationRequest(remap_id,ANIM_REQUEST_START);
 
 			// since we did an override, there is no need to do anything else,
@@ -6051,6 +6052,7 @@ BOOL LLVOAvatar::stopMotion(const LLUUID& id, BOOL stop_immediate)
 		if(remap_id.isNull())
 			remap_id=remapMotionID(id);
 		else
+		{
 			gAgent.sendAnimationRequest(remap_id,ANIM_REQUEST_STOP);
 
 			// since we did an override, there is no need to do anything else,
