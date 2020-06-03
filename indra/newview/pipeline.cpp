@@ -11385,7 +11385,9 @@ void LLPipeline::generateImpostor(LLVOAvatar* avatar)
 	
 	if (visually_muted)
 	{
-		andRenderTypeMask(LLPipeline::RENDER_TYPE_AVATAR, END_RENDER_TYPES);
+		andRenderTypeMask(LLPipeline::RENDER_TYPE_AVATAR,
+							LLPipeline::RENDER_TYPE_CONTROL_AV,
+							END_RENDER_TYPES);
 	}
 	else
 	{
