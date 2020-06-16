@@ -923,14 +923,14 @@ void LLAgent::setRegion(LLViewerRegion *regionp)
 				gSky.mVOGroundp->setRegion(regionp);
 			}
 
-//             if (regionp->capabilitiesReceived())  // SL-9671 to be fixed
-//             {
-//                 regionp->requestSimulatorFeatures();
-//             }
-//             else
-//             {
-//                 regionp->setCapabilitiesReceivedCallback(boost::bind(&LLViewerRegion::requestSimulatorFeatures, regionp));
-//             }
+             if (regionp->capabilitiesReceived())  // SL-9671 to be fixed
+             {
+                 regionp->requestSimulatorFeatures();
+             }
+             else
+             {
+                 regionp->setCapabilitiesReceivedCallback(boost::bind(&LLViewerRegion::requestSimulatorFeatures, regionp));
+             }
 
 		}
 		else
