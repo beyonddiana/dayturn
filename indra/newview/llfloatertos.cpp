@@ -107,7 +107,7 @@ namespace {
 	LLPointer< LLIamHere > gResponsePtr = 0;
 };
 
-BOOL LLFloaterTOS::postBuild()
+bool LLFloaterTOS::postBuild()
 {	
 	childSetAction("Continue", onContinue, this);
 	childSetAction("Cancel", onCancel, this);

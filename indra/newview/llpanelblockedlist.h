@@ -40,7 +40,7 @@ public:
 	LLPanelBlockedList();
 	~LLPanelBlockedList(){};
 
-	virtual BOOL postBuild();
+	virtual bool postBuild();
 	virtual void draw();
 	virtual void onOpen(const LLSD& key);
 	
@@ -92,7 +92,7 @@ class LLFloaterGetBlockedObjectName : public LLFloater
 public:
 	typedef boost::function<void (const std::string&)> get_object_name_callback_t;
 
-	virtual BOOL postBuild();
+	virtual bool postBuild();
 
 	virtual BOOL handleKeyHere(KEY key, MASK mask);
 

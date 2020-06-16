@@ -43,7 +43,7 @@ class LLChicletBar
     
 public:
 
-	BOOL postBuild();
+	bool postBuild();
 
 	LLChicletPanel*	getChicletPanel() { return mChicletPanel; }
 

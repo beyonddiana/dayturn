@@ -200,7 +200,7 @@ LLFloaterRegionInfo::LLFloaterRegionInfo(const LLSD& seed)
 	: LLFloater(seed)
 {}
 
-BOOL LLFloaterRegionInfo::postBuild()
+bool LLFloaterRegionInfo::postBuild()
 {
 	mTab = getChild<LLTabContainer>("region_panels");
 	mTab->setCommitCallback(boost::bind(&LLFloaterRegionInfo::onTabSelected, this, _2));
@@ -254,7 +254,7 @@ BOOL LLFloaterRegionInfo::postBuild()
 
 	if(gDisconnected)
 	{
-		return TRUE;
+		return true;
 	}
 
 	if(!gAgent.getRegionCapability("RegionExperiences").empty())
@@ -272,7 +272,7 @@ BOOL LLFloaterRegionInfo::postBuild()
 	// Request region info when agent region changes.
 	gAgent.addRegionChangedCallback(boost::bind(&LLFloaterRegionInfo::requestRegionInfo, this));
 
-	return TRUE;
+	return true;
 }
 
 LLFloaterRegionInfo::~LLFloaterRegionInfo()
@@ -689,7 +689,7 @@ void LLPanelRegionInfo::onChangeText(LLLineEditor* caller, void* user_data)
 
 
 // virtual
-BOOL LLPanelRegionInfo::postBuild()
+bool LLPanelRegionInfo::postBuild()
 {
 	// If the panel has an Apply button, set a callback for it.
 	LLUICtrl* apply_btn = findChild<LLUICtrl>("apply_btn");
@@ -699,7 +699,7 @@ BOOL LLPanelRegionInfo::postBuild()
 	}
 
 	refresh();
-	return TRUE;
+	return true;
 }
 
 // virtual 
@@ -791,7 +791,7 @@ bool LLPanelRegionGeneralInfo::refreshFromRegion(LLViewerRegion* region)
 	return LLPanelRegionInfo::refreshFromRegion(region);
 }
 
-BOOL LLPanelRegionGeneralInfo::postBuild()
+bool LLPanelRegionGeneralInfo::postBuild()
 {
 	// Enable the "Apply" button if something is changed. JC
 	initCtrl("block_terraform_check");
@@ -1110,7 +1110,7 @@ bool LLPanelRegionOpenSettingsInfo::refreshFromRegion(LLViewerRegion* region)
 	return LLPanelRegionInfo::refreshFromRegion(region);
 }
 
-BOOL LLPanelRegionOpenSettingsInfo::postBuild()
+bool LLPanelRegionOpenSettingsInfo::postBuild()
 {
 	// Enable the "Apply" button if something is changed. JC
 	initCtrl("draw_distance");
@@ -1196,7 +1196,7 @@ void LLPanelRegionOpenSettingsInfo::onClickOrs(void* userdata)
 /////////////////////////////////////////////////////////////////////////////
 // LLPanelRegionDebugInfo
 /////////////////////////////////////////////////////////////////////////////
-BOOL LLPanelRegionDebugInfo::postBuild()
+bool LLPanelRegionDebugInfo::postBuild()
 {
 	LLPanelRegionInfo::postBuild();
 	initCtrl("disable_scripts_check");
@@ -1211,7 +1211,7 @@ BOOL LLPanelRegionDebugInfo::postBuild()
 	childSetAction("cancel_restart_btn", onClickCancelRestart, this);
 	childSetAction("region_debug_console_btn", onClickDebugConsole, this);
 
-	return TRUE;
+	return true;
 }
 
 // virtual
@@ -1507,7 +1507,7 @@ BOOL LLPanelRegionTerrainInfo::validateTextureHeights()
 /////////////////////////////////////////////////////////////////////////////
 // Initialize statics
 
-BOOL LLPanelRegionTerrainInfo::postBuild()
+bool LLPanelRegionTerrainInfo::postBuild()
 {
 	LLPanelRegionInfo::postBuild();
 	
@@ -2007,7 +2007,7 @@ bool LLPanelEstateInfo::estateUpdate(LLMessageSystem* msg)
 }
 
 
-BOOL LLPanelEstateInfo::postBuild()
+bool LLPanelEstateInfo::postBuild()
 {
 	// set up the callbacks for the generic controls
 	initCtrl("externally_visible_radio");
@@ -2292,7 +2292,7 @@ bool LLPanelEstateCovenant::estateUpdate(LLMessageSystem* msg)
 }
 	
 // virtual 
-BOOL LLPanelEstateCovenant::postBuild()
+bool LLPanelEstateCovenant::postBuild()
 {
 	mEstateNameText = getChild<LLTextBox>("estate_name_text");
 	mEstateOwnerText = getChild<LLTextBox>("estate_owner_text");
@@ -2842,7 +2842,7 @@ LLPanelEnvironmentInfo::LLPanelEnvironmentInfo()
 }
 
 // virtual
-BOOL LLPanelEnvironmentInfo::postBuild()
+bool LLPanelEnvironmentInfo::postBuild()
 {
 	mRegionSettingsRadioGroup = getChild<LLRadioGroup>("region_settings_radio_group");
 	mRegionSettingsRadioGroup->setCommitCallback(boost::bind(&LLPanelEnvironmentInfo::onSwitchRegionSettings, this));
@@ -2871,7 +2871,7 @@ BOOL LLPanelEnvironmentInfo::postBuild()
 	LLWLParamManager::instance().setPresetListChangeCallback(boost::bind(&LLPanelEnvironmentInfo::populateSkyPresetsList, this));
 	LLWaterParamManager::instance().setPresetListChangeCallback(boost::bind(&LLPanelEnvironmentInfo::populateWaterPresetsList, this));
 
-	return TRUE;
+	return true;
 }
 
 // virtual
@@ -3428,7 +3428,7 @@ void LLPanelEnvironmentInfo::onRegionSettingsApplied(bool ok)
 	}
 }
 
-BOOL LLPanelRegionExperiences::postBuild()
+bool LLPanelRegionExperiences::postBuild()
 {
 	mAllowed = setupList("panel_allowed", ESTATE_EXPERIENCE_ALLOWED_ADD, ESTATE_EXPERIENCE_ALLOWED_REMOVE);
 	mTrusted = setupList("panel_trusted", ESTATE_EXPERIENCE_TRUSTED_ADD, ESTATE_EXPERIENCE_TRUSTED_REMOVE);
@@ -3713,7 +3713,7 @@ void LLPanelRegionExperiences::itemChanged( U32 event_type, const LLUUID& id )
 
 
 
-BOOL LLPanelEstateAccess::postBuild()
+bool LLPanelEstateAccess::postBuild()
 {
 	getChild<LLUICtrl>("allowed_avatar_name_list")->setCommitCallback(boost::bind(&LLPanelEstateInfo::onChangeChildCtrl, this, _1));
 	LLNameListCtrl *avatar_name_list = getChild<LLNameListCtrl>("allowed_avatar_name_list");

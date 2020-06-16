@@ -120,7 +120,7 @@ public:
 
     /*virtual*/ void setAvatarId(const LLUUID& id);
 
-    /*virtual*/ BOOL postBuild();
+    /*virtual*/ bool postBuild();
 
     /*virtual*/ void processProperties(void* data, EAvatarProcessorType type);
 
@@ -240,7 +240,7 @@ public:
 
     /*virtual*/ void onOpen(const LLSD& key);
 
-    /*virtual*/ BOOL postBuild();
+    /*virtual*/ bool postBuild();
 
     /*virtual*/ void processProperties(void* data, EAvatarProcessorType type);
 
@@ -285,7 +285,7 @@ public:
 
     /*virtual*/ void onOpen(const LLSD& key);
 
-    /*virtual*/ BOOL postBuild();
+    /*virtual*/ bool postBuild();
 
     /*virtual*/ void processProperties(void* data, EAvatarProcessorType type);
 
@@ -318,7 +318,7 @@ public:
 
     /*virtual*/ ~FSPanelPick();
 
-    /*virtual*/ BOOL postBuild();
+    /*virtual*/ bool postBuild();
 
     void setAvatarId(const LLUUID& avatar_id);
 
@@ -445,7 +445,7 @@ public:
     FSPanelProfilePicks();
     /*virtual*/ ~FSPanelProfilePicks();
 
-    /*virtual*/ BOOL postBuild();
+    /*virtual*/ bool postBuild();
 
     /*virtual*/ void onOpen(const LLSD& key);
 
@@ -516,7 +516,7 @@ public:
 
     /*virtual*/ void onOpen(const LLSD& key);
 
-    /*virtual*/ BOOL postBuild();
+    /*virtual*/ bool postBuild();
 
     /*virtual*/ void processProperties(void* data, EAvatarProcessorType type);
 

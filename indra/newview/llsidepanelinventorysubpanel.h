@@ -44,7 +44,7 @@ public:
 	virtual ~LLSidepanelInventorySubpanel();
 
 	/*virtual*/ void setVisible(BOOL visible);
-	virtual BOOL postBuild();
+	virtual bool postBuild();
 	virtual void draw();
 	virtual void reset();
 

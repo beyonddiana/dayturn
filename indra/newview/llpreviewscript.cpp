@@ -179,7 +179,7 @@ public:
 	LLFloaterScriptSearch(LLScriptEdCore* editor_core);
 	~LLFloaterScriptSearch();
 
-	/*virtual*/	BOOL	postBuild();
+	/*virtual*/	bool	postBuild();
 	static void show(LLScriptEdCore* editor_core);
 	static void onBtnSearch(void* userdata);
 	void handleBtnSearch();
@@ -233,7 +233,7 @@ LLFloaterScriptSearch::LLFloaterScriptSearch(LLScriptEdCore* editor_core)
 	}
 }
 
-BOOL LLFloaterScriptSearch::postBuild()
+bool LLFloaterScriptSearch::postBuild()
 {
 	mReplaceBox = getChild<LLLineEditor>("replace_text");
 	mSearchBox = getChild<LLLineEditor>("search_text");
@@ -245,7 +245,7 @@ BOOL LLFloaterScriptSearch::postBuild()
 
 	setDefaultBtn("search_btn");
 
-	return TRUE;
+	return true;
 }
 
 //static 
@@ -464,7 +464,7 @@ void LLLiveLSLEditor::onToggleExperience( LLUICtrl *ui, void* userdata )
 	self->updateExperiencePanel();
 }
 
-BOOL LLScriptEdCore::postBuild()
+bool LLScriptEdCore::postBuild()
 {
 //MK
 	if (gRRenabled && gAgent.mRRInterface.contains("viewnote"))
@@ -493,10 +493,11 @@ BOOL LLScriptEdCore::postBuild()
 	// Intialise keyword highlighting for the current simulator's version of LSL
 	LLSyntaxIdLSL::getInstance()->initialize();
 	processKeywords();
-			
-	return TRUE;
-			}
-			
+
+	return true;
+}
+
+>>>>>>> cebd2809d8... DAYTW-32 Covert BOOL postBuild to bool
 void LLScriptEdCore::processKeywords()
 {
 	LL_DEBUGS("SyntaxLSL") << "Processing keywords" << LL_ENDL;
@@ -1518,7 +1519,7 @@ LLPreviewLSL::LLPreviewLSL(const LLSD& key )
 }
 
 // virtual
-BOOL LLPreviewLSL::postBuild()
+bool LLPreviewLSL::postBuild()
 {
 //MK
 	if (gRRenabled && gAgent.mRRInterface.contains("viewnote"))
@@ -1919,7 +1920,7 @@ LLLiveLSLEditor::LLLiveLSLEditor(const LLSD& key) :
 	mFactoryMap["script ed panel"] = LLCallbackMap(LLLiveLSLEditor::createScriptEdPanel, this);
 }
 
-BOOL LLLiveLSLEditor::postBuild()
+bool LLLiveLSLEditor::postBuild()
 {
 //MK
 	if (gRRenabled && gAgent.mRRInterface.contains("viewnote"))

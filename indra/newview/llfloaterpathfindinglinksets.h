@@ -54,7 +54,7 @@ protected:
 	LLFloaterPathfindingLinksets(const LLSD& pSeed);
 	virtual ~LLFloaterPathfindingLinksets();
 
-	virtual BOOL                       postBuild();
+	virtual bool                       postBuild();
 
 	virtual void                       requestGetObjects();
 

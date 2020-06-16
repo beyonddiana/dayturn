@@ -110,7 +110,7 @@ LLFloaterPathfindingLinksets::~LLFloaterPathfindingLinksets()
 {
 }
 
-BOOL LLFloaterPathfindingLinksets::postBuild()
+bool LLFloaterPathfindingLinksets::postBuild()
 {
 	mBeaconColor = LLUIColorTable::getInstance()->getColor("PathfindingLinksetBeaconColor");
 

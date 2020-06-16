@@ -88,7 +88,7 @@ LLSidepanelTaskInfo::~LLSidepanelTaskInfo()
 }
 
 // virtual
-BOOL LLSidepanelTaskInfo::postBuild()
+bool LLSidepanelTaskInfo::postBuild()
 {
 	LLSidepanelInventorySubpanel::postBuild();
 

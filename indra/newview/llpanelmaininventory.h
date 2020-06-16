@@ -62,7 +62,7 @@ public:
 	LLPanelMainInventory(const LLPanel::Params& p = getDefaultParams());
 	~LLPanelMainInventory();
 
-	BOOL postBuild();
+	bool postBuild();
 
 	virtual BOOL handleKeyHere(KEY key, MASK mask);
 

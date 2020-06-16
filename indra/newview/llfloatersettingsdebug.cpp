@@ -51,7 +51,7 @@ LLFloaterSettingsDebug::LLFloaterSettingsDebug(const LLSD& key)
 LLFloaterSettingsDebug::~LLFloaterSettingsDebug()
 {}
 
-BOOL LLFloaterSettingsDebug::postBuild()
+bool LLFloaterSettingsDebug::postBuild()
 {
 	LLComboBox* settings_combo = getChild<LLComboBox>("settings_combo");
 
@@ -81,7 +81,7 @@ BOOL LLFloaterSettingsDebug::postBuild()
 	settings_combo->sortByName();
 	settings_combo->updateSelection();
 	mComment = getChild<LLTextEditor>("comment_text");
-	return TRUE;
+	return true;
 }
 
 void LLFloaterSettingsDebug::draw()

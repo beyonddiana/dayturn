@@ -37,7 +37,7 @@ public:
 	LLFloaterConversationLog(const LLSD& key);
 	virtual ~LLFloaterConversationLog(){};
 
-	virtual BOOL postBuild();
+	virtual bool postBuild();
 
 	virtual void draw();
 

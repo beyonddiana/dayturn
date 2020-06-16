@@ -47,7 +47,7 @@ class LLFloaterEditDayCycle : public LLFloater
 public:
 	LLFloaterEditDayCycle(const LLSD &key);
 
-	/*virtual*/	BOOL	postBuild();
+	/*virtual*/	bool	postBuild();
 	/*virtual*/ void	onOpen(const LLSD& key);
 	/*virtual*/ void	onClose(bool app_quitting);
 	/*virtual*/ void	draw();

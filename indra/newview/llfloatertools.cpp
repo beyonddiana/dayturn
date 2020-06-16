@@ -281,7 +281,7 @@ void LLFloaterTools::updateToolsPrecision()
 	}
 }
 
-BOOL	LLFloaterTools::postBuild()
+bool	LLFloaterTools::postBuild()
 {	
 	// Hide until tool selected
 	setVisible(FALSE);
@@ -373,7 +373,7 @@ BOOL	LLFloaterTools::postBuild()
 
 	sShowObjectCost = gSavedSettings.getBOOL("ShowObjectRenderingCost");
 	
-	return TRUE;
+	return true;
 }
 
 // Create the popupview with a dummy center.  It will be moved into place

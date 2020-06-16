@@ -278,7 +278,7 @@ public:
 	/*virtual*/ BOOL	handleKeyHere(KEY key, MASK mask);
 
 	// LLFloater overrides
-	/*virtual*/ BOOL    postBuild();
+	/*virtual*/ bool    postBuild();
 	/*virtual*/ void	onClose(bool app_settings);
 
 	// New functions

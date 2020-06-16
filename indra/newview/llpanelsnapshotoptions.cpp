@@ -45,7 +45,7 @@ class LLPanelSnapshotOptions
 public:
 	LLPanelSnapshotOptions();
 	~LLPanelSnapshotOptions();
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	/*virtual*/ void onOpen(const LLSD& key);
 	/*virtual*/ void onEconomyDataChange() { updateUploadCost(); }
 
@@ -76,7 +76,7 @@ LLPanelSnapshotOptions::~LLPanelSnapshotOptions()
 }
 
 // virtual
-BOOL LLPanelSnapshotOptions::postBuild()
+bool LLPanelSnapshotOptions::postBuild()
 {
 	return LLPanel::postBuild();
 }

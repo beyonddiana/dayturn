@@ -371,7 +371,7 @@ LLGroupListItem::~LLGroupListItem()
 }
 
 //virtual
-BOOL  LLGroupListItem::postBuild()
+bool  LLGroupListItem::postBuild()
 {
 	mGroupIcon = getChild<LLGroupIconCtrl>("group_icon");
 	mGroupNameBox = getChild<LLTextBox>("group_name");
@@ -381,7 +381,7 @@ BOOL  LLGroupListItem::postBuild()
 
 	childSetAction("profile_btn", boost::bind(&LLGroupListItem::onProfileBtnClick, this));
 
-	return TRUE;
+	return true;
 }
 
 //virtual

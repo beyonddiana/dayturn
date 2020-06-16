@@ -47,7 +47,7 @@ LLPreviewAnim::LLPreviewAnim(const LLSD& key)
 }
 
 // virtual
-BOOL LLPreviewAnim::postBuild()
+bool LLPreviewAnim::postBuild()
 {
 	const LLInventoryItem* item = getItem();
 	if(item)

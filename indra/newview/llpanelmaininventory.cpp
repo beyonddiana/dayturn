@@ -87,7 +87,7 @@ class LLFloaterInventoryFinder : public LLFloater
 public:
 	LLFloaterInventoryFinder( LLPanelMainInventory* inventory_view);
 	virtual void draw();
-	/*virtual*/	BOOL	postBuild();
+	/*virtual*/	bool	postBuild();
 	void changeFilter(LLInventoryFilter* filter);
 	void updateElementsFromFilter();
 	BOOL getCheckShowEmpty();
@@ -140,7 +140,7 @@ LLPanelMainInventory::LLPanelMainInventory(const LLPanel::Params& p)
 	mSavedFolderState->setApply(FALSE);
 }
 
-BOOL LLPanelMainInventory::postBuild()
+bool LLPanelMainInventory::postBuild()
 {
 	gInventory.addObserver(this);
 	
@@ -261,7 +261,7 @@ BOOL LLPanelMainInventory::postBuild()
 	// Trigger callback for focus received so we can deselect items in inbox/outbox
 	LLFocusableElement::setFocusReceivedCallback(boost::bind(&LLPanelMainInventory::onFocusReceived, this));
 
-	return TRUE;
+	return true;
 }
 
 // Destroys the object
@@ -868,7 +868,7 @@ LLFloaterInventoryFinder::LLFloaterInventoryFinder(LLPanelMainInventory* invento
 	updateElementsFromFilter();
 }
 
-BOOL LLFloaterInventoryFinder::postBuild()
+bool LLFloaterInventoryFinder::postBuild()
 {
 	const LLRect& viewrect = mPanelMainInventory->getRect();
 	setRect(LLRect(viewrect.mLeft - getRect().getWidth(), viewrect.mTop, viewrect.mLeft, viewrect.mTop - getRect().getHeight()));
@@ -890,7 +890,7 @@ BOOL LLFloaterInventoryFinder::postBuild()
 	childSetAction("Close", onCloseBtn, this);
 
 	updateElementsFromFilter();
-	return TRUE;
+	return true;
 }
 void LLFloaterInventoryFinder::onTimeAgo(LLUICtrl *ctrl, void *user_data)
 {

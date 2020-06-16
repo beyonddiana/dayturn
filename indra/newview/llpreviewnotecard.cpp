@@ -79,7 +79,7 @@ LLPreviewNotecard::~LLPreviewNotecard()
 {
 }
 
-BOOL LLPreviewNotecard::postBuild()
+bool LLPreviewNotecard::postBuild()
 {
 //MK
 	if (gRRenabled && gAgent.mRRInterface.contains("viewnote"))

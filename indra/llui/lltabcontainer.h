@@ -151,7 +151,7 @@ public:
 	/*virtual*/ LLView* findChildView(const std::string& name, BOOL recurse = TRUE) const;
 	/*virtual*/ void initFromParams(const LLPanel::Params& p);
 	/*virtual*/ bool addChild(LLView* view, S32 tab_group = 0);
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 
 	struct TabPanelParams : public LLInitParam::Block<TabPanelParams>
 	{

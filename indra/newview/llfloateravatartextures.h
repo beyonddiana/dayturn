@@ -40,7 +40,7 @@ public:
 	LLFloaterAvatarTextures(const LLSD& id);
 	virtual ~LLFloaterAvatarTextures();
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	/*virtual*/ void draw();
 
 	void refresh();

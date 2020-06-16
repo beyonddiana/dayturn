@@ -1988,14 +1988,14 @@ LLCallDialog::~LLCallDialog()
 	LLUI::removePopup(this);
 }
 
-BOOL LLCallDialog::postBuild()
+bool LLCallDialog::postBuild()
 {
 	if (!LLDockableFloater::postBuild() || !gToolBarView)
-		return FALSE;
+		return false;
 	
 	dockToToolbarButton("speak");
 	
-	return TRUE;
+	return true;
 }
 
 void LLCallDialog::dockToToolbarButton(const std::string& toolbarButtonName)
@@ -2276,9 +2276,9 @@ void LLOutgoingCallDialog::onCancel(void* user_data)
 }
 
 
-BOOL LLOutgoingCallDialog::postBuild()
+bool LLOutgoingCallDialog::postBuild()
 {
-	BOOL success = LLCallDialog::postBuild();
+	bool success = LLCallDialog::postBuild();
 
 	childSetAction("Cancel", onCancel, this);
 
@@ -2317,7 +2317,7 @@ void LLIncomingCallDialog::onLifetimeExpired()
 	}
 }
 
-BOOL LLIncomingCallDialog::postBuild()
+bool LLIncomingCallDialog::postBuild()
 {
 	LLCallDialog::postBuild();
 
@@ -2395,7 +2395,7 @@ BOOL LLIncomingCallDialog::postBuild()
 
 	setCanDrag(FALSE);
 
-	return TRUE;
+	return true;
 }
 
 void LLIncomingCallDialog::setCallerName(const std::string& ui_title,

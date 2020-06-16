@@ -61,7 +61,7 @@ public:
 									 std::string& tooltip_msg);
 
 	// LLPanel
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 
 	// LLFloater
 	/*virtual*/ BOOL canClose();

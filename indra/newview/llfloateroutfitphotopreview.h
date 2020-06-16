@@ -56,7 +56,7 @@ public:
 
 protected:
 	void				init();
-	/* virtual */ BOOL	postBuild();
+	/* virtual */ bool	postBuild();
 	
 private:
 	void				updateImageID(); // set what image is being uploaded.

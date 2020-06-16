@@ -56,7 +56,7 @@ public:
 	LLFloaterIMContainer(const LLSD& seed, const Params& params = getDefaultParams());
 	virtual ~LLFloaterIMContainer();
 	
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	/*virtual*/ void onOpen(const LLSD& key);
 	/*virtual*/ void draw();
 	/*virtual*/ void setMinimized(BOOL b);

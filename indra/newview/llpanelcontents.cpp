@@ -82,7 +82,7 @@ const char* LLPanelContents::PERMS_GROUP_CONTROL_KEY = "perms_group_control";
 const char* LLPanelContents::PERMS_ANYONE_INTERACT_KEY = "perms_anyone_interact";
 const char* LLPanelContents::PERMS_ANYONE_CONTROL_KEY = "perms_anyone_control";
 
-BOOL LLPanelContents::postBuild()
+bool LLPanelContents::postBuild()
 {
 	setMouseOpaque(FALSE);
 
@@ -91,7 +91,7 @@ BOOL LLPanelContents::postBuild()
 	childSetAction("button refresh",&LLPanelContents::onClickRefresh, this);
 	mPanelInventoryObject = getChild<LLPanelObjectInventory>("contents_inventory");
 
-	return TRUE;
+	return true;
 }
 
 LLPanelContents::LLPanelContents()

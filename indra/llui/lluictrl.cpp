@@ -428,7 +428,7 @@ LLViewModel* LLUICtrl::getViewModel() const
 }
 
 //virtual
-BOOL LLUICtrl::postBuild()
+bool LLUICtrl::postBuild()
 {
 	//
 	// Find all of the children that want to be in front and move them to the front

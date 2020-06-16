@@ -178,7 +178,7 @@ LLSidepanelItemInfo::~LLSidepanelItemInfo()
 }
 
 // virtual
-BOOL LLSidepanelItemInfo::postBuild()
+bool LLSidepanelItemInfo::postBuild()
 {
 	LLSidepanelInventorySubpanel::postBuild();
 
@@ -208,7 +208,7 @@ BOOL LLSidepanelItemInfo::postBuild()
 	// "Price" label for edit
 	getChild<LLUICtrl>("Edit Cost")->setCommitCallback(boost::bind(&LLSidepanelItemInfo::onCommitSaleInfo, this, _1));
 	refresh();
-	return TRUE;
+	return true;
 }
 
 void LLSidepanelItemInfo::setObjectID(const LLUUID& object_id)

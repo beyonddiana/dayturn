@@ -56,7 +56,7 @@ LLFloaterEditWater::LLFloaterEditWater(const LLSD &key)
 }
 
 // virtual
-BOOL LLFloaterEditWater::postBuild()
+bool LLFloaterEditWater::postBuild()
 {
 	mWaterPresetNameEditor = getChild<LLLineEditor>("water_preset_name");
 	mWaterPresetCombo = getChild<LLComboBox>("water_preset_combo");
@@ -67,7 +67,7 @@ BOOL LLFloaterEditWater::postBuild()
 	refreshWaterPresetsList();
 	syncControls();
 
-	return TRUE;
+	return true;
 }
 
 // virtual

@@ -107,9 +107,9 @@ const LLOutfitGallery::Params& LLOutfitGallery::getDefaultParams()
     return LLUICtrlFactory::getDefaultParams<LLOutfitGallery>();
 }
 
-BOOL LLOutfitGallery::postBuild()
+bool LLOutfitGallery::postBuild()
 {
-    BOOL rv = LLOutfitListBase::postBuild();
+    bool rv = LLOutfitListBase::postBuild();
     mScrollPanel = getChild<LLScrollContainer>("gallery_scroll_panel");
     LLPanel::Params params = LLPanel::getDefaultParams(); // Don't parse XML when creating dummy LLPanel
     mGalleryPanel = LLUICtrlFactory::create<LLPanel>(params);
@@ -675,7 +675,7 @@ LLOutfitGalleryItem::~LLOutfitGalleryItem()
 
 }
 
-BOOL LLOutfitGalleryItem::postBuild()
+bool LLOutfitGalleryItem::postBuild()
 {
     setDefaultImage();
 
@@ -684,7 +684,7 @@ BOOL LLOutfitGalleryItem::postBuild()
     mTextBgPanel = getChild<LLPanel>("text_bg_panel");
     setOutfitWorn(false);
     mHidden = false;
-    return TRUE;
+    return true;
 }
 
 void LLOutfitGalleryItem::draw()

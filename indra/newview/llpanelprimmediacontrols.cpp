@@ -137,7 +137,7 @@ LLPanelPrimMediaControls::~LLPanelPrimMediaControls()
 {
 }
 
-BOOL LLPanelPrimMediaControls::postBuild()
+bool LLPanelPrimMediaControls::postBuild()
 {
 	mMediaRegion			= getChild<LLView>("media_region");
 	mBackCtrl				= getChild<LLUICtrl>("back");
@@ -220,7 +220,7 @@ BOOL LLPanelPrimMediaControls::postBuild()
 	mCurrentZoom = ZOOM_NONE;
 	// clicks on buttons do not remove keyboard focus from media
 	setIsChrome(TRUE);
-	return TRUE;
+	return true;
 }
 
 void LLPanelPrimMediaControls::setMediaFace(LLPointer<LLViewerObject> objectp, S32 face, viewer_media_t media_impl, LLVector3 pick_normal)

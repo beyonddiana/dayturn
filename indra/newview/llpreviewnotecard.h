@@ -59,7 +59,7 @@ public:
 	BOOL canClose() override;
 
 	// llpanel
-	BOOL postBuild() override;
+	bool postBuild() override;
 
 	// reach into the text editor, and grab the drag item
 	const LLInventoryItem* getDragItem();

@@ -83,7 +83,7 @@ class LLFloaterPay : public LLFloater
 public:
 	LLFloaterPay(const LLSD& key);
 	virtual ~LLFloaterPay();
-	/*virtual*/	BOOL	postBuild();
+	/*virtual*/	bool	postBuild();
 	/*virtual*/ void onClose(bool app_quitting);
 	
 	void setCallback(money_callback callback) { mCallback = callback; }
@@ -150,7 +150,7 @@ LLFloaterPay::~LLFloaterPay()
 	gMessageSystem->setHandlerFuncFast(_PREHASH_PayPriceReply, 0, 0);
 }
 
-BOOL LLFloaterPay::postBuild()
+bool LLFloaterPay::postBuild()
 {
 	S32 i = 0;
 	
@@ -211,7 +211,7 @@ BOOL LLFloaterPay::postBuild()
 
 	childSetAction("cancel btn",&LLFloaterPay::onCancel,this);
 
-	return TRUE;
+	return true;
 }
 
 // virtual

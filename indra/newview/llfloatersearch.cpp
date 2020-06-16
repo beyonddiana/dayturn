@@ -107,7 +107,7 @@ LLFloaterSearch::LLFloaterSearch(const Params& key) :
 	mCategoryPaths["classifieds"]  = "classifieds";
 }
 
-BOOL LLFloaterSearch::postBuild()
+bool LLFloaterSearch::postBuild()
 {
 	LLFloaterWebContent::postBuild();
 	mWebBrowser->addObserver(this);
@@ -115,7 +115,7 @@ BOOL LLFloaterSearch::postBuild()
 	// <FS:Ansariel> Seperate help topic aside from other web content
 	setHelpTopic("floater_search");
 
-	return TRUE;
+	return true;
 }
 
 void LLFloaterSearch::onOpen(const LLSD& key)

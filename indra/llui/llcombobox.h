@@ -92,7 +92,7 @@ public:
 
 
 	virtual ~LLComboBox(); 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	
 protected:
 	friend class LLUICtrlFactory;

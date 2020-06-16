@@ -63,14 +63,14 @@ LLPanelMarketplaceInbox::~LLPanelMarketplaceInbox()
 }
 
 // virtual
-BOOL LLPanelMarketplaceInbox::postBuild()
+bool LLPanelMarketplaceInbox::postBuild()
 {
 	LLFocusableElement::setFocusReceivedCallback(boost::bind(&LLPanelMarketplaceInbox::onFocusReceived, this));
 
 	mFreshCountCtrl = getChild<LLUICtrl>("inbox_fresh_new_count");
 	mInboxButton = getChild<LLButton>("inbox_btn");
 	
-	return TRUE;
+	return true;
 }
 
 void LLPanelMarketplaceInbox::onSelectionChange()

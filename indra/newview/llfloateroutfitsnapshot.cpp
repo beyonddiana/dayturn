@@ -638,7 +638,7 @@ LLFloaterOutfitSnapshot::~LLFloaterOutfitSnapshot()
 }
 
 
-BOOL LLFloaterOutfitSnapshot::postBuild()
+bool LLFloaterOutfitSnapshot::postBuild()
 {
 	mRefreshBtn = getChild<LLUICtrl>("new_snapshot_btn");
 	childSetAction("new_snapshot_btn", Impl::onClickNewSnapshot, this);
@@ -697,7 +697,7 @@ BOOL LLFloaterOutfitSnapshot::postBuild()
 	previewp->mKeepAspectRatio = FALSE;
 	previewp->setThumbnailPlaceholderRect(getThumbnailPlaceholderRect());
 
-	return TRUE;
+	return true;
 }
 
 void LLFloaterOutfitSnapshot::draw()

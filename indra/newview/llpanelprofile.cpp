@@ -322,14 +322,14 @@ LLPanelProfile::LLPanelProfile()
 	mChildStack.setParent(this);
 }
 
-BOOL LLPanelProfile::postBuild()
+bool LLPanelProfile::postBuild()
 {
 	LLPanelPicks* panel_picks = findChild<LLPanelPicks>(PANEL_PICKS);
 	panel_picks->setProfilePanel(this);
 
 	getTabContainer()[PANEL_PICKS] = panel_picks;
 
-	return TRUE;
+	return true;
 }
 
 // virtual

@@ -78,7 +78,7 @@ public:
 	/*virtual*/ BOOL	handleMiddleMouseDown(S32 x, S32 y, MASK mask) { return handleMouseDown(x, y, mask | MASK_SHIFT); }
 	/*virtual*/ BOOL	handleMiddleMouseUp(S32 x, S32 y, MASK mask) { return handleMouseUp(x, y, mask); }
 
-	/*virtual*/ BOOL 	postBuild();
+	/*virtual*/ bool 	postBuild();
 	/*virtual*/ BOOL	handleRightMouseDown( S32 x, S32 y, MASK mask );
 	/*virtual*/ BOOL	handleClick(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL	handleDoubleClick( S32 x, S32 y, MASK mask );

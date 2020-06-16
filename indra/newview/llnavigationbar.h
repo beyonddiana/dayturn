@@ -94,7 +94,7 @@ public:
 	
 	/*virtual*/ void	draw();
 	/*virtual*/ BOOL handleRightMouseDown(S32 x, S32 y, MASK mask);
-	/*virtual*/ BOOL	postBuild();
+	/*virtual*/ bool	postBuild();
 	/*virtual*/ void	setVisible(BOOL visible);
 
 	void handleLoginComplete();
@@ -153,8 +153,6 @@ private:
 	LLLocationInputCtrl*		mCmbLocation;
 	LLRect						mDefaultNbRect;
 	LLRect						mDefaultFpRect;
-	LLLayoutPanel* 				mNavigationPanel;
-	LLLayoutPanel* 				mFavoritePanel;
 	boost::signals2::connection	mTeleportFailedConnection;
 	boost::signals2::connection	mTeleportFinishConnection;
 	boost::signals2::connection	mHistoryMenuConnection;

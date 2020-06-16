@@ -51,7 +51,7 @@ LLFloaterRegionRestarting::~LLFloaterRegionRestarting()
 	mRegionChangedConnection.disconnect();
 }
 
-BOOL LLFloaterRegionRestarting::postBuild()
+bool LLFloaterRegionRestarting::postBuild()
 {
 	mRegionChangedConnection = gAgent.addRegionChangedCallback(boost::bind(&LLFloaterRegionRestarting::regionChange, this));
 
@@ -67,7 +67,7 @@ BOOL LLFloaterRegionRestarting::postBuild()
 
 	refresh();
 
-	return TRUE;
+	return true;
 }
 
 void LLFloaterRegionRestarting::regionChange()

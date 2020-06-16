@@ -52,7 +52,7 @@ protected:
 	LLResizeBar(const LLResizeBar::Params& p);
 	friend class LLUICtrlFactory;
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 public:
 
 	virtual void	draw();

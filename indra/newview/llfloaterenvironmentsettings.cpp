@@ -52,7 +52,7 @@ LLFloaterEnvironmentSettings::LLFloaterEnvironmentSettings(const LLSD &key)
 }
 
 // virtual
-BOOL LLFloaterEnvironmentSettings::postBuild()
+bool LLFloaterEnvironmentSettings::postBuild()
 {	
 	mRegionSettingsRadioGroup = getChild<LLRadioGroup>("region_settings_radio_group");
 	mRegionSettingsRadioGroup->setCommitCallback(boost::bind(&LLFloaterEnvironmentSettings::onSwitchRegionSettings, this));
@@ -81,7 +81,7 @@ BOOL LLFloaterEnvironmentSettings::postBuild()
 	LLWLParamManager::instance().setPresetListChangeCallback(boost::bind(&LLFloaterEnvironmentSettings::populateSkyPresetsList, this));
 	LLWaterParamManager::instance().setPresetListChangeCallback(boost::bind(&LLFloaterEnvironmentSettings::populateWaterPresetsList, this));
 
-	return TRUE;
+	return true;
 }
 
 // virtual

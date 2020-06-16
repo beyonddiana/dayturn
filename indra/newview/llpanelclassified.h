@@ -48,7 +48,7 @@ public:
 	LLPublishClassifiedFloater(const LLSD& key);
 	virtual ~LLPublishClassifiedFloater();
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 
 	void setPrice(S32 price);
 	S32 getPrice();
@@ -70,7 +70,7 @@ public:
 
 	/*virtual*/ void onOpen(const LLSD& key);
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 
 	/*virtual*/ void processProperties(void* data, EAvatarProcessorType type);
 
@@ -206,7 +206,7 @@ public:
 
 	virtual ~LLPanelClassifiedEdit();
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 
 	void fillIn(const LLSD& key);
 

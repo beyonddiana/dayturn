@@ -57,7 +57,7 @@ LLPanelGroupBulkBan::LLPanelGroupBulkBan(const LLUUID& group_id) : LLPanelGroupB
 	buildFromFile( "panel_group_bulk_ban.xml");
 }
 
-BOOL LLPanelGroupBulkBan::postBuild()
+bool LLPanelGroupBulkBan::postBuild()
 {
 	BOOL recurse = TRUE;
 
@@ -106,7 +106,7 @@ BOOL LLPanelGroupBulkBan::postBuild()
 	mImplementation->mCannotBanYourself = getString("cant_ban_yourself");
 
 	update();
-	return TRUE;
+	return true;
 }
 
 // TODO: Refactor the shitty callback functions with void* -- just use boost::bind to call submit() instead.

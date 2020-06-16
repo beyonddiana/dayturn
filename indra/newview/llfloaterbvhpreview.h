@@ -74,7 +74,7 @@ public:
 	LLFloaterBvhPreview(const std::string& filename);
 	virtual ~LLFloaterBvhPreview();
 	
-	BOOL postBuild();
+	bool postBuild();
 
 	BOOL handleMouseDown(S32 x, S32 y, MASK mask);
 	BOOL handleMouseUp(S32 x, S32 y, MASK mask);

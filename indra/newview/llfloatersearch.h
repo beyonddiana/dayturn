@@ -82,7 +82,7 @@ public:
 	void godLevelChanged(U8 godlevel);
 
 private:
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 
 	LLSD        mCategoryPaths;
 	U8          mSearchGodLevel;

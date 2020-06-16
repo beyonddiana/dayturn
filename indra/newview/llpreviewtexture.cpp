@@ -127,7 +127,7 @@ void LLPreviewTexture::populateRatioList()
 }
 
 // virtual
-BOOL LLPreviewTexture::postBuild()
+bool LLPreviewTexture::postBuild()
 {
 //MK
 	if (gRRenabled && gAgent.mRRInterface.contains("viewtexture"))

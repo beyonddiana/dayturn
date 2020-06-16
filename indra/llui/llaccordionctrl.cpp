@@ -103,7 +103,7 @@ void LLAccordionCtrl::draw()
 
 
 //---------------------------------------------------------------------------------
-BOOL LLAccordionCtrl::postBuild()
+bool LLAccordionCtrl::postBuild()
 {
 	static LLUICachedControl<S32> scrollbar_size ("UIScrollbarSize", 0);
 
@@ -164,7 +164,7 @@ BOOL LLAccordionCtrl::postBuild()
 
 	updateNoTabsHelpTextVisibility();
 
-	return TRUE;
+	return true;
 }
 
 

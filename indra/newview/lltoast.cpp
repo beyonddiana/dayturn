@@ -160,14 +160,14 @@ void LLToast::reshape(S32 width, S32 height, BOOL called_from_parent)
 }
 
 //--------------------------------------------------------------------------
-BOOL LLToast::postBuild()
+bool LLToast::postBuild()
 {
 	if(!mCanFade)
 	{
 		mTimer->stop();
 	}
 
-	return TRUE;
+	return true;
 }
 
 //--------------------------------------------------------------------------

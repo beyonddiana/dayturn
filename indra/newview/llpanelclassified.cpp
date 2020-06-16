@@ -143,7 +143,7 @@ LLPanelClassifiedInfo* LLPanelClassifiedInfo::create()
 	return panel;
 }
 
-BOOL LLPanelClassifiedInfo::postBuild()
+bool LLPanelClassifiedInfo::postBuild()
 {
 	childSetAction("back_btn", boost::bind(&LLPanelClassifiedInfo::onExit, this));
 	childSetAction("show_on_map_btn", boost::bind(&LLPanelClassifiedInfo::onMapClick, this));
@@ -158,7 +158,7 @@ BOOL LLPanelClassifiedInfo::postBuild()
 	mSnapshotCtrl = getChild<LLTextureCtrl>("classified_snapshot");
 	mSnapshotRect = getDefaultSnapshotRect();
 
-	return TRUE;
+	return true;
 }
 
 void LLPanelClassifiedInfo::setExitCallback(const commit_callback_t& cb)
@@ -622,7 +622,7 @@ LLPanelClassifiedEdit* LLPanelClassifiedEdit::create()
 	return panel;
 }
 
-BOOL LLPanelClassifiedEdit::postBuild()
+bool LLPanelClassifiedEdit::postBuild()
 {
 	LLPanelClassifiedInfo::postBuild();
 
@@ -657,7 +657,7 @@ BOOL LLPanelClassifiedEdit::postBuild()
 
 	mSnapshotCtrl->setOnSelectCallback(boost::bind(&LLPanelClassifiedEdit::onTextureSelected, this));
 
-	return TRUE;
+	return true;
 }
 
 void LLPanelClassifiedEdit::fillIn(const LLSD& key)
@@ -1156,14 +1156,14 @@ LLPublishClassifiedFloater::~LLPublishClassifiedFloater()
 {
 }
 
-BOOL LLPublishClassifiedFloater::postBuild()
+bool LLPublishClassifiedFloater::postBuild()
 {
 	LLFloater::postBuild();
 
 	childSetAction("publish_btn", boost::bind(&LLFloater::closeFloater, this, false));
 	childSetAction("cancel_btn", boost::bind(&LLFloater::closeFloater, this, false));
 
-	return TRUE;
+	return true;
 }
 
 void LLPublishClassifiedFloater::setPrice(S32 price)

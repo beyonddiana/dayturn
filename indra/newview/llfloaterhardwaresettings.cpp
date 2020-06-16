@@ -148,7 +148,7 @@ void LLFloaterHardwareSettings::refreshEnabledState()
 
 //============================================================================
 
-BOOL LLFloaterHardwareSettings::postBuild()
+bool LLFloaterHardwareSettings::postBuild()
 {
 	childSetAction("OK", onBtnOK, this);
 	childSetAction("Cancel", onBtnCancel, this);
@@ -197,7 +197,7 @@ BOOL LLFloaterHardwareSettings::postBuild()
 
 	// load it up
 	initCallbacks();
-	return TRUE;
+	return true;
 }
 
 

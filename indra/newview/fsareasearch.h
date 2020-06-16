@@ -121,7 +121,7 @@ public:
 	FSAreaSearch(const LLSD &);
 	virtual ~FSAreaSearch();
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 
 	void findObjects();
 	void refreshList(const bool cache_clear);

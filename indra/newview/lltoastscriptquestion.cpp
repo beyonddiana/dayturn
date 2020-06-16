@@ -40,7 +40,7 @@ LLToastPanel(notification)
 	buildFromFile("panel_script_question_toast.xml");
 }
 
-BOOL LLToastScriptQuestion::postBuild()
+bool LLToastScriptQuestion::postBuild()
 {
 	createButtons();
 
@@ -52,7 +52,7 @@ BOOL LLToastScriptQuestion::postBuild()
 
 	snapToMessageHeight();
 
-	return TRUE;
+	return true;
 }
 
 // virtual

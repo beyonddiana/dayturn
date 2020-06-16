@@ -51,7 +51,7 @@ public:
 
 	/* virtual */ void onOpen(const LLSD &params);
 	
-	BOOL postBuild();
+	bool postBuild();
 	
 	const LLUUID& getQueryID() const { return mQueryID; }
 	static void sendSearchQuery(LLMessageSystem* msg, const LLUUID& query_id, const std::string& text, U32 flags, S32 query_start);

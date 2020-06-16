@@ -36,7 +36,7 @@ class LLToastScriptQuestion : public LLToastPanel
 
 public:
 	LLToastScriptQuestion(const LLNotificationPtr& notification);
-	virtual BOOL postBuild();
+	virtual bool postBuild();
 	virtual ~LLToastScriptQuestion(){};
 
 	/*virtual*/ void setFocus(BOOL b);

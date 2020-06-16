@@ -47,7 +47,7 @@ public:
 	LLProgressView();
 	virtual ~LLProgressView();
 	
-	BOOL postBuild();
+	bool postBuild();
 
 	/*virtual*/ void draw();
 	void drawStartTexture(F32 alpha);

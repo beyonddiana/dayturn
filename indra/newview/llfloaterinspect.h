@@ -44,7 +44,7 @@ public:
 
 //	static void show(void* ignored = NULL);
 	void onOpen(const LLSD& key);
-	virtual BOOL postBuild();
+	virtual bool postBuild();
 	void dirty();
 	LLUUID getSelectedUUID();
 	virtual void draw();

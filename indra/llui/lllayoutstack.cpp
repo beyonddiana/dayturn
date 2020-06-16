@@ -319,10 +319,10 @@ void LLLayoutStack::removeChild(LLView* view)
 	LLView::removeChild(view);
 }
 
-BOOL LLLayoutStack::postBuild()
+bool LLLayoutStack::postBuild()
 {
 	updateLayout();
-	return TRUE;
+	return true;
 }
 
 bool LLLayoutStack::addChild(LLView* child, S32 tab_group)

@@ -50,7 +50,7 @@ LLSysWellWindow::LLSysWellWindow(const LLSD& key) : LLTransientDockableFloater(N
 }
 
 //---------------------------------------------------------------------------------
-BOOL LLSysWellWindow::postBuild()
+bool LLSysWellWindow::postBuild()
 {
 	mMessageList = getChild<LLFlatListView>("notification_list");
 
@@ -323,9 +323,9 @@ LLIMWellWindow* LLIMWellWindow::findInstance(const LLSD& key /*= LLSD()*/)
 	return LLFloaterReg::findTypedInstance<LLIMWellWindow>("im_well_window", key);
 }
 
-BOOL LLIMWellWindow::postBuild()
+bool LLIMWellWindow::postBuild()
 {
-	BOOL rv = LLSysWellWindow::postBuild();
+	bool rv = LLSysWellWindow::postBuild();
 	setTitle(getString("title_im_well_window"));
 
 	LLIMChiclet::sFindChicletsSignal.connect(boost::bind(&LLIMWellWindow::findObjectChiclet, this, _1));

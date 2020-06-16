@@ -251,7 +251,7 @@ LLPanelWearing::~LLPanelWearing()
 	delete mCategoriesObserver;
 }
 
-BOOL LLPanelWearing::postBuild()
+bool LLPanelWearing::postBuild()
 {
 	mCOFItemsList = getChild<LLWearableItemsList>("cof_items_list");
 	mCOFItemsList->setRightMouseDownCallback(boost::bind(&LLPanelWearing::onWearableItemsListRightClick, this, _1, _2, _3));
@@ -260,7 +260,7 @@ BOOL LLPanelWearing::postBuild()
 
 	menu_gear_btn->setMenu(mGearMenu->getMenu());
 
-	return TRUE;
+	return true;
 }
 
 //virtual

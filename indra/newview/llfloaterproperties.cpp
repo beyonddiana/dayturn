@@ -120,7 +120,7 @@ LLFloaterProperties::~LLFloaterProperties()
 }
 
 // virtual
-BOOL LLFloaterProperties::postBuild()
+bool LLFloaterProperties::postBuild()
 {
 	// build the UI
 	// item name & description
@@ -151,7 +151,7 @@ BOOL LLFloaterProperties::postBuild()
 	// The UI has been built, now fill in all the values
 	refresh();
 
-	return TRUE;
+	return true;
 }
 
 // virtual

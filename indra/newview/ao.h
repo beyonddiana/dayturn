@@ -51,7 +51,7 @@ class FloaterAO
 		~FloaterAO();
 
 	public:
-		/*virtual*/ BOOL postBuild();
+		/*virtual*/ bool postBuild();
 		virtual void onOpen(const LLSD& key);
 		void updateList();
 		void updateSetParameters();

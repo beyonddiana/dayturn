@@ -40,7 +40,7 @@ class LLFloaterAutoReplaceSettings : public LLFloater
 public:
 	LLFloaterAutoReplaceSettings(const LLSD& key);
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	/*virtual*/ void onClose(bool app_quitting);
 
 	void setData(void * data);

@@ -450,7 +450,7 @@ void LLMultiFloater::setCanResize(BOOL can_resize)
 	}
 }
 
-BOOL LLMultiFloater::postBuild()
+bool LLMultiFloater::postBuild()
 {
 	mCloseSignal.connect(boost::bind(&LLMultiFloater::closeAllFloaters, this));
 		
@@ -459,13 +459,13 @@ BOOL LLMultiFloater::postBuild()
 
 	if (mTabContainer)
 	{
-		return TRUE;
+		return true;
 	}
 
 	mTabContainer = getChild<LLTabContainer>("Preview Tabs");
 	
 	setCanResize(mResizable);
-	return TRUE;
+	return true;
 }
 
 void LLMultiFloater::updateResizeLimits()

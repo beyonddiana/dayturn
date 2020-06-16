@@ -412,9 +412,9 @@ void LLFloaterIMSession::initIMFloater()
 }
 
 //virtual
-BOOL LLFloaterIMSession::postBuild()
+bool LLFloaterIMSession::postBuild()
 {
-	BOOL result = LLFloaterIMSessionTab::postBuild();
+	bool result = LLFloaterIMSessionTab::postBuild();
 
 	mInputEditor->setMaxTextLength(1023);
 	mInputEditor->setAutoreplaceCallback(boost::bind(&LLAutoReplace::autoreplaceCallback, LLAutoReplace::getInstance(), _1, _2, _3, _4, _5));

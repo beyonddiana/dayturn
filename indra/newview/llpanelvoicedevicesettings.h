@@ -37,7 +37,7 @@ public:
 	~LLPanelVoiceDeviceSettings();
 
 	/*virtual*/ void draw();
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	void apply();
 	void cancel();
 	void refresh();

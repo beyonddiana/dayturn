@@ -810,9 +810,9 @@ LLAvalineListItem::LLAvalineListItem(bool hide_number/* = true*/) : LLAvatarList
 	buildFromFile( "panel_avatar_list_item.xml");
 }
 
-BOOL LLAvalineListItem::postBuild()
+bool LLAvalineListItem::postBuild()
 {
-	BOOL rv = LLAvatarListItem::postBuild();
+	bool rv = LLAvatarListItem::postBuild();
 
 	if (rv)
 	{

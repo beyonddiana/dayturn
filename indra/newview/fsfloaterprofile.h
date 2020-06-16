@@ -41,7 +41,7 @@ public:
 
     /*virtual*/ void onOpen(const LLSD& key);
 
-    /*virtual*/ BOOL postBuild();
+    /*virtual*/ bool postBuild();
 
     /**
      * Returns avatar ID.

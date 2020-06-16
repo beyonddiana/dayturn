@@ -364,7 +364,7 @@ protected:
 
 	virtual BOOL handleKeyHere(KEY key, MASK mask);
 
-	virtual BOOL postBuild();
+	virtual bool postBuild();
 
 	virtual void onFocusReceived();
 

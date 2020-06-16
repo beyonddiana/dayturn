@@ -278,7 +278,7 @@ void* LLFloaterWorldMap::createWorldMapView(void* data)
 	return new LLWorldMapView();
 }
 
-BOOL LLFloaterWorldMap::postBuild()
+bool LLFloaterWorldMap::postBuild()
 {
 	mPanel = getChild<LLPanel>("objects_mapview");
 	
@@ -310,7 +310,7 @@ BOOL LLFloaterWorldMap::postBuild()
 	
 	onChangeMaturity();
 	
-	return TRUE;
+	return true;
 }
 
 // virtual

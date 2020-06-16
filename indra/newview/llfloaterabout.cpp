@@ -94,7 +94,7 @@ private:
 	virtual ~LLFloaterAbout();
 
 public:
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 
 	/// Obtain the data used to fill out the contents string. This is
 	/// separated so that we can programmatically access the same info.
@@ -126,7 +126,7 @@ LLFloaterAbout::~LLFloaterAbout()
 {
 }
 
-BOOL LLFloaterAbout::postBuild()
+bool LLFloaterAbout::postBuild()
 {
 	center();
 	LLViewerTextEditor *support_widget = 
@@ -202,7 +202,7 @@ BOOL LLFloaterAbout::postBuild()
 	licenses_widget->setEnabled(FALSE);
 	licenses_widget->startOfDoc();
 
-	return TRUE;
+	return true;
 }
 
 LLSD LLFloaterAbout::getInfo()

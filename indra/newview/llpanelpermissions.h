@@ -45,7 +45,7 @@ public:
 	LLPanelPermissions();
 	virtual ~LLPanelPermissions();
 
-	/*virtual*/	BOOL	postBuild();
+	/*virtual*/	bool	postBuild();
 
 	void refresh();							// refresh all labels as needed
 

@@ -115,7 +115,7 @@ LLFloaterAvatarPicker::LLFloaterAvatarPicker(const LLSD& key)
     mContextConeFadeTime = gSavedSettings.getF32("ContextConeFadeTime");
 }
 
-BOOL LLFloaterAvatarPicker::postBuild()
+bool LLFloaterAvatarPicker::postBuild()
 {
 	getChild<LLLineEditor>("Edit")->setKeystrokeCallback( boost::bind(&LLFloaterAvatarPicker::editKeystroke, this, _1, _2),NULL);
 
@@ -161,7 +161,7 @@ BOOL LLFloaterAvatarPicker::postBuild()
 	
 	populateFriend();
 
-	return TRUE;
+	return true;
 }
 
 void LLFloaterAvatarPicker::setOkBtnEnableCb(validate_callback_t cb)

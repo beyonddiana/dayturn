@@ -68,7 +68,7 @@ public:
 	BOOL	handleMouseDown	(S32 x, S32 y, MASK mask);
 	BOOL	handleMouseUp	(S32 x, S32 y, MASK mask);
 
-	virtual BOOL postBuild();
+	virtual bool postBuild();
 
 	void	reshape		(S32 width, S32 height, BOOL called_from_parent = TRUE);
 

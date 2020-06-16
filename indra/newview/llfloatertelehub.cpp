@@ -53,7 +53,7 @@ LLFloaterTelehub::LLFloaterTelehub(const LLSD& key)
 {
 }
 
-BOOL LLFloaterTelehub::postBuild()
+bool LLFloaterTelehub::postBuild()
 {
 	gMessageSystem->setHandlerFunc("TelehubInfo", processTelehubInfo);
 
@@ -69,7 +69,7 @@ BOOL LLFloaterTelehub::postBuild()
 		list->setAllowKeyboardMovement(FALSE);
 	}
 
-	return TRUE;
+	return true;
 }
 void LLFloaterTelehub::onOpen(const LLSD& key)
 {

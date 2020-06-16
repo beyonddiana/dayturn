@@ -92,7 +92,7 @@ public:
     
     virtual bool showPopup() { return true; }
     void setExpanded(BOOL value);
-    virtual BOOL postBuild();
+    virtual bool postBuild();
     void reshapeNotification();
 
     typedef enum e_time_type
@@ -137,7 +137,7 @@ class LLGroupNotificationListItem
 {
 public:
 	virtual ~LLGroupNotificationListItem();
-    virtual BOOL postBuild();
+    virtual bool postBuild();
 
     void setGroupId(const LLUUID& value);
     // LLGroupMgrObserver observer trigger
@@ -167,7 +167,7 @@ class LLGroupInviteNotificationListItem
 {
 public:
     static std::set<std::string> getTypes();
-    virtual BOOL postBuild();
+    virtual bool postBuild();
 
     /*virtual*/ bool showPopup() { return false; }
 
@@ -194,7 +194,7 @@ class LLGroupNoticeNotificationListItem
 {
 public:
     static std::set<std::string> getTypes();
-    virtual BOOL postBuild();
+    virtual bool postBuild();
 
     /*virtual*/ bool showPopup() { return false; }
 
@@ -221,7 +221,7 @@ class LLTransactionNotificationListItem : public LLNotificationListItem
 {
 public:
     static std::set<std::string> getTypes();
-    virtual BOOL postBuild();
+    virtual bool postBuild();
 private:
     friend class LLNotificationListItem;
     LLTransactionNotificationListItem(const Params& p);
@@ -234,7 +234,7 @@ private:
 class LLSystemNotificationListItem : public LLNotificationListItem
 {
 public:
-    virtual BOOL postBuild();
+    virtual bool postBuild();
 private:
     friend class LLNotificationListItem;
     LLSystemNotificationListItem(const Params& p);

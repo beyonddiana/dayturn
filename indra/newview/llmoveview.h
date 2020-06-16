@@ -48,7 +48,7 @@ private:
 	~LLFloaterMove();
 public:
 
-	/*virtual*/	BOOL	postBuild();
+	/*virtual*/	bool	postBuild();
 	/*virtual*/ void	setVisible(BOOL visible);
 	static F32	getYawRate(F32 time);
 	static void setFlyingMode(BOOL fly);
@@ -141,7 +141,7 @@ public:
 	static LLPanelStandStopFlying* getInstance();
 	static void setStandStopFlyingMode(EStandStopFlyingMode mode);
 	static void clearStandStopFlyingMode(EStandStopFlyingMode mode);
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	/*virtual*/ void setVisible(BOOL visible);
 
 	// *HACK: due to hard enough to have this control aligned with "Move" button while resizing

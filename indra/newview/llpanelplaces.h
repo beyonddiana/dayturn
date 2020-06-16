@@ -57,7 +57,7 @@ public:
 	LLPanelPlaces();
 	virtual ~LLPanelPlaces();
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	/*virtual*/ void onOpen(const LLSD& key);
 
 	// Called on parcel selection change to update place information.

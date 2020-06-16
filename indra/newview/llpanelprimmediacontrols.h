@@ -45,7 +45,7 @@ class LLPanelPrimMediaControls : public LLPanel
 public:
 	LLPanelPrimMediaControls();
 	virtual ~LLPanelPrimMediaControls();
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	virtual void draw();
 	virtual BOOL handleScrollWheel(S32 x, S32 y, S32 clicks);
 

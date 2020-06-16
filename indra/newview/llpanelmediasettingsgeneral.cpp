@@ -79,7 +79,7 @@ LLPanelMediaSettingsGeneral::LLPanelMediaSettingsGeneral() :
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-BOOL LLPanelMediaSettingsGeneral::postBuild()
+bool LLPanelMediaSettingsGeneral::postBuild()
 {
 	// connect member vars with UI widgets
 	mAutoLoop = getChild< LLCheckBoxCtrl >( LLMediaEntry::AUTO_LOOP_KEY );

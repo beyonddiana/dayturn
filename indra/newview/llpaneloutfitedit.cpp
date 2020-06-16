@@ -438,7 +438,7 @@ LLPanelOutfitEdit::~LLPanelOutfitEdit()
 	}
 }
 
-BOOL LLPanelOutfitEdit::postBuild()
+bool LLPanelOutfitEdit::postBuild()
 {
 	// gInventory.isInventoryUsable() no longer needs to be tested per Richard's fix for race conditions between inventory and panels
 	
@@ -563,7 +563,7 @@ BOOL LLPanelOutfitEdit::postBuild()
 	mGearMenuBtn->setMenu(mGearMenu);
 
 	mSaveComboBtn.reset(new LLSaveOutfitComboBtn(this));
-	return TRUE;
+	return true;
 }
 
 // virtual

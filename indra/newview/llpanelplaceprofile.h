@@ -39,7 +39,7 @@ public:
 	LLPanelPlaceProfile();
 	/*virtual*/ ~LLPanelPlaceProfile();
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 
 	/*virtual*/ void resetLocation();
 

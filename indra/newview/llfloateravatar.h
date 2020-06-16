@@ -37,10 +37,11 @@ class LLFloaterAvatar:
 private:
 	LLFloaterAvatar(const LLSD& key);
 	/*virtual*/	~LLFloaterAvatar();
-	/*virtual*/	BOOL postBuild();
+	/*virtual*/	bool postBuild();
 //MK
 	/*virtual*/ void draw();
 //mk
+=======
 };
 
 #endif

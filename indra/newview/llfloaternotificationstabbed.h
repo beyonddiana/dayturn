@@ -72,7 +72,7 @@ public:
 
     LLFloaterNotificationsTabbed(const LLSD& key);
     virtual ~LLFloaterNotificationsTabbed();
-    BOOL postBuild();
+    bool postBuild();
 
     // other interface functions
     // check is window empty

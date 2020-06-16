@@ -58,7 +58,7 @@ LLFloaterGotoLine::LLFloaterGotoLine(LLScriptEdCore* editor_core)
         }
 }
 
-BOOL LLFloaterGotoLine::postBuild()
+bool LLFloaterGotoLine::postBuild()
 {
 	mGotoBox = getChild<LLLineEditor>("goto_line");
 	mGotoBox->setCommitCallback(boost::bind(&LLFloaterGotoLine::onGotoBoxCommit, this));
@@ -67,7 +67,7 @@ BOOL LLFloaterGotoLine::postBuild()
         childSetAction("goto_btn", onBtnGoto,this);
         setDefaultBtn("goto_btn");
 
-        return TRUE;
+        return true;
 }
 
 //static 

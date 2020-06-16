@@ -40,7 +40,7 @@ public:
         LLFloaterGotoLine(LLScriptEdCore* editor_core);
         ~LLFloaterGotoLine();
 
-        /*virtual*/     BOOL    postBuild();
+        /*virtual*/     bool    postBuild();
         static void show(LLScriptEdCore* editor_core);
 
         static void onBtnGoto(void* userdata);

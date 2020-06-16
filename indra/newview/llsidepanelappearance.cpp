@@ -92,7 +92,7 @@ LLSidepanelAppearance::~LLSidepanelAppearance()
 }
 
 // virtual
-BOOL LLSidepanelAppearance::postBuild()
+bool LLSidepanelAppearance::postBuild()
 {
 	mOpenOutfitBtn = getChild<LLButton>("openoutfit_btn");
 	mOpenOutfitBtn->setClickedCallback(boost::bind(&LLSidepanelAppearance::onOpenOutfitButtonClicked, this));
@@ -140,7 +140,7 @@ BOOL LLSidepanelAppearance::postBuild()
 
 	setVisibleCallback(boost::bind(&LLSidepanelAppearance::onVisibilityChanged,this,_2));
 
-	return TRUE;
+	return true;
 }
 
 // virtual

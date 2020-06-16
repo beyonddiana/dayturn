@@ -55,7 +55,7 @@ LLPanelPresetsPulldown::LLPanelPresetsPulldown()
 	buildFromFile( "panel_presets_pulldown.xml");
 }
 
-BOOL LLPanelPresetsPulldown::postBuild()
+bool LLPanelPresetsPulldown::postBuild()
 {
 	LLPresetsManager* presetsMgr = LLPresetsManager::getInstance();
     presetsMgr->setPresetListChangeCallback(boost::bind(&LLPanelPresetsPulldown::populatePanel, this));

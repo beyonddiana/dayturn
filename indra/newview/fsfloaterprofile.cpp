@@ -92,7 +92,7 @@ void FSFloaterProfile::onOpen(const LLSD& key)
     LLAvatarNameCache::get(getAvatarId(), boost::bind(&FSFloaterProfile::onAvatarNameCache, this, _1, _2));
 }
 
-BOOL FSFloaterProfile::postBuild()
+bool FSFloaterProfile::postBuild()
 {
     childSetAction("ok_btn", boost::bind(&FSFloaterProfile::onOKBtn, this));
     childSetAction("cancel_btn", boost::bind(&FSFloaterProfile::onCancelBtn, this));
@@ -107,7 +107,7 @@ BOOL FSFloaterProfile::postBuild()
         }
     }
 
-    return TRUE;
+    return true;
 }
 
 void FSFloaterProfile::onOKBtn()

@@ -56,7 +56,7 @@ class FSFloaterImport : public LLFloater, public LLSingleton<FSFloaterImport>
 public:
 	FSFloaterImport(const LLSD &);
 	virtual ~FSFloaterImport();
-	// virtual BOOL postBuild();
+	// virtual bool postBuild();
 	
 	static void onIdle(void *user_data);
 	

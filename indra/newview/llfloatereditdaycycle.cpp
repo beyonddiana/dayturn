@@ -63,7 +63,7 @@ LLFloaterEditDayCycle::LLFloaterEditDayCycle(const LLSD &key)
 }
 
 // virtual
-BOOL LLFloaterEditDayCycle::postBuild()
+bool LLFloaterEditDayCycle::postBuild()
 {
 	mDayCycleNameEditor = getChild<LLLineEditor>("day_cycle_name");
 	mDayCyclesCombo = getChild<LLComboBox>("day_cycle_combo");
@@ -80,7 +80,7 @@ BOOL LLFloaterEditDayCycle::postBuild()
 	// add the time slider
 	mTimeSlider->addSlider();
 
-	return TRUE;
+	return true;
 }
 
 // virtual

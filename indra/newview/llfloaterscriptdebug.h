@@ -37,7 +37,7 @@ class LLFloaterScriptDebug : public LLMultiFloater
 public:
 	LLFloaterScriptDebug(const LLSD& key);
 	virtual ~LLFloaterScriptDebug();
-	virtual BOOL postBuild();
+	virtual bool postBuild();
 	virtual void setVisible(BOOL visible);
     static void show(const LLUUID& object_id);
 
@@ -59,7 +59,7 @@ public:
 
 	void addLine(const std::string &utf8mesg, const std::string &user_name, const LLColor4& color);
 
-	virtual BOOL postBuild();
+	virtual bool postBuild();
 	
 protected:
 	LLTextEditor* mHistoryEditor;

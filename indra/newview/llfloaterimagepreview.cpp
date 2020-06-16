@@ -87,11 +87,11 @@ LLFloaterImagePreview::LLFloaterImagePreview(const std::string& filename) :
 //-----------------------------------------------------------------------------
 // postBuild()
 //-----------------------------------------------------------------------------
-BOOL LLFloaterImagePreview::postBuild()
+bool LLFloaterImagePreview::postBuild()
 {
 	if (!LLFloaterNameDesc::postBuild())
 	{
-		return FALSE;
+		return false;
 	}
 	
 	LLCtrlSelectionInterface* iface = childGetSelectionInterface("clothing_type_combo");
@@ -142,7 +142,7 @@ BOOL LLFloaterImagePreview::postBuild()
 	
 	getChild<LLUICtrl>("ok_btn")->setCommitCallback(boost::bind(&LLFloaterNameDesc::onBtnOK, this));
 	
-	return TRUE;
+	return true;
 }
 
 //-----------------------------------------------------------------------------

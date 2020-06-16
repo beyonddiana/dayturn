@@ -238,9 +238,9 @@ void LLFloaterIMSessionTab::assignResizeLimits()
 	this->mParticipantListAndHistoryStack->updateLayout();
 }
 
-BOOL LLFloaterIMSessionTab::postBuild()
+bool LLFloaterIMSessionTab::postBuild()
 {
-	BOOL result;
+	bool result;
 
 	mBodyStack = getChild<LLLayoutStack>("main_stack");
     mParticipantListAndHistoryStack = getChild<LLLayoutStack>("im_panels");

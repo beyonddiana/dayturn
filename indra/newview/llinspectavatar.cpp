@@ -70,7 +70,7 @@ public:
 	LLInspectAvatar(const LLSD& avatar_id);
 	virtual ~LLInspectAvatar();
 
-	/*virtual*/ BOOL postBuild(void);
+	/*virtual*/ bool postBuild(void);
 	
 	// Because floater is single instance, need to re-parse data on each spawn
 	// (for example, inspector about same avatar but in different position)
@@ -182,7 +182,7 @@ LLInspectAvatar::~LLInspectAvatar()
 }
 
 /*virtual*/
-BOOL LLInspectAvatar::postBuild(void)
+bool LLInspectAvatar::postBuild(void)
 {
 	getChild<LLUICtrl>("mute_btn")->setCommitCallback(
 		boost::bind(&LLInspectAvatar::onClickMuteVolume, this) );
@@ -190,7 +190,7 @@ BOOL LLInspectAvatar::postBuild(void)
 	getChild<LLUICtrl>("volume_slider")->setCommitCallback(
 		boost::bind(&LLInspectAvatar::onVolumeChange, this, _2));
 
-	return TRUE;
+	return true;
 }
 
 // Multiple calls to showInstance("inspect_avatar", foo) will provide different

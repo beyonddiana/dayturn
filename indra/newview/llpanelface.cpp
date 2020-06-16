@@ -134,7 +134,7 @@ F32		LLPanelFace::getCurrentShinyOffsetV()		{ return getChild<LLUICtrl>("shinyOf
 // Methods
 //
 
-BOOL	LLPanelFace::postBuild()
+bool	LLPanelFace::postBuild()
 {
 	childSetCommitCallback("combobox shininess",&LLPanelFace::onCommitShiny,this);
 	childSetCommitCallback("combobox bumpiness",&LLPanelFace::onCommitBump,this);
@@ -319,7 +319,7 @@ BOOL	LLPanelFace::postBuild()
 
 	clearCtrls();
 
-	return TRUE;
+	return true;
 }
 
 LLPanelFace::LLPanelFace()

@@ -39,7 +39,7 @@ public:
 	LLFloaterHardwareSettings(const LLSD& key);
 	/*virtual*/ ~LLFloaterHardwareSettings();
 	
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	/*virtual*/ void onClose(bool app_quitting);
 
 	/// initialize all the callbacks for the menu

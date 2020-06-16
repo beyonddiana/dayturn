@@ -53,7 +53,7 @@ public:
 	LLWorldMapView();
 	virtual ~LLWorldMapView();
 	
-	virtual BOOL	postBuild();
+	virtual bool	postBuild();
 	
 	virtual void	reshape(S32 width, S32 height, BOOL called_from_parent = TRUE );
 	virtual void	setVisible(BOOL visible);

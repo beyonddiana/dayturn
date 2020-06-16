@@ -336,7 +336,7 @@ LLPreviewGesture::~LLPreviewGesture()
 }
 
 
-BOOL LLPreviewGesture::postBuild()
+bool LLPreviewGesture::postBuild()
 {
 	setVisibleCallback(boost::bind(&LLPreviewGesture::onVisibilityChanged, this, _2));
 	

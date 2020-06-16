@@ -70,7 +70,7 @@ LLModalDialog::~LLModalDialog()
 }
 
 // virtual
-BOOL LLModalDialog::postBuild()
+bool LLModalDialog::postBuild()
 {
 	return LLFloater::postBuild();
 }

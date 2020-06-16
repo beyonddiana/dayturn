@@ -85,7 +85,7 @@ protected:
     static void experienceCallback(LLHandle<LLFloaterExperienceProfile> handle, const LLSD& experience);
     static bool experiencePermission(LLHandle<LLFloaterExperienceProfile> handle, const LLSD& permission);
 
-    BOOL postBuild();
+    bool postBuild();
     bool setMaturityString(U8 maturity, LLTextBox* child, LLComboBox* combo);
     bool handleSaveChangesDialog(const LLSD& notification, const LLSD& response, PostSaveAction action);
     void doSave( int success_action );

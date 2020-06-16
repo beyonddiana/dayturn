@@ -103,7 +103,7 @@ enum {
 
 //static const std::string LEGACY_FULLBRIGHT_DESC =LLTrans::getString("Fullbright");
 
-BOOL	LLPanelObject::postBuild()
+bool	LLPanelObject::postBuild()
 {
 	setMouseOpaque(FALSE);
 	
@@ -313,7 +313,7 @@ BOOL	LLPanelObject::postBuild()
 	// Start with everyone disabled
 	clearCtrls();
 
-	return TRUE;
+	return true;
 }
 
 LLPanelObject::LLPanelObject()

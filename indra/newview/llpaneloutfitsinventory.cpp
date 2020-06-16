@@ -76,7 +76,7 @@ LLPanelOutfitsInventory::~LLPanelOutfitsInventory()
 }
 
 // virtual
-BOOL LLPanelOutfitsInventory::postBuild()
+bool LLPanelOutfitsInventory::postBuild()
 {
 	initTabPanels();
 	initListCommandsHandlers();
@@ -93,7 +93,7 @@ BOOL LLPanelOutfitsInventory::postBuild()
 	
 	mSaveComboBtn.reset(new LLSaveOutfitComboBtn(this, true));
 
-	return TRUE;
+	return true;
 }
 
 // virtual

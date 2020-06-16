@@ -115,7 +115,7 @@ LLOutfitsList::~LLOutfitsList()
 {
 }
 
-BOOL LLOutfitsList::postBuild()
+bool LLOutfitsList::postBuild()
 {
 	mAccordion = getChild<LLAccordionCtrl>("outfits_accordion");
 	mAccordion->setComparator(&OUTFIT_TAB_NAME_COMPARATOR);
@@ -996,7 +996,7 @@ void LLOutfitListBase::ChangeOutfitSelection(LLWearableItemsList* list, const LL
     signalSelectionOutfitUUID(category_id);
 }
 
-BOOL LLOutfitListBase::postBuild()
+bool LLOutfitListBase::postBuild()
 {
     mGearMenu = createGearMenu();
 
@@ -1004,7 +1004,7 @@ BOOL LLOutfitListBase::postBuild()
 
     menu_gear_btn->setMouseDownCallback(boost::bind(&LLOutfitListGearMenuBase::updateItemsVisibility, mGearMenu));
     menu_gear_btn->setMenu(mGearMenu->getMenu());
-    return TRUE;
+    return true;
 }
 
 void LLOutfitListBase::collapseAllFolders()

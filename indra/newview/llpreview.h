@@ -67,7 +67,7 @@ public:
 	LLPreview(const LLSD& key );
 	virtual ~LLPreview();
 		
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	
 	virtual void setObjectID(const LLUUID& object_id);
 	void setItem( LLInventoryItem* item );

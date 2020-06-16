@@ -285,7 +285,7 @@ LLNavigationBar::~LLNavigationBar()
 	mTeleportFailedConnection.disconnect();
 }
 
-BOOL LLNavigationBar::postBuild()
+bool LLNavigationBar::postBuild()
 {
 	mBtnBack	= getChild<LLPullButton>("back_btn");
 	mBtnForward	= getChild<LLPullButton>("forward_btn");
@@ -327,7 +327,7 @@ BOOL LLNavigationBar::postBuild()
 
 	LLHints::getInstance()->registerHintTarget("nav_bar", getHandle());
 
-	return TRUE;
+	return true;
 }
 
 void LLNavigationBar::setVisible(BOOL visible)

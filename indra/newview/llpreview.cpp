@@ -74,10 +74,10 @@ LLPreview::LLPreview(const LLSD& key)
 	refreshFromItem();
 }
 
-BOOL LLPreview::postBuild()
+bool LLPreview::postBuild()
 {
 	refreshFromItem();
-	return TRUE;
+	return true;
 }
 
 LLPreview::~LLPreview()

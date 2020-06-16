@@ -37,7 +37,7 @@ class LLFloaterDestinations:
 private:
 	LLFloaterDestinations(const LLSD& key);
 	/*virtual*/	~LLFloaterDestinations();
-	/*virtual*/	BOOL postBuild();
+	/*virtual*/	bool postBuild();
 //MK
 	virtual void onOpen(const LLSD& key);
 	virtual void draw();

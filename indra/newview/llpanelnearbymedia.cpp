@@ -104,7 +104,7 @@ LLPanelNearByMedia::~LLPanelNearByMedia()
 {
 }
 
-BOOL LLPanelNearByMedia::postBuild()
+bool LLPanelNearByMedia::postBuild()
 {
 	LLPanelPulldown::postBuild();
 
@@ -169,7 +169,7 @@ BOOL LLPanelNearByMedia::postBuild()
 	getChild<LLUICtrl>("more_btn")->setVisible(false);
 	onMoreLess();
 	
-	return TRUE;
+	return true;
 }
 
 void LLPanelNearByMedia::handleMediaAutoPlayChanged(const LLSD& newvalue)

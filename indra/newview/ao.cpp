@@ -175,7 +175,7 @@ void FloaterAO::updateList()
 	enableSetControls(TRUE);
 }
 
-BOOL FloaterAO::postBuild()
+bool FloaterAO::postBuild()
 {
 	LLPanel* aoPanel=getChild<LLPanel>("animation_overrider_outer_panel");
 	mMainInterfacePanel=aoPanel->getChild<LLPanel>("animation_overrider_panel");
