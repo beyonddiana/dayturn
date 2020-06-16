@@ -66,7 +66,7 @@ protected:
 public:
 	~LLContainerView();
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	/*virtual*/ bool addChild(LLView* view, S32 tab_group = 0);
 	
 	/*virtual*/ BOOL handleDoubleClick(S32 x, S32 y, MASK mask);

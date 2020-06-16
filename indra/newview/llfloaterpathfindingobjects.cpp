@@ -194,7 +194,7 @@ LLFloaterPathfindingObjects::~LLFloaterPathfindingObjects()
 	clearAllObjects();
 }
 
-BOOL LLFloaterPathfindingObjects::postBuild()
+bool LLFloaterPathfindingObjects::postBuild()
 {
 	mDefaultBeaconColor = LLUIColorTable::getInstance()->getColor("PathfindingDefaultBeaconColor");
 	mDefaultBeaconTextColor = LLUIColorTable::getInstance()->getColor("PathfindingDefaultBeaconTextColor");

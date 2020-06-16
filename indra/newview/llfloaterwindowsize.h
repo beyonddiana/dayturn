@@ -40,7 +40,7 @@ private:
 	virtual ~LLFloaterWindowSize();
 
 public:
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	void initWindowSizeControls();
 	void onClickSet();
 	void onClickCancel();

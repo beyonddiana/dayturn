@@ -64,7 +64,7 @@ public:
 	void initIMFloater();
 
 	// LLView overrides
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	/*virtual*/ void setMinimized(BOOL b);
 	/*virtual*/ void setVisible(BOOL visible);
 	/*virtual*/ BOOL getVisible();

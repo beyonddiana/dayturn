@@ -45,7 +45,7 @@ public:
 	virtual ~LLFloaterRegionDebugConsole();
 
 	// virtual
-	BOOL postBuild();
+	bool postBuild();
 	
 	void onInput(LLUICtrl* ctrl, const LLSD& param);
 

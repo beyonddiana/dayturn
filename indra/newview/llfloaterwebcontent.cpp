@@ -83,7 +83,7 @@ LLFloaterWebContent::LLFloaterWebContent( const Params& params )
 	mCommitCallbackRegistrar.add( "WebContent.PopExternal", boost::bind( &LLFloaterWebContent::onPopExternal, this ));
 }
 
-BOOL LLFloaterWebContent::postBuild()
+bool LLFloaterWebContent::postBuild()
 {
 	// these are used in a bunch of places so cache them
 	mWebBrowser        = getChild< LLMediaCtrl >( "webbrowser" );
@@ -110,7 +110,7 @@ BOOL LLFloaterWebContent::postBuild()
 	// initialize the URL history using the system URL History manager
 	initializeURLHistory();
 
-	return TRUE;
+	return true;
 }
 
 void LLFloaterWebContent::initializeURLHistory()

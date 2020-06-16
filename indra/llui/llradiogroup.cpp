@@ -53,7 +53,7 @@ public:
 	/*virtual*/ ~LLRadioCtrl();
 	/*virtual*/ void setValue(const LLSD& value);
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 
 	LLSD getPayload() { return mPayload; }
 
@@ -118,13 +118,13 @@ LLRadioGroup::~LLRadioGroup()
 }
 
 // virtual
-BOOL LLRadioGroup::postBuild()
+bool LLRadioGroup::postBuild()
 {
 	if (!mRadioButtons.empty())
 	{
 		mRadioButtons[0]->setTabStop(true);
 	}
-	return TRUE;
+	return true;
 }
 
 void LLRadioGroup::setIndexEnabled(S32 index, BOOL enabled)
@@ -466,7 +466,7 @@ LLRadioCtrl::LLRadioCtrl(const LLRadioGroup::ItemParams& p)
 	}
 }
 
-BOOL LLRadioCtrl::postBuild()
+bool LLRadioCtrl::postBuild()
 {
 	// Old-style radio_item used the text contents to indicate the label,
 	// but new-style radio_item uses label attribute.
@@ -475,7 +475,7 @@ BOOL LLRadioCtrl::postBuild()
 	{
 		setLabel(value);
 	}
-	return TRUE;
+	return true;
 }
 
 LLRadioCtrl::~LLRadioCtrl()

@@ -71,7 +71,7 @@ LLFloaterEditSky::LLFloaterEditSky(const LLSD &key)
 }
 
 // virtual
-BOOL LLFloaterEditSky::postBuild()
+bool LLFloaterEditSky::postBuild()
 {
 	mSkyPresetNameEditor = getChild<LLLineEditor>("sky_preset_name");
 	mSkyPresetCombo = getChild<LLComboBox>("sky_preset_combo");
@@ -83,7 +83,7 @@ BOOL LLFloaterEditSky::postBuild()
 	// Create the sun position scrubber on the slider.
 	getChild<LLMultiSliderCtrl>("WLSunPos")->addSlider(12.f);
 
-	return TRUE;
+	return true;
 }
 
 // virtual

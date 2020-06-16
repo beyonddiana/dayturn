@@ -54,7 +54,7 @@ public:
 	LLPanelObjectInventory(const Params&);
 	virtual ~LLPanelObjectInventory();
 	
-	virtual BOOL postBuild();
+	virtual bool postBuild();
 
 	LLFolderViewModelInventory& getRootViewModel() { return mInventoryViewModel; }
 

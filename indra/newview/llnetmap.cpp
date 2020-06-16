@@ -115,7 +115,7 @@ LLNetMap::~LLNetMap()
 {
 }
 
-BOOL LLNetMap::postBuild()
+bool LLNetMap::postBuild()
 {
 	LLUICtrl::CommitCallbackRegistry::ScopedRegistrar registrar;
 	
@@ -128,7 +128,7 @@ BOOL LLNetMap::postBuild()
 	LLViewerParcelOverlay::setUpdateCallback(boost::bind(&LLNetMap::refreshParcelOverlay, this));
 
 	mPopupMenu = LLUICtrlFactory::getInstance()->createFromFile<LLMenuGL>("menu_mini_map.xml", gMenuHolder, LLViewerMenuHolderGL::child_registry_t::instance());
-	return TRUE;
+	return true;
 }
 
 void LLNetMap::setScale( F32 scale )

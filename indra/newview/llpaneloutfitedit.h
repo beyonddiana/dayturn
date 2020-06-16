@@ -125,7 +125,7 @@ public:
 	LLPanelOutfitEdit();
 	/*virtual*/ ~LLPanelOutfitEdit();
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	/*virtual*/ void onOpen(const LLSD& key);
 
 	void moveWearable(bool closer_to_body);

@@ -48,7 +48,7 @@ public:
 
     LLSysWellWindow(const LLSD& key);
     virtual ~LLSysWellWindow();
-	BOOL postBuild();
+	bool postBuild();
 
 	// other interface functions
 	// check is window empty
@@ -111,7 +111,7 @@ public:
 	static LLIMWellWindow* findInstance(const LLSD& key = LLSD());
 	static void initClass() { getInstance(); }
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 
 	void addObjectRow(const LLUUID& notification_id, bool new_message = false);
 	void removeObjectRow(const LLUUID& notification_id);

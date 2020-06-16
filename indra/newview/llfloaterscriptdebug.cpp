@@ -69,16 +69,16 @@ void LLFloaterScriptDebug::show(const LLUUID& object_id)
 	addOutputWindow(object_id);
 }
 
-BOOL LLFloaterScriptDebug::postBuild()
+bool LLFloaterScriptDebug::postBuild()
 {
 	LLMultiFloater::postBuild();
 
 	if (mTabContainer)
 	{
-		return TRUE;
+		return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 void LLFloaterScriptDebug::setVisible(BOOL visible)
@@ -187,11 +187,11 @@ LLFloaterScriptDebugOutput::LLFloaterScriptDebugOutput(const LLSD& object_id)
 	setAutoFocus(FALSE);
 }
 
-BOOL LLFloaterScriptDebugOutput::postBuild()
+bool LLFloaterScriptDebugOutput::postBuild()
 {
 	LLFloater::postBuild();
 	mHistoryEditor = getChild<LLViewerTextEditor>("Chat History Editor");
-	return TRUE;
+	return true;
 }
 
 LLFloaterScriptDebugOutput::~LLFloaterScriptDebugOutput()

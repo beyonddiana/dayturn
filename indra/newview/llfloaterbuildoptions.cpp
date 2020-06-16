@@ -49,9 +49,9 @@ LLFloaterBuildOptions::LLFloaterBuildOptions(const LLSD& key)
 LLFloaterBuildOptions::~LLFloaterBuildOptions()
 {}
 
-BOOL LLFloaterBuildOptions::postBuild()
+bool LLFloaterBuildOptions::postBuild()
 {
-	return TRUE;
+	return true;
 }
 
 // virtual

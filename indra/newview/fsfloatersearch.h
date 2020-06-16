@@ -39,7 +39,7 @@ public:
 	FSFloaterSearch(const LLSD& key);
 	/* virtual */ ~FSFloaterSearch();
 	
-	/* virtual */ BOOL postBuild();
+	/* virtual */ bool postBuild();
 	/* virtual */ void onOpen(const LLSD& key);
 	/* virtual */ void addFloater(LLFloater* floaterp,
 								  BOOL fSelect,

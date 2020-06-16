@@ -81,7 +81,7 @@ LLFloaterOutfitPhotoPreview::~LLFloaterOutfitPhotoPreview()
 }
 
 // virtual
-BOOL LLFloaterOutfitPhotoPreview::postBuild()
+bool LLFloaterOutfitPhotoPreview::postBuild()
 {
 	getChild<LLButton>("ok_btn")->setClickedCallback(boost::bind(&LLFloaterOutfitPhotoPreview::onOkBtn, this));
 	getChild<LLButton>("cancel_btn")->setClickedCallback(boost::bind(&LLFloaterOutfitPhotoPreview::onCancelBtn, this));

@@ -53,7 +53,7 @@ public:
 	LLFloaterAvatarPicker(const LLSD& key);
 	virtual ~LLFloaterAvatarPicker();
 	
-	virtual	BOOL postBuild();
+	virtual	bool postBuild();
 
 	void setOkBtnEnableCb(validate_callback_t cb);
 

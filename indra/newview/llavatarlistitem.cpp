@@ -120,7 +120,7 @@ LLAvatarListItem::~LLAvatarListItem()
 	}
 }
 
-BOOL  LLAvatarListItem::postBuild()
+bool  LLAvatarListItem::postBuild()
 {
 	mAvatarIcon = getChild<LLAvatarIconCtrl>("avatar_icon");
 	mAvatarName = getChild<LLTextBox>("avatar_name");
@@ -173,7 +173,7 @@ BOOL  LLAvatarListItem::postBuild()
 		sStaticInitialized = true;
 	}
 
-	return TRUE;
+	return true;
 }
 
 void LLAvatarListItem::handleVisibilityChange ( BOOL new_visibility )

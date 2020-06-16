@@ -62,7 +62,7 @@ public:
 	 */
 	/*virtual*/ void onOpen(const LLSD& key);
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 
 	/*virtual*/ void reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
 
@@ -182,7 +182,7 @@ public:
 
 	virtual void setPickData(const LLPickData* pick_data);
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 
 	/**
 	 * Sets "Save" button click callback

@@ -137,7 +137,7 @@ LLResizeBar::LLResizeBar(const LLResizeBar::Params& p)
 	}
 }
 
-BOOL LLResizeBar::postBuild()
+bool LLResizeBar::postBuild()
 {
 	if (mShowDragHandle)
 	{

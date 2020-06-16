@@ -42,7 +42,7 @@ public:
 	LLModalDialog( const LLSD& key, BOOL modal = true );
 	virtual		~LLModalDialog();
 	
-	/*virtual*/ BOOL 	postBuild();
+	/*virtual*/ bool 	postBuild();
 	
 	/*virtual*/ void	openFloater(const LLSD& key = LLSD());
 	/*virtual*/ void	onOpen(const LLSD& key);

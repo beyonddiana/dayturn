@@ -156,7 +156,7 @@ void handleInventoryDisplayInboxChanged()
 	}
 }
 
-BOOL LLSidepanelInventory::postBuild()
+bool LLSidepanelInventory::postBuild()
 {
 	// UI elements from inventory panel
 	{

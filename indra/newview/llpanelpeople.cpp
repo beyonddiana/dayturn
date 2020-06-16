@@ -626,7 +626,7 @@ void LLPanelPeople::removePicker()
     }
 }
 
-BOOL LLPanelPeople::postBuild()
+bool LLPanelPeople::postBuild()
 {
 	S32 max_premium = PREMIUM_MAX_AGENT_GROUPS; 
 	if (gAgent.getRegion())
@@ -771,7 +771,7 @@ BOOL LLPanelPeople::postBuild()
 	mOnlineFriendList->setRefreshCompleteCallback(boost::bind(&LLPanelPeople::onFriendListRefreshComplete, this, _1, _2));
 	mAllFriendList->setRefreshCompleteCallback(boost::bind(&LLPanelPeople::onFriendListRefreshComplete, this, _1, _2));
 
-	return TRUE;
+	return true;
 }
 
 // virtual

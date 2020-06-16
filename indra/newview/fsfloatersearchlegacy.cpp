@@ -217,7 +217,7 @@ FSFloaterSearchLegacy::~FSFloaterSearchLegacy()
 	gGenericDispatcher.addHandler("classifiedclickthrough", NULL);
 }
 
-BOOL FSFloaterSearchLegacy::postBuild()
+bool FSFloaterSearchLegacy::postBuild()
 {
 	LLSearchEditor *search_terms = getChild<LLSearchEditor>("search_terms");
 	if (search_terms) {
@@ -333,7 +333,7 @@ BOOL FSFloaterSearchLegacy::postBuild()
 	mParcelGlobal.setZero();
 	refreshSearchVerbs();
 	
-	return TRUE;
+	return true;
 }
 
 // static

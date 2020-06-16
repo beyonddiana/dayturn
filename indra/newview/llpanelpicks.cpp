@@ -506,7 +506,7 @@ LLClassifiedItem* LLPanelPicks::getSelectedClassifiedItem()
 	return dynamic_cast<LLClassifiedItem*>(selected_item);
 }
 
-BOOL LLPanelPicks::postBuild()
+bool LLPanelPicks::postBuild()
 {
 	mPicksList = getChild<LLFlatListView>("picks_list");
 	mClassifiedsList = getChild<LLFlatListView>("classifieds_list");
@@ -552,7 +552,7 @@ BOOL LLPanelPicks::postBuild()
 	mEnableCallbackRegistrar.add("Picks.Plus.Enable", boost::bind(&LLPanelPicks::isActionEnabled, this, _2));
 	mPlusMenu = LLUICtrlFactory::getInstance()->createFromFile<LLToggleableMenu>("menu_picks_plus.xml", gMenuHolder, LLViewerMenuHolderGL::child_registry_t::instance());
 
-	return TRUE;
+	return true;
 }
 
 void LLPanelPicks::onPlusMenuItemClicked(const LLSD& param)
@@ -1345,11 +1345,11 @@ void set_child_visible(LLView* parent, const std::string& child_name, bool visib
 	parent->getChildView(child_name)->setVisible(visible);
 }
 
-BOOL LLPickItem::postBuild()
+bool LLPickItem::postBuild()
 {
 	setMouseEnterCallback(boost::bind(&set_child_visible, this, "hovered_icon", true));
 	setMouseLeaveCallback(boost::bind(&set_child_visible, this, "hovered_icon", false));
-	return TRUE;
+	return true;
 }
 
 void LLPickItem::setValue(const LLSD& value)
@@ -1400,11 +1400,11 @@ void LLClassifiedItem::processProperties(void* data, EAvatarProcessorType type)
 	LLAvatarPropertiesProcessor::getInstance()->removeObserver(getAvatarId(), this);
 }
 
-BOOL LLClassifiedItem::postBuild()
+bool LLClassifiedItem::postBuild()
 {
 	setMouseEnterCallback(boost::bind(&set_child_visible, this, "hovered_icon", true));
 	setMouseLeaveCallback(boost::bind(&set_child_visible, this, "hovered_icon", false));
-	return TRUE;
+	return true;
 }
 
 void LLClassifiedItem::setValue(const LLSD& value)

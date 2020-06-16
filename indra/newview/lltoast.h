@@ -112,7 +112,7 @@ public:
 
 	LLToast(const LLToast::Params& p);
 	virtual ~LLToast();
-	BOOL postBuild();
+	bool postBuild();
 
 	/*virtual*/ void reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
 

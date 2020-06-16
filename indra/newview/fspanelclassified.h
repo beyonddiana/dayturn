@@ -49,7 +49,7 @@ public:
 	FSPublishClassifiedFloater(const LLSD& key);
 	virtual ~FSPublishClassifiedFloater();
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 
 	void setPrice(S32 price);
 	S32 getPrice();
@@ -73,7 +73,7 @@ public:
 
 	void updateData();
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 
 	/*virtual*/ void processProperties(void* data, EAvatarProcessorType type);
 
@@ -209,7 +209,7 @@ public:
 
 	virtual ~FSPanelClassifiedEdit();
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 
 	void fillIn(const LLSD& key);
 

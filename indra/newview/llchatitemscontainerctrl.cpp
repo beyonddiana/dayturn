@@ -121,7 +121,7 @@ void	LLFloaterIMNearbyChatToastPanel::reshape		(S32 width, S32 height, BOOL call
 	msg_text->setRect(msg_text_rect);
 }
 
-BOOL LLFloaterIMNearbyChatToastPanel::postBuild()
+bool LLFloaterIMNearbyChatToastPanel::postBuild()
 {
 	return LLPanel::postBuild();
 }

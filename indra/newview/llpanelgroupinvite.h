@@ -49,7 +49,7 @@ public:
 	void setCloseCallback(void (*close_callback)(void*), void* data);
 
 	virtual void draw();
-	virtual BOOL postBuild();
+	virtual bool postBuild();
 protected:
 	class impl;
 	impl* mImplementation;

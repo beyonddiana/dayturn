@@ -52,7 +52,7 @@ LLFloaterLinkReplace::~LLFloaterLinkReplace()
 {
 }
 
-BOOL LLFloaterLinkReplace::postBuild()
+bool LLFloaterLinkReplace::postBuild()
 {
 	mStartBtn = getChild<LLButton>("btn_start");
 	mStartBtn->setCommitCallback(boost::bind(&LLFloaterLinkReplace::onStartClicked, this));
@@ -68,7 +68,7 @@ BOOL LLFloaterLinkReplace::postBuild()
 
 	mStatusText = getChild<LLTextBox>("status_text");
 
-	return TRUE;
+	return true;
 }
 
 void LLFloaterLinkReplace::onOpen(const LLSD& key)

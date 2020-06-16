@@ -134,7 +134,7 @@ void LLPanelPickInfo::onOpen(const LLSD& key)
 		getAvatarId(), getPickId());
 }
 
-BOOL LLPanelPickInfo::postBuild()
+bool LLPanelPickInfo::postBuild()
 {
 	mSnapshotCtrl = getChild<LLTextureCtrl>(XML_SNAPSHOT);
 
@@ -151,7 +151,7 @@ BOOL LLPanelPickInfo::postBuild()
 	LLTextEditor* text_desc = getChild<LLTextEditor>(XML_DESC);
 	text_desc->setContentTrusted(false);
 
-	return TRUE;
+	return true;
 }
 
 void LLPanelPickInfo::reshape(S32 width, S32 height, BOOL called_from_parent)
@@ -433,7 +433,7 @@ void LLPanelPickEdit::setPickData(const LLPickData* pick_data)
 			pick_data->sim_name, pick_data->pos_global));
 }
 
-BOOL LLPanelPickEdit::postBuild()
+bool LLPanelPickEdit::postBuild()
 {
 	LLPanelPickInfo::postBuild();
 
@@ -450,7 +450,7 @@ BOOL LLPanelPickEdit::postBuild()
 
 	initTexturePickerMouseEvents();
 
-	return TRUE;
+	return true;
 }
 
 void LLPanelPickEdit::setSaveCallback(const commit_callback_t& cb)

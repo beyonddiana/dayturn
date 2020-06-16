@@ -712,7 +712,7 @@ void LLPanelEditWearable::setWearablePanelVisibilityChangeCallback(LLPanel* body
 }
 
 // virtual 
-BOOL LLPanelEditWearable::postBuild()
+bool LLPanelEditWearable::postBuild()
 {
         // buttons
         mBtnRevert = getChild<LLButton>("revert_button");
@@ -831,7 +831,7 @@ BOOL LLPanelEditWearable::postBuild()
         gSavedSettings.getControl("HeightUnits")->getSignal()->connect(boost::bind(&LLPanelEditWearable::changeHeightUnits, this, _2));
         updateMetricLayout(gSavedSettings.getBOOL("HeightUnits"));
 
-        return TRUE;
+        return true;
 }
 
 // virtual 

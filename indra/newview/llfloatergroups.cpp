@@ -74,7 +74,7 @@ void LLFloaterGroupPicker::setPowersMask(U64 powers_mask)
 }
 
 
-BOOL LLFloaterGroupPicker::postBuild()
+bool LLFloaterGroupPicker::postBuild()
 {
 	LLScrollListCtrl* list_ctrl = getChild<LLScrollListCtrl>("group list");
 	if (list_ctrl)
@@ -92,7 +92,7 @@ BOOL LLFloaterGroupPicker::postBuild()
 
 	getChildView("OK")->setEnabled(TRUE);
 
-	return TRUE;
+	return true;
 }
 
 void LLFloaterGroupPicker::removeNoneOption()
@@ -178,7 +178,7 @@ void LLPanelGroups::reset()
 	enableButtons();
 }
 
-BOOL LLPanelGroups::postBuild()
+bool LLPanelGroups::postBuild()
 {
 	childSetCommitCallback("group list", onGroupList, this);
 
@@ -209,7 +209,7 @@ BOOL LLPanelGroups::postBuild()
 
 	reset();
 
-	return TRUE;
+	return true;
 }
 
 void LLPanelGroups::enableButtons()

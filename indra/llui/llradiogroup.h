@@ -64,7 +64,7 @@ public:
 
 	virtual ~LLRadioGroup();
 	
-	virtual BOOL postBuild();
+	virtual bool postBuild();
 	
 	virtual BOOL handleMouseDown(S32 x, S32 y, MASK mask);
 	

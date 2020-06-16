@@ -146,7 +146,7 @@ protected:
     // We shouldn't ever need to set this directly
     //virtual void    setViewModel(const LLViewModelPtr&);
 
-	virtual BOOL	postBuild();
+	virtual bool	postBuild();
 	
 public:
 	// LLView interface

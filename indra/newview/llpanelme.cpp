@@ -55,11 +55,11 @@ LLPanelMe::LLPanelMe(void)
 	setAvatarId(gAgent.getID());
 }
 
-BOOL LLPanelMe::postBuild()
+bool LLPanelMe::postBuild()
 {
 	LLPanelProfile::postBuild();
 
-	return TRUE;
+	return true;
 }
 
 void LLPanelMe::onOpen(const LLSD& key)

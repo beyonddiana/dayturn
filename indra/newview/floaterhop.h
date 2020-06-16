@@ -75,7 +75,7 @@ public:
 	static void geometryChanged(const std::string &uuid, S32 x, S32 y, S32 width, S32 height);
 	void geometryChanged(S32 x, S32 y, S32 width, S32 height);
 
-	/* virtual */ BOOL postBuild();
+	/* virtual */ bool postBuild();
 	/* virtual */ void onOpen(const LLSD& key);
 	/* virtual */ void onClose(bool app_quitting);
 	/* virtual */ void draw();

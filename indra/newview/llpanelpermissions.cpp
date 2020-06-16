@@ -144,7 +144,7 @@ LLPanelPermissions::LLPanelPermissions() :
 	setMouseOpaque(FALSE);
 }
 
-BOOL LLPanelPermissions::postBuild()
+bool LLPanelPermissions::postBuild()
 {
 	childSetCommitCallback("Object Name",LLPanelPermissions::onCommitName,this);
 	getChild<LLLineEditor>("Object Name")->setPrevalidate(LLTextValidate::validateASCIIPrintableNoPipe);
@@ -178,7 +178,7 @@ BOOL LLPanelPermissions::postBuild()
 	
 	mLabelGroupName = getChild<LLNameBox>("Group Name Proxy");
 
-	return TRUE;
+	return true;
 }
 
 

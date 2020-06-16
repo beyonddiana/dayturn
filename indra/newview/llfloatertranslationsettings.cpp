@@ -93,7 +93,7 @@ LLFloaterTranslationSettings::LLFloaterTranslationSettings(const LLSD& key)
 }
 
 // virtual
-BOOL LLFloaterTranslationSettings::postBuild()
+bool LLFloaterTranslationSettings::postBuild()
 {
 	mMachineTranslationCB = getChild<LLCheckBoxCtrl>("translate_chat_checkbox");
 	mLanguageCombo = getChild<LLComboBox>("translate_language_combo");
@@ -117,7 +117,7 @@ BOOL LLFloaterTranslationSettings::postBuild()
 	mGoogleAPIKeyEditor->setKeystrokeCallback(boost::bind(&LLFloaterTranslationSettings::onGoogleKeyEdited, this), NULL);
 
 	center();
-	return TRUE;
+	return true;
 }
 
 // virtual

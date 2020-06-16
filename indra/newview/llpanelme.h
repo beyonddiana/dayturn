@@ -44,7 +44,7 @@ public:
 
 	/*virtual*/ void onOpen(const LLSD& key);
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 };
 
 #endif // LL_LLPANELMEPROFILE_H

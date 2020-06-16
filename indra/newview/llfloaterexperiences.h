@@ -43,7 +43,7 @@ public:
 protected:
     void clearFromRecent(const LLSD& ids);
     void resizeToTabs();
-	/*virtual*/ BOOL	postBuild();
+	/*virtual*/ bool	postBuild();
     void refreshContents();
     void setupRecentTabs();
     LLPanelExperiences* addTab(const std::string& name, bool select);

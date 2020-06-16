@@ -42,7 +42,7 @@ FSFloaterSearch::~FSFloaterSearch()
 {
 }
 
-BOOL FSFloaterSearch::postBuild()
+bool FSFloaterSearch::postBuild()
 {
 	mTabContainer = getChild<LLTabContainer>("search_tabs");
 

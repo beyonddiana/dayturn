@@ -63,7 +63,7 @@ public:
 
 	static void* create(void* data);
 
-	/*virtual*/ BOOL postBuild(void);
+	/*virtual*/ bool postBuild(void);
 
 	/*virtual*/ void onOpen(const LLSD& key);
 
@@ -219,7 +219,7 @@ public:
 
 	~LLPickItem();
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 
 	/** setting on/off background icon to indicate selected state */
 	/*virtual*/ void setValue(const LLSD& value);
@@ -250,7 +250,7 @@ public:
 
 	/*virtual*/ void processProperties(void* data, EAvatarProcessorType type);
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 
 	/*virtual*/ void setValue(const LLSD& value);
 

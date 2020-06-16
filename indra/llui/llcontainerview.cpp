@@ -57,7 +57,7 @@ LLContainerView::~LLContainerView()
 	// Children all cleaned up by default view destructor.
 }
 
-BOOL LLContainerView::postBuild()
+bool LLContainerView::postBuild()
 {
 	setDisplayChildren(mDisplayChildren);
 	reshape(getRect().getWidth(), getRect().getHeight(), FALSE);

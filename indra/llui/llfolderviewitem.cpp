@@ -179,10 +179,10 @@ LLFolderViewItem::~LLFolderViewItem()
 	mViewModelItem = NULL;
 }
 
-BOOL LLFolderViewItem::postBuild()
+bool LLFolderViewItem::postBuild()
 {
 	refresh();
-	return TRUE;
+	return true;
 }
 
 

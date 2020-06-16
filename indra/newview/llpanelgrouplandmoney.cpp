@@ -675,7 +675,7 @@ void LLPanelGroupLandMoney::cancel()
 }
 
 
-BOOL LLPanelGroupLandMoney::postBuild()
+bool LLPanelGroupLandMoney::postBuild()
 {
 	/* This power was removed to make group roles simpler
 	bool has_parcel_view     = gAgent.hasPowerInGroup(mGroupID,

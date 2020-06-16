@@ -60,7 +60,7 @@ public:
 	typedef boost::signals2::signal<void (LLUUID id)> signal_t;	
 	void setSelectGroupCallback(const signal_t::slot_type& cb) { mGroupSelectSignal.connect(cb); }
 	void setPowersMask(U64 powers_mask);
-	BOOL postBuild();
+	bool postBuild();
 
 	// implementation of factory policy
 	static LLFloaterGroupPicker* findInstance(const LLSD& seed);
@@ -97,7 +97,7 @@ public:
 
 protected:
 	// initialize based on the type
-	BOOL postBuild();
+	bool postBuild();
 
 	// highlight_id is a group id to highlight
 	void enableButtons();

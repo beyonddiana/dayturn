@@ -92,7 +92,7 @@ private:
 	LLFloaterCamera(const LLSD& val);
 	~LLFloaterCamera() {};
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 
 	ECameraControlMode determineMode();
 
@@ -150,7 +150,7 @@ public:
 		Optional<CommitCallbackParam> mousedown_callback;
 		Params();
 	};
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	/** setting on/off background icon to indicate selected state */
 	/*virtual*/ void setValue(const LLSD& value);
 	// sends commit signal

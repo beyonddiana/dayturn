@@ -230,7 +230,7 @@ public:
 	 */
 	LLAvalineListItem(bool hide_number = true);
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 
 	/*virtual*/ void setName(const std::string& name);
 

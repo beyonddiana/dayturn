@@ -51,7 +51,7 @@ LLBlockedListItem::LLBlockedListItem(const LLMute* item)
 	buildFromFile("panel_blocked_list_item.xml");
 }
 
-BOOL LLBlockedListItem::postBuild()
+bool LLBlockedListItem::postBuild()
 {
 	mTitleCtrl = getChild<LLTextBox>("item_name");
 	mTitleCtrl->setValue(mItemName);
@@ -82,7 +82,7 @@ BOOL LLBlockedListItem::postBuild()
 		break;
 	}
 
-	return TRUE;
+	return true;
 }
 
 void LLBlockedListItem::onMouseEnter(S32 x, S32 y, MASK mask)

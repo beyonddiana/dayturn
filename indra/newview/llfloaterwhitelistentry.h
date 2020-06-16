@@ -38,7 +38,7 @@ class LLFloaterWhiteListEntry :
 		LLFloaterWhiteListEntry(const LLSD& key);
 		~LLFloaterWhiteListEntry();
 	
-		BOOL postBuild();
+		bool postBuild();
 
 	private:
 		LLLineEditor* mWhiteListEdit;

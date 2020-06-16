@@ -49,7 +49,7 @@ public:
 	LLFloaterBuy(const LLSD& key);
 	~LLFloaterBuy();
 	
-	/*virtual*/	BOOL postBuild();
+	/*virtual*/	bool postBuild();
 	/*virtual*/ void onClose(bool app_quitting);
 	
 	static void show(const LLSaleInfo& sale_info);

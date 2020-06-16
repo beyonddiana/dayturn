@@ -56,7 +56,7 @@ public:
 	static LLFloaterWorldMap* getInstance();
 
 	static void *createWorldMapView(void* data);
-	BOOL postBuild();
+	bool postBuild();
 
 	/*virtual*/ void onOpen(const LLSD& key);
 	/*virtual*/ void onClose(bool app_quitting);

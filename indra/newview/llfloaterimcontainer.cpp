@@ -162,7 +162,7 @@ void LLFloaterIMContainer::onCurrentChannelChanged(const LLUUID& session_id)
     }
 }
 
-BOOL LLFloaterIMContainer::postBuild()
+bool LLFloaterIMContainer::postBuild()
 {
 	mOrigMinWidth = getMinWidth();
 	mOrigMinHeight = getMinHeight();
@@ -273,7 +273,7 @@ BOOL LLFloaterIMContainer::postBuild()
     mParticipantRefreshTimer.setTimerExpirySec(0);
     mParticipantRefreshTimer.start();
 
-	return TRUE;
+	return true;
 }
 
 void LLFloaterIMContainer::onOpen(const LLSD& key)

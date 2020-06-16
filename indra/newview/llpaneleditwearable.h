@@ -51,7 +51,7 @@ public:
 	LLPanelEditWearable( );
 	virtual ~LLPanelEditWearable();
 
-	/*virtual*/ BOOL 		postBuild();
+	/*virtual*/ bool 		postBuild();
 	/*virtual*/ BOOL		isDirty() const;	// LLUICtrl
 	/*virtual*/ void		draw();	
 				void		onClose();

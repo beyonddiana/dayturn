@@ -1098,7 +1098,7 @@ LLFloaterSnapshot::~LLFloaterSnapshot()
 }
 
 
-BOOL LLFloaterSnapshot::postBuild()
+bool LLFloaterSnapshot::postBuild()
 {
 	mRefreshBtn = getChild<LLUICtrl>("new_snapshot_btn");
 	childSetAction("new_snapshot_btn", Impl::onClickNewSnapshot, this);
@@ -1170,7 +1170,7 @@ BOOL LLFloaterSnapshot::postBuild()
 
 	previewp->setThumbnailPlaceholderRect(getThumbnailPlaceholderRect());
 
-	return TRUE;
+	return true;
 }
 
 void LLFloaterSnapshot::draw()

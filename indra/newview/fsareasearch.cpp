@@ -167,7 +167,7 @@ void FSAreaSearch::callbackIdle(void *user_data)
 	self->processRequestQueue();
 }
 
-BOOL FSAreaSearch::postBuild()
+bool FSAreaSearch::postBuild()
 {
 	mFilterName = getChild<LLFilterEditor>("name_filter");
 	mFilterDescription = getChild<LLFilterEditor>("description_filter");
@@ -176,7 +176,7 @@ BOOL FSAreaSearch::postBuild()
 
 	if (!mFilterName || !mFilterDescription || !mFilterOwner || !mFilterGroup) {
 		LL_WARNS("FSAreaSearch") << "One or more of the required filter controls are missing" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 
 	mFilterName->setCommitCallback(boost::bind(&FSAreaSearch::refreshList, this, false));
@@ -191,7 +191,7 @@ BOOL FSAreaSearch::postBuild()
 
 	if (!mCheckboxPhysical || !mCheckboxTemporary || !mCheckboxAttachment || !mCheckboxOther) {
 		LL_WARNS("FSAreaSearch") << "One or more of the required checkbox controls are missing" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 
 	mCheckboxPhysical->setCommitCallback(boost::bind(&FSAreaSearch::refreshList, this, false));
@@ -206,7 +206,7 @@ BOOL FSAreaSearch::postBuild()
 
 	if (!mStatusBarText || !mStatusBarProgress) {
 		LL_WARNS("FSAreaSearch") << "One or more of the required status controls are missing" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 
 	mStatusBarText->setVisible(FALSE);
@@ -214,14 +214,14 @@ BOOL FSAreaSearch::postBuild()
 
 	if (!mOptionsMenu) {
 		LL_WARNS("FSAreaSearch") << "The options menu is missing" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 
 	LLMenuButton *menu_btn = getChild<LLMenuButton>("options_menu_btn");
 
 	if (!menu_btn) {
 		LL_WARNS("FSAreaSearch") << "Couldn't find the options_menu_btn control" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 	menu_btn->setMenu(mOptionsMenu->getMenu());
 
@@ -229,7 +229,7 @@ BOOL FSAreaSearch::postBuild()
 
 	if (!mResultsList) {
 		LL_WARNS("FSAreaSearch") << "Couldn't find the result_list control" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 
 	mResultsList->setCommitCallback(boost::bind(&FSAreaSearch::onSelectRow, this));
@@ -238,7 +238,7 @@ BOOL FSAreaSearch::postBuild()
 	mResultsList->sortByColumn("name_column", TRUE);
 
 	refreshList(true);
-	return TRUE;
+	return true;
 }
 
 void FSAreaSearch::checkRegion()

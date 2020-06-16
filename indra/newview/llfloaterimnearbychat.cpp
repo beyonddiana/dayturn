@@ -116,10 +116,10 @@ LLFloaterIMNearbyChat* LLFloaterIMNearbyChat::buildFloater(const LLSD& key)
 }
 
 //virtual
-BOOL LLFloaterIMNearbyChat::postBuild()
+bool LLFloaterIMNearbyChat::postBuild()
 {
     setIsSingleInstance(TRUE);
-    BOOL result = LLFloaterIMSessionTab::postBuild();
+    bool result = LLFloaterIMSessionTab::postBuild();
 
 	mInputEditor->setAutoreplaceCallback(boost::bind(&LLAutoReplace::autoreplaceCallback, LLAutoReplace::getInstance(), _1, _2, _3, _4, _5));
 	mInputEditor->setCommitCallback(boost::bind(&LLFloaterIMNearbyChat::onChatBoxCommit, this));

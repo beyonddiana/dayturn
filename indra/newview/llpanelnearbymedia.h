@@ -43,7 +43,7 @@ class LLPanelNearByMedia : public LLPanelPulldown
 {
 public:
 	
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	/*virtual*/ void draw();
 	/*virtual*/ void reshape(S32 width, S32 height, BOOL called_from_parent);
 	/*virtual*/ BOOL handleHover(S32 x, S32 y, MASK mask);

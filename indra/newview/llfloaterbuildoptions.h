@@ -43,7 +43,7 @@ class LLFloaterBuildOptions
 	:	public LLFloater
 {
 public:
-	virtual BOOL postBuild();
+	virtual bool postBuild();
 
 	/*virtual*/ void onOpen(const LLSD& key);
 	/*virtual*/	void onClose(bool app_quitting);

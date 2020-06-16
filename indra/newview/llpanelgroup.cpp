@@ -78,9 +78,9 @@ BOOL LLPanelGroupTab::isVisibleByAgent(LLAgent* agentp)
 	return TRUE;
 }
 
-BOOL LLPanelGroupTab::postBuild()
+bool LLPanelGroupTab::postBuild()
 {
-	return TRUE;
+	return true;
 }
 
 LLPanelGroup::LLPanelGroup()
@@ -141,7 +141,7 @@ void LLPanelGroup::onOpen(const LLSD& key)
 
 }
 
-BOOL LLPanelGroup::postBuild()
+bool LLPanelGroup::postBuild()
 {
 	mDefaultNeedsApplyMesg = getString("default_needs_apply_text");
 	mWantApplyMesg = getString("want_apply_text");
@@ -195,7 +195,7 @@ BOOL LLPanelGroup::postBuild()
 
 	LLVoiceClient::getInstance()->addObserver(this);
 	
-	return TRUE;
+	return true;
 }
 
 void LLPanelGroup::reposButton(const std::string& name)

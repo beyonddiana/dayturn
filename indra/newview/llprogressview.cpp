@@ -78,7 +78,7 @@ LLProgressView::LLProgressView()
 	mFadeFromLoginTimer.stop();
 }
 
-BOOL LLProgressView::postBuild()
+bool LLProgressView::postBuild()
 {
 	mProgressBar = getChild<LLProgressBar>("login_progress_bar");
 
@@ -105,7 +105,7 @@ BOOL LLProgressView::postBuild()
 	LLNotifications::instance().getChannel("AlertModal")->connectChanged(boost::bind(&LLProgressView::onAlertModal, this, _1));
 
 	sInstance = this;
-	return TRUE;
+	return true;
 }
 
 

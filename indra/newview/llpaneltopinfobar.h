@@ -46,7 +46,7 @@ class LLPanelTopInfoBar : public LLPanel, public LLSingleton<LLPanelTopInfoBar>,
 public:
 	typedef boost::signals2::signal<void ()> resize_signal_t;
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	/*virtual*/ void draw();
 
 	/**

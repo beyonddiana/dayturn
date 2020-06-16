@@ -41,7 +41,7 @@ public:
 	virtual ~LLFloaterToybox();
 
 	// virtuals
-	BOOL postBuild();
+	bool postBuild();
 	void draw();
 	/*virtual*/ BOOL handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
 		EDragAndDropType cargo_type,

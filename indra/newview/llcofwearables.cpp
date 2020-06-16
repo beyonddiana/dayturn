@@ -312,7 +312,7 @@ LLCOFWearables::~LLCOFWearables()
 }
 
 // virtual
-BOOL LLCOFWearables::postBuild()
+bool LLCOFWearables::postBuild()
 {
 	mAttachments = getChild<LLFlatListView>("list_attachments");
 	mClothing = getChild<LLFlatListView>("list_clothing");

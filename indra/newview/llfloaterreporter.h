@@ -80,7 +80,7 @@ class LLFloaterReporter
 public:
 	LLFloaterReporter(const LLSD& key);
 	/*virtual*/ ~LLFloaterReporter();
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	virtual void draw();
 	
 	void setReportType(EReportType type) { mReportType = type; }

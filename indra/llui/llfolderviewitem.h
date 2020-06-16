@@ -160,7 +160,7 @@ public:
 	static void initClass();
 	static void cleanupClass();
 
-	BOOL postBuild();
+	bool postBuild();
 
 	virtual void openItem( void );
 

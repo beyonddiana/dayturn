@@ -106,7 +106,7 @@ LLChatBar::~LLChatBar()
 	// LLView destructor cleans up children
 }
 
-BOOL LLChatBar::postBuild()
+bool LLChatBar::postBuild()
 {
 	getChild<LLUICtrl>("Say")->setCommitCallback(boost::bind(&LLChatBar::onClickSay, this, _1));
 
@@ -130,7 +130,7 @@ BOOL LLChatBar::postBuild()
 
 	mIsBuilt = TRUE;
 
-	return TRUE;
+	return true;
 }
 
 //-----------------------------------------------------------------------

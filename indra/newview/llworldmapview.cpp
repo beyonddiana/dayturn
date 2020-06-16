@@ -182,7 +182,7 @@ LLWorldMapView::LLWorldMapView()
 	clearLastClick();
 }
 
-BOOL LLWorldMapView::postBuild()
+bool LLWorldMapView::postBuild()
 {
 	mTextBoxNorth = getChild<LLTextBox> ("floater_map_north");
 	mTextBoxEast = getChild<LLTextBox> ("floater_map_east");

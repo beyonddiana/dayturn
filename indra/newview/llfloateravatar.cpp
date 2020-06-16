@@ -53,10 +53,10 @@ LLFloaterAvatar::~LLFloaterAvatar()
 	}
 }
 
-BOOL LLFloaterAvatar::postBuild()
+bool LLFloaterAvatar::postBuild()
 {
 	enableResizeCtrls(true, true, false);
-	return TRUE;
+	return true;
 }
 
 

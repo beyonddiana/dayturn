@@ -62,7 +62,7 @@ LLPanelVoiceDeviceSettings::~LLPanelVoiceDeviceSettings()
 {
 }
 
-BOOL LLPanelVoiceDeviceSettings::postBuild()
+bool LLPanelVoiceDeviceSettings::postBuild()
 {
 	LLSlider* volume_slider = getChild<LLSlider>("mic_volume_slider");
 	// set mic volume tuning slider based on last mic volume setting
@@ -83,7 +83,7 @@ BOOL LLPanelVoiceDeviceSettings::postBuild()
 	mCtrlOutputDevices->setMouseDownCallback(boost::bind(&LLPanelVoiceDeviceSettings::onOutputDevicesClicked, this));
 	mCtrlInputDevices->setMouseDownCallback(boost::bind(&LLPanelVoiceDeviceSettings::onInputDevicesClicked, this));
 	
-	return TRUE;
+	return true;
 }
 
 // virtual

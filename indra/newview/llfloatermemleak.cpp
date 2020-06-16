@@ -55,7 +55,7 @@ LLFloaterMemLeak::LLFloaterMemLeak(const LLSD& key)
 }
 //----------------------------------------------
 
-BOOL LLFloaterMemLeak::postBuild(void) 
+bool LLFloaterMemLeak::postBuild(void)
 {	
 	F32 a, b ;
 	a = getChild<LLUICtrl>("leak_speed")->getValue().asReal();
@@ -78,7 +78,7 @@ BOOL LLFloaterMemLeak::postBuild(void)
 	}
 	
 	sbAllocationFailed = FALSE ;
-	return TRUE ;
+	return true ;
 }
 LLFloaterMemLeak::~LLFloaterMemLeak()
 {

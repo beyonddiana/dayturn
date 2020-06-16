@@ -90,7 +90,7 @@ public:
 	LLFloaterModelPreview(const LLSD& key);
 	virtual ~LLFloaterModelPreview();
 	
-	virtual BOOL postBuild();
+	virtual bool postBuild();
 	
 	void initModelPreview();
 

@@ -55,7 +55,7 @@ LLFloaterDeleteEnvPreset::LLFloaterDeleteEnvPreset(const LLSD &key)
 }
 
 // virtual
-BOOL LLFloaterDeleteEnvPreset::postBuild()
+bool LLFloaterDeleteEnvPreset::postBuild()
 {
 	mPresetCombo = getChild<LLComboBox>("preset_combo");
 	mPresetCombo->setCommitCallback(boost::bind(&LLFloaterDeleteEnvPreset::postPopulate, this));
@@ -72,7 +72,7 @@ BOOL LLFloaterDeleteEnvPreset::postBuild()
 	LLWLParamManager::instance().setPresetListChangeCallback(boost::bind(&LLFloaterDeleteEnvPreset::populateSkyPresetsList, this));
 	LLWaterParamManager::instance().setPresetListChangeCallback(boost::bind(&LLFloaterDeleteEnvPreset::populateWaterPresetsList, this));
 
-	return TRUE;
+	return true;
 }
 
 // virtual

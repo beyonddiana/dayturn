@@ -87,7 +87,7 @@ LLFloaterScriptLimits::LLFloaterScriptLimits(const LLSD& seed)
 {
 }
 
-BOOL LLFloaterScriptLimits::postBuild()
+bool LLFloaterScriptLimits::postBuild()
 {
 	// a little cheap and cheerful - if there's an about land panel open default to showing parcel info,
 	// otherwise default to showing attachments (avatar appearance)
@@ -107,7 +107,7 @@ BOOL LLFloaterScriptLimits::postBuild()
 	if(!mTab)
 	{
 		LL_WARNS() << "Error! couldn't get scriptlimits_panels, aborting Script Information setup" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 
 	// contruct the panels
@@ -132,7 +132,7 @@ BOOL LLFloaterScriptLimits::postBuild()
 		mTab->selectTab(1);
 	}
 
-	return TRUE;
+	return true;
 }
 
 LLFloaterScriptLimits::~LLFloaterScriptLimits()
@@ -160,10 +160,10 @@ LLPanelScriptLimitsInfo::LLPanelScriptLimitsInfo()
 
 
 // virtual
-BOOL LLPanelScriptLimitsInfo::postBuild()
+bool LLPanelScriptLimitsInfo::postBuild()
 {
 	refresh();
-	return TRUE;
+	return true;
 }
 
 // virtual 
@@ -898,7 +898,7 @@ void LLPanelScriptLimitsRegionMemory::setRegionSummary(LLSD content)
 	}
 }
 
-BOOL LLPanelScriptLimitsRegionMemory::postBuild()
+bool LLPanelScriptLimitsRegionMemory::postBuild()
 {
 	childSetAction("refresh_list_btn", onClickRefresh, this);
 	childSetAction("highlight_btn", onClickHighlight, this);
@@ -910,7 +910,7 @@ BOOL LLPanelScriptLimitsRegionMemory::postBuild()
 	LLScrollListCtrl *list = getChild<LLScrollListCtrl>("scripts_list");
 	if(!list)
 	{
-		return FALSE;
+		return false;
 	}
 	list->setCommitCallback(boost::bind(&LLPanelScriptLimitsRegionMemory::checkButtonsEnabled, this));
 	checkButtonsEnabled();
@@ -935,7 +935,7 @@ BOOL LLPanelScriptLimitsRegionMemory::StartRequestChain()
 		getChild<LLUICtrl>("loading_text")->setValue(LLSD(std::string("")));
 		//might have to do parent post build here
 		//if not logic below could use early outs
-		return FALSE;
+		return false;
 	}
 	LLParcel* parcel = instance->getCurrentSelectedParcel();
 	LLViewerRegion* region = LLViewerParcelMgr::getInstance()->getSelectionRegion();
@@ -951,7 +951,7 @@ BOOL LLPanelScriptLimitsRegionMemory::StartRequestChain()
 		{
 			std::string msg_wrong_region = LLTrans::getString("ScriptLimitsRequestWrongRegion");
 			getChild<LLUICtrl>("loading_text")->setValue(LLSD(msg_wrong_region));
-			return FALSE;
+			return false;
 		}
 		
 		LLVector3d pos_global = region->getCenterGlobal();
@@ -1299,7 +1299,7 @@ void LLPanelScriptLimitsAttachment::setAttachmentDetails(LLSD content)
 	}
 }
 
-BOOL LLPanelScriptLimitsAttachment::postBuild()
+bool LLPanelScriptLimitsAttachment::postBuild()
 {
 	childSetAction("refresh_list_btn", onClickRefresh, this);
 		

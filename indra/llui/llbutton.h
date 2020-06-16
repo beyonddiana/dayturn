@@ -165,7 +165,7 @@ public:
 	virtual BOOL	handleRightMouseUp(S32 x, S32 y, MASK mask);	
 	virtual BOOL	handleDoubleClick(S32 x, S32 y, MASK mask);
 	virtual void	draw();
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 
 	virtual void	onMouseLeave(S32 x, S32 y, MASK mask);
 	virtual void	onMouseCaptureLost();

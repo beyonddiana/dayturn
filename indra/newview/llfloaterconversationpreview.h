@@ -41,7 +41,7 @@ public:
 	LLFloaterConversationPreview(const LLSD& session_id);
 	virtual ~LLFloaterConversationPreview();
 
-	virtual BOOL postBuild();
+	virtual bool postBuild();
 	void setPages(std::list<LLSD>* messages,const std::string& file_name);
 
 	virtual void draw();

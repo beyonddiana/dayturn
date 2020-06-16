@@ -69,7 +69,7 @@ public:
 
 	// Derived methods
 	virtual ~LLToolBarView();
-	virtual BOOL postBuild();
+	virtual bool postBuild();
 	virtual void draw();
 
 	// Toolbar view interface with the rest of the world

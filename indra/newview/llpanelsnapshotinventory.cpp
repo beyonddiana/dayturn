@@ -63,7 +63,7 @@ class LLPanelSnapshotInventory
 
 public:
 	LLPanelSnapshotInventory();
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	/*virtual*/ void onOpen(const LLSD& key);
 
 	void onResolutionCommit(LLUICtrl* ctrl);
@@ -86,7 +86,7 @@ class LLPanelOutfitSnapshotInventory
 
 public:
     LLPanelOutfitSnapshotInventory();
-    	/*virtual*/ BOOL postBuild();
+    	/*virtual*/ bool postBuild();
     	/*virtual*/ void onOpen(const LLSD& key);
         
 private:
@@ -121,7 +121,7 @@ LLPanelSnapshotInventory::LLPanelSnapshotInventory()
 }
 
 // virtual
-BOOL LLPanelSnapshotInventory::postBuild()
+bool LLPanelSnapshotInventory::postBuild()
 {
 	getChild<LLSpinCtrl>(getWidthSpinnerName())->setAllowEdit(FALSE);
 	getChild<LLSpinCtrl>(getHeightSpinnerName())->setAllowEdit(FALSE);
@@ -164,7 +164,7 @@ LLPanelOutfitSnapshotInventory::LLPanelOutfitSnapshotInventory()
 }
 
 // virtual
-BOOL LLPanelOutfitSnapshotInventory::postBuild()
+bool LLPanelOutfitSnapshotInventory::postBuild()
 {
     return LLPanelSnapshot::postBuild();
 }

@@ -43,7 +43,7 @@ public:
 	
 	void buildTabContainer();
 	
-	virtual BOOL postBuild();
+	virtual bool postBuild();
 	/*virtual*/ void onClose(bool app_quitting);
 	virtual void draw();
 	virtual void setVisible(BOOL visible);

@@ -79,7 +79,7 @@ public:
 
 	/*virtual*/ void draw();
 	/*virtual*/ void removeChild(LLView*);
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	/*virtual*/ bool addChild(LLView* child, S32 tab_group = 0);
 	/*virtual*/ void reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
 

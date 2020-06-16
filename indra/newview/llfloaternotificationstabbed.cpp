@@ -58,7 +58,7 @@ LLFloaterNotificationsTabbed::LLFloaterNotificationsTabbed(const LLSD& key) : LL
 }
 
 //---------------------------------------------------------------------------------
-BOOL LLFloaterNotificationsTabbed::postBuild()
+bool LLFloaterNotificationsTabbed::postBuild()
 {
     mGroupInviteMessageList = getChild<LLNotificationListView>("group_invite_notification_list");
     mGroupNoticeMessageList = getChild<LLNotificationListView>("group_notice_notification_list");
@@ -78,7 +78,7 @@ BOOL LLFloaterNotificationsTabbed::postBuild()
 
     // get a corresponding channel
     initChannel();
-    BOOL rv = LLTransientDockableFloater::postBuild();
+    bool rv = LLTransientDockableFloater::postBuild();
     
     setTitle(getString("title_notification_tabbed_window"));
     return rv;

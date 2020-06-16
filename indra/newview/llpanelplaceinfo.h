@@ -63,7 +63,7 @@ public:
 	LLPanelPlaceInfo();
 	/*virtual*/ ~LLPanelPlaceInfo();
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 
 	// Ignore all old location information, useful if you are 
 	// recycling an existing dialog and need to clear it.

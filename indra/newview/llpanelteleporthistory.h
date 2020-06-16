@@ -65,7 +65,7 @@ public:
 	LLTeleportHistoryPanel();
 	virtual ~LLTeleportHistoryPanel();
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	/*virtual*/ void draw();
 
 	/*virtual*/ void onSearchEdit(const std::string& string);

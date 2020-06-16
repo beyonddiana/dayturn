@@ -272,7 +272,7 @@ LLPanelPlaces::~LLPanelPlaces()
 	}
 }
 
-BOOL LLPanelPlaces::postBuild()
+bool LLPanelPlaces::postBuild()
 {
 	mTeleportBtn = getChild<LLButton>("teleport_btn");
 	mTeleportBtn->setClickedCallback(boost::bind(&LLPanelPlaces::onTeleportButtonClicked, this));
@@ -358,7 +358,7 @@ BOOL LLPanelPlaces::postBuild()
 	createTabs();
 	updateVerbs();
 
-	return TRUE;
+	return true;
 }
 
 void LLPanelPlaces::onOpen(const LLSD& key)

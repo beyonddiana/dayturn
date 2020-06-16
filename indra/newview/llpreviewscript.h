@@ -102,7 +102,7 @@ public:
 	void			processLoaded();
 
 	virtual void	draw();
-	/*virtual*/	BOOL	postBuild();
+	/*virtual*/	bool	postBuild();
 	BOOL			canClose();
 	void			setEnableEditing(bool enable);
 	bool			canLoadOrSaveToFile( void* userdata );
@@ -218,7 +218,7 @@ public:
 	virtual void callbackLSLCompileSucceeded();
 	virtual void callbackLSLCompileFailed(const LLSD& compile_errors);
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 
 protected:
 	virtual void draw();
@@ -268,7 +268,7 @@ public:
 											bool is_script_running);
 	virtual void callbackLSLCompileFailed(const LLSD& compile_errors);
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	
     void setIsNew() { mIsNew = TRUE; }
 

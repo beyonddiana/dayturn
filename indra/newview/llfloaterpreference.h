@@ -85,7 +85,7 @@ public:
 	void apply();
 	void cancel();
 	/*virtual*/ void draw();
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	/*virtual*/ void onOpen(const LLSD& key);
 	/*virtual*/	void onClose(bool app_quitting);
 	/*virtual*/ void changed();
@@ -233,7 +233,7 @@ class LLPanelPreference : public LLPanel
 {
 public:
 	LLPanelPreference();
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	
 	virtual ~LLPanelPreference();
 
@@ -278,7 +278,7 @@ private:
 class LLPanelPreferenceGraphics : public LLPanelPreference
 {
 public:
-	BOOL postBuild();
+	bool postBuild();
 	void draw();
 	void apply();
 	void cancel();
@@ -291,6 +291,9 @@ protected:
 	bool hasDirtyChilds();
 	void resetDirtyChilds();
 	
+private:
+ 
+ 	void onPresetsListChange();
 };
 
 // <FS:AW  opensim preferences>
@@ -299,7 +302,7 @@ class LLPanelPreferenceOpensim : public LLPanelPreference
 public:
 	LLPanelPreferenceOpensim();
 // <FS:AW  grid management>
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	/*virtual*/ void apply();
 	/*virtual*/ void cancel();
 
@@ -347,7 +350,7 @@ public:
 	void cancel();
 	
 protected:
-	BOOL postBuild();
+	bool postBuild();
 	void onOpen(const LLSD& key);
 	void onClose(bool app_quitting);
 	void saveSettings();

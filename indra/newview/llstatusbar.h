@@ -55,7 +55,7 @@ public:
 	/*virtual*/ void draw();
 
 	/*virtual*/ BOOL handleRightMouseDown(S32 x, S32 y, MASK mask);
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 
 	// MANIPULATORS
 	void		setBalance(S32 balance);

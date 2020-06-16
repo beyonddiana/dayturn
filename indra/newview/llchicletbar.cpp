@@ -51,7 +51,7 @@ LLChicletBar::LLChicletBar()
 	buildFromFile("panel_chiclet_bar.xml");
 }
 
-BOOL LLChicletBar::postBuild()
+bool LLChicletBar::postBuild()
 {
 	mToolbarStack = getChild<LLLayoutStack>("toolbar_stack");
 	mChicletPanel = getChild<LLChicletPanel>("chiclet_list");
@@ -61,7 +61,7 @@ BOOL LLChicletBar::postBuild()
 	LLPanelTopInfoBar::instance().setResizeCallback(boost::bind(&LLChicletBar::fitWithTopInfoBar, this));
 	LLPanelTopInfoBar::instance().setVisibleCallback(boost::bind(&LLChicletBar::fitWithTopInfoBar, this));
 
-	return TRUE;
+	return true;
 }
 
 void LLChicletBar::showWellButton(const std::string& well_name, bool visible)

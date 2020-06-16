@@ -39,7 +39,7 @@ class LLFloaterTranslationSettings : public LLFloater
 {
 public:
 	LLFloaterTranslationSettings(const LLSD& key);
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	/*virtual*/ void onOpen(const LLSD& key);
 
 	void setBingVerified(bool ok, bool alert);

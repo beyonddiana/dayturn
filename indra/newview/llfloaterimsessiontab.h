@@ -78,7 +78,7 @@ public:
 
 	// LLFloater overrides
 	/*virtual*/ void onOpen(const LLSD& key);
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	/*virtual*/ void draw();
 	/*virtual*/ void setVisible(BOOL visible);
 	/*virtual*/ void setFocus(BOOL focus);

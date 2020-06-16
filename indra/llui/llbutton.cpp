@@ -393,7 +393,7 @@ boost::signals2::connection LLButton::setHeldDownCallback( button_callback_t cb,
 	return setHeldDownCallback(boost::bind(cb, data));
 }
 
-BOOL LLButton::postBuild()
+bool LLButton::postBuild()
 {
 	autoResize();
 

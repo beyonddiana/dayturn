@@ -39,7 +39,7 @@ public:
 	LLPanelLandmarkInfo();
 	/*virtual*/ ~LLPanelLandmarkInfo();
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 
 	/*virtual*/ void resetLocation();
 

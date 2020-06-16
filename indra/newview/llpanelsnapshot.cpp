@@ -53,7 +53,7 @@ S32 power_of_two(S32 sz, S32 upper)
 }
 
 // virtual
-BOOL LLPanelSnapshot::postBuild()
+bool LLPanelSnapshot::postBuild()
 {
 	getChild<LLUICtrl>(getImageSizeComboName())->setCommitCallback(boost::bind(&LLPanelSnapshot::onResolutionComboCommit, this, _1));
     if (!getWidthSpinnerName().empty())
@@ -69,7 +69,7 @@ BOOL LLPanelSnapshot::postBuild()
         getChild<LLUICtrl>(getAspectRatioCBName())->setCommitCallback(boost::bind(&LLPanelSnapshot::onKeepAspectRatioCommit, this, _1));
     }
 	updateControls(LLSD());
-	return TRUE;
+	return true;
 }
 
 // virtual

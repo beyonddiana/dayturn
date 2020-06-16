@@ -88,7 +88,7 @@ LLFloaterMove::~LLFloaterMove()
 }
 
 // virtual
-BOOL LLFloaterMove::postBuild()
+bool LLFloaterMove::postBuild()
 {
 	updateTransparency(TT_ACTIVE); // force using active floater transparency (STORM-730)
 	
@@ -142,7 +142,7 @@ BOOL LLFloaterMove::postBuild()
 
 	gAgent.addParcelChangedCallback(LLFloaterMove::sUpdateFlyingStatus);
 
-	return TRUE;
+	return true;
 }
 
 // *NOTE: we assume that setVisible() is called on floater close.
@@ -562,7 +562,7 @@ void LLPanelStandStopFlying::clearStandStopFlyingMode(EStandStopFlyingMode mode)
 
 }
 
-BOOL LLPanelStandStopFlying::postBuild()
+bool LLPanelStandStopFlying::postBuild()
 {
 	mStandButton = getChild<LLButton>("stand_btn");
 	mStandButton->setCommitCallback(boost::bind(&LLPanelStandStopFlying::onStandButtonClick, this));
@@ -577,7 +577,7 @@ BOOL LLPanelStandStopFlying::postBuild()
 
 	gViewerWindow->setOnWorldViewRectUpdated(boost::bind(&LLPanelStandStopFlying::updatePosition, this));
 	
-	return TRUE;
+	return true;
 }
 
 //virtual

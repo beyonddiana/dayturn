@@ -259,7 +259,7 @@ public:
 	// remove the specified child from the view, and set it's parent to NULL.
 	virtual void	removeChild(LLView* view);
 
-	virtual BOOL	postBuild() { return TRUE; }
+	virtual bool	postBuild() { return true; }
 
 	const child_tab_order_t& getTabOrder() const		{ return mTabOrder; }
 	

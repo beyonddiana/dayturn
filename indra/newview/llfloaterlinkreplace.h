@@ -56,7 +56,7 @@ public:
 		return mDADSignal.connect(cb);
 	}
 
-	virtual BOOL postBuild()
+	virtual bool postBuild()
 	{
 		setEnabled(FALSE);
 		return LLLineEditor::postBuild();
@@ -86,7 +86,7 @@ public:
 	LLFloaterLinkReplace(const LLSD& key);
 	virtual ~LLFloaterLinkReplace();
 
-	BOOL postBuild();
+	bool postBuild();
 	virtual void onOpen(const LLSD& key);
 
 	virtual bool tick();

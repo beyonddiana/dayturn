@@ -100,12 +100,12 @@ LLFloaterScriptQueue::~LLFloaterScriptQueue()
 {
 }
 
-BOOL LLFloaterScriptQueue::postBuild()
+bool LLFloaterScriptQueue::postBuild()
 {
 	childSetAction("close",onCloseBtn,this);
 	getChildView("close")->setEnabled(FALSE);
 	setVisible(true);
-	return TRUE;
+	return true;
 }
 
 // This is the callback method for the viewer object currently being

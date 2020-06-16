@@ -209,7 +209,7 @@ LLPanelClothingListItem::~LLPanelClothingListItem()
 {
 }
 
-BOOL LLPanelClothingListItem::postBuild()
+bool LLPanelClothingListItem::postBuild()
 {
 	LLPanelDeletableWearableListItem::postBuild();
 
@@ -221,7 +221,7 @@ BOOL LLPanelClothingListItem::postBuild()
 	setWidgetsVisible(false);
 	reshapeWidgets();
 
-	return TRUE;
+	return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -286,7 +286,7 @@ LLPanelBodyPartsListItem::~LLPanelBodyPartsListItem()
 {
 }
 
-BOOL LLPanelBodyPartsListItem::postBuild()
+bool LLPanelBodyPartsListItem::postBuild()
 {
 	LLPanelInventoryListItemBase::postBuild();
 
@@ -296,7 +296,7 @@ BOOL LLPanelBodyPartsListItem::postBuild()
 	setWidgetsVisible(false);
 	reshapeWidgets();
 
-	return TRUE;
+	return true;
 }
 
 static LLWidgetNameRegistry::StaticRegistrar sRegisterPanelDeletableWearableListItem(&typeid(LLPanelDeletableWearableListItem::Params), "deletable_wearable_list_item");
@@ -329,7 +329,7 @@ LLPanelDeletableWearableListItem::LLPanelDeletableWearableListItem(LLViewerInven
 	setSeparatorVisible(true);
 }
 
-BOOL LLPanelDeletableWearableListItem::postBuild()
+bool LLPanelDeletableWearableListItem::postBuild()
 {
 	LLPanelWearableListItem::postBuild();
 
@@ -402,7 +402,7 @@ LLPanelDummyClothingListItem* LLPanelDummyClothingListItem::create(LLWearableTyp
 	return list_item;
 }
 
-BOOL LLPanelDummyClothingListItem::postBuild()
+bool LLPanelDummyClothingListItem::postBuild()
 {
 	addWidgetToRightSide("btn_add_panel");
 

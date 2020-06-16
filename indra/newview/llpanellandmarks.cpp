@@ -220,10 +220,10 @@ LLLandmarksPanel::~LLLandmarksPanel()
 	}
 }
 
-BOOL LLLandmarksPanel::postBuild()
+bool LLLandmarksPanel::postBuild()
 {
 	if (!gInventory.isInventoryUsable())
-		return FALSE;
+		return false;
 
 	// mast be called before any other initXXX methods to init Gear menu
 	initListCommandsHandlers();
@@ -233,7 +233,7 @@ BOOL LLLandmarksPanel::postBuild()
 	initMyInventoryPanel();
 	initLibraryInventoryPanel();
 
-	return TRUE;
+	return true;
 }
 
 // virtual

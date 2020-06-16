@@ -517,7 +517,7 @@ void LLFlatListView::draw()
 }
 
 // virtual
-BOOL LLFlatListView::postBuild()
+bool LLFlatListView::postBuild()
 {
 	setTabStop(true);
 	return LLScrollContainer::postBuild();

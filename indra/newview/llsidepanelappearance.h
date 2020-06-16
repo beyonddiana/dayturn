@@ -46,7 +46,7 @@ public:
 	LLSidepanelAppearance();
 	virtual ~LLSidepanelAppearance();
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	/*virtual*/ void onOpen(const LLSD& key);	
 
 	void refreshCurrentOutfitName(const std::string& name = "");

@@ -48,7 +48,7 @@ class LLFloaterEditWater : public LLFloater
 public:
 	LLFloaterEditWater(const LLSD &key);
 
-	/*virtual*/	BOOL	postBuild();
+	/*virtual*/	bool	postBuild();
 	/*virtual*/ void	onOpen(const LLSD& key);
 	/*virtual*/ void	onClose(bool app_quitting);
 	/*virtual*/ void	draw();

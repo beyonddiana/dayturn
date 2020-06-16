@@ -47,7 +47,7 @@ public:
 	// constructor for inline chat-bars (e.g. hosted in chat history window)
 	LLChatBar();
 	~LLChatBar();
-	virtual BOOL postBuild();
+	virtual bool postBuild();
 
 	virtual BOOL handleKeyHere(KEY key, MASK mask);
 

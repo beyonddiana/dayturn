@@ -93,7 +93,7 @@ void LLFloaterJoystick::draw()
 	LLFloater::draw();
 }
 
-BOOL LLFloaterJoystick::postBuild()
+bool LLFloaterJoystick::postBuild()
 {		
 	center();
 	F32 range = gSavedSettings.getBOOL("Cursor3D") ? 128.f : 2.f;
@@ -120,7 +120,7 @@ BOOL LLFloaterJoystick::postBuild()
 	childSetAction("ok_btn", onClickOK, this);
 
 	refresh();
-	return TRUE;
+	return true;
 }
 
 LLFloaterJoystick::~LLFloaterJoystick()

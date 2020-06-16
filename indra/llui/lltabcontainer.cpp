@@ -382,11 +382,11 @@ bool LLTabContainer::addChild(LLView* view, S32 tab_group)
 	}
 }
 
-BOOL LLTabContainer::postBuild()
+bool LLTabContainer::postBuild()
 {
 	selectFirstTab();
 
-	return TRUE;
+	return true;
 }
 
 // virtual

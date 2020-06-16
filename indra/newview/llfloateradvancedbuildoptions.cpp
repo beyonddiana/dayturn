@@ -49,12 +49,12 @@ LLFloaterAdvancedBuildOptions::LLFloaterAdvancedBuildOptions(const LLSD& key)
 LLFloaterAdvancedBuildOptions::~LLFloaterAdvancedBuildOptions()
 {}
 
-BOOL LLFloaterAdvancedBuildOptions::postBuild()
+bool LLFloaterAdvancedBuildOptions::postBuild()
 {
 	// <NP: disable build constraints>
 		gFloaterTools->updateToolsSizeLimits();
 	// </NP: disable build constraints>
-	return TRUE;
+	return true;
 }
 
 // virtual

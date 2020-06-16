@@ -137,7 +137,7 @@ public:
 	LLVoiceSetKeyDialog(const LLSD& key);
 	~LLVoiceSetKeyDialog();
 	
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	
 	void setParent(LLFloaterPreference* parent) { mParent = parent; }
 	
@@ -156,14 +156,14 @@ LLVoiceSetKeyDialog::LLVoiceSetKeyDialog(const LLSD& key)
 }
 
 //virtual
-BOOL LLVoiceSetKeyDialog::postBuild()
+bool LLVoiceSetKeyDialog::postBuild()
 {
 	childSetAction("Cancel", onCancel, this);
 	getChild<LLUICtrl>("Cancel")->setFocus(TRUE);
 	
 	gFocusMgr.setKeystrokesOnly(TRUE);
 	
-	return TRUE;
+	return true;
 }
 
 LLVoiceSetKeyDialog::~LLVoiceSetKeyDialog()
@@ -509,7 +509,7 @@ void LLFloaterPreference::saveAvatarProperties( void )
 	}
 }
 
-BOOL LLFloaterPreference::postBuild()
+bool LLFloaterPreference::postBuild()
 {
 	gSavedSettings.getControl("ChatFontSize")->getSignal()->connect(boost::bind(&LLFloaterIMSessionTab::processChatHistoryStyleUpdate, false));
 
@@ -583,7 +583,7 @@ BOOL LLFloaterPreference::postBuild()
 	mFilterEdit = getChild<LLSearchEditor>("search_prefs_edit");
 	mFilterEdit->setKeystrokeCallback(boost::bind(&LLFloaterPreference::onUpdateFilterTerm, this, false));
 
-	return TRUE;
+	return true;
 }
 
 
@@ -2117,7 +2117,7 @@ LLPanelPreference::LLPanelPreference()
 }
 
 //virtual
-BOOL LLPanelPreference::postBuild()
+bool LLPanelPreference::postBuild()
 {
 	////////////////////// PanelGeneral ///////////////////
 	if (hasChild("display_names_check", TRUE))
@@ -2449,7 +2449,7 @@ private:
 static LLPanelInjector<LLPanelPreferenceGraphics> t_pref_graph("panel_preference_graphics");
 static LLPanelInjector<LLPanelPreferencePrivacy> t_pref_privacy("panel_preference_privacy");
 
-BOOL LLPanelPreferenceGraphics::postBuild()
+bool LLPanelPreferenceGraphics::postBuild()
 {
 	return LLPanelPreference::postBuild();
 }
@@ -2567,8 +2567,8 @@ LLPanelPreferenceOpensim::LLPanelPreferenceOpensim() : LLPanelPreference(),
 	mCommitCallbackRegistrar.add("Pref.RefreshGrid", boost::bind( &LLPanelPreferenceOpensim::onClickRefreshGrid, this));
 	mCommitCallbackRegistrar.add("Pref.RemoveGrid", boost::bind( &LLPanelPreferenceOpensim::onClickRemoveGrid, this));
 }
-
-BOOL LLPanelPreferenceOpensim::postBuild()
+// <FS:AW  grid management>
+bool LLPanelPreferenceOpensim::postBuild()
 {
     mEditorGridName = findChild<LLLineEditor>("grid_detail_name");
     mEditorGridURI = findChild<LLLineEditor>("grid_detail_uri");
@@ -2756,12 +2756,12 @@ LLFloaterPreferenceProxy::~LLFloaterPreferenceProxy()
 {
 }
 
-BOOL LLFloaterPreferenceProxy::postBuild()
+bool LLFloaterPreferenceProxy::postBuild()
 {
 	LLRadioGroup* socksAuth = getChild<LLRadioGroup>("socks5_auth_type");
 	if (!socksAuth)
 	{
-		return FALSE;
+		return false;
 	}
 	if (socksAuth->getSelectedValue().asString() == "None")
 	{
@@ -2776,7 +2776,7 @@ BOOL LLFloaterPreferenceProxy::postBuild()
 		getChild<LLLineEditor>("socks5_password")->setValue(socks_cred->getAuthenticator()["creds"].asString());
 	}
 
-	return TRUE;
+	return true;
 }
 
 void LLFloaterPreferenceProxy::onOpen(const LLSD& key)

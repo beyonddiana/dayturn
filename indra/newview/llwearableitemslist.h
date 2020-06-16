@@ -109,7 +109,7 @@ public:
 
 	virtual ~LLPanelDeletableWearableListItem() {};
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 
 	/**
 	 * Make button visible during mouse over event.
@@ -162,7 +162,7 @@ public:
 
 	virtual ~LLPanelClothingListItem();
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 
 	/**
 	 * Make button visible during mouse over event.
@@ -197,7 +197,7 @@ public:
 
 	virtual ~LLPanelBodyPartsListItem();
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 
 	/**
 	* Make button visible during mouse over event.
@@ -226,7 +226,7 @@ public:
 	};
 	static LLPanelDummyClothingListItem* create(LLWearableType::EType w_type);
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	LLWearableType::EType getWearableType() const;
 
 protected:

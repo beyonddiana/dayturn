@@ -238,7 +238,7 @@ FSPanelProfile::~FSPanelProfile()
     }
 }
 
-BOOL FSPanelProfile::postBuild()
+bool FSPanelProfile::postBuild()
 {
     mStatusText = getChild<LLTextBox>("status");
     mStatusText->setVisible(false);
@@ -294,7 +294,7 @@ BOOL FSPanelProfile::postBuild()
 
     LLVoiceClient::getInstance()->addObserver((LLVoiceClientStatusObserver*)this);
 
-    return TRUE;
+    return true;
 }
 
 void FSPanelProfile::onOpen(const LLSD& key)
@@ -798,7 +798,7 @@ void FSPanelProfileWeb::onOpen(const LLSD& key)
     FSPanelProfileTab::onOpen(key);
 }
 
-BOOL FSPanelProfileWeb::postBuild()
+bool FSPanelProfileWeb::postBuild()
 {
     getChild<LLUICtrl>("load")->setCommitCallback(boost::bind(&FSPanelProfileWeb::onCommitLoad, this, _1));
 
@@ -810,7 +810,7 @@ BOOL FSPanelProfileWeb::postBuild()
 
     getChild<LLLineEditor>("url_edit")->setEnabled( FALSE );
 
-    return TRUE;
+    return true;
 }
 
 void FSPanelProfileWeb::processProperties(void* data, EAvatarProcessorType type)
@@ -995,7 +995,7 @@ void FSPanelProfileInterests::onOpen(const LLSD& key)
     FSPanelProfileTab::onOpen(key);
 }
 
-BOOL FSPanelProfileInterests::postBuild()
+bool FSPanelProfileInterests::postBuild()
 {
     for (S32 i=0; i < WANT_CHECKS; ++i)
     {
@@ -1015,7 +1015,7 @@ BOOL FSPanelProfileInterests::postBuild()
     getChild<LLLineEditor>("skills_edit")->setEnabled( FALSE );
     getChild<LLLineEditor>("languages_edit")->setEnabled( FALSE );
 
-    return TRUE;
+    return true;
 }
 
 
@@ -1210,7 +1210,7 @@ void FSPanelPick::setAvatarId(const LLUUID& avatar_id)
 	}*/
 }
 
-BOOL FSPanelPick::postBuild()
+bool FSPanelPick::postBuild()
 {
     mSnapshotCtrl = getChild<LLTextureCtrl>("pick_snapshot");
     mSnapshotCtrl->setCommitCallback(boost::bind(&FSPanelPick::onSnapshotChanged, this));
@@ -1228,7 +1228,7 @@ BOOL FSPanelPick::postBuild()
     LLTextEditor* text_edit = getChild<LLTextEditor>("pick_desc");
     text_edit->setKeystrokeCallback(boost::bind(&FSPanelPick::onPickChanged, this, _1));
 
-    return TRUE;
+    return true;
 }
 
 void FSPanelPick::processProperties(void* data, EAvatarProcessorType type)
@@ -1512,7 +1512,7 @@ void FSPanelProfilePicks::onOpen(const LLSD& key)
     updateData();
 }
 
-BOOL FSPanelProfilePicks::postBuild()
+bool FSPanelProfilePicks::postBuild()
 {
     mTabContainer = getChild<LLTabContainer>("tab_picks");
     mNoItemsLabel = getChild<LLUICtrl>("picks_panel_text");
@@ -1520,7 +1520,7 @@ BOOL FSPanelProfilePicks::postBuild()
     childSetAction("new_btn", boost::bind(&FSPanelProfilePicks::onClickNewBtn, this));
     childSetAction("delete_btn", boost::bind(&FSPanelProfilePicks::onClickDelete, this));
 
-    return TRUE;
+    return true;
 }
 
 void FSPanelProfilePicks::onClickNewBtn()
@@ -1733,7 +1733,7 @@ void FSPanelAvatarNotes::updateData()
         sendAvatarNotesRequest(getAvatarId());
 }
 
-BOOL FSPanelAvatarNotes::postBuild()
+bool FSPanelAvatarNotes::postBuild()
 {
     childSetCommitCallback("status_check", boost::bind(&FSPanelAvatarNotes::onCommitRights, this), NULL);
     childSetCommitCallback("map_check", boost::bind(&FSPanelAvatarNotes::onCommitRights, this), NULL);
@@ -1743,7 +1743,7 @@ BOOL FSPanelAvatarNotes::postBuild()
     te->setCommitCallback(boost::bind(&FSPanelAvatarNotes::onCommitNotes,this));
     te->setCommitOnFocusLost(TRUE);
 
-    return TRUE;
+    return true;
 }
 
 void FSPanelAvatarNotes::onOpen(const LLSD& key)

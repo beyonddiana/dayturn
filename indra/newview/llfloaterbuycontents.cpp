@@ -57,7 +57,7 @@ LLFloaterBuyContents::LLFloaterBuyContents(const LLSD& key)
 {
 }
 
-BOOL LLFloaterBuyContents::postBuild()
+bool LLFloaterBuyContents::postBuild()
 {
 
 	getChild<LLUICtrl>("cancel_btn")->setCommitCallback( boost::bind(&LLFloaterBuyContents::onClickCancel, this));
@@ -75,7 +75,7 @@ BOOL LLFloaterBuyContents::postBuild()
 	// mid-session and the saved rect is off-center.
 	center();
 	
-	return TRUE;
+	return true;
 }
 
 LLFloaterBuyContents::~LLFloaterBuyContents()

@@ -342,7 +342,7 @@ void LLFloaterTexturePicker::onClose(bool app_quitting)
 }
 
 // virtual
-BOOL LLFloaterTexturePicker::postBuild()
+bool LLFloaterTexturePicker::postBuild()
 {
 	LLFloater::postBuild();
 
@@ -441,7 +441,7 @@ BOOL LLFloaterTexturePicker::postBuild()
 	getChild<LLCheckBoxCtrl>("hide_base_mesh_region")->setCommitCallback(onHideBaseMeshRegionCheck, this);
 	
 	setBakeTextureEnabled(FALSE);
-	return TRUE;
+	return true;
 }
 
 // virtual

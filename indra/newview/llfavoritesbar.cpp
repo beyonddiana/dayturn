@@ -934,7 +934,7 @@ LLButton* LLFavoritesBarCtrl::createButton(const LLPointer<LLViewerInventoryItem
 }
 
 
-BOOL LLFavoritesBarCtrl::postBuild()
+bool LLFavoritesBarCtrl::postBuild()
 {
 	// make the popup menu available
 	LLMenuGL* menu = LLUICtrlFactory::getInstance()->createFromFile<LLMenuGL>("menu_favorites.xml", gMenuHolder, LLViewerMenuHolderGL::child_registry_t::instance());
@@ -945,7 +945,7 @@ BOOL LLFavoritesBarCtrl::postBuild()
 	menu->setBackgroundColor(LLUIColorTable::instance().getColor("MenuPopupBgColor"));
 	mContextMenuHandle = menu->getHandle();
 
-	return TRUE;
+	return true;
 }
 
 BOOL LLFavoritesBarCtrl::collectFavoriteItems(LLInventoryModel::item_array_t &items)

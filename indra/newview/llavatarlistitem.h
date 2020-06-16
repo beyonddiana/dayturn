@@ -80,7 +80,7 @@ public:
 	LLAvatarListItem(bool not_from_ui_factory = true);
 	virtual ~LLAvatarListItem();
 
-	virtual BOOL postBuild();
+	virtual bool postBuild();
 
 	/**
 	 * Processes notification from speaker indicator to update children when indicator's visibility is changed.

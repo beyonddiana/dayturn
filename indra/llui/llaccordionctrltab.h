@@ -134,7 +134,7 @@ public:
 	void canOpenClose(bool can_open_close) { mCanOpenClose = can_open_close;};
 	bool canOpenClose() const { return mCanOpenClose; };
 
-	virtual BOOL postBuild();
+	virtual bool postBuild();
 
 	S32	notifyParent(const LLSD& info);
 	S32 notify(const LLSD& info);

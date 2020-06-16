@@ -126,13 +126,13 @@ void LLFastTimerView::setPauseState(bool pause_state)
 	mPauseHistory = pause_state;
 }
 
-BOOL LLFastTimerView::postBuild()
+bool LLFastTimerView::postBuild()
 {
 	LLButton& pause_btn = getChildRef<LLButton>("pause_btn");
 	mScrollBar = getChild<LLScrollbar>("scroll_vert");
 
 	pause_btn.setCommitCallback(boost::bind(&LLFastTimerView::onPause, this));
-	return TRUE;
+	return true;
 }
 
 BOOL LLFastTimerView::handleRightMouseDown(S32 x, S32 y, MASK mask)

@@ -66,7 +66,7 @@ public:
 
 	virtual void reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
 
-	virtual BOOL postBuild();
+	virtual bool postBuild();
 
 	std::string getTitle();
 	void	setTitle(const std::string& title, const std::string& hl);
@@ -150,9 +150,9 @@ LLAccordionCtrlTab::LLAccordionCtrlTabHeader::~LLAccordionCtrlTabHeader()
 {
 }
 
-BOOL LLAccordionCtrlTab::LLAccordionCtrlTabHeader::postBuild()
+bool LLAccordionCtrlTab::LLAccordionCtrlTabHeader::postBuild()
 {
-	return TRUE;
+	return true;
 }
 
 std::string LLAccordionCtrlTab::LLAccordionCtrlTabHeader::getTitle()
@@ -644,7 +644,7 @@ void LLAccordionCtrlTab::setHeaderVisible(bool value)
 };
 
 //virtual
-BOOL LLAccordionCtrlTab::postBuild()
+bool LLAccordionCtrlTab::postBuild()
 {
 	if(mHeader)
 		mHeader->setVisible(mHeaderVisible);

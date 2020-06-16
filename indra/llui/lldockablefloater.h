@@ -80,7 +80,7 @@ public:
 	 *  If descendant class overrides postBuild() in order to perform specific
 	 *  construction then it must still invoke its superclass' implementation.
 	 */
-	/* virtula */BOOL postBuild();
+	/* virtula */bool postBuild();
 	/* virtual */void setDocked(bool docked, bool pop_on_undock = true);
 	/* virtual */void draw();
 

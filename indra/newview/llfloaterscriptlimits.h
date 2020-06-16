@@ -45,7 +45,7 @@ class LLFloaterScriptLimits : public LLFloater
 	friend class LLFloaterReg;
 public:
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 
 	// from LLPanel
 	virtual void refresh();
@@ -69,7 +69,7 @@ class LLPanelScriptLimitsInfo : public LLPanel
 public:
 	LLPanelScriptLimitsInfo();
 	
-	virtual BOOL postBuild();
+	virtual bool postBuild();
 	virtual void updateChild(LLUICtrl* child_ctrl);
 	
 protected:
@@ -151,7 +151,7 @@ public:
 	~LLPanelScriptLimitsRegionMemory();
 	
 	// LLPanel
-	virtual BOOL postBuild();
+	virtual bool postBuild();
 
 	void setRegionDetails(LLSD content);
 	void setRegionSummary(LLSD content);
@@ -220,7 +220,7 @@ public:
 	};
 	
 	// LLPanel
-	virtual BOOL postBuild();
+	virtual bool postBuild();
 
 	void setAttachmentDetails(LLSD content);
 

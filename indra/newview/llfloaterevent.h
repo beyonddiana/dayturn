@@ -42,7 +42,7 @@ public:
 	LLFloaterEvent(const LLSD& key);
 	/*virtual*/ ~LLFloaterEvent();
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 
 	void setEventID(const U32 event_id);
 

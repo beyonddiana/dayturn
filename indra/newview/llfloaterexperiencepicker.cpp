@@ -153,7 +153,7 @@ LLFloaterExperiencePicker::~LLFloaterExperiencePicker()
 	gFocusMgr.releaseFocusIfNeeded( this );
 }
 
-BOOL LLFloaterExperiencePicker::postBuild()
+bool LLFloaterExperiencePicker::postBuild()
 {
 	mSearchPanel = new LLPanelExperiencePicker();
 	addChild(mSearchPanel);

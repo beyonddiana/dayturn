@@ -313,12 +313,12 @@ LLIMChiclet::LLIMChiclet(const LLIMChiclet::Params& p)
 }
 
 /* virtual*/
-BOOL LLIMChiclet::postBuild()
+bool LLIMChiclet::postBuild()
 {
 	mChicletButton = getChild<LLButton>("chiclet_button");
 	mChicletButton->setCommitCallback(boost::bind(&LLIMChiclet::onMouseDown, this));
 	mChicletButton->setDoubleClickCallback(boost::bind(&LLIMChiclet::onMouseDown, this));
-	return TRUE;
+	return true;
 }
 
 void LLIMChiclet::enableCounterControl(bool enable) 
@@ -474,7 +474,7 @@ void LLChicletPanel::objectChicletCallback(const LLSD& data)
 	}
 }
 
-BOOL LLChicletPanel::postBuild()
+bool LLChicletPanel::postBuild()
 {
 	LLPanel::postBuild();
 	LLIMModel::instance().addNewMsgCallback(boost::bind(&LLChicletPanel::onMessageCountChanged, this, _1));
@@ -496,7 +496,7 @@ BOOL LLChicletPanel::postBuild()
 	mRightScrollButton->setHeldDownCallback(boost::bind(&LLChicletPanel::onRightScrollHeldDown,this));
 	mRightScrollButton->setEnabled(false);	
 
-	return TRUE;
+	return true;
 }
 
 void LLChicletPanel::onCurrentVoiceChannelChanged(const LLUUID& session_id)

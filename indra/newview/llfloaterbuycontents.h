@@ -48,7 +48,7 @@ public:
 
 	LLFloaterBuyContents(const LLSD& key);
 	~LLFloaterBuyContents();
-	/*virtual*/	BOOL	postBuild();
+	/*virtual*/	bool	postBuild();
 	
 protected:
 	void requestObjectInventories();

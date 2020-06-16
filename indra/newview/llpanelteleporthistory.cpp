@@ -60,7 +60,7 @@ public:
 										 	 LLDate date, const std::string &hl);
 	virtual ~LLTeleportHistoryFlatItem();
 
-	virtual BOOL postBuild();
+	virtual bool postBuild();
 
 	/*virtual*/ S32 notify(const LLSD& info);
 
@@ -147,7 +147,7 @@ LLTeleportHistoryFlatItem::~LLTeleportHistoryFlatItem()
 }
 
 //virtual
-BOOL LLTeleportHistoryFlatItem::postBuild()
+bool LLTeleportHistoryFlatItem::postBuild()
 {
 	mTitle = getChild<LLTextBox>("region");
 
@@ -458,7 +458,7 @@ LLTeleportHistoryPanel::~LLTeleportHistoryPanel()
 	mTeleportHistoryChangedConnection.disconnect();
 }
 
-BOOL LLTeleportHistoryPanel::postBuild()
+bool LLTeleportHistoryPanel::postBuild()
 {
 	mTeleportHistory = LLTeleportHistoryStorage::getInstance();
 	if (mTeleportHistory)
@@ -527,7 +527,7 @@ BOOL LLTeleportHistoryPanel::postBuild()
 		mMenuGearButton->setMenu(gear_menu);
 	}
 
-	return TRUE;
+	return true;
 }
 
 // virtual

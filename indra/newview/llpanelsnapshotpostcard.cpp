@@ -54,7 +54,7 @@ class LLPanelSnapshotPostcard
 
 public:
 	LLPanelSnapshotPostcard();
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 	/*virtual*/ void onOpen(const LLSD& key);
 	/*virtual*/ S32	notify(const LLSD& info);
 
@@ -91,7 +91,7 @@ LLPanelSnapshotPostcard::LLPanelSnapshotPostcard()
 }
 
 // virtual
-BOOL LLPanelSnapshotPostcard::postBuild()
+bool LLPanelSnapshotPostcard::postBuild()
 {
 	// pick up the user's up-to-date email address
 	gAgent.sendAgentUserInfoRequest();
