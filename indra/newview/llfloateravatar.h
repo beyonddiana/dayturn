@@ -41,7 +41,6 @@ private:
 //MK
 	/*virtual*/ void draw();
 //mk
-=======
 };
 
 #endif
