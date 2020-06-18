@@ -7001,17 +7001,6 @@
     <key>Value</key>
     <integer>600</integer>
   </map>
-  <key>MigrateCacheDirectory</key>
-    <map>
-      <key>Comment</key>
-      <string>Check for old version of disk cache to migrate to current location</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>1</integer>
-    </map>
     <key>MiniMapCollisionParcels</key>
     <map>
       <key>Comment</key>
@@ -10838,7 +10827,7 @@
     <key>Type</key>
     <string>F32</string>
     <key>Value</key>
-    <real>1000.0</real>
+    <real>0.0</real>
   </map>
   <key>RenderAutoMuteLogging</key>
   <map>
@@ -12913,7 +12902,7 @@
       <key>Comment</key>
       <string>If TRUE, always load textures at full resolution (discard = 0)</string>
       <key>Persist</key>
-      <integer>0</integer>
+      <integer>1</integer>
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
