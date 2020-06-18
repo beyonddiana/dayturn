@@ -37,6 +37,7 @@ set(llcommon_SOURCE_FILES
     llapp.cpp
     llapr.cpp
     llassettype.cpp
+    llatomic.cpp
     llbase32.cpp
     llbase64.cpp
     llbitpack.cpp
@@ -136,6 +137,7 @@ set(llcommon_HEADER_FILES
     llapp.h
     llapr.h
     llassettype.h
+    llatomic.h
     llbase32.h
     llbase64.h
     llbitpack.h
