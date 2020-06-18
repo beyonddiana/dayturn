@@ -219,11 +219,9 @@ bool LLURLDispatcherImpl::dispatchRegion(const LLSLURL& slurl, const std::string
         {
         std::string grid = slurl.getGrid();
         std::string current_grid = LLGridManager::getInstance()->getGrid();
-
         std::string gatekeeper = LLGridManager::getInstance()->getGatekeeper(grid);
 
-        std::string current = LLGridManager::getInstance()->getGrid();
-        if((grid != current ) && (!LLGridManager::getInstance()->isInOpenSim() || (!slurl.getHypergrid() && gatekeeper.empty())))
+        if((grid != current_grid ) && (!gIsInSecondLife || (!slurl.getHypergrid() && gatekeeper.empty())))
         {
             if (!dest.empty())
             {
@@ -241,19 +239,19 @@ bool LLURLDispatcherImpl::dispatchRegion(const LLSLURL& slurl, const std::string
         }
     
         // Trim the grid uri if we're talking a local region here. <FS:CR>
-        if (grid == current)
+        if (grid == current_grid)
         {
             std::size_t pos;
-            pos = region.find(current);
+            pos = region.find(current_grid);
             if (pos != std::string::npos)
             {
-                region.erase(pos, pos + current.length() + 1);
+                region.erase(pos, pos + current_grid.length() + 1);
             }
         
-            pos = dest.find(current);
+            pos = dest.find(current_grid);
             if (pos != std::string::npos)
             {
-                dest.erase(pos, pos + current.length() + 1);
+                dest.erase(pos, pos + current_grid.length() + 1);
             }
         }
     } //OPENSIM
