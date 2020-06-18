@@ -37,6 +37,9 @@
 #include "curl/curl.h"
 #include <boost/algorithm/string.hpp>
 #include "llworld.h"
+
+extern bool gIsInSecondLife; //Opensim or SecondLife
+
 const char* LLSLURL::HOP_SCHEME		 = "hop";
 const char* LLSLURL::SLURL_HTTP_SCHEME		 = "http";
 const char* LLSLURL::SLURL_HTTPS_SCHEME		 = "https";
@@ -266,21 +269,18 @@ LLSLURL::LLSLURL(const std::string& slurl)
 				// (or its a slurl.com or maps.secondlife.com URL).
 				std::string probe_grid;
 
-				std::string hyper = slurl_uri.hostNameAndPort();
-				std::string hyper_trimmed = LLGridManager::getInstance()
-								->trimHypergrid(hyper);
- 				if (hyper != hyper_trimmed)
+				std::string hypergrid = slurl_uri.hostNameAndPort();
+				std::string hyper_trimmed = LLGridManager::getInstance()->trimHypergrid(hypergrid);
+ 				if (hypergrid != hyper_trimmed)
 				{
 					mHypergrid = true;
-					path_array.insert(0,hyper);
+					path_array.insert(0,hypergrid);
 				}
 
-				probe_grid = LLGridManager::getInstance()
-						->getGridByProbing(hyper);
+				probe_grid = LLGridManager::getInstance()->getGridByProbing(hypergrid);
 				if (probe_grid.empty())
 				{
-					probe_grid = LLGridManager::getInstance()
-						->getGridByProbing(slurl_uri.hostName());
+					probe_grid = LLGridManager::getInstance()->getGridByProbing(slurl_uri.hostName());
 				}
 
 				LL_DEBUGS("SLURL") << "Probing result: "
@@ -307,8 +307,7 @@ LLSLURL::LLSLURL(const std::string& slurl)
 				else
 				{
 					mGrid = probe_grid;
-					mHypergrid = LLGridManager::getInstance()
-						->isHyperGrid(probe_grid);
+					mHypergrid = LLGridManager::getInstance()->isHyperGrid(probe_grid);
 				}
 			}
 
@@ -435,10 +434,8 @@ LLSLURL::LLSLURL(const std::string& slurl)
 
 
 // Create a slurl for the middle of the region
-LLSLURL::LLSLURL(const std::string& grid,
-				 const std::string& region,
-				bool hyper)
-: mHypergrid(hyper)
+LLSLURL::LLSLURL(const std::string& grid, const std::string& region, bool hypergrid)
+: mHypergrid(hypergrid)
 {
 	mGrid = grid;
 	mRegion = region;
@@ -450,11 +447,8 @@ LLSLURL::LLSLURL(const std::string& grid,
 
 // create a slurl given the position. The position will be modded with the region
 // width handling global positions as well
-LLSLURL::LLSLURL(const std::string& grid, 
-		 const std::string& region, 
-		 const LLVector3& position,
-				bool hyper)
-: mHypergrid(hyper)
+LLSLURL::LLSLURL(const std::string& grid, const std::string& region, const LLVector3& position, bool hypergrid)
+: mHypergrid(hypergrid)
 {
 	mGrid = grid;
 	mRegion = region;
@@ -467,36 +461,24 @@ LLSLURL::LLSLURL(const std::string& grid,
 
 
 // create a simstring
-LLSLURL::LLSLURL(const std::string& region,
-		 const LLVector3& position,
-				bool hyper)
-: mHypergrid(hyper)
+LLSLURL::LLSLURL(const std::string& region, const LLVector3& position, bool hypergrid)
+: mHypergrid(hypergrid)
 {
-	*this = LLSLURL(LLGridManager::getInstance()->getGrid(),
-			region, position);
+	*this = LLSLURL(LLGridManager::getInstance()->getGrid(), region, position);
 }
 
 // create a slurl from a global position
-LLSLURL::LLSLURL(const std::string& grid,
-		 const std::string& region,
-		 const LLVector3d& global_position,
-				bool hyper)
-: mHypergrid(hyper)
+LLSLURL::LLSLURL(const std::string& grid, const std::string& region, const LLVector3d& global_position, bool hypergrid)
+: mHypergrid(hypergrid)
 {
-	*this = LLSLURL(grid,
-			region, LLVector3(global_position.mdV[VX],
-					global_position.mdV[VY],
-					global_position.mdV[VZ]));
+	*this = LLSLURL(grid, region, LLVector3(global_position.mdV[VX], global_position.mdV[VY], global_position.mdV[VZ]));
 }
 
 // create a slurl from a global position
-LLSLURL::LLSLURL(const std::string& region, 
-		 const LLVector3d& global_position,
-				bool hyper)
-: mHypergrid(hyper)
+LLSLURL::LLSLURL(const std::string& region, const LLVector3d& global_position, bool hypergrid)
+: mHypergrid(hypergrid)
 {
-	*this = LLSLURL(LLGridManager::getInstance()->getGrid(),
-			region, global_position);
+	*this = LLSLURL(LLGridManager::getInstance()->getGrid(), region, global_position);
 }
 
 LLSLURL::LLSLURL(const std::string& command, const LLUUID&id, const std::string& verb)
