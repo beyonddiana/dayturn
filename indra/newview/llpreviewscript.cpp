@@ -497,7 +497,6 @@ bool LLScriptEdCore::postBuild()
 	return true;
 }
 
->>>>>>> cebd2809d8... DAYTW-32 Covert BOOL postBuild to bool
 void LLScriptEdCore::processKeywords()
 {
 	LL_DEBUGS("SyntaxLSL") << "Processing keywords" << LL_ENDL;
