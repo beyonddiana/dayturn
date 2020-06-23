@@ -466,7 +466,11 @@ LLVivoxVoiceClient::LLVivoxVoiceClient() :
  	setState(stateDisabled);
   
     // Disable Automatic Voice Activity Detection - possible fix for VOICE-84
+#if LL_WINDOWS
+    _putenv_s("VIVOX_FORCE_NO_AUTOVAD","1");
+#else
     setenv("VIVOX_FORCE_NO_AUTOVAD","1", true /* overwrite any existing value */);
+#endif
 
 	gIdleCallbacks.addFunction(idle, this);
 }
