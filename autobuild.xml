@@ -22,16 +22,16 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>8f865b509bb5011caf3dd95a22a4589d</string>
+              <string>7d97a3788ea4f89eccb7789e4f015bb3</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/apr_3p-update-apr/rev/297252/arch/CYGWIN/installer/apr_suite-1.4.5.297252-windows-297252.tar.bz2</string>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/ct2/747/1540/apr_suite-1.4.5.500735-windows-500735.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
           </map>
         </map>
         <key>version</key>
-        <string>1.4.5.297252</string>
+        <string>1.4.5.500735</string>
       </map>
       <key>ares</key>
       <map>
@@ -82,9 +82,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>76a607d8a625062b9a63a88b62819894</string>
+              <string>80b1963d635e883cb5ed223e94406adb</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/boost_3p-update-boost/rev/297445/arch/CYGWIN/installer/boost-1.57-windows-297445.tar.bz2</string>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/ct2/894/1976/boost-1.57-windows-500883.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
@@ -110,16 +110,16 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>24e1fac1fd6feef7915c958687fd7c56</string>
+              <string>5bd7875e16e7f88e21f4c44fe7c6433f</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/colladadom_3p-update-colladadom/rev/301371/arch/CYGWIN/installer/colladadom-2.3.301371-windows-301371.tar.bz2</string>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/ct2/915/2035/colladadom-2.3.500902-windows-500902.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
           </map>
         </map>
         <key>version</key>
-        <string>2.3.201507031700</string>
+        <string>2.3.500902</string>
       </map>
       <key>curl</key>
       <map>
@@ -140,16 +140,16 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>5e0d4f4a5a5bbcba610aafbb91c30b2b</string>
+              <string>bda9f237d3e8238440bc5bedc2657547</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/3p-curl/rev/312763/arch/CYGWIN/installer/curl-7.47.0.312763-windows-312763.tar.bz2</string>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/ct2/1078/2487/curl-7.47.0.501064-windows-501064.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
           </map>
         </map>
         <key>version</key>
-        <string>7.47.0.312763</string>
+        <string>7.47.0.501064</string>
       </map>
       <key>dictionaries</key>
       <map>
@@ -200,16 +200,16 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>c70c72a8a0a1e508691a9b35739b373f</string>
+              <string>09ece3f04ec0bd21dd0d401235aa20f7</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/expat_3p-update-expat/rev/297014/arch/CYGWIN/installer/expat-2.0.1.297014-windows-297014.tar.bz2</string>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/ct2/383/949/expat-2.1.1.500375-windows-500375.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
           </map>
         </map>
         <key>version</key>
-        <string>2.0.1.297014</string>
+        <string>2.1.1.500375</string>
       </map>
       <key>fmodex</key>
       <map>
@@ -292,16 +292,16 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>207aa1a29bfe4ba63edbca38170970a1</string>
+              <string>b7a8df22cfc910180c66bb1c1ed89cd4</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/freetype_3p-update-freetype/rev/297053/arch/CYGWIN/installer/freetype-2.4.4.297053-windows-297053.tar.bz2</string>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/ct2/876/1922/freetype-2.4.4.500865-windows-500865.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
           </map>
         </map>
         <key>version</key>
-        <string>2.4.4.297053</string>
+        <string>2.4.4.500865</string>
       </map>
       <key>glext</key>
       <map>
@@ -352,9 +352,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>6799c2ec7da5eba3542f74761e88a143</string>
+              <string>fa41756977ad8b9fd2d1465dadd4f956</string>
               <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-glh-linear/downloads/glh_linear-0.0.0-common-201507131759.tar.bz2</string>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/ct2/529/1139/glh_linear-0.0.0-common-500522.tar.bz2</string>
             </map>
             <key>name</key>
             <string>common</string>
@@ -592,16 +592,16 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>391158e9b5d92a8b69aeb7478144d2de</string>
+              <string>9c2950f9d16566979dcd6ca6336778b3</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/libpng_3p-update-libpng/rev/301387/arch/CYGWIN/installer/libpng-1.6.8.301387-windows-301387.tar.bz2</string>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/ct2/885/1957/libpng-1.6.8.500873-windows-500873.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
           </map>
         </map>
         <key>version</key>
-        <string>1.6.8.301387</string>
+        <string>1.6.8.500873</string>
       </map>
       <key>libxml2</key>
       <map>
@@ -622,16 +622,16 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>37fa0e86e54f5f283aa653d770fc8ed5</string>
+              <string>c2461ba7629c4cef5af623464aded3c6</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/libxml_3p-update-libxml/rev/297050/arch/CYGWIN/installer/libxml2-2.9.1.297050-windows-297050.tar.bz2</string>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/ct2/888/1960/libxml2-2.9.4.500877-windows-500877.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
           </map>
         </map>
         <key>version</key>
-        <string>2.9.1.297050</string>
+        <string>2.9.4.500877</string>
       </map>
       <key>llca</key>
       <map>
@@ -681,18 +681,18 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>1156121b4ccbb4aa29bc01f15c589f98</string>
+              <string>9d19271829a372e028dd3c75605ded9c</string>
               <key>hash_algorithm</key>
               <string>md5</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/3p-llceflib_3p-llceflib/rev/321153/arch/CYGWIN/installer/llceflib-1.5.3.321153-windows-321153.tar.bz2</string>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/ct2/1518/3437/llceflib-1.6.0.501501-windows-501501.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
           </map>
         </map>
         <key>version</key>
-        <string>1.5.3.317959</string>
+        <string>1.6.0.501600</string>
       </map>
       <key>llphysicsextensions_stub</key>
       <map>
@@ -893,16 +893,16 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>398743f47578cbb44f5504128780369f</string>
+              <string>7d9801f9ce049ffd30fbe06b6bac4c91</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/openssl_3p-update-openssl/rev/297168/arch/CYGWIN/installer/openssl-1.0.1h.297168-windows-297168.tar.bz2</string>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/ct2/1064/2465/openssl-1.0.1u.501051-windows-501051.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
           </map>
         </map>
         <key>version</key>
-        <string>1.0.1h.20140815</string>
+        <string>1.0.1u.501051</string>
       </map>
       <key>pcre</key>
       <map>
@@ -923,16 +923,16 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>96ed836c89a99dfc22f9c16a0d7272d3</string>
+              <string>150220f39f0aa5a8d9e609b450a9b147</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/pcre_3p-update-pcre/rev/297155/arch/CYGWIN/installer/pcre-8.35.-windows-297155.tar.bz2</string>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/ct2/911/2021/pcre-8.35.500898-windows-500898.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
           </map>
         </map>
         <key>version</key>
-        <string>8.35.</string>
+        <string>8.35.500898</string>
       </map>
       <key>slvoice</key>
       <map>
@@ -1050,7 +1050,7 @@
           </map>
         </map>
         <key>version</key>
-        <string>2.2.4.501207</string>
+        <string>2.2.4.502214</string>
       </map>
       <key>xmlrpc-epi</key>
       <map>
@@ -1071,16 +1071,16 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>a7e1a8369a5afd52e1b6fc1f14155033</string>
+              <string>6c16f020bf01155e6746487af0b26173</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/xmlrpc-emi_3p-update-xmlrpc-epi/rev/297075/arch/CYGWIN/installer/xmlrpc_epi-0.54.1.297075-windows-297075.tar.bz2</string>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/ct2/729/1497/xmlrpc_epi-0.54.1.500719-windows-500719.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
           </map>
         </map>
         <key>version</key>
-        <string>0.54.1.297075</string>
+        <string>0.54.1.500719</string>
       </map>
       <key>zlib</key>
       <map>
@@ -1101,16 +1101,16 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>ae420ec6d30411c07aac2502d7bbc0f3</string>
+              <string>f92cbb0ab5e5d20789bf6102f9a27aa6</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/zlib_3p-update-zlib/rev/296881/arch/CYGWIN/installer/zlib-1.2.8.296881-windows-296881.tar.bz2</string>
+              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/ct2/868/1906/zlib-1.2.8.500857-windows-500857.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
           </map>
         </map>
         <key>version</key>
-        <string>1.2.8.296881</string>
+        <string>1.2.8.500857</string>
       </map>
     </map>
     <key>package_description</key>
