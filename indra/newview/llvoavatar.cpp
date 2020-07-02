@@ -10684,17 +10684,17 @@ LLVOAvatar::AvatarOverallAppearance LLVOAvatar::getOverallAppearance() const
 	}
 	else // !isSelf()
 	{
-		if (mVisuallyMuteSetting == NEVER_VISUAL_MUTE) //corresponds to AV_ALWAYS_RENDER in LL code
+		if (isInMuteList())
+		{
+			result = AOA_INVISIBLE;
+		}
+		else if (mVisuallyMuteSetting == NEVER_VISUAL_MUTE) //corresponds to AV_ALWAYS_RENDER in LL code
 		{
 			result = AOA_NORMAL;
 		}
 		else if (mVisuallyMuteSetting == ALWAYS_VISUAL_MUTE) //corresponds to AV_DO_NOT_RENDER in LL code
 		{	// Always want to see this AV as an impostor
 			result = AOA_JELLYDOLL;
-		}
-		else if (isInMuteList())
-		{
-			result = AOA_INVISIBLE;
 		}
 		else if (isTooComplex())
 		{
