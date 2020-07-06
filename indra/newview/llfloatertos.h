@@ -34,7 +34,6 @@
 
 class LLButton;
 class LLRadioGroup;
-class LLVFS;
 class LLTextEditor;
 class LLUUID;
 
