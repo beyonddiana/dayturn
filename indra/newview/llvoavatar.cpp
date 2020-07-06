@@ -5191,7 +5191,7 @@ U32 LLVOAvatar::renderTransparent(bool first_pass)
 			}
 			first_pass = false;
 		}
-		if (isTextureVisible(TEX_HAIR_BAKED))
+		if (isTextureVisible(TEX_HAIR_BAKED) && (getOverallAppearance() != AOA_JELLYDOLL))
         {
             LLViewerJoint* hair_mesh = getViewerJoint(MESH_ID_HAIR);
             if (hair_mesh)
