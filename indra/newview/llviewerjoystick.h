@@ -51,7 +51,9 @@ class LLViewerJoystick : public LLSingleton<LLViewerJoystick>
 
 public:
 	void init(bool autoenable);
+	void initDevice(LLSD &guid);
 	void initDevice(void * preffered_device /*LPDIRECTINPUTDEVICE8*/);
+	void initDevice(void * preffered_device /*LPDIRECTINPUTDEVICE8*/, std::string &name, LLSD &guid);
 	void terminate();
 
 	void updateStatus();
@@ -70,8 +72,9 @@ public:
 	void setOverrideCamera(bool val);
 	bool toggleFlycam();
 	void setSNDefaults();
+	LLSD getDeviceUUID();
 	std::string getDescription();
-	
+
 protected:
 	void updateEnabled(bool autoenable);
 	void handleRun(F32 inc);
@@ -97,6 +100,7 @@ private:
 	bool					mCameraUpdated;
 	bool 					mOverrideCamera;
 	U32						mJoystickRun;
+	LLSD					mLastDeviceUUID; // _UUID as U8 binary map, integer 1 for no device/ndof's device
 	
 	static F32				sLastDelta[7];
 	static F32				sDelta[7];
