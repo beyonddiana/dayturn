@@ -39,6 +39,7 @@
 #include "llfloaterimcontainer.h"
 #include "llimview.h" // for gIMMgr
 #include "llnotificationsutil.h"
+#include "llstartup.h"
 #include "llstatusbar.h"	// can_afford_transaction()
 #include "groupchatlistener.h"
 
@@ -55,7 +56,12 @@ public:
 	bool handle(const LLSD& tokens, const LLSD& query_map,
 				LLMediaCtrl* web)
 	{
-		if (!LLUI::sSettingGroups["config"]->getBOOL("EnableGroupInfo"))
+		if (LLStartUp::getStartupState() < STATE_STARTED)
+		{
+			return true;
+		}
+
+        if (!LLUI::getInstance()->mSettingGroups["config"]->getBOOL("EnableGroupInfo"))
 		{
 			LLNotificationsUtil::add("NoGroupInfo", LLSD(), LLSD(), std::string("SwitchToStandardSkinAndQuit"));
 			return true;
