@@ -624,8 +624,8 @@ public:
 		//	check if music is playing first
 		//
 		if (gAudiop && 
-			LLViewerMedia::hasParcelAudio() &&
-			LLViewerMedia::isParcelAudioPlaying()
+            LLViewerMedia::getInstance()->hasParcelAudio() &&
+            LLViewerMedia::getInstance()->isParcelAudioPlaying()
 		) {
 			LLStreamingAudioInterface *stream = gAudiop->getStreamingAudioImpl();
 
@@ -664,8 +664,8 @@ public:
 		//	check if music is playing first
 		//
 		if (gAudiop && 
-			LLViewerMedia::hasParcelAudio() &&
-			LLViewerMedia::isParcelAudioPlaying()
+			LLViewerMedia::getInstance()->hasParcelAudio() &&
+			LLViewerMedia::getInstance()->isParcelAudioPlaying()
 		) {
 			LLStreamingAudioInterface *stream = gAudiop->getStreamingAudioImpl();
 
@@ -690,7 +690,7 @@ public:
 
 	void onAudioStreamIconContextMenuItemStartStream(const LLSD& userdata)
 	{
-		if (gAudiop && LLViewerMedia::hasParcelAudio()) {
+		if (gAudiop && LLViewerMedia::getInstance()->hasParcelAudio()) {
 			if (gAudiop->isInternetStreamPlaying() == LLAudioEngine::AUDIO_PAUSED) {
 				//
 				//	unpause the stream
@@ -704,7 +704,7 @@ public:
 					//
 					//	start the stream
 					//
-					audio->startInternetStreamWithAutoFade(LLViewerMedia::getParcelAudioURL());
+					audio->startInternetStreamWithAutoFade(LLViewerMedia::getInstance()->getParcelAudioURL());
 				}
 			}
 		}
@@ -1261,8 +1261,8 @@ protected:
 
 			static LLCachedControl<bool> audio_streaming_music(gSavedSettings, "AudioStreamingMusic", true);
 
-			if (gAudiop && audio_streaming_music && LLViewerMedia::hasParcelAudio()) {
-				if (LLViewerMedia::isParcelAudioPlaying()) {
+			if (gAudiop && audio_streaming_music && LLViewerMedia::getInstance()->hasParcelAudio()) {
+				if (LLViewerMedia::getInstance()->isParcelAudioPlaying()) {
 					stream = gAudiop->getStreamingAudioImpl();
 				}
 

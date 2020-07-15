@@ -507,9 +507,10 @@ void LLPanelNearByMedia::refreshParcelItems()
 	// Only show "special parcel items" if "All" or "Within" filter
 	// (and if media is "enabled")
 	bool should_include = (choice == MEDIA_CLASS_ALL || choice == MEDIA_CLASS_WITHIN_PARCEL);
-	
+	LLViewerMedia* media_inst = LLViewerMedia::getInstance();
+
 	// First Parcel Media: add or remove it as necessary
-	if (gSavedSettings.getBOOL("AudioStreamingMedia") &&should_include && LLViewerMedia::hasParcelMedia())
+	if (gSavedSettings.getBOOL("AudioStreamingMedia") && should_include && media_inst->hasParcelMedia())
 	{
 		// Yes, there is parcel media.
 		if (NULL == mParcelMediaItem)
@@ -552,7 +553,7 @@ void LLPanelNearByMedia::refreshParcelItems()
 	}
 	
 	// Next Parcel Audio: add or remove it as necessary (don't show if disabled in prefs)
-	if (should_include && LLViewerMedia::hasParcelAudio() && gSavedSettings.getBOOL("AudioStreamingMusic"))
+	if (should_include && media_inst->hasParcelAudio() && gSavedSettings.getBOOL("AudioStreamingMusic"))
 	{
 		// Yes, there is parcel audio.
 		if (NULL == mParcelAudioItem)
@@ -572,10 +573,10 @@ void LLPanelNearByMedia::refreshParcelItems()
 	// ... then update it
 	if (NULL != mParcelAudioItem)
 	{
-		bool is_playing = LLViewerMedia::isParcelAudioPlaying();
+		bool is_playing = media_inst->isParcelAudioPlaying();
 	
 		std::string url;
-        url = LLViewerMedia::getParcelAudioURL();
+		url = media_inst->getParcelAudioURL();
 
 		updateListItem(mParcelAudioItem,
 					   mParcelAudioName,
@@ -617,7 +618,8 @@ void LLPanelNearByMedia::refreshList()
 	refreshParcelItems();
 	
 	// Get the canonical list from LLViewerMedia
-	LLViewerMedia::impl_list impls = LLViewerMedia::getPriorityList();
+	LLViewerMedia* media_inst = LLViewerMedia::getInstance();
+	LLViewerMedia::impl_list impls = media_inst->getPriorityList();
 	LLViewerMedia::impl_list::iterator priority_iter;
 	
 	U32 enabled_count = 0;
@@ -670,17 +672,17 @@ void LLPanelNearByMedia::refreshList()
 	}	
 	mDisableAllCtrl->setEnabled((gSavedSettings.getBOOL("AudioStreamingMusic") || 
 		                         gSavedSettings.getBOOL("AudioStreamingMedia")) &&
-								(LLViewerMedia::isAnyMediaShowing() || 
-								 LLViewerMedia::isParcelMediaPlaying() ||
-								 LLViewerMedia::isParcelAudioPlaying()));
+								(media_inst->isAnyMediaShowing() || 
+								 media_inst->isParcelMediaPlaying() ||
+								 media_inst->isParcelAudioPlaying()));
 
 	mEnableAllCtrl->setEnabled( (gSavedSettings.getBOOL("AudioStreamingMusic") ||
 								gSavedSettings.getBOOL("AudioStreamingMedia")) &&
 							   (disabled_count > 0 ||
 								// parcel media (if we have it, and it isn't playing, enable "start")
-								(LLViewerMedia::hasParcelMedia() && ! LLViewerMedia::isParcelMediaPlaying()) ||
+								(media_inst->hasParcelMedia() && ! media_inst->isParcelMediaPlaying()) ||
 								// parcel audio (if we have it, and it isn't playing, enable "start")
-								(LLViewerMedia::hasParcelAudio() && ! LLViewerMedia::isParcelAudioPlaying())));
+								(media_inst->hasParcelAudio() && ! media_inst->isParcelAudioPlaying())));
 
 	// Iterate over the rows in the control, updating ones whose impl exists, and deleting ones whose impl has gone away.
 	std::vector<LLScrollListItem*> items = mMediaList->getAllData();
@@ -695,7 +697,7 @@ void LLPanelNearByMedia::refreshList()
 		if (row_id != PARCEL_MEDIA_LIST_ITEM_UUID &&
 			row_id != PARCEL_AUDIO_LIST_ITEM_UUID)
 		{
-			LLViewerMediaImpl* impl = LLViewerMedia::getMediaImplFromTextureID(row_id);
+			LLViewerMediaImpl* impl = media_inst->getMediaImplFromTextureID(row_id);
 			if(impl)
 			{
 				updateListItem(item, impl);
@@ -740,17 +742,17 @@ void LLPanelNearByMedia::updateColumns()
 
 void LLPanelNearByMedia::onClickEnableAll()
 {
-	LLViewerMedia::setAllMediaEnabled(true);
+	LLViewerMedia::getInstance()->setAllMediaEnabled(true);
 }
 
 void LLPanelNearByMedia::onClickDisableAll()
 {
-	LLViewerMedia::setAllMediaEnabled(false);
+	LLViewerMedia::getInstance()->setAllMediaEnabled(false);
 }
 
 void LLPanelNearByMedia::onClickEnableParcelMedia()
 {	
-	if ( ! LLViewerMedia::isParcelMediaPlaying() )
+	if ( ! LLViewerMedia::getInstance()->isParcelMediaPlaying() )
 	{
 		LLViewerParcelMedia::play(LLViewerParcelMgr::getInstance()->getAgentParcel());
 	}
@@ -796,7 +798,7 @@ bool LLPanelNearByMedia::setDisabled(const LLUUID &row_id, bool disabled)
 		return true;
 	}
 	else {
-		LLViewerMediaImpl* impl = LLViewerMedia::getMediaImplFromTextureID(row_id);
+		LLViewerMediaImpl* impl = LLViewerMedia::getInstance()->getMediaImplFromTextureID(row_id);
 		if(impl)
 		{
 			impl->setDisabled(disabled, true);
@@ -853,7 +855,7 @@ void LLPanelNearByMedia::onClickParcelAudioPlay()
 	}
 	else
 	{
-		LLViewerAudio::getInstance()->startInternetStreamWithAutoFade(LLViewerMedia::getParcelAudioURL());
+		LLViewerAudio::getInstance()->startInternetStreamWithAutoFade(LLViewerMedia::getInstance()->getParcelAudioURL());
 	}
 }
 
@@ -945,16 +947,17 @@ void LLPanelNearByMedia::onMoreLess()
 void LLPanelNearByMedia::updateControls()
 {
 	LLUUID selected_media_id = mMediaList->getValue().asUUID();
+	LLViewerMedia* media_inst = LLViewerMedia::getInstance();
 	
 	if (selected_media_id == PARCEL_AUDIO_LIST_ITEM_UUID)
 	{
-		if (!LLViewerMedia::hasParcelAudio() || !gSavedSettings.getBOOL("AudioStreamingMusic"))
+		if (!media_inst->getInstance()->hasParcelAudio() || !gSavedSettings.getBOOL("AudioStreamingMusic"))
 		{
 			// disable controls if audio streaming music is disabled from preference
 			showDisabledControls();
 		}
 		else {
-			showTimeBasedControls(LLViewerMedia::isParcelAudioPlaying(),
+			showTimeBasedControls(media_inst->isParcelAudioPlaying(),
 							  false, // include_zoom
 							  false, // is_zoomed
 							  gSavedSettings.getBOOL("MuteMusic"), 
@@ -963,7 +966,7 @@ void LLPanelNearByMedia::updateControls()
 	}
 	else if (selected_media_id == PARCEL_MEDIA_LIST_ITEM_UUID)
 	{
-		if (!LLViewerMedia::hasParcelMedia() || !gSavedSettings.getBOOL("AudioStreamingMedia"))
+		if (!media_inst->hasParcelMedia() || !gSavedSettings.getBOOL("AudioStreamingMedia"))
 		{
 			// disable controls if audio streaming media is disabled from preference
 			showDisabledControls();
@@ -985,7 +988,7 @@ void LLPanelNearByMedia::updateControls()
 			}
 			else {
 				// non-time-based parcel media
-				showBasicControls(LLViewerMedia::isParcelMediaPlaying(), 
+				showBasicControls(media_inst->isParcelMediaPlaying(), 
 							      false, 
 								  false, 
 								  impl->getVolume() == 0.0, 
@@ -994,7 +997,7 @@ void LLPanelNearByMedia::updateControls()
 		}
 	}
 	else {
-		LLViewerMediaImpl* impl = LLViewerMedia::getMediaImplFromTextureID(selected_media_id);
+		LLViewerMediaImpl* impl = media_inst->getMediaImplFromTextureID(selected_media_id);
 		
 		if (NULL == impl || !gSavedSettings.getBOOL("AudioStreamingMedia"))
 		{
@@ -1080,7 +1083,7 @@ void LLPanelNearByMedia::onClickSelectedMediaPlay()
 	if (selected_media_id != PARCEL_AUDIO_LIST_ITEM_UUID)
 	{
 		LLViewerMediaImpl *impl = (selected_media_id == PARCEL_MEDIA_LIST_ITEM_UUID) ?
-			((LLViewerMediaImpl*)LLViewerParcelMedia::getParcelMedia()) : LLViewerMedia::getMediaImplFromTextureID(selected_media_id);
+			((LLViewerMediaImpl*)LLViewerParcelMedia::getParcelMedia()) : LLViewerMedia::getInstance()->getMediaImplFromTextureID(selected_media_id);
 		if (NULL != impl)
 		{
 			if (impl->isMediaTimeBased() && impl->isMediaPaused())
@@ -1109,7 +1112,7 @@ void LLPanelNearByMedia::onClickSelectedMediaPause()
 		onClickParcelMediaPause();
 	}
 	else {
-		LLViewerMediaImpl* impl = LLViewerMedia::getMediaImplFromTextureID(selected_media_id);
+		LLViewerMediaImpl* impl = LLViewerMedia::getInstance()->getMediaImplFromTextureID(selected_media_id);
 		if (NULL != impl && impl->isMediaTimeBased() && impl->isMediaPlaying())
 		{
 			impl->pause();
@@ -1126,7 +1129,7 @@ void LLPanelNearByMedia::onClickSelectedMediaMute()
 	}
 	else {
 		LLViewerMediaImpl* impl = (selected_media_id == PARCEL_MEDIA_LIST_ITEM_UUID) ?
-			((LLViewerMediaImpl*)LLViewerParcelMedia::getParcelMedia()) : LLViewerMedia::getMediaImplFromTextureID(selected_media_id);
+			((LLViewerMediaImpl*)LLViewerParcelMedia::getParcelMedia()) : LLViewerMedia::getInstance()->getMediaImplFromTextureID(selected_media_id);
 		if (NULL != impl)
 		{
 			F32 volume = impl->getVolume();
@@ -1157,7 +1160,7 @@ void LLPanelNearByMedia::onCommitSelectedMediaVolume()
 	}
 	else {
 		LLViewerMediaImpl* impl = (selected_media_id == PARCEL_MEDIA_LIST_ITEM_UUID) ?
-			((LLViewerMediaImpl*)LLViewerParcelMedia::getParcelMedia()) : LLViewerMedia::getMediaImplFromTextureID(selected_media_id);
+			((LLViewerMediaImpl*)LLViewerParcelMedia::getParcelMedia()) : LLViewerMedia::getInstance()->getMediaImplFromTextureID(selected_media_id);
 		if (NULL != impl)
 		{
 			impl->setVolume(mVolumeSlider->getValueF32());

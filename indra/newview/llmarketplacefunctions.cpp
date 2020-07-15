@@ -854,7 +854,7 @@ namespace LLMarketplaceImport
 		headers[HTTP_OUT_HEADER_COOKIE] = sMarketplaceCookie;
 		// *TODO: Why are we setting Content-Type for a GET request?
 		headers[HTTP_OUT_HEADER_CONTENT_TYPE] = HTTP_CONTENT_LLSD_XML;
-		headers[HTTP_OUT_HEADER_USER_AGENT] = LLViewerMedia::getCurrentUserAgent();
+		headers[HTTP_OUT_HEADER_USER_AGENT] = LLViewerMedia::getInstance()->getCurrentUserAgent();
 		
 		if (gSavedSettings.getBOOL("InventoryOutboxLogging"))
 		{
@@ -892,7 +892,7 @@ namespace LLMarketplaceImport
 		headers[HTTP_OUT_HEADER_CONNECTION] = "Keep-Alive";
 		headers[HTTP_OUT_HEADER_COOKIE] = sMarketplaceCookie;
 		headers[HTTP_OUT_HEADER_CONTENT_TYPE] = HTTP_CONTENT_XML;
-		headers[HTTP_OUT_HEADER_USER_AGENT] = LLViewerMedia::getCurrentUserAgent();
+        headers[HTTP_OUT_HEADER_USER_AGENT] = LLViewerMedia::getInstance()->getCurrentUserAgent();
 		
 		if (gSavedSettings.getBOOL("InventoryOutboxLogging"))
 		{
