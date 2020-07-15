@@ -3924,7 +3924,7 @@ bool process_login_success_response(U32 &first_sim_size_x, U32 &first_sim_size_y
 	if(!openid_url.empty())
 	{
 		std::string openid_token = response["openid_token"];
-		LLViewerMedia::openIDSetup(openid_url, openid_token);
+		LLViewerMedia::getInstance()->openIDSetup(openid_url, openid_token);
 	}
 
 	gMaxAgentGroups = DEFAULT_MAX_AGENT_GROUPS;

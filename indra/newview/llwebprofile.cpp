@@ -166,7 +166,7 @@ public:
 		// Handle it manually.
 		if (getStatus() == HTTP_SEE_OTHER)
 		{
-			LLSD headers = LLViewerMedia::getHeaders();
+    LLSD headers = LLViewerMedia::getInstance()->getHeaders();
 			headers[HTTP_OUT_HEADER_COOKIE] = LLWebProfile::getAuthCookie();
 			const std::string& redir_url = getResponseHeader(HTTP_IN_HEADER_LOCATION);
 			if (redir_url.empty())
@@ -205,7 +205,7 @@ void LLWebProfile::uploadImage(LLPointer<LLImageFormatted> image, const std::str
 	config_url += "&add_loc=" + std::string(add_location ? "1" : "0");
 
 	LL_DEBUGS("Snapshots") << "Requesting " << config_url << LL_ENDL;
-	LLSD headers = LLViewerMedia::getHeaders();
+    LLSD headers = LLViewerMedia::getInstance()->getHeaders();
 	headers[HTTP_OUT_HEADER_COOKIE] = getAuthCookie();
 	LLHTTPClient::get(config_url, new LLWebProfileResponders::ConfigResponder(image), headers);
 }
@@ -229,7 +229,7 @@ void LLWebProfile::post(LLPointer<LLImageFormatted> image, const LLSD& config, c
 
 	const std::string boundary = "----------------------------0123abcdefab";
 
-	LLSD headers = LLViewerMedia::getHeaders();
+    LLSD headers = LLViewerMedia::getInstance()->getHeaders();
 	headers[HTTP_OUT_HEADER_COOKIE] = getAuthCookie();
 	headers[HTTP_OUT_HEADER_CONTENT_TYPE] = "multipart/form-data; boundary=" + boundary;
 

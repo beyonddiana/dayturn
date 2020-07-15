@@ -242,8 +242,8 @@ void LLFloaterWebContent::preCreate(LLFloaterWebContent::Params& p)
 void LLFloaterWebContent::open_media(const Params& p)
 {
 	// Specifying a mime type of text/html here causes the plugin system to skip the MIME type probe and just open a browser plugin.
-	LLViewerMedia::proxyWindowOpened(p.target(), p.id());
-	mWebBrowser->setHomePageUrl(p.url, HTTP_CONTENT_TEXT_HTML);
+	LLViewerMedia::getInstance()->proxyWindowOpened(p.target(), p.id());
+	mWebBrowser->setHomePageUrl(p.url);
 	mWebBrowser->setTarget(p.target);
 	mWebBrowser->navigateTo(p.url, HTTP_CONTENT_TEXT_HTML, p.clean_browser);
 	
@@ -296,7 +296,7 @@ void LLFloaterWebContent::onOpen(const LLSD& key)
 //virtual
 void LLFloaterWebContent::onClose(bool app_quitting)
 {
-	LLViewerMedia::proxyWindowClosed(mUUID);
+	LLViewerMedia::getInstance()->proxyWindowClosed(mUUID);
 	destroy();
 }
 
