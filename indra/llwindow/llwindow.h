@@ -169,6 +169,8 @@ public:
 	// Get system UI size based on DPI (for 96 DPI UI size should be 1.0)
 	virtual F32 getSystemUISize() { return 1.0; }
 
+	static std::vector<std::string> getDisplaysResolutionList();
+
 //-TT Window Title Access
 //this needs to be overridden for all platforms
 	virtual void setTitle(const std::string& win_title) {};
