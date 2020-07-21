@@ -4269,6 +4269,12 @@ F32 LLWindowWin32::getSystemUISize()
 }
 
 //static
+std::vector<std::string> LLWindowWin32::getDisplaysResolutionList()
+{ 
+	return sMonitorInfo.getResolutionsList();
+}
+
+//static
 std::vector<std::string> LLWindowWin32::getDynamicFallbackFontList()
 {
 	// Fonts previously in getFontListSans() have moved to fonts.xml.
