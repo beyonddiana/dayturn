@@ -11,7 +11,7 @@ include(DBusGlib)
 include(DirectX)
 include(DragDrop)
 include(EXPAT)
-include(FMODEX)
+include(FMODSTUDIO)
 include(GLOD)
 include(Hunspell)
 include(JsonCpp)
@@ -67,6 +67,11 @@ endif( LLPHYSICSEXTENSIONS_SRC_DIR )
 if(FMODEX)
   include_directories(${FMODEX_INCLUDE_DIR})
 endif(FMODEX)
+
+if(FMODSTUDIO)
+  include_directories(${FMODSTUDIO_INCLUDE_DIR})
+endif(FMODSTUDIO)
+
 include_directories(
     ${DBUSGLIB_INCLUDE_DIRS}
     ${JSONCPP_INCLUDE_DIR}
@@ -1694,8 +1699,13 @@ endif (OPENAL)
 
 if (FMODEX)
   set(LLSTARTUP_COMPILE_FLAGS "${LLSTARTUP_COMPILE_FLAGS} -DLL_FMODEX")
-  set(FMODWRAPPER_LIBRARY ${FMODEX_LIBRARY})
+  set(FMODEXWRAPPER_LIBRARY ${FMODEX_LIBRARY})
 endif (FMODEX)
+
+if (FMODSTUDIO)
+  set(LLSTARTUP_COMPILE_FLAGS "${LLSTARTUP_COMPILE_FLAGS} -DLL_FMODSTUDIO")
+  set(FMODWRAPPER_LIBRARY ${FMODSTUDIO_LIBRARY})
+endif (FMODSTUDIO)
 
 set_source_files_properties(llstartup.cpp PROPERTIES COMPILE_FLAGS "${LLSTARTUP_COMPILE_FLAGS}")
 
@@ -1803,6 +1813,14 @@ if (WINDOWS)
           )
     endif (FMODEX)
     
+    if (FMODSTUDIO)
+      list(APPEND COPY_INPUT_DEPENDENCIES
+           ${SHARED_LIB_STAGING_DIR}/Release/fmod.dll
+           ${SHARED_LIB_STAGING_DIR}/RelWithDebInfo/fmod.dll
+           ${SHARED_LIB_STAGING_DIR}/Debug/fmodL.dll
+          )
+    endif (FMODSTUDIO)
+    
     add_custom_command(
       OUTPUT  ${CMAKE_CFG_INTDIR}/copy_touched.bat
       COMMAND ${PYTHON_EXECUTABLE}
@@ -1811,6 +1829,8 @@ if (WINDOWS)
         --actions=copy
         --arch=${ARCH}
         --artwork=${ARTWORK_DIR}
+        "--fmodex=${FMODEX}"
+        "--fmodstudio=${FMODSTUDIO}"
         --build=${CMAKE_CURRENT_BINARY_DIR}
         --buildtype=${CMAKE_BUILD_TYPE}
         --configuration=${CMAKE_CFG_INTDIR}
@@ -1820,6 +1840,7 @@ if (WINDOWS)
         --versionfile=${CMAKE_CURRENT_BINARY_DIR}/viewer_version.txt
         --source=${CMAKE_CURRENT_SOURCE_DIR}
         --touch=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/copy_touched.bat
+        --fmodkind=${FMODKIND}
       DEPENDS
         ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
         stage_third_party_libs
@@ -1877,6 +1898,8 @@ if (WINDOWS)
           ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
           --arch=${ARCH}
           --artwork=${ARTWORK_DIR}
+          "--fmodex=${FMODEX}"
+          "--fmodstudio=${FMODSTUDIO}"
           --build=${CMAKE_CURRENT_BINARY_DIR}
           --buildtype=${CMAKE_BUILD_TYPE}
           --channel=${VIEWER_CHANNEL}
@@ -1886,6 +1909,7 @@ if (WINDOWS)
           --grid=${GRID}
           --source=${CMAKE_CURRENT_SOURCE_DIR}
           --touch=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/touched.bat
+          --fmodkind=${FMODKIND}
         DEPENDS
             ${VIEWER_BINARY_NAME}
             ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
@@ -1969,6 +1993,7 @@ target_link_libraries(${VIEWER_BINARY_NAME}
     ${BOOST_COROUTINE_LIBRARY}
     ${DBUSGLIB_LIBRARIES}
     ${OPENGL_LIBRARIES}
+    ${FMODEXWRAPPER_LIBRARY} # must come after LLAudio
     ${FMODWRAPPER_LIBRARY} # must come after LLAudio
     ${GLOD_LIBRARIES}
     ${OPENGL_LIBRARIES}
@@ -2010,6 +2035,8 @@ if (LINUX)
         ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
         --arch=${ARCH}
         --artwork=${ARTWORK_DIR}
+        "--fmodex=${FMODEX}"
+        "--fmodstudio=${FMODSTUDIO}"
         --build=${CMAKE_CURRENT_BINARY_DIR}
         --buildtype=${CMAKE_BUILD_TYPE}
         --channel=${VIEWER_CHANNEL}
@@ -2019,6 +2046,7 @@ if (LINUX)
         --grid=${GRID}
         --source=${CMAKE_CURRENT_SOURCE_DIR}
         --touch=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/.${product}.touched
+        --fmodkind=${FMODKIND}
       DEPENDS
         ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
         ${COPY_INPUT_DEPENDENCIES}
@@ -2035,6 +2063,8 @@ if (LINUX)
       --arch=${ARCH}
       --actions=copy
       --artwork=${ARTWORK_DIR}
+      "--fmodex=${FMODEX}"
+      "--fmodstudio=${FMODSTUDIO}"
       --build=${CMAKE_CURRENT_BINARY_DIR}
       --buildtype=${CMAKE_BUILD_TYPE}
       --configuration=${CMAKE_CFG_INTDIR}

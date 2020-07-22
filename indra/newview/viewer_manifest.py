@@ -359,14 +359,20 @@ class Windows_i686_Manifest(ViewerManifest):
                 print err.message
                 print "Skipping GLOD library (assumming linked statically)"
 
-            # Get fmodex dll, continue if missing
-            try:
+            # Get fmodex dll if needed
+            # Normally only fmodex or fmodstudio are needed, but just in case checkking both.
+            if self.args['fmodex'] == 'ON':
                 if self.args['configuration'].lower() == 'debug':
                     self.path("fmodexL.dll")
                 else:
                     self.path("fmodex.dll")
-            except:
-                print "Skipping fmodex audio library(assuming other audio engine)"
+
+            # Get fmodstudio dll if needed
+            if self.args['fmodstudio'] == 'ON':
+                if(self.args['configuration'].lower() == 'debug'):
+                    self.path("fmodL.dll")
+                else:
+                    self.path("fmod.dll")
 
             # For textures
             self.path("openjpeg.dll")

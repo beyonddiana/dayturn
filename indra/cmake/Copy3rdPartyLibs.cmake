@@ -67,6 +67,11 @@ if(WINDOWS)
       set(debug_files ${debug_files} fmodexL.dll)
       set(release_files ${release_files} fmodex.dll)
     endif (FMODEX)
+    
+    if (FMODSTUDIO)
+        set(debug_files ${debug_files} fmodL.dll)
+        set(release_files ${release_files} fmod.dll)
+    endif (FMODSTUDIO)
 
     #*******************************
     # Copy MS C runtime dlls, required for packaging.
@@ -258,7 +263,10 @@ elseif(LINUX)
     endif (OPENAL)
     endif(${ARCH} STREQUAL "x86_64")
 
-    
+    if (FMODSTUDIO)
+      set(debug_files ${debug_files} "libfmodL.so")
+      set(release_files ${release_files} "libfmod.so")
+    endif (FMODSTUDIO)    
 
 else(WINDOWS)
     message(STATUS "WARNING: unrecognized platform for staging 3rd party libs, skipping...")

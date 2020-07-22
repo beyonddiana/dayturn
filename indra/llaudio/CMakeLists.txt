@@ -4,7 +4,6 @@ project(llaudio)
 
 include(00-Common)
 include(LLAudio)
-include(FMODEX)
 include(OPENAL)
 include(LLCommon)
 include(LLCoreHttp)

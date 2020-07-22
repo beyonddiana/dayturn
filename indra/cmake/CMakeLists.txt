@@ -28,7 +28,6 @@ set(cmake_SOURCE_FILES
     FindAutobuild.cmake
     FindBerkeleyDB.cmake
     FindCARes.cmake
-    FindFMODEX.cmake
     FindGLH.cmake
     FindHUNSPELL.cmake
     FindJsonCpp.cmake
@@ -38,7 +37,7 @@ set(cmake_SOURCE_FILES
     FindURIPARSER.cmake
     FindXmlRpcEpi.cmake
     FindZLIB.cmake
-    FMODEX.cmake
+    FMODSTUDIO.cmake
     FreeType.cmake
     GLEXT.cmake
     GLH.cmake
