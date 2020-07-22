@@ -211,37 +211,71 @@
         <key>version</key>
         <string>2.1.1.500375</string>
       </map>
-      <key>fmodex</key>
+      <key>fmodstudio</key>
       <map>
         <key>copyright</key>
-        <string>FMOD Sound System, copyright © Firelight Technologies Pty, Ltd., 1994-2014.</string>
+        <string>FMOD Studio by Firelight Technologies Pty Ltd.</string>
         <key>description</key>
-        <string>FMOD Ex audio system library</string>
+        <string>FMOD Studio API</string>
         <key>license</key>
-        <string>fmodex</string>
+        <string>fmod</string>
         <key>license_file</key>
-        <string>LICENSES/fmodex.txt</string>
+        <string>LICENSES/fmodstudio.txt</string>
         <key>name</key>
-        <string>fmodex</string>
+        <string>fmodstudio</string>
         <key>platforms</key>
         <map>
+          <key>linux</key>
+          <map>
+            <key>archive</key>
+            <map>
+              <key>hash</key>
+              <string>c491bdc1690f3d920c66be509ccc6ef2</string>
+              <key>url</key>
+              <string>http://s3-proxy.lindenlab.com/private-builds-secondlife-com/ct2/59039/554632/fmodstudio-2.00.07.541681-linux-541681.tar.bz2</string>
+            </map>
+            <key>name</key>
+            <string>linux</string>
+          </map>
+          <key>linux64</key>
+          <map>
+            <key>archive</key>
+            <map>
+              <key>hash</key>
+              <string>ae75cdb1cc9da824c9e270bf97bfdd6c</string>
+              <key>url</key>
+              <string>http://s3-proxy.lindenlab.com/private-builds-secondlife-com/ct2/54589/506866/fmodstudio-2.00.07.538806-linux64-538806.tar.bz2</string>
+            </map>
+            <key>name</key>
+            <string>linux64</string>
+          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>424711b406046faf9e4bf6a2b6602ca2</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
+              <string>e768f41fa5d3bb98cd8aceca5a7b5b12</string>
               <key>url</key>
-              <string>https://bitbucket.org/kokua/3p-fmodex/downloads/fmodex-4.44.64-windows-201612090445.tar.bz2</string>
+              <string>https://bitbucket.org/dayturn/fmodstudio/downloads/fmodstudio-2.00.10-windows32-202007221503.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
           </map>
+          <key>windows64</key>
+          <map>
+            <key>archive</key>
+            <map>
+              <key>hash</key>
+              <string>da3b6a5ddbe10da242943977da7a0a3c</string>
+              <key>url</key>
+              <string>https://bitbucket.org/dayturn/fmodstudio/downloads/fmodstudio-2.00.10-windows64-202007221507.tar.bz2</string>
+            </map>
+            <key>name</key>
+            <string>windows64</string>
+          </map>
         </map>
         <key>version</key>
-        <string>4.44.64</string>
+        <string>2.00.10</string>
       </map>
       <key>freeglut</key>
       <map>

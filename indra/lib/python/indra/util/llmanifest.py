@@ -152,7 +152,9 @@ ARGUMENTS=[
          description="""This specifies an identity to sign the viewer with, if any.
         If no value is supplied, the default signature will be used, if any. Currently
         only used on Mac OS X.""",
-         default=None)
+         default=None),
+    dict(name='fmodkind',
+         description='Kind of FMOD used. Can be fmodstudio or fmodex.', default=None)
     ]
 
 def usage(srctree=""):

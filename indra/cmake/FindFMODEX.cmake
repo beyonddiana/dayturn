@@ -1,13 +1,9 @@
 # -*- cmake -*-
 
-# - Find FMODEX
-# Find the FMODEX includes and library
-# This module defines
-#  FMODEX_INCLUDE_DIR, where to find fmod.h and fmod_errors.h
-#  FMODEX_LIBRARIES, the libraries needed to use FMODEX.
-#  FMODEX, If false, do not try to use FMODEX.
-# also defined, but not for general use are
-#  FMODEX_LIBRARY, where to find the FMODEX library.
+# FMODEX can be set when launching the make using the argument -DFMOD:BOOL=ON
+# No longer used by default, see FMODSTRUDIO.
+# Open source devs should use the -DFMODEX:BOOL=ON then if they want to build with FMODEX, whether
+# they are using USESYSTEMLIBS or not.
 
 FIND_PATH(FMODEX_INCLUDE_DIR fmod.h PATH_SUFFIXES fmod)
 
