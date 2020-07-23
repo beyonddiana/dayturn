@@ -1671,13 +1671,16 @@ bool LLToolPie::handleMediaClick(const LLPickInfo& pick, int button)
 		return false;
 	}
 
-    viewer_media_t media_impl = LLViewerMedia::getInstance()->getMediaImplFromTextureID(mep->getMediaID());
+    // Does this face have media?
+    const LLTextureEntry* tep = objectp->getTE(pick.mObjectFace);
+    if (!tep)
+        return false;
 
 	LLMediaEntry* mep = (tep->hasMedia()) ? tep->getMediaData() : NULL;
 	if(!mep)
 		return false;
 	
-	viewer_media_t media_impl = LLViewerMedia::getMediaImplFromTextureID(mep->getMediaID());
+    viewer_media_t media_impl = LLViewerMedia::getInstance()->getMediaImplFromTextureID(mep->getMediaID());
 
 	if (gSavedSettings.getBOOL("MediaOnAPrimUI"))
 	{
