@@ -64,9 +64,6 @@ endif (NOT HAVOK_TPV)
 # <FS:ND>
 endif( LLPHYSICSEXTENSIONS_SRC_DIR )
 # </FS:ND>
-if(FMODEX)
-  include_directories(${FMODEX_INCLUDE_DIR})
-endif(FMODEX)
 
 if(FMODSTUDIO)
   include_directories(${FMODSTUDIO_INCLUDE_DIR})
@@ -1695,11 +1692,6 @@ if (OPENAL)
   set(LLSTARTUP_COMPILE_FLAGS "${LLSTARTUP_COMPILE_FLAGS} -DLL_OPENAL")
 endif (OPENAL)
 
-if (FMODEX)
-  set(LLSTARTUP_COMPILE_FLAGS "${LLSTARTUP_COMPILE_FLAGS} -DLL_FMODEX")
-  set(FMODEXWRAPPER_LIBRARY ${FMODEX_LIBRARY})
-endif (FMODEX)
-
 if (FMODSTUDIO)
   set(LLSTARTUP_COMPILE_FLAGS "${LLSTARTUP_COMPILE_FLAGS} -DLL_FMODSTUDIO")
   set(FMODWRAPPER_LIBRARY ${FMODSTUDIO_LIBRARY})
@@ -1731,6 +1723,11 @@ list(APPEND EVENT_HOST_SCRIPTS ${EVENT_HOST_SCRIPT_GLOB_LIST})
 
 set(PACKAGE ON CACHE BOOL
     "Add a package target that builds an installer package.")
+if (FMODSTUDIO)
+    set(FMODKIND "fmodstudio")
+elseif (FMODEX)
+    set(FMODKIND "fmodex")
+endif (FMODSTUDIO)
 
 if (WINDOWS)
     set_target_properties(${VIEWER_BINARY_NAME}
@@ -1802,14 +1799,6 @@ if (WINDOWS)
       winmm_shim
       windows-crash-logger
       )
-
-    if (FMODEX)
-      list(APPEND COPY_INPUT_DEPENDENCIES
-           ${SHARED_LIB_STAGING_DIR}/Release/fmodex.dll
-           ${SHARED_LIB_STAGING_DIR}/RelWithDebInfo/fmodex.dll
-           ${SHARED_LIB_STAGING_DIR}/Debug/fmodexL.dll
-          )
-    endif (FMODEX)
     
     if (FMODSTUDIO)
       list(APPEND COPY_INPUT_DEPENDENCIES
@@ -1827,8 +1816,6 @@ if (WINDOWS)
         --actions=copy
         --arch=${ARCH}
         --artwork=${ARTWORK_DIR}
-        "--fmodex=${FMODEX}"
-        "--fmodstudio=${FMODSTUDIO}"
         --build=${CMAKE_CURRENT_BINARY_DIR}
         --buildtype=${CMAKE_BUILD_TYPE}
         --configuration=${CMAKE_CFG_INTDIR}
@@ -1896,8 +1883,6 @@ if (WINDOWS)
           ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
           --arch=${ARCH}
           --artwork=${ARTWORK_DIR}
-          "--fmodex=${FMODEX}"
-          "--fmodstudio=${FMODSTUDIO}"
           --build=${CMAKE_CURRENT_BINARY_DIR}
           --buildtype=${CMAKE_BUILD_TYPE}
           --channel=${VIEWER_CHANNEL}
@@ -1991,7 +1976,6 @@ target_link_libraries(${VIEWER_BINARY_NAME}
     ${BOOST_COROUTINE_LIBRARY}
     ${DBUSGLIB_LIBRARIES}
     ${OPENGL_LIBRARIES}
-    ${FMODEXWRAPPER_LIBRARY} # must come after LLAudio
     ${FMODWRAPPER_LIBRARY} # must come after LLAudio
     ${GLOD_LIBRARIES}
     ${OPENGL_LIBRARIES}
@@ -2033,8 +2017,6 @@ if (LINUX)
         ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
         --arch=${ARCH}
         --artwork=${ARTWORK_DIR}
-        "--fmodex=${FMODEX}"
-        "--fmodstudio=${FMODSTUDIO}"
         --build=${CMAKE_CURRENT_BINARY_DIR}
         --buildtype=${CMAKE_BUILD_TYPE}
         --channel=${VIEWER_CHANNEL}
@@ -2061,8 +2043,6 @@ if (LINUX)
       --arch=${ARCH}
       --actions=copy
       --artwork=${ARTWORK_DIR}
-      "--fmodex=${FMODEX}"
-      "--fmodstudio=${FMODSTUDIO}"
       --build=${CMAKE_CURRENT_BINARY_DIR}
       --buildtype=${CMAKE_BUILD_TYPE}
       --configuration=${CMAKE_CFG_INTDIR}
@@ -2070,7 +2050,7 @@ if (LINUX)
       --grid=${GRID}
       --channel=${VIEWER_CHANNEL}
       --versionfile=${CMAKE_CURRENT_BINARY_DIR}/viewer_version.txt
-      --source=${CMAKE_CURRENT_SOURCE_DIR}
+      --fmodkind=${FMODKIND}
     DEPENDS
       ${CMAKE_CURRENT_SOURCE_DIR}/viewer_manifest.py
       ${COPY_INPUT_DEPENDENCIES}
