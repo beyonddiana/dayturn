@@ -215,6 +215,11 @@ LLAudioChannel * LLAudioEngine_FMODSTUDIO::createChannel()
 bool LLAudioEngine_FMODSTUDIO::initWind()
 {
     mNextWindUpdate = 0.0;
+    
+    if (!mWindDSPDesc)
+    {
+        mWindDSPDesc = new FMOD_DSP_DESCRIPTION();
+    }
 
     if (!mWindDSP)
     {
