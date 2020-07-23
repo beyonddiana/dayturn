@@ -50,9 +50,7 @@ class ManifestError(RuntimeError):
 
 class MissingError(ManifestError):
     """You specified a file that doesn't exist"""
-    def __init__(self, msg):
-        self.msg = msg
-        super(MissingError, self).__init__(self.msg)
+    pass
 
 def path_ancestors(path):
     drive, path = os.path.splitdrive(os.path.normpath(path))
@@ -749,7 +747,7 @@ class LLManifest(object):
             dstname = os.path.join(dst, name)
             try:
                 self.ccopymumble(srcname, dstname)
-            except (IOError, os.error)as why:
+            except (IOError, os.error) as why:
                 errors.append((srcname, dstname, why))
         if errors:
             raise ManifestError, errors

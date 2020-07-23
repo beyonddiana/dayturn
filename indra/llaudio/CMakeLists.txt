@@ -43,22 +43,22 @@ set(llaudio_HEADER_FILES
     llwindgen.h
     )
 
-if (FMODEX)
+if (FMODSTUDIO)
     include_directories(
-        ${FMODEX_INCLUDE_DIR}
+        ${FMODSTUDIO_INCLUDE_DIR}
         )
     list(APPEND llaudio_SOURCE_FILES
-         llaudioengine_fmodex.cpp
-         lllistener_fmodex.cpp
-         llstreamingaudio_fmodex.cpp
+         llaudioengine_fmodstudio.cpp
+         lllistener_fmodstudio.cpp
+         llstreamingaudio_fmodstudio.cpp
          )
 
     list(APPEND llaudio_HEADER_FILES
-         llaudioengine_fmodex.h
-         lllistener_fmodex.h
-         llstreamingaudio_fmodex.h
+         llaudioengine_fmodstudio.h
+         lllistener_fmodstudio.h
+         llstreamingaudio_fmodstudio.h
          )
-endif (FMODEX)
+endif (FMODSTUDIO)
 
 if (OPENAL)
   list(APPEND llaudio_SOURCE_FILES
