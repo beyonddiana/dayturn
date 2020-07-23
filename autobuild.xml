@@ -254,9 +254,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>240bec9706783bd6784150acd8ff6570</string>
+              <string>082868f3cfecc4cc34e50b74e55d5ccc</string>
               <key>url</key>
-              <string>https://bitbucket.org/dayturn/fmodstudio/downloads/fmodstudio-2.00.10-windows-202007230644.tar.bz2</string>
+              <string>https://bitbucket.org/dayturn/fmodstudio/downloads/fmodstudio-2.00.10-windows-202007231133.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
