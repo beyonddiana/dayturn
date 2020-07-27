@@ -367,7 +367,7 @@
         <key>version</key>
         <string>68</string>
       </map>
-      <key>glh-linear</key>
+      <key>glh_linear</key>
       <map>
         <key>copyright</key>
         <string>Copyright (c) 2000 Cass Everitt</string>
@@ -378,7 +378,7 @@
         <key>license_file</key>
         <string>LICENSES/glh-linear.txt</string>
         <key>name</key>
-        <string>glh-linear</string>
+        <string>glh_linear</string>
         <key>platforms</key>
         <map>
           <key>common</key>
