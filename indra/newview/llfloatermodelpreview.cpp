@@ -411,7 +411,7 @@ bool LLFloaterModelPreview::postBuild()
 	mTabContainer = getChild<LLTabContainer>("import_tab");
 	
     // Disable Overrides tab untill it has something to show and set callbacks
-    LLPanel *panel = mTabContainer->getPanelByName("avatar_panel");
+    LLPanel *panel = mTabContainer->getPanelByName("rigging_panel");
     mAvatarTabIndex = mTabContainer->getIndexForPanel(panel);
     panel->getChild<LLScrollListCtrl>("joints_list")->setCommitCallback(boost::bind(&LLFloaterModelPreview::onJointListSelection, this));
 	
@@ -601,7 +601,7 @@ void populate_list_with_map(LLScrollListCtrl *list, const std::map<std::string, 
 void LLFloaterModelPreview::onJointListSelection()
 {
     S32 display_lod = mModelPreview->mPreviewLOD;
-    LLPanel *panel = mTabContainer->getPanelByName("avatar_panel");
+    LLPanel *panel = mTabContainer->getPanelByName("rigging_panel");
     LLScrollListCtrl *joints_list = panel->getChild<LLScrollListCtrl>("joints_list");
     LLScrollListCtrl *joints_pos = panel->getChild<LLScrollListCtrl>("pos_overrides_list");
     LLScrollListCtrl *joints_scale = panel->getChild<LLScrollListCtrl>("scale_overrides_list");
@@ -1387,7 +1387,7 @@ void LLFloaterModelPreview::addStringToLog(const std::ostringstream& strm, bool 
 
 void LLFloaterModelPreview::clearAvatarTab()
 {
-    LLPanel *panel = mTabContainer->getPanelByName("avatar_panel");
+    LLPanel *panel = mTabContainer->getPanelByName("rigging_panel");
     LLScrollListCtrl *joints_list = panel->getChild<LLScrollListCtrl>("joints_list");
     joints_list->deleteAllItems();
     LLScrollListCtrl *joints_pos = panel->getChild<LLScrollListCtrl>("pos_overrides_list");
@@ -1452,7 +1452,7 @@ void LLFloaterModelPreview::updateAvatarTab()
         }
     }
     
-    LLPanel *panel = mTabContainer->getPanelByName("avatar_panel");
+    LLPanel *panel = mTabContainer->getPanelByName("rigging_panel");
     LLScrollListCtrl *joints_list = panel->getChild<LLScrollListCtrl>("joints_list");
 
     if (joints_list->isEmpty())
