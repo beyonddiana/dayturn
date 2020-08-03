@@ -328,7 +328,7 @@ LLModel::EModelStatus load_face_from_dom_triangles(std::vector<LLVolumeFace>& fa
 	return LLModel::NO_ERRORS ;
 }
 
-LLModel::EModelStatus load_face_from_dom_polylist(std::vector<LLVolumeFace>& face_list, std::vector<std::string>& materials, domPolylistRef& poly)
+LLModel::EModelStatus load_face_from_dom_polylist(std::vector<LLVolumeFace>& face_list, std::vector<std::string>& materials, domPolylistRef& poly, LLSD& log_msg)
 {
 	domPRef p = poly->getP();
 	domListOfUInts& idx = p->getValue();
@@ -388,6 +388,7 @@ LLModel::EModelStatus load_face_from_dom_polylist(std::vector<LLVolumeFace>& fac
 	LLVolumeFace::VertexMapData::PointMap point_map;
 
 	U32 cur_idx = 0;
+	bool log_tc_msg = true;
 	for (U32 i = 0; i < vcount.getCount(); ++i)
 	{ //for each polygon
 		U32 first_index = 0;
@@ -411,8 +412,21 @@ LLModel::EModelStatus load_face_from_dom_polylist(std::vector<LLVolumeFace>& fac
 
 			if (tc_source)
 			{
-				cv.mTexCoord.setVec(tc[idx[cur_idx+tc_offset]*2+0],
-									tc[idx[cur_idx+tc_offset]*2+1]);
+				U64 idx_x = idx[cur_idx + tc_offset] * 2 + 0;
+				U64 idx_y = idx[cur_idx + tc_offset] * 2 + 1;
+
+				if (idx_y < tc.getCount())
+				{
+					cv.mTexCoord.setVec(tc[idx_x], tc[idx_y]);
+				}			
+				else if (log_tc_msg)
+				{
+					log_tc_msg = false;
+					LL_WARNS() << "Texture coordinates data is not complete." << LL_ENDL;
+					LLSD args;
+					args["Message"] = "IncompleteTC";
+					log_msg.append(args);
+				}
 			}
 			
 			if (norm_source)
@@ -2334,7 +2348,7 @@ LLColor4 LLDAELoader::getDaeColor(daeElement* element)
 	return value;
 }
 
-bool LLDAELoader::addVolumeFacesFromDomMesh(LLModel* pModel,domMesh* mesh)
+bool LLDAELoader::addVolumeFacesFromDomMesh(LLModel* pModel,domMesh* mesh, LLSD& log_msg)
 {
 	LLModel::EModelStatus status = LLModel::NO_ERRORS;
 	domTriangles_Array& tris = mesh->getTriangles_array();
@@ -2356,7 +2370,7 @@ bool LLDAELoader::addVolumeFacesFromDomMesh(LLModel* pModel,domMesh* mesh)
 	for (U32 i = 0; i < polys.getCount(); ++i)
 	{
 		domPolylistRef& poly = polys.get(i);
-		status = load_face_from_dom_polylist(pModel->getVolumeFaces(), pModel->getMaterialList(), poly);
+		status = load_face_from_dom_polylist(pModel->getVolumeFaces(), pModel->getMaterialList(), poly, log_msg);
 
 		if(status != LLModel::NO_ERRORS)
 		{
@@ -2420,7 +2434,7 @@ bool LLDAELoader::loadModelsFromDomMesh(domMesh* mesh, std::vector<LLModel*>& mo
 
 	// Get the whole set of volume faces
 	//
-	addVolumeFacesFromDomMesh(ret, mesh);
+	addVolumeFacesFromDomMesh(ret, mesh, mWarningsArray);
 
 	U32 volume_faces = ret->getNumVolumeFaces();
 
@@ -2493,7 +2507,8 @@ bool LLDAELoader::createVolumeFacesFromDomMesh(LLModel* pModel, domMesh* mesh)
 	{
 		pModel->ClearFacesAndMaterials();
 
-		addVolumeFacesFromDomMesh(pModel, mesh);
+		LLSD placeholder;
+		addVolumeFacesFromDomMesh(pModel, mesh, placeholder);
 
 		if (pModel->getNumVolumeFaces() > 0)
 		{
