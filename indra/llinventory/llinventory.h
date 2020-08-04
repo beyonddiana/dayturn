@@ -95,8 +95,6 @@ public:
 	//   Implemented here so that a minimal information set can be transmitted
 	//   between simulator and viewer.
 	//--------------------------------------------------------------------
-	// virtual bool importFile(LLFILE* fp);
-	virtual bool exportFile(LLFILE* fp, bool include_asset_key = true) const;
 	virtual bool importLegacyStream(std::istream& input_stream);
 	virtual bool exportLegacyStream(std::ostream& output_stream, bool include_asset_key = true) const;
 
@@ -197,8 +195,6 @@ public:
 	// File Support
 	//--------------------------------------------------------------------
 public:
-	virtual bool importFile(LLFILE* fp);
-	virtual bool exportFile(LLFILE* fp, bool include_asset_key = true) const;
 	virtual bool importLegacyStream(std::istream& input_stream);
 	virtual bool exportLegacyStream(std::ostream& output_stream, bool include_asset_key = true) const;
 
@@ -269,8 +265,6 @@ public:
 	// File Support
 	//--------------------------------------------------------------------
 public:
-	virtual bool importFile(LLFILE* fp);
-	virtual bool exportFile(LLFILE* fp, bool include_asset_key = true) const;
 	virtual bool importLegacyStream(std::istream& input_stream);
 	virtual bool exportLegacyStream(std::ostream& output_stream, bool include_asset_key = true) const;
 
