@@ -1153,7 +1153,7 @@ void LLRender::syncLightState()
 		LLVector3 attenuation[8];
 		LLVector3 diffuse[8];
 
-		for (U32 i = 0; i < 8; i++)
+		for (U32 i = 0; i < LL_NUM_LIGHT_UNITS; i++)
 		{
 			LLLightState* light = mLightState[i];
 
