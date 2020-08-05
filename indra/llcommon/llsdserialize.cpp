@@ -57,6 +57,7 @@ static const S32 UNZIP_LLSD_MAX_DEPTH = 96;
 static const char LEGACY_NON_HEADER[] = "<llsd>";
 const std::string LLSD_BINARY_HEADER("LLSD/Binary");
 const std::string LLSD_XML_HEADER("LLSD/XML");
+const std::string LLSD_NOTATION_HEADER("llsd/notation");
 
 //used to deflate a gzipped asset (currently used for navmeshes)
 #define windowBits 15
@@ -67,7 +68,8 @@ const std::string LLSD_XML_HEADER("LLSD/XML");
  */
 
 // static
-void LLSDSerialize::serialize(const LLSD& sd, std::ostream& str, ELLSD_Serialize type, U32 options)
+void LLSDSerialize::serialize(const LLSD& sd, std::ostream& str, ELLSD_Serialize type,
+							  LLSDFormatter::EFormatterOptions options)
 {
 	LLPointer<LLSDFormatter> f = NULL;
 
@@ -82,6 +84,11 @@ void LLSDSerialize::serialize(const LLSD& sd, std::ostream& str, ELLSD_Serialize
 		str << "<? " << LLSD_XML_HEADER << " ?>\n";
 		f = new LLSDXMLFormatter;
 		break;
+
+    case LLSD_NOTATION:
+        str << "<? " << LLSD_NOTATION_HEADER << " ?>\n";
+        f = new LLSDNotationFormatter;
+        break;
 
 	default:
 		LL_WARNS() << "serialize request for unknown ELLSD_Serialize" << LL_ENDL;
@@ -169,6 +176,10 @@ bool LLSDSerialize::deserialize(LLSD& sd, std::istream& str, S32 max_bytes)
 	else if (header == LLSD_XML_HEADER)
 	{
 		p = new LLSDXMLParser;
+	}
+	else if (header == LLSD_NOTATION_HEADER)
+	{
+		p = new LLSDNotationParser;
 	}
 	else
 	{
@@ -1226,9 +1237,11 @@ bool LLSDBinaryParser::parseString(
 /**
  * LLSDFormatter
  */
-LLSDFormatter::LLSDFormatter() :
-	mBoolAlpha(false)
+LLSDFormatter::LLSDFormatter(bool boolAlpha, const std::string& realFmt, EFormatterOptions options):
+    mOptions(options)
 {
+    boolalpha(boolAlpha);
+    realFormat(realFmt);
 }
 
 // virtual
@@ -1245,6 +1258,17 @@ void LLSDFormatter::realFormat(const std::string& format)
 	mRealFormat = format;
 }
 
+S32 LLSDFormatter::format(const LLSD& data, std::ostream& ostr) const
+{
+    // pass options captured by constructor
+    return format(data, ostr, mOptions);
+}
+
+S32 LLSDFormatter::format(const LLSD& data, std::ostream& ostr, EFormatterOptions options) const
+{
+    return format_impl(data, ostr, options, 0);
+}
+
 void LLSDFormatter::formatReal(LLSD::Real real, std::ostream& ostr) const
 {
 	std::string buffer = llformat(mRealFormat.c_str(), real);
@@ -1254,7 +1278,9 @@ void LLSDFormatter::formatReal(LLSD::Real real, std::ostream& ostr) const
 /**
  * LLSDNotationFormatter
  */
-LLSDNotationFormatter::LLSDNotationFormatter()
+LLSDNotationFormatter::LLSDNotationFormatter(bool boolAlpha, const std::string& realFormat,
+                                             EFormatterOptions options):
+    LLSDFormatter(boolAlpha, realFormat, options)
 {
 }
 
@@ -1270,14 +1296,8 @@ std::string LLSDNotationFormatter::escapeString(const std::string& in)
 	return ostr.str();
 }
 
-// virtual
-S32 LLSDNotationFormatter::format(const LLSD& data, std::ostream& ostr, U32 options) const
-{
-	S32 rv = format_impl(data, ostr, options, 0);
-	return rv;
-}
-
-S32 LLSDNotationFormatter::format_impl(const LLSD& data, std::ostream& ostr, U32 options, U32 level) const
+S32 LLSDNotationFormatter::format_impl(const LLSD& data, std::ostream& ostr,
+									   EFormatterOptions options, U32 level) const
 {
 	S32 format_count = 1;
 	std::string pre;
@@ -1398,21 +1418,33 @@ S32 LLSDNotationFormatter::format_impl(const LLSD& data, std::ostream& ostr, U32
 	{
 		// *FIX: memory inefficient.
 		const std::vector<U8>& buffer = data.asBinary();
-		ostr << "b(" << buffer.size() << ")\"";
-		if(buffer.size())
+		if (options & LLSDFormatter::OPTIONS_PRETTY_BINARY)
 		{
-			if (options & LLSDFormatter::OPTIONS_PRETTY_BINARY)
+			ostr << "b16\"";
+			if (! buffer.empty())
 			{
 				std::ios_base::fmtflags old_flags = ostr.flags();
 				ostr.setf( std::ios::hex, std::ios::basefield );
-				ostr << "0x";
+				// It shouldn't strictly matter whether the emitted hex digits
+				// are uppercase; LLSDNotationParser handles either; but as of
+				// 2020-05-13, Python's llbase.llsd requires uppercase hex.
+				ostr << std::uppercase;
+				auto oldfill(ostr.fill('0'));
+				auto oldwidth(ostr.width());
 				for (int i = 0; i < buffer.size(); i++)
 				{
-					ostr << (int) buffer[i];
+					// have to restate setw() before every conversion
+					ostr << std::setw(2) << (int) buffer[i];
 				}
+				ostr.width(oldwidth);
+				ostr.fill(oldfill);
 				ostr.flags(old_flags);
 			}
-			else
+		}
+		else                        // ! OPTIONS_PRETTY_BINARY
+		{
+			ostr << "b(" << buffer.size() << ")\"";
+			if (! buffer.empty())
 			{
 				ostr.write((const char*)&buffer[0], buffer.size());
 			}
@@ -1429,11 +1461,12 @@ S32 LLSDNotationFormatter::format_impl(const LLSD& data, std::ostream& ostr, U32
 	return format_count;
 }
 
-
 /**
  * LLSDBinaryFormatter
  */
-LLSDBinaryFormatter::LLSDBinaryFormatter()
+LLSDBinaryFormatter::LLSDBinaryFormatter(bool boolAlpha, const std::string& realFormat,
+                                         EFormatterOptions options):
+    LLSDFormatter(boolAlpha, realFormat, options)
 {
 }
 
@@ -1442,7 +1475,8 @@ LLSDBinaryFormatter::~LLSDBinaryFormatter()
 { }
 
 // virtual
-S32 LLSDBinaryFormatter::format(const LLSD& data, std::ostream& ostr, U32 options) const
+S32 LLSDBinaryFormatter::format_impl(const LLSD& data, std::ostream& ostr,
+									 EFormatterOptions options, U32 level) const
 {
 	S32 format_count = 1;
 	switch(data.type())
@@ -1458,7 +1492,7 @@ S32 LLSDBinaryFormatter::format(const LLSD& data, std::ostream& ostr, U32 option
 		{
 			ostr.put('k');
 			formatString((*iter).first, ostr);
-			format_count += format((*iter).second, ostr);
+			format_count += format_impl((*iter).second, ostr, options, level+1);
 		}
 		ostr.put('}');
 		break;
@@ -1473,7 +1507,7 @@ S32 LLSDBinaryFormatter::format(const LLSD& data, std::ostream& ostr, U32 option
 		LLSD::array_const_iterator end = data.endArray();
 		for(; iter != end; ++iter)
 		{
-			format_count += format(*iter, ostr);
+			format_count += format_impl(*iter, ostr, options, level+1);
 		}
 		ostr.put(']');
 		break;
@@ -2170,7 +2204,6 @@ LLUZipHelper::EZipRresult LLUZipHelper::unzip_llsd(LLSD& data, std::istream& is,
 		ret = inflate(&strm, Z_NO_FLUSH);
 		if (ret == Z_STREAM_ERROR)
 		{
-			LL_WARNS() << "Unzip error: Z_STREAM_ERROR" << LL_ENDL;
 			inflateEnd(&strm);
 			free(result);
 			delete [] in;
@@ -2183,7 +2216,6 @@ LLUZipHelper::EZipRresult LLUZipHelper::unzip_llsd(LLSD& data, std::istream& is,
 			ret = Z_DATA_ERROR;
 		case Z_DATA_ERROR:
 		case Z_MEM_ERROR:
-			LL_WARNS() << "Unzip error: " << ret << LL_ENDL;
 			inflateEnd(&strm);
 			free(result);
 			delete [] in;
