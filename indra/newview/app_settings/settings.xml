@@ -8307,17 +8307,6 @@
       <key>Value</key>
 	  <integer>13</integer>
     </map>
-  <key>PreviewRenderSize</key>  
-  <map>
-    <key>Comment</key>
-    <string>Resolution of the image rendered for the mesh upload preview (must be a power of 2)</string>
-    <key>Persist</key>
-    <integer>1</integer>
-    <key>Type</key>
-    <string>S32</string>
-    <key>Value</key>
-    <integer>512</integer>
-  </map>
   <key>PreviewAmbientColor</key>
   <map>
     <key>Comment</key>
