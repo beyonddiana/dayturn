@@ -91,7 +91,8 @@ public:
 	virtual ~LLFloaterModelPreview();
 	
 	virtual bool postBuild();
-	
+    /*virtual*/ void reshape(S32 width, S32 height, bool called_from_parent = true);
+
 	void initModelPreview();
 
 	BOOL handleMouseDown(S32 x, S32 y, MASK mask);
