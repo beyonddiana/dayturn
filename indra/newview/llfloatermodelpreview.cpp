@@ -490,6 +490,8 @@ void LLFloaterModelPreview::onUploadOptionChecked(LLUICtrl* ctrl)
         bool value = ctrl->getValue().asBoolean();
         // update the option and notifications
         // (this is a bit convoluted, because of the current structure of mModelPreview)
+        // FIX ME! mViewOption is malfunctioning here! mViewOption doesn't have values like "upload_skin"!
+        // This needs to translate values like "upload_skin" into "show_skin_weights"
         if (name == "upload_skin")
         {
             childSetValue("show_skin_weight", value);
@@ -1635,6 +1637,7 @@ LLModelPreview::LLModelPreview(S32 width, S32 height, LLFloater* fmp)
 , mResetJoints( false )
 , mModelNoErrors( true )
 , mLastJointUpdate( false )
+, mFirstSkinUpdate(true)
 , mImporterDebug(LLCachedControl<bool>(gSavedSettings, "ImporterDebug", false))
 {
 	mNeedsUpdate = TRUE;
@@ -4229,10 +4232,21 @@ BOOL LLModelPreview::render()
         {
             if (flags == LEGACY_RIG_OK)
             {
+                if (mFirstSkinUpdate)
+                {
+                    // auto enable weight upload if weights are present
+                    // (note: all these UI updates need to be somewhere that is not render)
+                    mViewOption["show_skin_weight"] = true;
+                    skin_weight = true;
+                    fmp->childSetValue("upload_skin", true);
+                    mFirstSkinUpdate = false;
+                }
+
                 fmp->enableViewOption("show_skin_weight");
                 fmp->setViewOptionEnabled("show_joint_positions", skin_weight);
                 mFMP->childEnable("upload_skin");
                 mFMP->childSetValue("show_skin_weight", skin_weight);
+
             }
             else if ((flags & LEGACY_RIG_FLAG_TOO_MANY_JOINTS) > 0)
             {
