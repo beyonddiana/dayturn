@@ -461,6 +461,16 @@ void LLPanelLogin::show(const LLRect &rect,
 	gFocusMgr.setDefaultKeyboardFocus(sInstance);
 }
 
+//static
+void LLPanelLogin::reshapePanel()
+{
+    if (sInstance)
+    {
+        LLRect rect = sInstance->getRect();
+        sInstance->reshape(rect.getWidth(), rect.getHeight());
+    }
+}
+
 // static
 void LLPanelLogin::setFields(LLPointer<LLCredential> credential,
 							 BOOL remember)
