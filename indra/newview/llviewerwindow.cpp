@@ -2522,7 +2522,12 @@ void LLViewerWindow::reshape(S32 width, S32 height)
 		// round up when converting coordinates to make sure there are no gaps at edge of window
 		LLView::sForceReshape = display_scale_changed;
 		mRootView->reshape(llceil((F32)width / mDisplayScale.mV[VX]), llceil((F32)height / mDisplayScale.mV[VY]));
-		LLView::sForceReshape = FALSE;
+        if (display_scale_changed)
+        {
+            // Needs only a 'scale change' update, everything else gets handled by LLLayoutStack::updateClass()
+            LLPanelLogin::reshapePanel();
+        }
+		LLView::sForceReshape = false;
 
 		// clear font width caches
 		if (display_scale_changed)
