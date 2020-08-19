@@ -2798,13 +2798,28 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 			}
 			else // IM_TASK_INVENTORY_OFFERED
 			{
-				if (sizeof(S8) != binary_bucket_size)
+                if (sizeof(S8) == binary_bucket_size)
 				{
-					LL_WARNS("Messaging") << "Malformed inventory offer from object" << LL_ENDL;
-					delete info;
-					break;
+                    info->mType = (LLAssetType::EType) binary_bucket[0];
+                }
+                else
+                {
+                    /*RIDER*/ // The previous version of the protocol returned the wrong binary bucket... we 
+                    // still might be able to figure out the type... even though the offer is not retrievable. 
+                    std::string str_bucket(reinterpret_cast<char *>(binary_bucket));
+                    std::string str_type(str_bucket.substr(0, str_bucket.find('|')));
+
+                    std::stringstream type_convert(str_type);
+
+                    S32 type;
+                    type_convert >> type;
+
+                    // We could try AT_UNKNOWN which would be more accurate, but that causes an auto decline
+                    info->mType = static_cast<LLAssetType::EType>(type);
+                    // Don't break in the case of a bad binary bucket.  Go ahead and show the 
+                    // accept/decline popup even though it will not do anything.
+                    LL_WARNS("Messaging") << "Malformed inventory offer from object, type might be " << info->mType << LL_ENDL;
 				}
-				info->mType = (LLAssetType::EType) binary_bucket[0];
 				info->mObjectID = LLUUID::null;
 				info->mFromObject = true;
 			}
