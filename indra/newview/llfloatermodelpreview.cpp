@@ -314,10 +314,11 @@ bool LLFloaterModelPreview::postBuild()
 		getChild<LLSpinCtrl>("lod_triangle_limit_" + lod_name[lod])->setCommitCallback(boost::bind(&LLFloaterModelPreview::onLODParamCommit, this, lod, true));
 	}
 
-	childSetCommitCallback("upload_skin", boost::bind(&LLFloaterModelPreview::toggleCalculateButton, this), NULL);
-	childSetCommitCallback("upload_joints", boost::bind(&LLFloaterModelPreview::toggleCalculateButton, this), NULL);
-	childSetCommitCallback("lock_scale_if_joint_position", boost::bind(&LLFloaterModelPreview::toggleCalculateButton, this), NULL);
-	childSetCommitCallback("upload_textures", boost::bind(&LLFloaterModelPreview::toggleCalculateButton, this), NULL);
+	// Upload/avatar options, they need to refresh errors/notifications
+	childSetCommitCallback("upload_skin", boost::bind(&LLFloaterModelPreview::onUploadOptionChecked, this, _1), NULL);
+	childSetCommitCallback("upload_joints", boost::bind(&LLFloaterModelPreview::onUploadOptionChecked, this, _1), NULL);
+	childSetCommitCallback("lock_scale_if_joint_position", boost::bind(&LLFloaterModelPreview::onUploadOptionChecked, this, _1), NULL);
+	childSetCommitCallback("upload_textures", boost::bind(&LLFloaterModelPreview::onUploadOptionChecked, this, _1), NULL);
 
 	childSetTextArg("status", "[STATUS]", getString("status_idle"));
 
@@ -474,6 +475,51 @@ void LLFloaterModelPreview::initModelPreview()
     mModelPreview->setPreviewTarget(PREVIEW_CAMERA_DISTANCE);
 	mModelPreview->setDetailsCallback(boost::bind(&LLFloaterModelPreview::setDetails, this, _1, _2, _3, _4, _5));
 	mModelPreview->setModelUpdatedCallback(boost::bind(&LLFloaterModelPreview::modelUpdated, this, _1));
+}
+
+void LLFloaterModelPreview::onUploadOptionChecked(LLUICtrl* ctrl)
+{
+	if (mModelPreview)
+	{
+		auto name = ctrl->getName();
+        bool value = ctrl->getValue().asBoolean();
+        // update the option and notifications
+        // (this is a bit convoluted, because of the current structure of mModelPreview)
+        if (name == "upload_skin")
+        {
+            childSetValue("show_skin_weight", value);
+            mModelPreview->mViewOption["show_skin_weight"] = value;
+            if (!value)
+            {
+                mModelPreview->mViewOption["show_joint_overrides"] = false;
+                mModelPreview->mViewOption["show_joint_positions"] = false;
+            }
+        }
+        else if (name == "upload_joints")
+        {
+            if (mModelPreview->mViewOption["show_skin_weight"])
+            {
+                childSetValue("show_joint_overrides", value);
+                mModelPreview->mViewOption["show_joint_overrides"] = value;
+            }
+        }
+        else if (name == "upload_textures")
+        {
+            childSetValue("show_textures", value);
+            mModelPreview->mViewOption["show_textures"] = value;
+        }
+        else if (name == "lock_scale_if_joint_position")
+        {
+            mModelPreview->mViewOption["lock_scale_if_joint_position"] = value;
+        }
+
+        mModelPreview->refresh(); // a 'dirty' flag for render
+        mModelPreview->resetPreviewTarget(); 
+        mModelPreview->clearBuffers();
+        mModelPreview->mDirty = true;
+    }
+    // set the button visible, it will be refreshed later
+	toggleCalculateButton(true);
 }
 
 void LLFloaterModelPreview::onShowSkinWeightChecked(LLUICtrl* ctrl)
