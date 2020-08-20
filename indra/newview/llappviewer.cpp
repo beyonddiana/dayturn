@@ -708,8 +708,7 @@ LLAppViewer::LLAppViewer()
 	mPeriodicSlowFrame(LLCachedControl<bool>(gSavedSettings,"Periodic Slow Frame", FALSE)),
 	mFastTimerLogThread(NULL),
 	mSettingsLocationList(NULL),
-	mIsFirstRun(false),
-	mMinMicroSecPerFrame(0.f)
+	mIsFirstRun(false)
 {
 	if(NULL != sInstance)
 	{
@@ -1209,9 +1208,6 @@ bool LLAppViewer::init()
 
 	// TODO: consider moving proxy initialization here or LLCopocedureManager after proxy initialization, may be implement
 	// some other protection to make sure we don't use network before initializng proxy
-
-	gSavedSettings.getControl("FramePerSecondLimit")->getSignal()->connect(boost::bind(&LLAppViewer::onChangeFrameLimit, this, _2));
-	onChangeFrameLimit(gSavedSettings.getLLSD("FramePerSecondLimit"));
 
 	return true;
 }
@@ -5491,20 +5487,6 @@ void LLAppViewer::disconnectViewer()
 	// parcel info requests while disconnected.
 	LLUrlEntryParcel::setDisconnected(gDisconnected);
 }
-
-bool LLAppViewer::onChangeFrameLimit(LLSD const & evt)
-{
-	if (evt.asInteger() > 0)
-	{
-		mMinMicroSecPerFrame = 1000000 / evt.asInteger();
-	}
-	else
-	{
-		mMinMicroSecPerFrame = 0;
-	}
-	return false;
-}
-
 
 void LLAppViewer::forceErrorLLError()
 {
