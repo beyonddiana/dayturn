@@ -61,7 +61,7 @@
 BOOL gDebugSession = FALSE;
 BOOL gClothRipple = FALSE;
 BOOL gHeadlessClient = FALSE;
-BOOL gGLActive = FALSE;
+bool gGLActive = false;
 BOOL gGLDebugLoggingEnabled = TRUE;
 
 static const std::string HEADLESS_VENDOR_STRING("Linden Lab");
