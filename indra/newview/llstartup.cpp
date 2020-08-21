@@ -1292,7 +1292,7 @@ bool idle_startup()
 				// If optional was skipped this case shouldn't 
 				// be reached.
 
-				LL_INFOS() << "Forcing a quit due to update." << LL_ENDL;
+				LL_INFOS("LLStartup") << "Forcing a quit due to update." << LL_ENDL;
 				LLLoginInstance::getInstance()->disconnect();
 				LLAppViewer::instance()->forceQuit();
 			}
@@ -1313,7 +1313,24 @@ bool idle_startup()
 					{
 						// This was a certificate error, so grab the certificate
 						// and throw up the appropriate dialog.
-						LLPointer<LLCertificate> certificate = gSecAPIHandler->getCertificate(response["certificate"]);
+                        LLPointer<LLCertificate> certificate;
+                        try
+                        {
+                            certificate = gSecAPIHandler->getCertificate(response["certificate"]);
+                        }
+                        catch (LLCertException &cert_exception)
+                        {
+                            LL_WARNS("LLStartup", "SECAPI") << "Caught " << cert_exception.what() << " certificate expception on getCertificate()" << LL_ENDL;
+                            LLSD args;
+                            args["REASON"] = LLTrans::getString(cert_exception.what());
+
+                            LLNotificationsUtil::add("GeneralCertificateError", args, response,
+                                general_cert_done);
+
+                            reset_login();
+                            gSavedSettings.setBOOL("AutoLogin", FALSE);
+                            show_connect_box = true;
+                        }
 						if(certificate)
 						{
 							LLSD args = transform_cert_args(certificate);
@@ -1348,7 +1365,7 @@ bool idle_startup()
 					else 
 					{
 						// This wasn't a certificate error, so throw up the normal
-						// notificatioin message.
+						// notification message.
 						LLSD args;
 						args["ERROR_MESSAGE"] = emsg.str();
 						LL_INFOS("LLStartup") << "Notification: " << args << LL_ENDL;
