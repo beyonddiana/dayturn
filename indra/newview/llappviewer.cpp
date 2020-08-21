@@ -988,7 +988,7 @@ bool LLAppViewer::init()
 	//
 	// Initialize the window
 	//
-	gGLActive = TRUE;
+	gGLActive = true;
 	initWindow();
 	LL_INFOS("InitInfo") << "Window is initialized." << LL_ENDL ;
 
@@ -1147,7 +1147,7 @@ bool LLAppViewer::init()
 	LLHTTPClient::setCertVerifyCallback(secapiSSLCertVerifyCallback);
 
 
-	gGLActive = FALSE;
+	gGLActive = false;
 
 	// Iterate over --leap command-line options. But this is a bit tricky: if
 	// there's only one, it won't be an array at all.
@@ -1456,7 +1456,7 @@ bool LLAppViewer::mainLoop()
 				if (!LLApp::isExiting() && !gHeadlessClient && gViewerWindow)
 				{
 					pingMainloopTimeout("Main:Display");
-					gGLActive = TRUE;
+					gGLActive = true;
 
  					display();
                     
@@ -1464,7 +1464,7 @@ bool LLAppViewer::mainLoop()
 					LLFloaterSnapshot::update(); // take snapshots
                     //TODO: Make one call by moving LLFloaterOutfitSnapshot::update() to LLFloaterSnapshotBase class
                     LLFloaterOutfitSnapshot::update();
-					gGLActive = FALSE;
+					gGLActive = false;
 				}
 			}
 
@@ -4636,13 +4636,13 @@ void LLAppViewer::idle()
 	if (LLStartUp::getStartupState() < STATE_STARTED)
 	{
 		// Skip rest if idle startup returns false (essentially, no world yet)
-		gGLActive = TRUE;
+		gGLActive = true;
 		if (!idle_startup())
 		{
-			gGLActive = FALSE;
+			gGLActive = false;
 			return;
 		}
-		gGLActive = FALSE;
+		gGLActive = false;
 	}
 
 
@@ -4977,7 +4977,7 @@ void LLAppViewer::idle()
 	// forcibly quit if it has taken too long
 	if (mQuitRequested)
 	{
-		gGLActive = TRUE;
+		gGLActive = true;
 		idleShutdown();
 	}
 }
