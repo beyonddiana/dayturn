@@ -285,7 +285,7 @@ extern bool gDebugGL;
 ////////////////////////////////////////////////////////////
 // All from the last globals push...
 
-F32 gSimLastTime; // Used in LLAppViewer::init and send_stats()
+F32 gSimLastTime; // Used in LLAppViewer::init and send_viewer_stats()
 F32 gSimFrames;
 
 bool gShowObjectUpdates = false;
@@ -4099,7 +4099,9 @@ void LLAppViewer::requestQuit()
 		gFloaterView->closeAllChildren(true);
 	}
 
-	send_stats();
+	// Send preferences once, when exiting
+	bool include_preferences = true;
+	send_viewer_stats(include_preferences);
 
 	gLogoutTimer.reset();
 	mQuitRequested = true;
@@ -4880,7 +4882,8 @@ void LLAppViewer::idle()
 		if (viewer_stats_timer.getElapsedTimeF32() >= SEND_STATS_PERIOD && !gDisconnected)
 		{
 			LL_INFOS() << "Transmitting sessions stats" << LL_ENDL;
-			send_stats();
+			bool include_preferences = false;
+			send_viewer_stats(include_preferences);
 			viewer_stats_timer.reset();
 		}
 
