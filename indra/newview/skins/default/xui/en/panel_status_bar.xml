@@ -60,7 +60,7 @@
             follows="top|left"
             layout="topleft"
             height="19"
-            width="155"
+            width="80"
             auto_resize="false"
             user_resize="false"
             visible="true">
@@ -75,24 +75,6 @@
                 height="18"
                 width="70"
                 halign="center"
-                image_hover_unselected="PushButton_Over"
-                image_unselected="PushButton_Off"
-                image_pressed="PushButton_Press"
-                label_color="White"
-                label_shadow="true" />
-            <button
-                name="goShop"
-                label="Shop"
-                tool_tip="Open [SECOND_LIFE] Marketplace"
-                follows="top|bottom|left"
-                top="1"
-                left_pad="0"
-                width="70"
-                height="18"
-                halign="left"
-                imgoverlay_label_space="10"
-                image_overlay="Command_MiniCart_Icon"
-                image_overlay_alignment="left"
                 image_hover_unselected="PushButton_Over"
                 image_unselected="PushButton_Off"
                 image_pressed="PushButton_Press"
@@ -194,7 +176,8 @@
                 width="105"
                 decimal_digits="0"
                 increment="8"
-                initial_value="160"
+                initial_value="128"
+                can_edit_text="true"
                 max_val="1024"
                 min_val="0" />
         </layout_panel>
