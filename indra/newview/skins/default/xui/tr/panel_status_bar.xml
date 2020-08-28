@@ -20,7 +20,6 @@
 	</panel>
 	<panel left="-446" name="balance_bg" width="215">
 		<text name="balance" tool_tip="L$ bakiyenizi yenilemek için buraya tıklayın" value="L$??"/>
-		<button label="L$ Satın Al" name="buyL" tool_tip="Daha fazla L$ satın almak için tıklayın"/>
 	</panel>
 	<text name="TimeText" tool_tip="Geçerli zaman (Pasifik)">
 		24:00 AM PST

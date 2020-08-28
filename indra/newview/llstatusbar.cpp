@@ -227,17 +227,6 @@ bool LLStatusBar::postBuild()
 	gMenuBarView->setRightMouseDownCallback(boost::bind(&show_navbar_context_menu, _1, _2, _3));
 
 	mTextTime = getChild<LLTextBox>("TimeText");
-	mPurchasePanel = getChild<LLLayoutPanel>("purchase_panel");
-	
-	//
-	//	only show the Buy and Shop buttons in Second Life
-	//
-	if (LLGridManager::getInstance()->isInSecondLife()) {
-		getChild<LLUICtrl>("buyL")->setCommitCallback(boost::bind(&LLStatusBar::onClickBuyCurrency, this));
-	}
-	else {
-		mPurchasePanel->setVisible(FALSE);
-	}
 
 	mBoxBalance = getChild<LLTextBox>("balance");
 	mBoxBalance->setClickedCallback( &LLStatusBar::onClickBalance, this);
@@ -446,7 +435,6 @@ void LLStatusBar::setVisibleForMouselook(bool visible)
 
 	mTextTime->setVisible(visible);
 	mBoxBalance->setVisible(visible);
-	mPurchasePanel->setVisible(visible && LLGridManager::getInstance()->isInSecondLife());
 	mBtnVolume->setVisible(visible);
 	mMediaToggle->setVisible(visible);
 	mDrawDistancePanel->setVisible(visible && show_draw_distance);
@@ -483,10 +471,9 @@ void LLStatusBar::setBalance(S32 balance)
 	{
 		const S32 HPAD = 24;
 		LLRect balance_rect = mBoxBalance->getTextBoundingRect();
-		LLRect buy_rect = getChildView("buyL")->getRect();
 		LLView* balance_bg_view = getChildView("balance_bg");
 		LLRect balance_bg_rect = balance_bg_view->getRect();
-		balance_bg_rect.mLeft = balance_bg_rect.mRight - (buy_rect.getWidth() + balance_rect.getWidth() + HPAD);
+		balance_bg_rect.mLeft = balance_bg_rect.mRight - (balance_rect.getWidth() + HPAD);
 		balance_bg_view->setShape(balance_bg_rect);
 	}
 
