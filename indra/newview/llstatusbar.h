@@ -105,7 +105,6 @@ private:
 	LLTextBox	*mTextTime;
 	LLTextBox	*mFPSText;
 
-	LLLayoutPanel	*mPurchasePanel;
 	LLLayoutPanel	*mDrawDistancePanel;
 	LLLayoutPanel	*mStatisticsPanel;
 	LLLayoutPanel	*mFPSPanel;

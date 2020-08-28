@@ -20,7 +20,6 @@
 	</panel>
 	<panel left="-426" name="balance_bg" width="195">
 		<text name="balance" tool_tip="Clicca per aggiornare il tuo saldo in L$" value="L$ ??"/>
-		<button label="Acquista L$" name="buyL" tool_tip="Clicca per acquistare più L$"/>
 	</panel>
 	<text name="TimeText" tool_tip="Orario attuale (Pacifico)">
 		24:00, ora del Pacifico

@@ -20,7 +20,6 @@
 	</panel>
 	<panel left="-431" name="balance_bg" width="200">
 		<text name="balance" tool_tip="Atualizar saldo de L$" value="L$??"/>
-		<button label="Comprar L$" name="buyL" tool_tip="Comprar mais L$"/>
 	</panel>
 	<text name="TimeText" tool_tip="Hora atual (Pacífico)">
 		24:00 AM PST

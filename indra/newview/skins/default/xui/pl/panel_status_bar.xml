@@ -6,7 +6,6 @@
 	<panel.string name="buycurrencylabel">L$ [AMT]</panel.string>
 	<panel name="balance_bg">
 		<text name="balance" tool_tip="Kliknij aby odświeżyć saldo L$" />
-		<button label="Kup L$" name="buyL" tool_tip="Kliknij aby kupić więcej L$"/>
 	</panel>
 	<text name="TimeText" tool_tip="Obecny czas (Pacyficzny)" />
 	<button name="media_toggle_btn" tool_tip="Odtwórz/Zatrzymaj wszystkie media (Muzyka, Wideo, WWW)" />
