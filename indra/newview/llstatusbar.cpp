@@ -170,7 +170,6 @@ bool LLStatusBar::postBuild()
 	//
 	if (LLGridManager::getInstance()->isInSecondLife()) {
 		getChild<LLUICtrl>("buyL")->setCommitCallback(boost::bind(&LLStatusBar::onClickBuyCurrency, this));
-		getChild<LLUICtrl>("goShop")->setCommitCallback(boost::bind(&LLWeb::loadURL, gSavedSettings.getString("MarketplaceURL"), LLStringUtil::null, LLStringUtil::null));
 	}
 	else {
 		mPurchasePanel->setVisible(FALSE);
@@ -369,10 +368,9 @@ void LLStatusBar::setBalance(S32 balance)
 		const S32 HPAD = 24;
 		LLRect balance_rect = mBoxBalance->getTextBoundingRect();
 		LLRect buy_rect = getChildView("buyL")->getRect();
-		LLRect shop_rect = getChildView("goShop")->getRect();
 		LLView* balance_bg_view = getChildView("balance_bg");
 		LLRect balance_bg_rect = balance_bg_view->getRect();
-		balance_bg_rect.mLeft = balance_bg_rect.mRight - (buy_rect.getWidth() + shop_rect.getWidth() + balance_rect.getWidth() + HPAD);
+		balance_bg_rect.mLeft = balance_bg_rect.mRight - (buy_rect.getWidth() + balance_rect.getWidth() + HPAD);
 		balance_bg_view->setShape(balance_bg_rect);
 	}
 
