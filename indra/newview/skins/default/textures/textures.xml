@@ -332,8 +332,9 @@ with the same filename but different name
   <texture name="Inv_VersionFolderClosed" file_name="icons/Inv_VersionFolderClosed.png" preload="false" />
   <texture name="Inv_VersionFolderOpen" file_name="icons/Inv_VersionFolderOpen.png" preload="false" />
 
+  <texture name="Inv_Toolbar_SearchVisibility" file_name="icons/Inv_Toolbar_SearchVisibility.png" preload="false" />
+
   <texture name="Keyboard" file_name="bottomtray/Keyboard.png" preload="false" />
-  
 
   <texture name="Landmarks_overlay" file_name="navbar/Landmarks.png" preload="false" />
 
@@ -654,6 +655,8 @@ with the same filename but different name
   <texture name="TextField_Search_Off" file_name="widgets/TextField_Search_Off.png" preload="true" scale.left="9" scale.top="12" scale.right="248" scale.bottom="12" />
   <texture name="TextField_Disabled" file_name="widgets/TextField_Disabled.png" preload="true" scale.left="9" scale.top="12" scale.right="248" scale.bottom="12" />
   <texture name="TextField_Active" file_name="widgets/TextField_Active.png" preload="true" scale.left="9" scale.top="12" scale.right="248" scale.bottom="12" />
+  <texture name="TextField_Search_Highlight" file_name="widgets/TextField_Search_Highlight.png" preload="true" scale.left="9" scale.top="12" scale.right="248" scale.bottom="12" />
+
   <!-- Firestorm -->
   <texture name="ao_toggle_18" file_name="toolbar_icons/animation_override.png" preload="true" />
   <texture name="Icon_Auction" file_name="icons/icon_auction.png" preload="false" />
