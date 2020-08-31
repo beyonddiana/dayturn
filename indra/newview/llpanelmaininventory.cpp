@@ -122,6 +122,7 @@ LLPanelMainInventory::LLPanelMainInventory(const LLPanel::Params& p)
 	  mSavedFolderState(NULL),
 	  mFilterText(""),
 	  mMenuGearDefault(NULL),
+	  mMenuVisibility(NULL),
 	  mMenuAddHandle(),
 	  mNeedUploadCost(true)
 {
@@ -240,8 +241,10 @@ bool LLPanelMainInventory::postBuild()
 	}
 
 	mGearMenuButton = getChild<LLMenuButton>("options_gear_btn");
+	mVisibilityMenuButton = getChild<LLMenuButton>("options_visibility_btn");
 
 	initListCommandsHandlers();
+
 	S32 cost = LLGlobalEconomy::getInstance()->getPriceUpload();
 	std::string upload_cost;
     // <FS:AW opensim support>
@@ -1215,6 +1218,9 @@ void LLPanelMainInventory::initListCommandsHandlers()
 	LLMenuGL* menu = LLUICtrlFactory::getInstance()->createFromFile<LLMenuGL>("menu_inventory_add.xml", gMenuHolder, LLViewerMenuHolderGL::child_registry_t::instance());
 	mMenuAddHandle = menu->getHandle();
 
+	mMenuVisibility = LLUICtrlFactory::getInstance()->createFromFile<LLToggleableMenu>("menu_inventory_search_visibility.xml", gMenuHolder, LLViewerMenuHolderGL::child_registry_t::instance());
+	mVisibilityMenuButton->setMenu(mMenuVisibility);
+
 	// Update the trash button when selected item(s) get worn or taken off.
 	LLOutfitObserver::instance().addCOFChangedCallback(boost::bind(&LLPanelMainInventory::updateListCommands, this));
 }
@@ -1404,6 +1410,21 @@ void LLPanelMainInventory::onCustomAction(const LLSD& userdata)
 		}
 		LLFloaterReg::showInstance("linkreplace", params);
 	}
+
+	if (command_name == "toggle_search_trash")
+	{
+		mActivePanel->getFilter().toggleSearchVisibilityTrash();
+	}
+
+	if (command_name == "toggle_search_library")
+	{
+		mActivePanel->getFilter().toggleSearchVisibilityLibrary();
+	}
+
+	if (command_name == "include_links")
+	{
+		mActivePanel->getFilter().toggleSearchVisibilityLinks();
+	}
 }
 
 void LLPanelMainInventory::onVisibilityChange( bool new_visibility )
@@ -1559,6 +1580,21 @@ bool LLPanelMainInventory::isActionChecked(const LLSD& userdata)
 	{
 		return sort_order_mask & LLInventoryFilter::SO_SYSTEM_FOLDERS_TO_TOP;
 	}
+
+	if (command_name == "toggle_search_trash")
+	{
+		return (mActivePanel->getFilter().getSearchVisibilityTypes() & LLInventoryFilter::VISIBILITY_TRASH) != 0;
+	}
+
+	if (command_name == "toggle_search_library")
+	{
+		return (mActivePanel->getFilter().getSearchVisibilityTypes() & LLInventoryFilter::VISIBILITY_LIBRARY) != 0;
+	}
+
+	if (command_name == "include_links")
+	{
+		return (mActivePanel->getFilter().getSearchVisibilityTypes() & LLInventoryFilter::VISIBILITY_LINKS) != 0;	
+	}	
 
 	return false;
 }

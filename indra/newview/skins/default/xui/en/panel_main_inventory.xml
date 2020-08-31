@@ -32,30 +32,20 @@
     		 left="12"
 		     name="ItemcountText"
 		     font="SansSerifMedium"
-		     text_color="EmphasisColor"
+		     text_color="InventoryItemLinkColor"
 		     use_ellipses="true"
-		     top="5"
+		     top_pad="0"
 		     width="300">
     Items:
   </text>
-  <filter_editor
-   text_pad_left="10"
-   follows="left|top|right"
-   height="23"
-   label="Enter search text"
-   layout="topleft"
-   left="10"
-   max_length_chars="300"
-   name="inventory search editor"
-   top_pad="5"
-   width="208" />
   <combo_box
    height="23"
    layout="topleft"
-   left_pad="4"
+   left="10"
+   top="18"
    name="search_type"
-   follows="top|right"
-   width="90">
+   follows="top|left"
+   width="88">
     <item
      label="Name"
      name="Name"
@@ -73,17 +63,37 @@
      name="UUID"
      value="search_by_UUID"/>
   </combo_box>
+  <menu_button
+   follows="top|left"
+   tool_tip="Show search visibility options"
+   height="23"
+   image_overlay="Inv_Toolbar_SearchVisibility"
+   layout="topleft"
+   left_pad="3"
+   name="options_visibility_btn"
+   width="31" />
+  <filter_editor
+   text_pad_left="10"
+   follows="left|top|right"
+   height="23"
+   label="Enter search text"
+   layout="topleft"
+   left_pad="3"
+   max_length_chars="300"
+   highlight_text_field="true"
+   name="inventory search editor"
+   width="177" />
   <tab_container
      follows="all"
      halign="center"
-     height="338"
+     height="339"
      layout="topleft"
-     left="8"
+     left="7"
      name="inventory filter tabs"
      tab_height="30"
      tab_position="top"
      tab_min_width="100"
-     top_pad="7"
+     top_pad="10"
      width="312">
     <inventory_panel
      bg_opaque_color="DkGray2"
@@ -101,7 +111,7 @@
      sort_order_setting="InventorySortOrder"
      show_item_link_overlays="true"
      top="16"
-     width="312" />
+     width="288" />
     <recent_inventory_panel
      bg_opaque_color="DkGray2"
      bg_alpha_color="DkGray2"
@@ -116,14 +126,14 @@
      left_delta="0"
      name="Recent Items"
      show_item_link_overlays="true"
-     width="312" />
+     width="290" />
     <inventory_panel
       name="Worn Items"
       label="WORN"
       show_empty_message="false"
       follows="all"
       layout="topleft"
-      width="312"
+      width="290"
       bg_opaque_color="DkGray2"
       bg_alpha_color="DkGray2"
       background_visible="true"
@@ -142,7 +152,7 @@
    top_pad="0"
    left="10"
    name="bottom_panel"
-   width="310">
+   width="307">
       <layout_panel
        auto_resize="false"
        height="25"
@@ -188,7 +198,7 @@
        height="25"
        layout="topleft"
        name="dummy_panel"
-       width="214">
+       width="212">
           <icon
            follows="bottom|left|right"
            height="25"
@@ -197,14 +207,14 @@
            left="0"
            top="0"
            name="dummy_icon"
-           width="213" />
+           width="211" />
       </layout_panel>
       <layout_panel
        auto_resize="false"
        height="25"
        layout="topleft"
        name="trash_btn_panel"
-       width="32">
+       width="31">
           <dnd_button
            follows="bottom|left"
            height="25"
