@@ -118,6 +118,7 @@
 #include "llviewermedia.h"
 #include "llviewermedia_streamingaudio.h"
 #include "llviewertexturelist.h"
+#include "llviewercontrol.h"
 #include "llpresetsmanager.h"
 
 #include "llsearchableui.h"
@@ -436,7 +437,7 @@ LLFloaterPreference::LLFloaterPreference(const LLSD& key)
 	gSavedSettings.getControl("NameTagShowUsernames")->getCommitSignal()->connect(boost::bind(&handleNameTagOptionChanged,  _2));	
 	gSavedSettings.getControl("NameTagShowFriends")->getCommitSignal()->connect(boost::bind(&handleNameTagOptionChanged,  _2));	
 	gSavedSettings.getControl("UseDisplayNames")->getCommitSignal()->connect(boost::bind(&handleDisplayNamesOptionChanged,  _2));
-	
+
 	gSavedSettings.getControl("AppearanceCameraMovement")->getCommitSignal()->connect(boost::bind(&handleAppearanceCameraMovementChanged,  _2));
 
 	LLAvatarPropertiesProcessor::getInstance()->addObserver( gAgent.getID(), this );
@@ -820,7 +821,7 @@ void LLFloaterPreference::cancel()
 
 void LLFloaterPreference::onOpen(const LLSD& key)
 {
-	
+
 	// this variable and if that follows it are used to properly handle do not disturb mode response message
 	static bool initialized = FALSE;
 	// if user is logged in and we haven't initialized do not disturb mode response yet, do it
@@ -898,7 +899,7 @@ void LLFloaterPreference::onOpen(const LLSD& key)
 	// when the floater is opened.  That will make cancel do its
 	// job
 	saveSettings();
-	
+
 	// Make sure there is a default preference file
 	std::string default_file = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, PRESETS_DIR, PRESETS_GRAPHIC, "default.xml");
 	if (!gDirUtilp->fileExists(default_file))
@@ -958,6 +959,7 @@ void LLFloaterPreference::setHardwareDefaults()
 			panel->setHardwareDefaults();
 	}
 }
+
 void LLFloaterPreference::getControlNames(std::vector<std::string>& names)
 {
 	LLView* view = findChild<LLView>("display");
@@ -1072,7 +1074,6 @@ void LLFloaterPreference::onBtnOK()
 		LLFloaterPathfindingConsole* pPathfindingConsole = pathfindingConsoleHandle.get();
 		pPathfindingConsole->onRegionBoundaryCross();
 	}
-	
 }
 
 // static 
@@ -1117,7 +1118,6 @@ void LLFloaterPreference::updateUserInfo(const std::string& visibility, bool im_
 		instance->setPersonalInfo(visibility, im_via_email);	
 	}
 }
-
 
 void LLFloaterPreference::refreshEnabledGraphics()
 {
@@ -1199,7 +1199,7 @@ void LLFloaterPreference::onClickSetCache()
 	std::string dir_name = picker.getDirName();
 	if (!dir_name.empty() && dir_name != cur_name)
 	{
-		std::string new_top_folder(gDirUtilp->getBaseFileName(dir_name));	
+		std::string new_top_folder(gDirUtilp->getBaseFileName(dir_name));
 		LLNotificationsUtil::add("CacheWillBeMoved");
 		gSavedSettings.setString("NewCacheLocation", dir_name);
 		gSavedSettings.setString("NewCacheLocationTopFolder", new_top_folder);
@@ -1930,7 +1930,7 @@ void LLFloaterPreference::updateSliderText(LLSliderCtrl* ctrl, LLTextBox* text_b
 {
 	if (text_box == NULL || ctrl== NULL)
 		return;
-	
+
 	// get range and points when text should change
 	F32 value = (F32)ctrl->getValue().asReal();
 	F32 min = ctrl->getMinValue();
@@ -2524,6 +2524,7 @@ void LLPanelPreferenceGraphics::draw()
 		button_apply->setEnabled(enable);
 	}
 }
+
 bool LLPanelPreferenceGraphics::hasDirtyChilds()
 {
 	std::list<LLView*> view_stack;
@@ -2546,7 +2547,8 @@ bool LLPanelPreferenceGraphics::hasDirtyChilds()
 		{
 			view_stack.push_back(*iter);
 		}
-	}	
+	}
+
 	return false;
 }
 
