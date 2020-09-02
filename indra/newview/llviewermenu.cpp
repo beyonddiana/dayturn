@@ -4584,25 +4584,31 @@ void near_sit_down_point(bool success, void *)
 
 class LLLandSit : public view_listener_t
 {
-	bool handleEvent(const LLSD& userdata)
-	{
-		gAgent.standUp();
-		LLViewerParcelMgr::getInstance()->deselectLand();
+    bool handleEvent(const LLSD& userdata)
+    {
+        LLVector3d posGlobal = LLToolPie::getInstance()->getPick().mPosGlobal;
 
-		LLVector3d posGlobal = LLToolPie::getInstance()->getPick().mPosGlobal;
-		
-		LLQuaternion target_rot;
-		if (isAgentAvatarValid())
-		{
-			target_rot = gAgentAvatarp->getRotation();
-		}
-		else
-		{
-			target_rot = gAgent.getFrameAgent().getQuaternion();
-		}
-		gAgent.startAutoPilotGlobal(posGlobal, "Sit", &target_rot, near_sit_down_point, NULL, 0.7f);
-		return true;
-	}
+        LLQuaternion target_rot;
+        if (isAgentAvatarValid())
+        {
+            target_rot = gAgentAvatarp->getRotation();
+        }
+        else
+        {
+            target_rot = gAgent.getFrameAgent().getQuaternion();
+        }
+        gAgent.startAutoPilotGlobal(posGlobal, "Sit", &target_rot, near_sit_down_point, NULL, 0.7f);
+        return true;
+    }
+};
+
+class LLLandCanSit : public view_listener_t
+{
+    bool handleEvent(const LLSD& userdata)
+    {
+        LLVector3d posGlobal = LLToolPie::getInstance()->getPick().mPosGlobal;
+        return !posGlobal.isExactlyZero(); // valid position, not beyond draw distance
+    }
 };
 
 class LLLandTeleport : public view_listener_t
@@ -10738,6 +10744,7 @@ void initialize_menus()
 	// Land pie menu
 	view_listener_t::addMenu(new LLLandBuild(), "Land.Build");
 	view_listener_t::addMenu(new LLLandSit(), "Land.Sit");
+    view_listener_t::addMenu(new LLLandCanSit(), "Land.CanSit");
 	view_listener_t::addMenu(new LLLandTeleport(), "Land.Teleport");
 	view_listener_t::addMenu(new LLLandBuyPass(), "Land.BuyPass");
 	view_listener_t::addMenu(new LLLandEdit(), "Land.Edit");
