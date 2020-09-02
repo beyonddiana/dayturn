@@ -9,7 +9,6 @@
 	</text>
 	<check_box label="Mostra il mio profilo info nei risultati di ricerca" name="online_searchresults"/>
 	<check_box label="Solo amici e gruppi mi vedono online" name="online_visibility"/>
-	<check_box label="Solo amici e gruppi possono chiamarmi o mandarmi IM" name="voice_call_friends_only_check"/>
 	<check_box label="Spegnere il microfono alla chiusura delle chiamate" name="auto_disengage_mic_check"/>
 	<check_box label="Mostra i miei punti di riferimento preferiti all&apos;accesso (nel menu a discesa &apos;Inizia da&apos;)" name="favorites_on_login_check"/>
 	<text name="Logs:">
