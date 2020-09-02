@@ -129,12 +129,10 @@ void process_dnd_im(const LLSD& notification)
             fromID, 
             false, 
             false); //will need slight refactor to retrieve whether offline message or not (assume online for now)
-		}
+    }
 
-	notify_of_message(data, true);
+    notify_of_message(data, true);
 }
-
-
 
 
 static void on_avatar_name_cache_toast(const LLUUID& agent_id,
@@ -1048,6 +1046,7 @@ bool LLIMModel::logToFile(const std::string& file_name, const std::string& from,
 	if (gSavedPerAccountSettings.getS32("KeepConversationLogTranscripts") > 1)
 	{	
 		std::string from_name = from;
+
 		LLAvatarName av_name;
 
 		if (from_id == AUDIO_STREAM_FROM) {
@@ -1287,7 +1286,6 @@ void LLIMModel::sendMessage(const std::string& utf8_text,
 	info = LLAvatarTracker::instance().getBuddyInfo(other_participant_id);
 	
 	U8 offline = (!info || info->isOnline()) ? IM_ONLINE : IM_OFFLINE;
-	
 	// Old call to send messages to SLim client,  no longer supported.
 	//if((offline == IM_OFFLINE) && (LLVoiceClient::getInstance()->isOnlineSIP(other_participant_id)))
 	//{
@@ -2758,6 +2756,7 @@ void LLIMMgr::addMessage(
 
 		LLIMModel::LLIMSession* session = LLIMModel::instance().findIMSession(new_session_id);
 		if (session)
+		{
 			skip_message &= !session->isGroupSessionType();			// Do not skip group chats...
 			if (skip_message)
 			{
@@ -2801,13 +2800,18 @@ void LLIMMgr::addMessage(
 			{
 				make_ui_sound("UISndNewIncomingIMSession");
 			}
- 		}
+		}
 		else
 		{
 			// Failed to create a session, most likely due to empty name (name cache failed?)
 			LL_WARNS() << "Failed to create IM session " << fixed_session_name << LL_ENDL;
 		}
+<<<<<<< HEAD
 		
+=======
+	}
+
+>>>>>>> 7623343b51... Minor cleanup of llimview.cpp
 	if (!LLMuteList::getInstance()->isMuted(other_participant_id, LLMute::flagTextChat) && !skip_message)
 	{
 		LLIMModel::instance().addMessage(new_session_id, from, other_participant_id, msg);
@@ -3064,7 +3068,7 @@ void LLIMMgr::inviteToSession(
 	// voice invite question is different from default only for group call (EXT-7118)
 	std::string question_type = "VoiceInviteQuestionDefault";
 
-	BOOL voice_invite = false;
+	bool voice_invite = false;
 	bool is_linden = LLMuteList::getInstance()->isLinden(caller_name);
 
 
