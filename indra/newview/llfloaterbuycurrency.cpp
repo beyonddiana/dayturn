@@ -59,7 +59,6 @@ public:
 	LLCurrencyUIManager	mManager;
 	
 	bool		mHasTarget;
-	std::string	mTargetName;
 	S32			mTargetPrice;
 	S32			mRequiredAmount;
 	
@@ -116,8 +115,12 @@ void LLFloaterBuyCurrencyUI::noTarget()
 void LLFloaterBuyCurrencyUI::target(const std::string& name, S32 price)
 {
 	mHasTarget = true;
-	mTargetName = name;
 	mTargetPrice = price;
+
+	if (!name.empty())
+	{
+		getChild<LLUICtrl>("target_price_label")->setValue(name);
+	}
 	
 	S32 balance = gStatusBar->getBalance();
 	S32 need = price - balance;
