@@ -2806,12 +2806,8 @@ void LLIMMgr::addMessage(
 			// Failed to create a session, most likely due to empty name (name cache failed?)
 			LL_WARNS() << "Failed to create IM session " << fixed_session_name << LL_ENDL;
 		}
-<<<<<<< HEAD
-		
-=======
 	}
 
->>>>>>> 7623343b51... Minor cleanup of llimview.cpp
 	if (!LLMuteList::getInstance()->isMuted(other_participant_id, LLMute::flagTextChat) && !skip_message)
 	{
 		LLIMModel::instance().addMessage(new_session_id, from, other_participant_id, msg);
