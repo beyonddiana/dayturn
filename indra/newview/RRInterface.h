@@ -86,7 +86,7 @@
 #include "llwearable.h"
 #include "llwearabletype.h"
 
-extern BOOL gRRenabled;
+extern bool gRRenabled;
 
 // RLV retains its restrictions in a multimap (i.e. several entries per key), linking the restrictions to the UUIDs of the objects
 typedef std::multimap<std::string, std::string> RRMAP;
@@ -325,18 +325,18 @@ public:
 	std::string mParcelName; // for convenience (gAgent does not retain the name of the current parcel)
 	LLParcel::ELandingType mParcelLandingType; // for convenience
 
-	static BOOL sRRNoSetEnv;
-	static BOOL sRestrainedLoveDebug;
-	static BOOL sRestrainedLoveHeadMouselookRenderRigged; // cached boolean
-	static BOOL sRestrainedLoveRenderInvisibleSurfaces; // cached boolean
-	static BOOL sCanOoc; // when TRUE, the user can bypass a sendchat restriction by surrounding with (( and ))
+	static bool sRRNoSetEnv;
+	static bool sRestrainedLoveDebug;
+	static bool sRestrainedLoveHeadMouselookRenderRigged; // cached boolean
+	static bool sRestrainedLoveRenderInvisibleSurfaces; // cached boolean
+	static bool sCanOoc; // when TRUE, the user can bypass a sendchat restriction by surrounding with (( and ))
 	static std::string sRecvimMessage; // message to replace an incoming IM, when under recvim
 	static std::string sSendimMessage; // message to replace an outgoing IM, when under sendim
 	static std::string sBlacklist; // comma-separated list of RLV commands, add "%f" after a token to indicate it is the "=force" variant
 	static F32 sLastAvatarZOffsetCommit; // timestamp of the last change of RestrainedLoveOffsetAvatarZ
 	static F32 sLastOutfitChange; // timestamp of the last change in the outfit (including Hover on the shape)
 	static U32 mCamDistNbGradients; // number of spheres to draw when restricting the camera view
-	static BOOL sRenderLimitRenderedThisFrame; // true when already rendered the vision spheres during this rendering frame
+	static bool sRenderLimitRenderedThisFrame; // true when already rendered the vision spheres during this rendering frame
 
 	// Allowed debug settings (initialized in the ctor)
 	std::deque<std::string> mAllowedGetDebug;

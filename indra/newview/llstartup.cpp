@@ -460,14 +460,14 @@ bool idle_startup()
 	//static bool stipend_since_login = false;
 
 //MK
-	gRRenabled = gSavedSettings.getBOOL("RestrainedLove");
-	RRInterface::sRRNoSetEnv = gSavedSettings.getBOOL("RestrainedLoveNoSetEnv");
-	RRInterface::sRestrainedLoveDebug = gSavedSettings.getBOOL("RestrainedLoveDebug");
-	RRInterface::sRestrainedLoveHeadMouselookRenderRigged = gSavedSettings.getBOOL("RestrainedLoveHeadMouselookRenderRigged");
-	RRInterface::sRestrainedLoveRenderInvisibleSurfaces = gSavedSettings.getBOOL("RestrainedLoveRenderInvisibleSurfaces");
+	gRRenabled = (bool)gSavedSettings.getBOOL("RestrainedLove");
+	RRInterface::sRRNoSetEnv = (bool)gSavedSettings.getBOOL("RestrainedLoveNoSetEnv");
+	RRInterface::sRestrainedLoveDebug = (bool)gSavedSettings.getBOOL("RestrainedLoveDebug");
+	RRInterface::sRestrainedLoveHeadMouselookRenderRigged = (bool)gSavedSettings.getBOOL("RestrainedLoveHeadMouselookRenderRigged");
+	RRInterface::sRestrainedLoveRenderInvisibleSurfaces = (bool)gSavedSettings.getBOOL("RestrainedLoveRenderInvisibleSurfaces");
 
 	// Deactivated for now so we can't send OOC messages on the chat and cheat with them.
-	RRInterface::sCanOoc = FALSE; // gSavedSettings.getBOOL("RestrainedLoveCanOoc");
+	RRInterface::sCanOoc = false; // (bool)gSavedSettings.getBOOL("RestrainedLoveCanOoc");
 
 	RRInterface::sRecvimMessage = gSavedSettings.getString("RestrainedLoveRecvimMessage");
 	RRInterface::sSendimMessage = gSavedSettings.getString("RestrainedLoveSendimMessage");

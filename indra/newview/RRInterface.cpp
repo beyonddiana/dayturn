@@ -94,19 +94,19 @@
 #include "llpanelwearing.h"				// @showinv - "Appearance / Current Outfit" panel
 
 // Global and static variables initialization.
-BOOL gRRenabled = TRUE;
-BOOL RRInterface::sRRNoSetEnv = FALSE;
-BOOL RRInterface::sRestrainedLoveDebug = FALSE;
-BOOL RRInterface::sRestrainedLoveHeadMouselookRenderRigged = FALSE;
-BOOL RRInterface::sRestrainedLoveRenderInvisibleSurfaces = FALSE;
-BOOL RRInterface::sCanOoc = TRUE;
+bool gRRenabled = true;
+bool RRInterface::sRRNoSetEnv = false;
+bool RRInterface::sRestrainedLoveDebug = false;
+bool RRInterface::sRestrainedLoveHeadMouselookRenderRigged = false;
+bool RRInterface::sRestrainedLoveRenderInvisibleSurfaces = false;
+bool RRInterface::sCanOoc = true;
 std::string RRInterface::sRecvimMessage = "The Resident you messaged is prevented from reading your instant messages at the moment, please try again later.";
 std::string RRInterface::sSendimMessage = "*** IM blocked by sender's viewer";
 std::string RRInterface::sBlacklist = "";
 F32 RRInterface::sLastAvatarZOffsetCommit = 1.f;
 F32 RRInterface::sLastOutfitChange = -1000.f;
 U32 RRInterface::mCamDistNbGradients = 40;
-BOOL RRInterface::sRenderLimitRenderedThisFrame = FALSE;
+bool RRInterface::sRenderLimitRenderedThisFrame = false;
 
 
 #if !defined(max)
@@ -5220,7 +5220,7 @@ void RRInterface::drawRenderLimit ()
 		gUIProgram.unbind();
 	}
 
-	sRenderLimitRenderedThisFrame = TRUE;
+	sRenderLimitRenderedThisFrame = true;
 }
 
 void RRInterface::drawSphere (LLVector3 center, F32 scale, LLColor3 color, F32 alpha)

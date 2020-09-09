@@ -1547,7 +1547,7 @@ bool LLAppViewer::mainLoop()
 					pingMainloopTimeout("Main:Display");
 					gGLActive = true;
 //MK
-					RRInterface::sRenderLimitRenderedThisFrame = FALSE;
+					RRInterface::sRenderLimitRenderedThisFrame = false;
 //mk
  					display();
                     
