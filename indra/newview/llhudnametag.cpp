@@ -105,6 +105,9 @@ LLHUDNameTag::LLHUDNameTag(const U8 type)
 {
 	LLPointer<LLHUDNameTag> ptr(this);
 	sTextObjects.insert(ptr);
+
+    mRoundedRectImgp = LLUI::getUIImage("Rounded_Rect");
+    mRoundedRectTopImgp = LLUI::getUIImage("Rounded_Rect_Top");
 }
 
 LLHUDNameTag::~LLHUDNameTag()
@@ -274,9 +277,6 @@ void LLHUDNameTag::renderText(BOOL for_select)
 
 	mOffsetY = lltrunc(mHeight * ((mVertAlignment == ALIGN_VERT_CENTER) ? 0.5f : 1.f));
 
-	// *TODO: cache this image
-	LLUIImagePtr imagep = LLUI::getUIImage("Rounded_Rect");
-
 	// *TODO: make this a per-text setting
 	LLColor4 bg_color = LLUIColorTable::instance().getColor("NameTagBackground");
 	bg_color.setAlpha(gSavedSettings.getF32("ChatBubbleOpacity") * alpha_factor);
@@ -306,7 +306,7 @@ void LLHUDNameTag::renderText(BOOL for_select)
 	LLGLDepthTest gls_depth(GL_TRUE, GL_FALSE);
 	LLRect screen_rect;
 	screen_rect.setCenterAndSize(0, static_cast<S32>(lltrunc(-mHeight / 2 + mOffsetY)), static_cast<S32>(lltrunc(mWidth)), static_cast<S32>(lltrunc(mHeight)));
-	imagep->draw3D(render_position, x_pixel_vec, y_pixel_vec, screen_rect, bg_color);
+    mRoundedRectImgp->draw3D(render_position, x_pixel_vec, y_pixel_vec, screen_rect, bg_color);
 	if (mLabelSegments.size())
 	{
 		LLUIImagePtr rect_top_image = LLUI::getUIImage("Rounded_Rect_Top");
@@ -316,7 +316,7 @@ void LLHUDNameTag::renderText(BOOL for_select)
 		LLColor4 label_top_color = text_color;
 		label_top_color.mV[VALPHA] = gSavedSettings.getF32("ChatBubbleOpacity") * alpha_factor;
 
-		rect_top_image->draw3D(render_position, x_pixel_vec, y_pixel_vec, label_top_rect, label_top_color);
+        mRoundedRectTopImgp->draw3D(render_position, x_pixel_vec, y_pixel_vec, label_top_rect, label_top_color);
 	}
 
 	F32 y_offset = (F32)mOffsetY;
