@@ -490,8 +490,6 @@ void LLFloaterModelPreview::onUploadOptionChecked(LLUICtrl* ctrl)
         bool value = ctrl->getValue().asBoolean();
         // update the option and notifications
         // (this is a bit convoluted, because of the current structure of mModelPreview)
-        // FIX ME! mViewOption is malfunctioning here! mViewOption doesn't have values like "upload_skin"!
-        // This needs to translate values like "upload_skin" into "show_skin_weights"
         if (name == "upload_skin")
         {
             childSetValue("show_skin_weight", value);
@@ -500,6 +498,8 @@ void LLFloaterModelPreview::onUploadOptionChecked(LLUICtrl* ctrl)
             {
                 mModelPreview->mViewOption["show_joint_overrides"] = false;
                 mModelPreview->mViewOption["show_joint_positions"] = false;
+                childSetValue("show_joint_overrides", false);
+                childSetValue("show_joint_positions", false);
             }
         }
         else if (name == "upload_joints")
