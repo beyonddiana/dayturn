@@ -5082,7 +5082,7 @@ BOOL RRInterface::updateCameraLimits ()
 			LLPipeline::setRenderSoundBeacons(FALSE);
 			LLPipeline::setRenderParticleBeacons(FALSE);
 			LLPipeline::setRenderHighlights(FALSE);
-			LLDrawPoolAlpha::sShowDebugAlpha = FALSE;
+			//LLDrawPoolAlpha::sShowDebugAlpha = FALSE;
 			gPipeline.setAllRenderTypes();
 
 			// Also make sure the basic shaders are enabled. On some video cards, turning them off completely hides the vision spheres.
@@ -5155,7 +5155,8 @@ F32 calculateDesiredAlphaPerStep (F32 desired_alpha, int nb_layers)
 //   mCamDistDrawAlphaMax for each sphere.
 // - There are not too many spheres to render, because stacking alphas makes the video card
 //   complain.
-void RRInterface::drawRenderLimit ()
+// - If force_opaque is TRUE, then the inner sphere will be opaque and no other sphere will be rendered.
+void RRInterface::drawRenderLimit (BOOL force_opaque /*= FALSE*/)
 {
 	//if (true) return;
 
@@ -5182,7 +5183,7 @@ void RRInterface::drawRenderLimit ()
 		: gAgent.getPositionAgent();
 
 	// If the inner sphere is opaque, just render it and no other
-	if (mCamDistDrawAlphaMin >= UPPER_ALPHA_LIMIT) {
+	if (force_opaque || LLDrawPoolAlpha::sShowDebugAlpha || mCamDistDrawAlphaMin >= UPPER_ALPHA_LIMIT) {
 		drawSphere(center, mCamDistDrawMin, mCamDistDrawColor, 1.f);
 	}
 	else {

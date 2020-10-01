@@ -1535,7 +1535,7 @@ void LLDrawPoolAvatar::renderAvatars(LLVOAvatar* single_avatar, S32 pass)
 		// Draw a big black sphere around our avatar if the camera render is limited by RLV
 		if (gRRenabled && avatarp == gAgentAvatarp)
 		{
-			gAgent.mRRInterface.drawRenderLimit();
+			gAgent.mRRInterface.drawRenderLimit (FALSE);
 		}
 //mk
 		renderRiggedFullbrightShiny(avatarp);
