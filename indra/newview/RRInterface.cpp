@@ -5182,8 +5182,13 @@ void RRInterface::drawRenderLimit (BOOL force_opaque /*= FALSE*/)
 		? getCamDistDrawFromJoint()->getWorldPosition()
 		: gAgent.getPositionAgent();
 
-	// If the inner sphere is opaque, just render it and no other
-	if (force_opaque || LLDrawPoolAlpha::sShowDebugAlpha || mCamDistDrawAlphaMin >= UPPER_ALPHA_LIMIT) {
+	// If the inner sphere is opaque, just render it and no other.
+	// Also make the inner sphere opaque if we're highlighting invisible surfaces or if we're editing something.
+	if (force_opaque
+	|| LLDrawPoolAlpha::sShowDebugAlpha
+	|| (LLSelectMgr::getInstance()->mRenderHighlightSelections && !LLSelectMgr::getInstance()->getSelection()->isEmpty())
+	|| mCamDistDrawAlphaMin >= UPPER_ALPHA_LIMIT)
+	{
 		drawSphere(center, mCamDistDrawMin, mCamDistDrawColor, 1.f);
 	}
 	else {
