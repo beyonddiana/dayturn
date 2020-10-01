@@ -759,15 +759,15 @@ LLColor3 RRInterface::getMixedColors (std::string action, LLColor3 dflt /*= LLCo
 	// action can be a list of behavs separated by commas
 	LLStringUtil::toLower(action);
 	action = "," + action + ",";
-	LLColor3 res = dflt;
+	LLColor3 res = LLColor3::white;
 	LLColor3 tmp;
 	std::string command;
 	std::string behav;
 	std::string option;
 	std::string param;
 	int nb_found = 0;
-	F32 h, s, l;
-	F32 total_h = 0.f, total_s = 0.f, total_l = 0.f;
+	//F32 h, s, l;
+	//F32 total_h = 0.f, total_s = 0.f, total_l = 0.f;
 	std::deque<std::string> tokens;
 	for (RRMAP::iterator it = mSpecialObjectBehaviours.begin (); it != mSpecialObjectBehaviours.end(); ++it) {
 		command = it->second;
@@ -778,19 +778,23 @@ LLColor3 RRInterface::getMixedColors (std::string action, LLColor3 dflt /*= LLCo
 				tmp.mV[0] = atof (tokens[0].c_str());
 				tmp.mV[1] = atof (tokens[1].c_str());
 				tmp.mV[2] = atof (tokens[2].c_str());
-				tmp.calcHSL (&h, &s, &l);
-				total_h += h;
-				total_s += s;
-				total_l += l;
+				res *= tmp;
+				//tmp.calcHSL (&h, &s, &l);
+				//total_h += h;
+				//total_s += s;
+				//total_l += l;
 				nb_found++;
 			}
 		}
 	}
-	if (nb_found > 0) {
-		total_h /= (F32)nb_found;
-		total_s /= (F32)nb_found;
-		total_l /= (F32)nb_found;
-		res.setHSL (total_h, total_s, total_l);
+	//if (nb_found > 0) {
+	//	total_h /= (F32)nb_found;
+	//	total_s /= (F32)nb_found;
+	//	total_l /= (F32)nb_found;
+	//	res.setHSL (total_h, total_s, total_l);
+	//}
+	if (nb_found == 0)	{
+		return dflt;
 	}
 	return res;
 }
