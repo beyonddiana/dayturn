@@ -351,7 +351,7 @@ BOOL LLTaskInvFVBridge::isItemRemovable() const
 	if (gRRenabled && object && (gAgent.mRRInterface.mSittpMax < EXTREMUM
 		|| gAgent.mRRInterface.mContainsUnsit || gAgent.mRRInterface.mContainsStandtp))
 	{
-		if (gAgentAvatarp->isSitting() && gAgentAvatarp->getRoot() == object->getRoot())
+		if (gAgentAvatarp->isSitting() && !object->isAttachment() && gAgentAvatarp->getRoot() == object->getRoot())
 		{
 			return FALSE;
 		}

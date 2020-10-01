@@ -174,7 +174,7 @@ void LLPanelContents::onClickNewScript(void *userdata)
 			// when prevented from sit-tping
 			if (gAgent.mRRInterface.mSittpMax < EXTREMUM || gAgent.mRRInterface.mContainsUnsit || gAgent.mRRInterface.mContainsStandtp)
 			{
-				if (gAgentAvatarp->isSitting() && gAgentAvatarp->getRoot() == object->getRoot())
+				if (gAgentAvatarp->isSitting() && !object->isAttachment() && gAgentAvatarp->getRoot() == object->getRoot())
 				{
 					return;
 				}
