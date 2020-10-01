@@ -1601,7 +1601,7 @@ void LLManipTranslate::renderSnapGuides()
 void LLManipTranslate::renderGrid(F32 x, F32 y, F32 size, F32 r, F32 g, F32 b, F32 a)
 {
 //MK
-	if (gRRenabled && gAgent.mRRInterface.mCamDistDrawMax < EXTREMUM && gAgent.mRRInterface.mCamDistDrawAlphaMax >= 0.25)
+	if (gRRenabled && gAgent.mRRInterface.mVisionRestricted && gAgent.mRRInterface.mCamDistDrawAlphaMax >= 0.25)
 	{
 		return;
 	}
@@ -1647,7 +1647,7 @@ void LLManipTranslate::highlightIntersection(LLVector3 normal,
 											 LLColor4 inner_color)
 {
 //MK
-	if (gRRenabled && gAgent.mRRInterface.mCamDistDrawMax < EXTREMUM && gAgent.mRRInterface.mCamDistDrawAlphaMax >= 0.25)
+	if (gRRenabled && gAgent.mRRInterface.mVisionRestricted && gAgent.mRRInterface.mCamDistDrawAlphaMax >= 0.25)
 	{
 		return;
 	}

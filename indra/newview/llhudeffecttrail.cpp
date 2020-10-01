@@ -166,7 +166,7 @@ void LLHUDEffectSpiral::unpackData(LLMessageSystem *mesgsys, S32 blocknum)
 void LLHUDEffectSpiral::triggerLocal()
 {
 //MK
-	if (gRRenabled && gAgent.mRRInterface.mCamDistDrawMax < EXTREMUM && gAgent.mRRInterface.mCamDistDrawAlphaMax >= 0.25)
+	if (gRRenabled && gAgent.mRRInterface.mVisionRestricted && gAgent.mRRInterface.mCamDistDrawAlphaMax >= 0.25)
 	{
 		return;
 	}

@@ -1871,14 +1871,13 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 	{
 		return;
 	}
-	bool vision_restricted = (gRRenabled && gAgent.mRRInterface.mCamDistDrawMax < EXTREMUM);
 	bool is_self = (avatar == gAgentAvatarp);
 
 	// Optimization : Rather than compare the distances for every face (which involves square roots, which are costly), we compare squared distances.
 	LLVector3 joint_pos = LLVector3::zero;
 	F32 cam_dist_draw_max_squared = EXTREMUM;
 	// We don't need to calculate all that stuff if the vision is not restricted.
-	if (vision_restricted)
+	if (gAgent.mRRInterface.mVisionRestricted)
 	{
 		joint_pos = gAgent.mRRInterface.getCamDistDrawFromJoint()->getWorldPosition();
 		cam_dist_draw_max_squared = gAgent.mRRInterface.mCamDistDrawMax * gAgent.mRRInterface.mCamDistDrawMax;
@@ -1934,7 +1933,7 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 		F32 face_distance_to_avatar_squared = EXTREMUM;
 
 		// We don't need to calculate all that stuff if the vision is not restricted.
-		if (vision_restricted)
+		if (gAgent.mRRInterface.mVisionRestricted)
 		{
 			// We need the position of the face for later, as well as the square of the distance from this face to the avatar
 			face_pos = face->getPositionAgent();

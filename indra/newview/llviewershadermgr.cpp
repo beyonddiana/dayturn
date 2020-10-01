@@ -443,7 +443,7 @@ void LLViewerShaderMgr::setShaders()
 	
 //MK
 	// Make sure the basic shaders are enabled when the vision is restricted.
-	if (gRRenabled && gAgent.mRRInterface.mCamDistDrawMax < EXTREMUM)
+	if (gRRenabled && gAgent.mRRInterface.mVisionRestricted)
 	{  
 		if (!gSavedSettings.getBOOL("VertexShaderEnable"))
 		{

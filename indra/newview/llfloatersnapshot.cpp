@@ -257,7 +257,7 @@ LLViewerWindow::ESnapshotType LLFloaterSnapshot::Impl::getLayerType(LLFloaterSna
 		type = LLViewerWindow::SNAPSHOT_TYPE_DEPTH;
 //MK
 	// When the vision is restricted, do not render depth or it lets us cheat through the vision spheres
-	if (gRRenabled && gAgent.mRRInterface.mCamDistDrawMax < EXTREMUM)
+	if (gRRenabled && gAgent.mRRInterface.mVisionRestricted)
 	{
 		type = LLViewerWindow::SNAPSHOT_TYPE_COLOR;
 	}
