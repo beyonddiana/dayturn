@@ -2658,7 +2658,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 			}
 		}
 //MK
-		else if (gRRenabled && message == "@version")
+		else if (!is_muted && gRRenabled && message == "@version")
 		{
 			// return the version message
 			std::string my_name;
@@ -2681,7 +2681,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 			LLPointer<LLIMInfo> im_info = new LLIMInfo(gMessageSystem);
 			gIMMgr->processIMTypingStop(im_info);
 		}
-		else if (gRRenabled && message == "@getblacklist")
+		else if (!is_muted && gRRenabled && message == "@getblacklist")
 		{
 			// return the contents of  the blacklist, without a filter
 			std::string my_name;
@@ -2704,7 +2704,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 			LLPointer<LLIMInfo> im_info = new LLIMInfo(gMessageSystem);
 			gIMMgr->processIMTypingStop(im_info);
 		}
-		else if (gRRenabled && message == "@list")
+		else if (!is_muted && gRRenabled && message == "@list")
 		{
 			// return the list of restrictions
 			std::string my_name;
@@ -2748,7 +2748,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 			LLPointer<LLIMInfo> im_info = new LLIMInfo(gMessageSystem);
 			gIMMgr->processIMTypingStop(im_info);
 		}
-		else if (gRRenabled && message == "@stopim")
+		else if (!is_muted && gRRenabled && message == "@stopim")
 		{
 			// close this IM session if we are under @startim (globally or for this person)
 			bool close_session = false;
