@@ -4024,6 +4024,9 @@ void LLPipeline::postSort(LLCamera& camera)
 		LLFloaterTelehub::addBeacons();
 	}
 
+//MK
+	}
+//mk
 	if (!sShadowRender)
 	{
 		mSelectedFaces.clear();
@@ -4052,9 +4055,6 @@ void LLPipeline::postSort(LLCamera& camera)
 		}
 	}
 
-//MK
-	}
-//mk
 	//LLSpatialGroup::sNoDelete = FALSE;
 	LL_PUSH_CALLSTACKS();
 }
