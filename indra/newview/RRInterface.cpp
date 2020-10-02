@@ -66,6 +66,7 @@
 #include "llvoavatar.h"
 #include "llvoavatarself.h"
 //#include "llinventoryview.h"
+#include "lltooldraganddrop.h"
 #include "lltoolmgr.h"
 #include "lltracker.h"
 //#include "llurlsimstring.h"
@@ -5187,10 +5188,10 @@ void RRInterface::drawRenderLimit (BOOL force_opaque /*= FALSE*/)
 		: gAgent.getPositionAgent();
 
 	// If the inner sphere is opaque, just render it and no other.
-	// Also make the inner sphere opaque if we're highlighting invisible surfaces or if we're editing something.
+	// Also make the inner sphere opaque if we're highlighting invisible surfaces or if anything is highlighted by a selection (edit, select or drag and drop).
 	if (force_opaque
 	|| LLDrawPoolAlpha::sShowDebugAlpha
-	|| (LLSelectMgr::getInstance()->mRenderHighlightSelections && !LLSelectMgr::getInstance()->getSelection()->isEmpty())
+	|| (LLSelectMgr::getInstance()->mRenderHighlightSelections && (!LLSelectMgr::getInstance()->getSelection()->isEmpty() || LLToolDragAndDrop::getInstance()->getCargoCount() > 0))
 	|| mCamDistDrawAlphaMin >= UPPER_ALPHA_LIMIT)
 	{
 		drawSphere(center, mCamDistDrawMin, mCamDistDrawColor, 1.f);
