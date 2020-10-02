@@ -788,7 +788,16 @@ BOOL LLToolPie::handleHover(S32 x, S32 y, MASK mask)
 	LLDrawable* drawable = NULL;
 	if (enable_highlight && show_highlight && object)
 	{
+//MK
+		// Don't highlight objects if we are vision-restricted.
+		// We need to do it this way instead of making the innermost vision sphere opaque, because we are making gPipeline draw the outline, which  through the opaque sphere.
+		if (!gRRenabled || !gAgent.mRRInterface.mVisionRestricted)
+		{
+//mk
 		drawable = object->mDrawable;
+//MK
+		}
+//mk
 	}
 	gPipeline.setHighlightObject(drawable);
 
