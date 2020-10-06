@@ -232,6 +232,12 @@ bool LLLandmarksPanel::postBuild()
 	initLandmarksInventoryPanel();
 	initMyInventoryPanel();
 	initLibraryInventoryPanel();
+	
+	LLAccordionCtrl* accordion = getChild<LLAccordionCtrl>("landmarks_accordion");
+	if (accordion)
+	{
+		accordion->setSkipScrollToChild(true);
+	}
 
 	return true;
 }

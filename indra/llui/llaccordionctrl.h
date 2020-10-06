@@ -137,6 +137,8 @@ public:
 	LLAccordionCtrlTab* getSelectedTab() const { return mSelectedTab; }
 
 	bool getFitParent() const {return mFitParent;}
+	
+	void setSkipScrollToChild(bool skip) { mSkipScrollToChild = skip; }
 
 private:
 	void	initNoTabsWidget(const LLTextBox::Params& tb_params);
@@ -182,6 +184,8 @@ private:
 	bool			mAutoScrolling;
 	F32				mAutoScrollRate;
 	LLTextBox*		mNoVisibleTabsHelpText;
+	
+	bool			mSkipScrollToChild;
 
 	std::string		mNoMatchedTabsOrigString;
 	std::string		mNoVisibleTabsOrigString;
