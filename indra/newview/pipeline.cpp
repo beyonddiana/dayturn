@@ -1022,8 +1022,8 @@ bool LLPipeline::allocateScreenBuffer(U32 resX, U32 resY, U32 samples)
 		}
 
 		//HACK make screenbuffer allocations start failing after 30 seconds
-		static LLCachedControl<bool> simulate_fbo_failure(gSavedSettings, "SimulateFBOFailure", false);
-		if (simulate_fbo_failure) {
+		if (gSavedSettings.getBOOL("SimulateFBOFailure")) 
+		{
 			return false;
 		}
 	}
@@ -2665,10 +2665,10 @@ void LLPipeline::downsampleDepthBuffer(LLRenderTarget& source, LLRenderTarget& d
 	{
         GLint bits = 0;
         bits |= (source.hasStencil() && dest.hasStencil()) ? GL_STENCIL_BUFFER_BIT : 0;
-        bits |= GL_DEPTH_BUFFER_BIT;	
+        bits |= GL_DEPTH_BUFFER_BIT;
 		scratch_space->copyContents(source, 
-									0, 0, source.getWidth(), source.getHeight(), 
-									0, 0, scratch_space->getWidth(), scratch_space->getHeight(), GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT, GL_NEAREST);
+									0, 0, source.getWidth(), source.getHeight(),
+									0, 0, scratch_space->getWidth(), scratch_space->getHeight(), bits, GL_NEAREST);
 	}
 
 	dest.bindTarget();
@@ -9803,7 +9803,7 @@ void LLPipeline::generateWaterReflection(LLCamera& camera_in)
 		{	//generate planar reflection map
 
 			//disable occlusion culling for reflection map for now
-			S32 occlusion = LLPipeline::sUseOcclusion;
+			//S32 occlusion = LLPipeline::sUseOcclusion; 
 			LLPipeline::sUseOcclusion = 0;
 			gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 			glClearColor(0,0,0,0);
