@@ -1254,7 +1254,7 @@ void LLToolDragAndDrop::dropScript(LLViewerObject* hit_obj,
 			// can't edit an object that we are sitting on when prevented from sit-tping
 			if (gAgent.mRRInterface.mSittpMax < EXTREMUM || gAgent.mRRInterface.mContainsUnsit || gAgent.mRRInterface.mContainsStandtp)
 			{
-				if (gAgentAvatarp->isSitting() && gAgentAvatarp->getRoot() == hit_obj->getRoot())
+				if (gAgentAvatarp->isSitting() && !hit_obj->isAttachment() && gAgentAvatarp->getRoot() == hit_obj->getRoot())
 				{
 					return;
 				}
