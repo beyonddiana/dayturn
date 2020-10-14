@@ -1698,6 +1698,12 @@ LLModelPreview::~LLModelPreview()
 	{
 		mModelLoader->shutdown();
 	}
+
+    if (mPreviewAvatar)
+    {
+        mPreviewAvatar->markDead();
+        mPreviewAvatar = NULL;
+    }
 }
 
 void LLModelPreview::updateDimentionsAndOffsets()
