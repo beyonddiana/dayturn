@@ -656,7 +656,7 @@ void LLControlAvatar::onRegionChanged()
 }
 
 // virtual
-BOOL LLControlAvatar::isImpostor()
+bool LLControlAvatar::isImpostor()
 {
     if (mRootVolp && mRootVolp->isAttachment())
     {
