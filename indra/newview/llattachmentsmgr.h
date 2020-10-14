@@ -86,6 +86,8 @@ public:
 
     void onDetachRequested(const LLUUID& inv_item_id);
     void onDetachCompleted(const LLUUID& inv_item_id);
+    
+    bool isAttachmentStateComplete() const;
 
 private:
 

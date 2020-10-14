@@ -462,7 +462,7 @@ BOOL LLVOAvatarSelf::buildMenus()
 				 ++iter)
 			{
 				LLViewerJointAttachment* attachment = iter->second;
-				if (attachment->getGroup() == i)
+				if (attachment && attachment->getGroup() == i)
 				{
 					LLMenuItemCallGL::Params item_params;
 
@@ -502,7 +502,7 @@ BOOL LLVOAvatarSelf::buildMenus()
 				 ++iter)
 			{
 				LLViewerJointAttachment* attachment = iter->second;
-				if (attachment->getGroup() == i)
+				if (attachment && attachment->getGroup() == i)
 				{
 					LLMenuItemCallGL::Params item_params;
 					std::string sub_piemenu_name = attachment->getName();

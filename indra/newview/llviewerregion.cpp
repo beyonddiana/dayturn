@@ -110,7 +110,8 @@ typedef std::map<std::string, std::string> CapabilityMap;
 
 static void log_capabilities(const CapabilityMap &capmap);
 
-class LLViewerRegionImpl {
+class LLViewerRegionImpl 
+{
 public:
 	LLViewerRegionImpl(LLViewerRegion * region, LLHost const & host)
 		:	mHost(host),
@@ -120,10 +121,10 @@ public:
 			mSeedCapMaxAttemptsBeforeLogin(MAX_SEED_CAP_ATTEMPTS_BEFORE_LOGIN),
 			mSeedCapAttempts(0),
 			mHttpResponderID(0),
-		mLastCameraUpdate(0),
-		mLastCameraOrigin(),
-		mVOCachePartition(NULL),
-		mLandp(NULL),
+		    mLastCameraUpdate(0),
+		    mLastCameraOrigin(),
+		    mVOCachePartition(NULL),
+		    mLandp(NULL),
 		    // I'd prefer to set the LLCapabilityListener name to match the region
 		    // name -- it's disappointing that's not available at construction time.
 		    // We could instead store an LLCapabilityListener*, making
@@ -271,6 +272,7 @@ private:
 			LL_WARNS("AppInit", "Capabilities") << "Received results for region that no longer exists!" << LL_ENDL;
 			return ;
 		}
+                                             
 		if( mID != regionp->getHttpResponderID() ) // region is no longer referring to this responder
 		{
 			LL_WARNS("AppInit", "Capabilities") << "Received results for a stale http responder!" << LL_ENDL;

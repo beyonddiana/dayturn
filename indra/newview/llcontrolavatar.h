@@ -75,7 +75,7 @@ public:
 
     virtual bool shouldRenderRigged() const;
 
-	virtual BOOL isImpostor(); 
+	virtual bool isImpostor(); 
     
     bool mPlaying;
 

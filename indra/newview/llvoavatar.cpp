@@ -646,7 +646,7 @@ BOOL LLVOAvatar::sShowFootPlane = FALSE;
 BOOL LLVOAvatar::sVisibleInFirstPerson = FALSE;
 F32 LLVOAvatar::sLODFactor = 1.f;
 F32 LLVOAvatar::sPhysicsLODFactor = 1.f;
-BOOL LLVOAvatar::sUseImpostors = FALSE;
+bool LLVOAvatar::sUseImpostors = false;
 BOOL LLVOAvatar::sJointDebug = FALSE;
 F32 LLVOAvatar::sUnbakedTime = 0.f;
 F32 LLVOAvatar::sUnbakedUpdateTime = 0.f;
@@ -10309,9 +10309,9 @@ void LLVOAvatar::updateImpostors()
 }
 
 // virtual
-BOOL LLVOAvatar::isImpostor()
+bool LLVOAvatar::isImpostor()
 {
-	return (sUseImpostors && (isVisuallyMuted() || (mUpdatePeriod >= IMPOSTOR_PERIOD))) || isInMuteList() ? TRUE : FALSE;
+	return (sUseImpostors && (isVisuallyMuted() || (mUpdatePeriod >= IMPOSTOR_PERIOD))) || isInMuteList() ? true : false;
 }
 
 

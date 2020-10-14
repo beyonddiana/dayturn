@@ -311,7 +311,7 @@ public:
 	static BOOL		sRenderGroupTitles;
 	static F32		sRenderDistance; //distance at which avatars will render.
 	static BOOL		sShowAnimationDebug; // show animation debug info
-	static BOOL		sUseImpostors; //use impostors for far away avatars
+	static bool		sUseImpostors; //use impostors for far away avatars
 	static BOOL		sShowFootPlane;	// show foot collision plane reported by server
 	static BOOL		sShowCollisionVolumes;	// show skeletal collision volumes
 	static BOOL		sVisibleInFirstPerson;
@@ -535,7 +535,7 @@ private:
 	// Impostors
 	//--------------------------------------------------------------------
 public:
-	virtual BOOL isImpostor();
+	virtual bool isImpostor();
 	BOOL 	    needsImpostorUpdate() const;
 	const LLVector3& getImpostorOffset() const;
 	const LLVector2& getImpostorDim() const;
