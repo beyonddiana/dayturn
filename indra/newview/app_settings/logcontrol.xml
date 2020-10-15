@@ -58,9 +58,8 @@
 					<key>tags</key>
 						<array>
 						<!-- sample entry for debugging specific items
-						     <string>AnimatedObjects</string>
-							 <string>FmodEX</string>
-						     <string>Avatar</string>
+                             <string>AnimatedObjects</string>
+						     <string>Texture</string>
 						     <string>Inventory</string>
 						     <string>SceneLoadTiming</string>
 						     <string>Avatar</string>
