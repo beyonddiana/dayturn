@@ -1232,7 +1232,8 @@ S32 LLTextureCache::openAndReadEntry(const LLUUID& id, Entry& entry, bool create
 		{
 			readEntryFromHeaderImmediately(idx, entry) ;
 		}
-		if(entry.mImageSize <= entry.mBodySize)//it happens on 64-bit systems, do not know why
+        llassert(entry.mImageSize < 0 || entry.mImageSize > entry.mBodySize);
+		/*if(entry.mImageSize <= entry.mBodySize)//it happens on 64-bit systems, do not know why
 		{
 			LL_WARNS() << "corrupted entry: " << id << " entry image size: " << entry.mImageSize << " entry body size: " << entry.mBodySize << LL_ENDL ;
 
@@ -1241,7 +1242,7 @@ S32 LLTextureCache::openAndReadEntry(const LLUUID& id, Entry& entry, bool create
 			removeEntry(idx, entry, tex_filename) ;
 			mUpdatedEntryMap.erase(idx) ;
 			idx = -1 ;
-		}
+		}*/
 	}
 	return idx;
 }
@@ -1269,12 +1270,12 @@ void LLTextureCache::writeEntryToHeaderImmediately(S32& idx, Entry& entry, bool 
 	{
 		aprfile = openHeaderEntriesFile(false, offset);
 	}
+    llassert(entry.mImageSize > entry.mBodySize);
 	bytes_written = aprfile->write((void*)&entry, (S32)sizeof(Entry));
 	if(bytes_written != sizeof(Entry))
 	{
 		clearCorruptedCache() ; //clear the cache.
 		idx = -1 ;//mark the idx invalid.
-
 		return ;
 	}
 
@@ -1301,6 +1302,8 @@ void LLTextureCache::readEntryFromHeaderImmediately(S32& idx, Entry& entry)
 //update an existing entry time stamp, delay writing.
 void LLTextureCache::updateEntryTimeStamp(S32 idx, Entry& entry)
 {
+    llassert(new_image_size >= new_data_size);
+
 	static const U32 MAX_ENTRIES_WITHOUT_TIME_STAMP = (U32)(LLTextureCache::sCacheMaxEntries * 0.75f) ;
 
 	if(mHeaderEntriesInfo.mEntries < MAX_ENTRIES_WITHOUT_TIME_STAMP)
@@ -1409,6 +1412,10 @@ U32 LLTextureCache::openAndReadEntries(std::vector<Entry>& entries)
 		}
 		entries.push_back(entry);
 // 		LL_INFOS() << "ENTRY: " << entry.mTime << " TEX: " << entry.mID << " IDX: " << idx << " Size: " << entry.mImageSize << LL_ENDL;
+        if(entry.mImageSize < 0)
+        {
+            mFreeList.insert(idx);
+        }
 		if(entry.mImageSize > entry.mBodySize)
 		{
 			mHeaderIDMap[entry.mID] = idx;
@@ -1919,6 +1926,8 @@ S32 LLTextureCache::getHeaderCacheEntry(const LLUUID& id, Entry& entry)
 // Writes imagesize to the header, updates timestamp
 S32 LLTextureCache::setHeaderCacheEntry(const LLUUID& id, Entry& entry, S32 imagesize, S32 datasize)
 {
+    llassert(imagesize >= datasize);
+
 	mHeaderMutex.lock();
 	S32 idx = openAndReadEntry(id, entry, true); // read or create
 	mHeaderMutex.unlock();
