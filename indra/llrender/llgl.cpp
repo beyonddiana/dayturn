@@ -468,8 +468,6 @@ LLGLManager::LLGLManager() :
 
 	mHasSeparateSpecularColor(FALSE),
 
-	mDebugGPU(FALSE),
-
 	mDriverVersionMajor(1),
 	mDriverVersionMinor(0),
 	mDriverVersionRelease(0),
@@ -833,26 +831,11 @@ bool LLGLManager::initGL()
 
 	stop_glerror();
 	
-	setToDebugGPU();
-
-	stop_glerror();
-
 	initGLStates();
 
 	stop_glerror();
 
 	return true;
-}
-
-void LLGLManager::setToDebugGPU()
-{
-	//"MOBILE INTEL(R) 965 EXPRESS CHIP", 
-	if (mGLRenderer.find("INTEL") != std::string::npos && mGLRenderer.find("965") != std::string::npos)
-	{
-		mDebugGPU = TRUE ;
-	}
-
-	return ;
 }
 
 void LLGLManager::getGLInfo(LLSD& info)
