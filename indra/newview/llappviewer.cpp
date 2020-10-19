@@ -1249,33 +1249,6 @@ void LLAppViewer::initMaxHeapSize()
 	LLMemory::initMaxHeapSizeGB(max_heap_size_gb, enable_mem_failure_prevention) ;
 }
 
-void LLAppViewer::checkMemory()
-{
-	const static F32 MEMORY_CHECK_INTERVAL = 1.0f ; //second
-	//const static F32 MAX_QUIT_WAIT_TIME = 30.0f ; //seconds
-	//static F32 force_quit_timer = MAX_QUIT_WAIT_TIME + MEMORY_CHECK_INTERVAL ;
-
-	return ;
-
-	if(MEMORY_CHECK_INTERVAL > mMemCheckTimer.getElapsedTimeF32())
-	{
-		return ;
-	}
-	mMemCheckTimer.reset() ;
-
-		//update the availability of memory
-		LLMemory::updateMemoryInfo() ;
-
-	bool is_low = LLMemory::isMemoryPoolLow() ;
-
-	LLPipeline::throttleNewMemoryAllocation(is_low) ;
-
-	if(is_low)
-	{
-		LLMemory::logMemoryInfo() ;
-	}
-}
-
 static LLTrace::BlockTimerStatHandle FTM_MESSAGES("System Messages");
 static LLTrace::BlockTimerStatHandle FTM_SLEEP("Sleep");
 static LLTrace::BlockTimerStatHandle FTM_YIELD("Yield");
@@ -1353,9 +1326,6 @@ bool LLAppViewer::mainLoop()
 		//clear call stack records
 		LL_CLEAR_CALLSTACKS();
 
-		//check memory availability information
-		checkMemory() ;
-		
 		try
 		{
 			// Check if we need to restore rendering masks.
