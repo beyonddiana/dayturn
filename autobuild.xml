@@ -54,7 +54,7 @@
               <key>hash</key>
               <string>f044de05e704d3f3fb6934adf42447c2</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/ares_3p-update-ares/rev/295506/arch/CYGWIN/installer/ares-1.10.0.295506-windows-295506.tar.bz2</string>
+              <string>https://bitbucket.org/dayturn/dayturn-viewer-libs/downloads/ares-1.10.0.295506-windows-295506.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
