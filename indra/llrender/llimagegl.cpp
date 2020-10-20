@@ -932,6 +932,15 @@ bool LLImageGL::preAddToAtlas(S32 discard_level, const LLImageRaw* raw_image)
 		LL_WARNS() << "Trying to create a texture with incorrect dimensions!" << LL_ENDL;
 		return false;
 	}
+	
+	if (mHasExplicitFormat && 
+		(mFormatPrimary == GL_RGBA && mComponents < 4) ||
+		(mFormatPrimary == GL_RGB  && mComponents < 3))
+
+	{
+		LL_WARNS()  << "Incorrect format: " << std::hex << mFormatPrimary << " components: " << (U32)mComponents <<  LL_ENDL;		
+		mHasExplicitFormat = false;
+	}
 
 	if( !mHasExplicitFormat )
 	{
