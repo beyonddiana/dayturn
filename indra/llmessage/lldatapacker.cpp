@@ -238,7 +238,7 @@ bool LLDataPackerBinaryBuffer::unpackBinaryData(U8 *value, S32 &size, const char
 		return false;
 	}
 
-	htonmemcpy(&size, mCurBufferp, MVT_S32, 4);
+	htolememcpy(&size, mCurBufferp, MVT_S32, 4);
 	mCurBufferp += 4;
 
 	if (!verifyLength(size, name))
@@ -247,7 +247,7 @@ bool LLDataPackerBinaryBuffer::unpackBinaryData(U8 *value, S32 &size, const char
 		return false;
 	}
 
-	htonmemcpy(value, mCurBufferp, MVT_VARIABLE, size);
+	htolememcpy(value, mCurBufferp, MVT_VARIABLE, size);
 	mCurBufferp += size;
 
 	return true;
@@ -276,7 +276,7 @@ bool LLDataPackerBinaryBuffer::unpackBinaryDataFixed(U8 *value, S32 size, const 
 	{
 		return false;
 	}
-	htonmemcpy(value, mCurBufferp, MVT_VARIABLE, size);
+	htolememcpy(value, mCurBufferp, MVT_VARIABLE, size);
 	mCurBufferp += size;
 	return true;
 }
