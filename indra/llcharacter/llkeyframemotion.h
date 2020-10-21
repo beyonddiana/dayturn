@@ -150,14 +150,14 @@ public:
 
 public:
 	U32		getFileSize();
-	BOOL	serialize(LLDataPacker& dp) const;
-	BOOL	deserialize(LLDataPacker& dp, const LLUUID& asset_id);
-	BOOL	isLoaded() { return mJointMotionList != NULL; }
+	bool	serialize(LLDataPacker& dp) const;
+	bool	deserialize(LLDataPacker& dp, const LLUUID& asset_id);
+	bool	isLoaded() { return mJointMotionList != NULL; }
     void	dumpToFile(const std::string& name);
 
 
 	// setters for modifying a keyframe animation
-	void setLoop(BOOL loop);
+	void setLoop(bool loop);
 
 	F32 getLoopIn() {
 		return (mJointMotionList) ? mJointMotionList->mLoopInPoint : 0.f;
@@ -266,7 +266,7 @@ protected:
 
 	void applyConstraint(JointConstraint* constraintp, F32 time, U8* joint_mask);
 
-	BOOL	setupPose();
+	bool	setupPose();
 
 public:
 	enum AssetStatus { ASSET_LOADED, ASSET_FETCHED, ASSET_NEEDS_FETCH, ASSET_FETCH_FAILED, ASSET_UNDEFINED };
