@@ -64,6 +64,7 @@ SLURL: &lt;nolink&gt;[SLURL]&lt;/nolink&gt;
 	<string name="AboutLibs">
 		Версия OpenGL: [OPENGL_VERSION]
 
+Версия libcurl: [LIBCURL_VERSION]
 Версия декодера J2C: [J2C_VERSION]
 Версия драйвера звука: [AUDIO_DRIVER_VERSION]
 Версия LLCEFLib/CEF: [LLCEFLIB_VERSION]
