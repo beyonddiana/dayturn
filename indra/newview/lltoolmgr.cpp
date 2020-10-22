@@ -269,7 +269,7 @@ void LLToolMgr::toggleBuildMode(const LLSD& sdname)
 	const std::string& param = sdname.asString();
 
 //MK
-	if (gRRenabled && (gAgent.mRRInterface.mContainsEdit || gAgent.mRRInterface.mContainsRez || gAgent.mRRInterface.containsSubstr ("editobj:")))
+	if (gRRenabled && (gAgent.mRRInterface.mContainsEdit || gAgent.mRRInterface.mContainsRez))
 	{
 		return;
 	}
