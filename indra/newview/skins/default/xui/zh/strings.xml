@@ -82,6 +82,7 @@ VFS（快取）建立時間：[VFS_TIME]
 	<string name="AboutLibs">
 		OpenGL 版本：[OPENGL_VERSION]
 
+libcurl版本: [LIBCURL_VERSION]
 J2C 解碼器版本： [J2C_VERSION]
 音效驅動程式版本： [AUDIO_DRIVER_VERSION]
 LLCEFLib/CEF版本：[LLCEFLIB_VERSION]

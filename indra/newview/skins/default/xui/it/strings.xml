@@ -61,6 +61,7 @@ Scheda grafica: [GRAPHICS_CARD]
 	<string name="AboutLibs">
 		Versione OpenGL: [OPENGL_VERSION]
 
+Versione libcurl: [LIBCURL_VERSION]
 Versione J2C Decoder: [J2C_VERSION]
 Versione Driver audio: [AUDIO_DRIVER_VERSION]
 Versione LLCEFLib/CEF: [LLCEFLIB_VERSION]

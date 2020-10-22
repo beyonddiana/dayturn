@@ -64,6 +64,7 @@ Grafik Kartı: [GRAPHICS_CARD]
 	<string name="AboutLibs">
 		OpenGL Sürümü: [OPENGL_VERSION]
 
+libcurl Sürümü: [LIBCURL_VERSION]
 J2C Kod Çözücü Sürümü: [J2C_VERSION]
 Ses Sürücüsü Sürümü: [AUDIO_DRIVER_VERSION]
 LLCEFLib/CEF Sürümü: [LLCEFLIB_VERSION]
