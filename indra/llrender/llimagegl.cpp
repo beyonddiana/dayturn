@@ -934,8 +934,8 @@ bool LLImageGL::preAddToAtlas(S32 discard_level, const LLImageRaw* raw_image)
 	}
 	
 	if (mHasExplicitFormat && 
-		(mFormatPrimary == GL_RGBA && mComponents < 4) ||
-		(mFormatPrimary == GL_RGB  && mComponents < 3))
+		((mFormatPrimary == GL_RGBA && mComponents < 4) ||
+		 (mFormatPrimary == GL_RGB  && mComponents < 3)))
 
 	{
 		LL_WARNS()  << "Incorrect format: " << std::hex << mFormatPrimary << " components: " << (U32)mComponents <<  LL_ENDL;		
