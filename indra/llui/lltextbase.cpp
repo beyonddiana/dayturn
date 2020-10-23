@@ -183,6 +183,7 @@ LLTextBase::LLTextBase(const LLTextBase::Params &p)
 	mFontShadow(p.font_shadow),
 	mPopupMenuHandle(),
 	mReadOnly(p.read_only),
+	mSkipTripleClick(false),
 	mSpellCheck(p.spellcheck),
 	mSpellCheckStart(-1),
 	mSpellCheckEnd(-1),
@@ -1015,6 +1016,11 @@ BOOL LLTextBase::handleMouseDown(S32 x, S32 y, MASK mask)
 	// handle triple click
 	if (!mTripleClickTimer.hasExpired())
 	{
+		if (mSkipTripleClick)
+		{
+			return TRUE;
+		}
+
 		S32 real_line = getLineNumFromDocIndex(mCursorPos, false);
 		S32 line_start = -1;
 		S32 line_end = -1;
