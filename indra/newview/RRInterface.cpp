@@ -57,6 +57,7 @@
 #include "llpanelmaininventory.h"
 #include "llpaneloutfitedit.h"
 #include "llpaneltopinfobar.h"
+#include "llpresetsmanager.h"
 #include "llregionhandle.h"
 #include "llrendersphere.h"
 #include "llselectmgr.h"
@@ -433,6 +434,8 @@ void refreshCachedVariable (std::string var)
 		}
 	}
 	else if (var == "camunlock" || var == "setcam_unlock") {
+		gAgentCamera.switchCameraPreset(CAMERA_PRESET_REAR_VIEW);
+		LLPresetsManager::getInstance()->loadPreset(PRESETS_CAMERA, PRESETS_REAR_VIEW);
 		gAgentCamera.resetView(TRUE, TRUE);
 	}
 	//else if (var.find ("camzoommax") == 0 || var.find ("camzoommin") == 0) {
