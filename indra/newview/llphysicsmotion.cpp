@@ -250,9 +250,9 @@ LLPhysicsMotionController::~LLPhysicsMotionController()
         }
 }
 
-BOOL LLPhysicsMotionController::onActivate() 
+bool LLPhysicsMotionController::onActivate()
 { 
-        return TRUE; 
+        return true; 
 }
 
 void LLPhysicsMotionController::onDeactivate() 

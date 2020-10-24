@@ -67,7 +67,7 @@ static F32 MAX_CONSTRAINTS = 10;
 //-----------------------------------------------------------------------------
 LLKeyframeMotion::JointMotionList::JointMotionList()
 	: mDuration(0.f),
-	  mLoop(FALSE),
+	  mLoop(0),
 	  mLoopInPoint(0.f),
 	  mLoopOutPoint(0.f),
 	  mEaseInDuration(0.f),
@@ -660,7 +660,7 @@ bool LLKeyframeMotion::setupPose()
 //-----------------------------------------------------------------------------
 // LLKeyframeMotion::onActivate()
 //-----------------------------------------------------------------------------
-BOOL LLKeyframeMotion::onActivate()
+bool LLKeyframeMotion::onActivate()
 {
 	// If the keyframe anim has an associated emote, trigger it. 
 	if( mJointMotionList->mEmoteName.length() > 0 )
@@ -675,7 +675,7 @@ BOOL LLKeyframeMotion::onActivate()
 
 	mLastLoopedTime = 0.f;
 
-	return TRUE;
+	return true;
 }
 
 //-----------------------------------------------------------------------------

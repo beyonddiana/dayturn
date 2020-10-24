@@ -432,7 +432,7 @@ void LLFloaterBvhPreview::resetMotion()
 		return;
 
 	LLVOAvatar* avatarp = mAnimPreview->getDummyAvatar();
-	BOOL paused = avatarp->areAnimationsPaused();
+	bool paused = avatarp->areAnimationsPaused();
 
 	LLKeyframeMotion* motionp = dynamic_cast<LLKeyframeMotion*>(avatarp->findMotion(mMotionID));
 	if( motionp )
@@ -671,7 +671,7 @@ void LLFloaterBvhPreview::onCommitBaseAnim()
 	{
 		LLVOAvatar* avatarp = mAnimPreview->getDummyAvatar();
 
-		BOOL paused = avatarp->areAnimationsPaused();
+		bool paused = avatarp->areAnimationsPaused();
 
 		// stop all other possible base motions
 		avatarp->stopMotion(mIDList["Standing"], TRUE);

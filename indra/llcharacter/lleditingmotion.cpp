@@ -141,7 +141,7 @@ LLMotion::LLMotionInitStatus LLEditingMotion::onInitialize(LLCharacter *characte
 //-----------------------------------------------------------------------------
 // LLEditingMotion::onActivate()
 //-----------------------------------------------------------------------------
-BOOL LLEditingMotion::onActivate()
+bool LLEditingMotion::onActivate()
 {
 	// propagate joint positions to kinematic chain
     // SL-315
@@ -155,7 +155,7 @@ BOOL LLEditingMotion::onActivate()
 	mShoulderJoint.setRotation(	mShoulderState->getJoint()->getRotation() );
 	mElbowJoint.setRotation(	mElbowState->getJoint()->getRotation() );
 
-	return TRUE;
+	return true;
 }
 
 //-----------------------------------------------------------------------------

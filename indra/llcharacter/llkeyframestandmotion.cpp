@@ -129,7 +129,7 @@ LLMotion::LLMotionInitStatus LLKeyframeStandMotion::onInitialize(LLCharacter *ch
 //-----------------------------------------------------------------------------
 // LLKeyframeStandMotion::onActivate()
 //-----------------------------------------------------------------------------
-BOOL LLKeyframeStandMotion::onActivate()
+bool LLKeyframeStandMotion::onActivate()
 {
 	//-------------------------------------------------------------------------
 	// setup the IK solvers

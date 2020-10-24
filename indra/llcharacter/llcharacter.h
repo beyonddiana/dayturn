@@ -125,7 +125,7 @@ public:
 	//-------------------------------------------------------------------------
 	// registers a motion with the character
 	// returns true if successfull
-	BOOL registerMotion( const LLUUID& id, LLMotionConstructor create );
+	bool registerMotion( const LLUUID& id, LLMotionConstructor create );
 
 	void removeMotion( const LLUUID& id );
 
@@ -143,7 +143,7 @@ public:
 	virtual BOOL stopMotion( const LLUUID& id, BOOL stop_immediate = FALSE );
 
 	// is this motion active?
-	BOOL isMotionActive( const LLUUID& id );
+	bool isMotionActive( const LLUUID& id );
 
 	// Event handler for motion deactivation.
 	// Called when a motion has completely stopped and has been deactivated.
@@ -156,7 +156,7 @@ public:
 	void updateMotions(e_update_t update_type);
 
 	LLAnimPauseRequest requestPause();
-	BOOL areAnimationsPaused() const { return mMotionController.isPaused(); }
+	bool areAnimationsPaused() const { return mMotionController.isPaused(); }
 	void setAnimTimeFactor(F32 factor) { mMotionController.setTimeFactor(factor); }
 	void setTimeStep(F32 time_step) { mMotionController.setTimeStep(time_step); }
 
@@ -259,7 +259,7 @@ public:
 	void			setSkeletonSerialNum( U32 num )	{ mSkeletonSerialNum = num; }
 
 	static std::vector< LLCharacter* > sInstances;
-	static BOOL sAllowInstancesChange ; //debug use
+	static bool sAllowInstancesChange ; //debug use
 
 	virtual void	setHoverOffset(const LLVector3& hover_offset, bool send_update=true) { mHoverOffset = hover_offset; }
 	const LLVector3& getHoverOffset() const { return mHoverOffset; }

@@ -83,7 +83,7 @@ LLMotion::LLMotionInitStatus LLKeyframeWalkMotion::onInitialize(LLCharacter *cha
 //-----------------------------------------------------------------------------
 // LLKeyframeWalkMotion::onActivate()
 //-----------------------------------------------------------------------------
-BOOL LLKeyframeWalkMotion::onActivate()
+bool LLKeyframeWalkMotion::onActivate()
 {
 	mRealTimeLast = 0.0f;
 	mAdjTimeLast = 0.0f;
@@ -173,7 +173,7 @@ LLMotion::LLMotionInitStatus LLWalkAdjustMotion::onInitialize(LLCharacter *chara
 //-----------------------------------------------------------------------------
 // LLWalkAdjustMotion::onActivate()
 //-----------------------------------------------------------------------------
-BOOL LLWalkAdjustMotion::onActivate()
+bool LLWalkAdjustMotion::onActivate()
 {
 	mAnimSpeed = 0.f;
 	mAdjustedSpeed = 0.f;
@@ -190,7 +190,7 @@ BOOL LLWalkAdjustMotion::onActivate()
 	F32 rightAnkleOffset = (mRightAnkleJoint->getWorldPosition() - mCharacter->getCharacterPosition()).magVec();
 	mAnkleOffset = llmax(leftAnkleOffset, rightAnkleOffset);
 
-	return TRUE;
+	return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -360,12 +360,12 @@ LLMotion::LLMotionInitStatus LLFlyAdjustMotion::onInitialize(LLCharacter *charac
 //-----------------------------------------------------------------------------
 // LLFlyAdjustMotion::onActivate()
 //-----------------------------------------------------------------------------
-BOOL LLFlyAdjustMotion::onActivate()
+bool LLFlyAdjustMotion::onActivate()
 {
 	mPelvisState->setPosition(LLVector3::zero);
 	mPelvisState->setRotation(LLQuaternion::DEFAULT);
 	mRoll = 0.f;
-	return TRUE;
+	return true;
 }
 
 //-----------------------------------------------------------------------------

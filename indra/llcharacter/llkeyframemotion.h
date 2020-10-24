@@ -87,9 +87,9 @@ public:
 	//-------------------------------------------------------------------------
 
 	// motions must specify whether or not they loop
-	virtual BOOL getLoop() { 
+	virtual bool getLoop() {
 		if (mJointMotionList) return mJointMotionList->mLoop; 
-		else return FALSE;
+		else return false;
 	}
 
 	// motions must report their total duration
@@ -129,7 +129,7 @@ public:
 	// called when a motion is activated
 	// must return TRUE to indicate success, or else
 	// it will be deactivated
-	virtual BOOL onActivate();
+	virtual bool onActivate();
 
 	// called per time step
 	// must return TRUE while it is active, and
@@ -393,7 +393,7 @@ public:
 	public:
 		std::vector<JointMotion*> mJointMotionArray;
 		F32						mDuration;
-		BOOL					mLoop;
+		S32					    mLoop;
 		F32						mLoopInPoint;
 		F32						mLoopOutPoint;
 		F32						mEaseInDuration;

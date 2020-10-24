@@ -48,9 +48,9 @@ LLJointSolverRP3::LLJointSolverRP3()
 	mLengthAB = 1.0f;
 	mLengthBC = 1.0f;
 	mPoleVector.setVec( 1.0f, 0.0f, 0.0f );
-	mbUseBAxis = FALSE;
+	mbUseBAxis = false;
 	mTwist = 0.0f;
-	mFirstTime = TRUE;
+	mFirstTime = true;
 }
 
 
@@ -109,7 +109,7 @@ void LLJointSolverRP3::setBAxis( const LLVector3& bAxis )
 {
 	mBAxis = bAxis;
 	mBAxis.normVec();
-	mbUseBAxis = TRUE;
+	mbUseBAxis = true;
 }
 
 //-----------------------------------------------------------------------------

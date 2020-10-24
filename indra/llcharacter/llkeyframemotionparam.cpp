@@ -137,7 +137,7 @@ LLMotion::LLMotionInitStatus LLKeyframeMotionParam::onInitialize(LLCharacter *ch
 //-----------------------------------------------------------------------------
 // LLKeyframeMotionParam::onActivate()
 //-----------------------------------------------------------------------------
-BOOL LLKeyframeMotionParam::onActivate()
+bool LLKeyframeMotionParam::onActivate()
 {
 	for (motion_map_t::iterator iter = mParameterizedMotions.begin();
 		 iter != mParameterizedMotions.end(); ++iter)
@@ -149,7 +149,7 @@ BOOL LLKeyframeMotionParam::onActivate()
 			paramMotion.mMotion->activate(mActivationTimestamp);
 		}
 	}
-	return TRUE;
+	return true;
 }
 
 
