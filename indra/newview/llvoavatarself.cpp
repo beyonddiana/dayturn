@@ -186,7 +186,7 @@ LLVOAvatarSelf::LLVOAvatarSelf(const LLUUID& id,
 {
 	gAgentWearables.setAvatarObject(this);
 
-	mMotionController.mIsSelf = TRUE;
+	mMotionController.mIsSelf = true;
 
 	LL_DEBUGS() << "Marking avatar as self " << id << LL_ENDL;
 }

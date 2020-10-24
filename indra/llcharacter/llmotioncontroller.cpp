@@ -133,13 +133,13 @@ LLMotionController::LLMotionController()
 	  mAnimTime(0.f),
 	  mPrevTimerElapsed(0.f),
 	  mLastTime(0.0f),
-	  mHasRunOnce(FALSE),
-	  mPaused(FALSE),
+	  mHasRunOnce(false),
+	  mPaused(false),
 	  mPausedFrame(0),
 	  mTimeStep(0.f),
 	  mTimeStepCount(0),
 	  mLastInterp(0.f),
-	  mIsSelf(FALSE),
+	  mIsSelf(false),
 	  mLastCountAfterPurge(0)
 {
 }
@@ -523,7 +523,7 @@ void LLMotionController::updateIdleMotion(LLMotion* motionp)
 		if (mLastTime <= motionp->mSendStopTimestamp)
 		{
 			mCharacter->requestStopMotion( motionp );
-			stopMotionInstance(motionp, FALSE);
+			stopMotionInstance(motionp, false);
 		}
 	}
 	else if (mAnimTime >= motionp->mActivationTimestamp)
@@ -625,7 +625,7 @@ void LLMotionController::updateMotionsByType(LLMotion::LLMotionBlendType anim_ty
 				if (mLastTime <= motionp->mSendStopTimestamp)
 				{
 					mCharacter->requestStopMotion( motionp );
-					stopMotionInstance(motionp, FALSE);
+					stopMotionInstance(motionp, false);
 				}
 			}
 
@@ -706,7 +706,7 @@ void LLMotionController::updateMotionsByType(LLMotion::LLMotionBlendType anim_ty
 				if (mLastTime <= motionp->mSendStopTimestamp)
 				{
 					mCharacter->requestStopMotion( motionp );
-					stopMotionInstance(motionp, FALSE);
+					stopMotionInstance(motionp, false);
 				}
 			}
 
@@ -753,7 +753,7 @@ void LLMotionController::updateMotionsByType(LLMotion::LLMotionBlendType anim_ty
 				// propagate this to the network
 				// as not all viewers are guaranteed to have access to the same logic
 				mCharacter->requestStopMotion( motionp );
-				stopMotionInstance(motionp, FALSE);
+				stopMotionInstance(motionp, false);
 			}
 
 		}
@@ -897,7 +897,7 @@ void LLMotionController::updateMotions(bool force_update)
 		}
 	}
 
-	mHasRunOnce = TRUE;
+	mHasRunOnce = true;
 //	LL_INFOS() << "Motion controller time " << motionTimer.getElapsedTimeF32() << LL_ENDL;
 }
 
@@ -916,19 +916,19 @@ void LLMotionController::updateMotionsMinimal()
 
 	deactivateStoppedMotions();
 
-	mHasRunOnce = TRUE;
+	mHasRunOnce = true;
 }
 
 //-----------------------------------------------------------------------------
 // activateMotionInstance()
 //-----------------------------------------------------------------------------
-BOOL LLMotionController::activateMotionInstance(LLMotion *motion, F32 time)
+bool LLMotionController::activateMotionInstance(LLMotion *motion, F32 time)
 {
 	// It's not clear why the getWeight() line seems to be crashing this, but
 	// hopefully this fixes it.
 	if (motion == NULL || motion->getPose() == NULL)
 	{
-		return FALSE;	
+		return false;
 	}
 
 	if (mLoadingMotions.find(motion) != mLoadingMotions.end())
@@ -936,7 +936,7 @@ BOOL LLMotionController::activateMotionInstance(LLMotion *motion, F32 time)
 		// we want to start this motion, but we can't yet, so flag it as started
 		motion->setStopped(FALSE);
 		// report pending animations as activated
-		return TRUE;
+		return true;
 	}
 
 	motion->mResidualWeight = motion->getPose()->getWeight();
@@ -980,13 +980,13 @@ BOOL LLMotionController::activateMotionInstance(LLMotion *motion, F32 time)
 		}
 	}
 	
-	return TRUE;
+	return true;
 }
 
 //-----------------------------------------------------------------------------
 // deactivateMotionInstance()
 //-----------------------------------------------------------------------------
-BOOL LLMotionController::deactivateMotionInstance(LLMotion *motion)
+bool LLMotionController::deactivateMotionInstance(LLMotion *motion)
 {
 	motion->deactivate();
 
@@ -1003,7 +1003,7 @@ BOOL LLMotionController::deactivateMotionInstance(LLMotion *motion)
 		mActiveMotions.remove(motion);
 	}
 
-	return TRUE;
+	return true;
 }
 
 void LLMotionController::deprecateMotionInstance(LLMotion* motion)
@@ -1011,7 +1011,7 @@ void LLMotionController::deprecateMotionInstance(LLMotion* motion)
 	mDeprecatedMotions.insert(motion);
 
 	//fade out deprecated motion
-	stopMotionInstance(motion, FALSE);
+	stopMotionInstance(motion, false);
 	//no longer canonical
 	mAllMotions.erase(motion->getID());
 }
@@ -1129,7 +1129,7 @@ void LLMotionController::pauseAllMotions()
 	if (!mPaused)
 	{
 		//LL_INFOS() << "Pausing animations..." << LL_ENDL;
-		mPaused = TRUE;
+		mPaused = true;
         mPausedFrame = LLFrameTimer::getFrameCount();
 	}
 	
@@ -1143,7 +1143,7 @@ void LLMotionController::unpauseAllMotions()
 	if (mPaused)
 	{
 		//LL_INFOS() << "Unpausing animations..." << LL_ENDL;
-		mPaused = FALSE;
+		mPaused = false;
 	}
 }
 // End
