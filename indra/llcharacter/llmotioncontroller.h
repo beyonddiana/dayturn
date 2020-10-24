@@ -85,7 +85,7 @@ class LLMotionController
 public:
 	typedef std::list<LLMotion*> motion_list_t;
 	typedef std::set<LLMotion*> motion_set_t;
-	BOOL mIsSelf;
+	bool mIsSelf;
 	
 public:
 	// Constructor
@@ -147,8 +147,8 @@ public:
 	// pause and continue all motions
 	void pauseAllMotions();
 	void unpauseAllMotions();
-	BOOL isPaused() const { return mPaused; }
-    S32 getPausedFrame() const { return mPausedFrame; }
+	bool isPaused() const { return mPaused; }
+    S64 getPausedFrame() const { return mPausedFrame; }
 
 	void setTimeStep(F32 step);
     F32 getTimeStep() const { return mTimeStep; }
@@ -178,8 +178,8 @@ protected:
 	// internal operations act on motion instances directly
 	// as there can be duplicate motions per id during blending overlap
 	void deleteAllMotions();
-	BOOL activateMotionInstance(LLMotion *motion, F32 time);
-	BOOL deactivateMotionInstance(LLMotion *motion);
+	bool activateMotionInstance(LLMotion *motion, F32 time);
+	bool deactivateMotionInstance(LLMotion *motion);
 	void deprecateMotionInstance(LLMotion* motion);
 	BOOL stopMotionInstance(LLMotion *motion, BOOL stop_imemdiate);
 	void removeMotionInstance(LLMotion* motion);
@@ -220,9 +220,9 @@ protected:
 	F32					mPrevTimerElapsed;
 	F32					mAnimTime;
 	F32					mLastTime;
-	BOOL				mHasRunOnce;
-	BOOL				mPaused;
-	S32					mPausedFrame;
+	bool				mHasRunOnce;
+	bool				mPaused;
+	S64					mPausedFrame;
 	F32					mTimeStep;
 	S32					mTimeStepCount;
 	F32					mLastInterp;

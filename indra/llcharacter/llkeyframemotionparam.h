@@ -128,12 +128,12 @@ protected:
 	};
 	
 	// add a motion and associated parameter triplet
-	BOOL addKeyframeMotion(char *name, const LLUUID &id, char *param, F32 value);
+	bool addKeyframeMotion(char *name, const LLUUID &id, char *param, F32 value);
 	
 	// set default motion for LOD and retrieving blend constants
 	void setDefaultKeyframeMotion(char *);
 
-	BOOL loadMotions();
+	bool loadMotions();
 
 protected:
 	//-------------------------------------------------------------------------

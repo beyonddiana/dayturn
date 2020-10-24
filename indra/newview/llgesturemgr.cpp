@@ -538,7 +538,7 @@ void LLGestureMgr::playGesture(LLMultiGesture* gesture)
 	gesture->mCurrentStep = 0;
 
 	// Add to list of playing
-	gesture->mPlaying = TRUE;
+	gesture->mPlaying = true;
 	mPlaying.push_back(gesture);
 
 	// Load all needed assets to minimize the delays
@@ -862,7 +862,7 @@ void LLGestureMgr::stepGesture(LLMultiGesture* gesture)
 	}
 
 	// Run the current steps
-	BOOL waiting = FALSE;
+	bool waiting = false;
 	while (!waiting && gesture->mPlaying)
 	{
 		// Get the current step, if there is one.
@@ -876,7 +876,7 @@ void LLGestureMgr::stepGesture(LLMultiGesture* gesture)
 		else
 		{
 			// step stays null, we're off the end
-			gesture->mWaitingAtEnd = TRUE;
+			gesture->mWaitingAtEnd = true;
 		}
 
 
@@ -891,12 +891,12 @@ void LLGestureMgr::stepGesture(LLMultiGesture* gesture)
 				&& gesture->mPlayingAnimIDs.empty()))
 			{
 				// all animations are done playing
-				gesture->mWaitingAtEnd = FALSE;
-				gesture->mPlaying = FALSE;
+				gesture->mWaitingAtEnd = false;
+				gesture->mPlaying = false;
 			}
 			else
 			{
-				waiting = TRUE;
+				waiting = true;
 			}
 			continue;
 		}
@@ -911,7 +911,7 @@ void LLGestureMgr::stepGesture(LLMultiGesture* gesture)
 				&& gesture->mPlayingAnimIDs.empty()))
 			{
 				// all animations are done playing
-				gesture->mWaitingAnimations = FALSE;
+				gesture->mWaitingAnimations = false;
 				gesture->mCurrentStep++;
 			}
 			else if (gesture->mWaitTimer.getElapsedTimeF32() > MAX_WAIT_ANIM_SECS)
@@ -919,12 +919,12 @@ void LLGestureMgr::stepGesture(LLMultiGesture* gesture)
 				// we've waited too long for an animation
 				LL_INFOS() << "Waited too long for animations to stop, continuing gesture."
 					<< LL_ENDL;
-				gesture->mWaitingAnimations = FALSE;
+				gesture->mWaitingAnimations = false;
 				gesture->mCurrentStep++;
 			}
 			else
 			{
-				waiting = TRUE;
+				waiting = true;
 			}
 			continue;
 		}
@@ -940,13 +940,13 @@ void LLGestureMgr::stepGesture(LLMultiGesture* gesture)
 			if (elapsed > wait_step->mWaitSeconds)
 			{
 				// wait is done, continue execution
-				gesture->mWaitingTimer = FALSE;
+				gesture->mWaitingTimer = false;
 				gesture->mCurrentStep++;
 			}
 			else
 			{
 				// we're waiting, so execution is done for now
-				waiting = TRUE;
+				waiting = true;
 			}
 			continue;
 		}
@@ -1028,12 +1028,12 @@ void LLGestureMgr::runStep(LLMultiGesture* gesture, LLGestureStep* step)
 			LLGestureStepWait* wait_step = (LLGestureStepWait*)step;
 			if (wait_step->mFlags & WAIT_FLAG_TIME)
 			{
-				gesture->mWaitingTimer = TRUE;
+				gesture->mWaitingTimer = true;
 				gesture->mWaitTimer.reset();
 			}
 			else if (wait_step->mFlags & WAIT_FLAG_ALL_ANIM)
 			{
-				gesture->mWaitingAnimations = TRUE;
+				gesture->mWaitingAnimations = true;
 				// Use the wait timer as a deadlock breaker for animation
 				// waits.
 				gesture->mWaitTimer.reset();
