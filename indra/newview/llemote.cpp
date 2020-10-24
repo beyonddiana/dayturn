@@ -74,7 +74,7 @@ LLMotion::LLMotionInitStatus LLEmote::onInitialize(LLCharacter *character)
 //-----------------------------------------------------------------------------
 // LLEmote::onActivate()
 //-----------------------------------------------------------------------------
-BOOL LLEmote::onActivate()
+bool LLEmote::onActivate()
 {
 	LLVisualParam* default_param = mCharacter->getVisualParam( "Express_Closed_Mouth" );
 	if( default_param )
@@ -89,7 +89,7 @@ BOOL LLEmote::onActivate()
 		mCharacter->updateVisualParams();
 	}
 	
-	return TRUE;
+	return true;
 }
 
 

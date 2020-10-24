@@ -60,7 +60,7 @@ public:
 	// animation callbacks to be implemented by subclasses
 	//-------------------------------------------------------------------------
 	virtual LLMotionInitStatus onInitialize(LLCharacter *character);
-	virtual BOOL onActivate();
+	virtual bool onActivate();
 	virtual F32 getEaseInDuration();
 	virtual BOOL onUpdate(F32 activeTime, U8* joint_mask);
 

@@ -66,7 +66,7 @@ public:
 	/*virtual*/ void updateJointGeometry();
 	/*virtual*/ void dump();
 
-	/*virtual*/ BOOL isAnimatable() const { return FALSE; }
+	/*virtual*/ bool isAnimatable() const { return false; }
 	
 private:
 

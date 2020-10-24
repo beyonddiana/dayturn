@@ -76,16 +76,16 @@ LLMotionRegistry::~LLMotionRegistry()
 //-----------------------------------------------------------------------------
 // addMotion()
 //-----------------------------------------------------------------------------
-BOOL LLMotionRegistry::registerMotion( const LLUUID& id, LLMotionConstructor constructor )
+bool LLMotionRegistry::registerMotion( const LLUUID& id, LLMotionConstructor constructor )
 {
 	//	LL_INFOS() << "Registering motion: " << name << LL_ENDL;
 	if (!is_in_map(mMotionTable, id))
 	{
 		mMotionTable[id] = constructor;
-		return TRUE;
+		return true;
 	}
 	
-	return FALSE;
+	return false;
 }
 
 //-----------------------------------------------------------------------------
@@ -309,7 +309,7 @@ void LLMotionController::setCharacter(LLCharacter *character)
 //-----------------------------------------------------------------------------
 // registerMotion()
 //-----------------------------------------------------------------------------
-BOOL LLMotionController::registerMotion( const LLUUID& id, LLMotionConstructor constructor )
+bool LLMotionController::registerMotion( const LLUUID& id, LLMotionConstructor constructor )
 {
 	return sRegistry.registerMotion(id, constructor);
 }

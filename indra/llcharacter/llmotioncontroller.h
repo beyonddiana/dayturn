@@ -62,7 +62,7 @@ public:
 
 	// adds motion classes to the registry
 	// returns true if successfull
-	BOOL registerMotion( const LLUUID& id, LLMotionConstructor create);
+	bool registerMotion( const LLUUID& id, LLMotionConstructor create);
 
 	// creates a new instance of a named motion
 	// returns NULL motion is not registered
@@ -102,7 +102,7 @@ public:
 	// registers a motion with the controller
 	// (actually just forwards call to motion registry)
 	// returns true if successfull
-	BOOL registerMotion( const LLUUID& id, LLMotionConstructor create );
+	bool registerMotion( const LLUUID& id, LLMotionConstructor create );
 
 	// creates a motion from the registry
 	LLMotion *createMotion( const LLUUID &id );

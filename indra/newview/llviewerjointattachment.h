@@ -72,7 +72,7 @@ public:
 	void setIsHUDAttachment(BOOL is_hud) { mIsHUDAttachment = is_hud; }
 	BOOL getIsHUDAttachment() const { return mIsHUDAttachment; }
 
-	BOOL isAnimatable() const { return FALSE; }
+	bool isAnimatable() const { return false; }
 
 	S32 getGroup() const { return mGroup; }
 	S32 getPieSlice() const { return mPieSlice; }

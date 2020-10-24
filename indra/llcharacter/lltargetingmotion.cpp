@@ -93,9 +93,9 @@ LLMotion::LLMotionInitStatus LLTargetingMotion::onInitialize(LLCharacter *charac
 //-----------------------------------------------------------------------------
 // LLTargetingMotion::onActivate()
 //-----------------------------------------------------------------------------
-BOOL LLTargetingMotion::onActivate()
+bool LLTargetingMotion::onActivate()
 {
-	return TRUE;
+	return true;
 }
 
 //-----------------------------------------------------------------------------

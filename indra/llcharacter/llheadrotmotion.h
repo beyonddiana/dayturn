@@ -64,7 +64,7 @@ public:
 	//-------------------------------------------------------------------------
 
 	// motions must specify whether or not they loop
-	virtual BOOL getLoop() { return TRUE; }
+	virtual bool getLoop() { return true; }
 
 	// motions must report their total duration
 	virtual F32 getDuration() { return 0.0; }
@@ -91,7 +91,7 @@ public:
 	// called when a motion is activated
 	// must return TRUE to indicate success, or else
 	// it will be deactivated
-	virtual BOOL onActivate();
+	virtual bool onActivate();
 
 	// called per time step
 	// must return TRUE while it is active, and
@@ -147,7 +147,7 @@ public:
 	//-------------------------------------------------------------------------
 
 	// motions must specify whether or not they loop
-	virtual BOOL getLoop() { return TRUE; }
+	virtual bool getLoop() { return true; }
 
 	// motions must report their total duration
 	virtual F32 getDuration() { return 0.0; }
@@ -174,7 +174,7 @@ public:
 	// called when a motion is activated
 	// must return TRUE to indicate success, or else
 	// it will be deactivated
-	virtual BOOL onActivate();
+	virtual bool onActivate();
 
 	// called per time step
 	// must return TRUE while it is active, and
@@ -205,7 +205,7 @@ public:
 	// eye blinking
 	LLFrameTimer		mEyeBlinkTimer;
 	F32					mEyeBlinkTime;
-	BOOL				mEyesClosed;
+	bool				mEyesClosed;
 };
 
 #endif // LL_LLHEADROTMOTION_H

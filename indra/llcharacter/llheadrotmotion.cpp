@@ -164,9 +164,9 @@ LLMotion::LLMotionInitStatus LLHeadRotMotion::onInitialize(LLCharacter *characte
 //-----------------------------------------------------------------------------
 // LLHeadRotMotion::onActivate()
 //-----------------------------------------------------------------------------
-BOOL LLHeadRotMotion::onActivate()
+bool LLHeadRotMotion::onActivate()
 {
-	return TRUE;
+	return true;
 }
 
 
@@ -278,7 +278,7 @@ LLEyeMotion::LLEyeMotion(const LLUUID &id) : LLMotion(id)
 	mEyeLookAwayPitch = 0.f;
 
 	mEyeBlinkTime = 0.f;
-	mEyesClosed = FALSE;
+	mEyesClosed = false;
 	
 	mHeadJoint = NULL;
 
@@ -338,9 +338,9 @@ LLMotion::LLMotionInitStatus LLEyeMotion::onInitialize(LLCharacter *character)
 //-----------------------------------------------------------------------------
 // LLEyeMotion::onActivate()
 //-----------------------------------------------------------------------------
-BOOL LLEyeMotion::onActivate()
+bool LLEyeMotion::onActivate()
 {
-	return TRUE;
+	return true;
 }
 
 
@@ -399,7 +399,7 @@ BOOL LLEyeMotion::onUpdate(F32 time, U8* joint_mask)
 
 		if (rightEyeBlinkMorph == 1.f)
 		{
-			mEyesClosed = TRUE;
+			mEyesClosed = true;
 			mEyeBlinkTime = EYE_BLINK_CLOSE_TIME;
 			mEyeBlinkTimer.reset();
 		}
@@ -419,14 +419,14 @@ BOOL LLEyeMotion::onUpdate(F32 time, U8* joint_mask)
 
 			if (rightEyeBlinkMorph == 0.f)
 			{
-				mEyesClosed = FALSE;
+				mEyesClosed = false;
 				mEyeBlinkTime = EYE_BLINK_MIN_TIME + ll_frand(EYE_BLINK_MAX_TIME - EYE_BLINK_MIN_TIME);
 				mEyeBlinkTimer.reset();
 			}
 		}
 	}
 
-	BOOL has_eye_target = FALSE;
+	bool has_eye_target = false;
 	LLVector3* targetPos = (LLVector3*)mCharacter->getAnimationData("LookAtPoint");
 
 	if (targetPos)
@@ -436,7 +436,7 @@ BOOL LLEyeMotion::onUpdate(F32 time, U8* joint_mask)
 		LLVector3		up;
 
 		eye_look_at = *targetPos;
-		has_eye_target = TRUE;
+		has_eye_target = true;
 		F32 lookAtDistance = eye_look_at.normVec();
 
 		left.setVec(skyward % eye_look_at);

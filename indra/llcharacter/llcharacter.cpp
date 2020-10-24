@@ -39,7 +39,7 @@
 LLStringTable LLCharacter::sVisualParamNames(1024);
 
 std::vector< LLCharacter* > LLCharacter::sInstances;
-BOOL LLCharacter::sAllowInstancesChange = TRUE ;
+bool LLCharacter::sAllowInstancesChange = true ;
 
 //-----------------------------------------------------------------------------
 // LLCharacter()
@@ -114,7 +114,7 @@ LLJoint *LLCharacter::getJoint( const std::string &name )
 //-----------------------------------------------------------------------------
 // registerMotion()
 //-----------------------------------------------------------------------------
-BOOL LLCharacter::registerMotion( const LLUUID& id, LLMotionConstructor create )
+bool LLCharacter::registerMotion( const LLUUID& id, LLMotionConstructor create )
 {
 	return mMotionController.registerMotion(id, create);
 }
@@ -164,7 +164,7 @@ BOOL LLCharacter::stopMotion(const LLUUID& id, BOOL stop_immediate)
 //-----------------------------------------------------------------------------
 // isMotionActive()
 //-----------------------------------------------------------------------------
-BOOL LLCharacter::isMotionActive(const LLUUID& id)
+bool LLCharacter::isMotionActive(const LLUUID& id)
 {
 	LLMotion *motionp = mMotionController.findMotion(id);
 	if (motionp)
@@ -172,7 +172,7 @@ BOOL LLCharacter::isMotionActive(const LLUUID& id)
 		return mMotionController.isMotionActive(motionp);
 	}
 
-	return FALSE;
+	return false;
 }
 
 

@@ -91,7 +91,7 @@ LLMotion::LLMotionInitStatus LLKeyframeFallMotion::onInitialize(LLCharacter *cha
 //-----------------------------------------------------------------------------
 // LLKeyframeFallMotion::onActivate()
 //-----------------------------------------------------------------------------
-BOOL LLKeyframeFallMotion::onActivate()
+bool LLKeyframeFallMotion::onActivate()
 {
 	LLVector3 ground_pos;
 	LLVector3 ground_normal;
