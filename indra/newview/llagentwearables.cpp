@@ -748,7 +748,7 @@ BOOL LLAgentWearables::selfHasWearable(LLWearableType::EType type)
 }
 
 // virtual
-void LLAgentWearables::wearableUpdated(LLWearable *wearable, BOOL removed)
+void LLAgentWearables::wearableUpdated(LLWearable *wearable, bool removed)
 {
 	if (isAgentAvatarValid())
 	{

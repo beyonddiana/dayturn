@@ -114,7 +114,7 @@ public:
 	/*virtual*/ void				setWeight(F32 weight, BOOL upload_bake);
 	/*virtual*/ void				setAnimationTarget( F32 target_value, BOOL upload_bake );
 	/*virtual*/ void				stopAnimating(BOOL upload_bake);
-	/*virtual*/ BOOL				linkDrivenParams(visual_param_mapper mapper, BOOL only_cross_params);
+	/*virtual*/ bool				linkDrivenParams(visual_param_mapper mapper, bool only_cross_params);
 	/*virtual*/ void				resetDrivenParams();
 	
 	// LLViewerVisualParam Virtual functions
