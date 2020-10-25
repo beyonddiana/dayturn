@@ -316,9 +316,9 @@ public:
 	virtual bool onActivate() { return true; }
 
 	// called per time step
-	// must return TRUE while it is active, and
-	// must return FALSE when the motion is completed.
-	virtual BOOL onUpdate(F32 time, U8* joint_mask)
+	// must return true while it is active, and
+	// must return false when the motion is completed.
+	virtual bool onUpdate(F32 time, U8* joint_mask)
 	{
 		F32 nx[2];
 		nx[0]=time*TORSO_NOISE_SPEED;
@@ -335,7 +335,7 @@ public:
 		tQn.setQuat( rx, ry, 0.0f );
 		mTorsoState->setRotation( tQn );
 
-		return TRUE;
+		return true;
 	}
 
 	// called when a motion is deactivated
@@ -436,9 +436,9 @@ public:
 	virtual bool onActivate() { return true; }
 
 	// called per time step
-	// must return TRUE while it is active, and
-	// must return FALSE when the motion is completed.
-	virtual BOOL onUpdate(F32 time, U8* joint_mask)
+	// must return true while it is active, and
+	// must return false when the motion is completed.
+	virtual bool onUpdate(F32 time, U8* joint_mask)
 	{
 		mBreatheRate = 1.f;
 
@@ -446,7 +446,7 @@ public:
 
 		mChestState->setRotation(LLQuaternion(breathe_amt, LLVector3(0.f, 1.f, 0.f)));
 
-		return TRUE;
+		return true;
 	}
 
 	// called when a motion is deactivated
@@ -537,13 +537,13 @@ public:
 	virtual bool onActivate() { return true; }
 
 	// called per time step
-	// must return TRUE while it is active, and
-	// must return FALSE when the motion is completed.
-	virtual BOOL onUpdate(F32 time, U8* joint_mask)
+	// must return true while it is active, and
+	// must return false when the motion is completed.
+	virtual bool onUpdate(F32 time, U8* joint_mask)
 	{
 		mPelvisState->setPosition(LLVector3::zero);
 
-		return TRUE;
+		return true;
 	}
 
 	// called when a motion is deactivated

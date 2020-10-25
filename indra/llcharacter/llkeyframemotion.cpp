@@ -681,7 +681,7 @@ bool LLKeyframeMotion::onActivate()
 //-----------------------------------------------------------------------------
 // LLKeyframeMotion::onUpdate()
 //-----------------------------------------------------------------------------
-BOOL LLKeyframeMotion::onUpdate(F32 time, U8* joint_mask)
+bool LLKeyframeMotion::onUpdate(F32 time, U8* joint_mask)
 {
 	// llassert(time >= 0.f);		// This will fire
 	time = llmax(0.f, time);
@@ -1383,7 +1383,7 @@ bool LLKeyframeMotion::deserialize(LLDataPacker& dp, const LLUUID& asset_id)
 	{
 		LL_WARNS() << "invalid LLHandMotion::eHandPose index: " << word
                    << " for animation " << asset_id << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 	
 	mJointMotionList->mHandPose = (LLHandMotion::eHandPose)word;

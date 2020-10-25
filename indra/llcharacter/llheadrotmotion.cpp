@@ -173,7 +173,7 @@ bool LLHeadRotMotion::onActivate()
 //-----------------------------------------------------------------------------
 // LLHeadRotMotion::onUpdate()
 //-----------------------------------------------------------------------------
-BOOL LLHeadRotMotion::onUpdate(F32 time, U8* joint_mask)
+bool LLHeadRotMotion::onUpdate(F32 time, U8* joint_mask)
 {
 	LLQuaternion	targetHeadRotWorld;
 	LLQuaternion	currentRootRotWorld = mRootJoint->getWorldRotation();
@@ -250,7 +250,7 @@ BOOL LLHeadRotMotion::onUpdate(F32 time, U8* joint_mask)
 		mHeadState->setRotation( nlerp(1.f - NECK_LAG, LLQuaternion::DEFAULT, head_rot_local));
 	}
 
-	return TRUE;
+	return true;
 }
 
 
@@ -347,7 +347,7 @@ bool LLEyeMotion::onActivate()
 //-----------------------------------------------------------------------------
 // LLEyeMotion::onUpdate()
 //-----------------------------------------------------------------------------
-BOOL LLEyeMotion::onUpdate(F32 time, U8* joint_mask)
+bool LLEyeMotion::onUpdate(F32 time, U8* joint_mask)
 {
 	// Compute eye rotation.
 	LLQuaternion	target_eye_rot;
@@ -504,7 +504,7 @@ BOOL LLEyeMotion::onUpdate(F32 time, U8* joint_mask)
 	mLeftEyeState->setRotation( left_eye_rot );
 	mRightEyeState->setRotation( right_eye_rot );
 
-	return TRUE;
+	return true;
 }
 
 

@@ -103,7 +103,7 @@ void LLKeyframeWalkMotion::onDeactivate()
 //-----------------------------------------------------------------------------
 // LLKeyframeWalkMotion::onUpdate()
 //-----------------------------------------------------------------------------
-BOOL LLKeyframeWalkMotion::onUpdate(F32 time, U8* joint_mask)
+bool LLKeyframeWalkMotion::onUpdate(F32 time, U8* joint_mask)
 {
 	// compute time since last update
 	F32 deltaTime = time - mRealTimeLast;
@@ -196,7 +196,7 @@ bool LLWalkAdjustMotion::onActivate()
 //-----------------------------------------------------------------------------
 // LLWalkAdjustMotion::onUpdate()
 //-----------------------------------------------------------------------------
-BOOL LLWalkAdjustMotion::onUpdate(F32 time, U8* joint_mask)
+bool LLWalkAdjustMotion::onUpdate(F32 time, U8* joint_mask)
 {
 	// delta_time is guaranteed to be non zero
 	F32 delta_time = llclamp(time - mLastTime, TIME_EPSILON, MAX_TIME_DELTA);
@@ -313,7 +313,7 @@ BOOL LLWalkAdjustMotion::onUpdate(F32 time, U8* joint_mask)
 	// need to update *some* joint to keep this animation active
 	mPelvisState->setPosition(mPelvisOffset);
 
-	return TRUE;
+	return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -371,7 +371,7 @@ bool LLFlyAdjustMotion::onActivate()
 //-----------------------------------------------------------------------------
 // LLFlyAdjustMotion::onUpdate()
 //-----------------------------------------------------------------------------
-BOOL LLFlyAdjustMotion::onUpdate(F32 time, U8* joint_mask)
+bool LLFlyAdjustMotion::onUpdate(F32 time, U8* joint_mask)
 {
 	LLVector3 ang_vel = mCharacter->getCharacterAngularVelocity() * mCharacter->getTimeDilation();
 	F32 speed = mCharacter->getCharacterVelocity().magVec();
@@ -385,6 +385,6 @@ BOOL LLFlyAdjustMotion::onUpdate(F32 time, U8* joint_mask)
 	LLQuaternion roll(mRoll, LLVector3(0.f, 0.f, 1.f));
 	mPelvisState->setRotation(roll);
 
-	return TRUE;
+	return true;
 }
 

@@ -119,7 +119,7 @@ bool LLHandMotion::onActivate()
 //-----------------------------------------------------------------------------
 // LLHandMotion::onUpdate()
 //-----------------------------------------------------------------------------
-BOOL LLHandMotion::onUpdate(F32 time, U8* joint_mask)
+bool LLHandMotion::onUpdate(F32 time, U8* joint_mask)
 {
 	eHandPose *requestedHandPose;
 
@@ -232,7 +232,7 @@ BOOL LLHandMotion::onUpdate(F32 time, U8* joint_mask)
 		}
 	}
 
-	return TRUE;
+	return true;
 }
 
 

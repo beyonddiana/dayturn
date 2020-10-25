@@ -98,7 +98,7 @@ public:
 	// called per time step
 	// must return TRUE while it is active, and
 	// must return FALSE when the motion is completed.
-	virtual BOOL onUpdate(F32 time, U8* joint_mask);
+	virtual bool onUpdate(F32 time, U8* joint_mask);
 
 	// called when a motion is deactivated
 	virtual void onDeactivate();
