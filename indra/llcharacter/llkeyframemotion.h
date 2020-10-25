@@ -132,9 +132,9 @@ public:
 	virtual bool onActivate();
 
 	// called per time step
-	// must return TRUE while it is active, and
-	// must return FALSE when the motion is completed.
-	virtual BOOL onUpdate(F32 time, U8* joint_mask);
+	// must return true while it is active, and
+	// must return false when the motion is completed.
+	virtual bool onUpdate(F32 time, U8* joint_mask);
 
 	// called when a motion is deactivated
 	virtual void onDeactivate();
@@ -206,7 +206,7 @@ protected:
 			mEaseInStopTime(0.f),
 			mEaseOutStartTime(0.f),
 			mEaseOutStopTime(0.f), 
-			mUseTargetOffset(FALSE),
+			mUseTargetOffset(false),
 			mConstraintType(CONSTRAINT_TYPE_POINT),
 			mConstraintTargetType(CONSTRAINT_TARGET_TYPE_BODY),
 			mSourceConstraintVolume(0),
@@ -226,7 +226,7 @@ protected:
 		F32						mEaseInStopTime;
 		F32						mEaseOutStartTime;
 		F32						mEaseOutStopTime;
-		BOOL					mUseTargetOffset;
+		bool					mUseTargetOffset;
 		EConstraintType			mConstraintType;
 		EConstraintTargetType	mConstraintTargetType;
 	};

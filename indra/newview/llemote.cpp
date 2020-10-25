@@ -79,13 +79,13 @@ bool LLEmote::onActivate()
 	LLVisualParam* default_param = mCharacter->getVisualParam( "Express_Closed_Mouth" );
 	if( default_param )
 	{
-		default_param->setWeight( default_param->getMaxWeight(), FALSE );
+		default_param->setWeight( default_param->getMaxWeight(), false );
 	}
 
 	mParam = mCharacter->getVisualParam(mName.c_str());
 	if (mParam)
 	{
-		mParam->setWeight(0.f, FALSE);
+		mParam->setWeight(0.f, false);
 		mCharacter->updateVisualParams();
 	}
 	
@@ -96,12 +96,12 @@ bool LLEmote::onActivate()
 //-----------------------------------------------------------------------------
 // LLEmote::onUpdate()
 //-----------------------------------------------------------------------------
-BOOL LLEmote::onUpdate(F32 time, U8* joint_mask)
+bool LLEmote::onUpdate(F32 time, U8* joint_mask)
 {
 	if( mParam )
 	{
 		F32 weight = mParam->getMinWeight() + mPose.getWeight() * (mParam->getMaxWeight() - mParam->getMinWeight());
-		mParam->setWeight(weight, FALSE);
+		mParam->setWeight(weight, false);
 
 		// Cross fade against the default parameter
 		LLVisualParam* default_param = mCharacter->getVisualParam( "Express_Closed_Mouth" );
@@ -110,13 +110,13 @@ BOOL LLEmote::onUpdate(F32 time, U8* joint_mask)
 			F32 default_param_weight = default_param->getMinWeight() + 
 				(1.f - mPose.getWeight()) * ( default_param->getMaxWeight() - default_param->getMinWeight() );
 			
-			default_param->setWeight( default_param_weight, FALSE );
+			default_param->setWeight( default_param_weight, false );
 		}
 
 		mCharacter->updateVisualParams();
 	}
 
-	return TRUE;
+	return true;
 }
 
 
@@ -127,13 +127,13 @@ void LLEmote::onDeactivate()
 {
 	if( mParam )
 	{
-		mParam->setWeight( mParam->getDefaultWeight(), FALSE );
+		mParam->setWeight( mParam->getDefaultWeight(), false );
 	}
 
 	LLVisualParam* default_param = mCharacter->getVisualParam( "Express_Closed_Mouth" );
 	if( default_param )
 	{
-		default_param->setWeight( default_param->getMaxWeight(), FALSE );
+		default_param->setWeight( default_param->getMaxWeight(), false );
 	}
 
 	mCharacter->updateVisualParams();

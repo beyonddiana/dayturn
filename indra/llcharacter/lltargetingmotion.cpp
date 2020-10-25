@@ -101,18 +101,18 @@ bool LLTargetingMotion::onActivate()
 //-----------------------------------------------------------------------------
 // LLTargetingMotion::onUpdate()
 //-----------------------------------------------------------------------------
-BOOL LLTargetingMotion::onUpdate(F32 time, U8* joint_mask)
+bool LLTargetingMotion::onUpdate(F32 time, U8* joint_mask)
 {
 	F32 slerp_amt = LLSmoothInterpolation::getInterpolant(TORSO_TARGET_HALF_LIFE);
 
 	LLVector3 target;
 	LLVector3* lookAtPoint = (LLVector3*)mCharacter->getAnimationData("LookAtPoint");
 
-	BOOL result = TRUE;
+	bool result = true;
 
 	if (!lookAtPoint)
 	{
-		return TRUE;
+		return true;
 	}
 	else
 	{

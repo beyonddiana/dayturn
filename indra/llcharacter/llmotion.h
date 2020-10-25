@@ -141,9 +141,9 @@ public:
 	virtual LLMotionInitStatus onInitialize(LLCharacter *character) = 0;
 
 	// called per time step
-	// must return TRUE while it is active, and
-	// must return FALSE when the motion is completed.
-	virtual BOOL onUpdate(F32 activeTime, U8* joint_mask) = 0;
+	// must return true while it is active, and
+	// must return false when the motion is completed.
+	virtual bool onUpdate(F32 activeTime, U8* joint_mask) = 0;
 
 	// called when a motion is deactivated
 	virtual void onDeactivate() = 0;
@@ -206,7 +206,7 @@ public:
 	
 	LLMotionInitStatus onInitialize(LLCharacter*) { LL_INFOS() << "LLTestMotion::onInitialize()" << LL_ENDL; return STATUS_SUCCESS; }
 	bool onActivate() { LL_INFOS() << "LLTestMotion::onActivate()" << LL_ENDL; return true; }
-	BOOL onUpdate(F32 time, U8* joint_mask) { LL_INFOS() << "LLTestMotion::onUpdate(" << time << ")" << LL_ENDL; return TRUE; }
+	bool onUpdate(F32 time, U8* joint_mask) { LL_INFOS() << "LLTestMotion::onUpdate(" << time << ")" << LL_ENDL; return true; }
 	void onDeactivate() { LL_INFOS() << "LLTestMotion::onDeactivate()" << LL_ENDL; }
 };
 
@@ -253,9 +253,9 @@ public:
 	/*virtual*/ bool onActivate() { return true; }
 
 	// called per time step
-	// must return TRUE while it is active, and
-	// must return FALSE when the motion is completed.
-	/*virtual*/ BOOL onUpdate(F32 activeTime, U8* joint_mask) { return TRUE; }
+	// must return true while it is active, and
+	// must return false when the motion is completed.
+	/*virtual*/ bool onUpdate(F32 activeTime, U8* joint_mask) { return true; }
 
 	// called when a motion is deactivated
 	/*virtual*/ void onDeactivate() {}

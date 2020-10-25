@@ -158,15 +158,15 @@ void LLKeyframeStandMotion::onDeactivate()
 //-----------------------------------------------------------------------------
 // LLKeyframeStandMotion::onUpdate()
 //-----------------------------------------------------------------------------
-BOOL LLKeyframeStandMotion::onUpdate(F32 time, U8* joint_mask)
+bool LLKeyframeStandMotion::onUpdate(F32 time, U8* joint_mask)
 {
 	//-------------------------------------------------------------------------
 	// let the base class update the cycle
 	//-------------------------------------------------------------------------
-	BOOL status = LLKeyframeMotion::onUpdate(time, joint_mask);
+	bool status = LLKeyframeMotion::onUpdate(time, joint_mask);
 	if (!status)
 	{
-		return FALSE;
+		return false;
 	}
 
 	LLVector3 root_world_pos = mPelvisState->getJoint()->getParent()->getWorldPosition();
@@ -174,7 +174,7 @@ BOOL LLKeyframeStandMotion::onUpdate(F32 time, U8* joint_mask)
 	// have we received a valid world position for this avatar?
 	if (root_world_pos.isExactlyZero())
 	{
-		return TRUE;
+		return true;
 	}
 
 	//-------------------------------------------------------------------------
@@ -255,7 +255,7 @@ BOOL LLKeyframeStandMotion::onUpdate(F32 time, U8* joint_mask)
 	else if (mFrameNum < 2)
 	{
 		mFrameNum++;
-		return TRUE;
+		return true;
 	}
 
 	mFrameNum++;
@@ -336,7 +336,7 @@ BOOL LLKeyframeStandMotion::onUpdate(F32 time, U8* joint_mask)
 	//LL_INFOS() << "Stand drift amount " << (mCharacter->getCharacterPosition() - mLastGoodPosition).magVec() << LL_ENDL;
 
 //	LL_INFOS() << "DEBUG: " << speed << " : " << mTrackAnkles << LL_ENDL;
-	return TRUE;
+	return true;
 }
 
 // End

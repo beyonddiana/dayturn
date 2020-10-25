@@ -214,7 +214,7 @@ bool LLVisualParam::setInfo(LLVisualParamInfo *info)
 		return false;
 	mInfo = info;
 	mID = info->mID;
-	setWeight(getDefaultWeight(), FALSE );
+	setWeight(getDefaultWeight(), false );
 	return true;
 }
 

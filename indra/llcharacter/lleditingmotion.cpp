@@ -161,18 +161,18 @@ bool LLEditingMotion::onActivate()
 //-----------------------------------------------------------------------------
 // LLEditingMotion::onUpdate()
 //-----------------------------------------------------------------------------
-BOOL LLEditingMotion::onUpdate(F32 time, U8* joint_mask)
+bool LLEditingMotion::onUpdate(F32 time, U8* joint_mask)
 {
 	LLVector3 focus_pt;
 	LLVector3* pointAtPt = (LLVector3*)mCharacter->getAnimationData("PointAtPoint");
 
 
-	BOOL result = TRUE;
+	bool result = true;
 
 	if (!pointAtPt)
 	{
 		focus_pt = mLastSelectPt;
-		result = FALSE;
+		result = false;
 	}
 	else
 	{
