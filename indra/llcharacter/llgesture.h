@@ -87,7 +87,7 @@ public:
 	BOOL trigger(KEY key, MASK mask);
 
 	// Triggers if substring matches and generates revised string.
-	BOOL triggerAndReviseString(const std::string &string, std::string* revised_string);
+	bool triggerAndReviseString(const std::string &string, std::string* revised_string);
 
 	// Used for construction from UI
 	S32 count() const						{ return mList.size(); }

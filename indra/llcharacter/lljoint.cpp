@@ -104,7 +104,7 @@ void LLJoint::init()
 {
 	mName = "unnamed";
 	mParent = NULL;
-	mXform.setScaleChildOffset(TRUE);
+	mXform.setScaleChildOffset(true);
 	mXform.setScale(LLVector3(1.0f, 1.0f, 1.0f));
 	mDirtyFlags = MATRIX_DIRTY | ROTATION_DIRTY | POSITION_DIRTY;
 	mUpdateXform = TRUE;

@@ -179,7 +179,7 @@ LLAvatarAppearance::LLAvatarXmlInfo* LLAvatarAppearance::sAvatarXmlInfo = NULL;
 
 LLAvatarAppearance::LLAvatarAppearance(LLWearableData* wearable_data) :
 	LLCharacter(),
-	mIsDummy(FALSE),
+	mIsDummy(false),
 	mTexSkinColor( NULL ),
 	mTexHairColor( NULL ),
 	mTexEyeColor( NULL ),

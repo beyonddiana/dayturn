@@ -124,7 +124,7 @@ public:
 	BOOL triggerGesture(KEY key, MASK mask);
 
 	// Trigger all gestures referenced as substrings in this string
-	BOOL triggerAndReviseString(const std::string &str, std::string *revised_string = NULL);
+	bool triggerAndReviseString(const std::string &str, std::string *revised_string = NULL);
 
 	// Does some gesture have this key bound?
 	BOOL isKeyBound(KEY key, MASK mask);

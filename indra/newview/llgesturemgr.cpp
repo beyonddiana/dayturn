@@ -619,12 +619,12 @@ void LLGestureMgr::playGesture(const LLUUID& item_id)
 // Iterates through space delimited tokens in string, triggering any gestures found.
 // Generates a revised string that has the found tokens replaced by their replacement strings
 // and (as a minor side effect) has multiple spaces in a row replaced by single spaces.
-BOOL LLGestureMgr::triggerAndReviseString(const std::string &utf8str, std::string* revised_string)
+bool LLGestureMgr::triggerAndReviseString(const std::string &utf8str, std::string* revised_string)
 {
 	std::string tokenized = utf8str;
 
-	BOOL found_gestures = FALSE;
-	BOOL first_token = TRUE;
+	bool found_gestures = false;
+	bool first_token = true;
 
 	typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
 	boost::char_separator<char> sep(" ");
@@ -688,7 +688,7 @@ BOOL LLGestureMgr::triggerAndReviseString(const std::string &utf8str, std::strin
 								revised_string->append( gesture->mReplaceText );
 						}
 					}
-					found_gestures = TRUE;
+					found_gestures = true;
 				}
 			}
 		}
@@ -705,7 +705,7 @@ BOOL LLGestureMgr::triggerAndReviseString(const std::string &utf8str, std::strin
 				revised_string->append( cur_token );
 		}
 
-		first_token = FALSE;
+		first_token = false;
 		gesture = NULL;
 	}
 	return found_gestures;

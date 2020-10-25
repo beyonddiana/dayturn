@@ -164,8 +164,8 @@ LLVisualParam::LLVisualParam()
 	mLastWeight( 0.f ),
 	mNext( NULL ),
 	mTargetWeight( 0.f ),
-	mIsAnimating( FALSE ),
-	mIsDummy(FALSE),
+	mIsAnimating( false ),
+	mIsDummy(false),
 	mID( -1 ),
 	mInfo( 0 ),
 	mParamLocation(LOC_UNKNOWN)
@@ -207,29 +207,29 @@ LLVisualParam::~LLVisualParam()
 // setInfo()
 //-----------------------------------------------------------------------------
 
-BOOL LLVisualParam::setInfo(LLVisualParamInfo *info)
+bool LLVisualParam::setInfo(LLVisualParamInfo *info)
 {
 	llassert(mInfo == NULL);
 	if (info->mID < 0)
-		return FALSE;
+		return false;
 	mInfo = info;
 	mID = info->mID;
 	setWeight(getDefaultWeight(), FALSE );
-	return TRUE;
+	return true;
 }
 
 //-----------------------------------------------------------------------------
 // parseData()
 //-----------------------------------------------------------------------------
-BOOL LLVisualParam::parseData(LLXmlTreeNode *node)
+bool LLVisualParam::parseData(LLXmlTreeNode *node)
 {
 	LLVisualParamInfo *info = new LLVisualParamInfo;
 
 	info->parseXml(node);
 	if (!setInfo(info))
-		return FALSE;
+		return false;
 	
-	return TRUE;
+	return true;
 }
 */
 
@@ -333,10 +333,10 @@ void LLVisualParam::stopAnimating(BOOL upload_bake)
 }
 
 //virtual
-BOOL LLVisualParam::linkDrivenParams(visual_param_mapper mapper, BOOL only_cross_params)
+bool LLVisualParam::linkDrivenParams(visual_param_mapper mapper, bool only_cross_params)
 {
 	// nothing to do for non-driver parameters
-	return TRUE;
+	return true;
 }
 
 //virtual 
