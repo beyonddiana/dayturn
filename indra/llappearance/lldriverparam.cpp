@@ -474,9 +474,9 @@ void LLDriverParam::stopAnimating(BOOL upload_bake)
 }
 
 /*virtual*/ 
-BOOL LLDriverParam::linkDrivenParams(visual_param_mapper mapper, BOOL only_cross_params)
+bool LLDriverParam::linkDrivenParams(visual_param_mapper mapper, bool only_cross_params)
 {
-	BOOL success = TRUE;
+	bool success = true;
 	LLDriverParamInfo::entry_info_list_t::iterator iter;
 	for (iter = getInfo()->mDrivenInfoList.begin(); iter != getInfo()->mDrivenInfoList.end(); ++iter)
 	{
@@ -484,12 +484,12 @@ BOOL LLDriverParam::linkDrivenParams(visual_param_mapper mapper, BOOL only_cross
 		S32 driven_id = driven_info->mDrivenID;
 
 		// check for already existing links. Do not overwrite.
-		BOOL found = FALSE;
+		bool found = false;
 		for (entry_list_t::iterator driven_iter = mDriven.begin(); driven_iter != mDriven.end() && !found; ++driven_iter)
 		{
 			if (driven_iter->mInfo->mDrivenID == driven_id)
 			{
-				found = TRUE;
+				found = true;
 			}
 		}
 
@@ -504,7 +504,7 @@ BOOL LLDriverParam::linkDrivenParams(visual_param_mapper mapper, BOOL only_cross
 			}
 			else
 			{
-				success = FALSE;
+				success = false;
 			}
 		}
 	}
