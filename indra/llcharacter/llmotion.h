@@ -100,8 +100,8 @@ public:
 	// Activation functions.
 	// It is OK for other classes to activate a motion,
 	// but only the controller can deactivate it.
-	// Thus, if mActive == TRUE, the motion *may* be on the controllers active list,
-	// but if mActive == FALSE, the motion is gauranteed not to be on the active list.
+	// Thus, if mActive == true, the motion *may* be on the controllers active list,
+	// but if mActive == false, the motion is gauranteed not to be on the active list.
 protected:
 	// Used by LLMotionController only
 	void deactivate();
@@ -149,7 +149,7 @@ public:
 	virtual void onDeactivate() = 0;
 
 	// can we crossfade this motion with a new instance when restarted?
-	// should ultimately always be TRUE, but lack of emote blending, etc
+	// should ultimately always be true, but lack of emote blending, etc
 	// requires this
 	virtual bool canDeprecate();
 
@@ -158,7 +158,7 @@ public:
 
 protected:
 	// called when a motion is activated
-	// must return TRUE to indicate success, or else
+	// must return true to indicate success, or else
 	// it will be deactivated
 	virtual bool onActivate() = 0;
 
@@ -248,7 +248,7 @@ public:
 	/*virtual*/ LLMotionInitStatus onInitialize(LLCharacter *character) { return STATUS_SUCCESS; }
 
 	// called when a motion is activated
-	// must return TRUE to indicate success, or else
+	// must return true to indicate success, or else
 	// it will be deactivated
 	/*virtual*/ bool onActivate() { return true; }
 

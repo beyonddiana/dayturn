@@ -53,7 +53,7 @@ LLControlAvatar::LLControlAvatar(const LLUUID& id, const LLPCode pcode, LLViewer
     mScaleConstraintFixup(1.0),
 	mRegionChanged(false)
 {
-    mIsDummy = TRUE;
+    mIsDummy = true;
     mIsControlAvatar = true;
     mEnableDefaultMotions = false;
 }
