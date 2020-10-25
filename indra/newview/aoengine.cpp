@@ -185,15 +185,15 @@ bool AOEngine::foreignAnimations()
 		if(sourceIterator->first!=gAgent.getID())
 		{
             // find the source object where the animation came from
-            LLViewerObject* source=gObjectList.findObject(sourceIterator->first);
+            LLViewerObject* source = gObjectList.findObject(sourceIterator->first);
             
             // proceed if it's not an attachment
-            if(!source->isAttachment())
+			if (source && !source->isAttachment())
             {
                 LL_DEBUGS("AOEngine") << "Source " << sourceIterator->first << " is running animation " << sourceIterator->second << LL_ENDL;
 
                 // get the source's root prim
-                LLViewerObject* sourceRoot=dynamic_cast<LLViewerObject*>(source->getRoot());
+                LLViewerObject* sourceRoot = dynamic_cast<LLViewerObject*>(source->getRoot());
                 
                 // if the root prim is the same as the animation source, report back as true
                 if (sourceRoot && sourceRoot->getID() == seat)
@@ -935,50 +935,57 @@ bool AOEngine::findForeignItems(const LLUUID& uuid) const
 	LLInventoryModel::cat_array_t* cats;
 
 	gInventory.getDirectDescendentsOf(uuid,cats,items);
-	for(S32 index=0;index<cats->size();index++)
+
+	if (cats)
 	{
-		// recurse into subfolders
-		if(findForeignItems(cats->operator[](index)->getUUID()))
+		for (const auto& cat : *cats)
 		{
-			moved=true;
+			if (findForeignItems(cat->getUUID()))
+			{
+				moved = true;
+			}
 		}
 	}
 
 	// count backwards in case we have to remove items
-	BOOL wasProtected=gSavedPerAccountSettings.getBOOL("ProtectAOFolders");
-	gSavedPerAccountSettings.setBOOL("ProtectAOFolders",FALSE);
-	for(S32 index=items->size()-1;index>=0;index--)
+	bool wasProtected = gSavedPerAccountSettings.getbool("ProtectAOFolders");
+	gSavedPerAccountSettings.setbool("ProtectAOFolders", false);
+
+	if (items)
 	{
-		bool move=false;
+		for (S32 index = items->size() - 1; index >= 0; --index)
+		{
+			bool move = false;
 
-		LLPointer<LLViewerInventoryItem> item=items->operator[](index);
-		if(item->getIsLinkType())
-		{
-			if(item->getInventoryType()!=LLInventoryType::IT_ANIMATION)
+			LLPointer<LLViewerInventoryItem> item = items->at(index);
+			if (item->getIsLinkType())
 			{
-				LL_DEBUGS("AOEngine") << item->getName() << " is a link but does not point to an animation." << LL_ENDL;
-				move=true;
-			}
-			else
-			{
-				LL_DEBUGS("AOEngine") << item->getName() << " is an animation link." << LL_ENDL;
-			}
-		}
-		else
-		{
-			LL_DEBUGS("AOEngine") << item->getName() << " is not a link!" << LL_ENDL;
-			move=true;
-		}
+				if (item->getInventoryType() != LLInventoryType::IT_ANIMATION)
+				{
+					LL_DEBUGS("AOEngine") << item->getName() << " is a link but does not point to an animation." << LL_ENDL;
+					move = true;
+				}
+				else
+				{
+					LL_DEBUGS("AOEngine") << item->getName() << " is an animation link." << LL_ENDL;
+				}
+            }
+            else
+            {
+            	LL_DEBUGS("AOEngine") << item->getName() << " is not a link!" << LL_ENDL;
+				move = true;
+            }
 
-		if(move)
-		{
-			moved=true;
-			LLInventoryModel* model = &gInventory;
-			model->changeItemParent(item,gInventory.findCategoryUUIDForType(LLFolderType::FT_LOST_AND_FOUND),false);
-			LL_DEBUGS("AOEngine") << item->getName() << " moved to lost and found!" << LL_ENDL;
+			if (move)
+			{
+				moved = true;
+				gInventory.changeItemParent(item, gInventory.findCategoryUUIDForType(LLFolderType::FT_LOST_AND_FOUND), false);
+				LL_DEBUGS("AOEngine") << item->getName() << " moved to lost and found!" << LL_ENDL;
+			}
 		}
 	}
-	gSavedPerAccountSettings.setBOOL("ProtectAOFolders",wasProtected);
+
+	gSavedPerAccountSettings.setbool("ProtectAOFolders",wasProtected);
 
 	return moved;
 }
