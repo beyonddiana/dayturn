@@ -121,13 +121,13 @@ public:
 	}
 	// Trigger the first gesture that matches this key.
 	// Returns TRUE if it finds a gesture bound to that key.
-	BOOL triggerGesture(KEY key, MASK mask);
+	bool triggerGesture(KEY key, MASK mask);
 
 	// Trigger all gestures referenced as substrings in this string
 	bool triggerAndReviseString(const std::string &str, std::string *revised_string = NULL);
 
 	// Does some gesture have this key bound?
-	BOOL isKeyBound(KEY key, MASK mask);
+	bool isKeyBound(KEY key, MASK mask);
 
 	S32 getPlayingCount() const;
 
