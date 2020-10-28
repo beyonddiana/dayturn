@@ -1364,6 +1364,11 @@ U32 LLInventoryFilter::getHoursAgo() const
 	return mFilterOps.mHoursAgo; 
 }
 
+U64 LLInventoryFilter::getFilterLinks() const
+{
+	return mFilterOps.mFilterLinks;
+}
+
 LLInventoryFilter::EFolderShow LLInventoryFilter::getShowFolderState() const
 { 
 	return mFilterOps.mShowFolderState; 
