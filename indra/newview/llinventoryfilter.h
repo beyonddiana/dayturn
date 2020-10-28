@@ -227,7 +227,8 @@ public:
 	U32					getDateSearchDirection() const;
 
 	void 				setFilterLinks(U64 filter_link);
-
+	U64					getFilterLinks() const;
+	
 	void 				setFilterWorn(BOOL sl);
 	BOOL 				getFilterWorn() { return mFilterOps.mFilterTypes & FILTERTYPE_WORN; }
 

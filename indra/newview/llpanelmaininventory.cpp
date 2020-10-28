@@ -136,6 +136,11 @@ LLPanelMainInventory::LLPanelMainInventory(const LLPanel::Params& p)
 	mCommitCallbackRegistrar.add("Inventory.SetSortBy", boost::bind(&LLPanelMainInventory::setSortBy, this, _2));
 	mCommitCallbackRegistrar.add("Inventory.Share",  boost::bind(&LLAvatarActions::shareWithAvatars, this));
 
+	// ## Zi: Filter Links Menu
+	mCommitCallbackRegistrar.add("Inventory.FilterLinks.Set", boost::bind(&LLPanelMainInventory::onFilterLinksChecked, this, _2));
+	mEnableCallbackRegistrar.add("Inventory.FilterLinks.Check", boost::bind(&LLPanelMainInventory::isFilterLinksChecked, this, _2));
+	// ## Zi: Filter Links Menu
+
 	mSavedFolderState = new LLSaveFolderState();
 	mSavedFolderState->setApply(FALSE);
 }
@@ -1569,6 +1574,47 @@ BOOL LLPanelMainInventory::isActionChecked(const LLSD& userdata)
 	return FALSE;
 }
 
+// ## Zi: Filter Links Menu
+void LLPanelMainInventory::onFilterLinksChecked(const LLSD& userdata)
+{
+	const std::string command_name = userdata.asString();
+	if (command_name == "show_links")
+	{
+		getActivePanel()->setFilterLinks(LLInventoryFilter::FILTERLINK_INCLUDE_LINKS);
+	}
+
+	if (command_name == "only_links")
+	{
+		getActivePanel()->setFilterLinks(LLInventoryFilter::FILTERLINK_ONLY_LINKS);
+	}
+
+	if (command_name == "hide_links")
+	{
+		getActivePanel()->setFilterLinks(LLInventoryFilter::FILTERLINK_EXCLUDE_LINKS);
+	}
+}
+
+BOOL LLPanelMainInventory::isFilterLinksChecked(const LLSD& userdata)
+{
+	const std::string command_name = userdata.asString();
+	if (command_name == "show_links")
+	{
+		return (getActivePanel()->getFilter().getFilterLinks() == LLInventoryFilter::FILTERLINK_INCLUDE_LINKS);
+	}
+
+	if (command_name == "only_links")
+	{
+		return (getActivePanel()->getFilter().getFilterLinks() == LLInventoryFilter::FILTERLINK_ONLY_LINKS);
+	}
+
+	if (command_name == "hide_links")
+	{
+		return (getActivePanel()->getFilter().getFilterLinks() == LLInventoryFilter::FILTERLINK_EXCLUDE_LINKS);
+	}
+
+	return FALSE;
+}
+// ## Zi: Filter Links Menu
 
 bool LLPanelMainInventory::handleDragAndDropToTrash(BOOL drop, EDragAndDropType cargo_type, EAcceptance* accept)
 {
