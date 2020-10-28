@@ -166,7 +166,7 @@ protected:
 	void onCustomAction(const LLSD& command_name);
 
 	// ## Zi: Filter Links Menu
-	BOOL isFilterLinksChecked(const LLSD& userdata);
+	bool isFilterLinksChecked(const LLSD& userdata);
 	void onFilterLinksChecked(const LLSD& userdata);
 	// ## Zi: Filter Links Menu
 
