@@ -1583,7 +1583,7 @@ void LLPanelMainInventory::onFilterLinksChecked(const LLSD& userdata)
 	}
 }
 
-BOOL LLPanelMainInventory::isFilterLinksChecked(const LLSD& userdata)
+bool LLPanelMainInventory::isFilterLinksChecked(const LLSD& userdata)
 {
 	const std::string command_name = userdata.asString();
 	if (command_name == "show_links")
@@ -1601,7 +1601,7 @@ BOOL LLPanelMainInventory::isFilterLinksChecked(const LLSD& userdata)
 		return (getActivePanel()->getFilter().getFilterLinks() == LLInventoryFilter::FILTERLINK_EXCLUDE_LINKS);
 	}
 
-	return FALSE;
+	return false;
 }
 // ## Zi: Filter Links Menu
 
