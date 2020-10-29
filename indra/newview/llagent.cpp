@@ -489,6 +489,8 @@ void LLAgent::init()
 void LLAgent::cleanup()
 {
 	mRegionp = NULL;
+    mTeleportRequest = NULL;
+    mTeleportCanceled = NULL;
 	if (mTeleportFinishedSlot.connected())
 	{
 		mTeleportFinishedSlot.disconnect();
