@@ -63,6 +63,8 @@
 #include <boost/algorithm/string_regex.hpp>
 #include "material_codes.h"
 
+extern bool gIsInSecondLife; //Opensim or SecondLife
+
 const F32 MAX_TEXTURE_WAIT_TIME = 30.0f;
 const F32 MAX_INVENTORY_WAIT_TIME = 30.0f;
 const F32 MAX_ASSET_WAIT_TIME = 60.0f;
@@ -282,14 +284,7 @@ void FSExport::addPrim(LLViewerObject* object, bool root)
 	LLSelectNode* node = LLSelectMgr::getInstance()->getSelection()->getFirstNode(&func);
 	if (node)
 	{
-		if ((LLGridManager::getInstance()->isInSecondLife())
-			&& object->permYouOwner()
-			&& (gAgentID == node->mPermissions->getCreator() || megaPrimCheck(node->mPermissions->getCreator(), object)))
-		{
-			default_prim = false;
-		}
-#if OPENSIM
-		if (LLGridManager::getInstance()->isInOpenSim()
+		if (!gIsInSecondLife
 		      && object->permYouOwner()
 		      && object->permModify()
 		      && object->permCopy()
@@ -297,7 +292,12 @@ void FSExport::addPrim(LLViewerObject* object, bool root)
 		{
 			default_prim = false;
 		}
-#endif
+		else if (gIsInSecondLife
+			&& object->permYouOwner()
+			&& (gAgentID == node->mPermissions->getCreator() || megaPrimCheck(node->mPermissions->getCreator(), object)))
+		{
+			default_prim = false;
+		}
 	}
 	else
 	{
