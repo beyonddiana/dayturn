@@ -466,6 +466,8 @@ struct LLInventoryAction
 	static void onItemsRemovalConfirmation(const LLSD& notification, const LLSD& response, LLHandle<LLFolderView> root);
 	static void removeItemFromDND(LLFolderView* root);
 
+    static void saveMultipleTextures(const std::vector<std::string>& filenames, std::set<LLFolderViewItem*> selected_items, LLInventoryModel* model);
+
 private:
 	static void buildMarketplaceFolders(LLFolderView* root);
 	static void updateMarketplaceFolders();

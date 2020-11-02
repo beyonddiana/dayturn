@@ -61,6 +61,9 @@ public:
 							BOOL final,
 							void* userdata );
 	void 				openToSave();
+    
+    void                saveTextureToFile(const std::vector<std::string>& filenames);
+    void                saveMultipleToFile();
 	
 	static void			onSaveAsBtn(void* data);
 
