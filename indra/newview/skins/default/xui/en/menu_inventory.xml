@@ -541,6 +541,14 @@
          parameter="save_as" />
     </menu_item_call>
     <menu_item_call
+     label="Save Selected As"
+     layout="topleft"
+     name="Save Selected As">
+        <menu_item_call.on_click
+         function="Inventory.DoToSelected"
+         parameter="save_selected_as" />
+    </menu_item_call>
+    <menu_item_call
      label="Copy Asset UUID"
      layout="topleft"
      name="Copy Asset UUID">
