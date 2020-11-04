@@ -81,6 +81,24 @@ void LLControlAvatar::initInstance()
     mInitFlags |= 1<<4;
 }
 
+const LLVOAvatar *LLControlAvatar::getAttachedAvatar() const
+{
+	if (mRootVolp && mRootVolp->isAttachment())
+	{
+		return mRootVolp->getAvatarAncestor();
+	}
+	return NULL;
+}
+
+LLVOAvatar *LLControlAvatar::getAttachedAvatar()
+{
+	if (mRootVolp && mRootVolp->isAttachment())
+	{
+		return mRootVolp->getAvatarAncestor();
+	}
+	return NULL;
+}
+
 void LLControlAvatar::getNewConstraintFixups(LLVector3& new_pos_fixup, F32& new_scale_fixup) const
 {
 
@@ -168,7 +186,7 @@ void LLControlAvatar::matchVolumeTransform()
 
         if (mRootVolp->isAttachment())
         {
-            LLVOAvatar *attached_av = mRootVolp->getAvatarAncestor();
+            LLVOAvatar *attached_av = getAttachedAvatar();
             if (attached_av)
             {
                 LLViewerJointAttachment *attach = attached_av->getTargetAttachmentPoint(mRootVolp);
@@ -632,14 +650,11 @@ std::string LLControlAvatar::getFullname() const
 // virtual
 bool LLControlAvatar::shouldRenderRigged() const
 {
-    if (mRootVolp && mRootVolp->isAttachment())
-    {
-        LLVOAvatar *attached_av = mRootVolp->getAvatarAncestor();
-        if (attached_av)
-        {
-            return attached_av->shouldRenderRigged();
-        }
-    }
+	const LLVOAvatar *attached_av = getAttachedAvatar();
+	if (attached_av)
+	{
+		return attached_av->shouldRenderRigged();
+	}
     return true;
 }
 
@@ -658,14 +673,11 @@ void LLControlAvatar::onRegionChanged()
 // virtual
 bool LLControlAvatar::isImpostor()
 {
-    if (mRootVolp && mRootVolp->isAttachment())
-    {
-		// Attached animated objects should match state of their attached av.
-        LLVOAvatar *attached_av = mRootVolp->getAvatarAncestor();
-		if (attached_av)
-		{
-			return attached_av->isImpostor();
-		}
-    }
+	// Attached animated objects should match state of their attached av.
+	LLVOAvatar *attached_av = getAttachedAvatar();
+	if (attached_av)
+	{
+		return attached_av->isImpostor();
+	}
 	return LLVOAvatar::isImpostor();
 }
