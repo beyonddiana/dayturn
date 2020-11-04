@@ -336,6 +336,7 @@ void LLInventoryPanel::draw()
 //mk
 	// Select the desired item (in case it wasn't loaded when the selection was requested)
 	updateSelection();
+    updateFolderState();
 	
 	LLPanel::draw();
 }
@@ -1130,6 +1131,7 @@ void LLInventoryPanel::setSelectCallback(const boost::function<void (const std::
 void LLInventoryPanel::clearSelection()
 {
 	mSelectThisID.setNull();
+    mOpenFolderID.setNull();
 }
 
 void LLInventoryPanel::onSelectionChange(const std::deque<LLFolderViewItem*>& items, BOOL user_action)
@@ -1571,6 +1573,30 @@ void LLInventoryPanel::updateSelection()
 	{
 		setSelectionByID(mSelectThisID, false);
 	}
+}
+
+void LLInventoryPanel::openFolderByID( const LLUUID& folder_id)
+{
+    LLFolderViewItem* itemp = getItemByID(folder_id);
+    if(itemp && itemp->getViewModelItem())
+    {
+        itemp->setOpen(TRUE);
+        mOpenFolderID.setNull();
+        return;
+    }
+    else
+    {
+        // save the desired folder to be open later (if/when ready)
+        mOpenFolderID = folder_id;
+    }
+}
+
+void LLInventoryPanel::updateFolderState()
+{
+    if (mOpenFolderID.notNull())
+    {
+        openFolderByID(mOpenFolderID);
+    }
 }
 
 void LLInventoryPanel::doToSelected(const LLSD& userdata)
