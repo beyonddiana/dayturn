@@ -176,6 +176,13 @@ LLFolderViewModelCommon::LLFolderViewModelCommon()
     mFolderView(NULL)
 {}
 
+//virtual
+void LLFolderViewModelCommon::requestSortAll()
+{
+    // sort everything
+    mTargetSortVersion++;
+}
+
 bool LLFolderViewModelCommon::needsSort(LLFolderViewModelItem* item)
 {
 	return item->getSortVersion() < mTargetSortVersion;
