@@ -262,6 +262,8 @@ public:
 		mChildren.clear();
 	}
 
+    virtual ~LLFolderViewModelItemCommon();
+
 	void requestSort() { mSortVersion = -1; }
 	S32 getSortVersion() { return mSortVersion; }
 	void setSortVersion(S32 version) { mSortVersion = version;}
@@ -410,6 +412,8 @@ public:
 	:	mTargetSortVersion(0),
 		mFolderView(NULL)
 	{}
+
+    virtual ~LLFolderViewModelCommon() {}
 
 	virtual void requestSortAll()
 	{
