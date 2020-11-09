@@ -1465,27 +1465,28 @@ bool LLAppViewer::mainLoop()
 						}
 					}
 
-					// Let's look at how much time has passed since the last chage to the avatar Z offset
-					// and trigger an update to the shape if enough time has passed
-					if (RRInterface::sLastAvatarZOffsetCommit > 0.f)
-					{
-						if (gFrameTimeSeconds - RRInterface::sLastAvatarZOffsetCommit > Z_OFFSET_THROTTLE_DELAY)
-						{
-							RRInterface::sLastAvatarZOffsetCommit = -1000.f;
-							gAgentWearables.forceUpdateShape ();
-						}
-					}
-
-					// Let's look at how much time has passed since the last chage to the outfit
-					// and trigger a cleanup if enough time has passed
-					if (RRInterface::sLastOutfitChange > 0.f)
-					{
-						if (gFrameTimeSeconds - RRInterface::sLastOutfitChange > OUTFIT_CLEANUP_DELAY)
-						{
-							RRInterface::sLastOutfitChange = -1000.f;
-							LLPointer<LLInventoryCallback> cb = new LLUpdateAppearanceOnDestroy;
-							LLAppearanceMgr::instance().enforceCOFItemRestrictions (cb);
-						}
+					//// Let's look at how much time has passed since the last chage to the avatar Z offset
+					//// and trigger an update to the shape if enough time has passed
+					//if (RRInterface::sLastAvatarZOffsetCommit > 0.f)
+					//{
+					//	if (gFrameTimeSeconds - RRInterface::sLastAvatarZOffsetCommit > Z_OFFSET_THROTTLE_DELAY)
+					//	{
+					//		RRInterface::sLastAvatarZOffsetCommit = -1000.f;
+					//		gAgentWearables.forceUpdateShape ();
+					//	}
+					//}
+					//// Let's look at how much time has passed since the last change to the outfit
+					//// and trigger a cleanup if enough time has passed
+					//if (RRInterface::sLastOutfitChange > 0.f)
+ 
+					//{
+					//	if (gFrameTimeSeconds - RRInterface::sLastOutfitChange > OUTFIT_CLEANUP_DELAY)
+					//	{
+					//		RRInterface::sLastOutfitChange = -1000.f;
+					//		LLPointer<LLInventoryCallback> cb = new LLUpdateAppearanceOnDestroy;
+					//		LLAppearanceMgr::instance().enforceCOFItemRestrictions (cb);
+					//	}
+					//}
 					}
 				}
 //mk
