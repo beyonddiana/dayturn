@@ -162,6 +162,8 @@ public:
 	std::string mGLVendor;
 	std::string mGLVendorShort;
 
+	void asLLSD(LLSD& info);
+
 	// In ALL CAPS
 	std::string mGLRenderer;
 
