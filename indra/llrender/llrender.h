@@ -495,4 +495,13 @@ extern S32 gGLViewport[4];
 
 extern LLRender gGL;
 
+
+#if LL_RELEASE_FOR_DOWNLOAD
+#define LL_SHADER_LOADING_WARNS(...) LL_WARNS_ONCE("ShaderLoading")
+#define LL_SHADER_UNIFORM_ERRS(...)  LL_WARNS_ONCE("Shader")
+#else
+#define LL_SHADER_LOADING_WARNS(...) LL_WARNS()
+#define LL_SHADER_UNIFORM_ERRS(...)  LL_ERRS("Shader")
+#endif
+
 #endif
