@@ -702,7 +702,9 @@ LLAppViewer::LLAppViewer()
 	mPeriodicSlowFrame(LLCachedControl<bool>(gSavedSettings,"Periodic Slow Frame", FALSE)),
 	mFastTimerLogThread(NULL),
 	mSettingsLocationList(NULL),
-	mIsFirstRun(false)
+	mIsFirstRun(false),
+    mMinMicroSecPerFrame(0.f)
+
 {
 	if(NULL != sInstance)
 	{
@@ -1288,7 +1290,10 @@ bool LLAppViewer::mainLoop()
 		
 		joystick = LLViewerJoystick::getInstance();
 		joystick->setNeedsReset(true);
+        /*----------------------------------------------------------------------*/
 
+        gSavedSettings.getControl("FramePerSecondLimit")->getSignal()->connect(boost::bind(&LLAppViewer::onChangeFrameLimit, this, _2));
+        onChangeFrameLimit(gSavedSettings.getLLSD("FramePerSecondLimit"));
 	}
 	// As we do not (yet) send data on the mainloop LLEventPump that varies
 	// with each frame, no need to instantiate a new LLSD event object each
@@ -5343,6 +5348,19 @@ void LLAppViewer::disconnectViewer()
 	// Pass the connection state to LLUrlEntryParcel not to attempt
 	// parcel info requests while disconnected.
 	LLUrlEntryParcel::setDisconnected(gDisconnected);
+}
+
+bool LLAppViewer::onChangeFrameLimit(LLSD const & evt)
+{
+    if (evt.asInteger() > 0)
+    {
+        mMinMicroSecPerFrame = (U64)(1000000.0f / F32(evt.asInteger()));
+    }
+    else
+    {
+        mMinMicroSecPerFrame = 0;
+    }
+    return false;
 }
 
 void LLAppViewer::forceErrorLLError()
