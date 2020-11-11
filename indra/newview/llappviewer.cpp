@@ -710,7 +710,9 @@ LLAppViewer::LLAppViewer()
 	mPeriodicSlowFrame(LLCachedControl<bool>(gSavedSettings,"Periodic Slow Frame", FALSE)),
 	mFastTimerLogThread(NULL),
 	mSettingsLocationList(NULL),
-	mIsFirstRun(false)
+	mIsFirstRun(false),
+    mMinMicroSecPerFrame(0.f)
+
 {
 	if(NULL != sInstance)
 	{
@@ -1276,26 +1278,29 @@ bool LLAppViewer::mainLoop()
 {
 	{
         LL_INFOS() << "Entering main_loop" << LL_ENDL;
-	mMainloopTimeout = new LLWatchdogTimeout();
-	
-	//-------------------------------------------
-	// Run main loop until time to quit
-	//-------------------------------------------
+		mMainloopTimeout = new LLWatchdogTimeout();
+		
+		//-------------------------------------------
+		// Run main loop until time to quit
+		//-------------------------------------------
+		
+		// Create IO Pump to use for HTTP Requests.
+		gServicePump = new LLPumpIO(gAPRPoolp);
+		LLHTTPClient::setPump(*gServicePump);
+		LLCurl::setCAFile(gDirUtilp->getCAFile());
+		
+		// Note: this is where gLocalSpeakerMgr and gActiveSpeakerMgr used to be instantiated.
+		
+		LLVoiceChannel::initClass();
+		LLVoiceClient::getInstance()->init(gServicePump);
+		LLVoiceChannel::setCurrentVoiceChannelChangedCallback(boost::bind(&LLFloaterIMContainer::onCurrentChannelChanged, _1), true);
+		
+		joystick = LLViewerJoystick::getInstance();
+		joystick->setNeedsReset(true);
+        /*----------------------------------------------------------------------*/
 
-	// Create IO Pump to use for HTTP Requests.
-	gServicePump = new LLPumpIO(gAPRPoolp);
-	LLHTTPClient::setPump(*gServicePump);
-	LLCurl::setCAFile(gDirUtilp->getCAFile());
-
-	// Note: this is where gLocalSpeakerMgr and gActiveSpeakerMgr used to be instantiated.
-
-	LLVoiceChannel::initClass();
-	LLVoiceClient::getInstance()->init(gServicePump);
-	LLVoiceChannel::setCurrentVoiceChannelChangedCallback(boost::bind(&LLFloaterIMContainer::onCurrentChannelChanged, _1), true);
-
-	joystick = LLViewerJoystick::getInstance();
-	joystick->setNeedsReset(true);
-	
+        gSavedSettings.getControl("FramePerSecondLimit")->getSignal()->connect(boost::bind(&LLAppViewer::onChangeFrameLimit, this, _2));
+        onChangeFrameLimit(gSavedSettings.getLLSD("FramePerSecondLimit"));
 	}
 //MK
 	int garbage_collector_cnt=-100; // give the garbage collector a moment before even kicking in the first time, in case we are logging in a very laggy place, taking time to rez
@@ -5475,6 +5480,19 @@ void LLAppViewer::disconnectViewer()
 	// Pass the connection state to LLUrlEntryParcel not to attempt
 	// parcel info requests while disconnected.
 	LLUrlEntryParcel::setDisconnected(gDisconnected);
+}
+
+bool LLAppViewer::onChangeFrameLimit(LLSD const & evt)
+{
+    if (evt.asInteger() > 0)
+    {
+        mMinMicroSecPerFrame = (U64)(1000000.0f / F32(evt.asInteger()));
+    }
+    else
+    {
+        mMinMicroSecPerFrame = 0;
+    }
+    return false;
 }
 
 void LLAppViewer::forceErrorLLError()
