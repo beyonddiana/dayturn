@@ -1099,8 +1099,6 @@ BOOL LLToolPie::handleTooltipObject( LLViewerObject* hover_object, std::string l
 				final_name = LLTrans::getString("TooltipPerson");;
 			}
 
-			// *HACK: We may select this object, so pretend it was clicked
-			mPick = mHoverPick;
 			LLInspector::Params p;
 			p.fillFrom(LLUICtrlFactory::instance().getDefaultParams<LLInspector>());
 			p.message(final_name);
@@ -1212,8 +1210,6 @@ BOOL LLToolPie::handleTooltipObject( LLViewerObject* hover_object, std::string l
 			
 			if (show_all_object_tips || needs_tip)
 			{
-				// We may select this object, so pretend it was clicked
-				mPick = mHoverPick;
 				LLInspector::Params p;
 				p.fillFrom(LLUICtrlFactory::instance().getDefaultParams<LLInspector>());
 				p.message(tooltip_msg);
