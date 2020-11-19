@@ -463,7 +463,9 @@ class LLFileUploadAnim : public view_listener_t
 		const std::string filename = upload_pick((void*)LLFilePicker::FFLOAD_ANIM);
 		if (!filename.empty())
 		{
-			if (filename.rfind(".anim") != std::string::npos)
+			std::string filename_lc(filename);
+			LLStringUtil::toLower(filename_lc);
+			if (filename_lc.rfind(".anim") != std::string::npos)
 			{
 				LLFloaterReg::showInstance("upload_anim_anim", LLSD(filename));
 			}
