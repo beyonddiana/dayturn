@@ -163,6 +163,30 @@ void LLHUDEffectSpiral::unpackData(LLMessageSystem *mesgsys, S32 blocknum)
 	triggerLocal();
 }
 
+//-----------------------------------------------------------------------------
+// render()
+//-----------------------------------------------------------------------------
+void LLHUDEffectSpiral::render()
+{
+}
+
+void LLHUDEffectSpiral::renderForTimer()
+{
+	//*NOTE: render() was renamed to update()
+	//render();
+	//*TODO: Does LLViewerPartSource even render ?
+}
+
+void LLHUDEffectSpiral::setTargetObject(LLViewerObject *objp)
+{
+	if (objp == mTargetObject)
+	{
+		return;
+	}
+
+	mTargetObject = objp;
+}
+
 void LLHUDEffectSpiral::triggerLocal()
 {
 //MK
@@ -256,17 +280,10 @@ void LLHUDEffectSpiral::triggerLocal()
 	mbInit = TRUE;
 }
 
-void LLHUDEffectSpiral::setTargetObject(LLViewerObject *objp)
-{
-	if (objp == mTargetObject)
-	{
-		return;
-	}
-
-	mTargetObject = objp;
-}
-
-void LLHUDEffectSpiral::render()
+//-----------------------------------------------------------------------------
+// update()
+//-----------------------------------------------------------------------------
+void LLHUDEffectSpiral::update()
 {
 	F32 time = mTimer.getElapsedTimeF32();
 
@@ -278,9 +295,4 @@ void LLHUDEffectSpiral::render()
 		markDead();
 		return;
 	}
-}
-
-void LLHUDEffectSpiral::renderForTimer()
-{
-	render();
 }
