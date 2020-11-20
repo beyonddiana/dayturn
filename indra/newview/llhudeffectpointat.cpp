@@ -324,6 +324,7 @@ void LLHUDEffectPointAt::setSourceObject(LLViewerObject* objectp)
 
 //-----------------------------------------------------------------------------
 // render()
+// Develop > Avatar > Show Point At
 //-----------------------------------------------------------------------------
 void LLHUDEffectPointAt::render()
 {
@@ -337,8 +338,9 @@ void LLHUDEffectPointAt::render()
 	static LLUICachedControl<bool> pointat_names("ShowPointAtNames", false);
 	static LLUICachedControl<bool> pointat_limited("ShowPointAtLimited", false);
 
-
-	update();
+	// Removed call to:
+	//     update();
+	// As this is called by LLHUDObject::updateAll()
 
 	if (show_pointat && mTargetType != POINTAT_TARGET_NONE && (
 		!pointat_limited || !((LLVOAvatar*)(LLViewerObject*)mSourceObject)->isSelf()
