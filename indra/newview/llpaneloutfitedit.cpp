@@ -563,6 +563,8 @@ bool LLPanelOutfitEdit::postBuild()
 	mGearMenuBtn->setMenu(mGearMenu);
 
 	mSaveComboBtn.reset(new LLSaveOutfitComboBtn(this));
+
+	onOutfitChanging(gAgentWearables.isCOFChangeInProgress());
 	return true;
 }
 

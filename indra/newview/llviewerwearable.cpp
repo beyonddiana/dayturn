@@ -503,10 +503,10 @@ void LLViewerWearable::revertValues()
 	{
 		return;
 	}
-////	LLSidepanelAppearance *panel = dynamic_cast<LLSidepanelAppearance*>(LLFloaterSidePanelContainer::getPanel("appearance"));
-	LLSidepanelAppearance *panel = dynamic_cast<LLSidepanelAppearance*>(tmp);
 //mk
-	if(panel)
+
+	LLSidepanelAppearance *panel = dynamic_cast<LLSidepanelAppearance*>(LLFloaterSidePanelContainer::getPanel("appearance"));
+	if( panel )
 	{
 		panel->updateScrollingPanelList();
 	}
