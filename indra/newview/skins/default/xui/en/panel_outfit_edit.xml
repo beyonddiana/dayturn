@@ -264,27 +264,27 @@ It is calculated as border_size + 2*UIResizeBarOverlap
 				</layout_panel>
 
 				<layout_panel
-				 auto_resize="false"
-				 background_visible="true"
-				 bg_alpha_color="DkGray2"
-				 height="30"
-				 name="filter_panel"
-				 width="311"
-				 visible="false">
+				 		auto_resize="false"
+				 		background_visible="true"
+				 		bg_alpha_color="DkGray2"
+				 		height="30"
+				 		name="filter_panel"
+				 		width="311"
+				 		visible="false">
 
 					<filter_editor
-			 background_image="TextField_Search_Off"
-			 enabled="true"
-			 follows="left|right|top"
-			 label="Filter Inventory Wearables"
-			 layout="topleft"
-			 left="5"
-			 width="290"
-			 height="25"
-			 name="look_item_filter"
-			 search_button_visible="true"
-			 text_color="black"
-			 visible="true"/>
+			 				background_image="TextField_Search_Off"
+			 				enabled="true"
+			 				follows="left|right|top"
+			 				label="Filter Inventory Wearables"
+			 				layout="topleft"
+			 				left="5"
+			 				width="290"
+			 				height="25"
+			 				name="look_item_filter"
+			 				search_button_visible="true"
+			 				text_color="black"
+			 				visible="true"/>
 
 				</layout_panel>
 			</layout_stack>
@@ -292,67 +292,68 @@ It is calculated as border_size + 2*UIResizeBarOverlap
 
 
 		<layout_panel background_visible="false"
-									bg_alpha_color="DkGray2"
-									auto_resize="true"
-									height="450"
-									min_height="80"
-									name="add_wearables_panel"
-									width="313"
-									tab_group="2"
-									user_resize="true"
-									visible="false">
+				bg_alpha_color="DkGray2"
+				auto_resize="true"
+				height="450"
+				min_height="80"
+				name="add_wearables_panel"
+				width="313"
+				tab_group="2"
+				user_resize="true"
+				visible="false">
 
 			<!-- this icon represent dragbar between layout panels.
           	 This is a workaround implemented in EXT-7255 becouse of an issue with layout stack (EXT-7471) -->
 			<icon follows="left|top|right"
-						height="10"
-						image_name="Dragbar"
-						left="0"
-						top_pad="-9"
-						width="313" />
+					height="10"
+					image_name="Dragbar"
+					left="0"
+					top_pad="-9"
+					width="313" />
 			<inventory_panel allow_multi_select="true"
-											 background_visible="false"
-											 border="false"
-											 follows="left|top|right|bottom"
-											 height="418"
-											 layout="topleft"
-											 left="0"
-											 mouse_opaque="false"
-											 name="folder_view"
-											 top_pad="0"
-											 width="313"
-											 visible="false"/>
+					background_visible="false"
+					border="false"
+					follows="left|top|right|bottom"
+					height="418"
+					layout="topleft"
+					left="0"
+					mouse_opaque="false"
+					name="folder_view"
+					top_pad="0"
+					width="313"
+                    preinitialize_views="false"
+					visible="false"/>
 			<panel name="filtered_wearables_panel"
-						 background_opaque="true"
-						 background_visible="false"
-						 layout="topleft"
-						 follows="left|top|right|bottom"
-						 border="false"
-						 height="418"
-						 left="0"
-						 mouse_opaque="false"
-						 width="310"
-						 top_delta="0"
-						 visible="true">
+					background_opaque="true"
+					background_visible="false"
+					layout="topleft"
+					follows="left|top|right|bottom"
+					border="false"
+					height="418"
+					left="0"
+					mouse_opaque="false"
+					width="310"
+					top_delta="0"
+					visible="true">
 				<wearable_items_list color="0.107 0.107 0.107 1"
-														 name="list_view"
-														 allow_select="true"
-														 layout="topleft"
-														 follows="all"
-														 multi_select="true"
-														 width="313"
-														 height="418"
-														 left="0"
-														 top="0"/>
+						name="list_view"
+						allow_select="true"
+						layout="topleft"
+						follows="all"
+						multi_select="true"
+						width="313"
+						height="418"
+						left="0"
+						top="0"/>
 			</panel>
 			<button follows="bottom|left"
-							height="22"
-							left="2"
-							label="Wear Item"
-							layout="topleft"
-							name="plus_btn"
-							top_pad="5"
-							width="130" />
+					height="22"
+					left="2"
+					label="Wear Item"
+					layout="topleft"
+					name="plus_btn"
+					top_pad="5"
+					width="130" />
 		</layout_panel>
 	</layout_stack>
 
