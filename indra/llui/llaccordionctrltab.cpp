@@ -444,7 +444,7 @@ void LLAccordionCtrlTab::changeOpenClose(bool is_open)
 	}
 }
 
-void LLAccordionCtrlTab::onVisibilityChange(BOOL new_visibility)
+void LLAccordionCtrlTab::onVisibilityChange(bool new_visibility)
 {
 	LLUICtrl::onVisibilityChange(new_visibility);
 

@@ -1426,7 +1426,7 @@ void LLPanelMainInventory::onCustomAction(const LLSD& userdata)
 	}
 }
 
-void LLPanelMainInventory::onVisibilityChange( BOOL new_visibility )
+void LLPanelMainInventory::onVisibilityChange( bool new_visibility )
 {
 	if(!new_visibility)
 	{

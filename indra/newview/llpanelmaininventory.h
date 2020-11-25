@@ -75,7 +75,7 @@ public:
 									   std::string& tooltip_msg);
 	/*virtual*/ void changed(U32);
 	/*virtual*/ void draw();
-	/*virtual*/ void 	onVisibilityChange ( BOOL new_visibility );
+	/*virtual*/ void 	onVisibilityChange ( bool new_visibility );
 
 	LLInventoryPanel* getPanel() { return mActivePanel; }
 	LLInventoryPanel* getActivePanel() { return mActivePanel; }

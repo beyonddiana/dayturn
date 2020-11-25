@@ -686,7 +686,7 @@ void LLViewerTextEditor::makePristine()
 	LLTextEditor::makePristine();
 }
 
-void LLViewerTextEditor::onVisibilityChange( BOOL new_visibility )
+void LLViewerTextEditor::onVisibilityChange( bool new_visibility )
 {
 	LLUICtrl::onVisibilityChange(new_visibility);
 }

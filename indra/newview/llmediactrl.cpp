@@ -483,7 +483,7 @@ BOOL LLMediaCtrl::handleKeyUpHere(KEY key, MASK mask)
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-void LLMediaCtrl::onVisibilityChange ( BOOL new_visibility )
+void LLMediaCtrl::onVisibilityChange ( bool new_visibility )
 {
 	LL_INFOS() << "visibility changed to " << (new_visibility?"true":"false") << LL_ENDL;
 	if(mMediaSource)

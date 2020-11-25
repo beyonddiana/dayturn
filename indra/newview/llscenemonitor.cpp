@@ -730,7 +730,7 @@ void LLSceneMonitorView::onTeleportFinished()
 	}
 }
 
-void LLSceneMonitorView::onVisibilityChange(BOOL visible)
+void LLSceneMonitorView::onVisibilityChange(bool visible)
 {
 	if (!LLGLSLShader::sNoFixedFunction && visible)
 	{

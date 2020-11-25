@@ -621,7 +621,7 @@ void LLFloater::setIsSingleInstance(BOOL is_single_instance)
 
 
 // virtual
-void LLFloater::onVisibilityChange ( BOOL new_visibility )
+void LLFloater::onVisibilityChange ( bool new_visibility )
 {
 	if (new_visibility)
 	{
