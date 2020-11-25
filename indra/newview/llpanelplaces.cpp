@@ -1062,7 +1062,7 @@ void LLPanelPlaces::togglePlaceInfoPanel(BOOL visible)
 }
 
 // virtual
-void LLPanelPlaces::onVisibilityChange(BOOL new_visibility)
+void LLPanelPlaces::onVisibilityChange(bool new_visibility)
 {
 	LLPanel::onVisibilityChange(new_visibility);
 

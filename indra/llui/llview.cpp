@@ -618,10 +618,10 @@ void LLView::setVisible(BOOL visible)
 }
 
 // virtual
-void LLView::onVisibilityChange ( BOOL new_visibility )
+void LLView::onVisibilityChange ( bool new_visibility )
 {
-	BOOL old_visibility;
-	BOOL log_visibility_change = LLViewerEventRecorder::instance().getLoggingStatus();
+	bool old_visibility;
+	bool log_visibility_change = LLViewerEventRecorder::instance().getLoggingStatus();
 	BOOST_FOREACH(LLView* viewp, mChildList)
 	{
 		if (!viewp)

@@ -312,7 +312,7 @@ void LLPanelPlaceProfile::processParcelInfo(const LLParcelData& parcel_data)
 }
 
 // virtual
-void LLPanelPlaceProfile::onVisibilityChange(BOOL new_visibility)
+void LLPanelPlaceProfile::onVisibilityChange(bool new_visibility)
 {
 	LLPanel::onVisibilityChange(new_visibility);
 

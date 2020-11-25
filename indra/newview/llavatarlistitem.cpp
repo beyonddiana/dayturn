@@ -176,7 +176,7 @@ bool  LLAvatarListItem::postBuild()
 	return true;
 }
 
-void LLAvatarListItem::handleVisibilityChange ( BOOL new_visibility )
+void LLAvatarListItem::handleVisibilityChange ( bool new_visibility )
 {
     //Adjust positions of icons (info button etc) when 
     //speaking indicator visibility was changed/toggled while panel was closed (not visible)

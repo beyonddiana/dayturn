@@ -87,7 +87,7 @@ bool LLPanelVoiceDeviceSettings::postBuild()
 }
 
 // virtual
-void LLPanelVoiceDeviceSettings::onVisibilityChange ( BOOL new_visibility )
+void LLPanelVoiceDeviceSettings::onVisibilityChange ( bool new_visibility )
 {
 	if (new_visibility)
 	{

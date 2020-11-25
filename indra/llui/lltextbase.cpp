@@ -1321,7 +1321,7 @@ void LLTextBase::setWriteableColor(const LLColor4 &c)
 	mStyleDirty = true;
 }
 //virtual
-void LLTextBase::onVisibilityChange( BOOL new_visibility )
+void LLTextBase::onVisibilityChange( bool new_visibility )
 {
 	LLContextMenu* menu = mPopupMenuHandle.get();
 	if(!new_visibility && menu)

@@ -102,7 +102,7 @@ private:
 	void togglePickPanel(BOOL visible);
 	void togglePlaceInfoPanel(BOOL visible);
 
-	/*virtual*/ void onVisibilityChange(BOOL new_visibility);
+	/*virtual*/ void onVisibilityChange(bool new_visibility);
 
 	void updateVerbs();
 

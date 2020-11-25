@@ -820,7 +820,7 @@ S32	LLAccordionCtrl::notifyParent(const LLSD& info)
 	}
 	else if (info.has("child_visibility_change"))
 	{
-		BOOL new_visibility = info["child_visibility_change"];
+		bool new_visibility = info["child_visibility_change"];
 		if (new_visibility)
 		{
 			// there is at least one visible tab

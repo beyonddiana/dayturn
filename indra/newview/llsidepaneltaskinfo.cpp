@@ -156,7 +156,7 @@ bool LLSidepanelTaskInfo::postBuild()
 	return TRUE;
 }
 
-/*virtual*/ void LLSidepanelTaskInfo::onVisibilityChange ( BOOL visible )
+/*virtual*/ void LLSidepanelTaskInfo::onVisibilityChange ( bool visible )
 {
 	if (visible)
 	{

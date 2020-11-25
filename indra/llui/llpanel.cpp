@@ -354,7 +354,7 @@ BOOL LLPanel::handleKeyHere( KEY key, MASK mask )
 	return handled;
 }
 
-void LLPanel::onVisibilityChange ( BOOL new_visibility )
+void LLPanel::onVisibilityChange ( bool new_visibility )
 {
 	LLUICtrl::onVisibilityChange ( new_visibility );
 	if (mVisibleSignal)
