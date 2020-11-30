@@ -154,7 +154,7 @@ public:
     const joint_alias_map_t& getJointAliases();
 
 protected:
-	static BOOL			parseSkeletonFile(const std::string& filename);
+	static BOOL			parseSkeletonFile(const std::string& filename, LLXmlTree& skeleton_xml_tree);
 	virtual void		buildCharacter();
 	virtual BOOL		loadAvatar();
 	virtual F32 getAvatarOffset();
@@ -210,8 +210,6 @@ public:
 	// XML parse tree
 	//--------------------------------------------------------------------
 protected:
-	static LLXmlTree 	sSkeletonXMLTree; // avatar skeleton file
-
 	static LLAvatarSkeletonInfo* 					sAvatarSkeletonInfo;
 	static LLAvatarXmlInfo* 						sAvatarXmlInfo;
 
