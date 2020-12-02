@@ -1116,7 +1116,7 @@ even though the user gets a free copy.
       name="Edit Cost"
       label="L$"
       label_width="30"
-      label_text.valign="center"
+      valign="center"
       width="105"
       min_val="0"
       height="23"
