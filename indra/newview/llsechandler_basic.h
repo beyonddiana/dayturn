@@ -273,6 +273,7 @@ public:
 	virtual void deleteCredential(LLPointer<LLCredential> cred);
 	
 protected:
+	void _readProtectedData(unsigned char *unique_id, U32 id_len);
 	void _readProtectedData();
 	void _writeProtectedData();
 	std::string _legacyLoadPassword();
