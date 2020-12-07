@@ -155,7 +155,6 @@ class LLConversationItemSession : public LLConversationItem
 public:
 	LLConversationItemSession(std::string display_name, const LLUUID& uuid, LLFolderViewModelInterface& root_view_model);
 	LLConversationItemSession(const LLUUID& uuid, LLFolderViewModelInterface& root_view_model);
-	virtual ~LLConversationItemSession() {}
 
 	/*virtual*/ bool hasChildren() const;
     LLPointer<LLUIImage> getIcon() const { return NULL; }
