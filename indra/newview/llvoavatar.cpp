@@ -1387,6 +1387,19 @@ void LLVOAvatar::calculateSpatialExtents(LLVector4a& newMin, LLVector4a& newMax)
     LL_RECORD_BLOCK_TIME(FTM_AVATAR_EXTENT_UPDATE);
 
     S32 box_detail = gSavedSettings.getS32("AvatarBoundingBoxComplexity");
+    if (getOverallAppearance() != AOA_NORMAL)
+    {
+        if (isControlAvatar())
+        {
+            // Animated objects don't show system avatar but do need to include rigged meshes in their bounding box.
+            box_detail = 3;
+        }
+        else
+        {
+            // Jellydolled avatars ignore attachments, etc, use only system avatar.
+            box_detail = 1;
+        }
+    }
 
     // FIXME the update_min_max function used below assumes there is a
     // known starting point, but in general there isn't. Ideally the
@@ -1406,11 +1419,11 @@ void LLVOAvatar::calculateSpatialExtents(LLVector4a& newMin, LLVector4a& newMax)
 	newMin = pos;
 	newMax = pos;
 
-	//stretch bounding box by joint positions. Doing this for
-	//control avs, where the polymeshes aren't maintained or
-	//displayed, can give inaccurate boxes due to joints stuck at (0,0,0).
-    if ((box_detail>=1) && !isControlAvatar())
+    if (box_detail>=1 && !isControlAvatar())
     {
+        //stretch bounding box by joint positions. Doing this for
+        //control avs, where the polymeshes aren't maintained or
+        //displayed, can give inaccurate boxes due to joints stuck at (0,0,0).
         for (polymesh_map_t::iterator i = mPolyMeshes.begin(); i != mPolyMeshes.end(); ++i)
         {
             LLPolyMesh* mesh = i->second;
@@ -1423,19 +1436,19 @@ void LLVOAvatar::calculateSpatialExtents(LLVector4a& newMin, LLVector4a& newMax)
         }
     }
 
-	// Pad bounding box for starting joint, plus polymesh if
-	// applicable. Subsequent calcs should be accurate enough to not
-	// need padding.
-	LLVector4a padding(0.25);
-	newMin.sub(padding);
-	newMax.add(padding);
+    // Pad bounding box for starting joint, plus polymesh if
+    // applicable. Subsequent calcs should be accurate enough to not
+    // need padding.
+    LLVector4a padding(0.25);
+    newMin.sub(padding);
+    newMax.add(padding);
 
 
-	//stretch bounding box by static attachments
+    //stretch bounding box by static attachments
     if (box_detail >= 2)
     {
         float max_attachment_span = get_default_max_prim_scale() * 5.0f;
-	
+  
         for (attachment_map_t::iterator iter = mAttachmentPoints.begin(); 
              iter != mAttachmentPoints.end();
              ++iter)
@@ -1449,7 +1462,7 @@ void LLVOAvatar::calculateSpatialExtents(LLVector4a& newMin, LLVector4a& newMax)
                      ++attachment_iter)
                 {
                     // Don't we need to look at children of attached_object as well?
-                    const LLViewerObject* attached_object = attachment_iter->get();
+                  	const LLViewerObject* attached_object = attachment_iter->get();
                     if (attached_object && !attached_object->isHUDAttachment())
                     {
                         const LLVOVolume *vol = dynamic_cast<const LLVOVolume*>(attached_object);
