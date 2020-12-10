@@ -1863,29 +1863,11 @@ void LLItemBridge::restoreToWorld()
 
 void LLItemBridge::gotoItem()
 {
-	LLInventoryObject *obj = getInventoryObject();
-	if (obj && obj->getIsLinkType())
-	{
-		const LLUUID inbox_id = gInventory.findCategoryUUIDForType(LLFolderType::FT_INBOX);
-		if (gInventory.isObjectDescendentOf(obj->getLinkedUUID(), inbox_id))
-		{
-			LLSidepanelInventory *sidepanel_inventory = LLFloaterSidePanelContainer::getPanel<LLSidepanelInventory>("inventory");
-			if (sidepanel_inventory && sidepanel_inventory->getInboxPanel())
-			{
-				sidepanel_inventory->getInboxPanel()->setSelection(obj->getLinkedUUID(), TAKE_FOCUS_NO);
-			}
-		}
-		else
-		{
-			LLInventoryPanel *active_panel = LLInventoryPanel::getActiveInventoryPanel();
-			if (active_panel)
-			{
-				active_panel->setSelection(obj->getLinkedUUID(), TAKE_FOCUS_NO);
-                active_panel->setFocus(TRUE);
-			}
-		}
-
-	}
+    LLInventoryObject *obj = getInventoryObject();
+    if (obj && obj->getIsLinkType())
+    {
+        show_item_original(obj->getUUID());
+    }
 }
 
 LLUIImagePtr LLItemBridge::getIcon() const
@@ -7144,7 +7126,15 @@ void LLLinkFolderBridge::performAction(LLInventoryModel* model, std::string acti
 void LLLinkFolderBridge::gotoItem()
 {
     LLItemBridge::gotoItem();
-    LLInventoryPanel::getActiveInventoryPanel()->openFolderByID(getFolderID());
+    const LLUUID &cat_uuid = getFolderID();
+    if (!cat_uuid.isNull())
+    {
+        LLFolderViewItem *base_folder = LLInventoryPanel::getActiveInventoryPanel()->getItemByID(cat_uuid);
+        if (base_folder)
+        {
+            base_folder->setOpen(TRUE);
+        }
+    }
 }
 
 const LLUUID &LLLinkFolderBridge::getFolderID() const

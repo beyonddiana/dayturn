@@ -241,9 +241,7 @@ public:
 	LLFolderViewItem* getItemByID(const LLUUID& id);
 	LLFolderViewFolder* getFolderByID(const LLUUID& id);
 	void setSelectionByID(const LLUUID& obj_id, BOOL take_keyboard_focus);
-    void openFolderByID(const LLUUID& folder_id);
 	void updateSelection();
-    void updateFolderState();
 
 	LLFolderViewModelInventory* getFolderViewModel() { return &mInventoryViewModel; }
 	const LLFolderViewModelInventory* getFolderViewModel() const { return &mInventoryViewModel; }
@@ -256,10 +254,10 @@ protected:
 	void onItemsCompletion();			// called when selected items are complete
 
     LLUUID                      mSelectThisID;
-    LLUUID                      mOpenFolderID;
 	LLInventoryModel*			mInventory;
 	LLInventoryObserver*		mInventoryObserver;
 	LLInvPanelComplObserver*	mCompletionObserver;
+    bool                        mFocusSelection;
 	bool						mAcceptsDragAndDrop;
 	bool 						mAllowMultiSelect;
 	bool 						mShowItemLinkOverlays; // Shows link graphic over inventory item icons
