@@ -250,6 +250,8 @@ Benja Kepler
 Benjamin Bigdipper
 Beth Walcher
 Bezilon Kasei
+Beq Janus
+	SL-11300
 Biancaluce Robbiani
 	CT-225
 	CT-226
