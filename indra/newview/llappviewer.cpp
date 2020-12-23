@@ -1487,7 +1487,6 @@ bool LLAppViewer::mainLoop()
 					//		LLAppearanceMgr::instance().enforceCOFItemRestrictions (cb);
 					//	}
 					//}
-					}
 				}
 //mk
 
