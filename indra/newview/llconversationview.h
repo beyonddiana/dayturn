@@ -66,6 +66,8 @@ protected:
 public:
 	virtual ~LLConversationViewSession();
 
+	/*virtual*/ void destroyView();
+
 	/*virtual*/ bool postBuild();
 	/*virtual*/ void draw();
 	/*virtual*/ BOOL handleMouseDown( S32 x, S32 y, MASK mask );
