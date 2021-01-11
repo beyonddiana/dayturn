@@ -26,8 +26,7 @@
 
 #include "linden_common.h"
 #include "llmediaentry.h"
-
-#include <boost/regex.hpp>
+#include "llregex.h"
 
 // LLSD key defines
 // DO NOT REORDER OR REMOVE THESE!
@@ -455,7 +454,7 @@ static bool pattern_match(const std::string &candidate_str, const std::string &p
                     
     // case-insensitive matching:
     boost::regex regexp(expression, boost::regex::perl|boost::regex::icase);
-    return boost::regex_match(candidate_str, regexp);
+    return ll_regex_match(candidate_str, regexp);
 }
 
 bool LLMediaEntry::checkCandidateUrl(const std::string& url) const

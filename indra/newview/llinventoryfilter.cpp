@@ -36,13 +36,14 @@
 #include "llinventorymodelbackgroundfetch.h"
 #include "llinventoryfunctions.h"
 #include "llmarketplacefunctions.h"
+#include "llregex.h"
 #include "llviewercontrol.h"
 #include "llfolderview.h"
 #include "llinventorybridge.h"
 #include "llviewerfoldertype.h"
 #include "llradiogroup.h"
 #include "llstartup.h"
-#include <boost/regex.hpp>
+
 // linden library includes
 #include "llclipboard.h"
 #include "lltrans.h"
