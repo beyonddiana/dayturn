@@ -26,6 +26,7 @@
  */
 
 #include "linden_common.h"
+#include "llregex.h"
 #include "llurlregistry.h"
 #include "lluriparser.h"
 
@@ -108,15 +109,7 @@ static bool matchRegex(const char *text, boost::regex regex, U32 &start, U32 &en
 	boost::cmatch result;
 	bool found;
 
-	// regex_search can potentially throw an exception, so check for it
-	try
-	{
-		found = boost::regex_search(text, result, regex);
-	}
-	catch (std::runtime_error &)
-	{
-		return false;
-	}
+	found = ll_regex_search(text, result, regex);
 
 	if (! found)
 	{
