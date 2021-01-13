@@ -3189,6 +3189,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 				(folder_name.find(RR_RLV_REDIR_FOLDER_PREFIX) == 0 || folder_name.find(RR_RLV_REDIR_FOLDER_PREFIX) == 1))
 			{
 				info->mFolderID = gAgent.mRRInterface.getRlvShare()->getUUID();
+			    info->mTransactionID = session_id.notNull() ? session_id : aux_id;
 			}
 			else
 			{
