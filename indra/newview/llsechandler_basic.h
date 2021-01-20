@@ -178,6 +178,9 @@ public:
 						  LLPointer<LLCertificateChain> ca_chain,
 						  const LLSD& validation_params);
 	
+	// Clears cache of certs validated agains store
+	virtual void clearSertCache() { mTrustedCertCache.clear(); }
+
 protected:
 	std::vector<LLPointer<LLCertificate> >            mCerts;
 	
