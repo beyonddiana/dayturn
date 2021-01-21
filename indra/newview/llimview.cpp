@@ -2294,6 +2294,19 @@ bool LLOutgoingCallDialog::postBuild()
 // Class LLIncomingCallDialog
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+const std::array<std::string, 4> voice_call_types =
+{
+    "VoiceInviteP2P",
+    "VoiceInviteGroup",
+    "VoiceInviteAdHoc",
+    "InviteAdHoc"
+};
+
+bool is_voice_call_type(const std::string &value)
+{
+    return std::find(voice_call_types.begin(), voice_call_types.end(), value) != voice_call_types.end();
+}
+
 LLIncomingCallDialog::LLIncomingCallDialog(const LLSD& payload) :
 LLCallDialog(payload),
 mAvatarNameCacheConnection()
@@ -2323,9 +2336,29 @@ bool LLIncomingCallDialog::postBuild()
 {
 	LLCallDialog::postBuild();
 
+    if (!mPayload.isMap() || mPayload.size() == 0)
+    {
+        LL_INFOS("IMVIEW") << "IncomingCall: invalid argument" << LL_ENDL;
+        return true;
+    }
+
 	LLUUID session_id = mPayload["session_id"].asUUID();
 	LLSD caller_id = mPayload["caller_id"];
 	std::string caller_name = mPayload["caller_name"].asString();
+
+
+    if (session_id.isNull() && caller_id.asUUID().isNull())
+    {
+        LL_INFOS("IMVIEW") << "IncomingCall: invalid ids" << LL_ENDL;
+        return true;
+    }
+
+    std::string notify_box_type = mPayload["notify_box_type"].asString();
+    if (!is_voice_call_type(notify_box_type))
+    {
+        LL_INFOS("IMVIEW") << "IncomingCall: notify_box_type was not provided" << LL_ENDL;
+        return true;
+    }
 	
 	// init notification's lifetime
 	std::istringstream ss( getString("lifetime") );
@@ -2342,15 +2375,14 @@ bool LLIncomingCallDialog::postBuild()
 		if (gAgent.getGroupData(session_id, data))
 		{
 			args["[GROUP]"] = data.mName;
-			call_type = getString(mPayload["notify_box_type"], args);
+			call_type = getString(notify_box_type, args);
 		}
 	}
 	else
 	{
-		call_type = getString(mPayload["notify_box_type"]);
+		call_type = getString(notify_box_type);
 	}
-		
-	
+
 	// check to see if this is an Avaline call
 	bool is_avatar = LLVoiceClient::getInstance()->isParticipantAvatar(session_id);
 	if (caller_name == "anonymous")
@@ -2380,7 +2412,6 @@ bool LLIncomingCallDialog::postBuild()
 	childSetAction("Start IM", onStartIM, this);
 	setDefaultBtn("Accept");
 
-	std::string notify_box_type = mPayload["notify_box_type"].asString();
 	if(notify_box_type != "VoiceInviteGroup" && notify_box_type != "VoiceInviteAdHoc")
 	{
 		// starting notification's timer for P2P and AVALINE invitations
@@ -2793,7 +2824,7 @@ void LLIMMgr::addMessage(
 				LL_WARNS() << "Leaving IM session from initiating muted resident " << from << LL_ENDL;
 				if (!gIMMgr->leaveSession(new_session_id))
 				{
-					LL_INFOS() << "Session " << new_session_id << " does not exist." << LL_ENDL;
+					LL_INFOS("IMVIEW") << "Session " << new_session_id << " does not exist." << LL_ENDL;
 				}
 				return;
 			}
