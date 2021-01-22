@@ -4835,7 +4835,11 @@ bool RRInterface::canTouch(LLViewerObject* object, LLVector3 pick_intersection /
 				}
 			}
 			else { // this attachment is not in my inv => it does not belong to me
+				LLVOAvatar* av = root->getAvatar();
 				if (contains ("touchattachother")) {
+					return false;
+				}
+				else if (av != NULL && contains ("touchattachother:" + av->getID().asString())) {
 					return false;
 				}
 			}
