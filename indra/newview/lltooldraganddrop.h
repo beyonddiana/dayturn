@@ -264,7 +264,7 @@ public:
 							  ESource source,
 							  const LLUUID& src_id);
 
-	static bool handleGiveDragAndDrop(LLUUID agent, LLUUID session, BOOL drop,
+	static bool handleGiveDragAndDrop(LLUUID agent, LLUUID session, bool drop,
 									  EDragAndDropType cargo_type,
 									  void* cargo_data,
 									  EAcceptance* accept,

@@ -1767,7 +1767,7 @@ static void get_name_cb(const LLUUID& id,
 
 // function used as drag-and-drop handler for simple agent give inventory requests
 //static
-bool LLToolDragAndDrop::handleGiveDragAndDrop(LLUUID dest_agent, LLUUID session_id, BOOL drop,
+bool LLToolDragAndDrop::handleGiveDragAndDrop(LLUUID dest_agent, LLUUID session_id, bool drop,
 											  EDragAndDropType cargo_type,
 											  void* cargo_data,
 											  EAcceptance* accept,
@@ -1843,7 +1843,7 @@ bool LLToolDragAndDrop::handleGiveDragAndDrop(LLUUID dest_agent, LLUUID session_
 		break;
 	}
 
-	return TRUE;
+	return true;
 }
 
 
