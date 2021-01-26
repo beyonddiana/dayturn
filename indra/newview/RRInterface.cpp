@@ -91,6 +91,7 @@
 #include <cstdlib>
 
 #include "RRInterface.h"
+#include "RRInterfaceVersion.h"
 #include "lloutfitslist.h"				// @showinv - "Appearance / My Outfits" panel
 #include "llpaneloutfitsinventory.h"	// @showinv - "Appearance" floater
 #include "llpanelwearing.h"				// @showinv - "Appearance / Current Outfit" panel
