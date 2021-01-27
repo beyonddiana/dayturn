@@ -518,7 +518,7 @@ bool LLConversationLog::loadFromFile(const std::string& filename)
 	}
 	bool purge_required = false;
 
-	static constexpr int UTF_BUFFER{ 1024 }; // long enough to handle the most extreme Unicode nonsense and some to spare
+	static const int UTF_BUFFER{ 1024 }; // long enough to handle the most extreme Unicode nonsense and some to spare
 
 	char buffer[UTF_BUFFER];
 	char conv_name_buffer[MAX_STRING];
