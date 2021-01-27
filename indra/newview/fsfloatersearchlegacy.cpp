@@ -870,7 +870,16 @@ void FSFloaterSearchLegacy::find()
                 scope |= DFQ_INC_MATURE;
 			if (inc_adult && adult_enabled)
                 scope |= DFQ_INC_ADULT;
-			S8 category = LLParcel::getCategoryFromString(findChild<LLComboBox>("places_category")->getSelectedValue().asString());
+			S8 category;
+			std::string category_string = findChild<LLComboBox>("places_category")->getSelectedValue();
+			if (category_string == "any")
+			{
+				category = LLParcel::C_ANY;
+			}
+			else
+			{
+				category = LLParcel::getCategoryFromString(category_string);
+			}
 			scope |= DFQ_DWELL_SORT;
 			sendPlacesSearchQuery(gMessageSystem,
 								  mQueryID,
