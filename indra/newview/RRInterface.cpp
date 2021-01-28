@@ -546,6 +546,7 @@ RRInterface::RRInterface():
 	, mCamDistDrawFromJoint(NULL)
 	, mGarbageCollectorCalledOnce(FALSE)
 	, mVisionRestricted(FALSE)
+	, mSitGroundOnStandUp(FALSE)
 	//, mContainsMoveUp(FALSE)
 	//, mContainsMoveDown(FALSE)
 	//, mContainsMoveForward(FALSE)
@@ -1565,6 +1566,22 @@ BOOL RRInterface::force (LLUUID object_uuid, std::string command, std::string op
 		LLUUID uuid (option);
 		force_sit (uuid);
 		if (!allowed_to_sittp) add (object_uuid, "sittp", "");
+	}
+	else if (command == "sitground") { // sitground
+		if (gAgentAvatarp && !(gAgentAvatarp->mIsSitting && mSitTargetId == LLUUID::null)) { // do it only if the avatar is not already sitting on the ground
+			mSitGroundOnStandUp = FALSE;
+			// Attention : if the avatar is currently sitting on an object, immediately sitting on the ground will not let the "Stand" button appear
+			// => we need to stand up and wait until the avatar is done standing up, before sitting on the ground
+			if (gAgent.isSitting ()) {
+				mSitGroundOnStandUp = TRUE; // set this variable to TRUE so we don't forget to sit down on the ground once we're off the object
+				gAgent.standUp();
+			}
+			else {
+				gAgent.setFlying(FALSE); // if the avatar is flying, stop flying now
+				gAgent.sitDown(); // sit on the ground
+			}
+
+		}
 	}
 	else if (command=="unsit") { // unsit
 		if (sRestrainedLoveDebug) {

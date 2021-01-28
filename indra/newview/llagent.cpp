@@ -960,6 +960,7 @@ void LLAgent::standUp()
 //MK
 	if (gRRenabled && gAgent.mRRInterface.mContainsUnsit)
 	{
+		gAgent.mRRInterface.mSitGroundOnStandUp = FALSE; // set it to FALSE because we are currently prevented from standing up, we don't want to force a sit ground once the restriction is lifted later
 		return;
 	}
 //mk
@@ -2705,6 +2706,18 @@ void LLAgent::onAnimStop(const LLUUID& id)
 	{
 		setControlFlags(AGENT_CONTROL_FINISH_ANIM);
 	}
+//MK
+	else if (id == ANIM_AGENT_SIT || id == ANIM_AGENT_SIT_FEMALE || id == ANIM_AGENT_SIT_GENERIC || id == ANIM_AGENT_SIT_TO_STAND)
+	{
+		// We are now standing up from an object, if we did this following a @sitground command, immediately sit down on the ground.
+		if (gAgent.mRRInterface.mSitGroundOnStandUp)
+		{
+			gAgent.mRRInterface.mSitGroundOnStandUp = FALSE;
+			setFlying(FALSE); // if the avatar is flying, stop flying now
+			sitDown(); // sit on the ground
+		}
+	}
+//mk
 }
 
 bool LLAgent::isGodlike() const
