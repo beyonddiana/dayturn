@@ -4818,6 +4818,8 @@ bool RRInterface::canEdit(LLViewerObject* object)
 {
 	if (!object || !object->getRootEdit()) return false;
 	if (containsWithoutException ("edit", object->getRootEdit()->getID().asString())) return false;
+	if (!object->isAttachment() && contains("editworld")) return false;
+	if (object->isAttachment() && contains("editattach")) return false;
 	if (contains ("editobj:"+object->getRootEdit()->getID().asString())) return false;
 	if (!object->isHUDAttachment() && mContainsInteract) return false;
 	return true;
