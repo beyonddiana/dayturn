@@ -3424,14 +3424,28 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 			buffer = message;
 	
 //MK (by CA)
-			if (gRRenabled && (gAgent.mRRInterface.containsWithoutException("recvim", from_id.asString())
-				|| gAgent.mRRInterface.contains("recvimfrom:" + from_id.asString())))
+			if (gRRenabled)
 			{
-				// agent is forbidden to receive IMs and the sender is no exception
-				buffer = "...";
-				
-				// this is a group IM, do not send the sender a personal reply about the restriction since otherwise
-				// the sender will get spammed with as many replies as recipients who are under @recvim at the time
+				LLIMModel::LLIMSession* session = LLIMModel::getInstance()->findIMSession(session_id);
+				if (session)
+				{
+					std::string all_groups = "allgroups"; // by default, "allgroups" means "allow to send IMs to all groups", but this name may be replaced by a specific group name
+					std::string group_name = session->mName;
+					group_name = gAgent.mRRInterface.stringReplace(session->mName, ",", ""); // remove the "," from the group name to check against the RLV restrictions as "," is supposed to be a high-level separator
+					group_name = gAgent.mRRInterface.stringReplace(session->mName, ";", ""); // ";" could also be a separator in the future so let's preemptively remove it here
+					if ((gAgent.mRRInterface.containsWithoutException("recvim", from_id.asString()) || gAgent.mRRInterface.contains("recvimfrom:" + from_id.asString()))
+						&& gAgent.mRRInterface.containsWithoutException("recvim", group_name) && gAgent.mRRInterface.containsWithoutException("recvim", all_groups)
+						|| gAgent.mRRInterface.contains("recvimfrom:" + group_name)
+						|| gAgent.mRRInterface.contains("recvimfrom:" + all_groups)
+						)
+					{
+						// agent is forbidden to receive IMs and the receiver (avatar or group) is no exception
+						buffer = saved + "...";
+
+						// this is a group IM, do not send the sender a personal reply about the restriction since otherwise
+						// the sender will get spammed with as many replies as recipients who are under @recvim at the time
+					}
+				}
 			}
 //mk (by CA)
 
