@@ -5891,6 +5891,12 @@ BOOL LLVOAvatar::processSingleAnimationStateChange( const LLUUID& anim_id, BOOL 
 		else if (anim_id == ANIM_AGENT_SIT_GROUND_CONSTRAINED)
 		{
 			sitDown(TRUE);
+//MK
+			if (gRRenabled)
+			{
+				gAgent.mRRInterface.notify(LLUUID::null, "sat ground legally", "");
+			}
+//mk
 		}
 
 
@@ -5908,6 +5914,12 @@ BOOL LLVOAvatar::processSingleAnimationStateChange( const LLUUID& anim_id, BOOL 
 		if (anim_id == ANIM_AGENT_SIT_GROUND_CONSTRAINED)
 		{
 			sitDown(FALSE);
+//MK
+			if (gRRenabled)
+			{
+				gAgent.mRRInterface.notify(LLUUID::null, "unsat ground legally", "");
+			}
+//mk
 		}
 		if ((anim_id == ANIM_AGENT_DO_NOT_DISTURB) && gAgent.isDoNotDisturb())
 		{
@@ -7644,6 +7656,10 @@ void LLVOAvatar::sitOnObject(LLViewerObject *sit_object)
 		{
 			gAgentCamera.changeCameraToMouselook();
 		}
+	if (gRRenabled && sit_object)
+	{
+		gAgent.mRRInterface.notify(sit_object->getID(), "sat object legally ", sit_object->getID().asString());
+	}
 
         if (gAgentCamera.getFocusOnAvatar() && LLToolMgr::getInstance()->inEdit())
         {
@@ -7759,6 +7775,20 @@ void LLVOAvatar::getOffObject()
 		gAgentCamera.setThirdPersonHeadOffset(LLVector3(0.f, 0.f, 1.f));
 		gAgentCamera.setSitCamera(LLUUID::null);
 	}
+//MK
+	if (gRRenabled && isSelf() && sit_object)
+	{
+		if (gAgent.mRRInterface.mContainsUnsit)
+		{
+			gAgent.mRRInterface.notify(sit_object->getID(), "unsat object illegally ", sit_object->getID().asString());
+		}
+		else
+		{
+			gAgent.mRRInterface.notify(sit_object->getID(), "unsat object legally ", sit_object->getID().asString());
+		}
+	}
+//mk
+
 }
 
 //-----------------------------------------------------------------------------
