@@ -330,12 +330,36 @@ void LLFloaterIMSession::sendMsg(const std::string& msg)
 ////	const std::string utf8_text = utf8str_truncate(msg, MAX_MSG_BUF_SIZE - 1);
 	std::string utf8_text = utf8str_truncate(msg, MAX_MSG_BUF_SIZE - 1);
 
-	if (gRRenabled && (gAgent.mRRInterface.containsWithoutException ("sendim", mOtherParticipantUUID.asString())
-		|| gAgent.mRRInterface.contains ("sendimto:"+mOtherParticipantUUID.asString())))
+	LLIMModel::LLIMSession* session = LLIMModel::getInstance()->findIMSession(mSessionID);
+	if (gRRenabled && session)
 	{
-		// user is forbidden to send IMs and the receiver is no exception
-		utf8_text = RRInterface::sSendimMessage; // signal both the sender and the receiver
+		if (session->isGroupChat())
+		{
+			std::string all_groups = "allgroups"; // by default, "allgroups" means "allow to send IMs to all groups", but this name may be replaced by a specific group name
+			std::string group_name = session->mName;
+			group_name = gAgent.mRRInterface.stringReplace(session->mName, ",", ""); // remove the "," from the group name to check against the RLV restrictions as "," is supposed to be a high-level separator
+			group_name = gAgent.mRRInterface.stringReplace(session->mName, ";", ""); // ";" could also be a separator in the future so let's preemptively remove it here
+			if (gAgent.mRRInterface.containsWithoutException("sendim", group_name) && gAgent.mRRInterface.containsWithoutException("sendim", all_groups)
+			|| gAgent.mRRInterface.contains("sendimto:" + group_name)
+			|| gAgent.mRRInterface.contains("sendimto:" + all_groups)
+			)
+			{
+				// user is forbidden to send IMs and the receiver group is no exception
+				utf8_text = RRInterface::sSendimMessage; // signal both the sender and the receiver
+			}
+		}
+		else
+		{
+			if (gAgent.mRRInterface.containsWithoutException("sendim", mOtherParticipantUUID.asString())
+			|| gAgent.mRRInterface.contains("sendimto:" + mOtherParticipantUUID.asString())
+			)
+			{
+				// user is forbidden to send IMs and the receiver avatar is no exception
+				utf8_text = RRInterface::sSendimMessage; // signal both the sender and the receiver
+			}
+		}
 	}
+
 //mk
 
 	if (mSessionInitialized)
