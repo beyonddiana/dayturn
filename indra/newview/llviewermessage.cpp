@@ -3433,8 +3433,8 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 					std::string group_name = session->mName;
 					group_name = gAgent.mRRInterface.stringReplace(session->mName, ",", ""); // remove the "," from the group name to check against the RLV restrictions as "," is supposed to be a high-level separator
 					group_name = gAgent.mRRInterface.stringReplace(session->mName, ";", ""); // ";" could also be a separator in the future so let's preemptively remove it here
-					if ((gAgent.mRRInterface.containsWithoutException("recvim", from_id.asString()) || gAgent.mRRInterface.contains("recvimfrom:" + from_id.asString()))
-						&& gAgent.mRRInterface.containsWithoutException("recvim", group_name) && gAgent.mRRInterface.containsWithoutException("recvim", all_groups)
+					if (((gAgent.mRRInterface.containsWithoutException("recvim", from_id.asString()) || gAgent.mRRInterface.contains("recvimfrom:" + from_id.asString()))
+						&& gAgent.mRRInterface.containsWithoutException("recvim", group_name) && gAgent.mRRInterface.containsWithoutException("recvim", all_groups))
 						|| gAgent.mRRInterface.contains("recvimfrom:" + group_name)
 						|| gAgent.mRRInterface.contains("recvimfrom:" + all_groups)
 						)
