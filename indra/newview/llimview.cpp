@@ -2529,10 +2529,10 @@ void LLIncomingCallDialog::processCallResponse(S32 response, const LLSD &payload
 							correct_session_name.append(ADHOC_NAME_SUFFIX); 
 						}
 					}
-					LL_INFOS() << "Corrected session name is " << correct_session_name << LL_ENDL; 
+					LL_INFOS("IMVIEW") << "Corrected session name is " << correct_session_name << LL_ENDL;
 					break;
 				default: 
-					LL_WARNS() << "Received an empty session name from a server and failed to generate a new proper session name" << LL_ENDL;
+					LL_WARNS("IMVIEW") << "Received an empty session name from a server and failed to generate a new proper session name" << LL_ENDL;
 					break;
 				}
 			}
@@ -3008,7 +3008,7 @@ LLUUID LLIMMgr::addSession(
 	//we don't need to show notes about online/offline, mute/unmute users' statuses for existing sessions
 	if (!new_session) return session_id;
 	
-    LL_INFOS() << "LLIMMgr::addSession, new session added, name = " << name << ", session id = " << session_id << LL_ENDL;
+    LL_INFOS("IMVIEW") << "LLIMMgr::addSession, new session added, name = " << name << ", session id = " << session_id << LL_ENDL;
     
 	//Per Plan's suggestion commented "explicit offline status warning" out to make Dessie happier (see EXT-3609)
 	//*TODO After February 2010 remove this commented out line if no one will be missing that warning
@@ -3045,7 +3045,7 @@ void LLIMMgr::removeSession(const LLUUID& session_id)
 
 	LLIMModel::getInstance()->clearSession(session_id);
 
-    LL_INFOS() << "LLIMMgr::removeSession, session removed, session id = " << session_id << LL_ENDL;
+    LL_INFOS("IMVIEW") << "LLIMMgr::removeSession, session removed, session id = " << session_id << LL_ENDL;
 
 	notifyObserverSessionRemoved(session_id);
 }
@@ -3111,13 +3111,13 @@ void LLIMMgr::inviteToSession(
 		if (LLMuteList::getInstance()->isMuted(caller_id, LLMute::flagVoiceChat)
 			&& voice_invite && "VoiceInviteQuestionDefault" == question_type)
 		{
-			LL_INFOS() << "Rejecting voice call from initiating muted resident " << caller_name << LL_ENDL;
+			LL_INFOS("IMVIEW") << "Rejecting voice call from initiating muted resident " << caller_name << LL_ENDL;
 			LLIncomingCallDialog::processCallResponse(1, payload);
 			return;
 		}
 		else if (LLMuteList::getInstance()->isMuted(caller_id, LLMute::flagAll & ~LLMute::flagVoiceChat) && !voice_invite)
 		{
-			LL_INFOS() << "Rejecting session invite from initiating muted resident " << caller_name << LL_ENDL;
+			LL_INFOS("IMVIEW") << "Rejecting session invite from initiating muted resident " << caller_name << LL_ENDL;
 			return;
 		}
 	}
