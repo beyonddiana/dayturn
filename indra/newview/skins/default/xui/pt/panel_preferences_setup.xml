@@ -16,7 +16,7 @@
 	</text>
 	<radio_group name="preferred_browser_behavior">
 		<radio_item label="Usar meu navegador (Edge, Firefox, Chrome) para todos os links" name="internal" tool_tip="Use o navegador padrão do sistema para consultar a ajuda, abrir links da web etc. Uso em tela inteira não recomendado." value="0"/>
-		<radio_item label="Usar o navegador incorporado somente para links do SecondLife" name="external" tool_tip="Usar o navegador padrão do sistema para consultar a ajuda, abrir links da web etc. O navegador incorporado será usado somente para os links da LindenLab/SecondLife." value="1"/>
+		<radio_item label="Usar o navegador incorporado somente para links do Grid" name="external" tool_tip="Usar o navegador padrão do sistema para consultar a ajuda, abrir links da web etc. O navegador incorporado será usado somente para os links da Grid." value="1"/>
 	</radio_group>
 	<check_box initial_value="true" label="Habilitar plugins" name="browser_plugins_enabled"/>
 	<check_box initial_value="true" label="Aceitar cookies" name="cookies_enabled"/>
