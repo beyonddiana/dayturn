@@ -5466,7 +5466,8 @@ void LLSelectMgr::processObjectProperties(LLMessageSystem* msg, void** user_data
 			FSAreaSearch *area_search_floater = LLFloaterReg::getTypedInstance<FSAreaSearch>("area_search");
 
 			if (!area_search_floater || !area_search_floater->isSearchActive()) {
-				LL_WARNS() << "Couldn't find object " << id << " selected." << LL_ENDL;
+				//KKA-796 This can also happen due to the animation explorer and now also the sound explorer - demote this to a DEBUGS
+				LL_DEBUGS() << "Couldn't find object " << id << " selected." << LL_ENDL;
 			}
 		}
 		else

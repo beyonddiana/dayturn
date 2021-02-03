@@ -21,6 +21,7 @@ public:
 	bool tick();
 
 	LLSoundHistoryItem getItem(const LLUUID& itemID);
+	void requestNameCallback(LLMessageSystem* msg);		// KKA-796 object name query callback
 
 private:
 	virtual ~NACLFloaterExploreSounds();
@@ -28,7 +29,7 @@ private:
 	void handleLookAt();
 	void handleStop();
 	void handleSelection();
-	void blacklistSound();
+	void blockSound(); //KKA-796
 
 	LLScrollListCtrl*	mHistoryScroller;
 	LLCheckBoxCtrl*		mCollisionSounds;
@@ -39,10 +40,8 @@ private:
 	
 	std::list<LLSoundHistoryItem> mLastHistory;
 
-	typedef std::map<LLUUID, boost::signals2::connection> blacklist_avatar_name_cache_connection_map_t;
-	blacklist_avatar_name_cache_connection_map_t mBlacklistAvatarNameCacheConnections;
-
-    void onBlacklistAvatarNameCacheCallback(const LLUUID& av_id, const LLAvatarName& av_name, const LLUUID& asset_id, const std::string& region_name);
+protected:
+	std::vector<LLUUID> mRequestedIDs;			// KKA-796 list of object IDs we requested named for
 };
 
 #endif
