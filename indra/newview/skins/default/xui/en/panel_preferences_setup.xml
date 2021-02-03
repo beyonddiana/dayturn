@@ -117,7 +117,7 @@
    width="480">
     <radio_item
       height="20"
-      label="Use my browser (Chrome, Firefox, IE) for all links"
+      label="Use my browser (Edge, Firefox, Chrome) for all links"
       layout="topleft"
       left="0"
       name="internal"
