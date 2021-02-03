@@ -133,6 +133,8 @@
 #include "fslightshare.h" // <FS:CR> FIRE-5118 - Lightshare support
 #include "fsareasearch.h"
 
+#include "NACLfloaterexploresounds.h" // KKA-796 adding Block to Sound Explorer
+
 extern void on_new_message(const LLSD& msg);
 //
 // Constants
@@ -5786,6 +5788,13 @@ void process_object_properties(LLMessageSystem *msg, void **user_data)
 
 	if (area_search_floater && area_search_floater->isSearchActive()) {
 		area_search_floater->processObjectProperties(msg);
+	}
+	
+	//KKA-796 Sound explorer uses this to get object names for muting
+	NACLFloaterExploreSounds* soundexplorer=LLFloaterReg::findTypedInstance<NACLFloaterExploreSounds>("sound_explorer");
+	if(soundexplorer)
+	{
+		soundexplorer->requestNameCallback(msg);
 	}
 }
 

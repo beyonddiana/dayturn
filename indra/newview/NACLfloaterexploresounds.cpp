@@ -12,6 +12,10 @@
 #include "llviewerregion.h"
 //#include "fsassetblacklist.h"
 #include "fscommon.h"
+//KKA-796 additional includes for muting
+#include "llagent.h"
+#include "llmutelist.h"
+#include "llvoavatarself.h"			// for gAgentAvatarp
 
 static const size_t num_collision_sounds = 28;
 const LLUUID collision_sounds[num_collision_sounds] =
@@ -53,14 +57,6 @@ NACLFloaterExploreSounds::NACLFloaterExploreSounds(const LLSD& key)
 
 NACLFloaterExploreSounds::~NACLFloaterExploreSounds()
 {
-	for (blacklist_avatar_name_cache_connection_map_t::iterator it = mBlacklistAvatarNameCacheConnections.begin(); it != mBlacklistAvatarNameCacheConnections.end(); ++it)
-	{
-		if (it->second.connected())
-		{
-			it->second.disconnect();
-		}
-	}
-	mBlacklistAvatarNameCacheConnections.clear();
 }
 
 bool NACLFloaterExploreSounds::postBuild()
@@ -68,7 +64,7 @@ bool NACLFloaterExploreSounds::postBuild()
 	getChild<LLButton>("play_locally_btn")->setClickedCallback(boost::bind(&NACLFloaterExploreSounds::handlePlayLocally, this));
 	getChild<LLButton>("look_at_btn")->setClickedCallback(boost::bind(&NACLFloaterExploreSounds::handleLookAt, this));
 	getChild<LLButton>("stop_btn")->setClickedCallback(boost::bind(&NACLFloaterExploreSounds::handleStop, this));
-//	getChild<LLButton>("bl_btn")->setClickedCallback(boost::bind(&NACLFloaterExploreSounds::blacklistSound, this));
+	getChild<LLButton>("bl_btn")->setClickedCallback(boost::bind(&NACLFloaterExploreSounds::blockSound, this));
 
 	mHistoryScroller = getChild<LLScrollListCtrl>("sound_list");
 	mHistoryScroller->setCommitCallback(boost::bind(&NACLFloaterExploreSounds::handleSelection, this));
@@ -89,9 +85,9 @@ void NACLFloaterExploreSounds::handleSelection()
 	size_t num_selected = mHistoryScroller->getAllSelected().size();
 	bool multiple = (num_selected > 1);
 	childSetEnabled("look_at_btn", (num_selected && !multiple));
-	childSetEnabled("play_locally_btn", num_selected);
-	childSetEnabled("stop_btn", num_selected);
-//	childSetEnabled("bl_btn", num_selected);
+	childSetEnabled("play_locally_btn", static_cast<bool>(num_selected));
+	childSetEnabled("stop_btn", static_cast<bool>(num_selected));
+	childSetEnabled("bl_btn", num_selected);
 }
 
 LLSoundHistoryItem NACLFloaterExploreSounds::getItem(const LLUUID& itemID)
@@ -109,7 +105,7 @@ LLSoundHistoryItem NACLFloaterExploreSounds::getItem(const LLUUID& itemID)
 		for ( ; iter != end; ++iter)
 		{
 			if ((*iter).mID == itemID)
-		{
+			{
 				return (*iter);
 			}
 		}
@@ -351,39 +347,52 @@ void NACLFloaterExploreSounds::handleLookAt()
 void NACLFloaterExploreSounds::handleStop()
 {
 	std::vector<LLScrollListItem*> selection = mHistoryScroller->getAllSelected();
-	std::vector<LLScrollListItem*>::iterator selection_iter = selection.begin();
-	std::vector<LLScrollListItem*>::iterator selection_end = selection.end();
-	for( ; selection_iter != selection_end; ++selection_iter)
+	for (const auto& selection_item : selection)
 	{
-		LLSoundHistoryItem item = getItem((*selection_iter)->getValue());
-		if(item.mID.isNull()) continue;
-		if(item.mPlaying)
+		LLSoundHistoryItem item = getItem(selection_item->getValue());
+		if (item.mID.notNull() && item.mPlaying)
 		{
-			// Make sure the audio source in question is still in the system to prevent
-			// crashes by using a stale pointer. This can happen when the same UUID is
-			// played twice without stopping it first. -Zi
-			if(!gAudiop->findAudioSource(item.mSourceID))
-			{
-				LL_WARNS("SoundExplorer") << "audio source " << item.mAudioSource << " already gone but still marked as playing. Fixing ..." << LL_ENDL;
-				gSoundHistory[item.mID].mPlaying = false;
-				gSoundHistory[item.mID].mAudioSource = NULL;
-				gSoundHistory[item.mID].mTimeStopped = LLTimer::getElapsedSeconds();
-				continue;
-			}
-
-			if(item.mAudioSource)
+			LLAudioSource* audio_source = gAudiop->findAudioSource(item.mSourceID);
+			if (audio_source)
 			{
 				S32 type = item.mType;
-				item.mAudioSource->setType(LLAudioEngine::AUDIO_TYPE_UI);
-				item.mAudioSource->play(LLUUID::null);
-				item.mAudioSource->setType(type);
+				audio_source->setType(LLAudioEngine::AUDIO_TYPE_UI);
+				audio_source->play(LLUUID::null);
+				audio_source->setType(type);
+			}
+
+			else
+			{
+				LL_WARNS("SoundExplorer") << "audio source for source ID " << item.mSourceID << " already gone but still marked as playing. Fixing ..." << LL_ENDL;
+				if (gSoundHistory.find(item.mID) != gSoundHistory.end())
+				{
+					gSoundHistory[item.mID].mPlaying = false;
+					gSoundHistory[item.mID].mTimeStopped = LLTimer::getElapsedSeconds();
+				}
+				else
+				{
+					for (auto& histItem : mLastHistory)
+					{
+						if (histItem.mID == item.mID)
+						{
+							histItem.mPlaying = false;
+							histItem.mTimeStopped = LLTimer::getElapsedSeconds();
+							break;
+						}
+					}
+				}
+				continue;
 			}
 		}
 	}
 }
 
-//add sound to blacklist
-void NACLFloaterExploreSounds::blacklistSound()
+
+
+// KKA-796 instead of using Firestorm's blacklist as in the original implementation, we instead use the
+// standard block list using code adapted from Zi's animation explorer for the object name lookup
+
+void NACLFloaterExploreSounds::blockSound()
 {
 	std::vector<LLScrollListItem*> selection = mHistoryScroller->getAllSelected();
 	std::vector<LLScrollListItem*>::iterator selection_iter = selection.begin();
@@ -392,43 +401,71 @@ void NACLFloaterExploreSounds::blacklistSound()
 	for ( ; selection_iter != selection_end; ++selection_iter)
 	{
 		LLSoundHistoryItem item = getItem((*selection_iter)->getValue());
-		if (item.mID.isNull())
-	{
+		{
 			continue;
 		}
 
-		std::string region_name;
-		LLViewerRegion* cur_region = gAgent.getRegion();
-		if (cur_region)
+		if(item.mSourceID.notNull())
 		{
-			region_name = cur_region->getName();
-		}
-
-		blacklist_avatar_name_cache_connection_map_t::iterator it = mBlacklistAvatarNameCacheConnections.find(item.mOwnerID);
-		if (it != mBlacklistAvatarNameCacheConnections.end())
-		{
-			if (it->second.connected())
+			LLViewerObject* vo = gObjectList.findObject(item.mSourceID);
+			if(vo)
 			{
-				it->second.disconnect();
+				LLMessageSystem* msg = gMessageSystem;
+				
+				mRequestedIDs.push_back(vo->getID());
+					
+				msg->newMessageFast(_PREHASH_ObjectSelect);
+				msg->nextBlockFast(_PREHASH_AgentData);
+				msg->addUUIDFast(_PREHASH_AgentID, gAgentID);
+				msg->addUUIDFast(_PREHASH_SessionID, gAgentSessionID);
+				msg->nextBlockFast(_PREHASH_ObjectData);
+				msg->addU32Fast(_PREHASH_ObjectLocalID, vo->getLocalID());
+				msg->sendReliable(gAgentAvatarp->getRegion()->getHost());
+
+				msg->newMessageFast(_PREHASH_ObjectDeselect);
+				msg->nextBlockFast(_PREHASH_AgentData);
+				msg->addUUIDFast(_PREHASH_AgentID, gAgentID);
+				msg->addUUIDFast(_PREHASH_SessionID, gAgentSessionID);
+				msg->nextBlockFast(_PREHASH_ObjectData);
+				msg->addU32Fast(_PREHASH_ObjectLocalID, vo->getLocalID());
+				msg->sendReliable(gAgentAvatarp->getRegion()->getHost());
+
+
 			}
-			mBlacklistAvatarNameCacheConnections.erase(it);
 		}
-		LLAvatarNameCache::callback_connection_t cb = LLAvatarNameCache::get(item.mOwnerID, boost::bind(&NACLFloaterExploreSounds::onBlacklistAvatarNameCacheCallback, this, _1, _2, item.mAssetID, region_name));
-		mBlacklistAvatarNameCacheConnections.insert(std::make_pair(item.mOwnerID, cb));
 	}
 }
 
-void NACLFloaterExploreSounds::onBlacklistAvatarNameCacheCallback(const LLUUID& av_id, const LLAvatarName& av_name, const LLUUID& asset_id, const std::string& region_name)
+void NACLFloaterExploreSounds::requestNameCallback(LLMessageSystem* msg)
 {
-	blacklist_avatar_name_cache_connection_map_t::iterator it = mBlacklistAvatarNameCacheConnections.find(av_id);
-	if (it != mBlacklistAvatarNameCacheConnections.end())
+	// if we weren't looking for any IDs, ignore this callback
+	if (mRequestedIDs.empty())
 	{
-		if (it->second.connected())
-		{
-			it->second.disconnect();
-		}
-		mBlacklistAvatarNameCacheConnections.erase(it);
+		return;
 	}
-	//FSAssetBlacklist::getInstance()->addNewItemToBlacklist(asset_id, av_name.getCompleteName(), region_name, LLAssetType::AT_SOUND);
+	// we might have received more than one answer in one block
+	S32 num = msg->getNumberOfBlocksFast(_PREHASH_ObjectData);
+	for (S32 index = 0; index < num; ++index)
+	{
+		LLUUID object_id;
+		msg->getUUIDFast(_PREHASH_ObjectData, _PREHASH_ObjectID, object_id, index);
+
+		uuid_vec_t::iterator iter;
+		iter = std::find(mRequestedIDs.begin(), mRequestedIDs.end(), object_id);
+		// if this is one of the objects we were looking for, process the data
+		if (iter != mRequestedIDs.end())
+		{
+			// get the name of the object
+			std::string object_name;
+			msg->getStringFast(_PREHASH_ObjectData, _PREHASH_Name, object_name, index);
+
+			// and mute it
+			LLMute mute(object_id, object_name, LLMute::OBJECT);
+			LLMuteList::getInstance()->add(mute);
+
+			// remove the object from the lookup list
+			mRequestedIDs.erase(iter);
+		}
+	}
 }
 
