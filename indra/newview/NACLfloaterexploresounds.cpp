@@ -398,40 +398,67 @@ void NACLFloaterExploreSounds::blockSound()
 	std::vector<LLScrollListItem*>::iterator selection_iter = selection.begin();
 	std::vector<LLScrollListItem*>::iterator selection_end = selection.end();
 
-	for ( ; selection_iter != selection_end; ++selection_iter)
+	if (selection_iter != selection_end)
 	{
-		LLSoundHistoryItem item = getItem((*selection_iter)->getValue());
-		{
-			continue;
-		}
+		bool sendmsg = false;
+		LLMessageSystem* msg_sel = gMessageSystem;
+		msg_sel->newMessageFast(_PREHASH_ObjectSelect);
+		msg_sel->nextBlockFast(_PREHASH_AgentData);
+		msg_sel->addUUIDFast(_PREHASH_AgentID, gAgentID);
+		msg_sel->addUUIDFast(_PREHASH_SessionID, gAgentSessionID);
 
-		if(item.mSourceID.notNull())
+		for ( ; selection_iter != selection_end; ++selection_iter)
 		{
-			LLViewerObject* vo = gObjectList.findObject(item.mSourceID);
-			if(vo)
+			LLSoundHistoryItem item = getItem((*selection_iter)->getValue());
+			if (item.mID.isNull())
 			{
-				LLMessageSystem* msg = gMessageSystem;
-				
-				mRequestedIDs.push_back(vo->getID());
-					
-				msg->newMessageFast(_PREHASH_ObjectSelect);
-				msg->nextBlockFast(_PREHASH_AgentData);
-				msg->addUUIDFast(_PREHASH_AgentID, gAgentID);
-				msg->addUUIDFast(_PREHASH_SessionID, gAgentSessionID);
-				msg->nextBlockFast(_PREHASH_ObjectData);
-				msg->addU32Fast(_PREHASH_ObjectLocalID, vo->getLocalID());
-				msg->sendReliable(gAgentAvatarp->getRegion()->getHost());
-
-				msg->newMessageFast(_PREHASH_ObjectDeselect);
-				msg->nextBlockFast(_PREHASH_AgentData);
-				msg->addUUIDFast(_PREHASH_AgentID, gAgentID);
-				msg->addUUIDFast(_PREHASH_SessionID, gAgentSessionID);
-				msg->nextBlockFast(_PREHASH_ObjectData);
-				msg->addU32Fast(_PREHASH_ObjectLocalID, vo->getLocalID());
-				msg->sendReliable(gAgentAvatarp->getRegion()->getHost());
-
-
+				continue;
 			}
+			if(item.mSourceID.notNull())
+			{
+				LLViewerObject* vo = gObjectList.findObject(item.mSourceID);
+				if(vo)
+				{
+					mRequestedIDs.push_back(vo->getID());
+						
+					msg_sel->nextBlockFast(_PREHASH_ObjectData);
+					msg_sel->addU32Fast(_PREHASH_ObjectLocalID, vo->getLocalID());
+					sendmsg = true;
+				}
+			}
+		}
+		if (sendmsg)
+		{
+			msg_sel->sendReliable(gAgentAvatarp->getRegion()->getHost());
+
+			selection_iter = selection.begin();
+
+			LLMessageSystem* msg_dsl = gMessageSystem;
+			msg_dsl->newMessageFast(_PREHASH_ObjectDeselect);
+			msg_dsl->nextBlockFast(_PREHASH_AgentData);
+			msg_dsl->addUUIDFast(_PREHASH_AgentID, gAgentID);
+			msg_dsl->addUUIDFast(_PREHASH_SessionID, gAgentSessionID);
+
+			for ( ; selection_iter != selection_end; ++selection_iter)
+			{
+				LLSoundHistoryItem item = getItem((*selection_iter)->getValue());
+				if (item.mID.isNull())
+				{
+					continue;
+				}
+				if(item.mSourceID.notNull())
+				{
+					LLViewerObject* vo = gObjectList.findObject(item.mSourceID);
+					if(vo)
+					{					
+						mRequestedIDs.push_back(vo->getID());
+							
+						msg_dsl->nextBlockFast(_PREHASH_ObjectData);
+						msg_dsl->addU32Fast(_PREHASH_ObjectLocalID, vo->getLocalID());
+					}
+				}
+			}
+			msg_dsl->sendReliable(gAgentAvatarp->getRegion()->getHost());
 		}
 	}
 }
@@ -461,6 +488,7 @@ void NACLFloaterExploreSounds::requestNameCallback(LLMessageSystem* msg)
 
 			// and mute it
 			LLMute mute(object_id, object_name, LLMute::OBJECT);
+			LL_INFOS() << "Calling mute for " << object_name << " id " << object_id << LL_ENDL;
 			LLMuteList::getInstance()->add(mute);
 
 			// remove the object from the lookup list
