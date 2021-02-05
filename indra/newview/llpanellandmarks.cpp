@@ -1093,6 +1093,38 @@ bool LLLandmarksPanel::isActionEnabled(const LLSD& userdata) const
 		}
 		return false;
 	}
+    else if ("add_landmark" == command_name)
+    {
+        bool is_single_selection = root_folder_view && root_folder_view->getSelectedCount() == 1;
+        if (!is_single_selection)
+        {
+            return false;
+        }
+        LLFolderViewModelItemInventory* view_model = getCurSelectedViewModelItem();
+        if (!view_model || view_model->getInventoryType() != LLInventoryType::IT_CATEGORY)
+        {
+            return false;
+        }
+        LLViewerInventoryItem* landmark = LLLandmarkActions::findLandmarkForAgentPos();
+        if (landmark)
+        {
+            //already exists
+            return false;
+        }
+        return true;
+    }
+    else if ("share" == command_name)
+    {
+        if (!mCurrentSelectedList)
+        {
+            return false;
+        }
+        if (!LLAvatarActions::canShareSelectedItems(mCurrentSelectedList))
+        {
+            return false;
+        }
+        return true;
+    }
 	else
 	{
 		LL_WARNS() << "Unprocessed command has come: " << command_name << LL_ENDL;
@@ -1124,6 +1156,10 @@ void LLLandmarksPanel::onCustomAction(const LLSD& userdata)
 	{
 		doActionOnCurSelectedLandmark(boost::bind(&LLLandmarksPanel::doCreatePick, this, _1));
 	}
+    else if ("share" == command_name && mCurrentSelectedList)
+    {
+        LLAvatarActions::shareWithAvatars(mCurrentSelectedList);
+    }
 	else if ("restore" == command_name && mCurrentSelectedList)
 	{
 		mCurrentSelectedList->doToSelected(userdata);
