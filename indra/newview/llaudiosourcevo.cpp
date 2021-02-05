@@ -39,6 +39,13 @@ LLAudioSourceVO::LLAudioSourceVO(const LLUUID &sound_id, const LLUUID& owner_id,
 	:	LLAudioSource(sound_id, owner_id, gain, LLAudioEngine::AUDIO_TYPE_SFX), 
 	mObjectp(objectp)
 {
+	LLUUID source_id = sound_id;
+	// CA: If it's a child, substitute the parent since muting works at root object level
+	if (objectp->getParent())
+	{
+		source_id = ((LLViewerObject *)objectp->getParent())->getID();
+	}
+	LLAudioSource::setSourceID(source_id);
 	update();
 }
 
