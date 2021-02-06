@@ -204,6 +204,24 @@ bool NACLFloaterExploreSounds::tick()
 
 		bool is_repeated_asset = std::find(unique_asset_list.begin(), unique_asset_list.end(), item.mAssetID) != unique_asset_list.end();
 		if(is_repeated_asset && !show_repeated_assets) continue;
+			
+		bool is_muted_object = false;
+		
+		if (is_object)
+		{
+			LLViewerObject* vo = gObjectList.findObject(item.mSourceID);
+			if(vo)
+			{
+				if (vo->getParent())
+				{
+					vo = (LLViewerObject*) vo->getParent();
+				}
+				if (LLMuteList::getInstance()->isMuted(vo->getID()))
+				{
+					is_muted_object = true;
+				}
+			}			
+		}
 
 		if(!item.mReviewed)
 		{
@@ -214,77 +232,80 @@ bool NACLFloaterExploreSounds::tick()
 		if(is_collision_sound && !show_collision_sounds) continue;
 
 		unique_asset_list.push_back(item.mAssetID);
-
-		LLSD element;
-		element["id"] = item.mID;
-
-		LLSD& playing_column = element["columns"][0];
-		playing_column["column"] = "playing";
-		if(item.mPlaying)
+		
+		if (!is_muted_object) // if it's muted don't list it at all
 		{
-			playing_column["value"] = " " + str_playing;
-		}
-		else
-		{
-			LLStringUtil::format_map_t format_args;
-			format_args["TIME"] = llformat("%.1f", static_cast<F32>((LLTimer::getElapsedSeconds() - item.mTimeStopped) / 60.0));
-			playing_column["value"] = format_string(str_not_playing, format_args);
-		}
+			LLSD element;
+			element["id"] = item.mID;
 
-		LLSD& type_column = element["columns"][1];
-		type_column["column"] = "type";
-		if(item.mType == LLAudioEngine::AUDIO_TYPE_UI)
-		{
-			// this shouldn't happen for now, as UI is forbidden in the log
-			type_column["value"] = str_type_ui;
-		}
-		else
-		{
-			std::string type;
-
-			if(is_avatar)
+			LLSD& playing_column = element["columns"][0];
+			playing_column["column"] = "playing";
+			if(item.mPlaying)
 			{
-				type = str_type_avatar;
+				playing_column["value"] = " " + str_playing;
 			}
 			else
 			{
-				if(item.mIsTrigger)
+				LLStringUtil::format_map_t format_args;
+				format_args["TIME"] = llformat("%.1f", static_cast<F32>((LLTimer::getElapsedSeconds() - item.mTimeStopped) / 60.0));
+				playing_column["value"] = format_string(str_not_playing, format_args);
+			}
+
+			LLSD& type_column = element["columns"][1];
+			type_column["column"] = "type";
+			if(item.mType == LLAudioEngine::AUDIO_TYPE_UI)
+			{
+				// this shouldn't happen for now, as UI is forbidden in the log
+				type_column["value"] = str_type_ui;
+			}
+			else
+			{
+				std::string type;
+
+				if(is_avatar)
 				{
-					type = str_type_trigger_sound;
+					type = str_type_avatar;
 				}
 				else
 				{
-					if(item.mIsLooped)
+					if(item.mIsTrigger)
 					{
-						type = str_type_loop_sound;
+						type = str_type_trigger_sound;
 					}
 					else
 					{
-						type = str_type_play_sound;
+						if(item.mIsLooped)
+						{
+							type = str_type_loop_sound;
+						}
+						else
+						{
+							type = str_type_play_sound;
+						}
 					}
 				}
+
+				type_column["value"] = type;
 			}
 
-			type_column["value"] = type;
-		}
+			LLSD& owner_column = element["columns"][2];
+			owner_column["column"] = "owner";
+			LLAvatarName av_name;
+			if (LLAvatarNameCache::get(item.mOwnerID, &av_name))
+			{
+				owner_column["value"] = av_name.getCompleteName();
+			}
+			else
+			{
+				owner_column["value"] = item.mOwnerID.asString();
+			}
 
-		LLSD& owner_column = element["columns"][2];
-		owner_column["column"] = "owner";
-		LLAvatarName av_name;
-		if (LLAvatarNameCache::get(item.mOwnerID, &av_name))
-		{
-			owner_column["value"] = av_name.getCompleteName();
-		}
-		else
-		{
-			owner_column["value"] = item.mOwnerID.asString();
-		}
+			LLSD& sound_column = element["columns"][3];
+			sound_column["column"] = "sound";
+			sound_column["value"] = item.mAssetID.asString().substr(0,16);
 
-		LLSD& sound_column = element["columns"][3];
-		sound_column["column"] = "sound";
-		sound_column["value"] = item.mAssetID.asString().substr(0,16);
-
-		mHistoryScroller->addElement(element, ADD_BOTTOM);
+			mHistoryScroller->addElement(element, ADD_BOTTOM);
+		}
 	}
 
 	mHistoryScroller->selectMultiple(selected_ids);
@@ -419,6 +440,10 @@ void NACLFloaterExploreSounds::blockSound()
 				LLViewerObject* vo = gObjectList.findObject(item.mSourceID);
 				if(vo)
 				{
+					if (vo->getParent())
+					{
+						vo = (LLViewerObject*) vo->getParent();
+					}
 					mRequestedIDs.push_back(vo->getID());
 						
 					msg_sel->nextBlockFast(_PREHASH_ObjectData);
@@ -451,8 +476,10 @@ void NACLFloaterExploreSounds::blockSound()
 					LLViewerObject* vo = gObjectList.findObject(item.mSourceID);
 					if(vo)
 					{					
-						mRequestedIDs.push_back(vo->getID());
-							
+						if (vo->getParent())
+						{
+							vo = (LLViewerObject*) vo->getParent();
+						}
 						msg_dsl->nextBlockFast(_PREHASH_ObjectData);
 						msg_dsl->addU32Fast(_PREHASH_ObjectLocalID, vo->getLocalID());
 					}
