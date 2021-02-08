@@ -290,7 +290,6 @@ public:
 	void	setAllowTerraform(bool b){setParcelFlag(PF_ALLOW_TERRAFORM, b); }
 	void	setAllowDamage(bool b)	{ setParcelFlag(PF_ALLOW_DAMAGE, b); }
 	void	setAllowFly(bool b)		{ setParcelFlag(PF_ALLOW_FLY, b); }
-	void	setAllowLandmark(bool b){ setParcelFlag(PF_ALLOW_LANDMARK, b); }
 	void	setAllowGroupScripts(bool b)	{ setParcelFlag(PF_ALLOW_GROUP_SCRIPTS, b); }
 	void	setAllowOtherScripts(bool b)	{ setParcelFlag(PF_ALLOW_OTHER_SCRIPTS, b); }
 	void	setAllowDeedToGroup(bool b) { setParcelFlag(PF_ALLOW_DEED_TO_GROUP, b); }
@@ -471,11 +470,6 @@ public:
 	bool	getAllowFly() const
 					{ return (mParcelFlags & PF_ALLOW_FLY) ? true : false; }
 
-	// Remove permission restrictions for creating landmarks.
-	// We should eventually remove this flag completely.
-	bool	getAllowLandmark() const
-					{ return true; }
-
 	bool	getAllowGroupScripts() const
 					{ return (mParcelFlags & PF_ALLOW_GROUP_SCRIPTS) ? true : false; }
 
@@ -503,6 +497,7 @@ public:
 	bool	getRestrictPushObject() const
 					{ return (mParcelFlags & PF_RESTRICT_PUSHOBJECT) ? true : false; }
 	bool	getRegionPushOverride() const
+
 					{ return mRegionPushOverride; }
 	bool	getRegionDenyAnonymousOverride() const
 					{ return mRegionDenyAnonymousOverride; }
