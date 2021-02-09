@@ -61,6 +61,7 @@
 #include "llstartup.h"
 #include "lltrans.h"
 #include "llurldispatcher.h"
+#include "llviewernetwork.h"
 #include "llviewerobjectlist.h"
 #include "llviewerparceloverlay.h"
 #include "llviewerstatsrecorder.h"
@@ -3340,5 +3341,36 @@ U32 LLViewerRegion::getMaxMaterialsPerTransaction() const
 	return max_entries;
 }
 
+std::string LLViewerRegion::getGridURL() const
+{
+	std::string url;
+	if (mSimulatorFeatures.has("OpenSimExtras")
+		&& mSimulatorFeatures["OpenSimExtras"].has("GridURL"))
+	{
+		url = mSimulatorFeatures["OpenSimExtras"]["GridURL"].asString();
+	}
+	else
+	{
+		std::vector<std::string> uris;
+		LLGridManager::getInstance()->getLoginURIs(uris);
+		url = uris.front();
+	}
+	return url;
+}
+
+std::string LLViewerRegion::getGridName() const
+{
+	std::string name;
+	if (mSimulatorFeatures.has("OpenSimExtras")
+		&& mSimulatorFeatures["OpenSimExtras"].has("GridName"))
+	{
+		name = mSimulatorFeatures["OpenSimExtras"]["GridName"].asString();
+	}
+	else
+	{
+		name = LLGridManager::getInstance()->getGridLabel();
+	}
+	return name;
+}
 
 

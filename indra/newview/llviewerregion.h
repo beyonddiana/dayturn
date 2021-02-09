@@ -419,9 +419,9 @@ public:
 	/// Buy currency server url
 	std::string getBuyCurrencyServerURL() const;
 	/// Grid login/gateway authority (0.8.1)
-	std::string getHGGrid() const;
+	std::string getGridURL() const;
 	/// Grid name (0.8.1)
-	std::string getHGGridName() const;
+	std::string getGridName() const;
 	/// "God names" surname and full account names map
 	std::set<std::string> getGods() const { return mGodNames; };
 	//@}
