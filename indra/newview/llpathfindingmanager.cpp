@@ -35,7 +35,6 @@
 
 #include <boost/bind.hpp>
 #include <boost/function.hpp>
-#include <boost/shared_ptr.hpp>
 #include <boost/signals2.hpp>
 
 #include "llagent.h"
@@ -211,7 +210,7 @@ private:
 	LLPathfindingObjectPtr                          mTerrainLinksetPtr;
 };
 
-typedef boost::shared_ptr<LinksetsResponder> LinksetsResponderPtr;
+typedef std::shared_ptr<LinksetsResponder> LinksetsResponderPtr;
 
 //---------------------------------------------------------------------------
 // ObjectLinksetsResponder
