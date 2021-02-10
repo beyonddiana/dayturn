@@ -3717,7 +3717,6 @@ public:
 				args["[LONG_TIMESTAMP]"] = formatted_time(timestamp);
 				saved = LLTrans::getString("Saved_message", args);
 			}
-			std::string buffer = saved + message;
 
 // <FS:CR> FIRE-9762 - Don't bail here on OpenSim, we'll need to echo local posts
 			if (gIsInSecondLife && from_id == gAgentID)
@@ -3725,6 +3724,8 @@ public:
 			{
 				return;
 			}
+			
+			std::string buffer = saved + message;
 			gIMMgr->addMessage(
 				session_id,
 				from_id,
