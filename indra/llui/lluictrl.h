@@ -183,6 +183,8 @@ public:
 	void setMakeVisibleControlVariable(LLControlVariable* control);
 	void setMakeInvisibleControlVariable(LLControlVariable* control);
 
+	void setFunctionName(const std::string& function_name);
+	
 	virtual void	setTentative(bool b);
 	virtual bool	getTentative() const;
 	virtual void	setValue(const LLSD& value);
@@ -308,6 +310,8 @@ protected:
 	boost::signals2::connection mMakeVisibleControlConnection;
 	LLControlVariable* mMakeInvisibleControlVariable;
 	boost::signals2::connection mMakeInvisibleControlConnection;
+
+	std::string mFunctionName;
 
 	static F32 sActiveControlTransparency;
 	static F32 sInactiveControlTransparency;

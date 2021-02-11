@@ -122,6 +122,7 @@ set(llui_SOURCE_FILES
     lluictrl.cpp
     lluictrlfactory.cpp
     lluistring.cpp
+    lluiusage.cpp
     llundo.cpp
     llurlaction.cpp
     llurlentry.cpp
@@ -239,6 +240,7 @@ set(llui_HEADER_FILES
     llui.h
     lluicolor.h
     lluistring.h
+    lluiusage.h
     llundo.h
     llurlaction.h
     llurlentry.h
