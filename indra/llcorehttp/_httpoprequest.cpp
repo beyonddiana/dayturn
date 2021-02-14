@@ -108,6 +108,15 @@ void os_strlower(char * str);
 // Error testing and reporting for libcurl status codes
 void check_curl_easy_code(CURLcode code, int curl_setopt_option);
 
+// This is a template because different 'option' values require different
+// types for 'ARG'. Just pass them through unchanged (by value).
+template <typename ARG>
+void check_curl_easy_setopt(CURL* handle, CURLoption option, ARG argument)
+{
+    CURLcode code = curl_easy_setopt(handle, option, argument);
+    check_curl_easy_code(code, option);
+}
+
 static const char * const LOG_CORE("CoreHttp");
 
 } // end anonymous namespace
