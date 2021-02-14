@@ -27,7 +27,6 @@
 
 #define SAFE_SSL 1
 
-#include "linden_common.h"        // Modifies curl/curl.h interfaces
 #include "httpcommon.h"
 #include "llmutex.h"
 #include "llthread.h"
