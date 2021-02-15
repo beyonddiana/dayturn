@@ -33,27 +33,6 @@
 
 #include "mutex.h"
 
-/**
- * LLSingleton implements the getInstance() method part of the Singleton
- * pattern. It can't make the derived class constructors protected, though, so
- * you have to do that yourself.
- *
- * Derive your class from LLSingleton, passing your subclass name as
- * LLSingleton's template parameter, like so:
- *
- *   class Foo: public LLSingleton<Foo>
- *   {
- *       // use this macro at start of every LLSingleton subclass
- *       LLSINGLETON(Foo);
- *   public:
- *       // ...
- *   }; 
- *
- *   Foo& instance = Foo::instance();
- *
- * As currently written, LLSingleton is not thread-safe.
- */
- 
 class LLSingletonBase: private boost::noncopyable
 {
 public:
@@ -66,6 +45,7 @@ private:
     // This, on the other hand, is a stack whose top indicates the LLSingleton
     // currently being initialized.
     static list_t& get_initializing();
+    static list_t& get_initializing_from(MasterList*);
     // Produce a vector<LLSingletonBase*> of master list, in dependency order.
     typedef std::vector<LLSingletonBase*> vec_t;
     static vec_t dep_sort();
@@ -80,7 +60,6 @@ protected:
     {
         UNINITIALIZED = 0,          // must be default-initialized state
         CONSTRUCTING,               // within DERIVED_TYPE constructor
-        CONSTRUCTED,                // finished DERIVED_TYPE constructor
         INITIALIZING,               // within DERIVED_TYPE::initSingleton()
         INITIALIZED,                // normal case
         DELETED                     // deleteSingleton() or deleteAll() called
@@ -208,37 +187,57 @@ struct LLSingleton_manage_master
     void remove(LLSingletonBase* sb) { sb->remove_master(); }
     void push_initializing(LLSingletonBase* sb) { sb->push_initializing(typeid(T).name()); }
     void pop_initializing (LLSingletonBase* sb) { sb->pop_initializing(); }
-   // used for init stack cleanup in case an LLSingleton subclass constructor
-   // throws an exception
-   void reset_initializing(LLSingletonBase::list_t::size_type size)
-   {
-       LLSingletonBase::reset_initializing(size);
-   }
-   // For any LLSingleton subclass except the MasterList, obtain the init
-   // stack from the MasterList singleton instance.
-   LLSingletonBase::list_t& get_initializing() { return LLSingletonBase::get_initializing(); }
-}; 
- 
- 
+    LLSingletonBase::list_t& get_initializing(T*) { return LLSingletonBase::get_initializing(); }
+};
+
 // But for the specific case of LLSingletonBase::MasterList, don't.
 template <>
 struct LLSingleton_manage_master<LLSingletonBase::MasterList>
+
 {
     void add(LLSingletonBase*) {}
     void remove(LLSingletonBase*) {}
     void push_initializing(LLSingletonBase*) {}
     void pop_initializing (LLSingletonBase*) {}
-    // since we never pushed, no need to clean up
-    void reset_initializing(LLSingletonBase::list_t::size_type size) {}
-    LLSingletonBase::list_t& get_initializing()
+    LLSingletonBase::list_t& get_initializing(LLSingletonBase::MasterList* instance)
     {
-        // The MasterList shouldn't depend on any other LLSingletons. We'd
-        // get into trouble if we tried to recursively engage that machinery.
-        static LLSingletonBase::list_t sDummyList;
-        return sDummyList;
+        return LLSingletonBase::get_initializing_from(instance);
     }
-}; 
- 
+};
+
+// Now we can implement LLSingletonBase's template constructor.
+template <typename DERIVED_TYPE>
+LLSingletonBase::LLSingletonBase(tag<DERIVED_TYPE>):
+
+mCleaned(false),
+mDeleteSingleton(NULL)
+{
+    // Make this the currently-initializing LLSingleton.
+    LLSingleton_manage_master<DERIVED_TYPE>().push_initializing(this);
+}
+
+/**
+ * LLSingleton implements the getInstance() method part of the Singleton
+ * pattern. It can't make the derived class constructors protected, though, so
+ * you have to do that yourself.
+ *
+ * Derive your class from LLSingleton, passing your subclass name as
+ * LLSingleton's template parameter, like so:
+ *
+ *   class Foo: public LLSingleton<Foo>
+ *   {
+ *       // use this macro at start of every LLSingleton subclass
+ *       LLSINGLETON(Foo);
+ *   public:
+ *       // ...
+ *   };
+ *
+ *   Foo& instance = Foo::instance();
+ *
+ * As currently written, LLSingleton is not thread-safe.
+ */
+
+
 template <typename DERIVED_TYPE>
 class LLSingleton : private boost::noncopyable
 {

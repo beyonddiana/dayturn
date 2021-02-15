@@ -134,6 +134,13 @@ LLSingletonBase::list_t& LLSingletonBase::get_initializing()
     return LLSingletonBase::MasterList::instance().get_initializing_();
 }
 
+
+//static
+LLSingletonBase::list_t& LLSingletonBase::get_initializing_from(MasterList* master)
+{
+    return master->get_initializing_();;
+}
+
 LLSingletonBase::~LLSingletonBase() {}
 
 void LLSingletonBase::push_initializing(const char* name)
@@ -222,6 +229,85 @@ void LLSingletonBase::log_initializing(const char* verb, const char* name)
     }
 }
 
+void LLSingletonBase::capture_dependency(list_t& initializing, EInitState initState)
+{
+    // Did this getInstance() call come from another LLSingleton, or from
+    // vanilla application code? Note that although this is a nontrivial
+    // method, the vast majority of its calls arrive here with initializing
+    // empty().
+    if (! initializing.empty())
+    {
+        // getInstance() is being called by some other LLSingleton. But -- is
+        // this a circularity? That is, does 'this' already appear in the
+        // initializing stack?
+        // For what it's worth, normally 'initializing' should contain very
+        // few elements.
+        list_t::const_iterator found =
+        std::find(initializing.begin(), initializing.end(), this);
+        if (found != initializing.end())
+        {
+            list_t::const_iterator it_next = found;
+            it_next++;
+            
+            // Report the circularity. Requiring the coder to dig through the
+            // logic to diagnose exactly how we got here is less than helpful.
+            std::ostringstream out;
+            for ( ; found != initializing.end(); ++found)
+            {
+                // 'found' is an iterator; *found is an LLSingletonBase*; **found
+                // is the actual LLSingletonBase instance.
+                LLSingletonBase* foundp(*found);
+                out << demangle(typeid(*foundp).name()) << " -> ";
+            }
+            // We promise to capture dependencies from both the constructor
+            // and the initSingleton() method, so an LLSingleton's instance
+            // pointer is on the initializing list during both. Now that we've
+            // detected circularity, though, we must distinguish the two. If
+            // the recursive call is from the constructor, we CAN'T honor it:
+            // otherwise we'd be returning a pointer to a partially-
+            // constructed object! But from initSingleton() is okay: that
+            // method exists specifically to support circularity.
+            // Decide which log helper to call.
+            if (initState == CONSTRUCTING)
+            {
+                logerrs("LLSingleton circularity in Constructor: ", out.str().c_str(),
+                        demangle(typeid(*this).name()).c_str(), "");
+            }
+            else if (it_next == initializing.end())
+            {
+                // Points to self after construction, but during initialization.
+                // Singletons can initialize other classes that depend onto them,
+                // so this is expected.
+                //
+                // Example: LLNotifications singleton initializes default channels.
+                // Channels register themselves with singleton once done.
+                logdebugs("LLSingleton circularity: ", out.str().c_str(),
+                          demangle(typeid(*this).name()).c_str(), "");
+            }
+            else
+            {
+                // Actual circularity with other singleton (or single singleton is used extensively).
+                // Dependency can be unclear.
+                logwarns("LLSingleton circularity: ", out.str().c_str(),
+                         demangle(typeid(*this).name()).c_str(), "");
+            }
+        }
+        else
+        {
+            // Here 'this' is NOT already in the 'initializing' stack. Great!
+            // Record the dependency.
+            // initializing.back() is the LLSingletonBase* currently being
+            // initialized. Store 'this' in its mDepends set.
+            LLSingletonBase* current(initializing.back());
+            if (current->mDepends.insert(this).second)
+            {
+                // only log the FIRST time we hit this dependency!
+                logdebugs(demangle(typeid(*current).name()).c_str(),
+                          " depends on ", demangle(typeid(*this).name()).c_str());
+            }
+        }
+    }
+}
 
 //static
 void LLSingletonBase::cleanupAll()
