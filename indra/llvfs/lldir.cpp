@@ -51,6 +51,8 @@
 #include <boost/ref.hpp>
 #include <algorithm>
 
+#include "indra_constants.h"
+
 using boost::assign::list_of;
 using boost::assign::map_list_of;
 
@@ -128,6 +130,8 @@ std::vector<std::string> LLDir::getFilesInDir(const std::string &dirname)
             
 S32 LLDir::deleteFilesInDir(const std::string &dirname, const std::string &mask)
 {
+    if (!fileExists(dirname)) return 0;
+
 	S32 count = 0;
 	std::string filename; 
 	std::string fullpath;
@@ -378,7 +382,7 @@ std::string LLDir::buildSLOSCacheDir() const
 	}
 	else
 	{
-		res = getOSCacheDir() + mDirDelimiter + "Dayturn";
+		res = add(getOSCacheDir(),APP_NAME);
 	}
 	return res;
 }
