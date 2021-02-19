@@ -32,15 +32,13 @@ const F32 MANIPULATOR_SELECT_SIZE = 20.0;
 
 
 QToolAlign::QToolAlign()
-:	LLTool(std::string("Align"))
+    : LLTool(std::string("Align"))
 {
 }
-
 
 QToolAlign::~QToolAlign()
 {
 }
-
 
 
 BOOL QToolAlign::handleMouseDown(S32 x, S32 y, MASK mask)
