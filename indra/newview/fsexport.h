@@ -33,6 +33,8 @@
 #include "lltexturecache.h"
 #include "llviewertexture.h"
 
+const S32 OXP_FORMAT_VERSION = 2;
+
 struct FSAssetResourceData
 {
 	std::string name;

@@ -4,7 +4,7 @@
   help_topic="fs_import"
   title="Object Import"
   width="210"
-  height="158"
+  height="216"
   save_rect="true"
   can_resize="false"
   can_minimize="true"
@@ -93,6 +93,44 @@
 	<button.commit_callback
 	    function="Import.ImportLinkset" />
     </button>
+	<text
+	 type="string"
+	 visible="false"
+	 length="1"
+	 follows="left|top"
+	 height="14"
+	 layout="topleft"
+	 left="5"
+	 name="creation_date_text"
+	 width="200">
+		File created on [DATE_STRING]
+    </text>
+	<text
+	 type="string"
+	 visible="false"
+	 length="1"
+	 follows="left|top"
+	 height="14"
+	 layout="topleft"
+	 left="5"
+	 name="author_text"
+	 use_ellipses="true"
+	 width="200">
+		by [AUTHOR] [GRID]
+    </text>
+	<text
+	 type="string"
+	 visible="false"
+	 length="1"
+	 follows="left|top"
+	 height="14"
+	 layout="topleft"
+	 left="5"
+	 name="client_text"
+	 use_ellipses="true"
+	 width="200">
+		Client: [CLIENT] v.[VERSION]
+    </text>
     <check_box
       follows="top|left"
       height="16"
@@ -101,7 +139,7 @@
       enabled="false"
       name="do_not_attach"
       label="Do not attach object"
-      top_pad="5"/>
+      top_pad="10"/>
     <check_box
       follows="top|left"
       height="16"
@@ -119,7 +157,7 @@
       width="90"
       enabled="false"
       name="upload_asset"
-      label="Upload"
+      label="Upload content"
       top_pad="5" >
 	<check_box.commit_callback
 	    function="Import.UploadAsset" />
@@ -128,8 +166,8 @@
       follows="top|left"
       height="16"
       layout="topleft"
-      left_delta="130"
       enabled="false"
+      visible="false"
       name="temp_asset"
       label="temp" >
       <check_box.commit_callback
