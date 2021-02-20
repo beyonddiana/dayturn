@@ -80,6 +80,7 @@ private:
 	} FSImportState;
 	FSImportState mImportState;
 
+	void populateBackupInfo();
 	void createPrim();
 	void postLink();
 	void onIdle();

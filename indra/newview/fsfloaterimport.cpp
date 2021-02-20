@@ -28,6 +28,7 @@
 #include "llviewerprecompiledheaders.h"
 
 #include "fsfloaterimport.h"
+#include "fsexport.h"
 
 #include "llagent.h"
 #include "llagentcamera.h"
@@ -224,7 +225,7 @@ void FSFloaterImport::onClickBtnPickFile()
 
 	if (mFileReady)
 	{
-		if (mFile.has("format_version") && mFile["format_version"].asInteger() == 1)
+		if (mFile.has("format_version") && mFile["format_version"].asInteger() <= OXP_FORMAT_VERSION)
 		{
 			LLSD& linksetsd = mFile["linkset"];
 			U32 prims = 0;
@@ -265,6 +266,11 @@ void FSFloaterImport::onClickBtnPickFile()
 	LL_DEBUGS("import") << "Linkset size is " << mLinksetSize << LL_ENDL;
 	if (mLinksetSize != 0)
 	{
+		getChild<LLTextBox>("creation_date_text")->setVisible(TRUE);
+		getChild<LLTextBox>("author_text")->setVisible(TRUE);
+		getChild<LLTextBox>("client_text")->setVisible(TRUE);
+		populateBackupInfo();
+		
 		getChild<LLButton>("import_file")->setEnabled(TRUE);
 		getChild<LLCheckBoxCtrl>("do_not_attach")->setEnabled(TRUE);
 		getChild<LLCheckBoxCtrl>("region_position")->setEnabled(TRUE);
@@ -272,11 +278,24 @@ void FSFloaterImport::onClickBtnPickFile()
 	}
 	else
 	{
+		getChild<LLTextBox>("creation_date_text")->setVisible(FALSE);
+		getChild<LLTextBox>("author_text")->setVisible(FALSE);
+		getChild<LLTextBox>("client_text")->setVisible(FALSE);
 		getChild<LLButton>("import_file")->setEnabled(FALSE);
 		getChild<LLCheckBoxCtrl>("do_not_attach")->setEnabled(FALSE);
 		getChild<LLCheckBoxCtrl>("region_position")->setEnabled(FALSE);
 		getChild<LLCheckBoxCtrl>("upload_asset")->setEnabled(FALSE);
 	}
+}
+
+void FSFloaterImport::populateBackupInfo()
+{
+	childSetTextArg("filename_text", "[FILENAME]", mFileName);
+	childSetTextArg("client_text", "[VERSION]", mFile["format_version"].asString());
+	childSetTextArg("client_text", "[CLIENT]", (mFile.has("client") ? mFile["client"].asString() : LLTrans::getString("Unknown")));
+	childSetTextArg("author_text", "[AUTHOR]", (mFile.has("author") ? mFile["author"].asString() : LLTrans::getString("Unknown")));
+	childSetTextArg("author_text", "[GRID]", (mFile.has("grid") ? "@ " + mFile["grid"].asString() : LLTrans::getString("Unknown")));
+	childSetTextArg("creation_date_text", "[DATE_STRING]", (mFile.has("creation_date") ? mFile["creation_date"].asString(): LLTrans::getString("Unknown")));
 }
 
 void FSFloaterImport::processPrim(LLSD& prim)
