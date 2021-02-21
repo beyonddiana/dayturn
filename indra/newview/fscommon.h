@@ -80,6 +80,8 @@ namespace FSCommon
 	 * keep track of ObjectAdd messages sent to the similular.
 	 */
 	extern S32 sObjectAddMsg;
+	
+	bool isDefaultTexture(const LLUUID& asset_id);
 };
 
 #endif // FS_COMMON_H
