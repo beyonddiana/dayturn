@@ -30,7 +30,6 @@
 #include "fsexport.h"
 
 #include "llagent.h"
-////#include "llagentconstants.h"
 #include "llagentdata.h"
 #include "llappviewer.h"
 #include "llavatarnamecache.h"
@@ -40,7 +39,9 @@
 #include "lldir.h"
 #include "llfilepicker.h"
 #include "llimagej2c.h"
+#include "indra_constants.h"  // for APP_NAME
 #include "llinventoryfunctions.h"
+#include "material_codes.h"
 #include "llmeshrepository.h"
 #include "llmultigesture.h"
 #include "llnotecard.h"
@@ -61,7 +62,6 @@
 #include "llworld.h"
 #include "fscommon.h"
 #include <boost/algorithm/string_regex.hpp>
-#include "material_codes.h"
 
 extern bool gIsInSecondLife; //Opensim or SecondLife
 
@@ -219,10 +219,20 @@ void FSExport::exportSelection()
 	mInventoryRequests.clear();
 	mAssetRequests.clear();
 	mTextureChecked.clear();
+	
+	std::string author = "Unknown";
+	if (!gAgentUsername.empty())
+		author = gAgentUsername;
 
-	mFile["format_version"] = 1;
-	mFile["client"] = LLAppViewer::instance()->getSecondLifeTitle() + LLVersionInfo::getChannel();
-	mFile["client_version"] = LLVersionInfo::getVersion();
+	time_t rawtime;
+	time(&rawtime);
+	struct tm* utc_time = gmtime(&rawtime);
+	std::string date = llformat("%04d-%02d-%02d", utc_time->tm_year + 1900, utc_time->tm_mon + 1, utc_time->tm_mday);
+
+	mFile["format_version"] = 2;
+	mFile["client"] = APP_NAME + " " + LLVersionInfo::instance().getVersion();
+	mFile["creation_date"] = date;
+	mFile["author"] = author;
 	mFile["grid"] = LLGridManager::getInstance()->getGridLabel();
 
 	for ( ; iter != selection->valid_root_end(); ++iter)
