@@ -230,7 +230,7 @@ void FSExport::exportSelection()
 	std::string date = llformat("%04d-%02d-%02d", utc_time->tm_year + 1900, utc_time->tm_mon + 1, utc_time->tm_mday);
 
 	mFile["format_version"] = 2;
-	mFile["client"] = APP_NAME + " " + LLVersionInfo::instance().getChannel();
+	mFile["client"] = APP_NAME + " " + LLVersionInfo::instance().getVersion();
 	mFile["creation_date"] = date;
 	mFile["author"] = author;
 	mFile["grid"] = LLGridManager::getInstance()->getGridLabel();
