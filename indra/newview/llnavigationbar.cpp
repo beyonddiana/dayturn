@@ -38,7 +38,7 @@
 #include "llmenugl.h"
 
 #include "llagent.h"
-#include "llviewerregion.h"
+#include "llfloatersidepanelcontainer.h"
 #include "lllandmarkactions.h"
 #include "lllocationhistory.h"
 #include "lllocationinputctrl.h"
@@ -290,6 +290,7 @@ bool LLNavigationBar::postBuild()
 	mBtnBack	= getChild<LLPullButton>("back_btn");
 	mBtnForward	= getChild<LLPullButton>("forward_btn");
 	mBtnHome	= getChild<LLButton>("home_btn");
+	mBtnLandmarks = getChild<LLButton>("landmarks_btn");
 
 	mCmbLocation= getChild<LLLocationInputCtrl>("location_combo");
 
@@ -304,6 +305,8 @@ bool LLNavigationBar::postBuild()
 	mBtnForward->setClickDraggingCallback(boost::bind(&LLNavigationBar::showTeleportHistoryMenu, this,_1));
 
 	mBtnHome->setClickedCallback(boost::bind(&LLNavigationBar::onHomeButtonClicked, this));
+
+	mBtnLandmarks->setClickedCallback(boost::bind(&LLNavigationBar::onLandmarksButtonClicked, this));
 
 	mCmbLocation->setCommitCallback(boost::bind(&LLNavigationBar::onLocationSelection, this));
 
@@ -399,6 +402,12 @@ void LLNavigationBar::onForwardButtonClicked()
 void LLNavigationBar::onHomeButtonClicked()
 {
 	gAgent.teleportHome();
+}
+
+void LLNavigationBar::onLandmarksButtonClicked()
+{
+	LLFloaterReg::toggleInstanceOrBringToFront("places");
+	LLFloaterSidePanelContainer::showPanel("places", LLSD().with("type", "open_landmark_tab"));
 }
 
 void LLNavigationBar::onTeleportHistoryMenuItemClicked(const LLSD& userdata)

@@ -1073,6 +1073,10 @@ void LLPanelPlaces::togglePlaceInfoPanel(BOOL visible)
 				{
 					landmarks_panel->setItemSelected(mItem->getUUID(), TRUE);
 				}
+				else
+				{
+					landmarks_panel->resetSelection();
+				}
 			}
 		}
 	}
