@@ -122,6 +122,7 @@ private:
 	void onNavigationButtonHeldUp(LLButton* nav_button);
 	void onForwardButtonClicked();
 	void onHomeButtonClicked();
+	void onLandmarksButtonClicked();
 	void onLocationSelection();
 	void onLocationPrearrange(const LLSD& data);
 	void onTeleportFinished(const LLVector3d& global_agent_pos);
@@ -150,6 +151,7 @@ private:
 //MK
 	LLButton*					mAvatarHeightOffsetResetBtn;
 //mk
+	LLButton*					mBtnLandmarks;
 	LLLocationInputCtrl*		mCmbLocation;
 	LLRect						mDefaultNbRect;
 	LLRect						mDefaultFpRect;
