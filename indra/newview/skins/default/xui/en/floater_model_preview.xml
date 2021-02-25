@@ -1379,10 +1379,10 @@
         <check_box
          control_name="ImporterDebug"
          follows="top|left"
-         top_pad="9"
+         top_pad="12"
          left="6"
          width="70"
-         label="Enable detailed logging"
+         label="Enable detailed logging (can be very slow)"
          name="verbose_logging"/>
       </panel>
     </tab_container>
