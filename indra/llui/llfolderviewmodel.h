@@ -176,21 +176,21 @@ public:
 	virtual void closeItem( void ) = 0;
 	virtual void selectItem(void) = 0;
     
-    virtual BOOL isItemWearable() const { return FALSE; }
+    virtual bool isItemWearable() const { return false; }
 
-	virtual BOOL isItemRenameable() const = 0;
-	virtual BOOL renameItem(const std::string& new_name) = 0;
+	virtual bool isItemRenameable() const = 0;
+	virtual bool renameItem(const std::string& new_name) = 0;
 
-	virtual BOOL isItemMovable( void ) const = 0;		// Can be moved to another folder
+	virtual bool isItemMovable( void ) const = 0;		// Can be moved to another folder
 	virtual void move( LLFolderViewModelItem* parent_listener ) = 0;
 
-	virtual BOOL isItemRemovable( void ) const = 0;		// Can be destroyed
-	virtual BOOL removeItem() = 0;
+	virtual bool isItemRemovable( void ) const = 0;		// Can be destroyed
+	virtual bool removeItem() = 0;
 	virtual void removeBatch(std::vector<LLFolderViewModelItem*>& batch) = 0;
 
-	virtual BOOL isItemCopyable() const = 0;
-	virtual BOOL copyToClipboard() const = 0;
-	virtual BOOL cutToClipboard() = 0;
+	virtual bool isItemCopyable() const = 0;
+	virtual bool copyToClipboard() const = 0;
+	virtual bool cutToClipboard() = 0;
 	virtual bool isCutToClipboard() { return false; };
 
 	virtual BOOL isClipboardPasteable() const = 0;
@@ -224,7 +224,7 @@ public:
 	// performed, and will set drop to TRUE if a drop is
 	// requested. Returns TRUE if a drop is possible/happened,
 	// otherwise FALSE.
-	virtual BOOL dragOrDrop(MASK mask, BOOL drop,
+	virtual bool dragOrDrop(MASK mask, bool drop,
 							EDragAndDropType cargo_type,
 							void* cargo_data,
 							std::string& tooltip_msg) = 0;

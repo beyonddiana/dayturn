@@ -201,7 +201,7 @@ public:
 	virtual BOOL isRemovable();
 
 	// Returns true is this object and all of its children can be moved
-	virtual BOOL isMovable();
+	virtual bool isMovable();
 
 	// destroys this item recursively
 	virtual void destroyView();
@@ -374,7 +374,7 @@ public:
 	virtual BOOL isRemovable();
 
 	// Returns true is this object and all of its children can be moved
-	virtual BOOL isMovable();
+	virtual bool isMovable();
 
 	// destroys this folder, and all children
 	virtual void destroyView();

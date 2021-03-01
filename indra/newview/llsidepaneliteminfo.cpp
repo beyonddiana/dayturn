@@ -345,7 +345,7 @@ void LLSidepanelItemInfo::refreshFromItem(LLViewerInventoryItem* item)
 	const BOOL can_agent_sell = gAgent.allowOperation(PERM_OWNER, perm, 
 							  GP_OBJECT_SET_SALE) &&
 		!cannot_restrict_permissions;
-	const BOOL is_link = item->getIsLinkType();
+	const bool is_link = item->getIsLinkType();
 	
 	const LLUUID trash_id = gInventory.findCategoryUUIDForType(LLFolderType::FT_TRASH);
 	bool not_in_trash = (item->getUUID() != trash_id) && !gInventory.isObjectDescendentOf(item->getUUID(), trash_id);

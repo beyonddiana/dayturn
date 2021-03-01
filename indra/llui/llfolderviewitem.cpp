@@ -434,7 +434,7 @@ void LLFolderViewItem::selectItem(void)
 	}
 }
 
-BOOL LLFolderViewItem::isMovable()
+bool LLFolderViewItem::isMovable()
 {
 	return getViewModelItem()->isItemMovable();
 }
@@ -1604,11 +1604,11 @@ void LLFolderViewFolder::extractItem( LLFolderViewItem* item )
 	removeChild(item);
 }
 
-BOOL LLFolderViewFolder::isMovable()
+bool LLFolderViewFolder::isMovable()
 {
 	if( !(getViewModelItem()->isItemMovable()) )
 	{
-			return FALSE;
+			return false;
 		}
 
 		for (items_t::iterator iter = mItems.begin();
@@ -1617,7 +1617,7 @@ BOOL LLFolderViewFolder::isMovable()
 			items_t::iterator iit = iter++;
 			if(!(*iit)->isMovable())
 			{
-				return FALSE;
+				return false;
 			}
 		}
 
@@ -1627,10 +1627,10 @@ BOOL LLFolderViewFolder::isMovable()
 			folders_t::iterator fit = iter++;
 			if(!(*fit)->isMovable())
 			{
-				return FALSE;
+				return false;
 			}
 		}
-	return TRUE;
+	return true;
 }
 
 
@@ -1873,7 +1873,7 @@ BOOL LLFolderViewFolder::handleDragAndDropToThisFolder(MASK mask,
         return TRUE;
     }
     
-	BOOL accepted = getViewModelItem()->dragOrDrop(mask,drop,cargo_type,cargo_data, tooltip_msg);
+	bool accepted = getViewModelItem()->dragOrDrop(mask,drop,cargo_type,cargo_data, tooltip_msg);
 
 	if (accepted)
 	{

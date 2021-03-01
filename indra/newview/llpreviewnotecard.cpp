@@ -724,7 +724,7 @@ bool LLPreviewNotecard::handleConfirmDeleteDialog(const LLSD& notification, cons
 		if (item != NULL)
 		{
 			const LLUUID trash_id = gInventory.findCategoryUUIDForType(LLFolderType::FT_TRASH);
-			gInventory.changeItemParent(item, trash_id, FALSE);
+			gInventory.changeItemParent(item, trash_id, false);
 		}
 	}
 	else

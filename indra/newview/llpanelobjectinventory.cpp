@@ -128,23 +128,23 @@ public:
 	virtual BOOL canOpenItem() const { return FALSE; }
 	virtual void closeItem() {}
 	virtual void selectItem() {}
-	virtual BOOL isItemRenameable() const;
-	virtual BOOL renameItem(const std::string& new_name);
-	virtual BOOL isItemMovable() const;
-	virtual BOOL isItemRemovable() const;
-	virtual BOOL removeItem();
+	virtual bool isItemRenameable() const;
+	virtual bool renameItem(const std::string& new_name);
+	virtual bool isItemMovable() const;
+	virtual bool isItemRemovable() const;
+	virtual bool removeItem();
 	virtual void removeBatch(std::vector<LLFolderViewModelItem*>& batch);
 	virtual void move(LLFolderViewModelItem* parent_listener);	
-	virtual BOOL isItemCopyable() const;
-	virtual BOOL copyToClipboard() const;
-	virtual BOOL cutToClipboard();
-	virtual BOOL isClipboardPasteable() const;
+	virtual bool isItemCopyable() const;
+	virtual bool copyToClipboard() const;
+	virtual bool cutToClipboard();
+	virtual bool isClipboardPasteable() const;
 	virtual void pasteFromClipboard();
 	virtual void pasteLinkFromClipboard();
 	virtual void buildContextMenu(LLMenuGL& menu, U32 flags);
 	virtual void performAction(LLInventoryModel* model, std::string action);
-	virtual BOOL isUpToDate() const { return TRUE; }
-	virtual bool hasChildren() const { return FALSE; }
+	virtual bool isUpToDate() const { return true; }
+	virtual bool hasChildren() const { return false; }
 	virtual LLInventoryType::EType getInventoryType() const { return LLInventoryType::IT_NONE; }
 	virtual LLWearableType::EType getWearableType() const { return LLWearableType::WT_NONE; }
 	virtual EInventorySortGroup getSortGroup() const { return SG_ITEM; }
@@ -153,8 +153,8 @@ public:
 
 	// LLDragAndDropBridge functionality
 	virtual LLToolDragAndDrop::ESource getDragSource() const { return LLToolDragAndDrop::SOURCE_WORLD; }
-	virtual BOOL startDrag(EDragAndDropType* type, LLUUID* id) const;
-	virtual BOOL dragOrDrop(MASK mask, BOOL drop,
+	virtual bool startDrag(EDragAndDropType* type, LLUUID* id) const;
+	virtual bool dragOrDrop(MASK mask, bool drop,
 							EDragAndDropType cargo_type,
 							void* cargo_data,
 							std::string& tooltip_msg);
@@ -288,9 +288,9 @@ void LLTaskInvFVBridge::openItem()
 	LL_DEBUGS() << "LLTaskInvFVBridge::openItem()" << LL_ENDL;
 }
 
-BOOL LLTaskInvFVBridge::isItemRenameable() const
+bool LLTaskInvFVBridge::isItemRenameable() const
 {
-	if(gAgent.isGodlike()) return TRUE;
+	if(gAgent.isGodlike()) return true;
 	LLViewerObject* object = gObjectList.findObject(mPanel->getTaskUUID());
 	if(object)
 	{
@@ -304,13 +304,13 @@ BOOL LLTaskInvFVBridge::isItemRenameable() const
 		if(item && gAgent.allowOperation(PERM_MODIFY, item->getPermissions(),
 										 GP_OBJECT_MANIPULATE, GOD_LIKE))
 		{
-			return TRUE;
+			return true;
 		}
 	}
-	return FALSE;
+	return false;
 }
 
-BOOL LLTaskInvFVBridge::renameItem(const std::string& new_name)
+bool LLTaskInvFVBridge::renameItem(const std::string& new_name)
 {
 	LLViewerObject* object = gObjectList.findObject(mPanel->getTaskUUID());
 	if(object)
@@ -328,10 +328,10 @@ BOOL LLTaskInvFVBridge::renameItem(const std::string& new_name)
 				false);
 		}
 	}
-	return TRUE;
+	return true;
 }
 
-BOOL LLTaskInvFVBridge::isItemMovable() const
+bool LLTaskInvFVBridge::isItemMovable() const
 {
 	//LLViewerObject* object = gObjectList.findObject(mPanel->getTaskUUID());
 	//if(object && (object->permModify() || gAgent.isGodlike()))
@@ -339,10 +339,10 @@ BOOL LLTaskInvFVBridge::isItemMovable() const
 	//	return TRUE;
 	//}
 	//return FALSE;
-	return TRUE;
+	return true;
 }
 
-BOOL LLTaskInvFVBridge::isItemRemovable() const
+bool LLTaskInvFVBridge::isItemRemovable() const
 {
 	LLViewerObject* object = gObjectList.findObject(mPanel->getTaskUUID());
 //MK
@@ -366,9 +366,9 @@ BOOL LLTaskInvFVBridge::isItemRemovable() const
 	if(object
 	   && (object->permModify() || object->permYouOwner()))
 	{
-		return TRUE;
+		return true;
 	}
-	return FALSE;
+	return false;
 }
 
 bool remove_task_inventory_callback(const LLSD& notification, const LLSD& response, LLPanelObjectInventory* panel)
@@ -396,7 +396,7 @@ bool remove_task_inventory_callback(const LLSD& notification, const LLSD& respon
 // ! REFACTOR ! two_uuids_list_t is also defined in llinventorybridge.h, but differently.
 typedef std::pair<LLUUID, std::list<LLUUID> > panel_two_uuids_list_t;
 typedef std::pair<LLPanelObjectInventory*, panel_two_uuids_list_t> remove_data_t;
-BOOL LLTaskInvFVBridge::removeItem()
+bool LLTaskInvFVBridge::removeItem()
 {
 	if(isItemRemovable() && mPanel)
 	{
@@ -407,7 +407,7 @@ BOOL LLTaskInvFVBridge::removeItem()
 			{
 				// just do it.
 				object->removeInventory(mUUID);
-				return TRUE;
+				return true;
 			}
 			else
 			{
@@ -415,11 +415,11 @@ BOOL LLTaskInvFVBridge::removeItem()
 				payload["task_id"] = mPanel->getTaskUUID();
 				payload["inventory_ids"].append(mUUID);
 				LLNotificationsUtil::add("RemoveItemWarn", LLSD(), payload, boost::bind(&remove_task_inventory_callback, _1, _2, mPanel));
-				return FALSE;
+				return false;
 			}
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 void   LLTaskInvFVBridge::removeBatch(std::vector<LLFolderViewModelItem*>& batch)
@@ -466,22 +466,22 @@ void LLTaskInvFVBridge::move(LLFolderViewModelItem* parent_listener)
 {
 }
 
-BOOL LLTaskInvFVBridge::isItemCopyable() const
+bool LLTaskInvFVBridge::isItemCopyable() const
 {
 	LLInventoryItem* item = findItem();
-	if(!item) return FALSE;
+	if(!item) return false;
 	return gAgent.allowOperation(PERM_COPY, item->getPermissions(),
 								GP_OBJECT_MANIPULATE);
 }
 
-BOOL LLTaskInvFVBridge::copyToClipboard() const
+bool LLTaskInvFVBridge::copyToClipboard() const
 {
-	return FALSE;
+	return false;
 }
 
-BOOL LLTaskInvFVBridge::cutToClipboard()
+bool LLTaskInvFVBridge::cutToClipboard()
 {
-	return FALSE;
+	return false;
 }
 
 BOOL LLTaskInvFVBridge::isClipboardPasteable() const
@@ -497,7 +497,7 @@ void LLTaskInvFVBridge::pasteLinkFromClipboard()
 {
 }
 
-BOOL LLTaskInvFVBridge::startDrag(EDragAndDropType* type, LLUUID* id) const
+bool LLTaskInvFVBridge::startDrag(EDragAndDropType* type, LLUUID* id) const
 {
 	//LL_INFOS() << "LLTaskInvFVBridge::startDrag()" << LL_ENDL;
 	if(mPanel)
@@ -527,21 +527,21 @@ BOOL LLTaskInvFVBridge::startDrag(EDragAndDropType* type, LLUUID* id) const
 					*type = LLViewerAssetType::lookupDragAndDropType(inv->getType());
 
 					*id = inv->getUUID();
-					return TRUE;
+					return true;
 				}
 			}
 		}
 	}
-	return FALSE;
+	return false;
 }
 
-BOOL LLTaskInvFVBridge::dragOrDrop(MASK mask, BOOL drop,
+bool LLTaskInvFVBridge::dragOrDrop(MASK mask, bool drop,
 								   EDragAndDropType cargo_type,
 								   void* cargo_data,
 								   std::string& tooltip_msg)
 {
 	//LL_INFOS() << "LLTaskInvFVBridge::dragOrDrop()" << LL_ENDL;
-	return FALSE;
+	return false;
 }
 
 // virtual
@@ -609,14 +609,14 @@ public:
 
 	virtual LLUIImagePtr getIcon() const;
 	virtual const std::string& getDisplayName() const;
-	virtual BOOL isItemRenameable() const;
-	// virtual BOOL isItemCopyable() const { return FALSE; }
-	virtual BOOL renameItem(const std::string& new_name);
-	virtual BOOL isItemRemovable() const;
+	virtual bool isItemRenameable() const;
+	// virtual bool isItemCopyable() const { return false; }
+	virtual bool renameItem(const std::string& new_name);
+	virtual bool isItemRemovable() const;
 	virtual void buildContextMenu(LLMenuGL& menu, U32 flags);
 	virtual bool hasChildren() const;
-	virtual BOOL startDrag(EDragAndDropType* type, LLUUID* id) const;
-	virtual BOOL dragOrDrop(MASK mask, BOOL drop,
+	virtual bool startDrag(EDragAndDropType* type, LLUUID* id) const;
+	virtual bool dragOrDrop(MASK mask, bool drop,
 							EDragAndDropType cargo_type,
 							void* cargo_data,
 							std::string& tooltip_msg);
@@ -651,19 +651,19 @@ const std::string& LLTaskCategoryBridge::getDisplayName() const
 	return mDisplayName;
 }
 
-BOOL LLTaskCategoryBridge::isItemRenameable() const
+bool LLTaskCategoryBridge::isItemRenameable() const
 {
-	return FALSE;
+	return false;
 }
 
-BOOL LLTaskCategoryBridge::renameItem(const std::string& new_name)
+bool LLTaskCategoryBridge::renameItem(const std::string& new_name)
 {
-	return FALSE;
+	return false;
 }
 
-BOOL LLTaskCategoryBridge::isItemRemovable() const
+bool LLTaskCategoryBridge::isItemRemovable() const
 {
-	return FALSE;
+	return false;
 }
 
 void LLTaskCategoryBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
@@ -684,7 +684,7 @@ void LLTaskCategoryBridge::openItem()
 {
 }
 
-BOOL LLTaskCategoryBridge::startDrag(EDragAndDropType* type, LLUUID* id) const
+bool LLTaskCategoryBridge::startDrag(EDragAndDropType* type, LLUUID* id) const
 {
 	//LL_INFOS() << "LLTaskInvFVBridge::startDrag()" << LL_ENDL;
 	if(mPanel && mUUID.notNull())
@@ -693,24 +693,24 @@ BOOL LLTaskCategoryBridge::startDrag(EDragAndDropType* type, LLUUID* id) const
 		if(object)
 		{
 			const LLInventoryObject* cat = object->getInventoryObject(mUUID);
-			if ( (cat) && (move_inv_category_world_to_agent(mUUID, LLUUID::null, FALSE)) )
+			if ( (cat) && (move_inv_category_world_to_agent(mUUID, LLUUID::null, false)) )
 			{
 				*type = LLViewerAssetType::lookupDragAndDropType(cat->getType());
 				*id = mUUID;
-				return TRUE;
+				return true;
 			}
 		}
 	}
-	return FALSE;
+	return false;
 }
 
-BOOL LLTaskCategoryBridge::dragOrDrop(MASK mask, BOOL drop,
+bool LLTaskCategoryBridge::dragOrDrop(MASK mask, bool drop,
 									  EDragAndDropType cargo_type,
 									  void* cargo_data,
 									  std::string& tooltip_msg)
 {
 	//LL_INFOS() << "LLTaskCategoryBridge::dragOrDrop()" << LL_ENDL;
-	BOOL accept = FALSE;
+	bool accept = false;
 	LLViewerObject* object = gObjectList.findObject(mPanel->getTaskUUID());
 	if(object)
 	{
@@ -750,7 +750,7 @@ BOOL LLTaskCategoryBridge::dragOrDrop(MASK mask, BOOL drop,
 			   && (LLToolDragAndDrop::SOURCE_WORLD != LLToolDragAndDrop::getInstance()->getSource())
 			   && (LLToolDragAndDrop::SOURCE_NOTECARD != LLToolDragAndDrop::getInstance()->getSource()))
 			{
-				accept = TRUE;
+				accept = true;
 			}
 			if(accept && drop)
 			{
@@ -920,18 +920,18 @@ public:
 							const std::string& name) :
 		LLTaskInvFVBridge(panel, uuid, name) {}
 
-	virtual BOOL isItemRenameable() const;
-	virtual BOOL renameItem(const std::string& new_name);
+	virtual bool isItemRenameable() const;
+	virtual bool renameItem(const std::string& new_name);
 };
 
-BOOL LLTaskCallingCardBridge::isItemRenameable() const
+bool LLTaskCallingCardBridge::isItemRenameable() const
 {
-	return FALSE;
+	return false;
 }
 
-BOOL LLTaskCallingCardBridge::renameItem(const std::string& new_name)
+bool LLTaskCallingCardBridge::renameItem(const std::string& new_name)
 {
-	return FALSE;
+	return false;
 }
 
 
@@ -960,7 +960,7 @@ public:
 
 	virtual BOOL canOpenItem() const { return TRUE; }
 	virtual void openItem();
-	virtual BOOL removeItem();
+	virtual bool removeItem();
 	//virtual void buildContextMenu(LLMenuGL& menu);
 
 	//static void copyToInventory(void* userdata);
@@ -1004,7 +1004,7 @@ void LLTaskLSLBridge::openItem()
 	}
 }
 
-BOOL LLTaskLSLBridge::removeItem()
+bool LLTaskLSLBridge::removeItem()
 {
 	LLFloaterReg::hideInstance("preview_scriptedit", LLSD(mUUID));
 	return LLTaskInvFVBridge::removeItem();
@@ -1038,7 +1038,7 @@ public:
 
 	virtual BOOL canOpenItem() const { return TRUE; }
 	virtual void openItem();
-	virtual BOOL removeItem();
+	virtual bool removeItem();
 };
 
 void LLTaskNotecardBridge::openItem()
@@ -1077,7 +1077,7 @@ void LLTaskNotecardBridge::openItem()
 	}
 }
 
-BOOL LLTaskNotecardBridge::removeItem()
+bool LLTaskNotecardBridge::removeItem()
 {
 	LLFloaterReg::hideInstance("preview_notecard", LLSD(mUUID));
 	return LLTaskInvFVBridge::removeItem();
@@ -1097,7 +1097,7 @@ public:
 
 	virtual BOOL canOpenItem() const { return TRUE; }
 	virtual void openItem();
-	virtual BOOL removeItem();
+	virtual bool removeItem();
 };
 
 void LLTaskGestureBridge::openItem()
@@ -1110,7 +1110,7 @@ void LLTaskGestureBridge::openItem()
 	LLPreviewGesture::show(mUUID, mPanel->getTaskUUID());
 }
 
-BOOL LLTaskGestureBridge::removeItem()
+bool LLTaskGestureBridge::removeItem()
 {
 	// Don't need to deactivate gesture because gestures inside objects can never be active.
 	LLFloaterReg::hideInstance("preview_gesture", LLSD(mUUID));
@@ -1131,7 +1131,7 @@ public:
 
 	virtual BOOL canOpenItem() const { return TRUE; }
 	virtual void openItem();
-	virtual BOOL removeItem();
+	virtual bool removeItem();
 };
 
 void LLTaskAnimationBridge::openItem()
@@ -1149,7 +1149,7 @@ void LLTaskAnimationBridge::openItem()
 	}
 }
 
-BOOL LLTaskAnimationBridge::removeItem()
+bool LLTaskAnimationBridge::removeItem()
 {
 	LLFloaterReg::hideInstance("preview_anim", LLSD(mUUID));
 	return LLTaskInvFVBridge::removeItem();

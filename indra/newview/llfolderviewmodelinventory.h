@@ -53,8 +53,8 @@ public:
 	virtual PermissionMask getPermissionMask() const = 0;
 	virtual LLFolderType::EType getPreferredType() const = 0;
 	virtual void showProperties(void) = 0;
-	virtual BOOL isItemInTrash( void) const { return FALSE; } // TODO: make   into pure virtual.
-	virtual BOOL isUpToDate() const = 0;
+	virtual bool isItemInTrash( void) const { return false; } // TODO: make   into pure virtual.
+	virtual bool isUpToDate() const = 0;
 	virtual bool hasChildren() const = 0;
 	virtual LLInventoryType::EType getInventoryType() const = 0;
 	virtual void performAction(LLInventoryModel* model, std::string action)   = 0;
@@ -66,7 +66,7 @@ public:
 	virtual bool filter( LLFolderViewFilter& filter);
 	virtual bool filterChildItem( LLFolderViewModelItem* item, LLFolderViewFilter& filter);
 
-	virtual BOOL startDrag(EDragAndDropType* type, LLUUID* id) const = 0;
+	virtual bool startDrag(EDragAndDropType* type, LLUUID* id) const = 0;
 	virtual LLToolDragAndDrop::ESource getDragSource() const = 0;
 protected:
     bool mPrevPassedAllFilters;

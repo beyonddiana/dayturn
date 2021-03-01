@@ -541,7 +541,7 @@ bool LLInventoryFilter::checkAgainstFilterLinks(const LLFolderViewModelItemInven
 	const LLInventoryObject *object = gInventory.getObject(object_id);
 	if (!object) return TRUE;
 
-	const BOOL is_link = object->getIsLinkType();
+	const bool is_link = object->getIsLinkType();
 	if (is_link && (mFilterOps.mFilterLinks == FILTERLINK_EXCLUDE_LINKS))
 		return FALSE;
 	if (!is_link && (mFilterOps.mFilterLinks == FILTERLINK_ONLY_LINKS))

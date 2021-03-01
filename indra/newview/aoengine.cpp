@@ -974,7 +974,7 @@ bool AOEngine::findForeignItems(const LLUUID& uuid) const
 		{
 			moved=true;
 			LLInventoryModel* model = &gInventory;
-			model->changeItemParent(item,gInventory.findCategoryUUIDForType(LLFolderType::FT_LOST_AND_FOUND),FALSE);
+			model->changeItemParent(item,gInventory.findCategoryUUIDForType(LLFolderType::FT_LOST_AND_FOUND),false);
 			LL_DEBUGS("AOEngine") << item->getName() << " moved to lost and found!" << LL_ENDL;
 		}
 	}
@@ -1048,7 +1048,7 @@ bool AOEngine::removeAnimation(const AOSet* set,AOSet::AOState* state,S32 index)
 	if(move)
 	{
 		LLInventoryModel* model = &gInventory;
-		model->changeItemParent(item,gInventory.findCategoryUUIDForType(LLFolderType::FT_LOST_AND_FOUND),FALSE);
+		model->changeItemParent(item,gInventory.findCategoryUUIDForType(LLFolderType::FT_LOST_AND_FOUND),false);
 		LLNotificationsUtil::add("AOForeignItemsFound", LLSD());
 		update();
 		return false;

@@ -367,12 +367,12 @@ public:
 	// Migrated from llinventoryfunctions
 	void changeItemParent(LLViewerInventoryItem* item,
 						  const LLUUID& new_parent_id,
-						  BOOL restamp);
+						  bool restamp);
 
 	// Migrated from llinventoryfunctions
 	void changeCategoryParent(LLViewerInventoryCategory* cat,
 							  const LLUUID& new_parent_id,
-							  BOOL restamp);
+							  bool restamp);
 
 	//--------------------------------------------------------------------
 	// Delete
