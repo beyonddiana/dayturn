@@ -1358,7 +1358,7 @@ void LLFavoritesBarCtrl::onButtonMouseDown(LLUUID id, LLUICtrl* ctrl, S32 x, S32
 	}
 
 	mDragItemId = id;
-	mStartDrag = TRUE;
+	mStartDrag = true;
 
 	S32 screenX, screenY;
 	localPointToScreen(x, y, &screenX, &screenY);
@@ -1368,7 +1368,7 @@ void LLFavoritesBarCtrl::onButtonMouseDown(LLUUID id, LLUICtrl* ctrl, S32 x, S32
 
 void LLFavoritesBarCtrl::onButtonMouseUp(LLUUID id, LLUICtrl* ctrl, S32 x, S32 y, MASK mask)
 {
-	mStartDrag = FALSE;
+	mStartDrag = false;
 	mDragItemId = LLUUID::null;
 }
 
@@ -1394,7 +1394,7 @@ BOOL LLFavoritesBarCtrl::handleHover(S32 x, S32 y, MASK mask)
 				DAD_LANDMARK, mDragItemId,
 				LLToolDragAndDrop::SOURCE_LIBRARY);
 
-			mStartDrag = FALSE;
+			mStartDrag = false;
 
 			return LLToolDragAndDrop::getInstance()->handleHover(x, y, mask);
 		}

@@ -183,7 +183,7 @@ void LLFloaterOpenObject::moveToInventory(bool wear, bool replace)
 
 		// Copy and/or move the items into the newly created folder.
 		// Ignore any "you're going to break this item" messages.
-		BOOL success = move_inv_category_world_to_agent(object_id, category_id, TRUE,
+		bool success = move_inv_category_world_to_agent(object_id, category_id, true,
 														callbackMoveInventory, 
 														(void*)data);
 		if (!success)
@@ -208,7 +208,7 @@ void LLFloaterOpenObject::callbackCreateInventoryCategory(const LLUUID& category
 	
 	// Copy and/or move the items into the newly created folder.
 	// Ignore any "you're going to break this item" messages.
-	BOOL success = move_inv_category_world_to_agent(object_id, category_id, TRUE,
+	bool success = move_inv_category_world_to_agent(object_id, category_id, true,
 													callbackMoveInventory, 
 													(void*)wear_data);
 	if (!success)

@@ -160,7 +160,7 @@ private:
 	LLTextBox* mBarLabel;
 
 	LLUUID mDragItemId;
-	BOOL mStartDrag;
+	bool mStartDrag;
 	LLInventoryModel::item_array_t mItems;
 
 	BOOL mTabsHighlightEnabled;

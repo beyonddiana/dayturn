@@ -43,19 +43,19 @@ const S32 COMPUTE_STOCK_NOT_EVALUATED = -2;
  **/
 
 // Is this a parent folder to a worn item
-BOOL get_is_parent_to_worn_item(const LLUUID& id);
+bool get_is_parent_to_worn_item(const LLUUID& id);
 
 // Is this item or its baseitem is worn, attached, etc...
 BOOL get_is_item_worn(const LLUUID& id);
 
 // Could this item be worn (correct type + not already being worn)
-BOOL get_can_item_be_worn(const LLUUID& id);
+bool get_can_item_be_worn(const LLUUID& id);
 
-BOOL get_is_item_removable(const LLInventoryModel* model, const LLUUID& id);
+bool get_is_item_removable(const LLInventoryModel* model, const LLUUID& id);
 
-BOOL get_is_category_removable(const LLInventoryModel* model, const LLUUID& id);
+bool get_is_category_removable(const LLInventoryModel* model, const LLUUID& id);
 
-BOOL get_is_category_renameable(const LLInventoryModel* model, const LLUUID& id);
+bool get_is_category_renameable(const LLInventoryModel* model, const LLUUID& id);
 
 void show_item_profile(const LLUUID& item_uuid);
 void show_task_item_profile(const LLUUID& item_uuid, const LLUUID& object_id);
