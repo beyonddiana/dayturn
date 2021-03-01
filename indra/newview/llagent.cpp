@@ -3170,7 +3170,7 @@ bool LLAgent::hasPowerInGroup(const LLUUID& group_id, U64 power) const
 	return false;
 }
 
-BOOL LLAgent::hasPowerInActiveGroup(U64 power) const
+bool LLAgent::hasPowerInActiveGroup(U64 power) const
 {
 	return (mGroupID.notNull() && (hasPowerInGroup(mGroupID, power)));
 }
