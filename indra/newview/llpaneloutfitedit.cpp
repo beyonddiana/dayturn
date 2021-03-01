@@ -406,7 +406,7 @@ LLPanelOutfitEdit::LLPanelOutfitEdit()
 	mGearMenuBtn(NULL)
 {
 	mSavedFolderState = new LLSaveFolderState();
-	mSavedFolderState->setApply(FALSE);
+	mSavedFolderState->setApply(false);
 	
 
 	LLOutfitObserver& observer = LLOutfitObserver::instance();
@@ -700,7 +700,7 @@ void LLPanelOutfitEdit::onFolderViewFilterCommitted(LLUICtrl* ctrl)
 
 	mInventoryItemsPanel->setFilterTypes(mFolderViewItemTypes[curr_filter_type].inventoryMask);
 
-	mSavedFolderState->setApply(TRUE);
+	mSavedFolderState->setApply(true);
 	mInventoryItemsPanel->getRootFolder()->applyFunctorRecursively(*mSavedFolderState);
 	
 	LLOpenFoldersWithSelection opener;
@@ -738,7 +738,7 @@ void LLPanelOutfitEdit::onSearchEdit(const std::string& string)
 		mInventoryItemsPanel->setFilterSubString(LLStringUtil::null);
 		mWearableItemsList->setFilterSubString(LLStringUtil::null);
 		// re-open folders that were initially open
-		mSavedFolderState->setApply(TRUE);
+		mSavedFolderState->setApply(true);
 		mInventoryItemsPanel->getRootFolder()->applyFunctorRecursively(*mSavedFolderState);
 		LLOpenFoldersWithSelection opener;
 		mInventoryItemsPanel->getRootFolder()->applyFunctorRecursively(opener);
@@ -756,7 +756,7 @@ void LLPanelOutfitEdit::onSearchEdit(const std::string& string)
 	// save current folder open state if no filter currently applied
 	if (mInventoryItemsPanel->getFilterSubString().empty())
 	{
-		mSavedFolderState->setApply(FALSE);
+		mSavedFolderState->setApply(false);
 		mInventoryItemsPanel->getRootFolder()->applyFunctorRecursively(*mSavedFolderState);
 	}
 	

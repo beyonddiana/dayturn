@@ -354,7 +354,7 @@ void LLSidepanelItemInfo::refreshFromItem(LLViewerInventoryItem* item)
 	// item in it.
 	LLViewerObject* object = NULL;
 	if(!mObjectID.isNull()) object = gObjectList.findObject(mObjectID);
-	BOOL is_obj_modify = TRUE;
+	bool is_obj_modify = true;
 	if(object)
 	{
 		is_obj_modify = object->permOwnerModify();
@@ -365,7 +365,7 @@ void LLSidepanelItemInfo::refreshFromItem(LLViewerInventoryItem* item)
         getChildView("LabelItemExperienceTitle")->setVisible(TRUE);
         LLTextBox* tb = getChild<LLTextBox>("LabelItemExperience");
         tb->setText(getString("loading_experience"));
-        tb->setVisible(TRUE);
+        tb->setVisible(true);
         ExperienceAssociationResponder::fetchAssociatedExperience(item->getParentUUID(), item->getUUID(), boost::bind(&LLSidepanelItemInfo::setAssociatedExperience, getDerivedHandle<LLSidepanelItemInfo>(), _1));
     }
     
@@ -549,9 +549,9 @@ void LLSidepanelItemInfo::refreshFromItem(LLViewerInventoryItem* item)
 
 	if( gSavedSettings.getBOOL("DebugPermissions") )
 	{
-		BOOL slam_perm 			= FALSE;
-		BOOL overwrite_group	= FALSE;
-		BOOL overwrite_everyone	= FALSE;
+		bool slam_perm 			= false;
+		bool overwrite_group	= false;
+		bool overwrite_everyone	= false;
 
 		if (item->getType() == LLAssetType::AT_OBJECT)
 		{
@@ -566,38 +566,38 @@ void LLSidepanelItemInfo::refreshFromItem(LLViewerInventoryItem* item)
 		perm_string = "B: ";
 		perm_string += mask_to_string(base_mask);
 		getChild<LLUICtrl>("BaseMaskDebug")->setValue(perm_string);
-		getChildView("BaseMaskDebug")->setVisible(TRUE);
+		getChildView("BaseMaskDebug")->setVisible(true);
 		
 		perm_string = "O: ";
 		perm_string += mask_to_string(owner_mask);
 		getChild<LLUICtrl>("OwnerMaskDebug")->setValue(perm_string);
-		getChildView("OwnerMaskDebug")->setVisible(TRUE);
+		getChildView("OwnerMaskDebug")->setVisible(true);
 		
 		perm_string = "G";
 		perm_string += overwrite_group ? "*: " : ": ";
 		perm_string += mask_to_string(group_mask);
 		getChild<LLUICtrl>("GroupMaskDebug")->setValue(perm_string);
-		getChildView("GroupMaskDebug")->setVisible(TRUE);
+		getChildView("GroupMaskDebug")->setVisible(true);
 		
 		perm_string = "E";
 		perm_string += overwrite_everyone ? "*: " : ": ";
 		perm_string += mask_to_string(everyone_mask);
 		getChild<LLUICtrl>("EveryoneMaskDebug")->setValue(perm_string);
-		getChildView("EveryoneMaskDebug")->setVisible(TRUE);
+		getChildView("EveryoneMaskDebug")->setVisible(true);
 		
 		perm_string = "N";
 		perm_string += slam_perm ? "*: " : ": ";
 		perm_string += mask_to_string(next_owner_mask);
 		getChild<LLUICtrl>("NextMaskDebug")->setValue(perm_string);
-		getChildView("NextMaskDebug")->setVisible(TRUE);
+		getChildView("NextMaskDebug")->setVisible(true);
 	}
 	else
 	{
-		getChildView("BaseMaskDebug")->setVisible(FALSE);
-		getChildView("OwnerMaskDebug")->setVisible(FALSE);
-		getChildView("GroupMaskDebug")->setVisible(FALSE);
-		getChildView("EveryoneMaskDebug")->setVisible(FALSE);
-		getChildView("NextMaskDebug")->setVisible(FALSE);
+		getChildView("BaseMaskDebug")->setVisible(false);
+		getChildView("OwnerMaskDebug")->setVisible(false);
+		getChildView("GroupMaskDebug")->setVisible(false);
+		getChildView("EveryoneMaskDebug")->setVisible(false);
+		getChildView("NextMaskDebug")->setVisible(false);
 	}
 
 	/////////////
@@ -622,9 +622,9 @@ void LLSidepanelItemInfo::refreshFromItem(LLViewerInventoryItem* item)
 	}
 
 	// Set values.
-	BOOL is_group_copy = (group_mask & PERM_COPY) ? TRUE : FALSE;
-	BOOL is_group_modify = (group_mask & PERM_MODIFY) ? TRUE : FALSE;
-	BOOL is_group_move = (group_mask & PERM_MOVE) ? TRUE : FALSE;
+	bool is_group_copy = (group_mask & PERM_COPY) ? true : false;
+	bool is_group_modify = (group_mask & PERM_MODIFY) ? true : false;
+	bool is_group_move = (group_mask & PERM_MOVE) ? true : false;
 
 	if (is_group_copy && is_group_modify && is_group_move)
 	{
@@ -662,7 +662,7 @@ void LLSidepanelItemInfo::refreshFromItem(LLViewerInventoryItem* item)
 	///////////////
 
 	const LLSaleInfo& sale_info = item->getSaleInfo();
-	BOOL is_for_sale = sale_info.isForSale();
+	bool is_for_sale = sale_info.isForSale();
 	LLComboBox* combo_sale_type = getChild<LLComboBox>("ComboBoxSaleType");
 	LLUICtrl* edit_cost = getChild<LLUICtrl>("Edit Cost");
 

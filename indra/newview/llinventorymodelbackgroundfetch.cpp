@@ -184,12 +184,12 @@ const char * const LOG_INV("Inventory");
 ///----------------------------------------------------------------------------
 
 LLInventoryModelBackgroundFetch::LLInventoryModelBackgroundFetch():
-	mBackgroundFetchActive(FALSE),
+	mBackgroundFetchActive(false),
 	mFolderFetchActive(false),
 	mFetchCount(0),
-	mAllFoldersFetched(FALSE),
-	mRecursiveInventoryFetchStarted(FALSE),
-	mRecursiveLibraryFetchStarted(FALSE),
+	mAllFoldersFetched(false),
+	mRecursiveInventoryFetchStarted(false),
+	mRecursiveLibraryFetchStarted(false),
 	mMinTimeBetweenFetches(0.3f)
 {}
 
@@ -236,22 +236,22 @@ bool LLInventoryModelBackgroundFetch::isEverythingFetched() const
 	return mAllFoldersFetched;
 }
 
-BOOL LLInventoryModelBackgroundFetch::folderFetchActive() const
+bool LLInventoryModelBackgroundFetch::folderFetchActive() const
 {
 	return mFolderFetchActive;
 }
 
-void LLInventoryModelBackgroundFetch::addRequestAtFront(const LLUUID & id, BOOL recursive, bool is_category)
+void LLInventoryModelBackgroundFetch::addRequestAtFront(const LLUUID & id, bool recursive, bool is_category)
 {
 	mFetchQueue.push_front(FetchQueueInfo(id, recursive, is_category));
 }
 
-void LLInventoryModelBackgroundFetch::addRequestAtBack(const LLUUID & id, BOOL recursive, bool is_category)
+void LLInventoryModelBackgroundFetch::addRequestAtBack(const LLUUID & id, bool recursive, bool is_category)
 {
 	mFetchQueue.push_back(FetchQueueInfo(id, recursive, is_category));
 }
 
-void LLInventoryModelBackgroundFetch::start(const LLUUID& id, BOOL recursive)
+void LLInventoryModelBackgroundFetch::start(const LLUUID& id, bool recursive)
 {
 	LLViewerInventoryCategory * cat(gInventory.getCategory(id));
 
@@ -260,7 +260,7 @@ void LLInventoryModelBackgroundFetch::start(const LLUUID& id, BOOL recursive)
 		// it's a folder, do a bulk fetch
 		LL_DEBUGS(LOG_INV) << "Start fetching category: " << id << ", recursive: " << recursive << LL_ENDL;
 
-		mBackgroundFetchActive = TRUE;
+		mBackgroundFetchActive = true;
 		mFolderFetchActive = true;
 		if (id.isNull())
 		{
@@ -299,7 +299,7 @@ void LLInventoryModelBackgroundFetch::start(const LLUUID& id, BOOL recursive)
 	{
 		if (! itemp->mIsComplete && (mFetchQueue.empty() || mFetchQueue.front().mUUID != id))
 		{
-			mBackgroundFetchActive = TRUE;
+			mBackgroundFetchActive = true;
 
 			mFetchQueue.push_front(FetchQueueInfo(id, false, false));
 			gIdleCallbacks.addFunction(&LLInventoryModelBackgroundFetch::backgroundFetchCB, NULL);
@@ -309,9 +309,9 @@ void LLInventoryModelBackgroundFetch::start(const LLUUID& id, BOOL recursive)
 
 void LLInventoryModelBackgroundFetch::findLostItems()
 {
-	mBackgroundFetchActive = TRUE;
+	mBackgroundFetchActive = true;
 	mFolderFetchActive = true;
-    mFetchQueue.push_back(FetchQueueInfo(LLUUID::null, TRUE));
+    mFetchQueue.push_back(FetchQueueInfo(LLUUID::null, true));
     gIdleCallbacks.addFunction(&LLInventoryModelBackgroundFetch::backgroundFetchCB, NULL);
 }
 
@@ -320,7 +320,7 @@ void LLInventoryModelBackgroundFetch::setAllFoldersFetched()
 	if (mRecursiveInventoryFetchStarted &&
 		mRecursiveLibraryFetchStarted)
 	{
-		mAllFoldersFetched = TRUE;
+		mAllFoldersFetched = true;
 		//LL_INFOS(LOG_INV) << "All folders fetched, validating" << LL_ENDL;
 		//gInventory.validate();
 	}

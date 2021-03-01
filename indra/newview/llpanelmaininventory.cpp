@@ -142,7 +142,7 @@ LLPanelMainInventory::LLPanelMainInventory(const LLPanel::Params& p)
 	// ## Zi: Filter Links Menu
 
 	mSavedFolderState = new LLSaveFolderState();
-	mSavedFolderState->setApply(FALSE);
+	mSavedFolderState->setApply(false);
 }
 
 bool LLPanelMainInventory::postBuild()
@@ -539,7 +539,7 @@ void LLPanelMainInventory::onClearSearch()
 	// re-open folders that were initially open in case filter was active
 	if (mActivePanel && (mFilterSubString.size() || initially_active))
 	{
-		mSavedFolderState->setApply(TRUE);
+		mSavedFolderState->setApply(true);
 		mActivePanel->getRootFolder()->applyFunctorRecursively(*mSavedFolderState);
 		LLOpenFoldersWithSelection opener;
 		mActivePanel->getRootFolder()->applyFunctorRecursively(opener);
@@ -581,7 +581,7 @@ void LLPanelMainInventory::onFilterEdit(const std::string& search_string )
 	// save current folder open state if no filter currently applied
 	if (!mActivePanel->getFilter().isNotDefault())
 	{
-		mSavedFolderState->setApply(FALSE);
+		mSavedFolderState->setApply(false);
 		mActivePanel->getRootFolder()->applyFunctorRecursively(*mSavedFolderState);
 	}
 

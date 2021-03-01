@@ -64,7 +64,7 @@ LLViewerInventoryItem::item_array_t findInventoryInFolder(const std::string& ifo
     LLViewerInventoryCategory::cat_array_t cats;
     LLViewerInventoryItem::item_array_t items;
     //ObjectContentNameMatches objectnamematches(ifolder);
-    gInventory.collectDescendents(folder,cats,items,FALSE);//,objectnamematches);
+    gInventory.collectDescendents(folder,cats,items,false);//,objectnamematches);
 
     return items;
 }
@@ -417,7 +417,7 @@ void invrepair()
     LLViewerInventoryCategory::cat_array_t cats;
     LLViewerInventoryItem::item_array_t items;
     //ObjectContentNameMatches objectnamematches(ifolder);
-    gInventory.collectDescendents(gInventory.getRootFolderID(),cats,items,FALSE);//,objectnamematches);
+    gInventory.collectDescendents(gInventory.getRootFolderID(),cats,items,false);//,objectnamematches);
 }
 
 

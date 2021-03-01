@@ -1354,7 +1354,7 @@ void LLFavoritesBarCtrl::onButtonMouseDown(LLUUID id, LLUICtrl* ctrl, S32 x, S32
 	LLMenuGL* menu = (LLMenuGL*)mContextMenuHandle.get();
 	if(menu && menu->getVisible())
 	{
-		menu->setVisible(FALSE);
+		menu->setVisible(false);
 	}
 
 	mDragItemId = id;

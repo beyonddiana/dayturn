@@ -213,12 +213,12 @@ void LLFloaterBuyContents::inventoryChanged(LLViewerObject* obj,
 		// Create the line in the list
 		LLSD row;
 
-		BOOL item_is_multi = FALSE;
+		bool item_is_multi = false;
 		if ((inv_item->getFlags() & LLInventoryItemFlags::II_FLAGS_LANDMARK_VISITED
 			|| inv_item->getFlags() & LLInventoryItemFlags::II_FLAGS_OBJECT_HAS_MULTIPLE_ITEMS)
 			&& !(inv_item->getFlags() & LLInventoryItemFlags::II_FLAGS_WEARABLES_MASK))
 		{
-			item_is_multi = TRUE;
+			item_is_multi = true;
 		}
 
 		std::string icon_name = LLInventoryIcon::getIconName(inv_item->getType(), 
@@ -276,7 +276,7 @@ void LLFloaterBuyContents::onClickBuy()
 	// We may want to wear this item
 	if (getChild<LLUICtrl>("wear_check")->getValue())
 	{
-		LLInventoryState::sWearNewClothing = TRUE;
+		LLInventoryState::sWearNewClothing = true;
 	}
 
 	// Put the items where we put new folders.
