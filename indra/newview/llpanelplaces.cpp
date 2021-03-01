@@ -531,7 +531,7 @@ void LLPanelPlaces::setItem(LLInventoryItem* item)
 	}
 
 	// Check if item is in agent's inventory and he has the permission to modify it.
-	BOOL is_landmark_editable = gInventory.isObjectDescendentOf(mItem->getUUID(), gInventory.getRootFolderID()) &&
+	bool is_landmark_editable = gInventory.isObjectDescendentOf(mItem->getUUID(), gInventory.getRootFolderID()) &&
 								mItem->getPermissions().allowModifyBy(gAgent.getID());
 
 	mSaveBtn->setEnabled(is_landmark_editable);
@@ -867,7 +867,7 @@ void LLPanelPlaces::onOverflowButtonClicked()
 	{
 		menu = mLandmarkMenu;
 
-		BOOL is_landmark_removable = FALSE;
+		bool is_landmark_removable = false;
 		if (mItem.notNull())
 		{
 			const LLUUID& item_id = mItem->getUUID();

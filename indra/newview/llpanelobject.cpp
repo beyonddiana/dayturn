@@ -2322,14 +2322,14 @@ void LLPanelObject::onCopyParams(const LLSD& data)
 		LLSculptParams *sculpt_params = (LLSculptParams *)objectp->getParameterEntry(LLNetworkData::PARAMS_SCULPT);
 
 		LLUUID image_id = sculpt_params->getSculptTexture();
-		BOOL allow_texture = FALSE;
+		bool allow_texture = false;
 		if (gInventory.isObjectDescendentOf(image_id, gInventory.getLibraryRootFolderID())
 			|| image_id == LLUUID(gSavedSettings.getString( "DefaultObjectTexture" ))
 			|| image_id == LLUUID(gSavedSettings.getString( "UIImgWhiteUUID" ))
 			|| image_id == LLUUID(gSavedSettings.getString( "UIImgInvisibleUUID" ))
 			|| image_id == LLUUID(SCULPT_DEFAULT_TEXTURE)
 		)
-			allow_texture = TRUE;
+			allow_texture = true;
 		else
 		{
 			LLUUID inventory_item_id;
@@ -2363,7 +2363,7 @@ void LLPanelObject::onCopyParams(const LLSD& data)
 				{
 					LLPermissions perm = itemp->getPermissions();
 					if ( (perm.getMaskBase() & PERM_ITEM_UNRESTRICTED) == PERM_ITEM_UNRESTRICTED )
-						allow_texture = TRUE;
+						allow_texture = true;
 				}
 			}
 		}

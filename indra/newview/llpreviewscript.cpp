@@ -1594,7 +1594,7 @@ void LLPreviewLSL::loadAsset()
 	// then it might be part of the inventory library. If it's in the
 	// library, then you can see the script, but not modify it.
 	const LLInventoryItem* item = gInventory.getItem(mItemUUID);
-	BOOL is_library = item
+	bool is_library = item
 		&& !gInventory.isObjectDescendentOf(mItemUUID,
 											gInventory.getRootFolderID());
 	if(!item)

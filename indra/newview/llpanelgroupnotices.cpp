@@ -328,10 +328,10 @@ void LLPanelGroupNotices::setItem(LLPointer<LLInventoryItem> inv_item)
 {
 	mInventoryItem = inv_item;
 
-	BOOL item_is_multi = FALSE;
+	bool item_is_multi = false;
 	if ( inv_item->getFlags() & LLInventoryItemFlags::II_FLAGS_OBJECT_HAS_MULTIPLE_ITEMS )
 	{
-		item_is_multi = TRUE;
+		item_is_multi = true;
 	};
 
 	std::string icon_name = LLInventoryIcon::getIconName(inv_item->getType(),
@@ -354,8 +354,8 @@ void LLPanelGroupNotices::onClickRemoveAttachment(void* data)
 	LLPanelGroupNotices* self = (LLPanelGroupNotices*)data;
 	self->mInventoryItem = NULL;
 	self->mCreateInventoryName->clear();
-	self->mCreateInventoryIcon->setVisible(FALSE);
-	self->mBtnRemoveAttachment->setEnabled(FALSE);
+	self->mCreateInventoryIcon->setVisible(false);
+	self->mBtnRemoveAttachment->setEnabled(false);
 }
 
 //static 

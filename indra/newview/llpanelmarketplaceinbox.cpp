@@ -54,7 +54,7 @@ LLPanelMarketplaceInbox::LLPanelMarketplaceInbox(const Params& p)
 	, mSavedFolderState(NULL)
 {
 	mSavedFolderState = new LLSaveFolderState();
-	mSavedFolderState->setApply(FALSE);
+	mSavedFolderState->setApply(false);
 }
 
 LLPanelMarketplaceInbox::~LLPanelMarketplaceInbox()
@@ -203,7 +203,7 @@ void LLPanelMarketplaceInbox::onClearSearch()
 	if (mInventoryPanel)
 	{
 		mInventoryPanel->setFilterSubString(LLStringUtil::null);
-		mSavedFolderState->setApply(TRUE);
+		mSavedFolderState->setApply(false);
 		mInventoryPanel->getRootFolder()->applyFunctorRecursively(*mSavedFolderState);
 		LLOpenFoldersWithSelection opener;
 		mInventoryPanel->getRootFolder()->applyFunctorRecursively(opener);
@@ -223,7 +223,7 @@ void LLPanelMarketplaceInbox::onFilterEdit(const std::string& search_string)
 
 		if (!mInventoryPanel->getFilter().isNotDefault())
 		{
-			mSavedFolderState->setApply(FALSE);
+			mSavedFolderState->setApply(false);
 			mInventoryPanel->getRootFolder()->applyFunctorRecursively(*mSavedFolderState);
 		}
 		mInventoryPanel->setFilterSubString(search_string);

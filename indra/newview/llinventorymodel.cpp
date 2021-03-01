@@ -70,7 +70,7 @@
 // Increment this if the inventory contents change in a non-backwards-compatible way.
 // For viewer 2, the addition of link items makes a pre-viewer-2 cache incorrect.
 const S32 LLInventoryModel::sCurrentInvCacheVersion = 2;
-BOOL LLInventoryModel::sFirstTimeInViewer2 = TRUE;
+bool LLInventoryModel::sFirstTimeInViewer2 = true;
 
 ///----------------------------------------------------------------------------
 /// Local function declarations, constants, enums, and typedefs
@@ -148,7 +148,7 @@ LLInventoryModel::LLInventoryModel()
 	mParentChildCategoryTree(),
 	mParentChildItemTree(),
 	mLastItem(NULL),
-	mIsNotifyObservers(FALSE),
+	mIsNotifyObservers(false),
 	mModifyMask(LLInventoryObserver::ALL),
 	mChangedItemIDs(),
 	mObservers(),
@@ -201,10 +201,10 @@ void LLInventoryModel::cleanupInventory()
 
 // This is a convenience function to check if one object has a parent
 // chain up to the category specified by UUID.
-BOOL LLInventoryModel::isObjectDescendentOf(const LLUUID& obj_id,
+bool LLInventoryModel::isObjectDescendentOf(const LLUUID& obj_id,
 											const LLUUID& cat_id) const
 {
-	if (obj_id == cat_id) return TRUE;
+	if (obj_id == cat_id) return true;
 
 	const LLInventoryObject* obj = getObject(obj_id);
 	while(obj)
@@ -212,17 +212,17 @@ BOOL LLInventoryModel::isObjectDescendentOf(const LLUUID& obj_id,
 		const LLUUID& parent_id = obj->getParentUUID();
 		if( parent_id.isNull() )
 		{
-			return FALSE;
+			return false;
 		}
 		if(parent_id == cat_id)
 		{
-			return TRUE;
+			return true;
 		}
 		// Since we're scanning up the parents, we only need to check
 		// in the category list.
 		obj = getCategory(parent_id);
 	}
-	return FALSE;
+	return false;
 }
 
 const LLViewerInventoryCategory *LLInventoryModel::getFirstNondefaultParent(const LLUUID& obj_id) const
@@ -754,7 +754,7 @@ public:
 void LLInventoryModel::collectDescendents(const LLUUID& id,
 										  cat_array_t& cats,
 										  item_array_t& items,
-										  BOOL include_trash)
+										  bool include_trash)
 {
 	LLAlwaysCollect always;
 	collectDescendentsIf(id, cats, items, include_trash, always);
@@ -763,7 +763,7 @@ void LLInventoryModel::collectDescendents(const LLUUID& id,
 void LLInventoryModel::collectDescendentsIf(const LLUUID& id,
 											cat_array_t& cats,
 											item_array_t& items,
-											BOOL include_trash,
+											bool include_trash,
 											LLInventoryCollectFunctor& add)
 {
 	// Start with categories
@@ -1598,7 +1598,7 @@ void LLInventoryModel::removeObserver(LLInventoryObserver* observer)
 	mObservers.erase(observer);
 }
 
-BOOL LLInventoryModel::containsObserver(LLInventoryObserver* observer) const
+bool LLInventoryModel::containsObserver(LLInventoryObserver* observer) const
 {
 	return mObservers.find(observer) != mObservers.end();
 }
@@ -1627,7 +1627,7 @@ void LLInventoryModel::notifyObservers()
 		return;
 	}
 
-	mIsNotifyObservers = TRUE;
+	mIsNotifyObservers = true;
 	for (observer_list_t::iterator iter = mObservers.begin();
 		 iter != mObservers.end(); )
 	{
@@ -1641,7 +1641,14 @@ void LLInventoryModel::notifyObservers()
 	mModifyMask = LLInventoryObserver::NONE;
 	mChangedItemIDs.clear();
 	mAddedItemIDs.clear();
-	mIsNotifyObservers = FALSE;
+
+	mAddedItemIDs.insert(mAddedItemIDsBacklog.begin(), mAddedItemIDsBacklog.end());
+
+	mModifyMaskBacklog = LLInventoryObserver::NONE;
+	mChangedItemIDsBacklog.clear();
+	mAddedItemIDsBacklog.clear();
+
+	mIsNotifyObservers = false;
 }
 
 // store flag for change
@@ -3616,13 +3623,13 @@ void LLInventoryModel::setLibraryOwnerID(const LLUUID& val)
 }
 
 // static
-BOOL LLInventoryModel::getIsFirstTimeInViewer2()
+bool LLInventoryModel::getIsFirstTimeInViewer2()
 {
 	// Do not call this before parentchild map is built.
 	if (!gInventory.mIsAgentInvUsable)
 	{
 		LL_WARNS() << "Parent Child Map not yet built; guessing as first time in viewer2." << LL_ENDL;
-		return TRUE;
+		return true;
 	}
 
 	return sFirstTimeInViewer2;

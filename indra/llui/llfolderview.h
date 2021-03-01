@@ -384,7 +384,7 @@ public:
 	virtual ~LLSaveFolderState() {}
 	virtual void doFolder(LLFolderViewFolder* folder);
 	virtual void doItem(LLFolderViewItem* item) {}
-	void setApply(BOOL apply);
+	void setApply(bool apply);
 	void clearOpenFolders() { mOpenFolders.clear(); }
 protected:
 	std::set<LLUUID> mOpenFolders;

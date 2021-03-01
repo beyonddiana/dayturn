@@ -1636,7 +1636,7 @@ void LLAppearanceMgr::takeOffOutfit(const LLUUID& cat_id)
 	LLInventoryModel::item_array_t items;
 	LLFindWearablesEx collector(/*is_worn=*/ true, /*include_body_parts=*/ false);
 
-	gInventory.collectDescendentsIf(cat_id, cats, items, FALSE, collector);
+	gInventory.collectDescendentsIf(cat_id, cats, items, false, collector);
 
 	LLInventoryModel::item_array_t::const_iterator it = items.begin();
 	const LLInventoryModel::item_array_t::const_iterator it_end = items.end();

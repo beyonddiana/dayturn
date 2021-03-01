@@ -90,7 +90,7 @@
 
 #include "aoengine.h"			// ## Zi: Animation Overrider
 
-BOOL LLInventoryState::sWearNewClothing = FALSE;
+bool LLInventoryState::sWearNewClothing = false;
 LLUUID LLInventoryState::sWearNewClothingTransactionID;
 std::list<LLUUID> LLInventoryAction::sMarketplaceFolders;
 
@@ -1167,7 +1167,7 @@ bool can_move_item_to_marketplace(const LLInventoryCategory* root_folder, LLInve
             LLInventoryModel::cat_array_t existing_categories;
             LLInventoryModel::item_array_t existing_items;
             
-            gInventory.collectDescendents(version_folder->getUUID(), existing_categories, existing_items, FALSE);
+            gInventory.collectDescendents(version_folder->getUUID(), existing_categories, existing_items, false);
             
             existing_item_count += count_copyable_items(existing_items) + count_stock_folders(existing_categories);
             existing_stock_count += count_stock_items(existing_items);
@@ -1241,7 +1241,7 @@ bool can_move_folder_to_marketplace(const LLInventoryCategory* root_folder, LLIn
     {
         LLInventoryModel::cat_array_t descendent_categories;
         LLInventoryModel::item_array_t descendent_items;
-        gInventory.collectDescendents(inv_cat->getUUID(), descendent_categories, descendent_items, FALSE);
+        gInventory.collectDescendents(inv_cat->getUUID(), descendent_categories, descendent_items, false);
     
         int dragged_folder_count = descendent_categories.size() + bundle_size;  // Note: We assume that we're moving a bunch of folders in. That might be wrong...
         int dragged_item_count = count_copyable_items(descendent_items) + count_stock_folders(descendent_categories);
@@ -1263,7 +1263,7 @@ bool can_move_folder_to_marketplace(const LLInventoryCategory* root_folder, LLIn
             // Tally the total number of categories and items inside the root folder
             LLInventoryModel::cat_array_t existing_categories;
             LLInventoryModel::item_array_t existing_items;
-            gInventory.collectDescendents(version_folder->getUUID(), existing_categories, existing_items, FALSE);
+            gInventory.collectDescendents(version_folder->getUUID(), existing_categories, existing_items, false);
         
             existing_folder_count += existing_categories.size();
             existing_item_count += count_copyable_items(existing_items) + count_stock_folders(existing_categories);
@@ -2112,7 +2112,7 @@ bool LLLinkedItemIDMatches::operator()(LLInventoryCategory* cat, LLInventoryItem
 			(item->getLinkedUUID() == mBaseItemID)); // A linked item's assetID will be the compared-to item's itemID.
 }
 
-void LLSaveFolderState::setApply(BOOL apply)
+void LLSaveFolderState::setApply(bool apply)
 {
 	mApply = apply; 
 	// before generating new list of open folders, clear the old one
@@ -2270,7 +2270,7 @@ bool get_selection_object_uuids(LLFolderView *root, uuid_vec_t& ids)
 }
 
 
-void LLInventoryAction::doToSelected(LLInventoryModel* model, LLFolderView* root, const std::string& action, BOOL user_confirm)
+void LLInventoryAction::doToSelected(LLInventoryModel* model, LLFolderView* root, const std::string& action, bool user_confirm)
 {
 	std::set<LLFolderViewItem*> selected_items = root->getSelectionList();
     

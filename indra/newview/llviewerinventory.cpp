@@ -803,7 +803,7 @@ void LLViewerInventoryCategory::determineFolderType()
 	U64 folder_invalid = 0;
 	LLInventoryModel::cat_array_t category_array;
 	LLInventoryModel::item_array_t item_array;
-	gInventory.collectDescendents(getUUID(),category_array,item_array,FALSE);
+	gInventory.collectDescendents(getUUID(),category_array,item_array,false);
 
 	// For ensembles
 	if (category_array.empty())
@@ -1706,7 +1706,7 @@ void purge_descendents_of(const LLUUID& id, LLPointer<LLInventoryCallback> cb)
 			// Remove items from clipboard or it will remain active even if there is nothing to paste/copy
 			LLInventoryModel::cat_array_t categories;
 			LLInventoryModel::item_array_t items;
-			gInventory.collectDescendents(id, categories, items, TRUE);
+			gInventory.collectDescendents(id, categories, items, true);
 
 			for (LLInventoryModel::cat_array_t::const_iterator it = categories.begin(); it != categories.end(); ++it)
 			{

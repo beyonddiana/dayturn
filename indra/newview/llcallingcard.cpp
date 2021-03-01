@@ -98,7 +98,7 @@ LLAvatarTracker::LLAvatarTracker() :
 	mTrackingData(NULL),
 	mTrackedAgentValid(false),
 	mModifyMask(0x0),
-	mIsNotifyObservers(FALSE)
+	mIsNotifyObservers(false)
 {
 }
 
@@ -493,7 +493,7 @@ void LLAvatarTracker::notifyObservers()
 		// new masks and ids will be processed later from idle.
 		return;
 	}
-	mIsNotifyObservers = TRUE;
+	mIsNotifyObservers = true;
 
 	observer_list_t observers(mObservers);
 	observer_list_t::iterator it = observers.begin();
@@ -510,7 +510,7 @@ void LLAvatarTracker::notifyObservers()
 
 	mModifyMask = LLFriendObserver::NONE;
 	mChangedBuddyIDs.clear();
-	mIsNotifyObservers = FALSE;
+	mIsNotifyObservers = false;
 }
 
 void LLAvatarTracker::addParticularFriendObserver(const LLUUID& buddy_id, LLFriendObserver* observer)

@@ -433,7 +433,7 @@ bool LLFloaterTexturePicker::postBuild()
 
 	// update permission filter once UI is fully initialized
 	updateFilterPermMask();
-	mSavedFolderState.setApply(FALSE);
+	mSavedFolderState.setApply(false);
 
 	LLToolPipette::getInstance()->setToolSelectCallback(boost::bind(&LLFloaterTexturePicker::onTextureSelect, this, _1));
 
@@ -1128,7 +1128,7 @@ void LLFloaterTexturePicker::onFilterEdit(const std::string& search_string )
 			return;
 		}
 
-		mSavedFolderState.setApply(TRUE);
+		mSavedFolderState.setApply(true);
 		mInventoryPanel->getRootFolder()->applyFunctorRecursively(mSavedFolderState);
 		// add folder with current item to list of previously opened folders
 		LLOpenFoldersWithSelection opener;
@@ -1141,7 +1141,7 @@ void LLFloaterTexturePicker::onFilterEdit(const std::string& search_string )
 		// first letter in search term, save existing folder open state
 		if (!mInventoryPanel->getFilter().isNotDefault())
 		{
-			mSavedFolderState.setApply(FALSE);
+			mSavedFolderState.setApply(false);
 			mInventoryPanel->getRootFolder()->applyFunctorRecursively(mSavedFolderState);
 		}
 	}

@@ -274,7 +274,7 @@ void LLTaskInvFVBridge::setCreationDate(time_t creation_date_utc)
 
 LLUIImagePtr LLTaskInvFVBridge::getIcon() const
 {
-	const BOOL item_is_multi = (mFlags & LLInventoryItemFlags::II_FLAGS_OBJECT_HAS_MULTIPLE_ITEMS);
+	const bool item_is_multi = (mFlags & LLInventoryItemFlags::II_FLAGS_OBJECT_HAS_MULTIPLE_ITEMS);
 
 	return LLInventoryIcon::getIcon(mAssetType, mInventoryType, 0, item_is_multi );
 }
