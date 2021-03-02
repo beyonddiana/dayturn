@@ -206,7 +206,7 @@ std::string LLExternalEditor::findCommand(
 		auto env_var_val(LLStringUtil::getoptenv(env_var));
 		if (env_var_val)
 		{
-			cmd = env_var_val;
+			cmd = *env_var_val;
 			LL_INFOS() << "Using env var " << env_var << LL_ENDL;
 		}
 	}
