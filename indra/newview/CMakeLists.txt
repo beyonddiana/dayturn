@@ -115,6 +115,7 @@ set(viewer_SOURCE_FILES
     fscommon.cpp
     fsexport.cpp
     fsfloaterimport.cpp
+    fsfloaterposestand.cpp
     fsfloaterprofile.cpp
     fsfloatersearch.cpp
     fsfloatersearchlegacy.cpp
@@ -124,6 +125,7 @@ set(viewer_SOURCE_FILES
     aoengine.cpp
     aoset.cpp
     fspanelprofileclassifieds.cpp
+    fspose.cpp
     fslightshare.cpp
     groupchatlistener.cpp
     chatbar_as_cmdline.cpp	
@@ -765,12 +767,14 @@ set(viewer_HEADER_FILES
     fscommon.h
     fsexport.h
     fsfloaterimport.h
+	fsfloaterposestand.h
     fsfloaterprofile.h
     fsfloatersearch.h
     fsfloatersearchlegacy.h
     fspanelclassified.h
     fspanelprofile.h
     fspanelprofileclassifieds.h
+    fspose.h
     fslightshare.h
     groupchatlistener.h
     chatbar_as_cmdline.h

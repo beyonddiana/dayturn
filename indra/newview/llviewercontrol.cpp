@@ -75,6 +75,9 @@
 #include "llslurl.h"
 #include "llstartup.h"
 
+#include "fsfloaterposestand.h"
+#include "llfloaterreg.h"
+
 // Third party library includes
 #include <boost/algorithm/string.hpp>
 
@@ -646,6 +649,19 @@ bool toggle_show_object_render_cost(const LLSD& newvalue)
 void handleRenderAutoMuteByteLimitChanged(const LLSD& new_value);
 ////////////////////////////////////////////////////////////////////////////
 
+// <FS:CR> Posestand Ground Lock
+static void handleSetPoseStandLock(const LLSD& newvalue)
+{
+	FSFloaterPoseStand* pose_stand = LLFloaterReg::findTypedInstance<FSFloaterPoseStand>("fs_posestand");
+	if (pose_stand)
+	{
+		pose_stand->setLock(newvalue);
+		pose_stand->onCommitCombo();
+	}
+		
+}
+// </FS:CR> Posestand Ground Lock
+
 void settings_setup_listeners()
 {
 	gSavedSettings.getControl("FirstPersonAvatarVisible")->getSignal()->connect(boost::bind(&handleRenderAvatarMouselookChanged, _2));
@@ -803,6 +819,8 @@ void settings_setup_listeners()
     gSavedSettings.getControl("ViewerAssetHttpTypes")->getCommitSignal()->connect(boost::bind(&handleViewerAssetHttpTypesChanged, _2));
 	gSavedPerAccountSettings.getControl("AvatarHoverOffsetZ")->getCommitSignal()->connect(boost::bind(&handleAvatarHoverOffsetChanged, _2));
 	gSavedSettings.getControl("RenderAutoMuteByteLimit")->getSignal()->connect(boost::bind(&handleRenderAutoMuteByteLimitChanged, _2));
+	// <FS:CR> Pose stand ground lock
+	gSavedSettings.getControl("FSPoseStandLock")->getSignal()->connect(boost::bind(&handleSetPoseStandLock, _2));
 }
 
 #if TEST_CACHED_CONTROL
