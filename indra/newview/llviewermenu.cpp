@@ -145,6 +145,7 @@
 #include "llcleanup.h"
 #include "llvowlsky.h"
 #include "fsexport.h"
+#include "fspose.h"
 #include "daeexport.h"
 
 extern bool gIsInSecondLife; //Opensim or SecondLife
@@ -8276,6 +8277,24 @@ BOOL check_show_xui_names(void *)
 	return gSavedSettings.getBOOL("DebugShowXUINames");
 }
 
+// <FS:CR> FIRE-4345: Undeform
+class FSToolsUndeform : public view_listener_t
+{
+	bool handleEvent(const LLSD& userdata)
+	{
+		if (isAgentAvatarValid())
+		{
+			gAgentAvatarp->resetSkeleton(true);
+
+			FSPose::getInstance()->setPose(gSavedSettings.getString("FSUndeformUUID"), false);
+			gAgentAvatarp->updateVisualParams();
+		}
+
+		return true;
+	}
+};
+// </FS:CR> FIRE-4345: Undeform
+
 class LLToolsSelectOnlyMyObjects : public view_listener_t
 {
 	bool handleEvent(const LLSD& userdata)
@@ -9573,6 +9592,7 @@ void initialize_menus()
 	commit.add("Tools.TakeCopy", boost::bind(&handle_take_copy));
 	view_listener_t::addMenu(new LLToolsSaveToObjectInventory(), "Tools.SaveToObjectInventory");
 	view_listener_t::addMenu(new LLToolsSelectedScriptAction(), "Tools.SelectedScriptAction");
+	view_listener_t::addMenu(new FSToolsUndeform(), "Tools.Undeform");	// <FS:CR> FIRE-4345: Undeform
 
 	view_listener_t::addMenu(new LLToolsEnableToolNotPie(), "Tools.EnableToolNotPie");
 	view_listener_t::addMenu(new LLToolsEnableSelectNextPart(), "Tools.EnableSelectNextPart");

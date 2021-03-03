@@ -5932,5 +5932,5 @@ and report the problem.
 [https://community.secondlife.com/knowledgebase/english/error-messages-r520/#Section__3 Knowledge Base]
   </string>
   <!-- Posestand animation names -->
-  <string name="PS_A_Pose">T-Pose</string>
+  <string name="PS_A_Pose">A-Pose</string>
 </strings>
