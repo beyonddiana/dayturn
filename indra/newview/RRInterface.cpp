@@ -598,12 +598,12 @@ RRInterface::~RRInterface()
 
 std::string RRInterface::getVersion ()
 {
-	return RR_VIEWER_NAME" viewer v"RR_VERSION" ("+LLVersionInfo::getShortVersion()+")";
+	return RR_VIEWER_NAME" viewer v"RR_VERSION" ("+ LLVersionInfo::instance().getShortVersion() +")";
 }
 
 std::string RRInterface::getVersion2 ()
 {
-	return RR_VIEWER_NAME_NEW" viewer v"RR_VERSION" ("+LLVersionInfo::getShortVersion()+")";
+	return RR_VIEWER_NAME_NEW" viewer v"RR_VERSION" ("+ LLVersionInfo::instance().getShortVersion() +")";
 }
 
 std::string RRInterface::getVersionNum ()
