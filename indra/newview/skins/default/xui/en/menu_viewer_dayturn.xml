@@ -1358,6 +1358,16 @@
       <menu_item_separator/>
 
       <menu_item_check
+		label="Show Physics Shape When Editing"
+		name="Show Physics Shape">
+		<menu_item_check.on_check
+		  function="CheckControl"
+		  parameter="ShowPhysicsShapeInEdit" />
+		<menu_item_check.on_click
+		  function="ToggleControl"
+		  parameter="ShowPhysicsShapeInEdit" />
+	  </menu_item_check>
+	  <menu_item_check
        label="Show Selection Outlines"
        name="Show Selection Outlines">
         <menu_item_check.on_check
