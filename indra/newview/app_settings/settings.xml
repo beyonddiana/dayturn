@@ -14437,6 +14437,19 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
+    <key>ShowPhysicsShapeInEdit</key>
+    <map>
+      <key>Comment</key>
+      <string>show physics shapes while building</string>
+      <key>Persist</key>
+      <integer>0</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>0</integer>
+      <key>Backup</key>
+      <integer>0</integer>
+    </map>
     <key>SocialPhotoResolution</key>
     <map>
       <key>Comment</key>
@@ -14514,8 +14527,21 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
-    <key>UseStartScreen</key>
-    <map>
+  <key>UsePhysicsCostOnly</key>
+  <map>
+    <key>Comment</key>
+    <string>When displaying physics shapes in edit mode colour ramp based on physics cost not object cost.</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <integer>0</integer>
+    <key>Backup</key>
+    <integer>0</integer>
+  </map>
+  <key>UseStartScreen</key>
+      <map>
       <key>Comment</key>
       <string>Whether to load a start screen image or not.</string>
       <key>Persist</key>
