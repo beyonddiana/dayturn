@@ -800,7 +800,7 @@ bool LLGLManager::initGL()
 #if LL_WINDOWS
 	if (mHasDebugOutput && gDebugGL)
 	{ //setup debug output callback
-		//glDebugMessageControlARB(GL_DONT_CARE, GL_DONT_CARE, GL_DEBUG_SEVERITY_LOW_ARB, 0, NULL, GL_true);
+		//glDebugMessageControlARB(GL_DONT_CARE, GL_DONT_CARE, GL_DEBUG_SEVERITY_LOW_ARB, 0, NULL, GL_TRUE);
 		glDebugMessageCallbackARB((GLDEBUGPROCARB) gl_debug_callback, NULL);
 		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS_ARB);
 	}
@@ -1587,18 +1587,18 @@ void clear_glerror()
 // Static members
 boost::unordered_map<LLGLenum, LLGLboolean> LLGLState::sStateMap;
 
-GLboolean LLGLDepthTest::sDepthEnabled = GL_false; // OpenGL default
+GLboolean LLGLDepthTest::sDepthEnabled = GL_FALSE; // OpenGL default
 GLenum LLGLDepthTest::sDepthFunc = GL_LESS; // OpenGL default
-GLboolean LLGLDepthTest::sWriteEnabled = GL_true; // OpenGL default
+GLboolean LLGLDepthTest::sWriteEnabled = GL_TRUE; // OpenGL default
 
 //static
 void LLGLState::initClass() 
 {
-	sStateMap[GL_DITHER] = GL_true;
-	// sStateMap[GL_TEXTURE_2D] = GL_true;
+	sStateMap[GL_DITHER] = GL_TRUE;
+	// sStateMap[GL_TEXTURE_2D] = GL_TRUE;
 	
 	//make sure multisample defaults to disabled
-	sStateMap[GL_MULTISAMPLE_ARB] = GL_false;
+	sStateMap[GL_MULTISAMPLE_ARB] = GL_FALSE;
 	glDisable(GL_MULTISAMPLE_ARB);
 }
 
@@ -2089,19 +2089,19 @@ void LLGLState::setEnabled(S32 enabled)
 	}
 	if (enabled == CURRENT_STATE)
 	{
-		enabled = sStateMap[mState] == GL_true ? true : false;
+		enabled = sStateMap[mState] == GL_TRUE ? TRUE : FALSE;
 	}
-	else if (enabled == true && sStateMap[mState] != GL_true)
+	else if (enabled == TRUE && sStateMap[mState] != GL_TRUE)
 	{
 		gGL.flush();
 		glEnable(mState);
-		sStateMap[mState] = GL_true;
+		sStateMap[mState] = GL_TRUE;
 	}
-	else if (enabled == false && sStateMap[mState] != GL_false)
+	else if (enabled == FALSE && sStateMap[mState] != GL_FALSE)
 	{
 		gGL.flush();
 		glDisable(mState);
-		sStateMap[mState] = GL_false;
+		sStateMap[mState] = GL_FALSE;
 	}
 	mIsEnabled = enabled;
 }
@@ -2132,12 +2132,12 @@ LLGLState::~LLGLState()
 			if (mWasEnabled)
 			{
 				glEnable(mState);
-				sStateMap[mState] = GL_true;
+				sStateMap[mState] = GL_TRUE;
 			}
 			else
 			{
 				glDisable(mState);
-				sStateMap[mState] = GL_false;
+				sStateMap[mState] = GL_FALSE;
 			}
 		}
 	}

@@ -476,7 +476,7 @@ void init_glstates();
 void parse_gl_version( S32* major, S32* minor, S32* release, std::string* vendor_specific, std::string* version_string );
 
 extern bool gClothRipple;
-extern bool gHeadlessClient
+extern bool gHeadlessClient;
 extern bool gGLActive;
 
 // Deal with changing glext.h definitions for newer SDK versions, specifically
