@@ -2549,7 +2549,7 @@ even though the user gets a free copy.
               layout="topleft"
               left_delta="117"
               name="PhysicsViewToggle"
-              tool_tip="Toggle the physics view on in edit mode"
+              tool_tip="Toggle on and off the physics view for the item."
               width="19"/>            <combo_box
              height="19"
              layout="topleft"

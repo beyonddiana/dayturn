@@ -485,6 +485,9 @@ with the same filename but different name
   <texture name="Person_Check" file_name="icons/Person_Check.png" preload="false" />
   <texture name="Person_Star" file_name="icons/Person_Star.png" preload="false" />
 
+  <texture name="PhysicsView_Off" file_name="build/PhysicsView_Off.png" />
+  <texture name="PhysicsView_On" file_name="build/PhysicsView_On.png" />
+
   <texture name="Permission_Visible_Online" file_name="icons/see_me_online.png" preload="false" />
   <texture name="Permission_Visible_Map" file_name="icons/see_on_map.png" preload="false" />
   <texture name="Permission_Edit_Objects_Mine" file_name="icons/edit_mine.png" preload="false" />
