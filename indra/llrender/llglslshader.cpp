@@ -1253,7 +1253,7 @@ void LLGLSLShader::uniformMatrix3fv(U32 index, U32 count, GLboolean transpose, c
 
 void LLGLSLShader::uniformMatrix3x4fv(U32 index, U32 count, GLboolean transpose, const GLfloat *v)
 {
-	if (mProgramObject > 0)
+	if (mProgramObject)
 	{	
 		if (mUniform.size() <= index)
 		{
