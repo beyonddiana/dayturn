@@ -272,23 +272,23 @@ BOOL LLScrollContainer::handleScrollWheel( S32 x, S32 y, S32 clicks )
 	return FALSE;
 }
 
-BOOL LLScrollContainer::handleScrollHWheel(S32 x, S32 y, S32 clicks)
+bool LLScrollContainer::handleScrollHWheel(S32 x, S32 y, S32 clicks)
 {
-	if (LLUICtrl::handleScrollHWheel(x,y,clicks))
-	{
-		return TRUE;
-	}
-
-	LLScrollbar* horizontal = mScrollbar[HORIZONTAL];
-	if (horizontal->getVisible()
-		&& horizontal->getEnabled()
-		&& horizontal->handleScrollHWheel( 0, 0, clicks ) )
-	{
-		updateScroll();
-		return TRUE;
-	}
-
-	return FALSE;
+    if (LLUICtrl::handleScrollHWheel(x,y,clicks))
+    {
+        return true;
+    }
+    
+    LLScrollbar* horizontal = mScrollbar[HORIZONTAL];
+    if (horizontal->getVisible()
+        && horizontal->getEnabled()
+        && horizontal->handleScrollHWheel( 0, 0, clicks ) )
+    {
+        updateScroll();
+        return true;
+    }
+    
+    return false;
 }
 
 bool LLScrollContainer::handleDragAndDrop(S32 x, S32 y, MASK mask,

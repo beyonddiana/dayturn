@@ -1085,7 +1085,7 @@ BOOL LLView::handleScrollWheel(S32 x, S32 y, S32 clicks)
 	return childrenHandleScrollWheel( x, y, clicks ) != NULL;
 }
 
-BOOL LLView::handleScrollHWheel(S32 x, S32 y, S32 clicks)
+bool LLView::handleScrollHWheel(S32 x, S32 y, S32 clicks)
 {
 	return childrenHandleScrollHWheel( x, y, clicks ) != NULL;
 }
