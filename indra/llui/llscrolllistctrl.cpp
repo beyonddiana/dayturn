@@ -1624,18 +1624,18 @@ BOOL LLScrollListCtrl::handleScrollWheel(S32 x, S32 y, S32 clicks)
 	return handled;
 }
 
-BOOL LLScrollListCtrl::handleScrollHWheel(S32 x, S32 y, S32 clicks)
+bool LLScrollListCtrl::handleScrollHWheel(S32 x, S32 y, S32 clicks)
 {
-	BOOL handled = FALSE;
-	// Pretend the mouse is over the scrollbar
-	handled = mScrollbar->handleScrollHWheel( 0, 0, clicks );
-
-	if (mMouseWheelOpaque)
-	{
-		return TRUE;
-	}
-
-	return handled;
+    bool handled = false;
+    // Pretend the mouse is over the scrollbar
+    handled = mScrollbar->handleScrollHWheel( 0, 0, clicks );
+    
+    if (mMouseWheelOpaque)
+    {
+        return true;
+    }
+    
+    return handled;
 }
 
 // *NOTE: Requires a valid row_index and column_index

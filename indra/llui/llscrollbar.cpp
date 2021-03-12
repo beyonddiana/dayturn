@@ -408,14 +408,14 @@ BOOL LLScrollbar::handleScrollWheel(S32 x, S32 y, S32 clicks)
 	return handled;
 }
 
-BOOL LLScrollbar::handleScrollHWheel(S32 x, S32 y, S32 clicks)
+bool LLScrollbar::handleScrollHWheel(S32 x, S32 y, S32 clicks)
 {
-	BOOL handled = FALSE;
-	if (LLScrollbar::HORIZONTAL == mOrientation)
-	{
-		handled = changeLine(clicks * mStepSize, TRUE);
-	}
-	return handled;
+    bool handled = false;
+    if (LLScrollbar::HORIZONTAL == mOrientation)
+    {
+        handled = changeLine(clicks * mStepSize, true);
+    }
+    return handled;
 }
 
 bool LLScrollbar::handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
