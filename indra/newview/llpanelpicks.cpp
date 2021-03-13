@@ -91,7 +91,7 @@ public:
 			return true;
 		}
 
-        if (!LLUI::getInstance()->mSettingGroups["config"]->getBOOL("EnablePicks"))
+        if (!LLUI::sSettingGroups["config"]->getBOOL("EnablePicks")) // GN: Not converted to singleton for Win builds yet 
 		{
 			LLNotificationsUtil::add("NoPicks", LLSD(), LLSD(), std::string("SwitchToStandardSkinAndQuit"));
 			return true;
@@ -210,7 +210,7 @@ public:
 			return true;
 		}
 
-        if (!LLUI::getInstance()->mSettingGroups["config"]->getBOOL("EnableClassifieds"))
+        if (!LLUI::sSettingGroups["config"]->getBOOL("EnableClassifieds"))  // GN: Not coverted to singleton for Win builds yet
 		{
 			LLNotificationsUtil::add("NoClassifieds", LLSD(), LLSD(), std::string("SwitchToStandardSkinAndQuit"));
 			return true;

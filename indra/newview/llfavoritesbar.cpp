@@ -989,7 +989,7 @@ BOOL LLFavoritesBarCtrl::collectFavoriteItems(LLInventoryModel::item_array_t &it
 
 void LLFavoritesBarCtrl::onMoreTextBoxClicked()
 {
-	LLUI::getInstance()->getMousePositionScreen(&mMouseX, &mMouseY);
+	LLUI::getMousePositionScreen(&mMouseX, &mMouseY); //GN: Not converted to singleton for the Win build yet
 	showDropDownMenu();
 }
 
