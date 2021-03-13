@@ -679,7 +679,7 @@ public:
 	static BOOL sDrawPreviewHighlights;
 	static S32 sLastLeftXML;
 	static S32 sLastBottomXML;
-	static BOOL sForceReshape;
+	static bool sForceReshape;
 };
 
 namespace LLInitParam

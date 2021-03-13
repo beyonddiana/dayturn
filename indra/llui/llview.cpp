@@ -66,7 +66,7 @@ bool	LLView::sDebugRectsShowNames = true;
 bool	LLView::sDebugKeys = false;
 bool	LLView::sDebugMouseHandling = false;
 std::string LLView::sMouseHandlerMessage;
-BOOL	LLView::sForceReshape = FALSE;
+bool	LLView::sForceReshape = false;
 std::set<LLView*> LLView::sPreviewHighlightedElements;
 BOOL LLView::sHighlightingDiffs = FALSE;
 LLView* LLView::sPreviewClickedElement = NULL;
