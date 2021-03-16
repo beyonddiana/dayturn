@@ -2229,11 +2229,14 @@ if (LL_TESTS)
     ${CRYPTO_LIBRARIES}
   )
 
-    LL_ADD_INTEGRATION_TEST(llsechandler_basic
+  LL_ADD_INTEGRATION_TEST(cppfeatures
+    ""
+    "${test_libs}"
+    )
+  LL_ADD_INTEGRATION_TEST(llsechandler_basic
     llsechandler_basic.cpp
     "${test_libs}"
     )
-
   LL_ADD_INTEGRATION_TEST(llsecapi
      llsecapi.cpp
     "${test_libs}"
