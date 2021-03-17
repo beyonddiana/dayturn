@@ -84,13 +84,10 @@ if (LINUX)
   endif (INSTALL_PROPRIETARY)
   add_dependencies(viewer linux-crash-logger-strip-target linux-updater)
 elseif (WINDOWS)
-  add_subdirectory(${VIEWER_PREFIX}win_crash_logger)
   # cmake EXISTS requires an absolute path, see indra/cmake/Variables.cmake
   if (EXISTS ${VIEWER_DIR}win_setup)
     add_subdirectory(${VIEWER_DIR}win_setup)
   endif (EXISTS ${VIEWER_DIR}win_setup)
-  # add_dependencies(viewer windows-setup windows-crash-logger)
-  add_dependencies(viewer windows-crash-logger)
 endif (LINUX)
 
 add_subdirectory(${VIEWER_PREFIX}newview)
