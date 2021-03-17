@@ -219,6 +219,7 @@ LLTrace::EventStatHandle<S64> LLPipeline::sStatBatchSize("renderbatchsize");
 
 const F32 BACKLIGHT_DAY_MAGNITUDE_OBJECT = 0.1f;
 const F32 BACKLIGHT_NIGHT_MAGNITUDE_OBJECT = 0.08f;
+const F32 DEFERRED_LIGHT_FALLOFF = 0.5f;
 const U32 DEFERRED_VB_MASK = LLVertexBuffer::MAP_VERTEX | LLVertexBuffer::MAP_TEXCOORD0 | LLVertexBuffer::MAP_TEXCOORD1;
 
 extern S32 gBoxFrame;
@@ -6345,15 +6346,19 @@ void LLPipeline::setupHWLights(LLDrawPool* pool)
 				light_color *= fade;
 			}
 
-			LLVector3 light_pos(light->getRenderPosition());
-			LLVector4 light_pos_gl(light_pos, 1.0f);
-	
-			F32 light_radius = llmax(light->getLightRadius(), 0.001f);
+            LLVector3 light_pos(light->getRenderPosition());
+            LLVector4 light_pos_gl(light_pos, 1.0f);
+            
+            F32 adjusted_radius = light->getLightRadius() * (sRenderDeferred ? 1.5f : 1.0f);
+            if (adjusted_radius <= 0.001f)
+            {
+                continue;
+            }
 
-			F32 x = (3.f * (1.f + light->getLightFalloff())); // why this magic?  probably trying to match a historic behavior.
-			float linatten = x / (light_radius); // % of brightness at radius
+            F32 x = (3.f * (1.f + (light->getLightFalloff() * 2.0f)));  // why this magic?  probably trying to match a historic behavior.
+            F32 linatten = x / adjusted_radius;                         // % of brightness at radius
 
-			mHWLightColors[cur_light] = light_color;
+            mHWLightColors[cur_light] = light_color;
 			LLLightState* light_state = gGL.getLight(cur_light);
 			
 			light_state->setPosition(light_pos_gl);
@@ -6362,9 +6367,8 @@ void LLPipeline::setupHWLights(LLDrawPool* pool)
 			light_state->setConstantAttenuation(0.f);
 			if (sRenderDeferred)
 			{
-				F32 size = light_radius*1.5f;
-				light_state->setLinearAttenuation(size);
-				light_state->setQuadraticAttenuation(light->getLightFalloff()*0.5f+1.f);
+				light_state->setLinearAttenuation(linatten);
+				light_state->setQuadraticAttenuation(light->getLightFalloff(DEFERRED_LIGHT_FALLOFF) + 1.f); // get falloff to match for forward deferred rendering lights
 			}
 			else
 			{
