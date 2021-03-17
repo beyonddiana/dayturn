@@ -349,14 +349,6 @@ void LLApp::setupErrorHandling(bool second_instance)
 
 #if LL_WINDOWS
 
-#if LL_SEND_CRASH_REPORTS
-	EnableCrashingOnCrashes();
-
-	// This sets a callback to handle w32 signals to the console window.
-	// The viewer shouldn't be affected, since its a windowed app.
-	SetConsoleCtrlHandler( (PHANDLER_ROUTINE) ConsoleCtrlHandler, TRUE);
-
-#endif // LL_SEND_CRASH_REPORTS
 #else  // !LL_WINDOWS
 	//
 	// Start up signal handling.
