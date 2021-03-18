@@ -187,7 +187,7 @@
              name="favorite"
              image_drag_indication="Accordion_ArrowOpened_Off"
              tool_tip="Drag Landmarks here for quick access to your favorite places in [SECOND_LIFE]"
-             width="268">
+             width="310">
             <label
              follows="left|top"
              height="13"
@@ -209,7 +209,7 @@
                 tool_tip="Show more of My Favorites"
                 top="13"
                 width="50"
-                bottom="0"
+                bottom="2"
                 valign="bottom">
                 More &#9660;
                 </more_button>
