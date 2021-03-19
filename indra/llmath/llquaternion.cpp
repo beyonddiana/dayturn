@@ -104,6 +104,11 @@ LLQuaternion::LLQuaternion(const LLVector3 &x_axis,
 	normalize();
 }
 
+LLQuaternion::LLQuaternion(const LLSD &sd)
+{
+    setValue(sd);
+}
+
 // Quatizations
 void	LLQuaternion::quantize16(F32 lower, F32 upper)
 {
