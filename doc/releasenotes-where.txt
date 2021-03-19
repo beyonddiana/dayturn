@@ -1,5 +1,5 @@
 For full release notes, see:
-	http://wiki.secondlife.com/wiki/Release_Notes
+	https://www.dayturn.com/viewer/index.php?resources/
 
 For a log of viewer changes, see:
-	doc/viewer-changes.txt
+	https://bitbucket.org/dayturn/dayturn-viewer-windows/commits/
