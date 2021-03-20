@@ -44,8 +44,8 @@
 // Globals
 //
 LLSplashScreen *gSplashScreenp = NULL;
-BOOL gDebugClicks = FALSE;
-BOOL gDebugWindowProc = FALSE;
+bool gDebugClicks = false;
+bool gDebugWindowProc = false;
 
 const S32 gURLProtocolWhitelistCount = 5;
 const std::string gURLProtocolWhitelist[] = { "secondlife:", "http:", "https:", "data:", "mailto:" };

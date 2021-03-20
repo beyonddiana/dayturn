@@ -73,7 +73,7 @@ const F32	ICON_FLASH_TIME = 0.5f;
 #define USER_DEFAULT_SCREEN_DPI 96 // Win7
 #endif
 
-extern BOOL gDebugWindowProc;
+extern bool gDebugWindowProc;
 
 LPWSTR gIconResource = IDI_APPLICATION;
 

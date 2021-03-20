@@ -71,7 +71,7 @@
 #include "llweb.h"
 #include "pipeline.h"	// setHighlightObject
 
-extern BOOL gDebugClicks;
+extern bool gDebugClicks;
 
 static void handle_click_action_play();
 static void handle_click_action_open_media(LLPointer<LLViewerObject> objectp);
