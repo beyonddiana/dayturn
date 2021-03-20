@@ -59,7 +59,7 @@ extern "C" {
 # include <sys/wait.h>
 #endif // LL_LINUX
 
-extern BOOL gDebugWindowProc;
+extern bool gDebugWindowProc;
 
 const S32 MAX_NUM_RESOLUTIONS = 200;
 

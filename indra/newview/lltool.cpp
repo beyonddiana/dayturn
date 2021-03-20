@@ -40,7 +40,7 @@
 #include "llagent.h"
 #include "llviewerjoystick.h"
 
-extern BOOL gDebugClicks;
+extern bool gDebugClicks;
 
 //static
 const std::string LLTool::sNameNull("null");
