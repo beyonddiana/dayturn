@@ -39,7 +39,7 @@
 class LL_COMMON_API LLFrameTimer 
 {
 public:
-	LLFrameTimer() : mStartTime( sFrameTime ), mExpiry(0), mStarted(TRUE) {}
+	LLFrameTimer() : mStartTime( sFrameTime ), mExpiry(0), mStarted(true) {}
 
 	// Return the number of seconds since the start of this
 	// application instance.
