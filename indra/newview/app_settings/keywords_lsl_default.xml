@@ -19795,6 +19795,47 @@
             <key>tooltip</key>
             <string>This function is to have the script know when it has reached a position.\nIt registers a Position with a Range that triggers at_target and not_at_target events continuously until unregistered.</string>
          </map>
+         <key>llTargetedEmail</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>target</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>subject</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>message</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>
+            <key>tooltip</key>
+            <string>Sends an email to the owner or creator (selected by target) of an object with subject and message.</string>
+         </map>
          <key>llTargetOmega</key>
          <map>
             <key>energy</key>
