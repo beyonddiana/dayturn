@@ -2044,6 +2044,15 @@
             <key>tooltip</key>
             <string/>
          </map>
+         <key>INVENTORY_SETTING</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>56</integer>
+            <key>tooltip</key>
+            <string/>
+         </map>
          <key>INVENTORY_SOUND</key>
          <map>
             <key>type</key>
@@ -20409,7 +20418,7 @@
             <key>arguments</key>
             <array>
                <map>
-                  <key>Text1</key>
+                  <key>str1</key>
                   <map>
                      <key>type</key>
                      <string>string</string>
@@ -20418,7 +20427,7 @@
                   </map>
                </map>
                <map>
-                  <key>Text2</key>
+                  <key>str2</key>
                   <map>
                      <key>type</key>
                      <string>string</string>
@@ -25311,7 +25320,16 @@
             <key>return</key>
             <string>void</string>
             <key>arguments</key>
-            <array>            
+            <array>
+               <map>
+                  <key>prim</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>           
                <map>
                   <key>projection</key>
                   <map>
@@ -25534,30 +25552,7 @@
             </array>                
             <key>tooltip</key>
             <string>Sets a position, relative to prim local frame, where to place the feet of a standing avatar. The final position may not be exactly that. </string>
-         </map> 
-         <key>osSetStateEvents</key>
-         <map>
-            <key>energy</key>
-            <real>10.0</real>
-            <key>sleep</key>
-            <real>0.0</real>
-            <key>return</key>
-            <string>void</string>
-            <key>arguments</key>
-            <array>            
-               <map>
-                  <key>events</key>
-                  <map>
-                     <key>type</key>
-                     <string>integer</string>
-                     <key>tooltip</key>
-                     <string/>
-                  </map>
-               </map>                               
-            </array>                
-            <key>tooltip</key>
-            <string></string>
-         </map>         
+         </map>       
          <key>osSetSunParam</key>
          <map>
             <key>energy</key>
@@ -25745,6 +25740,29 @@
             <key>tooltip</key>
             <string>Sets value of param property for plugin module.;SimpleRandomWind plugin param is: strength.;ConfigurableWind plugin params are: avgStrength, avgDirection, varStrength, varDirection, rateChange.</string>
          </map>
+         <key>osSHA256</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>string</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>input</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>                              
+            </array>                
+            <key>tooltip</key>
+            <string>Generate a hash value (string input). Returns a string containing the calculated string input as lowercase.</string>
+         </map>
          <key>osSlerp</key>
          <map>
             <key>energy</key>
@@ -25752,14 +25770,14 @@
             <key>sleep</key>
             <real>0.0</real>
             <key>return</key>
-            <string>rotation</string>
+            <string>rotation/vector</string>
             <key>arguments</key>
             <array>            
                <map>
                   <key>a</key>
                   <map>
                      <key>type</key>
-                     <string>rotation</string>
+                     <string>rotation/vector</string>
                      <key>tooltip</key>
                      <string/>
                   </map>
@@ -25768,7 +25786,7 @@
                   <key>b</key>
                   <map>
                      <key>type</key>
-                     <string>rotation</string>
+                     <string>rotation/vector</string>
                      <key>tooltip</key>
                      <string/>
                   </map>
@@ -26223,16 +26241,7 @@
                      <key>tooltip</key>
                      <string>Used for hypergrid teleports (optional)</string>
                   </map>
-               </map>
-               <map>
-                  <key>regionName</key>
-                  <map>
-                     <key>type</key>
-                     <string>string</string>
-                     <key>tooltip</key>
-                     <string>Used for teleports in the current grid (optional)</string>
-                  </map>
-               </map>                
+               </map>               
                <map>
                   <key>position</key>
                   <map>
@@ -26671,7 +26680,7 @@
             <key>arguments</key>
             <array>
                <map>
-                  <key>firstname</key>
+                  <key>user</key>
                   <map>
                      <key>type</key>
                      <string>string</string>
@@ -26680,7 +26689,7 @@
                   </map>
                </map>            
                <map>
-                  <key>lastname</key>
+                  <key>name</key>
                   <map>
                      <key>type</key>
                      <string>string</string>
@@ -26819,6 +26828,56 @@
             </array>
             <key>tooltip</key>
             <string>Load the appearance of the target NPC from a notecard.</string> 
+         </map>
+         <key>osNpcLookAt</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+       		<key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>npc</key>
+                  <map>
+                     <key>type</key>
+                     <string>key</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>type</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>target</key>
+                  <map>
+                     <key>type</key>
+                     <string>key</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>offset</key>
+                  <map>
+                     <key>type</key>
+                     <string>vector</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>                                                                                                                                  
+            </array>
+            <key>tooltip</key>
+            <string>Makes an NPC look at a target. Other effects besides looking are also supported.</string> 
          </map>
          <key>osNpcMoveTo</key>
          <map>
@@ -27397,6 +27456,15 @@
                   <map>
                      <key>type</key>
                      <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>includeHuds</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
                      <key>tooltip</key>
                      <string/>
                   </map>
