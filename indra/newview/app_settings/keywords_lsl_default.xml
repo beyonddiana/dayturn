@@ -5893,6 +5893,24 @@
             <key>tooltip</key>
             <string/>
          </map>
+           <key>TARGETED_EMAIL_ROOT_CREATOR</key>
+         <map>
+            <key>type</key>
+            <string>string</string>
+            <key>value</key>
+            <integer>1</integer>
+            <key>tooltip</key>
+            <string>Sends the email message to the creator of the root object in the linkset.</string>
+         </map>
+           <key>TARGETED_EMAIL_OBJECT_OWNER</key>
+         <map>
+            <key>type</key>
+            <string>string</string>
+            <key>value</key>
+            <integer>2</integer>
+            <key>tooltip</key>
+            <string>Sends the email message to the owner of the object or linkset.</string>
+         </map>
          <key>TEXTURE_BLANK</key>
          <map>
             <key>type</key>
@@ -6832,7 +6850,106 @@
             <integer>100</integer>
             <key>tooltip</key>
             <string>Returns the harmonic mean of a list of numbers, Value 100.</string>
-         </map>                
+         </map>
+           <key>NPCLOOKAT_NONE</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>0</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+           <key>NPCLOOKAT_IDLE</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>1</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+           <key>NPCLOOKAT_LISTEN</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>2</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+           <key>NPCLOOKAT_FREELOOK</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>3</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+           <key>NPCLOOKAT_RESPOND</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>4</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+           <key>NPCLOOKAT_HOVER</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>5</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+           <key>NPCLOOKAT_CONVERSATION</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>6</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+           <key>NPCLOOKAT_SELECT</key>
+         <map>
+            <key>type</key>
+            <string>string</string>
+            <key>value</key>
+            <integer>7</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+           <key>NPCLOOKAT_FOCUS</key>
+         <map>
+            <key>type</key>
+            <string>string</string>
+            <key>value</key>
+            <integer>8</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+           <key>NPCLOOKAT_MOUSELOOK</key>
+         <map>
+            <key>type</key>
+            <string>string</string>
+            <key>value</key>
+            <integer>9</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+           <key>NPCLOOKAT_CLEAR</key>
+         <map>
+            <key>type</key>
+            <string>string</string>
+            <key>value</key>
+            <integer>10</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
            <key>PARCEL_DETAILS_CLAIMDATE</key>
          <map>
             <key>type</key>
