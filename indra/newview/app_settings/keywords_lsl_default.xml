@@ -27505,6 +27505,29 @@
             <key>tooltip</key>
             <string>Creates a notecard with the current appearance of the object owner inside the object.</string> 
          </map>
+         <key>osIsNotValidNumber</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>integer</string>
+            <key>arguments</key>
+            <array>           
+               <map>
+                  <key>d</key>
+                  <map>
+                     <key>type</key>
+                     <string>float</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>
+            <key>tooltip</key>
+            <string>Returns 0 (false) if d is a valid float, else returns: 1 - if it is a NaN, 2 - if it is a Negative Infinity, 3 - if it is a Positive Infinity</string>
+         </map>
          <key>osIsNpc</key>
          <map>
             <key>energy</key>
