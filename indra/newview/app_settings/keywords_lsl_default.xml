@@ -25017,6 +25017,38 @@
             </array>                
             <key>tooltip</key>
             <string>Sets a limit on how far an avatar can be to have a sit request accepted, or disable sits. linkNumber is link number of the prim to change or one of LINK_SET,LINK_ROOT, LINK_ALL_OTHERS,LINK_ALL_CHILDREN or LINK_THIS</string>
+         </map>
+         <key>osSetLinkStandTarget</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>linkNumber</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>v</key>
+                  <map>
+                     <key>type</key>
+                     <string>vector</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>                
+            <key>tooltip</key>
+            <string>Sets a position, relative to prim local frame, where to place the feet of a standing avatar. The final position may not be exactly that.</string>
          </map> 
          <key>osSetOwnerSpeed</key>
          <map>
