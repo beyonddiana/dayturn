@@ -69,7 +69,6 @@ public:
 		bool mDecodedRaw;
 		bool mDecodedAux;
 		LLPointer<LLImageDecodeThread::Responder> mResponder;
-		bool mDecodedImageRawValid;
 	};
 	
 public:
