@@ -396,7 +396,7 @@ void LLXMLRPCTransaction::Impl::init(XMLRPC_REQUEST request, bool useGzip, const
 	mHandler = LLXMLRPCTransaction::Handler::ptr_t(new Handler( mHttpRequest, this ));
 
 	mPostH = mHttpRequest->requestPost(LLCore::HttpRequest::DEFAULT_POLICY_ID, 0, 
-		mURI, body.get(), httpOpts, httpHeaders, mHandler.get());
+		mURI, body.get(), httpOpts.get(), httpHeaders, mHandler.get());
 
 }
 

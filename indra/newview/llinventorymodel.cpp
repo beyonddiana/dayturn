@@ -154,7 +154,7 @@ LLInventoryModel::LLInventoryModel()
 	mObservers(),
 	mHttpRequestFG(NULL),
 	mHttpRequestBG(NULL),
-	mHttpOptions(),
+	mHttpOptions(NULL),
 	mHttpHeaders(),
 	mHttpPolicyClass(LLCore::HttpRequest::DEFAULT_POLICY_ID),
 	mHttpPriorityFG(0),
@@ -188,9 +188,12 @@ void LLInventoryModel::cleanupInventory()
 
 	// Run down HTTP transport
     mHttpHeaders.reset();
-    mHttpOptions.reset();
-
-    delete mHttpRequestFG;
+	if (mHttpOptions)
+	{
+		mHttpOptions->release();
+		mHttpOptions = NULL;
+	}
+	delete mHttpRequestFG;
 	mHttpRequestFG = NULL;
 	delete mHttpRequestBG;
 	mHttpRequestBG = NULL;
@@ -2582,7 +2585,7 @@ void LLInventoryModel::initHttpRequest()
 
 		mHttpRequestFG = new LLCore::HttpRequest;
 		mHttpRequestBG = new LLCore::HttpRequest;
-        mHttpOptions = LLCore::HttpOptions::ptr_t(new LLCore::HttpOptions);
+		mHttpOptions = new LLCore::HttpOptions;
 		mHttpOptions->setTransferTimeout(300);
 		mHttpOptions->setUseRetryAfter(true);
 		// mHttpOptions->setTrace(2);		// Do tracing of requests

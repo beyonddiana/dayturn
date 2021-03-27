@@ -316,8 +316,8 @@ public:
 	// llcorehttp library interface objects.
 	LLCore::HttpStatus					mHttpStatus;
 	LLCore::HttpRequest *				mHttpRequest;
-    LLCore::HttpOptions::ptr_t			mHttpOptions;
-    LLCore::HttpOptions::ptr_t			mHttpLargeOptions;
+	LLCore::HttpOptions *				mHttpOptions;
+	LLCore::HttpOptions *				mHttpLargeOptions;
     LLCore::HttpHeaders::ptr_t			mHttpHeaders;
 	LLCore::HttpRequest::policy_t		mHttpPolicyClass;
 	LLCore::HttpRequest::policy_t		mHttpLegacyPolicyClass;
@@ -491,7 +491,7 @@ private:
 	// llcorehttp library interface objects.
 	LLCore::HttpStatus					mHttpStatus;
 	LLCore::HttpRequest *				mHttpRequest;
-    LLCore::HttpOptions::ptr_t			mHttpOptions;
+	LLCore::HttpOptions *				mHttpOptions;
     LLCore::HttpHeaders::ptr_t			mHttpHeaders;
 	LLCore::HttpRequest::policy_t		mHttpPolicyClass;
 	LLCore::HttpRequest::priority_t		mHttpPriority;

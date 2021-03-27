@@ -796,8 +796,8 @@ void log_upload_error(LLCore::HttpStatus status, const LLSD& content,
 LLMeshRepoThread::LLMeshRepoThread()
 : LLThread("mesh repo"),
   mHttpRequest(NULL),
-  mHttpOptions(),
-  mHttpLargeOptions(),
+  mHttpOptions(NULL),
+  mHttpLargeOptions(NULL),
   mHttpHeaders(),
   mHttpPolicyClass(LLCore::HttpRequest::DEFAULT_POLICY_ID),
   mHttpLegacyPolicyClass(LLCore::HttpRequest::DEFAULT_POLICY_ID),
@@ -811,10 +811,10 @@ LLMeshRepoThread::LLMeshRepoThread()
 	mHeaderMutex = new LLMutex();
 	mSignal = new LLCondition();
 	mHttpRequest = new LLCore::HttpRequest;
-    mHttpOptions = LLCore::HttpOptions::ptr_t(new LLCore::HttpOptions);
+	mHttpOptions = new LLCore::HttpOptions;
 	mHttpOptions->setTransferTimeout(SMALL_MESH_XFER_TIMEOUT);
 	mHttpOptions->setUseRetryAfter(gSavedSettings.getBOOL("MeshUseHttpRetryAfter"));
-    mHttpLargeOptions = LLCore::HttpOptions::ptr_t(new LLCore::HttpOptions);
+	mHttpLargeOptions = new LLCore::HttpOptions;
 	mHttpLargeOptions->setTransferTimeout(LARGE_MESH_XFER_TIMEOUT);
 	mHttpLargeOptions->setUseRetryAfter(gSavedSettings.getBOOL("MeshUseHttpRetryAfter"));
     mHttpHeaders = LLCore::HttpHeaders::ptr_t(new LLCore::HttpHeaders);
@@ -840,6 +840,16 @@ LLMeshRepoThread::~LLMeshRepoThread()
 	}
 	mHttpRequestSet.clear();
     mHttpHeaders.reset();
+	if (mHttpOptions)
+	{
+		mHttpOptions->release();
+		mHttpOptions = NULL;
+	}
+	if (mHttpLargeOptions)
+	{
+		mHttpLargeOptions->release();
+		mHttpLargeOptions = NULL;
+	}
 	
     while (!mDecompositionQ.empty())
     {
@@ -2124,7 +2134,8 @@ LLMeshUploadThread::LLMeshUploadThread(LLMeshUploadThread::instance_list& data, 
 	mMeshUploadTimeOut = gSavedSettings.getS32("MeshUploadTimeOut");
 
 	mHttpRequest = new LLCore::HttpRequest;
-    mHttpOptions = LLCore::HttpOptions::ptr_t(new LLCore::HttpOptions);
+	mHttpOptions = new LLCore::HttpOptions;
+	mHttpOptions->setTransferTimeout(mMeshUploadTimeOut);
 	mHttpOptions->setUseRetryAfter(gSavedSettings.getBOOL("MeshUseHttpRetryAfter"));
 	mHttpOptions->setRetries(UPLOAD_RETRY_LIMIT);
     mHttpHeaders = LLCore::HttpHeaders::ptr_t(new LLCore::HttpHeaders);
@@ -2135,6 +2146,11 @@ LLMeshUploadThread::LLMeshUploadThread(LLMeshUploadThread::instance_list& data, 
 
 LLMeshUploadThread::~LLMeshUploadThread()
 {
+	if (mHttpOptions)
+	{
+		mHttpOptions->release();
+		mHttpOptions = NULL;
+	}
 	delete mHttpRequest;
 	mHttpRequest = NULL;
 	delete mMutex;
