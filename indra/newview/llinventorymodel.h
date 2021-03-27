@@ -46,8 +46,6 @@
 #include "httpoptions.h"
 #include "httpheaders.h"
 #include "httphandler.h"
-#include "lleventcoro.h"
-#include "llcoros.h"
 
 class LLInventoryObserver;
 class LLInventoryObject;
@@ -598,7 +596,7 @@ private:
 	// Usual plumbing for LLCore:: HTTP operations.
 	LLCore::HttpRequest *				mHttpRequestFG;
 	LLCore::HttpRequest *				mHttpRequestBG;
-    LLCore::HttpOptions::ptr_t			mHttpOptions;
+	LLCore::HttpOptions *				mHttpOptions;
     LLCore::HttpHeaders::ptr_t			mHttpHeaders;
 	LLCore::HttpRequest::policy_t		mHttpPolicyClass;
 	LLCore::HttpRequest::priority_t		mHttpPriorityFG;

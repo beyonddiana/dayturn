@@ -32,7 +32,6 @@
 #include "httphandler.h"
 
 #include "httpheaders.h"
-#include "httpoptions.h"
 
 namespace LLCore
 {
@@ -350,8 +349,8 @@ public:
 	HttpHandle requestGet(policy_t policy_id,
 						  priority_t priority,
 						  const std::string & url,
-						  const HttpOptions::ptr_t &options,
-                          const HttpHeaders::ptr_t &headers,
+						  HttpOptions * options,
+                          HttpHeaders::ptr_t &headers,
 						  HttpHandler * handler);
 
 
@@ -393,8 +392,8 @@ public:
 								   const std::string & url,
 								   size_t offset,
 								   size_t len,
-								   const HttpOptions::ptr_t &options,
-                                   const HttpHeaders::ptr_t &headers,
+								   HttpOptions * options,
+                                   HttpHeaders::ptr_t &headers,
 								   HttpHandler * handler);
 
 
@@ -434,8 +433,8 @@ public:
 						   priority_t priority,
 						   const std::string & url,
 						   BufferArray * body,
-						   const HttpOptions::ptr_t &options,
-                           const HttpHeaders::ptr_t &headers,
+						   HttpOptions * options,
+                           HttpHeaders::ptr_t &headers,
 						   HttpHandler * handler);
 
 
@@ -475,8 +474,8 @@ public:
 						  priority_t priority,
 						  const std::string & url,
 						  BufferArray * body,
-						  const HttpOptions::ptr_t &options,
-                          const HttpHeaders::ptr_t &headers,
+						  HttpOptions * options,
+                          HttpHeaders::ptr_t &headers,
 						  HttpHandler * handler);
 
     /// Queue a full HTTP PUT.  Query arguments and body may
@@ -494,8 +493,8 @@ public:
     HttpHandle requestDelete(policy_t policy_id,
             priority_t priority,
             const std::string & url,
-            const HttpOptions::ptr_t &options,
-            const HttpHeaders::ptr_t &headers,
+            HttpOptions * options,
+                             HttpHeaders::ptr_t &headers,
             HttpHandler * user_handler);
 
     /// Queue a full HTTP PUT.  Query arguments and body may
@@ -517,8 +516,8 @@ public:
             priority_t priority,
             const std::string & url,
             BufferArray * body,
-            const HttpOptions::ptr_t &options,
-            const HttpHeaders::ptr_t &headers,
+            HttpOptions * options,
+            HttpHeaders::ptr_t &headers,
             HttpHandler * user_handler);
 
     /// Queue a full HTTP PUT.  Query arguments and body may
@@ -536,8 +535,8 @@ public:
     HttpHandle requestCopy(policy_t policy_id,
             priority_t priority,
             const std::string & url,
-            const HttpOptions::ptr_t &options,
-            const HttpHeaders::ptr_t &headers,
+            HttpOptions * options,
+            HttpHeaders::ptr_t &headers,
             HttpHandler * user_handler);
  
     /// Queue a full HTTP MOVE.  Query arguments and body may
@@ -555,8 +554,8 @@ public:
     HttpHandle requestMove(policy_t policy_id,
             priority_t priority,
             const std::string & url,
-            const HttpOptions::ptr_t &options,
-            const HttpHeaders::ptr_t &headers,
+            HttpOptions * options,
+            HttpHeaders::ptr_t &headers,
             HttpHandler * user_handler);
 
 

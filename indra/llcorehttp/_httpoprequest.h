@@ -42,14 +42,14 @@
 #include "_refcounted.h"
 
 #include "httpheaders.h"
-#include "httpoptions.h"
-
 
 namespace LLCore
 {
 
 
 class BufferArray;
+class HttpHeaders;
+class HttpOptions;
 
 
 /// HttpOpRequest requests a supported HTTP method invocation with
@@ -108,55 +108,55 @@ public:
 	HttpStatus setupGet(HttpRequest::policy_t policy_id,
 						HttpRequest::priority_t priority,
 						const std::string & url,
-						const HttpOptions::ptr_t &options,
-                        const HttpHeaders::ptr_t &headers);
+						HttpOptions * options,
+                        HttpHeaders::ptr_t &headers);
 	
 	HttpStatus setupGetByteRange(HttpRequest::policy_t policy_id,
 								 HttpRequest::priority_t priority,
 								 const std::string & url,
 								 size_t offset,
 								 size_t len,
-								 const HttpOptions::ptr_t &options,
-                                 const HttpHeaders::ptr_t &headers);
+								 HttpOptions * options,
+                                 HttpHeaders::ptr_t &headers);
 	
 	HttpStatus setupPost(HttpRequest::policy_t policy_id,
 						 HttpRequest::priority_t priority,
 						 const std::string & url,
 						 BufferArray * body,
-						 const HttpOptions::ptr_t &options,
-                         const HttpHeaders::ptr_t &headers);
+						 HttpOptions * options,
+                         HttpHeaders::ptr_t &headers);
 	
 	HttpStatus setupPut(HttpRequest::policy_t policy_id,
 						HttpRequest::priority_t priority,
 						const std::string & url,
 						BufferArray * body,
-						const HttpOptions::ptr_t &options,
-                        const HttpHeaders::ptr_t &headers);
+						HttpOptions * options,
+                        HttpHeaders::ptr_t &headers);
 						
 	HttpStatus setupDelete(HttpRequest::policy_t policy_id,
 						HttpRequest::priority_t priority,
 						const std::string & url,
-						const HttpOptions::ptr_t &options,
-                        const HttpHeaders::ptr_t &headers);
+						HttpOptions * options,
+                           HttpHeaders::ptr_t &headers);
 						
 	HttpStatus setupPatch(HttpRequest::policy_t policy_id,
 						HttpRequest::priority_t priority,
 						const std::string & url,
 						BufferArray * body,
-						const HttpOptions::ptr_t &options,
-                        const HttpHeaders::ptr_t &headers);
+						HttpOptions * options,
+                          HttpHeaders::ptr_t &headers);
 						
 	HttpStatus setupCopy(HttpRequest::policy_t policy_id,
 						HttpRequest::priority_t priority,
 						const std::string & url,
-						const HttpOptions::ptr_t &options,
-                        const HttpHeaders::ptr_t &headers);
+						HttpOptions * options,
+                         HttpHeaders::ptr_t &headers);
 						
 	HttpStatus setupMove(HttpRequest::policy_t policy_id,
                         HttpRequest::priority_t priority,
                         const std::string & url,
-                        const HttpOptions::ptr_t &options,
-                        const HttpHeaders::ptr_t &headers);
+                        HttpOptions * options,
+                        HttpHeaders::ptr_t &headers);
 
 	// Internal method used to setup the libcurl options for a request.
 	// Does all the libcurl handle setup in one place.
@@ -176,8 +176,8 @@ protected:
 					 HttpRequest::priority_t priority,
 					 const std::string & url,
 					 BufferArray * body,
-					 const HttpOptions::ptr_t &options,
-                     const HttpHeaders::ptr_t &headers);
+					 HttpOptions * options,
+                     HttpHeaders::ptr_t &headers);
 
 	// libcurl operational callbacks
 	//
@@ -185,7 +185,6 @@ protected:
 	//
 	static size_t writeCallback(void * data, size_t size, size_t nmemb, void * userdata);
 	static size_t readCallback(void * data, size_t size, size_t nmemb, void * userdata);
-    static int seekCallback(void *data, curl_off_t offset, int origin);
 	static size_t headerCallback(void * data, size_t size, size_t nmemb, void * userdata);
 	static CURLcode curlSslCtxCallback(CURL *curl, void *ssl_ctx, void *userptr);
 	static int sslCertVerifyCallback(X509_STORE_CTX *ctx, void *param);
@@ -208,7 +207,7 @@ public:
 	off_t				mReqOffset;
 	size_t				mReqLength;
     HttpHeaders::ptr_t	mReqHeaders;
-    HttpOptions::ptr_t	mReqOptions;
+	HttpOptions *		mReqOptions;
 
 	// Transport data
 	bool				mCurlActive;
