@@ -38,7 +38,6 @@ class LLPanelWearing;
 class LLMenuGL;
 class LLSidepanelAppearance;
 class LLTabContainer;
-class LLSaveOutfitComboBtn;
 
 class LLPanelOutfitsInventory : public LLPanel
 {
@@ -52,7 +51,7 @@ public:
 	
 	void onSearchEdit(const std::string& string);
 	void onSave();
-	void onSaveAs();
+	void saveOutfit(bool as_new = false);
 	
 	bool onSaveCommit(const LLSD& notification, const LLSD& response);
 
@@ -71,7 +70,6 @@ protected:
 private:
 	LLTabContainer*			mAppearanceTabs;
 	std::string 			mFilterSubString;
-	std::unique_ptr<LLSaveOutfitComboBtn> mSaveComboBtn;
 
 	//////////////////////////////////////////////////////////////////////////////////
 	// tab panels                                                                   //
