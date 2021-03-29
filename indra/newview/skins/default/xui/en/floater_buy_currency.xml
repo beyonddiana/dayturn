@@ -114,7 +114,7 @@
        name="target_price"
        top_delta="0"
        width="120">
-          L$ [AMT]
+          L$   [AMT]
       </text>
     </layout_panel>
     <layout_panel
@@ -149,7 +149,7 @@
        name="balance_amount"
        top_delta="0"
        width="120">
-        L$ [AMT]
+        L$   [AMT]
       </text>
     </layout_panel>
     <layout_panel
@@ -185,7 +185,7 @@
        name="required_amount"
        top_delta="0"
        width="120">
-        L$ [AMT]
+        L$   [AMT]
       </text>
     </layout_panel>
     <layout_panel
@@ -224,9 +224,9 @@
        height="16"
        layout="topleft"
        top_delta="0"
-       left="247"
+       left="237"
        name="currency_label"
-       width="15">
+       width="25">
         L$
       </text>
       <line_editor
@@ -299,7 +299,7 @@
        halign="right"
        name="total_amount"
        width="120">
-          L$ [AMT]
+          L$   [AMT]
       </text>
     </layout_panel>
     <layout_panel
