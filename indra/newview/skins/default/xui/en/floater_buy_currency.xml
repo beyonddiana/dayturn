@@ -212,6 +212,20 @@
        top_pad="15"
        layout="topleft"
        left="20"
+       name="gridcurrency_purchase_info"
+       width="310">
+          To purchase more currency, refer to your home grid.
+      </text>       
+<!-- Original layout that requires an active connection to a grid currency purchase system and if about the user's preferred currency for the purchase
+      <text
+       type="string"
+       length="1"
+       follows="top|left"
+       font="SansSerifMedium"
+       height="16"
+       top_pad="15"
+       layout="topleft"
+       left="20"
        name="currency_action"
        width="210">
           Choose amount to buy
@@ -300,7 +314,7 @@
        name="total_amount"
        width="120">
           L$   [AMT]
-      </text>
+      </text> -->
     </layout_panel>
     <layout_panel
      auto_resize="false"
@@ -317,7 +331,7 @@
        name="text_border_3"
        top_pad="0"
        width="300"/>
-      <text
+<!--      <text
        type="string"
        length="1"
        text_color="LtGray_50"
@@ -344,7 +358,7 @@
        height="30"
        name="exchange_rate_note">
 Re-enter amount to see the latest exchange rate.
-      </text>
+      </text> -->
       <text
        type="string"
        length="1"
@@ -376,7 +390,8 @@ purchase again.
        top_pad="0"
        left="15"
        width="300"
-       name="contacting">
+       name="contacting"
+       visible="false">
           Contacting LindeX...
         </text>
       <button
