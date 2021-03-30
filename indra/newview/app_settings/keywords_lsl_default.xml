@@ -21079,7 +21079,20 @@
             <undef/>
             <key>tooltip</key>
             <string>clears the effect of osSetInertia* functions. Link set total mass, center of mass and inertia will be the values estimated by default from the link set parts.</string>
-         </map> 
+         </map>
+         <key>osClearObjectAnimations</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>integer</string>
+            <key>arguments</key>
+            <undef/>
+            <key>tooltip</key>
+            <string>Clears all animations on the prim, returning how many it had running.</string>
+         </map>
          <key>osCollisionSound</key>
          <map>
             <key>energy</key>
@@ -23718,7 +23731,30 @@
             </array>                
             <key>tooltip</key>
             <string>This function is the counterpart to llGetParcelDetails. Currently PARCEL_DETAILS_NAME, PARCEL_DETAILS_DESC, PARCEL_DETAILS_OWNER, PARCEL_DETAILS_GROUP, PARCEL_DETAILS_CLAIMDATE are implemented. </string>
-         </map>         
+         </map>
+         <key>osSetParcelMusicURL</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>url</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>             
+            </array>                
+            <key>tooltip</key>
+            <string>Sets the Music URL for the parcel the scripted object is in.</string>
+         </map>      
          <key>osParcelSubdivide</key>
          <map>
             <key>energy</key>
