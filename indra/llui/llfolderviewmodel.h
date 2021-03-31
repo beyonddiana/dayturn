@@ -193,7 +193,7 @@ public:
 	virtual bool cutToClipboard() = 0;
 	virtual bool isCutToClipboard() { return false; };
 
-	virtual BOOL isClipboardPasteable() const = 0;
+	virtual bool isClipboardPasteable() const = 0;
 	virtual void pasteFromClipboard() = 0;
 	virtual void pasteLinkFromClipboard() = 0;
 

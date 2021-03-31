@@ -582,23 +582,23 @@ void  LLInvFVBridge::removeBatchNoCheck(std::vector<LLFolderViewModelItem*>&  ba
 	model->notifyObservers();
 }
 
-BOOL LLInvFVBridge::isClipboardPasteable() const
+bool LLInvFVBridge::isClipboardPasteable() const
 {
 	// Return FALSE on degenerated cases: empty clipboard, no inventory, no agent
 	if (!LLClipboard::instance().hasContents() || !isAgentInventory())
 	{
-		return FALSE;
+		return false;
 	}
 	LLInventoryModel* model = getInventoryModel();
 	if (!model)
 	{
-		return FALSE;
+		return false;
 	}
 
 	// In cut mode, whatever is on the clipboard is always pastable
 	if (LLClipboard::instance().isCutMode())
 	{
-		return TRUE;
+		return true;
 	}
 
 	// In normal mode, we need to check each element of the clipboard to know if we can paste or not
@@ -1232,7 +1232,7 @@ bool LLInvFVBridge::isAgentInventory() const
 	return model->isObjectDescendentOf(mUUID, gInventory.getRootFolderID());
 }
 
-BOOL LLInvFVBridge::isCOFFolder() const
+bool LLInvFVBridge::isCOFFolder() const
 {
 	return LLAppearanceMgr::instance().getIsInCOF(mUUID);
 }
@@ -2374,10 +2374,10 @@ bool LLFolderBridge::isItemCopyable() const
 		return true;
 	}
 
-BOOL LLFolderBridge::isClipboardPasteable() const
+bool LLFolderBridge::isClipboardPasteable() const
 {
 	if ( ! LLInvFVBridge::isClipboardPasteable() )
-		return FALSE;
+		return false;
 
 	// Don't allow pasting duplicates to the Calling Card/Friends subfolders, see bug EXT-1599
 	if ( LLFriendCardsManager::instance().isCategoryInFriendFolder( getCategory() ) )
@@ -2385,7 +2385,7 @@ BOOL LLFolderBridge::isClipboardPasteable() const
 		LLInventoryModel* model = getInventoryModel();
 		if ( !model )
 		{
-			return FALSE;
+			return false;
 		}
 
 		std::vector<LLUUID> objects;
@@ -2399,7 +2399,7 @@ BOOL LLFolderBridge::isClipboardPasteable() const
 			const LLUUID &obj_id = objects.at(i);
 			if ( LLFriendCardsManager::instance().isObjDirectDescendentOfCategory(model->getObject(obj_id), current_cat) )
 			{
-				return FALSE;
+				return false;
 			}
 		}
 
@@ -2427,7 +2427,8 @@ BOOL LLFolderBridge::isClipboardPasteable() const
 		}
 	}
 //mk
-	return TRUE;
+
+	return true;
 }
 
 bool LLFolderBridge::isClipboardPasteableAsLink() const
