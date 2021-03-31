@@ -54,7 +54,7 @@ public:
 	/*virtual*/ void onOpen(const LLSD& key);
 	/*virtual*/ void onClose(bool app_quitting);
 	/*virtual*/ void setVisible(BOOL visible);
-	/*virtual*/ void setVisibleAndFrontmost(BOOL take_focus=TRUE, const LLSD& key = LLSD());
+	/*virtual*/ void setVisibleAndFrontmost(bool take_focus=true, const LLSD& key = LLSD());
 	/*virtual*/ void closeHostedFloater();
 
 	void loadHistory();

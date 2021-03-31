@@ -375,7 +375,7 @@ void LLGroupActions::show(const LLUUID& group_id)
     LLFloater *floater = LLFloaterReg::getTypedInstance<LLFloaterSidePanelContainer>("people");
     if (!floater->isFrontmost())
     {
-        floater->setVisibleAndFrontmost(TRUE, params);
+        floater->setVisibleAndFrontmost(true, params);
     }
 }
 

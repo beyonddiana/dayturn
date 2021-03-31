@@ -140,7 +140,7 @@ void LLBuyCurrencyHTML::showDialog( bool specific_sum_requested, const std::stri
 		// make it visible and raise to front
 		BOOL visible = TRUE;
 		buy_currency_floater->setVisible( visible );
-		BOOL take_focus = TRUE;
+		bool take_focus = true;
 		buy_currency_floater->setFrontmost( take_focus );
 
 		// spec calls for floater to be centered on client window

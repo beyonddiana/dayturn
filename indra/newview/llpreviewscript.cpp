@@ -954,7 +954,7 @@ void LLScriptEdCore::onBtnDynamicHelp()
 	}
 
 	BOOL visible = TRUE;
-	BOOL take_focus = TRUE;
+	bool take_focus = true;
 	live_help_floater->setVisible(visible);
 	live_help_floater->setFrontmost(take_focus);
 
