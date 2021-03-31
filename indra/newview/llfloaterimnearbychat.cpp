@@ -289,7 +289,7 @@ void LLFloaterIMNearbyChat::setVisible(BOOL visible)
 }
 
 
-void LLFloaterIMNearbyChat::setVisibleAndFrontmost(BOOL take_focus, const LLSD& key)
+void LLFloaterIMNearbyChat::setVisibleAndFrontmost(bool take_focus, const LLSD& key)
 {
 	LLFloaterIMSessionTab::setVisibleAndFrontmost(take_focus, key);
 

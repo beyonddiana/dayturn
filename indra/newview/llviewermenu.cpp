@@ -9887,7 +9887,7 @@ class LLToolsSelectTool : public view_listener_t
 		{
 			gFloaterTools->setMinimized(FALSE);
 			gFloaterTools->openFloater();
-			gFloaterTools->setVisibleAndFrontmost(TRUE);
+			gFloaterTools->setVisibleAndFrontmost(true);
 		}
 		return true;
 	}
