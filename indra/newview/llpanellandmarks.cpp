@@ -1103,7 +1103,7 @@ bool LLLandmarksPanel::isActionEnabled(const LLSD& userdata) const
 			return false;
 		}
 		//"Add a folder" is enabled by default (case when My Landmarks is empty)
-		return true;
+		else return true;
 	}
 	else if("create_pick" == command_name)
 	{
