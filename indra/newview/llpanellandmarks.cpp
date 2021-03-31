@@ -1198,8 +1198,8 @@ void LLLandmarksPanel::onMenuVisibilityChange(LLUICtrl* ctrl, const LLSD& param)
 	// We don't have to update items visibility if the menu is hiding.
 	if (!new_visibility) return;
 
-	BOOL are_any_items_in_trash = FALSE;
-	BOOL are_all_items_in_trash = TRUE;
+	bool are_any_items_in_trash = false;
+	bool are_all_items_in_trash = true;
 
 	LLFolderView* root_folder_view = mCurrentSelectedList ? mCurrentSelectedList->getRootFolder() : NULL;
 	if(root_folder_view)

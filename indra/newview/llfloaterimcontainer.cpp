@@ -801,7 +801,7 @@ void LLFloaterIMContainer::getDetachedConversationFloaters(floater_list_t& float
 	}
 }
 
-void LLFloaterIMContainer::setVisibleAndFrontmost(BOOL take_focus, const LLSD& key)
+void LLFloaterIMContainer::setVisibleAndFrontmost(bool take_focus, const LLSD& key)
 {
 	LLMultiFloater::setVisibleAndFrontmost(take_focus, key);
 	// Do not select "Nearby Chat" conversation, since it will bring its window to front

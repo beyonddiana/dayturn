@@ -1641,13 +1641,6 @@ void LLInventoryModel::notifyObservers()
 	mModifyMask = LLInventoryObserver::NONE;
 	mChangedItemIDs.clear();
 	mAddedItemIDs.clear();
-
-	mAddedItemIDs.insert(mAddedItemIDsBacklog.begin(), mAddedItemIDsBacklog.end());
-
-	mModifyMaskBacklog = LLInventoryObserver::NONE;
-	mChangedItemIDsBacklog.clear();
-	mAddedItemIDsBacklog.clear();
-
 	mIsNotifyObservers = false;
 }
 
@@ -1675,7 +1668,7 @@ void LLInventoryModel::addChangedMask(U32 mask, const LLUUID& referent)
 			}
 		}
 	}
-	
+
 	mModifyMask |= mask;
 	if (referent.notNull() && (mChangedItemIDs.find(referent) == mChangedItemIDs.end()))
 	{
@@ -2428,7 +2421,7 @@ void LLInventoryModel::buildParentChildMap()
 		// FIXME note that updateServer() fails with protected
 		// types, so this will not work as intended in that case.
 		// UpdateServer uses AIS, AIS cat move is not implemented yet
-		// cat->updateServer(TRUE);
+		// cat->updateServer(true);
 
 		// MoveInventoryFolder message, intentionally per item
 		cat->updateParentOnServer(FALSE);
@@ -2658,6 +2651,8 @@ void LLInventoryModel::createCommonSystemCategories()
 	gInventory.findCategoryUUIDForType(LLFolderType::FT_FAVORITE,true);
 	gInventory.findCategoryUUIDForType(LLFolderType::FT_CALLINGCARD,true);
 	gInventory.findCategoryUUIDForType(LLFolderType::FT_MY_OUTFITS,true);
+	gInventory.findCategoryUUIDForType(LLFolderType::FT_CURRENT_OUTFIT, true);
+	gInventory.findCategoryUUIDForType(LLFolderType::FT_LANDMARK, true); // folder should exist before user tries to 'landmark this'
 }
 
 struct LLUUIDAndName
@@ -3705,8 +3700,8 @@ void LLInventoryModel::saveItemsOrder(const LLInventoryModel::item_array_t& item
 		LLViewerInventoryItem* item = *i;
 
 		item->setSortField(++sortField);
-		item->setComplete(TRUE);
-		item->updateServer(FALSE);
+		item->setComplete(true);
+		item->updateServer(false);
 
 		updateItem(item);
 

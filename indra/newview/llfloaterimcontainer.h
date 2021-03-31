@@ -61,7 +61,7 @@ public:
 	/*virtual*/ void draw();
 	/*virtual*/ void setMinimized(BOOL b);
 	/*virtual*/ void setVisible(BOOL visible);
-	/*virtual*/ void setVisibleAndFrontmost(BOOL take_focus=TRUE, const LLSD& key = LLSD());
+	/*virtual*/ void setVisibleAndFrontmost(bool take_focus=true, const LLSD& key = LLSD());
 	/*virtual*/ void updateResizeLimits();
 	/*virtual*/ void handleReshape(const LLRect& rect, bool by_user);
 

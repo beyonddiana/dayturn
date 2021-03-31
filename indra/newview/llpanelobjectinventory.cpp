@@ -457,9 +457,9 @@ bool LLTaskInvFVBridge::cutToClipboard()
 	return false;
 }
 
-BOOL LLTaskInvFVBridge::isClipboardPasteable() const
+bool LLTaskInvFVBridge::isClipboardPasteable() const
 {
-	return FALSE;
+	return false;
 }
 
 void LLTaskInvFVBridge::pasteFromClipboard()
