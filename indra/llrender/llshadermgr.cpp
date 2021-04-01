@@ -529,13 +529,11 @@ GLhandleARB LLShaderMgr::loadShaderFile(const std::string& filename, S32 & shade
 #endif
  
 	GLenum error = GL_NO_ERROR;
-	if (gDebugGL)
+
+	error = glGetError();
+	if (error != GL_NO_ERROR)
 	{
-		error = glGetError();
-		if (error != GL_NO_ERROR)
-		{
-			LL_WARNS("ShaderLoading") << "GL ERROR entering loadShaderFile(): " << error << LL_ENDL;
-		}
+		LL_SHADER_LOADING_WARNS() << "GL ERROR entering loadShaderFile(): " << error << " for file: " << filename << LL_ENDL;
 	}
 	
 	if (filename.empty()) 
