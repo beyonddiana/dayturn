@@ -240,8 +240,7 @@ bool LLInventoryFilter::checkFolder(const LLUUID& folder_id) const
 			return folder_id.isNull();
 		LLFolderType::EType cat_type = cat->getPreferredType();
 // <FS:Beq> FIRE-30501 suitcase missing on 32 bit viewer.
- 		const int HG2_SUITCASE_TYPE{100}; // wrap magic number just in case it gets changed
- 		if (cat_type == HG2_SUITCASE_TYPE){ return true; } // suitcase will always be shown
+ 		if (cat_type == LLFolderType::FT_SUITCASE) { return true; } // suitcase will always be shown
 // </FS:Beq>
 		if (cat_type != LLFolderType::FT_NONE && (1LL << cat_type & mFilterOps.mFilterCategoryTypes) == U64(0))
 			return false;
