@@ -392,11 +392,18 @@ bool LLGLSLShader::createShader(std::vector<LLStaticHashedString> * attributes,
     mLightHash = 0xFFFFFFFF;
 
     llassert_always(!mShaderFiles.empty());
-    bool success = true;
 
     // Create program
     mProgramObject = glCreateProgramObjectARB();
+    if (mProgramObject == 0)
+    {
+        // Shouldn't happen if shader related extensions, like ARB_vertex_shader, exist.
+        LL_SHADER_LOADING_WARNS() << "Failed to create handle for shader: " << mName << LL_ENDL;
+        unloadInternal();
+        return false;
+    }
 
+    bool success = true;
     
     //compile new source
     vector< pair<string,GLenum> >::iterator fileIter = mShaderFiles.begin();
