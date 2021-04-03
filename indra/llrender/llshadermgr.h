@@ -217,6 +217,10 @@ public:
 		
         SHINY_ORIGIN,                       //  "origin"
         DISPLAY_GAMMA,                      //  "display_gamma",
+        
+        // precomputed textures
+        NO_ATMO,
+
 		END_RESERVED_UNIFORMS
 	} eGLSLReservedUniforms;
     // clang-format on
