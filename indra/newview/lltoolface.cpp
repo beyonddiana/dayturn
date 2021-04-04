@@ -78,7 +78,7 @@ BOOL LLToolFace::handleDoubleClick(S32 x, S32 y, MASK mask)
 
 BOOL LLToolFace::handleMouseDown(S32 x, S32 y, MASK mask)
 {
-	gViewerWindow->pickAsync(x, y, mask, pickCallback, false, true);
+	gViewerWindow->pickAsync(x, y, mask, pickCallback, false, gSavedSettings.getBOOL("AnimatedObjectsAllowLeftClick"));
 	return TRUE;
 }
 
