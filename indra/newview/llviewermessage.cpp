@@ -5461,7 +5461,7 @@ void process_camera_constraint(LLMessageSystem *mesgsys, void **user_data)
 	gAgentCamera.setCameraCollidePlane(cameraCollidePlane);
 }
 
-void near_sit_object(BOOL success, void *data)
+void near_sit_object(bool success, void *data)
 {
 	if (success)
 	{
