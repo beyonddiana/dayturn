@@ -246,7 +246,7 @@ void handle_buy_object(LLSaleInfo sale_info);
 void handle_buy_contents(LLSaleInfo sale_info);
 
 // Land pie menu
-void near_sit_down_point(BOOL success, void *);
+void near_sit_down_point(bool success, void *);
 
 // Avatar pie menu
 
@@ -4571,7 +4571,7 @@ void handle_object_teleport()
 	}
 }
 
-void near_sit_down_point(BOOL success, void *)
+void near_sit_down_point(bool success, void *)
 {
 	if (success)
 	{
@@ -7856,7 +7856,7 @@ private:
 		return true;
 	}
 
-	static void onNearAttachObject(BOOL success, void *user_data);
+	static void onNearAttachObject(bool success, void *user_data);
 	void confirmReplaceAttachment(S32 option, LLViewerJointAttachment* attachment_point);
 	class CallbackData : public LLSelectionCallbackData
 	{
@@ -7875,7 +7875,7 @@ protected:
 LLObjectSelectionHandle LLObjectAttachToAvatar::sObjectSelection;
 
 // static
-void LLObjectAttachToAvatar::onNearAttachObject(BOOL success, void *user_data)
+void LLObjectAttachToAvatar::onNearAttachObject(bool success, void *user_data)
 {
 	if (!user_data) return;
 	CallbackData* cb_data = static_cast<CallbackData*>(user_data);

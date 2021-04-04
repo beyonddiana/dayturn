@@ -341,7 +341,7 @@ private:
 	//--------------------------------------------------------------------
 public:
 	bool			getFlying() const;
-	void			setFlying(bool fly), bool fail_sound = false;
+	void			setFlying(bool fly, bool fail_sound = false);
 	static void		toggleFlying();
 	static bool		enableFlying();
 	bool			canFly(); 			// Does this parcel allow you to fly?
