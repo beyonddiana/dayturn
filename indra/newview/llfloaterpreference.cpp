@@ -905,7 +905,7 @@ void LLFloaterPreference::onOpen(const LLSD& key)
 	// Make sure there is a default preference file
 	LLPresetsManager::getInstance()->createMissingDefault();
 
-	bool started = (LLStartUp::getStartupState() == STATE_STARTED);
+	bool started = false ; //(LLStartUp::getStartupState() == STATE_STARTED);
 
 	LLComboBox* combo = getChild<LLComboBox>("graphic_preset_combo");
 	LLButton* save_btn = findChild<LLButton>("PrefSaveButton");	
@@ -960,7 +960,9 @@ void LLFloaterPreference::setHardwareDefaults()
 		LLView* view = *iter;
 		LLPanelPreference* panel = dynamic_cast<LLPanelPreference*>(view);
 		if (panel)
+		{
 			panel->setHardwareDefaults();
+		}
 	}
 }
 
@@ -1470,6 +1472,7 @@ void LLFloaterPreference::refreshEnabledState()
 
 	// Cannot have floater active until caps have been received
 	getChild<LLButton>("default_creation_permissions")->setEnabled(LLStartUp::getStartupState() < STATE_STARTED ? false : true);
+	// Set Window title follows
 	if (LLStartUp::getStartupState() != STATE_STARTED)
 	{
 		getChild<LLUICtrl>("WindowTitleAvatarName")->setEnabled(FALSE);
@@ -1697,6 +1700,7 @@ void LLFloaterPreference::setMouse(LLMouseHandler::EClickType click)
         }
         // We are using text names for readability
         LLUICtrl* p2t_line_editor = getChild<LLUICtrl>("modifier_combo");
+        // We are using text control names for readability and compatibility with voice
         p2t_line_editor->setControlValue(ctrl_value);
         LLPanel* advanced_preferences = dynamic_cast<LLPanel*>(p2t_line_editor->getParent());
         if (advanced_preferences)
@@ -1705,7 +1709,6 @@ void LLFloaterPreference::setMouse(LLMouseHandler::EClickType click)
         }
     }
 }
-
 
 void LLFloaterPreference::onClickSetMiddleMouse()
 {
@@ -2222,7 +2225,7 @@ bool LLPanelPreference::postBuild()
     if (hasChild("allow_multiple_viewer_check", TRUE))
     {
         getChild<LLCheckBoxCtrl>("allow_multiple_viewer_check")->setCommitCallback(boost::bind(&showMultipleViewersWarning, _1, _2));
-    }	
+    }
 	if (hasChild("favorites_on_login_check", TRUE))
 	{
 		getChild<LLCheckBoxCtrl>("favorites_on_login_check")->setCommitCallback(boost::bind(&handleFavoritesOnLoginChanged, _1, _2));
@@ -2621,7 +2624,7 @@ LLPanelPreferenceOpensim::LLPanelPreferenceOpensim() : LLPanelPreference(),
 	mCommitCallbackRegistrar.add("Pref.RefreshGrid", boost::bind( &LLPanelPreferenceOpensim::onClickRefreshGrid, this));
 	mCommitCallbackRegistrar.add("Pref.RemoveGrid", boost::bind( &LLPanelPreferenceOpensim::onClickRemoveGrid, this));
 }
-// <FS:AW  grid management>
+
 bool LLPanelPreferenceOpensim::postBuild()
 {
     mEditorGridName = findChild<LLLineEditor>("grid_detail_name");
