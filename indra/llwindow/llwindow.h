@@ -69,15 +69,15 @@ public:
 	virtual BOOL maximize() = 0;
 	virtual void minimize() = 0;
 	virtual void restore() = 0;
-	BOOL getFullscreen()	{ return mFullscreen; };
+	bool getFullscreen()	{ return mFullscreen; };
 	virtual BOOL getPosition(LLCoordScreen *position) = 0;
 	virtual BOOL getSize(LLCoordScreen *size) = 0;
 	virtual BOOL getSize(LLCoordWindow *size) = 0;
 	virtual BOOL setPosition(LLCoordScreen position) = 0;
-	BOOL setSize(LLCoordScreen size);
-	BOOL setSize(LLCoordWindow size);
+	bool setSize(LLCoordScreen size);
+	bool setSize(LLCoordWindow size);
 	virtual void setMinSize(U32 min_width, U32 min_height, bool enforce_immediately = true);
-	virtual BOOL switchContext(BOOL fullscreen, const LLCoordScreen &size, BOOL disable_vsync, const LLCoordScreen * const posp = NULL) = 0;
+	virtual bool switchContext(bool fullscreen, const LLCoordScreen &size, bool disable_vsync, const LLCoordScreen * const posp = NULL) = 0;
 	virtual BOOL setCursorPosition(LLCoordWindow position) = 0;
 	virtual BOOL getCursorPosition(LLCoordWindow *position) = 0;
 	virtual void showCursor() = 0;
@@ -103,13 +103,13 @@ public:
 	virtual void releaseMouse() = 0;
 	virtual void setMouseClipping( BOOL b ) = 0;
 
-	virtual BOOL isClipboardTextAvailable() = 0;
-	virtual BOOL pasteTextFromClipboard(LLWString &dst) = 0;
-	virtual BOOL copyTextToClipboard(const LLWString &src) = 0;
+	virtual bool isClipboardTextAvailable() = 0;
+	virtual bool pasteTextFromClipboard(LLWString &dst) = 0;
+	virtual bool copyTextToClipboard(const LLWString &src) = 0;
 
-	virtual BOOL isPrimaryTextAvailable();
-	virtual BOOL pasteTextFromPrimary(LLWString &dst);
-	virtual BOOL copyTextToPrimary(const LLWString &src);
+	virtual bool isPrimaryTextAvailable();
+	virtual bool pasteTextFromPrimary(LLWString &dst);
+	virtual bool copyTextToPrimary(const LLWString &src);
  
 	virtual void flashIcon(F32 seconds) = 0;
 	virtual F32 getGamma() = 0;
@@ -146,7 +146,7 @@ public:
 
 	// opens system default color picker, modally
 	// Returns TRUE if valid color selected
-	virtual BOOL dialogColorPicker(F32 *r, F32 *g, F32 *b);
+	virtual bool dialogColorPicker(F32 *r, F32 *g, F32 *b);
 
 // return a platform-specific window reference (HWND on Windows, WindowRef on the Mac, Gtk window on Linux)
 	virtual void *getPlatformWindow() = 0;
@@ -176,12 +176,12 @@ public:
 	virtual void setTitle(const std::string& win_title) {};
 //-TT
 protected:
-	LLWindow(LLWindowCallbacks* callbacks, BOOL fullscreen, U32 flags);
+	LLWindow(LLWindowCallbacks* callbacks, bool fullscreen, U32 flags);
 	virtual ~LLWindow();
 	// Defaults to true
-	virtual BOOL isValid();
+	virtual bool isValid();
 	// Defaults to true
-	virtual BOOL canDelete();
+	virtual bool canDelete();
 
 	virtual BOOL setSizeImpl(LLCoordScreen size) = 0;
 	virtual BOOL setSizeImpl(LLCoordWindow size) = 0;
@@ -190,8 +190,8 @@ protected:
 protected:
 	LLWindowCallbacks*	mCallbacks;
 
-	BOOL		mPostQuit;		// should this window post a quit message when destroyed?
-	BOOL		mFullscreen;
+	bool		mPostQuit;		// should this window post a quit message when destroyed?
+	bool		mFullscreen;
 	S32			mFullscreenWidth;
 	S32			mFullscreenHeight;
 	S32			mFullscreenBits;
@@ -274,14 +274,14 @@ public:
 		LLWindowCallbacks* callbacks,
 		const std::string& title, const std::string& name, S32 x, S32 y, S32 width, S32 height,
 		U32 flags = 0,
-		BOOL fullscreen = FALSE,
-		BOOL clearBg = FALSE,
-		BOOL disable_vsync = TRUE,
-		BOOL use_gl = TRUE,
-		BOOL ignore_pixel_depth = FALSE,
+		bool fullscreen = false,
+		bool clearBg = false,
+		bool disable_vsync = true,
+		bool use_gl = true,
+		bool ignore_pixel_depth = false,
 		U32 fsaa_samples = 0);
-	static BOOL destroyWindow(LLWindow* window);
-	static BOOL isWindowValid(LLWindow *window);
+	static bool destroyWindow(LLWindow* window);
+	static bool isWindowValid(LLWindow *window);
 };
 
 //

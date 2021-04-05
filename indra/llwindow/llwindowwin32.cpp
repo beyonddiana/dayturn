@@ -436,9 +436,9 @@ static LLMonitorInfo sMonitorInfo;
 LLWindowWin32::LLWindowWin32(LLWindowCallbacks* callbacks,
 							 const std::string& title, const std::string& name, S32 x, S32 y, S32 width,
 							 S32 height, U32 flags, 
-							 BOOL fullscreen, BOOL clearBg,
-							 BOOL disable_vsync, BOOL use_gl,
-							 BOOL ignore_pixel_depth,
+							 bool fullscreen, bool clearBg,
+							 bool disable_vsync, bool use_gl,
+							 bool ignore_pixel_depth,
 							 U32 fsaa_samples)
 	: LLWindow(callbacks, fullscreen, flags)
 {
@@ -671,7 +671,7 @@ LLWindowWin32::LLWindowWin32(LLWindowCallbacks* callbacks,
 		// If it failed, we don't want to run fullscreen
 		if (success)
 		{
-			mFullscreen = TRUE;
+			mFullscreen = true;
 			mFullscreenWidth   = dev_mode.dmPelsWidth;
 			mFullscreenHeight  = dev_mode.dmPelsHeight;
 			mFullscreenBits    = dev_mode.dmBitsPerPel;
@@ -685,7 +685,7 @@ LLWindowWin32::LLWindowWin32(LLWindowCallbacks* callbacks,
 		}
 		else
 		{
-			mFullscreen = FALSE;
+			mFullscreen = false;
 			mFullscreenWidth   = -1;
 			mFullscreenHeight  = -1;
 			mFullscreenBits    = -1;
@@ -915,7 +915,7 @@ void LLWindowWin32::close()
 	mWindowHandle = NULL;
 }
 
-BOOL LLWindowWin32::isValid()
+bool LLWindowWin32::isValid()
 {
 	return (mWindowHandle != NULL);
 }
@@ -952,7 +952,7 @@ BOOL LLWindowWin32::maximize()
 	return success;
 }
 
-BOOL LLWindowWin32::getFullscreen()
+bool LLWindowWin32::getFullscreen()
 {
 	return mFullscreen;
 }
@@ -1053,7 +1053,7 @@ BOOL LLWindowWin32::setSizeImpl(const LLCoordWindow size)
 }
 
 // changing fullscreen resolution
-BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BOOL disable_vsync, const LLCoordScreen * const posp)
+bool LLWindowWin32::switchContext(bool fullscreen, const LLCoordScreen &size, bool disable_vsync, const LLCoordScreen * const posp)
 {
 	GLuint	pixel_format;
 	DEVMODE dev_mode;
@@ -1065,11 +1065,11 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BO
 	RECT	window_rect = {0, 0, 0, 0};
 	S32 width = size.mX;
 	S32 height = size.mY;
-	BOOL auto_show = FALSE;
+	bool auto_show = false;
 
 	if (mhRC)	
 	{
-		auto_show = TRUE;
+		auto_show = true;
 		resetDisplayResolution();
 	}
 
@@ -1101,8 +1101,8 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BO
 
 	if (fullscreen)
 	{
-		mFullscreen = TRUE;
-		BOOL success = FALSE;
+		mFullscreen = true;
+		bool success = false;
 		DWORD closest_refresh = 0;
 
 		for (S32 mode_num = 0;; mode_num++)
@@ -1116,7 +1116,7 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BO
 				dev_mode.dmPelsHeight == height &&
 				dev_mode.dmBitsPerPel == BITS_PER_PIXEL)
 			{
-				success = TRUE;
+				success = true;
 				if ((dev_mode.dmDisplayFrequency - current_refresh)
 					< (closest_refresh - current_refresh))
 				{
@@ -1128,7 +1128,7 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BO
 		if (closest_refresh == 0)
 		{
 			LL_WARNS("Window") << "Couldn't find display mode " << width << " by " << height << " at " << BITS_PER_PIXEL << " bits per pixel" << LL_ENDL;
-			return FALSE;
+			return false;
 		}
 
 		// If we found a good resolution, use it.
@@ -1143,7 +1143,7 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BO
 
 		if (success)
 		{
-			mFullscreen = TRUE;
+			mFullscreen = true;
 			mFullscreenWidth   = dev_mode.dmPelsWidth;
 			mFullscreenHeight  = dev_mode.dmPelsHeight;
 			mFullscreenBits    = dev_mode.dmBitsPerPel;
@@ -1169,19 +1169,19 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BO
 		// If it failed, we don't want to run fullscreen
 		else
 		{
-			mFullscreen = FALSE;
+			mFullscreen = false;
 			mFullscreenWidth   = -1;
 			mFullscreenHeight  = -1;
 			mFullscreenBits    = -1;
 			mFullscreenRefresh = -1;
 
 			LL_INFOS("Window") << "Unable to run fullscreen at " << width << "x" << height << LL_ENDL;
-			return FALSE;
+			return false;
 		}
 	}
 	else
 	{
-		mFullscreen = FALSE;
+		mFullscreen = false;
 		window_rect.left = (long) (posp ? posp->mX : 0);
 		window_rect.right = (long) width + window_rect.left;			// Windows GDI rects don't include rightmost pixel
 		window_rect.top = (long) (posp ? posp->mY : 0);
@@ -1193,7 +1193,7 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BO
 
 
 	// don't post quit messages when destroying old windows
-	mPostQuit = FALSE;
+	mPostQuit = false;
 
 	// create window
     LL_DEBUGS("Window") << "Creating window with X: " << window_rect.left
@@ -1256,7 +1256,7 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BO
 		close();
 		OSMessageBox(mCallbacks->translateString("MBDevContextErr"),
 			mCallbacks->translateString("MBError"), OSMB_OK);
-		return FALSE;
+		return false;
 	}
 
 	LL_INFOS("Window") << "Device context retrieved." << LL_ENDL ;
@@ -1270,7 +1270,7 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BO
             OSMessageBox(mCallbacks->translateString("MBPixelFmtErr"),
                 mCallbacks->translateString("MBError"), OSMB_OK);
             close();
-            return FALSE;
+            return false;
         }
     }
     catch (...)
@@ -1279,7 +1279,7 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BO
         OSMessageBox(mCallbacks->translateString("MBPixelFmtErr"),
             mCallbacks->translateString("MBError"), OSMB_OK);
         close();
-        return FALSE;
+        return false;
     }
 
 	LL_INFOS("Window") << "Pixel format chosen." << LL_ENDL ;
@@ -1291,7 +1291,7 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BO
 		close();
 		OSMessageBox(mCallbacks->translateString("MBPixelFmtDescErr"),
 			mCallbacks->translateString("MBError"), OSMB_OK);
-		return FALSE;
+		return false;
 	}
 
 	// (EXP-1765) dump pixel data to see if there is a pattern that leads to unreproducible crash
@@ -1330,7 +1330,7 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BO
 		close();
 		OSMessageBox(mCallbacks->translateString("MBTrueColorWindow"),
 			mCallbacks->translateString("MBError"), OSMB_OK);
-		return FALSE;
+		return false;
 	}
 
 	if (pfd.cAlphaBits < 8)
@@ -1338,7 +1338,7 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BO
 		close();
 		OSMessageBox(mCallbacks->translateString("MBAlpha"),
 			mCallbacks->translateString("MBError"), OSMB_OK);
-		return FALSE;
+		return false;
 	}
 
 	if (!SetPixelFormat(mhDC, pixel_format, &pfd))
@@ -1346,7 +1346,7 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BO
 		close();
 		OSMessageBox(mCallbacks->translateString("MBPixelFmtSetErr"),
 			mCallbacks->translateString("MBError"), OSMB_OK);
-		return FALSE;
+		return false;
 	}
 
 
@@ -1355,7 +1355,7 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BO
 		close();
 		OSMessageBox(mCallbacks->translateString("MBGLContextErr"),
 			mCallbacks->translateString("MBError"), OSMB_OK);
-		return FALSE;
+		return false;
 	}
 		
 	if (!wglMakeCurrent(mhDC, mhRC))
@@ -1363,7 +1363,7 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BO
 		close();
 		OSMessageBox(mCallbacks->translateString("MBGLContextActErr"),
 			mCallbacks->translateString("MBError"), OSMB_OK);
-		return FALSE;
+		return false;
 	}
 
 	LL_INFOS("Window") << "Drawing context is created." << LL_ENDL ;
@@ -1419,7 +1419,7 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BO
 		U32 num_formats = 0;
 
 		// First we try and get a 32 bit depth pixel format
-		BOOL result = wglChoosePixelFormatARB(mhDC, attrib_list, NULL, 256, pixel_formats, &num_formats);
+		bool result = wglChoosePixelFormatARB(mhDC, attrib_list, NULL, 256, pixel_formats, &num_formats);
 		
 		while(!result && mFSAASamples > 0) 
 		{
@@ -1455,7 +1455,7 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BO
 
 			close();
 			show_window_creation_error("Error after wglChoosePixelFormatARB 32-bit");
-			return FALSE;
+			return false;
 		}
 
 		if (!num_formats)
@@ -1465,12 +1465,12 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BO
 				LL_INFOS("Window") << "No valid pixel format for " << mFSAASamples << "x anti-aliasing." << LL_ENDL;
 				attrib_list[end_attrib] = 0;
 
-				BOOL result = wglChoosePixelFormatARB(mhDC, attrib_list, NULL, 256, pixel_formats, &num_formats);
+				bool result = wglChoosePixelFormatARB(mhDC, attrib_list, NULL, 256, pixel_formats, &num_formats);
 				if (!result)
 				{
 					close();
 					show_window_creation_error("Error after wglChoosePixelFormatARB 32-bit no AA");
-					return FALSE;
+					return false;
 				}
 			}
 
@@ -1479,12 +1479,12 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BO
 				LL_INFOS("Window") << "No 32 bit z-buffer, trying 24 bits instead" << LL_ENDL;
 				// Try 24-bit format
 				attrib_list[1] = 24;
-				BOOL result = wglChoosePixelFormatARB(mhDC, attrib_list, NULL, 256, pixel_formats, &num_formats);
+				bool result = wglChoosePixelFormatARB(mhDC, attrib_list, NULL, 256, pixel_formats, &num_formats);
 				if (!result)
 				{
 					close();
 					show_window_creation_error("Error after wglChoosePixelFormatARB 24-bit");
-					return FALSE;
+					return false;
 				}
 
 				if (!num_formats)
@@ -1496,7 +1496,7 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BO
 					{
 						close();
 						show_window_creation_error("Error after wglChoosePixelFormatARB 16-bit");
-						return FALSE;
+						return false;
 					}
 				}
 			}
@@ -1579,7 +1579,7 @@ const	S32   max_format  = (S32)num_formats - 1;
 		{
 			close();
 			OSMessageBox(mCallbacks->translateString("MBDevContextErr"), mCallbacks->translateString("MBError"), OSMB_OK);
-			return FALSE;
+			return false;
 		}
 
 		if (!SetPixelFormat(mhDC, pixel_format, &pfd))
@@ -1587,7 +1587,7 @@ const	S32   max_format  = (S32)num_formats - 1;
 			close();
 			OSMessageBox(mCallbacks->translateString("MBPixelFmtSetErr"),
 				mCallbacks->translateString("MBError"), OSMB_OK);
-			return FALSE;
+			return false;
 		}
 
 		if (wglGetPixelFormatAttribivARB(mhDC, pixel_format, 0, 1, &swap_query, &swap_method))
@@ -1624,7 +1624,7 @@ const	S32   max_format  = (S32)num_formats - 1;
 	{
 		close();
 		OSMessageBox(mCallbacks->translateString("MBPixelFmtDescErr"), mCallbacks->translateString("MBError"), OSMB_OK);
-		return FALSE;
+		return false;
 	}
 
 	LL_INFOS("Window") << "GL buffer: Color Bits " << S32(pfd.cColorBits) 
@@ -1637,14 +1637,14 @@ const	S32   max_format  = (S32)num_formats - 1;
 	{
 		close();
 		OSMessageBox(mCallbacks->translateString("MBTrueColorWindow"), mCallbacks->translateString("MBError"), OSMB_OK);
-		return FALSE;
+		return false;
 	}
 
 	if (pfd.cAlphaBits < 8)
 	{
 		close();
 		OSMessageBox(mCallbacks->translateString("MBAlpha"), mCallbacks->translateString("MBError"), OSMB_OK);
-		return FALSE;
+		return false;
 	}
 
 	mhRC = 0;
@@ -1701,21 +1701,21 @@ const	S32   max_format  = (S32)num_formats - 1;
 	{
 		close();
 		OSMessageBox(mCallbacks->translateString("MBGLContextErr"), mCallbacks->translateString("MBError"), OSMB_OK);
-		return FALSE;
+		return false;
 	}
 
 	if (!wglMakeCurrent(mhDC, mhRC))
 	{
 		close();
 		OSMessageBox(mCallbacks->translateString("MBGLContextActErr"), mCallbacks->translateString("MBError"), OSMB_OK);
-		return FALSE;
+		return false;
 	}
 
 	if (!gGLManager.initGL())
 	{
 		close();
 		OSMessageBox(mCallbacks->translateString("MBVideoDrvErr"), mCallbacks->translateString("MBError"), OSMB_OK);
-		return FALSE;
+		return false;
 	}
 	
 	// Disable vertical sync for swap
@@ -1740,7 +1740,7 @@ const	S32   max_format  = (S32)num_formats - 1;
 	SetTimer( mWindowHandle, 0, 1000 / 30, NULL ); // 30 fps timer
 
 	// ok to post quit messages now
-	mPostQuit = TRUE;
+	mPostQuit = true;
 
 	if (auto_show)
 	{
@@ -1750,7 +1750,7 @@ const	S32   max_format  = (S32)num_formats - 1;
 		swapBuffers();
 	}
 
-	return TRUE;
+	return true;
 }
 
 void LLWindowWin32::moveWindow( const LLCoordScreen& position, const LLCoordScreen& size )
@@ -3067,15 +3067,15 @@ BOOL LLWindowWin32::convertCoords(LLCoordGL from, LLCoordScreen *to)
 }
 
 
-BOOL LLWindowWin32::isClipboardTextAvailable()
+bool LLWindowWin32::isClipboardTextAvailable()
 {
 	return IsClipboardFormatAvailable(CF_UNICODETEXT);
 }
 
 
-BOOL LLWindowWin32::pasteTextFromClipboard(LLWString &dst)
+bool LLWindowWin32::pasteTextFromClipboard(LLWString &dst)
 {
-	BOOL success = FALSE;
+	bool success = false;
 
 	if (IsClipboardFormatAvailable(CF_UNICODETEXT))
 	{
@@ -3090,7 +3090,7 @@ BOOL LLWindowWin32::pasteTextFromClipboard(LLWString &dst)
 					dst = utf16str_to_wstring(utf16str);
 					LLWStringUtil::removeWindowsCR(dst);
 					GlobalUnlock(h_data);
-					success = TRUE;
+					success = true;
 				}
 			}
 			CloseClipboard();
@@ -3101,9 +3101,9 @@ BOOL LLWindowWin32::pasteTextFromClipboard(LLWString &dst)
 }
 
 
-BOOL LLWindowWin32::copyTextToClipboard(const LLWString& wstr)
+bool LLWindowWin32::copyTextToClipboard(const LLWString& wstr)
 {
-	BOOL success = FALSE;
+	bool success = false;
 
 	if (OpenClipboard(mWindowHandle))
 	{
@@ -3127,7 +3127,7 @@ BOOL LLWindowWin32::copyTextToClipboard(const LLWString& wstr)
 
 				if (SetClipboardData(CF_UNICODETEXT, hglobal_copy_utf16))
 				{
-					success = TRUE;
+					success = true;
 				}
 			}
 		}
@@ -3631,9 +3631,9 @@ LLSD LLWindowWin32::getNativeKeyData()
 	return result;
 }
 
-BOOL LLWindowWin32::dialogColorPicker( F32 *r, F32 *g, F32 *b )
+bool LLWindowWin32::dialogColorPicker( F32 *r, F32 *g, F32 *b )
 {
-	BOOL retval = FALSE;
+	bool retval = false;
 
 	static CHOOSECOLOR cc;
 	static COLORREF crCustColors[16];

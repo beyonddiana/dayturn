@@ -418,8 +418,8 @@ public:
 	// handle shutting down GL and bringing it back up
 	void			requestResolutionUpdate();
 	void			checkSettings();
-	void			restartDisplay(BOOL show_progress_bar);
-	BOOL			changeDisplaySettings(LLCoordScreen size, BOOL disable_vsync, BOOL show_progress_bar);
+	void			restartDisplay(bool show_progress_bar);
+	bool			changeDisplaySettings(LLCoordScreen size, bool disable_vsync, bool show_progress_bar);
 	BOOL			getIgnoreDestroyWindow() { return mIgnoreActivate; }
 	F32				getWorldViewAspectRatio() const;
 	const LLVector2& getDisplayScale() const { return mDisplayScale; }
