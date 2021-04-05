@@ -66,7 +66,7 @@ protected:
 public:
 	virtual void setValue(const LLSD& val) { setRect(LLRect(val)); }
 
-	virtual BOOL isCtrl() const { return FALSE; }
+	virtual bool isCtrl() const { return false; }
 
 	// llview functionality
 	virtual void draw();

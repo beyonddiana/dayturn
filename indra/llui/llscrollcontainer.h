@@ -86,7 +86,7 @@ public:
 
 	virtual void 	setValue(const LLSD& value) { mInnerRect.setValue(value); }
 
-	void			setBorderVisible( BOOL b );
+	void			setBorderVisible( bool b );
 
 	void			scrollToShowRect( const LLRect& rect, const LLRect& constraint);
 	void			scrollToShowRect( const LLRect& rect) { scrollToShowRect(rect, LLRect(0, mInnerRect.getHeight(), mInnerRect.getWidth(), 0)); }

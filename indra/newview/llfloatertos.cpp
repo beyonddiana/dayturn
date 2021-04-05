@@ -121,7 +121,7 @@ bool LLFloaterTOS::postBuild()
 		tos_text->setFocus(TRUE);
 		tos_text->setValue(LLSD(mMessage));
 
-		return TRUE;
+		return true;
 	}
 
 	// disable Agree to TOS radio button until the page has fully loaded

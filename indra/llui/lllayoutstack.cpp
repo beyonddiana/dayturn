@@ -617,7 +617,7 @@ void LLLayoutStack::createResizeBar(LLLayoutPanel* panelp)
 				border_params.shadow_dark_color = LLUIColorTable::instance().getColor("ResizebarBorderDark");
 
 				addBorder(border_params);
-				setBorderVisible(TRUE);
+				setBorderVisible(true);
 
 				LLImagePanel::Params image_panel;
 				mDragHandleImage = LLUI::getUIImage(LLResizeBar::RIGHT == mSide ? "Vertical Drag Handle" : "Horizontal Drag Handle");

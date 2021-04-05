@@ -768,7 +768,7 @@ void LLPanelGroupSubTab::buildActionCategory(LLScrollListCtrl* ctrl,
 	}
 }
 
-void LLPanelGroupSubTab::setFooterEnabled(BOOL enable)
+void LLPanelGroupSubTab::setFooterEnabled(bool enable)
 {
 	if (mFooter)
 	{
@@ -2059,7 +2059,7 @@ BOOL LLPanelGroupRolesSubTab::postBuildSubTab(LLView* root)
 	mRoleDescription->setCommitOnFocusLost(TRUE);
 	mRoleDescription->setKeystrokeCallback(boost::bind(&LLPanelGroupRolesSubTab::onDescriptionKeyStroke, this, _1));
 
-	setFooterEnabled(FALSE);
+	setFooterEnabled(false);
 
 	return TRUE;
 }
@@ -2078,7 +2078,7 @@ void LLPanelGroupRolesSubTab::activate()
 	mRoleUUID->clear();
 	mBtnRoleUUIDCopy->setEnabled(FALSE);
 
-	setFooterEnabled(FALSE);
+	setFooterEnabled(false);
 
 	mHasRoleChange = FALSE;
 	update(GC_ALL);
@@ -2246,7 +2246,7 @@ void LLPanelGroupRolesSubTab::update(LLGroupChange gc)
 			mRoleDescription->clear();
 			mRoleTitle->clear();
 			mRoleUUID->clear();
-			setFooterEnabled(FALSE);
+			setFooterEnabled(false);
 			mBtnRoleUUIDCopy->setEnabled(FALSE);
 			mDeleteRoleButton->setEnabled(FALSE);
 			mCopyRoleButton->setEnabled(FALSE);			
@@ -2294,11 +2294,11 @@ void LLPanelGroupRolesSubTab::handleRoleSelect()
 	LLScrollListItem* item = mRolesList->getFirstSelected();
 	if (!item)
 	{
-		setFooterEnabled(FALSE);
+		setFooterEnabled(false);
 		return;
 	}
 
-	setFooterEnabled(TRUE);
+	setFooterEnabled(true);
 
 	LLRoleData rd;
 	if (gdatap->getRoleData(item->getUUID(),rd))
@@ -2358,7 +2358,7 @@ void LLPanelGroupRolesSubTab::handleRoleSelect()
 		mRoleTitle->clear();
 		mRoleUUID->clear();
 		mBtnRoleUUIDCopy->setEnabled(FALSE);
-		setFooterEnabled(FALSE);
+		setFooterEnabled(false);
 
 		can_delete = FALSE;
 	}
@@ -2861,7 +2861,7 @@ void LLPanelGroupRolesSubTab::setGroupID(const LLUUID& id)
 
 	mHasRoleChange = FALSE;
 
-	setFooterEnabled(FALSE);
+	setFooterEnabled(false);
 
 	LLPanelGroupSubTab::setGroupID(id);
 }
@@ -3127,7 +3127,7 @@ BOOL LLPanelGroupBanListSubTab::postBuildSubTab(LLView* root)
 	
 	populateBanList();
 
-	setFooterEnabled(FALSE);
+	setFooterEnabled(false);
 	return TRUE;
 }
 
@@ -3158,7 +3158,7 @@ void LLPanelGroupBanListSubTab::activate()
 	//		  
 	LLGroupMgr::getInstance()->sendGroupBanRequest(LLGroupMgr::REQUEST_GET, mGroupID);
 
-	setFooterEnabled(FALSE);
+	setFooterEnabled(false);
 	update(GC_ALL);
 }
 
@@ -3356,6 +3356,6 @@ void LLPanelGroupBanListSubTab::setGroupID(const LLUUID& id)
 	if(mBanList)
 		mBanList->deleteAllItems();
 
-	setFooterEnabled(FALSE);
+	setFooterEnabled(false);
 	LLPanelGroupSubTab::setGroupID(id); 
 }

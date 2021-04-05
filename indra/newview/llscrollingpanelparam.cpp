@@ -93,7 +93,7 @@ LLScrollingPanelParam::LLScrollingPanelParam( const LLPanel::Params& panel_param
 	}
 
 	setVisible(FALSE);
-	setBorderVisible( FALSE );
+	setBorderVisible( false );
 }
 
 LLScrollingPanelParam::~LLScrollingPanelParam()

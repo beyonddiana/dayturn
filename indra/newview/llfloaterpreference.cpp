@@ -723,7 +723,7 @@ void LLFloaterPreference::apply()
 	
 	LLViewerMedia::getInstance()->setCookiesEnabled(getChild<LLUICtrl>("cookies_enabled")->getValue());
 	
-	if (hasChild("web_proxy_enabled", TRUE) &&hasChild("web_proxy_editor", TRUE) && hasChild("web_proxy_port", TRUE))
+	if (hasChild("web_proxy_enabled", true) &&hasChild("web_proxy_editor", true) && hasChild("web_proxy_port", true))
 	{
 		bool proxy_enable = getChild<LLUICtrl>("web_proxy_enabled")->getValue();
 		std::string proxy_address = getChild<LLUICtrl>("web_proxy_editor")->getValue();
@@ -2129,7 +2129,7 @@ LLPanelPreference::LLPanelPreference()
 bool LLPanelPreference::postBuild()
 {
 	////////////////////// PanelGeneral ///////////////////
-	if (hasChild("display_names_check", TRUE))
+	if (hasChild("display_names_check", true))
 	{
 		BOOL use_people_api = gSavedSettings.getBOOL("UsePeopleAPI");
 		LLCheckBoxCtrl* ctrl_display_name = getChild<LLCheckBoxCtrl>("display_names_check");
@@ -2141,7 +2141,7 @@ bool LLPanelPreference::postBuild()
 	}
 
 	////////////////////// PanelVoice ///////////////////
-	if (hasChild("voice_unavailable", TRUE))
+	if (hasChild("voice_unavailable", true))
 	{
 		BOOL voice_disabled = gSavedSettings.getBOOL("CmdLineDisableVoice");
 		getChildView("voice_unavailable")->setVisible( voice_disabled);
@@ -2150,7 +2150,7 @@ bool LLPanelPreference::postBuild()
 	
 	//////////////////////PanelSkins ///////////////////
 	
-	if (hasChild("skin_selection", TRUE))
+	if (hasChild("skin_selection", true))
 	{
 		LLFloaterPreference::refreshSkin(this);
 
@@ -2164,32 +2164,32 @@ bool LLPanelPreference::postBuild()
 	}
 
 	//////////////////////PanelPrivacy ///////////////////
-	if (hasChild("media_enabled", TRUE))
+	if (hasChild("media_enabled", true))
 	{
 		bool media_enabled = gSavedSettings.getBOOL("AudioStreamingMedia");
 		
 		getChild<LLCheckBoxCtrl>("media_enabled")->set(media_enabled);
 		getChild<LLCheckBoxCtrl>("autoplay_enabled")->setEnabled(media_enabled);
 	}
-	if (hasChild("music_enabled", TRUE))
+	if (hasChild("music_enabled", true))
 	{
 		getChild<LLCheckBoxCtrl>("music_enabled")->set(gSavedSettings.getBOOL("AudioStreamingMusic"));
 	}
-	if (hasChild("voice_call_friends_only_check", TRUE))
+	if (hasChild("voice_call_friends_only_check", true))
 	{
 		getChild<LLCheckBoxCtrl>("voice_call_friends_only_check")->setCommitCallback(boost::bind(&showFriendsOnlyWarning, _1, _2));
 	}
-    if (hasChild("allow_multiple_viewer_check", TRUE))
+    if (hasChild("allow_multiple_viewer_check", true))
     {
         getChild<LLCheckBoxCtrl>("allow_multiple_viewer_check")->setCommitCallback(boost::bind(&showMultipleViewersWarning, _1, _2));
     }
-	if (hasChild("favorites_on_login_check", TRUE))
+	if (hasChild("favorites_on_login_check", true))
 	{
 		getChild<LLCheckBoxCtrl>("favorites_on_login_check")->setCommitCallback(boost::bind(&handleFavoritesOnLoginChanged, _1, _2));
 		bool show_favorites_at_login = LLPanelLogin::getShowFavorites();
 		getChild<LLCheckBoxCtrl>("favorites_on_login_check")->setValue(show_favorites_at_login);
 	}
-	if (hasChild("mute_chb_label", TRUE))
+	if (hasChild("mute_chb_label", true))
 	{
 		getChild<LLTextBox>("mute_chb_label")->setShowCursorHand(false);
 		getChild<LLTextBox>("mute_chb_label")->setSoundFlags(LLView::MOUSE_UP);
@@ -2197,7 +2197,7 @@ bool LLPanelPreference::postBuild()
 	}
 
 	//////////////////////PanelAdvanced ///////////////////
-	if (hasChild("modifier_combo", TRUE))
+	if (hasChild("modifier_combo", true))
 	{
 		//localizing if push2talk button is set to middle mouse
 		std::string modifier_value = getChild<LLUICtrl>("modifier_combo")->getValue().asString();
@@ -2216,7 +2216,7 @@ bool LLPanelPreference::postBuild()
 	}
 
 	//////////////////////PanelSetup ///////////////////
-	if (hasChild("max_bandwidth", TRUE))
+	if (hasChild("max_bandwidth", true))
 	{
 		mBandWidthUpdater = new LLPanelPreference::Updater(boost::bind(&handleBandwidthChanged, _1), BANDWIDTH_UPDATER_TIMEOUT);
 		gSavedSettings.getControl("ThrottleBandwidthKBPS")->getSignal()->connect(boost::bind(&LLPanelPreference::Updater::update, mBandWidthUpdater, _2));

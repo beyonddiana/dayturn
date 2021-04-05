@@ -101,7 +101,7 @@ LLUICtrl::LLUICtrl(const LLUICtrl::Params& p, const LLViewModelPtr& viewmodel)
 :	LLView(p),
 	mIsChrome(FALSE),
 	mRequestsFront(p.requests_front),
-	mTabStop(FALSE),
+	mTabStop(false),
 	mTentative(FALSE),
     mViewModel(viewmodel),
 	mControlVariable(NULL),
@@ -413,7 +413,7 @@ BOOL LLUICtrl::handleDoubleClick(S32 x, S32 y, MASK mask)
 }
 
 // can't tab to children of a non-tab-stop widget
-BOOL LLUICtrl::canFocusChildren() const
+bool LLUICtrl::canFocusChildren() const
 {
 	return hasTabStop();
 }
@@ -426,9 +426,9 @@ void LLUICtrl::onCommit()
 }
 
 //virtual
-BOOL LLUICtrl::isCtrl() const
+bool LLUICtrl::isCtrl() const
 {
-	return TRUE;
+	return true;
 }
 
 //virtual 
@@ -697,7 +697,7 @@ void LLUICtrl::setTabStop( BOOL b )
 }
 
 // virtual
-BOOL LLUICtrl::hasTabStop() const		
+bool LLUICtrl::hasTabStop() const		
 { 
 	return mTabStop;
 }

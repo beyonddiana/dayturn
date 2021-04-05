@@ -1091,12 +1091,12 @@ std::string LLFloater::getShortTitle() const
 	}
 }
 
-BOOL LLFloater::canSnapTo(const LLView* other_view)
+bool LLFloater::canSnapTo(const LLView* other_view)
 {
 	if (NULL == other_view)
 	{
 		LL_WARNS() << "other_view is NULL" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 
 	if (other_view != getParent())
@@ -1107,7 +1107,7 @@ BOOL LLFloater::canSnapTo(const LLView* other_view)
 			&& mDependents.find(other_floaterp->getHandle()) != mDependents.end())
 		{
 			// this is a dependent that is already snapped to us, so don't snap back to it
-			return FALSE;
+			return false;
 		}
 	}
 
@@ -1245,7 +1245,7 @@ void LLFloater::setMinimized(BOOL minimize)
 			mButtonsEnabled[BUTTON_RESTORE] = TRUE;
 		}
 
-		setBorderVisible(TRUE);
+		setBorderVisible(true);
 
 		for(handle_set_iter_t dependent_it = mDependents.begin();
 			dependent_it != mDependents.end();
@@ -1391,7 +1391,7 @@ void LLFloater::setIsChrome(BOOL is_chrome)
 		// remove focus if we're changing to chrome
 		setFocus(FALSE);
 		// can't Ctrl-Tab to "chrome" floaters
-		setFocusRoot(FALSE);
+		setFocusRoot(false);
 		mButtons[BUTTON_CLOSE]->setToolTip(LLStringExplicit(getButtonTooltip(Params(), BUTTON_CLOSE, is_chrome)));
 	}
 	

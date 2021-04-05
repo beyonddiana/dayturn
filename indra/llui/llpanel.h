@@ -114,7 +114,7 @@ public:
 	/*virtual*/ ~LLPanel();
 
 	// LLView interface
-	/*virtual*/ BOOL 	isPanel() const;
+	/*virtual*/ bool 	isPanel() const;
 	/*virtual*/ void	draw();	
 	/*virtual*/ bool	handleKeyHere( KEY key, MASK mask );
 	/*virtual*/ void 	onVisibilityChange ( bool new_visibility );
@@ -130,8 +130,8 @@ public:
 	void addBorder( LLViewBorder::Params p);
 	void addBorder();
 	void			removeBorder();
-	BOOL			hasBorder() const { return mBorder != NULL; }
-	void			setBorderVisible( BOOL b );
+	bool			hasBorder() const { return mBorder != NULL; }
+	void			setBorderVisible( bool b );
 
 	void			setBackgroundColor( const LLColor4& color ) { mBgOpaqueColor = color; }
 	const LLColor4&	getBackgroundColor() const { return mBgOpaqueColor; }
