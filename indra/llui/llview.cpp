@@ -68,9 +68,9 @@ bool	LLView::sDebugMouseHandling = false;
 std::string LLView::sMouseHandlerMessage;
 bool	LLView::sForceReshape = false;
 std::set<LLView*> LLView::sPreviewHighlightedElements;
-BOOL LLView::sHighlightingDiffs = FALSE;
+bool LLView::sHighlightingDiffs = false;
 LLView* LLView::sPreviewClickedElement = NULL;
-BOOL	LLView::sDrawPreviewHighlights = FALSE;
+bool	LLView::sDrawPreviewHighlights = false;
 S32		LLView::sLastLeftXML = S32_MIN;
 S32		LLView::sLastBottomXML = S32_MIN;
 std::vector<LLViewDrawContext*> LLViewDrawContext::sDrawContextStack;
@@ -145,7 +145,7 @@ LLView::LLView(const LLView::Params& p)
 	mReshapeFlags(FOLLOWS_NONE),
 	mFromXUI(p.from_xui),
 	mIsFocusRoot(p.focus_root),
-	mLastVisible(FALSE),
+	mLastVisible(false),
 	mHoverCursor(getCursorFromString(p.hover_cursor)),
 	mEnabled(p.enabled),
 	mMouseOpaque(p.mouse_opaque),
@@ -194,15 +194,15 @@ LLView::~LLView()
 }
 
 // virtual
-BOOL LLView::isCtrl() const
+bool LLView::isCtrl() const
 {
-	return FALSE;
+	return false;
 }
 
 // virtual
-BOOL LLView::isPanel() const
+bool LLView::isPanel() const
 {
-	return FALSE;
+	return false;
 }
 
 void LLView::setToolTip(const LLStringExplicit& msg)
@@ -210,10 +210,10 @@ void LLView::setToolTip(const LLStringExplicit& msg)
 	mToolTipMsg = msg;
 }
 
-BOOL LLView::setToolTipArg(const LLStringExplicit& key, const LLStringExplicit& text)
+bool LLView::setToolTipArg(const LLStringExplicit& key, const LLStringExplicit& text)
 {
 	mToolTipMsg.setArg(key, text);
-	return TRUE;
+	return true;
 }
 
 void LLView::setToolTipArgs( const LLStringUtil::format_map_t& args )
@@ -228,7 +228,7 @@ void LLView::setRect(const LLRect& rect)
 	updateBoundingRect();
 }
 
-void LLView::setUseBoundingRect( BOOL use_bounding_rect ) 
+void LLView::setUseBoundingRect( bool use_bounding_rect ) 
 {
 	if (mUseBoundingRect != use_bounding_rect)
 	{
@@ -237,7 +237,7 @@ void LLView::setUseBoundingRect( BOOL use_bounding_rect )
 	}
 }
 
-BOOL LLView::getUseBoundingRect() const
+bool LLView::getUseBoundingRect() const
 {
 	return mUseBoundingRect;
 }
@@ -448,9 +448,9 @@ std::string LLView::getPathname(const LLView* view)
 }
 
 // virtual
-BOOL LLView::canFocusChildren() const
+bool LLView::canFocusChildren() const
 {
-	return TRUE;
+	return true;
 }
 
 //virtual
@@ -489,13 +489,13 @@ LLRect LLView::getRequiredRect()
 	return mRect;
 }
 
-BOOL LLView::focusNextRoot()
+bool LLView::focusNextRoot()
 {
 	LLView::child_list_t result = LLView::getFocusRootsQuery().run(this);
 	return LLView::focusNext(result);
 }
 
-BOOL LLView::focusPrevRoot()
+bool LLView::focusPrevRoot()
 {
 	LLView::child_list_t result = LLView::getFocusRootsQuery().run(this);
 	return LLView::focusPrev(result);
@@ -591,7 +591,7 @@ void LLView::deleteAllChildren()
 	}
 }
 
-void LLView::setAllChildrenEnabled(BOOL b)
+void LLView::setAllChildrenEnabled(bool b)
 {
 	BOOST_FOREACH(LLView* viewp, mChildList)
 	{
@@ -673,7 +673,7 @@ void LLView::translate(S32 x, S32 y)
 }
 
 // virtual
-BOOL LLView::canSnapTo(const LLView* other_view)
+bool LLView::canSnapTo(const LLView* other_view)
 {
 	return other_view != this && other_view->getVisible();
 }
@@ -1541,11 +1541,11 @@ LLRect LLView::getLocalSnapRect() const
 	return local_snap_rect;
 }
 
-BOOL LLView::hasAncestor(const LLView* parentp) const
+bool LLView::hasAncestor(const LLView* parentp) const
 {
 	if (!parentp)
 	{
-		return FALSE;
+		return false;
 	}
 
 	LLView* viewp = getParent();
@@ -1553,12 +1553,12 @@ BOOL LLView::hasAncestor(const LLView* parentp) const
 	{
 		if (viewp == parentp)
 		{
-			return TRUE;
+			return true;
 		}
 		viewp = viewp->getParent();
 	}
 
-	return FALSE;
+	return false;
 }
 
 //-----------------------------------------------------------------------------
@@ -1582,7 +1582,7 @@ BOOL LLView::childHasKeyboardFocus( const std::string& childname ) const
 
 //-----------------------------------------------------------------------------
 
-BOOL LLView::hasChild(const std::string& childname, BOOL recurse) const
+bool LLView::hasChild(const std::string& childname, bool recurse) const
 {
 	return findChildView(childname, recurse) != NULL;
 }

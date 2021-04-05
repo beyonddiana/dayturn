@@ -393,7 +393,7 @@ LLFloaterUIPreview::LLFloaterUIPreview(const LLSD& key)
 	mDisplayedFloater(NULL),
 	mDisplayedFloater_2(NULL),
 	mLiveFile(NULL),
-	// sHighlightingDiffs(FALSE),
+	// sHighlightingDiffs(false),
 	mHighlightingOverlaps(FALSE),
 	mLastDisplayedX(0),
 	mLastDisplayedY(0)
@@ -1429,7 +1429,7 @@ void LLPreviewedFloater::draw()
 		// Set and unset sDrawPreviewHighlights flag so as to avoid using two flags
 		if(mFloaterUIPreview->mHighlightingOverlaps)
 		{
-			LLView::sDrawPreviewHighlights = TRUE;
+			LLView::sDrawPreviewHighlights = true;
 		}
 
 		// If we're looking for truncations, draw debug rects for the displayed
@@ -1449,7 +1449,7 @@ void LLPreviewedFloater::draw()
 
 		if(mFloaterUIPreview->mHighlightingOverlaps)
 		{
-			LLView::sDrawPreviewHighlights = FALSE;
+			LLView::sDrawPreviewHighlights = false;
 		}
 	}
 }
@@ -1556,7 +1556,7 @@ void LLOverlapPanel::draw()
 	if(!LLView::sPreviewClickedElement)
 	{
 		LLUI::translate(5,getRect().getHeight()-20);	// translate to top-5,left-5
-		LLView::sDrawPreviewHighlights = FALSE;
+		LLView::sDrawPreviewHighlights = false;
 		LLFontGL::getFontSansSerifSmall()->renderUTF8(current_selection_text, 0, 0, 0, text_color,
 				LLFontGL::LEFT, LLFontGL::BASELINE, LLFontGL::NORMAL, LLFontGL::NO_SHADOW, S32_MAX, S32_MAX, NULL, FALSE);
 	}
@@ -1572,7 +1572,7 @@ void LLOverlapPanel::draw()
 		if(overlappers.size() == 0)
 		{
 			LLUI::translate(5,getRect().getHeight()-20);	// translate to top-5,left-5
-			LLView::sDrawPreviewHighlights = FALSE;
+			LLView::sDrawPreviewHighlights = false;
 			std::string current_selection = std::string(current_selection_text + LLView::sPreviewClickedElement->getName() + " (no elements overlap)");
 			S32 text_width = LLFontGL::getFontSansSerifSmall()->getWidth(current_selection) + 10;
 			LLFontGL::getFontSansSerifSmall()->renderUTF8(current_selection, 0, 0, 0, text_color,
@@ -1637,7 +1637,7 @@ void LLOverlapPanel::draw()
 		}
 
 		LLUI::translate(5,getRect().getHeight()-10);	// translate to top left
-		LLView::sDrawPreviewHighlights = FALSE;
+		LLView::sDrawPreviewHighlights = false;
 
 		// draw currently-selected element at top of overlappers
 		LLUI::translate(0,-mSpacing);

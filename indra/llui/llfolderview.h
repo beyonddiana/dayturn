@@ -107,7 +107,7 @@ public:
 	LLFolderView(const Params&);
 	virtual ~LLFolderView( void );
 
-	virtual BOOL canFocusChildren() const;
+	virtual bool canFocusChildren() const;
 
 	virtual const LLFolderView*	getRoot() const { return this; }
 	virtual LLFolderView*	getRoot() { return this; }

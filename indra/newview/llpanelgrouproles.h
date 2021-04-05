@@ -115,7 +115,7 @@ public:
 	bool matchesActionSearchFilter(std::string action);
 
 
-	void setFooterEnabled(BOOL enable);
+	void setFooterEnabled(bool enable);
 
 	virtual void setGroupID(const LLUUID& id);
 protected:

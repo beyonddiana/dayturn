@@ -269,9 +269,9 @@ LLFolderView::~LLFolderView( void )
 	mViewModel = NULL;
 }
 
-BOOL LLFolderView::canFocusChildren() const
+bool LLFolderView::canFocusChildren() const
 {
-	return FALSE;
+	return false;
 }
 
 void LLFolderView::addFolder( LLFolderViewFolder* folder)

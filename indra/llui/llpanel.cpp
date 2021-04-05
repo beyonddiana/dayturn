@@ -127,9 +127,9 @@ LLPanel::~LLPanel()
 }
 
 // virtual
-BOOL LLPanel::isPanel() const
+bool LLPanel::isPanel() const
 {
-	return TRUE;
+	return true;
 }
 
 void LLPanel::addBorder(LLViewBorder::Params p)
@@ -376,7 +376,7 @@ void LLPanel::setFocus(BOOL b)
 	}
 }
 
-void LLPanel::setBorderVisible(BOOL b)
+void LLPanel::setBorderVisible(bool b)
 {
 	if (mBorder)
 	{

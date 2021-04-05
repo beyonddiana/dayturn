@@ -113,7 +113,7 @@ public:
 	};
 	
 	// disable traversal when finding widget to hand focus off to
-	/*virtual*/ BOOL canFocusChildren() const { return FALSE; }
+	/*virtual*/ bool canFocusChildren() const { return false; }
 
 	/**
 	 * Connects callback to signal called when Return key is pressed.

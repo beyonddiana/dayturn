@@ -213,11 +213,11 @@ public:
 	virtual ~LLView();
 
 	// Some UI widgets need to be added as controls.  Others need to
-	// be added as regular view children.  isCtrl should return TRUE
+	// be added as regular view children.  isCtrl should return true
 	// if a widget needs to be added as a ctrl
-	virtual BOOL isCtrl() const;
+	virtual bool isCtrl() const;
 
-	virtual BOOL isPanel() const;
+	virtual bool isPanel() const;
 	
 	//
 	// MANIPULATORS
@@ -225,7 +225,7 @@ public:
 	void		setMouseOpaque( bool b )		{ mMouseOpaque = b; }
 	bool		getMouseOpaque() const			{ return mMouseOpaque; }
 	void		setToolTip( const LLStringExplicit& msg );
-	BOOL		setToolTipArg( const LLStringExplicit& key, const LLStringExplicit& text );
+	bool		setToolTipArg( const LLStringExplicit& key, const LLStringExplicit& text );
 	void		setToolTipArgs( const LLStringUtil::format_map_t& args );
 
 	virtual void setRect(const LLRect &rect);
@@ -241,8 +241,8 @@ public:
 
 	void        setSoundFlags(U8 flags)			{ mSoundFlags = flags; }
 	void		setName(std::string name)			{ mName = name; }
-	void		setUseBoundingRect( BOOL use_bounding_rect );
-	BOOL		getUseBoundingRect() const;
+	void		setUseBoundingRect( bool use_bounding_rect );
+	bool		getUseBoundingRect() const;
 
 	ECursorType	getHoverCursor() { return mHoverCursor; }
 
@@ -270,12 +270,12 @@ public:
 	bool		isInVisibleChain() const;
 	bool		isInEnabledChain() const;
 
-	void		setFocusRoot(BOOL b)			{ mIsFocusRoot = b; }
-	BOOL		isFocusRoot() const				{ return mIsFocusRoot; }
-	virtual BOOL canFocusChildren() const;
+	void		setFocusRoot(bool b)			{ mIsFocusRoot = b; }
+	bool		isFocusRoot() const				{ return mIsFocusRoot; }
+	virtual bool canFocusChildren() const;
 
-	BOOL focusNextRoot();
-	BOOL focusPrevRoot();
+	bool focusNextRoot();
+	bool focusPrevRoot();
 
 	// Normally we want the app menus to get priority on accelerated keys
 	// However, sometimes we want to give specific views a first chance
@@ -287,14 +287,14 @@ public:
 	// children, etc.
 	virtual void deleteAllChildren();
 
-	void 	setAllChildrenEnabled(BOOL b);
+	void 	setAllChildrenEnabled(bool b);
 
 	virtual void	setVisible(BOOL visible);
 	const BOOL	getVisible() const		{ return isAvailableOnThisGrid() && mVisible; }
 	virtual void	setEnabled(BOOL enabled);
 	const BOOL	getEnabled() const		{ return isAvailableOnThisGrid() && mEnabled; }
 
-	const BOOL	getOnlyInSL() const	{ return mOnlyInSL; }
+	const bool	getOnlyInSL() const	{ return mOnlyInSL; }
 
 	const bool	isAvailableOnThisGrid() const;
 
@@ -312,7 +312,7 @@ public:
 
 	void			pushVisible(BOOL visible)	{ mLastVisible = mVisible; setVisible(visible); }
 	void			popVisible()				{ setVisible(mLastVisible); }
-	BOOL			getLastVisible()	const	{ return mLastVisible; }
+	bool			getLastVisible()	const	{ return mLastVisible; }
 
 	U32			getFollows() const				{ return mReshapeFlags; }
 	BOOL		followsLeft() const				{ return mReshapeFlags & FOLLOWS_LEFT; }
@@ -344,8 +344,8 @@ public:
 	LLView*		findNextSibling(LLView* child);
 	S32			getChildCount()	const			{ return (S32)mChildList.size(); }
 	template<class _Pr3> void sortChildren(_Pr3 _Pred) { mChildList.sort(_Pred); }
-	BOOL		hasAncestor(const LLView* parentp) const;
-	BOOL		hasChild(const std::string& childname, BOOL recurse = FALSE) const;
+	bool		hasAncestor(const LLView* parentp) const;
+	bool		hasChild(const std::string& childname, bool recurse = false) const;
 	BOOL 		childHasKeyboardFocus( const std::string& childname ) const;
 	
 	// these iterators are used for collapsing various tree traversals into for loops
@@ -381,7 +381,7 @@ public:
 	void	setShape(const LLRect& new_rect, bool by_user = false);
 	virtual LLView*	findSnapRect(LLRect& new_rect, const LLCoordGL& mouse_dir, LLView::ESnapType snap_type, S32 threshold, S32 padding = 0);
 	virtual LLView*	findSnapEdge(S32& new_edge_val, const LLCoordGL& mouse_dir, ESnapEdge snap_edge, ESnapType snap_type, S32 threshold, S32 padding = 0);
-	virtual BOOL	canSnapTo(const LLView* other_view);
+	virtual bool	canSnapTo(const LLView* other_view);
 	virtual void	setSnappedTo(const LLView* snap_view);
 
 	// inherited from LLFocusableElement
@@ -594,7 +594,7 @@ private:
 
 	// location in pixels, relative to surrounding structure, bottom,left=0,0
 	BOOL		mVisible;
-	BOOL		mOnlyInSL;
+	bool		mOnlyInSL;
 	LLRect		mRect;
 	LLRect		mBoundingRect;
 	
@@ -616,9 +616,9 @@ private:
 	BOOL		mFromXUI;
 
 	BOOL		mIsFocusRoot;
-	BOOL		mUseBoundingRect; // hit test against bounding rectangle that includes all child elements
+	bool		mUseBoundingRect; // hit test against bounding rectangle that includes all child elements
 
-	BOOL		mLastVisible;
+	bool		mLastVisible;
 
 	bool		mInDraw;
 
@@ -674,9 +674,9 @@ public:
 	static std::string sMouseHandlerMessage;
 	static S32	sSelectID;
 	static std::set<LLView*> sPreviewHighlightedElements;	// DEV-16869
-	static BOOL sHighlightingDiffs;							// DEV-16869
+	static bool sHighlightingDiffs;							// DEV-16869
 	static LLView* sPreviewClickedElement;					// DEV-16869
-	static BOOL sDrawPreviewHighlights;
+	static bool sDrawPreviewHighlights;
 	static S32 sLastLeftXML;
 	static S32 sLastBottomXML;
 	static bool sForceReshape;

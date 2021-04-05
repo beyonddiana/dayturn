@@ -652,7 +652,7 @@ void LLScrollContainer::updateScroll()
 	mScrollbar[VERTICAL]->setPageSize( visible_height );
 } // end updateScroll
 
-void LLScrollContainer::setBorderVisible(BOOL b)
+void LLScrollContainer::setBorderVisible(bool b)
 {
 	mBorder->setVisible( b );
 	// Recompute inner rect, as border visibility changes it

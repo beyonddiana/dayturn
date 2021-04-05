@@ -110,7 +110,7 @@ LLToolView::~LLToolView()
 // 	if (contain->mPanel)
 // 	{
 // 		contain->mPanel->setBackgroundVisible( FALSE );
-// 		contain->mPanel->setBorderVisible( FALSE );
+// 		contain->mPanel->setBorderVisible( false );
 // 		addChild(contain->mPanel);
 // 	}
 

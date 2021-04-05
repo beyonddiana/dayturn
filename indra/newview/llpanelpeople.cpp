@@ -1232,7 +1232,7 @@ void LLPanelPeople::updateButtons()
 		LLPanel* cur_panel = mTabContainer->getCurrentPanel();
 		if (cur_panel)
 		{
-			if (cur_panel->hasChild("add_friend_btn", TRUE))
+			if (cur_panel->hasChild("add_friend_btn", true))
 				cur_panel->getChildView("add_friend_btn")->setEnabled(item_selected && !is_friend && !is_self);
 			if (friends_tab_active)
 			{
