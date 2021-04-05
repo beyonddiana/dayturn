@@ -1812,10 +1812,10 @@ LLViewerWindow::LLViewerWindow(const Params& p)
 	/*
 	LLWindowCallbacks* callbacks,
 	const std::string& title, const std::string& name, S32 x, S32 y, S32 width, S32 height, U32 flags,
-	BOOL fullscreen, 
-	BOOL clearBg,
-	BOOL disable_vsync,
-	BOOL ignore_pixel_depth,
+	bool fullscreen, 
+	bool clearBg,
+	bool disable_vsync,
+	bool ignore_pixel_depth,
 	U32 fsaa_samples)
 	*/
 	// create window
@@ -6089,7 +6089,7 @@ void LLViewerWindow::checkSettings()
 	}	
 }
 
-void LLViewerWindow::restartDisplay(BOOL show_progress_bar)
+void LLViewerWindow::restartDisplay(bool show_progress_bar)
 {
 	LL_INFOS() << "Restaring GL" << LL_ENDL;
 	stopGL();
@@ -6103,7 +6103,7 @@ void LLViewerWindow::restartDisplay(BOOL show_progress_bar)
 	}
 }
 
-BOOL LLViewerWindow::changeDisplaySettings(LLCoordScreen size, BOOL disable_vsync, BOOL show_progress_bar)
+bool LLViewerWindow::changeDisplaySettings(LLCoordScreen size, bool disable_vsync, bool show_progress_bar)
 {
 	//BOOL was_maximized = gSavedSettings.getBOOL("WindowMaximized");
 
@@ -6121,7 +6121,7 @@ BOOL LLViewerWindow::changeDisplaySettings(LLCoordScreen size, BOOL disable_vsyn
 
 	//if (fsaa == old_fsaa)
 	{
-		return TRUE;
+		return true;
 	}
 
 /*

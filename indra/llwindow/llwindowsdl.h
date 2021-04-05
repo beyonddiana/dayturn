@@ -58,14 +58,14 @@ public:
 	/*virtual*/ BOOL maximize();
 	/*virtual*/ void minimize();
 	/*virtual*/ void restore();
-	/*virtual*/ BOOL getFullscreen();
+	/*virtual*/ bool getFullscreen();
 	/*virtual*/ BOOL getPosition(LLCoordScreen *position);
 	/*virtual*/ BOOL getSize(LLCoordScreen *size);
 	/*virtual*/ BOOL getSize(LLCoordWindow *size);
 	/*virtual*/ BOOL setPosition(LLCoordScreen position);
 	/*virtual*/ BOOL setSizeImpl(LLCoordScreen size);
 	/*virtual*/ BOOL setSizeImpl(LLCoordWindow size);
-	/*virtual*/ BOOL switchContext(BOOL fullscreen, const LLCoordScreen &size, BOOL disable_vsync, const LLCoordScreen * const posp = NULL);
+	/*virtual*/ bool switchContext(bool fullscreen, const LLCoordScreen &size, bool disable_vsync, const LLCoordScreen * const posp = NULL);
 	/*virtual*/ BOOL setCursorPosition(LLCoordWindow position);
 	/*virtual*/ BOOL getCursorPosition(LLCoordWindow *position);
 	/*virtual*/ void showCursor();
@@ -81,13 +81,13 @@ public:
 
 	/*virtual*/ void setTitle(const std::string &title);
 
-	/*virtual*/ BOOL isClipboardTextAvailable();
-	/*virtual*/ BOOL pasteTextFromClipboard(LLWString &dst);
-	/*virtual*/ BOOL copyTextToClipboard(const LLWString & src);
+	/*virtual*/ bool isClipboardTextAvailable();
+	/*virtual*/ bool pasteTextFromClipboard(LLWString &dst);
+	/*virtual*/ bool copyTextToClipboard(const LLWString & src);
 
-	/*virtual*/ BOOL isPrimaryTextAvailable();
-	/*virtual*/ BOOL pasteTextFromPrimary(LLWString &dst);
-	/*virtual*/ BOOL copyTextToPrimary(const LLWString & src);
+	/*virtual*/ bool isPrimaryTextAvailable();
+	/*virtual*/ bool pasteTextFromPrimary(LLWString &dst);
+	/*virtual*/ bool copyTextToPrimary(const LLWString & src);
  
 	/*virtual*/ void flashIcon(F32 seconds);
 	/*virtual*/ F32 getGamma();
@@ -119,7 +119,7 @@ public:
 	/*virtual*/ void beforeDialog();
 	/*virtual*/ void afterDialog();
 
-	/*virtual*/ BOOL dialogColorPicker(F32 *r, F32 *g, F32 *b);
+	/*virtual*/ bool dialogColorPicker(F32 *r, F32 *g, F32 *b);
 
 	/*virtual*/ void *getPlatformWindow();
 	/*virtual*/ void bringToFront();
@@ -150,11 +150,11 @@ public:
 protected:
 	LLWindowSDL(LLWindowCallbacks* callbacks,
 		const std::string& title, int x, int y, int width, int height, U32 flags,
-		BOOL fullscreen, BOOL clearBg, BOOL disable_vsync, BOOL use_gl,
-		BOOL ignore_pixel_depth, U32 fsaa_samples);
+		bool fullscreen, bool clearBg, bool disable_vsync, bool use_gl,
+		bool ignore_pixel_depth, U32 fsaa_samples);
 	~LLWindowSDL();
 
-	/*virtual*/ BOOL	isValid();
+	/*virtual*/ bool	isValid();
 	/*virtual*/ LLSD    getNativeKeyData();
 
 	void	initCursors();
@@ -167,7 +167,7 @@ protected:
 	// Go back to last fullscreen display resolution.
 	BOOL	setFullscreenResolution();
 
-	BOOL	shouldPostQuit() { return mPostQuit; }
+	bool	shouldPostQuit() { return mPostQuit; }
 
 protected:
 	//
@@ -175,7 +175,7 @@ protected:
 	//
 
 	// create or re-create the GL context/window.  Called from the constructor and switchContext().
-	BOOL createContext(int x, int y, int width, int height, int bits, BOOL fullscreen, BOOL disable_vsync);
+	bool createContext(int x, int y, int width, int height, int bits, bool fullscreen, bool disable_vsync);
 	void destroyContext();
 	void setupFailure(const std::string& text, const std::string& caption, U32 type);
 	void fixWindowSize(void);

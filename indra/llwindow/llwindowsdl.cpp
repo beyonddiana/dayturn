@@ -188,9 +188,9 @@ Display* LLWindowSDL::get_SDL_Display(void)
 LLWindowSDL::LLWindowSDL(LLWindowCallbacks* callbacks,
 			 const std::string& title, S32 x, S32 y, S32 width,
 			 S32 height, U32 flags,
-			 BOOL fullscreen, BOOL clearBg,
-			 BOOL disable_vsync, BOOL use_gl,
-			 BOOL ignore_pixel_depth, U32 fsaa_samples)
+			 bool fullscreen, bool clearBg,
+			 bool disable_vsync, bool use_gl,
+			 bool ignore_pixel_depth, U32 fsaa_samples)
 	: LLWindow(callbacks, fullscreen, flags),
 	  Lock_Display(NULL),
 	  Unlock_Display(NULL), mGamma(1.0f)
@@ -409,7 +409,7 @@ static int x11_detect_VRAM_kb()
 }
 #endif // LL_X11
 
-BOOL LLWindowSDL::createContext(int x, int y, int width, int height, int bits, BOOL fullscreen, BOOL disable_vsync)
+bool LLWindowSDL::createContext(int x, int y, int width, int height, int bits, bool fullscreen, bool disable_vsync)
 {
 	//bool			glneedsinit = false;
 
@@ -445,7 +445,7 @@ BOOL LLWindowSDL::createContext(int x, int y, int width, int height, int bits, B
 	{
 		LL_INFOS() << "SDL_GetVideoInfo() failed! " << SDL_GetError() << LL_ENDL;
 		setupFailure("SDL_GetVideoInfo() failed, Window creation error", "Error", OSMB_OK);
-		return FALSE;
+		return false;
 	}
 
 	if (video_info->current_h > 0)
@@ -563,7 +563,7 @@ BOOL LLWindowSDL::createContext(int x, int y, int width, int height, int bits, B
 
 		if (mWindow)
 		{
-			mFullscreen = TRUE;
+			mFullscreen = true;
 			mFullscreenWidth   = mWindow->w;
 			mFullscreenHeight  = mWindow->h;
 			mFullscreenBits    = mWindow->format->BitsPerPixel;
@@ -579,7 +579,7 @@ BOOL LLWindowSDL::createContext(int x, int y, int width, int height, int bits, B
 		{
 			LL_WARNS() << "createContext: fullscreen creation failure. SDL: " << SDL_GetError() << LL_ENDL;
 			// No fullscreen support
-			mFullscreen = FALSE;
+			mFullscreen = false;
 			mFullscreenWidth   = -1;
 			mFullscreenHeight  = -1;
 			mFullscreenBits    = -1;
@@ -609,7 +609,7 @@ BOOL LLWindowSDL::createContext(int x, int y, int width, int height, int bits, B
 		{
 			LL_WARNS() << "createContext: window creation failure. SDL: " << SDL_GetError() << LL_ENDL;
 			setupFailure("Window creation error", "Error", OSMB_OK);
-			return FALSE;
+			return false;
 		}
 	} else if (!mFullscreen && (mWindow != NULL))
 	{
@@ -672,7 +672,7 @@ BOOL LLWindowSDL::createContext(int x, int y, int width, int height, int bits, B
 			"will automatically adjust the screen each time it runs.",
 			"Error",
 			OSMB_OK);
-		return FALSE;
+		return false;
 	}
 
 #if 0  // *FIX: we're going to brave it for now...
@@ -688,7 +688,7 @@ BOOL LLWindowSDL::createContext(int x, int y, int width, int height, int bits, B
 			"If you continue to receive this message, contact customer service.",
 			"Error",
 			OSMB_OK);
-		return FALSE;
+		return false;
 	}
 #endif
 
@@ -729,15 +729,15 @@ BOOL LLWindowSDL::createContext(int x, int y, int width, int height, int bits, B
 	    LL_WARNS() << "Couldn't enable key-repeat: " << SDL_GetError() <<LL_ENDL;
 
 	// Don't need to get the current gamma, since there's a call that restores it to the system defaults.
-	return TRUE;
+	return true;
 }
 
 
 // changing fullscreen resolution, or switching between windowed and fullscreen mode.
-BOOL LLWindowSDL::switchContext(BOOL fullscreen, const LLCoordScreen &size, BOOL disable_vsync, const LLCoordScreen * const posp)
+bool LLWindowSDL::switchContext(bool fullscreen, const LLCoordScreen &size, bool disable_vsync, const LLCoordScreen * const posp)
 {
-	const BOOL needsRebuild = TRUE;  // Just nuke the context and start over.
-	BOOL result = true;
+	const bool needsRebuild = true;  // Just nuke the context and start over.
+	bool result = true;
 
 	LL_INFOS() << "switchContext, fullscreen=" << fullscreen << LL_ENDL;
 	stop_glerror();
@@ -834,7 +834,7 @@ void LLWindowSDL::close()
 	destroyContext();
 }
 
-BOOL LLWindowSDL::isValid()
+bool LLWindowSDL::isValid()
 {
 	return (mWindow != NULL);
 }
@@ -882,7 +882,7 @@ BOOL LLWindowSDL::maximize()
 	return FALSE;
 }
 
-BOOL LLWindowSDL::getFullscreen()
+bool LLWindowSDL::getFullscreen()
 {
 	return mFullscreen;
 }
@@ -1245,19 +1245,19 @@ void LLWindowSDL::flashIcon(F32 seconds)
 
 
 #if LL_GTK
-BOOL LLWindowSDL::isClipboardTextAvailable()
+bool LLWindowSDL::isClipboardTextAvailable()
 {
 	if (ll_try_gtk_init())
 	{
 		GtkClipboard * const clipboard =
 			gtk_clipboard_get(GDK_NONE);
 		return gtk_clipboard_wait_is_text_available(clipboard) ?
-			TRUE : FALSE;
+			true : false;
 	}
-	return FALSE; // failure
+	return false; // failure
 }
 
-BOOL LLWindowSDL::pasteTextFromClipboard(LLWString &text)
+bool LLWindowSDL::pasteTextFromClipboard(LLWString &text)
 {
 	if (ll_try_gtk_init())
 	{
@@ -1268,13 +1268,13 @@ BOOL LLWindowSDL::pasteTextFromClipboard(LLWString &text)
 		{
 			text = LLWString(utf8str_to_wstring(data));
 			g_free(data);
-			return TRUE;
+			return true;
 		}
 	}
-	return FALSE; // failure
+	return false; // failure
 }
 
-BOOL LLWindowSDL::copyTextToClipboard(const LLWString &text)
+bool LLWindowSDL::copyTextToClipboard(const LLWString &text)
 {
 	if (ll_try_gtk_init())
 	{
@@ -1282,25 +1282,25 @@ BOOL LLWindowSDL::copyTextToClipboard(const LLWString &text)
 		GtkClipboard * const clipboard =
 			gtk_clipboard_get(GDK_NONE);
 		gtk_clipboard_set_text(clipboard, utf8.c_str(), utf8.length());
-		return TRUE;
+		return true;
 	}
-	return FALSE; // failure
+	return false; // failure
 }
 
 
-BOOL LLWindowSDL::isPrimaryTextAvailable()
+bool LLWindowSDL::isPrimaryTextAvailable()
 {
 	if (ll_try_gtk_init())
 	{
 		GtkClipboard * const clipboard =
 			gtk_clipboard_get(GDK_SELECTION_PRIMARY);
 		return gtk_clipboard_wait_is_text_available(clipboard) ?
-			TRUE : FALSE;
+			true : false;
 	}
-	return FALSE; // failure
+	return false; // failure
 }
 
-BOOL LLWindowSDL::pasteTextFromPrimary(LLWString &text)
+bool LLWindowSDL::pasteTextFromPrimary(LLWString &text)
 {
 	if (ll_try_gtk_init())
 	{
@@ -1311,13 +1311,13 @@ BOOL LLWindowSDL::pasteTextFromPrimary(LLWString &text)
 		{
 			text = LLWString(utf8str_to_wstring(data));
 			g_free(data);
-			return TRUE;
+			return true;
 		}
 	}
-	return FALSE; // failure
+	return false; // failure
 }
 
-BOOL LLWindowSDL::copyTextToPrimary(const LLWString &text)
+bool LLWindowSDL::copyTextToPrimary(const LLWString &text)
 {
 	if (ll_try_gtk_init())
 	{
@@ -1325,41 +1325,41 @@ BOOL LLWindowSDL::copyTextToPrimary(const LLWString &text)
 		GtkClipboard * const clipboard =
 			gtk_clipboard_get(GDK_SELECTION_PRIMARY);
 		gtk_clipboard_set_text(clipboard, utf8.c_str(), utf8.length());
-		return TRUE;
+		return true;
 	}
-	return FALSE; // failure
+	return false; // failure
 }
 
 #else
 
-BOOL LLWindowSDL::isClipboardTextAvailable()
+bool LLWindowSDL::isClipboardTextAvailable()
 {
-	return FALSE; // unsupported
+	return false; // unsupported
 }
 
-BOOL LLWindowSDL::pasteTextFromClipboard(LLWString &dst)
+bool LLWindowSDL::pasteTextFromClipboard(LLWString &dst)
 {
-	return FALSE; // unsupported
+	return false; // unsupported
 }
 
-BOOL LLWindowSDL::copyTextToClipboard(const LLWString &s)
+bool LLWindowSDL::copyTextToClipboard(const LLWString &s)
 {
-	return FALSE;  // unsupported
+	return false;  // unsupported
 }
 
-BOOL LLWindowSDL::isPrimaryTextAvailable()
+bool LLWindowSDL::isPrimaryTextAvailable()
 {
-	return FALSE; // unsupported
+	return false; // unsupported
 }
 
-BOOL LLWindowSDL::pasteTextFromPrimary(LLWString &dst)
+bool LLWindowSDL::pasteTextFromPrimary(LLWString &dst)
 {
-	return FALSE; // unsupported
+	return false; // unsupported
 }
 
-BOOL LLWindowSDL::copyTextToPrimary(const LLWString &s)
+bool LLWindowSDL::copyTextToPrimary(const LLWString &s)
 {
-	return FALSE;  // unsupported
+	return false;  // unsupported
 }
 
 #endif // LL_GTK
@@ -2391,9 +2391,9 @@ LLSD LLWindowSDL::getNativeKeyData()
 }
 
 
-BOOL LLWindowSDL::dialogColorPicker( F32 *r, F32 *g, F32 *b)
+bool LLWindowSDL::dialogColorPicker( F32 *r, F32 *g, F32 *b)
 {
-	BOOL rtn = FALSE;
+	bool rtn = false;
 
 	beforeDialog();
 
@@ -2454,7 +2454,7 @@ BOOL LLWindowSDL::dialogColorPicker( F32 *r, F32 *g, F32 *b)
 			*r = color.red / 65535.0f;
 			*g = color.green / 65535.0f;
 			*b = color.blue / 65535.0f;
-			rtn = TRUE;
+			rtn = true;
 		}
 	}
 
@@ -2469,9 +2469,9 @@ S32 OSMessageBoxSDL(const std::string& text, const std::string& caption, U32 typ
 	return 0;
 }
 
-BOOL LLWindowSDL::dialogColorPicker( F32 *r, F32 *g, F32 *b)
+bool LLWindowSDL::dialogColorPicker( F32 *r, F32 *g, F32 *b)
 {
-	return (FALSE);
+	return (false);
 }
 #endif // LL_GTK
 

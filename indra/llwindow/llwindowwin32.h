@@ -50,14 +50,14 @@ public:
 	/*virtual*/ BOOL maximize();
 	/*virtual*/ void minimize();
 	/*virtual*/ void restore();
-	/*virtual*/ BOOL getFullscreen();
+	/*virtual*/ bool getFullscreen();
 	/*virtual*/ BOOL getPosition(LLCoordScreen *position);
 	/*virtual*/ BOOL getSize(LLCoordScreen *size);
 	/*virtual*/ BOOL getSize(LLCoordWindow *size);
 	/*virtual*/ BOOL setPosition(LLCoordScreen position);
 	/*virtual*/ BOOL setSizeImpl(LLCoordScreen size);
 	/*virtual*/ BOOL setSizeImpl(LLCoordWindow size);
-	/*virtual*/ BOOL switchContext(BOOL fullscreen, const LLCoordScreen &size, BOOL disable_vsync, const LLCoordScreen * const posp = NULL);
+	/*virtual*/ bool switchContext(bool fullscreen, const LLCoordScreen &size, bool disable_vsync, const LLCoordScreen * const posp = NULL);
 	/*virtual*/ BOOL setCursorPosition(LLCoordWindow position);
 	/*virtual*/ BOOL getCursorPosition(LLCoordWindow *position);
 	/*virtual*/ void showCursor();
@@ -70,9 +70,9 @@ public:
 	/*virtual*/ void captureMouse();
 	/*virtual*/ void releaseMouse();
 	/*virtual*/ void setMouseClipping( BOOL b );
-	/*virtual*/ BOOL isClipboardTextAvailable();
-	/*virtual*/ BOOL pasteTextFromClipboard(LLWString &dst);
-	/*virtual*/ BOOL copyTextToClipboard(const LLWString &src);
+	/*virtual*/ bool isClipboardTextAvailable();
+	/*virtual*/ bool pasteTextFromClipboard(LLWString &dst);
+	/*virtual*/ bool copyTextToClipboard(const LLWString &src);
 	/*virtual*/ void flashIcon(F32 seconds);
 	/*virtual*/ F32 getGamma();
 	/*virtual*/ BOOL setGamma(const F32 gamma); // Set the gamma
@@ -98,7 +98,7 @@ public:
 	/*virtual*/ F32 getPixelAspectRatio();
 	/*virtual*/ void setNativeAspectRatio(F32 ratio) { mOverrideAspectRatio = ratio; }
 
-	/*virtual*/	BOOL dialogColorPicker(F32 *r, F32 *g, F32 *b );
+	/*virtual*/	bool dialogColorPicker(F32 *r, F32 *g, F32 *b );
 
 	/*virtual*/ void *getPlatformWindow();
 	/*virtual*/ void bringToFront();
@@ -122,14 +122,14 @@ public:
 protected:
 	LLWindowWin32(LLWindowCallbacks* callbacks,
 		const std::string& title, const std::string& name, int x, int y, int width, int height, U32 flags, 
-		BOOL fullscreen, BOOL clearBg, BOOL disable_vsync, BOOL use_gl,
-		BOOL ignore_pixel_depth, U32 fsaa_samples);
+		bool fullscreen, bool clearBg, bool disable_vsync, bool use_gl,
+		bool ignore_pixel_depth, U32 fsaa_samples);
 	~LLWindowWin32();
 
 	void	initCursors();
 	void	initInputDevices();
 	HCURSOR loadColorCursor(LPCTSTR name);
-	BOOL	isValid();
+	bool	isValid();
 	void	moveWindow(const LLCoordScreen& position,const LLCoordScreen& size);
 	virtual LLSD	getNativeKeyData();
 
@@ -142,7 +142,7 @@ protected:
 	// Restore the display resolution to its value before we ran the app.
 	BOOL	resetDisplayResolution();
 
-	BOOL	shouldPostQuit() { return mPostQuit; }
+	bool	shouldPostQuit() { return mPostQuit; }
 
 	void	fillCompositionForm(const LLRect& bounds, COMPOSITIONFORM *form);
 	void	fillCandidateForm(const LLCoordGL& caret, const LLRect& bounds, CANDIDATEFORM *form);

@@ -41,14 +41,14 @@ public:
 	/*virtual*/ BOOL maximize() {return FALSE;};
 	/*virtual*/ void minimize() {};
 	/*virtual*/ void restore() {};
-	/*virtual*/ BOOL getFullscreen() {return FALSE;};
+	/*virtual*/ bool getFullscreen() {return false;};
 	/*virtual*/ BOOL getPosition(LLCoordScreen *position) {return FALSE;};
 	/*virtual*/ BOOL getSize(LLCoordScreen *size) {return FALSE;};
 	/*virtual*/ BOOL getSize(LLCoordWindow *size) {return FALSE;};
 	/*virtual*/ BOOL setPosition(LLCoordScreen position) {return FALSE;};
 	/*virtual*/ BOOL setSizeImpl(LLCoordScreen size) {return FALSE;};
 	/*virtual*/ BOOL setSizeImpl(LLCoordWindow size) {return FALSE;};
-	/*virtual*/ BOOL switchContext(BOOL fullscreen, const LLCoordScreen &size, BOOL disable_vsync, const LLCoordScreen * const posp = NULL) {return FALSE;};
+	/*virtual*/ bool switchContext(bool fullscreen, const LLCoordScreen &size, bool disable_vsync, const LLCoordScreen * const posp = NULL) {return false;};
 	/*virtual*/ BOOL setCursorPosition(LLCoordWindow position) {return FALSE;};
 	/*virtual*/ BOOL getCursorPosition(LLCoordWindow *position) {return FALSE;};
 	/*virtual*/ void showCursor() {};
@@ -61,9 +61,9 @@ public:
 	/*virtual*/ void captureMouse() {};
 	/*virtual*/ void releaseMouse() {};
 	/*virtual*/ void setMouseClipping( BOOL b ) {};
-	/*virtual*/ BOOL isClipboardTextAvailable() {return FALSE; };
-	/*virtual*/ BOOL pasteTextFromClipboard(LLWString &dst) {return FALSE; };
-	/*virtual*/ BOOL copyTextToClipboard(const LLWString &src) {return FALSE; };
+	/*virtual*/ bool isClipboardTextAvailable() {return false; };
+	/*virtual*/ bool pasteTextFromClipboard(LLWString &dst) {return false; };
+	/*virtual*/ bool copyTextToClipboard(const LLWString &src) {return false; };
 	/*virtual*/ void flashIcon(F32 seconds) {};
 	/*virtual*/ F32 getGamma() {return 1.0f; };
 	/*virtual*/ BOOL setGamma(const F32 gamma) {return FALSE; }; // Set the gamma
@@ -96,8 +96,8 @@ public:
 		const std::string& title, const std::string& name,
 		S32 x, S32 y, 
 		S32 width, S32 height,
-		U32 flags,  BOOL fullscreen, BOOL clear_background,
-		BOOL disable_vsync, BOOL use_gl, BOOL ignore_pixel_depth);
+		U32 flags,  bool fullscreen, bool clear_background,
+		bool disable_vsync, bool use_gl, bool ignore_pixel_depth);
 	virtual ~LLWindowHeadless();
 
 private:
