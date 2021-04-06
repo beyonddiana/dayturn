@@ -6080,12 +6080,10 @@ void LLGestureBridge::performAction(LLInventoryModel* model, std::string action)
 		gInventory.updateItem(item);
 		gInventory.notifyObservers();
 	}
-// [SL:KB] - Patch: Inventory-AttachmentEdit - Checked: 2010-08-25 (Catznip-2.2.0a) | Added: Catznip-2.1.2a
 	else if ("edit" == action)
 	{
 		handle_attachment_edit(mUUID);
 	}
-// [/SL:KB]
 	else if ("deactivate" == action || isRemoveAction(action))
 	{
 		LLGestureMgr::instance().deactivateGesture(mUUID);
@@ -6593,7 +6591,6 @@ void LLObjectBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 
 			if( get_is_item_worn( mUUID ) )
 			{
-				items.push_back(std::string("Wearable And Object Separator"));
 // [SL:KB] - Patch: Inventory-AttachmentActions - Checked: 2012-05-05 (Catznip-3.3)
 				items.push_back(std::string("Attachment Touch"));
 				if ( ((flags & FIRST_SELECTED_ITEM) == 0) || (!enable_attachment_touch(mUUID)) )
@@ -6603,11 +6600,15 @@ void LLObjectBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 				{
 					items.push_back(std::string("Touch Attachment"));
 				}
-				// </FS:Ansariel>
-				items.push_back(std::string("Wearable Edit"));
-				if ( ((flags & FIRST_SELECTED_ITEM) == 0) || (!enable_item_edit(mUUID)) )
-					disabled_items.push_back(std::string("Wearable Edit"));
 // [/SL:KB]
+				items.push_back(std::string("Wearable And Object Separator"));
+
+				items.push_back(std::string("Wearable Edit"));			
+				if ( ((flags & FIRST_SELECTED_ITEM) == 0) || (!enable_item_edit(mUUID)) )
+				{
+					disabled_items.push_back(std::string("Wearable Edit"));
+				}
+
 				items.push_back(std::string("Detach From Yourself"));
 			}
 			else if (!isItemInTrash() && !isLinkedObjectInTrash() && !isLinkedObjectMissing() && !isCOFFolder())

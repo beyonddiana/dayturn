@@ -994,8 +994,6 @@ void LLWearableItemsList::ContextMenu::updateItemsVisibility(LLContextMenu* menu
 	setMenuItemEnabled(menu, "show_original",		n_items == 1 && n_links == n_items);
 	setMenuItemVisible(menu, "take_off",			mask == MASK_CLOTHING && n_worn == n_items);
 	setMenuItemVisible(menu, "detach",				mask == MASK_ATTACHMENT && n_worn == n_items);
-	setMenuItemVisible(menu, "take_off_or_detach",	mask == (MASK_ATTACHMENT|MASK_CLOTHING));
-	setMenuItemEnabled(menu, "take_off_or_detach",	n_worn == n_items);
 	setMenuItemVisible(menu, "object_profile",		!standalone);
 	setMenuItemEnabled(menu, "object_profile",		n_items == 1);
 	setMenuItemVisible(menu, "--no options--", 		FALSE);
