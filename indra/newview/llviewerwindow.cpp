@@ -1685,12 +1685,12 @@ BOOL LLViewerWindow::handleDPIChanged(LLWindow *window, F32 ui_scale_factor, S32
     }
 }
 
-BOOL LLViewerWindow::handleWindowDidChangeScreen(LLWindow *window)
+bool LLViewerWindow::handleWindowDidChangeScreen(LLWindow *window)
 {
 	LLCoordScreen window_rect;
 	mWindow->getSize(&window_rect);
 	reshape(window_rect.mX, window_rect.mY);
-	return TRUE;
+	return true;
 }
 
 void LLViewerWindow::handlePingWatchdog(LLWindow *window, const char * msg)
