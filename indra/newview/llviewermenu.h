@@ -81,7 +81,6 @@ void detach_label(std::string& label, const LLSD&);
 void handle_detach(void*);
 // [SL:KB] - Patch: Inventory-AttachmentActions - Checked: 2012-05-05 (Catznip-3.3)
 void handle_attachment_edit(const LLUUID& idItem);
-void handle_item_edit(const LLUUID& idItem);
 bool enable_item_edit(const LLUUID& idItem);
 void handle_attachment_touch(const LLUUID& idItem);
 bool enable_attachment_touch(const LLUUID& idItem);

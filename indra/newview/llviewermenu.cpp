@@ -3035,25 +3035,6 @@ void handle_attachment_edit(const LLUUID& idItem)
 	}
 }
 
-void handle_item_edit(const LLUUID& idItem)
-{
-	const LLInventoryItem* pItem = gInventory.getItem(idItem);
-	if ( (pItem) && (enable_item_edit(idItem)) )
-	{
-		switch (pItem->getType())
-		{
-			case LLAssetType::AT_BODYPART:
-			case LLAssetType::AT_CLOTHING:
-				LLAgentWearables::editWearable(idItem);
-				break;
-			case LLAssetType::AT_OBJECT:
-				handle_attachment_edit(idItem);
-				break;
-			default:
-				break;
-		}
-	}
-}
 
 bool enable_item_edit(const LLUUID& idItem)
 {

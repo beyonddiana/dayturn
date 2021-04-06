@@ -89,9 +89,9 @@ public:
 		LLUICtrl::CommitCallbackRegistry::ScopedRegistrar registrar;
 		LLUICtrl::EnableCallbackRegistry::ScopedRegistrar enable_registrar;
 
-		registrar.add("Gear.EditOutfit", boost::bind(&edit_outfit));
-		registrar.add("Gear.EditItem", boost::bind(&LLWearingGearMenu::onEditItem, this));
 		registrar.add("Gear.TouchAttach", boost::bind(&LLWearingGearMenu::onTouchAttach, this));
+		registrar.add("Gear.EditItem", boost::bind(&LLWearingGearMenu::onEditItem, this));
+		registrar.add("Gear.EditOutfit", boost::bind(&edit_outfit));
 		registrar.add("Gear.TakeOff", boost::bind(&LLWearingGearMenu::onTakeOff, this));
 		registrar.add("Gear.Copy", boost::bind(&LLPanelWearing::copyToClipboard, mPanelWearing));
 
@@ -213,12 +213,6 @@ protected:
 		menu->setItemEnabled("show_original",	1 == mUUIDs.size());
 		menu->setItemVisible("take_off",	allow_take_off);
 		menu->setItemVisible("detach",		allow_detach);
-// [SL:KB] - Patch: Inventory-AttachmentEdit - Checked: 2010-09-04 (Catznip-2.2.0a) | Added: Catznip-2.1.2a
-		menu->setItemVisible("take_off_or_detach", (!allow_detach) && (!allow_take_off) && (clothes_selected) && (attachments_selected));
-// [/SL:KB]
-
-
-		menu->setItemEnabled("take_off_or_detach", !bp_selected );
 	}
 };
 
