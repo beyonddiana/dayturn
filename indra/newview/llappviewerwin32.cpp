@@ -614,13 +614,13 @@ bool LLAppViewerWin32::initHardwareTest()
 	{
 		// per DEV-11631 - disable hardware probing for everything
 		// but vram.
-		BOOL vram_only = TRUE;
+		bool vram_only = true;
 
 		LLSplashScreen::update(LLTrans::getString("StartupDetectingHardware"));
 
 		LL_DEBUGS("AppInit") << "Attempting to poll DirectX for hardware info" << LL_ENDL;
 		gDXHardware.setWriteDebugFunc(write_debug_dx);
-		BOOL probe_ok = gDXHardware.getInfo(vram_only);
+		bool probe_ok = gDXHardware.getInfo(vram_only);
 
 		if (!probe_ok
 			&& gWarningSettings.getBOOL("AboutDirectX9"))

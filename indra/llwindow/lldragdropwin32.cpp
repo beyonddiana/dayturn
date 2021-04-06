@@ -312,7 +312,7 @@ LLDragDropWin32::~LLDragDropWin32()
 bool LLDragDropWin32::init( HWND hWnd )
 {
 	if ( NOERROR != OleInitialize( NULL ) )
-		return FALSE; 
+		return false; 
 
 	mDropTarget = new LLDragDropWin32Target( hWnd );
 	if ( mDropTarget )

@@ -175,7 +175,7 @@ public:
 	void			setUIVisibility(bool);
 	bool			getUIVisibility();
 
-	BOOL handleAnyMouseClick(LLWindow *window,  LLCoordGL pos, MASK mask, LLMouseHandler::EClickType clicktype, BOOL down);
+	bool handleAnyMouseClick(LLWindow *window,  LLCoordGL pos, MASK mask, LLMouseHandler::EClickType clicktype, bool down);
 
 	//
 	// LLWindowCallback interface implementation
@@ -299,7 +299,7 @@ public:
 	void			setCursor( ECursorType c );
 	void			showCursor();
 	void			hideCursor();
-	BOOL            getCursorHidden() { return mCursorHidden; }
+	bool            getCursorHidden() { return mCursorHidden; }
 	void			moveCursorToCenter();								// move to center of window
 													
 	void			setShowProgress(const BOOL show);
@@ -483,8 +483,8 @@ private:
 	// Variables used for tool override switching based on modifier keys.  JC
 	MASK			mLastMask;			// used to detect changes in modifier mask
 	LLTool*			mToolStored;		// the tool we're overriding
-	BOOL			mHideCursorPermanent;	// true during drags, mouselook
-	BOOL            mCursorHidden;
+	bool			mHideCursorPermanent;	// true during drags, mouselook
+	bool            mCursorHidden;
 	LLPickInfo		mLastPick;
 	std::vector<LLPickInfo> mPicks;
 	LLRect			mPickScreenRegion; // area of frame buffer for rendering pick frames (generally follows mouse to avoid going offscreen)

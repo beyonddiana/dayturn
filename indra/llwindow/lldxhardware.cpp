@@ -424,7 +424,7 @@ std::string get_string(IDxDiagContainer *containerp, WCHAR *wszPropName)
 
 LLVersion::LLVersion()
 {
-	mValid = FALSE;
+	mValid = false;
 	S32 i;
 	for (i = 0; i < 4; i++)
 	{
@@ -432,7 +432,7 @@ LLVersion::LLVersion()
 	}
 }
 
-BOOL LLVersion::set(const std::string &version_string)
+bool LLVersion::set(const std::string &version_string)
 {
 	S32 i;
 	for (i = 0; i < 4; i++)
@@ -459,11 +459,11 @@ BOOL LLVersion::set(const std::string &version_string)
 		{
 			mFields[i] = 0;
 		}
-		mValid = FALSE;
+		mValid = false;
 	}
 	else
 	{
-		mValid = TRUE;
+		mValid = true;
 	}
 	return mValid;
 }
@@ -619,10 +619,10 @@ LLDXDevice *LLDXHardware::findDevice(const std::string &vendor, const std::strin
 }
 */
 
-BOOL LLDXHardware::getInfo(BOOL vram_only)
+bool LLDXHardware::getInfo(bool vram_only)
 {
 	LLTimer hw_timer;
-	BOOL ok = FALSE;
+	bool ok = false;
     HRESULT       hr;
 
     CoInitialize(NULL);
@@ -749,7 +749,7 @@ BOOL LLDXHardware::getInfo(BOOL vram_only)
 
 		if (vram_only)
 		{
-			ok = TRUE;
+			ok = true;
 			goto LCleanup;
 		}
 
@@ -888,7 +888,7 @@ BOOL LLDXHardware::getInfo(BOOL vram_only)
     }
 
     // dumpDevices();
-    ok = TRUE;
+    ok = true;
 	
 LCleanup:
 	if (!ok)
