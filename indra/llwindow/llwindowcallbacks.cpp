@@ -194,9 +194,9 @@ BOOL LLWindowCallbacks::handleDPIChanged(LLWindow *window, F32 ui_scale_factor, 
 	return FALSE;
 }
 
-BOOL LLWindowCallbacks::handleWindowDidChangeScreen(LLWindow *window)
+bool LLWindowCallbacks::handleWindowDidChangeScreen(LLWindow *window)
 {
-	return FALSE;
+	return false;
 }
 
 void LLWindowCallbacks::handlePingWatchdog(LLWindow *window, const char * msg)
