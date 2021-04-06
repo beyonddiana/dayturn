@@ -828,7 +828,7 @@ void LLWindowSDL::close()
 	//	}
 
 	// Make sure cursor is visible and we haven't mangled the clipping state.
-	setMouseClipping(FALSE);
+	setMouseClipping(false);
 	showCursor();
 
 	destroyContext();
@@ -853,20 +853,20 @@ BOOL LLWindowSDL::getVisible()
 	return(result);
 }
 
-BOOL LLWindowSDL::getMinimized()
+bool LLWindowSDL::getMinimized()
 {
-	BOOL result = FALSE;
+	bool result = false;
 
 	if (mWindow && (1 == mIsMinimized))
 	{
-		result = TRUE;
+		result = true;
 	}
 	return(result);
 }
 
-BOOL LLWindowSDL::getMaximized()
+bool LLWindowSDL::getMaximized()
 {
-	BOOL result = FALSE;
+	bool result = false;
 
 	if (mWindow)
 	{
@@ -876,10 +876,10 @@ BOOL LLWindowSDL::getMaximized()
 	return(result);
 }
 
-BOOL LLWindowSDL::maximize()
+bool LLWindowSDL::maximize()
 {
 	// TODO
-	return FALSE;
+	return false;
 }
 
 bool LLWindowSDL::getFullscreen()
@@ -930,7 +930,7 @@ BOOL LLWindowSDL::setPosition(const LLCoordScreen position)
 	return TRUE;
 }
 
-BOOL LLWindowSDL::setSizeImpl(const LLCoordScreen size)
+bool LLWindowSDL::setSizeImpl(const LLCoordScreen size)
 {
 	if(mWindow)
 	{
@@ -942,13 +942,13 @@ BOOL LLWindowSDL::setSizeImpl(const LLCoordScreen size)
 		event.resize.h = size.mY;
 		SDL_PushEvent(&event); // copied into queue
 
-		return TRUE;
+		return true;
 	}
 		
-	return FALSE;
+	return false;
 }
 
-BOOL LLWindowSDL::setSizeImpl(const LLCoordWindow size)
+bool LLWindowSDL::setSizeImpl(const LLCoordWindow size)
 {
 	if(mWindow)
 	{
@@ -960,10 +960,10 @@ BOOL LLWindowSDL::setSizeImpl(const LLCoordWindow size)
 		event.resize.h = size.mY;
 		SDL_PushEvent(&event); // copied into queue
 
-		return TRUE;
+		return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 
@@ -1006,7 +1006,7 @@ BOOL LLWindowSDL::setGamma(const F32 gamma)
 	return true;
 }
 
-BOOL LLWindowSDL::isCursorHidden()
+bool LLWindowSDL::isCursorHidden()
 {
 	return mCursorHidden;
 }
@@ -1014,7 +1014,7 @@ BOOL LLWindowSDL::isCursorHidden()
 
 
 // Constrains the mouse to the window.
-void LLWindowSDL::setMouseClipping( BOOL b )
+void LLWindowSDL::setMouseClipping( bool b )
 {
     //SDL_WM_GrabInput(b ? SDL_GRAB_ON : SDL_GRAB_OFF);
 }
@@ -1038,14 +1038,14 @@ void LLWindowSDL::setMinSize(U32 min_width, U32 min_height, bool enforce_immedia
 #endif
 }
 
-BOOL LLWindowSDL::setCursorPosition(const LLCoordWindow position)
+bool LLWindowSDL::setCursorPosition(const LLCoordWindow position)
 {
-	BOOL result = TRUE;
+	bool result = true;
 	LLCoordScreen screen_pos;
 
 	if (!convertCoords(position, &screen_pos))
 	{
-		return FALSE;
+		return false;
 	}
 
 	//LL_INFOS() << "setCursorPosition(" << screen_pos.mX << ", " << screen_pos.mY << ")" << LL_ENDL;
@@ -1058,7 +1058,7 @@ BOOL LLWindowSDL::setCursorPosition(const LLCoordWindow position)
 	return result;
 }
 
-BOOL LLWindowSDL::getCursorPosition(LLCoordWindow *position)
+bool LLWindowSDL::getCursorPosition(LLCoordWindow *position)
 {
 	//Point cursor_point;
 	LLCoordScreen screen_pos;
@@ -2166,8 +2166,8 @@ void LLWindowSDL::hideCursor()
 	if(!mCursorHidden)
 	{
 		// LL_INFOS() << "hideCursor: hiding" << LL_ENDL;
-		mCursorHidden = TRUE;
-		mHideCursorPermanent = TRUE;
+		mCursorHidden = true;
+		mHideCursorPermanent = true;
 		SDL_ShowCursor(0);
 	}
 	else
@@ -2181,8 +2181,8 @@ void LLWindowSDL::showCursor()
 	if(mCursorHidden)
 	{
 		// LL_INFOS() << "showCursor: showing" << LL_ENDL;
-		mCursorHidden = FALSE;
-		mHideCursorPermanent = FALSE;
+		mCursorHidden = false;
+		mHideCursorPermanent = false;
 		SDL_ShowCursor(1);
 	}
 	else
@@ -2204,7 +2204,7 @@ void LLWindowSDL::hideCursorUntilMouseMove()
 	if (!mHideCursorPermanent)
 	{
 		hideCursor();
-		mHideCursorPermanent = FALSE;
+		mHideCursorPermanent = false;
 	}
 }
 

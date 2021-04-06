@@ -786,14 +786,14 @@ void LLWindowWin32::show()
 
 void LLWindowWin32::hide()
 {
-	setMouseClipping(FALSE);
+	setMouseClipping(false);
 	ShowWindow(mWindowHandle, SW_HIDE);
 }
 
 //virtual
 void LLWindowWin32::minimize()
 {
-	setMouseClipping(FALSE);
+	setMouseClipping(false);
 	showCursor();
 	ShowWindow(mWindowHandle, SW_MINIMIZE);
 }
@@ -850,7 +850,7 @@ void LLWindowWin32::close()
 
 	// Make sure cursor is visible and we haven't mangled the clipping state.
 	showCursor();
-	setMouseClipping(FALSE);
+	setMouseClipping(false);
 	if (gKeyboard)
 	{
 		gKeyboard->resetKeys();
@@ -925,19 +925,19 @@ BOOL LLWindowWin32::getVisible()
 	return (mWindowHandle && IsWindowVisible(mWindowHandle));
 }
 
-BOOL LLWindowWin32::getMinimized()
+bool LLWindowWin32::getMinimized()
 {
 	return (mWindowHandle && IsIconic(mWindowHandle));
 }
 
-BOOL LLWindowWin32::getMaximized()
+bool LLWindowWin32::getMaximized()
 {
 	return (mWindowHandle && IsZoomed(mWindowHandle));
 }
 
-BOOL LLWindowWin32::maximize()
+bool LLWindowWin32::maximize()
 {
-	BOOL success = FALSE;
+	bool success = false;
 	if (!mWindowHandle) return success;
 
 	WINDOWPLACEMENT placement;
@@ -1018,30 +1018,30 @@ BOOL LLWindowWin32::setPosition(const LLCoordScreen position)
 	return TRUE;
 }
 
-BOOL LLWindowWin32::setSizeImpl(const LLCoordScreen size)
+bool LLWindowWin32::setSizeImpl(const LLCoordScreen size)
 {
 	LLCoordScreen position;
 
 	getPosition(&position);
 	if (!mWindowHandle)
 	{
-		return FALSE;
+		return false;
 	}
 
 	WINDOWPLACEMENT placement;
 	placement.length = sizeof(WINDOWPLACEMENT);
 
-	if (!GetWindowPlacement(mWindowHandle, &placement)) return FALSE;
+	if (!GetWindowPlacement(mWindowHandle, &placement)) return false;
 
 	placement.showCmd = SW_RESTORE;
 
-	if (!SetWindowPlacement(mWindowHandle, &placement)) return FALSE;
+	if (!SetWindowPlacement(mWindowHandle, &placement)) return false;
 
 	moveWindow(position, size);
-	return TRUE;
+	return true;
 }
 
-BOOL LLWindowWin32::setSizeImpl(const LLCoordWindow size)
+bool LLWindowWin32::setSizeImpl(const LLCoordWindow size)
 {
 	RECT window_rect = {0, 0, size.mX, size.mY };
 	DWORD dw_ex_style = WS_EX_APPWINDOW | WS_EX_WINDOWEDGE;
@@ -1774,12 +1774,12 @@ void LLWindowWin32::moveWindow( const LLCoordScreen& position, const LLCoordScre
 	MoveWindow(mWindowHandle, position.mX, position.mY, size.mX, size.mY, TRUE);
 }
 
-BOOL LLWindowWin32::setCursorPosition(const LLCoordWindow position)
+bool LLWindowWin32::setCursorPosition(const LLCoordWindow position)
 {
 	mMousePositionModified = TRUE;
 	if (!mWindowHandle)
 	{
-		return FALSE;
+		return false;
 	}
 
 
@@ -1799,7 +1799,7 @@ BOOL LLWindowWin32::setCursorPosition(const LLCoordWindow position)
 	return ::SetCursorPos(screen_pos.mX, screen_pos.mY);
 }
 
-BOOL LLWindowWin32::getCursorPosition(LLCoordWindow *position)
+bool LLWindowWin32::getCursorPosition(LLCoordWindow *position)
 {
 	POINT cursor_point;
 
@@ -1807,11 +1807,11 @@ BOOL LLWindowWin32::getCursorPosition(LLCoordWindow *position)
 		|| !GetCursorPos(&cursor_point)
 		|| !position)
 	{
-		return FALSE;
+		return false;
 	}
 
 	*position = LLCoordScreen(cursor_point.x, cursor_point.y).convert();
-	return TRUE;
+	return true;
 }
 
 void LLWindowWin32::hideCursor()
@@ -1820,8 +1820,8 @@ void LLWindowWin32::hideCursor()
 	{
 		// nothing, wait for cursor to push down
 	}
-	mCursorHidden = TRUE;
-	mHideCursorPermanent = TRUE;
+	mCursorHidden = true;
+	mHideCursorPermanent = true;
 }
 
 void LLWindowWin32::showCursor()
@@ -1831,8 +1831,8 @@ void LLWindowWin32::showCursor()
 	{
 		// do nothing, wait for cursor to pop out
 	}
-	mCursorHidden = FALSE;
-	mHideCursorPermanent = FALSE;
+	mCursorHidden = false;
+	mHideCursorPermanent = false;
 }
 
 void LLWindowWin32::showCursorFromMouseMove()
@@ -1848,11 +1848,11 @@ void LLWindowWin32::hideCursorUntilMouseMove()
 	if (!mHideCursorPermanent && mMouseVanish)
 	{
 		hideCursor();
-		mHideCursorPermanent = FALSE;
+		mHideCursorPermanent = false;
 	}
 }
 
-BOOL LLWindowWin32::isCursorHidden()
+bool LLWindowWin32::isCursorHidden()
 {
 	return mCursorHidden;
 }
@@ -2141,7 +2141,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
 			{
 				// This message should be sent whenever the app gains or loses focus.
 				BOOL activating = (BOOL) w_param;
-				BOOL minimized = window_imp->getMinimized();
+				bool minimized = window_imp->getMinimized();
 
 				if (gDebugWindowProc)
 				{
@@ -2184,7 +2184,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
 				// Can be one of WA_ACTIVE, WA_CLICKACTIVE, or WA_INACTIVE
 				BOOL activating = (LOWORD(w_param) != WA_INACTIVE);
 
-				BOOL minimized = BOOL(HIWORD(w_param));
+				bool minimized = bool(HIWORD(w_param));
 
 				if (!activating && LLWinImm::isAvailable() && window_imp->mPreeditor)
 				{
@@ -2835,9 +2835,9 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
 
 				if (gDebugWindowProc)
 				{
-					BOOL maximized = ( w_param == SIZE_MAXIMIZED );
-					BOOL restored  = ( w_param == SIZE_RESTORED );
-					BOOL minimized = ( w_param == SIZE_MINIMIZED );
+					bool maximized = ( w_param == SIZE_MAXIMIZED );
+					bool restored  = ( w_param == SIZE_RESTORED );
+					bool minimized = ( w_param == SIZE_MINIMIZED );
 
 					LL_INFOS("Window") << "WINDOWPROC Size "
 						<< width << "x" << height
@@ -3139,11 +3139,11 @@ bool LLWindowWin32::copyTextToClipboard(const LLWString& wstr)
 }
 
 // Constrains the mouse to the window.
-void LLWindowWin32::setMouseClipping( BOOL b )
+void LLWindowWin32::setMouseClipping( bool b )
 {
 	if( b != mIsMouseClipping )
 	{
-		BOOL success = FALSE;
+		bool success = false;
 
 		if( b )
 		{

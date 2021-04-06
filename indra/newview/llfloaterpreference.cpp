@@ -144,7 +144,7 @@ public:
 	void setParent(LLFloaterPreference* parent) { mParent = parent; }
 	
 	bool handleKeyHere(KEY key, MASK mask);
-	BOOL handleAnyMouseClick(S32 x, S32 y, MASK mask, LLMouseHandler::EClickType clicktype, BOOL down);
+	bool handleAnyMouseClick(S32 x, S32 y, MASK mask, LLMouseHandler::EClickType clicktype, bool down);
 	static void onCancel(void* user_data);
 		
 private:
@@ -188,15 +188,15 @@ bool LLVoiceSetKeyDialog::handleKeyHere(KEY key, MASK mask)
 	return result;
 }
 
-BOOL LLVoiceSetKeyDialog::handleAnyMouseClick(S32 x, S32 y, MASK mask, LLMouseHandler::EClickType clicktype, BOOL down)
+bool LLVoiceSetKeyDialog::handleAnyMouseClick(S32 x, S32 y, MASK mask, LLMouseHandler::EClickType clicktype, bool down)
 {
-    BOOL result = FALSE;
+    bool result = false;
     if (down
         && (clicktype == LLMouseHandler::CLICK_MIDDLE || clicktype == LLMouseHandler::CLICK_BUTTON4 || clicktype == LLMouseHandler::CLICK_BUTTON5)
         && mask == 0)
     {
         mParent->setMouse(clicktype);
-        result = TRUE;
+        result = true;
         closeFloater();
     }
     else

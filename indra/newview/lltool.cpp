@@ -61,9 +61,9 @@ LLTool::~LLTool()
 	}
 }
 
-BOOL LLTool::handleAnyMouseClick(S32 x, S32 y, MASK mask, LLMouseHandler::EClickType clicktype, BOOL down)
+bool LLTool::handleAnyMouseClick(S32 x, S32 y, MASK mask, LLMouseHandler::EClickType clicktype, bool down)
 {
-	BOOL result = LLMouseHandler::handleAnyMouseClick(x, y, mask, clicktype, down);
+	bool result = LLMouseHandler::handleAnyMouseClick(x, y, mask, clicktype, down);
 	
 	// This behavior was moved here from LLViewerWindow::handleAnyMouseClick, so it can be selectively overridden by LLTool subclasses.
 	if(down && result)

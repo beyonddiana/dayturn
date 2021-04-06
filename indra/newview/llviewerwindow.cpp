@@ -934,7 +934,7 @@ LLViewerWindow::Params::Params()
 {}
 
 
-BOOL LLViewerWindow::handleAnyMouseClick(LLWindow *window,  LLCoordGL pos, MASK mask, LLMouseHandler::EClickType clicktype, BOOL down)
+bool LLViewerWindow::handleAnyMouseClick(LLWindow *window,  LLCoordGL pos, MASK mask, LLMouseHandler::EClickType clicktype, bool down)
 {
 	const char* buttonname = "";
 	const char* buttonstatestr = "";
@@ -1021,7 +1021,7 @@ BOOL LLViewerWindow::handleAnyMouseClick(LLWindow *window,  LLCoordGL pos, MASK 
 				LL_INFOS() << buttonname << " Mouse " << buttonstatestr << " handled by captor " << mouse_captor->getName() << LL_ENDL;
 			}
 
-			BOOL r = mouse_captor->handleAnyMouseClick(local_x, local_y, mask, clicktype, down); 
+			bool r = mouse_captor->handleAnyMouseClick(local_x, local_y, mask, clicktype, down); 
 			if (r) {
 
 				LL_DEBUGS() << "LLViewerWindow::handleAnyMouseClick viewer with mousecaptor calling updatemouseeventinfo - local_x|global x  "<< local_x << " " << x  << "local/global y " << local_y << " " << y << LL_ENDL;
@@ -1036,11 +1036,11 @@ BOOL LLViewerWindow::handleAnyMouseClick(LLWindow *window,  LLCoordGL pos, MASK 
 		// Mark the click as handled and return if we aren't within the root view to avoid spurious bugs
 		if( !mRootView->pointInView(x, y) )
 		{
-			return TRUE;
+			return true;
 		}
 		// Give the UI views a chance to process the click
 
-		BOOL r= mRootView->handleAnyMouseClick(x, y, mask, clicktype, down) ;
+		bool r= mRootView->handleAnyMouseClick(x, y, mask, clicktype, down) ;
 		if (r) 
 		{
 
@@ -1062,7 +1062,7 @@ BOOL LLViewerWindow::handleAnyMouseClick(LLWindow *window,  LLCoordGL pos, MASK 
 			{
 				LL_INFOS() << buttonname << " Mouse " << buttonstatestr << " " << LLViewerEventRecorder::instance().get_xui()	<< LL_ENDL;
 			} 
-			return TRUE;
+			return true;
 		} else if (LLView::sDebugMouseHandling)
 			{
 				LL_INFOS() << buttonname << " Mouse " << buttonstatestr << " not handled by view" << LL_ENDL;
@@ -1073,13 +1073,13 @@ BOOL LLViewerWindow::handleAnyMouseClick(LLWindow *window,  LLCoordGL pos, MASK 
 	if(!gDisconnected && LLToolMgr::getInstance()->getCurrentTool()->handleAnyMouseClick( x, y, mask, clicktype, down ) )
 	{
 		LLViewerEventRecorder::instance().clear_xui(); 
-		return TRUE;
+		return true;
 	}
 
 	
 	// If we got this far on a down-click, it wasn't handled.
 	// Up-clicks, though, are always handled as far as the OS is concerned.
-	BOOL default_rtn = !down;
+	bool default_rtn = !down;
 	return default_rtn;
 }
 
@@ -1094,7 +1094,7 @@ BOOL LLViewerWindow::handleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask
     {
         mMouseDownTimer.reset();
     }    
-    BOOL down = TRUE;	
+    bool down = true;	
     return handleAnyMouseClick(window,pos,mask,LLMouseHandler::CLICK_LEFT,down);
 }
 
@@ -1102,7 +1102,7 @@ BOOL LLViewerWindow::handleDoubleClick(LLWindow *window,  LLCoordGL pos, MASK ma
 {
 	// try handling as a double-click first, then a single-click if that
 	// wasn't handled.
-	BOOL down = TRUE;
+	bool down = true;
 	if (handleAnyMouseClick(window, pos, mask,
 				LLMouseHandler::CLICK_DOUBLELEFT, down))
 	{
@@ -1117,7 +1117,7 @@ BOOL LLViewerWindow::handleMouseUp(LLWindow *window,  LLCoordGL pos, MASK mask)
     {
         mMouseDownTimer.stop();
     }
-    BOOL down = FALSE;
+    bool down = false;
 	return handleAnyMouseClick(window,pos,mask,LLMouseHandler::CLICK_LEFT,down);
 }
 
@@ -1138,7 +1138,7 @@ BOOL LLViewerWindow::handleRightMouseDown(LLWindow *window,  LLCoordGL pos, MASK
 		return true;
 	}
 //mk
-	BOOL down = TRUE;
+	bool down = true;
 	BOOL handle = handleAnyMouseClick(window,pos,mask,LLMouseHandler::CLICK_RIGHT,down);
 	if (handle)
 		return handle;
@@ -1163,13 +1163,13 @@ BOOL LLViewerWindow::handleRightMouseDown(LLWindow *window,  LLCoordGL pos, MASK
 
 BOOL LLViewerWindow::handleRightMouseUp(LLWindow *window,  LLCoordGL pos, MASK mask)
 {
-	BOOL down = FALSE;
+	bool down = false;
  	return handleAnyMouseClick(window,pos,mask,LLMouseHandler::CLICK_RIGHT,down);
 }
 
 BOOL LLViewerWindow::handleMiddleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask)
 {
-	BOOL down = TRUE;
+	bool down = true;
 	LLVoiceClient::getInstance()->updateMouseState(LLMouseHandler::CLICK_MIDDLE, true);
  	handleAnyMouseClick(window,pos,mask,LLMouseHandler::CLICK_MIDDLE,down);
   
@@ -1325,7 +1325,7 @@ LLWindowCallbacks::DragNDropResult LLViewerWindow::handleDragNDrop( LLWindow *wi
 
 BOOL LLViewerWindow::handleMiddleMouseUp(LLWindow *window,  LLCoordGL pos, MASK mask)
 {
-	BOOL down = FALSE;
+	bool down = false;
 	LLVoiceClient::getInstance()->updateMouseState(LLMouseHandler::CLICK_MIDDLE, false);
  	handleAnyMouseClick(window,pos,mask,LLMouseHandler::CLICK_MIDDLE,down);
   
@@ -1475,7 +1475,7 @@ void LLViewerWindow::handleFocusLost(LLWindow *window)
 
 	// restore mouse cursor
 	showCursor();
-	getWindow()->setMouseClipping(FALSE);
+	getWindow()->setMouseClipping(false);
 
 	// If losing focus while keys are down, reset them.
 	if (gKeyboard)
@@ -1773,8 +1773,8 @@ LLViewerWindow::LLViewerWindow(const Params& p)
     mMouseDownTimer(),
 	mLastMask( MASK_NONE ),
 	mToolStored( NULL ),
-	mHideCursorPermanent( FALSE ),
-	mCursorHidden(FALSE),
+	mHideCursorPermanent(false),
+	mCursorHidden(false),
 	mIgnoreActivate( FALSE ),
 	mResDirty(false),
 	mStatesDirty(false),
@@ -2455,7 +2455,7 @@ void LLViewerWindow::showCursor()
 {
 	mWindow->showCursor();
 	
-	mCursorHidden = FALSE;
+	mCursorHidden = false;
 }
 
 void LLViewerWindow::hideCursor()
@@ -2463,7 +2463,7 @@ void LLViewerWindow::hideCursor()
 	// And hide the cursor
 	mWindow->hideCursor();
 
-	mCursorHidden = TRUE;
+	mCursorHidden = true;
 }
 
 void LLViewerWindow::sendShapeToSim()
@@ -2539,7 +2539,7 @@ void LLViewerWindow::reshape(S32 width, S32 height)
 		sendShapeToSim();
 
 		// store new settings for the mode we are in, regardless
-		BOOL maximized = mWindow->getMaximized();
+		bool maximized = mWindow->getMaximized();
 		gSavedSettings.setBOOL("WindowMaximized", maximized);
 
 		if (!maximized)

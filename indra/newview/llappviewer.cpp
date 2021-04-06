@@ -3507,7 +3507,7 @@ void LLAppViewer::cleanupSavedSettings()
 	// as we don't track it in callbacks
 	if(NULL != gViewerWindow)
 	{
-		BOOL maximized = gViewerWindow->getWindow()->getMaximized();
+		bool maximized = gViewerWindow->getWindow()->getMaximized();
 		if (!maximized)
 		{
 			LLCoordScreen window_pos;

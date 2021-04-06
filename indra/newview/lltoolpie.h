@@ -42,7 +42,7 @@ class LLToolPie : public LLTool, public LLSingleton<LLToolPie>
     
 public:
 	// Virtual functions inherited from LLMouseHandler
-	virtual BOOL		handleAnyMouseClick(S32 x, S32 y, MASK mask, EClickType clicktype, BOOL down);
+	virtual bool		handleAnyMouseClick(S32 x, S32 y, MASK mask, EClickType clicktype, bool down);
 	virtual BOOL		handleMouseDown(S32 x, S32 y, MASK mask);
 	virtual BOOL		handleMiddleMouseDown(S32 x, S32 y, MASK mask);
 	virtual BOOL		handleMiddleMouseUp(S32 x, S32 y, MASK mask);

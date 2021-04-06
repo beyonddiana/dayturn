@@ -96,9 +96,9 @@ LLToolPie::LLToolPie()
 {
 }
 
-BOOL LLToolPie::handleAnyMouseClick(S32 x, S32 y, MASK mask, EClickType clicktype, BOOL down)
+bool LLToolPie::handleAnyMouseClick(S32 x, S32 y, MASK mask, EClickType clicktype, bool down)
 {
-	BOOL result = LLMouseHandler::handleAnyMouseClick(x, y, mask, clicktype, down);
+	bool result = LLMouseHandler::handleAnyMouseClick(x, y, mask, clicktype, down);
 	
 	// This override DISABLES the keyboard focus reset that LLTool::handleAnyMouseClick adds.
 	// LLToolPie will do the right thing in its pick callback.
