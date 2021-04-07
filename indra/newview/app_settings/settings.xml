@@ -417,8 +417,7 @@
       <key>Value</key>
       <integer>1</integer>
     </map>
- 
-    <key>CrashHostUrl</key>
+	<key>CrashHostUrl</key>
     <map>
       <key>Comment</key>
       <string>A URL pointing to a crash report handler; overrides cluster negotiation to locate crash handler.</string>
@@ -480,6 +479,17 @@
     <map>
       <key>Comment</key>
       <string>Display advanced parameter settings in snaphot interface</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+    </map>
+    <key>AdvanceOutfitSnapshot</key>
+    <map>
+      <key>Comment</key>
+      <string>Display advanced parameter settings in outfit snaphot interface</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
@@ -601,28 +611,6 @@
     <map>
       <key>Comment</key>
       <string>While cursor is in chat entry box, arrow keys still control your avatar</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>0</integer>
-    </map>
-    <key>AskedAboutCrashReports</key>
-    <map>
-      <key>Comment</key>
-      <string>Turns off dialog asking if you want to enable crash reporting</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>1</integer>
-    </map>
-    <key>AuctionShowFence</key>
-    <map>
-      <key>Comment</key>
-      <string>When auctioning land, include parcel boundary marker in snapshot</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
@@ -817,16 +805,6 @@
     <key>Value</key>
     <string>http://localhost/grids.xml</string>
   </map>
-  <key>ShowMutedAvatarsAsCloud</key>
-  <map>
-    <key>Comment</key>
-    <string>If true, show muted avatars as clouds.</string>
-    <integer>1</integer>
-    <key>Type</key>
-    <string>Boolean</string>
-    <key>Value</key>
-    <integer>0</integer>
-  </map>
   <key>AutoAcceptNewInventory</key>
     <map>
       <key>Comment</key>
@@ -849,34 +827,12 @@
       <key>Value</key>
       <integer>1</integer>
     </map>
-    <key>AutoLoadWebProfiles</key>
-    <map>
-      <key>Comment</key>
-      <string>Automatically load ALL profile webpages without asking first.</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>0</integer>
-    </map>
     <key>AutoLogin</key>
     <map>
       <key>Comment</key>
       <string>Login automatically using last username/password combination</string>
       <key>Persist</key>
       <integer>0</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>0</integer>
-    </map>
-    <key>AutoMimeDiscovery</key>
-    <map>
-      <key>Comment</key>
-      <string>Enable viewer mime type discovery of media URLs</string>
-      <key>Persist</key>
-      <integer>1</integer>
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
@@ -1102,32 +1058,6 @@
       <key>Value</key>
       <real>16.0</real>
     </map>
-    <key>AvatarPickerSortOrder</key>
-    <map>
-      <key>Comment</key>
-      <string>Specifies sort key for textures in avatar picker (+0 = name, +1 = date, +2 = folders always by name, +4 = system folders to top)</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>U32</string>
-      <key>Value</key>
-      <integer>2</integer>
-    </map>
-    <key>AvatarPosFinalOffset</key>
-    <map>
-      <key>Comment</key>
-      <string>After-everything-else fixup for avatar position.</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Vector3</string>
-      <key>Value</key>
-      <array>
-        <real>0.0</real>
-        <real>0.0</real>
-        <real>0.0</real>
-      </array>
-    </map>
     <key>AvatarPickerURL</key>
     <map>
       <key>Comment</key>
@@ -1227,17 +1157,6 @@
       <key>Value</key>
       <integer>40</integer>
     </map>
-    <key>BottomPanelNew</key>
-    <map>
-      <key>Comment</key>
-      <string>Enable the new bottom panel</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>0</integer>
-    </map>
     <key>BrowserHomePage</key>
     <map>
       <key>Comment</key>
@@ -1315,17 +1234,6 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
-    <key>BrowserProxyExclusions</key>
-    <map>
-      <key>Comment</key>
-      <string>[NOT USED]</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string />
-    </map>
     <key>BrowserProxyPort</key>
     <map>
       <key>Comment</key>
@@ -1336,17 +1244,6 @@
       <string>S32</string>
       <key>Value</key>
       <integer>3128</integer>
-    </map>
-    <key>BrowserProxySocks45</key>
-    <map>
-      <key>Comment</key>
-      <string>[NOT USED]</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>5</integer>
     </map>
     <key>Socks5ProxyEnabled</key>
     <map>
@@ -1810,17 +1707,6 @@
       <key>Value</key>
       <real>1.0</real>
     </map>
-    <key>CameraMouseWheelZoom</key>
-    <map>
-      <key>Comment</key>
-      <string>Camera zooms in and out with mousewheel</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>5</integer>
-    </map>
     <key>CameraAngle</key>
     <map>
       <key>Comment</key>
@@ -2022,18 +1908,6 @@
     <key>Value</key>
     <real>60.0</real>
   </map>
-
-  <key>CatMode</key>
-  <map>
-    <key>Comment</key>
-    <string>Makes your head always look in the direction your mouse pointer when not idle</string>
-    <key>Persist</key>
-    <integer>1</integer>
-    <key>Type</key>
-    <string>Boolean</string>
-    <key>Value</key>
-    <integer>0</integer>
-  </map>
   <key>CertStore</key>
     <map>
       <key>Comment</key>
@@ -2049,17 +1923,6 @@
     <map>
       <key>Comment</key>
       <string>Auto-complete gestures in nearby chat</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>1</integer>
-    </map>
-    <key>ChatBarStealsFocus</key>
-    <map>
-      <key>Comment</key>
-      <string>Whenever keyboard focus is removed from the UI, and the chat bar is visible, the chat bar takes focus</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
@@ -2111,17 +1974,6 @@
       <key>Value</key>
       <integer>1</integer>
     </map>
-    <key>ChatHistoryTornOff</key>
-    <map>
-      <key>Comment</key>
-      <string>Show chat history window separately from Communicate window.</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>0</integer>
-    </map>
     <key>ChatLoadGroupMaxMembers</key>
     <map>
         <key>Comment</key>
@@ -2132,17 +1984,6 @@
         <string>S32</string>
         <key>Value</key>
         <integer>100</integer>
-    </map>
-    <key>ChatLoadGroupTimeout</key>
-    <map>
-        <key>Comment</key>
-        <string>Time we give the server to send group participants before we hit the server for group info (seconds)</string>
-        <key>Persist</key>
-        <integer>1</integer>
-        <key>Type</key>
-        <string>F32</string>
-        <key>Value</key>
-        <real>10.0</real>
     </map>
     <key>ChatOnlineNotification</key>
     <map>
@@ -2424,17 +2265,6 @@
       <key>Value</key>
       <integer>40</integer>
     </map>
-    <key>ContactsTornOff</key>
-    <map>
-      <key>Comment</key>
-      <string>Show contacts window separately from Communicate window.</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>0</integer>
-    </map>
     <key>CookiesEnabled</key>
     <map>
       <key>Comment</key>
@@ -2467,17 +2297,6 @@
       <string>Boolean</string>
       <key>Value</key>
       <integer>1</integer>
-    </map>
-    <key>ChatBarCustomWidth</key>
-    <map>
-      <key>Comment</key>
-      <string>Stores customized width of chat bar.</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>0</integer>
     </map>
     <key>CoroutineStackSize</key>
     <map>
@@ -2599,17 +2418,6 @@
       <string>String</string>
       <key>Value</key>
       <string></string>
-    </map>
-    <key>CustomServer</key>
-    <map>
-      <key>Comment</key>
-      <string>Specifies IP address or hostname of grid to which you connect</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string />
     </map>
   <key>DebugAnimatedObjects</key>
   <map>
@@ -2809,17 +2617,6 @@
 -      <key>Value</key>
 -      <integer>0</integer>
 -   </map>
-    <key>DebugInventoryFilters</key>
-    <map>
-      <key>Comment</key>
-      <string>Turn on debugging display for inventory filtering</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>0</integer>
-    </map>
     <key>DebugPermissions</key>
     <map>
       <key>Comment</key>
@@ -2879,17 +2676,6 @@
     <map>
       <key>Comment</key>
       <string>Show Total Allocated Memory</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>0</integer>
-    </map>
-    <key>DEPRECATED: DebugShowPrivateMem</key>  <!-- deprecated (see MAINT-8091) -->
-    <map>
-      <key>Comment</key>
-      <string>Show Private Mem Info</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
@@ -2963,590 +2749,7 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
-  <key>DebugStatModeFPS</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeBandwidth</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModePacketLoss</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatMode</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeKTrisDrawnFr</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeKTrisDrawnSec</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeTotalObjs</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeNewObjs</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeTextureCount</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeRawCount</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeGLMem</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeFormattedMem</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeRawMem</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeBoundMem</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModePacketsIn</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModePacketsOut</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeObjects</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeTexture</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeAsset</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeLayers</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeActualIn</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeActualOut</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeVFSPendingOps</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeTimeDialation</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeSimFPS</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModePhysicsFPS</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModePinnedObjects</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeLowLODObjects</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeMemoryAllocated</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeAgentUpdatesSec</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeMainAgents</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeChildAgents</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeSimObjects</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeSimActiveObjects</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeSimActiveScripts</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeSimScriptEvents</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeSimInPPS</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeSimOutPPS</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeSimPendingDownloads</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
     <key>SimPendingUploads</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeSimTotalUnackedBytes</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeSimFrameMsec</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeSimNetMsec</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeSimSimPhysicsMsec</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeSimSimOtherMsec</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeSimAgentMsec</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeSimImagesMsec</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeSimScriptMsec</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeSimSpareMsec</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeSimSimPhysicsStepMsec</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeSimSimPhysicsShapeUpdateMsec</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeSimSimPhysicsOtherMsec</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeSimSleepMsec</key>
-    <map>
-      <key>Comment</key>
-      <string>Mode of stat in Statistics floater</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>-1</integer>
-    </map>
-    <key>DebugStatModeSimPumpIOMsec</key>
     <map>
       <key>Comment</key>
       <string>Mode of stat in Statistics floater</string>
@@ -3665,7 +2868,7 @@
       <key>Type</key>
       <string>U32</string>
       <key>Value</key>
-      <integer>10</integer>
+      <integer>0</integer>
     </map>
     <key>DestinationGuideURL</key>
     <map>
@@ -3687,7 +2890,7 @@
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
-      <integer>1</integer>
+      <integer>0</integer>
     </map>
     <key>DisableCrashLogger</key>
     <map>
@@ -3715,17 +2918,6 @@
     <map>
       <key>Comment</key>
       <string>Disable opening an external browser.</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>0</integer>
-    </map>
-    <key>HeadlessClient</key>
-    <map>
-      <key>Comment</key>
-      <string>Run in headless mode by disabling GL rendering, keyboard, etc</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
@@ -3825,28 +3017,6 @@
     <map>
       <key>Comment</key>
       <string>Display Latest IM message on LCD</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>1</integer>
-    </map>
-    <key>DisplayLinden</key>
-    <map>
-      <key>Comment</key>
-      <string>Display Account Information on LCD</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>1</integer>
-    </map>
-    <key>DisplayRegion</key>
-    <map>
-      <key>Comment</key>
-      <string>Display Location information on LCD</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
@@ -4052,17 +3222,6 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
-    <key>IncludeEnhancedSkeleton</key>
-    <map>
-      <key>Comment</key>
-      <string>Include extended skeleton joints when rendering skinned meshes.</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>1</integer>
-    </map>
     <key>MinObjectsForUnlinkConfirm</key>
     <map>
       <key>Comment</key>
@@ -4205,17 +3364,6 @@
       <string>Boolean</string>
       <key>Value</key>
       <string>1</string>
-    </map>
-	<key>FeatureManagerHTTPTable</key>
-      <map>
-        <key>Comment</key>
-        <string>Deprecated</string>
-        <key>Persist</key>
-        <integer>0</integer>
-        <key>Type</key>
-        <string>String</string>
-        <key>Value</key>
-        <string></string>
     </map>
     <key>FPSLogFrequency</key>
         <map>
@@ -5085,18 +4233,7 @@
       <string>String</string>
       <key>Value</key>
       <string />
-    </map>
-    <key>HtmlHelpLastPage</key>
-    <map>
-      <key>Comment</key>
-      <string>Last URL visited via help system</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string />
-    </map>
+    </map>    
     <key>HttpPipelining</key>
     <map>
       <key>Comment</key>
@@ -5251,17 +4388,6 @@
       <key>Value</key>
       <string>default</string>
     </map>
-    <key>InventoryAutoOpenDelay</key>
-    <map>
-      <key>Comment</key>
-      <string>Seconds before automatically opening inventory when mouse is over inventory button when performing inventory drag and drop</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>F32</string>
-      <key>Value</key>
-      <real>1.0</real>
-    </map>
     <key>InventoryDebugSimulateOpFailureRate</key>
     <map>
       <key>Comment</key>
@@ -5317,17 +4443,6 @@
 		<key>Value</key>
 		<integer>1</integer>
 	</map>
-    <key>InventoryOutboxDisplayBoth</key>
-    <map>
-        <key>Comment</key>
-        <string>(Deprecated) Show the legacy Merchant Outbox UI as well as the Marketplace Listings UI</string>
-        <key>Persist</key>
-        <integer>1</integer>
-        <key>Type</key>
-        <string>Boolean</string>
-        <key>Value</key>
-        <integer>0</integer>
-    </map>
 	<key>InventoryOutboxLogging</key>
 	<map>
 		<key>Comment</key>
@@ -5337,7 +4452,7 @@
 		<key>Type</key>
 		<string>Boolean</string>
 		<key>Value</key>
-		<integer>1</integer>
+		<integer>0</integer>
 	</map>
 	<key>InventoryOutboxMakeVisible</key>
 	<map>
@@ -5636,17 +4751,6 @@
       <key>Value</key>
         <real>2.0</real>
     </map>
-    <key>LCDDestination</key>
-    <map>
-      <key>Comment</key>
-      <string>Which LCD to use</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>0</integer>
-    </map>
     <key>LeapCommand</key>
     <map>
       <key>Comment</key>
@@ -5745,18 +4849,7 @@
       <string>S32</string>
       <key>Value</key>
       <integer>0</integer>
-    </map>
-    <key>LastFindPanel</key>
-    <map>
-      <key>Comment</key>
-      <string>Controls which find operation appears by default when clicking "Find" button </string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>find_all_panel</string>
-    </map>
+    </map>    
     <key>LastName</key>
     <map>
       <key>Comment</key>
@@ -6165,17 +5258,6 @@
       <key>Value</key>
       <real>60.0</real>
     </map>
-    <key>MapOverlayIndex</key>
-    <map>
-      <key>Comment</key>
-      <string>Currently selected world map type</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>0</integer>
-    </map>
     <key>MapScale</key>
     <map>
       <key>Comment</key>
@@ -6318,380 +5400,6 @@
       <string>String</string>
       <key>Value</key>
       <string>https://marketplace.secondlife.com/</string>
-    </map>
-    <key>MarketplaceURL_objectFemale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Attachments Female</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/attachments</string>
-    </map>
-    <key>MarketplaceURL_objectMale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Attachments Male</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/attachments</string>
-    </map>
-    <key>MarketplaceURL_clothingFemale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Clothing Female</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/clothing_female_avatar</string>
-    </map>
-    <key>MarketplaceURL_clothingMale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Clothing Male</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/clothing_male_avatar</string>
-    </map>
-    <key>MarketplaceURL_bodypartFemale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Bodyparts Female</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/</string>
-    </map>
-    <key>MarketplaceURL_bodypartMale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Bodyparts Male</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/</string>
-    </map>
-    <key>MarketplaceURL_glovesMale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Gloves Male</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/gloves_both_women_and_men</string>
-    </map>
-    <key>MarketplaceURL_glovesFemale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Gloves Female</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/gloves_both_women_and_men</string>
-    </map>
-    <key>MarketplaceURL_jacketFemale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Jacket Female</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/jacket_womens</string>
-    </map>
-    <key>MarketplaceURL_jacketMale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Jacket Male</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/jacket_mens</string>
-    </map>
-    <key>MarketplaceURL_shirtFemale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Shirt Female</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/shirt_womens</string>
-    </map>
-    <key>MarketplaceURL_shirtMale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Shirt Male</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/shirt_mens</string>
-    </map>
-    <key>MarketplaceURL_undershirtFemale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Undershirt Female</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/undershirt_womens</string>
-    </map>
-    <key>MarketplaceURL_undershirtMale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Undershirt Male</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/undershirt_mens</string>
-    </map>
-    <key>MarketplaceURL_skirtFemale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Skirt Female</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/skirts_women</string>
-    </map>
-    <key>MarketplaceURL_skirtMale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Skirt Male</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/skirts_women</string>
-    </map>
-    <key>MarketplaceURL_pantsFemale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Pants Female</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/pants_women</string>
-    </map>
-    <key>MarketplaceURL_pantsMale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Pants Male</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/pants_men</string>
-    </map>
-    <key>MarketplaceURL_underpantsFemale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Underwear Female</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/underwear_women</string>
-    </map>
-    <key>MarketplaceURL_underpantsMale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Underwear Male</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/underwear_men</string>
-    </map>
-    <key>MarketplaceURL_shoesFemale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Shoes Female</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/shoes_women</string>
-    </map>
-    <key>MarketplaceURL_shoesMale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Shoes Male</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/shoes_men</string>
-    </map>
-    <key>MarketplaceURL_socksFemale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Socks Female</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/socks_women</string>
-    </map>
-    <key>MarketplaceURL_socksMale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Socks Male</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/socks_women</string>
-    </map>
-    <key>MarketplaceURL_tattooMale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Tattoo Male</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/tattoo_both_women_and_men</string>
-    </map>
-    <key>MarketplaceURL_tattooFemale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Tattoo Female</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/tattoo_both_women_and_men</string>
-    </map>
-    <key>MarketplaceURL_hairFemale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Hair Female</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/womens_hair</string>
-    </map>
-    <key>MarketplaceURL_hairMale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Hair Male</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/mens_hair</string>
-    </map>
-    <key>MarketplaceURL_eyesFemale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Eyes Female</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/womens_eyes</string>
-    </map>
-    <key>MarketplaceURL_eyesMale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Eyes Male</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/mens_eyes</string>
-    </map>
-    <key>MarketplaceURL_shapeFemale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Shape Female</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/womens_shape</string>
-    </map>
-    <key>MarketplaceURL_shapeMale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Shape Male</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/mens_shape</string>
-    </map>
-    <key>MarketplaceURL_skinFemale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Skin Female</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/womens_skin</string>
-    </map>
-    <key>MarketplaceURL_skinMale</key>
-    <map>
-      <key>Comment</key>
-      <string>URL to the Marketplace Skins Male</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>https://marketplace.secondlife.com/trampoline/viewer21/mens_skin</string>
     </map>
     <key>MaxDragDistance</key>
     <map>
