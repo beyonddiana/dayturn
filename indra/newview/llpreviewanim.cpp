@@ -36,12 +36,15 @@
 #include "llfilepicker.h"
 #include "lllineeditor.h"
 #include "lluictrlfactory.h"
+#include "lltrans.h"
 #include "lldatapacker.h"
 
 extern LLAgent gAgent;
+const S32 ADVANCED_VPAD = 3;
 
 LLPreviewAnim::LLPreviewAnim(const LLSD& key)
-	: LLPreview( key )
+	: LLPreview( key ),
+	pMotion(NULL)
 {
 	mCommitCallbackRegistrar.add("PreviewAnim.Play", boost::bind(&LLPreviewAnim::play, this, _2));
 }
@@ -52,12 +55,19 @@ bool LLPreviewAnim::postBuild()
 	const LLInventoryItem* item = getItem();
 	if(item)
 	{
-		gAgentAvatarp->createMotion(item->getAssetUUID()); // preload the animation
+		pMotion = gAgentAvatarp->createMotion(item->getAssetUUID()); // preload the animation
 		getChild<LLUICtrl>("desc")->setValue(item->getDescription());
 	}
 
 	childSetCommitCallback("desc", LLPreview::onText, this);
 	getChild<LLLineEditor>("desc")->setPrevalidate(&LLTextValidate::validateASCIIPrintableNoPipe);
+	getChild<LLTextBox>("adv_trigger")->setClickedCallback(boost::bind(&LLPreviewAnim::showAdvanced, this));
+	pAdvancedStatsTextBox = getChild<LLTextBox>("AdvancedStats");
+
+    // Assume that advanced stats start visible (for XUI preview tool's purposes)
+    pAdvancedStatsTextBox->setVisible(FALSE);
+    LLRect rect = getRect();
+    reshape(rect.getWidth(), rect.getHeight() - pAdvancedStatsTextBox->getRect().getHeight() - ADVANCED_VPAD, FALSE);
 
 	return LLPreview::postBuild();
 }
@@ -174,4 +184,33 @@ void LLPreviewAnim::onClose(bool app_quitting)
 		gAgentAvatarp->stopMotion(item->getAssetUUID());
 		gAgent.sendAnimationRequest(item->getAssetUUID(), ANIM_REQUEST_STOP);
 	}
+}
+
+void LLPreviewAnim::showAdvanced()
+{
+    BOOL was_visible =  pAdvancedStatsTextBox->getVisible();
+
+    if (was_visible)
+    {
+        pAdvancedStatsTextBox->setVisible(FALSE);
+        LLRect rect = getRect();
+        reshape(rect.getWidth(), rect.getHeight() - pAdvancedStatsTextBox->getRect().getHeight() - ADVANCED_VPAD, FALSE);
+    }
+    else
+    {
+        pAdvancedStatsTextBox->setVisible(TRUE);
+        LLRect rect = getRect();
+        reshape(rect.getWidth(), rect.getHeight() + pAdvancedStatsTextBox->getRect().getHeight() + ADVANCED_VPAD, FALSE);
+
+        // set text
+        if (pMotion)
+        {
+            pAdvancedStatsTextBox->setTextArg("[PRIORITY]", llformat("%d", pMotion->getPriority()));
+            pAdvancedStatsTextBox->setTextArg("[DURATION]", llformat("%.2f", pMotion->getDuration()));
+            pAdvancedStatsTextBox->setTextArg("[EASE_IN]", llformat("%.2f", pMotion->getEaseInDuration()));
+            pAdvancedStatsTextBox->setTextArg("[EASE_OUT]", llformat("%.2f", pMotion->getEaseOutDuration()));
+            pAdvancedStatsTextBox->setTextArg("[IS_LOOP]", (pMotion->getLoop() ? LLTrans::getString("PermYes") : LLTrans::getString("PermNo")));
+            pAdvancedStatsTextBox->setTextArg("[NUM_JOINTS]", llformat("%d", pMotion->getNumJointMotions()));
+        }
+    }
 }
