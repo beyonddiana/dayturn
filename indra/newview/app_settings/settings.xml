@@ -383,7 +383,6 @@
       <key>Value</key>
       <string>default</string>
     </map>
-
     <key>ImporterPreprocessDAE</key>
     <map>
       <key>Comment</key>
@@ -434,7 +433,7 @@
             <string>
                 Time before automatically setting AFK (away from keyboard) mode (seconds, 0=never).
                 Valid values are: 0, 120, 300, 600, 1800
-</string>
+			</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
@@ -6287,7 +6286,7 @@
       Notes:
       If required width will be less then this one, a button will be reshaped to default size , otherwise to required
                 Change of this parameter will affect the layout of buttons in notification toast.
-</string>
+			</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
@@ -6361,8 +6360,7 @@
       <string>Boolean</string>
       <key>Value</key>
       <integer>1</integer>
-    </map>
-    
+    </map>  
     <key>NumSessions</key>
     <map>
       <key>Comment</key>
@@ -6450,30 +6448,6 @@
       <string>Boolean</string>
       <key>Value</key>
       <integer>1</integer>
-    </map>
-    
-    
-    <key>OpenDebugStatSimTime</key>
-    <map>
-      <key>Comment</key>
-      <string>Expand Simulator Time performance stats display</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>0</integer>
-    </map>
-    <key>OpenDebugStatSimTimeDetails</key>
-    <map>
-      <key>Comment</key>
-      <string>Expand Simulator Time Details performance stats display</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>0</integer>
     </map>
     <key>OutBandwidth</key>
     <map>
@@ -6621,8 +6595,7 @@
       <string>Boolean</string>
       <key>Value</key>
       <integer>1</integer>
-    </map>
-    
+    </map>   
     <key>PickerContextOpacity</key>
     <map>
       <key>Comment</key>
@@ -6634,9 +6607,6 @@
       <key>Value</key>
       <real>0.34999999404</real>
     </map>
-    
-    
-    
     <key>PingInterpolate</key>
     <map>
       <key>Comment</key>
@@ -6813,7 +6783,6 @@
       <key>Value</key>
       <real>0.9</real>
     </map>
-
    <key>PlainTextChatHistory</key>
     <map>
       <key>Comment</key>
@@ -6825,7 +6794,6 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
-
     <key>PluginInstancesLow</key>
     <map>
       <key>Comment</key>
@@ -6969,7 +6937,6 @@
       <real>1.0</real>
     </array>
   </map>
-
   <key>PreviewDiffuse1</key>
   <map>
     <key>Comment</key>
@@ -7003,7 +6970,6 @@
       <real>1.0</real>
     </array>
   </map>
-
   <key>PreviewSpecular0</key>
   <map>
     <key>Comment</key>
@@ -7020,7 +6986,6 @@
       <real>1.0</real>
     </array>
   </map>
-
   <key>PreviewSpecular1</key>
   <map>
     <key>Comment</key>
@@ -7037,7 +7002,6 @@
       <real>1.0</real>
     </array>
   </map>
-
   <key>PreviewSpecular2</key>
   <map>
     <key>Comment</key>
@@ -7054,8 +7018,6 @@
       <real>1.0</real>
     </array>
   </map>
-
-
   <key>PreviewDirection0</key>
   <map>
     <key>Comment</key>
@@ -7071,7 +7033,6 @@
       <real>1.0</real>
     </array>
   </map>
-
   <key>PreviewDirection1</key>
   <map>
     <key>Comment</key>
@@ -7087,7 +7048,6 @@
       <real>0.4</real>
     </array>
   </map>
-
   <key>PreviewDirection2</key>
   <map>
     <key>Comment</key>
@@ -7103,7 +7063,6 @@
       <real>0.3</real>
     </array>
   </map>
-
   <key>PrimMediaMasterEnabled</key>
 	<map>
 	  <key>Comment</key>
@@ -7367,8 +7326,7 @@
       <string>S32</string>
       <key>Value</key>
       <integer>0</integer>
-    </map>
-    
+    </map>  
     <key>LandBrushForce</key>
         <map>
         <key>Comment</key>
@@ -7379,8 +7337,7 @@
             <string>F32</string>
         <key>Value</key>
             <real>1.0</real>
-        </map>
-    
+        </map>    
     <key>WebContentWindowLimit</key>
     <map>
       <key>Comment</key>
@@ -7549,7 +7506,6 @@
     <key>Value</key>
     <real>0.01</real>
   </map>
-
   <key>OctreeStaticObjectSizeFactor</key>
   <map>
     <key>Comment</key>
@@ -7561,7 +7517,6 @@
     <key>Value</key>
     <integer>3</integer>
   </map>
-
   <key>OctreeAlphaDistanceFactor</key>
   <map>
     <key>Comment</key>
@@ -7577,7 +7532,6 @@
       <real>0.0</real>
     </array>
   </map>
-
   <key>OctreeAttachmentSizeFactor</key>
   <map>
     <key>Comment</key>
@@ -7589,7 +7543,6 @@
     <key>Value</key>
     <integer>4</integer>
   </map>
-
   <key>OctreeDistanceFactor</key>
   <map>
     <key>Comment</key>
@@ -7605,9 +7558,8 @@
       <real>0.0</real>
     </array>
   </map>
-
-    <key>RenderAnisotropic</key>
-    <map>
+  <key>RenderAnisotropic</key>
+  <map>
       <key>Comment</key>
       <string>Render textures using anisotropic filtering</string>
       <key>Persist</key>
@@ -7616,29 +7568,29 @@
       <string>Boolean</string>
       <key>Value</key>
       <integer>0</integer>
-    </map>
-    <key>RenderAttachedLights</key>
-        <map>
-        <key>Comment</key>
-            <string>Render lighted prims that are attached to avatars</string>
-        <key>Persist</key>
-            <integer>1</integer>
-        <key>Type</key>
-            <string>Boolean</string>
-        <key>Value</key>
-            <integer>1</integer>
-        </map>
-    <key>RenderAttachedParticles</key>
-        <map>
-        <key>Comment</key>
-            <string>Render particle systems that are attached to avatars</string>
-        <key>Persist</key>
-            <integer>1</integer>
-        <key>Type</key>
-            <string>Boolean</string>
-        <key>Value</key>
-            <integer>1</integer>
-        </map>
+  </map>
+  <key>RenderAttachedLights</key>
+  <map>
+      <key>Comment</key>
+      <string>Render lighted prims that are attached to avatars</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+  </map>
+  <key>RenderAttachedParticles</key>
+  <map>
+      <key>Comment</key>
+      <string>Render particle systems that are attached to avatars</string>
+      <key>Persist</key>
+      <integer>1</integer>
+      <key>Type</key>
+      <string>Boolean</string>
+      <key>Value</key>
+      <integer>1</integer>
+  </map>
   <key>RenderAvatar</key>
     <map>
       <key>Comment</key>
@@ -7800,11 +7752,11 @@
   </map>
     <key>RenderPerformanceTest</key>
     <map>
-      <key>Comment</key>
-            <string>
+     <key>Comment</key>
+     <string>
                 Disable rendering of everything but in-world content for
                 performance testing
-</string>
+	  </string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
@@ -7836,7 +7788,6 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
-
   <key>RenderShadowNearDist</key>
   <map>
     <key>Comment</key>
@@ -7896,8 +7847,7 @@
       <real>8.0</real>
       <real>24.0</real>
     </array>
-  </map>
-  
+  </map> 
   <key>RenderShadowSlopeThreshold</key>
   <map>
     <key>Comment</key>
@@ -7908,8 +7858,7 @@
     <string>F32</string>
     <key>Value</key>
     <real>0.0</real>
-  </map>
-  
+  </map> 
   <key>RenderSSAOScale</key>
   <map>
     <key>Comment</key>
@@ -7957,8 +7906,7 @@
       <real>1.00</real>
       <real>0.00</real>
     </array>
-  </map>
-  
+  </map>  
   <key>RenderNormalMapScale</key>
   <map>
     <key>Comment</key>
@@ -7980,8 +7928,7 @@
       <string>Boolean</string>
       <key>Value</key>
       <integer>1</integer>
-    </map>
-    
+    </map>    
     <key>RenderDebugGL</key>
     <map>
       <key>Comment</key>
@@ -8048,7 +7995,6 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
-
   <key>RenderAnimateRes</key>
   <map>
     <key>Comment</key>
@@ -8060,7 +8006,6 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
-
   <key>RenderBakeSunlight</key>
   <map>
     <key>Comment</key>
@@ -8072,7 +8017,6 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
-
   <key>RenderNoAlpha</key>
   <map>
     <key>Comment</key>
@@ -8084,9 +8028,6 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
-
-  
-
   <key>RenderEdgeDepthCutoff</key>
   <map>
     <key>Comment</key>
@@ -8109,7 +8050,6 @@
     <key>Value</key>
     <real>0.25</real>
   </map>
-
   <key>RenderDeferredAlphaSoften</key>
   <map>
     <key>Comment</key>
@@ -8154,7 +8094,6 @@
     <key>Value</key>
     <real>0.8</real>
   </map>
-
   <key>RenderShadowBias</key>
   <map>
     <key>Comment</key>
@@ -8199,7 +8138,6 @@
     <key>Value</key>
     <real>0.0</real>
   </map>
-
   <key>RenderDepthPrePass</key>
   <map>
     <key>Comment</key>
@@ -8211,7 +8149,6 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
-
   <key>RenderDepthOfField</key>
   <map>
     <key>Comment</key>
@@ -8223,7 +8160,6 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
-
   <key>RenderDepthOfFieldInEditMode</key>
   <map>
     <key>Comment</key>
@@ -8235,7 +8171,6 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
-
   <key>CameraDoFResScale</key>
   <map>
     <key>Comment</key>
@@ -8247,7 +8182,6 @@
     <key>Value</key>
     <real>0.7</real>
   </map>
-
   <key>RenderSpotLightsInNondeferred</key>
   <map>
     <key>Comment</key>
@@ -8259,7 +8193,6 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
-
   <key>RenderSpotShadowBias</key>
   <map>
     <key>Comment</key>
@@ -8282,7 +8215,6 @@
     <key>Value</key>
     <real>0.04</real>
   </map>
-
   <key>RenderShadowResolutionScale</key>
   <map>
     <key>Comment</key>
@@ -8316,7 +8248,6 @@
     <key>Value</key>
     <real>1.0</real>
   </map>
-
   <key>RenderHoverGlowEnable</key>
   <map>
     <key>Comment</key>
@@ -8328,7 +8259,6 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
-
   <key>RenderHighlightFadeTime</key>
   <map>
     <key>Comment</key>
@@ -8340,7 +8270,6 @@
     <key>Value</key>
     <real>0.1</real>
   </map>
-
   <key>RenderHighlightBrightness</key>
   <map>
     <key>Comment</key>
@@ -8352,7 +8281,6 @@
     <key>Value</key>
     <real>4.0</real>
   </map>
-
   <key>RenderHighlightThickness</key>
   <map>
     <key>Comment</key>
@@ -8364,7 +8292,6 @@
     <key>Value</key>
     <real>0.6</real>
   </map>
-
   <key>RenderHighlightColor</key>
   <map>
     <key>Comment</key>
@@ -8381,9 +8308,6 @@
       <real>1.0</real>
     </array>
   </map>
-
-  
-
   <key>RenderSpecularResX</key>
   <map>
     <key>Comment</key>
@@ -8395,7 +8319,6 @@
     <key>Value</key>
     <integer>1024</integer>
   </map>
-
   <key>RenderSpecularResY</key>
   <map>
     <key>Comment</key>
@@ -8407,7 +8330,6 @@
     <key>Value</key>
     <integer>256</integer>
   </map>
-
   <key>RenderSpecularExponent</key>
   <map>
     <key>Comment</key>
@@ -8419,7 +8341,6 @@
     <key>Value</key>
     <real>368.0</real>
   </map>
-
   <key>RenderDeferred</key>
   <map>
     <key>Comment</key>
@@ -8431,7 +8352,6 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
-
   <key>RenderDeferredSun</key>
   <map>
     <key>Comment</key>
@@ -8455,7 +8375,6 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
-
   <key>RenderDeferredSSAO</key>
   <map>
     <key>Comment</key>
@@ -8467,7 +8386,6 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
-
   <key>RenderDeferredBlurLight</key>
   <map>
     <key>Comment</key>
@@ -8479,7 +8397,6 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
-
   <key>RenderDeferredSunWash</key>
   <map>
     <key>Comment</key>
@@ -8524,7 +8441,6 @@
     <key>Value</key>
     <real>0.8</real>
   </map>
-
   <key>RenderShadowGaussian</key>
   <map>
     <key>Comment</key>
@@ -8540,7 +8456,6 @@
       <real>0.0</real>
     </array>
   </map>
-
   <key>RenderShadowBlurSize</key>
   <map>
     <key>Comment</key>
@@ -8551,8 +8466,7 @@
     <string>F32</string>
     <key>Value</key>
     <real>1.4</real>
-  </map>
-  
+  </map>  
   <key>RenderShadowBlurDistFactor</key>
   <map>
     <key>Comment</key>
@@ -8564,7 +8478,6 @@
     <key>Value</key>
     <real>0</real>
   </map>
-
   <key>RenderDynamicLOD</key>
     <map>
       <key>Comment</key>
@@ -9089,9 +9002,7 @@
       <string>S32</string>
       <key>Value</key>
       <integer>2</integer>
-    </map>
-
-    
+    </map>  
     <key>RenderResolutionDivisor</key>
     <map>
       <key>Comment</key>
@@ -9113,9 +9024,7 @@
       <string>S32</string>
       <key>Value</key>
       <integer>3</integer>
-    </map>
-    
-    
+    </map>   
     <key>RenderSunDynamicRange</key>
     <map>
       <key>Comment</key>
@@ -9270,7 +9179,6 @@
       <key>Value</key>
       <integer>1</integer>
     </map>
-
   <key>RenderAutoMuteByteLimit</key>
   <map>
     <key>Comment</key>
@@ -9337,7 +9245,6 @@
     <key>Value</key>
     <real>10.0E6</real>
   </map>
-
     <key>RenderVBOEnable</key>
     <map>
       <key>Comment</key>
@@ -9371,7 +9278,6 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
-
   <key>RenderVBOMappingDisable</key>
     <map>
       <key>Comment</key>
@@ -10155,7 +10061,6 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
-    
     <key>ShowEventRecorderMenuItems</key>
     <map>
       <key>Comment</key>
@@ -11373,9 +11278,7 @@
       <string>Boolean</string>
       <key>Value</key>
       <integer>1</integer>
-    </map>
-    
-    
+    </map>   
     <key>TextureReverseByteRange</key>
     <map>
       <key>Comment</key>
@@ -11914,8 +11817,7 @@
       <string>S32</string>
       <key>Value</key>
       <integer>2</integer>
-    </map>
-    
+    </map>    
     <key>UIMinimizedWidth</key>
     <map>
       <key>Comment</key>
@@ -12389,8 +12291,7 @@
       <string>S32</string>
       <key>Value</key>
       <integer>16</integer>
-    </map>
-    
+    </map>    
     <key>UISpinctrlSpacing</key>
     <map>
       <key>Comment</key>
@@ -12511,10 +12412,7 @@
       <string>U32</string>
       <key>Value</key>
       <integer>3</integer>
-    </map>
-    
-    
-    
+    </map>    
     <key>UpdaterWillingToTest</key>
     <map>
       <key>Comment</key>
@@ -14927,7 +14825,6 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
-
   <key>PathfindingLineWidth</key>
   <map>
     <key>Comment</key>
@@ -14939,7 +14836,6 @@
     <key>Value</key>
     <real>2.0</real>
   </map>
-
   <key>PathfindingLineOffset</key>
   <map>
     <key>Comment</key>
@@ -14951,7 +14847,6 @@
     <key>Value</key>
     <real>2.3</real>
   </map>
-
   <key>PathfindingWaterColor</key>
     <map>
       <key>Comment</key>
@@ -14968,7 +14863,6 @@
         <real>1.0</real>
       </array>
     </map>
-
     <key>HideUIControls</key>
     <map>
       <key>Comment</key>
@@ -15003,7 +14897,6 @@
     <key>Value</key>
     <integer>0</integer>
   </map>
-
     <key>ViewerAssetHttpTypes</key>
     <map>
       <key>Comment</key>
@@ -15015,7 +14908,6 @@
       <key>Value</key>
       <string />
     </map>
-
   <key>SimulateFBOFailure</key>
   <map>
     <key>Comment</key>
