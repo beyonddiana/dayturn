@@ -2169,8 +2169,6 @@ void LLViewerWindow::initWorldUI()
 		// and vice-versa
 		gStatusBar->childSetVisible("parcel_info_panel", !navbar_visible);
 		gStatusBar->childSetVisible("drawdistance", !navbar_visible);
-		gStatusBar->childSetVisible("avatar_z_offset", !navbar_visible);
-		gStatusBar->childSetVisible("avatar_z_offset_reset_btn", !navbar_visible);
 	}
 //mk
 

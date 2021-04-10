@@ -681,8 +681,6 @@ bool toggle_show_navigation_panel(const LLSD& newvalue)
 		BOOL minilocation_visible = gSavedSettings.getBOOL("ShowMiniLocationPanel");
 		gStatusBar->childSetVisible("parcel_info_panel", !value && !minilocation_visible);
 		gStatusBar->childSetVisible("drawdistance", !value && !minilocation_visible);
-		gStatusBar->childSetVisible("avatar_z_offset", !value && !minilocation_visible);
-		gStatusBar->childSetVisible("avatar_z_offset_reset_btn", !value && !minilocation_visible);
 	}
 //	if (!gRRenabled)
 	else
@@ -705,8 +703,6 @@ bool toggle_show_mini_location_panel(const LLSD& newvalue)
 		BOOL navbar_visible = gSavedSettings.getBOOL("ShowNavbarNavigationPanel");
 		gStatusBar->childSetVisible("parcel_info_panel", !value && !navbar_visible);
 		gStatusBar->childSetVisible("drawdistance", !value && !navbar_visible);
-		gStatusBar->childSetVisible("avatar_z_offset", !value && !navbar_visible);
-		gStatusBar->childSetVisible("avatar_z_offset_reset_btn", !value && !navbar_visible);
 	}
 //	if (!gRRenabled)
 	else

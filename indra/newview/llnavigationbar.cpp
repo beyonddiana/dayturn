@@ -290,11 +290,6 @@ bool LLNavigationBar::postBuild()
 	mBtnBack	= getChild<LLPullButton>("back_btn");
 	mBtnForward	= getChild<LLPullButton>("forward_btn");
 	mBtnHome	= getChild<LLButton>("home_btn");
-	
-//MK
-	mAvatarHeightOffsetResetBtn = getChild<LLButton>("avatar_z_offset_reset_btn");
-	mAvatarHeightOffsetResetBtn->setClickedCallback(boost::bind(&LLNavigationBar::onAvatarHeightOffsetResetButtonClicked, this));
-//mk
 	mBtnLandmarks = getChild<LLButton>("landmarks_btn");
 
 	mCmbLocation= getChild<LLLocationInputCtrl>("location_combo");

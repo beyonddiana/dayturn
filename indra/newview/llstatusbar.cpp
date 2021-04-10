@@ -283,9 +283,6 @@ bool LLStatusBar::postBuild()
 	mInfoBtn->setClickedCallback(boost::bind(&LLStatusBar::onInfoButtonClicked, this));
 	mInfoBtn->setToolTip(LLTrans::getString("LocationCtrlInfoBtnTooltip"));
 
-	mAvatarHeightOffsetResetBtn = getChild<LLButton>("avatar_z_offset_reset_btn");
-	mAvatarHeightOffsetResetBtn->setClickedCallback(boost::bind(&LLStatusBar::onAvatarHeightOffsetResetButtonClicked, this));
-
 	initParcelIcons();
 
 	mParcelChangedObserver = new LLParcelChangeObserver(this);
