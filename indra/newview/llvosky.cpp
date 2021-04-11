@@ -348,7 +348,7 @@ LLVOSky::LLVOSky(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp)
 	cloud_pos_density1 = LLColor3();
 	cloud_pos_density2 = LLColor3();
 
-	mInitialized = FALSE;
+	mInitialized = false;
 	mbCanSelect = false;
 	mUpdateTimer.reset();
 
@@ -1096,7 +1096,7 @@ bool LLVOSky::updateSky()
 			{
 				mLastLightingDirection = direction;
 				mLastTotalAmbient = mTotalAmbient;
-				mInitialized = TRUE;
+				mInitialized = true;
 
 				if (mCubeMap)
 				{
