@@ -72,7 +72,7 @@ void LLFloaterTopObjects::show()
 */
 LLFloaterTopObjects::LLFloaterTopObjects(const LLSD& key)
 :	LLFloater(key),
-	mInitialized(FALSE),
+	mInitialized(false),
 	mtotalScore(0.f)
 {
 	mCommitCallbackRegistrar.add("TopObjects.ShowBeacon",		boost::bind(&LLFloaterTopObjects::onClickShowBeacon, this));
@@ -125,7 +125,7 @@ void LLFloaterTopObjects::handle_land_reply(LLMessageSystem* msg, void** data)
 	    if (!instance->mObjectListIDs.size() && !instance->mInitialized)
 	    {
 	        instance->onRefresh();
-	        instance->mInitialized = TRUE;
+	        instance->mInitialized = true;
 	    }
 	}
 	else

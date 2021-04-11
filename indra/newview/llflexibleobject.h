@@ -126,7 +126,7 @@ private:
 		LLQuaternion				mLastFrameRotation;
 		LLQuaternion				mLastSegmentRotation;
 		bool						mInitialized;
-		BOOL						mUpdated;
+		bool						mUpdated;
 		LLFlexibleObjectData*		mAttributes;
 		LLFlexibleObjectSection		mSection	[ (1<<FLEXIBLE_OBJECT_MAX_SECTIONS)+1 ];
 		S32							mInitializedRes;
