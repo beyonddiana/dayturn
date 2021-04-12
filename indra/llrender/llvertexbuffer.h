@@ -311,12 +311,12 @@ protected:
 	volatile U8* mMappedData;	// pointer to currently mapped data (NULL if unmapped)
 	volatile U8* mMappedIndexData;	// pointer to currently mapped indices (NULL if unmapped)
 
-	U32		mMappedDataUsingVBOs : 1;
-	U32		mMappedIndexDataUsingVBOs : 1;
-	U32		mVertexLocked : 1;			// if true, vertex buffer is being or has been written to in client memory
-	U32		mIndexLocked : 1;			// if true, index buffer is being or has been written to in client memory
-	U32		mFinal : 1;			// if true, buffer can not be mapped again
-	U32		mEmpty : 1;			// if true, client buffer is empty (or NULL). Old values have been discarded.	
+	bool	mMappedDataUsingVBOs : 1;
+	bool	mMappedIndexDataUsingVBOs : 1;
+	bool	mVertexLocked : 1;			// if true, vertex buffer is being or has been written to in client memory
+	bool	mIndexLocked : 1;			// if true, index buffer is being or has been written to in client memory
+	bool	mFinal : 1;			// if true, buffer can not be mapped again
+	bool 	mEmpty : 1;			// if true, client buffer is empty (or NULL). Old values have been discarded.
 	
 	mutable bool	mMappable;     // if true, use memory mapping to upload data (otherwise doublebuffer and use glBufferSubData)
 
