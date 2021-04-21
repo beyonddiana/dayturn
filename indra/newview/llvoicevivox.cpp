@@ -2940,8 +2940,8 @@ void LLVivoxVoiceClient::setupVADParams(unsigned int vad_hangover,
     stream << "<Request requestId=\"" << mCommandCookie++ << "\" action=\"Aux.SetVadProperties.1\">"
                << "<VadAuto>" << vad_auto_enabled << "</VadAuto>"
                << "<VadHangover>" << vad_hangover << "</VadHangover>"
-               << "<vad_noise_floor>" << vad_hangover << "</vad_noise_floor>"
-               << "<vad_sensitivity>" << vad_hangover << "</vad_sensitivity>"
+               << "<VadSensitivity>" << vad_sensitivity << "</VadSensitivity>"
+               << "<VadNoiseFloor>" << vad_noise_floor << "</VadNoiseFloor>"
            << "</Request>\n\n\n";
 
     if (!stream.str().empty())
@@ -2950,6 +2950,16 @@ void LLVivoxVoiceClient::setupVADParams(unsigned int vad_hangover,
     }
 }
 
+void LLVivoxVoiceClient::onVADSettingsChange()
+{
+	// pick up the VAD variables (one of which was changed)
+	unsigned int vad_hangover = gSavedSettings.getU32("VivoxVadHangover");
+	unsigned int vad_noise_floor = gSavedSettings.getU32("VivoxVadNoiseFloor");
+	unsigned int vad_sensitivity = gSavedSettings.getU32("VivoxVadSensitivity");
+
+	// build a VAD params change request and send it to SLVoice
+	setupVADParams(vad_hangover, vad_noise_floor, vad_sensitivity);
+}
 
 /////////////////////////////
 // Response/Event handlers
@@ -2986,12 +2996,17 @@ void LLVivoxVoiceClient::connectorCreateResponse(int statusCode, std::string &st
 			setState(stateConnectorStarted);
 		}
 
-        // disable the automatic VAD and explicitly set the VAD variables ourselves
-        // see SL-15072 for more details
-        unsigned int vad_hangover = 2001;
-        unsigned int vad_noise_floor = 577;
-        unsigned int vad_sensitivity = 44;
+		// disable the automatic VAD and explicitly set the initial values of 
+		// the VAD variables ourselves see SL-15072 for more details
+		unsigned int vad_hangover = gSavedSettings.getU32("VivoxVadHangover");
+		unsigned int vad_noise_floor = gSavedSettings.getU32("VivoxVadNoiseFloor");
+		unsigned int vad_sensitivity = gSavedSettings.getU32("VivoxVadSensitivity");
         setupVADParams(vad_hangover, vad_noise_floor, vad_sensitivity);
+
+        // watch for changes to the VAD settings via Debug Settings UI and act on them accordingly
+        gSavedSettings.getControl("VivoxVadHangover")->getSignal()->connect(boost::bind(&LLVivoxVoiceClient::onVADSettingsChange, this));
+        gSavedSettings.getControl("VivoxVadNoiseFloor")->getSignal()->connect(boost::bind(&LLVivoxVoiceClient::onVADSettingsChange, this));
+        gSavedSettings.getControl("VivoxVadSensitivity")->getSignal()->connect(boost::bind(&LLVivoxVoiceClient::onVADSettingsChange, this));
 
 	}
 }
@@ -7205,13 +7220,15 @@ void LLVivoxProtocolParser::processResponse(std::string tag)
 		}
 		else if (!stricmp(actionCstr, "Aux.SetVadProperties.1"))
 		{
-			// temporary for debugging- will eventually remove entirely or replace with a 
-			// toast message to alert the user that it was set
-			std::cout << "@@@" << std::endl;
-			std::cout << "    Response for Aux.SetVadProperties.1 was" << std::endl;
-			std::cout << "          statusCode: " << statusCode << std::endl;
-			std::cout << "        statusString: " << statusString << std::endl;
-			std::cout << "@@@" << std::endl;
+			// both values of statusCode (old and more recent) indicate valid requests
+			if (statusCode != 0 && statusCode != 200)
+			{
+				LL_WARNS("Voice") << "Aux.SetVadProperties.1 request failed: "
+					<< "statusCode: " << statusCode
+					<< " and "
+					<< "statusString: " << statusString
+					<< LL_ENDL;
+			}
 		}
 		/*
 		 else if (!stricmp(actionCstr, "Account.ChannelGetList.1"))
