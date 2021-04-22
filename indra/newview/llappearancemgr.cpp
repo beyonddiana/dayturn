@@ -55,6 +55,9 @@
 #include "llsdserialize.h"
 #include "llhttpretrypolicy.h"
 #include "llaisapi.h"
+#include "llhttpsdhandler.h"
+#include "llcorehttputil.h"
+#include "llappviewer.h"
 
 #if LL_MSVC
 // disable boost::lexical_cast warning
@@ -4300,41 +4303,10 @@ void LLAppearanceMgr::removeItemsFromAvatar(const uuid_vec_t& ids_to_remove)
 
 void LLAppearanceMgr::removeItemFromAvatar(const LLUUID& id_to_remove)
 {
-/*
 	LLUUID linked_item_id = gInventory.getLinkedItemID(id_to_remove);
-//MK
-	LLViewerObject * attachmentp = gAgentAvatarp->findAttachmentByID(id_to_remove);
-	if (attachmentp &&
-		attachmentp->isTempAttachment())
-	{
-		// Special case : if the object is a temporary object, it does not have a counterpart in
-		// the inventory => detach immediately
-		if (gMessageSystem)
-		{
-			gMessageSystem->newMessage("ObjectDetach");
-			gMessageSystem->nextBlockFast(_PREHASH_AgentData);
-			gMessageSystem->addUUIDFast(_PREHASH_AgentID, gAgent.getID() );
-			gMessageSystem->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());	
-			gMessageSystem->nextBlockFast(_PREHASH_ObjectData);
-			gMessageSystem->addU32Fast(_PREHASH_ObjectLocalID, attachmentp->getLocalID());
-			gMessageSystem->sendReliable( gAgent.getRegionHost() );
-		}
-	}
-	else
-	{
-		// Otherwise, since the code below does not take attachments into account, we need to specifically detach
-		// objects here. Then the pieces of clothing will follow.
-		LLInventoryItem* item = gInventory.getItem (linked_item_id);
-		if (!gRRenabled || gAgent.mRRInterface.canDetach (item))
-		{
-			LLVOAvatarSelf::detachAttachmentIntoInventory(linked_item_id);
-		}
-	}
-//mk
-*/
-	uuid_vec_t ids_to_remove;
-	ids_to_remove.push_back(id_to_remove);
-	removeItemsFromAvatar(ids_to_remove);
+	LLPointer<LLInventoryCallback> cb = new LLUpdateAppearanceOnDestroy;
+	removeCOFItemLinks(linked_item_id, cb);
+	addDoomedTempAttachment(linked_item_id);
 }
 
 
