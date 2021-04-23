@@ -59,7 +59,7 @@ public:
 	void setHasResizableElement(BOOL resizable);
 	void updateResizeBars();
 	BOOL canResize();
-	void enableResizeBar(BOOL enable);
+	void enableResizeBar(bool enable);
 
 	void onClick(const LLSD& data);
 
