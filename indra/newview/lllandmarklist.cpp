@@ -245,11 +245,7 @@ void LLLandmarkList::onRegionHandle(const LLUUID& landmark_id)
 
 void LLLandmarkList::eraseCallbacks(const LLUUID& landmark_id)
 {
-    loaded_callback_map_t::iterator it;
-    while ((it = mLoadedCallbackMap.find(landmark_id)) != mLoadedCallbackMap.end())
-    {
-        mLoadedCallbackMap.erase(it);
-    }
+    mLoadedCallbackMap.erase(landmark_id);
 }
 
 void LLLandmarkList::makeCallbacks(const LLUUID& landmark_id)
