@@ -282,8 +282,8 @@ public:
 	void setHighlightedColor(const LLColor4 &c) { mHighlightedColor = c; }
 	void setFgDisableColor(const LLColor4 &c)	{ mFgDisabledColor = c; }
 
-	void setBackgroundVisible(BOOL b)			{ mBackgroundVisible = b; }
-	void setDrawStripes(BOOL b)					{ mDrawStripes = b; }
+	void setBackgroundVisible(bool b)			{ mBackgroundVisible = b; }
+	void setDrawStripes(bool b)					{ mDrawStripes = b; }
 	void setColumnPadding(const S32 c)          { mColumnPadding = c; }
 	S32  getColumnPadding()						{ return mColumnPadding; }
 	void setCommitOnKeyboardMovement(BOOL b)	{ mCommitOnKeyboardMovement = b; }
@@ -334,7 +334,7 @@ public:
 	virtual void	fitContents(S32 max_width, S32 max_height);
 
 	virtual LLRect	getRequiredRect();
-	static  BOOL    rowPreceeds(LLScrollListItem *new_row, LLScrollListItem *test_row);
+	static  bool    rowPreceeds(LLScrollListItem *new_row, LLScrollListItem *test_row);
 
 	LLRect			getItemListRect() { return mItemListRect; }
 
@@ -356,7 +356,7 @@ public:
 	 * then display all items.
 	 */
 	void setPageLines(S32 page_lines );
-	void setCollapseEmptyColumns(BOOL collapse);
+	void setCollapseEmptyColumns(bool collapse);
 
 	LLScrollListItem*	hitItem(S32 x,S32 y);
 	virtual void		scrollToShowSelected();
@@ -376,15 +376,15 @@ public:
 	S32 getTotalStaticColumnWidth() { return mTotalStaticColumnWidth; }
 
 	std::string     getSortColumnName();
-	BOOL			getSortAscending() { return mSortColumns.empty() ? TRUE : mSortColumns.back().second; }
-	BOOL			hasSortOrder() const;
+	bool			getSortAscending() { return mSortColumns.empty() ? true : mSortColumns.back().second; }
+	bool			hasSortOrder() const;
 	void			clearSortOrder();
 
 	S32		selectMultiple( uuid_vec_t ids );
 	// conceptually const, but mutates mItemList
 	void			updateSort() const;
 	// sorts a list without affecting the permanent sort order (so further list insertions can be unsorted, for example)
-	void			sortOnce(S32 column, BOOL ascending);
+	void			sortOnce(S32 column, bool ascending);
 
 	// manually call this whenever editing list items in place to flag need for resorting
 	void			setNeedsSort(bool val = true) { mSorted = !val; }
@@ -415,7 +415,7 @@ protected:
 	// to the caller to delete the item)
 	//
 	// returns FALSE if item faile to be added to list, does NOT delete 'item'
-	BOOL			addItem( LLScrollListItem* item, EAddPosition pos = ADD_BOTTOM, BOOL requires_column = TRUE );
+	bool			addItem( LLScrollListItem* item, EAddPosition pos = ADD_BOTTOM, bool requires_column = true );
 
 	typedef std::deque<LLScrollListItem *> item_list;
 	item_list&		getItemList() { return mItemList; }
@@ -423,17 +423,17 @@ protected:
 	void			updateLineHeight();
 
 private:
-	void			selectPrevItem(BOOL extend_selection);
-	void			selectNextItem(BOOL extend_selection);
+	void			selectPrevItem(bool extend_selection);
+	void			selectNextItem(bool extend_selection);
 	void			drawItems();
 	
 	void            updateLineHeightInsert(LLScrollListItem* item);
 	void			reportInvalidInput();
-	BOOL			isRepeatedChars(const LLWString& string) const;
-	void			selectItem(LLScrollListItem* itemp, BOOL single_select = TRUE);
+	bool			isRepeatedChars(const LLWString& string) const;
+	void			selectItem(LLScrollListItem* itemp, bool single_select = true);
 	void			deselectItem(LLScrollListItem* itemp);
 	void			commitIfChanged();
-	BOOL			setSort(S32 column, BOOL ascending);
+	bool			setSort(S32 column, bool ascending);
 	S32				getLinesPerPage();
 
 	static void		showProfile(LLUUID &id, bool is_group);
@@ -471,8 +471,8 @@ private:
 	LLRect			mItemListRect;
 	S32             mColumnPadding;
 
-	BOOL			mBackgroundVisible;
-	BOOL			mDrawStripes;
+	bool			mBackgroundVisible;
+	bool			mDrawStripes;
 
 	LLUIColor		mBgWriteableColor;
 	LLUIColor		mBgReadOnlyColor;

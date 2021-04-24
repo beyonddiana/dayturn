@@ -390,7 +390,7 @@ LLScriptEdCore::LLScriptEdCore(
 	mSaveDialogShown(FALSE)
 {
 	setFollowsAll();
-	setBorderVisible(false);
+	setBorderVisible(falsef);
 
 	setXMLFilename("panel_script_ed.xml");
 	llassert_always(mContainer != NULL);
@@ -1424,7 +1424,7 @@ void LLLiveLSLEditor::buildExperienceList()
 	else
 	{
 		mExperiences->setEnabled(TRUE);
-		mExperiences->sortByName(TRUE);
+		mExperiences->sortByName(true);
 		mExperiences->setCurrentByIndex(mExperiences->getCurrentIndex());
 		getChild<LLButton>("view_profile")->setVisible(TRUE);
 	}

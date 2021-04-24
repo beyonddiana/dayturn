@@ -2681,7 +2681,7 @@ bool LLDispatchSetEstateAccess::operator()(
 				memcpy(id.mData, strings[index++].data(), UUID_BYTES);		/* Flawfinder: ignore */
 				allowed_agent_name_list->addNameItem(id);
 			}
-			allowed_agent_name_list->sortByName(TRUE);
+			allowed_agent_name_list->sortByName(true);
 		}
 	}
 
@@ -2707,7 +2707,7 @@ bool LLDispatchSetEstateAccess::operator()(
 				memcpy(id.mData, strings[index++].data(), UUID_BYTES);		/* Flawfinder: ignore */
 				allowed_group_name_list->addGroupNameItem(id);
 			}
-			allowed_group_name_list->sortByName(TRUE);
+			allowed_group_name_list->sortByName(true);
 		}
 	}
 
@@ -2741,7 +2741,7 @@ bool LLDispatchSetEstateAccess::operator()(
 				memcpy(id.mData, strings[index++].data(), UUID_BYTES);		/* Flawfinder: ignore */
 				banned_agent_name_list->addNameItem(id);
 			}
-			banned_agent_name_list->sortByName(TRUE);
+			banned_agent_name_list->sortByName(true);
 		}
 	}
 
@@ -2771,7 +2771,7 @@ bool LLDispatchSetEstateAccess::operator()(
 				memcpy(id.mData, strings[index++].data(), UUID_BYTES);		/* Flawfinder: ignore */
 				estate_manager_name_list->addNameItem(id);
 			}
-			estate_manager_name_list->sortByName(TRUE);
+			estate_manager_name_list->sortByName(true);
 		}
 	}
 
