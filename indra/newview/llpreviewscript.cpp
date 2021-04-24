@@ -390,7 +390,7 @@ LLScriptEdCore::LLScriptEdCore(
 	mSaveDialogShown(FALSE)
 {
 	setFollowsAll();
-	setBorderVisible(falsef);
+	setBorderVisible(false);
 
 	setXMLFilename("panel_script_ed.xml");
 	llassert_always(mContainer != NULL);
