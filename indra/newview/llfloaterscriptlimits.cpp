@@ -919,7 +919,7 @@ bool LLPanelScriptLimitsRegionMemory::postBuild()
 	for(S32 column = 0; column < list->getNumColumns(); column++)
 	{
 		LLScrollListColumn* columnp = list->getColumn(column);
-		columnp->mHeader->setHasResizableElement(TRUE);
+		columnp->mHeader->setHasResizableElement(true);
 	}
 
 	return StartRequestChain();

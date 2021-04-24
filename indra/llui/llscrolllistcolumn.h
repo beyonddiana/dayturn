@@ -56,9 +56,9 @@ public:
 	/*virtual*/ void handleReshape(const LLRect& new_rect, bool by_user = false);
 	
 	LLScrollListColumn* getColumn() { return mColumn; }
-	void setHasResizableElement(BOOL resizable);
+	void setHasResizableElement(bool resizable);
 	void updateResizeBars();
-	BOOL canResize();
+	bool canResize();
 	void enableResizeBar(bool enable);
 
 	void onClick(const LLSD& data);
@@ -66,7 +66,7 @@ public:
 private:
 	LLScrollListColumn* mColumn;
 	LLResizeBar*		mResizeBar;
-	BOOL				mHasResizableElement;
+	bool				mHasResizableElement;
 };
 
 /*
@@ -158,7 +158,7 @@ public:
 	ESortDirection			mSortDirection;
 	LLUIString				mLabel;
 	F32						mRelWidth;
-	BOOL					mDynamicWidth;
+	bool					mDynamicWidth;
 	S32						mMaxContentWidth;
 	S32						mIndex;
 	LLScrollListCtrl*		mParentCtrl;

@@ -406,7 +406,7 @@ LLScrollListItem* LLNameListCtrl::addNameItemRow(
 	LLScrollListColumn* columnp = getColumn(mNameColumnIndex);
 	if (columnp && columnp->mHeader)
 	{
-		columnp->mHeader->setHasResizableElement(TRUE);
+		columnp->mHeader->setHasResizableElement(true);
 	}
 
 	return item;
@@ -555,7 +555,7 @@ void LLNameListCtrl::updateColumns(bool force_update)
 	}
 }
 
-void LLNameListCtrl::sortByName(BOOL ascending)
+void LLNameListCtrl::sortByName(bool ascending)
 {
 	sortByColumnIndex(mNameColumnIndex,ascending);
 }
