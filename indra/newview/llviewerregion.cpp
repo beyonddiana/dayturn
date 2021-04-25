@@ -2930,6 +2930,7 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
         capabilityNames.append("RetrieveNavMeshSrc");
         capabilityNames.append("TerrainNavMeshProperties");
         //capabilityNames.append("UserInfo");   // Not implemented in this viewer
+        capabilityNames.append("ViewerAsset");  // Not implemented in this viewer
         capabilityNames.append("ViewerStartAuction");
         capabilityNames.append("ViewerStats");
 
