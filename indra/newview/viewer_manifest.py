@@ -400,16 +400,11 @@ class ViewerManifest(LLManifest):
 
 
 class Windows_i686_Manifest(ViewerManifest):
+	
+    address_size = 32
+
     def final_exe(self):
         return self.app_name_oneword()+".exe"
-#    def final_exe(self):
-#        if self.default_channel():
-#            if self.default_grid():
-#                return "Kokua.exe"
-#            else:
-#                return "Kokua.exe"
-#        else:
-#            return ''.join(self.channel().split()) + '.exe'
 
     def test_msvcrt_and_copy_action(self, src, dst):
         # This is used to test a dll manifest.
@@ -506,8 +501,13 @@ class Windows_i686_Manifest(ViewerManifest):
             # Vivox runtimes
 #            self.path("wrap_oal.dll") no longer in archive
             self.path("SLVoice.exe")
-            self.path("vivoxsdk.dll")
-            self.path("ortp.dll")
+
+            if (self.address_size == 64):
+                self.path("vivoxsdk_x64.dll")
+                self.path("ortp_x64.dll")
+            else:
+            	self.path("vivoxsdk.dll")
+            	self.path("ortp.dll")
 
             # Security
             self.path("ssleay32.dll")
@@ -758,8 +758,6 @@ class Windows_i686_Manifest(ViewerManifest):
             print "Skipping code signing,", sign_py, "does not exist"
         self.created_path(self.dst_path_of(installer_file))
         self.package_file = installer_file
-
-
 
 
 ################################################################
