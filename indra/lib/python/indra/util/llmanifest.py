@@ -34,13 +34,14 @@ import filecmp
 import fnmatch
 import getopt
 import glob
+import itertools
+import operator
 import os
 import re
 import shutil
+import subprocess
 import sys
 import tarfile
-import errno
-import subprocess
 
 class ManifestError(RuntimeError):
     """Use an exception more specific than generic Python RuntimeError"""
@@ -50,7 +51,9 @@ class ManifestError(RuntimeError):
 
 class MissingError(ManifestError):
     """You specified a file that doesn't exist"""
-    pass
+    def __init__(self, msg):
+        self.msg = msg
+        super(MissingError, self).__init__(self.msg)
 
 def path_ancestors(path):
     drive, path = os.path.splitdrive(os.path.normpath(path))
@@ -363,9 +366,8 @@ class LLManifest(object):
         self.dst_prefix = [args['dest']]
         self.created_paths = []
         self.package_name = "Unknown"
-        
         self.missing = []
-        
+
     def default_channel(self):
         return self.args.get('channel', None) == RELEASE_CHANNEL
 
@@ -412,6 +414,8 @@ class LLManifest(object):
         self.artwork_prefix.append(src)
         self.build_prefix.append(build)
         self.dst_prefix.append(dst)
+
+##      self.display_stacks()
 
         # The above code is unchanged from the original implementation. What's
         # new is the return value. We're going to return an instance of
@@ -463,6 +467,8 @@ class LLManifest(object):
                 # find the attribute in 'self.manifest' named by 'stack', and
                 # truncate that list back to 'prevlen'
                 del getattr(self.manifest, stack)[prevlen:]
+
+##          self.manifest.display_stacks()
 
     def end_prefix(self, descr=None):
         """Pops a prefix off the stack.  If given an argument, checks
@@ -880,7 +886,7 @@ class LLManifest(object):
         self.construct()
         # perform finish actions
         # generic finish first
-        self.finish()        
+        self.finish()
         for action in self.actions:
             methodname = action + "_finish"
             method = getattr(self, methodname, None)
