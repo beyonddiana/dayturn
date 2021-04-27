@@ -401,6 +401,7 @@ class Windows_i686_Manifest(ViewerManifest):
         # Media plugins - LibVLC
         with self.prefix(src='../media_plugins/libvlc/%s' % self.args['configuration'], dst="llplugin"):
             self.path("media_plugin_libvlc.dll")
+            self.end_prefix()
 
         # CEF runtime files - debug
         if self.args['configuration'].lower() == 'debug':
@@ -502,6 +503,7 @@ class Windows_i686_Manifest(ViewerManifest):
             self.path("libvlc.dll")
             self.path("libvlccore.dll")
             self.path("plugins/")
+            self.end_prefix()
 
         if not self.is_packaging_viewer():
             self.package_file = "copied_deps"    
