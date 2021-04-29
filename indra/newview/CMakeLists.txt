@@ -1752,8 +1752,6 @@ set(PACKAGE ON CACHE BOOL
     "Add a package target that builds an installer package.")
 if (FMODSTUDIO)
     set(FMODKIND "fmodstudio")
-elseif (FMODEX)
-    set(FMODKIND "fmodex")
 endif (FMODSTUDIO)
 
 if (WINDOWS)
