@@ -17,18 +17,16 @@ if(WINDOWS)
 
     #*******************************
     # VIVOX - *NOTE: no debug version
-    set(vivox_src_dir "${ARCH_PREBUILT_DIRS_RELEASE}")
-    set(vivox_files
-        SLVoice.exe
-        )
-
+    set(vivox_lib_dir "${ARCH_PREBUILT_DIRS_RELEASE}")
+    set(slvoice_src_dir "${ARCH_PREBUILT_BIN_RELEASE}")    
+    set(slvoice_files SLVoice.exe )
     if (ADDRESS_SIZE EQUAL 64)
-        list(APPEND vivox_files
+        list(APPEND vivox_libs
             vivoxsdk_x64.dll
             ortp_x64.dll
             )
     else (ADDRESS_SIZE EQUAL 64)
-        list(APPEND vivox_files
+        list(APPEND vivox_libs
             vivoxsdk.dll
             ortp.dll
             )
@@ -192,12 +190,13 @@ elseif(LINUX)
     # *FIX - figure out what to do with duplicate libalut.so here -brad
 
     if(${ARCH} STREQUAL "x86_64")
-      set(vivox_src_dir "${ARCH_PREBUILT_DIRS_RELEASE}")
-      set(vivox_files
+    set(vivox_lib_dir "${ARCH_PREBUILT_DIRS_RELEASE}")
+    set(vivox_libs
           libortp.so
           libvivoxsdk.so
-          SLVoice
         )
+    set(slvoice_files SLVoice)
+
       set(release_files
           libapr-1.so.0
           libaprutil-1.so.0
@@ -274,8 +273,8 @@ elseif(LINUX)
 
 else(WINDOWS)
     message(STATUS "WARNING: unrecognized platform for staging 3rd party libs, skipping...")
-    set(vivox_src_dir "${CMAKE_SOURCE_DIR}/newview/vivox-runtime/i686-linux")#voice is always i686
-    set(vivox_files "")
+    set(vivox_lib_dir "${CMAKE_SOURCE_DIR}/newview/vivox-runtime/i686-linux")
+    set(vivox_libs "")
     # *TODO - update this to use LIBS_PREBUILT_DIR and LL_ARCH_DIR variables
     # or ARCH_PREBUILT_DIRS
     set(debug_src_dir "${CMAKE_SOURCE_DIR}/../libraries/${ARCH}-linux/lib/debug")
@@ -291,38 +290,36 @@ endif(WINDOWS)
 # Done building the file lists, now set up the copy commands.
 ################################################################
 copy_if_different(
-    ${vivox_src_dir}
+    ${vivox_lib_dir}
     "${SHARED_LIB_STAGING_DIR_DEBUG}"
     out_targets 
-    ${vivox_files}
+    ${vivox_libs}
     )
 set(third_party_targets ${third_party_targets} ${out_targets})
 
 copy_if_different(
-    ${vivox_src_dir}
+    ${slvoice_src_dir}
     "${SHARED_LIB_STAGING_DIR_RELEASE}"
     out_targets
-    ${vivox_files}
+    ${slvoice_files}
     )
+copy_if_different(
+    ${vivox_lib_dir}
+    "${SHARED_LIB_STAGING_DIR_RELEASE}"
+    out_targets
+    ${vivox_libs}
+    )
+
 set(third_party_targets ${third_party_targets} ${out_targets})
 
 copy_if_different(
-    ${vivox_src_dir}
+    ${vivox_lib_dir}
     "${SHARED_LIB_STAGING_DIR_RELWITHDEBINFO}"
     out_targets
-    ${vivox_files}
+    ${vivox_libs}
     )
 set(third_party_targets ${third_party_targets} ${out_targets})
 
-
-
-#copy_if_different(
-#    ${debug_src_dir}
-#    "${SHARED_LIB_STAGING_DIR_DEBUG}"
-#    out_targets
-#    ${debug_files}
-#    )
-#set(third_party_targets ${third_party_targets} ${out_targets})
 
 copy_if_different(
     ${release_src_dir}
