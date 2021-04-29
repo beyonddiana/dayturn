@@ -499,10 +499,11 @@ class Windows_i686_Manifest(ViewerManifest):
                  self.path("msvcr120.dll")
                  self.path("msvcp120.dll")
 
-            # Vivox runtimes
-#            self.path("wrap_oal.dll") no longer in archive
-            self.path("SLVoice.exe")
+            # SLVoice executable
+            with self.prefix(src=os.path.join(pkgdir, 'bin', 'release')):
+                self.path("SLVoice.exe")
 
+            # Vivox libraries
             if (self.address_size == 64):
                 self.path("vivoxsdk_x64.dll")
                 self.path("ortp_x64.dll")
