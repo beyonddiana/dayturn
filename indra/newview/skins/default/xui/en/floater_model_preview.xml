@@ -1614,7 +1614,7 @@
       label="Joint position overrides"
       label_text.text_color="White"
       word_wrap="down"
-      width="140"
+      width="150"
       layout="topleft"
       name="show_joint_overrides"
       top_pad="8">
