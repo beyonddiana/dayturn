@@ -4236,8 +4236,6 @@ BOOL LLModelPreview::render()
                 {
                     // auto enable weight upload if weights are present
                     // (note: all these UI updates need to be somewhere that is not render)
-                    mViewOption["show_skin_weight"] = true;
-                    skin_weight = true;
                     fmp->childSetValue("upload_skin", true);
                     mFirstSkinUpdate = false;
                 }
