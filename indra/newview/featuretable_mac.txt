@@ -1,10 +1,10 @@
 version 37
-// The version number above should be implemented IF AND ONLY IF some
+// The version number above should be incremented IF AND ONLY IF some
 // change has been made that is sufficiently important to justify
 // resetting the graphics preferences of all users to the recommended
 // defaults.  This should be as rare an event as we can manage.
 
-// NOTE: This is mostly identical to featuretable_mac.txt with a few differences
+// NOTE: This is mostly identical to featuretable.txt with a few differences
 // Should be combined into one table
 
 //
@@ -343,6 +343,7 @@ RenderVBOEnable				1	1
 //
 list Class3
 RenderVBOEnable				1	1
+
 //
 // Class 4 Hardware
 //

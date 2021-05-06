@@ -46,7 +46,7 @@ public:
 
 private:
 	void onPresetsListChange();
-	
+
 	std::string mSubdirectory;
 };
 
