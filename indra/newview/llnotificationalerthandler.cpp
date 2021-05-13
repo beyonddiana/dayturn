@@ -71,7 +71,7 @@ void LLAlertHandler::initChannel()
 }
 
 //--------------------------------------------------------------------------
-bool LLAlertHandler::processNotification(const LLNotificationPtr& notification)
+bool LLAlertHandler::processNotification(const LLNotificationPtr& notification, bool should_log)
 {
 	// if in RLV and mouselook is being forced with @camdistmax:0 make the notification non-modal 
 	// otherwise it's impossible to  use the mouse on the notification (usually the viewer reverts to
@@ -139,7 +139,7 @@ LLViewerAlertHandler::LLViewerAlertHandler(const std::string& name, const std::s
 {
 }
 
-bool LLViewerAlertHandler::processNotification(const LLNotificationPtr& p)
+bool LLViewerAlertHandler::processNotification(const LLNotificationPtr& p, bool should_log)
 {
 	if (gHeadlessClient)
 	{
