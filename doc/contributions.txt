@@ -252,6 +252,7 @@ Benja Kepler
 	VWR-746
 Benjamin Bigdipper
 Beq Janus
+	SL-5346
 	SL-10288
 	SL-13583
 	SL-11300
@@ -1292,6 +1293,8 @@ Shyotl Kuhr
 	MAINT-2334
 	MAINT-6913
 	STORM-2143
+	SL-5346
+	SL-11625
 Siana Gearz
 	STORM-960
 	STORM-1088
@@ -1329,6 +1332,7 @@ Sovereign Engineer
     STORM-2143
     STORM-2148
     SL-11079
+	SL-5346
     SL-11625
     BUG-229030
 	SL-14705
