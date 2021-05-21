@@ -79,8 +79,29 @@ protected:
 
 };
 
+
+class LLPluginProcessCreationThread : public LLThread
+{
+public:
+    LLPluginProcessCreationThread(LLPluginProcessParent *parent) :
+        LLThread("LLPluginProcessCreationThread", gAPRPoolp),
+        pParent(parent)
+    {
+    }
+protected:
+    // Inherited from LLThread, should run once
+    /*virtual*/ void run(void)
+    {
+        pParent->createPluginProcess();
+    }
+private:
+    LLPluginProcessParent *pParent;
+
+};
+
 LLPluginProcessParent::LLPluginProcessParent(LLPluginProcessParentOwner *owner):
-	mIncomingQueueMutex()
+    mIncomingQueueMutex(),
+    pProcessCreationThread(NULL)
 {
 	if(!sInstancesMutex)
 	{
@@ -109,6 +130,18 @@ LLPluginProcessParent::LLPluginProcessParent(LLPluginProcessParentOwner *owner):
 LLPluginProcessParent::~LLPluginProcessParent()
 {
 	LL_DEBUGS("Plugin") << "destructor" << LL_ENDL;
+    if (pProcessCreationThread)
+    {
+        if (!pProcessCreationThread->isStopped())
+        {
+            // Shouldn't happen at this stage
+            LL_WARNS("Plugin") << "Shutting down active pProcessCreationThread" << LL_ENDL;
+            pProcessCreationThread->shutdown();
+            ms_sleep(20);
+        }
+        pProcessCreationThread = NULL;
+        delete pProcessCreationThread;
+    }
 
 	// Destroy any remaining shared memory regions
 	sharedMemoryRegionsType::iterator iter;
@@ -313,6 +346,35 @@ bool LLPluginProcessParent::accept()
 	return result;	
 }
 
+bool LLPluginProcessParent::createPluginProcess()
+{
+    if (!mProcess)
+    {
+        // Only argument to the launcher is the port number we're listening on
+        mProcessParams.args.add(stringize(mBoundPort));
+        mProcess = LLProcess::create(mProcessParams);
+        return mProcess != NULL;
+    }
+
+    return false;
+}
+
+void LLPluginProcessParent::clearProcessCreationThread()
+{
+    if (pProcessCreationThread)
+    {
+        if (!pProcessCreationThread->isStopped())
+        {
+            pProcessCreationThread->shutdown();
+        }
+        else
+        {
+            pProcessCreationThread = NULL;
+            delete pProcessCreationThread;
+        }
+    }
+}
+
 void LLPluginProcessParent::idle(void)
 {
 	bool idle_again;
@@ -471,14 +533,29 @@ void LLPluginProcessParent::idle(void)
 			case STATE_LISTENING:
 			    {
 				    // Launch the plugin process.
+                    if (mDebug && !pProcessCreationThread)
+                    {
+                        createPluginProcess();
+                        if (!mProcess)
+                        {
+                            errorState();
+                        }
+                    }
+                    else if (pProcessCreationThread == NULL)
+                    {
+                        // exe plugin process allocation can be hindered by a number
+                        // of factors, don't hold whole viewer because of it, use thread
+                        pProcessCreationThread = new LLPluginProcessCreationThread(this);
+                        pProcessCreationThread->start();
+                    }
+                    else if (!mProcess && pProcessCreationThread->isStopped())
+                    {
+                        pProcessCreationThread = NULL;
+                        delete pProcessCreationThread;
+                        errorState();
+                    }
 				
-				    // Only argument to the launcher is the port number we're listening on
-				    mProcessParams.args.add(stringize(mBoundPort));
-				    if (! (mProcess = LLProcess::create(mProcessParams)))
-				    {
-					    errorState();
-				    }
-				    else
+				    if (mProcess)
 				    {
 					    if(mDebug)
 					    {
@@ -488,6 +565,15 @@ void LLPluginProcessParent::idle(void)
 					    // This will allow us to time out if the process never starts.
 					    mHeartbeat.start();
 					    mHeartbeat.setTimerExpirySec(mPluginLaunchTimeout);
+
+                        // pProcessCreationThread should have stopped by this point,
+                        // but check just in case it paused on statistics sync
+                        if (pProcessCreationThread && pProcessCreationThread->isStopped())
+                        {
+                            pProcessCreationThread = NULL;
+                            delete pProcessCreationThread;
+                        }
+
 					    setState(STATE_LAUNCHED);
 				    }
 			    }
@@ -590,6 +676,7 @@ void LLPluginProcessParent::idle(void)
 				killSockets();
 				setState(STATE_DONE);
                 dirtyPollSet();
+                clearProcessCreationThread();
 			    break;
 			
 			case STATE_DONE:
