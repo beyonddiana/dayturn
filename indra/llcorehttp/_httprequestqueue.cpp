@@ -147,13 +147,19 @@ void HttpRequestQueue::wakeAll()
 }
 
 
-void HttpRequestQueue::stopQueue()
+bool HttpRequestQueue::stopQueue()
 {
 	{
 		HttpScopedLock lock(mQueueMutex);
 
-		mQueueStopped = true;
-		wakeAll();
+        if (!mQueueStopped)
+        {
+            mQueueStopped = true;
+            wakeAll();
+            return true;
+        }
+        wakeAll();
+        return false;
 	}
 }
 

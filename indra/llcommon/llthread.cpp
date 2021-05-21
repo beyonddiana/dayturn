@@ -337,13 +337,14 @@ void LLThread::checkPause()
 
 void LLThread::setQuitting()
 {
-	mDataLock->lock();
-	if (mStatus == RUNNING)
-	{
-		mStatus = QUITTING;
-	}
-	mDataLock->unlock();
-	wake();
+    mDataLock->lock();
+    if (mStatus == RUNNING)
+    {
+        mStatus = QUITTING;
+    }
+    // It's only safe to remove mRunCondition if all locked threads were notified
+    mRunCondition->broadcast();
+    mDataLock->unlock();
 }
 
 // static
