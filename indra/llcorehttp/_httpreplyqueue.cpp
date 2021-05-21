@@ -62,7 +62,6 @@ void HttpReplyQueue::addOp(HttpOperation * op)
 
 		mQueue.push_back(op);
 	}
-	mQueueCV.notify_all();
 }
 
 
