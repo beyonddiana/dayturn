@@ -225,7 +225,7 @@ public:
 	void setAttachmentDetails(LLSD content);
 
 	void setAttachmentSummary(LLSD content);
-	BOOL requestAttachmentDetails();
+	bool requestAttachmentDetails();
 	void clearList();
 
 private:

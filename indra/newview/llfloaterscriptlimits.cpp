@@ -1209,20 +1209,20 @@ void LLPanelScriptLimitsRegionMemory::onClickReturn(void* userdata)
 // Attachment Panel
 ///----------------------------------------------------------------------------
 
-BOOL LLPanelScriptLimitsAttachment::requestAttachmentDetails()
+bool LLPanelScriptLimitsAttachment::requestAttachmentDetails()
 {
-	if (!gAgent.getRegion()) return FALSE;
+	if (!gAgent.getRegion()) return false;
 
 	LLSD body;
 	std::string url = gAgent.getRegionCapability("AttachmentResources");
 	if (!url.empty())
 	{
 		LLHTTPClient::get(url, body, new fetchScriptLimitsAttachmentInfoResponder());
-		return TRUE;
+		return true;
 	}
 	else
 	{
-		return FALSE;
+		return false;
 	}
 }
 
