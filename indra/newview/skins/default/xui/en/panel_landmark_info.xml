@@ -291,7 +291,18 @@
                  text_color="white"
                  top_pad="5"
                  use_ellipses="true"
-                 width="290" /> 
+                 width="200" /> 
+                <button
+                 follows="top|right"
+                 height="24"
+                 label="Edit"
+                 layout="topleft"
+                 left_pad="8"
+                 mouse_opaque="false"
+                 name="edit_btn"
+                 tool_tip="Edit landmark information"
+                 top_delta="-1"
+                 width="83" /> 
                 <line_editor
                  follows="left|top|right"
                  height="22"
@@ -301,7 +312,7 @@
                  name="title_editor"
                  prevalidate_callback="ascii"
                  text_readonly_color="white"
-                 top_delta="0"
+                 top_delta="1"
                  width="290" />
                 <text
                  follows="left|top"
@@ -344,17 +355,6 @@
                  name="folder_combo"
                  top_pad="5"
                  width="200" />
-                <button
-                 follows="bottom|left|right"
-                 height="23"
-                 label="Edit"
-                 layout="topleft"
-                 left="0"
-                 mouse_opaque="false"
-                 name="edit_btn"
-                 tool_tip="Edit landmark information"
-                 top_pad="-42"
-                 width="100" />
             </panel>
         </panel>
     </scroll_container>
