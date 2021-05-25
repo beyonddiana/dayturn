@@ -301,7 +301,7 @@ void LLFloaterBuy::onSelectionChanged()
 		removeVOInventoryListener();
 		showViews(false);
 		reset();
-		setTitle(getString("mupliple_selected"));
+		setTitle(getString("multiple_selected"));
 	}
 }
 
