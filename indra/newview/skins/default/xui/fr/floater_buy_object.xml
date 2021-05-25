@@ -14,6 +14,8 @@
 	</floater.string>
 	<floater.string name="no_transfer_text">
 		(pas de transfert)
+	<floater.string name="multiple_selected">
+		Plusieurs sélectionnés
 	</floater.string>
 	<text name="contents_text">
 		Contient :
