@@ -139,8 +139,8 @@ LLPluginProcessParent::~LLPluginProcessParent()
             pProcessCreationThread->shutdown();
             ms_sleep(20);
         }
-        pProcessCreationThread = NULL;
         delete pProcessCreationThread;
+        pProcessCreationThread = NULL;
     }
 
 	// Destroy any remaining shared memory regions
@@ -369,8 +369,8 @@ void LLPluginProcessParent::clearProcessCreationThread()
         }
         else
         {
-            pProcessCreationThread = NULL;
             delete pProcessCreationThread;
+            pProcessCreationThread = NULL;
         }
     }
 }
@@ -550,8 +550,8 @@ void LLPluginProcessParent::idle(void)
                     }
                     else if (!mProcess && pProcessCreationThread->isStopped())
                     {
-                        pProcessCreationThread = NULL;
                         delete pProcessCreationThread;
+                        pProcessCreationThread = NULL;
                         errorState();
                     }
 				
@@ -570,8 +570,8 @@ void LLPluginProcessParent::idle(void)
                         // but check just in case it paused on statistics sync
                         if (pProcessCreationThread && pProcessCreationThread->isStopped())
                         {
-                            pProcessCreationThread = NULL;
                             delete pProcessCreationThread;
+                            pProcessCreationThread = NULL;
                         }
 
 					    setState(STATE_LAUNCHED);
