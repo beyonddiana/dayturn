@@ -3516,11 +3516,11 @@ void LLViewerMediaTexture::setMediaImpl()
 //return true if all faces to reference to this media texture are found
 //Note: mMediaFaceList is valid only for the current instant 
 //      because it does not check the face validity after the current frame.
-BOOL LLViewerMediaTexture::findFaces()
+bool LLViewerMediaTexture::findFaces()
 {	
 	mMediaFaceList.clear();
 
-	BOOL ret = TRUE;
+	bool ret = true;
 	
 	LLViewerTexture* tex = gTextureList.findImage(mID, TEX_LIST_STANDARD);
 	if(tex) //this media is a parcel media for tex.
@@ -3538,7 +3538,7 @@ BOOL LLViewerMediaTexture::findFaces()
 	
 	if(!mMediaImplp)
 	{
-		return TRUE; 
+		return true; 
 	}
 
 	//for media on a face.
@@ -3554,13 +3554,13 @@ BOOL LLViewerMediaTexture::findFaces()
             // If this happens, viewer is likely to crash
             llassert(0);
             LL_WARNS() << "Dead object in mMediaImplp's object list" << LL_ENDL;
-            ret = FALSE;
+            ret = false;
             continue;
         }
 
         if (obj->mDrawable.isNull() || obj->mDrawable->isDead())
         {
-            ret = FALSE;
+            ret = false;
             continue;
         }
 
@@ -3575,7 +3575,7 @@ BOOL LLViewerMediaTexture::findFaces()
 			}
 			else
 			{
-				ret = FALSE;
+				ret = false;
 			}
 		}
 	}

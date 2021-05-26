@@ -618,7 +618,7 @@ public:
 	/*virtual*/ F32  getMaxVirtualSize() ;
 private:
 	void switchTexture(U32 ch, LLFace* facep) ;
-	BOOL findFaces() ;
+	bool findFaces() ;
 	void stopPlaying() ;
 
 private:
