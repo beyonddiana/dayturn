@@ -745,9 +745,9 @@ private:
 	/*virtual*/ void outputTestRecord(LLSD* sd) ;
 
 private:
-	BOOL mPause ;
+	bool mPause ;
 private:
-	BOOL mUsingDefaultTexture;            //if set, some textures are still gray.
+	bool mUsingDefaultTexture;            //if set, some textures are still gray.
 
 	U32Bytes mTotalBytesUsed ;                     //total bytes of textures bound/used for the current frame.
 	U32Bytes mTotalBytesUsedForLargeImage ;        //total bytes of textures bound/used for the current frame for images larger than 256 * 256.

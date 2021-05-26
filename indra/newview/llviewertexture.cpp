@@ -3947,13 +3947,13 @@ void LLTexturePipelineTester::update()
 			//start a new fetching session
 			reset();
 			mStartFetchingTime = LLImageGL::sLastFrameTime;
-			mPause = FALSE;
+			mPause = false;
 		}
 
 		//update total gray time		
 		if(mUsingDefaultTexture)
 		{
-			mUsingDefaultTexture = FALSE;
+			mUsingDefaultTexture = false;
 			mTotalGrayTime = LLImageGL::sLastFrameTime - mStartFetchingTime;		
 		}
 
@@ -3965,7 +3965,7 @@ void LLTexturePipelineTester::update()
 	else if(!mPause)
 	{
 		//stop the current fetching session
-		mPause = TRUE;
+		mPause = true;
 		outputTestResults();
 		reset();
 	}		
@@ -3973,9 +3973,9 @@ void LLTexturePipelineTester::update()
 	
 void LLTexturePipelineTester::reset() 
 {
-	mPause = TRUE;
+	mPause = true;
 
-	mUsingDefaultTexture = FALSE;
+	mUsingDefaultTexture = false;
 	mStartStablizingTime = 0.0f;
 	mEndStablizingTime = 0.0f;
 
@@ -4055,7 +4055,7 @@ void LLTexturePipelineTester::updateTextureLoadingStats(const LLViewerFetchedTex
 
 void LLTexturePipelineTester::updateGrayTextureBinding()
 {
-	mUsingDefaultTexture = TRUE;
+	mUsingDefaultTexture = true;
 }
 
 void LLTexturePipelineTester::setStablizingTime()
