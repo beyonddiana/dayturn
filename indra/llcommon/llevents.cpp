@@ -49,7 +49,6 @@
 #pragma warning (push)
 #pragma warning (disable : 4701) // compiler thinks might use uninitialized var, but no
 #endif
-#include <boost/make_shared.hpp>
 #include <boost/lexical_cast.hpp>
 #if LL_WINDOWS
 #pragma warning (pop)
@@ -289,7 +288,7 @@ LLEventPump::LLEventPump(const std::string& name, bool tweak):
     // Register every new instance with LLEventPumps
     mRegistry(LLEventPumps::instance().getHandle()),
     mName(mRegistry.get()->registerNew(*this, name, tweak)),
-    mSignal(boost::make_shared<LLStandardSignal>()),
+    mSignal(std::make_shared<LLStandardSignal>()),
     mEnabled(true)
 {}
 
@@ -321,14 +320,24 @@ void LLEventPump::clear()
 {
     // Destroy the original LLStandardSignal instance, replacing it with a
     // whole new one.
-    mSignal = boost::make_shared<LLStandardSignal>();
+    mSignal = std::make_shared<LLStandardSignal>();
     mConnections.clear();
 }
 
 void LLEventPump::reset()
 {
-    mSignal.reset();
+    // Resetting mSignal is supposed to disconnect everything on its own
+    // But due to crash on 'reset' added explicit cleanup to get more data
+    ConnectionMap::const_iterator iter = mConnections.begin();
+    ConnectionMap::const_iterator end = mConnections.end();
+    while (iter!=end)
+    {
+        iter->second.disconnect();
+        iter++;
+    }
     mConnections.clear();
+
+    mSignal.reset();
     //mDeps.clear();
 }
 
@@ -547,7 +556,7 @@ bool LLEventStream::post(const LLSD& event)
     // *stack* instance of the shared_ptr, ensuring that our heap
     // LLStandardSignal object will live at least until post() returns, even
     // if 'this' gets destroyed during the call.
-    boost::shared_ptr<LLStandardSignal> signal(mSignal);
+    std::shared_ptr<LLStandardSignal> signal(mSignal);
     // Let caller know if any one listener handled the event. This is mostly
     // useful when using LLEventStream as a listener for an upstream
     // LLEventPump.
@@ -623,7 +632,7 @@ void LLEventQueue::flush()
 
     // DEV-43463: capture a local copy of mSignal. See LLEventStream::post()
     // for detailed comments.
-    boost::shared_ptr<LLStandardSignal> signal(mSignal);
+    std::shared_ptr<LLStandardSignal> signal(mSignal);
     for ( ; ! queue.empty(); queue.pop_front())
     {
         (*signal)(queue.front());
