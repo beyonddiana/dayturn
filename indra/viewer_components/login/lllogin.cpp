@@ -299,10 +299,10 @@ void LLLogin::Impl::login_(std::string uri, LLSD login_params)
 	// *NOTE: The response from LLXMLRPCListener's Poller::poll method returns an
 	// llsd with no "responses" node. To make the output from an incomplete login symmetrical 
 	// to success, add a data/message and data/reason fields.
-	LLSD error_response;
-	error_response["reason"] = mAuthResponse["status"];
-	error_response["errorcode"] = mAuthResponse["errorcode"];
-	error_response["message"] = mAuthResponse["error"];
+    LLSD error_response(LLSDMap
+                        ("reason",    mAuthResponse["status"])
+                        ("errorcode", mAuthResponse["errorcode"])
+                        ("message",   mAuthResponse["error"]));
 	if(mAuthResponse.has("certificate"))
 	{
 		error_response["certificate"] = mAuthResponse["certificate"];
