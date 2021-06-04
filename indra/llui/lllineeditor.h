@@ -314,6 +314,8 @@ private:
 	virtual S32		getPreeditFontSize() const;
 	virtual LLWString getPreeditString() const { return getWText(); }
 
+    void			setText(const LLStringExplicit &new_text, bool ignore_size_limit);
+
 	void			setContextMenu(LLContextMenu* new_context_menu);
 
 protected:
