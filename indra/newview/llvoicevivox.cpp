@@ -4267,6 +4267,12 @@ void LLVivoxVoiceClient::switchChannel(
 			// The old session may now need to be deleted.
 			reapSession(oldSession);
 
+            // If voice was on, turn it off
+            if (LLVoiceClient::getInstance()->getUserPTTState())
+            {
+                LLVoiceClient::getInstance()->setUserPTTState(false);
+            }
+
 			notifyStatusObservers(LLVoiceClientStatusObserver::STATUS_VOICE_DISABLED);
 		}
 		else
