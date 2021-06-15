@@ -43,6 +43,7 @@
 # include <io.h>
 #endif // !LL_WINDOWS
 #include <vector>
+#include "string.h"
 
 #include "llapp.h"
 #include "llapr.h"
@@ -653,21 +654,16 @@ namespace LLError
 		mTags(new const char* [tag_count]),
 		mTagCount(tag_count)
 	{
-		for (int i = 0; i < tag_count; i++)
-		{
-			mTags[i] = tags[i];
-		}
-
 		switch (mLevel)
 		{
-		case LEVEL_DEBUG:		mLevelString = "DEBUG:";	break;
-		case LEVEL_INFO:		mLevelString = "INFO:";		break;
-		case LEVEL_WARN:		mLevelString = "WARNING:";	break;
-		case LEVEL_ERROR:		mLevelString = "ERROR:";	break;
-		default:				mLevelString = "XXX:";		break;
+        case LEVEL_DEBUG: mLevelString = "DEBUG";   break;
+        case LEVEL_INFO:  mLevelString = "INFO";    break;
+        case LEVEL_WARN:  mLevelString = "WARNING"; break;
+        case LEVEL_ERROR: mLevelString = "ERROR";   break;
+        default:          mLevelString = "XXX";     break;
 		};
 
-		mLocationString = llformat("%s(%d) :", abbreviateFile(mFile).c_str(), mLine);
+		mLocationString = llformat("%s(%d)", abbreviateFile(mFile).c_str(), mLine);
 #if LL_WINDOWS
 		// DevStudio: __FUNCTION__ already includes the full class name
 #else
@@ -681,13 +677,23 @@ namespace LLError
 			mFunctionString = className(mClassInfo) + "::";
 		}
 #endif
-		mFunctionString += std::string(mFunction) + ":";
-		const std::string tag_hash("#");
+		mFunctionString += std::string(mFunction);
+
+		for (int i = 0; i < tag_count; i++)
+		{
+            if (strchr(tags[i], ' '))
+            {
+                LL_ERRS() << "Space is not allowed in a log tag at " << mLocationString << LL_ENDL;
+            }
+			mTags[i] = tags[i];
+		}
+
+        mTagString.append("#");
+        // always construct a tag sequence; will be just a single # if no tag
 		for (size_t i = 0; i < mTagCount; i++)
 		{
-            mTagString.append(tag_hash);
  			mTagString.append(mTags[i]);
- 			mTagString.append((i == mTagCount - 1) ? ";" : ",");		
+            mTagString.append("#");
         }
 	}
 
