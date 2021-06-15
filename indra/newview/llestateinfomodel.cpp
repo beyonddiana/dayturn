@@ -92,7 +92,7 @@ void LLEstateInfoModel::update(const strings_t& strings)
 	mFlags		= strtoul(strings[3].c_str(), NULL, 10);
 	mSunHour	= ((F32)(strtod(strings[4].c_str(), NULL)))/1024.0f;
 
-	LL_DEBUGS("Windlight Sync") << "Received estate info: "
+	LL_DEBUGS("WindlightSync") << "Received estate info: "
 		<< "is_sun_fixed = " << getUseFixedSun()
 		<< ", sun_hour = " << getSunHour() << LL_ENDL;
 	LL_DEBUGS() << getInfoDump() << LL_ENDL;
@@ -155,7 +155,7 @@ bool LLEstateInfoModel::commitEstateInfoCaps()
 
 	body["invoice"              ] = LLFloaterRegionInfo::getLastInvoice();
 
-	LL_DEBUGS("Windlight Sync") << "Sending estate caps: "
+	LL_DEBUGS("WindlightSync") << "Sending estate caps: "
 		<< "is_sun_fixed = " << getUseFixedSun()
 		<< ", sun_hour = " << getSunHour() << LL_ENDL;
 	LL_DEBUGS() << body << LL_ENDL;
@@ -174,7 +174,7 @@ bool LLEstateInfoModel::commitEstateInfoCaps()
 // strings[3] = str((S32)(sun_hour * 1024.f))
 void LLEstateInfoModel::commitEstateInfoDataserver()
 {
-	LL_DEBUGS("Windlight Sync") << "Sending estate info: "
+	LL_DEBUGS("WindlightSync") << "Sending estate info: "
 		<< "is_sun_fixed = " << getUseFixedSun()
 		<< ", sun_hour = " << getSunHour() << LL_ENDL;
 	LL_DEBUGS() << getInfoDump() << LL_ENDL;

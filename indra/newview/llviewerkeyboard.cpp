@@ -725,7 +725,7 @@ bool LLViewerKeyboard::handleKey(KEY translated_key,  MASK translated_mask, bool
 	if(mKeysSkippedByUI.find(translated_key) != mKeysSkippedByUI.end()) 
 	{
 		mKeyHandledByUI[translated_key] = false;
-		LL_INFOS("Keyboard Handling") << "Key wasn't handled by UI!" << LL_ENDL;
+		LL_INFOS("KeyboardHandling") << "Key wasn't handled by UI!" << LL_ENDL;
 	}
 	else
 	{

@@ -1319,7 +1319,7 @@ void LLFloaterTools::getMediaState()
 	if(!has_media_capability)
 	{
 		getChildView("add_media")->setEnabled(FALSE);
-		LL_WARNS("LLFloaterTools: media") << "Media not enabled (no capability) in this region!" << LL_ENDL;
+		LL_WARNS("LLFloaterToolsMedia") << "Media not enabled (no capability) in this region!" << LL_ENDL;
 		clearMediaSettings();
 		return;
 	}
@@ -1343,7 +1343,7 @@ void LLFloaterTools::getMediaState()
 			{
 				if (!object->permModify())
 				{
-					LL_INFOS("LLFloaterTools: media")
+					LL_INFOS("LLFloaterToolsMedia")
 						<< "Selection not editable due to lack of modify permissions on object id "
 						<< object->getID() << LL_ENDL;
 					
