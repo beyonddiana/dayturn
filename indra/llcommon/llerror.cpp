@@ -486,6 +486,7 @@ namespace
 	public:
 		std::ostringstream messageStream;
 		bool messageStreamInUse;
+		std::string mFatalMessage;
 
 		void addCallSite(LLError::CallSite&);
 		void invalidateCallSites();
@@ -779,6 +780,11 @@ namespace LLError
 		SettingsConfigPtr s = Settings::getInstance()->getSettingsConfig();
         return s->mCrashFunction;
     }
+
+	std::string getFatalMessage()
+	{
+		return Globals::getInstance()->mFatalMessage;
+	}
 
 	void setTimeFunction(TimeFunction f)
 	{
