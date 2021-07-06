@@ -870,7 +870,6 @@ void LLPanelPeople::updateFriendList()
 
 void LLPanelPeople::giveMessage(const LLUUID& agent_id, const LLAvatarName& av_name, const std::string& postMsg)
 {
-	//LLPanelPeople::reportToNearbyChat(av_name.getCompleteName(TRUE, FALSE) + postMsg);
 	LLChat chat;
 	chat.mText = postMsg;
 	chat.mSourceType = CHAT_SOURCE_SYSTEM;
