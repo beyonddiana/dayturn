@@ -367,7 +367,6 @@ void FSExport::addPrim(LLViewerObject* object, bool root)
 					{
 						if (!mAborted)
 						{
-							reportToNearbyChat(LLTrans::getString("export_fail_no_mesh"));
 							mAborted = true;
 						}
 						return;
