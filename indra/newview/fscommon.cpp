@@ -46,14 +46,12 @@ using namespace boost::gregorian;
 
 S32 FSCommon::sObjectAddMsg = 0;
 
-void reportToNearbyChat(const std::string& message)
+void report_to_nearby_chat(const std::string& message)
 {
 	LLChat chat;
     chat.mText = message;
-	chat.mSourceType = CHAT_SOURCE_SYSTEM;
-	LLSD args;
-	args["type"] = LLNotificationsUI::NT_NEARBYCHAT;
-	LLNotificationsUI::LLNotificationManager::instance().onChat(chat, args);
+    chat.mSourceType = CHAT_SOURCE_SYSTEM;
+    LLNotificationsUI::LLNotificationManager::instance().onChat(chat, LLSD());
 }
 std::string format_string(std::string text, const LLStringUtil::format_map_t& args)
 {
