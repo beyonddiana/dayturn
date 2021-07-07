@@ -90,7 +90,7 @@ private:
 	void updateStarColors();
 
 	// helper function for updating the stars geometry.
-	BOOL updateStarGeometry(LLDrawable *drawable);
+	bool updateStarGeometry(LLDrawable *drawable);
 
 private:
 	LLPointer<LLVertexBuffer>					mFanVerts;
