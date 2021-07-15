@@ -155,11 +155,11 @@ support@secondlife.com.</string>
 	<string name="LoginFailedAccountDisabled">We are unable to complete your request at this time.
 Please contact support for [CURRENT_GRID].</string>
 	<string name="LoginFailedTransformError">Data inconsistency found during login.
-Please contact support@secondlife.com.</string>
+Please contact support for [CURRENT_GRID].</string>
 	<string name="LoginFailedAccountMaintenance">Your account is undergoing minor maintenance.
 Your account is not accessible until
 [TIME] Pacific Time.
-If you feel this is an error, please contact support@secondlife.com.</string>
+If you feel this is an error, please contact support for [CURRENT_GRID].</string>
 	<string name="LoginFailedPendingLogoutFault">Request for logout responded with a fault from simulator.</string>
 	<string name="LoginFailedPendingLogout">The system is logging you out right now.
 Please wait a minute before you try logging in again.</string>
@@ -168,13 +168,13 @@ Please wait a minute before you try logging in again.</string>
 	<string name="LoginFailedRestrictedHours">Your account can only access [CURRENT_GRID]
 between [START] and [END] Pacific Time.
 Please come back during those hours.
-If you feel this is an error, please contact support@secondlife.com.</string>
+If you feel this is an error, please contact support for [CURRENT_GRID].</string>
 	<string name="LoginFailedIncorrectParameters">Incorrect parameters.
-If you feel this is an error, please contact support@secondlife.com.</string>
+If you feel this is an error, please contact support for [CURRENT_GRID].</string>
 	<string name="LoginFailedFirstNameNotAlphanumeric">First name parameter must be alphanumeric.
-If you feel this is an error, please contact support@secondlife.com.</string>
+If you feel this is an error, please contact support for [CURRENT_GRID].</string>
 	<string name="LoginFailedLastNameNotAlphanumeric">Last name parameter must be alphanumeric.
-If you feel this is an error, please contact support@secondlife.com.</string>
+If you feel this is an error, please contact support for [CURRENT_GRID].</string>
 	<string name="LogoutFailedRegionGoingOffline">Region is going offline.
 Please try logging in again in a minute.</string>
 	<string name="LogoutFailedAgentNotInRegion">Agent not in region.
