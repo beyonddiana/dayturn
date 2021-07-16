@@ -72,6 +72,7 @@ Voice Server Version: [VOICE_VERSION]
 	</string>
 	<string name="AboutTraffic">Packets Lost: [PACKETS_LOST,number,0]/[PACKETS_IN,number,0] ([PACKETS_PCT,number,1]%)</string>
 	<string name="AboutTime">[month, datetime, slt] [day, datetime, slt] [year, datetime, slt] [hour, datetime, slt]:[min, datetime, slt]:[second,datetime,slt]</string>
+  <string name="LocalTime">[month, datetime, local] [day, datetime, local] [year, datetime, local] [hour, datetime, local]:[min, datetime, local]:[second,datetime, local]</string>
 	<string name="ErrorFetchingServerReleaseNotesURL">Error fetching server release notes URL.</string>
 	<string name="BuildConfiguration">Build Configuration</string>
 
@@ -149,9 +150,11 @@ Check www.secondlife.com/status for updates.</string>
 People with free accounts will not be able to access [CURRENT_GRID] during this time, to make room for those who have paid for [CURRENT_GRID].</string>
 	<string name="LoginFailedComputerProhibited">[CURRENT_GRID] cannot be accessed from this computer.
 If you feel this is an error, please contact
-support@secondlife.com.</string>
+support [CURRENT_GRID]</string>
+  <!--'Pacific time' placeholder for [TIME] in case time from server can't be decoded-->
+  <string name="PacificTime">Pacific Time</string>
 	<string name="LoginFailedAcountSuspended">Your account is not accessible until
-[TIME] Pacific Time.</string>
+[TIME].</string>
 	<string name="LoginFailedAccountDisabled">We are unable to complete your request at this time.
 Please contact support for [CURRENT_GRID].</string>
 	<string name="LoginFailedTransformError">Data inconsistency found during login.
