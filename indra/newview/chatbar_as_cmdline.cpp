@@ -592,7 +592,7 @@ bool cmd_line_chat(std::string revised_text, EChatType type, bool from_gesture)
                             msg->addVector3("Binormal", LLVector3::zero);
                             msg->sendMessage(myObject->getRegion()->getHost());
                             snprintf(buffer,sizeof(buffer),"Touched object with key %s",targetKey.asString().c_str());
-                            reportToNearbyChat(std::string(buffer));
+                            report_to_nearby_chat(std::string(buffer));
                         }
                 }
                 return false;
@@ -622,8 +622,8 @@ bool cmd_line_chat(std::string revised_text, EChatType type, bool from_gesture)
                         msg->addUUIDFast(_PREHASH_TargetID, targetKey);
                         msg->addVector3Fast(_PREHASH_Offset, LLVector3::zero);
                         gAgent.getRegion()->sendReliableMessage();
-
                         snprintf(buffer,sizeof(buffer),"Sat on object with key %s",targetKey.asString().c_str());
+                        report_to_nearby_chat(std::string(buffer));
                     }
                 }
                 return false;
@@ -633,7 +633,7 @@ bool cmd_line_chat(std::string revised_text, EChatType type, bool from_gesture)
                 if (!gRRenabled || (gRRenabled && !gAgent.mRRInterface.mContainsUnsit))
                 {
                     gAgent.setControlFlags(AGENT_CONTROL_STAND_UP);
-                    reportToNearbyChat(std::string("Standing up"));
+                    report_to_nearby_chat(std::string("Standing up"));
                 }
                 return false;
             }
