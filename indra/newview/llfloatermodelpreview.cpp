@@ -4049,7 +4049,7 @@ U32 LLModelPreview::loadTextures(LLImportMaterial& material,void* opaque)
 		material.mOpaqueData = new LLPointer< LLViewerFetchedTexture >;
 		LLPointer< LLViewerFetchedTexture >& tex = (*reinterpret_cast< LLPointer< LLViewerFetchedTexture > * >(material.mOpaqueData));
 
-        tex = LLViewerTextureManager::getFetchedTextureFromUrl("file://" + LLURI::unescape(material.mDiffuseMapFilename), FTT_LOCAL_FILE, true, LLGLTexture::BOOST_PREVIEW);
+        tex = LLViewerTextureManager::getFetchedTextureFromUrl("file://" + LLURI::unescape(material.mDiffuseMapFilename), FTT_LOCAL_FILE, TRUE, LLGLTexture::BOOST_PREVIEW);
 		tex->setLoadedCallback(LLModelPreview::textureLoadedCallback, 0, true, false, opaque, NULL, FALSE);
 		tex->forceToSaveRawImage(0, F32_MAX);
 		material.setDiffuseMap(tex->getID()); // record tex ID
@@ -4943,12 +4943,12 @@ void LLFloaterModelPreview::refresh()
 
 //static
 void LLModelPreview::textureLoadedCallback(
-    BOOL success,
+    bool success,
     LLViewerFetchedTexture *src_vi,
     LLImageRaw* src,
     LLImageRaw* src_aux,
     S32 discard_level,
-    BOOL final,
+    bool final,
     void* userdata )
 {
     if (!LLFloaterModelPreview::sInstance)

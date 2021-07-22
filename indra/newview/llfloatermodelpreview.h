@@ -338,7 +338,7 @@ public:
 	U32 getLegacyRigFlags() const { return mLegacyRigFlags; }
 	void setLegacyRigFlags( U32 rigFlags ) { mLegacyRigFlags = rigFlags; }
 
-	static void	textureLoadedCallback( BOOL success, LLViewerFetchedTexture *src_vi, LLImageRaw* src, LLImageRaw* src_aux, S32 discard_level, BOOL final, void* userdata );
+	static void	textureLoadedCallback( bool success, LLViewerFetchedTexture *src_vi, LLImageRaw* src, LLImageRaw* src_aux, S32 discard_level, bool final, void* userdata );
     static bool lodQueryCallback();
 
 	boost::signals2::connection setDetailsCallback( const details_signal_t::slot_type& cb ){  return mDetailsSignal.connect(cb);  }
