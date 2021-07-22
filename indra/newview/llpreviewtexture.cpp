@@ -421,12 +421,12 @@ void LLPreviewTexture::openToSave()
 }
 
 // static
-void LLPreviewTexture::onFileLoadedForSave(BOOL success, 
+void LLPreviewTexture::onFileLoadedForSave(bool success,
 					   LLViewerFetchedTexture *src_vi,
 					   LLImageRaw* src, 
 					   LLImageRaw* aux_src, 
 					   S32 discard_level,
-					   BOOL final,
+					   bool final,
 					   void* userdata)
 {
 	LLUUID* item_uuid = (LLUUID*) userdata;

@@ -53,12 +53,12 @@ public:
 	virtual void 		onFocusReceived();
 	
 	static void			onFileLoadedForSave( 
-							BOOL success,
+							bool success,
 							LLViewerFetchedTexture *src_vi,
 							LLImageRaw* src, 
 							LLImageRaw* aux_src,
 							S32 discard_level, 
-							BOOL final,
+							bool final,
 							void* userdata );
 	void 				openToSave();
     

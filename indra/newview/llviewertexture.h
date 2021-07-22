@@ -497,7 +497,7 @@ protected:
 	S8  mDesiredDiscardLevel;			// The discard level we'd LIKE to have - if we have it and there's space	
 	S8  mMinDesiredDiscardLevel;	// The minimum discard level we'd like to have
 
-	S8  mNeedsAux;					// We need to decode the auxiliary channels
+	bool  mNeedsAux;					// We need to decode the auxiliary channels
 	S8  mHasAux;                    // We have aux channels
 	S8  mDecodingAux;				// Are we decoding high components
 	S8  mIsRawImageValid;
