@@ -298,7 +298,7 @@ void LLPanelVolume::getState( )
 	
 	if (is_light && editable && single_volume)
 	{
-		//mLabelColor		 ->setEnabled( TRUE );
+		//mLabelColor		 ->setEnabled(true);
 		LLColorSwatchCtrl* LightColorSwatch = getChild<LLColorSwatchCtrl>("colorswatch");
 		if(LightColorSwatch)
 		{
@@ -343,7 +343,7 @@ void LLPanelVolume::getState( )
 		LLColorSwatchCtrl* LightColorSwatch = getChild<LLColorSwatchCtrl>("colorswatch");
 		if(LightColorSwatch)
 		{
-			LightColorSwatch->setEnabled( FALSE );
+			LightColorSwatch->setEnabled(false);
 			LightColorSwatch->setValid( FALSE );
 		}
 		LLTextureCtrl* LightTextureCtrl = getChild<LLTextureCtrl>("light texture control");
@@ -480,7 +480,7 @@ void LLPanelVolume::getState( )
 	std::string LEGACY_FULLBRIGHT_DESC = LLTrans::getString("Fullbright");
 	if (editable && single_volume && material_same)
 	{
-		mComboMaterial->setEnabled( TRUE );
+		mComboMaterial->setEnabled(true);
 		if (material_code == LL_MCODE_LIGHT)
 		{
 			if (mComboMaterial->getItemCount() == mComboMaterialItemCount)
@@ -501,7 +501,7 @@ void LLPanelVolume::getState( )
 	}
 	else
 	{
-		mComboMaterial->setEnabled( FALSE );
+		mComboMaterial->setEnabled(false);
 	}
 
 	// Physics properties
@@ -623,13 +623,13 @@ void LLPanelVolume::clearCtrls()
 	LLColorSwatchCtrl* LightColorSwatch = getChild<LLColorSwatchCtrl>("colorswatch");
 	if(LightColorSwatch)
 	{
-		LightColorSwatch->setEnabled( FALSE );
+		LightColorSwatch->setEnabled(false);
 		LightColorSwatch->setValid( FALSE );
 	}
 	LLTextureCtrl* LightTextureCtrl = getChild<LLTextureCtrl>("light texture control");
 	if(LightTextureCtrl)
 	{
-		LightTextureCtrl->setEnabled( FALSE );
+		LightTextureCtrl->setEnabled(false);
 		LightTextureCtrl->setValid( FALSE );
 	}
 

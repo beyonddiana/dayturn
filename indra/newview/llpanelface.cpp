@@ -967,12 +967,12 @@ void LLPanelFace::updateUI(bool force_set_values /*false*/)
 				{
 					// None selected
 					texture_ctrl->setTentative( FALSE );
-					texture_ctrl->setEnabled( FALSE );
+					texture_ctrl->setEnabled(false);
 					texture_ctrl->setImageAssetID( LLUUID::null );
-					getChildView("combobox alphamode")->setEnabled( FALSE );
-					getChildView("label alphamode")->setEnabled( FALSE );
+					getChildView("combobox alphamode")->setEnabled(false);
+					getChildView("label alphamode")->setEnabled(false);
 					getChildView("maskcutoff")->setEnabled( FALSE);
-					getChildView("label maskcutoff")->setEnabled( FALSE );
+					getChildView("label maskcutoff")->setEnabled(false);
 
                     texture_ctrl->setBakeTextureEnabled(false);
 				}
@@ -1568,13 +1568,13 @@ void LLPanelFace::updateUI(bool force_set_values /*false*/)
 		if(texture_ctrl)
 		{
 			texture_ctrl->setImageAssetID( LLUUID::null );
-			texture_ctrl->setEnabled( FALSE );  // this is a LLUICtrl, but we don't want it to have keyboard focus so we add it as a child, not a ctrl.
+			texture_ctrl->setEnabled(false);  // this is a LLUICtrl, but we don't want it to have keyboard focus so we add it as a child, not a ctrl.
 // 			texture_ctrl->setValid(FALSE);
 		}
 		LLColorSwatchCtrl* mColorSwatch = getChild<LLColorSwatchCtrl>("colorswatch");
 		if(mColorSwatch)
 		{
-			mColorSwatch->setEnabled( FALSE );			
+			mColorSwatch->setEnabled(false);			
 			mColorSwatch->setFallbackImage(LLUI::getUIImage("locked_image.j2c") );
 			mColorSwatch->setValid(FALSE);
 		}

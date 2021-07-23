@@ -996,7 +996,7 @@ bool idle_startup()
 
 		gViewerWindow->setNormalControlsVisible( FALSE );	
 		gLoginMenuBarView->setVisible(true);
-		gLoginMenuBarView->setEnabled( TRUE );
+		gLoginMenuBarView->setEnabled(true);
 		show_debug_menus();
 
 		// Hide the splash screen
@@ -1630,7 +1630,7 @@ bool idle_startup()
 			gViewerWindow->setNormalControlsVisible( TRUE );
 		}	
 		gLoginMenuBarView->setVisible(false);
-		gLoginMenuBarView->setEnabled( FALSE );
+		gLoginMenuBarView->setEnabled(false);
 		display_startup();
 
 		// direct logging to the debug console's line buffer
@@ -3147,7 +3147,7 @@ void reset_login()
 	{	// Hide menus and normal buttons
 		gViewerWindow->setNormalControlsVisible( FALSE );
 		gLoginMenuBarView->setVisible(true);
-		gLoginMenuBarView->setEnabled( TRUE );
+		gLoginMenuBarView->setEnabled(true);
 	}
 
 	// Hide any other stuff
