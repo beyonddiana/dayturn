@@ -2580,7 +2580,7 @@ void LLScrollListCtrl::deselectItem(LLScrollListItem* itemp)
 			mLastSelected = NULL;
 		}
 
-		itemp->setSelected(FALSE);
+		itemp->setSelected(false);
 		LLScrollListCell* cellp = itemp->getColumn(getSearchColumn());
 		if (cellp)
 		{

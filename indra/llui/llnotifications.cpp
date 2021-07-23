@@ -1767,6 +1767,7 @@ void LLNotifications::cancelByOwner(const LLUUID ownerId)
 	}
 }
 
+
 void LLNotifications::update(const LLNotificationPtr pNotif)
 {
 	LLNotificationSet::iterator it=mItems.find(pNotif);

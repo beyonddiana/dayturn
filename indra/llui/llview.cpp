@@ -2294,7 +2294,6 @@ void LLView::initFromParams(const LLView::Params& params)
 	setEnabled(getEnabled());
 	setVisible(getVisible());
 
-
 	if (!params.name().empty())
 	{
 		setName(params.name());

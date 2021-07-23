@@ -78,12 +78,12 @@ BOOL LLStyle::isLink() const
 	return mIsLink;
 }
 
-BOOL LLStyle::isVisible() const
+bool LLStyle::isVisible() const
 {
 	return mVisible;
 }
 
-void LLStyle::setVisible(BOOL is_visible)
+void LLStyle::setVisible(bool is_visible)
 {
 	mVisible = is_visible;
 }
