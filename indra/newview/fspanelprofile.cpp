@@ -808,7 +808,7 @@ bool FSPanelProfileWeb::postBuild()
     mWebBrowser = getChild<LLMediaCtrl>("profile_html");
     mWebBrowser->addObserver(this);
 
-    getChild<LLLineEditor>("url_edit")->setEnabled( FALSE );
+    getChild<LLLineEditor>("url_edit")->setEnabled(false);
 
     return true;
 }
@@ -970,7 +970,7 @@ void FSPanelProfileWeb::enableControls()
 
     if (getAvatarId() == gAgent.getID())
     {
-        getChild<LLLineEditor>("url_edit")->setEnabled( TRUE );
+        getChild<LLLineEditor>("url_edit")->setEnabled(true);
     }
 }
 
@@ -1011,9 +1011,9 @@ bool FSPanelProfileInterests::postBuild()
 
     //FS:KC - Due to a bug with LLLineEditor, it cannot be disabled from XUI
     // It won't properly enable from code if it is.
-    getChild<LLLineEditor>("want_to_edit")->setEnabled( FALSE );
-    getChild<LLLineEditor>("skills_edit")->setEnabled( FALSE );
-    getChild<LLLineEditor>("languages_edit")->setEnabled( FALSE );
+    getChild<LLLineEditor>("want_to_edit")->setEnabled(false);
+    getChild<LLLineEditor>("skills_edit")->setEnabled(false);
+    getChild<LLLineEditor>("languages_edit")->setEnabled(false);
 
     return true;
 }
@@ -1098,18 +1098,18 @@ void FSPanelProfileInterests::enableControls()
 
     if (getAvatarId() == gAgent.getID())
     {
-        getChild<LLLineEditor>("want_to_edit")->setEnabled( TRUE );
-        getChild<LLLineEditor>("skills_edit")->setEnabled( TRUE );
-        getChild<LLLineEditor>("languages_edit")->setEnabled( TRUE );
+        getChild<LLLineEditor>("want_to_edit")->setEnabled(true);
+        getChild<LLLineEditor>("skills_edit")->setEnabled(true);
+        getChild<LLLineEditor>("languages_edit")->setEnabled(true);
 
         for (S32 i=0; i < WANT_CHECKS; ++i)
         {
-            mWantChecks[i]->setEnabled( TRUE );
+            mWantChecks[i]->setEnabled(true);
         }
 
         for (S32 i=0; i < SKILL_CHECKS; ++i)
         {
-            mSkillChecks[i]->setEnabled( TRUE );
+            mSkillChecks[i]->setEnabled(true);
         }
     }
 }
@@ -1200,8 +1200,8 @@ void FSPanelPick::setAvatarId(const LLUUID& avatar_id)
 
     if (getAvatarId() == gAgent.getID())
     {
-        getChild<LLLineEditor>("pick_name")->setEnabled( TRUE );
-        getChild<LLUICtrl>("pick_desc")->setEnabled( TRUE );
+        getChild<LLLineEditor>("pick_name")->setEnabled(true);
+        getChild<LLUICtrl>("pick_desc")->setEnabled(true);
         getChild<LLUICtrl>("set_to_curr_location_btn")->setVisible( true );
     }
 	/*else
@@ -1223,7 +1223,7 @@ bool FSPanelPick::postBuild()
 
     LLLineEditor* line_edit = getChild<LLLineEditor>("pick_name");
     line_edit->setKeystrokeCallback(boost::bind(&FSPanelPick::onPickChanged, this, _1), NULL);
-    line_edit->setEnabled( FALSE );
+    line_edit->setEnabled(false);
 
     LLTextEditor* text_edit = getChild<LLTextEditor>("pick_desc");
     text_edit->setKeystrokeCallback(boost::bind(&FSPanelPick::onPickChanged, this, _1));

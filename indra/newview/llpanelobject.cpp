@@ -1989,27 +1989,27 @@ void LLPanelObject::clearCtrls()
 	LLPanel::clearCtrls();
 
 	mCheckLock		->set(FALSE);
-	mCheckLock		->setEnabled( FALSE );
+	mCheckLock		->setEnabled(false);
 	mCheckPhysics	->set(FALSE);
-	mCheckPhysics	->setEnabled( FALSE );
+	mCheckPhysics	->setEnabled(false);
 	mCheckTemporary	->set(FALSE);
-	mCheckTemporary	->setEnabled( FALSE );
+	mCheckTemporary	->setEnabled(false);
 	mCheckPhantom	->set(FALSE);
-	mCheckPhantom	->setEnabled( FALSE );
+	mCheckPhantom	->setEnabled(false);
 	
 	// Disable text labels
-	mLabelPosition	->setEnabled( FALSE );
-	mLabelSize		->setEnabled( FALSE );
-	mLabelRotation	->setEnabled( FALSE );
-	mLabelCut		->setEnabled( FALSE );
-	mLabelHollow	->setEnabled( FALSE );
-	mLabelHoleType	->setEnabled( FALSE );
-	mLabelTwist		->setEnabled( FALSE );
-	mLabelSkew		->setEnabled( FALSE );
-	mLabelShear		->setEnabled( FALSE );
-	mLabelTaper		->setEnabled( FALSE );
-	mLabelRadiusOffset->setEnabled( FALSE );
-	mLabelRevolutions->setEnabled( FALSE );
+	mLabelPosition	->setEnabled(false);
+	mLabelSize		->setEnabled(false);
+	mLabelRotation	->setEnabled(false);
+	mLabelCut		->setEnabled(false);
+	mLabelHollow	->setEnabled(false);
+	mLabelHoleType	->setEnabled(false);
+	mLabelTwist		->setEnabled(false);
+	mLabelSkew		->setEnabled(false);
+	mLabelShear		->setEnabled(false);
+	mLabelTaper		->setEnabled(false);
+	mLabelRadiusOffset->setEnabled(false);
+	mLabelRevolutions->setEnabled(false);
 	
 	getChildView("scale_hole")->setEnabled(false);
 	getChildView("scale_taper")->setEnabled(false);

@@ -117,7 +117,7 @@ bool LLFloaterTOS::postBuild()
 	{
 		// this displays the critical message
 		LLUICtrl *tos_text = getChild<LLUICtrl>("tos_text");
-		tos_text->setEnabled( FALSE );
+		tos_text->setEnabled(false);
 		tos_text->setFocus(TRUE);
 		tos_text->setValue(LLSD(mMessage));
 

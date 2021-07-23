@@ -134,7 +134,7 @@ void LLPanelLandMedia::refresh()
 		BOOL can_change_media = LLViewerParcelMgr::isParcelModifiableByAgent(parcel, GP_LAND_CHANGE_MEDIA);
 
 		mMediaURLEdit->setText(parcel->getMediaURL());
-		mMediaURLEdit->setEnabled( FALSE );
+		mMediaURLEdit->setEnabled(false);
 
 		getChild<LLUICtrl>("current_url")->setValue(parcel->getMediaCurrentURL());
 
