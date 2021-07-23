@@ -128,7 +128,7 @@ bool LLAccordionCtrl::postBuild()
 	
 	mScrollbar = LLUICtrlFactory::create<LLScrollbar> (sbparams);
 	LLView::addChild( mScrollbar );
-	mScrollbar->setVisible( false );
+	mScrollbar->setVisible(false);
 	mScrollbar->setFollowsRight();
 	mScrollbar->setFollowsTop();
 	mScrollbar->setFollowsBottom();

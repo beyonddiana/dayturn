@@ -157,7 +157,7 @@ void LLLayoutPanel::setOrientation( LLLayoutStack::ELayoutOrientation orientatio
 	mTargetDim = llmax(layout_dim, getMinDim());
 }
  
-void LLLayoutPanel::setVisible( bool visible )
+void LLLayoutPanel::setVisible(bool visible)
 {
 	if (visible != getVisible())
 	{

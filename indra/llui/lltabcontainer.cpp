@@ -484,7 +484,7 @@ void LLTabContainer::draw()
 
 			if( !tuple->mVisible )
 			{
-				tuple->mButton->setVisible( false );
+				tuple->mButton->setVisible(false);
 				continue;
 			}
 

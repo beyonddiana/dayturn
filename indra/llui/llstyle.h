@@ -61,8 +61,8 @@ public:
 	const LLUIColor& getSelectedColor() const { return mSelectedColor; }
 	void setSelectedColor(const LLUIColor& color) { mSelectedColor = color; }
 
-	BOOL isVisible() const;
-	void setVisible(BOOL is_visible);
+	bool isVisible() const;
+	void setVisible(bool is_visible);
 
 	LLFontGL::ShadowType getShadowType() const { return mDropShadow; }
 
@@ -101,7 +101,7 @@ protected:
 	~LLStyle() { }
 
 private:
-	BOOL				mVisible;
+	bool				mVisible;
 	LLUIColor			mColor;
 	LLUIColor   		mReadOnlyColor;
 	LLUIColor			mSelectedColor;

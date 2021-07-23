@@ -310,7 +310,7 @@ public:
 	virtual void	onVisibilityChange ( bool new_visibility );
 	virtual void	onUpdateScrollToChild(const LLUICtrl * cntrl);
 
-	void			pushVisible(BOOL visible)	{ mLastVisible = mVisible; setVisible(visible); }
+	void			pushVisible(bool visible)	{ mLastVisible = mVisible; setVisible(visible); }
 	void			popVisible()				{ setVisible(mLastVisible); }
 	bool			getLastVisible()	const	{ return mLastVisible; }
 
