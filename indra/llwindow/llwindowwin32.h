@@ -75,10 +75,10 @@ public:
 	/*virtual*/ bool copyTextToClipboard(const LLWString &src);
 	/*virtual*/ void flashIcon(F32 seconds);
 	/*virtual*/ F32 getGamma();
-	/*virtual*/ BOOL setGamma(const F32 gamma); // Set the gamma
+	/*virtual*/ bool setGamma(const F32 gamma); // Set the gamma
 	/*virtual*/ void setFSAASamples(const U32 fsaa_samples);
 	/*virtual*/ U32 getFSAASamples();
-	/*virtual*/ BOOL restoreGamma();			// Restore original gamma table (before updating gamma)
+	/*virtual*/ bool restoreGamma();			// Restore original gamma table (before updating gamma)
 	/*virtual*/ ESwapMethod getSwapMethod() { return mSwapMethod; }
 	/*virtual*/ void gatherInput();
 	/*virtual*/ void delayInputProcessing();
@@ -104,7 +104,7 @@ public:
 	/*virtual*/ void bringToFront();
 	/*virtual*/ void focusClient();
 
-	/*virtual*/ void allowLanguageTextInput(LLPreeditor *preeditor, BOOL b);
+	/*virtual*/ void allowLanguageTextInput(LLPreeditor *preeditor, bool b);
 	/*virtual*/ void setLanguageTextInput( const LLCoordGL & pos );
 	/*virtual*/ void updateLanguageTextInputArea();
 	/*virtual*/ void interruptLanguageTextInput();
@@ -137,13 +137,13 @@ protected:
 	virtual LLSD	getNativeKeyData();
 
 	// Changes display resolution. Returns true if successful
-	BOOL	setDisplayResolution(S32 width, S32 height, S32 bits, S32 refresh);
+	bool	setDisplayResolution(S32 width, S32 height, S32 bits, S32 refresh);
 
 	// Go back to last fullscreen display resolution.
-	BOOL	setFullscreenResolution();
+	bool	setFullscreenResolution();
 
 	// Restore the display resolution to its value before we ran the app.
-	BOOL	resetDisplayResolution();
+	bool	resetDisplayResolution();
 
 	bool	shouldPostQuit() { return mPostQuit; }
 
@@ -154,18 +154,18 @@ protected:
 	U32		fillReconvertString(const LLWString &text, S32 focus, S32 focus_length, RECONVERTSTRING *reconvert_string);
 	void	handleStartCompositionMessage();
 	void	handleCompositionMessage(U32 indexes);
-	BOOL	handleImeRequests(WPARAM request, LPARAM param, LRESULT *result);
+	bool	handleImeRequests(WPARAM request, LPARAM param, LRESULT *result);
 
 protected:
 	//
 	// Platform specific methods
 	//
 
-	BOOL	getClientRectInScreenSpace(RECT* rectp);
+	bool	getClientRectInScreenSpace(RECT* rectp);
 	void 	updateJoystick( );
 
 	static LRESULT CALLBACK mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_param, LPARAM l_param);
-	static BOOL CALLBACK enumChildWindows(HWND h_wnd, LPARAM l_param);
+	static bool CALLBACK enumChildWindows(HWND h_wnd, LPARAM l_param);
 
 
 	//
@@ -186,23 +186,23 @@ protected:
 
 	HCURSOR		mCursor[ UI_CURSOR_COUNT ];  // Array of all mouse cursors
 
-	static BOOL sIsClassRegistered; // has the window class been registered?
+	static bool sIsClassRegistered; // has the window class been registered?
 
 	F32			mCurrentGamma;
 	U32			mFSAASamples;
 	WORD		mPrevGammaRamp[3][256];
 	WORD		mCurrentGammaRamp[3][256];
-	BOOL		mCustomGammaSet;
+	bool		mCustomGammaSet;
 
 	LPWSTR		mIconResource;
-	BOOL		mMousePositionModified;
-	BOOL		mInputProcessingPaused;
+	bool		mMousePositionModified;
+	bool		mInputProcessingPaused;
 
 	// The following variables are for Language Text Input control.
 	// They are all static, since one context is shared by all LLWindowWin32
 	// instances.
-	static BOOL		sLanguageTextInputAllowed;
-	static BOOL		sWinIMEOpened;
+	static bool		sLanguageTextInputAllowed;
+	static bool		sWinIMEOpened;
 	static HKL		sWinInputLocale;
 	static DWORD	sWinIMEConversionMode;
 	static DWORD	sWinIMESentenceMode;
@@ -221,7 +221,7 @@ protected:
 	U32				mRawWParam;
 	U32				mRawLParam;
 
-	BOOL			mMouseVanish;
+	bool			mMouseVanish;
 
 	friend class LLWindowManager;
 };

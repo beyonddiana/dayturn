@@ -134,10 +134,10 @@ HGLRC SafeCreateContext(HDC hdc)
 }
 
 //static
-BOOL LLWindowWin32::sIsClassRegistered = FALSE;
+bool LLWindowWin32::sIsClassRegistered = false;
 
-BOOL	LLWindowWin32::sLanguageTextInputAllowed = TRUE;
-BOOL	LLWindowWin32::sWinIMEOpened = FALSE;
+bool	LLWindowWin32::sLanguageTextInputAllowed = true;
+bool	LLWindowWin32::sWinIMEOpened = false;
 HKL		LLWindowWin32::sWinInputLocale = 0;
 DWORD	LLWindowWin32::sWinIMEConversionMode = IME_CMODE_NATIVE;
 DWORD	LLWindowWin32::sWinIMESentenceMode = IME_SMODE_AUTOMATIC;
@@ -454,8 +454,8 @@ LLWindowWin32::LLWindowWin32(LLWindowCallbacks* callbacks,
 	mIconResource = gIconResource;
 	mOverrideAspectRatio = 0.f;
 	mNativeAspectRatio = 0.f;
-	mMousePositionModified = FALSE;
-	mInputProcessingPaused = FALSE;
+	mMousePositionModified = false;
+	mInputProcessingPaused = false;
 	mPreeditor = NULL;
 	mKeyCharCode = 0;
 	mKeyScanCode = 0;
@@ -464,12 +464,12 @@ LLWindowWin32::LLWindowWin32(LLWindowCallbacks* callbacks,
 	mhRC = NULL;
 	memset(mCurrentGammaRamp, 0, sizeof(mCurrentGammaRamp));
 	memset(mPrevGammaRamp, 0, sizeof(mPrevGammaRamp));
-	mCustomGammaSet = FALSE;
+	mCustomGammaSet = false;
 	mWindowHandle = NULL;
 	
 	if (!SystemParametersInfo(SPI_GETMOUSEVANISH, 0, &mMouseVanish, 0))
 	{
-		mMouseVanish = TRUE;
+		mMouseVanish = true;
 	}
 
 	// Initialize the keyboard
@@ -481,7 +481,7 @@ LLWindowWin32::LLWindowWin32(LLWindowCallbacks* callbacks,
 
 	// Initialize (boot strap) the Language text input management,
 	// based on the system's (user's) default settings.
-	allowLanguageTextInput(mPreeditor, FALSE);
+	allowLanguageTextInput(mPreeditor, false);
 
 	WNDCLASS		wc;
 	RECT			window_rect;
@@ -600,7 +600,7 @@ LLWindowWin32::LLWindowWin32(LLWindowCallbacks* callbacks,
 				mCallbacks->translateString("MBError"), OSMB_OK);
 			return;
 		}
-		sIsClassRegistered = TRUE;
+		sIsClassRegistered = true;
 	}
 
 	//-----------------------------------------------------------------------
@@ -778,7 +778,7 @@ LLWindowWin32::LLWindowWin32(LLWindowCallbacks* callbacks,
 
 	// Initialize (boot strap) the Language text input management,
 	// based on the system's (or user's) default settings.
-	allowLanguageTextInput(NULL, FALSE);
+	allowLanguageTextInput(NULL, false);
 }
 
 
@@ -1795,7 +1795,7 @@ void LLWindowWin32::moveWindow( const LLCoordScreen& position, const LLCoordScre
 
 bool LLWindowWin32::setCursorPosition(const LLCoordWindow position)
 {
-	mMousePositionModified = TRUE;
+	mMousePositionModified = true;
 	if (!mWindowHandle)
 	{
 		return false;
@@ -1988,7 +1988,7 @@ void LLWindowWin32::releaseMouse()
 
 void LLWindowWin32::delayInputProcessing()
 {
-	mInputProcessingPaused = TRUE;
+	mInputProcessingPaused = true;
 }
 
 void LLWindowWin32::gatherInput()
@@ -2038,13 +2038,13 @@ void LLWindowWin32::gatherInput()
 		}
 	}
 
-	mInputProcessingPaused = FALSE;
+	mInputProcessingPaused = false;
 
 	updateCursor();
 
 	// clear this once we've processed all mouse messages that might have occurred after
 	// we slammed the mouse position
-	mMousePositionModified = FALSE;
+	mMousePositionModified = false;
 }
 
 static LLTrace::BlockTimerStatHandle FTM_KEYHANDLER("Handle Keyboard");
@@ -2961,7 +2961,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
 				{
 					if (!SystemParametersInfo(SPI_GETMOUSEVANISH, 0, &window_imp->mMouseVanish, 0))
 					{
-						window_imp->mMouseVanish = TRUE;
+						window_imp->mMouseVanish = true;
 					}
 				}
 			}
@@ -3188,9 +3188,9 @@ void LLWindowWin32::setMouseClipping( bool b )
 	}
 }
 
-BOOL LLWindowWin32::getClientRectInScreenSpace( RECT* rectp )
+bool LLWindowWin32::getClientRectInScreenSpace( RECT* rectp )
 {
-	BOOL success = FALSE;
+	bool success = false;
 
 	RECT client_rect;
 	if( mWindowHandle && GetClientRect(mWindowHandle, &client_rect) )
@@ -3211,7 +3211,7 @@ BOOL LLWindowWin32::getClientRectInScreenSpace( RECT* rectp )
 			bottom_right.x,
 			bottom_right.y );
 
-		success = TRUE;
+		success = true;
 	}
 
 	return success;
@@ -3234,34 +3234,34 @@ F32 LLWindowWin32::getGamma()
 	return mCurrentGamma;
 }
 
-BOOL LLWindowWin32::restoreGamma()
+bool LLWindowWin32::restoreGamma()
 {
-	if (mCustomGammaSet != FALSE)
+	if (mCustomGammaSet != false)
 	{
         LL_DEBUGS("Window") << "Restoring gamma" << LL_ENDL;
-		mCustomGammaSet = FALSE;
+		mCustomGammaSet = false;
 		return SetDeviceGammaRamp(mhDC, mPrevGammaRamp);
 	}
-	return TRUE;
+	return true;
 }
 
-BOOL LLWindowWin32::setGamma(const F32 gamma)
+bool LLWindowWin32::setGamma(const F32 gamma)
 {
 	mCurrentGamma = gamma;
 
 	//Get the previous gamma ramp to restore later.
-	if (mCustomGammaSet == FALSE)
+	if (mCustomGammaSet == false)
 	{
         if (!gGLManager.mIsIntel) // skip for Intel GPUs (see SL-11341)
         {
             LL_DEBUGS("Window") << "Getting the previous gamma ramp to restore later" << LL_ENDL;
-            if(GetDeviceGammaRamp(mhDC, mPrevGammaRamp) == FALSE)
+            if(GetDeviceGammaRamp(mhDC, mPrevGammaRamp) == false)
             {
                 LL_WARNS("Window") << "Failed to get the previous gamma ramp" << LL_ENDL;
-                return FALSE;
+                return false;
             }
         }
-		mCustomGammaSet = TRUE;
+		mCustomGammaSet = true;
 	}
 
 	LL_DEBUGS("Window") << "Setting gamma to " << gamma << LL_ENDL;
@@ -3373,12 +3373,12 @@ F32 LLWindowWin32::getPixelAspectRatio()
 
 // Change display resolution.  Returns true if successful.
 // protected
-BOOL LLWindowWin32::setDisplayResolution(S32 width, S32 height, S32 bits, S32 refresh)
+bool LLWindowWin32::setDisplayResolution(S32 width, S32 height, S32 bits, S32 refresh)
 {
 	DEVMODE dev_mode;
 	::ZeroMemory(&dev_mode, sizeof(DEVMODE));
 	dev_mode.dmSize = sizeof(DEVMODE);
-	BOOL success = FALSE;
+	bool success = false;
 
 	// Don't change anything if we don't have to
 	if (EnumDisplaySettings(NULL, ENUM_CURRENT_SETTINGS, &dev_mode))
@@ -3389,7 +3389,7 @@ BOOL LLWindowWin32::setDisplayResolution(S32 width, S32 height, S32 bits, S32 re
 			dev_mode.dmDisplayFrequency == refresh )
 		{
 			// ...display mode identical, do nothing
-			return TRUE;
+			return true;
 		}
 	}
 
@@ -3416,7 +3416,7 @@ BOOL LLWindowWin32::setDisplayResolution(S32 width, S32 height, S32 bits, S32 re
 }
 
 // protected
-BOOL LLWindowWin32::setFullscreenResolution()
+bool LLWindowWin32::setFullscreenResolution()
 {
 	if (mFullscreen)
 	{
@@ -3424,18 +3424,18 @@ BOOL LLWindowWin32::setFullscreenResolution()
 	}
 	else
 	{
-		return FALSE;
+		return false;
 	}
 }
 
 // protected
-BOOL LLWindowWin32::resetDisplayResolution()
+bool LLWindowWin32::resetDisplayResolution()
 {
 	LL_DEBUGS("Window") << "resetDisplayResolution START" << LL_ENDL;
 
 	LONG cds_result = ChangeDisplaySettings(NULL, 0);
 
-	BOOL success = (DISP_CHANGE_SUCCESSFUL == cds_result);
+	bool success = (DISP_CHANGE_SUCCESSFUL == cds_result);
 
 	if (!success)
 	{
@@ -3699,7 +3699,7 @@ void LLWindowWin32::focusClient()
 	SetFocus ( mWindowHandle );
 }
 
-void LLWindowWin32::allowLanguageTextInput(LLPreeditor *preeditor, BOOL b)
+void LLWindowWin32::allowLanguageTextInput(LLPreeditor *preeditor, bool b)
 {
 	if (b == sLanguageTextInputAllowed || !LLWinImm::isAvailable())
 	{
@@ -4148,7 +4148,7 @@ LLWindowCallbacks::DragNDropResult LLWindowWin32::completeDragNDropRequest( cons
 // When it handled the message, the value to be returned from
 // the Window Procedure is set to *result.
 
-BOOL LLWindowWin32::handleImeRequests(WPARAM request, LPARAM param, LRESULT *result)
+bool LLWindowWin32::handleImeRequests(WPARAM request, LPARAM param, LRESULT *result)
 {
 	if ( mPreeditor )
 	{
@@ -4166,7 +4166,7 @@ BOOL LLWindowWin32::handleImeRequests(WPARAM request, LPARAM param, LRESULT *res
 				form->dwIndex = dwIndex;
 
 				*result = 1;
-				return TRUE;
+				return true;
 			}
 			case IMR_QUERYCHARPOSITION:
 			{
@@ -4186,19 +4186,19 @@ BOOL LLWindowWin32::handleImeRequests(WPARAM request, LPARAM param, LRESULT *res
 				if (!mPreeditor->getPreeditLocation(position, &caret_coord, &preedit_bounds, &text_control))
 				{
 					LL_WARNS("Window") << "*** IMR_QUERYCHARPOSITON called but getPreeditLocation failed." << LL_ENDL;
-					return FALSE;
+					return false;
 				}
 				fillCharPosition(caret_coord, preedit_bounds, text_control, char_position);
 
 				*result = 1;
-				return TRUE;
+				return true;
 			}
 			case IMR_COMPOSITIONFONT:
 			{
 				fillCompositionLogfont((LOGFONT *)param);
 
 				*result = 1;
-				return TRUE;
+				return true;
 			}
 			case IMR_RECONVERTSTRING:
 			{
@@ -4236,12 +4236,12 @@ BOOL LLWindowWin32::handleImeRequests(WPARAM request, LPARAM param, LRESULT *res
 				}
 
 				*result = size;
-				return TRUE;
+				return true;
 			}
 			case IMR_CONFIRMRECONVERTSTRING:
 			{
-				*result = FALSE;
-				return TRUE;
+				*result = false;
+				return true;
 			}
 			case IMR_DOCUMENTFEED:
 			{
@@ -4263,14 +4263,14 @@ BOOL LLWindowWin32::handleImeRequests(WPARAM request, LPARAM param, LRESULT *res
 				
 				RECONVERTSTRING *reconvert_string = (RECONVERTSTRING *)param;
 				*result = fillReconvertString(context, preedit, 0, reconvert_string);
-				return TRUE;
+				return true;
 			}
 			default:
-				return FALSE;
+				return false;
 		}
 	}
 
-	return FALSE;
+	return false;
 }
 
 //static

@@ -990,14 +990,14 @@ F32 LLWindowSDL::getGamma()
 	return 1/mGamma;
 }
 
-BOOL LLWindowSDL::restoreGamma()
+bool LLWindowSDL::restoreGamma()
 {
 	//CGDisplayRestoreColorSyncSettings();
     SDL_SetGamma(1.0f, 1.0f, 1.0f);
 	return true;
 }
 
-BOOL LLWindowSDL::setGamma(const F32 gamma)
+bool LLWindowSDL::setGamma(const F32 gamma)
 {
 	mGamma = gamma;
 	if (mGamma == 0) mGamma = 0.1f;

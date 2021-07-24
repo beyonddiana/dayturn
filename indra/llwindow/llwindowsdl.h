@@ -91,10 +91,10 @@ public:
  
 	/*virtual*/ void flashIcon(F32 seconds);
 	/*virtual*/ F32 getGamma();
-	/*virtual*/ BOOL setGamma(const F32 gamma); // Set the gamma
+	/*virtual*/ bool setGamma(const F32 gamma); // Set the gamma
 	/*virtual*/ U32 getFSAASamples();
 	/*virtual*/ void setFSAASamples(const U32 samples);
-	/*virtual*/ BOOL restoreGamma();			// Restore original gamma table (before updating gamma)
+	/*virtual*/ bool restoreGamma();			// Restore original gamma table (before updating gamma)
 	/*virtual*/ ESwapMethod getSwapMethod() { return mSwapMethod; }
 	/*virtual*/ void processMiscNativeEvents();
 	/*virtual*/ void gatherInput();
@@ -162,10 +162,10 @@ protected:
 	void	moveWindow(const LLCoordScreen& position,const LLCoordScreen& size);
 
 	// Changes display resolution. Returns true if successful
-	BOOL	setDisplayResolution(S32 width, S32 height, S32 bits, S32 refresh);
+	bool	setDisplayResolution(S32 width, S32 height, S32 bits, S32 refresh);
 
 	// Go back to last fullscreen display resolution.
-	BOOL	setFullscreenResolution();
+	bool	setFullscreenResolution();
 
 	bool	shouldPostQuit() { return mPostQuit; }
 
