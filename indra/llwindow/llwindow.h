@@ -113,10 +113,10 @@ public:
  
 	virtual void flashIcon(F32 seconds) = 0;
 	virtual F32 getGamma() = 0;
-	virtual BOOL setGamma(const F32 gamma) = 0; // Set the gamma
+	virtual bool setGamma(const F32 gamma) = 0; // Set the gamma
 	virtual void setFSAASamples(const U32 fsaa_samples) = 0; //set number of FSAA samples
 	virtual U32	 getFSAASamples() = 0;
-	virtual BOOL restoreGamma() = 0;			// Restore original gamma table (before updating gamma)
+	virtual bool restoreGamma() = 0;			// Restore original gamma table (before updating gamma)
 	virtual ESwapMethod getSwapMethod() { return mSwapMethod; }
 	virtual void processMiscNativeEvents();
 	virtual void gatherInput() = 0;
@@ -155,7 +155,7 @@ public:
 	virtual void *getMediaWindow();
 	
 	// control platform's Language Text Input mechanisms.
-	virtual void allowLanguageTextInput(LLPreeditor *preeditor, BOOL b) {}
+	virtual void allowLanguageTextInput(LLPreeditor *preeditor, bool b) {}
 	virtual void setLanguageTextInput( const LLCoordGL & pos ) {};
 	virtual void updateLanguageTextInputArea() {}
 	virtual void interruptLanguageTextInput() {}

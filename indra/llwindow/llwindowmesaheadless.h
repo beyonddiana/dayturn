@@ -69,8 +69,8 @@ public:
 	/*virtual*/ bool copyTextToClipboard(const LLWString &src) {return false; };
 	/*virtual*/ void flashIcon(F32 seconds) {};
 	/*virtual*/ F32 getGamma() {return 1.0f; };
-	/*virtual*/ BOOL setGamma(const F32 gamma) {return FALSE; }; // Set the gamma
-	/*virtual*/ BOOL restoreGamma() {return FALSE; };	// Restore original gamma table (before updating gamma)
+	/*virtual*/ bool setGamma(const F32 gamma) {return false; }; // Set the gamma
+	/*virtual*/ bool restoreGamma() {return false; };	// Restore original gamma table (before updating gamma)
 	/*virtual*/ void setFSAASamples(const U32 fsaa_samples) { /* FSAA not supported yet on Mesa headless.*/ }
 	/*virtual*/ U32	 getFSAASamples() { return 0; }
 	//virtual ESwapMethod getSwapMethod() { return mSwapMethod; }
