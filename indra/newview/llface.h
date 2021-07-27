@@ -108,7 +108,7 @@ public:
 	void            switchTexture(U32 ch, LLViewerTexture* new_texture);
 	void            dirtyTexture();
 	LLXformMatrix*	getXform()			const	{ return mXform; }
-	BOOL			hasGeometry()		const	{ return mGeomCount > 0; }
+	bool			hasGeometry()		const	{ return mGeomCount > 0; }
 	LLVector3		getPositionAgent()	const;
 	LLVector2       surfaceToTexture(LLVector2 surface_coord, const LLVector4a& position, const LLVector4a& normal);
 	void 			getPlanarProjectedParams(LLQuaternion* face_rot, LLVector3* face_pos, F32* scale) const;
@@ -161,7 +161,7 @@ public:
 	//for volumes
 	void updateRebuildFlags();
 	bool canRenderAsMask(); // logic helper
-	BOOL getGeometryVolume(const LLVolume& volume,
+	bool getGeometryVolume(const LLVolume& volume,
 						const S32 &f,
 						const LLMatrix4& mat_vert, const LLMatrix3& mat_normal,
 						const U16 &index_offset,
@@ -204,7 +204,7 @@ public:
 	S32			getReferenceIndex() 		const	{ return mReferenceIndex; }
 	void		setReferenceIndex(const S32 index)	{ mReferenceIndex = index; }
 
-	BOOL		verify(const U32* indices_array = NULL) const;
+	bool		verify(const U32* indices_array = NULL) const;
 	void		printDebugInfo() const;
 
 	void		setGeomIndex(U16 idx); 
@@ -216,12 +216,10 @@ public:
 	void        resetVirtualSize();
 
 	void        setHasMedia(bool has_media)  { mHasMedia = has_media ;}
-	BOOL        hasMedia() const ;
+	bool        hasMedia() const ;
 
     void        setMediaAllowed(bool is_media_allowed)  { mIsMediaAllowed = is_media_allowed; }
-    BOOL        isMediaAllowed() const { return mIsMediaAllowed; }
-
-	BOOL		switchTexture() ;
+    bool        isMediaAllowed() const { return mIsMediaAllowed; }
 
 	//vertex buffer tracking
 	void setVertexBuffer(LLVertexBuffer* buffer);
@@ -241,7 +239,7 @@ public: //aligned members
 
 private:
 	F32         adjustPartialOverlapPixelArea(F32 cos_angle_to_view_dir, F32 radius );
-	BOOL        calcPixelArea(F32& cos_angle_to_view_dir, F32& radius) ;
+	bool        calcPixelArea(F32& cos_angle_to_view_dir, F32& radius) ;
 public:
 	static F32 calcImportanceToCamera(F32 to_view_dir, F32 dist);
 	static F32 adjustPixelArea(F32 importance, F32 pixel_area) ;
@@ -304,7 +302,7 @@ private:
 	bool        mIsMediaAllowed;
 	
 protected:
-	static BOOL	sSafeRenderSelect;
+	static bool	sSafeRenderSelect;
 	
 public:
 	struct CompareDistanceGreater
