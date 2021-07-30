@@ -55,13 +55,15 @@ bool LLPreviewAnim::postBuild()
 	childSetCommitCallback("desc", LLPreview::onText, this);
 	getChild<LLLineEditor>("desc")->setPrevalidate(&LLTextValidate::validateASCIIPrintableNoPipe);
 	getChild<LLTextBox>("adv_trigger")->setClickedCallback(boost::bind(&LLPreviewAnim::showAdvanced, this));
-	pAdvancedStatsTextBox = getChild<LLTextBox>("AdvancedStats");
-
+	pMoreInfoLeft = getChild<LLTextBox>("MoreInfoLeft");
+    pMoreInfoRight = getChild<LLTextBox>("MoreInfoRight");
+    
     // Assume that advanced stats start visible (for XUI preview tool's purposes)
-    pAdvancedStatsTextBox->setVisible(FALSE);
-    LLRect rect = getRect();
-    reshape(rect.getWidth(), rect.getHeight() - pAdvancedStatsTextBox->getRect().getHeight() - ADVANCED_VPAD, FALSE);
-
+    pMoreInfoLeft->setVisible(false);
+    pMoreInfoRight->setVisible(false);
+    // GN: Let's keep the panel size static, so no need to recalc the floater here as the original code did.
+    
+    
 	return LLPreview::postBuild();
 }
 
@@ -194,29 +196,27 @@ void LLPreviewAnim::onClose(bool app_quitting)
 
 void LLPreviewAnim::showAdvanced()
 {
-    BOOL was_visible =  pAdvancedStatsTextBox->getVisible();
+    bool was_visible =  pMoreInfoLeft->getVisible(); // we only need to test for the left text being visible as we toggle visibility for both below
 
     if (was_visible)
     {
-        pAdvancedStatsTextBox->setVisible(FALSE);
-        LLRect rect = getRect();
-        reshape(rect.getWidth(), rect.getHeight() - pAdvancedStatsTextBox->getRect().getHeight() - ADVANCED_VPAD, FALSE);
+        pMoreInfoLeft->setVisible(false);
+        pMoreInfoRight->setVisible(false);
     }
     else
     {
-        pAdvancedStatsTextBox->setVisible(TRUE);
-        LLRect rect = getRect();
-        reshape(rect.getWidth(), rect.getHeight() + pAdvancedStatsTextBox->getRect().getHeight() + ADVANCED_VPAD, FALSE);
+        pMoreInfoLeft->setVisible(true);
+        pMoreInfoRight->setVisible(true);
 
         // set text
         if (pMotion)
         {
-            pAdvancedStatsTextBox->setTextArg("[PRIORITY]", llformat("%d", pMotion->getPriority()));
-            pAdvancedStatsTextBox->setTextArg("[DURATION]", llformat("%.2f", pMotion->getDuration()));
-            pAdvancedStatsTextBox->setTextArg("[EASE_IN]", llformat("%.2f", pMotion->getEaseInDuration()));
-            pAdvancedStatsTextBox->setTextArg("[EASE_OUT]", llformat("%.2f", pMotion->getEaseOutDuration()));
-            pAdvancedStatsTextBox->setTextArg("[IS_LOOP]", (pMotion->getLoop() ? LLTrans::getString("PermYes") : LLTrans::getString("PermNo")));
-            pAdvancedStatsTextBox->setTextArg("[NUM_JOINTS]", llformat("%d", pMotion->getNumJointMotions()));
+            pMoreInfoLeft->setTextArg("[PRIORITY]", llformat("%d", pMotion->getPriority()));
+            pMoreInfoLeft->setTextArg("[DURATION]", llformat("%.2f", pMotion->getDuration()));
+            pMoreInfoLeft->setTextArg("[IS_LOOP]", (pMotion->getLoop() ? LLTrans::getString("PermYes") : LLTrans::getString("PermNo")));
+            pMoreInfoRight->setTextArg("[EASE_IN]", llformat("%.2f", pMotion->getEaseInDuration()));
+            pMoreInfoRight->setTextArg("[EASE_OUT]", llformat("%.2f", pMotion->getEaseOutDuration()));
+            pMoreInfoRight->setTextArg("[NUM_JOINTS]", llformat("%d", pMotion->getNumJointMotions()));
         }
     }
 }
