@@ -79,7 +79,7 @@ bool LLInventoryModel::sFirstTimeInViewer2 = true;
 /// Local function declarations, constants, enums, and typedefs
 ///----------------------------------------------------------------------------
 
-//BOOL decompress_file(const char* src_filename, const char* dst_filename);
+//bool decompress_file(const char* src_filename, const char* dst_filename);
 static const char PRODUCTION_CACHE_FORMAT_STRING[] = "%s.inv.llsd";
 static const char GRID_CACHE_FORMAT_STRING[] = "%s.%s.inv.llsd";
 static const char * const LOG_INV("Inventory");
@@ -1095,7 +1095,7 @@ U32 LLInventoryModel::updateItem(const LLViewerInventoryItem* item, U32 mask)
 		// Target ID is stored in the description field of the card.
 		LLUUID id;
 		std::string desc = new_item->getDescription();
-		BOOL isId = desc.empty() ? FALSE : id.set(desc, FALSE);
+		bool isId = desc.empty() ? false : id.set(desc, false);
 		if (isId)
 		{
 			// Valid UUID; set the item UUID and rename it
@@ -2564,7 +2564,7 @@ void LLInventoryModel::buildParentChildMap()
 		}
 	}
 
-	const BOOL COF_exists = (findCategoryUUIDForType(LLFolderType::FT_CURRENT_OUTFIT, FALSE) != LLUUID::null);
+	const bool COF_exists = (findCategoryUUIDForType(LLFolderType::FT_CURRENT_OUTFIT, false) != LLUUID::null);
 	sFirstTimeInViewer2 = !COF_exists || gAgent.isFirstLogin();
 
 
@@ -2620,13 +2620,13 @@ void LLInventoryModel::buildParentChildMap()
 	{
 		LL_WARNS(LOG_INV) << "Found " << lost << " lost items." << LL_ENDL;
 		LLMessageSystem* msg = gMessageSystem;
-		BOOL start_new_message = TRUE;
+		bool start_new_message = true;
 		const LLUUID lnf = findCategoryUUIDForType(LLFolderType::FT_LOST_AND_FOUND);
 		for(uuid_vec_t::iterator it = lost_item_ids.begin() ; it < lost_item_ids.end(); ++it)
 		{
 			if(start_new_message)
 			{
-				start_new_message = FALSE;
+				start_new_message = false;
 				msg->newMessageFast(_PREHASH_MoveInventoryItem);
 				msg->nextBlockFast(_PREHASH_AgentData);
 				msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
@@ -4311,9 +4311,9 @@ bool LLInventoryModel::validate() const
 
 
 #if 0
-BOOL decompress_file(const char* src_filename, const char* dst_filename)
+bool decompress_file(const char* src_filename, const char* dst_filename)
 {
-	BOOL rv = FALSE;
+	bool rv = false;
 	gzFile src = NULL;
 	U8* buffer = NULL;
 	LLFILE* dst = NULL;
@@ -4341,7 +4341,7 @@ BOOL decompress_file(const char* src_filename, const char* dst_filename)
 	} while(gzeof(src) == 0);
 
 	// success
-	rv = TRUE;
+	rv = true;
 
  err_decompress:
 	if(src != NULL) gzclose(src);
