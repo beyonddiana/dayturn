@@ -3816,7 +3816,8 @@ void LLMenuHolderGL::setActivatedItem(LLMenuItemGL* item)
 /// Class LLTearOffMenu
 ///============================================================================
 LLTearOffMenu::LLTearOffMenu(LLMenuGL* menup) : 
-	LLFloater(LLSD())
+	LLFloater(LLSD()),
+    mQuitRequested(false)
 {
 	S32 floater_header_size = getHeaderHeight();
 
@@ -3875,7 +3876,12 @@ void LLTearOffMenu::draw()
 
 void LLTearOffMenu::onFocusReceived()
 {
-	// if nothing is highlighted, just highlight first item
+    if (mQuitRequested)
+    {
+        return;
+    }
+ 
+    // if nothing is highlighted, just highlight first item
 	if (!mMenu->getHighlightedItem())
 	{
 		mMenu->highlightNextItem(NULL);
@@ -3961,6 +3967,7 @@ void LLTearOffMenu::closeTearOff()
 	mMenu->setVisible(false);
 	mMenu->setTornOff(FALSE);
 	mMenu->setDropShadowed(TRUE);
+    mQuitRequested = true;
 }
 
 LLContextMenuBranch::LLContextMenuBranch(const LLContextMenuBranch::Params& p) 
