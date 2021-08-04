@@ -630,7 +630,7 @@ void LLLayoutStack::createResizeBar(LLLayoutPanel* panelp)
 
 			//if (mShowDragHandle)
 			//{
-			//	setBackgroundVisible(TRUE);
+			//	setBackgroundVisible(true);
 			//	setTransparentColor(LLUIColorTable::instance().getColor("ResizebarBody"));
 			//}
 

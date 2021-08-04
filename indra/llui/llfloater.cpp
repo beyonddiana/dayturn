@@ -269,7 +269,7 @@ LLFloater::LLFloater(const LLSD& key, const LLFloater::Params& p)
 	setMouseOpaque(true);
 	
 	// Floaters always draw their background, unlike every other panel.
-	setBackgroundVisible(TRUE);
+	setBackgroundVisible(true);
 
 	// Floaters start not minimized.  When minimized, they save their
 	// prior rectangle to be used on restore.
@@ -1931,7 +1931,7 @@ void LLFloater::draw()
 		LLFloater* old_host = mLastHostHandle.get();
 		if (!old_host)
 		{
-			setCanTearOff(FALSE);
+			setCanTearOff(false);
 		}
 	}
 }
@@ -2005,7 +2005,7 @@ void	LLFloater::setCanClose(BOOL can_close)
 	updateTitleButtons();
 }
 
-void	LLFloater::setCanTearOff(BOOL can_tear_off)
+void	LLFloater::setCanTearOff(bool can_tear_off)
 {
 	mCanTearOff = can_tear_off;
 	mButtonsEnabled[BUTTON_TEAR_OFF] = mCanTearOff && !mHostHandle.isDead();

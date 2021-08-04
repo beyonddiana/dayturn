@@ -159,7 +159,7 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 	mHtmlAvailable( TRUE ),
 	mListener(new LLPanelLoginListener(this))
 {
-	setBackgroundVisible(FALSE);
+	setBackgroundVisible(false);
 	setBackgroundOpaque(TRUE);
 
 	mPasswordModified = FALSE;

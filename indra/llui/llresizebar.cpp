@@ -141,7 +141,7 @@ bool LLResizeBar::postBuild()
 {
 	if (mShowDragHandle)
 	{
-		setBackgroundVisible(TRUE);
+		setBackgroundVisible(true);
 		setTransparentColor(LLUIColorTable::instance().getColor("ResizebarBody"));
 	}
 

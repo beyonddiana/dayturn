@@ -143,7 +143,7 @@ public:
 	LLPointer<LLUIImage> getTransparentImage() const { return mBgAlphaImage; }
 	LLColor4		getBackgroundImageOverlay() { return mBgOpaqueImageOverlay; }
 	LLColor4		getTransparentImageOverlay() { return mBgAlphaImageOverlay; }
-	void			setBackgroundVisible( BOOL b )	{ mBgVisible = b; }
+	void			setBackgroundVisible( bool b )	{ mBgVisible = b; }
 	BOOL			isBackgroundVisible() const { return mBgVisible; }
 	void			setBackgroundOpaque(BOOL b)		{ mBgOpaque = b; }
 	BOOL			isBackgroundOpaque() const { return mBgOpaque; }

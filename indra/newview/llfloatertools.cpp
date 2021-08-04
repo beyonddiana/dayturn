@@ -951,7 +951,7 @@ void LLFloaterTools::onOpen(const LLSD& key)
 		updatePopup(select_center_screen, mask);
 	}
 	
-	//gMenuBarView->setItemVisible("BuildTools", TRUE);
+	//gMenuBarView->setItemVisible("BuildTools", true);
 }
 
 // virtual
@@ -986,7 +986,7 @@ void LLFloaterTools::onClose(bool app_quitting)
 	// so manually reset tool to default (pie menu tool)
 	LLToolMgr::getInstance()->getCurrentToolset()->selectFirstTool();
 
-	//gMenuBarView->setItemVisible("BuildTools", FALSE);
+	//gMenuBarView->setItemVisible("BuildTools", false);
 	LLFloaterReg::hideInstance("media_settings");
 
 	// hide the advanced object weights floater

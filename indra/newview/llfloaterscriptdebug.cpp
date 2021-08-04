@@ -202,7 +202,7 @@ void LLFloaterScriptDebugOutput::addLine(const std::string &utf8mesg, const std:
 {
 	if (mObjectID.isNull())
 	{
-		setCanTearOff(FALSE);
+		setCanTearOff(false);
 		setCanClose(FALSE);
 	}
 	else

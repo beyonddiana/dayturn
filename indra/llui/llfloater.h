@@ -270,7 +270,7 @@ public:
 	BOOL			isDependent()					{ return !mDependeeHandle.isDead(); }
 	void			setCanMinimize(BOOL can_minimize);
 	void			setCanClose(BOOL can_close);
-	void			setCanTearOff(BOOL can_tear_off);
+	void			setCanTearOff(bool can_tear_off);
 	virtual void	setCanResize(bool can_resize);
 	void			setCanDrag(BOOL can_drag);
 	bool			getCanDrag();

@@ -644,9 +644,9 @@ void LLPanelPicks::onOpen(const LLSD& key)
 		getChildView("pick_title")->setVisible( !self);
 		getChildView("pick_title_agent")->setVisible( self);
 
-		mPopupMenu->setItemVisible("pick_delete", TRUE);
-		mPopupMenu->setItemVisible("pick_edit", TRUE);
-		mPopupMenu->setItemVisible("pick_separator", TRUE);
+		mPopupMenu->setItemVisible("pick_delete", true);
+		mPopupMenu->setItemVisible("pick_edit", true);
+		mPopupMenu->setItemVisible("pick_separator", true);
 	}
 
 	if(getAvatarId() != id)

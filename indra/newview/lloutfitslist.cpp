@@ -1302,14 +1302,14 @@ LLOutfitListGearMenu::~LLOutfitListGearMenu()
 void LLOutfitListGearMenu::onUpdateItemsVisibility()
 {
     if (!mMenu) return;
-    mMenu->setItemVisible("expand", TRUE);
-    mMenu->setItemVisible("collapse", TRUE);
-    mMenu->setItemVisible("upload_photo", FALSE);
-    mMenu->setItemVisible("select_photo", FALSE);
-    mMenu->setItemVisible("take_snapshot", FALSE);
-    mMenu->setItemVisible("remove_photo", FALSE);
-    mMenu->setItemVisible("sepatator3", FALSE);
-    mMenu->setItemVisible("sort_folders_by_name", FALSE);
+    mMenu->setItemVisible("expand", true);
+    mMenu->setItemVisible("collapse", true);
+    mMenu->setItemVisible("upload_photo", false);
+    mMenu->setItemVisible("select_photo", false);
+    mMenu->setItemVisible("take_snapshot", false);
+    mMenu->setItemVisible("remove_photo", false);
+    mMenu->setItemVisible("sepatator3", false);
+    mMenu->setItemVisible("sort_folders_by_name", false);
     LLOutfitListGearMenuBase::onUpdateItemsVisibility();
 }
 

@@ -109,7 +109,7 @@ LLToolView::~LLToolView()
 // 	// Can optionally ignore panel
 // 	if (contain->mPanel)
 // 	{
-// 		contain->mPanel->setBackgroundVisible( FALSE );
+// 		contain->mPanel->setBackgroundVisible( false );
 // 		contain->mPanel->setBorderVisible( false );
 // 		addChild(contain->mPanel);
 // 	}

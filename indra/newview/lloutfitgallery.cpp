@@ -950,14 +950,14 @@ void LLOutfitGalleryGearMenu::onUpdateItemsVisibility()
 {
     if (!mMenu) return;
     bool have_selection = getSelectedOutfitID().notNull();
-    mMenu->setItemVisible("expand", FALSE);
-    mMenu->setItemVisible("collapse", FALSE);
+    mMenu->setItemVisible("expand", false);
+    mMenu->setItemVisible("collapse", false);
     mMenu->setItemVisible("upload_photo", have_selection);
     mMenu->setItemVisible("select_photo", have_selection);
     mMenu->setItemVisible("take_snapshot", have_selection);
     mMenu->setItemVisible("remove_photo", !hasDefaultImage());
-    mMenu->setItemVisible("sepatator3", TRUE);
-    mMenu->setItemVisible("sort_folders_by_name", TRUE);
+    mMenu->setItemVisible("sepatator3", true);
+    mMenu->setItemVisible("sort_folders_by_name", true);
     LLOutfitListGearMenuBase::onUpdateItemsVisibility();
 }
 
