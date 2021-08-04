@@ -91,7 +91,7 @@ LLToastAlertPanel::LLToastAlertPanel( LLNotificationPtr notification, bool modal
 	S32 edit_text_max_chars = 0;
 	bool is_password = false;
 
-	LLToastPanel::setBackgroundVisible(FALSE);
+	LLToastPanel::setBackgroundVisible(false);
 	LLToastPanel::setBackgroundOpaque(TRUE);
 
 

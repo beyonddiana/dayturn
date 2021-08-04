@@ -196,7 +196,7 @@ void LLMultiFloater::addFloater(LLFloater* floaterp, BOOL select_added_floater, 
 	floaterp->mSaveRect = FALSE;
 	floaterp->storeRectControl();
 	// avoid double rendering of floater background (makes it more opaque)
-	floaterp->setBackgroundVisible(FALSE);
+	floaterp->setBackgroundVisible(false);
 
 	if (mAutoResize)
 	{
@@ -302,7 +302,7 @@ void LLMultiFloater::removeFloater(LLFloater* floaterp)
 		mFloaterDataMap.erase(found_data_it);
 	}
 	mTabContainer->removeTabPanel(floaterp);
-	floaterp->setBackgroundVisible(TRUE);
+	floaterp->setBackgroundVisible(true);
 	floaterp->setCanDrag(TRUE);
 	floaterp->setHost(NULL);
 	floaterp->applyRectControl();

@@ -61,7 +61,7 @@ void LLUploadDialog::modalUploadFinished()
 LLUploadDialog::LLUploadDialog( const std::string& msg)
   : LLPanel()
 {
-	setBackgroundVisible( TRUE );
+	setBackgroundVisible( true );
 
 	if( LLUploadDialog::sDialog )
 	{
