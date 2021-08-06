@@ -171,7 +171,7 @@ public:
 
 	// Call this method to set the selection.
 	void openAllFolders();
-	void setSelection(const LLUUID& obj_id, BOOL take_keyboard_focus);
+	void setSelection(const LLUUID& obj_id, bool take_keyboard_focus);
 	void setSelectCallback(const boost::function<void (const std::deque<LLFolderViewItem*>& items, BOOL user_action)>& cb);
 	void clearSelection();
 	bool isSelectionRemovable();

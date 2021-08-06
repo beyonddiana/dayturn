@@ -39,8 +39,8 @@
 #include "llviewmodel.h"		// *TODO move dependency to .cpp file
 #include "llsearchablecontrol.h"
 
-const BOOL TAKE_FOCUS_YES = TRUE;
-const BOOL TAKE_FOCUS_NO  = FALSE;
+const bool TAKE_FOCUS_YES = true;
+const bool TAKE_FOCUS_NO  = false;
 
 class LLUICtrl
 	: public LLView, public boost::signals2::trackable

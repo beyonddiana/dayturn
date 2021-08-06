@@ -181,7 +181,7 @@ public:
 
 	// If 'selection' is 'this' then note that otherwise ignore.
 	// Returns TRUE if this item ends up being selected.
-	virtual BOOL setSelection(LLFolderViewItem* selection, BOOL openitem, BOOL take_keyboard_focus);
+	virtual bool setSelection(LLFolderViewItem* selection, bool openitem, bool take_keyboard_focus);
 
 	// This method is used to set the selection state of an item.
 	// If 'selection' is 'this' then note selection.
@@ -359,7 +359,7 @@ public:
 	// selection information if necessary.
 	// Returns TRUE if this object (or a child) ends up being selected.
 	// If 'openitem' is TRUE then folders are opened up along the way to the selection.
-	virtual BOOL setSelection(LLFolderViewItem* selection, BOOL openitem, BOOL take_keyboard_focus = TRUE);
+	virtual bool setSelection(LLFolderViewItem* selection, bool openitem, bool take_keyboard_focus = true);
 
 	// This method is used to change the selection of an item.
 	// Recursively traverse all children; if 'selection' is 'this' then change

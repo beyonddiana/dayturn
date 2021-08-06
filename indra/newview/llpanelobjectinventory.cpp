@@ -1490,7 +1490,7 @@ void LLPanelObjectInventory::updateInventory()
 			//HACK: "set" first item then "change" each other one to get keyboard focus right
 			if (first_item)
 			{
-				mFolders->setSelection(selected_item, TRUE, inventory_has_focus);
+				mFolders->setSelection(selected_item, true, inventory_has_focus);
 				first_item = FALSE;
 			}
 			else
