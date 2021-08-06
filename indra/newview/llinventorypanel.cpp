@@ -585,7 +585,7 @@ void LLInventoryPanel::modelChanged(U32 mask)
 				// Select any newly created object that has the auto rename at top of folder root set.
 				if(mFolderRoot.get()->getRoot()->needsAutoRename())
 				{
-					setSelection(item_id, FALSE);
+					setSelection(item_id, false);
 				}
 				updateFolderLabel(model_item->getParentUUID());
 			}
@@ -614,7 +614,7 @@ void LLInventoryPanel::modelChanged(U32 mask)
 								const LLUUID trash_id = mInventory->findCategoryUUIDForType(LLFolderType::FT_TRASH);
 								if (trash_id != model_item->getParentUUID() && (mask & LLInventoryObserver::INTERNAL) && new_parent->isOpen())
 								{
-									setSelection(item_id, FALSE);
+									setSelection(item_id, false);
 								}
 							}
 							updateFolderLabel(model_item->getParentUUID());
@@ -1034,7 +1034,7 @@ void LLInventoryPanel::openSelected()
 
 void LLInventoryPanel::unSelectAll()	
 { 
-	mFolderRoot.get()->setSelection(NULL, FALSE, FALSE);
+	mFolderRoot.get()->setSelection(NULL, false, false);
 }
 
 
@@ -1125,7 +1125,7 @@ void LLInventoryPanel::openAllFolders()
 	mFolderRoot.get()->arrangeAll();
 }
 
-void LLInventoryPanel::setSelection(const LLUUID& obj_id, BOOL take_keyboard_focus)
+void LLInventoryPanel::setSelection(const LLUUID& obj_id, bool take_keyboard_focus)
 {
 	// Don't select objects in COF (e.g. to prevent refocus when items are worn).
 	const LLInventoryObject *obj = gInventory.getObject(obj_id);

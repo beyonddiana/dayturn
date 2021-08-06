@@ -309,7 +309,7 @@ bool LLFloaterTexturePicker::handleKeyHere(KEY key, MASK mask)
 				LLFolderViewItem* itemp =    mInventoryPanel->getItemByID(gInventory.getRootFolderID());
 				if (itemp)
 				{
-					root_folder->setSelection(itemp, FALSE, FALSE);
+					root_folder->setSelection(itemp, false, false);
 				}
 			}
 			root_folder->scrollToShowSelection();

@@ -390,7 +390,7 @@ S32 LLFolderViewItem::getTextPad()
 // means 'deselect' for a leaf item. Do this optimization after
 // multiple selection is implemented to make sure it all plays nice
 // together.
-BOOL LLFolderViewItem::setSelection(LLFolderViewItem* selection, BOOL openitem, BOOL take_keyboard_focus)
+bool LLFolderViewItem::setSelection(LLFolderViewItem* selection, bool openitem, bool take_keyboard_focus)
 {
 	if (selection == this && !mIsSelected)
 	{
@@ -501,7 +501,7 @@ BOOL LLFolderViewItem::handleRightMouseDown( S32 x, S32 y, MASK mask )
 {
 	if(!mIsSelected)
 	{
-		getRoot()->setSelection(this, FALSE);
+		getRoot()->setSelection(this, false);
 	}
 	make_ui_sound("UISndClick");
 	return TRUE;
@@ -530,7 +530,7 @@ BOOL LLFolderViewItem::handleMouseDown( S32 x, S32 y, MASK mask )
 		}
 		else
 		{
-			getRoot()->setSelection(this, FALSE);
+			getRoot()->setSelection(this, false);
 		}
 		make_ui_sound("UISndClick");
 	}
@@ -615,7 +615,7 @@ BOOL LLFolderViewItem::handleMouseUp( S32 x, S32 y, MASK mask )
 		}
 		else
 		{
-			getRoot()->setSelection(this, FALSE);
+			getRoot()->setSelection(this, false);
 		}
 	}
 
@@ -1200,17 +1200,17 @@ BOOL LLFolderViewFolder::needsArrange()
 
 // Passes selection information on to children and record selection
 // information if necessary.
-BOOL LLFolderViewFolder::setSelection(LLFolderViewItem* selection, BOOL openitem,
-                                      BOOL take_keyboard_focus)
+bool LLFolderViewFolder::setSelection(LLFolderViewItem* selection, bool openitem,
+                                      bool take_keyboard_focus)
 {
-	BOOL rv = FALSE;
+	bool rv = false;
 	if (selection == this)
 	{
 		if (!isSelected())
 		{
 			selectItem();
 		}
-		rv = TRUE;
+		rv = true;
 	}
 	else
 	{
@@ -1218,9 +1218,9 @@ BOOL LLFolderViewFolder::setSelection(LLFolderViewItem* selection, BOOL openitem
 		{
 			deselectItem();
 		}
-		rv = FALSE;
+		rv = false;
 	}
-	BOOL child_selected = FALSE;
+	bool child_selected = false;
 
 	for (folders_t::iterator iter = mFolders.begin();
 		iter != mFolders.end();)
@@ -1228,8 +1228,8 @@ BOOL LLFolderViewFolder::setSelection(LLFolderViewItem* selection, BOOL openitem
 		folders_t::iterator fit = iter++;
 		if((*fit)->setSelection(selection, openitem, take_keyboard_focus))
 		{
-			rv = TRUE;
-			child_selected = TRUE;
+			rv = true;
+			child_selected = true;
 		}
 	}
 	for (items_t::iterator iter = mItems.begin();
@@ -1238,8 +1238,8 @@ BOOL LLFolderViewFolder::setSelection(LLFolderViewItem* selection, BOOL openitem
 		items_t::iterator iit = iter++;
 		if((*iit)->setSelection(selection, openitem, take_keyboard_focus))
 		{
-			rv = TRUE;
-			child_selected = TRUE;
+			rv = true;
+			child_selected = true;
 		}
 	}
 	if(openitem && child_selected)
@@ -1970,7 +1970,7 @@ bool LLFolderViewFolder::handleDoubleClick( S32 x, S32 y, MASK mask )
 		}
 		else
 		{
-			getRoot()->setSelection(this, FALSE);
+			getRoot()->setSelection(this, false);
 			toggleOpen();
 		}
 		handled = true;

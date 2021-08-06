@@ -516,7 +516,7 @@ LLFolderViewItem* LLLandmarksPanel::selectItemInAccordionTab(LLPlacesInventoryPa
 		tab->changeOpenClose(false);
 	}
 
-	root->setSelection(item, FALSE, take_keyboard_focus);
+	root->setSelection(item, false, take_keyboard_focus);
 
 	LLAccordionCtrl* accordion = getChild<LLAccordionCtrl>("landmarks_accordion");
 	LLRect screen_rc;

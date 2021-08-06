@@ -2228,7 +2228,7 @@ void LLSelectFirstFilteredItem::doItem(LLFolderViewItem *item)
 {
 	if (item->passedFilter() && !mItemSelected)
 	{
-		item->getRoot()->setSelection(item, FALSE, FALSE);
+		item->getRoot()->setSelection(item, false, false);
 		if (item->getParentFolder())
 		{
 			item->getParentFolder()->setOpenArrangeRecursively(true, LLFolderViewFolder::RECURSE_UP);
