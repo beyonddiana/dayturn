@@ -82,7 +82,7 @@ public:
 	static void			VisitHomePage(const LLPickInfo& info);
 	
 private:
-	BOOL outsideSlop		(S32 x, S32 y, S32 start_x, S32 start_y);
+	bool outsideSlop		(S32 x, S32 y, S32 start_x, S32 start_y);
 	BOOL handleLeftClickPick();
 	BOOL handleRightClickPick();
 	BOOL useClickAction		(MASK mask, LLViewerObject* object,LLViewerObject* parent);

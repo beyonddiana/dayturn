@@ -56,7 +56,7 @@ const F32 SELECTION_SITTING_ROTATION_TRESHOLD = 3.2f; //radian
 
 LLToolSelect::LLToolSelect( LLToolComposite* composite )
 :	LLTool( std::string("Select"), composite ),
-	mIgnoreGroup( FALSE )
+	mIgnoreGroup( false )
 {
  }
 
@@ -90,7 +90,7 @@ BOOL LLToolSelect::handleMouseDown(S32 x, S32 y, MASK mask)
 
 
 // static
-LLObjectSelectionHandle LLToolSelect::handleObjectSelection(const LLPickInfo& pick, BOOL ignore_group, BOOL temp_select, BOOL select_root)
+LLObjectSelectionHandle LLToolSelect::handleObjectSelection(const LLPickInfo& pick, bool ignore_group, bool temp_select, bool select_root)
 {
 	LLViewerObject* object = pick.getObject();
 	if (select_root)
@@ -270,7 +270,7 @@ BOOL LLToolSelect::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	mIgnoreGroup = gSavedSettings.getBOOL("EditLinkedParts");
 
-	handleObjectSelection(mPick, mIgnoreGroup, FALSE);
+	handleObjectSelection(mPick, mIgnoreGroup, false);
 
 	return LLTool::handleMouseUp(x, y, mask);
 }
@@ -299,7 +299,7 @@ void LLToolSelect::onMouseCaptureLost()
 	LLSelectMgr::getInstance()->enableSilhouette(TRUE);
 
 	// Clean up drag-specific variables
-	mIgnoreGroup = FALSE;
+	mIgnoreGroup = false;
 }
 
 

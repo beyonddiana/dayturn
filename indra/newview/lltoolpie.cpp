@@ -352,7 +352,7 @@ BOOL LLToolPie::handleLeftClickPick()
 				{
 					// pay event goes to object actually clicked on
 					mClickActionObject = object;
-					mLeftClickSelection = LLToolSelect::handleObjectSelection(mPick, FALSE, TRUE);
+					mLeftClickSelection = LLToolSelect::handleObjectSelection(mPick, false, true);
 					if (LLSelectMgr::getInstance()->selectGetAllValid())
 					{
 						// call this right away, since we have all the info we need to continue the action
@@ -366,7 +366,7 @@ BOOL LLToolPie::handleLeftClickPick()
 			if ( mClickActionBuyEnabled )
 			{
 				mClickActionObject = parent;
-				mLeftClickSelection = LLToolSelect::handleObjectSelection(mPick, FALSE, TRUE, TRUE);
+				mLeftClickSelection = LLToolSelect::handleObjectSelection(mPick, false, true, true);
 				if (LLSelectMgr::getInstance()->selectGetAllValid())
 				{
 					// call this right away, since we have all the info we need to continue the action
@@ -379,7 +379,7 @@ BOOL LLToolPie::handleLeftClickPick()
 			if (parent && parent->allowOpen())
 			{
 				mClickActionObject = parent;
-				mLeftClickSelection = LLToolSelect::handleObjectSelection(mPick, FALSE, TRUE, TRUE);
+				mLeftClickSelection = LLToolSelect::handleObjectSelection(mPick, false, true, true);
 				if (LLSelectMgr::getInstance()->selectGetAllValid())
 				{
 					// call this right away, since we have all the info we need to continue the action
@@ -1655,7 +1655,7 @@ bool LLToolPie::inCameraSteerMode()
 }
 
 // true if x,y outside small box around start_x,start_y
-BOOL LLToolPie::outsideSlop(S32 x, S32 y, S32 start_x, S32 start_y)
+bool LLToolPie::outsideSlop(S32 x, S32 y, S32 start_x, S32 start_y)
 {
 	S32 dx = x - start_x;
 	S32 dy = y - start_y;
@@ -1950,7 +1950,7 @@ BOOL LLToolPie::handleRightClickPick()
 	LLViewerObject *object = mPick.getObject();
 	
 	// Can't ignore children here.
-	LLToolSelect::handleObjectSelection(mPick, FALSE, TRUE);
+	LLToolSelect::handleObjectSelection(mPick, false, true);
 
 	// Spawn pie menu
 	if (mPick.mPickType == LLPickInfo::PICK_LAND)

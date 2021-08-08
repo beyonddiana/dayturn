@@ -47,7 +47,7 @@ LLToolSelectLand::LLToolSelectLand( )
 :	LLTool( std::string("Parcel") ),
 	mDragStartGlobal(),
 	mDragEndGlobal(),
-	mDragEndValid(FALSE),
+	mDragEndValid(false),
 	mDragStartX(0),
 	mDragStartY(0),
 	mDragEndX(0),
@@ -74,7 +74,7 @@ BOOL LLToolSelectLand::handleMouseDown(S32 x, S32 y, MASK mask)
 		mDragEndX = x;
 		mDragEndY = y;
 
-		mDragEndValid		= TRUE;
+		mDragEndValid		= true;
 		mDragEndGlobal		= mDragStartGlobal;
 
 		sanitize_corners(mDragStartGlobal, mDragEndGlobal, mWestSouthBottom, mEastNorthTop);
@@ -133,7 +133,7 @@ BOOL LLToolSelectLand::handleMouseUp(S32 x, S32 y, MASK mask)
 		}
 
 		mMouseOutsideSlop = false;
-		mDragEndValid = FALSE;
+		mDragEndValid = false;
 		
 		return TRUE;
 	}
@@ -225,7 +225,7 @@ void LLToolSelectLand::roundXY(LLVector3d &vec)
 
 
 // true if x,y outside small box around start_x,start_y
-BOOL LLToolSelectLand::outsideSlop(S32 x, S32 y, S32 start_x, S32 start_y)
+bool LLToolSelectLand::outsideSlop(S32 x, S32 y, S32 start_x, S32 start_y)
 {
 	S32 dx = x - start_x;
 	S32 dy = y - start_y;

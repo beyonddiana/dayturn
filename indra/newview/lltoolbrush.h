@@ -56,7 +56,7 @@ public:
 
 	// isAlwaysRendered() - return true if this is a tool that should
 	// always be rendered regardless of selection.
-	virtual BOOL isAlwaysRendered() { return TRUE; }
+	virtual bool isAlwaysRendered() { return true; }
 
 	// Draw the area that will be affected.
 	virtual void render();
