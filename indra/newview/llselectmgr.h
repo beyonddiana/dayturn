@@ -733,12 +733,12 @@ public:
 	void repeatDuplicate();
 	void selectDuplicateOnRay(const LLVector3 &ray_start_region,
 								const LLVector3 &ray_end_region,
-								BOOL bypass_raycast,
-								BOOL ray_end_is_intersection,
+								bool bypass_raycast,
+								bool ray_end_is_intersection,
 								const LLUUID &ray_target_id,
-								BOOL copy_centers,
-								BOOL copy_rotates,
-								BOOL select_copy);
+								bool copy_centers,
+								bool copy_rotates,
+								bool select_copy);
 
 	void sendMultipleUpdate(U32 type);	// Position, rotation, scale all in one
 	void sendOwner(const LLUUID& owner_id, const LLUUID& group_id, BOOL override = FALSE);
