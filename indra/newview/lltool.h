@@ -86,7 +86,7 @@ public:
 
 	// isAlwaysRendered() - return true if this is a tool that should
 	// always be rendered regardless of selection.
-	virtual BOOL isAlwaysRendered() { return FALSE; }
+	virtual bool isAlwaysRendered() { return false; }
 
 	virtual void			render() {}				// draw tool specific 3D content in world
 	virtual void			draw();					// draw tool specific 2D overlay

@@ -44,13 +44,13 @@ public:
 	/*virtual*/ BOOL		handleMouseUp(S32 x, S32 y, MASK mask);
 	/*virtual*/ bool		handleHover(S32 x, S32 y, MASK mask);
 	/*virtual*/ void		render();				// draw the select rectangle
-	/*virtual*/ BOOL		isAlwaysRendered()		{ return TRUE; }
+	/*virtual*/ bool		isAlwaysRendered()		{ return true; }
 
 	/*virtual*/ void		handleSelect();
 	/*virtual*/ void		handleDeselect();
 
 protected:
-	BOOL			outsideSlop(S32 x, S32 y, S32 start_x, S32 start_y);
+	bool			outsideSlop(S32 x, S32 y, S32 start_x, S32 start_y);
 	void			roundXY(LLVector3d& vec);
 
 protected:

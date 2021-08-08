@@ -193,7 +193,7 @@ void LLToolSelectRect::draw()
 }
 
 // true if x,y outside small box around start_x,start_y
-BOOL LLToolSelectRect::outsideSlop(S32 x, S32 y, S32 start_x, S32 start_y)
+bool LLToolSelectRect::outsideSlop(S32 x, S32 y, S32 start_x, S32 start_y)
 {
 	S32 dx = x - start_x;
 	S32 dy = y - start_y;
