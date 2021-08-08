@@ -4077,12 +4077,12 @@ struct LLDuplicateOnRayData
 
 void LLSelectMgr::selectDuplicateOnRay(const LLVector3 &ray_start_region,
 									   const LLVector3 &ray_end_region,
-									   BOOL bypass_raycast,
-									   BOOL ray_end_is_intersection,
+									   bool bypass_raycast,
+									   bool ray_end_is_intersection,
 									   const LLUUID &ray_target_id,
-									   BOOL copy_centers,
-									   BOOL copy_rotates,
-									   BOOL select_copy)
+									   bool copy_centers,
+									   bool copy_rotates,
+									   bool select_copy)
 {
 	if (mSelectedObjects->isAttachment())
 	{
