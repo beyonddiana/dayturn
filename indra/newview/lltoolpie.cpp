@@ -90,8 +90,8 @@ LLToolPie::LLToolPie()
 	mMouseSteerY(-1),
 	mBlockClickToWalk(false),
 	mClickAction(0),
-	mClickActionBuyEnabled( gSavedSettings.getBOOL("ClickActionBuyEnabled") ),
-	mClickActionPayEnabled( gSavedSettings.getBOOL("ClickActionPayEnabled") ),
+	mClickActionBuyEnabled( (bool)gSavedSettings.getBOOL("ClickActionBuyEnabled") ),
+	mClickActionPayEnabled( (bool)gSavedSettings.getBOOL("ClickActionPayEnabled") ),
 	mDoubleClickTimer()
 {
 }
@@ -254,7 +254,7 @@ bool LLToolPie::handleScrollHWheel(S32 x, S32 y, S32 clicks)
 }
 
 // True if you selected an object.
-BOOL LLToolPie::handleLeftClickPick()
+bool LLToolPie::handleLeftClickPick()
 {
 	S32 x = mPick.mMousePt.mX;
 	S32 y = mPick.mMousePt.mY;
@@ -306,7 +306,7 @@ BOOL LLToolPie::handleLeftClickPick()
 
 	if (handleMediaClick(mPick))
 	{
-		return TRUE;
+		return true;
 	}
 
 	// If it's a left-click, and we have a special action, do it.
@@ -341,7 +341,7 @@ BOOL LLToolPie::handleLeftClickPick()
 					handle_object_sit_or_stand();
 					// put focus in world when sitting on an object
 					gFocusMgr.setKeyboardFocus(NULL);
-					return TRUE;
+					return true;
 				} // else nothing (fall through to touch)
 			}
 		case CLICK_ACTION_PAY:
@@ -358,7 +358,7 @@ BOOL LLToolPie::handleLeftClickPick()
 						// call this right away, since we have all the info we need to continue the action
 						selectionPropertiesReceived();
 					}
-					return TRUE;
+					return true;
 				}
 			}
 			break;
@@ -372,7 +372,7 @@ BOOL LLToolPie::handleLeftClickPick()
 					// call this right away, since we have all the info we need to continue the action
 					selectionPropertiesReceived();
 				}
-				return TRUE;
+				return true;
 			}
 			break;
 		case CLICK_ACTION_OPEN:
@@ -386,14 +386,14 @@ BOOL LLToolPie::handleLeftClickPick()
 					selectionPropertiesReceived();
 				}
 			}
-			return TRUE;	
+			return true;	
 		case CLICK_ACTION_PLAY:
 			handle_click_action_play();
-			return TRUE;
+			return true;
 		case CLICK_ACTION_OPEN_MEDIA:
 			// mClickActionObject = object;
 			handle_click_action_open_media(object);
-			return TRUE;
+			return true;
 		case CLICK_ACTION_ZOOM:
 			{	
 				const F32 PADDING_FACTOR = 2.f;
@@ -416,9 +416,9 @@ BOOL LLToolPie::handleLeftClickPick()
 													  mPick.mObjectID );
 				}
 			}
-			return TRUE;			
+			return true;			
 		case CLICK_ACTION_DISABLED:
-			return TRUE;
+			return true;
 		default:
 			// nothing
 			break;
@@ -519,7 +519,7 @@ BOOL LLToolPie::handleLeftClickPick()
 		LLToolCamera::getInstance()->pickCallback(mPick);
 		gAgentCamera.setFocusOnAvatar(TRUE, TRUE);
 
-		return TRUE;
+		return true;
 	}
 	//////////
 	//	// Could be first left-click on nothing
@@ -530,7 +530,7 @@ BOOL LLToolPie::handleLeftClickPick()
 	return LLTool::handleMouseDown(x, y, mask);
 }
 
-BOOL LLToolPie::useClickAction(MASK mask, 
+bool LLToolPie::useClickAction(MASK mask, 
 							   LLViewerObject* object, 
 							   LLViewerObject* parent)
 {
@@ -1029,10 +1029,10 @@ static bool needs_tooltip(LLSelectNode* nodep)
 }
 
 
-BOOL LLToolPie::handleTooltipLand(std::string line, std::string tooltip_msg)
+bool LLToolPie::handleTooltipLand(std::string line, std::string tooltip_msg)
 {
 	//  Do not show hover for land unless prefs are set to allow it. 
-	if (!gSavedSettings.getBOOL("ShowLandHoverTip")) return TRUE; 
+	if (!gSavedSettings.getBOOL("ShowLandHoverTip")) return true; 
 
 	LLViewerParcelMgr::getInstance()->setHoverParcel( mHoverPick.mPosGlobal );
 
@@ -1204,16 +1204,16 @@ BOOL LLToolPie::handleTooltipLand(std::string line, std::string tooltip_msg)
 		LLToolTipMgr::instance().show(tooltip_msg);
 	}
 	
-	return TRUE;
+	return true;
 }
 
-BOOL LLToolPie::handleTooltipObject( LLViewerObject* hover_object, std::string line, std::string tooltip_msg)
+bool LLToolPie::handleTooltipObject( LLViewerObject* hover_object, std::string line, std::string tooltip_msg)
 {
 	if ( hover_object->isHUDAttachment() )
 	{
 		// no hover tips for HUD elements, since they can obscure
 		// what the HUD is displaying
-		return TRUE;
+		return true;
 	}
 	
 	if ( hover_object->isAttachment() )
@@ -1223,13 +1223,13 @@ BOOL LLToolPie::handleTooltipObject( LLViewerObject* hover_object, std::string l
 		if (!root_edit)
 		{
 			// Strange parenting issue, don't show any text
-			return TRUE;
+			return true;
 		}
 		hover_object = (LLViewerObject*)root_edit->getParent();
 		if (!hover_object)
 		{
 			// another strange parenting issue, bail out
-			return TRUE;
+			return true;
 		}
 	}
 	
@@ -1391,7 +1391,7 @@ BOOL LLToolPie::handleTooltipObject( LLViewerObject* hover_object, std::string l
 		}
 	}
 	
-	return TRUE;
+	return true;
 }
 
 BOOL LLToolPie::handleToolTip(S32 local_x, S32 local_y, MASK mask)
@@ -1935,7 +1935,7 @@ static ECursorType cursor_from_parcel_media(U8 click_action)
 
 
 // True if we handled the event.
-BOOL LLToolPie::handleRightClickPick()
+bool LLToolPie::handleRightClickPick()
 {
 	S32 x = mPick.mMousePt.mX;
 	S32 y = mPick.mMousePt.mY;
@@ -1968,7 +1968,7 @@ BOOL LLToolPie::handleRightClickPick()
 			{
 				//either at very early startup stage or at late quitting stage,
 				//this event is ignored.
-				return TRUE ;
+				return true ;
 			}
 
 			gMenuAvatarSelf->show(x, y);
@@ -2003,7 +2003,7 @@ BOOL LLToolPie::handleRightClickPick()
 
 			if (!object)
 			{
-				return TRUE; // unexpected, but escape
+				return true; // unexpected, but escape
 			}
 
 			// Object is an avatar, so check for mute by id.
@@ -2129,7 +2129,7 @@ BOOL LLToolPie::handleRightClickPick()
 
 	LLTool::handleRightMouseDown(x, y, mask);
 	// We handled the event.
-	return TRUE;
+	return true;
 }
 
 void LLToolPie::showVisualContextMenuEffect()

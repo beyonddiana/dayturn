@@ -47,7 +47,7 @@
 
 LLToolObjPicker::LLToolObjPicker()
 :	LLTool( std::string("ObjPicker"), NULL ),
-	mPicked( FALSE ),
+	mPicked(false),
 	mHitObjectID( LLUUID::null ),
 	mExitCallback( NULL ),
 	mExitCallbackData( NULL )
@@ -142,7 +142,7 @@ void LLToolObjPicker::onMouseCaptureLost()
 		mExitCallbackData = NULL;
 	}
 
-	mPicked = FALSE;
+	mPicked = false;
 	mHitObjectID.setNull();
 }
 

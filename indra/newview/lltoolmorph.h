@@ -66,7 +66,7 @@ public:
 	bool					needsRender();
 	void					preRender(bool clear_depth);
 	bool					render();
-	void					requestUpdate( S32 delay_frames ) {mNeedsUpdate = TRUE; mDelayFrames = delay_frames; }
+	void					requestUpdate( S32 delay_frames ) {mNeedsUpdate = true; mDelayFrames = delay_frames; }
 	void					setUpdateDelayFrames( S32 delay_frames ) { mDelayFrames = delay_frames; }
 	void					draw(F32 alpha);
 	
@@ -82,8 +82,8 @@ public:
 	static void				requestHintUpdates( LLVisualParamHint* exception1 = NULL, LLVisualParamHint* exception2 = NULL );
 
 protected:
-	BOOL					mNeedsUpdate;		// does this texture need to be re-rendered?
-	BOOL					mIsVisible;			// is this distortion hint visible?
+	bool					mNeedsUpdate;		// does this texture need to be re-rendered?
+	bool					mIsVisible;			// is this distortion hint visible?
 	LLViewerJointMesh*		mJointMesh;			// mesh that this distortion applies to
 	LLViewerVisualParam*	mVisualParam;		// visual param applied by this hint
 	LLWearable*				mWearablePtr;		// wearable we're editing
