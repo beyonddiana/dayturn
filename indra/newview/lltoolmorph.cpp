@@ -79,8 +79,8 @@ LLVisualParamHint::LLVisualParamHint(
 	LLJoint* jointp)
 	:
 	LLViewerDynamicTexture(width, height, 3, LLViewerDynamicTexture::ORDER_MIDDLE, TRUE ),
-	mNeedsUpdate( TRUE ),
-	mIsVisible( FALSE ),
+	mNeedsUpdate(true),
+	mIsVisible(false),
 	mJointMesh( mesh ),
 	mVisualParam( param ),
 	mWearablePtr( wearable ),
@@ -128,13 +128,13 @@ void LLVisualParamHint::requestHintUpdates( LLVisualParamHint* exception1, LLVis
 		{
 			if( instance->mAllowsUpdates )
 			{
-				instance->mNeedsUpdate = TRUE;
+				instance->mNeedsUpdate = true;
 				instance->mDelayFrames = delay_frames;
 				delay_frames++;
 			}
 			else
 			{
-				instance->mNeedsUpdate = TRUE;
+				instance->mNeedsUpdate = true;
 				instance->mDelayFrames = 0;
 			}
 		}
@@ -210,8 +210,8 @@ bool LLVisualParamHint::render()
 	gGL.matrixMode(LLRender::MM_MODELVIEW);
 	gGL.popMatrix();
 
-	mNeedsUpdate = FALSE;
-	mIsVisible = TRUE;
+	mNeedsUpdate = false;
+	mIsVisible = true;
 
 	LLQuaternion avatar_rotation;
 	LLJoint* root_joint = gAgentAvatarp->getRootJoint();
