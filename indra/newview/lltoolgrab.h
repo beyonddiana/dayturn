@@ -69,21 +69,21 @@ public:
 	
 	virtual LLViewerObject*	getEditingObject();
 	virtual LLVector3d		getEditingPointGlobal();
-	virtual BOOL			isEditing();
+	virtual bool			isEditing();
 	virtual void			stopEditing();
 	
 	virtual void			onMouseCaptureLost();
 
-	BOOL			hasGrabOffset()  { return TRUE; }	// HACK
+	bool			hasGrabOffset()  { return true; }	// HACK
 	LLVector3		getGrabOffset(S32 x, S32 y);		// HACK
 
 	// Capture the mouse and start grabbing.
-	BOOL			handleObjectHit(const LLPickInfo& info);
+	bool			handleObjectHit(const LLPickInfo& info);
 
 	// Certain grabs should not highlight the "Build" toolbar button
-	BOOL getHideBuildHighlight() { return mHideBuildHighlight; }
+	bool getHideBuildHighlight() { return mHideBuildHighlight; }
 
-	void setClickedInMouselook(BOOL is_clickedInMouselook) {mClickedInMouselook = is_clickedInMouselook;}
+	void setClickedInMouselook(bool is_clickedInMouselook) {mClickedInMouselook = is_clickedInMouselook;}
 
 	static void		pickCallback(const LLPickInfo& pick_info);
 private:
@@ -105,9 +105,9 @@ private:
 
 	EGrabMode		mMode;
 
-	BOOL			mVerticalDragging;
+	bool			mVerticalDragging;
 
-	BOOL			mHitLand;
+	bool			mHitLand;
 
 	LLTimer			mGrabTimer;						// send simulator time between hover movements
 
@@ -123,10 +123,10 @@ private:
 	S32				mLastMouseY;
 	S32				mAccumDeltaX;	// since cursor hidden, how far have you moved?
 	S32				mAccumDeltaY;
-	BOOL			mHasMoved;		// has mouse moved off center at all?
-	BOOL			mOutsideSlop;	// has mouse moved outside center 5 pixels?
-	BOOL			mDeselectedThisClick;
-	BOOL			mValidSelection;
+	bool			mHasMoved;		// has mouse moved off center at all?
+	bool			mOutsideSlop;	// has mouse moved outside center 5 pixels?
+	bool			mDeselectedThisClick;
+	bool			mValidSelection;
 
 	S32             mLastFace;
 	LLVector2       mLastUVCoords;
@@ -137,12 +137,12 @@ private:
 	LLVector3       mLastGrabPos;
 
 
-	BOOL			mSpinGrabbing;
+	bool			mSpinGrabbing;
 	LLQuaternion	mSpinRotation;
 
-	BOOL			mHideBuildHighlight;
+	bool			mHideBuildHighlight;
 
-	BOOL			mClickedInMouselook;
+	bool			mClickedInMouselook;
 };
 
 /// This is the LLSingleton instance of LLToolGrab.

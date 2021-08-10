@@ -56,10 +56,10 @@ public:
 
 	virtual LLViewerObject*	getEditingObject()								{ return mCur->getEditingObject(); }
 	virtual LLVector3d		getEditingPointGlobal()							{ return mCur->getEditingPointGlobal(); }
-	virtual BOOL			isEditing()										{ return mCur->isEditing(); }
+	virtual bool			isEditing()										{ return mCur->isEditing(); }
 	virtual void			stopEditing()									{ mCur->stopEditing(); mCur = mDefault; }
 
-	virtual BOOL			clipMouseWhenDown()								{ return mCur->clipMouseWhenDown(); }
+	virtual bool			clipMouseWhenDown()								{ return mCur->clipMouseWhenDown(); }
 
 	virtual void			handleSelect();
 	virtual void			handleDeselect();

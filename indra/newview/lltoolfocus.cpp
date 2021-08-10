@@ -72,11 +72,11 @@ LLToolCamera::LLToolCamera()
 	mAccumY(0),
 	mMouseDownX(0),
 	mMouseDownY(0),
-	mOutsideSlopX(FALSE),
-	mOutsideSlopY(FALSE),
-	mValidClickPoint(FALSE),
-	mValidSelection(FALSE),
-	mMouseSteering(FALSE),
+	mOutsideSlopX(false),
+	mOutsideSlopY(false),
+	mValidClickPoint(false),
+	mValidSelection(false),
+	mMouseSteering(false),
 	mMouseUpX(0),
 	mMouseUpY(0),
 	mMouseUpMask(MASK_NONE)
@@ -122,10 +122,10 @@ BOOL LLToolCamera::handleMouseDown(S32 x, S32 y, MASK mask)
 	mAccumX = 0;
 	mAccumY = 0;
 
-	mOutsideSlopX = FALSE;
-	mOutsideSlopY = FALSE;
+	mOutsideSlopX = false;
+	mOutsideSlopY = false;
 
-	mValidClickPoint = FALSE;
+	mValidClickPoint = false;
 
 	// If mouse capture gets ripped away, claim we moused up
 	// at the point we moused down. JC
@@ -158,7 +158,7 @@ void LLToolCamera::pickCallback(const LLPickInfo& pick_info)
 	// Check for hit the sky, or some other invalid point
 	if (!hit_obj && pick_info.mPosGlobal.isExactlyZero())
 	{
-		LLToolCamera::getInstance()->mValidClickPoint = FALSE;
+		LLToolCamera::getInstance()->mValidClickPoint = false;
 		return;
 	}
 
@@ -168,7 +168,7 @@ void LLToolCamera::pickCallback(const LLPickInfo& pick_info)
 		LLObjectSelectionHandle selection = LLSelectMgr::getInstance()->getSelection();
 		if (!selection->getObjectCount() || selection->getSelectType() != SELECT_TYPE_HUD)
 		{
-			LLToolCamera::getInstance()->mValidClickPoint = FALSE;
+			LLToolCamera::getInstance()->mValidClickPoint = false;
 			return;
 		}
 	}
@@ -192,7 +192,7 @@ void LLToolCamera::pickCallback(const LLPickInfo& pick_info)
 
 		if( !good_customize_avatar_hit )
 		{
-			LLToolCamera::getInstance()->mValidClickPoint = FALSE;
+			LLToolCamera::getInstance()->mValidClickPoint = false;
 			return;
 		}
 
@@ -232,12 +232,12 @@ void LLToolCamera::pickCallback(const LLPickInfo& pick_info)
 			(hit_obj == gAgentAvatarp || 
 			 (hit_obj && hit_obj->isAttachment() && LLVOAvatar::findAvatarFromAttachment(hit_obj)->isSelf())))
 		{
-			LLToolCamera::getInstance()->mMouseSteering = TRUE;
+			LLToolCamera::getInstance()->mMouseSteering = true;
 		}
 
 	}
 
-	LLToolCamera::getInstance()->mValidClickPoint = TRUE;
+	LLToolCamera::getInstance()->mValidClickPoint = true;
 
 	if( CAMERA_MODE_CUSTOMIZE_AVATAR == gAgentCamera.getCameraMode() )
 	{
@@ -268,10 +268,10 @@ void LLToolCamera::releaseMouse()
 		LLToolMgr::getInstance()->clearTransientTool();
 	}
 
-	mMouseSteering = FALSE;
-	mValidClickPoint = FALSE;
-	mOutsideSlopX = FALSE;
-	mOutsideSlopY = FALSE;
+	mMouseSteering = false;
+	mValidClickPoint = false;
+	mOutsideSlopX = false;
+	mOutsideSlopY = false;
 }
 
 
@@ -337,12 +337,12 @@ bool LLToolCamera::handleHover(S32 x, S32 y, MASK mask)
 
 		if (mAccumX >= SLOP_RANGE)
 		{
-			mOutsideSlopX = TRUE;
+			mOutsideSlopX = true;
 		}
 
 		if (mAccumY >= SLOP_RANGE)
 		{
-			mOutsideSlopY = TRUE;
+			mOutsideSlopY = true;
 		}
 	}
 

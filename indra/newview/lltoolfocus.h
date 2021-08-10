@@ -50,7 +50,7 @@ public:
 	virtual LLTool*	getOverrideTool(MASK mask) { return NULL; }
 
 	static void pickCallback(const LLPickInfo& pick_info);
-	BOOL mouseSteerMode() { return mMouseSteering; }
+	bool mouseSteerMode() { return mMouseSteering; }
 
 protected:
 	// called from handleMouseUp and onMouseCaptureLost to "let go"
@@ -62,11 +62,11 @@ protected:
 	S32		mAccumY;
 	S32		mMouseDownX;
 	S32		mMouseDownY;
-	BOOL	mOutsideSlopX;
-	BOOL	mOutsideSlopY;
-	BOOL	mValidClickPoint;
-	BOOL	mValidSelection;
-	BOOL	mMouseSteering;
+	bool	mOutsideSlopX;
+	bool	mOutsideSlopY;
+	bool	mValidClickPoint;
+	bool	mValidSelection;
+	bool	mMouseSteering;
 	S32		mMouseUpX;	// needed for releaseMouse()
 	S32		mMouseUpY;
 	MASK	mMouseUpMask;
