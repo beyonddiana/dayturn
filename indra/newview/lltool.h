@@ -74,10 +74,10 @@ public:
 	// New virtual functions
 	virtual LLViewerObject*	getEditingObject()		{ return NULL; }
 	virtual LLVector3d		getEditingPointGlobal()	{ return LLVector3d(); }
-	virtual BOOL			isEditing()				{ return (getEditingObject() != NULL); }
+	virtual bool			isEditing()				{ return (getEditingObject() != NULL); }
 	virtual void			stopEditing()			{}
 
-	virtual BOOL			clipMouseWhenDown()		{ return TRUE; }
+	virtual bool			clipMouseWhenDown()		{ return true; }
 
 	virtual void			handleSelect()			{ }	// do stuff when your tool is selected
 	virtual void			handleDeselect()		{ }	// clean up when your tool is deselected

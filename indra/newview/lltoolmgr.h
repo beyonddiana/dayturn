@@ -63,7 +63,7 @@ public:
 
 	void			setTransientTool(LLTool* tool);
 	void			clearTransientTool();
-	BOOL			usingTransientTool();
+	bool			usingTransientTool();
 
 	void			setCurrentToolset(LLToolset* current);
 	LLToolset*		getCurrentToolset();
@@ -105,7 +105,7 @@ public:
 
 	void			handleScrollWheel(S32 clicks);
 
-	BOOL			isToolSelected( S32 index );
+	S32			    isToolSelected( S32 index ); // Was BOOL
 
 	void            setShowFloaterTools(bool pShowFloaterTools) {mIsShowFloaterTools = pShowFloaterTools;};
 	bool            isShowFloaterTools() const                  {return mIsShowFloaterTools;};

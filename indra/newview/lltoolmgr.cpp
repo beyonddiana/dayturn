@@ -142,9 +142,9 @@ LLToolMgr::~LLToolMgr()
 	gToolNull = NULL;
 }
 
-BOOL LLToolMgr::usingTransientTool()
+bool LLToolMgr::usingTransientTool()
 {
-	return mTransientTool ? TRUE : FALSE;
+	return mTransientTool ? true : false;
 }
 
 void LLToolMgr::setCurrentToolset(LLToolset* current)
@@ -461,7 +461,7 @@ void LLToolset::selectToolByIndex( S32 index )
 	}
 }
 
-BOOL LLToolset::isToolSelected( S32 index )
+S32 LLToolset::isToolSelected( S32 index )
 {
 	LLTool *tool = (index >= 0 && index < (S32)mToolList.size()) ? mToolList[index] : NULL;
 	return (tool == mSelectedTool);

@@ -48,7 +48,7 @@
 
 LLToolGun::LLToolGun( LLToolComposite* composite )
 :	LLTool( std::string("gun"), composite ),
-		mIsSelected(FALSE)
+		mIsSelected(false)
 {
 }
 
@@ -59,7 +59,7 @@ void LLToolGun::handleSelect()
 ////	gViewerWindow->moveCursorToCenter();
 //mk
 	gViewerWindow->getWindow()->setMouseClipping(true);
-	mIsSelected = TRUE;
+	mIsSelected = true;
 }
 
 void LLToolGun::handleDeselect()
@@ -69,7 +69,7 @@ void LLToolGun::handleDeselect()
 //mk
 	gViewerWindow->showCursor();
 	gViewerWindow->getWindow()->setMouseClipping(false);
-	mIsSelected = FALSE;
+	mIsSelected = false;
 }
 
 BOOL LLToolGun::handleMouseDown(S32 x, S32 y, MASK mask)
