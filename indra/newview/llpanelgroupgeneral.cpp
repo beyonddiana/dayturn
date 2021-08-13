@@ -101,6 +101,7 @@ bool LLPanelGroupGeneral::postBuild()
 		mEditCharter->setCommitCallback(onCommitAny, this);
 		mEditCharter->setFocusReceivedCallback(boost::bind(onFocusEdit, _1, this));
 		mEditCharter->setFocusChangedCallback(boost::bind(onFocusEdit, _1, this));
+        mEditCharter->setContentTrusted(false);
 	}
 
 	// Options
@@ -643,7 +644,8 @@ void LLPanelGroupGeneral::update(LLGroupChange gc)
 
 	if (mEditCharter)
 	{
-		mEditCharter->setText(gdatap->mCharter);
+        mEditCharter->setParseURLs(!mAllowEdit || !can_change_ident);
+        mEditCharter->setText(gdatap->mCharter);
 	}
 
 	if (mGroupUUIDText) {
