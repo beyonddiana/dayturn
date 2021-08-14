@@ -116,10 +116,18 @@ public:
 		AT_PERSON = 45,
 			// A user uuid  which is not an inventory asset type, used in viewer only for adding a person to a chat via drag and drop.
 
-		AT_MESH = 49,
-			// Mesh data in our proprietary SLM format
-		
-		AT_COUNT = 50,
+        AT_MESH = 49,
+        // Mesh data in our proprietary SLM format
+
+        AT_RESERVED_1 = 50,
+        AT_RESERVED_2 = 51,
+        AT_RESERVED_3 = 52,
+        AT_RESERVED_4 = 53,
+        AT_RESERVED_5 = 54,
+
+        AT_SETTINGS = 55,   // Collection of settings
+            
+		AT_COUNT = 56,
 
 			// +*********************************************************+
 			// |  TO ADD AN ELEMENT TO THIS ENUM:                        |
@@ -158,7 +166,7 @@ public:
     static void					setFetchWithVACapTypeString(const std::string& type_string);
     static void					setFetchWithVACapConfigString(const std::string& config_string);
 	
-	static const std::string&	badLookup(); // error string when a lookup fails
+    static const std::string    BADLOOKUP;
 
 protected:
 	LLAssetType() {}

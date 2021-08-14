@@ -317,6 +317,10 @@ bool LLWLParamManager::loadPreset(const std::string& path)
 		addParamSet(key, params_data);
 	}
 
+    //*RIDER temp code testing conversion old preset to new settings.
+    //LLSettingsSky::ptr_t test = LLSettingsSky::buildFromLegacyPreset(name, params_data);
+    //test->exportSettings(name);
+
 	return true;
 }
 

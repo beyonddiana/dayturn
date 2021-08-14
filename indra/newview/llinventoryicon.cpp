@@ -93,6 +93,9 @@ LLIconDictionary::LLIconDictionary()
 	addEntry(LLInventoryType::ICONNAME_LINKFOLDER, 				new IconEntry("Inv_LinkFolder"));
 	addEntry(LLInventoryType::ICONNAME_MESH,	 				new IconEntry("Inv_Mesh"));
 
+    addEntry(LLInventoryType::ICONNAME_SETTINGS_SKY,            new IconEntry("Inv_SettingSky"));
+    addEntry(LLInventoryType::ICONNAME_SETTINGS_WATER,          new IconEntry("Inv_SettingWater"));
+
 	addEntry(LLInventoryType::ICONNAME_INVALID, 				new IconEntry("Inv_Invalid"));
 	addEntry(LLInventoryType::ICONNAME_UNKNOWN, 				new IconEntry("Inv_Unknown"));
 
@@ -168,6 +171,11 @@ const std::string& LLInventoryIcon::getIconName(LLAssetType::EType asset_type,
 			break;
 		case LLAssetType::AT_MESH:
 			idx = LLInventoryType::ICONNAME_MESH;
+            break;
+        case LLAssetType::AT_SETTINGS:
+            // TODO: distinguish between Sky and Water settings.
+            idx = LLInventoryType::ICONNAME_SETTINGS_SKY;
+            break;
 		case LLAssetType::AT_UNKNOWN:
 			idx = LLInventoryType::ICONNAME_UNKNOWN;
 		default:
