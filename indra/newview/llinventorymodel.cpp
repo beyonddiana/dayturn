@@ -1979,7 +1979,7 @@ void LLInventoryModel::addItem(LLViewerInventoryItem* item)
 			return;
 		}
 
-		if (LLAssetType::lookup(item->getType()) == LLAssetType::badLookup())
+		if (LLAssetType::lookup(item->getType()) == LLAssetType::BADLOOKUP)
 		{
 			if (item->getType() >= LLAssetType::AT_COUNT)
 			{

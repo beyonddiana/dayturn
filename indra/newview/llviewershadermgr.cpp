@@ -3553,6 +3553,7 @@ std::string LLViewerShaderMgr::getShaderDirPrefix(void)
 
 void LLViewerShaderMgr::updateShaderUniforms(LLGLSLShader * shader)
 {
+    //*LAPRAS*/
 	LLWLParamManager::getInstance()->updateShaderUniforms(shader);
 	LLWaterParamManager::getInstance()->updateShaderUniforms(shader);
 }
