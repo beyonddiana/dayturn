@@ -4112,10 +4112,9 @@ void LLAppearanceMgr::removeItemsFromAvatar(const uuid_vec_t& ids_to_remove)
 
 void LLAppearanceMgr::removeItemFromAvatar(const LLUUID& id_to_remove)
 {
-	LLUUID linked_item_id = gInventory.getLinkedItemID(id_to_remove);
-	LLPointer<LLInventoryCallback> cb = new LLUpdateAppearanceOnDestroy;
-	removeCOFItemLinks(linked_item_id, cb);
-	addDoomedTempAttachment(linked_item_id);
+	uuid_vec_t ids_to_remove;
+	ids_to_remove.push_back(id_to_remove);
+	removeItemsFromAvatar(ids_to_remove);
 }
 
 
