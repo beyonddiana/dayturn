@@ -3165,8 +3165,8 @@ void LLViewerWindow::handleScrollHWheel(S32 clicks)
         return;
     }
 
-    LLUI::getInstance()->resetMouseIdleTimer();
-    
+    LLUI::resetMouseIdleTimer();
+   
     LLMouseHandler* mouse_captor = gFocusMgr.getMouseCapture();
     if (mouse_captor)
     {
