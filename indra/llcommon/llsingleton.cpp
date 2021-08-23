@@ -55,19 +55,19 @@ bool oktolog();
 // this implicit dependency from every LLSingleton to the master list, make it
 // an LLSingleton.
 class LLSingletonBase::MasterList:
-public LLSingleton<LLSingletonBase::MasterList>
+    public LLSingleton<LLSingletonBase::MasterList>
 {
     LLSINGLETON_EMPTY_CTOR(MasterList);
-    
+
 public:
     // No need to make this private with accessors; nobody outside this source
     // file can see it.
-    
+
     // This is the master list of all instantiated LLSingletons (save the
     // MasterList itself) in arbitrary order. You MUST call dep_sort() before
     // traversing this list.
     LLSingletonBase::list_t mMaster;
-    
+
     // We need to maintain a stack of LLSingletons currently being
     // initialized, either in the constructor or in initSingleton(). However,
     // managing that as a stack depends on having a DISTINCT 'initializing'
@@ -134,11 +134,10 @@ LLSingletonBase::list_t& LLSingletonBase::get_initializing()
     return LLSingletonBase::MasterList::instance().get_initializing_();
 }
 
-
 //static
 LLSingletonBase::list_t& LLSingletonBase::get_initializing_from(MasterList* master)
 {
-    return master->get_initializing_();;
+    return master->get_initializing_();
 }
 
 LLSingletonBase::~LLSingletonBase() {}
@@ -153,18 +152,18 @@ void LLSingletonBase::push_initializing(const char* name)
 void LLSingletonBase::pop_initializing()
 {
     list_t& list(get_initializing());
-    
+
     if (list.empty())
     {
         logerrs("Underflow in stack of currently-initializing LLSingletons at ",
                 classname(this).c_str(), "::getInstance()");
     }
-    
+
     // Now we know list.back() exists: capture it
     LLSingletonBase* back(list.back());
     // and pop it
     list.pop_back();
-    
+
     // The viewer launches an open-ended number of coroutines. While we don't
     // expect most of them to initialize LLSingleton instances, our present
     // get_initializing() logic could lead to an open-ended number of map
@@ -174,7 +173,7 @@ void LLSingletonBase::pop_initializing()
     {
         MasterList::instance().cleanup_initializing_();
     }
-    
+
     // Now validate the newly-popped LLSingleton.
     if (back != this)
     {
@@ -182,7 +181,7 @@ void LLSingletonBase::pop_initializing()
                 classname(this).c_str(), "::getInstance() trying to pop ",
                 classname(back).c_str());
     }
-    
+
     // log AFTER popping so logging singletons don't cry circularity
     log_initializing("Popping", typeid(*back).name());
 }
@@ -248,7 +247,7 @@ void LLSingletonBase::capture_dependency(list_t& initializing, EInitState initSt
         {
             list_t::const_iterator it_next = found;
             it_next++;
-            
+
             // Report the circularity. Requiring the coder to dig through the
             // logic to diagnose exactly how we got here is less than helpful.
             std::ostringstream out;
@@ -271,7 +270,7 @@ void LLSingletonBase::capture_dependency(list_t& initializing, EInitState initSt
             if (initState == CONSTRUCTING)
             {
                 logerrs("LLSingleton circularity in Constructor: ", out.str().c_str(),
-                        demangle(typeid(*this).name()).c_str(), "");
+                    demangle(typeid(*this).name()).c_str(), "");
             }
             else if (it_next == initializing.end())
             {
@@ -282,14 +281,14 @@ void LLSingletonBase::capture_dependency(list_t& initializing, EInitState initSt
                 // Example: LLNotifications singleton initializes default channels.
                 // Channels register themselves with singleton once done.
                 logdebugs("LLSingleton circularity: ", out.str().c_str(),
-                          demangle(typeid(*this).name()).c_str(), "");
+                    demangle(typeid(*this).name()).c_str(), "");
             }
             else
             {
                 // Actual circularity with other singleton (or single singleton is used extensively).
                 // Dependency can be unclear.
                 logwarns("LLSingleton circularity: ", out.str().c_str(),
-                         demangle(typeid(*this).name()).c_str(), "");
+                    demangle(typeid(*this).name()).c_str(), "");
             }
         }
         else
@@ -320,7 +319,7 @@ void LLSingletonBase::cleanupAll()
         if (! sp->mCleaned)
         {
             sp->mCleaned = true;
-            
+
             logdebugs("calling ",
                       classname(sp).c_str(), "::cleanupSingleton()");
             try
@@ -377,7 +376,6 @@ void LLSingletonBase::deleteAll()
     }
 }
 
-
 /*---------------------------- Logging helpers -----------------------------*/
 namespace {
 bool oktolog()
@@ -385,7 +383,7 @@ bool oktolog()
    // See comments in log() below.
    return LLError::is_available();
 }
- 
+
 void log(LLError::ELevel level,
          const char* p1, const char* p2, const char* p3, const char* p4)
 {

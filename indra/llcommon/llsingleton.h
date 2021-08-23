@@ -1,24 +1,24 @@
-/** 
+/**
  * @file llsingleton.h
  *
  * $LicenseInfo:firstyear=2002&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation;
  * version 2.1 of the License only.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
- * 
+ *
  * Linden Research, Inc., 945 Battery Street, San Francisco, CA  94111  USA
  * $/LicenseInfo$
  */
@@ -32,6 +32,7 @@
 #include <typeinfo>
 
 #include "mutex.h"
+
 
 class LLSingletonBase: private boost::noncopyable
 {
@@ -104,7 +105,7 @@ protected:
     void pop_initializing();
     // Remove 'this' from the init stack in case of exception in the
     // LLSingleton subclass constructor.
-    static void reset_initializing(list_t::size_type size);    
+    static void reset_initializing(list_t::size_type size);
 private:
     // logging
     static void log_initializing(const char* verb, const char* name);
@@ -176,8 +177,8 @@ public:
      * deleteSingleton() methods.
      */
     static void deleteAll();
-}; 
- 
+};
+
 // Most of the time, we want LLSingleton_manage_master() to forward its
 // methods to real LLSingletonBase methods.
 template <class T>
@@ -193,7 +194,6 @@ struct LLSingleton_manage_master
 // But for the specific case of LLSingletonBase::MasterList, don't.
 template <>
 struct LLSingleton_manage_master<LLSingletonBase::MasterList>
-
 {
     void add(LLSingletonBase*) {}
     void remove(LLSingletonBase*) {}
@@ -208,9 +208,8 @@ struct LLSingleton_manage_master<LLSingletonBase::MasterList>
 // Now we can implement LLSingletonBase's template constructor.
 template <typename DERIVED_TYPE>
 LLSingletonBase::LLSingletonBase(tag<DERIVED_TYPE>):
-
-mCleaned(false),
-mDeleteSingleton(NULL)
+    mCleaned(false),
+    mDeleteSingleton(NULL)
 {
     // Make this the currently-initializing LLSingleton.
     LLSingleton_manage_master<DERIVED_TYPE>().push_initializing(this);
@@ -236,12 +235,9 @@ mDeleteSingleton(NULL)
  *
  * As currently written, LLSingleton is not thread-safe.
  */
-
-
 template <typename DERIVED_TYPE>
 class LLSingleton : private boost::noncopyable
 {
-	
 private:
 	typedef enum e_init_state
 	{
