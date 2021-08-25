@@ -43,6 +43,13 @@
 #include "llviewerobject.h"
 #include "lluictrlfactory.h"
 
+// PoundLife - Improved Object Inspect
+#include "llresmgr.h"
+#include "lltexturectrl.h"
+#include "llviewerobjectlist.h" //gObjectList
+#include "llviewertexturelist.h"
+// PoundLife END
+
 //LLFloaterInspect* LLFloaterInspect::sInstance = NULL;
 
 LLFloaterInspect::LLFloaterInspect(const LLSD& key)
@@ -191,6 +198,19 @@ void LLFloaterInspect::refresh()
 	LLUUID creator_id;
 	std::string creator_name;
 	S32 pos = mObjectList->getScrollPos();
+	// PoundLife - Improved Object Inspect
+	LLLocale locale("");
+	LLResMgr& res_mgr = LLResMgr::instance();
+	LLSelectMgr& sel_mgr = LLSelectMgr::instance();
+	S32 fcount = 0;
+	S32 tcount = 0;
+	S32 vcount = 0;
+	S32 objcount = 0;
+	S32 primcount = 0;
+	mTextureList.clear();
+	mTextureMemory = 0;
+	mTextureVRAMMemory = 0;
+	// PoundLife - End
 	getChildView("button owner")->setEnabled(false);
 	getChildView("button creator")->setEnabled(false);
 	LLUUID selected_uuid;
@@ -303,6 +323,37 @@ void LLFloaterInspect::refresh()
 		row["columns"][3]["column"] = "creation_date";
 		row["columns"][3]["type"] = "text";
 		row["columns"][3]["value"] = timeStr;
+
+		// PoundLife - Improved Object Inspect
+		
+	    std::string fcount_string;
+		res_mgr.getIntegerString(fcount_string, obj->getObject()->getNumFaces());
+		row["columns"][4]["column"] = "facecount";
+		row["columns"][4]["type"] = "text";
+		row["columns"][4]["value"] = fcount_string;
+
+	    std::string vcount_string;
+		res_mgr.getIntegerString(vcount_string, obj->getObject()->getNumVertices());
+		row["columns"][5]["column"] = "vertexcount";
+		row["columns"][5]["type"] = "text";
+		row["columns"][5]["value"] = vcount_string;
+
+	    std::string tcount_string;
+		res_mgr.getIntegerString(tcount_string, obj->getObject()->getNumIndices() / 3);
+		row["columns"][6]["column"] = "trianglecount";
+		row["columns"][6]["type"] = "text";
+		row["columns"][6]["value"] = tcount_string;
+
+		// Poundlife - Get VRAM
+		U32 texture_memory = 0;
+		U32 vram_memory = 0;
+		getObjectTextureMemory(obj->getObject(), texture_memory, vram_memory);
+		primcount = sel_mgr.getSelection()->getObjectCount();
+		objcount = sel_mgr.getSelection()->getRootObjectCount();
+		fcount += obj->getObject()->getNumFaces();
+		tcount += obj->getObject()->getNumIndices() / 3;
+		vcount += obj->getObject()->getNumVertices();
+		// PoundLife - END
 		mObjectList->addElement(row, ADD_TOP);
 	}
 	if(selected_index > -1 && mObjectList->getItemIndex(selected_uuid) == selected_index)
@@ -315,7 +366,119 @@ void LLFloaterInspect::refresh()
 	}
 	onSelectObject();
 	mObjectList->setScrollPos(pos);
+
+	// PoundLife - Total linkset stats.
+	LLStringUtil::format_map_t args;
+	std::string objcount_string;
+	res_mgr.getIntegerString(objcount_string, objcount);
+	args["NUM_OBJECTS"] = objcount_string;
+	std::string primcount_string;
+	res_mgr.getIntegerString(primcount_string, primcount);
+	args["NUM_PRIMS"] = primcount_string;
+	std::string ftotcount_string;
+	res_mgr.getIntegerString(ftotcount_string, fcount);
+	args["NUM_FACES"] = ftotcount_string;
+	std::string vtotcount_string;
+	res_mgr.getIntegerString(vtotcount_string, vcount);
+	args["NUM_VERTICES"] = vtotcount_string;
+	std::string ttotcount_string;
+	res_mgr.getIntegerString(ttotcount_string, tcount);
+	args["NUM_TRIANGLES"] = ttotcount_string;
+	std::string texcount_string;
+	res_mgr.getIntegerString(texcount_string, mTextureList.size());
+	args["NUM_TEXTURES"] = texcount_string;
+	std::string texmem_string;
+	res_mgr.getIntegerString(texmem_string, mTextureMemory / 1024);
+	args["TEXTURE_MEMORY"] = texmem_string;
+	std::string vram_string;
+	res_mgr.getIntegerString(vram_string, mTextureVRAMMemory / 1024);
+	args["VRAM_USAGE"] = vram_string;
+	getChild<LLTextBase>("linksetstats_text")->setText(getString("stats_list", args));
+	// PoundLife - End
 }
+
+// PoundLife - Improved Object Inspect
+void LLFloaterInspect::getObjectTextureMemory(LLViewerObject* object, U32& object_texture_memory, U32& object_vram_memory)
+{
+	uuid_vec_t object_texture_list;
+
+	if (!object)
+	{
+		return;
+	}
+
+	LLUUID uuid;
+	U8 te_count = object->getNumTEs();
+
+	for (U8 j = 0; j < te_count; j++)
+	{
+		LLViewerTexture* img = object->getTEImage(j);
+		if (img)
+		{
+			calculateTextureMemory(img, object_texture_list, object_texture_memory, object_vram_memory);
+		}
+
+		// materials per face
+		if (object->getTE(j)->getMaterialParams().notNull())
+		{
+			uuid = object->getTE(j)->getMaterialParams()->getNormalID();
+			if (uuid.notNull())
+			{
+				LLViewerTexture* img = gTextureList.getImage(uuid);
+				if (img)
+				{
+					calculateTextureMemory(img, object_texture_list, object_texture_memory, object_vram_memory);
+				}
+			}
+
+			uuid = object->getTE(j)->getMaterialParams()->getSpecularID();
+			if (uuid.notNull())
+			{
+				LLViewerTexture* img = gTextureList.getImage(uuid);
+				if (img)
+				{
+					calculateTextureMemory(img, object_texture_list, object_texture_memory, object_vram_memory);
+				}
+			}
+		}
+	}
+
+	// sculpt map
+	if (object->isSculpted() && !object->isMesh())
+	{
+		LLSculptParams *sculpt_params = (LLSculptParams *)(object->getParameterEntry(LLNetworkData::PARAMS_SCULPT));
+		uuid = sculpt_params->getSculptTexture();
+		LLViewerTexture* img = gTextureList.getImage(uuid);
+		if (img)
+		{
+			calculateTextureMemory(img, object_texture_list, object_texture_memory, object_vram_memory);
+		}
+	}
+}
+
+void LLFloaterInspect::calculateTextureMemory(LLViewerTexture* texture, uuid_vec_t& object_texture_list, U32& object_texture_memory, U32& object_vram_memory)
+{
+	const LLUUID uuid = texture->getID();
+	U32 vram_memory = (texture->getFullHeight() * texture->getFullWidth() * 32 / 8);
+	U32 texture_memory = (texture->getFullHeight() * texture->getFullWidth() * texture->getComponents());
+
+	if (std::find(mTextureList.begin(), mTextureList.end(), uuid) == mTextureList.end())
+	{
+		mTextureList.push_back(uuid);
+		mTextureMemory += texture_memory;
+		mTextureVRAMMemory += vram_memory;
+	}
+
+	if (std::find(object_texture_list.begin(), object_texture_list.end(), uuid) == object_texture_list.end())
+	{
+		object_texture_list.push_back(uuid);
+		object_texture_memory += texture_memory;
+		object_vram_memory += vram_memory;
+	}
+}
+// PoundLife - End
+
+
 
 void LLFloaterInspect::onFocusReceived()
 {

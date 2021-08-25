@@ -5,45 +5,93 @@
  height="300"
  layout="topleft"
  min_height="300"
- min_width="400"
+ min_width="725"
  name="inspect"
  help_topic="inspect"
  save_rect="true"
  title="INSPECT OBJECTS"
- width="400">
+ width="725">
     <floater.string
      name="timeStamp">
-        [wkday,datetime,local] [mth,datetime,local] [day,datetime,local] [hour,datetime,local]:[min,datetime,local]:[second,datetime,local] [year,datetime,local]
+        [day,datetime,local] [mth,datetime,local] [year,datetime,local] [hour,datetime,local]:[min,datetime,local]:[second,datetime,local]
     </floater.string>
+    <floater.string
+     name="Group">
+        (Group)
+    </floater.string>
+    <floater.string name="stats_list">
+        Total stats:
+
+[NUM_OBJECTS] objects, [NUM_PRIMS] prims
+
+Faces: [NUM_FACES]
+Tris: [NUM_TRIANGLES]
+Verts: [NUM_VERTICES]
+
+Textures: [NUM_TEXTURES]
+TMem: [TEXTURE_MEMORY] KB
+VRAM: [VRAM_USAGE] KB
+    </floater.string>
+
+    <text_editor
+      top="24"
+      left="5"
+      width="130"
+      height="242"
+      layout="topleft"
+      follows="left|top|bottom"
+      name="linksetstats_text"
+      max_length="2048"
+      bg_visible="false"
+      border_visible="true"
+      allow_scroll="true"
+      h_pad="2"
+      v_pad="2"
+      read_only="true"
+      tab_stop="false"
+      value="(loading...)"
+      word_wrap="true"/>
     <scroll_list
-     bottom="268"
+     top="24"
+     height="243"
      column_padding="0"
      draw_heading="true"
      follows="top|right|left|bottom"
      layout="topleft"
-     left="10"
+     left_pad="5"
      name="object_list"
-     right="-10"
-     tool_tip="Select an object from this list to highlight it in-world"
-     top="20">
+     right="-6"
+     tool_tip="Select an object from this list to highlight it in-world">
         <scroll_list.columns
-         relative_width="0.25"
          label="Object Name"
-         name="object_name" />
+         name="object_name"
+         width="140"  />
         <scroll_list.columns
-         relative_width="0.25"
          label="Owner Name"
-         name="owner_name" />
+         name="owner_name"
+         width="80"  />
         <scroll_list.columns
-         relative_width="0.25"
          label="Creator Name"
-         name="creator_name" />
+         name="creator_name"
+         width="80"  />
         <scroll_list.columns
-         relative_width="0.25"
          label="Creation Date"
-         name="creation_date" />
+         name="creation_date"
+         width="115"  />
 		 <scroll_list.commit_callback
 		   function="Inspect.SelectObject" />
+        <scroll_list.columns
+         label="Faces"
+         name="facecount"
+         width="45" />
+        <scroll_list.columns
+         label="Verts"
+         name="vertexcount"
+         width="60" />
+        <scroll_list.columns
+         label="Tris"
+         name="trianglecount"
+         width="60" />
     </scroll_list>
     <button
      follows="left|bottom"
