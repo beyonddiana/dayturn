@@ -200,7 +200,7 @@ bool handleRenderAvatarComplexityLimitChanged(const LLSD& newvalue)
 
 bool handleRenderTransparentWaterChanged(const LLSD& newvalue)
 {
-	LLRenderTarget::sUseFBO = newvalue.asBoolean();
+    LLRenderTarget::sUseFBO = newvalue.asBoolean() && gSavedSettings.getBOOL("RenderObjectBump") && gSavedSettings.getBOOL("RenderDeferred");
 	if (gPipeline.isInit())
 	{
 		gPipeline.updateRenderTransparentWater();
@@ -446,7 +446,7 @@ static bool handleRenderDeferredChanged(const LLSD& newvalue)
 //
 static bool handleRenderBumpChanged(const LLSD& newval)
 {
-	LLRenderTarget::sUseFBO = newval.asBoolean();
+    LLRenderTarget::sUseFBO = newval.asBoolean() && gSavedSettings.getBOOL("RenderTransparentWater") && gSavedSettings.getBOOL("RenderDeferred");
 	if (gPipeline.isInit())
 	{
 		gPipeline.updateRenderBump();
