@@ -625,11 +625,11 @@ static void settings_to_globals()
 
 static void settings_modify()
 {
-	LLRenderTarget::sUseFBO				= gSavedSettings.getBOOL("RenderDeferred");
 	LLPipeline::sRenderTransparentWater	= gSavedSettings.getBOOL("RenderTransparentWater");
-	LLPipeline::sRenderBump				= gSavedSettings.getBOOL("RenderObjectBump");
-	LLPipeline::sRenderDeferred		= LLPipeline::sRenderTransparentWater && LLPipeline::sRenderBump && gSavedSettings.getBOOL("RenderDeferred");
-	LLVOAvatar::sUseImpostors			= gSavedSettings.getBOOL("RenderUseImpostors");
+	LLPipeline::sRenderBump				= (bool)gSavedSettings.getBOOL("RenderObjectBump");
+	LLPipeline::sRenderDeferred = LLPipeline::sRenderTransparentWater && LLPipeline::sRenderBump && gSavedSettings.getBOOL("RenderDeferred");
+    LLRenderTarget::sUseFBO = LLPipeline::sRenderDeferred && gSavedSettings.getBOOL("RenderAvatarVP");
+	LLVOAvatar::sUseImpostors			= (bool)gSavedSettings.getBOOL("RenderUseImpostors");
 	LLVOSurfacePatch::sLODFactor		= gSavedSettings.getF32("RenderTerrainLODFactor");
 	LLVOSurfacePatch::sLODFactor *= LLVOSurfacePatch::sLODFactor; //square lod factor to get exponential range of [1,4]
 	gDebugGL = gSavedSettings.getBOOL("RenderDebugGL") || gDebugSession;
