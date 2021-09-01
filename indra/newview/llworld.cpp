@@ -262,9 +262,9 @@ void LLWorld::refreshLimits()
 				mRegionMaxPrimScale = OS_DEFAULT_MAX_PRIM_SCALE;
 				mRegionMinPrimScale = OS_MIN_PRIM_SCALE;
 				//scale constants form xform.h should and be easier to modify if future need arrises
-				mRegionMaxPrimXPos = OS_DEFAULT_MAX_PRIM_SCALE; //256
-				mRegionMaxPrimYPos = OS_DEFAULT_MAX_PRIM_SCALE;
-				mRegionMaxPrimZPos = OS_MAX_PRIM_SCALE; //65536
+				mRegionMaxPrimXPos = getRegionWidthInMeters();
+				mRegionMaxPrimYPos = mRegionMaxPrimXPos; // only supporting square regions
+				mRegionMaxPrimZPos = 4096; // default max building height. Disable build constraint otherwise
 			}
 		// </NP: disable build constraints>
 		mRegionMaxPrimScaleNoMesh = OS_DEFAULT_MAX_PRIM_SCALE;// no restrictions here
