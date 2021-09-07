@@ -40,6 +40,7 @@
 #include "llinventoryfunctions.h"
 #include "llinventoryobserver.h"
 #include "llinventorypanel.h"
+#include "llinventorymodelbackgroundfetch.h"
 #include "lllocaltextureobject.h"
 #include "llmd5.h"
 #include "llnotificationsutil.h"
@@ -1978,6 +1979,14 @@ void LLAgentWearables::editWearable(const LLUUID& item_id)
 		LL_WARNS() << "Failed to get linked item" << LL_ENDL;
 		return;
 	}
+
+    if (!item->isFinished())
+    {
+        LL_WARNS() << "Tried to edit wearable that isn't loaded" << LL_ENDL;
+        // Restart fetch or put item to the front
+        LLInventoryModelBackgroundFetch::instance().start(item->getUUID(), false);
+        return;
+    }
 
 	LLViewerWearable* wearable = gAgentWearables.getWearableFromItemID(item_id);
 	if (!wearable)
