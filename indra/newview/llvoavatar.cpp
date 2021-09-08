@@ -2623,7 +2623,7 @@ void LLVOAvatar::idleUpdate(LLAgent &agent, const F64 &time)
 	// animate the character
 	// store off last frame's root position to be consistent with camera position
 	mLastRootPos = mRoot->getWorldPosition();
-	BOOL detailed_update = updateCharacter(agent);
+	bool detailed_update = updateCharacter(agent);
 
 	static LLUICachedControl<bool> visualizers_in_calls("ShowVoiceVisualizersInCalls", false);
 	bool voice_enabled = (visualizers_in_calls || LLVoiceClient::getInstance()->inProximalChannel()) &&
@@ -4510,13 +4510,13 @@ bool LLVOAvatar::computeNeedsUpdate()
 // simulator.
 //
 //------------------------------------------------------------------------
-BOOL LLVOAvatar::updateCharacter(LLAgent &agent)
+bool LLVOAvatar::updateCharacter(LLAgent &agent)
 {	
 	updateDebugText();
 	
 	if (!mIsBuilt)
 	{
-		return FALSE;
+		return false;
 	}
 
 	BOOL visible = isVisible();
@@ -4559,7 +4559,7 @@ BOOL LLVOAvatar::updateCharacter(LLAgent &agent)
 	if (!visible && !isSelf())
 	{
 		updateMotions(LLCharacter::HIDDEN_UPDATE);
-		return FALSE;
+		return false;
 	}
 
 	//--------------------------------------------------------------------
@@ -4642,7 +4642,7 @@ BOOL LLVOAvatar::updateCharacter(LLAgent &agent)
 	// System avatar mesh vertices need to be reskinned.
     mNeedsSkin = true;
 
-	return TRUE;
+	return true;
 }
 
 //-----------------------------------------------------------------------------

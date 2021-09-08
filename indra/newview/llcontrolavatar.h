@@ -58,7 +58,7 @@ public:
 
     virtual void idleUpdate(LLAgent &agent, const F64 &time);
 	virtual bool computeNeedsUpdate();
-	virtual BOOL updateCharacter(LLAgent &agent);
+	virtual bool updateCharacter(LLAgent &agent);
 
     void getAnimatedVolumes(std::vector<LLVOVolume*>& volumes);
     void updateAnimations();  
