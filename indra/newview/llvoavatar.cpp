@@ -680,6 +680,8 @@ LLVOAvatar::LLVOAvatar(const LLUUID& id,
 	mTyping(false),
 	mMeshValid(false),
 	mVisible(false),
+	mLastImpostorUpdateFrameTime(0.f),
+	mLastImpostorUpdateReason(0),
 	mWindFreq(0.f),
 	mRipplePhase( 0.f ),
 	mBelowWater(FALSE),
@@ -733,7 +735,6 @@ LLVOAvatar::LLVOAvatar(const LLUUID& id,
 	mVoiceVisualizer = ( LLVoiceVisualizer *)LLHUDManager::getInstance()->createViewerEffect( LLHUDObject::LL_HUD_EFFECT_VOICE_VISUALIZER, needsSendToSim );
 
 	LL_DEBUGS("Avatar","Message") << "LLVOAvatar Constructor (0x" << this << ") id:" << mID << LL_ENDL;
-
 	mPelvisp = NULL;
 
 	mDirtyMesh = 2;	// Dirty geometry, need to regenerate.
@@ -747,6 +748,7 @@ LLVOAvatar::LLVOAvatar(const LLUUID& id,
 	setAnimationData("Speed", &mSpeed);
 
 	mNeedsImpostorUpdate = TRUE;
+	mLastImpostorUpdateReason = 0;
 	mNeedsAnimUpdate = TRUE;
 
 	mNeedsExtentUpdate = true;
@@ -784,7 +786,6 @@ LLVOAvatar::LLVOAvatar(const LLUUID& id,
 
 	mCurrentGesticulationLevel = 0;
     
-
 	mRuthTimer.reset();
 	mRuthDebugTimer.reset();
 	mDebugExistenceTimer.reset();
@@ -1139,6 +1140,8 @@ void LLVOAvatar::resetImpostors()
 	{
 		LLVOAvatar* avatar = (LLVOAvatar*) *iter;
 		avatar->mImpostor.release();
+		avatar->mNeedsImpostorUpdate = true;
+		avatar->mLastImpostorUpdateReason = 1;
 	}
 }
 
@@ -1374,6 +1377,7 @@ void LLVOAvatar::updateSpatialExtents(LLVector4a& newMin, LLVector4a &newMax)
 	}
 }
 
+
 static LLTrace::BlockTimerStatHandle FTM_AVATAR_EXTENT_UPDATE("Av Upd Extent");
 
 void LLVOAvatar::calculateSpatialExtents(LLVector4a& newMin, LLVector4a& newMax)
@@ -1556,7 +1560,7 @@ void render_sphere_and_line(const LLVector3& begin_pos, const LLVector3& end_pos
     gGL.vertex3fv(begin_pos.mV); 
     gGL.vertex3fv(end_pos.mV);
     gGL.end();
-        
+    
 
     // Draw sphere representing joint pos
     gGL.pushMatrix();
@@ -1586,10 +1590,10 @@ void render_sphere_and_line(const LLVector3& begin_pos, const LLVector3& end_pos
 //-----------------------------------------------------------------------------
 void LLVOAvatar::renderCollisionVolumes()
 {
-	std::ostringstream ostr;
-	for (S32 i = 0; i < mNumCollisionVolumes; i++)
-	{
-		ostr << mCollisionVolumes[i].getName() << ", ";
+    std::ostringstream ostr;   
+    for (S32 i = 0; i < mNumCollisionVolumes; i++)
+    {
+        ostr << mCollisionVolumes[i].getName() << ", ";
 
         LLAvatarJointCollisionVolume& collision_volume = mCollisionVolumes[i];
 
@@ -1645,13 +1649,13 @@ void LLVOAvatar::renderCollisionVolumes()
 void LLVOAvatar::renderBones(const std::string &selected_joint)
 {
     LLGLEnable blend(GL_BLEND);
-    
+
     avatar_joint_list_t::iterator iter = mSkeleton.begin();
     avatar_joint_list_t::iterator end = mSkeleton.end();
 
     // For selected joints
     static LLVector3 SELECTED_COLOR_OCCLUDED(1.0f, 1.0f, 0.0f);
-    static LLVector3 SELECTED_COLOR_VISIBLE(0.5f, 0.5f, 0.5f);    
+    static LLVector3 SELECTED_COLOR_VISIBLE(0.5f, 0.5f, 0.5f);
     // For bones with position overrides defined
     static LLVector3 OVERRIDE_COLOR_OCCLUDED(1.0f, 0.0f, 0.0f);
     static LLVector3 OVERRIDE_COLOR_VISIBLE(0.5f, 0.5f, 0.5f);
@@ -1721,6 +1725,7 @@ void LLVOAvatar::renderBones(const std::string &selected_joint)
 	}
 }
 
+
 void LLVOAvatar::renderJoints()
 {
 	std::ostringstream ostr;
@@ -1738,7 +1743,7 @@ void LLVOAvatar::renderJoints()
 		ostr << jointp->getName() << ", ";
 
 		jointp->updateWorldMatrix();
-
+	
 		gGL.pushMatrix();
 		gGL.multMatrix( &jointp->getXform()->getWorldMatrix().mMatrix[0][0] );
 			
@@ -1820,7 +1825,7 @@ bool LLVOAvatar::lineSegmentIntersect(const LLVector4a& start, const LLVector4a&
 	{
 		return false;
 	}
-    
+
     if (isControlAvatar())
     {
         return false;
@@ -2033,7 +2038,7 @@ void LLVOAvatar::buildCharacter()
     {
         startDefaultMotions();
     }
-    
+
 	//-------------------------------------------------------------------------
 	// restart any currently active motions
 	//-------------------------------------------------------------------------
@@ -2542,7 +2547,7 @@ void LLVOAvatar::idleUpdate(LLAgent &agent, const F64 &time)
 	{
 		return;
 	}
-	
+
     // Update should be happening max once per frame.
 	const S32 upd_freq = 4; // force update every upd_freq frames.
 	if ((mLastAnimExtents[0]==LLVector3())||
@@ -2555,8 +2560,8 @@ void LLVOAvatar::idleUpdate(LLAgent &agent, const F64 &time)
 		mNeedsExtentUpdate = ((LLDrawable::getCurrentFrame()+mID.mData[0])%upd_freq==0);
 	}
     
-    LLScopedContextString str("avatar_idle_update " + getFullname());	
-
+    LLScopedContextString str("avatar_idle_update " + getFullname());
+    
 	checkTextureLoading() ;
 	
 	// force immediate pixel area update on avatars using last frames data (before drawable or camera updates)
@@ -2828,6 +2833,7 @@ void LLVOAvatar::idleUpdateMisc(bool detailed_update)
 			if (angle_diff > F_PI/512.f*distance*mUpdatePeriod)
 			{
 				mNeedsImpostorUpdate = TRUE;
+				mLastImpostorUpdateReason = 2;
 			}
 		}
 
@@ -2839,6 +2845,7 @@ void LLVOAvatar::idleUpdateMisc(bool detailed_update)
 			if (dist_diff/mImpostorDistance > 0.1f)
 			{
 				mNeedsImpostorUpdate = TRUE;
+				mLastImpostorUpdateReason = 3;
 			}
 			else
 			{
@@ -2851,6 +2858,7 @@ void LLVOAvatar::idleUpdateMisc(bool detailed_update)
 				if (diff.getLength3().getF32() > 0.05f)
 				{
 					mNeedsImpostorUpdate = TRUE;
+					mLastImpostorUpdateReason = 4;
 				}
 				else
 				{
@@ -2858,6 +2866,7 @@ void LLVOAvatar::idleUpdateMisc(bool detailed_update)
 					if (diff.getLength3().getF32() > 0.05f)
 					{
 						mNeedsImpostorUpdate = TRUE;
+						mLastImpostorUpdateReason = 5;
 					}
 				}
 			}
@@ -3164,6 +3173,7 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 		mVisibleChat = visible_chat;
 		new_name = TRUE;
 	}
+	
 	if (sRenderGroupTitles != (BOOL)mRenderGroupTitles)
 	{
 		mRenderGroupTitles = sRenderGroupTitles;
@@ -3322,8 +3332,7 @@ void LLVOAvatar::idleUpdateNameTagText(BOOL new_name)
 		static LLUICachedControl<bool> show_display_names("NameTagShowDisplayNames", true);
 		static LLUICachedControl<bool> show_usernames("NameTagShowUsernames", true);
 
-		bool have_name = FALSE;
-
+		bool have_name = false;
 
 		if (LLAvatarName::useDisplayNames())
 		{
@@ -3413,7 +3422,7 @@ void LLVOAvatar::idleUpdateNameTagText(BOOL new_name)
 		mNameDoNotDisturb = is_do_not_disturb;
 		mNameMute = is_muted;
 		mNameAppearance = is_appearance;
-				mNameFriend = is_friend;
+		mNameFriend = is_friend;
 		mNameCloud = is_cloud;
 		mTitle = title ? title->getString() : "";
 		LLStringFn::replace_ascii_controlchars(mTitle,LL_UNKNOWN_CHAR);
@@ -3423,8 +3432,8 @@ void LLVOAvatar::idleUpdateNameTagText(BOOL new_name)
 	if (mVisibleChat)
 	{
 		mNameText->setFont(LLFontGL::getFontSansSerif());
-				mNameText->setTextAlignment(LLHUDNameTag::ALIGN_TEXT_LEFT);
-				mNameText->setFadeDistance(LLWorld::getInstance()->getSayDistance() * 2.f, 5.f);
+		mNameText->setTextAlignment(LLHUDNameTag::ALIGN_TEXT_LEFT);
+		mNameText->setFadeDistance(LLWorld::getInstance()->getSayDistance() * 2.f, 5.f);
 
 		std::deque<LLChat>::iterator chat_iter = mChats.begin();
 		mNameText->clearString();
@@ -3493,7 +3502,7 @@ void LLVOAvatar::idleUpdateNameTagText(BOOL new_name)
 	{
 		// ...not using chat bubbles, just names
 		mNameText->setTextAlignment(LLHUDNameTag::ALIGN_TEXT_CENTER);
-				mNameText->setFadeDistance(LLWorld::getInstance()->getSayDistance(), 5.f);
+		mNameText->setFadeDistance(LLWorld::getInstance()->getSayDistance(), 5.f);
 		mNameText->setVisibleOffScreen(FALSE);
 	}
 }
@@ -3832,7 +3841,7 @@ void LLVOAvatar::updateAppearanceMessageDebugText()
 LLViewerInventoryItem* getObjectInventoryItem(LLViewerObject *vobj, LLUUID asset_id)
 {
     LLViewerInventoryItem *item = NULL;
-    
+
     if (vobj)
     {
         if (vobj->getInventorySerial()<=0)
@@ -4137,7 +4146,6 @@ void LLVOAvatar::computeUpdatePeriod()
 	{
 		mUpdatePeriod = 1;
 	}
-
 }
 
 //------------------------------------------------------------------------
@@ -4449,6 +4457,37 @@ void LLVOAvatar::updateRootPositionAndRotation(LLAgent& agent, F32 speed, bool w
 }
 
 //------------------------------------------------------------------------
+// LLVOAvatar::computeNeedsUpdate()
+// 
+// Most of the logic here is to figure out when to periodically update impostors.
+// Non-impostors have mUpdatePeriod == 1 and will need update every frame.
+//------------------------------------------------------------------------
+bool LLVOAvatar::computeNeedsUpdate()
+{
+	const F32 MAX_IMPOSTOR_INTERVAL = 4.0f;
+	computeUpdatePeriod();
+
+	bool needs_update_by_frame_count = ((LLDrawable::getCurrentFrame()+mID.mData[0])%mUpdatePeriod == 0);
+
+    bool needs_update_by_max_time = ((gFrameTimeSeconds-mLastImpostorUpdateFrameTime)> MAX_IMPOSTOR_INTERVAL);
+	bool needs_update = needs_update_by_frame_count || needs_update_by_max_time;
+
+	if (needs_update && !isSelf())
+	{
+		if (needs_update_by_max_time)
+		{
+			mNeedsImpostorUpdate = true;
+			mLastImpostorUpdateReason = 11;
+		}
+		else
+		{
+			//mNeedsImpostorUpdate = true;
+			//mLastImpostorUpdateReason = 10;
+		}
+	}
+	return needs_update;
+}
+
 // updateCharacter()
 //
 // This is called for all avatars, so there are 4 possible situations:
@@ -4483,6 +4522,7 @@ BOOL LLVOAvatar::updateCharacter(LLAgent &agent)
 	BOOL visible = isVisible();
     bool is_control_avatar = isControlAvatar(); // capture state to simplify tracing
 	bool is_attachment = false;
+
 	if (is_control_avatar)
 	{
         LLControlAvatar *cav = dynamic_cast<LLControlAvatar*>(this);
@@ -4502,8 +4542,11 @@ BOOL LLVOAvatar::updateCharacter(LLAgent &agent)
 
 	//--------------------------------------------------------------------
 	// The rest should only be done occasionally for far away avatars.
-    // Set mUpdatePeriod and visible based on distance and other criteria.
+    // Set mUpdatePeriod and visible based on distance and other criteria,
+	// and flag for impostor update if needed.
 	//--------------------------------------------------------------------
+	//bool needs_update = computeNeedsUpdate();
+	
     computeUpdatePeriod();
     visible = (LLDrawable::getCurrentFrame()+mID.mData[0])%mUpdatePeriod == 0 ? TRUE : FALSE;
 
@@ -4536,8 +4579,8 @@ BOOL LLVOAvatar::updateCharacter(LLAgent &agent)
 	{
 		getOffObject();
 	}
-	
-		//--------------------------------------------------------------------
+
+	//--------------------------------------------------------------------
 	// create local variables in world coords for region position values
 	//--------------------------------------------------------------------
 	LLVector3 xyVel = getVelocity();
@@ -4601,7 +4644,6 @@ BOOL LLVOAvatar::updateCharacter(LLAgent &agent)
 
 	return TRUE;
 }
-
 
 //-----------------------------------------------------------------------------
 // updateHeadOffset()
@@ -5039,7 +5081,6 @@ U32 LLVOAvatar::renderSkinned()
 				}
 				first_pass = FALSE;
 			}
-
 			if (!isSelf() || gAgent.needsRenderHead() || LLPipeline::sShadowRender)
 			{
 				if (isTextureVisible(TEX_HEAD_BAKED) || isUIAvatar() || visually_muted)

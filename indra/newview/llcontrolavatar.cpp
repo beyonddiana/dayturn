@@ -35,9 +35,6 @@
 #include "llviewerregion.h"
 #include "llskinningutil.h"
 
-
-//#pragma optimize("", off)
-
 const F32 LLControlAvatar::MAX_LEGAL_OFFSET = 3.0f;
 const F32 LLControlAvatar::MAX_LEGAL_SIZE = 64.0f;
 
@@ -375,6 +372,33 @@ void LLControlAvatar::idleUpdate(LLAgent &agent, const F64 &time)
     }
 }
 
+bool LLControlAvatar::computeNeedsUpdate()
+{
+	computeUpdatePeriod();
+
+	// Animesh attachments are a special case. Should have the same update cadence as their attached parent avatar.
+	LLVOAvatar *attached_av = getAttachedAvatar();
+	if (attached_av)
+	{
+		// Have to run computeNeedsUpdate() for attached av in
+		// case it hasn't run updateCharacter() already this
+		// frame.  Note this means that the attached av will
+		// run computeNeedsUpdate() multiple times per frame
+		// if it has animesh attachments. Results will be
+		// consistent except for the corner case of exceeding
+		// MAX_IMPOSTOR_INTERVAL in one call but not another,
+		// which should be rare.
+		attached_av->computeNeedsUpdate();
+		mNeedsImpostorUpdate = attached_av->mNeedsImpostorUpdate;
+		if (mNeedsImpostorUpdate)
+		{
+			mLastImpostorUpdateReason = 12;
+		}
+		return mNeedsImpostorUpdate;
+	}
+	return LLVOAvatar::computeNeedsUpdate();
+}
+
 BOOL LLControlAvatar::updateCharacter(LLAgent &agent)
 {
     return LLVOAvatar::updateCharacter(agent);
@@ -481,7 +505,7 @@ void LLControlAvatar::updateDebugText()
                                   mPositionConstraintFixup[2],
                                   mScaleConstraintFixup));
         }
-    
+        
 #if 0
         std::string region_name = "no region";
         if (mRootVolp->getRegion())
@@ -497,9 +521,8 @@ void LLControlAvatar::updateDebugText()
                               mRootVolp->getRegion(), region_name.c_str(),
                               getRegion(), skel_region_name.c_str()));
 #endif
-
+        
     }
-
     LLVOAvatar::updateDebugText();
 }
 
@@ -596,10 +619,10 @@ LLViewerObject* LLControlAvatar::lineSegmentIntersectRiggedAttachments(const LLV
 
     LLViewerObject* hit = NULL;
 
-    if (lineSegmentBoundingBox(start, end))
-    {
-        LLVector4a local_end = end;
-        LLVector4a local_intersection;
+	if (lineSegmentBoundingBox(start, end))
+	{
+		LLVector4a local_end = end;
+		LLVector4a local_intersection;
         if (mRootVolp->lineSegmentIntersect(start, local_end, face, pick_transparent, pick_rigged, face_hit, &local_intersection, tex_coord, normal, tangent))
         {
             local_end = local_intersection;

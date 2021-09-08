@@ -332,7 +332,6 @@ void LLSelectMgr::resetObjectOverrides(LLObjectSelectionHandle selected_handle)
     selected_handle->applyToNodes(&func);
 }
 
-
 void LLSelectMgr::overrideObjectUpdates()
 {
 	//override any position updates from simulator on objects being edited
@@ -6937,7 +6936,6 @@ void LLSelectMgr::pauseAssociatedAvatars()
             parent_av = object->getAvatarAncestor();
         }
 
-
         // Can be both an attachment and animated object
         if (parent_av)
         {
@@ -8186,7 +8184,7 @@ bool LLCheckIdenticalFunctor<F32>::same(const F32& a, const F32& b, const F32& t
 {
     F32 delta = (a - b);
     F32 abs_delta = fabs(delta);
-    return abs_delta <= tolerance;    
+    return abs_delta <= tolerance;
 }
 
 #define DEF_DUMMY_CHECK_FUNCTOR(T)                                                  \
