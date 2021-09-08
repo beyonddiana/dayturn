@@ -271,7 +271,7 @@ public:
 	void 			updateAnimationDebugText();
 	virtual void	updateDebugText();
 	virtual bool 	computeNeedsUpdate();
-	virtual BOOL 	updateCharacter(LLAgent &agent);
+	virtual bool 	updateCharacter(LLAgent &agent);
     void			updateFootstepSounds();
     void			computeUpdatePeriod();
     void			updateOrientation(LLAgent &agent, F32 speed, F32 delta_time);

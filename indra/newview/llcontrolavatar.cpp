@@ -399,7 +399,7 @@ bool LLControlAvatar::computeNeedsUpdate()
 	return LLVOAvatar::computeNeedsUpdate();
 }
 
-BOOL LLControlAvatar::updateCharacter(LLAgent &agent)
+bool LLControlAvatar::updateCharacter(LLAgent &agent)
 {
     return LLVOAvatar::updateCharacter(agent);
 }
@@ -443,7 +443,7 @@ void LLControlAvatar::updateDebugText()
             lod_string += llformat("%d",volp->getLOD());
             if (volp && volp->mDrawable)
             {
-                bool is_animated_flag = volp->getExtendedMeshFlags() & LLExtendedMeshParams::ANIMATED_MESH_ENABLED_FLAG;
+                bool is_animated_flag = static_cast<bool>(volp->getExtendedMeshFlags() & LLExtendedMeshParams::ANIMATED_MESH_ENABLED_FLAG);
                 if (is_animated_flag)
                 {
                     animated_object_flag_string += "1";
