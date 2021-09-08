@@ -11738,7 +11738,7 @@ void LLPipeline::generateImpostor(LLVOAvatar* avatar)
 	gGL.matrixMode(LLRender::MM_MODELVIEW);
 	gGL.popMatrix();
 
-	avatar->mNeedsImpostorUpdate = FALSE;
+	avatar->mNeedsImpostorUpdate = false;
 	avatar->cacheImpostorValues();
 	avatar->mLastImpostorUpdateFrameTime = gFrameTimeSeconds;
 

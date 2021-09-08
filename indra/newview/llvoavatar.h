@@ -139,12 +139,12 @@ public:
 													 U32 block_num,
 													 const EObjectUpdateType update_type,
 													 LLDataPacker *dp);
-	virtual void   	 	 	idleUpdate(LLAgent &agent, const F64 &time);
+	virtual void   	 	 	    idleUpdate(LLAgent &agent, const F64 &time);
 	/*virtual*/ bool   	 	 	updateLOD();
-	bool  	 	 	 	 	updateJointLODs();
-	void					updateLODRiggedAttachments( void );
+	bool  	 	 	 	 	    updateJointLODs();
+	void					    updateLODRiggedAttachments( void );
 	/*virtual*/ bool   	 	 	isActive() const; // Whether this object needs to do an idleUpdate.
-	S32Bytes				totalTextureMemForUUIDS(std::set<LLUUID>& ids);
+	S32Bytes				    totalTextureMemForUUIDS(std::set<LLUUID>& ids);
 	bool 						allTexturesCompletelyDownloaded(std::set<LLUUID>& ids) const;
 	bool 						allLocalTexturesCompletelyDownloaded() const;
 	bool 						allBakedTexturesCompletelyDownloaded() const;
@@ -212,7 +212,7 @@ public:
 
 	void 					addAttachmentOverridesForObject(LLViewerObject *vo, std::set<LLUUID>* meshes_seen = NULL, bool recursive = true);
 	void					removeAttachmentOverridesForObject(const LLUUID& mesh_id);
-	void					removeAttachmentOverridesForObject(LLViewerObject *vo);	
+	void					removeAttachmentOverridesForObject(LLViewerObject *vo);
     bool					jointIsRiggedTo(const LLJoint *joint) const;
 	void					clearAttachmentOverrides();
 	void					rebuildAttachmentOverrides();
@@ -427,7 +427,6 @@ public:
 /********************************************************************************
  **                                                                            **
  **                    RENDERING
- 
  **/
 
 public:
@@ -544,7 +543,7 @@ private:
 	//--------------------------------------------------------------------
 public:
 	virtual bool isImpostor();
-	BOOL 	    needsImpostorUpdate() const;
+	bool 	    needsImpostorUpdate();
 	const LLVector3& getImpostorOffset() const;
 	const LLVector2& getImpostorDim() const;
 	void 		getImpostorValues(LLVector4a* extents, LLVector3& angle, F32& distance) const;
@@ -553,7 +552,7 @@ public:
 	static void	resetImpostors();
 	static void updateImpostors();
 	LLRenderTarget mImpostor;
-	BOOL		mNeedsImpostorUpdate;
+	bool		mNeedsImpostorUpdate;
 	S32			mLastImpostorUpdateReason;
 	F32SecondsImplicit mLastImpostorUpdateFrameTime;
     const LLVector3*  getLastAnimExtents() const { return mLastAnimExtents; }
@@ -564,8 +563,8 @@ private:
 	LLVector2	mImpostorDim;
     // This becomes true in the constructor and false after the first
     // idleUpdateMisc(). Not clear it serves any purpose.
-	BOOL		mNeedsAnimUpdate;
-    bool		mNeedsExtentUpdate;
+	bool		mNeedsAnimUpdate;
+	bool		mNeedsExtentUpdate;
 	LLVector3	mImpostorAngle;
 	F32			mImpostorDistance;
 	F32			mImpostorPixelArea;
