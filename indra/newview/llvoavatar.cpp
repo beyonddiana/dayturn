@@ -747,7 +747,7 @@ LLVOAvatar::LLVOAvatar(const LLUUID& id,
 	mSpeed = 0.f;
 	setAnimationData("Speed", &mSpeed);
 
-	mNeedsImpostorUpdate = TRUE;
+	mNeedsImpostorUpdate = true;
 	mLastImpostorUpdateReason = 0;
 	mNeedsAnimUpdate = TRUE;
 
@@ -2832,7 +2832,7 @@ void LLVOAvatar::idleUpdateMisc(bool detailed_update)
 		
 			if (angle_diff > F_PI/512.f*distance*mUpdatePeriod)
 			{
-				mNeedsImpostorUpdate = TRUE;
+				mNeedsImpostorUpdate = true;
 				mLastImpostorUpdateReason = 2;
 			}
 		}
@@ -2844,7 +2844,7 @@ void LLVOAvatar::idleUpdateMisc(bool detailed_update)
 			F32 dist_diff = fabsf(distance-mImpostorDistance);
 			if (dist_diff/mImpostorDistance > 0.1f)
 			{
-				mNeedsImpostorUpdate = TRUE;
+				mNeedsImpostorUpdate = true;
 				mLastImpostorUpdateReason = 3;
 			}
 			else
@@ -2857,7 +2857,7 @@ void LLVOAvatar::idleUpdateMisc(bool detailed_update)
 				diff.setSub(ext[1], mImpostorExtents[1]);
 				if (diff.getLength3().getF32() > 0.05f)
 				{
-					mNeedsImpostorUpdate = TRUE;
+					mNeedsImpostorUpdate = true;
 					mLastImpostorUpdateReason = 4;
 				}
 				else
@@ -2865,7 +2865,7 @@ void LLVOAvatar::idleUpdateMisc(bool detailed_update)
 					diff.setSub(ext[0], mImpostorExtents[0]);
 					if (diff.getLength3().getF32() > 0.05f)
 					{
-						mNeedsImpostorUpdate = TRUE;
+						mNeedsImpostorUpdate = true;
 						mLastImpostorUpdateReason = 5;
 					}
 				}
@@ -10366,7 +10366,7 @@ bool LLVOAvatar::isImpostor()
 }
 
 
-BOOL LLVOAvatar::needsImpostorUpdate() const
+bool LLVOAvatar::needsImpostorUpdate()
 {
 	return mNeedsImpostorUpdate;
 }
