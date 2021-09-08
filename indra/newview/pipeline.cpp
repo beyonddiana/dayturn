@@ -11740,6 +11740,7 @@ void LLPipeline::generateImpostor(LLVOAvatar* avatar)
 
 	avatar->mNeedsImpostorUpdate = FALSE;
 	avatar->cacheImpostorValues();
+	avatar->mLastImpostorUpdateFrameTime = gFrameTimeSeconds;
 
 	LLVertexBuffer::unbind();
 	LLGLState::checkStates();

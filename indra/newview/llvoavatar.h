@@ -79,6 +79,7 @@ class LLViewerJointMesh;
 
 const F32 MAX_AVATAR_LOD_FACTOR = 1.0f;
 
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // LLVOAvatar
 // 
@@ -208,14 +209,14 @@ public:
 
 	virtual LLJoint*		getJoint(const std::string &name);
 	LLJoint*		        getJoint(S32 num);
-	
+
 	void 					addAttachmentOverridesForObject(LLViewerObject *vo, std::set<LLUUID>* meshes_seen = NULL, bool recursive = true);
 	void					removeAttachmentOverridesForObject(const LLUUID& mesh_id);
 	void					removeAttachmentOverridesForObject(LLViewerObject *vo);	
     bool					jointIsRiggedTo(const LLJoint *joint) const;
 	void					clearAttachmentOverrides();
 	void					rebuildAttachmentOverrides();
-    void					updateAttachmentOverrides();	
+    void					updateAttachmentOverrides();
     void                    showAttachmentOverrides(bool verbose = false) const;
     void                    getAttachmentOverrideNames(std::set<std::string>& pos_names, 
                                                        std::set<std::string>& scale_names) const;
@@ -258,6 +259,7 @@ public:
 	virtual const LLVOAvatar *getAttachedAvatar() const { return NULL; }
 	virtual LLVOAvatar *getAttachedAvatar() { return NULL; }
 
+
 private: //aligned members
 	LL_ALIGN_16(LLVector4a	mImpostorExtents[2]);
 
@@ -268,6 +270,7 @@ public:
     void			updateAppearanceMessageDebugText();
 	void 			updateAnimationDebugText();
 	virtual void	updateDebugText();
+	virtual bool 	computeNeedsUpdate();
 	virtual BOOL 	updateCharacter(LLAgent &agent);
     void			updateFootstepSounds();
     void			computeUpdatePeriod();
@@ -551,6 +554,8 @@ public:
 	static void updateImpostors();
 	LLRenderTarget mImpostor;
 	BOOL		mNeedsImpostorUpdate;
+	S32			mLastImpostorUpdateReason;
+	F32SecondsImplicit mLastImpostorUpdateFrameTime;
     const LLVector3*  getLastAnimExtents() const { return mLastAnimExtents; }
 	void		setNeedsExtentUpdate(bool val) { mNeedsExtentUpdate = val; }
 
