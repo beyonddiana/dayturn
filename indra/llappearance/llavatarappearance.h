@@ -72,8 +72,8 @@ public:
 	virtual void 		initInstance(); // Called after construction to initialize the instance.
     S32					mInitFlags;
 	virtual bool		loadSkeletonNode();
-	BOOL				loadMeshNodes();
-	BOOL				loadLayersets();
+	bool				loadMeshNodes();
+	bool				loadLayersets();
 
 
 /**                    Initialization
@@ -154,17 +154,17 @@ public:
     const joint_alias_map_t& getJointAliases();
 
 protected:
-	static BOOL			parseSkeletonFile(const std::string& filename, LLXmlTree& skeleton_xml_tree);
+	static bool			parseSkeletonFile(const std::string& filename, LLXmlTree& skeleton_xml_tree);
 	virtual void		buildCharacter();
 	virtual bool		loadAvatar();
 	virtual F32 getAvatarOffset();
 
-	BOOL				setupBone(const LLAvatarBoneInfo* info, LLJoint* parent, S32 &current_volume_num, S32 &current_joint_num);
-	BOOL				allocateCharacterJoints(U32 num);
-	BOOL				buildSkeleton(const LLAvatarSkeletonInfo *info);
+	bool				setupBone(const LLAvatarBoneInfo* info, LLJoint* parent, S32 &current_volume_num, S32 &current_joint_num);
+	bool				allocateCharacterJoints(U32 num);
+	bool				buildSkeleton(const LLAvatarSkeletonInfo *info);
 
 	void				clearSkeleton();
-	BOOL				mIsBuilt; // state of deferred character building
+	bool				mIsBuilt; // state of deferred character building
 	avatar_joint_list_t	mSkeleton;
 	LLVector3OverrideMap	mPelvisFixups;
 	joint_alias_map_t   mJointAliasMap;
@@ -272,7 +272,7 @@ protected:
 public:
 	void			setClothesColor(LLAvatarAppearanceDefines::ETextureIndex te, const LLColor4& new_color, bool upload_bake);
 	LLColor4		getClothesColor(LLAvatarAppearanceDefines::ETextureIndex te);
-	static BOOL		teToColorParams(LLAvatarAppearanceDefines::ETextureIndex te, U32 *param_name);
+	static bool		teToColorParams(LLAvatarAppearanceDefines::ETextureIndex te, U32 *param_name);
 
 	//--------------------------------------------------------------------
 	// Global colors
@@ -349,7 +349,7 @@ public:
   	S32			mNumCollisionVolumes;
 	LLAvatarJointCollisionVolume* mCollisionVolumes;
 protected:
-	BOOL		allocateCollisionVolumes(U32 num);
+	bool		allocateCollisionVolumes(U32 num);
 
 /**                    Physics
  **                                                                            **
@@ -365,12 +365,12 @@ protected:
 		LLAvatarXmlInfo();
 		~LLAvatarXmlInfo();
 
-		BOOL 	parseXmlSkeletonNode(LLXmlTreeNode* root);
-		BOOL 	parseXmlMeshNodes(LLXmlTreeNode* root);
-		BOOL 	parseXmlColorNodes(LLXmlTreeNode* root);
-		BOOL 	parseXmlLayerNodes(LLXmlTreeNode* root);
-		BOOL 	parseXmlDriverNodes(LLXmlTreeNode* root);
-		BOOL	parseXmlMorphNodes(LLXmlTreeNode* root);
+		bool 	parseXmlSkeletonNode(LLXmlTreeNode* root);
+		S32 	parseXmlMeshNodes(LLXmlTreeNode* root);
+		bool 	parseXmlColorNodes(LLXmlTreeNode* root);
+		bool 	parseXmlLayerNodes(LLXmlTreeNode* root);
+		bool 	parseXmlDriverNodes(LLXmlTreeNode* root);
+		bool	parseXmlMorphNodes(LLXmlTreeNode* root);
 
 		struct LLAvatarMeshInfo
 		{
@@ -414,8 +414,8 @@ protected:
 			S32 mAttachmentID;
 			BOOL mVisibleFirstPerson;
 			BOOL mIsHUDAttachment;
-			BOOL mHasPosition;
-			BOOL mHasRotation;
+			bool mHasPosition;
+			bool mHasRotation;
 		};
 		typedef std::vector<LLAvatarAttachmentInfo*> attachment_info_list_t;
 		attachment_info_list_t mAttachmentInfoList;
