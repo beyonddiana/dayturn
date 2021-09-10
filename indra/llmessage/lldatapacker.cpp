@@ -296,27 +296,24 @@ bool LLDataPackerBinaryBuffer::packBinaryData(const U8 *value, S32 size, const c
 
 
 bool LLDataPackerBinaryBuffer::unpackBinaryData(U8 *value, S32 &size, const char *name)
-{
-	if (!verifyLength(4, name))
-	{
-		LL_WARNS() << "LLDataPackerBinaryBuffer::unpackBinaryData would unpack invalid data, aborting!" << LL_ENDL;
-		return false;
-	}
-
+ {
+ 	bool success = true;
+ 	success &= verifyLength(4, name);
 	htolememcpy(&size, mCurBufferp, MVT_S32, 4);
-	mCurBufferp += 4;
-
-	if (!verifyLength(size, name))
-	{
-		LL_WARNS() << "LLDataPackerBinaryBuffer::unpackBinaryData would unpack invalid data, aborting!" << LL_ENDL;
-		return false;
-	}
-
-	htolememcpy(value, mCurBufferp, MVT_VARIABLE, size);
-	mCurBufferp += size;
-
-	return true;
-}
+ 	mCurBufferp += 4;
+ 	success &= verifyLength(size, name);
+ 	if (success)
+ 	{
+		htolememcpy(value, mCurBufferp, MVT_VARIABLE, size);
+ 		mCurBufferp += size;
+ 	}
+ 	else
+ 	{
+ 		LL_WARNS() << "LLDataPackerBinaryBuffer::unpackBinaryData would unpack invalid data, aborting!" << LL_ENDL;
+ 		success = false;
+ 	}
+ 	return success;
+ }
 
 
 bool LLDataPackerBinaryBuffer::packBinaryDataFixed(const U8 *value, S32 size, const char *name)
@@ -336,15 +333,13 @@ bool LLDataPackerBinaryBuffer::packBinaryDataFixed(const U8 *value, S32 size, co
 
 
 bool LLDataPackerBinaryBuffer::unpackBinaryDataFixed(U8 *value, S32 size, const char *name)
-{
-	if (!verifyLength(size, name))
-	{
-		return false;
-	}
+ {
+ 	bool success = true;
+ 	success &= verifyLength(size, name);
 	htolememcpy(value, mCurBufferp, MVT_VARIABLE, size);
-	mCurBufferp += size;
-	return true;
-}
+ 	mCurBufferp += size;
+ 	return success;
+ }
 
 
 bool LLDataPackerBinaryBuffer::packU8(const U8 value, const char *name)
