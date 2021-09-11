@@ -208,7 +208,6 @@ bool update_avatar_rez_metrics()
 		return true;
 	
 	gAgentAvatarp->updateAvatarRezMetrics(false);
-
 	return false;
 }
 

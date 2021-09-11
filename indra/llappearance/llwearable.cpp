@@ -722,7 +722,7 @@ void LLWearable::animateParams(F32 delta, bool upload_bake)
 		 iter != mVisualParamIndexMap.end();
 		 ++iter)
 	{
-		LLVisualParam *param = (LLVisualParam*) iter->second;
+		LLVisualParam *param = iter->second;
 		param->animate(delta, upload_bake);
 	}
 }

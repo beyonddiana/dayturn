@@ -121,7 +121,7 @@ public:
 	// stops a playing motion
 	// in reality, it begins the ease out transition phase
 	// returns true if successful
-	BOOL stopMotionLocally( const LLUUID &id, BOOL stop_immediate );
+	bool stopMotionLocally( const LLUUID &id, bool stop_immediate );
 
 	// Move motions from loading to loaded
 	void updateLoadingMotions();
@@ -181,7 +181,7 @@ protected:
 	bool activateMotionInstance(LLMotion *motion, F32 time);
 	bool deactivateMotionInstance(LLMotion *motion);
 	void deprecateMotionInstance(LLMotion* motion);
-	BOOL stopMotionInstance(LLMotion *motion, BOOL stop_imemdiate);
+	bool stopMotionInstance(LLMotion *motion, bool stop_immedeate);
 	void removeMotionInstance(LLMotion* motion);
 	void updateRegularMotions();
 	void updateAdditiveMotions();

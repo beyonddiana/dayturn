@@ -70,37 +70,37 @@ LLViewerGesture::LLViewerGesture(const LLViewerGesture &rhs)
 {
 }
 
-BOOL LLViewerGesture::trigger(KEY key, MASK mask)
+bool LLViewerGesture::trigger(KEY key, MASK mask)
 {
 	if (mKey == key && mMask == mask)
 	{
-		doTrigger( TRUE );
-		return TRUE;
+		doTrigger(true);
+		return true;
 	}
 	else
 	{
-		return FALSE;
+		return false;
 	}
 }
 
 
-BOOL LLViewerGesture::trigger(const std::string &trigger_string)
+bool LLViewerGesture::trigger(const std::string &trigger_string)
 {
 	// Assumes trigger_string is lowercase
 	if (mTriggerLower == trigger_string)
 	{
-		doTrigger( FALSE );
-		return TRUE;
+		doTrigger(false);
+		return true;
 	}
 	else
 	{
-		return FALSE;
+		return false;
 	}
 }
 
 
 // private
-void LLViewerGesture::doTrigger( BOOL send_chat )
+void LLViewerGesture::doTrigger( bool send_chat )
 {
 	if (mSoundItemID != LLUUID::null)
 	{
@@ -154,7 +154,7 @@ LLGesture *LLViewerGestureList::create_gesture(U8 **buffer, S32 max_size)
 // See if the prefix matches any gesture.  If so, return TRUE
 // and place the full text of the gesture trigger into
 // output_str
-BOOL LLViewerGestureList::matchPrefix(const std::string& in_str, std::string* out_str)
+bool LLViewerGestureList::matchPrefix(const std::string& in_str, std::string* out_str)
 {
 	S32 in_len = in_str.length();
 
@@ -177,10 +177,10 @@ BOOL LLViewerGestureList::matchPrefix(const std::string& in_str, std::string* ou
 		if (in_str_lc == trigger_trunc)
 		{
 			*out_str = trigger;
-			return TRUE;
+			return true;
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 

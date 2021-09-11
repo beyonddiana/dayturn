@@ -127,7 +127,7 @@ void LLAvatarJoint::setSkeletonComponents( U32 comp, BOOL recursive )
 	}
 }
 
-void LLAvatarJoint::setVisible(BOOL visible, BOOL recursive)
+void LLAvatarJoint::setVisible(bool visible, bool recursive)
 {
 	mVisible = visible;
 
@@ -152,7 +152,7 @@ void LLAvatarJoint::updateFaceSizes(U32 &num_vertices, U32& num_indices, F32 pix
 	}
 }
 
-void LLAvatarJoint::updateFaceData(LLFace *face, F32 pixel_area, BOOL damp_wind, bool terse_update)
+void LLAvatarJoint::updateFaceData(LLFace *face, F32 pixel_area, bool damp_wind, bool terse_update)
 {
 	for (joints_t::iterator iter = mChildren.begin();
 		 iter != mChildren.end(); ++iter)

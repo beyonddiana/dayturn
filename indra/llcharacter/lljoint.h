@@ -198,19 +198,19 @@ public:
 	// get/set name
 	const std::string& getName() const { return mName; }
 	void setName( const std::string &name ) { mName = name; }
-    
+
     // joint num
-    S32 getJointNum() const { return mJointNum; }
-    void setJointNum(S32 joint_num);
- 
-    // get/set end point
-    void setEnd( const LLVector3& end) { mEnd = end; }
-    const LLVector3& getEnd() const { return mEnd; }
+	S32 getJointNum() const { return mJointNum; }
+	void setJointNum(S32 joint_num);
 
     // get/set support
     SupportCategory getSupport() const { return mSupport; }
     void setSupport( const SupportCategory& support) { mSupport = support; }
     void setSupport( const std::string& support_string);
+
+    // get/set end point
+    void setEnd( const LLVector3& end) { mEnd = end; }
+    const LLVector3& getEnd() const { return mEnd; }
     
 	// getParent
 	LLJoint *getParent() { return mParent; }

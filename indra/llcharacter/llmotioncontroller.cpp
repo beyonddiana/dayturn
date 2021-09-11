@@ -281,7 +281,7 @@ void LLMotionController::setTimeStep(F32 step)
 			LLMotion* motionp = *iter;
 			F32 activation_time = motionp->mActivationTimestamp;
 			motionp->mActivationTimestamp = (F32)(llfloor(activation_time / step)) * step;
-			BOOL stopped = motionp->isStopped();
+			bool stopped = motionp->isStopped();
 			motionp->setStopTime((F32)(llfloor(motionp->getStopTime() / step)) * step);
 			motionp->setStopped(stopped);
 			motionp->mSendStopTimestamp = (F32)llfloor(motionp->mSendStopTimestamp / step) * step;
@@ -437,7 +437,7 @@ bool LLMotionController::startMotion(const LLUUID &id, F32 start_offset)
 //-----------------------------------------------------------------------------
 // stopMotionLocally()
 //-----------------------------------------------------------------------------
-BOOL LLMotionController::stopMotionLocally(const LLUUID &id, BOOL stop_immediate)
+bool LLMotionController::stopMotionLocally(const LLUUID &id, bool stop_immediate)
 {
 	// if already inactive, return false
 	LLMotion *motion = findMotion(id);
@@ -445,11 +445,11 @@ BOOL LLMotionController::stopMotionLocally(const LLUUID &id, BOOL stop_immediate
 	return stopMotionInstance(motion, stop_immediate||mPaused);
 }
 
-BOOL LLMotionController::stopMotionInstance(LLMotion* motion, BOOL stop_immediate)
+bool LLMotionController::stopMotionInstance(LLMotion* motion, bool stop_immediate)
 {
 	if (!motion)
 	{
-		return FALSE;
+		return false;
 	}
 
 	
@@ -461,15 +461,15 @@ BOOL LLMotionController::stopMotionInstance(LLMotion* motion, BOOL stop_immediat
 		{
 			deactivateMotionInstance(motion);
 		}
-		return TRUE;
+		return true;
 	}
 	else if (isMotionLoading(motion))
 	{
-		motion->setStopped(TRUE);
-		return TRUE;
+		motion->setStopped(true);
+		return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 //-----------------------------------------------------------------------------
@@ -934,7 +934,7 @@ bool LLMotionController::activateMotionInstance(LLMotion *motion, F32 time)
 	if (mLoadingMotions.find(motion) != mLoadingMotions.end())
 	{
 		// we want to start this motion, but we can't yet, so flag it as started
-		motion->setStopped(FALSE);
+		motion->setStopped(false);
 		// report pending animations as activated
 		return true;
 	}
