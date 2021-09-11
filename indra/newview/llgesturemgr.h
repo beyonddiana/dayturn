@@ -85,7 +85,7 @@ public:
 	// user_gesture_active table, which isn't necessary on login.
 	// deactivate_similar will cause other gestures with the same trigger phrase
 	// or keybinding to be deactivated.
-	void activateGestureWithAsset(const LLUUID& item_id, const LLUUID& asset_id, BOOL inform_server, BOOL deactivate_similar);
+	void activateGestureWithAsset(const LLUUID& item_id, const LLUUID& asset_id, bool inform_server, bool deactivate_similar);
 
 	// Takes gesture out of active list and deletes it.
 	void deactivateGesture(const LLUUID& item_id);
@@ -94,11 +94,11 @@ public:
 	// or this hot key.
 	void deactivateSimilarGestures(LLMultiGesture* gesture, const LLUUID& in_item_id);
 
-	BOOL isGestureActive(const LLUUID& item_id);
+	bool isGestureActive(const LLUUID& item_id);
 
-	BOOL isGesturePlaying(const LLUUID& item_id);
+	bool isGesturePlaying(const LLUUID& item_id);
 
-	BOOL isGesturePlaying(LLMultiGesture* gesture);
+	bool isGesturePlaying(LLMultiGesture* gesture);
 
 	const item_map_t& getActiveGestures() const { return mActive; }
 	// Force a gesture to be played, for example, if it is being
@@ -138,7 +138,7 @@ public:
 	// Overriding so we can update active gesture names and notify observers 
 	void changed(U32 mask); 
 
-	BOOL matchPrefix(const std::string& in_str, std::string* out_str);
+	bool matchPrefix(const std::string& in_str, std::string* out_str);
 
 	// Copy item ids into the vector
 	void getItemIDs(uuid_vec_t* ids);

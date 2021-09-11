@@ -61,7 +61,7 @@ public:
 	/*virtual*/ U32 render( F32 pixelArea, BOOL first_pass = TRUE, BOOL is_dummy = FALSE ) { return LLViewerJoint::render(pixelArea,first_pass,is_dummy);}
 
 	/*virtual*/ void updateFaceSizes(U32 &num_vertices, U32& num_indices, F32 pixel_area);
-	/*virtual*/ void updateFaceData(LLFace *face, F32 pixel_area, BOOL damp_wind = FALSE, bool terse_update = false);
+	/*virtual*/ void updateFaceData(LLFace *face, F32 pixel_area, bool damp_wind = false, bool terse_update = false);
 	/*virtual*/ bool updateLOD(F32 pixel_area, bool activate);
 	/*virtual*/ void updateJointGeometry();
 	/*virtual*/ void dump();

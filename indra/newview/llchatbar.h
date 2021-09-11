@@ -101,7 +101,7 @@ protected:
 	// Which non-zero channel did we last chat on?
 	S32				mLastSpecialChatChannel;
 
-	BOOL			mIsBuilt;
+	bool			mIsBuilt;
 	LLComboBox*		mGestureCombo;
 
 	LLChatBarGestureObserver* mObserver;

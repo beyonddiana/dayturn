@@ -280,8 +280,7 @@ U32 LLViewerJointMesh::drawShape( F32 pixelArea, BOOL first_pass, BOOL is_dummy)
 			gGL.getTexUnit(diffuse_channel)->bind(LLViewerTextureManager::getFetchedTexture(IMG_DEFAULT));
 		}
 	}
-	else
-	if ( !is_dummy && mTexture.notNull() )
+	else if ( !is_dummy && mTexture.notNull() )
 	{
 		if(mTexture->hasGLTexture())
 		{
@@ -294,7 +293,6 @@ U32 LLViewerJointMesh::drawShape( F32 pixelArea, BOOL first_pass, BOOL is_dummy)
 	{
 		gGL.getTexUnit(diffuse_channel)->bind(LLViewerTextureManager::getFetchedTexture(IMG_DEFAULT));
 	}
-	
 	
 	U32 mask = sRenderMask;
 
@@ -378,7 +376,7 @@ void LLViewerJointMesh::updateFaceSizes(U32 &num_vertices, U32& num_indices, F32
 //-----------------------------------------------------------------------------
 static LLTrace::BlockTimerStatHandle FTM_AVATAR_FACE("Avatar Face");
 
-void LLViewerJointMesh::updateFaceData(LLFace *face, F32 pixel_area, BOOL damp_wind, bool terse_update)
+void LLViewerJointMesh::updateFaceData(LLFace *face, F32 pixel_area, bool damp_wind, bool terse_update)
 {
 	//IF THIS FUNCTION BREAKS, SEE LLPOLYMESH CONSTRUCTOR AND CHECK ALIGNMENT OF INPUT ARRAYS
 

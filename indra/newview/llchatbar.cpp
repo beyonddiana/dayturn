@@ -94,7 +94,7 @@ LLChatBar::LLChatBar()
 	mInputEditor(NULL),
 	mGestureLabelTimer(),
 	mLastSpecialChatChannel(0),
-	mIsBuilt(FALSE),
+	mIsBuilt(false),
 	mGestureCombo(NULL),
 	mObserver(NULL)
 {
@@ -132,7 +132,7 @@ bool LLChatBar::postBuild()
 	mInputEditor->setMaxTextLength(DB_CHAT_MSG_STR_LEN);
 	mInputEditor->setEnableLineHistory(TRUE);
 
-	mIsBuilt = TRUE;
+	mIsBuilt = true;
 
 	return true;
 }

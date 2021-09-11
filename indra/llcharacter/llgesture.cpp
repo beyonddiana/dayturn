@@ -91,17 +91,17 @@ const LLGesture &LLGesture::operator =(const LLGesture &rhs)
 }
 
 
-BOOL LLGesture::trigger(KEY key, MASK mask)
+bool LLGesture::trigger(KEY key, MASK mask)
 {
 	LL_WARNS() << "Parent class trigger called: you probably didn't mean this." << LL_ENDL;
-	return FALSE;
+	return false;
 }
 
 
-BOOL LLGesture::trigger(const std::string& trigger_string)
+bool LLGesture::trigger(const std::string& trigger_string)
 {
 	LL_WARNS() << "Parent class trigger called: you probably didn't mean this." << LL_ENDL;
-	return FALSE;
+	return false;
 }
 
 // NOT endian-neutral
@@ -259,7 +259,7 @@ bool LLGestureList::triggerAndReviseString(const std::string &string, std::strin
 
 
 
-BOOL LLGestureList::trigger(KEY key, MASK mask)
+bool LLGestureList::trigger(KEY key, MASK mask)
 {
 	for (U32 i = 0; i < mList.size(); i++)
 	{
@@ -268,7 +268,7 @@ BOOL LLGestureList::trigger(KEY key, MASK mask)
 		{
 			if (gesture->trigger(key, mask))
 			{
-				return TRUE;
+				return true;
 			}
 		}
 		else
@@ -276,7 +276,7 @@ BOOL LLGestureList::trigger(KEY key, MASK mask)
 			LL_WARNS() << "NULL gesture in gesture list (" << i << ")" << LL_ENDL;
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 // NOT endian-neutral

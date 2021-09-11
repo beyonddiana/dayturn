@@ -93,7 +93,7 @@ void AOEngine::onLoginComplete()
 
 void AOEngine::onToggleAOControl()
 {
-	enable(gSavedPerAccountSettings.getBOOL("UseAO"));
+	enable((bool)gSavedPerAccountSettings.getBOOL("UseAO"));
 }
 
 void AOEngine::clear(bool aFromTimer)
@@ -832,8 +832,8 @@ void AOEngine::updateSortOrder(AOSet::AOState* state)
 				new LLViewerInventoryItem(item);
 
 			newItem->setDescription(numStr.str());
-			newItem->setComplete(TRUE);
-			newItem->updateServer(FALSE);
+			newItem->setComplete(true);
+			newItem->updateServer(false);
 
 			gInventory.updateItem(newItem);
 		}
@@ -892,7 +892,7 @@ bool AOEngine::createAnimationLink(const AOSet* set,AOSet::AOState* state,const 
 
 	if(state->mInventoryUUID.isNull())
 	{
-		LL_DEBUGS() << "state inventory UUID not found, failing." << LL_ENDL;
+		LL_DEBUGS("AOEngine") << "state inventory UUID not found, failing." << LL_ENDL;
 		return false;
 	}
 
@@ -956,7 +956,7 @@ bool AOEngine::findForeignItems(const LLUUID& uuid) const
 		{
 			if(item->getInventoryType()!=LLInventoryType::IT_ANIMATION)
 			{
-				LL_DEBUGS() << item->getName() << " is a link but does not point to an animation." << LL_ENDL;
+				LL_DEBUGS("AOEngine") << item->getName() << " is a link but does not point to an animation." << LL_ENDL;
 				move=true;
 			}
 			else
@@ -966,7 +966,7 @@ bool AOEngine::findForeignItems(const LLUUID& uuid) const
 		}
 		else
 		{
-			LL_DEBUGS() << item->getName() << " is not a link!" << LL_ENDL;
+			LL_DEBUGS("AOEngine") << item->getName() << " is not a link!" << LL_ENDL;
 			move=true;
 		}
 
@@ -1129,8 +1129,8 @@ void AOEngine::reloadStateAnimations(AOSet::AOState* state)
 
 	state->mAnimations.clear();
 
-	gInventory.getDirectDescendentsOf(state->mInventoryUUID,dummy,items);
-	for(S32 num=0;num<items->size();num++)
+	gInventory.getDirectDescendentsOf(state->mInventoryUUID, dummy, items);
+	for(S32 num = 0;num < items->size(); num++)
 	{
 		LL_DEBUGS("AOEngine")	<< "Found animation link " << items->operator[](num)->LLInventoryItem::getName()
 					<< " desc " << items->operator[](num)->LLInventoryItem::getDescription()
@@ -1139,36 +1139,36 @@ void AOEngine::reloadStateAnimations(AOSet::AOState* state)
 		AOSet::AOAnimation anim;
 		anim.mAssetUUID=items->operator[](num)->getAssetUUID();
 		LLViewerInventoryItem* linkedItem=items->operator[](num)->getLinkedItem();
-		if(linkedItem==0)
+		if(!linkedItem)
 		{
-			LL_WARNS() << "linked item for link " << items->operator[](num)->LLInventoryItem::getName() << " not found (broken link). Skipping." << LL_ENDL;
+			LL_WARNS("AOEngine") << "linked item for link " << items->operator[](num)->LLInventoryItem::getName() << " not found (broken link). Skipping." << LL_ENDL;
 			continue;
 		}
 		anim.mName=linkedItem->LLInventoryItem::getName();
-		anim.mInventoryUUID=items->operator[](num)->getUUID();
+		anim.mInventoryUUID = items->operator[](num)->getUUID();
 
 		S32 sortOrder;
 		if(!LLStringUtil::convertToS32(items->operator[](num)->LLInventoryItem::getDescription(),sortOrder))
-			sortOrder=-1;
-		anim.mSortOrder=sortOrder;
+			sortOrder = -1;
+		anim.mSortOrder = sortOrder;
 
 		LL_DEBUGS("AOEngine") << "current sort order is " << sortOrder << LL_ENDL;
 
 		if(sortOrder==-1)
 		{
-			LL_WARNS() << "sort order was unknown so append to the end of the list" << LL_ENDL;
+			LL_WARNS("AOEngine") << "sort order was unknown so append to the end of the list" << LL_ENDL;
 			state->mAnimations.push_back(anim);
 		}
 		else
 		{
-			bool inserted=false;
-			for(U32 index=0;index<state->mAnimations.size();index++)
+			bool inserted = false;
+			for(U32 index = 0; index < state->mAnimations.size(); index++)
 			{
 				if(state->mAnimations[index].mSortOrder>sortOrder)
 				{
 					LL_DEBUGS("AOEngine") << "inserting at index " << index << LL_ENDL;
-					state->mAnimations.insert(state->mAnimations.begin()+index,anim);
-					inserted=true;
+					state->mAnimations.insert(state->mAnimations.begin()+index, anim);
+					inserted = true;
 					break;
 				}
 			}
@@ -1238,7 +1238,7 @@ void AOEngine::update()
 		for(U32 num=1;num<params.size();num++)
 		{
 			if(params[num].size()!=2)
-				LL_WARNS() << "Unknown AO set option " << params[num] << LL_ENDL;
+				LL_WARNS("AOEngine") << "Unknown AO set option " << params[num] << LL_ENDL;
 			else if(params[num]=="SO")
 				newSet->setSitOverride(true);
 			else if(params[num]=="SM")
@@ -1260,7 +1260,7 @@ void AOEngine::update()
 
 			LLInventoryModel::cat_array_t* stateCategories;
 			gInventory.getDirectDescendentsOf(currentCategory->getUUID(),stateCategories,items);
-			newSet->setComplete(TRUE);
+			newSet->setComplete(true);
 
 			for (S32 state_index = 0; state_index < stateCategories->size(); ++state_index)
 			{
@@ -1282,12 +1282,12 @@ void AOEngine::update()
 					if (state_params[num] == "CY")
 					{
 						state->mCycle=true;
-						LL_DEBUGS() << "Cycle on" << LL_ENDL;
+						LL_DEBUGS("AOEngine") << "Cycle on" << LL_ENDL;
 					}
-                    else if (state_params[num] == "RN")
+					else if (state_params[num] == "RN")
 					{
 						state->mRandom=true;
-						LL_DEBUGS() << "Random on" << LL_ENDL;
+						LL_DEBUGS("AOEngine") << "Random on" << LL_ENDL;
 					}
 					else if (state_params[num].substr(0, 2) == "CT")
 					{
@@ -1318,7 +1318,7 @@ void AOEngine::update()
 
 	if(allComplete)
 	{
-		mEnabled = gSavedPerAccountSettings.getBOOL("UseAO");
+		mEnabled = (bool)gSavedPerAccountSettings.getBOOL("UseAO");
 
 		if(!mCurrentSet && !mSets.empty())
 		{
@@ -1329,7 +1329,7 @@ void AOEngine::update()
 		mTimerCollection.enableInventoryTimer(false);
 		mTimerCollection.enableSettingsTimer(true);
 
-		LL_WARNS() << "sending update signal" << LL_ENDL;
+		LL_INFOS("AOEngine") << "sending update signal" << LL_ENDL;
 		mUpdatedSignal();
 		enable(mEnabled);
 	}
@@ -1505,7 +1505,7 @@ void AOEngine::saveSettings()
 			if(state->mDirty)
 			{
 				saveState(state);
-				LL_WARNS() << "dirty state saved " << state->mName << LL_ENDL;
+				LL_INFOS("AOEngine") << "dirty state saved " << state->mName << LL_ENDL;
 				state->mDirty=false;
 			}
 		}
@@ -1963,14 +1963,14 @@ void AOEngine::processImport( bool aFromTimer )
 		mImportSet->setInventoryUUID(mImportCategory);
 	}
 
-	bool allComplete=true;
+	bool allComplete = true;
 	for(S32 index=0;index<AOSet::AOSTATES_MAX;index++)
 	{
 		AOSet::AOState* state=mImportSet->getState(index);
 		if(state->mAnimations.size())
 		{
-			allComplete=false;
-			LL_DEBUGS() << "state " << state->mName << " still has animations to link." << LL_ENDL;
+			allComplete = false;
+			LL_DEBUGS("AOEngine") << "state " << state->mName << " still has animations to link." << LL_ENDL;
 
 			for(S32 animationIndex=state->mAnimations.size()-1;animationIndex>=0;animationIndex--)
 			{

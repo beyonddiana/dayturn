@@ -34,6 +34,8 @@
 #include "llviewerchat.h"
 #include "lltoastpanel.h"
 
+class LLChatMsgBox;
+
 typedef enum e_show_item_header
 {
 	CHATITEMHEADER_SHOW_ONLY_NAME = 0,

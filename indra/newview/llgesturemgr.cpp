@@ -62,7 +62,7 @@ const F32 MAX_WAIT_ANIM_SECS = 30.f;
 // Lightweight constructor.
 // init() does the heavy lifting.
 LLGestureMgr::LLGestureMgr()
-:	mValid(FALSE),
+:	mValid(false),
 	mPlaying(),
 	mActive(),
 	mLoadingCount(0)
@@ -142,8 +142,8 @@ void LLGestureMgr::activateGesture(const LLUUID& item_id)
 	mLoadingCount = 1;
 	mDeactivateSimilarNames.clear();
 
-	const BOOL inform_server = TRUE;
-	const BOOL deactivate_similar = FALSE; 
+	const bool inform_server = true;
+	const bool deactivate_similar = false;
 	activateGestureWithAsset(item_id, asset_id, inform_server, deactivate_similar);
 }
 
@@ -182,8 +182,8 @@ void LLGestureMgr::activateGestures(LLViewerInventoryItem::item_array_t& items)
 		}
 
 		// Don't inform server, we'll do that in bulk
-		const BOOL no_inform_server = FALSE;
-		const BOOL deactivate_similar = TRUE;
+		const bool no_inform_server = false;
+		const bool deactivate_similar = true;
 		activateGestureWithAsset(item->getUUID(), item->getAssetUUID(),
 								 no_inform_server,
 								 deactivate_similar);
@@ -246,8 +246,8 @@ struct LLLoadInfo
  */
 void LLGestureMgr::activateGestureWithAsset(const LLUUID& item_id,
 												const LLUUID& asset_id,
-												BOOL inform_server,
-												BOOL deactivate_similar)
+												bool inform_server,
+												bool deactivate_similar)
 {
 	const LLUUID& base_item_id = gInventory.getLinkedItemID(item_id);
 
@@ -434,7 +434,7 @@ void LLGestureMgr::deactivateSimilarGestures(LLMultiGesture* in, const LLUUID& i
 }
 
 
-BOOL LLGestureMgr::isGestureActive(const LLUUID& item_id)
+bool LLGestureMgr::isGestureActive(const LLUUID& item_id)
 {
 	const LLUUID& base_item_id = gInventory.getLinkedItemID(item_id);
 	item_map_t::iterator it = mActive.find(base_item_id);
@@ -442,24 +442,24 @@ BOOL LLGestureMgr::isGestureActive(const LLUUID& item_id)
 }
 
 
-BOOL LLGestureMgr::isGesturePlaying(const LLUUID& item_id)
+bool LLGestureMgr::isGesturePlaying(const LLUUID& item_id)
 {
 	const LLUUID& base_item_id = gInventory.getLinkedItemID(item_id);
 
 	item_map_t::iterator it = mActive.find(base_item_id);
-	if (it == mActive.end()) return FALSE;
+	if (it == mActive.end()) return false;
 
 	LLMultiGesture* gesture = (*it).second;
-	if (!gesture) return FALSE;
+	if (!gesture) return false;
 
 	return gesture->mPlaying;
 }
 
-BOOL LLGestureMgr::isGesturePlaying(LLMultiGesture* gesture)
+bool LLGestureMgr::isGesturePlaying(LLMultiGesture* gesture)
 {
 	if(!gesture)
 	{
-		return FALSE;
+		return false;
 	}
 
 	return gesture->mPlaying;
@@ -759,7 +759,7 @@ S32 LLGestureMgr::getPlayingCount() const
 }
 
 
-struct IsGesturePlaying : public std::unary_function<LLMultiGesture*, bool>
+struct IsGesturePlaying
 {
 	bool operator()(const LLMultiGesture* gesture) const
 	{
@@ -1062,8 +1062,8 @@ void LLGestureMgr::onLoadComplete(LLVFS *vfs,
 	LLLoadInfo* info = (LLLoadInfo*)user_data;
 
 	LLUUID item_id = info->mItemID;
-	BOOL inform_server = info->mInformServer;
-	BOOL deactivate_similar = info->mDeactivateSimilar;
+	bool inform_server = info->mInformServer;
+	bool deactivate_similar = info->mDeactivateSimilar;
 
 	delete info;
 	info = NULL;
@@ -1352,7 +1352,7 @@ void LLGestureMgr::notifyObservers()
 	}
 }
 
-BOOL LLGestureMgr::matchPrefix(const std::string& in_str, std::string* out_str)
+bool LLGestureMgr::matchPrefix(const std::string& in_str, std::string* out_str)
 {
 	S32 in_len = in_str.length();
 
@@ -1367,7 +1367,7 @@ BOOL LLGestureMgr::matchPrefix(const std::string& in_str, std::string* out_str)
 			if (!LLStringUtil::compareInsensitive(in_str, trigger))
 			{
 				*out_str = trigger;
-				return TRUE;
+				return true;
 			}
 		}
 	}
