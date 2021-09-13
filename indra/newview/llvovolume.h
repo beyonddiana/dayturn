@@ -150,7 +150,7 @@ public:
 
 	/*virtual*/ U32		getTriangleCount(S32* vcount = NULL) const;
 	/*virtual*/ U32		getHighLODTriangleCount();
-	/*virtual*/ bool lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end, 
+	/*virtual*/ bool lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end,
 										  S32 face = -1,                        // which face to check, -1 = ALL_SIDES
 										  bool pick_transparent = false,
 										  bool pick_rigged = false,
@@ -173,8 +173,9 @@ public:
 				const LLMatrix4& getWorldMatrix(LLXformMatrix* xform) const;
 
 				void	markForUpdate(bool priority);
-                void    markForUnload()                         { LLViewerObject::markForUnload(true); mVolumeChanged = true; }                
-				void    faceMappingChanged()                    { mFaceMappingChanged=TRUE; };
+				void	markForUnload()							{ LLViewerObject::markForUnload(true); mVolumeChanged = true; }				
+				void    faceMappingChanged()                    { mFaceMappingChanged=true; };
+
 	/*virtual*/ void	onShift(const LLVector4a &shift_vector); // Called when the drawable shifts
 
 	/*virtual*/ void	parameterChanged(U16 param_type, bool local_origin);
@@ -245,6 +246,7 @@ public:
 	void setLightSRGBColor(const LLColor3& color);
     //set the linear color of this light
     void setLightLinearColor(const LLColor3& color);
+
 	void setLightIntensity(F32 intensity);
 	void setLightRadius(F32 radius);
 	void setLightFalloff(F32 falloff);
@@ -344,7 +346,7 @@ public:
 	
     // Flag any corresponding avatars as needing update.
     void updateVisualComplexity();	
-		
+	
 	void notifyMeshLoaded();
 	
 	// Returns 'true' iff the media data for this object is in flight
