@@ -1344,7 +1344,7 @@ void LLDrawPoolAvatar::renderAvatars(LLVOAvatar* single_avatar, S32 pass)
 		return;
 	}
 
-	LLVOAvatar *avatarp;
+	LLVOAvatar *avatarp = NULL;
 
 	if (single_avatar)
 	{
@@ -1524,8 +1524,6 @@ void LLDrawPoolAvatar::renderAvatars(LLVOAvatar* single_avatar, S32 pass)
 	}
 
 
-
-
 	if (pass == 5)
 	{
 		renderRiggedShinySimple(avatarp);
@@ -1641,7 +1639,6 @@ void LLDrawPoolAvatar::renderAvatars(LLVOAvatar* single_avatar, S32 pass)
 }
 
 void LLDrawPoolAvatar::getRiggedGeometry(
-
     LLFace* face,
     LLPointer<LLVertexBuffer>& buffer,
     U32 data_mask,
@@ -2068,7 +2065,7 @@ void LLDrawPoolAvatar::renderRigged(LLVOAvatar* avatar, U32 type, bool glow)
 		LLVertexBuffer* buff = face->getVertexBuffer();
 
         const LLTextureEntry* tex_entry = face->getTextureEntry();
-		LLMaterial* mat = tex_entry ? tex_entry->getMaterialParams().get() : 0;
+		LLMaterial* mat = tex_entry ? tex_entry->getMaterialParams().get() : nullptr;
 
         if (LLDrawPoolAvatar::sShadowPass >= 0)
         {
@@ -2533,7 +2530,9 @@ void LLDrawPoolAvatar::removeRiggedFace(LLFace* facep)
 			}
 			else
 			{
-				LL_ERRS() << "Face reference data corrupt for rigged type " << i << LL_ENDL;
+				LL_ERRS() << "Face reference data corrupt for rigged type " << i
+					<< ((mRiggedFace[i].size() <= index) ? "; wrong index (out of bounds)" : (mRiggedFace[i][index] != facep) ? "; wrong face pointer" : "")
+					<< LL_ENDL;
 			}
 		}
 	}
