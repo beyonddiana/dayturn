@@ -548,6 +548,7 @@ void LLDrawPoolAvatar::renderShadow(S32 pass)
 		return;
 	}
 
+    LLVOAvatar::AvatarOverallAppearance oa = avatarp->getOverallAppearance();
 	bool impostor = avatarp->isImpostor();
 	if (impostor || (oa == LLVOAvatar::AOA_INVISIBLE))
 	{
