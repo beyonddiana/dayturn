@@ -767,7 +767,7 @@ LLWindowWin32::LLWindowWin32(LLWindowCallbacks* callbacks,
 	LLCoordScreen windowPos(x,y);
 	LLCoordScreen windowSize(window_rect.right - window_rect.left,
 							 window_rect.bottom - window_rect.top);
-	if (!switchContext(mFullscreen, windowSize, TRUE, &windowPos))
+	if (!switchContext(mFullscreen, windowSize, disable_vsync, &windowPos))
 	{
 		return;
 	}
@@ -1746,6 +1746,7 @@ const	S32   max_format  = (S32)num_formats - 1;
 	else
 	{
 		LL_DEBUGS("Window") << "Keeping vertical sync" << LL_ENDL;
+        wglSwapIntervalEXT(1);
 	}
 
 	SetWindowLongPtr(mWindowHandle, GWLP_USERDATA, (LONG_PTR)this);
