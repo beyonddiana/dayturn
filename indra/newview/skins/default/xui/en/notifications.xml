@@ -946,7 +946,7 @@ Please invite members within 48 hours.
      canceltext="Cancel"
      name="okcancelbuttons"
      notext="Cancel"
-     yestext="Create group for L$[COST].."/>
+     yestext="Create group for L$[COST]"/>
   </notification>
 
   <notification
@@ -1510,7 +1510,7 @@ Go to the [SECOND_LIFE] events web page?
     <tag>confirm</tag>
     <url option="0" name="url">
 
-			http://secondlife.com/events/
+			https://secondlife.com/my/community/events
     </url>
     <usetemplate
      name="okcancelbuttons"
@@ -2200,7 +2200,7 @@ Wrong chunk size in WAV file:
    icon="alertmodal.tga"
    name="LLSoundFileInvalidTooLong"
    type="alertmodal">
-Audio file is too long (10 seconds maximum):
+Audio file is too long (30 seconds maximum):
 [FILE]
   <tag>fail</tag>
   </notification>
@@ -3173,7 +3173,7 @@ See https://wiki.secondlife.com/wiki/Adding_Spelling_Dictionaries
        text="Cancel"/>
     </form>
   </notification>
- 
+
   <notification
    icon="alertmodal.tga"
    name="RemoveFromFriends"
@@ -3631,6 +3631,17 @@ Please choose the male or female avatar. You can change your mind later.
 		type="alertmodal">
 Could not teleport to [SLURL] as it's on a different grid ([GRID]) than the current grid ([CURRENT_GRID]).  Please close your viewer and try again.
   <tag>fail</tag>
+    <usetemplate
+     name="okbutton"
+     yestext="OK"/>
+  </notification>
+
+  <notification icon="alertmodal.tga"
+		name="GeneralCertificateErrorShort"
+		type="alertmodal">
+Could not connect to the server.
+[REASON]
+    <tag>fail</tag>
     <usetemplate
      name="okbutton"
      yestext="OK"/>
@@ -4130,7 +4141,7 @@ We have downloaded an update to your [APP_NAME] installation.
      notext="Later..."
      yestext="Install now and restart [APP_NAME]"/>
   </notification>
-  
+
   <notification
    icon="alertmodal.tga"
    name="RequiredUpdateDownloadedVerboseDialog"
@@ -4145,7 +4156,7 @@ We must restart [APP_NAME] to install the update.
      name="okbutton"
      yestext="OK"/>
   </notification>
-  
+
   <notification
    icon="alertmodal.tga"
    name="RequiredUpdateDownloadedDialog"
@@ -4446,17 +4457,6 @@ You have left the group [group_name].
       <usetemplate
        name="okbutton"
        yestext="OK"/>
-  </notification>
-
-  <notification
-   icon="alertmodal.tga"
-   name="GroupDepartError"
-   type="alertmodal">
-    Unable to leave group.
-    <tag>group</tag>
-    <usetemplate
-     name="okbutton"
-     yestext="OK"/>
   </notification>
 
   <notification
@@ -7856,12 +7856,12 @@ However, this region contains content accessible to adults only.
   </notification>
 
   <notification
-   icon="notifytip.tga"
+   icon="notify.tga"
    name="TeleportOfferSent"
    log_to_im="true"
    log_to_chat="false"
    show_toast="false"
-   type="notifytip">
+   type="notify">
 	Teleport offer sent to [TO_NAME]
   </notification>
 
@@ -7910,7 +7910,6 @@ Offer a teleport?
   <notification
    icon="notify.tga"
    name="OfferFriendship"
-   label="Friendship offer from [NAME_LABEL]"
    log_to_im="true"
    type="offer">
     <tag>friendship</tag>
@@ -7944,7 +7943,6 @@ Offer a teleport?
   <notification
    icon="notify.tga"
    name="OfferFriendshipNoMessage"
-   label="Friendship offer from [NAME_LABEL]"
    persist="true"
    type="notify">
     <tag>friendship</tag>
@@ -7983,10 +7981,10 @@ Offer a teleport?
   </notification>
   
     <notification
-   icon="notifytip.tga"
+   icon="notify.tga"
    name="FriendshipAcceptedByMe"
    log_to_im="true"   
-   type="notifytip">
+   type="notify">
     <tag>friendship</tag>
 Friendship offer accepted.
   </notification>
@@ -8786,7 +8784,7 @@ Error saving preset [NAME].
     type="notifytip">
 Error deleting preset [NAME].
   </notification>
-  
+
   <notification
     icon="notifytip.tga"
 	name="PresetSaved"
