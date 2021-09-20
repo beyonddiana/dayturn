@@ -4,11 +4,11 @@
 		Obteniendo [ITEM_COUNT] Objetos y [CATEGORY_COUNT] Carpetas... [FILTER]
 	</panel.string>
 	<panel.string name="ItemcountCompleted">
-		[[ITEM_COUNT] Objetos y [CATEGORY_COUNT] Carpetas [FILTER]
+		[ITEM_COUNT] Objetos y [CATEGORY_COUNT] Carpetas [FILTER]
 	</panel.string>
- 	<panel.string name="ItemcountUnknown">
+	<panel.string name="ItemcountUnknown">
 		[ITEM_COUNT] Objetos y [CATEGORY_COUNT] Carpetas Obtenidos [FILTER]
- 	</panel.string>	
+	</panel.string>
 	<text name="ItemcountText">
 		Ítems:
 	</text>
@@ -22,11 +22,11 @@
 	<tab_container name="inventory filter tabs">
 		<inventory_panel label="Todos los ítems" name="All Items"/>
 		<recent_inventory_panel label="Ítems recientes" name="Recent Items"/>
-		<inventory_panel label="(VESTIMENTA)" name="Worn Items"/>
+		<inventory_panel label="USADO" name="Worn Items"/>
 	</tab_container>
 	<layout_stack name="bottom_panel">
 		<layout_panel name="options_gear_btn_panel">
-			<button name="options_gear_btn" tool_tip="Ver más opciones"/>
+			<menu_button name="options_gear_btn" tool_tip="Ver más opciones"/>
 		</layout_panel>
 		<layout_panel name="add_btn_panel">
 			<button name="add_btn" tool_tip="Añadir un ítem nuevo"/>
