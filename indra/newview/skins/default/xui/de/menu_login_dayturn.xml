@@ -2,22 +2,22 @@
 <menu_bar name="Login Menu">
     <menu label="Datei"  name="File">
         <menu_item_call label="[APP_NAME] shließen"  name="Quit"/>
-    </menu>
-    
+    </menu>   
     <menu label="Bearbeiten" name="Edit">
         <menu_item_call label="Fenstergröße einstelle..."  name="Set Window Size..."/>
-        <menu_item_call label="Einstellungen"  name="Preferences..."/>
+        <menu_item_call label="Einstellungen..."  name="Preferences..."/>
     </menu>
-    
     <menu label="Hilfe"  name="Help">
         <menu_item_call label="[APP_NAME] Hilfe"  name="Dayturn Help"/>
         <menu_item_call label="[APP_NAME] Forum"  name="Dayturn Forum"/>
+		<menu_item_call label="Fehler melden" name="Report Bug"/>
+        <menu_item_call label="[APP_NAME] Descargas" name="Dayturn Downloads"/>
+    	<menu_item_call label="Kurzanleitung für SecondLife" name="Quickstart"/>
+        <menu_item_call label="Knowledge Base für SecondLife" name="Knowledge Base"/>
+        <menu_item_call label="SecondLife Wiki" name="Wiki"/>
         <menu_item_check label="Debug-Menü anzeigen"  name="Show Debug Menu"/>
         <menu_item_call label="Über [APP_NAME]"  name="About Second Life"/>
     </menu>
-    
-    
-    
     <menu label="Debug"  name="Debug">
         <menu_item_call label="Debug-Einstellungen anzeigen"  name="Debug Settings"/>
         <menu_item_call label="XUI-Editor"  name="UI Preview Tool"/>
@@ -29,7 +29,7 @@
         </menu>
         <menu_item_call label="Servicebedingungen anzeigen"  name="TOS"/>
         <menu_item_call label="Wichtige Meldung anzeigen"  name="Critical"/>
-        <menu_item_call label="Web Content Floater Debug Test"  name="Web Content Floater Debug Test"/>
+		<menu_item_call label="Webbrowser" name="Web Content Browser"/>
         <menu label="Protokollierungsstufe festlegen"  name="Set Logging Level">
             <menu_item_check label="Debug"  name="Debug"/>
             <menu_item_check label="Info"  name="Info"/>

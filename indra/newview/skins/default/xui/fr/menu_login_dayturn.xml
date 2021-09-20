@@ -2,22 +2,22 @@
 <menu_bar name="Login Menu">
     <menu label="Fichier"  name="File">
         <menu_item_call label="Quitter [APP_NAME]"  name="Quit"/>
-    </menu>
-    
+    </menu>    
     <menu label="Éditer" name="Edit">
         <menu_item_call label="Définir la taille de la fenêtre..."  name="Set Window Size..."/>
         <menu_item_call label="Préférences"  name="Preferences..."/>
-    </menu>
-    
+    </menu>    
     <menu label="Aide"  name="Help">
         <menu_item_call label="[APP_NAME] Aide"  name="Dayturn Help"/>
         <menu_item_call label="[APP_NAME] Tribune"  name="Dayturn Forum"/>
+		<menu_item_call label="Signaler un bug" name="Report Bug"/>
+        <menu_item_call label="[APP_NAME] Téléchargements" name="Dayturn Downloads"/>
+    	<menu_item_call label="Démarrage rapide por SecondLife" name="Quickstart"/>
+        <menu_item_call label="Base de connaissances por SecondLife" name="Knowledge Base"/>
+        <menu_item_call label="SecondLife Wiki" name="Wiki"/>
         <menu_item_check label="Menu Déboguer"  name="Show Debug Menu"/>
         <menu_item_call label="À propos de [APP_NAME]"  name="About Second Life"/>
-    </menu>
-    
-    
-    
+    </menu>   
     <menu label="Déboguer"  name="Debug">
         <menu_item_call label="Afficher les paramètres de débogage"  name="Debug Settings"/>
         <menu_item_call label="Outil d&apos;aperçu XUI"  name="UI Preview Tool"/>
@@ -29,6 +29,7 @@
         </menu>
         <menu_item_call label="Afficher les conditions d&apos;utilisation"  name="TOS"/>
         <menu_item_call label="Afficher le message critique"  name="Critical"/>
+		<menu_item_call label="Navigateur Web" name="Web Content Browser"/>
         <menu_item_call label="Test de navigateur web"  name="Web Content Floater Debug Test"/>
         <menu label="Définir le niveau de connexion"  name="Set Logging Level">
             <menu_item_check label="Débogage"  name="Debug"/>
