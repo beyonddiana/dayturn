@@ -953,7 +953,7 @@ BOOL LLPanelScriptLimitsRegionMemory::StartRequestChain()
 			return false;
 		}
 		
-		LLVector3d pos_global = region->getCenterGlobal();
+		LLVector3d pos_global = region->getOriginGlobal();
 		
 		LLSD body;
 		std::string url = region->getCapability("RemoteParcelRequest");
