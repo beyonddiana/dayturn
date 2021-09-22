@@ -3837,7 +3837,7 @@ bool LLSelectMgr::selectGetEditMoveLinksetPermissions(bool &move, bool &modify)
 		{
 			if (gAgentAvatarp->isSitting() && gAgentAvatarp->getRoot() == object->getRoot())
 			{
-				this_object_movable = FALSE;
+				this_object_movable = false;
 				modify = false;
 			}
 		}
