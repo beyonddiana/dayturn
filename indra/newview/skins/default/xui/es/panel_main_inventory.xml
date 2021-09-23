@@ -20,8 +20,8 @@
 		<item label="UUID" name="UUID" value="search_by_UUID"/>
 	</combo_box>
 	<tab_container name="inventory filter tabs">
-		<inventory_panel label="Todos los ítems" name="All Items"/>
-		<recent_inventory_panel label="Ítems recientes" name="Recent Items"/>
+		<inventory_panel label="TODOS LOS ÍTEMS" name="All Items"/>
+		<recent_inventory_panel label="ÍTEMS RECIENTES" name="Recent Items"/>
 		<inventory_panel label="USADO" name="Worn Items"/>
 	</tab_container>
 	<layout_stack name="bottom_panel">
