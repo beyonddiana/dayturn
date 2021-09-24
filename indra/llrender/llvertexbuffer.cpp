@@ -1480,6 +1480,23 @@ void LLVertexBuffer::setupVertexArray()
 		{
 			glEnableVertexAttribArrayARB(i);
 
+			if (attrib_integer[i])
+			{
+#if !LL_DARWIN
+				//glVertexattribIPointer requires GLSL 1.30 or later
+				if (gGLManager.mGLSLVersionMajor > 1 || gGLManager.mGLSLVersionMinor >= 30)
+				{
+					// nat 2018-10-24: VS 2017 also notices the issue
+					// described below, and warns even with reinterpret_cast.
+					// Cast via intptr_t to make it painfully obvious to the
+					// compiler that we're doing this intentionally.
+					glVertexAttribIPointer(i, attrib_size[i], attrib_type[i], sTypeSize[i],
+										   reinterpret_cast<const GLvoid*>(intptr_t(mOffsets[i]))); 
+				}
+#endif
+			}
+			else
+			{
 				// nat 2016-12-16: With 64-bit clang compile, the compiler
 				// produces an error if we simply cast mOffsets[i] -- an S32
 				// -- to (GLvoid *), the type of the parameter. It correctly
@@ -1490,6 +1507,7 @@ void LLVertexBuffer::setupVertexArray()
 				glVertexAttribPointerARB(i, attrib_size[i], attrib_type[i],
 										 attrib_normalized[i], sTypeSize[i],
 										 reinterpret_cast<GLvoid*>(intptr_t(mOffsets[i]))); 
+			}
 		}
 		else
 		{
