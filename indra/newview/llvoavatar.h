@@ -376,6 +376,9 @@ protected:
 
 private:
 	bool			mFirstFullyVisible;
+	F32				mFirstUseDelaySeconds;
+	LLFrameTimer	mFirstSeenTimer;
+
 	bool			mFullyLoaded;
 	bool			mPreviousFullyLoaded;
 	bool			mFullyLoadedInitialized;

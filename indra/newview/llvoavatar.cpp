@@ -123,7 +123,8 @@ extern U32 JOINT_COUNT_REQUIRED_FOR_FULLRIG;
 const F32 MAX_HOVER_Z = 2.0;
 const F32 MIN_HOVER_Z = -2.0;
 
-// #define OUTPUT_BREAST_DATA
+const F32 FIRST_APPEARANCE_CLOUD_MIN_DELAY = 3.f; // seconds
+const F32 FIRST_APPEARANCE_CLOUD_MAX_DELAY = 45.f;
 
 using namespace LLAvatarAppearanceDefines;
 
@@ -706,6 +707,7 @@ LLVOAvatar::LLVOAvatar(const LLUUID& id,
 	mLastSkinTime(0.f),
 	mUpdatePeriod(1),
 	mFirstFullyVisible(true),
+	mFirstUseDelaySeconds(FIRST_APPEARANCE_CLOUD_MIN_DELAY),
 	mFullyLoaded(false),
 	mPreviousFullyLoaded(false),
 	mFullyLoadedInitialized(false),
@@ -785,7 +787,8 @@ LLVOAvatar::LLVOAvatar(const LLUUID& id,
 	mAahMorph      = NULL;
 
 	mCurrentGesticulationLevel = 0;
-    
+
+	mFirstSeenTimer.reset();
 	mRuthTimer.reset();
 	mRuthDebugTimer.reset();
 	mDebugExistenceTimer.reset();
@@ -8278,14 +8281,24 @@ bool LLVOAvatar::processFullyLoadedChange(bool loading)
 	// We wait a little bit before giving the 'all clear', to let things to
 	// settle down (models to snap into place, textures to get first packets)
 	const F32 LOADED_DELAY = 1.f;
-	const F32 FIRST_USE_DELAY = 3.f;
 
-	if (loading)
-		mFullyLoadedTimer.reset();
+    if (loading)
+    {
+        mFullyLoadedTimer.reset();
+    }
 
 	if (mFirstFullyVisible)
 	{
-		mFullyLoaded = (mFullyLoadedTimer.getElapsedTimeF32() > FIRST_USE_DELAY);
+        if (!isSelf() && loading)
+        {
+                // Note that textures can causes 60s delay on thier own
+                // so this delay might end up on top of textures' delay
+                mFirstUseDelaySeconds = llclamp(
+                    mFirstSeenTimer.getElapsedTimeF32(),
+                    FIRST_APPEARANCE_CLOUD_MIN_DELAY,
+                    FIRST_APPEARANCE_CLOUD_MAX_DELAY);
+        }
+		mFullyLoaded = (mFullyLoadedTimer.getElapsedTimeF32() > mFirstUseDelaySeconds);
 	}
 	else
 	{
