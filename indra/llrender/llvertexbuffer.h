@@ -157,7 +157,7 @@ public:
 	//fill offsets with the offset of each vertex component array into the buffer
 	// indexed by the following enum
 	static S32 calcOffsets(const U32& typemask, S32* offsets, S32 num_vertices);
-	
+
 	//WARNING -- when updating these enums you MUST 
 	// 1 - update LLVertexBuffer::sTypeSize
 	// 2 - add a strider accessor
@@ -317,7 +317,7 @@ protected:
 	bool	mVertexLocked : 1;			// if true, vertex buffer is being or has been written to in client memory
 	bool	mIndexLocked : 1;			// if true, index buffer is being or has been written to in client memory
 	bool	mFinal : 1;			// if true, buffer can not be mapped again
-	bool 	mEmpty : 1;			// if true, client buffer is empty (or NULL). Old values have been discarded.
+	bool	mEmpty : 1;			// if true, client buffer is empty (or NULL). Old values have been discarded.
 	
 	mutable bool	mMappable;     // if true, use memory mapping to upload data (otherwise doublebuffer and use glBufferSubData)
 
