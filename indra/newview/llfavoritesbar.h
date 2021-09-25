@@ -78,7 +78,7 @@ protected:
     void updateButtons(bool force_update = false);
 	LLButton* createButton(const LLPointer<LLViewerInventoryItem> item, const LLButton::Params& button_params, S32 x_offset );
 	const LLButton::Params& getButtonParams();
-	BOOL collectFavoriteItems(LLInventoryModel::item_array_t &items);
+	bool collectFavoriteItems(LLInventoryModel::item_array_t &items);
 
 	void onButtonClick(LLUUID id);
 	void onButtonRightClick(LLUUID id,LLView* button,S32 x,S32 y,MASK mask);
@@ -132,7 +132,7 @@ private:
 	LLUICtrl* findChildByLocalCoords(S32 x, S32 y);
 
 	// checks if the current order of the favorites items must be saved
-	BOOL needToSaveItemsOrder(const LLInventoryModel::item_array_t& items);
+	bool needToSaveItemsOrder(const LLInventoryModel::item_array_t& items);
 
 	/**
 	 * inserts an item identified by insertedItemId BEFORE an item identified by beforeItemId.
@@ -164,7 +164,7 @@ private:
 	bool mStartDrag;
 	LLInventoryModel::item_array_t mItems;
 
-	BOOL mTabsHighlightEnabled;
+	bool mTabsHighlightEnabled;
 
 	S32 mMouseX;
 	S32 mMouseY;
@@ -217,7 +217,7 @@ public:
 	static std::string getStoredFavoritesFilename();
 	static std::string getSavedOrderFileName();
 
-	BOOL saveFavoritesRecord(bool pref_changed = false);
+	bool saveFavoritesRecord(bool pref_changed = false);
 	void showFavoritesOnLoginChanged(BOOL show);
 
 	bool isStorageUpdateNeeded();
