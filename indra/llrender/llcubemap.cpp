@@ -43,8 +43,6 @@
 const F32 epsilon = 1e-7f;
 const U16 RESOLUTION = 64;
 
-const bool use_cube_mipmaps = false;
-
 bool LLCubeMap::sUseCubeMaps = true;
 
 LLCubeMap::LLCubeMap(bool init_as_srgb)
