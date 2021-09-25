@@ -381,7 +381,7 @@ LLFavoritesBarCtrl::LLFavoritesBarCtrl(const LLFavoritesBarCtrl::Params& p)
 	mShowDragMarker(false),
 	mLandingTab(NULL),
 	mLastTab(NULL),
-	mTabsHighlightEnabled(TRUE),
+	mTabsHighlightEnabled(true),
 	mUpdateDropDownItems(true),
 	mRestoreOverflowMenu(false),
 	mGetPrevItems(true),
@@ -971,11 +971,11 @@ bool LLFavoritesBarCtrl::postBuild()
 	return true;
 }
 
-BOOL LLFavoritesBarCtrl::collectFavoriteItems(LLInventoryModel::item_array_t &items)
+bool LLFavoritesBarCtrl::collectFavoriteItems(LLInventoryModel::item_array_t &items)
 {
 
 	if (mFavoriteFolderId.isNull())
-		return FALSE;
+		return false;
 	
 
 	LLInventoryModel::cat_array_t cats;
@@ -995,7 +995,7 @@ BOOL LLFavoritesBarCtrl::collectFavoriteItems(LLInventoryModel::item_array_t &it
 		LLFavoritesOrderStorage::instance().mSaveOnExit = true;
 	}
 
-	return TRUE;
+	return true;
 }
 
 void LLFavoritesBarCtrl::onMoreTextBoxClicked()
@@ -1480,16 +1480,16 @@ LLUICtrl* LLFavoritesBarCtrl::findChildByLocalCoords(S32 x, S32 y)
 	return ctrl;
 }
 
-BOOL LLFavoritesBarCtrl::needToSaveItemsOrder(const LLInventoryModel::item_array_t& items)
+bool LLFavoritesBarCtrl::needToSaveItemsOrder(const LLInventoryModel::item_array_t& items)
 {
-	BOOL result = FALSE;
+	bool result = false;
 
 	// if there is an item without sort order field set, we need to save items order
 	for (LLInventoryModel::item_array_t::const_iterator i = items.begin(); i != items.end(); ++i)
 	{
 		if (LLFavoritesOrderStorage::instance().getSortIndex((*i)->getUUID()) < 0)
 		{
-			result = TRUE;
+			result = true;
 			break;
 		}
 	}
@@ -1861,14 +1861,14 @@ void LLFavoritesOrderStorage::rearrangeFavoriteLandmarks(const LLUUID& source_it
 	saveItemsOrder(items);
 }
 
-BOOL LLFavoritesOrderStorage::saveFavoritesRecord(bool pref_changed)
+bool LLFavoritesOrderStorage::saveFavoritesRecord(bool pref_changed)
 {
 	pref_changed |= mRecreateFavoriteStorage;
 	mRecreateFavoriteStorage = false;
 
 	LLUUID favorite_folder= gInventory.findCategoryUUIDForType(LLFolderType::FT_FAVORITE);
 	if (favorite_folder.isNull())
-			return FALSE;
+			return false;
 
 	LLInventoryModel::item_array_t items;
 	LLInventoryModel::cat_array_t cats;
@@ -1973,7 +1973,7 @@ BOOL LLFavoritesOrderStorage::saveFavoritesRecord(bool pref_changed)
 		mPrevFavorites = items;
 	}
 
-	return TRUE;
+	return true;
 
 }
 
