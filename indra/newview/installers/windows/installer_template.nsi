@@ -46,10 +46,14 @@ RequestExecutionLevel admin	# For when we write to Program Files
 ;; (these files are in the same place as the nsi template but the python script generates a new nsi file in the 
 ;; application directory so we have to add a path to these include files)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Ansariel notes: "Under certain circumstances the installer will fall back
+;; to the first defined (aka default) language version. So you want to include
+;; en-us as first language file."
+!include "%%SOURCE%%\installers\windows\lang_en-us.nsi"
+
 # Danish and Polish no longer supported by the viewer itself
 ##!include "%%SOURCE%%\installers\windows\lang_da.nsi"
 !include "%%SOURCE%%\installers\windows\lang_de.nsi"
-!include "%%SOURCE%%\installers\windows\lang_en-us.nsi"
 !include "%%SOURCE%%\installers\windows\lang_es.nsi"
 !include "%%SOURCE%%\installers\windows\lang_fr.nsi"
 !include "%%SOURCE%%\installers\windows\lang_ja.nsi"
@@ -119,7 +123,7 @@ AutoCloseWindow true					# After all files install, close window
 # write $MultiUser.InstallMode to the registry, because when the user installs
 # multiple viewers with the same channel (same ${INSTNAME}, hence same
 # ${INSTNAME_KEY}), the registry entry is overwritten. Instead we'll write a
-# little file into the install directory -- see .onInstSuccess and un.onInit.!include MultiUser.nsh
+# little file into the install directory -- see .onInstSuccess and un.onInit.
 !include MultiUser.nsh
 !include MUI2.nsh
 !define MUI_BGCOLOR FFFFFF
@@ -268,7 +272,7 @@ skipread:
     IfErrors lbl_end
 	StrCpy $LANGUAGE $0
 lbl_end:
-    
+
 ##  MessageBox MB_OK "After restoring:$\n$$INSTDIR = '$INSTDIR'$\n$$MultiUser.InstallMode = '$MultiUser.InstallMode'$\n$$LANGUAGE = '$LANGUAGE'"
 
     Return
@@ -706,19 +710,19 @@ FunctionEnd
 ;; After install completes, launch app
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 Function .onInstSuccess
-         Push $0
-         FileOpen $0 "$INSTDIR\InstallMode.txt" w
-         # No newline -- this is for our use, not for users to read.
-         FileWrite $0 "$MultiUser.InstallMode"
-         FileClose $0
-         Pop $0
-         
+        Push $0
+        FileOpen $0 "$INSTDIR\InstallMode.txt" w
+        # No newline -- this is for our use, not for users to read.
+        FileWrite $0 "$MultiUser.InstallMode"
+        FileClose $0
+        Pop $0
+
          ClearErrors
          Pop $0
          Pop $R0
 
-         Call CheckWindowsServPack				; Warn if not on the latest SP before asking to launch.
-                StrCmp $SKIP_DIALOGS "true" label_launch 
+        Call CheckWindowsServPack				# Warn if not on the latest SP before asking to launch.
+        StrCmp $SKIP_DIALOGS "true" label_launch 
 
                 ${GetOptions} $COMMANDLINE "/AUTOSTART" $R0
                 # If parameter was there (no error) just launch
