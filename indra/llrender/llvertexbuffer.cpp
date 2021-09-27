@@ -93,6 +93,8 @@ LLVBOPool LLVertexBuffer::sDynamicIBOPool(GL_DYNAMIC_DRAW_ARB, GL_ELEMENT_ARRAY_
 
 U32 LLVBOPool::sBytesPooled = 0;
 U32 LLVBOPool::sIndexBytesPooled = 0;
+U32 LLVBOPool::sNameIdx = 0;
+U32 LLVBOPool::sNamePool[1024];
 
 std::list<U32> LLVertexBuffer::sAvailableVAOName;
 U32 LLVertexBuffer::sCurVAOName = 1;
@@ -122,11 +124,13 @@ bool LLVertexBuffer::sPreferStreamDraw = false;
 
 U32 LLVBOPool::genBuffer()
 {
-	U32 ret = 0;
+	if (sNameIdx == 0)
+	{
+		glGenBuffersARB(1024, sNamePool);
+		sNameIdx = 1024;
+	}
 
-	glGenBuffersARB(1, &ret);
-	
-	return ret;
+	return sNamePool[--sNameIdx];
 }
 
 void LLVBOPool::deleteBuffer(U32 name)
