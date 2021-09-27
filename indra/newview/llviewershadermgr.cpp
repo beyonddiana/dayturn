@@ -97,6 +97,8 @@ LLGLSLShader	gDebugProgram;
 LLGLSLShader	gClipProgram;
 LLGLSLShader	gDownsampleDepthProgram;
 LLGLSLShader	gDownsampleDepthRectProgram;
+LLGLSLShader	gDownsampleMinMaxDepthRectProgram;
+LLGLSLShader	gInscatterRectProgram;
 LLGLSLShader	gAlphaMaskProgram;
 LLGLSLShader	gBenchmarkProgram;
 
@@ -735,6 +737,8 @@ void LLViewerShaderMgr::unloadShaders()
 	gClipProgram.unload();
 	gDownsampleDepthProgram.unload();
 	gDownsampleDepthRectProgram.unload();
+	gDownsampleMinMaxDepthRectProgram.unload();
+    gInscatterRectProgram.unload();
 	gBenchmarkProgram.unload();
 	gAlphaMaskProgram.unload();
 	gUIProgram.unload();

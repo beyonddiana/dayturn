@@ -59,7 +59,8 @@ static const GLenum sGLTextureType[] =
 	GL_TEXTURE_2D,
 	GL_TEXTURE_RECTANGLE_ARB,
 	GL_TEXTURE_CUBE_MAP_ARB,
-	GL_TEXTURE_2D_MULTISAMPLE
+	GL_TEXTURE_2D_MULTISAMPLE,
+    GL_TEXTURE_3D
 };
 
 static const GLint sGLAddressMode[] =

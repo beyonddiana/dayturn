@@ -217,9 +217,19 @@ public:
 		
         SHINY_ORIGIN,                       //  "origin"
         DISPLAY_GAMMA,                      //  "display_gamma",
-        
+ 
+        INSCATTER_RT,                       //  "inscatter"
+        SUN_SIZE,                           //  "sun_size"
+        FOG_COLOR,                          //  "fog_color"
+
+        // precomputed textures from libatmosphere
+        TRANSMITTANCE_TEX,                  //  "transmittance_texture"
+        SCATTER_TEX,                        //  "scattering_texture"
+        SINGLE_MIE_SCATTER_TEX,             //  "single_mie_scattering_texture"
+        ILLUMINANCE_TEX,                    //  "irradiance_texture"
+       
         // precomputed textures
-        NO_ATMO,
+        NO_ATMO,                            //  "no_atmo"
 
 		END_RESERVED_UNIFORMS
 	} eGLSLReservedUniforms;

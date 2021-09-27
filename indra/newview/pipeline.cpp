@@ -2651,6 +2651,65 @@ void LLPipeline::markOccluder(LLSpatialGroup* group)
 	}
 }
 
+void LLPipeline::downsampleMinMaxDepthBuffer(LLRenderTarget& source, LLRenderTarget& dest, LLRenderTarget* scratch_space)
+{
+	LLGLSLShader* last_shader = LLGLSLShader::sCurBoundShaderPtr;
+
+	LLGLSLShader* shader = NULL;
+
+	if (scratch_space)
+	{
+		scratch_space->copyContents(source,
+			0, 0, source.getWidth(), source.getHeight(),
+			0, 0, scratch_space->getWidth(), scratch_space->getHeight(), GL_DEPTH_BUFFER_BIT, GL_NEAREST);
+	}
+
+	dest.bindTarget();
+	dest.clear(GL_COLOR_BUFFER_BIT); // dest should be an RG16F target
+
+	LLStrider<LLVector3> vert;
+	mDeferredVB->getVertexStrider(vert);
+	LLStrider<LLVector2> tc0;
+
+	vert[0].set(-1, 1, 0);
+	vert[1].set(-1, -3, 0);
+	vert[2].set(3, 1, 0);
+
+	if (source.getUsage() == LLTexUnit::TT_RECT_TEXTURE)
+	{
+		shader = &gDownsampleMinMaxDepthRectProgram;
+		shader->bind();
+		shader->uniform2f(sDelta, 1.f, 1.f);
+		shader->uniform2f(LLShaderMgr::DEFERRED_SCREEN_RES, source.getWidth(), source.getHeight());
+	}
+	else
+	{
+		shader = &gDownsampleMinMaxDepthRectProgram;
+		shader->bind();
+		shader->uniform2f(sDelta, 1.f / source.getWidth(), 1.f / source.getHeight());
+		shader->uniform2f(LLShaderMgr::DEFERRED_SCREEN_RES, 1.f, 1.f);
+	}
+
+	gGL.getTexUnit(0)->bind(scratch_space ? scratch_space : &source, TRUE);
+
+	{
+		LLGLDepthTest depth(GL_FALSE, GL_FALSE, GL_ALWAYS);
+		mDeferredVB->setBuffer(LLVertexBuffer::MAP_VERTEX);
+		mDeferredVB->drawArrays(LLRender::TRIANGLES, 0, 3);
+	}
+
+	dest.flush();
+
+	if (last_shader)
+	{
+		last_shader->bind();
+	}
+	else
+	{
+		shader->unbind();
+	}
+}
+
 void LLPipeline::downsampleDepthBuffer(LLRenderTarget& source, LLRenderTarget& dest, LLRenderTarget* scratch_space)
 {
 	LLGLSLShader* last_shader = LLGLSLShader::sCurBoundShaderPtr;

@@ -101,8 +101,8 @@ const S32 MAX_CACHED_RAW_IMAGE_AREA = 64 * 64;
 const S32 MAX_CACHED_RAW_SCULPT_IMAGE_AREA = LLViewerTexture::sMaxSculptRez * LLViewerTexture::sMaxSculptRez;
 const S32 MAX_CACHED_RAW_TERRAIN_IMAGE_AREA = 128 * 128;
 const S32 DEFAULT_ICON_DIMENTIONS = 32;
-S32 LLViewerTexture::sMinLargeImageSize = 65536; //256 * 256.
-S32 LLViewerTexture::sMaxSmallImageSize = MAX_CACHED_RAW_IMAGE_AREA;
+U32 LLViewerTexture::sMinLargeImageSize = 65536; //256 * 256.
+U32 LLViewerTexture::sMaxSmallImageSize = MAX_CACHED_RAW_IMAGE_AREA;
 bool LLViewerTexture::sFreezeImageUpdates = false;
 F32 LLViewerTexture::sCurrentTime = 0.0f;
 F32  LLViewerTexture::sTexelPixelRatio = 1.0f;
@@ -1254,7 +1254,7 @@ void LLViewerFetchedTexture::loadFromFastCache()
             }
 
 			mRequestedDiscardLevel = mDesiredDiscardLevel + 1;
-			mIsRawImageValid = TRUE;			
+			mIsRawImageValid = true;			
 			addToCreateTexture();
 		}
 	}
