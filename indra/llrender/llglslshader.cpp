@@ -408,6 +408,11 @@ bool LLGLSLShader::createShader(std::vector<LLStaticHashedString> * attributes,
 
     bool success = true;
     
+    if (mExtraLinkObject)
+    {
+        attachObject(mExtraLinkObject);
+    }
+
     //compile new source
     vector< pair<string,GLenum> >::iterator fileIter = mShaderFiles.begin();
     for ( ; fileIter != mShaderFiles.end(); fileIter++ )

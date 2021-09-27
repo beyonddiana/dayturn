@@ -175,6 +175,9 @@ public:
 	// if source's depth buffer cannot be bound for reading, a scratch space depth buffer must be provided
 	void		downsampleDepthBuffer(LLRenderTarget& source, LLRenderTarget& dest, LLRenderTarget* scratch_space = NULL);
 
+	// Downsample depth buffer with gather and find local min/max depth values. Writes to a 16F RG render target.
+	void		downsampleMinMaxDepthBuffer(LLRenderTarget& source, LLRenderTarget& dest, LLRenderTarget* scratch_space = NULL);
+
 	void		doOcclusion(LLCamera& camera, LLRenderTarget& source, LLRenderTarget& dest, LLRenderTarget* scratch_space = NULL);
 	void		doOcclusion(LLCamera& camera);
 	void		markNotCulled(LLSpatialGroup* group, LLCamera &camera);
