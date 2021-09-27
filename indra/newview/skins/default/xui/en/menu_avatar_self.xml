@@ -247,7 +247,7 @@
        layout="topleft"
        name="Reset Skeleton And Animations">
        <menu_item_call.on_click
-        function="Avatar.ResetSkeletonAndAnimations" />
+        unction="Avatar.ResetSelfSkeletonAndAnimations" />
   </menu_item_call>
    <menu_item_call
      label="My Friends"
