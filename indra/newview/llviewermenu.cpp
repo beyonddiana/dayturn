@@ -226,15 +226,15 @@ void handle_region_dump_temp_asset_data(void*);
 void handle_region_clear_temp_asset_data(void*);
 
 // Object pie menu
-BOOL sitting_on_selection();
+bool sitting_on_selection();
 
 void near_sit_object();
 //void label_sit_or_stand(std::string& label, void*);
 // buy and take alias into the same UI positions, so these
 // declarations handle this mess.
-BOOL is_selection_buy_not_take();
+bool is_selection_buy_not_take();
 S32 selection_price();
-BOOL enable_take();
+bool enable_take();
 void handle_object_show_inspector();
 void handle_avatar_show_inspector();
 bool confirm_take(const LLSD& notification, const LLSD& response, LLObjectSelectionHandle selection_handle);
@@ -254,16 +254,16 @@ void velocity_interpolate( void* );
 void handle_visual_leak_detector_toggle(void*);
 void handle_rebake_textures(void*);
 void handle_refresh_scene(void*);
-BOOL check_admin_override(void*);
+bool check_admin_override(void*);
 void handle_admin_override_toggle(void*);
 #ifdef TOGGLE_HACKED_GODLIKE_VIEWER
 void handle_toggle_hacked_godmode(void*);
-BOOL check_toggle_hacked_godmode(void*);
+bool check_toggle_hacked_godmode(void*);
 bool enable_toggle_hacked_godmode(void*);
 #endif
 
 void toggle_show_xui_names(void *);
-BOOL check_show_xui_names(void *);
+bool check_show_xui_names(void *);
 
 // Debug UI
 
@@ -314,7 +314,7 @@ void dump_select_mgr(void*);
 
 void dump_inventory(void*);
 void toggle_visibility(void*);
-BOOL get_visibility(void*);
+bool get_visibility(void*);
 
 // Avatar Pie menu
 void request_friendship(const LLUUID& agent_id);
@@ -328,7 +328,7 @@ void handle_dump_followcam(void*);
 void handle_viewer_enable_message_log(void*);
 void handle_viewer_disable_message_log(void*);
 
-BOOL enable_buy_land(void*);
+bool enable_buy_land(void*);
 
 // Help menu
 
@@ -338,12 +338,12 @@ void handle_dump_attachments(void *);
 void handle_dump_avatar_local_textures(void*);
 void handle_debug_avatar_textures(void*);
 void handle_grab_baked_texture(void*);
-BOOL enable_grab_baked_texture(void*);
+bool enable_grab_baked_texture(void*);
 void handle_dump_region_object_cache(void*);
 
-BOOL enable_save_into_task_inventory(void*);
+bool enable_save_into_task_inventory(void*);
 
-BOOL enable_detach(const LLSD& = LLSD());
+bool enable_detach(const LLSD& = LLSD());
 void menu_toggle_attached_lights(void* user_data);
 void menu_toggle_attached_particles(void* user_data);
 
@@ -376,7 +376,7 @@ void LLMenuParcelObserver::changed()
     {
         gMenuHolder->childSetEnabled("Land Buy Pass", LLPanelLandGeneral::enableBuyPass(NULL) && !(parcel->getOwnerID() == gAgent.getID()));
 
-        BOOL buyable = enable_buy_land(NULL);
+        bool buyable = enable_buy_land(NULL);
         gMenuHolder->childSetEnabled("Land Buy", buyable);
         gMenuHolder->childSetEnabled("Buy Land...", buyable);
     }
@@ -499,11 +499,10 @@ void init_menus()
 	{
 		color = LLUIColorTable::instance().getColor( "MenuNonProductionBgColor" );
 	}
-	gMenuBarView = LLUICtrlFactory::getInstance()->createFromFile<LLMenuBarGL>("menu_viewer_dayturn.xml", gMenuHolder, LLViewerMenuHolderGL::child_registry_t::instance());
-//Dayturn we could add a legacy menu here
 
 	LLView* menu_bar_holder = gViewerWindow->getRootView()->getChildView("menu_bar_holder");
 
+	gMenuBarView = LLUICtrlFactory::getInstance()->createFromFile<LLMenuBarGL>("menu_viewer_dayturn.xml", gMenuHolder, LLViewerMenuHolderGL::child_registry_t::instance());
 	gMenuBarView->setRect(LLRect(0, menu_bar_holder->getRect().mTop, 0, menu_bar_holder->getRect().mTop - MENU_BAR_HEIGHT));
 	gMenuBarView->setBackgroundColor( color );
 
@@ -545,8 +544,6 @@ void init_menus()
 	gMenuParcelObserver = new LLMenuParcelObserver();
 
 	gLoginMenuBarView = LLUICtrlFactory::getInstance()->createFromFile<LLMenuBarGL>("menu_login_dayturn.xml", gMenuHolder, LLViewerMenuHolderGL::child_registry_t::instance());
-//Dayturn we could add a legacy menu here
-
 	gLoginMenuBarView->arrangeAndClear();
 	LLRect menuBarRect = gLoginMenuBarView->getRect();
 	menuBarRect.setLeftTopAndSize(0, menu_bar_holder->getRect().getHeight(), menuBarRect.getWidth(), menuBarRect.getHeight());
@@ -2270,7 +2267,7 @@ class LLAdvancedShowDebugSettings : public view_listener_t
 	}
 };
 
- 
+
 
 ////////////////////////
 // VIEW ADMIN OPTIONS //
@@ -2910,7 +2907,6 @@ class LLObjectBuild : public view_listener_t
 	}
 };
 
-
 void handle_object_edit()
 {
 	LLViewerParcelMgr::getInstance()->deselectLand();
@@ -2971,7 +2967,6 @@ void handle_attachment_edit(const LLUUID& idItem)
 		}
 	}
 }
-
 
 bool enable_item_edit(const LLUUID& idItem)
 {
@@ -3096,7 +3091,7 @@ bool enable_object_build(void*)
 	if (gAgent.isGodlike()) return true;
 	if (gAgent.inPrelude()) return false;
 
-	BOOL can_build = FALSE;
+	bool can_build = false;
 	LLParcel* agent_parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
 	if (agent_parcel)
 	{
@@ -3201,12 +3196,6 @@ class LLSelfEnableRemoveAllAttachments : public view_listener_t
 		return new_value;
 	}
 };
-
-BOOL enable_has_attachments(void*)
-{
-
-	return FALSE;
-}
 
 //---------------------------------------------------------------------------
 // Avatar pie menu
@@ -3890,11 +3879,14 @@ class LLSelfToggleSitStand : public view_listener_t
 {
 	bool handleEvent(const LLSD& userdata)
 	{
-		if (isAgentAvatarValid() && !gAgent.getFlying()) {
-			if (gAgentAvatarp->isSitting()) {
+		if (isAgentAvatarValid() && !gAgent.getFlying())
+		{
+			if (gAgentAvatarp->isSitting())
+			{
 				gAgent.standUp();
 			}
-			else {
+			else
+			{
 				gAgent.sitDown();
 			}
 			return true;
@@ -3902,6 +3894,7 @@ class LLSelfToggleSitStand : public view_listener_t
 		return false;
 	}
 };
+
 bool enable_sitstand_self()
 {
     return isAgentAvatarValid() && !gAgent.getFlying();
@@ -3968,7 +3961,7 @@ class LLTogglePanelPeopleTab : public view_listener_t
 	}
 };
 
-BOOL check_admin_override(void*)
+bool check_admin_override(void*)
 {
 	return gAgent.getAdminOverride();
 }
@@ -4068,7 +4061,7 @@ void handle_toggle_hacked_godmode(void*)
 	set_god_level(gHackGodmode ? GOD_MAINTENANCE : GOD_NOT);
 }
 
-BOOL check_toggle_hacked_godmode(void*)
+bool check_toggle_hacked_godmode(void*)
 {
 	return gHackGodmode;
 }
@@ -4132,7 +4125,7 @@ bool LLHaveCallingcard::operator()(LLInventoryCategory* cat,
 }
 */
 
-BOOL is_agent_mappable(const LLUUID& agent_id)
+bool is_agent_mappable(const LLUUID& agent_id)
 {
 	const LLRelationship* buddy_info = NULL;
 	bool is_friend = LLAvatarActions::isFriend(agent_id);
@@ -4378,7 +4371,7 @@ class LLLandTeleport : public view_listener_t
 //
 // Major mode switching
 //
-void reset_view_final( BOOL proceed );
+void reset_view_final(bool proceed);
 
 void handle_reset_view()
 {
@@ -4392,7 +4385,7 @@ void handle_reset_view()
 		gAgentCamera.resetView();
 	// </FS:Zi>
 	gAgentCamera.switchCameraPreset(CAMERA_PRESET_REAR_VIEW);
-	reset_view_final( TRUE );
+	reset_view_final(true);
 	LLFloaterCamera::resetCameraMode();
 }
 
@@ -4406,7 +4399,7 @@ class LLViewResetView : public view_listener_t
 };
 
 // Note: extra parameters allow this function to be called from dialog.
-void reset_view_final( BOOL proceed ) 
+void reset_view_final(bool proceed) 
 {
 	if( !proceed )
 	{
@@ -4725,7 +4718,7 @@ static bool get_derezzable_objects(
 			*/
 			continue;
 		}
-		BOOL can_derez_current = FALSE;
+		bool can_derez_current = false;
 		switch(dest)
 		{
 		case DRD_TAKE_INTO_AGENT_INVENTORY:
@@ -4734,14 +4727,14 @@ static bool get_derezzable_objects(
 				((node->mPermissions->allowTransferTo(gAgent.getID()) && object->permModify())
 				|| (node->allowOperationOnNode(PERM_OWNER, GP_OBJECT_MANIPULATE))))
 			{
-				can_derez_current = TRUE;
+				can_derez_current = true;
 			}
 			break;
 
 		case DRD_RETURN_TO_OWNER:
 			if(!object->isAttachment())
 			{
-				can_derez_current = TRUE;
+				can_derez_current = true;
 			}
 			break;
 
@@ -4750,7 +4743,7 @@ static bool get_derezzable_objects(
 				&& object->permCopy())
 			   || gAgent.isGodlike())
 			{
-				can_derez_current = TRUE;
+				can_derez_current = true;
 			}
 			break;
 		}
@@ -5123,11 +5116,11 @@ bool confirm_take(const LLSD& notification, const LLSD& response, LLObjectSelect
 // You can take an item when it is public and transferrable, or when
 // you own it. We err on the side of enabling the item when at least
 // one item selected can be copied to inventory.
-BOOL enable_take()
+bool enable_take()
 {
 	if (sitting_on_selection())
 	{
-		return FALSE;
+		return false;
 	}
 
 	for (LLObjectSelection::valid_root_iterator iter = LLSelectMgr::getInstance()->getSelection()->valid_root_begin();
@@ -5142,13 +5135,13 @@ BOOL enable_take()
 		}
 
 #ifdef HACKED_GODLIKE_VIEWER
-		return TRUE;
+		return true;
 #else
 # ifdef TOGGLE_HACKED_GODLIKE_VIEWER
 		if (LLGridManager::getInstance()->isInSLBeta() 
             && gAgent.isGodlike())
 		{
-			return TRUE;
+			return true;
 		}
 # endif
 		if(!object->isPermanentEnforced() &&
@@ -5160,7 +5153,7 @@ BOOL enable_take()
 		}
 #endif
 	}
-	return FALSE;
+	return false;
 }
 
 
@@ -5245,7 +5238,7 @@ class LLToolsEnableBuyOrTake : public view_listener_t
 // take it.
 // return value = TRUE if selection is a 'buy'.
 //                FALSE if selection is a 'take'
-BOOL is_selection_buy_not_take()
+bool is_selection_buy_not_take()
 {
 	for (LLObjectSelection::root_iterator iter = LLSelectMgr::getInstance()->getSelection()->root_begin();
 		 iter != LLSelectMgr::getInstance()->getSelection()->root_end(); iter++)
@@ -5256,10 +5249,10 @@ BOOL is_selection_buy_not_take()
 		{
 			// you do not own the object and it is for sale, thus,
 			// it's a buy
-			return TRUE;
+			return true;
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 S32 selection_price()
@@ -5355,27 +5348,27 @@ bool for_sale_selection(LLSelectNode* nodep)
 			|| nodep->mSaleInfo.getSaleType() != LLSaleInfo::FS_COPY);
 }
 
-BOOL sitting_on_selection()
+bool sitting_on_selection()
 {
 	LLSelectNode* node = LLSelectMgr::getInstance()->getSelection()->getFirstRootNode();
 	if (!node)
 	{
-		return FALSE;
+		return false;
 	}
 
 	if (!node->mValid)
 	{
-		return FALSE;
+		return false;
 	}
 
 	LLViewerObject* root_object = node->getObject();
 	if (!root_object)
 	{
-		return FALSE;
+		return false;
 	}
 
 	// Need to determine if avatar is sitting on this object
-	if (!isAgentAvatarValid()) return FALSE;
+	if (!isAgentAvatarValid()) return false;
 
 	return (gAgentAvatarp->isSitting() && gAgentAvatarp->getRoot() == root_object);
 }
@@ -5891,7 +5884,7 @@ bool enable_object_delete()
 {
 	bool new_value = 
 #ifdef HACKED_GODLIKE_VIEWER
-	TRUE;
+	true;
 #else
 # ifdef TOGGLE_HACKED_GODLIKE_VIEWER
 	(LLGridManager::getInstance()->isInSLBeta()
@@ -6304,7 +6297,7 @@ class LLWorldPlaceProfile : public view_listener_t
 void handle_look_at_selection(const LLSD& param)
 {
 	const F32 PADDING_FACTOR = 1.75f;
-	BOOL zoom = (param.asString() == "zoom");
+	bool zoom = (param.asString() == "zoom");
 	if (!LLSelectMgr::getInstance()->getSelection()->isEmpty())
 	{
 		gAgentCamera.setFocusOnAvatar(FALSE, ANIMATE);
@@ -7206,7 +7199,7 @@ class LLWorldEnableBuyLand : public view_listener_t
 	}
 };
 
-BOOL enable_buy_land(void*)
+bool enable_buy_land(void*)
 {
 	return LLViewerParcelMgr::getInstance()->canAgentBuyParcel(
 				LLViewerParcelMgr::getInstance()->getParcelSelection()->getParcel(), false);
@@ -7575,7 +7568,7 @@ class LLAttachmentEnableDrop : public view_listener_t
 	}
 };
 
-BOOL enable_detach(const LLSD&)
+bool enable_detach(const LLSD&)
 {
 	LLViewerObject* object = LLSelectMgr::getInstance()->getSelection()->getPrimaryObject();
 	
@@ -7584,7 +7577,7 @@ BOOL enable_detach(const LLSD&)
 		!object->isAttachment() ||
 		!LLSelectMgr::getInstance()->getSelection()->contains(object,SELECT_ALL_TES ))
 	{
-		return FALSE;
+		return false;
 	}
 
 	// Find the avatar who owns this attachment
@@ -7594,13 +7587,13 @@ BOOL enable_detach(const LLSD&)
 		// ...if it's you, good to detach
 		if (avatar->getID() == gAgent.getID())
 		{
-			return TRUE;
+			return true;
 		}
 
 		avatar = (LLViewerObject*)avatar->getParent();
 	}
 
-	return FALSE;
+	return false;
 }
 
 class LLAttachmentEnableDetach : public view_listener_t
@@ -7613,7 +7606,7 @@ class LLAttachmentEnableDetach : public view_listener_t
 };
 
 // Used to tell if the selected object can be attached to your avatar.
-BOOL object_selected_and_point_valid()
+bool object_selected_and_point_valid()
 {
 	LLObjectSelectionHandle selection = LLSelectMgr::getInstance()->getSelection();
 	for (LLObjectSelection::root_iterator iter = selection->root_begin();
@@ -7628,7 +7621,7 @@ BOOL object_selected_and_point_valid()
 			LLViewerObject* child = *iter;
 			if (child->isAvatar())
 			{
-				return FALSE;
+				return false;
 			}
 		}
 	}
@@ -7643,19 +7636,19 @@ BOOL object_selected_and_point_valid()
 }
 
 
-BOOL object_is_wearable()
+bool object_is_wearable()
 {
 	if (!isAgentAvatarValid())
 	{
-		return FALSE;
+		return false;
 	}
 	if (!object_selected_and_point_valid())
 	{
-		return FALSE;
+		return false;
 	}
 	if (sitting_on_selection())
 	{
-		return FALSE;
+		return false;
 	}
 	return gAgentAvatarp->canAttachMoreObjects();
 }
@@ -7718,10 +7711,10 @@ namespace
 {
 	struct QueueObjects : public LLSelectedObjectFunctor
 	{
-		BOOL scripted;
-		BOOL modifiable;
+		bool scripted;
+		bool modifiable;
 		LLFloaterScriptQueue* mQueue;
-		QueueObjects(LLFloaterScriptQueue* q) : mQueue(q), scripted(FALSE), modifiable(FALSE) {}
+		QueueObjects(LLFloaterScriptQueue* q) : mQueue(q), scripted(false), modifiable(false) {}
 		virtual bool apply(LLViewerObject* obj)
 		{
 			scripted = obj->flagScripted();
@@ -8159,15 +8152,15 @@ bool enable_object_take_copy()
 class LLHasAsset : public LLInventoryCollectFunctor
 {
 public:
-	LLHasAsset(const LLUUID& id) : mAssetID(id), mHasAsset(FALSE) {}
+	LLHasAsset(const LLUUID& id) : mAssetID(id), mHasAsset(false) {}
 	virtual ~LLHasAsset() {}
 	virtual bool operator()(LLInventoryCategory* cat,
 							LLInventoryItem* item);
-	BOOL hasAsset() const { return mHasAsset; }
+	bool hasAsset() const { return mHasAsset; }
 
 protected:
 	LLUUID mAssetID;
-	BOOL mHasAsset;
+	bool mHasAsset;
 };
 
 bool LLHasAsset::operator()(LLInventoryCategory* cat,
@@ -8175,13 +8168,13 @@ bool LLHasAsset::operator()(LLInventoryCategory* cat,
 {
 	if(item && item->getAssetUUID() == mAssetID)
 	{
-		mHasAsset = TRUE;
+		mHasAsset = true;
 	}
-	return FALSE;
+	return false;
 }
 
 
-BOOL enable_save_into_task_inventory(void*)
+bool enable_save_into_task_inventory(void*)
 {
 	LLSelectNode* node = LLSelectMgr::getInstance()->getSelection()->getFirstRootNode();
 	if(node && (node->mValid) && (!node->mFromTaskID.isNull()))
@@ -8190,10 +8183,10 @@ BOOL enable_save_into_task_inventory(void*)
 		LLViewerObject* obj = node->getObject();
 		if( obj && !obj->isAttachment() )
 		{
-			return TRUE;
+			return true;
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 class LLToolsEnableSaveToObjectInventory : public view_listener_t
@@ -8271,12 +8264,12 @@ class LLWorldEnableTeleportHome : public view_listener_t
 	}
 };
 
-BOOL enable_god_full(void*)
+bool enable_god_full(void*)
 {
 	return gAgent.getGodLevel() >= GOD_FULL;
 }
 
-BOOL enable_god_liaison(void*)
+bool enable_god_liaison(void*)
 {
 	return gAgent.getGodLevel() >= GOD_LIAISON;
 }
@@ -8286,7 +8279,7 @@ bool is_god_customer_service()
 	return gAgent.getGodLevel() >= GOD_CUSTOMER_SERVICE;
 }
 
-BOOL enable_god_basic(void*)
+bool enable_god_basic(void*)
 {
 	return gAgent.getGodLevel() > GOD_NOT;
 }
@@ -8297,9 +8290,9 @@ void toggle_show_xui_names(void *)
 	gSavedSettings.setBOOL("DebugShowXUINames", !gSavedSettings.getBOOL("DebugShowXUINames"));
 }
 
-BOOL check_show_xui_names(void *)
+bool check_show_xui_names(void *)
 {
-	return gSavedSettings.getBOOL("DebugShowXUINames");
+	return (bool)gSavedSettings.getBOOL("DebugShowXUINames");
 }
 
 // <FS:CR> FIRE-4345: Undeform
@@ -8499,14 +8492,14 @@ void handle_grab_baked_texture(void* data)
 	}
 }
 
-BOOL enable_grab_baked_texture(void* data)
+bool enable_grab_baked_texture(void* data)
 {
 	EBakedTextureIndex index = (EBakedTextureIndex)((intptr_t)data);
 	if (isAgentAvatarValid())
 	{
 		return gAgentAvatarp->canGrabBakedTexture(index);
 	}
-	return FALSE;
+	return false;
 }
 
 // Returns a pointer to the avatar give the UUID of the avatar OR of an attachment the avatar is wearing.
@@ -8781,7 +8774,7 @@ void toggle_visibility(void* user_data)
 	viewp->setVisible(!viewp->getVisible());
 }
 
-BOOL get_visibility(void* user_data)
+bool get_visibility(void* user_data)
 {
 	LLView* viewp = (LLView*)user_data;
 	return viewp->getVisible();
