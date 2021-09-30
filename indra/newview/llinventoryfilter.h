@@ -209,7 +209,7 @@ public:
 	void 				setFilterCreator(EFilterCreatorType type);
 
 	void 				setFilterSubString(const std::string& string);
-	const std::string& 	getFilterSubString(BOOL trim = FALSE) const;
+	const std::string& 	getFilterSubString(bool trim = false) const;
 	const std::string& 	getFilterSubStringOrig() const { return mFilterSubStringOrig; } 
 	bool 				hasFilterString() const;
 
@@ -217,7 +217,7 @@ public:
 	PermissionMask 		getFilterPermissions() const;
 
 	void 				setDateRange(time_t min_date, time_t max_date);
-	void 				setDateRangeLastLogoff(BOOL sl);
+	void 				setDateRangeLastLogoff(bool sl);
 	time_t 				getMinDate() const;
 	time_t 				getMaxDate() const;
 
@@ -229,11 +229,11 @@ public:
 	void 				setFilterLinks(U64 filter_link);
 	U64					getFilterLinks() const;
 	
-	void 				setFilterWorn(BOOL sl);
-	BOOL 				getFilterWorn() { return mFilterOps.mFilterTypes & FILTERTYPE_WORN; }
+	void 				setFilterWorn(bool sl);
+	bool 				getFilterWorn() { return mFilterOps.mFilterTypes & FILTERTYPE_WORN; }
 
-	void 				setFilterTransfer(BOOL xfer);
-	BOOL 				getFilterTransfer() { return mFilterOps.mFilterTypes & FILTERTYPE_TRANSFERRABLE; }
+	void 				setFilterTransfer(bool xfer);
+	bool 				getFilterTransfer() { return mFilterOps.mFilterTypes & FILTERTYPE_TRANSFERRABLE; }
 	// sets params for Link-only search and backs up search settings for future restoration
 	void				setFindAllLinksMode(const std::string &search_name, const LLUUID& search_id);
 
