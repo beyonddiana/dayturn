@@ -56,7 +56,6 @@
 
 */
 
-
 class LLRenderTarget
 {
 public:
