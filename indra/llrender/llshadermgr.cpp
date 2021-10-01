@@ -75,6 +75,7 @@ bool LLShaderMgr::attachShaderFeatures(LLGLSLShader * shader)
 	//////////////////////////////////////
 	
 	// NOTE order of shader object attaching is VERY IMPORTANT!!!
+
 	if (features->calculatesAtmospherics)
 	{
 		if (features->hasWaterFog)
@@ -194,7 +195,7 @@ bool LLShaderMgr::attachShaderFeatures(LLGLSLShader * shader)
 			return false;
 		}
 	}
-	
+
 	if (features->hasAtmospherics)
 	{
 		if (!shader->attachObject("windlight/atmosphericsF.glsl"))
@@ -512,8 +513,8 @@ void LLShaderMgr::dumpObjectLog(GLhandleARB ret, bool warns, const std::string& 
 
 	if (log.length() > 0)
 	{
-        LL_INFOS() << "Shader loading from " << fname << ":\n" << LL_ENDL;
-        LL_INFOS() << log << LL_ENDL;
+        LL_SHADER_LOADING_WARNS() << "Shader loading from " << fname << LL_ENDL;
+        LL_SHADER_LOADING_WARNS() << "\n" << log << LL_ENDL;
 	}
  }
 
@@ -527,7 +528,7 @@ GLhandleARB LLShaderMgr::loadShaderFile(const std::string& filename, S32 & shade
         (*defines)["OLD_SELECT"] = "1";
     }
 #endif
- 
+
 	GLenum error = GL_NO_ERROR;
 	if (gDebugGL)
 	{
@@ -881,7 +882,7 @@ GLhandleARB LLShaderMgr::loadShaderFile(const std::string& filename, S32 & shade
 			LL_WARNS("ShaderLoading") << "GL ERROR in glCreateShaderObjectARB: " << error << LL_ENDL;
 		}
 	}
-	
+
 	//load source
 	glShaderSourceARB(ret, shader_code_count, (const GLcharARB**) shader_code_text, NULL);
 
@@ -905,7 +906,7 @@ GLhandleARB LLShaderMgr::loadShaderFile(const std::string& filename, S32 & shade
 			LL_WARNS("ShaderLoading") << "GL ERROR in glCompileShaderARB: " << error << LL_ENDL;
 		}
 	}
-		
+
 	if (error == GL_NO_ERROR)
 	{
 		//check for errors
@@ -978,7 +979,7 @@ GLhandleARB LLShaderMgr::loadShaderFile(const std::string& filename, S32 & shade
 		if (shader_level > 1)
 		{
 			shader_level--;
-			return loadShaderFile(filename,shader_level,type, defines, texture_index_channels);
+			return loadShaderFile(filename, shader_level, type, defines, texture_index_channels);
 		}
 		LL_WARNS("ShaderLoading") << "Failed to load " << filename << LL_ENDL;	
 	}
