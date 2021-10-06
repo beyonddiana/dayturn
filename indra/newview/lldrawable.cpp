@@ -958,7 +958,7 @@ void LLDrawable::updateTexture()
 bool LLDrawable::updateGeometry(bool priority)
 {
 	llassert(mVObjp.notNull());
-	bool res = mVObjp->updateGeometry(this);
+	bool res = mVObjp && mVObjp->updateGeometry(this);
 	return res;
 }
 
