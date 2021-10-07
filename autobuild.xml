@@ -254,9 +254,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>34b2cbd5ab8ada5aa7de93eb79ef06a8</string>
+              <string>2f8c9dec6d60b1a8921df2ab40d32d43</string>
               <key>url</key>
-              <string>https://bitbucket.org/dayturn/fmodstudio/downloads/fmodstudio-2.01.10-windows-202106030920.tar.bz2</string>
+              <string>https://bitbucket.org/dayturn/fmodstudio/downloads/fmodstudio-2.02.03-windows-202110071811.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
@@ -275,7 +275,7 @@
           </map>
         </map>
         <key>version</key>
-        <string>2.01.08</string>
+        <string>2.02.03</string>
       </map>
       <key>freeglut</key>
       <map>

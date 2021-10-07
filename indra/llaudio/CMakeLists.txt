@@ -4,6 +4,7 @@ project(llaudio)
 
 include(00-Common)
 include(LLAudio)
+include(FMODSTUDIO)
 include(OPENAL)
 include(LLCommon)
 include(LLCoreHttp)
@@ -61,6 +62,10 @@ if (FMODSTUDIO)
 endif (FMODSTUDIO)
 
 if (OPENAL)
+  include_directories(
+    ${OPENAL_LIBRARIES}
+    )
+
   list(APPEND llaudio_SOURCE_FILES
     llaudioengine_openal.cpp
     lllistener_openal.cpp
