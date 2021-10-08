@@ -192,6 +192,7 @@ void LLPluginProcessParent::shutdown()
             && state != STATE_ERROR)
         {
             (*it).second->setState(STATE_GOODBYE);
+            (*it).second->mOwner = NULL;
         }
         if (state != STATE_DONE)
         {
