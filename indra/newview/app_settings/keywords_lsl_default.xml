@@ -3579,7 +3579,7 @@
             <key>type</key>
             <string>integer</string>
             <key>value</key>
-            <string>0x2</string>
+            <string>0x02</string>
             <key>tooltip</key>
             <string>If this permission is enabled, the object can successfully call llGiveMoney or llTransferLindenDollars to debit the owners account.</string>
          </map>
@@ -3606,7 +3606,7 @@
             <key>type</key>
             <string>integer</string>
             <key>value</key>
-            <string>0x8</string>
+            <string>0x08</string>
             <key>tooltip</key>
             <string>(not yet implemented)</string>
          </map>
@@ -3615,7 +3615,7 @@
             <key>type</key>
             <string>integer</string>
             <key>value</key>
-            <integer>65536</integer>
+            <integer>0x10000</integer>
             <key>tooltip</key>
             <string/>
          </map>
@@ -3633,7 +3633,7 @@
             <key>type</key>
             <string>integer</string>
             <key>value</key>
-            <string>0x4</string>
+            <string>0x04</string>
             <key>tooltip</key>
             <string>If this permission enabled, the object can successfully call the llTakeControls library call.</string>
          </map>
@@ -3660,7 +3660,7 @@
             <key>type</key>
             <string>integer</string>
             <key>value</key>
-            <string>0x10</string>
+            <string>0x010</string>
             <key>tooltip</key>
             <string>If this permission is enabled, the object can successfully call llStartAnimation for the avatar that owns this.</string>
          </map>
@@ -7040,24 +7040,6 @@
             <key>tooltip</key>
             <string>Flag for osTeleportObject, the rotation is the final object rotation, otherwise is a added rotation.</string>
          </map>                                  
-           <key>STATS_TIME_DILATION</key>
-         <map>
-            <key>type</key>
-            <string>integer</string>
-            <key>value</key>
-            <integer>0</integer>
-            <key>tooltip</key>
-            <string>Time Dilation.</string>
-         </map>
-           <key>STATS_SIM_FPS</key>
-         <map>
-            <key>type</key>
-            <string>integer</string>
-            <key>value</key>
-            <integer>1</integer>
-            <key>tooltip</key>
-            <string>Sim FPS.</string>
-         </map> 
            <key>STATS_PHYSICS_FPS</key>
          <map>
             <key>type</key>
@@ -7220,16 +7202,71 @@
             <key>tooltip</key>
             <string>Active Scripts.</string>
          </map>
+           <key>STATS_SCRIPT_EPS</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>28</integer>
+            <key>tooltip</key>
+            <string>Events Per Second.</string>
+         </map>
            <key>STATS_SCRIPT_LPS</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>38</integer>
+            <key>tooltip</key>
+            <string>Script Line Per Second.</string>
+         </map>
+           <key>STATS_SCRIPT_NPCS</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>47</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+           <key>STATS_SCRIPT_TIME</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>37</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+           <key>STATS_SIM_FPS</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>1</integer>
+            <key>tooltip</key>
+            <string>Sim FPS.</string>
+         </map> 
+           <key>STATS_SIM_SLEEP</key>
          <map>
             <key>type</key>
             <string>integer</string>
             <key>value</key>
             <integer>20</integer>
             <key>tooltip</key>
-            <string>Script Line Per Second.</string>
+            <string></string>
          </map>
-      
+           <key>STATS_TIME_DILATION</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>0</integer>
+            <key>tooltip</key>
+            <string>Time Dilation.</string>
+         </map>
+
+         
 		<!-- NPC constants -->
            <key>NPC</key>
          <map>
@@ -9505,6 +9542,29 @@
             </array>
             <key>tooltip</key>
             <string>Returns smallest integer value &gt;= Value.</string>
+         </map>
+         <key>llChar</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>string</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>unicode</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>
+            <key>tooltip</key>
+            <string>Returns a single character string generated from the character at the indicated UTF-32 codepoint. Returns "?" (Unicode 0x0F) if val is negative.</string>
          </map>
          <key>llClearCameraParams</key>
          <map>
@@ -13330,6 +13390,29 @@
             <key>tooltip</key>
             <string>Returns the ground slope below the object position + Offset.\nReturns the ground slope at the object position + Offset.</string>
          </map>
+         <key>llHash</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>integer</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>s</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>
+            <key>tooltip</key>
+            <string>Returns a 32bit hash for the provided string. Returns 0 if the input string is empty.</string>
+         </map>
          <key>llHTTPRequest</key>
          <map>
             <key>energy</key>
@@ -15380,6 +15463,36 @@
             <undef/>
             <key>tooltip</key>
             <string>Requests a channel to listen for XML-RPC calls. (Deprecated: XML-RPC should not be used. Use http-in instead.)\nWill trigger a remote_data event with type = REMOTE_DATA_CHANNEL and a channel ID (key) once it is available.\nThis channel ID must be referenced in the XML-RPC call to the script (from the internet) -- so the key must somehow get to the external XML-RPC client.</string>
+         </map>
+         <key>llOrd</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>integer</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>s</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+                  <key>index</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>
+            <key>tooltip</key>
+            <string>The returned value is the UTF-32 value of the character at the specified index. If index is outside the bounds of the string, this function returns 0.</string>
          </map>
          <key>llOverMyLand</key>
          <map>
@@ -21013,6 +21126,38 @@
             <key>tooltip</key>
             <string>Stops playing an animation on a specified avatar.</string> 
          </map>         
+         <key>osAvatarType</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+       		<key>return</key>
+            <string>integer</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>sFirstName</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+                </map>            
+                <map>
+                  <key>sLastName</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+                </map>
+            </array>
+            <key>tooltip</key>
+            <string>Causes health damage to the specified avatar.</string> 
+         </map>
          <key>osCauseDamage</key>
          <map>
             <key>energy</key>
@@ -23269,6 +23414,73 @@
             <key>tooltip</key>
             <string>Kicks the avatar identified by agent key</string>
          </map>          
+         <key>osLinkParticleSystem</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+       		<key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>linknumber</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+                  <key>rules</key>
+                  <map>
+                     <key>type</key>
+                     <string>list</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+                </map>
+            </array>
+            <key>tooltip</key>
+            <string></string> 
+         </map>
+         <key>osListSortInPlace</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+       		<key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>src</key>
+                  <map>
+                     <key>type</key>
+                     <string>list</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+                  <key>stride</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+                  <key>ascending</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+                </map>
+            </array>
+            <key>tooltip</key>
+            <string></string> 
+         </map>
          <key>osLoadedCreationDate</key>
          <map>
             <key>energy</key>
@@ -23856,6 +24068,29 @@
             <key>tooltip</key>
             <string>Returns a hashtable containing the structured JSON contents.</string>
          </map>
+         <key>osParticleSystem</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>            
+               <map>
+                  <key>rules</key>
+                  <map>
+                     <key>type</key>
+                     <string>list</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>             
+            </array>                
+            <key>tooltip</key>
+            <string></string>
+         </map>      
          <key>osPlaySound</key>
          <map>
             <key>energy</key>
