@@ -140,7 +140,6 @@ void handle_save_snapshot(void *);
 void handle_toggle_flycam();
 
 void handle_object_sit_or_stand();
-void handle_object_sit(const LLUUID& object_id);
 void handle_object_teleport();
 void handle_object_inspect();
 void handle_give_money_dialog();

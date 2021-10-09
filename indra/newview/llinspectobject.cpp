@@ -28,17 +28,16 @@
 #include "llinspectobject.h"
 
 // Viewer
-#include "llagent.h"            // To standup
 #include "llfloatersidepanelcontainer.h"
 #include "llinspect.h"
 #include "llmediaentry.h"
+#include "llnotificationsutil.h"	// *TODO: Eliminate, add LLNotificationsUtil wrapper
 #include "llselectmgr.h"
 #include "llslurl.h"
 #include "llviewermenu.h"		// handle_object_touch(), handle_buy()
 #include "llviewermedia.h"
 #include "llviewermediafocus.h"
 #include "llviewerobjectlist.h"	// to select the requested object
-#include "llvoavatarself.h"
 
 // Linden libraries
 #include "llbutton.h"			// setLabel(), not virtual!
@@ -647,31 +646,7 @@ void LLInspectObject::onClickTouch()
 
 void LLInspectObject::onClickSit()
 {
-    bool is_sitting = false;
-    if (mObjectSelection)
-    {
-        LLSelectNode* node = mObjectSelection->getFirstRootNode();
-        if (node && node->mValid)
-        {
-            LLViewerObject* root_object = node->getObject();
-            if (root_object
-                && isAgentAvatarValid()
-                && gAgentAvatarp->isSitting()
-                && gAgentAvatarp->getRoot() == root_object)
-            {
-                is_sitting = true;
-            }
-        }
-    }
-
-    if (is_sitting)
-    {
-        gAgent.standUp();
-    }
-    else
-    {
-        handle_object_sit(mObjectID);
-    }
+	handle_object_sit_or_stand();
 	closeFloater();
 }
 
