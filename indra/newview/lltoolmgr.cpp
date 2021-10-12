@@ -459,7 +459,7 @@ void LLToolset::selectToolByIndex( S32 index )
 	}
 }
 
-S32 LLToolset::isToolSelected( S32 index )
+int LLToolset::isToolSelected( S32 index )
 {
 	LLTool *tool = (index >= 0 && index < (S32)mToolList.size()) ? mToolList[index] : NULL;
 	return (tool == mSelectedTool);
