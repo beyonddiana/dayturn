@@ -143,7 +143,7 @@ public:
 
 protected:
 	std::string		mMorphName;
-	S32			mIsClothingMorph;
+	int			    mIsClothingMorph;
 	typedef std::vector<LLPolyVolumeMorphInfo> volume_info_list_t;
 	volume_info_list_t mVolumeInfoList;	
 };
@@ -202,7 +202,7 @@ protected:
 	LLPolyVertexMask *				mVertMask;
 	ESex							mLastSex;
 	// number of morph masks that haven't been generated, must be 0 before this morph is applied
-	S32							mNumMorphMasksPending;
+	int							    mNumMorphMasksPending;
 
 	typedef std::vector<LLPolyVolumeMorph> volume_list_t;
 	volume_list_t 					mVolumeMorphs;
