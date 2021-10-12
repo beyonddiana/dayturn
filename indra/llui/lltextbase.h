@@ -109,7 +109,7 @@ public:
 	/*virtual*/ void			onMouseCaptureLost();
 	/*virtual*/ void			screenPointToLocal(S32 screen_x, S32 screen_y, S32* local_x, S32* local_y) const;
 	/*virtual*/ void			localPointToScreen(S32 local_x, S32 local_y, S32* screen_x, S32* screen_y) const;
-	/*virtual*/ BOOL			hasMouseCapture();
+	/*virtual*/ int 			hasMouseCapture();
 
 	S32						getStart() const 					{ return mStart; }
 	void					setStart(S32 start)					{ mStart = start; }

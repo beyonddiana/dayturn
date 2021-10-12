@@ -3188,7 +3188,7 @@ const std::string&	LLTextSegment::getName() const
 void LLTextSegment::onMouseCaptureLost() {}
 void LLTextSegment::screenPointToLocal(S32 screen_x, S32 screen_y, S32* local_x, S32* local_y) const {}
 void LLTextSegment::localPointToScreen(S32 local_x, S32 local_y, S32* screen_x, S32* screen_y) const {}
-BOOL LLTextSegment::hasMouseCapture() { return FALSE; }
+int LLTextSegment::hasMouseCapture() { return false; }
 
 //
 // LLNormalTextSegment
