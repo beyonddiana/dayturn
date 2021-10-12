@@ -305,7 +305,7 @@ public:
 
 	// This cannot be "const" until all derived floater canClose()
 	// methods are const as well.  JC
-	virtual BOOL	canClose() { return TRUE; }
+	virtual bool	canClose() { return true; }
 
 	/*virtual*/ void setVisible(bool visible); // do not override
 	/*virtual*/ void onVisibilityChange ( bool new_visibility ); // do not override

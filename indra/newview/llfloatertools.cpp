@@ -913,7 +913,7 @@ void LLFloaterTools::updatePopup(LLCoordGL center, MASK mask)
 
 
 // virtual
-BOOL LLFloaterTools::canClose()
+bool LLFloaterTools::canClose()
 {
 	// don't close when quitting, so camera will stay put
 	return !LLApp::isExiting();

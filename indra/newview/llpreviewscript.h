@@ -103,7 +103,7 @@ public:
 
 	virtual void	draw();
 	/*virtual*/	bool	postBuild();
-	BOOL			canClose();
+	bool			canClose();
 	void			setEnableEditing(bool enable);
 	bool			canLoadOrSaveToFile( void* userdata );
 
@@ -222,7 +222,7 @@ public:
 
 protected:
 	virtual void draw();
-	virtual BOOL canClose();
+	virtual bool canClose();
 	void closeIfNeeded();
 
 	virtual void loadAsset();
@@ -284,7 +284,7 @@ public:
 	void addAssociatedExperience(const LLSD& experience);
 	
 private:
-	virtual BOOL canClose();
+	virtual bool canClose();
 	void closeIfNeeded();
 	virtual void draw();
 

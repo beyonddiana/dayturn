@@ -64,7 +64,7 @@ public:
 	/*virtual*/ bool postBuild();
 
 	// LLFloater
-	/*virtual*/ BOOL canClose();
+	/*virtual*/ bool canClose();
 	/*virtual*/ void onClose(bool app_quitting);
 	/*virtual*/ void onUpdateSucceeded();
 	/*virtual*/ void refresh();

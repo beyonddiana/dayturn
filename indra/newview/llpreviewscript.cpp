@@ -859,21 +859,21 @@ void LLScriptEdCore::addHelpItemToHistory(const std::string& help_string)
 	mLiveHelpHistorySize++;
 }
 
-BOOL LLScriptEdCore::canClose()
+bool LLScriptEdCore::canClose()
 {
 	if(mForceClose || !hasChanged() || mScriptRemoved)
 	{
-		return TRUE;
+		return true;
 	}
 	else
 	{
 		if(!mSaveDialogShown)
 		{
-			mSaveDialogShown = TRUE;
+			mSaveDialogShown = true;
 			// Bring up view-modal dialog: Save changes? Yes, No, Cancel
 			LLNotificationsUtil::add("SaveChanges", LLSD(), LLSD(), boost::bind(&LLScriptEdCore::handleSaveChangesDialog, this, _1, _2));
 		}
-		return FALSE;
+		return false;
 	}
 }
 
@@ -1643,7 +1643,7 @@ void LLPreviewLSL::loadAsset()
 }
 
 
-BOOL LLPreviewLSL::canClose()
+bool LLPreviewLSL::canClose()
 {
 	return mScriptEd->canClose();
 }
@@ -2465,7 +2465,7 @@ void LLLiveLSLEditor::onSaveBytecodeComplete(const LLUUID& asset_uuid, void* use
 	delete data;
 }
 
-BOOL LLLiveLSLEditor::canClose()
+bool LLLiveLSLEditor::canClose()
 {
 	return (mScriptEd->canClose());
 }

@@ -68,7 +68,7 @@ public:
 	virtual ~LLFloaterTools();
 
 	/*virtual*/ void onOpen(const LLSD& key);
-	/*virtual*/ BOOL canClose();
+	/*virtual*/ bool canClose();
 	/*virtual*/ void onClose(bool app_quitting);
 	/*virtual*/ void draw();
 	/*virtual*/ void onFocusReceived();
