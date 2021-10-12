@@ -57,7 +57,7 @@ public:
 	void setEnabled( bool enabled ) override;
 
 	// llfloater
-	BOOL canClose() override;
+	bool canClose() override;
 
 	// llpanel
 	bool postBuild() override;

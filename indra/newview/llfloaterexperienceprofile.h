@@ -58,7 +58,7 @@ public:
 
     void refreshExperience(const LLSD& experience);
     void onSaveComplete( const LLSD& content );
-    virtual BOOL canClose();
+    virtual bool canClose();
 
     virtual void onClose(bool app_quitting);
 protected:

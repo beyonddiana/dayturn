@@ -72,7 +72,7 @@ public:
 	void updateUI();
 
 	virtual void draw();
-	virtual BOOL canClose();
+	virtual bool canClose();
 
 	void onClickBuy();
 	void onClickCancel();
@@ -169,7 +169,7 @@ void LLFloaterBuyCurrencyUI::draw()
 	LLFloater::draw();
 }
 
-BOOL LLFloaterBuyCurrencyUI::canClose()
+bool LLFloaterBuyCurrencyUI::canClose()
 {
 	return mManager.canCancel();
 }

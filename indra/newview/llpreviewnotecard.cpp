@@ -161,13 +161,13 @@ bool LLPreviewNotecard::handleKeyHere(KEY key, MASK mask)
 }
 
 // virtual
-BOOL LLPreviewNotecard::canClose()
+bool LLPreviewNotecard::canClose()
 {
 	LLViewerTextEditor* editor = getChild<LLViewerTextEditor>("Notecard Editor");
 
 	if(mForceClose || editor->isPristine())
 	{
-		return TRUE;
+		return true;
 	}
 	else
 	{
@@ -177,7 +177,7 @@ BOOL LLPreviewNotecard::canClose()
 			// Bring up view-modal dialog: Save changes? Yes, No, Cancel
 			LLNotificationsUtil::add("SaveChanges", LLSD(), LLSD(), boost::bind(&LLPreviewNotecard::handleSaveChangesDialog,this, _1, _2));
 		}
-		return FALSE;
+		return false;
 	}
 }
 

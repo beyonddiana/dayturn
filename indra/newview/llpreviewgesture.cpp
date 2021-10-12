@@ -225,23 +225,23 @@ bool LLPreviewGesture::handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
 
 
 // virtual
-BOOL LLPreviewGesture::canClose()
+bool LLPreviewGesture::canClose()
 {
 
 	if(!mDirty || mForceClose)
 	{
-		return TRUE;
+		return true;
 	}
 	else
 	{
 		if(!mSaveDialogShown)
 		{
-			mSaveDialogShown = TRUE;
+			mSaveDialogShown = true;
 			// Bring up view-modal dialog: Save changes? Yes, No, Cancel
 			LLNotificationsUtil::add("SaveChanges", LLSD(), LLSD(),
 					boost::bind(&LLPreviewGesture::handleSaveChangesDialog, this, _1, _2) );
 		}
-		return FALSE;
+		return false;
 	}
 }
 
@@ -268,13 +268,13 @@ void LLPreviewGesture::onVisibilityChanged ( const LLSD& new_visibility )
 
 bool LLPreviewGesture::handleSaveChangesDialog(const LLSD& notification, const LLSD& response)
 {
-	mSaveDialogShown = FALSE;
+	mSaveDialogShown = false;
 	S32 option = LLNotificationsUtil::getSelectedOption(notification, response);
 	switch(option)
 	{
 	case 0:  // "Yes"
 		LLGestureMgr::instance().stopGesture(mPreviewGesture);
-		mCloseAfterSave = TRUE;
+		mCloseAfterSave = true;
 		onClickSave(this);
 		break;
 
@@ -755,7 +755,7 @@ void LLPreviewGesture::refresh()
 	
 	mOptionsText->setText(optionstext);
 
-	BOOL active = LLGestureMgr::instance().isGestureActive(mItemUUID);
+	bool active = LLGestureMgr::instance().isGestureActive(mItemUUID);
 	mActiveCheck->set(active);
 
 	// Can only preview if there are steps
@@ -1080,9 +1080,9 @@ void LLPreviewGesture::saveIfNeeded()
 				//need to disable the preview floater so item
 				//isn't re-saved before new asset arrives
 				//fake out refresh.
-				item->setComplete(FALSE);
+				item->setComplete(false);
 				refresh();				
-				item->setComplete(TRUE);
+				item->setComplete(true);
 
 				// Saving into agent inventory
 				LLSD body;
@@ -1159,7 +1159,7 @@ void LLPreviewGesture::onSaveComplete(const LLUUID& asset_uuid, void* user_data,
 				new_item->setDescription(info->mDesc);
 				new_item->setTransactionID(info->mTransactionID);
 				new_item->setAssetUUID(asset_uuid);
-				new_item->updateServer(FALSE);
+				new_item->updateServer(false);
 				gInventory.updateItem(new_item);
 				gInventory.notifyObservers();
 			}
