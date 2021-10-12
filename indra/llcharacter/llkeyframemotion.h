@@ -402,7 +402,7 @@ public:
 	public:
 		std::vector<JointMotion*> mJointMotionArray;
 		F32						mDuration;
-		S32					    mLoop;
+		int				        mLoop;
 		F32						mLoopInPoint;
 		F32						mLoopOutPoint;
 		F32						mEaseInDuration;
