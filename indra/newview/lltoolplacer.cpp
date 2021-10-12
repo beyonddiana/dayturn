@@ -77,7 +77,7 @@ LLToolPlacer::LLToolPlacer()
 }
 
 bool LLToolPlacer::raycastForNewObjPos( S32 x, S32 y, LLViewerObject** hit_obj, S32* hit_face, 
-							 S32* b_hit_land, LLVector3* ray_start_region, LLVector3* ray_end_region, LLViewerRegion** region )
+							 int* b_hit_land, LLVector3* ray_start_region, LLVector3* ray_end_region, LLViewerRegion** region )
 {
 	F32 max_dist_from_camera = gSavedSettings.getF32( "MaxSelectDistance" ) - 1.f;
 
