@@ -75,7 +75,7 @@ public:
 	virtual void	screenPointToLocal(S32 screen_x, S32 screen_y, S32* local_x, S32* local_y) const = 0;
 	virtual void	localPointToScreen(S32 local_x, S32 local_y, S32* screen_x, S32* screen_y) const = 0;
 
-	virtual BOOL hasMouseCapture() = 0;
+	virtual int hasMouseCapture() = 0;
 };
 
 #endif

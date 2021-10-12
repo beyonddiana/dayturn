@@ -1056,7 +1056,7 @@ void LLView::onMouseCaptureLost()
 {
 }
 
-BOOL LLView::hasMouseCapture()
+int LLView::hasMouseCapture()
 { 
 	return gFocusMgr.getMouseCapture() == this; 
 }

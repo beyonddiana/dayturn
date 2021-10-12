@@ -203,7 +203,7 @@ void LLTool::setMouseCapture( BOOL b )
 void LLTool::draw()
 { }
 
-BOOL LLTool::hasMouseCapture()
+int LLTool::hasMouseCapture()
 {
 	return gFocusMgr.getMouseCapture() == (mComposite ? mComposite : this);
 }

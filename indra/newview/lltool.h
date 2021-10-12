@@ -95,7 +95,7 @@ public:
 
 	// Note: NOT virtual.  Subclasses should call this version.
 	void					setMouseCapture(BOOL b);
-	BOOL					hasMouseCapture();
+	int					    hasMouseCapture();
 	virtual void			onMouseCaptureLost() {}  // override this one as needed.
 
 protected:
