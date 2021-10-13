@@ -443,14 +443,14 @@ BOOL LLFolderView::setSelection(LLFolderViewItem* selection, BOOL openitem,
 	return rv;
 }
 
-BOOL LLFolderView::changeSelection(LLFolderViewItem* selection, BOOL selected)
+bool LLFolderView::changeSelection(LLFolderViewItem* selection, bool selected)
 {
-	BOOL rv = FALSE;
+	bool rv = false;
 
 	// can't select root folder
 	if(!selection || selection == this)
 	{
-		return FALSE;
+		return false;
 	}
 
 	if (!mAllowMultiSelect)
@@ -467,7 +467,7 @@ BOOL LLFolderView::changeSelection(LLFolderViewItem* selection, BOOL selected)
 		}
 	}
 
-	BOOL on_list = (item_iter != mSelectedItems.end());
+	bool on_list = (item_iter != mSelectedItems.end());
 
 	if(selected && !on_list)
 	{
@@ -1153,12 +1153,12 @@ bool LLFolderView::handleKeyHere( KEY key, MASK mask )
 					if (next->isSelected())
 					{
 						// shrink selection
-						changeSelection(last_selected, FALSE);
+						changeSelection(last_selected, false);
 					}
 					else if (last_selected->getParentFolder() == next->getParentFolder())
 					{
 						// grow selection
-						changeSelection(next, TRUE);
+						changeSelection(next, true);
 					}
 				}
 			}
@@ -1216,12 +1216,12 @@ bool LLFolderView::handleKeyHere( KEY key, MASK mask )
 					if (prev->isSelected())
 					{
 						// shrink selection
-						changeSelection(last_selected, FALSE);
+						changeSelection(last_selected, false);
 					}
 					else if (last_selected->getParentFolder() == prev->getParentFolder())
 					{
 						// grow selection
-						changeSelection(prev, TRUE);
+						changeSelection(prev, true);
 					}
 				}
 			}
