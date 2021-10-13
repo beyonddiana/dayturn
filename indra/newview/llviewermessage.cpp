@@ -771,10 +771,10 @@ static void highlight_inventory_objects_in_panel(const std::vector<LLUUID>& item
 					fv_folder->setOpen(TRUE);
 					if (fv_folder->isSelected())
 					{
-						fv->changeSelection(fv_folder, FALSE);
+						fv->changeSelection(fv_folder, false);
 					}
 				}
-				fv->changeSelection(fv_item, TRUE);
+				fv->changeSelection(fv_item, true);
 			}
 		}
 	}

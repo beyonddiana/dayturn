@@ -403,7 +403,7 @@ BOOL LLFolderViewItem::setSelection(LLFolderViewItem* selection, BOOL openitem, 
 	return mIsSelected;
 }
 
-BOOL LLFolderViewItem::changeSelection(LLFolderViewItem* selection, BOOL selected)
+bool LLFolderViewItem::changeSelection(LLFolderViewItem* selection, bool selected)
 {
 	if (selection == this)
 	{
@@ -415,9 +415,9 @@ BOOL LLFolderViewItem::changeSelection(LLFolderViewItem* selection, BOOL selecte
 		{
 			selectItem();
 		}
-		return TRUE;
+		return true;
 	}
-	return FALSE;
+	return false;
 }
 
 void LLFolderViewItem::deselectItem(void)
@@ -1253,14 +1253,14 @@ BOOL LLFolderViewFolder::setSelection(LLFolderViewItem* selection, BOOL openitem
 // Recursively traverse all children; if 'selection' is 'this' then change
 // the select status if necessary.
 // Returns TRUE if the selection state of this folder, or of a child, was changed.
-BOOL LLFolderViewFolder::changeSelection(LLFolderViewItem* selection, BOOL selected)
+bool LLFolderViewFolder::changeSelection(LLFolderViewItem* selection, bool selected)
 {
-	BOOL rv = FALSE;
+	bool rv = false;
 	if(selection == this)
 	{
 		if (isSelected() != selected)
 		{
-			rv = TRUE;
+			rv = true;
 			if (selected)
 			{
 				selectItem();
@@ -1278,7 +1278,7 @@ BOOL LLFolderViewFolder::changeSelection(LLFolderViewItem* selection, BOOL selec
 		folders_t::iterator fit = iter++;
 		if((*fit)->changeSelection(selection, selected))
 		{
-			rv = TRUE;
+			rv = true;
 		}
 	}
 	for (items_t::iterator iter = mItems.begin();
@@ -1287,7 +1287,7 @@ BOOL LLFolderViewFolder::changeSelection(LLFolderViewItem* selection, BOOL selec
 		items_t::iterator iit = iter++;
 		if((*iit)->changeSelection(selection, selected))
 		{
-			rv = TRUE;
+			rv = true;
 		}
 	}
 	return rv;
@@ -1546,11 +1546,11 @@ void LLFolderViewFolder::extendSelectionTo(LLFolderViewItem* new_selection)
 	if (selection_reverse)
 	{
 		// at some point we reversed selection, first element should be deselected
-		root->changeSelection(last_selected_item_from_cur, FALSE);
+		root->changeSelection(last_selected_item_from_cur, false);
 	}
 
 	// element we expand to should always be selected
-	root->changeSelection(new_selection, TRUE);
+	root->changeSelection(new_selection, true);
 }
 
 

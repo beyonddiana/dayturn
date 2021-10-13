@@ -186,7 +186,7 @@ public:
 	// This method is used to set the selection state of an item.
 	// If 'selection' is 'this' then note selection.
 	// Returns TRUE if the selection state of this item was changed.
-	virtual BOOL changeSelection(LLFolderViewItem* selection, BOOL selected);
+	virtual bool changeSelection(LLFolderViewItem* selection, bool selected);
 
 	// this method is used to deselect this element
 	void deselectItem();
@@ -365,7 +365,7 @@ public:
 	// Recursively traverse all children; if 'selection' is 'this' then change
 	// the select status if necessary.
 	// Returns TRUE if the selection state of this folder, or of a child, was changed.
-	virtual BOOL changeSelection(LLFolderViewItem* selection, BOOL selected);
+	virtual bool changeSelection(LLFolderViewItem* selection, bool selected);
 
 	// this method is used to group select items
 	void extendSelectionTo(LLFolderViewItem* selection);

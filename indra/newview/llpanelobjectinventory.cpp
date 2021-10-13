@@ -1441,7 +1441,7 @@ void LLPanelObjectInventory::updateInventory()
 			}
 			else
 			{
-				mFolders->changeSelection(selected_item, TRUE);
+				mFolders->changeSelection(selected_item, true);
 			}
 		}
 	}
