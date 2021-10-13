@@ -836,12 +836,12 @@ void LLScrollListCtrl::setPageLines(S32 new_page_lines)
 	updateLayout();
 }
 
-BOOL LLScrollListCtrl::selectFirstItem()
+bool LLScrollListCtrl::selectFirstItem()
 {
-	BOOL success = FALSE;
+	bool success = false;
 
 	// our $%&@#$()^%#$()*^ iterators don't let us check against the first item inside out iteration
-	BOOL first_item = TRUE;
+	bool first_item = true;
 
 	item_list::iterator iter;
 	for (iter = mItemList.begin(); iter != mItemList.end(); iter++)
@@ -861,7 +861,7 @@ BOOL LLScrollListCtrl::selectFirstItem()
                     selectItem(itemp, -1);
                 }
 			}
-			success = TRUE;
+			success = true;
 			mOriginalSelection = 0;
 		}
 		else
@@ -879,17 +879,17 @@ BOOL LLScrollListCtrl::selectFirstItem()
 
 // Deselects all other items
 // virtual
-BOOL LLScrollListCtrl::selectNthItem( S32 target_index )
+bool LLScrollListCtrl::selectNthItem( S32 target_index )
 {
 	return selectItemRange(target_index, target_index);
 }
 
 // virtual
-BOOL LLScrollListCtrl::selectItemRange( S32 first_index, S32 last_index )
+bool LLScrollListCtrl::selectItemRange( S32 first_index, S32 last_index )
 {
 	if (mItemList.empty())
 	{
-		return FALSE;
+		return false;
 	}
 
 	// make sure sort is up to date
@@ -903,7 +903,7 @@ BOOL LLScrollListCtrl::selectItemRange( S32 first_index, S32 last_index )
 	else
 		last_index = llclamp(last_index, first_index, listlen-1);
 
-	BOOL success = FALSE;
+	bool success = false;
 	S32 index = 0;
 	for (item_list::iterator iter = mItemList.begin(); iter != mItemList.end(); )
 	{
@@ -920,7 +920,7 @@ BOOL LLScrollListCtrl::selectItemRange( S32 first_index, S32 last_index )
 			{
 				// TODO: support range selection for cells
 				selectItem(itemp, -1, FALSE);
-				success = TRUE;				
+				success = true;				
 			}
 		}
 		else
@@ -1248,9 +1248,9 @@ LLScrollListItem* LLScrollListCtrl::addSeparator(EAddPosition pos)
 // Selects first enabled item of the given name.
 // Returns false if item not found.
 // Calls getItemByLabel in order to combine functionality
-BOOL LLScrollListCtrl::selectItemByLabel(const std::string& label, BOOL case_sensitive, S32 column/* = 0*/)
+bool LLScrollListCtrl::selectItemByLabel(const std::string& label, bool case_sensitive, S32 column/* = 0*/)
 {
-	deselectAllItems(TRUE); 	// ensure that no stale items are selected, even if we don't find a match
+	deselectAllItems(true); 	// ensure that no stale items are selected, even if we don't find a match
 	LLScrollListItem* item = getItemByLabel(label, case_sensitive, column);
 
 	bool found = NULL != item;
@@ -1267,7 +1267,7 @@ BOOL LLScrollListCtrl::selectItemByLabel(const std::string& label, BOOL case_sen
 	return found;
 }
 
-LLScrollListItem* LLScrollListCtrl::getItemByLabel(const std::string& label, BOOL case_sensitive, S32 column)
+LLScrollListItem* LLScrollListCtrl::getItemByLabel(const std::string& label, bool case_sensitive, S32 column)
 {
 	if (label.empty()) 	//RN: assume no empty items
 	{
@@ -1298,16 +1298,16 @@ LLScrollListItem* LLScrollListCtrl::getItemByLabel(const std::string& label, BOO
 }
 
 
-BOOL LLScrollListCtrl::selectItemByPrefix(const std::string& target, BOOL case_sensitive)
+bool LLScrollListCtrl::selectItemByPrefix(const std::string& target, bool case_sensitive)
 {
 	return selectItemByPrefix(utf8str_to_wstring(target), case_sensitive);
 }
 
 // Selects first enabled item that has a name where the name's first part matched the target string.
 // Returns false if item not found.
-BOOL LLScrollListCtrl::selectItemByPrefix(const LLWString& target, BOOL case_sensitive)
+bool LLScrollListCtrl::selectItemByPrefix(const LLWString& target, bool case_sensitive)
 {
-	BOOL found = FALSE;
+	bool found = false;
 
 	LLWString target_trimmed( target );
 	S32 target_len = target_trimmed.size();
@@ -1321,11 +1321,11 @@ BOOL LLScrollListCtrl::selectItemByPrefix(const LLWString& target, BOOL case_sen
 			LLScrollListItem* item = *iter;
 			// Only select enabled items with matching names
 			LLScrollListCell* cellp = item->getColumn(getSearchColumn());
-			BOOL select = cellp ? item->getEnabled() && ('\0' == cellp->getValue().asString()[0]) : FALSE;
+			bool select = cellp ? item->getEnabled() && ('\0' == cellp->getValue().asString()[0]) : false;
 			if (select)
 			{
 				selectItem(item, -1);
-				found = TRUE;
+				found = true;
 				break;
 			}
 		}
@@ -1357,7 +1357,7 @@ BOOL LLScrollListCtrl::selectItemByPrefix(const LLWString& target, BOOL case_sen
 			LLWString trimmed_label = item_label;
 			LLWStringUtil::trim(trimmed_label);
 			
-			BOOL select = item->getEnabled() && trimmed_label.compare(0, target_trimmed.size(), target_trimmed) == 0;
+			bool select = item->getEnabled() && trimmed_label.compare(0, target_trimmed.size(), target_trimmed) == 0;
 
 			if (select)
 			{
@@ -1365,7 +1365,7 @@ BOOL LLScrollListCtrl::selectItemByPrefix(const LLWString& target, BOOL case_sen
 				S32 offset = item_label.find(target_trimmed);
 				cellp->highlightText(offset, target_trimmed.size());
 				selectItem(item, -1);
-				found = TRUE;
+				found = true;
 				break;
 			}
 		}
@@ -1735,11 +1735,11 @@ BOOL LLScrollListCtrl::handleToolTip(S32 x, S32 y, MASK mask)
 	return handled;
 }
 
-BOOL LLScrollListCtrl::selectItemAt(S32 x, S32 y, MASK mask)
+bool LLScrollListCtrl::selectItemAt(S32 x, S32 y, MASK mask)
 {
-	if (!mCanSelect) return FALSE;
+	if (!mCanSelect) return false;
 
-	BOOL selection_changed = FALSE;
+	bool selection_changed = false;
 
 	LLScrollListItem* hit_item = hitItem(x, y);
 
@@ -2031,16 +2031,16 @@ bool LLScrollListCtrl::handleDoubleClick(S32 x, S32 y, MASK mask)
 	return true;
 }
 
-BOOL LLScrollListCtrl::handleClick(S32 x, S32 y, MASK mask)
+bool LLScrollListCtrl::handleClick(S32 x, S32 y, MASK mask)
 {
 	// which row was clicked on?
 	LLScrollListItem* hit_item = hitItem(x, y);
-	if (!hit_item) return FALSE;
+	if (!hit_item) return false;
 
 	// get appropriate cell from that row
 	S32 column_index = getColumnIndexFromOffset(x);
 	LLScrollListCell* hit_cell = hit_item->getColumn(column_index);
-	if (!hit_cell) return FALSE;
+	if (!hit_cell) return false;
 
 	// if cell handled click directly (i.e. clicked on an embedded checkbox)
 	if (hit_cell->handleClick())
@@ -2076,7 +2076,7 @@ BOOL LLScrollListCtrl::handleClick(S32 x, S32 y, MASK mask)
 			onCommit();
 		}
 		// eat click (e.g. do not trigger double click callback)
-		return TRUE;
+		return true;
 	}
 	else
 	{
@@ -2085,7 +2085,7 @@ BOOL LLScrollListCtrl::handleClick(S32 x, S32 y, MASK mask)
 		gFocusMgr.setMouseCapture(this);
 		mNeedsScroll = true;
 		// do not eat click (allow double click callback)
-		return FALSE;
+		return false;
 	}
 }
 
@@ -2393,7 +2393,7 @@ bool LLScrollListCtrl::handleKeyHere(KEY key,MASK mask )
 						}
 					}
 				}
-				else if (selectItemByPrefix(wstring_to_utf8str(mSearchString), FALSE))
+				else if (selectItemByPrefix(wstring_to_utf8str(mSearchString), false))
 				{
 					mNeedsScroll = true;
 					// update search string only on successful match
@@ -2433,7 +2433,7 @@ bool LLScrollListCtrl::handleUnicodeCharHere(llwchar uni_char)
 	// type ahead search is case insensitive
 	uni_char = LLStringOps::toLower((llwchar)uni_char);
 
-	if (selectItemByPrefix(wstring_to_utf8str(mSearchString + (llwchar)uni_char), FALSE))
+	if (selectItemByPrefix(wstring_to_utf8str(mSearchString + (llwchar)uni_char), false))
 	{
 		// update search string only on successful match
 		mNeedsScroll = true;

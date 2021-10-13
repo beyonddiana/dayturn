@@ -164,9 +164,9 @@ void LLSearchComboBox::onSelectionCommit()
 	setControlValue(search_query);
 }
 
-BOOL LLSearchComboBox::remove(const std::string& name)
+bool LLSearchComboBox::remove(const std::string& name)
 {
-	BOOL found = mList->selectItemByLabel(name, FALSE);
+	bool found = mList->selectItemByLabel(name, false);
 
 	if (found)
 	{

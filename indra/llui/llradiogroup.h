@@ -89,9 +89,9 @@ public:
 	// LLCtrlSelectionInterface functions
 	/*virtual*/ S32		getItemCount() const  				{ return mRadioButtons.size(); }
 	/*virtual*/ bool	getCanSelect() const				{ return true; }
-	/*virtual*/ BOOL	selectFirstItem()					{ return setSelectedIndex(0); }
-	/*virtual*/ BOOL	selectNthItem( S32 index )			{ return setSelectedIndex(index); }
-	/*virtual*/ BOOL	selectItemRange( S32 first, S32 last ) { return setSelectedIndex(first); }
+	/*virtual*/ bool	selectFirstItem()					{ return setSelectedIndex(0); }
+	/*virtual*/ bool	selectNthItem( S32 index )			{ return setSelectedIndex(index); }
+	/*virtual*/ bool	selectItemRange( S32 first, S32 last ) { return setSelectedIndex(first); }
 	/*virtual*/ S32		getFirstSelectedIndex() const		{ return getSelectedIndex(); }
 	/*virtual*/ bool	setCurrentByID( const LLUUID& id );
 	/*virtual*/ LLUUID	getCurrentID() const;				// LLUUID::null if no items in menu

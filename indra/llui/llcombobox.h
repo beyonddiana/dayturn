@@ -137,14 +137,14 @@ public:
 	LLScrollListItem*	add(const std::string& name, void* userdata, EAddPosition pos = ADD_BOTTOM, BOOL enabled = TRUE);
 	LLScrollListItem*	add(const std::string& name, LLSD value, EAddPosition pos = ADD_BOTTOM, BOOL enabled = TRUE);
 	LLScrollListItem*	addSeparator(EAddPosition pos = ADD_BOTTOM);
-	BOOL			remove( S32 index );	// remove item by index, return TRUE if found and removed
+	bool			remove( S32 index );	// remove item by index, return TRUE if found and removed
 	void			removeall() { clearRows(); }
 	bool			itemExists(const std::string& name);
 
 	void			sortByName(bool ascending = true); // Sort the entries in the combobox by name
 
 	// Select current item by name using selectItemByLabel.  Returns FALSE if not found.
-	BOOL			setSimple(const LLStringExplicit& name);
+	bool			setSimple(const LLStringExplicit& name);
 	// Get name of current item. Returns an empty string if not found.
 	const std::string	getSimple() const;
 	// Get contents of column x of selected row
@@ -157,9 +157,9 @@ public:
 	// Updates the combobox label to match the selected list item.
 	void			updateLabel();
 
-	BOOL			remove(const std::string& name);	// remove item "name", return TRUE if found and removed
+	bool			remove(const std::string& name);	// remove item "name", return TRUE if found and removed
 	
-	BOOL			setCurrentByIndex( S32 index );
+	bool			setCurrentByIndex( S32 index );
 	S32				getCurrentIndex() const;
 
 	void			createLineEditor(const Params&);
@@ -182,9 +182,9 @@ public:
 
 	// LLCtrlSelectionInterface functions
 	virtual bool	getCanSelect() const				{ return true; }
-	virtual BOOL	selectFirstItem()					{ return setCurrentByIndex(0); }
-	virtual BOOL	selectNthItem( S32 index )			{ return setCurrentByIndex(index); }
-	virtual BOOL	selectItemRange( S32 first, S32 last );
+	virtual bool	selectFirstItem()					{ return setCurrentByIndex(0); }
+	virtual bool	selectNthItem( S32 index )			{ return setCurrentByIndex(index); }
+	virtual bool	selectItemRange( S32 first, S32 last );
 	virtual S32		getFirstSelectedIndex() const		{ return getCurrentIndex(); }
 	virtual bool	setCurrentByID( const LLUUID& id );
 	virtual LLUUID	getCurrentID() const;				// LLUUID::null if no items in menu

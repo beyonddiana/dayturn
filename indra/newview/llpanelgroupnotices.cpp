@@ -434,7 +434,7 @@ void LLPanelGroupNotices::onClickNewMessage(void* data)
 	self->mCreateSubject->clear();
 	self->mCreateMessage->clear();
 	if (self->mInventoryItem) onClickRemoveAttachment(self);
-	self->mNoticesList->deselectAllItems(TRUE); // TRUE == don't commit on chnage
+	self->mNoticesList->deselectAllItems(true); // TRUE == don't commit on chnage
 }
 
 void LLPanelGroupNotices::refreshNotices()

@@ -80,7 +80,7 @@ public:
 
 	/*virtual*/ bool 	postBuild();
 	/*virtual*/ BOOL	handleRightMouseDown( S32 x, S32 y, MASK mask );
-	/*virtual*/ BOOL	handleClick(S32 x, S32 y, MASK mask);
+	/*virtual*/ bool	handleClick(S32 x, S32 y, MASK mask);
 	/*virtual*/ bool	handleDoubleClick( S32 x, S32 y, MASK mask );
 
 	void			refreshParcelOverlay() { mUpdateParcelImage = true; }

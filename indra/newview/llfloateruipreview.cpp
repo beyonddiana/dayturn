@@ -1258,10 +1258,10 @@ void LLFloaterUIPreview::highlightChangedFiles()
 {
 	for(DiffMap::iterator iter = mDiffsMap.begin(); iter != mDiffsMap.end(); ++iter)	// for every file listed in diffs
 	{
-		LLScrollListItem* item = mFileList->getItemByLabel(std::string(iter->first), FALSE, 1);
+		LLScrollListItem* item = mFileList->getItemByLabel(std::string(iter->first), false, 1);
 		if(item)
 		{
-			item->setHighlighted(TRUE);
+			item->setHighlighted(true);
 		}
 	}
 }
