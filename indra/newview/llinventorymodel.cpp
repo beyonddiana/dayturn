@@ -3409,7 +3409,7 @@ void LLInventoryModel::processBulkUpdateInventory(LLMessageSystem* msg, void**)
 	//LLFloaterInventory* view = LLFloaterInventory::getActiveInventory();
 	//if(view)
 	//{
-	//	const BOOL take_keyboard_focus = FALSE;
+	//	const bool take_keyboard_focus = false;
 	//	view->setSelection(category.getUUID(), take_keyboard_focus );
 	//	LLView* focus_view = gFocusMgr.getKeyboardFocus();
 	//	LLFocusMgr::FocusLostCallback callback = gFocusMgr.getFocusCallback();
