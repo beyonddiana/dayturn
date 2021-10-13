@@ -198,26 +198,26 @@ public:
 	LLCtrlScrollInterface*		getScrollInterface()	{ return (LLCtrlScrollInterface*)this; }
 
 	// DEPRECATED: Use setSelectedByValue() below.
-	BOOL			setCurrentByID( const LLUUID& id )	{ return selectByID(id); }
+	bool			setCurrentByID( const LLUUID& id )	{ return selectByID(id); }
 	virtual LLUUID	getCurrentID() const				{ return getStringUUIDSelectedItem(); }
 
-	BOOL			operateOnSelection(EOperation op);
-	BOOL			operateOnAll(EOperation op);
+	bool			operateOnSelection(EOperation op);
+	bool			operateOnAll(EOperation op);
 
-	// returns FALSE if unable to set the max count so low
-	BOOL 			setMaxItemCount(S32 max_count);
+	// returns false if unable to set the max count so low
+	bool 			setMaxItemCount(S32 max_count);
 
-	BOOL			selectByID( const LLUUID& id );		// FALSE if item not found
+	bool			selectByID( const LLUUID& id );		// false if item not found
 
 	// Match item by value.asString(), which should work for string, integer, uuid.
-	// Returns FALSE if not found.
-	BOOL			setSelectedByValue(const LLSD& value, BOOL selected);
+	// Returns false if not found.
+	bool			setSelectedByValue(const LLSD& value, bool selected);
 
-	BOOL			isSorted() const { return mSorted; }
+	bool			isSorted() const { return mSorted; }
 
-	virtual BOOL	isSelected(const LLSD& value) const;
+	virtual bool	isSelected(const LLSD& value) const;
 
-	BOOL 			hasSelectedItem() const;
+	bool 			hasSelectedItem() const;
 
 	BOOL			handleClick(S32 x, S32 y, MASK mask);
 	BOOL			selectFirstItem();
@@ -228,7 +228,7 @@ public:
 	void			deleteSingleItem( S32 index );
 	void			deleteItems(const LLSD& sd);
 	void 			deleteSelectedItems();
-	void			deselectAllItems(BOOL no_commit_on_change = FALSE);	// by default, go ahead and commit on selection change
+	void			deselectAllItems(bool no_commit_on_change = false);	// by default, go ahead and commit on selection change
 
 	void			clearHighlightedItems();
 	
@@ -284,7 +284,7 @@ public:
 
 	LLScrollListItem*	getItem(const LLSD& sd) const;
 	
-	void setAllowMultipleSelection(BOOL mult )	{ mAllowMultipleSelection = mult; }
+	void setAllowMultipleSelection(bool mult )	{ mAllowMultipleSelection = mult; }
 
 	void setBgWriteableColor(const LLColor4 &c)	{ mBgWriteableColor = c; }
 	void setReadOnlyBgColor(const LLColor4 &c)	{ mBgReadOnlyColor = c; }
@@ -300,9 +300,9 @@ public:
 	void setDrawStripes(bool b)					{ mDrawStripes = b; }
 	void setColumnPadding(const S32 c)          { mColumnPadding = c; }
 	S32  getColumnPadding()						{ return mColumnPadding; }
-	void setCommitOnKeyboardMovement(BOOL b)	{ mCommitOnKeyboardMovement = b; }
-	void setCommitOnSelectionChange(BOOL b)		{ mCommitOnSelectionChange = b; }
-	void setAllowKeyboardMovement(BOOL b)		{ mAllowKeyboardMovement = b; }
+	void setCommitOnKeyboardMovement(bool b)	{ mCommitOnKeyboardMovement = b; }
+	void setCommitOnSelectionChange(bool b)		{ mCommitOnSelectionChange = b; }
+	void setAllowKeyboardMovement(bool b)		{ mAllowKeyboardMovement = b; }
 
 	void			setMaxSelectable(U32 max_selected) { mMaxSelectable = max_selected; }
 	S32				getMaxSelectable() { return mMaxSelectable; }

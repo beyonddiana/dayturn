@@ -75,7 +75,7 @@ void LLFloaterPathfindingObjects::onOpen(const LLSD &pKey)
 	LLFloater::onOpen(pKey);
 
 	selectNoneObjects();
-	mObjectsScrollList->setCommitOnSelectionChange(TRUE);
+	mObjectsScrollList->setCommitOnSelectionChange(true);
 
 	if (!mSelectionUpdateSlot.connected())
 	{
@@ -112,7 +112,7 @@ void LLFloaterPathfindingObjects::onClose(bool pIsAppQuitting)
 		mSelectionUpdateSlot.disconnect();
 	}
 
-	mObjectsScrollList->setCommitOnSelectionChange(FALSE);
+	mObjectsScrollList->setCommitOnSelectionChange(false);
 	selectNoneObjects();
 
 	if (mObjectsSelection.notNull())

@@ -95,7 +95,7 @@ private:
 	LLUUID				mQueryID;
 	int				    mNumResultsReturned;
 	BOOL				mNearMeListComplete;
-	BOOL				mCloseOnSelect;
+	bool				mCloseOnSelect;
 	BOOL                mExcludeAgentFromSearchResults;
     LLHandle <LLView>   mFrustumOrigin;
     F32		            mContextConeOpacity;

@@ -69,7 +69,7 @@ void FSFloaterPoseStand::onOpen(const LLSD& key)
 	std::string last_pose = gSavedSettings.getString("FSPoseStandLastSelectedPose");
 	if (!last_pose.empty())
 	{
-		mComboPose->setSelectedByValue(last_pose, TRUE);
+		mComboPose->setSelectedByValue(last_pose, true);
 	}
 	onCommitCombo();
 }

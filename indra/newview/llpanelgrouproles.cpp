@@ -827,11 +827,11 @@ BOOL LLPanelGroupMembersSubTab::postBuildSubTab(LLView* root)
 
 	if (!mMembersList || !mAssignedRolesList || !mAllowedActionsList || !mActionDescription) return FALSE;
 
-	mAllowedActionsList->setCommitOnSelectionChange(TRUE);
+	mAllowedActionsList->setCommitOnSelectionChange(true);
 	mAllowedActionsList->setCommitCallback(boost::bind(&LLPanelGroupMembersSubTab::updateActionDescription, this));
 
 	// We want to be notified whenever a member is selected.
-	mMembersList->setCommitOnSelectionChange(TRUE);
+	mMembersList->setCommitOnSelectionChange(true);
 	mMembersList->setCommitCallback(onMemberSelect, this);
 	// Show the member's profile on double click.
 	mMembersList->setDoubleClickCallback(onMemberDoubleClick, this);
@@ -2040,14 +2040,14 @@ BOOL LLPanelGroupRolesSubTab::postBuildSubTab(LLView* root)
 		mDeleteRoleButton->setEnabled(false);
 	}
 
-	mRolesList->setCommitOnSelectionChange(TRUE);
+	mRolesList->setCommitOnSelectionChange(true);
 	mRolesList->setCommitCallback(onRoleSelect, this);
 
 	mAssignedMembersList->setContextMenu(LLScrollListCtrl::MENU_AVATAR);
 
 	mMemberVisibleCheck->setCommitCallback(onMemberVisibilityChange, this);
 
-	mAllowedActionsList->setCommitOnSelectionChange(TRUE);
+	mAllowedActionsList->setCommitOnSelectionChange(true);
 	mAllowedActionsList->setCommitCallback(boost::bind(&LLPanelGroupRolesSubTab::updateActionDescription, this));
 
 	mRoleName->setCommitOnFocusLost(TRUE);
@@ -2585,57 +2585,6 @@ bool LLPanelGroupRolesSubTab::addActionCB(const LLSD& notification, const LLSD& 
 	return false;
 }
 
-// static
-void LLPanelGroupRolesSubTab::onCopyRole(void* user_data)
-{
-	LLPanelGroupRolesSubTab* self = static_cast<LLPanelGroupRolesSubTab*>(user_data);
-	if (!self) return;
-
-	self->handleCopyRole();
-}
-
-void LLPanelGroupRolesSubTab::handleCopyRole()
-{
-	LLGroupMgrGroupData* gdatap = LLGroupMgr::getInstance()->getGroupData(mGroupID);
-
-	if (!gdatap) return;
-
-	LLScrollListItem* role_item = mRolesList->getFirstSelected();
-	if (!role_item || role_item->getUUID().isNull())
-	{
-		return;
-	}
-
-	LLRoleData rd;
-	if (!gdatap->getRoleData(role_item->getUUID(), rd))
-	{
-		return;
-	}
-
-	LLUUID new_role_id;
-	new_role_id.generate();
-	rd.mRoleName += "(Copy)";
-	gdatap->createRole(new_role_id,rd);
-
-	mRolesList->deselectAllItems(TRUE);
-	LLSD row;
-	row["id"] = new_role_id;
-	row["columns"][0]["column"] = "name";
-	row["columns"][0]["value"] = rd.mRoleName;
-	mRolesList->addElement(row, ADD_BOTTOM, this);
-	mRolesList->selectByID(new_role_id);
-
-	// put focus on name field and select its contents
-	if(mRoleName)
-	{
-		mRoleName->setFocus(TRUE);
-		mRoleName->onTabInto();
-		gFocusMgr.triggerFocusFlash();
-	}
-
-	notifyObservers();
-}
-
 // static 
 void LLPanelGroupRolesSubTab::onPropertiesKey(LLLineEditor* ctrl, void* user_data)
 {
@@ -2722,7 +2671,7 @@ void LLPanelGroupRolesSubTab::handleCreateRole()
 	rd.mRoleName = "New Role";
 	gdatap->createRole(new_role_id,rd);
 
-	mRolesList->deselectAllItems(TRUE);
+	mRolesList->deselectAllItems(true);
 	LLSD row;
 	row["id"] = new_role_id;
 	row["columns"][0]["column"] = "name";
@@ -2735,6 +2684,57 @@ void LLPanelGroupRolesSubTab::handleCreateRole()
 		mRoleUUID->setEnabled(false);
 		mBtnRoleUUIDCopy->setEnabled(true);
 	}
+
+	// put focus on name field and select its contents
+	if(mRoleName)
+	{
+		mRoleName->setFocus(true);
+		mRoleName->onTabInto();
+		gFocusMgr.triggerFocusFlash();
+	}
+
+	notifyObservers();
+}
+
+// static 
+void LLPanelGroupRolesSubTab::onCopyRole(void* user_data)
+{
+	LLPanelGroupRolesSubTab* self = static_cast<LLPanelGroupRolesSubTab*>(user_data);
+	if (!self) return;
+
+	self->handleCopyRole();
+}
+
+void LLPanelGroupRolesSubTab::handleCopyRole()
+{
+	LLGroupMgrGroupData* gdatap = LLGroupMgr::getInstance()->getGroupData(mGroupID);
+
+	if (!gdatap) return;
+
+	LLScrollListItem* role_item = mRolesList->getFirstSelected();
+	if (!role_item || role_item->getUUID().isNull())
+	{
+		return;
+	}
+
+	LLRoleData rd;
+	if (!gdatap->getRoleData(role_item->getUUID(), rd))
+	{
+		return;
+	}
+
+	LLUUID new_role_id;
+	new_role_id.generate();
+	rd.mRoleName += "(Copy)";
+	gdatap->createRole(new_role_id,rd);
+
+	mRolesList->deselectAllItems(true);
+	LLSD row;
+	row["id"] = new_role_id;
+	row["columns"][0]["column"] = "name";
+	row["columns"][0]["value"] = rd.mRoleName;
+	mRolesList->addElement(row, ADD_BOTTOM, this);
+	mRolesList->selectByID(new_role_id);
 
 	// put focus on name field and select its contents
 	if(mRoleName)
@@ -2898,7 +2898,7 @@ BOOL LLPanelGroupActionsSubTab::postBuildSubTab(LLView* root)
 
 	if (!mActionList || !mActionDescription || !mActionRoles || !mActionMembers) return FALSE;
 
-	mActionList->setCommitOnSelectionChange(TRUE);
+	mActionList->setCommitOnSelectionChange(true);
 	mActionList->setCommitCallback(boost::bind(&LLPanelGroupActionsSubTab::handleActionSelect, this));
 	mActionList->setContextMenu(LLScrollListCtrl::MENU_AVATAR);
 
@@ -3108,7 +3108,7 @@ BOOL LLPanelGroupBanListSubTab::postBuildSubTab(LLView* root)
 	if(!mBanList || !mCreateBanButton || !mDeleteBanButton || !mRefreshBanListButton || !mBanCountText)
 		return FALSE;
 
-	mBanList->setCommitOnSelectionChange(TRUE);
+	mBanList->setCommitOnSelectionChange(true);
 	mBanList->setCommitCallback(onBanEntrySelect, this);
 
 	mCreateBanButton->setClickedCallback(onCreateBanEntry, this);

@@ -340,7 +340,7 @@ LLScrollListCtrl::~LLScrollListCtrl()
 }
 
 
-BOOL LLScrollListCtrl::setMaxItemCount(S32 max_count)
+bool LLScrollListCtrl::setMaxItemCount(S32 max_count)
 {
 	if (max_count >= getItemCount())
 	{
@@ -359,7 +359,7 @@ S32 LLScrollListCtrl::getItemCount() const
 	return mItemList.size();
 }
 
-BOOL LLScrollListCtrl::hasSelectedItem() const
+bool LLScrollListCtrl::hasSelectedItem() const
 {
 	item_list::iterator iter;
 	for (iter = mItemList.begin(); iter < mItemList.end(); )
@@ -367,11 +367,11 @@ BOOL LLScrollListCtrl::hasSelectedItem() const
 		LLScrollListItem* itemp = *iter;
 		if (itemp && itemp->getSelected())
 		{
-			return TRUE;
+			return true;
 		}
 		iter++;
 	}
-	return FALSE;
+	return false;
 }
 
 // virtual LLScrolListInterface function (was deleteAllItems)
@@ -1209,7 +1209,7 @@ void LLScrollListCtrl::selectNextItem( bool extend_selection)
 
 
 
-void LLScrollListCtrl::deselectAllItems(BOOL no_commit_on_change)
+void LLScrollListCtrl::deselectAllItems(bool no_commit_on_change)
 {
 	item_list::iterator iter;
 	for (iter = mItemList.begin(); iter != mItemList.end(); iter++)
@@ -1411,16 +1411,16 @@ LLScrollListItem* LLScrollListCtrl::addStringUUIDItem(const std::string& item_te
 }
 
 // Select the line or lines that match this UUID
-BOOL LLScrollListCtrl::selectByID( const LLUUID& id )
+bool LLScrollListCtrl::selectByID( const LLUUID& id )
 {
 	return selectByValue( LLSD(id) );
 }
 
-BOOL LLScrollListCtrl::setSelectedByValue(const LLSD& value, BOOL selected)
+bool LLScrollListCtrl::setSelectedByValue(const LLSD& value, bool selected)
 {
 	BOOL found = FALSE;
 
-	if (selected && !mAllowMultipleSelection) deselectAllItems(TRUE);
+	if (selected && !mAllowMultipleSelection) deselectAllItems(true);
 
 	item_list::iterator iter;
 	for (iter = mItemList.begin(); iter != mItemList.end(); iter++)
@@ -1465,7 +1465,7 @@ BOOL LLScrollListCtrl::setSelectedByValue(const LLSD& value, BOOL selected)
 	return found;
 }
 
-BOOL LLScrollListCtrl::isSelected(const LLSD& value) const 
+bool LLScrollListCtrl::isSelected(const LLSD& value) const 
 {
 	item_list::const_iterator iter;
 	for (iter = mItemList.begin(); iter != mItemList.end(); iter++)
@@ -1476,7 +1476,7 @@ BOOL LLScrollListCtrl::isSelected(const LLSD& value) const
 			return item->getSelected();
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 LLUUID LLScrollListCtrl::getStringUUIDSelectedItem() const
@@ -1813,7 +1813,7 @@ BOOL LLScrollListCtrl::selectItemAt(S32 x, S32 y, MASK mask)
 			}
 			else
 			{
-				deselectAllItems(TRUE);
+				deselectAllItems(true);
 				selectItem(hit_item, getColumnIndexFromOffset(x));
 			}
 		}
@@ -1834,7 +1834,7 @@ BOOL LLScrollListCtrl::selectItemAt(S32 x, S32 y, MASK mask)
 	else
 	{
 		//mLastSelected = NULL;
-		//deselectAllItems(TRUE);
+		//deselectAllItems(true);
 	}
 
 	return selection_changed;
@@ -2549,7 +2549,7 @@ void LLScrollListCtrl::selectItem(LLScrollListItem* itemp, S32 cell, bool select
 		}
 		if (select_single_item)
 		{
-			deselectAllItems(TRUE);
+			deselectAllItems(true);
 		}
 		itemp->setSelected(true);
         switch (mSelectionType)
@@ -3207,26 +3207,26 @@ LLSD LLScrollListCtrl::getValue() const
 	return item->getValue();
 }
 
-BOOL LLScrollListCtrl::operateOnSelection(EOperation op)
+bool LLScrollListCtrl::operateOnSelection(EOperation op)
 {
 	if (op == OP_DELETE)
 	{
 		deleteSelectedItems();
-		return TRUE;
+		return true;
 	}
 	else if (op == OP_DESELECT)
 	{
 		deselectAllItems();
 	}
-	return FALSE;
+	return false;
 }
 
-BOOL LLScrollListCtrl::operateOnAll(EOperation op)
+bool LLScrollListCtrl::operateOnAll(EOperation op)
 {
 	if (op == OP_DELETE)
 	{
 		clearRows();
-		return TRUE;
+		return true;
 	}
 	else if (op == OP_DESELECT)
 	{
@@ -3236,7 +3236,7 @@ BOOL LLScrollListCtrl::operateOnAll(EOperation op)
 	{
 		selectAll();
 	}
-	return FALSE;
+	return false;
 }
 //virtual 
 void LLScrollListCtrl::setFocus(bool b)

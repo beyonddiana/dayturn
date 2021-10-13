@@ -124,7 +124,7 @@ LLFolderViewItem::LLFolderViewItem(const LLFolderViewItem::Params& p)
 	mLabelWidthDirty(false),
     mLabelPaddingRight(DEFAULT_LABEL_PADDING_RIGHT),
 	mParentFolder( NULL ),
-	mIsSelected( FALSE ),
+	mIsSelected( false ),
 	mIsCurSelection(false),
 	mSelectPending(FALSE),
 	mIsItemCut(false),
@@ -422,14 +422,14 @@ BOOL LLFolderViewItem::changeSelection(LLFolderViewItem* selection, BOOL selecte
 
 void LLFolderViewItem::deselectItem(void)
 {
-	mIsSelected = FALSE;
+	mIsSelected = false;
 }
 
 void LLFolderViewItem::selectItem(void)
 {
-	if (mIsSelected == FALSE)
+	if (mIsSelected == false)
 	{
-		mIsSelected = TRUE;
+		mIsSelected = true;
 		getViewModelItem()->selectItem();
 	}
 }
@@ -1520,7 +1520,7 @@ void LLFolderViewFolder::extendSelectionTo(LLFolderViewItem* new_selection)
 
 	LLFolderView* root = getRoot();
 
-	BOOL selection_reverse = new_selection->isSelected(); //indication that some elements are being deselected
+	bool selection_reverse = new_selection->isSelected(); //indication that some elements are being deselected
 
 	// array always go from 'will be selected' to ' will be unselected', iterate
 	// in opposite direction to simplify identification of 'point of origin' in
@@ -1530,12 +1530,12 @@ void LLFolderViewFolder::extendSelectionTo(LLFolderViewItem* new_selection)
 		++it)
 	{
 		LLFolderViewItem* item = *it;
-		BOOL selected = item->isSelected();
+		bool selected = item->isSelected();
 		if (!selection_reverse && selected)
 		{
 			// it is our 'point of origin' where we shift/expand from
 			// don't deselect it
-			selection_reverse = TRUE;
+			selection_reverse = true;
 		}
 		else
 		{

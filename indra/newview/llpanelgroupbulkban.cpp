@@ -66,7 +66,7 @@ bool LLPanelGroupBulkBan::postBuild()
 	mImplementation->mBulkAgentList = getChild<LLNameListCtrl>("banned_agent_list", recurse);
 	if ( mImplementation->mBulkAgentList )
 	{
-		mImplementation->mBulkAgentList->setCommitOnSelectionChange(TRUE);
+		mImplementation->mBulkAgentList->setCommitOnSelectionChange(true);
 		mImplementation->mBulkAgentList->setCommitCallback(LLPanelGroupBulkImpl::callbackSelect, mImplementation);
 	}
 

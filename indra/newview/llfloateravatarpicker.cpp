@@ -102,7 +102,7 @@ LLFloaterAvatarPicker::LLFloaterAvatarPicker(const LLSD& key)
   : LLFloater(key),
 	mNumResultsReturned(0),
 	mNearMeListComplete(FALSE),
-	mCloseOnSelect(FALSE),
+	mCloseOnSelect(false),
     mContextConeOpacity	(0.f),
     mContextConeInAlpha(0.f),
     mContextConeOutAlpha(0.f),
@@ -249,12 +249,12 @@ void LLFloaterAvatarPicker::onBtnSelect()
 			mSelectionCallback(avatar_ids, avatar_names);
 		}
 	}
-	getChild<LLScrollListCtrl>("SearchResults")->deselectAllItems(TRUE);
-	getChild<LLScrollListCtrl>("NearMe")->deselectAllItems(TRUE);
-	getChild<LLScrollListCtrl>("Friends")->deselectAllItems(TRUE);
+	getChild<LLScrollListCtrl>("SearchResults")->deselectAllItems(true);
+	getChild<LLScrollListCtrl>("NearMe")->deselectAllItems(true);
+	getChild<LLScrollListCtrl>("Friends")->deselectAllItems(true);
 	if(mCloseOnSelect)
 	{
-		mCloseOnSelect = FALSE;
+		mCloseOnSelect = false;
 		closeFloater();		
 	}
 }
@@ -595,7 +595,7 @@ bool LLFloaterAvatarPicker::handleDragAndDrop(S32 x, S32 y, MASK mask,
 		if (localRectToOtherView(rc_point, &rc_list, list))
 		{
 			// Keep selected only one item
-			list->deselectAllItems(TRUE);
+			list->deselectAllItems(true);
 			list->selectItemAt(rc_list.mLeft, rc_list.mBottom, mask);
 			LLScrollListItem* selection = list->getFirstSelected();
 			if (selection)
