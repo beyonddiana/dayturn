@@ -52,9 +52,9 @@ public:
 
 	virtual S32		getItemCount() const = 0;
 
-	virtual BOOL	selectFirstItem() = 0;
-	virtual BOOL	selectNthItem( S32 index ) = 0;
-	virtual BOOL	selectItemRange( S32 first, S32 last ) = 0;
+	virtual bool	selectFirstItem() = 0;
+	virtual bool	selectNthItem( S32 index ) = 0;
+	virtual bool	selectItemRange( S32 first, S32 last ) = 0;
 
 	virtual S32		getFirstSelectedIndex() const = 0;
 

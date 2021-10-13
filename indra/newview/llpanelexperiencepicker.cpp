@@ -405,7 +405,7 @@ void LLPanelExperiencePicker::filterContent()
 		search_results->setEnabled(true);
 		search_results->sortByColumnIndex(1, TRUE);
 		std::string text = getChild<LLUICtrl>(TEXT_EDIT)->getValue().asString();
-		if (!search_results->selectItemByLabel(text, TRUE, 1))
+		if (!search_results->selectItemByLabel(text, true, 1))
 		{
 			search_results->selectFirstItem();
 		}			

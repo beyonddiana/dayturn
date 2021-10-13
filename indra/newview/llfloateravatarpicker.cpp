@@ -772,7 +772,7 @@ void LLFloaterAvatarPicker::processResponse(const LLUUID& query_id, const LLSD& 
 			search_results->setEnabled(true);
 			search_results->sortByColumnIndex(1, TRUE);
 			std::string text = getChild<LLUICtrl>("Edit")->getValue().asString();
-			if (!search_results->selectItemByLabel(text, TRUE, 1))
+			if (!search_results->selectItemByLabel(text, true, 1))
 			{
 				search_results->selectFirstItem();
 			}			

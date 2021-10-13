@@ -107,7 +107,7 @@ public:
 	virtual void			setColor(const LLColor4&) {}
 	virtual void			onCommit() {};
 
-	virtual BOOL			handleClick() { return FALSE; }
+	virtual bool			handleClick() { return false; }
 	virtual	void			setEnabled(bool enable) { }
 
 private:
@@ -204,7 +204,7 @@ public:
 	/*virtual*/ void	setValue(const LLSD& value);
 	/*virtual*/ void	onCommit();
 
-	/*virtual*/ BOOL	handleClick();
+	/*virtual*/ bool	handleClick();
 	/*virtual*/ void	setEnabled(bool enable);
 
 	LLCheckBoxCtrl*	getCheckBox()				{ return mCheckBox; }

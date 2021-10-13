@@ -78,13 +78,13 @@ public:
 	virtual ~LLScrollListItem();
 
 	void	setSelected( bool b );
-	BOOL	getSelected() const				{ return mSelected; }
+	bool	getSelected() const				{ return mSelected; }
 
 	void	setEnabled( bool b )			{ mEnabled = b; }
 	bool	getEnabled() const 				{ return mEnabled; }
 
-	void	setHighlighted( BOOL b );
-	BOOL	getHighlighted() const			{ return mHighlighted; }
+	void	setHighlighted( bool b );
+	bool	getHighlighted() const			{ return mHighlighted; }
 
 	void	setSelectedCell( S32 cell );
 	S32		getSelectedCell() const			{ return mSelectedIndex; }
@@ -123,11 +123,11 @@ protected:
 	LLScrollListItem( const Params& );
 
 private:
-	BOOL	mSelected;
-    BOOL	mHighlighted;
+	bool	mSelected;
+    bool	mHighlighted;
     S32		mHoverIndex;
 	S32		mSelectedIndex;
-	BOOL	mEnabled;
+	bool	mEnabled;
 	void*	mUserdata;
 	LLSD	mItemValue;
 	std::vector<LLScrollListCell *> mColumns;

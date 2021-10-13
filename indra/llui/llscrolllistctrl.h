@@ -219,11 +219,11 @@ public:
 
 	bool 			hasSelectedItem() const;
 
-	BOOL			handleClick(S32 x, S32 y, MASK mask);
-	BOOL			selectFirstItem();
-	BOOL			selectNthItem( S32 index );
-	BOOL			selectItemRange( S32 first, S32 last );
-	BOOL			selectItemAt(S32 x, S32 y, MASK mask);
+	bool			handleClick(S32 x, S32 y, MASK mask);
+	bool			selectFirstItem();
+	bool			selectNthItem( S32 index );
+	bool			selectItemRange( S32 first, S32 last );
+	bool			selectItemAt(S32 x, S32 y, MASK mask);
 	
 	void			deleteSingleItem( S32 index );
 	void			deleteItems(const LLSD& sd);
@@ -258,10 +258,10 @@ public:
 	// one of which can be selected at a time.
 	virtual LLScrollListItem* addSimpleElement(const std::string& value, EAddPosition pos = ADD_BOTTOM, const LLSD& id = LLSD());
 
-	BOOL			selectItemByLabel( const std::string& item, BOOL case_sensitive = TRUE, S32 column = 0 );		// FALSE if item not found
-	BOOL			selectItemByPrefix(const std::string& target, BOOL case_sensitive = TRUE);
-	BOOL			selectItemByPrefix(const LLWString& target, BOOL case_sensitive = TRUE);
-	LLScrollListItem*  getItemByLabel( const std::string& item, BOOL case_sensitive = TRUE, S32 column = 0 );
+	bool			selectItemByLabel( const std::string& item, bool case_sensitive = true, S32 column = 0 );		// false if item not found
+	bool			selectItemByPrefix(const std::string& target, bool case_sensitive = true);
+	bool			selectItemByPrefix(const LLWString& target, bool case_sensitive = true);
+	LLScrollListItem*  getItemByLabel( const std::string& item, bool case_sensitive = true, S32 column = 0 );
 	const std::string	getSelectedItemLabel(S32 column = 0) const;
 	LLSD			getSelectedValue();
 
