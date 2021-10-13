@@ -164,7 +164,7 @@ public:
 
 	virtual void openItem( void );
 
-	void arrangeAndSet(BOOL set_selection, BOOL take_keyboard_focus);
+	void arrangeAndSet(bool set_selection, bool take_keyboard_focus);
 
 	virtual ~LLFolderViewItem( void );
 
@@ -198,7 +198,7 @@ public:
 	virtual std::set<LLFolderViewItem*> getSelectionList() const;
 
 	// Returns true is this object and all of its children can be removed (deleted by user)
-	virtual BOOL isRemovable();
+	virtual bool isRemovable();
 
 	// Returns true is this object and all of its children can be moved
 	virtual bool isMovable();
@@ -215,15 +215,15 @@ public:
 
 	bool getIsCurSelection() { return mIsCurSelection; }
 
-	BOOL hasVisibleChildren() { return mHasVisibleChildren; }
+	bool hasVisibleChildren() { return mHasVisibleChildren; }
 
 	// true if object can't have children
-	BOOL isFolderComplete() { return mIsFolderComplete; }
+	bool isFolderComplete() { return mIsFolderComplete; }
 
 	// Call through to the viewed object and return true if it can be
 	// removed. Returns true if it's removed.
 	//virtual BOOL removeRecursively(BOOL single_item);
-	BOOL remove();
+	bool remove();
 
 	// Build an appropriate context menu for the item.	Flags unused.
 	void buildContextMenu(class LLMenuGL& menu, U32 flags);
@@ -242,8 +242,8 @@ public:
 
 	void setParentFolder(LLFolderViewFolder* parent) { mParentFolder = parent; }
 
-	LLFolderViewItem* getNextOpenNode( BOOL include_children = TRUE );
-	LLFolderViewItem* getPreviousOpenNode( BOOL include_children = TRUE );
+	LLFolderViewItem* getNextOpenNode( bool include_children = true );
+	LLFolderViewItem* getPreviousOpenNode( bool include_children = true );
 
 	const LLFolderViewModelItem* getViewModelItem( void ) const { return mViewModelItem; }
 	LLFolderViewModelItem* getViewModelItem( void ) { return mViewModelItem; }
@@ -256,7 +256,7 @@ public:
 
 	// Show children
 	virtual void setOpen(BOOL open = TRUE) {};
-	virtual BOOL isOpen() const { return FALSE; }
+	virtual bool isOpen() const { return false; }
 
 	virtual LLFolderView*	getRoot();
 	virtual const LLFolderView*	getRoot() const;
@@ -320,8 +320,8 @@ protected:
 	items_t mItems;
 	folders_t mFolders;
 
-	BOOL		mIsOpen;
-	BOOL		mExpanderHighlighted;
+	bool		mIsOpen;
+	bool		mExpanderHighlighted;
 	F32			mCurHeight;
 	F32			mTargetHeight;
 	F32			mAutoOpenCountdown;
@@ -341,8 +341,8 @@ public:
 
 	virtual ~LLFolderViewFolder( void );
 
-	LLFolderViewItem* getNextFromChild( LLFolderViewItem*, BOOL include_children = TRUE );
-	LLFolderViewItem* getPreviousFromChild( LLFolderViewItem*, BOOL include_children = TRUE  );
+	LLFolderViewItem* getNextFromChild( LLFolderViewItem*, bool include_children = true );
+	LLFolderViewItem* getPreviousFromChild( LLFolderViewItem*, bool include_children = true  );
 
 	// addToFolder() returns TRUE if it succeeds. FALSE otherwise
 	virtual void addToFolder(LLFolderViewFolder* folder);
@@ -371,7 +371,7 @@ public:
 	void extendSelectionTo(LLFolderViewItem* selection);
 
 	// Returns true is this object and all of its children can be removed.
-	virtual BOOL isRemovable();
+	virtual bool isRemovable();
 
 	// Returns true is this object and all of its children can be moved
 	virtual bool isMovable();
@@ -402,10 +402,10 @@ public:
 	// method was written because the list iterators destroy the state
 	// of other iterations, thus, we can't arrange while iterating
 	// through the children (such as when setting which is selected.
-	virtual void setOpenArrangeRecursively(BOOL openitem, ERecurseType recurse = RECURSE_NO);
+	virtual void setOpenArrangeRecursively(bool openitem, ERecurseType recurse = RECURSE_NO);
 
 	// Get the current state of the folder.
-	virtual BOOL isOpen() const { return mIsOpen; }
+	virtual bool isOpen() const { return mIsOpen; }
 
 	// special case if an object is dropped on the child.
 	BOOL handleDragAndDropFromChild(MASK mask,

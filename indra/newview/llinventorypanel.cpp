@@ -1579,7 +1579,7 @@ void LLInventoryPanel::setSelectionByID( const LLUUID& obj_id, BOOL    take_keyb
 	LLFolderViewItem* itemp = getItemByID(obj_id);
     if(itemp && itemp->getViewModelItem() && itemp->passedFilter())
 	{
-		itemp->arrangeAndSet(TRUE, take_keyboard_focus);
+		itemp->arrangeAndSet(true, take_keyboard_focus);
 		mSelectThisID.setNull();
         mFocusSelection = false;
 		return;
