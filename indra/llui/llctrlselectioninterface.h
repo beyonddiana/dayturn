@@ -59,18 +59,18 @@ public:
 	virtual S32		getFirstSelectedIndex() const = 0;
 
 	// TomY TODO: Simply cast the UUIDs to LLSDs, using the selectByValue function
-	virtual BOOL	setCurrentByID( const LLUUID& id ) = 0;
+	virtual bool	setCurrentByID( const LLUUID& id ) = 0;
 	virtual LLUUID	getCurrentID() const = 0;
 
-			BOOL	selectByValue(const LLSD value);
-			BOOL	deselectByValue(const LLSD value);
-	virtual BOOL	setSelectedByValue(const LLSD& value, BOOL selected) = 0;
+			bool	selectByValue(const LLSD value);
+			bool	deselectByValue(const LLSD value);
+	virtual bool	setSelectedByValue(const LLSD& value, bool selected) = 0;
 	virtual LLSD	getSelectedValue() = 0;
 
-	virtual BOOL	isSelected(const LLSD& value) const = 0;
+	virtual bool	isSelected(const LLSD& value) const = 0;
 
-	virtual BOOL	operateOnSelection(EOperation op) = 0;
-	virtual BOOL	operateOnAll(EOperation op) = 0;
+	virtual bool	operateOnSelection(EOperation op) = 0;
+	virtual bool	operateOnAll(EOperation op) = 0;
 };
 
 class LLCtrlListInterface : public LLCtrlSelectionInterface

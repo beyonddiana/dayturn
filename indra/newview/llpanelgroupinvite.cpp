@@ -443,7 +443,7 @@ void LLPanelGroupInvite::impl::onAvatarNameCache(const LLUUID& agent_id,
 LLPanelGroupInvite::LLPanelGroupInvite(const LLUUID& group_id)
 	: LLPanel(),
 	  mImplementation(new impl(group_id)),
-	  mPendingUpdate(FALSE)
+	  mPendingUpdate(false)
 {
 	// Pass on construction of this panel to the control factory.
 	buildFromFile( "panel_group_invite.xml");
@@ -544,7 +544,7 @@ void LLPanelGroupInvite::draw()
  
 void LLPanelGroupInvite::update()
 {
-	mPendingUpdate = FALSE;
+	mPendingUpdate = false;
 	if (mImplementation->mGroupName) 
 	{
 		mImplementation->mGroupName->setText(mImplementation->mLoadingText);
@@ -611,11 +611,11 @@ void LLPanelGroupInvite::updateLists()
 			LLGroupMgr::getInstance()->sendGroupRoleMembersRequest(mImplementation->mGroupID);
 			LLGroupMgr::getInstance()->sendCapGroupMembersRequest(mImplementation->mGroupID);
 		}
-		mPendingUpdate = TRUE;
+		mPendingUpdate = true;
 	} 
 	else
 	{
-		mPendingUpdate = FALSE;
+		mPendingUpdate = false;
 		if (mImplementation->mOKButton && mImplementation->mRoleNames->getItemCount()) 
 		{
 			mImplementation->mOKButton->setEnabled(true);
@@ -635,7 +635,7 @@ bool LLPanelGroupInvite::postBuild()
 		getChild<LLNameListCtrl>("invitee_list", recurse);
 	if ( mImplementation->mInvitees )
 	{
-		mImplementation->mInvitees->setCommitOnSelectionChange(TRUE);
+		mImplementation->mInvitees->setCommitOnSelectionChange(true);
 		mImplementation->mInvitees->setCommitCallback(impl::callbackSelect, mImplementation);
 	}
 

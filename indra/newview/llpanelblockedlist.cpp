@@ -77,7 +77,7 @@ void LLPanelBlockedList::removePicker()
 bool LLPanelBlockedList::postBuild()
 {
 	mBlockedList = getChild<LLBlockList>("blocked");
-	mBlockedList->setCommitOnSelectionChange(TRUE);
+	mBlockedList->setCommitOnSelectionChange(true);
     this->setVisibleCallback(boost::bind(&LLPanelBlockedList::removePicker, this));
 
 	switch (gSavedSettings.getU32("BlockPeopleSortOrder"))

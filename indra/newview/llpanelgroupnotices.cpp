@@ -246,7 +246,7 @@ bool LLPanelGroupNotices::postBuild()
 	bool recurse = true;
 
 	mNoticesList = getChild<LLScrollListCtrl>("notice_list",recurse);
-	mNoticesList->setCommitOnSelectionChange(TRUE);
+	mNoticesList->setCommitOnSelectionChange(true);
 	mNoticesList->setCommitCallback(onSelectNotice, this);
 
 	mBtnNewMessage = getChild<LLButton>("create_new_notice",recurse);

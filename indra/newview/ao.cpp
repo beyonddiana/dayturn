@@ -222,7 +222,7 @@ bool FloaterAO::postBuild()
 	mSmartCheckBox->setCommitCallback(boost::bind(&FloaterAO::onCheckSmart,this));
 	mDisableMouselookCheckBox->setCommitCallback(boost::bind(&FloaterAO::onCheckDisableStands,this));
 
-	mAnimationList->setCommitOnSelectionChange(TRUE);
+	mAnimationList->setCommitOnSelectionChange(true);
 
 	mStateSelector->setCommitCallback(boost::bind(&FloaterAO::onSelectState,this));
 	mAnimationList->setCommitCallback(boost::bind(&FloaterAO::onChangeAnimationSelection,this));

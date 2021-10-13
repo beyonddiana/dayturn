@@ -246,7 +246,7 @@ void LLPanelVoiceDeviceSettings::refresh()
 			}
 
 			// Fix invalid input audio device preference.
-			if (!mCtrlInputDevices->setSelectedByValue(mInputDevice, TRUE))
+			if (!mCtrlInputDevices->setSelectedByValue(mInputDevice, true))
 			{
 				mCtrlInputDevices->setValue(DEFAULT_DEVICE);
 				gSavedSettings.setString("VoiceInputAudioDevice", DEFAULT_DEVICE);
@@ -267,7 +267,7 @@ void LLPanelVoiceDeviceSettings::refresh()
 			}
 
 			// Fix invalid output audio device preference.
-			if (!mCtrlOutputDevices->setSelectedByValue(mOutputDevice, TRUE))
+			if (!mCtrlOutputDevices->setSelectedByValue(mOutputDevice, true))
 			{
 				mCtrlOutputDevices->setValue(DEFAULT_DEVICE);
 				gSavedSettings.setString("VoiceOutputAudioDevice", DEFAULT_DEVICE);

@@ -904,7 +904,7 @@ void LLFloaterTexturePicker::onModeSelect(LLUICtrl* ctrl, void *userdata)
 		}
 
 
-		self->getChild<LLComboBox>("l_bake_use_texture_combo_box")->setSelectedByValue(val, TRUE);
+		self->getChild<LLComboBox>("l_bake_use_texture_combo_box")->setSelectedByValue(val, true);
 	}
 }
 

@@ -124,8 +124,8 @@ bool LLFloaterTranslationSettings::postBuild()
 void LLFloaterTranslationSettings::onOpen(const LLSD& key)
 {
 	mMachineTranslationCB->setValue(gSavedSettings.getBOOL("TranslateChat"));
-	mLanguageCombo->setSelectedByValue(gSavedSettings.getString("TranslateLanguage"), TRUE);
-	mTranslationServiceRadioGroup->setSelectedByValue(gSavedSettings.getString("TranslationService"), TRUE);
+	mLanguageCombo->setSelectedByValue(gSavedSettings.getString("TranslateLanguage"), true);
+	mTranslationServiceRadioGroup->setSelectedByValue(gSavedSettings.getString("TranslationService"), true);
 
 	std::string bing_key = gSavedSettings.getString("BingTranslateAPIKey");
 	if (!bing_key.empty())

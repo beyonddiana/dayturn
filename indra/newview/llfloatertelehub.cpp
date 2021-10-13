@@ -66,7 +66,7 @@ bool LLFloaterTelehub::postBuild()
 	if (list)
 	{
 		// otherwise you can't walk with arrow keys while floater is up
-		list->setAllowKeyboardMovement(FALSE);
+		list->setAllowKeyboardMovement(false);
 	}
 
 	return true;

@@ -154,7 +154,7 @@ protected:
 
 	static LLFontGL* getLabelFontForStyle(U8 style);
 
-	BOOL						mIsSelected;
+	bool		mIsSelected;
 
 public:
 	static void initClass();
@@ -206,10 +206,10 @@ public:
 	// destroys this item recursively
 	virtual void destroyView();
 
-	BOOL isSelected() const { return mIsSelected; }
+	bool isSelected() const { return mIsSelected; }
 	bool isInSelection() const;
 
-	void setUnselected() { mIsSelected = FALSE; }
+	void setUnselected() { mIsSelected = false; }
 
 	void setIsCurSelection(bool select) { mIsCurSelection = select; }
 

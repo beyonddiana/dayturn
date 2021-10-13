@@ -301,10 +301,10 @@ void LLPanelExperiencePicker::onBtnSelect()
 		
 		getSelectedExperienceIds(results, experience_ids);
 		mSelectionCallback(experience_ids);
-		getChild<LLScrollListCtrl>(LIST_RESULTS)->deselectAllItems(TRUE);
+		getChild<LLScrollListCtrl>(LIST_RESULTS)->deselectAllItems(true);
 		if(mCloseOnSelect)
 		{
-			mCloseOnSelect = FALSE;
+			mCloseOnSelect = false;
 			onBtnClose();
 		}
 	}

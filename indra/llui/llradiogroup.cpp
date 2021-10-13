@@ -389,9 +389,9 @@ LLSD LLRadioGroup::getValue() const
 }
 
 // LLCtrlSelectionInterface functions
-BOOL	LLRadioGroup::setCurrentByID( const LLUUID& id )
+bool	LLRadioGroup::setCurrentByID( const LLUUID& id )
 {
-	return FALSE;
+	return false;
 }
 
 LLUUID	LLRadioGroup::getCurrentID() const
@@ -399,7 +399,7 @@ LLUUID	LLRadioGroup::getCurrentID() const
 	return LLUUID::null;
 }
 
-BOOL	LLRadioGroup::setSelectedByValue(const LLSD& value, BOOL selected)
+bool	LLRadioGroup::setSelectedByValue(const LLSD& value, bool selected)
 {
 	S32 idx = 0;
 	for (button_list_t::const_iterator iter = mRadioButtons.begin();
@@ -408,12 +408,12 @@ BOOL	LLRadioGroup::setSelectedByValue(const LLSD& value, BOOL selected)
 		if((*iter)->getPayload().asString() == value.asString())
 		{
 			setSelectedIndex(idx);
-			return TRUE;
+			return true;
 		}
 		idx++;
 	}
 
-	return FALSE;
+	return false;
 }
 
 LLSD	LLRadioGroup::getSelectedValue()
@@ -421,7 +421,7 @@ LLSD	LLRadioGroup::getSelectedValue()
 	return getValue();	
 }
 
-BOOL	LLRadioGroup::isSelected(const LLSD& value) const
+bool	LLRadioGroup::isSelected(const LLSD& value) const
 {
 	S32 idx = 0;
 	for (button_list_t::const_iterator iter = mRadioButtons.begin();
@@ -431,22 +431,22 @@ BOOL	LLRadioGroup::isSelected(const LLSD& value) const
 		{
 			if (idx == mSelectedIndex) 
 			{
-				return TRUE;
+				return true;
 			}
 		}
 		idx++;
 	}
-	return FALSE;
+	return false;
 }
 
-BOOL	LLRadioGroup::operateOnSelection(EOperation op)
+bool	LLRadioGroup::operateOnSelection(EOperation op)
 {
-	return FALSE;
+	return false;
 }
 
-BOOL	LLRadioGroup::operateOnAll(EOperation op)
+bool	LLRadioGroup::operateOnAll(EOperation op)
 {
-	return FALSE;
+	return false;
 }
 
 LLRadioGroup::ItemParams::ItemParams()
