@@ -464,7 +464,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 			gAgent.setTeleportState( LLAgent::TELEPORT_ARRIVING );
 			gAgent.setTeleportMessage(
 				LLAgent::sTeleportProgressMessages["arriving"]);
-			gTextureList.mForceResetTextureStats = TRUE;
+			gTextureList.mForceResetTextureStats = true;
 			gAgentCamera.resetView(TRUE, TRUE);
 			
 			break;
@@ -1624,7 +1624,7 @@ void render_disconnected_background()
 
 		
 		raw->expandToPowerOfTwo();
-		gDisconnectedImagep = LLViewerTextureManager::getLocalTexture(raw.get(), FALSE );
+		gDisconnectedImagep = LLViewerTextureManager::getLocalTexture(raw.get(), false );
 		gStartTexture = gDisconnectedImagep;
 		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 	}

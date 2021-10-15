@@ -2975,7 +2975,7 @@ void init_start_screen(S32 location_id)
 		else
 		{
 			raw->expandToPowerOfTwo();
-			gStartTexture = LLViewerTextureManager::getLocalTexture(raw.get(), FALSE) ;
+			gStartTexture = LLViewerTextureManager::getLocalTexture(raw.get(), false) ;
 		}
 	}
 

@@ -218,7 +218,7 @@ void LLSkyTex::init()
 
 	for (S32 i = 0; i < 2; ++i)
 	{
-		mTexture[i] = LLViewerTextureManager::getLocalTexture(FALSE);
+		mTexture[i] = LLViewerTextureManager::getLocalTexture(false);
 		mTexture[i]->setAddressMode(LLTexUnit::TAM_CLAMP);
 		mImageRaw[i] = new LLImageRaw(sResolution, sResolution, sComponents);
 		
@@ -236,7 +236,7 @@ void LLSkyTex::restoreGL()
 {
 	for (S32 i = 0; i < 2; i++)
 	{
-		mTexture[i] = LLViewerTextureManager::getLocalTexture(FALSE);
+		mTexture[i] = LLViewerTextureManager::getLocalTexture(false);
 		mTexture[i]->setAddressMode(LLTexUnit::TAM_CLAMP);
 	}
 }

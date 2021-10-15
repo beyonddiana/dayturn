@@ -116,10 +116,10 @@ public:
 	static void initClass();
 	static void updateClass(const F32 velocity, const F32 angular_velocity) ;
 	
-	LLViewerTexture(BOOL usemipmaps = TRUE);
-	LLViewerTexture(const LLUUID& id, BOOL usemipmaps) ;
-	LLViewerTexture(const LLImageRaw* raw, BOOL usemipmaps) ;
-	LLViewerTexture(const U32 width, const U32 height, const U8 components, BOOL usemipmaps) ;
+	LLViewerTexture(bool usemipmaps = true);
+	LLViewerTexture(const LLUUID& id, bool usemipmaps) ;
+	LLViewerTexture(const LLImageRaw* raw, bool usemipmaps) ;
+	LLViewerTexture(const U32 width, const U32 height, const U8 components, bool usemipmaps) ;
 
 	virtual S8 getType() const;
 	virtual bool isMissingAsset() const ;
@@ -274,9 +274,9 @@ class LLViewerFetchedTexture : public LLViewerTexture
 protected:
 	/*virtual*/ ~LLViewerFetchedTexture();
 public:
-	LLViewerFetchedTexture(const LLUUID& id, FTType f_type, const LLHost& host = LLHost(), BOOL usemipmaps = TRUE);
-	LLViewerFetchedTexture(const LLImageRaw* raw, FTType f_type, BOOL usemipmaps);
-	LLViewerFetchedTexture(const std::string& url, FTType f_type, const LLUUID& id, BOOL usemipmaps = TRUE);
+	LLViewerFetchedTexture(const LLUUID& id, FTType f_type, const LLHost& host = LLHost(), bool usemipmaps = true);
+	LLViewerFetchedTexture(const LLImageRaw* raw, FTType f_type, bool usemipmaps);
+	LLViewerFetchedTexture(const std::string& url, FTType f_type, const LLUUID& id, bool usemipmaps = true);
 
 public:
 	static F32 maxDecodePriority();
@@ -567,8 +567,8 @@ protected:
 	/*virtual*/ ~LLViewerLODTexture(){}
 
 public:
-	LLViewerLODTexture(const LLUUID& id, FTType f_type, const LLHost& host = LLHost(), BOOL usemipmaps = TRUE);
-	LLViewerLODTexture(const std::string& url, FTType f_type, const LLUUID& id, BOOL usemipmaps = TRUE);
+	LLViewerLODTexture(const LLUUID& id, FTType f_type, const LLHost& host = LLHost(), bool usemipmaps = true);
+	LLViewerLODTexture(const std::string& url, FTType f_type, const LLUUID& id, bool usemipmaps = true);
 
 	/*virtual*/ S8 getType() const;
 	// Process image stats to determine priority/quality requirements.
@@ -594,7 +594,7 @@ protected:
 	/*virtual*/ ~LLViewerMediaTexture() ;
 
 public:
-	LLViewerMediaTexture(const LLUUID& id, BOOL usemipmaps = TRUE, LLImageGL* gl_image = NULL) ;
+	LLViewerMediaTexture(const LLUUID& id, bool usemipmaps = true, LLImageGL* gl_image = NULL) ;
 
 	/*virtual*/ S8 getType() const;
 	void reinit(BOOL usemipmaps = TRUE);	
@@ -670,21 +670,21 @@ public:
 	static LLViewerFetchedTexture*    findFetchedTexture(const LLUUID& id, S32 tex_type);
 	static LLViewerMediaTexture*      findMediaTexture(const LLUUID& id) ;
 	
-	static LLViewerMediaTexture*      createMediaTexture(const LLUUID& id, BOOL usemipmaps = TRUE, LLImageGL* gl_image = NULL) ;
+	static LLViewerMediaTexture*      createMediaTexture(const LLUUID& id, bool usemipmaps = true, LLImageGL* gl_image = NULL) ;
 
 	//
 	//"get-texture" will create a new texture if the texture does not exist.
 	//
-	static LLViewerMediaTexture*      getMediaTexture(const LLUUID& id, BOOL usemipmaps = TRUE, LLImageGL* gl_image = NULL) ;
+	static LLViewerMediaTexture*      getMediaTexture(const LLUUID& id, bool usemipmaps = true, LLImageGL* gl_image = NULL) ;
 	
-	static LLPointer<LLViewerTexture> getLocalTexture(BOOL usemipmaps = TRUE, BOOL generate_gl_tex = TRUE);
-	static LLPointer<LLViewerTexture> getLocalTexture(const LLUUID& id, BOOL usemipmaps, BOOL generate_gl_tex = TRUE) ;
-	static LLPointer<LLViewerTexture> getLocalTexture(const LLImageRaw* raw, BOOL usemipmaps) ;
-	static LLPointer<LLViewerTexture> getLocalTexture(const U32 width, const U32 height, const U8 components, BOOL usemipmaps, BOOL generate_gl_tex = TRUE) ;
+	static LLPointer<LLViewerTexture> getLocalTexture(bool usemipmaps = true, bool generate_gl_tex = true);
+	static LLPointer<LLViewerTexture> getLocalTexture(const LLUUID& id, bool usemipmaps, bool generate_gl_tex = true) ;
+	static LLPointer<LLViewerTexture> getLocalTexture(const LLImageRaw* raw, bool usemipmaps) ;
+	static LLPointer<LLViewerTexture> getLocalTexture(const U32 width, const U32 height, const U8 components, bool usemipmaps, bool generate_gl_tex = true) ;
 
 	static LLViewerFetchedTexture* getFetchedTexture(const LLUUID &image_id,									 
 									 FTType f_type = FTT_DEFAULT,
-									 BOOL usemipmap = TRUE,
+									 bool usemipmap = true,
 									 LLViewerTexture::EBoostLevel boost_priority = LLGLTexture::BOOST_NONE,		// Get the requested level immediately upon creation.
 									 S8 texture_type = LLViewerTexture::FETCHED_TEXTURE,
 									 LLGLint internal_format = 0,
@@ -694,7 +694,7 @@ public:
 	
 	static LLViewerFetchedTexture* getFetchedTextureFromFile(const std::string& filename,									 
 									 FTType f_type = FTT_LOCAL_FILE,
-									 BOOL usemipmap = TRUE,
+									 bool usemipmap = true,
 									 LLViewerTexture::EBoostLevel boost_priority = LLGLTexture::BOOST_NONE,
 									 S8 texture_type = LLViewerTexture::FETCHED_TEXTURE,
 									 LLGLint internal_format = 0,
@@ -704,7 +704,7 @@ public:
 
 	static LLViewerFetchedTexture* getFetchedTextureFromUrl(const std::string& url,									 
 									 FTType f_type,
-									 BOOL usemipmap = TRUE,
+									 bool usemipmap = true,
 									 LLViewerTexture::EBoostLevel boost_priority = LLGLTexture::BOOST_NONE,
 									 S8 texture_type = LLViewerTexture::FETCHED_TEXTURE,
 									 LLGLint internal_format = 0,

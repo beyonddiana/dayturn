@@ -252,7 +252,7 @@ void LLFloaterImagePreview::draw()
 			}
 			else
 			{
-				mImagep = LLViewerTextureManager::getLocalTexture(mRawImagep.get(), FALSE) ;
+				mImagep = LLViewerTextureManager::getLocalTexture(mRawImagep.get(), false) ;
 				
 				gGL.getTexUnit(0)->unbind(mImagep->getTarget()) ;
 				gGL.getTexUnit(0)->bindManual(LLTexUnit::TT_TEXTURE, mImagep->getTexName());
