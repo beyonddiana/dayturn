@@ -1083,7 +1083,7 @@ LLViewerTexture* LLBumpImageList::getBrightnessDarknessImage(LLViewerFetchedText
 		LLPointer<LLImageRaw> raw = new LLImageRaw(1,1,1);
 		raw->clear(0x77, 0x77, 0xFF, 0xFF);
 
-		(*entries_list)[src_image->getID()] = LLViewerTextureManager::getLocalTexture( raw.get(), TRUE);
+		(*entries_list)[src_image->getID()] = LLViewerTextureManager::getLocalTexture( raw.get(), true);
 		bump = (*entries_list)[src_image->getID()]; // In case callback was called immediately and replaced the image
 	}
 
@@ -1233,7 +1233,7 @@ void LLBumpImageList::onSourceLoaded( bool success, LLViewerTexture *src_vi, LLI
 				LLPointer<LLImageRaw> raw = new LLImageRaw(1,1,1);
 				raw->clear(0x77, 0x77, 0xFF, 0xFF);
 
-				entries_list[src_vi->getID()] = LLViewerTextureManager::getLocalTexture( raw.get(), TRUE);
+				entries_list[src_vi->getID()] = LLViewerTextureManager::getLocalTexture( raw.get(), true);
 				iter = entries_list.find(src_vi->getID());
 			}
 		}
@@ -1358,7 +1358,7 @@ void LLBumpImageList::onSourceLoaded( bool success, LLViewerTexture *src_vi, LLI
 			//---------------------------------------------------
 			// immediately assign bump to a global smart pointer in case some local smart pointer
 			// accidentally releases it.
-			LLPointer<LLViewerTexture> bump = LLViewerTextureManager::getLocalTexture( TRUE );
+			LLPointer<LLViewerTexture> bump = LLViewerTextureManager::getLocalTexture( true );
 
 			if (!LLPipeline::sRenderDeferred)
 			{

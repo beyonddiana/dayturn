@@ -154,7 +154,7 @@ void LLSceneMonitor::generateDitheringTexture(S32 width, S32 height)
 		}
 	}
 
-	mDitheringTexture = LLViewerTextureManager::getLocalTexture(image_raw.get(), FALSE) ;
+	mDitheringTexture = LLViewerTextureManager::getLocalTexture(image_raw.get(), false) ;
 	mDitheringTexture->setAddressMode(LLTexUnit::TAM_WRAP);
 	mDitheringTexture->setFilteringOption(LLTexUnit::TFO_POINT);
 	

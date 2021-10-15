@@ -155,7 +155,7 @@ void LLFloaterColorPicker::createUI ()
 			* ( bits + x + y * linesize + 2 ) = ( U8 )( bVal * 255.0f );
 		}
 	}
-	mRGBImage = LLViewerTextureManager::getLocalTexture( (LLImageRaw*)raw, FALSE );
+	mRGBImage = LLViewerTextureManager::getLocalTexture( (LLImageRaw*)raw, false );
 	gGL.getTexUnit(0)->bind(mRGBImage);
 	mRGBImage->setAddressMode(LLTexUnit::TAM_CLAMP);
 	

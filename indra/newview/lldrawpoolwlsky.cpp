@@ -73,7 +73,7 @@ LLDrawPoolWLSky::LLDrawPoolWLSky(void) :
 				(S32)sCloudNoiseRawImage->getComponents() << " : data size: " << sCloudNoiseRawImage->getDataSize() << LL_ENDL ;
 			llassert_always(sCloudNoiseRawImage->getData()) ;
 
-			sCloudNoiseTexture = LLViewerTextureManager::getLocalTexture(sCloudNoiseRawImage.get(), TRUE);
+			sCloudNoiseTexture = LLViewerTextureManager::getLocalTexture(sCloudNoiseRawImage.get(), true);
 		}
 		else
 		{
@@ -415,7 +415,7 @@ void LLDrawPoolWLSky::restoreGL()
 {
 	if(sCloudNoiseRawImage.notNull())
 	{
-		sCloudNoiseTexture = LLViewerTextureManager::getLocalTexture(sCloudNoiseRawImage.get(), TRUE);
+		sCloudNoiseTexture = LLViewerTextureManager::getLocalTexture(sCloudNoiseRawImage.get(), true);
 	}
 }
 

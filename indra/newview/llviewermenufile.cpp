@@ -681,7 +681,7 @@ void handle_compress_image(void*)
 			LL_INFOS() << "Input:  " << infile << LL_ENDL;
 			LL_INFOS() << "Output: " << outfile << LL_ENDL;
 
-			BOOL success;
+			bool success;
 
 			success = LLViewerTextureList::createUploadFile(infile, outfile, IMG_CODEC_TGA);
 

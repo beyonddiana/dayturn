@@ -69,7 +69,7 @@ LLViewerParcelOverlay::LLViewerParcelOverlay(LLViewerRegion* region, F32 region_
 	// 4 components
 	// Use mipmaps = FALSE, clamped, NEAREST filter, for sharp edges	
 	mImageRaw = new LLImageRaw(mParcelGridsPerEdge, mParcelGridsPerEdge, OVERLAY_IMG_COMPONENTS);
-	mTexture = LLViewerTextureManager::getLocalTexture(mImageRaw.get(), FALSE);
+	mTexture = LLViewerTextureManager::getLocalTexture(mImageRaw.get(), false);
 	mTexture->setAddressMode(LLTexUnit::TAM_CLAMP);
 	mTexture->setFilteringOption(LLTexUnit::TFO_POINT);
 
