@@ -2050,13 +2050,13 @@ BOOL LLPanelGroupRolesSubTab::postBuildSubTab(LLView* root)
 	mAllowedActionsList->setCommitOnSelectionChange(true);
 	mAllowedActionsList->setCommitCallback(boost::bind(&LLPanelGroupRolesSubTab::updateActionDescription, this));
 
-	mRoleName->setCommitOnFocusLost(TRUE);
+	mRoleName->setCommitOnFocusLost(true);
 	mRoleName->setKeystrokeCallback(onPropertiesKey, this);
 
-	mRoleTitle->setCommitOnFocusLost(TRUE);
+	mRoleTitle->setCommitOnFocusLost(true);
 	mRoleTitle->setKeystrokeCallback(onPropertiesKey, this);
 
-	mRoleDescription->setCommitOnFocusLost(TRUE);
+	mRoleDescription->setCommitOnFocusLost(true);
 	mRoleDescription->setKeystrokeCallback(boost::bind(&LLPanelGroupRolesSubTab::onDescriptionKeyStroke, this, _1));
 
 	setFooterEnabled(false);

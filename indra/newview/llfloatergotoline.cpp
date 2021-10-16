@@ -62,7 +62,7 @@ bool LLFloaterGotoLine::postBuild()
 {
 	mGotoBox = getChild<LLLineEditor>("goto_line");
 	mGotoBox->setCommitCallback(boost::bind(&LLFloaterGotoLine::onGotoBoxCommit, this));
-	mGotoBox->setCommitOnFocusLost(FALSE);
+	mGotoBox->setCommitOnFocusLost(false);
         getChild<LLLineEditor>("goto_line")->setPrevalidate(LLTextValidate::validateNonNegativeS32);
         childSetAction("goto_btn", onBtnGoto,this);
         setDefaultBtn("goto_btn");

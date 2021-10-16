@@ -233,13 +233,13 @@ bool FSFloaterSearchLegacy::postBuild()
 	LLLineEditor* price_edit = findChild<LLLineEditor>("price_edit");
 	if (price_edit)
 	{
-		price_edit->setCommitOnFocusLost(FALSE);
+		price_edit->setCommitOnFocusLost(false);
 		price_edit->setCommitCallback(boost::bind(&FSFloaterSearchLegacy::find, this));
 	}
 	LLLineEditor* area_edit = findChild<LLLineEditor>("area_edit");
 	if (area_edit)
 	{
-		area_edit->setCommitOnFocusLost(FALSE);
+		area_edit->setCommitOnFocusLost(false);
 		area_edit->setCommitCallback(boost::bind(&FSFloaterSearchLegacy::find, this));
 	}
 	childSetAction("Next", boost::bind(&FSFloaterSearchLegacy::onBtnNext, this));
