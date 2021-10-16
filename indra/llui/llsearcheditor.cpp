@@ -66,7 +66,7 @@ LLSearchEditor::LLSearchEditor(const LLSearchEditor::Params& p)
 	line_editor_params.keystroke_callback(boost::bind(&LLSearchEditor::handleKeystroke, this));
 
 	mSearchEditor = LLUICtrlFactory::create<LLLineEditor>(line_editor_params);
-	mSearchEditor->setPassDelete(TRUE);
+	mSearchEditor->setPassDelete(true);
 	addChild(mSearchEditor);
 
 	if (p.search_button_visible)
@@ -120,7 +120,7 @@ LLSD LLSearchEditor::getValue() const
 }
 
 //virtual
-BOOL LLSearchEditor::setTextArg( const std::string& key, const LLStringExplicit& text )
+bool LLSearchEditor::setTextArg( const std::string& key, const LLStringExplicit& text )
 {
 	return mSearchEditor->setTextArg(key, text);
 }

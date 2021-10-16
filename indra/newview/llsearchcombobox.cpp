@@ -71,7 +71,7 @@ LLSearchComboBox::LLSearchComboBox(const Params&p)
 	button_params.click_callback.function(boost::bind(&LLSearchComboBox::onSelectionCommit, this));
 	mSearchButton = LLUICtrlFactory::create<LLButton>(button_params);
 	mTextEntry->addChild(mSearchButton);
-	mTextEntry->setPassDelete(TRUE);
+	mTextEntry->setPassDelete(true);
 
 	setButtonVisible(p.dropdown_button_visible);
 	mTextEntry->setCommitCallback(boost::bind(&LLComboBox::onTextCommit, this, _2));

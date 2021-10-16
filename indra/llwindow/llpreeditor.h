@@ -79,7 +79,7 @@ public:
 	// Locations are relative to the app window and measured in GL coordinate space (before scaling.)
 	// query_position is IN argument, and other three are OUT.
 
-	virtual BOOL getPreeditLocation(S32 query_position, LLCoordGL *coord, LLRect *bounds, LLRect *control) const = 0;
+	virtual bool getPreeditLocation(S32 query_position, LLCoordGL *coord, LLRect *bounds, LLRect *control) const = 0;
 
 	// Get the size (height) of the current font used in this preeditor.
 

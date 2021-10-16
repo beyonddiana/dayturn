@@ -156,12 +156,12 @@ LLSD LLTextBox::getValue() const
 	return getViewModel()->getValue();
 }
 
-BOOL LLTextBox::setTextArg( const std::string& key, const LLStringExplicit& text )
+bool LLTextBox::setTextArg( const std::string& key, const LLStringExplicit& text )
 {
 	mText.setArg(key, text);
 	LLTextBase::setText(mText.getString());
 
-	return TRUE;
+	return true;
 }
 
 

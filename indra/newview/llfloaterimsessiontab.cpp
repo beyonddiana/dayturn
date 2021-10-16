@@ -290,8 +290,8 @@ bool LLFloaterIMSessionTab::postBuild()
 	
 	mInputEditor->setTextExpandedCallback(boost::bind(&LLFloaterIMSessionTab::reshapeChatLayoutPanel, this));
 	mInputEditor->setMouseUpCallback(boost::bind(&LLFloaterIMSessionTab::onInputEditorClicked, this));
-	mInputEditor->setCommitOnFocusLost( FALSE );
-	mInputEditor->setPassDelete(TRUE);
+	mInputEditor->setCommitOnFocusLost(false);
+	mInputEditor->setPassDelete(true);
 	mInputEditor->setFont(LLViewerChat::getChatFont());
 
 	mChatLayoutPanelHeight = mChatLayoutPanel->getRect().getHeight();

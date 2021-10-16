@@ -539,13 +539,13 @@ protected:
 			}
 		}
 		virtual			~TextCmd() {}
-		virtual BOOL	execute(LLTextBase* editor, S32* delta) = 0;
+		virtual int	execute(LLTextBase* editor, S32* delta) = 0;
 		virtual S32		undo(LLTextBase* editor) = 0;
 		virtual S32		redo(LLTextBase* editor) = 0;
-		virtual BOOL	canExtend(S32 pos) const { return FALSE; }
+		virtual bool	canExtend(S32 pos) const { return false; }
 		virtual void	blockExtensions() {}
-		virtual BOOL	extendAndExecute( LLTextBase* editor, S32 pos, llwchar c, S32* delta ) { llassert(0); return 0; }
-		virtual BOOL	hasExtCharValue( llwchar value ) const { return FALSE; }
+		virtual bool	extendAndExecute( LLTextBase* editor, S32 pos, llwchar c, S32* delta ) { llassert(0); return 0; }
+		virtual bool	hasExtCharValue( llwchar value ) const { return false; }
 
 		// Defined here so they can access protected LLTextEditor editing methods
 		S32				insert(LLTextBase* editor, S32 pos, const LLWString &wstr) { return editor->insertStringNoUndo( pos, wstr, &mSegments ); }
@@ -676,7 +676,7 @@ protected:
 	S32							mSelectionEnd;
 	LLTimer		                mTripleClickTimer;
 	
-	BOOL						mIsSelecting;		// Are we in the middle of a drag-select? 
+	bool						mIsSelecting;		// Are we in the middle of a drag-select? 
 
 	// spell checking
 	bool						mSpellCheck;

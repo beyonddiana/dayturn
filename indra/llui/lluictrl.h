@@ -191,7 +191,7 @@ public:
     /// change), share their ViewModel.
     virtual void    shareViewModelFrom(const LLUICtrl& other);
 
-	virtual BOOL	setTextArg(  const std::string& key, const LLStringExplicit& text );
+	virtual bool	setTextArg(  const std::string& key, const LLStringExplicit& text );
 	virtual void	setIsChrome(bool is_chrome);
 
 	virtual BOOL	acceptsTextInput() const; // Defaults to false

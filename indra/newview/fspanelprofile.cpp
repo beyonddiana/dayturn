@@ -1741,7 +1741,7 @@ bool FSPanelAvatarNotes::postBuild()
 
     LLTextEditor* te = getChild<LLTextEditor>("notes_edit");
     te->setCommitCallback(boost::bind(&FSPanelAvatarNotes::onCommitNotes,this));
-    te->setCommitOnFocusLost(TRUE);
+    te->setCommitOnFocusLost(true);
 
     return true;
 }

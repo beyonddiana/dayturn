@@ -83,12 +83,12 @@ const F32	SPELLCHECK_DELAY = 0.5f;	// delay between the last keypress and spell 
 class LLTextEditor::TextCmdInsert : public LLTextBase::TextCmd
 {
 public:
-	TextCmdInsert(S32 pos, BOOL group_with_next, const LLWString &ws, LLTextSegmentPtr segment)
+	TextCmdInsert(S32 pos, bool group_with_next, const LLWString &ws, LLTextSegmentPtr segment)
 		: TextCmd(pos, group_with_next, segment), mWString(ws)
 	{
 	}
 	virtual ~TextCmdInsert() {}
-	virtual BOOL execute( LLTextBase* editor, S32* delta )
+	virtual int execute( LLTextBase* editor, S32* delta )
 	{
 		*delta = insert(editor, getPosition(), mWString );
 		LLWStringUtil::truncate(mWString, *delta);
@@ -114,29 +114,29 @@ private:
 class LLTextEditor::TextCmdAddChar : public LLTextBase::TextCmd
 {
 public:
-	TextCmdAddChar( S32 pos, BOOL group_with_next, llwchar wc, LLTextSegmentPtr segment)
-		: TextCmd(pos, group_with_next, segment), mWString(1, wc), mBlockExtensions(FALSE)
+	TextCmdAddChar( S32 pos, bool group_with_next, llwchar wc, LLTextSegmentPtr segment)
+		: TextCmd(pos, group_with_next, segment), mWString(1, wc), mBlockExtensions(false)
 	{
 	}
 	virtual void blockExtensions()
 	{
-		mBlockExtensions = TRUE;
+		mBlockExtensions = true;
 	}
-	virtual BOOL canExtend(S32 pos) const
+	virtual bool canExtend(S32 pos) const
 	{
 		// cannot extend text with custom segments
-		if (!mSegments.empty()) return FALSE;
+		if (!mSegments.empty()) return false;
 
 		return !mBlockExtensions && (pos == getPosition() + (S32)mWString.length());
 	}
-	virtual BOOL execute( LLTextBase* editor, S32* delta )
+	virtual int execute( LLTextBase* editor, S32* delta )
 	{
 		*delta = insert(editor, getPosition(), mWString);
 		LLWStringUtil::truncate(mWString, *delta);
 		//mWString = wstring_truncate(mWString, *delta);
 		return (*delta != 0);
 	}
-	virtual BOOL extendAndExecute( LLTextBase* editor, S32 pos, llwchar wc, S32* delta )	
+	virtual bool extendAndExecute( LLTextBase* editor, S32 pos, llwchar wc, S32* delta )	
 	{ 
 		LLWString ws;
 		ws += wc;
@@ -161,7 +161,7 @@ public:
 
 private:
 	LLWString	mWString;
-	BOOL		mBlockExtensions;
+	bool		mBlockExtensions;
 
 };
 
@@ -170,15 +170,15 @@ private:
 class LLTextEditor::TextCmdOverwriteChar : public LLTextBase::TextCmd
 {
 public:
-	TextCmdOverwriteChar( S32 pos, BOOL group_with_next, llwchar wc)
+	TextCmdOverwriteChar( S32 pos, bool group_with_next, llwchar wc)
 		: TextCmd(pos, group_with_next), mChar(wc), mOldChar(0) {}
 
-	virtual BOOL execute( LLTextBase* editor, S32* delta )
+	virtual int execute( LLTextBase* editor, S32* delta )
 	{ 
 		mOldChar = editor->getWText()[getPosition()];
 		overwrite(editor, getPosition(), mChar);
 		*delta = 0;
-		return TRUE;
+		return true;
 	}	
 	virtual S32 undo( LLTextBase* editor )
 	{
@@ -201,12 +201,12 @@ private:
 class LLTextEditor::TextCmdRemove : public LLTextBase::TextCmd
 {
 public:
-	TextCmdRemove( S32 pos, BOOL group_with_next, S32 len, segment_vec_t& segments ) :
+	TextCmdRemove( S32 pos, bool group_with_next, S32 len, segment_vec_t& segments ) :
 		TextCmd(pos, group_with_next), mLen(len)
 	{
 		std::swap(mSegments, segments);
 	}
-	virtual BOOL execute( LLTextBase* editor, S32* delta )
+	virtual int execute( LLTextBase* editor, S32* delta )
 	{ 
 		mWString = editor->getWText().substr(getPosition(), mLen);
 		*delta = remove(editor, getPosition(), mLen );
@@ -246,7 +246,7 @@ LLTextEditor::Params::Params()
 LLTextEditor::LLTextEditor(const LLTextEditor::Params& p) :
 	LLTextBase(p),
 	mAutoreplaceCallback(),
-	mBaseDocIsPristine(TRUE),
+	mBaseDocIsPristine(true),
 	mPristineCmd( NULL ),
 	mLastCmd( NULL ),
 	mDefaultColor( p.default_color() ),
@@ -260,7 +260,7 @@ LLTextEditor::LLTextEditor(const LLTextEditor::Params& p) :
 	mContextMenu(NULL),
 	mShowContextMenu(p.show_context_menu),
 	mEnableTooltipPaste(p.enable_tooltip_paste),
-	mPassDelete(FALSE),
+	mPassDelete(false),
 	mKeepSelectionOnReturn(false)
 {
 	mSourceID.generate();
@@ -276,7 +276,7 @@ LLTextEditor::LLTextEditor(const LLTextEditor::Params& p) :
 	addChild( mBorder );
 	setText(p.default_text());
 	
-	mParseOnTheFly = TRUE;
+	mParseOnTheFly = true;
 }
 
 void LLTextEditor::initFromParams( const LLTextEditor::Params& p)
@@ -325,14 +325,14 @@ void LLTextEditor::setText(const LLStringExplicit &utf8str, const LLStyle::Param
 	blockUndo();
 	deselect();
 	
-	mParseOnTheFly = FALSE;
+	mParseOnTheFly = false;
 	LLTextBase::setText(utf8str, input_params);
-	mParseOnTheFly = TRUE;
+	mParseOnTheFly = true;
 
 	resetDirty();
 }
 
-void LLTextEditor::selectNext(const std::string& search_text_in, BOOL case_insensitive, BOOL wrap)
+void LLTextEditor::selectNext(const std::string& search_text_in, bool case_insensitive, bool wrap)
 {
 	if (search_text_in.empty())
 	{
@@ -369,7 +369,7 @@ void LLTextEditor::selectNext(const std::string& search_text_in, BOOL case_insen
 	// If still -1, then search_text just isn't found.
     if (-1 == loc)
 	{
-		mIsSelecting = FALSE;
+		mIsSelecting = false;
 		mSelectionEnd = 0;
 		mSelectionStart = 0;
 		return;
@@ -377,15 +377,15 @@ void LLTextEditor::selectNext(const std::string& search_text_in, BOOL case_insen
 
 	setCursorPos(loc);
 	
-	mIsSelecting = TRUE;
+	mIsSelecting = true;
 	mSelectionEnd = mCursorPos;
 	mSelectionStart = llmin((S32)getLength(), (S32)(mCursorPos + search_text.size()));
 }
 
-BOOL LLTextEditor::replaceText(const std::string& search_text_in, const std::string& replace_text,
-							   BOOL case_insensitive, BOOL wrap)
+bool LLTextEditor::replaceText(const std::string& search_text_in, const std::string& replace_text,
+							   bool case_insensitive, bool wrap)
 {
-	BOOL replaced = FALSE;
+	bool replaced = false;
 
 	if (search_text_in.empty())
 	{
@@ -407,7 +407,7 @@ BOOL LLTextEditor::replaceText(const std::string& search_text_in, const std::str
 		if (selected_text == search_text)
 		{
 			insertText(replace_text);
-			replaced = TRUE;
+			replaced = true;
 		}
 	}
 
@@ -415,15 +415,15 @@ BOOL LLTextEditor::replaceText(const std::string& search_text_in, const std::str
 	return replaced;
 }
 
-void LLTextEditor::replaceTextAll(const std::string& search_text, const std::string& replace_text, BOOL case_insensitive)
+void LLTextEditor::replaceTextAll(const std::string& search_text, const std::string& replace_text, bool case_insensitive)
 {
 	startOfDoc();
-	selectNext(search_text, case_insensitive, FALSE);
+	selectNext(search_text, case_insensitive, false);
 
-	BOOL replaced = TRUE;
+	bool replaced = true;
 	while ( replaced )
 	{
-		replaced = replaceText(search_text,replace_text, case_insensitive, FALSE);
+		replaced = replaceText(search_text,replace_text, case_insensitive, false);
 	}
 }
 
@@ -501,7 +501,7 @@ void LLTextEditor::getSegmentsInRange(LLTextEditor::segment_vec_t& segments_out,
 	}
 }
 
-BOOL LLTextEditor::selectionContainsLineBreaks()
+bool LLTextEditor::selectionContainsLineBreaks()
 {
 	if (hasSelection())
 	{
@@ -513,11 +513,11 @@ BOOL LLTextEditor::selectionContainsLineBreaks()
 		{
 			if (wtext[i] == '\n')
 			{
-				return TRUE;
+				return true;
 			}
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 
@@ -592,7 +592,7 @@ void LLTextEditor::indentSelectedLines( S32 spaces )
 
 		// Disabling parsing on the fly to avoid updating text segments
 		// until all indentation commands are executed.
-		mParseOnTheFly = FALSE;
+		mParseOnTheFly = false;
 
 		// Find each start-of-line and indent it
 		do
@@ -619,7 +619,7 @@ void LLTextEditor::indentSelectedLines( S32 spaces )
 		}
 		while( cur < right );
 
-		mParseOnTheFly = TRUE;
+		mParseOnTheFly = true;
 
 		if( (right < getLength()) && (text[right] == '\n') )
 		{
@@ -704,7 +704,7 @@ BOOL LLTextEditor::handleMouseDown(S32 x, S32 y, MASK mask)
 					mSelectionEnd = mCursorPos;
 				}
 				// assume we're starting a drag select
-				mIsSelecting = TRUE;
+				mIsSelecting = true;
 			}
 			else
 			{
@@ -973,7 +973,7 @@ S32 LLTextEditor::insert(S32 pos, const LLWString &wstr, bool group_with_next_op
 S32 LLTextEditor::remove(S32 pos, S32 length, bool group_with_next_op)
 {
 	S32 end_pos = getEditableIndex(pos + length, true);
-	BOOL removedChar = FALSE;
+	bool removedChar = false;
 
 	segment_vec_t segments_to_remove;
 	// store text segments
@@ -995,7 +995,7 @@ S32 LLTextEditor::overwriteChar(S32 pos, llwchar wc)
 	}
 	else
 	{
-		return execute(new TextCmdOverwriteChar(pos, FALSE, wc));
+		return execute(new TextCmdOverwriteChar(pos, false, wc));
 	}
 }
 
@@ -1115,7 +1115,7 @@ void LLTextEditor::addChar(llwchar wc)
 	}
 	if( hasSelection() )
 	{
-		deleteSelection(TRUE);
+		deleteSelection(true);
 	}
 	else if (LL_KIM_OVERWRITE == gKeyboard->getInsertMode())
 	{
@@ -1142,7 +1142,7 @@ void LLTextEditor::addChar(llwchar wc)
 	}
 }
 
-void LLTextEditor::addLineBreakChar(BOOL group_together)
+void LLTextEditor::addLineBreakChar(bool group_together)
 {
 	if( !getEnabled() )
 	{
@@ -1150,7 +1150,7 @@ void LLTextEditor::addLineBreakChar(BOOL group_together)
 	}
 	if( hasSelection() )
 	{
-		deleteSelection(TRUE);
+		deleteSelection(true);
 	}
 	else if (LL_KIM_OVERWRITE == gKeyboard->getInsertMode())
 	{
@@ -1352,7 +1352,7 @@ BOOL LLTextEditor::handleNavigationKey(const KEY key, const MASK mask)
 	return handled;
 }
 
-void LLTextEditor::deleteSelection(BOOL group_with_next_op )
+void LLTextEditor::deleteSelection(bool group_with_next_op )
 {
 	if( getEnabled() && hasSelection() )
 	{
@@ -1382,7 +1382,7 @@ void LLTextEditor::cut()
 	S32 left_pos = llmin( mSelectionStart, mSelectionEnd );
 	S32 length = llabs( mSelectionStart - mSelectionEnd );
 	LLClipboard::instance().copyToClipboard( getWText(), left_pos, length);
-	deleteSelection( FALSE );
+	deleteSelection(false);
 
 	onKeyStroke();
 }
@@ -1426,7 +1426,7 @@ void LLTextEditor::pastePrimary()
 // paste from primary (itsprimary==true) or clipboard (itsprimary==false)
 void LLTextEditor::pasteHelper(bool is_primary)
 {
-	mParseOnTheFly = FALSE;
+	mParseOnTheFly = false;
 	bool can_paste_it;
 	if (is_primary)
 	{
@@ -1453,7 +1453,7 @@ void LLTextEditor::pasteHelper(bool is_primary)
 	// Delete any selected characters (the paste replaces them)
 	if( (!is_primary) && hasSelection() )
 	{
-		deleteSelection(TRUE);
+		deleteSelection(true);
 	}
 
 	// Clean up string (replace tabs and remove characters that our fonts don't support).
@@ -1468,7 +1468,7 @@ void LLTextEditor::pasteHelper(bool is_primary)
 	deselect();
 
 	onKeyStroke();
-	mParseOnTheFly = TRUE;
+	mParseOnTheFly = true;
 }
 
 
@@ -1512,7 +1512,7 @@ void LLTextEditor::pasteTextWithLinebreaks(LLWString & clean_string)
 			std::basic_string<llwchar> str = std::basic_string<llwchar>(clean_string,start,pos-start);
 			setCursorPos(mCursorPos + insert(mCursorPos, str, TRUE, LLTextSegmentPtr()));
 		}
-		addLineBreakChar(TRUE);			// Add a line break and group with the next addition.
+		addLineBreakChar(true);			// Add a line break and group with the next addition.
 
 		start = pos+1;
 		pos = clean_string.find('\n',start);
@@ -1525,7 +1525,7 @@ void LLTextEditor::pasteTextWithLinebreaks(LLWString & clean_string)
 	}
 	else
 	{
-		addLineBreakChar(FALSE);		// Add a line break and end the grouping.
+		addLineBreakChar(false);		// Add a line break and end the grouping.
 	}
 }
 
@@ -1656,7 +1656,7 @@ BOOL LLTextEditor::handleSpecialKey(const KEY key, const MASK mask)
 	case KEY_BACKSPACE:
 		if( hasSelection() )
 		{
-			deleteSelection(FALSE);
+			deleteSelection(false);
 		}
 		else
 		if( 0 < mCursorPos )
@@ -1675,7 +1675,7 @@ BOOL LLTextEditor::handleSpecialKey(const KEY key, const MASK mask)
 		{
 			if( hasSelection() && !mKeepSelectionOnReturn )
 			{
-				deleteSelection(FALSE);
+				deleteSelection(false);
 			}
 			if (mAutoIndent)
 			{
@@ -1703,7 +1703,7 @@ BOOL LLTextEditor::handleSpecialKey(const KEY key, const MASK mask)
 		{
 			if( hasSelection() )
 			{
-				deleteSelection(FALSE);
+				deleteSelection(false);
 			}
 			
 			S32 offset = getLineOffsetFromDocIndex(mCursorPos);
@@ -1787,7 +1787,7 @@ bool LLTextEditor::handleKeyHere(KEY key, MASK mask )
 				// Delete any selected characters (the tooltip text replaces them)
 				if(hasSelection())
 				{
-					deleteSelection(TRUE);
+					deleteSelection(true);
 				}
 
 				std::basic_string<llwchar>::size_type pos = tool_tip_text.find('\n',0);
@@ -1875,7 +1875,7 @@ void LLTextEditor::doDelete()
 	}
 	if( hasSelection() )
 	{
-		deleteSelection(FALSE);
+		deleteSelection(false);
 	}
 	else
 	if( mCursorPos < getLength() )
@@ -1919,7 +1919,7 @@ void LLTextEditor::doDelete()
 
 void LLTextEditor::blockUndo()
 {
-	mBaseDocIsPristine = FALSE;
+	mBaseDocIsPristine = false;
 	mLastCmd = NULL;
 	std::for_each(mUndoStack.begin(), mUndoStack.end(), DeletePointer());
 	mUndoStack.clear();
@@ -2330,7 +2330,7 @@ void LLTextEditor::insertText(const std::string &new_text)
 	// Delete any selected characters (the insertion replaces them)
 	if( hasSelection() )
 	{
-		deleteSelection(TRUE);
+		deleteSelection(true);
 	}
 
 	setCursorPos(mCursorPos + insert( mCursorPos, utf8str_to_wstring(new_text), FALSE, LLTextSegmentPtr() ));
@@ -2346,7 +2346,7 @@ void LLTextEditor::insertText(LLWString &new_text)
 	// Delete any selected characters (the insertion replaces them)
 	if( hasSelection() )
 	{
-		deleteSelection(TRUE);
+		deleteSelection(true);
 	}
 
 	setCursorPos(mCursorPos + insert( mCursorPos, new_text, FALSE, LLTextSegmentPtr() ));
@@ -2359,10 +2359,10 @@ void LLTextEditor::appendWidget(const LLInlineViewSegment::Params& params, const
 	// Save old state
 	S32 selection_start = mSelectionStart;
 	S32 selection_end = mSelectionEnd;
-	BOOL was_selecting = mIsSelecting;
+	bool was_selecting = mIsSelecting;
 	S32 cursor_pos = mCursorPos;
 	S32 old_length = getLength();
-	BOOL cursor_was_at_end = (mCursorPos == old_length);
+	bool cursor_was_at_end = (mCursorPos == old_length);
 
 	deselect();
 
@@ -2417,7 +2417,7 @@ void LLTextEditor::onSpellCheckPerformed()
 {
 	if (isPristine())
 	{
-		mBaseDocIsPristine = FALSE;
+		mBaseDocIsPristine = false;
 	}
 }
 
@@ -2434,7 +2434,7 @@ void LLTextEditor::makePristine()
 	}
 }
 
-BOOL LLTextEditor::isPristine() const
+bool LLTextEditor::isPristine() const
 {
 	if( mPristineCmd )
 	{
@@ -2447,7 +2447,7 @@ BOOL LLTextEditor::isPristine() const
 	}
 }
 
-BOOL LLTextEditor::tryToRevertToPristineState()
+bool LLTextEditor::tryToRevertToPristineState()
 {
 	if( !isPristine() )
 	{
@@ -2476,7 +2476,7 @@ BOOL LLTextEditor::tryToRevertToPristineState()
 		}
 	}
 
-	return isPristine(); // TRUE => success
+	return isPristine(); // true => success
 }
 
 void LLTextEditor::updateLinkSegments()
@@ -2535,7 +2535,7 @@ void LLTextEditor::onMouseCaptureLost()
 ///////////////////////////////////////////////////////////////////
 // Hack for Notecards
 
-BOOL LLTextEditor::importBuffer(const char* buffer, S32 length )
+bool LLTextEditor::importBuffer(const char* buffer, S32 length )
 {
 	std::istringstream instream(buffer);
 	
@@ -2554,20 +2554,20 @@ BOOL LLTextEditor::importBuffer(const char* buffer, S32 length )
 	if( 1 != sscanf(tbuf, "Linden text version %d", &version) )
 	{
 		LL_WARNS() << "Invalid Linden text file header " << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 
 	if( 1 != version )
 	{
 		LL_WARNS() << "Invalid Linden text file version: " << version << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 
 	instream.getline(tbuf, MAX_STRING);
 	if( 0 != sscanf(tbuf, "{") )
 	{
 		LL_WARNS() << "Invalid Linden text file format" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 
 	S32 text_len = 0;
@@ -2575,36 +2575,36 @@ BOOL LLTextEditor::importBuffer(const char* buffer, S32 length )
 	if( 1 != sscanf(tbuf, "Text length %d", &text_len) )
 	{
 		LL_WARNS() << "Invalid Linden text length field" << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 
 	if( text_len > mMaxTextByteLength )
 	{
 		LL_WARNS() << "Invalid Linden text length: " << text_len << LL_ENDL;
-		return FALSE;
+		return false;
 	}
 
-	BOOL success = TRUE;
+	bool success = true;
 
 	char* text = new char[ text_len + 1];
 	if (text == NULL)
 	{
 		LL_ERRS() << "Memory allocation failure." << LL_ENDL;			
-		return FALSE;
+		return false;
 	}
 	instream.get(text, text_len + 1, '\0');
 	text[text_len] = '\0';
 	if( text_len != (S32)strlen(text) )/* Flawfinder: ignore */
 	{
 		LL_WARNS() << llformat("Invalid text length: %d != %d ",strlen(text),text_len) << LL_ENDL;/* Flawfinder: ignore */
-		success = FALSE;
+		success = false;
 	}
 
 	instream.getline(tbuf, MAX_STRING);
 	if( success && (0 != sscanf(tbuf, "}")) )
 	{
 		LL_WARNS() << "Invalid Linden text file format: missing terminal }" << LL_ENDL;
-		success = FALSE;
+		success = false;
 	}
 
 	if( success )
@@ -2621,7 +2621,7 @@ BOOL LLTextEditor::importBuffer(const char* buffer, S32 length )
 	return success;
 }
 
-BOOL LLTextEditor::exportBuffer(std::string &buffer )
+bool LLTextEditor::exportBuffer(std::string &buffer )
 {
 	std::ostringstream outstream(buffer);
 	
@@ -2632,7 +2632,7 @@ BOOL LLTextEditor::exportBuffer(std::string &buffer )
 	outstream << getText();
 	outstream << "}\n";
 
-	return TRUE;
+	return true;
 }
 
 void LLTextEditor::updateAllowingLanguageInput()
@@ -2655,7 +2655,7 @@ void LLTextEditor::updateAllowingLanguageInput()
 
 // Preedit is managed off the undo/redo command stack.
 
-BOOL LLTextEditor::hasPreeditString() const
+bool LLTextEditor::hasPreeditString() const
 {
 	return (mPreeditPositions.size() > 1);
 }
@@ -2671,7 +2671,7 @@ void LLTextEditor::resetPreedit()
         }
         else
         {
-            deleteSelection(TRUE);
+            deleteSelection(true);
         }
     }
 	if (hasPreeditString())
@@ -2744,7 +2744,7 @@ void LLTextEditor::updatePreedit(const LLWString &preedit_string,
 	onKeyStroke();
 }
 
-BOOL LLTextEditor::getPreeditLocation(S32 query_offset, LLCoordGL *coord, LLRect *bounds, LLRect *control) const
+bool LLTextEditor::getPreeditLocation(S32 query_offset, LLCoordGL *coord, LLRect *bounds, LLRect *control) const
 {
 	if (control)
 	{
@@ -2767,13 +2767,13 @@ BOOL LLTextEditor::getPreeditLocation(S32 query_offset, LLCoordGL *coord, LLRect
 	const S32 query = (query_offset >= 0 ? preedit_left_position + query_offset : mCursorPos);
 	if (query < preedit_left_position || query > preedit_right_position)
 	{
-		return FALSE;
+		return false;
 	}
 
 	const S32 first_visible_line = getFirstVisibleLine();
 	if (query < getLineStart(first_visible_line))
 	{
-		return FALSE;
+		return false;
 	}
 
 	S32 current_line = first_visible_line;
@@ -2834,7 +2834,7 @@ BOOL LLTextEditor::getPreeditLocation(S32 query_offset, LLCoordGL *coord, LLRect
 		LLUI::screenRectToGL(preedit_rect_screen, bounds);
 	}
 
-	return TRUE;
+	return true;
 }
 
 void LLTextEditor::getSelectionRange(S32 *position, S32 *length) const

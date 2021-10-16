@@ -190,7 +190,7 @@ public:
 	// assumes UTF8 text
 	virtual void	setValue(const LLSD& value );
 	virtual LLSD	getValue() const;
-	virtual BOOL	setTextArg( const std::string& key, const LLStringExplicit& text );
+	virtual bool	setTextArg( const std::string& key, const LLStringExplicit& text );
 	virtual bool	setLabelArg( const std::string& key, const LLStringExplicit& text );
 
 	void			setLabel(const LLStringExplicit &new_label) { mLabel = new_label; }
@@ -215,7 +215,7 @@ public:
 	void			setSelection(S32 start, S32 end);
 	virtual void	getSelectionRange(S32 *position, S32 *length) const;
 	
-	void			setCommitOnFocusLost( BOOL b )	{ mCommitOnFocusLost = b; }
+	void			setCommitOnFocusLost( bool b )	{ mCommitOnFocusLost = b; }
 	void			setRevertOnEsc( BOOL b )		{ mRevertOnEsc = b; }
 
 	void setCursorColor(const LLColor4& c)			{ mCursorColor = c; }
@@ -233,8 +233,8 @@ public:
 	void setFont(const LLFontGL* font);
 
 	void			setIgnoreArrowKeys(bool b)		{ mIgnoreArrowKeys = b; }
-	void			setIgnoreTab(BOOL b)			{ mIgnoreTab = b; }
-	void			setPassDelete(BOOL b)			{ mPassDelete = b; }
+	void			setIgnoreTab(bool b)			{ mIgnoreTab = b; }
+	void			setPassDelete(bool b)			{ mPassDelete = b; }
 	void			setDrawAsterixes(BOOL b);
 
 	// get the cursor position of the beginning/end of the prev/next word in the text
@@ -303,14 +303,14 @@ private:
 	// private data members
 	//
 	void			updateAllowingLanguageInput();
-	BOOL			hasPreeditString() const;
+	bool			hasPreeditString() const;
 	// Implementation (overrides) of LLPreeditor
 	virtual void	resetPreedit();
 	virtual void	updatePreedit(const LLWString &preedit_string,
 						const segment_lengths_t &preedit_segment_lengths, const standouts_t &preedit_standouts, S32 caret_position);
 	virtual void	markAsPreedit(S32 position, S32 length);
 	virtual void	getPreeditRange(S32 *position, S32 *length) const;
-	virtual BOOL	getPreeditLocation(S32 query_position, LLCoordGL *coord, LLRect *bounds, LLRect *control) const;
+	virtual bool	getPreeditLocation(S32 query_position, LLCoordGL *coord, LLRect *bounds, LLRect *control) const;
 	virtual S32		getPreeditFontSize() const;
 	virtual LLWString getPreeditString() const { return getWText(); }
 
@@ -341,12 +341,12 @@ protected:
 	S32			mTextLeftEdge;				// Pixels, cached left edge of text based on left padding and width
 	S32			mTextRightEdge;				// Pixels, cached right edge of text based on right padding and width
 
-	BOOL		mCommitOnFocusLost;
+	bool		mCommitOnFocusLost;
 	BOOL		mRevertOnEsc;
 
 	keystroke_callback_t mKeystrokeCallback;
 
-	BOOL		mIsSelecting;				// Selection for clipboard operations
+	bool		mIsSelecting;				// Selection for clipboard operations
 	S32			mSelectionStart;
 	S32			mSelectionEnd;
 	S32			mLastSelectionX;
@@ -382,7 +382,7 @@ protected:
 
 	BOOL		mSelectAllonFocusReceived;
 	BOOL		mSelectAllonCommit;
-	BOOL		mPassDelete;
+	bool		mPassDelete;
 
 	BOOL		mReadOnly;
 
@@ -435,7 +435,7 @@ private:
 		std::string mText;
 		S32		mCursorPos;
 		S32		mScrollHPos;
-		BOOL	mIsSelecting;
+		bool	mIsSelecting;
 		S32		mSelectionStart;
 		S32		mSelectionEnd;
 	}; // end class LLLineEditorRollback

@@ -419,7 +419,7 @@ bool LLPanelLandGeneral::postBuild()
 	getChild<LLLineEditor>("Name")->setPrevalidate(LLTextValidate::validateASCIIPrintableNoPipe);
 
 	mEditDesc = getChild<LLTextEditor>("Description");
-	mEditDesc->setCommitOnFocusLost(TRUE);
+	mEditDesc->setCommitOnFocusLost(true);
 	mEditDesc->setCommitCallback(onCommitAny, this);
     mEditDesc->setContentTrusted(false);
 	// No prevalidate function - historically the prevalidate function was broken,

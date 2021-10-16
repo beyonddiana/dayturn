@@ -233,7 +233,7 @@ bool LLFloaterScriptSearch::postBuild()
 	mReplaceBox = getChild<LLLineEditor>("replace_text");
 	mSearchBox = getChild<LLLineEditor>("search_text");
 	mSearchBox->setCommitCallback(boost::bind(&LLFloaterScriptSearch::onSearchBoxCommit, this));
-	mSearchBox->setCommitOnFocusLost(FALSE);
+	mSearchBox->setCommitOnFocusLost(false);
 	childSetAction("search_btn", onBtnSearch,this);
 	childSetAction("replace_btn", onBtnReplace,this);
 	childSetAction("replace_all_btn", onBtnReplaceAll,this);

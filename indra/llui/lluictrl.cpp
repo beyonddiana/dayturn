@@ -633,33 +633,33 @@ bool LLUICtrl::controlListener(const LLSD& newvalue, LLHandle<LLUICtrl> handle, 
 }
 
 // virtual
-BOOL LLUICtrl::setTextArg( const std::string& key, const LLStringExplicit& text ) 
+bool LLUICtrl::setTextArg( const std::string& key, const LLStringExplicit& text ) 
 { 
-	return FALSE; 
+	return false;
 }
 
 // virtual
 bool LLUICtrl::setLabelArg( const std::string& key, const LLStringExplicit& text )
 { 
-	return false; 
+	return false;
 }
 
 // virtual
 LLCtrlSelectionInterface* LLUICtrl::getSelectionInterface()	
 { 
-	return NULL; 
+	return NULL;
 }
 
 // virtual
 LLCtrlListInterface* LLUICtrl::getListInterface()				
 { 
-	return NULL; 
+	return NULL;
 }
 
 // virtual
 LLCtrlScrollInterface* LLUICtrl::getScrollInterface()			
 { 
-	return NULL; 
+	return NULL;
 }
 
 bool LLUICtrl::hasFocus() const

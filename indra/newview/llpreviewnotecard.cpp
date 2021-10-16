@@ -129,7 +129,7 @@ void LLPreviewNotecard::draw()
 {
 	LLViewerTextEditor* editor = getChild<LLViewerTextEditor>("Notecard Editor");
 	LLLineEditor *desc = getChild<LLLineEditor>("desc");
-	BOOL changed = !editor->isPristine() || desc->isDirty();
+	bool changed = !editor->isPristine() || desc->isDirty();
 
 	getChildView("Save")->setEnabled(changed && getEnabled());
 	

@@ -543,7 +543,7 @@ void LLComboBox::createLineEditor(const LLComboBox::Params& p)
 		params.label(mLabel);
 		mTextEntry = LLUICtrlFactory::create<LLLineEditor> (params);
 		mTextEntry->setText(cur_label);
-		mTextEntry->setIgnoreTab(TRUE);
+		mTextEntry->setIgnoreTab(true);
 		addChild(mTextEntry);
 
 		// clear label on button

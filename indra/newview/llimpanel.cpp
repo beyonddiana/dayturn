@@ -212,7 +212,7 @@ BOOL LLFloaterIMPanel::postBuild()
 	mFocusCallbackConnection = mInputEditor->setFocusLostCallback( boost::bind(onInputEditorFocusLost, _1, this));
 	mInputEditor->setKeystrokeCallback( onInputEditorKeystroke, this );
 	mInputEditor->setCommitCallback( onCommitChat, this );
-	mInputEditor->setCommitOnFocusLost( FALSE );
+	mInputEditor->setCommitOnFocusLost(false);
 	mInputEditor->setRevertOnEsc( FALSE );
 	mInputEditor->setReplaceNewlinesWithSpaces( FALSE );
 

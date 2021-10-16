@@ -353,8 +353,8 @@ bool LLPreviewGesture::postBuild()
 	edit = getChild<LLLineEditor>("trigger_editor");
 	edit->setKeystrokeCallback(onKeystrokeCommit, this);
 	edit->setCommitCallback(onCommitSetDirty, this);
-	edit->setCommitOnFocusLost(TRUE);
-	edit->setIgnoreTab(TRUE);
+	edit->setCommitOnFocusLost(true);
+	edit->setIgnoreTab(true);
 	mTriggerEditor = edit;
 
 	text = getChild<LLTextBox>("replace_text");
@@ -365,8 +365,8 @@ bool LLPreviewGesture::postBuild()
 	edit->setEnabled(false);
 	edit->setKeystrokeCallback(onKeystrokeCommit, this);
 	edit->setCommitCallback(onCommitSetDirty, this);
-	edit->setCommitOnFocusLost(TRUE);
-	edit->setIgnoreTab(TRUE);
+	edit->setCommitOnFocusLost(true);
+	edit->setIgnoreTab(true);
 	mReplaceEditor = edit;
 
 	combo = getChild<LLComboBox>( "modifier_combo");
@@ -429,8 +429,8 @@ bool LLPreviewGesture::postBuild()
 	edit->setVisible(false);
 	edit->setCommitCallback(onCommitChat, this);
 	//edit->setKeystrokeCallback(onKeystrokeCommit, this);
-	edit->setCommitOnFocusLost(TRUE);
-	edit->setIgnoreTab(TRUE);
+	edit->setCommitOnFocusLost(true);
+	edit->setIgnoreTab(true);
 	mChatEditor = edit;
 
 	check = getChild<LLCheckBoxCtrl>( "wait_anim_check");
@@ -448,9 +448,9 @@ bool LLPreviewGesture::postBuild()
 	edit->setVisible(false);
 	edit->setPrevalidate(LLTextValidate::validateFloat);
 //	edit->setKeystrokeCallback(onKeystrokeCommit, this);
-	edit->setCommitOnFocusLost(TRUE);
+	edit->setCommitOnFocusLost(true);
 	edit->setCommitCallback(onCommitWaitTime, this);
-	edit->setIgnoreTab(TRUE);
+	edit->setIgnoreTab(true);
 	mWaitTimeEditor = edit;
 
 	// Buttons at the bottom

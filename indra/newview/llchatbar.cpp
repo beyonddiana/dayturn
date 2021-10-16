@@ -119,10 +119,10 @@ bool LLChatBar::postBuild()
 	mInputEditor->setKeystrokeCallback(&onInputEditorKeystroke, this);
 	mInputEditor->setFocusLostCallback(boost::bind(&LLChatBar::onInputEditorFocusLost));
 	mInputEditor->setFocusReceivedCallback(boost::bind(&LLChatBar::onInputEditorGainFocus));
-	mInputEditor->setCommitOnFocusLost( FALSE );
+	mInputEditor->setCommitOnFocusLost(false);
 	mInputEditor->setRevertOnEsc( FALSE );
-	mInputEditor->setIgnoreTab(TRUE);
-	mInputEditor->setPassDelete(TRUE);
+	mInputEditor->setIgnoreTab(true);
+	mInputEditor->setPassDelete(true);
 	mInputEditor->setReplaceNewlinesWithSpaces(FALSE);
 
 	mInputEditor->setMaxTextLength(DB_CHAT_MSG_STR_LEN);

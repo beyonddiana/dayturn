@@ -332,7 +332,7 @@ bool LLFloaterExperienceProfile::postBuild()
 
     childSetCommitCallback(EDIT IMG_LOGO, boost::bind(&LLFloaterExperienceProfile::onFieldChanged, this), NULL);
 
-    getChild<LLTextEditor>(EDIT TF_DESC)->setCommitOnFocusLost(TRUE);
+    getChild<LLTextEditor>(EDIT TF_DESC)->setCommitOnFocusLost(true);
 
 
     LLEventPumps::instance().obtain("experience_permission").listen(mExperienceId.asString()+"-profile", 
