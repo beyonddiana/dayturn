@@ -819,11 +819,11 @@ void LLViewerTexture::forceImmediateUpdate()
 {
 }
 
-void LLViewerTexture::addTextureStats(F32 virtual_size, BOOL needs_gltexture) const 
+void LLViewerTexture::addTextureStats(F32 virtual_size, bool needs_gltexture) const 
 {
 	if(needs_gltexture)
 	{
-		mNeedsGLTexture = TRUE;
+		mNeedsGLTexture = true;
 	}
 
 	virtual_size *= sTexelPixelRatio;
@@ -1896,7 +1896,7 @@ void LLViewerFetchedTexture::updateVirtualSize()
 {	
 	if(!mMaxVirtualSizeResetCounter)
 	{
-		addTextureStats(0.f, FALSE);//reset
+		addTextureStats(0.f, false);//reset
 	}
 
 	for (U32 ch = 0; ch < LLRender::NUM_TEXTURE_CHANNELS; ++ch)
@@ -3855,7 +3855,7 @@ F32 LLViewerMediaTexture::getMaxVirtualSize()
 
 	if(!mMaxVirtualSizeResetCounter)
 	{
-		addTextureStats(0.f, FALSE);//reset
+		addTextureStats(0.f, false);//reset
 	}
 
 	if(mIsPlaying) //media is playing
