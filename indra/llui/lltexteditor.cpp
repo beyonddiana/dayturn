@@ -1166,13 +1166,13 @@ void LLTextEditor::addLineBreakChar(bool group_together)
 }
 
 
-BOOL LLTextEditor::handleSelectionKey(const KEY key, const MASK mask)
+bool LLTextEditor::handleSelectionKey(const KEY key, const MASK mask)
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 
 	if( mask & MASK_SHIFT )
 	{
-		handled = TRUE;
+		handled = true;
 		
 		switch( key )
 		{
@@ -1253,7 +1253,7 @@ BOOL LLTextEditor::handleSelectionKey(const KEY key, const MASK mask)
 			break;
 
 		default:
-			handled = FALSE;
+			handled = false;
 			break;
 		}
 	}
@@ -1267,14 +1267,14 @@ BOOL LLTextEditor::handleSelectionKey(const KEY key, const MASK mask)
 	return handled;
 }
 
-BOOL LLTextEditor::handleNavigationKey(const KEY key, const MASK mask)
+bool LLTextEditor::handleNavigationKey(const KEY key, const MASK mask)
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 
 	// Ignore capslock key
 	if( MASK_NONE == mask )
 	{
-		handled = TRUE;
+		handled = true;
 		switch( key )
 		{
 		case KEY_UP:
@@ -1339,7 +1339,7 @@ BOOL LLTextEditor::handleNavigationKey(const KEY key, const MASK mask)
 			break;
 			
 		default:
-			handled = FALSE;
+			handled = false;
 			break;
 		}
 	}
@@ -1554,13 +1554,13 @@ void LLTextEditor::updatePrimary()
 	}
 }
 
-BOOL LLTextEditor::handleControlKey(const KEY key, const MASK mask)	
+bool LLTextEditor::handleControlKey(const KEY key, const MASK mask)	
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 
 	if( mask & MASK_CONTROL )
 	{
-		handled = TRUE;
+		handled = true;
 
 		switch( key )
 		{
@@ -1624,7 +1624,7 @@ BOOL LLTextEditor::handleControlKey(const KEY key, const MASK mask)
 			break;
 
 		default:
-			handled = FALSE;
+			handled = false;
 			break;
 		}
 	}

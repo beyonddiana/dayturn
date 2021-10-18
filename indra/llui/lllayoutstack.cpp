@@ -353,7 +353,7 @@ void LLLayoutStack::addPanel(LLLayoutPanel* panel, EAnimate animate)
 	}
 }
 
-void LLLayoutStack::collapsePanel(LLPanel* panel, BOOL collapsed)
+void LLLayoutStack::collapsePanel(LLPanel* panel, bool collapsed)
 {
 	LLLayoutPanel* panel_container = findEmbeddedPanel(panel);
 	if (!panel_container) return;
