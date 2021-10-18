@@ -159,7 +159,7 @@ private:
 	void	showScrollbar			(S32 width, S32 height);
 	void	hideScrollbar			(S32 width, S32 height);
 
-	BOOL	autoScroll				(S32 x, S32 y);
+	bool	autoScroll				(S32 x, S32 y);
 
 	/**
 	 * An adaptor for LLTabComparator

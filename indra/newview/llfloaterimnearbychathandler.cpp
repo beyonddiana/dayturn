@@ -487,7 +487,7 @@ void LLFloaterIMNearbyChatHandler::initChannel()
 void LLFloaterIMNearbyChatHandler::processChat(const LLChat& chat_msg,
 									  const LLSD &args)
 {
-	if(chat_msg.mMuted == TRUE)
+	if(chat_msg.mMuted == true)
 		return;
 
 	if(chat_msg.mText.empty())
