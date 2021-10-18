@@ -563,7 +563,7 @@ void LLTextEditor::indentSelectedLines( S32 spaces )
 		LLWString text = getWText();
 		S32 left = llmin( mSelectionStart, mSelectionEnd );
 		S32 right = left + llabs( mSelectionStart - mSelectionEnd );
-		BOOL cursor_on_right = (mSelectionEnd > mSelectionStart);
+		bool cursor_on_right = (mSelectionEnd > mSelectionStart);
 		S32 cur = left;
 
 		// Expand left to start of line

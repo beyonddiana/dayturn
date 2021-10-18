@@ -316,8 +316,8 @@ bool LLFocusMgr::childHasKeyboardFocus(const LLView* parent ) const
 	return false;
 }
 
-// Returns TRUE is parent or any descedent of parent is the mouse captor.
-BOOL LLFocusMgr::childHasMouseCapture( const LLView* parent ) const
+// Returns true is parent or any descedent of parent is the mouse captor.
+bool LLFocusMgr::childHasMouseCapture( const LLView* parent ) const
 {
 	if( mMouseCaptor && dynamic_cast<LLView*>(mMouseCaptor) != NULL )
 	{
@@ -326,12 +326,12 @@ BOOL LLFocusMgr::childHasMouseCapture( const LLView* parent ) const
 		{
 			if( captor_view == parent )
 			{
-				return TRUE;
+				return true;
 			}
 			captor_view = captor_view->getParent();
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 void LLFocusMgr::removeKeyboardFocusWithoutCallback( const LLFocusableElement* focus )
@@ -400,18 +400,18 @@ void LLFocusMgr::removeMouseCaptureWithoutCallback( const LLMouseHandler* captor
 }
 
 
-BOOL LLFocusMgr::childIsTopCtrl( const LLView* parent ) const
+bool LLFocusMgr::childIsTopCtrl( const LLView* parent ) const
 {
 	LLView* top_view = (LLView*)mTopCtrl;
 	while( top_view )
 	{
 		if( top_view == parent )
 		{
-			return TRUE;
+			return true;
 		}
 		top_view = top_view->getParent();
 	}
-	return FALSE;
+	return false;
 }
 
 
@@ -471,7 +471,7 @@ void LLFocusMgr::triggerFocusFlash()
 	mFocusFlashTimer.reset();
 }
 
-void LLFocusMgr::setAppHasFocus(BOOL focus) 
+void LLFocusMgr::setAppHasFocus(bool focus) 
 { 
 	if (!mAppHasFocus && focus)
 	{

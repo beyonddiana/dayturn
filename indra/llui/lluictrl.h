@@ -194,7 +194,7 @@ public:
 	virtual bool	setTextArg(  const std::string& key, const LLStringExplicit& text );
 	virtual void	setIsChrome(bool is_chrome);
 
-	virtual BOOL	acceptsTextInput() const; // Defaults to false
+	virtual bool	acceptsTextInput() const; // Defaults to false
 
 	// A control is dirty if the user has modified its value.
 	// Editable controls should override this.

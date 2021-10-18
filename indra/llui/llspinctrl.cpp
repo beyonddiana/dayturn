@@ -138,8 +138,8 @@ LLSpinCtrl::LLSpinCtrl(const LLSpinCtrl::Params& p)
 	//RN: this seems to be a BAD IDEA, as it makes the editor behavior different when it has focus
 	// than when it doesn't.  Instead, if you always have to double click to select all the text, 
 	// it's easier to understand
-	//mEditor->setSelectAllonFocusReceived(TRUE);
-	mEditor->setSelectAllonCommit(FALSE);
+	//mEditor->setSelectAllonFocusReceived(true);
+	mEditor->setSelectAllonCommit(false);
 	addChild(mEditor);
 
 	updateEditor();

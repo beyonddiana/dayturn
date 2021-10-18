@@ -142,15 +142,15 @@ LLLineEditor::LLLineEditor(const LLLineEditor::Params& p)
 	mSpellCheckStart(-1),
 	mSpellCheckEnd(-1),
 	mSelectAllonFocusReceived( p.select_on_focus ),
-	mSelectAllonCommit( TRUE ),
+	mSelectAllonCommit(true),
 	mPassDelete(false),
-	mReadOnly(FALSE),
+	mReadOnly(false),
 	mBgImage( p.background_image ),
 	mBgImageDisabled( p.background_image_disabled ),
 	mBgImageFocused( p.background_image_focused ),
 	mShowImageFocused( p.bg_image_always_focused ),
-	mHaveHistory(FALSE),
-	mReplaceNewlinesWithSpaces( TRUE ),
+	mHaveHistory(false),
+	mReplaceNewlinesWithSpaces(true),
 	mLabel(p.label),
 	mCursorColor(p.cursor_color()),
 	mFgColor(p.text_color()),
@@ -1043,7 +1043,7 @@ void LLLineEditor::setSelection(S32 start, S32 end)
 	setCursor(start);
 }
 
-void LLLineEditor::setDrawAsterixes(BOOL b)
+void LLLineEditor::setDrawAsterixes(bool b)
 {
 	mDrawAsterixes = b;
 	updateAllowingLanguageInput();
@@ -2154,9 +2154,9 @@ void LLLineEditor::onTabInto()
 }
 
 //virtual
-BOOL LLLineEditor::acceptsTextInput() const
+bool LLLineEditor::acceptsTextInput() const
 {
-	return TRUE;
+	return true;
 }
 
 // Start or stop the editor from accepting text-editing keystrokes
@@ -2250,13 +2250,13 @@ bool LLLineEditor::prevalidateInput(const LLWString& wstr)
 }
 
 // static
-BOOL LLLineEditor::postvalidateFloat(const std::string &str)
+bool LLLineEditor::postvalidateFloat(const std::string &str)
 {
 	LLLocale locale(LLLocale::USER_LOCALE);
 
-	BOOL success = TRUE;
-	BOOL has_decimal = FALSE;
-	BOOL has_digit = FALSE;
+	bool success = true;
+	bool has_decimal = false;
+	bool has_digit = false;
 
 	LLWString trimmed = utf8str_to_wstring(str);
 	LLWStringUtil::trim(trimmed);
@@ -2281,22 +2281,22 @@ BOOL LLLineEditor::postvalidateFloat(const std::string &str)
 				if( has_decimal )
 				{
 					// can't have two
-					success = FALSE;
+					success = false;
 					break;
 				}
 				else
 				{
-					has_decimal = TRUE;
+					has_decimal = true;
 				}
 			}
 			else
 			if( LLStringOps::isDigit( trimmed[i] ) )
 			{
-				has_digit = TRUE;
+				has_digit = true;
 			}
 			else
 			{
-				success = FALSE;
+				success = false;
 				break;
 			}
 		}
@@ -2308,7 +2308,7 @@ BOOL LLLineEditor::postvalidateFloat(const std::string &str)
 	return success;
 }
 
-BOOL LLLineEditor::evaluateFloat()
+bool LLLineEditor::evaluateFloat()
 {
 	bool success;
 	F32 result = 0.f;
@@ -2340,7 +2340,7 @@ void LLLineEditor::onMouseCaptureLost()
 }
 
 
-void LLLineEditor::setSelectAllonFocusReceived(BOOL b)
+void LLLineEditor::setSelectAllonFocusReceived(bool b)
 {
 	mSelectAllonFocusReceived = b;
 }

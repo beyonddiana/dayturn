@@ -141,7 +141,7 @@ LLMultiSliderCtrl::LLMultiSliderCtrl(const LLMultiSliderCtrl::Params& p)
 			mEditor->setFocusReceivedCallback( boost::bind(LLMultiSliderCtrl::onEditorGainFocus, _1, this) );
 			// don't do this, as selecting the entire text is single clicking in some cases
 			// and double clicking in others
-			//mEditor->setSelectAllonFocusReceived(TRUE);
+			//mEditor->setSelectAllonFocusReceived(true);
 			addChild(mEditor);
 		}
 		else
