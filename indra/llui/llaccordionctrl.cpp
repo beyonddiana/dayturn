@@ -590,7 +590,7 @@ bool LLAccordionCtrl::handleDragAndDrop		(S32 x, S32 y, MASK mask,
 	return true;
 }
 
-BOOL LLAccordionCtrl::autoScroll		(S32 x, S32 y)
+bool LLAccordionCtrl::autoScroll		(S32 x, S32 y)
 {
 	static LLUICachedControl<S32> scrollbar_size ("UIScrollbarSize", 0);
 

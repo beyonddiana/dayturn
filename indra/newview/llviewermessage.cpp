@@ -1720,7 +1720,7 @@ bool LLOfferInfo::inventory_offer_callback(const LLSD& notification, const LLSD&
 			chat.mText = log_message;
 			if( LLMuteList::getInstance()->isMuted(mFromID ) && ! LLMuteList::getInstance()->isLinden(mFromName) )  // muting for SL-42269
 			{
-				chat.mMuted = TRUE;
+				chat.mMuted = true;
 			}
 
 			// *NOTE dzaporozhan
