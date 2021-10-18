@@ -1420,7 +1420,7 @@ void LLViewerWindow::handleResize(LLWindow *window,  S32 width,  S32 height)
 // The top-level window has gained focus (e.g. via ALT-TAB)
 void LLViewerWindow::handleFocus(LLWindow *window)
 {
-	gFocusMgr.setAppHasFocus(TRUE);
+	gFocusMgr.setAppHasFocus(true);
 	LLModalDialog::onAppFocusGained();
 
 	gAgent.onAppFocusGained();

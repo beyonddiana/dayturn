@@ -59,7 +59,7 @@ public:
 					 EInstantMessage dialog);
 	virtual ~LLFloaterIMPanel();
 
-	/*virtual*/ BOOL postBuild();
+	/*virtual*/ bool postBuild();
 
 	// Check typing timeout timer.
 	/*virtual*/ void draw();

@@ -354,7 +354,7 @@ public:
 	/*virtual*/ void		draw();
 
 	// LLUICtrl interface
-	/*virtual*/ BOOL		acceptsTextInput() const { return !mReadOnly; }
+	/*virtual*/ bool		acceptsTextInput() const { return !mReadOnly; }
 	/*virtual*/ void		setColor( const LLColor4& c );
 	virtual     void 		setReadOnlyColor(const LLColor4 &c);
 	virtual     void		setFocusColor(const LLColor4 &c);

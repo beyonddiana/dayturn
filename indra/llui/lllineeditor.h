@@ -182,7 +182,7 @@ public:
 	virtual void	onTabInto();
 	virtual void	setFocus( bool b );
 	virtual void 	setRect(const LLRect& rect);
-	virtual BOOL	acceptsTextInput() const;
+	virtual bool	acceptsTextInput() const;
 	virtual void	onCommit();
 	virtual bool	isDirty() const;	// Returns TRUE if user changed value at all
 	virtual void	resetDirty();		// Clear dirty state
@@ -216,7 +216,7 @@ public:
 	virtual void	getSelectionRange(S32 *position, S32 *length) const;
 	
 	void			setCommitOnFocusLost( bool b )	{ mCommitOnFocusLost = b; }
-	void			setRevertOnEsc( BOOL b )		{ mRevertOnEsc = b; }
+	void			setRevertOnEsc( bool b )		{ mRevertOnEsc = b; }
 
 	void setCursorColor(const LLColor4& c)			{ mCursorColor = c; }
 	const LLColor4& getCursorColor() const			{ return mCursorColor.get(); }
@@ -235,20 +235,20 @@ public:
 	void			setIgnoreArrowKeys(bool b)		{ mIgnoreArrowKeys = b; }
 	void			setIgnoreTab(bool b)			{ mIgnoreTab = b; }
 	void			setPassDelete(bool b)			{ mPassDelete = b; }
-	void			setDrawAsterixes(BOOL b);
+	void			setDrawAsterixes(bool b);
 
 	// get the cursor position of the beginning/end of the prev/next word in the text
 	S32				prevWordPos(S32 cursorPos) const;
 	S32				nextWordPos(S32 cursorPos) const;
 
-	BOOL			hasSelection() const { return (mSelectionStart != mSelectionEnd); }
+	bool			hasSelection() const { return (mSelectionStart != mSelectionEnd); }
 	void			startSelection();
 	void			endSelection();
 	void			extendSelection(S32 new_cursor_pos);
 	void			deleteSelection();
 
-	void			setSelectAllonFocusReceived(BOOL b);
-	void			setSelectAllonCommit(BOOL b) { mSelectAllonCommit = b; }
+	void			setSelectAllonFocusReceived(bool b);
+	void			setSelectAllonCommit(bool b) { mSelectAllonCommit = b; }
 	
 	void			onKeystroke();
 	typedef boost::function<void (LLLineEditor* caller, void* user_data)> callback_t;
@@ -267,13 +267,13 @@ public:
 	// Also callback that this method sets differs from setPrevalidate in a way that it validates just inputed
 	// symbols, before existing text is modified, but setPrevalidate validates line after it was modified.
 	void			setPrevalidateInput(LLTextValidate::validate_func_t func);
-	static BOOL		postvalidateFloat(const std::string &str);
+	static bool		postvalidateFloat(const std::string &str);
 
 	bool			prevalidateInput(const LLWString& wstr);
-	BOOL			evaluateFloat();
+	bool			evaluateFloat();
 
 	// line history support:
-	void			setEnableLineHistory( BOOL enabled ) { mHaveHistory = enabled; } // switches line history on or off 
+	void			setEnableLineHistory( bool enabled ) { mHaveHistory = enabled; } // switches line history on or off 
 	void			updateHistory(); // stores current line in history
 
 	void			setReplaceNewlinesWithSpaces(BOOL replace);
@@ -324,7 +324,7 @@ protected:
 	LLUIString		mLabel;					// text label that is visible when no user text provided
 
 	// line history support:
-	BOOL		mHaveHistory;				// flag for enabled line history
+	bool		mHaveHistory;				// flag for enabled line history
 	typedef std::vector<std::string>	line_history_t;
 	line_history_t	mLineHistory;			// line history storage
 	line_history_t::iterator	mCurrentHistoryLine;	// currently browsed history line
@@ -342,7 +342,7 @@ protected:
 	S32			mTextRightEdge;				// Pixels, cached right edge of text based on right padding and width
 
 	bool		mCommitOnFocusLost;
-	BOOL		mRevertOnEsc;
+	bool		mRevertOnEsc;
 
 	keystroke_callback_t mKeystrokeCallback;
 
@@ -377,16 +377,16 @@ protected:
 	S32			mBorderThickness;
 
 	bool		mIgnoreArrowKeys;
-	BOOL		mIgnoreTab;
-	BOOL		mDrawAsterixes;
+	bool		mIgnoreTab;
+	bool		mDrawAsterixes;
 
-	BOOL		mSelectAllonFocusReceived;
-	BOOL		mSelectAllonCommit;
+	bool		mSelectAllonFocusReceived;
+	bool		mSelectAllonCommit;
 	bool		mPassDelete;
 
-	BOOL		mReadOnly;
+	bool		mReadOnly;
 
-	BOOL 		mShowImageFocused;
+	bool 		mShowImageFocused;
 
 	LLWString	mPreeditWString;
 	LLWString	mPreeditOverwrittenWString;
@@ -401,7 +401,7 @@ private:
 	LLPointer<LLUIImage> mBgImageDisabled;
 	LLPointer<LLUIImage> mBgImageFocused;
 
-	BOOL        mReplaceNewlinesWithSpaces; // if false, will replace pasted newlines with paragraph symbol.
+	bool        mReplaceNewlinesWithSpaces; // if false, will replace pasted newlines with paragraph symbol.
 
 	// private helper class
 	class LLLineEditorRollback
