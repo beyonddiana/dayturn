@@ -215,7 +215,7 @@ protected:
 	S32				indentLine( S32 pos, S32 spaces );
 	void			unindentLineBeforeCloseBrace();
 
-	virtual	BOOL	handleSpecialKey(const KEY key, const MASK mask);
+	virtual	bool	handleSpecialKey(const KEY key, const MASK mask);
 	BOOL			handleNavigationKey(const KEY key, const MASK mask);
 	BOOL			handleSelectionKey(const KEY key, const MASK mask);
 	BOOL			handleControlKey(const KEY key, const MASK mask);
