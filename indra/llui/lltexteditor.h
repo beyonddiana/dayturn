@@ -216,9 +216,9 @@ protected:
 	void			unindentLineBeforeCloseBrace();
 
 	virtual	bool	handleSpecialKey(const KEY key, const MASK mask);
-	BOOL			handleNavigationKey(const KEY key, const MASK mask);
-	BOOL			handleSelectionKey(const KEY key, const MASK mask);
-	BOOL			handleControlKey(const KEY key, const MASK mask);
+	bool			handleNavigationKey(const KEY key, const MASK mask);
+	bool			handleSelectionKey(const KEY key, const MASK mask);
+	bool			handleControlKey(const KEY key, const MASK mask);
 
 	bool			selectionContainsLineBreaks();
 	void			deleteSelection(bool transient_operation);

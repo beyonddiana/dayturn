@@ -91,7 +91,7 @@ public:
 	/*virtual*/ void setValue(const LLSD& value);
 	/*virtual*/ LLSD getValue() const;
 
-	virtual BOOL handleAcceleratorKey(KEY key, MASK mask);
+	virtual bool handleAcceleratorKey(KEY key, MASK mask);
 
 	LLColor4 getHighlightBgColor() { return mHighlightBackground.get(); }
 
@@ -273,7 +273,7 @@ public:
 
 	virtual void onCommit( void );
 
-	virtual BOOL handleAcceleratorKey(KEY key, MASK mask);
+	virtual bool handleAcceleratorKey(KEY key, MASK mask);
 	virtual bool handleKeyHere(KEY key, MASK mask);
 	
 	//virtual void draw();
@@ -437,7 +437,7 @@ public:
 	/*virtual*/ void removeChild( LLView* ctrl);
 	/*virtual*/ bool postBuild();
 
-	virtual BOOL handleAcceleratorKey(KEY key, MASK mask);
+	virtual bool handleAcceleratorKey(KEY key, MASK mask);
 
 	LLMenuGL* findChildMenuByName(const std::string& name, bool recurse) const;
 	
@@ -472,9 +472,9 @@ public:
 	// sets the left,bottom corner of menu, useful for popups
 	void setLeftAndBottom(S32 left, S32 bottom);
 
-	virtual BOOL handleJumpKey(KEY key);
+	virtual bool handleJumpKey(KEY key);
 
-	virtual BOOL jumpKeysActive();
+	virtual bool jumpKeysActive();
 
 	virtual bool isOpen();
 
@@ -625,7 +625,7 @@ public:
 	
 	virtual BOOL handleMouseUp(S32 x, S32 y, MASK mask);
 
-	virtual BOOL handleAcceleratorKey(KEY key, MASK mask);
+	virtual bool handleAcceleratorKey(KEY key, MASK mask);
 
 	// check if we've used these accelerators already
 	virtual bool addToAcceleratorList(std::list <LLKeyBinding*> *listp);
@@ -765,14 +765,14 @@ public:
 	LLMenuBarGL( const Params& p );
 	virtual ~LLMenuBarGL();
 
-	/*virtual*/ BOOL handleAcceleratorKey(KEY key, MASK mask);
+	/*virtual*/ bool handleAcceleratorKey(KEY key, MASK mask);
 	/*virtual*/ bool handleKeyHere(KEY key, MASK mask);
-	/*virtual*/ BOOL handleJumpKey(KEY key);
+	/*virtual*/ bool handleJumpKey(KEY key);
 	/*virtual*/ BOOL handleMouseDown(S32 x, S32 y, MASK mask);
 	/*virtual*/ bool handleDoubleClick(S32 x, S32 y, MASK mask);
 
 	/*virtual*/ void draw();
-	/*virtual*/ BOOL jumpKeysActive();
+	/*virtual*/ bool jumpKeysActive();
 
 	// add a vertical separator to this menu
 	virtual bool addSeparator();

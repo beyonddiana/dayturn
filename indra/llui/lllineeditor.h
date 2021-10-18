@@ -291,8 +291,8 @@ private:
 	S32				findPixelNearestPos(S32 cursor_offset = 0) const;
 	S32				calcCursorPos(S32 mouse_x);
 	bool			handleSpecialKey(KEY key, MASK mask);
-	BOOL			handleSelectionKey(KEY key, MASK mask);
-	BOOL			handleControlKey(KEY key, MASK mask);
+	bool			handleSelectionKey(KEY key, MASK mask);
+	bool			handleControlKey(KEY key, MASK mask);
 	S32				handleCommitKey(KEY key, MASK mask);
 	void			updateTextPadding();
 	
