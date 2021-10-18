@@ -290,7 +290,7 @@ private:
 	void			setCursorAtLocalPos(S32 local_mouse_x);
 	S32				findPixelNearestPos(S32 cursor_offset = 0) const;
 	S32				calcCursorPos(S32 mouse_x);
-	BOOL			handleSpecialKey(KEY key, MASK mask);
+	bool			handleSpecialKey(KEY key, MASK mask);
 	BOOL			handleSelectionKey(KEY key, MASK mask);
 	BOOL			handleControlKey(KEY key, MASK mask);
 	S32				handleCommitKey(KEY key, MASK mask);
