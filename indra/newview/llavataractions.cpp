@@ -1202,7 +1202,7 @@ void LLAvatarActions::toggleMute(const LLUUID& id, U32 flags)
 	LLAvatarNameCache::get(id, &av_name);
 
 	LLMuteList* mute_list = LLMuteList::getInstance();
-	BOOL is_muted = mute_list->isMuted(id, flags);
+	bool is_muted = mute_list->isMuted(id, flags);
 
 	LLMute mute(id, av_name.getUserName(), LLMute::AGENT);
 	if (!is_muted)

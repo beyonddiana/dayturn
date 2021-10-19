@@ -198,7 +198,7 @@ private:
 	std::string mLocationText;
 	U32 mCategory;
 	U32 mContentType;
-	bool mAutoRenew;
+	U32 mAutoRenew;
 	S32 mPriceForListing;
 };
 

@@ -272,8 +272,8 @@ public:
 	void			setImageFlash(LLPointer<LLUIImage> image);
 	void			setImagePressed(LLPointer<LLUIImage> image);
 	
-	void			setCommitOnReturn(BOOL commit) { mCommitOnReturn = commit; }
-	BOOL			getCommitOnReturn() const { return mCommitOnReturn; }
+	void			setCommitOnReturn(bool commit) { mCommitOnReturn = commit; }
+	bool			getCommitOnReturn() const { return mCommitOnReturn; }
 
 	static void		onHeldDown(void *userdata);  // to be called by gIdleCallbacks
 	static void		toggleFloaterAndSetToggleState(LLUICtrl* ctrl, const LLSD& sdname);

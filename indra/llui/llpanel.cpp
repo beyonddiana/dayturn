@@ -247,7 +247,7 @@ void LLPanel::updateDefaultBtn()
 		if (gFocusMgr.childHasKeyboardFocus( this ) && mDefaultBtn->getEnabled())
 		{
 			LLButton* buttonp = dynamic_cast<LLButton*>(gFocusMgr.getKeyboardFocus());
-			BOOL focus_is_child_button = buttonp && buttonp->getCommitOnReturn();
+			bool focus_is_child_button = buttonp && buttonp->getCommitOnReturn();
 			// only enable default button when current focus is not a return-capturing button
 			mDefaultBtn->setBorderEnabled(!focus_is_child_button);
 		}
