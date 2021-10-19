@@ -128,7 +128,7 @@ LLFloaterTexturePicker::LLFloaterTexturePicker(
 {
 	buildFromFile("floater_texture_ctrl.xml");
 	mCanApplyImmediately = can_apply_immediately;
-	setCanMinimize(FALSE);
+	setCanMinimize(false);
 }
 
 LLFloaterTexturePicker::~LLFloaterTexturePicker()
@@ -332,7 +332,7 @@ bool LLFloaterTexturePicker::handleKeyHere(KEY key, MASK mask)
 		
 		if (mInventoryPanel->hasFocus() && key == KEY_UP)
 		{
-			mFilterEdit->focusFirstItem(TRUE);
+			mFilterEdit->focusFirstItem(true);
 		}
 	}
 

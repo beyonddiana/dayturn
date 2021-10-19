@@ -855,7 +855,7 @@ void LLFloaterUIPreview::displayFloater(BOOL click, S32 ID)
 		panel->buildFromFile(path);										// build it
 		panel->setOrigin(2,2);											// reset its origin point so it's not offset by -left or other XUI attributes
 		(*floaterp)->setTitle(path);									// use the file name as its title, since panels have no guaranteed meaningful name attribute
-		panel->setUseBoundingRect(TRUE);								// enable the use of its outer bounding rect (normally disabled because it's O(n) on the number of sub-elements)
+		panel->setUseBoundingRect(true);								// enable the use of its outer bounding rect (normally disabled because it's O(n) on the number of sub-elements)
 		panel->updateBoundingRect();									// update bounding rect
 		LLRect bounding_rect = panel->getBoundingRect();				// get the bounding rect
 		LLRect new_rect = panel->getRect();								// get the panel's rect
@@ -875,7 +875,7 @@ void LLFloaterUIPreview::displayFloater(BOOL click, S32 ID)
 
 	// *HACK: Remove ability to close it; if you close it, its destructor gets called, but we don't know it's null and try to delete it again,
 	// resulting in a double free
-	(*floaterp)->setCanClose(FALSE);
+	(*floaterp)->setCanClose(false);
 	
 	if(ID == 1)
 	{

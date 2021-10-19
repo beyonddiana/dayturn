@@ -333,7 +333,7 @@ void LLPanelMainInventory::startSearch()
 	// this forces focus to line editor portion of search editor
 	if (mFilterEditor)
 	{
-		mFilterEditor->focusFirstItem(TRUE);
+		mFilterEditor->focusFirstItem(true);
 	}
 }
 

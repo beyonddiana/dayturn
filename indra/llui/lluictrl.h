@@ -218,15 +218,15 @@ public:
 	void				setTransparencyType(ETypeTransparency type);
 	ETypeTransparency	getTransparencyType() const {return mTransparencyType;}
 
-	BOOL	focusNextItem(BOOL text_entry_only);
-	BOOL	focusPrevItem(BOOL text_entry_only);
-	BOOL 	focusFirstItem(BOOL prefer_text_fields = FALSE, BOOL focus_flash = TRUE );
+	bool	focusNextItem(bool text_entry_only);
+	bool	focusPrevItem(bool text_entry_only);
+	bool 	focusFirstItem(bool prefer_text_fields = false, bool focus_flash = true );
 
 	// Non Virtuals
 	LLHandle<LLUICtrl> getHandle() const { return getDerivedHandle<LLUICtrl>(); }
 	bool			getIsChrome() const;
 	
-	void			setTabStop( BOOL b );
+	void			setTabStop( bool b );
 	bool			hasTabStop() const;
 
 	LLUICtrl*		getParentUICtrl() const;
@@ -317,9 +317,9 @@ protected:
 private:
 
 	bool			mIsChrome;
-	BOOL			mRequestsFront;
+	bool			mRequestsFront;
 	bool			mTabStop;
-	BOOL			mTentative;
+	bool			mTentative;
 
 	ETypeTransparency mTransparencyType;
 };

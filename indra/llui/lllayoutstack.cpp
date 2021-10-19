@@ -67,7 +67,7 @@ LLLayoutPanel::LLLayoutPanel(const Params& p)
  	mMinDim(p.min_dim), 
  	mAutoResize(p.auto_resize),
  	mUserResize(p.user_resize),
-	mCollapsed(FALSE),
+	mCollapsed(false),
 	mCollapseAmt(0.f),
 	mVisibleAmt(1.f), // default to fully visible
 	mResizeBar(NULL),

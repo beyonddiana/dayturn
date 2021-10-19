@@ -131,7 +131,7 @@ LLTimeCtrl::LLTimeCtrl(const LLTimeCtrl::Params& p)
 	mDownBtn = LLUICtrlFactory::create<LLButton>(down_button_params);
 	addChild(mDownBtn);
 
-	setUseBoundingRect( TRUE );
+	setUseBoundingRect(true);
 }
 
 F32 LLTimeCtrl::getTime24() const

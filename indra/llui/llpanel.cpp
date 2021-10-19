@@ -310,7 +310,7 @@ bool LLPanel::handleKeyHere( KEY key, MASK mask )
 			LLUICtrl* focus_root = cur_focus->findRootMostFocusRoot();
 			if (focus_root)
 			{
-				handled = focus_root->focusPrevItem(FALSE);
+				handled = focus_root->focusPrevItem(false);
 			}
 		}
 	}
@@ -322,7 +322,7 @@ bool LLPanel::handleKeyHere( KEY key, MASK mask )
 			LLUICtrl* focus_root = cur_focus->findRootMostFocusRoot();
 			if (focus_root)
 			{
-				handled = focus_root->focusNextItem(FALSE);
+				handled = focus_root->focusNextItem(false);
 			}
 		}
 	}

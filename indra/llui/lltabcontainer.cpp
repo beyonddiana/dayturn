@@ -699,7 +699,7 @@ BOOL LLTabContainer::handleMouseUp( S32 x, S32 y, MASK mask )
 	{
 		if (cur_panel)
 		{
-			if (!cur_panel->focusFirstItem(FALSE))
+			if (!cur_panel->focusFirstItem(false))
 			{
 				// if nothing in the panel gets focus, make sure the new tab does
 				// otherwise the last tab might keep focus
@@ -1990,21 +1990,21 @@ void LLTabContainer::initButtons()
 		}
 	}
 
-	mPrevArrowBtn->setTabStop(FALSE);
+	mPrevArrowBtn->setTabStop(false);
 	addChild(mPrevArrowBtn);
 
-	mNextArrowBtn->setTabStop(FALSE);
+	mNextArrowBtn->setTabStop(false);
 	addChild(mNextArrowBtn);
 
 	if (mJumpPrevArrowBtn)
 	{
-		mJumpPrevArrowBtn->setTabStop(FALSE);
+		mJumpPrevArrowBtn->setTabStop(false);
 		addChild(mJumpPrevArrowBtn);
 	}
 
 	if (mJumpNextArrowBtn)
 	{
-		mJumpNextArrowBtn->setTabStop(FALSE);
+		mJumpNextArrowBtn->setTabStop(false);
 		addChild(mJumpNextArrowBtn);
 	}
 	

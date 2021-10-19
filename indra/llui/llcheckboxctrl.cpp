@@ -82,7 +82,7 @@ LLCheckBoxCtrl::LLCheckBoxCtrl(const LLCheckBoxCtrl::Params& p)
 	static LLUICachedControl<S32> llcheckboxctrl_vpad ("UICheckboxctrlVPad", 0);
 
 	// must be big enough to hold all children
-	setUseBoundingRect(TRUE);
+	setUseBoundingRect(true);
 
 	// *HACK Get rid of this with SL-55508... 
 	// this allows blank check boxes and radio boxes for now

@@ -190,7 +190,7 @@ void LLMultiFloater::addFloater(LLFloater* floaterp, BOOL select_added_floater, 
     floater_data.mSaveRect = floaterp->mSaveRect;
 
 	// remove minimize and close buttons
-	floaterp->setCanMinimize(FALSE);
+	floaterp->setCanMinimize(false);
 	floaterp->setCanResize(false);
 	floaterp->setCanDrag(FALSE);
 	floaterp->mSaveRect = FALSE;

@@ -224,7 +224,7 @@ BOOL LLRadioGroup::setSelectedIndex(S32 index, BOOL from_event)
 
 		if (hasFocus())
 		{
-			radio_item->focusFirstItem(FALSE, FALSE);
+			radio_item->focusFirstItem(false, false);
 		}
 	}
 
@@ -301,7 +301,7 @@ BOOL LLRadioGroup::handleMouseDown(S32 x, S32 y, MASK mask)
 	// 
 	if (hasTabStop())
 	{
-		focusFirstItem(FALSE, FALSE);
+		focusFirstItem(false, false);
 	}
 
 	return LLUICtrl::handleMouseDown(x, y, mask);
