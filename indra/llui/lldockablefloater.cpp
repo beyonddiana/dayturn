@@ -40,9 +40,9 @@ void LLDockableFloater::init(LLDockableFloater* thiz)
 	thiz->resetInstance();
 
 	// all dockable floaters should have close, dock and minimize buttons
-	thiz->setCanClose(TRUE);
+	thiz->setCanClose(true);
 	thiz->setCanDock(true);
-	thiz->setCanMinimize(TRUE);
+	thiz->setCanMinimize(true);
 	thiz->setOverlapsScreenChannel(false);
 	thiz->mForceDocking = false;
 }

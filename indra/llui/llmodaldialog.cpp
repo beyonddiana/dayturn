@@ -44,8 +44,8 @@ LLModalDialog::LLModalDialog( const LLSD& key, BOOL modal )
 {
 	if (modal)
 	{
-		setCanMinimize(FALSE);
-		setCanClose(FALSE);
+		setCanMinimize(false);
+		setCanClose(false);
 	}
 	setVisible(false);
 	setBackgroundVisible(true);

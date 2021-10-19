@@ -344,7 +344,7 @@ protected:
 	LLUUID				mTransImageAssetID;
 	LLUUID				mDefaultImageAssetID;
 	LLUUID				mBlankImageAssetID;
-	BOOL				mTentative;
+	bool				mTentative;
 	BOOL				mAllowNoTexture;
 	LLUUID				mSpecialCurrentImageAssetID;  // Used when the asset id has no corresponding texture in the user's inventory.
 	LLUUID				mOriginalImageAssetID;

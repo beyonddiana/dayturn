@@ -525,7 +525,7 @@ void LLComboBox::createLineEditor(const LLComboBox::Params& p)
 		S32 shadow_size = drop_shadow_button;
 		mButton->setRect(LLRect( getRect().getWidth() - llmax(8,arrow_width) - 2 * shadow_size,
 								rect.mTop, rect.mRight, rect.mBottom));
-		mButton->setTabStop(FALSE);
+		mButton->setTabStop(false);
 		mButton->setHAlign(LLFontGL::HCENTER);
 
 		LLRect text_entry_rect(0, getRect().getHeight(), getRect().getWidth(), 0);
@@ -669,7 +669,7 @@ void LLComboBox::showList()
 	mList->setVisible(true);	
 	LLUI::addPopup(this);
 
-	setUseBoundingRect(TRUE);
+	setUseBoundingRect(true);
 //	updateBoundingRect();
 }
 
@@ -692,7 +692,7 @@ void LLComboBox::hideList()
 		mList->setVisible(false);
 		mList->mouseOverHighlightNthItem(-1);
 
-		setUseBoundingRect(FALSE);
+		setUseBoundingRect(false);
 		LLUI::removePopup(this);
 //		updateBoundingRect();
 	}

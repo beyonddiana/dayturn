@@ -261,7 +261,7 @@ bool LLPanelGroupNotices::postBuild()
 	mCreateMessage = getChild<LLTextEditor>("create_message",recurse);
 
 	mCreateInventoryName =  getChild<LLLineEditor>("create_inventory_name",recurse);
-	mCreateInventoryName->setTabStop(FALSE);
+	mCreateInventoryName->setTabStop(false);
 	mCreateInventoryName->setEnabled(false);
 
 	mCreateInventoryIcon = getChild<LLIconCtrl>("create_inv_icon",recurse);
@@ -279,7 +279,7 @@ bool LLPanelGroupNotices::postBuild()
 	mViewMessage = getChild<LLTextEditor>("view_message",recurse);
 
 	mViewInventoryName =  getChild<LLLineEditor>("view_inventory_name",recurse);
-	mViewInventoryName->setTabStop(FALSE);
+	mViewInventoryName->setTabStop(false);
 	mViewInventoryName->setEnabled(false);
 
 	mViewInventoryIcon = getChild<LLIconCtrl>("view_inv_icon",recurse);

@@ -977,19 +977,19 @@ void LLLineEditor::addChar(const llwchar uni_char)
 
 	S32 new_bytes = wchar_utf8_length(new_c);
 
-	BOOL allow_char = TRUE;
+	bool allow_char = true;
 
 	// Check byte length limit
 	if ((new_bytes + cur_bytes) > mMaxLengthBytes)
 	{
-		allow_char = FALSE;
+		allow_char = false;
 	}
 	else if (mMaxLengthChars)
 	{
 		S32 wide_chars = mText.getWString().size();
 		if ((wide_chars + 1) > mMaxLengthChars)
 		{
-			allow_char = FALSE;
+			allow_char = false;
 		}
 	}
 

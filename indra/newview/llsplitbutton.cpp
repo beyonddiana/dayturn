@@ -167,14 +167,15 @@ void LLSplitButton::showButtons()
 	mArrowBtn->setToggleState(true);
 	mItemsPanel->setVisible(true);
 
-	setUseBoundingRect(TRUE);
+	setUseBoundingRect(true);
 }
 
 void LLSplitButton::hideButtons()
 {
 	mItemsPanel->setVisible(false);
 	mArrowBtn->setToggleState(false);
-	setUseBoundingRect(FALSE);
+
+	setUseBoundingRect(false);
 	gViewerWindow->removePopup(this);
 }
 
