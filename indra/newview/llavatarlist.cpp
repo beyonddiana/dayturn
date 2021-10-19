@@ -649,7 +649,7 @@ bool LLAvatarList::handleHover(S32 x, S32 y, MASK mask)
 
 	if(!handled)
 	{
-		handled = LLFlatListViewEx::handleHover(x, y, mask);
+		handled = static_cast<bool>(LLFlatListViewEx::handleHover(x, y, mask));
 	}
 
 	return handled;

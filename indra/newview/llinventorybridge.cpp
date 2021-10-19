@@ -5860,7 +5860,7 @@ void LLCallingCardBridge::performAction(LLInventoryModel* model, std::string act
 
 LLUIImagePtr LLCallingCardBridge::getIcon() const
 {
-	BOOL online = FALSE;
+	bool online = false;
 	LLViewerInventoryItem* item = getItem();
 	if(item)
 	{

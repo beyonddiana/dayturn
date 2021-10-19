@@ -407,7 +407,7 @@ void FSPanelProfile::processProfileProperties(const LLAvatarData* avatar_data)
         // subscribe observer to get online status. Request will be sent by FSPanelProfile itself.
         // do not subscribe for friend avatar because online status can be wrong overridden
         // via LLAvatarData::flags if Preferences: "Only Friends & Groups can see when I am online" is set.
-        processOnlineStatus(avatar_data->flags & AVATAR_ONLINE);
+        processOnlineStatus(static_cast<bool>(avatar_data->flags & AVATAR_ONLINE));
     }
 
     fillCommonData(avatar_data);
