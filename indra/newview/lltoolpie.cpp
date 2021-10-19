@@ -178,9 +178,9 @@ BOOL LLToolPie::handleMouseDown(S32 x, S32 y, MASK mask)
 
 	mMouseButtonDown = true;
 	
-	handleLeftClickPick();
-
-	return TRUE;
+	// If nothing clickable is picked, needs to return
+	// false for click-to-walk or click-to-teleport to work.
+	return handleLeftClickPick();
 }
 
 BOOL LLToolPie::handleMiddleMouseDown(S32 x, S32 y, MASK mask)
