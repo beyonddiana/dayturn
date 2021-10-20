@@ -263,7 +263,6 @@ S32 LLAvatarTracker::addBuddyList(const LLAvatarTracker::buddy_map_t& buds)
 			LLAvatarName av_name;
 			LLAvatarNameCache::get(agent_id, &av_name);
 
-			addChangedMask(LLFriendObserver::ADD, agent_id);
 			LL_DEBUGS() << "Added buddy " << agent_id
 					<< ", " << (mBuddyInfo[agent_id]->isOnline() ? "Online" : "Offline")
 					<< ", TO: " << mBuddyInfo[agent_id]->getRightsGrantedTo()
@@ -766,8 +765,6 @@ void LLAvatarTracker::processNotify(LLMessageSystem* msg, bool online)
 				// we were tracking someone who went offline
 				deleteTrackingData();
 			}
-			// *TODO: get actual inventory id
-			gInventory.addChangedMask(LLInventoryObserver::CALLING_CARD, LLUUID::null);
 		}
 		if(chat_notify)
 		{
