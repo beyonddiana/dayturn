@@ -399,8 +399,8 @@ public:
 	void parseFollowsFlags(const LLView::Params& params);
 
 	// Some widgets, like close box buttons, don't need to be saved
-	BOOL getFromXUI() const { return mFromXUI; }
-	void setFromXUI(BOOL b) { mFromXUI = b; }
+	bool getFromXUI() const { return mFromXUI; }
+	void setFromXUI(bool b) { mFromXUI = b; }
 
 	typedef enum e_hit_test_type
 	{
@@ -413,8 +413,8 @@ public:
 	bool blockMouseEvent(S32 x, S32 y) const;
 
 	// See LLMouseHandler virtuals for screenPointToLocal and localPointToScreen
-	BOOL localPointToOtherView( S32 x, S32 y, S32 *other_x, S32 *other_y, const LLView* other_view) const;
-	BOOL localRectToOtherView( const LLRect& local, LLRect* other, const LLView* other_view ) const;
+	bool localPointToOtherView( S32 x, S32 y, S32 *other_x, S32 *other_y, const LLView* other_view) const;
+	bool localRectToOtherView( const LLRect& local, LLRect* other, const LLView* other_view ) const;
 	void screenRectToLocal( const LLRect& screen, LLRect* local ) const;
 	void localRectToScreen( const LLRect& local, LLRect* screen ) const;
 	
@@ -551,7 +551,7 @@ protected:
 	LLView*	childrenHandleKeyUp(KEY key, MASK mask);
 	LLView* childrenHandleUnicodeChar(llwchar uni_char);
 	LLView*	childrenHandleDragAndDrop(S32 x, S32 y, MASK mask,
-											  BOOL drop,
+											  bool drop,
 											  EDragAndDropType type,
 											  void* data,
 											  EAcceptance* accept,
@@ -606,13 +606,13 @@ private:
 	S32			mDefaultTabGroup;
 	S32			mLastTabGroup;
 
-	BOOL		mEnabled;		// Enabled means "accepts input that has an effect on the state of the application."
+	bool		mEnabled;		// Enabled means "accepts input that has an effect on the state of the application."
 								// A disabled view, for example, may still have a scrollbar that responds to mouse events.
 	bool		mMouseOpaque;	// Opaque views handle all mouse events that are over their rect.
 	LLUIString	mToolTipMsg;	// isNull() is true if none.
 
 	U8          mSoundFlags;
-	BOOL		mFromXUI;
+	bool		mFromXUI;
 
 	BOOL		mIsFocusRoot;
 	bool		mUseBoundingRect; // hit test against bounding rectangle that includes all child elements

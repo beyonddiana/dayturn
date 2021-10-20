@@ -796,7 +796,7 @@ LLView* LLView::childrenHandleToolTip(S32 x, S32 y, MASK mask)
 }
 
 LLView* LLView::childrenHandleDragAndDrop(S32 x, S32 y, MASK mask,
-									   BOOL drop,
+									   bool drop,
 									   EDragAndDropType cargo_type,
 									   void* cargo_data,
 									   EAcceptance* accept,
@@ -1832,7 +1832,7 @@ void LLView::centerWithin(const LLRect& bounds)
 	translate( left - getRect().mLeft, bottom - getRect().mBottom );
 }
 
-BOOL LLView::localPointToOtherView( S32 x, S32 y, S32 *other_x, S32 *other_y, const LLView* other_view) const
+bool LLView::localPointToOtherView( S32 x, S32 y, S32 *other_x, S32 *other_y, const LLView* other_view) const
 {
 	const LLView* cur_view = this;
 	const LLView* root_view = NULL;
@@ -1843,7 +1843,7 @@ BOOL LLView::localPointToOtherView( S32 x, S32 y, S32 *other_x, S32 *other_y, co
 		{
 			*other_x = x;
 			*other_y = y;
-			return TRUE;
+			return true;
 		}
 
 		x += cur_view->getRect().mLeft;
@@ -1866,16 +1866,16 @@ BOOL LLView::localPointToOtherView( S32 x, S32 y, S32 *other_x, S32 *other_y, co
 		{
 			*other_x = x;
 			*other_y = y;
-			return TRUE;
+			return true;
 		}
 	}
 
 	*other_x = x;
 	*other_y = y;
-	return FALSE;
+	return false;
 }
 
-BOOL LLView::localRectToOtherView( const LLRect& local, LLRect* other, const LLView* other_view ) const
+bool LLView::localRectToOtherView( const LLRect& local, LLRect* other, const LLView* other_view ) const
 {
 	LLRect cur_rect = local;
 	const LLView* cur_view = this;
@@ -1886,7 +1886,7 @@ BOOL LLView::localRectToOtherView( const LLRect& local, LLRect* other, const LLV
 		if (cur_view == other_view)
 		{
 			*other = cur_rect;
-			return TRUE;
+			return true;
 		}
 
 		cur_rect.translate(cur_view->getRect().mLeft, cur_view->getRect().mBottom);
@@ -1906,12 +1906,12 @@ BOOL LLView::localRectToOtherView( const LLRect& local, LLRect* other, const LLV
 		if (cur_view == root_view)
 		{
 			*other = cur_rect;
-			return TRUE;
+			return true;
 		}
 	}
 
 	*other = cur_rect;
-	return FALSE;
+	return false;
 }
 
 
