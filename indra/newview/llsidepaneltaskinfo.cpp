@@ -265,14 +265,14 @@ void LLSidepanelTaskInfo::refresh()
 		btn_deed_to_group->setLabelUnselected(deedText);
 	}
 
-	BOOL root_selected = TRUE;
+	bool root_selected = true;
 	LLSelectNode* nodep = mObjectSelection->getFirstRootNode();
 	S32 object_count = mObjectSelection->getRootObjectCount();
 	if (!nodep || (object_count == 0))
 	{
 		nodep = mObjectSelection->getFirstNode();
 		object_count = mObjectSelection->getObjectCount();
-		root_selected = FALSE;
+		root_selected = false;
 	}
 
 	LLViewerObject* objectp = NULL;
@@ -417,7 +417,7 @@ void LLSidepanelTaskInfo::refresh()
 	{
 		if (mLabelGroupName)
 		{
-			mLabelGroupName->setNameID(group_id,TRUE);
+			mLabelGroupName->setNameID(group_id,true);
 			mLabelGroupName->setEnabled(true);
 		}
 	}
@@ -425,7 +425,7 @@ void LLSidepanelTaskInfo::refresh()
 	{
 		if (mLabelGroupName)
 		{
-			mLabelGroupName->setNameID(LLUUID::null, TRUE);
+			mLabelGroupName->setNameID(LLUUID::null, true);
 			mLabelGroupName->refresh(LLUUID::null, std::string(), true);
 			mLabelGroupName->setEnabled(false);
 		}
@@ -932,7 +932,7 @@ void LLSidepanelTaskInfo::cbGroupID(LLUUID group_id)
 {
 	if (mLabelGroupName)
 	{
-		mLabelGroupName->setNameID(group_id, TRUE);
+		mLabelGroupName->setNameID(group_id, true);
 	}
 	LLSelectMgr::getInstance()->sendGroup(group_id);
 }
