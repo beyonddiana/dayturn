@@ -146,7 +146,7 @@ void LLViewerGesture::doTrigger( bool send_chat )
 LLViewerGestureList::LLViewerGestureList()
 :	LLGestureList()
 {
-	mIsLoaded = FALSE;
+	mIsLoaded = false;
 }
 
 
@@ -203,7 +203,7 @@ void LLViewerGestureList::xferCallback(void *data, S32 size, void** /*user_data*
 			LL_ERRS() << "Read off of end of array, error in serialization" << LL_ENDL;
 		}
 
-		gGestureList.mIsLoaded = TRUE;
+		gGestureList.mIsLoaded = true;
 	}
 	else
 	{
