@@ -34,7 +34,7 @@
 //-----------------------------------------------------------------------------
 // LLUndoBuffer()
 //-----------------------------------------------------------------------------
-LLUndoBuffer::LLUndoBuffer( LLUndoAction (*create_func()), S32 initial_count )
+LLUndoBuffer::LLUndoBuffer( LLUndoAction(*create_func()), S32 initial_count )
 {
 	mNextAction = 0;
 	mLastAction = 0;
