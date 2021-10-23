@@ -5,8 +5,10 @@
 		<layout_panel name="login">
 			<text name="log_in_text">
 				ВОЙТИ
+			</text>
 			<text name="username_text">
 				Имя пользователя:
+			</text>
 			<combo_box name="username_combo" tool_tip="Имя пользователя, которое вы выбрали при регистрации, например, «bobsmith12» или «Steller Sunshine»"/>
 			<text name="password_text">
 				Пароль:

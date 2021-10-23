@@ -26,17 +26,16 @@
             <menu_item_call label="Editor de texto"  name="Text Editor"/>
             <menu_item_call label="Widgets"  name="Widgets"/>
             <menu_item_call label="Inspectors"  name="Inspectors"/>
-        </menu>
+    </menu>
         <menu_item_call label="Mostrar los &apos;TOS&apos;"  name="TOS"/>
         <menu_item_call label="Mostrar mensaje crítico"  name="Critical"/>
 		<menu_item_call label="Navegador web" name="Web Content Browser"/>
-        <menu label="Configurar el nivel de registro"  name="Set Logging Level">
+    <menu label="Configurar el nivel de registro"  name="Set Logging Level">
             <menu_item_check label="Depurar"  name="Debug"/>
             <menu_item_check label="Información"  name="Info"/>
             <menu_item_check label="¡Atención!" name="Warning"/>
             <menu_item_check label="Error"  name="Error"/>
             <menu_item_check label="Ninguno"  name="None"/>
-        </menu>
-        <menu_item_call label="Mostrar la consola de notificaciones"  name="Show Notifications Console"/>
     </menu>
+        <menu_item_call label="Mostrar la consola de notificaciones"  name="Show Notifications Console"/>
 </menu_bar>

@@ -5,6 +5,5 @@
             <accordion_tab name="hair_color_tab"
                 title="Colour" />
             </accordion_tab>
-        </accordion>
     </panel>
 </panel>

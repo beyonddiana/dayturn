@@ -14,7 +14,7 @@
      name="pick_snapshot"
      fallback_image="default_land_picture.j2c" />
 
-    <line_editor name="pick_name" />
+    <line_editor name="pick_name" >
         Wird geladen...
     </line_editor>
     <button label="Teleportieren" name="teleport_btn" />
