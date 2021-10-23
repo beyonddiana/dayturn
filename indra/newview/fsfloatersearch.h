@@ -33,7 +33,7 @@
 class LLFloaterSearch;
 class LLTabContainer;
 
-class __attribute__((unused)) FSFloaterSearch : public LLMultiFloater
+class FSFloaterSearch : public LLMultiFloater
 {
 public:
 	FSFloaterSearch(const LLSD& key);
