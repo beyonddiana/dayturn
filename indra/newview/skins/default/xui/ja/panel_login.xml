@@ -5,8 +5,10 @@
 		<layout_panel name="login">
 			<text name="log_in_text">
 				ログイン
+			</text>
 			<text name="username_text">
 				ユーザーネーム：
+			</text>
 			<combo_box name="username_combo" tool_tip="登録時に自分で選んだユーザー名（例：bobsmith12、Steller Sunshineなど）"/>
 			<text name="password_text">
 				パスワード：

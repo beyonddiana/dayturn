@@ -34,6 +34,7 @@
 		<layout_panel name="links">
 			<text name="create_account_text">
 				HESABINIZI OLUŞTURUN
+			</text>
 			<button label="Şimdi başla" name="create_new_account_btn"/>
 				<combo_box.item label="Son konumum" name="MyLastLocation"/>
 		</layout_panel>

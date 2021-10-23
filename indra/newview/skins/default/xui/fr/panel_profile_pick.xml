@@ -3,7 +3,7 @@
     <panel.string name="location_notice">
 (se mettra à jour après l'enregistrement)
     </panel.string>
-    <line_editor name="pick_name" />
+    <line_editor name="pick_name" >
         Chargement...
     </line_editor>
     <button label="Téléporter" name="teleport_btn" />
