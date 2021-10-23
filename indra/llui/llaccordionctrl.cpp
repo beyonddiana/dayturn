@@ -580,7 +580,7 @@ bool LLAccordionCtrl::handleDragAndDrop		(S32 x, S32 y, MASK mask,
 {
 	// Scroll folder view if needed.  Never accepts a drag or drop.
 	*accept = ACCEPT_NO;
-	bool handled = autoScroll(x, y);
+	int handled = autoScroll(x, y); //used as bool
 
 	if( !handled )
 	{
