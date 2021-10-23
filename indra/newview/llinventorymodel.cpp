@@ -4018,6 +4018,7 @@ bool LLInventoryModel::validate() const
 			LLUUID topmost_ancestor_id;
 			bool found = getObjectTopmostAncestor(item_id, topmost_ancestor_id);
 			if (!found)
+			{
                 if (error_count < MAX_VERBOSE_ERRORS)
                 {
                     LL_WARNS() << "unable to find topmost ancestor for " << item_id << LL_ENDL;
