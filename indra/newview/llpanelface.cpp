@@ -381,7 +381,7 @@ void LLPanelFace::sendBump(U32 bumpiness)
 	//
 	LLSelectedTEMaterial::setNormalID(this, current_normal_map);
 
-	LLSelectMgr::getInstance()->selectionSetBumpmap( bump );
+	LLSelectMgr::getInstance()->selectionSetBumpmap( bump, bumpytexture_ctrl->getImageItemID() );
 }
 
 void LLPanelFace::sendTexGen()
@@ -410,7 +410,7 @@ void LLPanelFace::sendShiny(U32 shininess)
 
 	LLSelectedTEMaterial::setSpecularID(this, specmap);
 
-	LLSelectMgr::getInstance()->selectionSetShiny( shiny );
+	LLSelectMgr::getInstance()->selectionSetShiny( shiny, texture_ctrl->getImageItemID() );
 
 	updateShinyControls(!specmap.isNull(), true);
 	
