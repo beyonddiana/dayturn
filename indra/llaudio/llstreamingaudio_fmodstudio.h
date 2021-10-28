@@ -75,6 +75,7 @@ private:
 
     std::string mURL;
     F32 mGain;
+    S32 mRetryCount;  
     
 	// <FS:CR> Streamtitle display
 	bool mNewMetadata;
