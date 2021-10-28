@@ -9547,6 +9547,7 @@ class LLViewHighlightTransparent : public view_listener_t
 		}
 //mk
 		LLDrawPoolAlpha::sShowDebugAlpha = !LLDrawPoolAlpha::sShowDebugAlpha;
+        gPipeline.resetVertexBuffers();
 		return true;
 	}
 };

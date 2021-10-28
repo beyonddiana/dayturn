@@ -5434,6 +5434,16 @@ void handleRenderAutoMuteByteLimitChanged(const LLSD& new_value)
 	}
 }
 
+// add a face pointer to a list of face pointers without going over MAX_COUNT faces
+template<typename T>
+static inline void add_face(T** list, U32& count, T* face)
+{
+    if (count < MAX_FACE_COUNT)
+    {
+        list[count++] = face;
+    }
+}
+
 void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 {
 	if (group->changeLOD())
@@ -5891,21 +5901,19 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 					{
 						if (facep->canRenderAsMask())
 						{ //can be treated as alpha mask
-							if (simple_count < MAX_FACE_COUNT)
-							{
-								sSimpleFaces[simple_count++] = facep;
-							}
+                            add_face(sSimpleFaces, simple_count, facep);
 						}
 						else
 						{
-							if (te->getColor().mV[3] > 0.f)
-							{ //only treat as alpha in the pipeline if < 100% transparent
-								drawablep->setState(LLDrawable::HAS_ALPHA);
-							}
-							if (alpha_count < MAX_FACE_COUNT)
-							{
-								sAlphaFaces[alpha_count++] = facep;
-							}
+                            if (te->getColor().mV[3] > 0.f)
+                            { //only treat as alpha in the pipeline if < 100% transparent
+                                drawablep->setState(LLDrawable::HAS_ALPHA);
+                                add_face(sAlphaFaces, alpha_count, facep);
+                            }
+                            else if (LLDrawPoolAlpha::sShowDebugAlpha)
+                            {
+                                add_face(sAlphaFaces, alpha_count, facep);
+                            }
 						}
 					}
 					else
@@ -5925,81 +5933,50 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 								{
 									if (mat->getSpecularID().notNull())
 									{ //has normal and specular maps (needs texcoord1, texcoord2, and tangent)
-										if (normspec_count < MAX_FACE_COUNT)
-										{
-											sNormSpecFaces[normspec_count++] = facep;
-										}
+                                        add_face(sNormSpecFaces, normspec_count, facep);
 									}
 									else
 									{ //has normal map (needs texcoord1 and tangent)
-										if (norm_count < MAX_FACE_COUNT)
-										{
-											sNormFaces[norm_count++] = facep;
-										}
+                                        add_face(sNormFaces, norm_count, facep);
 									}
 								}
 								else if (mat->getSpecularID().notNull())
 								{ //has specular map but no normal map, needs texcoord2
-									if (spec_count < MAX_FACE_COUNT)
-									{
-										sSpecFaces[spec_count++] = facep;
-									}
+                                    add_face(sSpecFaces, spec_count, facep);
 								}
 								else
 								{ //has neither specular map nor normal map, only needs texcoord0
-									if (simple_count < MAX_FACE_COUNT)
-									{
-										sSimpleFaces[simple_count++] = facep;
-									}
+                                    add_face(sSimpleFaces, simple_count, facep);
 								}									
 							}
 							else if (te->getBumpmap())
 							{ //needs normal + tangent
-								if (bump_count < MAX_FACE_COUNT)
-								{
-									sBumpFaces[bump_count++] = facep;
-								}
+                                add_face(sBumpFaces, bump_count, facep);
 							}
 							else if (te->getShiny() || !te->getFullbright())
 							{ //needs normal
-								if (simple_count < MAX_FACE_COUNT)
-								{
-									sSimpleFaces[simple_count++] = facep;
-								}
+                                add_face(sSimpleFaces, simple_count, facep);
 							}
 							else 
 							{ //doesn't need normal
-								facep->setState(LLFace::FULLBRIGHT);
-								if (fullbright_count < MAX_FACE_COUNT)
-								{
-									sFullbrightFaces[fullbright_count++] = facep;
-								}
+                                add_face(sFullbrightFaces, fullbright_count, facep);
 							}
 						}
 						else
 						{
 							if (te->getBumpmap() && LLPipeline::sRenderBump)
 							{ //needs normal + tangent
-								if (bump_count < MAX_FACE_COUNT)
-								{
-									sBumpFaces[bump_count++] = facep;
-								}
+                                add_face(sBumpFaces, bump_count, facep);
 							}
 							else if ((te->getShiny() && LLPipeline::sRenderBump) ||
 								!(te->getFullbright() || bake_sunlight))
 							{ //needs normal
-								if (simple_count < MAX_FACE_COUNT)
-								{
-									sSimpleFaces[simple_count++] = facep;
-								}
+                                add_face(sSimpleFaces, simple_count, facep);
 							}
 							else 
 							{ //doesn't need normal
 								facep->setState(LLFace::FULLBRIGHT);
-								if (fullbright_count < MAX_FACE_COUNT)
-								{
-									sFullbrightFaces[fullbright_count++] = facep;
-								}
+                                add_face(sFullbrightFaces, fullbright_count, facep);
 							}
 						}
 					}
