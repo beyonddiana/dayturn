@@ -63,7 +63,8 @@ LLStreamingAudio_FMODSTUDIO::LLStreamingAudio_FMODSTUDIO(FMOD::System *system) :
 mSystem(system),
 mCurrentInternetStreamp(NULL),
 mFMODInternetStreamChannelp(NULL),
-mGain(1.0f)
+mGain(1.0f),
+mRetryCount(0)
 {
     // Number of milliseconds of audio to buffer for the audio card.
     // Must be larger than the usual Second Life frame stutter time.
@@ -100,15 +101,17 @@ void LLStreamingAudio_FMODSTUDIO::start(const std::string& url)
 
     if (!url.empty())
     {
-        LL_INFOS() << "Starting internet stream: " << url << LL_ENDL;
+        LL_INFOS("FMOD") << "Starting internet stream: " << url << LL_ENDL;
         mCurrentInternetStreamp = new LLAudioStreamManagerFMODSTUDIO(mSystem, url);
         mURL = url;
     }
     else
     {
-        LL_INFOS() << "Set internet stream to null" << LL_ENDL;
+        LL_INFOS("FMOD") << "Set internet stream to null" << LL_ENDL;
         mURL.clear();
     }
+
+    mRetryCount = 0;
 }
 
 
@@ -121,7 +124,7 @@ void LLStreamingAudio_FMODSTUDIO::update()
         LLAudioStreamManagerFMODSTUDIO *streamp = *iter;
         if (streamp->stopStream())
         {
-            LL_INFOS() << "Closed dead stream" << LL_ENDL;
+            LL_INFOS("FMOD") << "Closed dead stream" << LL_ENDL;
             delete streamp;
             mDeadStreams.erase(iter++);
         }
@@ -154,10 +157,33 @@ void LLStreamingAudio_FMODSTUDIO::update()
             setGain(getGain());
             mFMODInternetStreamChannelp->setPaused(false);
         }
+        mRetryCount = 0;
     }
     else if (open_state == FMOD_OPENSTATE_ERROR)
     {
-        stop();
+        LL_INFOS("FMOD") << "State: FMOD_OPENSTATE_ERROR"
+            << " Progress: " << U32(progress)
+            << " Starving: " << S32(starving)
+            << " Diskbusy: " << S32(diskbusy) << LL_ENDL;
+        if (mRetryCount < 2)
+        {
+            // Retry
+            std::string url = mURL;
+            stop(); // might drop mURL, drops mCurrentInternetStreamp
+
+            mRetryCount++;
+
+            if (!url.empty())
+            {
+                LL_INFOS("FMOD") << "Restarting internet stream: " << url  << ", attempt " << (mRetryCount + 1) << LL_ENDL;
+                mCurrentInternetStreamp = new LLAudioStreamManagerFMODSTUDIO(mSystem, url);
+                mURL = url;
+            }
+        }
+        else
+        {
+            stop();
+        }
         return;
     }
 
@@ -181,16 +207,6 @@ void LLStreamingAudio_FMODSTUDIO::update()
                     if (sound->getTag(NULL, i, &tag) != FMOD_OK)
                         continue;
 
-					// <FS:CR> Stream metadata - originally by Shyotl Khur
-					//if (tag.type == FMOD_TAGTYPE_FMOD)
-					//{
-					//	if (!strcmp(tag.name, "Sample Rate Change"))
-					//	{
-					//		LL_INFOS("FmodEX") << "Stream forced changing sample rate to " << *((float *)tag.data) << LL_ENDL;
-					//		mFMODInternetStreamChannelp->setFrequency(*((float *)tag.data));
-					//	}
-					//	continue;
-					//}
 					std::string name = tag.name;
 					switch(tag.type)
 					{
@@ -210,7 +226,7 @@ void LLStreamingAudio_FMODSTUDIO::update()
 						{
 							if (!strcmp(tag.name, "Sample Rate Change"))
 							{
-							LL_INFOS() << "Stream forced changing sample rate to " << *((float *)tag.data) << LL_ENDL;
+                            LL_INFOS("FMOD") << "Stream forced changing sample rate to " << *((float *)tag.data) << LL_ENDL;
 								mFMODInternetStreamChannelp->setFrequency(*((float *)tag.data));
 							}
 							continue;
@@ -277,9 +293,9 @@ void LLStreamingAudio_FMODSTUDIO::update()
                 mFMODInternetStreamChannelp->getPaused(&paused);
                 if (!paused)
                 {
-                    LL_INFOS() << "Stream starvation detected! Pausing stream until buffer nearly full." << LL_ENDL;
-                    LL_INFOS() << "  (diskbusy=" << diskbusy << ")" << LL_ENDL;
-                    LL_INFOS() << "  (progress=" << progress << ")" << LL_ENDL;
+                    LL_INFOS("FMOD") << "Stream starvation detected! Pausing stream until buffer nearly full." << LL_ENDL;
+                    LL_INFOS("FMOD") << "  (diskbusy=" << diskbusy << ")" << LL_ENDL;
+                    LL_INFOS("FMOD") << "  (progress=" << progress << ")" << LL_ENDL;
                     mFMODInternetStreamChannelp->setPaused(true);
                 }
             }
@@ -302,14 +318,14 @@ void LLStreamingAudio_FMODSTUDIO::stop()
 
     if (mCurrentInternetStreamp)
     {
-        LL_INFOS() << "Stopping internet stream: " << mCurrentInternetStreamp->getURL() << LL_ENDL;
+        LL_INFOS("FMOD") << "Stopping internet stream: " << mCurrentInternetStreamp->getURL() << LL_ENDL;
         if (mCurrentInternetStreamp->stopStream())
         {
             delete mCurrentInternetStreamp;
         }
         else
         {
-            LL_WARNS() << "Pushing stream to dead list: " << mCurrentInternetStreamp->getURL() << LL_ENDL;
+            LL_WARNS("FMOD") << "Pushing stream to dead list: " << mCurrentInternetStreamp->getURL() << LL_ENDL;
             mDeadStreams.push_back(mCurrentInternetStreamp);
         }
         mCurrentInternetStreamp = NULL;
@@ -328,6 +344,7 @@ void LLStreamingAudio_FMODSTUDIO::pause(int pauseopt)
     {
         if (mCurrentInternetStreamp)
         {
+            LL_INFOS("FMOD") << "Pausing internet stream" << LL_ENDL;
             stop();
         }
     }
@@ -426,7 +443,7 @@ mReady(false)
 
     if (result != FMOD_OK)
     {
-        LL_WARNS() << "Couldn't open fmod stream, error "
+        LL_WARNS("FMOD") << "Couldn't open fmod stream, error "
             << FMOD_ErrorString(result)
             << LL_ENDL;
         mReady = false;
@@ -441,7 +458,7 @@ FMOD::Channel *LLAudioStreamManagerFMODSTUDIO::startStream()
     // We need a live and opened stream before we try and play it.
     if (!mInternetStream || getOpenState() != FMOD_OPENSTATE_READY)
     {
-        LL_WARNS() << "No internet stream to start playing!" << LL_ENDL;
+        LL_WARNS("FMOD") << "No internet stream to start playing!" << LL_ENDL;
         return NULL;
     }
 
