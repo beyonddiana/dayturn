@@ -1113,6 +1113,7 @@ LLIMModel::LLIMSession* LLIMModel::addMessageSilently(const LLUUID& session_id, 
 
 	if (!session)
 	{
+		LL_WARNS() << "session " << session_id << "does not exist " << LL_ENDL;
 		return NULL;
 	}
 
@@ -2343,7 +2344,6 @@ bool LLIncomingCallDialog::postBuild()
 	LLUUID session_id = mPayload["session_id"].asUUID();
 	LLSD caller_id = mPayload["caller_id"];
 	std::string caller_name = mPayload["caller_name"].asString();
-
 
     if (session_id.isNull() && caller_id.asUUID().isNull())
     {
@@ -3785,6 +3785,7 @@ public:
 				return;
 			}
 // </FS:CR>
+
 			if (LLMuteList::getInstance()->isMuted(from_id, name, LLMute::flagTextChat))
 			{
 				return;
