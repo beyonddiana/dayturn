@@ -105,7 +105,7 @@ private:
 
 	BOOL				mSendUpdateOnMouseUp;
 
-	BOOL				mSmoothRotate;
+	bool				mSmoothRotate;
 	BOOL				mCamEdgeOn;
 
 	LLVector4			mManipulatorVertices[6];

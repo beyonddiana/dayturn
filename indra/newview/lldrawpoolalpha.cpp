@@ -304,7 +304,7 @@ void LLDrawPoolAlpha::render(S32 pass)
 
 	if (sShowDebugAlpha)
 	{
-		BOOL shaders = gPipeline.canUseVertexShaders();
+		bool shaders = gPipeline.canUseVertexShaders();
 		if(shaders) 
 		{
 			gHighlightProgram.bind();

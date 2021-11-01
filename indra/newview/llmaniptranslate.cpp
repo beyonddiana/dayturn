@@ -123,7 +123,7 @@ LLManipTranslate::LLManipTranslate( LLToolComposite* composite )
 	mUpdateTimer(),
 	mSnapOffsetMeters(0.f),
 	mSubdivisions(10.f),
-	mInSnapRegime(FALSE),
+	mInSnapRegime(false),
 	mArrowScales(1.f, 1.f, 1.f),
 	mPlaneScales(1.f, 1.f, 1.f),
 	mPlaneManipPositions(1.f, 1.f, 1.f, 1.f)
@@ -704,7 +704,7 @@ bool LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 				if (selectNode->mIndividualSelection)
 				{
 					// counter-translate child objects if we are moving the root as an individual
-					object->resetChildrenPosition(old_position_local - new_position_local, TRUE) ;					
+					object->resetChildrenPosition(old_position_local - new_position_local, true) ;					
 				}
 			}
 			else
@@ -763,7 +763,7 @@ bool LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 				if (selectNode->mIndividualSelection)
 				{
 					// counter-translate child objects if we are moving the root as an individual
-					object->resetChildrenPosition(old_position_agent - new_position_agent, TRUE) ;					
+					object->resetChildrenPosition(old_position_agent - new_position_agent, true) ;
 				}
 			}
 			selectNode->mLastPositionLocal  = object->getPosition();
@@ -1042,7 +1042,7 @@ BOOL LLManipTranslate::handleMouseUp(S32 x, S32 y, MASK mask)
 		// Might have missed last update due to UPDATE_DELAY timing.
 		LLSelectMgr::getInstance()->sendMultipleUpdate( UPD_POSITION );
 		
-		mInSnapRegime = FALSE;
+		mInSnapRegime = false;
 		LLSelectMgr::getInstance()->saveSelectedObjectTransform(SELECT_ACTION_TYPE_PICK);
 		//gAgent.setObjectTracking(gSavedSettings.getBOOL("TrackFocusObject"));
 	}

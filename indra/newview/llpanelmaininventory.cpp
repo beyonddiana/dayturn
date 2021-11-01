@@ -1435,12 +1435,12 @@ bool LLPanelMainInventory::isSaveTextureEnabled(const LLSD& userdata)
 	return false;
 }
 
-BOOL LLPanelMainInventory::isActionEnabled(const LLSD& userdata)
+bool LLPanelMainInventory::isActionEnabled(const LLSD& userdata)
 {
 	const std::string command_name = userdata.asString();
 	if (command_name == "not_empty")
 	{
-		BOOL status = FALSE;
+		bool status = false;
 		LLFolderViewItem* current_item = getActivePanel()->getRootFolder()->getCurSelectedItem();
 		if (current_item)
 		{
@@ -1465,60 +1465,60 @@ BOOL LLPanelMainInventory::isActionEnabled(const LLSD& userdata)
 		LLFolderView *root = getActivePanel()->getRootFolder();
 
 		if (!root) {
-			return FALSE;
+			return false;
 		}
 
 		std::set<LLFolderViewItem*> selection_set = root->getSelectionList();
 		if (selection_set.size() != 1) {
-			return FALSE;
+			return false;
 		}
 
 		LLFolderViewItem *current_item = root->getCurSelectedItem();
-		if (!current_item) return FALSE;
+		if (!current_item) return false;
 		const LLUUID& item_id = static_cast<LLFolderViewModelItemInventory*>(current_item->getViewModelItem())->getUUID();
 		const LLViewerInventoryItem *item = gInventory.getItem(item_id);
 		if (item && item->getIsLinkType() && !item->getIsBrokenLink())
 		{
-			return TRUE;
+			return true;
 		}
-		return FALSE;
+		return true;
 	}
 
 	if (command_name == "find_links")
 	{
 		LLFolderView* root = getActivePanel()->getRootFolder();
 		std::set<LLFolderViewItem*> selection_set = root->getSelectionList();
-		if (selection_set.size() != 1) return FALSE;
+		if (selection_set.size() != 1) return false;
 		LLFolderViewItem* current_item = root->getCurSelectedItem();
-		if (!current_item) return FALSE;
+		if (!current_item) return false;
 		const LLUUID& item_id = static_cast<LLFolderViewModelItemInventory*>(current_item->getViewModelItem())->getUUID();
 		const LLInventoryObject *obj = gInventory.getObject(item_id);
 		if (obj && !obj->getIsLinkType() && LLAssetType::lookupCanLink(obj->getType()))
 		{
-			return TRUE;
+			return true;
 		}
-		return FALSE;
+		return false;
 	}
 	// This doesn't currently work, since the viewer can't change an assetID an item.
 	if (command_name == "regenerate_link")
 	{
 		LLFolderViewItem* current_item = getActivePanel()->getRootFolder()->getCurSelectedItem();
-		if (!current_item) return FALSE;
+		if (!current_item) return false;
 		const LLUUID& item_id = static_cast<LLFolderViewModelItemInventory*>(current_item->getViewModelItem())->getUUID();
 		const LLViewerInventoryItem *item = gInventory.getItem(item_id);
 		if (item && item->getIsBrokenLink())
 		{
-			return TRUE;
+			return true;
 		}
-		return FALSE;
+		return false;
 	}
 
 	if (command_name == "share")
 	{
 		LLFolderViewItem* current_item = getActivePanel()->getRootFolder()->getCurSelectedItem();
-		if (!current_item) return FALSE;
+		if (!current_item) return false;
 		LLSidepanelInventory* parent = LLFloaterSidePanelContainer::getPanel<LLSidepanelInventory>("inventory");
-		return parent ? parent->canShare() : FALSE;
+		return parent ? parent->canShare() : false;
 	}
 	if (command_name == "empty_trash")
 	{
@@ -1533,10 +1533,10 @@ BOOL LLPanelMainInventory::isActionEnabled(const LLSD& userdata)
 		return children != LLInventoryModel::CHILDREN_NO;
 	}
 
-	return TRUE;
+	return true;
 }
 
-BOOL LLPanelMainInventory::isActionChecked(const LLSD& userdata)
+bool LLPanelMainInventory::isActionChecked(const LLSD& userdata)
 {
 	U32 sort_order_mask = getActivePanel()->getSortOrder();
 	const std::string command_name = userdata.asString();
@@ -1560,7 +1560,7 @@ BOOL LLPanelMainInventory::isActionChecked(const LLSD& userdata)
 		return sort_order_mask & LLInventoryFilter::SO_SYSTEM_FOLDERS_TO_TOP;
 	}
 
-	return FALSE;
+	return false;
 }
 
 // ## Zi: Filter Links Menu

@@ -162,8 +162,8 @@ protected:
 	void showActionMenu(LLMenuGL* menu, std::string spawning_view_name);
 	void onTrashButtonClick();
 	void onClipboardAction(const LLSD& userdata);
-	BOOL isActionEnabled(const LLSD& command_name);
-	BOOL isActionChecked(const LLSD& userdata);
+	bool isActionEnabled(const LLSD& command_name);
+	bool isActionChecked(const LLSD& userdata);
 	void onCustomAction(const LLSD& command_name);
 
 	// ## Zi: Filter Links Menu

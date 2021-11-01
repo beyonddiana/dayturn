@@ -99,7 +99,7 @@ void LLManip::rebuild(LLViewerObject* vobj)
 LLManip::LLManip( const std::string& name, LLToolComposite* composite )
 	:
 	LLTool( name, composite ),
-	mInSnapRegime(FALSE),
+	mInSnapRegime(false),
 	mHighlightedPart(LL_NO_PART),
 	mManipPart(LL_NO_PART)
 {

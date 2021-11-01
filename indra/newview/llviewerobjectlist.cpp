@@ -107,7 +107,7 @@ LLViewerObjectList::LLViewerObjectList()
 	mNumDeadObjects = 0;
 	mNumOrphans = 0;
 	mNumNewObjects = 0;
-	mWasPaused = FALSE;
+	mWasPaused = false;
 	mNumDeadObjectUpdates = 0;
 	mNumUnknownUpdates = 0;
 }
@@ -165,7 +165,7 @@ U64 LLViewerObjectList::getIndex(const U32 local_id,
 	return (((U64)index) << 32) | (U64)local_id;
 }
 
-BOOL LLViewerObjectList::removeFromLocalIDTable(const LLViewerObject* objectp)
+bool LLViewerObjectList::removeFromLocalIDTable(const LLViewerObject* objectp)
 {
 	if(objectp && objectp->getRegion())
 	{
@@ -182,21 +182,21 @@ BOOL LLViewerObjectList::removeFromLocalIDTable(const LLViewerObject* objectp)
 		std::map<U64, LLUUID>::iterator iter = sIndexAndLocalIDToUUID.find(indexid);
 		if (iter == sIndexAndLocalIDToUUID.end())
 		{
-			return FALSE;
+			return false;
 		}
 		
 		// Found existing entry
 		if (iter->second == objectp->getID())
 		{   // Full UUIDs match, so remove the entry
 			sIndexAndLocalIDToUUID.erase(iter);
-			return TRUE;
+			return true;
 		}
 		// UUIDs did not match - this would zap a valid entry, so don't erase it
 		//LL_INFOS() << "Tried to erase entry where id in table (" 
 		//		<< iter->second	<< ") did not match object " << object.getID() << LL_ENDL;
 	}
 	
-	return FALSE ;
+	return false ;
 }
 
 void LLViewerObjectList::setUUIDAndLocal(const LLUUID &id,
@@ -407,7 +407,7 @@ LLViewerObject* LLViewerObjectList::processObjectUpdateFromCache(LLVOCacheEntry*
 	else
 	{
 		objectp->setLastUpdateType(OUT_FULL_COMPRESSED); //newly cached
-		objectp->setLastUpdateCached(TRUE);
+		objectp->setLastUpdateCached(true);
 	}
 	recorder.log(0.2f);
 	LLVOAvatar::cullAvatarsByPixelArea();
@@ -1431,14 +1431,14 @@ void LLViewerObjectList::removeDrawable(LLDrawable* drawablep)
 	}
 }
 
-BOOL LLViewerObjectList::killObject(LLViewerObject *objectp, bool derendered)
+bool LLViewerObjectList::killObject(LLViewerObject *objectp, bool derendered)
 {
 	// Don't ever kill gAgentAvatarp, just force it to the agent's region
 	// unless region is NULL which is assumed to mean you are logging out.
 	if ((objectp == gAgentAvatarp) && gAgent.getRegion())
 	{
 		objectp->setRegion(gAgent.getRegion());
-		return FALSE;
+		return false;
 	}
 
 	// When we're killing objects, all we do is mark them as dead.
@@ -1455,10 +1455,10 @@ BOOL LLViewerObjectList::killObject(LLViewerObject *objectp, bool derendered)
 		// so create a pointer to make sure object will stay alive untill markDead() finishes
 		LLPointer<LLViewerObject> sp(objectp);
 		sp->markDead(); // does the right thing if object already dead
-		return TRUE;
+		return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 void LLViewerObjectList::killObjects(LLViewerRegion *regionp)
@@ -1477,7 +1477,7 @@ void LLViewerObjectList::killObjects(LLViewerRegion *regionp)
 	}
 
 	// Have to clean right away because the region is becoming invalid.
-	cleanDeadObjects(FALSE);
+	cleanDeadObjects(false);
 }
 
 void LLViewerObjectList::killAllObjects()
@@ -1493,7 +1493,7 @@ void LLViewerObjectList::killAllObjects()
 		llassert((objectp == gAgentAvatarp) || objectp->isDead());
 	}
 
-	cleanDeadObjects(FALSE);
+	cleanDeadObjects(false);
 
 	if(!mObjects.empty())
 	{
@@ -1514,7 +1514,7 @@ void LLViewerObjectList::killAllObjects()
 	}
 }
 
-void LLViewerObjectList::cleanDeadObjects(BOOL use_timer)
+void LLViewerObjectList::cleanDeadObjects(bool use_timer)
 {
 	if (!mNumDeadObjects)
 	{
@@ -2364,7 +2364,7 @@ void LLViewerObjectList::findOrphans(LLViewerObject* objectp, U32 ip, U32 port)
 			}
 
 			// Make certain particles, icon and HUD aren't hidden
-			childp->hideExtraDisplayItems( FALSE );
+			childp->hideExtraDisplayItems( false );
 
 			objectp->addChild(childp);
 			orphans_found = TRUE;
