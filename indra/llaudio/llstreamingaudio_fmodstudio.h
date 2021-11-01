@@ -67,6 +67,8 @@ public:
 	/* virtual */ std::string getCurrentStreamLocation();
 	    
 private:
+    void killDeadStreams();
+
     FMOD::System *mSystem;
 
     LLAudioStreamManagerFMODSTUDIO *mCurrentInternetStreamp;
