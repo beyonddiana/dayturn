@@ -64,7 +64,7 @@ U32 LLGLSLShader::sTotalDrawCalls = 0;
 LLGLSLShader    gUIProgram;
 LLGLSLShader    gSolidColorProgram;
 
-BOOL shouldChange(const LLVector4& v1, const LLVector4& v2)
+bool shouldChange(const LLVector4& v1, const LLVector4& v2)
 {
     return v1 != v2;
 }
