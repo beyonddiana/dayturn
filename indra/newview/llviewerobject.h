@@ -201,7 +201,7 @@ public:
 
 	// Graphical stuff for objects - maybe broken out into render class later?
 	virtual void updateTextures();
-	virtual void boostTexturePriority(BOOL boost_children = TRUE);	// When you just want to boost priority of this object
+	virtual void boostTexturePriority(bool boost_children = true);	// When you just want to boost priority of this object
 	
 	virtual LLDrawable* createDrawable(LLPipeline *pipeline);
 	virtual bool		updateGeometry(LLDrawable *drawable);
@@ -226,7 +226,7 @@ public:
 
 	bool isSelected() const							{ return mUserSelected; }
     // Check whole linkset
-    BOOL isAnySelected() const;
+    bool isAnySelected() const;
 	virtual void setSelected(bool sel);
 
 	const LLUUID &getID() const						{ return mID; }
@@ -288,7 +288,7 @@ public:
 									  LLVector4a* tangent = NULL             // return the surface tangent at the intersection point
 		);
 	
-	virtual BOOL lineSegmentBoundingBox(const LLVector4a& start, const LLVector4a& end);
+	virtual bool lineSegmentBoundingBox(const LLVector4a& start, const LLVector4a& end);
 
 	virtual const LLVector3d getPositionGlobal() const;
 	virtual const LLVector3 &getPositionRegion() const;
@@ -315,8 +315,8 @@ public:
 
 	virtual const LLMatrix4& getWorldMatrix(LLXformMatrix* xform) const		{ return xform->getWorldMatrix(); }
 
-	inline void setRotation(const F32 x, const F32 y, const F32 z, BOOL damped = FALSE);
-	inline void setRotation(const LLQuaternion& quat, BOOL damped = FALSE);
+	inline void setRotation(const F32 x, const F32 y, const F32 z, bool damped = false);
+	inline void setRotation(const LLQuaternion& quat, bool damped = false);
 
 	/*virtual*/	void	setNumTEs(const U8 num_tes);
 	/*virtual*/	void	setTE(const U8 te, const LLTextureEntry &texture_entry);
@@ -409,7 +409,7 @@ public:
 
 	 // Create if necessary
 	LLAudioSource *getAudioSource(const LLUUID& owner_id);
-	BOOL isAudioSource() const {return mAudioSourcep != NULL;}
+	bool isAudioSource() const {return mAudioSourcep != NULL;}
 
 	U8 getMediaType() const;
 	void setMediaType(U8 media_type);
@@ -417,8 +417,8 @@ public:
 	std::string getMediaURL() const;
 	void setMediaURL(const std::string& media_url);
 
-	BOOL getMediaPassedWhitelist() const;
-	void setMediaPassedWhitelist(BOOL passed);
+	bool getMediaPassedWhitelist() const;
+	void setMediaPassedWhitelist(bool passed);
 
 	void sendMaterialUpdate() const;
 
@@ -430,7 +430,7 @@ public:
 	void setIcon(LLViewerTexture* icon_image);
 	void clearIcon();
 
-    void recursiveMarkForUpdate(BOOL priority);
+    void recursiveMarkForUpdate(bool priority);
 	virtual void markForUpdate(bool priority);
 	void markForUnload(bool priority);
 	void updateVolume(const LLVolumeParams& volume_params);
@@ -445,9 +445,9 @@ public:
 
 	bool isOwnerInMuteList();
 
-	void setDrawableState(U32 state, BOOL recursive = TRUE);
-	void clearDrawableState(U32 state, BOOL recursive = TRUE);
-	BOOL isDrawableState(U32 state, BOOL recursive = TRUE) const;
+	void setDrawableState(U32 state, bool recursive = true);
+	void clearDrawableState(U32 state, bool recursive = true);
+	bool isDrawableState(U32 state, bool recursive = true) const;
 
 	// Called when the drawable shifts
 	virtual void onShift(const LLVector4a &shift_vector)	{ }
@@ -462,7 +462,7 @@ public:
 	// viewer object has the inventory stored locally.
 	void registerInventoryListener(LLVOInventoryListener* listener, void* user_data);
 	void removeInventoryListener(LLVOInventoryListener* listener);
-	BOOL isInventoryPending();
+	bool isInventoryPending();
 	void clearInventoryListeners();
 	bool hasInventoryListeners();
 	void requestInventory();
@@ -492,7 +492,7 @@ public:
 
 	// This function will make sure that we refresh the inventory.
 	void dirtyInventory();
-	BOOL isInventoryDirty() { return mInventoryDirty; }
+	bool isInventoryDirty() { return mInventoryDirty; }
 
 	// save a script, which involves removing the old one, and rezzing
 	// in the new one. This method should be called with the asset id
@@ -556,7 +556,7 @@ public:
 	void setIncludeInSearch(bool include_in_search);
 
 	// Does "open" object menu item apply?
-	BOOL allowOpen() const;
+	bool allowOpen() const;
 
 	void setClickAction(U8 action) { mClickAction = action; }
 	U8 getClickAction() const { return mClickAction; }
@@ -565,7 +565,7 @@ public:
 	void			setRegion(LLViewerRegion *regionp);
 	virtual void	updateRegion(LLViewerRegion *regionp);
 
-	void updateFlags(BOOL physics_changed = FALSE);
+	void updateFlags(bool physics_changed = false);
 	void loadFlags(U32 flags); //load flags from cache or from message
 	BOOL setFlags(U32 flag, BOOL state);
 	BOOL setFlagsWithoutUpdate(U32 flag, BOOL state);
@@ -609,7 +609,7 @@ public:
 
 public:
 	//counter-translation
-	void resetChildrenPosition(const LLVector3& offset, BOOL simplified = FALSE,  BOOL skip_avatar_child = FALSE) ;
+	void resetChildrenPosition(const LLVector3& offset, bool simplified = false,  bool skip_avatar_child = false) ;
 	//counter-rotation
 	void resetChildrenRotationAndPosition(const std::vector<LLQuaternion>& rotations, 
 											const std::vector<LLVector3>& positions) ;
@@ -704,10 +704,10 @@ public:
 	LLPointer<LLDrawable> mDrawable;
 
 	// Band-aid to select object after all creation initialization is done
-	BOOL mCreateSelected;
+	bool mCreateSelected;
 
 	// Replace textures with web pages on this object while drawing
-	BOOL mRenderMedia;
+	bool mRenderMedia;
 
 	// In bits
 	S32				mBestUpdatePrecision;
@@ -719,7 +719,7 @@ public:
 	std::string mHudText;
 	LLColor4 mHudTextColor;
 
-	static			BOOL		sUseSharedDrawables;
+	static			bool		sUseSharedDrawables;
 	// <FS:Techwolf Lupindo> export
 	LLViewerPartSourceScript* getPartSourceScript() { return mPartSourcep.get(); }
 	bool getPhysicsShapeUnknown () { return mPhysicsShapeUnknown; }
@@ -758,10 +758,10 @@ protected:
 
 	static LLViewerObject *createObject(const LLUUID &id, LLPCode pcode, LLViewerRegion *regionp, S32 flags = 0);
 
-	BOOL setData(const U8 *datap, const U32 data_size);
+	bool setData(const U8 *datap, const U32 data_size);
 
 	// Hide or show HUD, icon and particles
-	void	hideExtraDisplayItems( BOOL hidden );
+	void	hideExtraDisplayItems( bool hidden );
 
 	//////////////////////////
 	//
@@ -769,10 +769,10 @@ protected:
 	//
 
 	static void processTaskInvFile(void** user_data, S32 error_code, LLExtStat ext_status);
-	BOOL loadTaskInvFile(const std::string& filename);
+	bool loadTaskInvFile(const std::string& filename);
 	void doInventoryCallback();
 	
-	BOOL isOnMap();
+	bool isOnMap();
 
 	void unpackParticleSource(const S32 block_num, const LLUUID& owner_id);
 	void unpackParticleSource(LLDataPacker &dp, const LLUUID& owner_id, bool legacy);
@@ -834,15 +834,15 @@ protected:
 	};
 	EInventoryRequestState	mInvRequestState;
 	U64						mInvRequestXFerId;
-	BOOL					mInventoryDirty;
+	bool					mInventoryDirty;
 
 	LLViewerRegion	*mRegionp;					// Region that this object belongs to.
 	bool			mDead;
 	bool			mOrphaned;					// This is an orphaned child
 	bool			mUserSelected;				// Cached user select information
 	bool			mOnActiveList;
-	BOOL			mOnMap;						// On the map.
-	BOOL			mStatic;					// Object doesn't move.
+	bool			mOnMap;						// On the map.
+	bool			mStatic;					// Object doesn't move.
 	S32				mSeatCount;
 	S32				mNumFaces;
 
@@ -863,11 +863,11 @@ protected:
 
 	static			U32			sNumZombieObjects;			// Objects which are dead, but not deleted
 
-	static			BOOL		sMapDebug;					// Map render mode
+	static			bool		sMapDebug;					// Map render mode
 	static			LLColor4	sEditSelectColor;
 	static			LLColor4	sNoEditSelectColor;
 	static			F32			sCurrentPulse;
-	static			BOOL		sPulseEnabled;
+	static			bool		sPulseEnabled;
 
 	static			S32			sAxisArrowLength;
 
@@ -880,8 +880,8 @@ protected:
 	static void setMaxUpdateInterpolationTime(F32 value)		{ sMaxUpdateInterpolationTime = (F64Seconds) value;	}
 	static void setMaxRegionCrossingInterpolationTime(F32 value)		{ sMaxRegionCrossingInterpolationTime = (F64Seconds) value; }
 
-	static void	setVelocityInterpolate(BOOL value)		{ sVelocityInterpolate = value;	}
-	static void	setPingInterpolate(BOOL value)			{ sPingInterpolate = value;	}
+	static void	setVelocityInterpolate(bool value)		{ sVelocityInterpolate = value;	}
+	static void	setPingInterpolate(bool value)			{ sPingInterpolate = value;	}
 
 private:	
 	static S32 sNumObjects;
@@ -890,8 +890,8 @@ private:
 	static F64Seconds sMaxUpdateInterpolationTime;			// For motion interpolation
 	static F64Seconds sMaxRegionCrossingInterpolationTime;			// For motion interpolation
 
-	static BOOL sVelocityInterpolate;
-	static BOOL sPingInterpolate;
+	static bool sVelocityInterpolate;
+	static bool sPingInterpolate;
 
 	bool mCachedOwnerInMuteList;
 	F64 mCachedMuteListUpdateTime;
@@ -905,8 +905,8 @@ public:
 	const LLUUID &extractAttachmentItemID(); // find&set the inventory item ID of the attached object
 	EObjectUpdateType getLastUpdateType() const;
 	void setLastUpdateType(EObjectUpdateType last_update_type);
-	BOOL getLastUpdateCached() const;
-	void setLastUpdateCached(BOOL last_update_cached);
+	bool getLastUpdateCached() const;
+	void setLastUpdateCached(bool last_update_cached);
 
     virtual void updateRiggingInfo() {}
 
@@ -915,7 +915,7 @@ public:
 private:
 	LLUUID mAttachmentItemID; // ItemID of the associated object is in user inventory.
 	EObjectUpdateType	mLastUpdateType;
-	BOOL	mLastUpdateCached;
+	bool	mLastUpdateCached;
 };
 
 ///////////////////
@@ -924,14 +924,14 @@ private:
 //
 //
 
-inline void LLViewerObject::setRotation(const LLQuaternion& quat, BOOL damped)
+inline void LLViewerObject::setRotation(const LLQuaternion& quat, bool damped)
 {
 	LLPrimitive::setRotation(quat);
 	setChanged(ROTATED | SILHOUETTE);
 	updateDrawable(damped);
 }
 
-inline void LLViewerObject::setRotation(const F32 x, const F32 y, const F32 z, BOOL damped)
+inline void LLViewerObject::setRotation(const F32 x, const F32 y, const F32 z, bool damped)
 {
 	LLPrimitive::setRotation(x, y, z);
 	setChanged(ROTATED | SILHOUETTE);
@@ -941,10 +941,10 @@ inline void LLViewerObject::setRotation(const F32 x, const F32 y, const F32 z, B
 class LLViewerObjectMedia
 {
 public:
-	LLViewerObjectMedia() : mMediaURL(), mPassedWhitelist(FALSE), mMediaType(0) { }
+	LLViewerObjectMedia() : mMediaURL(), mPassedWhitelist(false), mMediaType(0) { }
 
 	std::string mMediaURL;	// for web pages on surfaces, one per prim
-	BOOL mPassedWhitelist;	// user has OK'd display
+	bool mPassedWhitelist;	// user has OK'd display
 	U8 mMediaType;			// see LLTextureEntry::WEB_PAGE, etc.
 };
 

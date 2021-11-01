@@ -704,7 +704,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		LLGLState::checkTextureChannels();
 		LLGLState::checkClientArrays();
 
-		BOOL to_texture = gPipeline.canUseVertexShaders() &&
+		bool to_texture = gPipeline.canUseVertexShaders() &&
 						LLPipeline::sRenderGlow;
 
 		LLAppViewer::instance()->pingMainloopTimeout("Display:Swap");
@@ -1297,7 +1297,7 @@ void render_ui(F32 zoom_factor, int subfield)
 	}
 
 	{
-		BOOL to_texture = gPipeline.canUseVertexShaders() &&
+		bool to_texture = gPipeline.canUseVertexShaders() &&
 							LLPipeline::sRenderGlow;
 
 		if (to_texture)

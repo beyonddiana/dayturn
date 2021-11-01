@@ -618,7 +618,7 @@ void LLDrawable::makeStatic(bool warning_enabled)
 // Returns "distance" between target destination and resulting xfrom
 F32 LLDrawable::updateXform(bool undamped)
 {
-	BOOL damped = !undamped;
+	bool damped = !undamped;
 
 	// Position
 	const LLVector3 old_pos(mXform.getPosition());

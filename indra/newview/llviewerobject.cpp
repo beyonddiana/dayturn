@@ -112,19 +112,19 @@
 
 //#define DEBUG_UPDATE_TYPE
 
-BOOL		LLViewerObject::sVelocityInterpolate = TRUE;
-BOOL		LLViewerObject::sPingInterpolate = TRUE; 
+bool		LLViewerObject::sVelocityInterpolate = true;
+bool		LLViewerObject::sPingInterpolate = true; 
 
 U32			LLViewerObject::sNumZombieObjects = 0;
 S32			LLViewerObject::sNumObjects = 0;
-BOOL		LLViewerObject::sMapDebug = TRUE;
+bool		LLViewerObject::sMapDebug = true;
 LLColor4	LLViewerObject::sEditSelectColor(	1.0f, 1.f, 0.f, 0.3f);	// Edit OK
 LLColor4	LLViewerObject::sNoEditSelectColor(	1.0f, 0.f, 0.f, 0.3f);	// Can't edit
 S32			LLViewerObject::sAxisArrowLength(50);
 
 
-BOOL		LLViewerObject::sPulseEnabled(FALSE);
-BOOL		LLViewerObject::sUseSharedDrawables(FALSE); // TRUE
+bool		LLViewerObject::sPulseEnabled(false);
+bool		LLViewerObject::sUseSharedDrawables(false); // true
 
 // sMaxUpdateInterpolationTime must be greater than sPhaseOutUpdateInterpolationTime
 F64Seconds	LLViewerObject::sMaxUpdateInterpolationTime(3.0);		// For motion interpolation: after X seconds with no updates, don't predict object motion
@@ -255,8 +255,8 @@ LLViewerObject::LLViewerObject(const LLUUID &id, const LLPCode pcode, LLViewerRe
 	mPhysicsDensity(0),
 	mPhysicsRestitution(0),
 	mDrawable(),
-	mCreateSelected(FALSE),
-	mRenderMedia(FALSE),
+	mCreateSelected(false),
+	mRenderMedia(false),
 	mBestUpdatePrecision(0),
 	mText(),
 	mHudText(""),
@@ -277,14 +277,14 @@ LLViewerObject::LLViewerObject(const LLUUID &id, const LLPCode pcode, LLViewerRe
 	mExpectedInventorySerialNum(0),
 	mInvRequestState(INVENTORY_REQUEST_STOPPED),
 	mInvRequestXFerId(0),
-	mInventoryDirty(FALSE),
+	mInventoryDirty(false),
 	mRegionp(regionp),
 	mDead(false),
 	mOrphaned(false),
 	mUserSelected(false),
 	mOnActiveList(false),
-	mOnMap(FALSE),
-	mStatic(FALSE),
+	mOnMap(false),
+	mStatic(false),
 	mSeatCount(0),
 	mNumFaces(0),
 	mRotTime(0.f),
@@ -301,7 +301,7 @@ LLViewerObject::LLViewerObject(const LLUUID &id, const LLPCode pcode, LLViewerRe
 	mPhysicsShapeUnknown(true),
 	mAttachmentItemID(LLUUID::null),
 	mLastUpdateType(OUT_UNKNOWN),
-	mLastUpdateCached(FALSE),
+	mLastUpdateCached(false),
 	mCachedMuteListUpdateTime(0),
 	mCachedOwnerInMuteList(false)
 {
@@ -713,7 +713,7 @@ void LLViewerObject::setNameValueList(const std::string& name_value_list)
 	}
 }
 
-BOOL LLViewerObject::isAnySelected() const
+bool LLViewerObject::isAnySelected() const
 {
     bool any_selected = isSelected();
     for (child_list_t::const_iterator iter = mChildList.begin();
@@ -1041,7 +1041,7 @@ bool LLViewerObject::setDrawableParent(LLDrawable* parentp)
 }
 
 // Show or hide particles, icon and HUD
-void LLViewerObject::hideExtraDisplayItems( BOOL hidden )
+void LLViewerObject::hideExtraDisplayItems( bool hidden )
 {
 	if( mPartSourcep.notNull() )
 	{
@@ -1071,7 +1071,7 @@ U32 LLViewerObject::checkMediaURL(const std::string &media_url)
         mMedia = new LLViewerObjectMedia;
         mMedia->mMediaURL = media_url;
         mMedia->mMediaType = LLViewerObject::MEDIA_SET;
-        mMedia->mPassedWhitelist = FALSE;
+        mMedia->mPassedWhitelist = false;
     }
     else if (mMedia)
     {
@@ -1093,7 +1093,7 @@ U32 LLViewerObject::checkMediaURL(const std::string &media_url)
                 retval |= MEDIA_URL_UPDATED;
             }
             mMedia->mMediaURL = media_url;
-            mMedia->mPassedWhitelist = FALSE;
+            mMedia->mPassedWhitelist = false;
         }
     }
     return retval;
@@ -2081,7 +2081,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 					}
 					
 					// Show particles, icon and HUD
-					hideExtraDisplayItems( FALSE );
+					hideExtraDisplayItems( false );
 
 					setChanged(MOVED | SILHOUETTE);
 				}
@@ -2108,7 +2108,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 					gObjectList.orphanize(this, parent_id, ip, port);
 
 					// Hide particles, icon and HUD
-					hideExtraDisplayItems( TRUE );
+					hideExtraDisplayItems( true );
 				}
 			}
 		}
@@ -2410,11 +2410,11 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 		(MAG_CUTOFF >= accel_mag_sq) &&
 		(MAG_CUTOFF >= getAngularVelocity().magVecSquared()))
 	{
-		mStatic = TRUE; // This object doesn't move!
+		mStatic = true; // This object doesn't move!
 	}
 	else
 	{
-		mStatic = FALSE;
+		mStatic = false;
 	}
 
 // BUG: This code leads to problems during group rotate and any scale operation.
@@ -2707,7 +2707,7 @@ void LLViewerObject::interpolateLinearMotion(const F64SecondsImplicit& frame_tim
 
 
 
-BOOL LLViewerObject::setData(const U8 *datap, const U32 data_size)
+bool LLViewerObject::setData(const U8 *datap, const U32 data_size)
 {
 	delete [] mData;
 
@@ -2716,11 +2716,11 @@ BOOL LLViewerObject::setData(const U8 *datap, const U32 data_size)
 		mData = new U8[data_size];
 		if (!mData)
 		{
-			return FALSE;
+			return false;
 		}
 		memcpy(mData, datap, data_size);		/* Flawfinder: ignore */
 	}
-	return TRUE;
+	return true;
 }
 
 // delete an item in the inventory, but don't tell the server. This is
@@ -2908,7 +2908,7 @@ void LLViewerObject::dirtyInventory()
 		delete mInventory;
 		mInventory = NULL;
 	}
-	mInventoryDirty = TRUE;
+	mInventoryDirty = true;
 }
 
 void LLViewerObject::registerInventoryListener(LLVOInventoryListener* listener, void* user_data)
@@ -2937,7 +2937,7 @@ void LLViewerObject::removeInventoryListener(LLVOInventoryListener* listener)
 	}
 }
 
-BOOL LLViewerObject::isInventoryPending()
+bool LLViewerObject::isInventoryPending()
 {
     return mInvRequestState != INVENTORY_REQUEST_STOPPED;
 }
@@ -2971,7 +2971,7 @@ void LLViewerObject::requestInventory()
 	else
 	{
 		// since we are going to request it now
-		mInventoryDirty = FALSE;
+		mInventoryDirty = false;
 
 		// Note: throws away duplicate requests
 		fetchInventoryFromServer();
@@ -3123,7 +3123,7 @@ void LLViewerObject::linkControlAvatar()
             //if (!cav->mRootVolp->isAnySelected())
             {
                 cav->updateVolumeGeom();
-                cav->mRootVolp->recursiveMarkForUpdate(TRUE);
+                cav->mRootVolp->recursiveMarkForUpdate(true);
             }
         }
     }
@@ -3338,7 +3338,7 @@ void LLViewerObject::processTaskInvFile(void** user_data, S32 error_code, LLExtS
 	delete ft;
 }
 
-BOOL LLViewerObject::loadTaskInvFile(const std::string& filename)
+bool LLViewerObject::loadTaskInvFile(const std::string& filename)
 {
 	std::string filename_and_local_path = gDirUtilp->getExpandedFilename(LL_PATH_CACHE, filename);
 	llifstream ifs(filename_and_local_path.c_str());
@@ -3400,11 +3400,11 @@ BOOL LLViewerObject::loadTaskInvFile(const std::string& filename)
 	{
 		LL_WARNS() << "unable to load task inventory: " << filename_and_local_path
 				<< LL_ENDL;
-		return FALSE;
+		return false;
 	}
 	doInventoryCallback();
 
-	return TRUE;
+	return true;
 }
 
 void LLViewerObject::doInventoryCallback()
@@ -3712,7 +3712,7 @@ void LLViewerObject::setScale(const LLVector3 &scale, bool damped)
 				llassert_always(LLWorld::getInstance()->getRegionFromHandle(getRegion()->getHandle()));
 
 				gObjectList.addToMap(this);
-				mOnMap = TRUE;
+				mOnMap = true;
 			}
 		}
 		else
@@ -3720,7 +3720,7 @@ void LLViewerObject::setScale(const LLVector3 &scale, bool damped)
 			if (mOnMap)
 			{
 				gObjectList.removeFromMap(this);
-				mOnMap = FALSE;
+				mOnMap = false;
 			}
 		}
 	}
@@ -4015,7 +4015,7 @@ void LLViewerObject::updateTextures()
 {
 }
 
-void LLViewerObject::boostTexturePriority(BOOL boost_children /* = TRUE */)
+void LLViewerObject::boostTexturePriority(bool boost_children /* = true */)
 {
 	if (isDead())
 	{
@@ -4567,11 +4567,11 @@ bool LLViewerObject::lineSegmentIntersect(const LLVector4a& start, const LLVecto
 	return false;
 }
 
-BOOL LLViewerObject::lineSegmentBoundingBox(const LLVector4a& start, const LLVector4a& end)
+bool LLViewerObject::lineSegmentBoundingBox(const LLVector4a& start, const LLVector4a& end)
 {
 	if (mDrawable.isNull() || mDrawable->isDead())
 	{
-		return FALSE;
+		return false;
 	}
 
 	const LLVector4a* ext = mDrawable->getSpatialExtents();
@@ -4631,20 +4631,20 @@ void LLViewerObject::setMediaURL(const std::string& media_url)
 	{
 		mMedia = new LLViewerObjectMedia;
 		mMedia->mMediaURL = media_url;
-		mMedia->mPassedWhitelist = FALSE;
+		mMedia->mPassedWhitelist = false;
 
 		// TODO: update materials with new image
 	}
 	else if (mMedia->mMediaURL != media_url)
 	{
 		mMedia->mMediaURL = media_url;
-		mMedia->mPassedWhitelist = FALSE;
+		mMedia->mPassedWhitelist = false;
 
 		// TODO: update materials with new image
 	}
 }
 
-BOOL LLViewerObject::getMediaPassedWhitelist() const
+bool LLViewerObject::getMediaPassedWhitelist() const
 {
 	if (mMedia)
 	{
@@ -4652,11 +4652,11 @@ BOOL LLViewerObject::getMediaPassedWhitelist() const
 	}
 	else
 	{
-		return FALSE;
+		return false;
 	}
 }
 
-void LLViewerObject::setMediaPassedWhitelist(BOOL passed)
+void LLViewerObject::setMediaPassedWhitelist(bool passed)
 {
 	if (mMedia)
 	{
@@ -5592,7 +5592,7 @@ const LLViewerObject* LLViewerObject::getSubParent() const
 	return (const LLViewerObject*) getParent();
 }
 
-BOOL LLViewerObject::isOnMap()
+bool LLViewerObject::isOnMap()
 {
 	return mOnMap;
 }
@@ -6150,7 +6150,7 @@ void LLViewerObject::parameterChanged(U16 param_type, LLNetworkData* data, bool 
 	}
 }
 
-void LLViewerObject::setDrawableState(U32 state, BOOL recursive)
+void LLViewerObject::setDrawableState(U32 state, bool recursive)
 {
 	if (mDrawable)
 	{
@@ -6167,7 +6167,7 @@ void LLViewerObject::setDrawableState(U32 state, BOOL recursive)
 	}
 }
 
-void LLViewerObject::clearDrawableState(U32 state, BOOL recursive)
+void LLViewerObject::clearDrawableState(U32 state, bool recursive)
 {
 	if (mDrawable)
 	{
@@ -6184,9 +6184,9 @@ void LLViewerObject::clearDrawableState(U32 state, BOOL recursive)
 	}
 }
 
-BOOL LLViewerObject::isDrawableState(U32 state, BOOL recursive) const
+bool LLViewerObject::isDrawableState(U32 state, bool recursive) const
 {
-	BOOL matches = FALSE;
+	bool matches = false;
 	if (mDrawable)
 	{
 		matches = mDrawable->isState(state);
@@ -6381,7 +6381,7 @@ BOOL LLViewerObject::permTransfer() const
 
 // Can only open objects that you own, or that someone has
 // given you modify rights to.  JC
-BOOL LLViewerObject::allowOpen() const
+bool LLViewerObject::allowOpen() const
 {
 	return !flagInventoryEmpty() && (permYouOwner() || permModify());
 }
@@ -6404,7 +6404,7 @@ void LLViewerObject::updateVolume(const LLVolumeParams& volume_params)
 	}
 }
 
-void LLViewerObject::recursiveMarkForUpdate(BOOL priority)
+void LLViewerObject::recursiveMarkForUpdate(bool priority)
 {
     for (LLViewerObject::child_list_t::iterator iter = mChildList.begin();
          iter != mChildList.end(); iter++)
@@ -6504,7 +6504,7 @@ bool LLViewerObject::specialHoverCursor() const
 			|| (mClickAction != 0);
 }
 
-void LLViewerObject::updateFlags(BOOL physics_changed)
+void LLViewerObject::updateFlags(bool physics_changed)
 {
 	LLViewerRegion* regionp = getRegion();
 	if(!regionp) return;
@@ -6787,7 +6787,7 @@ void LLViewerObject::resetChildrenRotationAndPosition(const std::vector<LLQuater
 }
 
 //counter-translation
-void LLViewerObject::resetChildrenPosition(const LLVector3& offset, BOOL simplified, BOOL skip_avatar_child)
+void LLViewerObject::resetChildrenPosition(const LLVector3& offset, bool simplified, bool skip_avatar_child)
 {
 	if(mChildList.empty())
 	{
@@ -6887,12 +6887,12 @@ void LLViewerObject::setLastUpdateType(EObjectUpdateType last_update_type)
 	mLastUpdateType = last_update_type;
 }
 
-BOOL LLViewerObject::getLastUpdateCached() const
+bool LLViewerObject::getLastUpdateCached() const
 {
 	return mLastUpdateCached;
 }
 
-void LLViewerObject::setLastUpdateCached(BOOL last_update_cached)
+void LLViewerObject::setLastUpdateCached(bool last_update_cached)
 {
 	mLastUpdateCached = last_update_cached;
 }

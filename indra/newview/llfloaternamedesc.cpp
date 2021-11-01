@@ -61,7 +61,7 @@ const S32 PREVIEW_HPAD = PREVIEW_RESIZE_HANDLE_SIZE;
 //-----------------------------------------------------------------------------
 LLFloaterNameDesc::LLFloaterNameDesc(const LLSD& filename )
 	: LLFloater(filename),
-	  mIsAudio(FALSE)	  
+	  mIsAudio(false)
 {
 	mFilenameAndPath = filename.asString();
 	mFilename = gDirUtilp->getBaseFileName(mFilenameAndPath, false);
@@ -191,7 +191,7 @@ void LLFloaterNameDesc::onBtnCancel()
 LLFloaterSoundPreview::LLFloaterSoundPreview(const LLSD& filename )
 	: LLFloaterNameDesc(filename)
 {
-	mIsAudio = TRUE;
+	mIsAudio = true;
 }
 
 bool LLFloaterSoundPreview::postBuild()

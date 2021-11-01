@@ -474,8 +474,8 @@ void LLViewerShaderMgr::setShaders()
 	}
 	else
 	{
-		LLPipeline::sRenderGlow = FALSE;
-		LLPipeline::sWaterReflections = FALSE;
+		LLPipeline::sRenderGlow = false;
+		LLPipeline::sWaterReflections = false;
 	}
 	
 	//hack to reset buffers that change behavior with shaders
@@ -1119,7 +1119,7 @@ bool LLViewerShaderMgr::loadShadersEffects()
 		success = gGlowProgram.createShader(NULL, NULL);
 		if (!success)
 		{
-			LLPipeline::sRenderGlow = FALSE;
+			LLPipeline::sRenderGlow = false;
 		}
 	}
 	
@@ -1133,7 +1133,7 @@ bool LLViewerShaderMgr::loadShadersEffects()
 		success = gGlowExtractProgram.createShader(NULL, NULL);
 		if (!success)
 		{
-			LLPipeline::sRenderGlow = FALSE;
+			LLPipeline::sRenderGlow = false;
 		}
 	}
 	

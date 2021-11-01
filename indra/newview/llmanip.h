@@ -147,7 +147,7 @@ protected:
 	LLColor4			setupSnapGuideRenderPass(S32 pass);
 protected:
 	LLFrameTimer		mHelpTextTimer;
-	BOOL				mInSnapRegime;
+	bool				mInSnapRegime;
 	LLSafeHandle<LLObjectSelection> mObjectSelection;
 	EManipPart			mHighlightedPart;
 	EManipPart			mManipPart;

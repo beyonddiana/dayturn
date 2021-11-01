@@ -3596,7 +3596,7 @@ void LLVOVolume::onSetExtendedMeshFlags(U32 flags)
 	if (/*!getRootEdit()->isAnySelected() &&*/ mDrawable.notNull())
     {
         // Need to trigger rebuildGeom(), which is where control avatars get created/removed
-        getRootEdit()->recursiveMarkForUpdate(TRUE);
+        getRootEdit()->recursiveMarkForUpdate(true);
     }
     if (isAttachment() && getAvatarAncestor())
     {
@@ -4312,7 +4312,7 @@ void LLVOVolume::setSelected(bool sel)
 	LLViewerObject::setSelected(sel);
     if (isAnimatedObject())
     {
-        getRootEdit()->recursiveMarkForUpdate(TRUE);
+        getRootEdit()->recursiveMarkForUpdate(true);
     }
     else
     {

@@ -1774,7 +1774,7 @@ void send_agent_pause()
 		gMessageSystem->sendReliable(regionp->getHost());
 	}
 
-	gObjectList.mWasPaused = TRUE;
+	gObjectList.mWasPaused = true;
 	LLViewerStats::instance().getRecording().stop();
 }
 

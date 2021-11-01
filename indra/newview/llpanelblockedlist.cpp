@@ -181,7 +181,7 @@ void LLPanelBlockedList::onCustomAction(const LLSD& userdata)
 	}
 }
 
-BOOL LLPanelBlockedList::isActionChecked(const LLSD& userdata)
+bool LLPanelBlockedList::isActionChecked(const LLSD& userdata)
 {
 	std::string item = userdata.asString();
 	U32 sort_order = gSavedSettings.getU32("BlockPeopleSortOrder");
@@ -200,13 +200,13 @@ BOOL LLPanelBlockedList::isActionChecked(const LLSD& userdata)
 
 void LLPanelBlockedList::blockResidentByName()
 {
-	const BOOL allow_multiple = FALSE;
-	const BOOL close_on_select = TRUE;
+	const bool allow_multiple = false;
+	const bool close_on_select = true;
     
-    LLView * button = findChild<LLButton>("plus_btn", TRUE);
+    LLView * button = findChild<LLButton>("plus_btn", true);
     LLFloater* root_floater = gFloaterView->getParentFloater(this);
 	LLFloaterAvatarPicker * picker = LLFloaterAvatarPicker::show(boost::bind(&LLPanelBlockedList::callbackBlockPicked, this, _1, _2), 
-                                                                                    allow_multiple, close_on_select, FALSE, root_floater->getName(), button);
+                                                                                    allow_multiple, close_on_select, false, root_floater->getName(), button);
     
     if (root_floater)
     {
