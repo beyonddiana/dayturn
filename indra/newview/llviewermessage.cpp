@@ -1823,27 +1823,7 @@ bool LLOfferInfo::inventory_task_offer_callback(const LLSD& notification, const 
 			}
 		}
 	}
-	
-	LLMessageSystem* msg = gMessageSystem;
-	msg->newMessageFast(_PREHASH_ImprovedInstantMessage);
-	msg->nextBlockFast(_PREHASH_AgentData);
-	msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
-	msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
-	msg->nextBlockFast(_PREHASH_MessageBlock);
-	msg->addBOOLFast(_PREHASH_FromGroup, FALSE);
-	msg->addUUIDFast(_PREHASH_ToAgentID, mFromID);
-	msg->addU8Fast(_PREHASH_Offline, IM_ONLINE);
-	msg->addUUIDFast(_PREHASH_ID, mTransactionID);
-	msg->addU32Fast(_PREHASH_Timestamp, NO_TIMESTAMP); // no timestamp necessary
-	std::string name;
-	LLAgentUI::buildFullname(name);
-	msg->addStringFast(_PREHASH_FromAgentName, name);
-	msg->addStringFast(_PREHASH_Message, ""); 
-	msg->addU32Fast(_PREHASH_ParentEstateID, 0);
-	msg->addUUIDFast(_PREHASH_RegionID, LLUUID::null);
-	msg->addVector3Fast(_PREHASH_Position, gAgent.getPositionAgent());
-	LLInventoryObserver* opener = NULL;
-	
+
 	std::string from_string; // Used in the pop-up.
 	std::string chatHistory_string;  // Used in chat history.
 
@@ -1981,21 +1961,8 @@ bool LLOfferInfo::inventory_task_offer_callback(const LLSD& notification, const 
 				break;
 	}
 
-	sendReceiveResponse(destination);
+	sendReceiveResponse(accept, destination);
 
-	// Purely for logging purposes.
-	switch (mIM)
-	{
-	case IM_INVENTORY_OFFERED:
-	case IM_GROUP_NOTICE:
-	case IM_TASK_INVENTORY_OFFERED:
-	case IM_GROUP_NOTICE_REQUESTED:
-		break;
-	default:
-		LL_WARNS("Messaging") << "inventory_task_offer_callback: unknown offer type" << LL_ENDL;
-		break;
-	}
-	
 	if(!mPersist)
 	{
 		delete this;
@@ -3770,17 +3737,17 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 					}
 					else
 					{
-					LLNotification::Params params;
-					if (IM_LURE_USER == dialog)
-					{
-						params.name = "TeleportOffered";
-						params.functor.name = "TeleportOffered";
-					}
-					else if (IM_TELEPORT_REQUEST == dialog)
-					{
-						params.name = "TeleportRequest";
-						params.functor.name = "TeleportRequest";
-					}
+					    LLNotification::Params params;
+					    if (IM_LURE_USER == dialog)
+					    {
+						    params.name = "TeleportOffered";
+						    params.functor.name = "TeleportOffered";
+					    }
+					    else if (IM_TELEPORT_REQUEST == dialog)
+					    {
+						    params.name = "TeleportRequest";
+						    params.functor.name = "TeleportRequest";
+					    }
 
 						params.substitutions = args;
 						params.payload = payload;
@@ -7964,12 +7931,12 @@ void process_script_question(LLMessageSystem *msg, void **user_data)
 						<< LL_ENDL;
 				// Fall through
 
-		case LLStringThrottle::THROTTLE_BLOCKED:
+		    case LLStringThrottle::THROTTLE_BLOCKED:
 			// Escape altogether until we recover
-			return;
+			    return;
 
-			case LLStringThrottle::THROTTLE_OK:
-				break;
+		    case LLStringThrottle::THROTTLE_OK:
+			    break;
 		}
 //MK
 	}
@@ -8327,7 +8294,6 @@ void process_teleport_local(LLMessageSystem *msg,void**)
 			gAgentCamera.resetView(TRUE, TRUE);
 		}
 	}
-
 
 	// send camera update to new region
 	gAgentCamera.updateCamera();
