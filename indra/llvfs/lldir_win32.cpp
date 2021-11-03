@@ -54,7 +54,7 @@ namespace
 
     void prelog(const std::string& message)
     {
-    	boost::optional<std::string> prelog_name;
+        boost::optional<std::string> prelog_name;
 
         switch (state)
         {
@@ -63,11 +63,11 @@ namespace
             state = prst::SKIP;
 
             prelog_name = LLStringUtil::getoptenv("PRELOG");
-			if (!prelog_name)
+            if (! prelog_name)
                 // no PRELOG variable set, carry on
                 return;
-			prelogf = new llofstream(*prelog_name, std::ios_base::app);
-			if (!(prelogf && prelogf->is_open()))
+            prelogf = new llofstream(*prelog_name, std::ios_base::app);
+            if (! (prelogf && prelogf->is_open()))
                 // can't complain to anybody; how?
                 return;
             // got the log file open, cool!
@@ -98,11 +98,11 @@ LLDir_Win32::LLDir_Win32()
 	// Application Data is where user settings go. We rely on $APPDATA being
 	// correct.
 	auto APPDATA = LLStringUtil::getoptenv("APPDATA");
-
 	if (APPDATA)
 	{
 		mOSUserDir = *APPDATA;
 	}
+	PRELOG("APPDATA='" << mOSUserDir << "'");
 	// On Windows, we could have received a plain-ASCII pathname in which
 	// non-ASCII characters have been munged to '?', or the pathname could
 	// have been badly encoded and decoded such that we now have garbage
