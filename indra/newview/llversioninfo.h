@@ -45,13 +45,13 @@ class LLVersionInfo: public LLSingleton<LLVersionInfo>
     LLSINGLETON(LLVersionInfo);
     void initSingleton();
 public:
-	/// return the major verion number as an integer
-    S32 getMajor();
+	/// return the major version number as an integer
+	S32 getMajor();
 
-	/// return the minor verion number as an integer
+	/// return the minor version number as an integer
 	S32 getMinor();
 
-	/// return the patch verion number as an integer
+	/// return the patch version number as an integer
 	S32 getPatch();
 
 	/// return the build number as an integer
