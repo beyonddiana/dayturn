@@ -558,9 +558,6 @@ Intenta iniciar sesión de nuevo en unos instantes.
 	<string name="GroupNameNone">
 		(ninguno)
 	</string>
-	<string name="AvalineCaller">
-		Avaline: [ORDER]
-	</string>
 	<string name="AssetErrorNone">
 		No hay ningún error
 	</string>
