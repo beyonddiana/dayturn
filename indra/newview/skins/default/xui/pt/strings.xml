@@ -520,9 +520,6 @@ Aguarde um minuto antes que tentar logar-se novamente.
 	<string name="GroupNameNone">
 		(nenhum)
 	</string>
-	<string name="AvalineCaller">
-		Interlocutor Avaline [ORDER]
-	</string>
 	<string name="AssetErrorNone">
 		Nenhum erro
 	</string>

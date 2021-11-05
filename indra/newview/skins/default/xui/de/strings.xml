@@ -620,9 +620,6 @@ Warten Sie kurz und versuchen Sie dann noch einmal, sich anzumelden.
 	<string name="GroupNameNone">
 		(keiner)
 	</string>
-	<string name="AvalineCaller">
-		Avaline-Anfrufer [ORDER]
-	</string>
 	<string name="AssetErrorNone">
 		Kein Fehler
 	</string>

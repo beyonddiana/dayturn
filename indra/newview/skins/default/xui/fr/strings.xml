@@ -561,9 +561,6 @@ Veuillez réessayer de vous connecter dans une minute.
 	<string name="GroupNameNone">
 		(aucun)
 	</string>
-	<string name="AvalineCaller">
-		Appelant Avaline [ORDER]
-	</string>
 	<string name="AssetErrorNone">
 		Aucune erreur
 	</string>

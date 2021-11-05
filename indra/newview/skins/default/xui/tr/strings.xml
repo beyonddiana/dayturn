@@ -558,9 +558,6 @@ Lütfen bir dakika içerisinde tekrar oturum açmayı deneyin.
 	<string name="GroupNameNone">
 		(hiçbiri)
 	</string>
-	<string name="AvalineCaller">
-		Avaline Arayanı [ORDER]
-	</string>
 	<string name="AssetErrorNone">
 		Hata yok
 	</string>
