@@ -331,8 +331,6 @@ Please try logging in again in a minute.</string>
 	<!-- Group name: text shown for LLUUID::null -->
 	<string name="GroupNameNone">(none)</string>
 
-	<string name="AvalineCaller">Avaline Caller [ORDER]</string>
-
 	<!-- Asset errors. Used in llassetstorage.cpp, translation from error code to error message. -->
 	<string name="AssetErrorNone">No error</string>
 	<string name="AssetErrorRequestFailed">Asset request: failed</string>
