@@ -109,7 +109,7 @@ void LLFloaterIMSession::refresh()
 		if (mMeTypingTimer.getElapsedTimeF32() > ME_TYPING_TIMEOUT && false == mShouldSendTypingState)
 		{
 			LL_DEBUGS("TypingMsgs") << "Send additional Start Typing packet" << LL_ENDL;
-			LLIMModel::instance().sendTypingState(mSessionID, mOtherParticipantUUID, TRUE);
+			LLIMModel::instance().sendTypingState(mSessionID, mOtherParticipantUUID, true);
 			mMeTypingTimer.reset();
 		}
 
@@ -983,7 +983,7 @@ void LLFloaterIMSession::setTyping(bool typing)
 			if ( mTypingTimer.getElapsedTimeF32() > 1.f )
 		{
 				// Still typing, send 'start typing' notification
-				LLIMModel::instance().sendTypingState(mSessionID, mOtherParticipantUUID, TRUE);
+				LLIMModel::instance().sendTypingState(mSessionID, mOtherParticipantUUID, true);
 				mShouldSendTypingState = false;
 				mMeTypingTimer.reset();
 			}
@@ -991,7 +991,7 @@ void LLFloaterIMSession::setTyping(bool typing)
 		else
 		{
 			// Send 'stop typing' notification immediately
-			LLIMModel::instance().sendTypingState(mSessionID, mOtherParticipantUUID, FALSE);
+			LLIMModel::instance().sendTypingState(mSessionID, mOtherParticipantUUID, false);
 					mShouldSendTypingState = false;
 		}
 	}
@@ -1001,7 +1001,7 @@ void LLFloaterIMSession::setTyping(bool typing)
 		LLIMSpeakerMgr* speaker_mgr = LLIMModel::getInstance()->getSpeakerManager(mSessionID);
 		if (speaker_mgr)
 		{
-			speaker_mgr->setSpeakerTyping(gAgent.getID(), FALSE);
+			speaker_mgr->setSpeakerTyping(gAgent.getID(), false);
 		}
 	}
 }
@@ -1280,7 +1280,7 @@ Note: OTHER_TYPING_TIMEOUT must be > ME_TYPING_TIMEOUT for proper operation of t
 		LLIMSpeakerMgr* speaker_mgr = LLIMModel::getInstance()->getSpeakerManager(mSessionID);
 		if ( speaker_mgr )
 		{
-			speaker_mgr->setSpeakerTyping(im_info->mFromID, TRUE);
+			speaker_mgr->setSpeakerTyping(im_info->mFromID, true);
 		}
 	}
 }
@@ -1297,7 +1297,7 @@ void LLFloaterIMSession::removeTypingIndicator(const LLIMInfo* im_info)
 			LLIMSpeakerMgr* speaker_mgr = LLIMModel::getInstance()->getSpeakerManager(mSessionID);
 			if (speaker_mgr)
 			{
-				speaker_mgr->setSpeakerTyping(im_info->mFromID, FALSE);
+				speaker_mgr->setSpeakerTyping(im_info->mFromID, false);
 			}
 		}
 	}

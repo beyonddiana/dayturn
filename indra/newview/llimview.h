@@ -402,7 +402,7 @@ public:
 	// good connection.
 	void disconnectAllSessions();
 
-	BOOL hasSession(const LLUUID& session_id);
+	bool hasSession(const LLUUID& session_id);
 
 	static LLUUID computeSessionID(EInstantMessage dialog, const LLUUID& other_participant_id);
 

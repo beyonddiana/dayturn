@@ -119,7 +119,7 @@ public:
 	void sessionInitReplyReceived(const LLUUID& im_session_id);
 
 	// Handle other participant in the session typing.
-	void processIMTyping(const LLIMInfo* im_info, BOOL typing);
+	void processIMTyping(const LLIMInfo* im_info, bool typing);
 
 private:
 	// Called by UI methods.
@@ -142,7 +142,7 @@ private:
 	// Remove the "User is typing..." indicator.
 	void removeTypingIndicator(const LLIMInfo* im_info);
 
-	void sendTypingState(BOOL typing);
+	void sendTypingState(bool typing);
 	
 private:
 	LLLineEditor* mInputEditor;
@@ -186,7 +186,7 @@ private:
 	
 	S32 mNumUnreadMessages;
 
-	BOOL mSentTypingState;
+	bool mSentTypingState;
 
 	BOOL mShowSpeakersOnConnect;
 

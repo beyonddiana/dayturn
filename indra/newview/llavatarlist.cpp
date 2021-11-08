@@ -357,7 +357,7 @@ void LLAvatarList::setDirty(bool val /*= true*/, bool force_refresh /*= false*/)
 //////////////////////////////////////////////////////////////////////////
 void LLAvatarList::refresh()
 {
-	bool have_names			= TRUE;
+	bool have_names			= true;
 	bool add_limit_exceeded	= false;
 	bool modified			= false;
 	bool have_filter		= !mNameFilter.empty();
@@ -634,7 +634,7 @@ bool LLAvatarList::handleHover(S32 x, S32 y, MASK mask)
 
 void LLAvatarList::setVisible(bool visible)
 {
-	if ( visible == FALSE && mContextMenu )
+	if ( visible == false && mContextMenu )
 	{
 		mContextMenu->hide();
 	}

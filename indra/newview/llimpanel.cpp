@@ -114,7 +114,7 @@ LLFloaterIMPanel::LLFloaterIMPanel(const std::string& session_label,
 	mTyping(false),
 	mOtherTyping(FALSE),
 	mTypingLineStartIndex(0),
-	mSentTypingState(TRUE),
+	mSentTypingState(true),
 	mNumUnreadMessages(0),
 	mShowSpeakersOnConnect(TRUE),
 	mTextIMPossible(TRUE),
@@ -361,8 +361,8 @@ void LLFloaterIMPanel::draw()
 		if (!mSentTypingState
 			&& mFirstKeystrokeTimer.getElapsedTimeF32() > 1.f)
 		{
-			sendTypingState(TRUE);
-			mSentTypingState = TRUE;
+			sendTypingState(true);
+			mSentTypingState = true;
 		}
 	}
 
@@ -818,7 +818,7 @@ void LLFloaterIMPanel::sendMsg()
 	// Don't need to actually send the typing stop message, the other
 	// client will infer it from receiving the message.
 	mTyping = false;
-	mSentTypingState = TRUE;
+	mSentTypingState = true;
 }
 
 void LLFloaterIMPanel::processSessionUpdate(const LLSD& session_update)
@@ -887,28 +887,28 @@ void LLFloaterIMPanel::setTyping(BOOL typing)
 			mFirstKeystrokeTimer.reset();
 
 			// Will send typing state after a short delay.
-			mSentTypingState = FALSE;
+			mSentTypingState = false;
 		}
 		
 		if (speaker_mgr)
-			speaker_mgr->setSpeakerTyping(gAgent.getID(), TRUE);
+			speaker_mgr->setSpeakerTyping(gAgent.getID(), true);
 	}
 	else
 	{
 		if (mTyping)
 		{
 			// you just stopped typing, send state immediately
-			sendTypingState(FALSE);
-			mSentTypingState = TRUE;
+			sendTypingState(false);
+			mSentTypingState = true;
 		}
 		if (speaker_mgr)
-			speaker_mgr->setSpeakerTyping(gAgent.getID(), FALSE);
+			speaker_mgr->setSpeakerTyping(gAgent.getID(), false);
 	}
 
 	mTyping = typing;
 }
 
-void LLFloaterIMPanel::sendTypingState(BOOL typing)
+void LLFloaterIMPanel::sendTypingState(bool typing)
 {
 	// Don't want to send typing indicators to multiple people, potentially too
 	// much network traffic.  Only send in person-to-person IMs.
@@ -918,7 +918,7 @@ void LLFloaterIMPanel::sendTypingState(BOOL typing)
 }
 
 
-void LLFloaterIMPanel::processIMTyping(const LLIMInfo* im_info, BOOL typing)
+void LLFloaterIMPanel::processIMTyping(const LLIMInfo* im_info, bool typing)
 {
 	if (typing)
 	{
@@ -947,7 +947,7 @@ void LLFloaterIMPanel::addTypingIndicator(const std::string &name)
 	}
 	// MBW -- XXX -- merge from release broke this (argument to this function changed from an LLIMInfo to a name)
 	// Richard will fix.
-//	mSpeakers->setSpeakerTyping(im_info->mFromID, TRUE);
+//	mSpeakers->setSpeakerTyping(im_info->mFromID, true);
 }
 
 
@@ -965,7 +965,7 @@ void LLFloaterIMPanel::removeTypingIndicator(const LLIMInfo* im_info)
 			LLIMSpeakerMgr* speaker_mgr = LLIMModel::getInstance()->getSpeakerManager(mSessionUUID);
 			if (speaker_mgr)
 			{
-				speaker_mgr->setSpeakerTyping(im_info->mFromID, FALSE);
+				speaker_mgr->setSpeakerTyping(im_info->mFromID, false);
 			}
 		}
 	}
