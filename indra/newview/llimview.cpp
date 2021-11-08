@@ -650,7 +650,7 @@ void LLIMModel::LLIMSession::addMessage(const std::string& from, const LLUUID& f
 	if (mSpeakers && from_id.notNull())
 	{
 		mSpeakers->speakerChatted(from_id);
-		mSpeakers->setSpeakerTyping(from_id, FALSE);
+		mSpeakers->setSpeakerTyping(from_id, false);
 	}
 }
 
@@ -1354,7 +1354,7 @@ void LLIMModel::sendMessage(const std::string& utf8_text,
 		if (speaker_mgr)
 		{
 			speaker_mgr->speakerChatted(gAgentID);
-			speaker_mgr->setSpeakerTyping(gAgentID, FALSE);
+			speaker_mgr->setSpeakerTyping(gAgentID, false);
 		}
 	}
 
@@ -1805,7 +1805,7 @@ LLIMMgr::onConfirmForceCloseError(
 	LLFloater* floater = LLFloaterIMSession::findInstance(session_id);
 	if ( floater )
 	{
-		floater->closeFloater(FALSE);
+		floater->closeFloater(false);
 	}
 	return false;
 }
@@ -3198,7 +3198,7 @@ void LLIMMgr::disconnectAllSessions()
 	//*TODO disconnects all IM sessions
 }
 
-BOOL LLIMMgr::hasSession(const LLUUID& session_id)
+bool LLIMMgr::hasSession(const LLUUID& session_id)
 {
 	return LLIMModel::getInstance()->findIMSession(session_id) != NULL;
 }
@@ -3390,7 +3390,7 @@ bool LLIMMgr::endCall(const LLUUID& session_id)
 	if (im_session)
 	{
 		// need to update speakers' state
-		im_session->mSpeakers->update(FALSE);
+		im_session->mSpeakers->update(false);
 	}
 	return true;
 }
