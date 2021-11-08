@@ -226,8 +226,8 @@ public:
 	virtual ~LLSpeakerMgr();
 
 	LLPointer<LLSpeaker> findSpeaker(const LLUUID& avatar_id);
-	void update(BOOL resort_ok);
-	void setSpeakerTyping(const LLUUID& speaker_id, BOOL typing);
+	void update(bool resort_ok);
+	void setSpeakerTyping(const LLUUID& speaker_id, bool typing);
 	void speakerChatted(const LLUUID& speaker_id);
 	LLPointer<LLSpeaker> setSpeaker(const LLUUID& id, 
 					const std::string& name = LLStringUtil::null, 

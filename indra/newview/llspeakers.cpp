@@ -400,7 +400,7 @@ void LLSpeakerMgr::initVoiceModerateMode()
 	}
 }
 
-void LLSpeakerMgr::update(BOOL resort_ok)
+void LLSpeakerMgr::update(bool resort_ok)
 {
 	if (!LLVoiceClient::getInstance())
 	{
@@ -416,7 +416,7 @@ void LLSpeakerMgr::update(BOOL resort_ok)
 	}
 
 	// update status of all current speakers
-	BOOL voice_channel_active = (!mVoiceChannel && LLVoiceClient::getInstance()->inProximalChannel()) || (mVoiceChannel && mVoiceChannel->isActive());
+	bool voice_channel_active = (!mVoiceChannel && LLVoiceClient::getInstance()->inProximalChannel()) || (mVoiceChannel && mVoiceChannel->isActive());
 	for (speaker_map_t::iterator speaker_it = mSpeakers.begin(); speaker_it != mSpeakers.end(); speaker_it++)
 	{
 		LLUUID speaker_id = speaker_it->first;
@@ -425,7 +425,7 @@ void LLSpeakerMgr::update(BOOL resort_ok)
 		if (voice_channel_active && LLVoiceClient::getInstance()->getVoiceEnabled(speaker_id))
 		{
 			speakerp->mSpeechVolume = LLVoiceClient::getInstance()->getCurrentPower(speaker_id);
-			BOOL moderator_muted_voice = LLVoiceClient::getInstance()->getIsModeratorMuted(speaker_id);
+			bool moderator_muted_voice = LLVoiceClient::getInstance()->getIsModeratorMuted(speaker_id);
 			if (moderator_muted_voice != speakerp->mModeratorMutedVoice)
 			{
 				speakerp->mModeratorMutedVoice = moderator_muted_voice;
@@ -627,7 +627,7 @@ bool LLSpeakerMgr::removeSpeaker(const LLUUID& speaker_id)
 	LL_DEBUGS("Speakers") << "Removed speaker " << speaker_id << LL_ENDL;
 	fireEvent(new LLSpeakerListChangeEvent(this, speaker_id), "remove");
 
-	update(TRUE);
+	update(true);
 
 	return false;
 }
@@ -669,7 +669,7 @@ bool LLSpeakerMgr::isSpeakerToBeRemoved(const LLUUID& speaker_id)
 	return mSpeakerDelayRemover && mSpeakerDelayRemover->isTimerStarted(speaker_id);
 }
 
-void LLSpeakerMgr::setSpeakerTyping(const LLUUID& speaker_id, BOOL typing)
+void LLSpeakerMgr::setSpeakerTyping(const LLUUID& speaker_id, bool typing)
 {
 	LLPointer<LLSpeaker> speakerp = findSpeaker(speaker_id);
 	if (speakerp.notNull())
