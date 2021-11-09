@@ -312,11 +312,11 @@ void LLFloaterRegionInfo::requestRegionInfo()
 {
 	LLTabContainer* tab = getChild<LLTabContainer>("region_panels");
 
-	tab->getChild<LLPanel>("General")->setCtrlsEnabled(FALSE);
-	tab->getChild<LLPanel>("Debug")->setCtrlsEnabled(FALSE);
-	tab->getChild<LLPanel>("Terrain")->setCtrlsEnabled(FALSE);
-	tab->getChild<LLPanel>("Estate")->setCtrlsEnabled(FALSE);
-	tab->getChild<LLPanel>("Access")->setCtrlsEnabled(FALSE);
+	tab->getChild<LLPanel>("General")->setCtrlsEnabled(false);
+	tab->getChild<LLPanel>("Debug")->setCtrlsEnabled(false);
+	tab->getChild<LLPanel>("Terrain")->setCtrlsEnabled(false);
+	tab->getChild<LLPanel>("Estate")->setCtrlsEnabled(false);
+	tab->getChild<LLPanel>("Access")->setCtrlsEnabled(false);
 
 	// Must allow anyone to request the RegionInfo data
 	// so non-owners/non-gods can see the values. 
@@ -463,7 +463,7 @@ void LLFloaterRegionInfo::processRegionInfo(LLMessageSystem* msg)
 
 	U32 parent_estate_id;
 	msg->getU32("RegionInfo", "ParentEstateID", parent_estate_id);
-	BOOL teen_grid = (parent_estate_id == 5);  // *TODO add field to estate table and test that
+	bool teen_grid = (parent_estate_id == 5);  // *TODO add field to estate table and test that
 	panel->getChildView("access_combo")->setEnabled(gAgent.isGodlike() || (region && region->canManageEstate() && !teen_grid));
 	panel->setCtrlsEnabled(allow_modify);
 	
@@ -568,12 +568,12 @@ void LLFloaterRegionInfo::disableTabCtrls()
 {
 	LLTabContainer* tab = getChild<LLTabContainer>("region_panels");
 
-	tab->getChild<LLPanel>("General")->setCtrlsEnabled(FALSE);
-	tab->getChild<LLPanel>("Debug")->setCtrlsEnabled(FALSE);
-	tab->getChild<LLPanel>("Terrain")->setCtrlsEnabled(FALSE);
-	tab->getChild<LLPanel>("panel_env_info")->setCtrlsEnabled(FALSE);
-	tab->getChild<LLPanel>("Estate")->setCtrlsEnabled(FALSE);
-	tab->getChild<LLPanel>("Access")->setCtrlsEnabled(FALSE);
+	tab->getChild<LLPanel>("General")->setCtrlsEnabled(false);
+	tab->getChild<LLPanel>("Debug")->setCtrlsEnabled(false);
+	tab->getChild<LLPanel>("Terrain")->setCtrlsEnabled(false);
+	tab->getChild<LLPanel>("panel_env_info")->setCtrlsEnabled(false);
+	tab->getChild<LLPanel>("Estate")->setCtrlsEnabled(false);
+	tab->getChild<LLPanel>("Access")->setCtrlsEnabled(false);
 }
 
 void LLFloaterRegionInfo::onTabSelected(const LLSD& param)
@@ -745,7 +745,7 @@ void LLPanelRegionInfo::sendEstateOwnerMessage(
 	msg->sendReliable(mHost);
 }
 
-void LLPanelRegionInfo::enableButton(const std::string& btn_name, BOOL enable)
+void LLPanelRegionInfo::enableButton(const std::string& btn_name, bool enable)
 {
 	LLView* button = findChildView(btn_name);
 	if (button) button->setEnabled(enable);
@@ -817,7 +817,7 @@ bool LLPanelRegionGeneralInfo::postBuild()
 
 	refresh();
 	return LLPanelRegionInfo::postBuild();
-	//return TRUE;
+	//return true;
 }
 
 void LLPanelRegionGeneralInfo::onBtnSet()
@@ -1001,7 +1001,7 @@ void LLFloaterRegionInfo::requestMeshRezInfo()
 // strings[7] = restrict pushobject
 // strings[8] = 'Y' - allow parcel subdivide, 'N' - not
 // strings[9] = 'Y' - block parcel search, 'N' - allow
-BOOL LLPanelRegionGeneralInfo::sendUpdate()
+bool LLPanelRegionGeneralInfo::sendUpdate()
 {
 	LL_INFOS() << "LLPanelRegionGeneralInfo::sendUpdate()" << LL_ENDL;
 
@@ -1069,7 +1069,7 @@ BOOL LLPanelRegionGeneralInfo::sendUpdate()
 		LLNotificationsUtil::add("RegionMaturityChange");
 	}	
 
-	return TRUE;
+	return true;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1239,7 +1239,7 @@ bool LLPanelRegionDebugInfo::refreshFromRegion(LLViewerRegion* region)
 }
 
 // virtual
-BOOL LLPanelRegionDebugInfo::sendUpdate()
+bool LLPanelRegionDebugInfo::sendUpdate()
 {
 	LL_INFOS() << "LLPanelRegionDebugInfo::sendUpdate" << LL_ENDL;
 	strings_t strings;
@@ -1256,7 +1256,7 @@ BOOL LLPanelRegionDebugInfo::sendUpdate()
 
 	LLUUID invoice(LLFloaterRegionInfo::getLastInvoice());
 	sendEstateOwnerMessage(gMessageSystem, "setregiondebug", invoice, strings);
-	return TRUE;
+	return true;
 }
 
 void LLPanelRegionDebugInfo::onClickChooseAvatar()
@@ -1441,7 +1441,7 @@ void LLPanelRegionDebugInfo::onClickDebugConsole(void* data)
 	LLFloaterReg::showInstance("region_debug_console");
 }
 
-BOOL LLPanelRegionTerrainInfo::validateTextureSizes()
+bool LLPanelRegionTerrainInfo::validateTextureSizes()
 {
 	int maxSize = 1024;
 	for(S32 i = 0; i < TERRAIN_TEXTURE_COUNT; ++i)
@@ -1466,7 +1466,7 @@ BOOL LLPanelRegionTerrainInfo::validateTextureSizes()
 			args["TEXTURE_NUM"] = i+1;
 			args["TEXTURE_BIT_DEPTH"] = llformat("%d",components * 8);
 			LLNotificationsUtil::add("InvalidTerrainBitDepth", args);
-			return FALSE;
+			return false;
 		}
 
 		if (width > maxSize || height > maxSize)
@@ -1476,15 +1476,15 @@ BOOL LLPanelRegionTerrainInfo::validateTextureSizes()
 			args["TEXTURE_SIZE_X"] = width;
 			args["TEXTURE_SIZE_Y"] = height;
 			LLNotificationsUtil::add("InvalidTerrainSize", args);
-			return FALSE;
+			return false;
 			
 		}
 	}
 
-	return TRUE;
+	return true;
 }
 
-BOOL LLPanelRegionTerrainInfo::validateTextureHeights()
+bool LLPanelRegionTerrainInfo::validateTextureHeights()
 {
 	for (S32 i = 0; i < CORNER_COUNT; ++i)
 	{
@@ -1493,11 +1493,11 @@ BOOL LLPanelRegionTerrainInfo::validateTextureHeights()
 
 		if (getChild<LLUICtrl>(low)->getValue().asReal() > getChild<LLUICtrl>(high)->getValue().asReal())
 		{
-			return FALSE;
+			return false;
 		}
 	}
 
-	return TRUE;
+	return true;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1592,7 +1592,7 @@ bool LLPanelRegionTerrainInfo::refreshFromRegion(LLViewerRegion* region)
 
 
 // virtual
-BOOL LLPanelRegionTerrainInfo::sendUpdate()
+bool LLPanelRegionTerrainInfo::sendUpdate()
 {
 	LL_INFOS() << "LLPanelRegionTerrainInfo::sendUpdate" << LL_ENDL;
 	std::string buffer;
@@ -1614,21 +1614,21 @@ BOOL LLPanelRegionTerrainInfo::sendUpdate()
 	// Make sure user hasn't chosen wacky textures.
 	if (!validateTextureSizes())
 	{
-		return FALSE;
+		return false;
 	}
 
 	// Check if terrain Elevation Ranges are correct
-	if (gSavedSettings.getBOOL("RegionCheckTextureHeights") && !validateTextureHeights())
+	if ((bool)gSavedSettings.getBOOL("RegionCheckTextureHeights") && !validateTextureHeights())
 	{
 		if (!mAskedTextureHeights)
 		{
 			LLNotificationsUtil::add("ConfirmTextureHeights", LLSD(), LLSD(), boost::bind(&LLPanelRegionTerrainInfo::callbackTextureHeights, this, _1, _2));
 			mAskedTextureHeights = true;
-			return FALSE;
+			return false;
 		}
 		else if (!mConfirmedTextureHeights)
 		{
-			return FALSE;
+			return false;
 		}
 	}
 
@@ -1669,7 +1669,7 @@ BOOL LLPanelRegionTerrainInfo::sendUpdate()
 
 	sendEstateOwnerMessage(msg, "texturecommit", invoice, strings);
 
-	return TRUE;
+	return true;
 }
 
 bool LLPanelRegionTerrainInfo::callbackTextureHeights(const LLSD& notification, const LLSD& response)
@@ -1946,9 +1946,9 @@ void LLPanelEstateInfo::updateEstateName(const std::string& name)
 
 void LLPanelEstateInfo::updateControls(LLViewerRegion* region)
 {
-	BOOL god = gAgent.isGodlike();
-	BOOL owner = (region && (region->getOwner() == gAgent.getID()));
-	BOOL manager = (region && region->isEstateManager());
+	bool god = gAgent.isGodlike();
+	bool owner = (region && (region->getOwner() == gAgent.getID()));
+	bool manager = (region && region->isEstateManager());
 	setCtrlsEnabled(god || owner || manager);
 	
 	getChildView("apply_btn")->setEnabled(false);
@@ -2059,7 +2059,7 @@ void LLPanelEstateInfo::refreshFromEstate()
 	refresh();
 }
 
-BOOL LLPanelEstateInfo::sendUpdate()
+bool LLPanelEstateInfo::sendUpdate()
 {
 	LL_INFOS() << "LLPanelEsateInfo::sendUpdate()" << LL_ENDL;
 
@@ -2076,7 +2076,7 @@ BOOL LLPanelEstateInfo::sendUpdate()
 		// for normal estates, just make the change
 		LLNotifications::instance().forceResponse(params, 0);
 	}
-	return TRUE;
+	return true;
 }
 
 bool LLPanelEstateInfo::callbackChangeLindenEstate(const LLSD& notification, const LLSD& response)
@@ -2503,9 +2503,9 @@ void LLPanelEstateCovenant::sendChangeCovenantID(const LLUUID &asset_id)
 }
 
 // virtual 
-BOOL LLPanelEstateCovenant::sendUpdate()
+bool LLPanelEstateCovenant::sendUpdate()
 {
-	return TRUE;
+	return true;
 }
 
 std::string LLPanelEstateCovenant::getEstateName() const
@@ -3632,7 +3632,7 @@ LLSD LLPanelRegionExperiences::addIds(LLPanelExperienceListEditor* panel)
 }
 
 
-BOOL LLPanelRegionExperiences::sendUpdate()
+bool LLPanelRegionExperiences::sendUpdate()
 {
 	LLViewerRegion* region = gAgent.getRegion();
 	std::string url = region->getCapability("RegionExperiences");
@@ -3648,7 +3648,7 @@ BOOL LLPanelRegionExperiences::sendUpdate()
 			getDerivedHandle<LLPanelRegionExperiences>(), _1)));
 	}
 
-	return TRUE;
+	return true;
 }
 
 void LLPanelRegionExperiences::itemChanged( U32 event_type, const LLUUID& id )
@@ -3769,16 +3769,16 @@ bool LLPanelEstateAccess::postBuild()
 
 void LLPanelEstateAccess::updateControls(LLViewerRegion* region)
 {
-	BOOL god = gAgent.isGodlike();
-	BOOL owner = (region && (region->getOwner() == gAgent.getID()));
-	BOOL manager = (region && region->isEstateManager());
-	BOOL enable_cotrols = god || owner || manager;	
+	bool god = gAgent.isGodlike();
+	bool owner = (region && (region->getOwner() == gAgent.getID()));
+	bool manager = (region && region->isEstateManager());
+	bool enable_cotrols = god || owner || manager;	
 	setCtrlsEnabled(enable_cotrols);
 	
-	BOOL has_allowed_avatar = getChild<LLNameListCtrl>("allowed_avatar_name_list")->getFirstSelected() ? TRUE : FALSE;
-	BOOL has_allowed_group = getChild<LLNameListCtrl>("allowed_group_name_list")->getFirstSelected() ? TRUE : FALSE;
-	BOOL has_banned_agent = getChild<LLNameListCtrl>("banned_avatar_name_list")->getFirstSelected() ? TRUE : FALSE;
-	BOOL has_estate_manager = getChild<LLNameListCtrl>("estate_manager_name_list")->getFirstSelected() ? TRUE : FALSE;
+	bool has_allowed_avatar = getChild<LLNameListCtrl>("allowed_avatar_name_list")->getFirstSelected() ? TRUE : FALSE;
+	bool has_allowed_group = getChild<LLNameListCtrl>("allowed_group_name_list")->getFirstSelected() ? TRUE : FALSE;
+	bool has_banned_agent = getChild<LLNameListCtrl>("banned_avatar_name_list")->getFirstSelected() ? TRUE : FALSE;
+	bool has_estate_manager = getChild<LLNameListCtrl>("estate_manager_name_list")->getFirstSelected() ? TRUE : FALSE;
 
 	getChildView("add_allowed_avatar_btn")->setEnabled(enable_cotrols);
 	getChildView("remove_allowed_avatar_btn")->setEnabled(has_allowed_avatar && enable_cotrols);

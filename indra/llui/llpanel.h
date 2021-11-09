@@ -156,7 +156,7 @@ public:
 	std::string		getHelpTopic() const { return mHelpTopic; }
 	// LLTextBox/LLTextEditor/LLLineEditor
 	void childSetText(const std::string& id, const LLStringExplicit& text) { childSetValue(id, LLSD(text)); }	
-	void			setCtrlsEnabled(BOOL b);
+	void			setCtrlsEnabled(bool b);
 	ctrl_list_t		getCtrlList() const;
 
 	LLHandle<LLPanel>	getHandle() const { return getDerivedHandle<LLPanel>(); }
