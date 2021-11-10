@@ -314,13 +314,13 @@ bool	LLPanelObject::postBuild()
 
 LLPanelObject::LLPanelObject()
 :	LLPanel(),
-	mIsPhysical(FALSE),
-	mIsTemporary(FALSE),
-	mIsPhantom(FALSE),
+	mIsPhysical(false),
+	mIsTemporary(false),
+	mIsPhantom(false),
 	mSelectedType(MI_BOX),
 	mSculptTextureRevert(LLUUID::null),
 	mSculptTypeRevert(0),
-	mSizeChanged(FALSE),
+	mSizeChanged(false),
 	mLimitsNeedUpdate(true),
 	mHasPosClipboard(FALSE),
 	mHasSizeClipboard(FALSE),
@@ -1235,7 +1235,7 @@ bool LLPanelObject::precommitValidate( const LLSD& data )
 
 void LLPanelObject::sendIsPhysical()
 {
-	BOOL value = mCheckPhysics->get();
+	bool value = mCheckPhysics->get();
 	if( mIsPhysical != value )
 	{
 		LLSelectMgr::getInstance()->selectionUpdatePhysics(value);
@@ -1628,7 +1628,7 @@ void LLPanelObject::getVolumeParams(LLVolumeParams& volume_params)
 }
 
 // BUG: Make work with multiple objects
-void LLPanelObject::sendRotation(BOOL btn_down)
+void LLPanelObject::sendRotation(bool btn_down)
 {
 	if (mObject.isNull()) return;
 
@@ -1687,7 +1687,7 @@ void LLPanelObject::sendRotation(BOOL btn_down)
 
 
 // BUG: Make work with multiple objects
-void LLPanelObject::sendScale(BOOL btn_down)
+void LLPanelObject::sendScale(bool btn_down)
 {
 	if (mObject.isNull()) return;
 
@@ -1731,7 +1731,7 @@ void LLPanelObject::sendScale(BOOL btn_down)
 }
 
 
-void LLPanelObject::sendPosition(BOOL btn_down)
+void LLPanelObject::sendPosition(bool btn_down)
 {	
 	if (mObject.isNull()) return;
 
@@ -2013,7 +2013,7 @@ void LLPanelObject::onCommitLock(LLUICtrl *ctrl, void *data)
 void LLPanelObject::onCommitPosition( LLUICtrl* ctrl, void* userdata )
 {
 	LLPanelObject* self = (LLPanelObject*) userdata;
-	BOOL btn_down = ((LLSpinCtrl*)ctrl)->isMouseHeldDown() ;
+	bool btn_down = ((LLSpinCtrl*)ctrl)->isMouseHeldDown() ;
 	self->sendPosition(btn_down);
 }
 
@@ -2021,7 +2021,7 @@ void LLPanelObject::onCommitPosition( LLUICtrl* ctrl, void* userdata )
 void LLPanelObject::onCommitScale( LLUICtrl* ctrl, void* userdata )
 {
 	LLPanelObject* self = (LLPanelObject*) userdata;
-	BOOL btn_down = ((LLSpinCtrl*)ctrl)->isMouseHeldDown() ;
+	bool btn_down = ((LLSpinCtrl*)ctrl)->isMouseHeldDown() ;
 	self->sendScale(btn_down);
 }
 
@@ -2029,7 +2029,7 @@ void LLPanelObject::onCommitScale( LLUICtrl* ctrl, void* userdata )
 void LLPanelObject::onCommitRotation( LLUICtrl* ctrl, void* userdata )
 {
 	LLPanelObject* self = (LLPanelObject*) userdata;
-	BOOL btn_down = ((LLSpinCtrl*)ctrl)->isMouseHeldDown() ;
+	bool btn_down = ((LLSpinCtrl*)ctrl)->isMouseHeldDown() ;
 	self->sendRotation(btn_down);
 }
 

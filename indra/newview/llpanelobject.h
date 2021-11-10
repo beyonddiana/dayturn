@@ -91,9 +91,9 @@ public:
 protected:
 	void			getState();
 
-	void			sendRotation(BOOL btn_down);
-	void			sendScale(BOOL btn_down);
-	void			sendPosition(BOOL btn_down);
+	void			sendRotation(bool btn_down);
+	void			sendScale(bool btn_down);
+	void			sendPosition(bool btn_down);
 	void			sendIsPhysical();
 	void			sendIsTemporary();
 	void			sendIsPhantom();
@@ -178,7 +178,7 @@ protected:
 	LLSpinCtrl*		mCtrlScaleX;
 	LLSpinCtrl*		mCtrlScaleY;
 	LLSpinCtrl*		mCtrlScaleZ;
-	BOOL			mSizeChanged;
+	bool			mSizeChanged;
 
 	LLTextBox*		mLabelRotation;
 	LLSpinCtrl*		mCtrlRotX;
@@ -212,9 +212,9 @@ protected:
 	LLCheckBoxCtrl  *mCtrlSculptInvert;
 	
 	LLVector3		mCurEulerDegrees;		// to avoid sending rotation when not changed
-	BOOL			mIsPhysical;			// to avoid sending "physical" when not changed
-	BOOL			mIsTemporary;			// to avoid sending "temporary" when not changed
-	BOOL			mIsPhantom;				// to avoid sending "phantom" when not changed
+	bool			mIsPhysical;			// to avoid sending "physical" when not changed
+	bool			mIsTemporary;			// to avoid sending "temporary" when not changed
+	bool			mIsPhantom;				// to avoid sending "phantom" when not changed
 	S32				mSelectedType;			// So we know what selected type we last were
 
 	LLUUID          mSculptTextureRevert;   // so we can revert the sculpt texture on cancel
