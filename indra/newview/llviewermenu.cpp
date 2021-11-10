@@ -3042,7 +3042,7 @@ void handle_attachment_touch(const LLUUID& inv_item_id)
 				{
 					bool apply(LLSelectNode* node)
 					{
-						node->setTransient(TRUE);
+						node->setTransient(true);
 						return true;
 					}
 				} f;

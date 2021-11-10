@@ -289,12 +289,12 @@ void LLSidepanelTaskInfo::refresh()
 	}
 
 	// figure out a few variables
-	const BOOL is_one_object = (object_count == 1);
+	const bool is_one_object = (object_count == 1);
 	
 	// BUG: fails if a root and non-root are both single-selected.
-	const BOOL is_perm_modify = (mObjectSelection->getFirstRootNode() && LLSelectMgr::getInstance()->selectGetRootsModify()) ||
+	const bool is_perm_modify = (mObjectSelection->getFirstRootNode() && LLSelectMgr::getInstance()->selectGetRootsModify()) ||
 		LLSelectMgr::getInstance()->selectGetModify();
-	const BOOL is_nonpermanent_enforced = (mObjectSelection->getFirstRootNode() && LLSelectMgr::getInstance()->selectGetRootsNonPermanentEnforced()) ||
+	const bool is_nonpermanent_enforced = (mObjectSelection->getFirstRootNode() && LLSelectMgr::getInstance()->selectGetRootsNonPermanentEnforced()) ||
 		LLSelectMgr::getInstance()->selectGetNonPermanentEnforced();
 
 	S32 string_index = 0;

@@ -499,7 +499,7 @@ void LLFloaterTools::refresh()
 	const S32 INFO_WIDTH = getRect().getWidth();
 	const S32 INFO_HEIGHT = 384;
 	LLRect object_info_rect(0, 0, INFO_WIDTH, -INFO_HEIGHT);
-	BOOL all_volume = LLSelectMgr::getInstance()->selectionAllPCode( LL_PCODE_VOLUME );
+	bool all_volume = LLSelectMgr::getInstance()->selectionAllPCode( LL_PCODE_VOLUME );
 
 	S32 idx_features = mTab->getPanelIndexByTitle(PANEL_NAMES[PANEL_FEATURES]);
 	S32 idx_face = mTab->getPanelIndexByTitle(PANEL_NAMES[PANEL_FACE]);
@@ -620,7 +620,7 @@ void LLFloaterTools::draw()
 		return;
 	}
 //mk
-    BOOL has_selection = !LLSelectMgr::getInstance()->getSelection()->isEmpty();
+    bool has_selection = !LLSelectMgr::getInstance()->getSelection()->isEmpty();
     if(!has_selection && (mHasSelection != has_selection))
     {
         mDirty = true;
@@ -1333,7 +1333,7 @@ void LLFloaterTools::getMediaState()
 		return;
 	}
 	
-	BOOL is_nonpermanent_enforced = (LLSelectMgr::getInstance()->getSelection()->getFirstRootNode() 
+	bool is_nonpermanent_enforced = (LLSelectMgr::getInstance()->getSelection()->getFirstRootNode() 
 		&& LLSelectMgr::getInstance()->selectGetRootsNonPermanentEnforced())
 		|| LLSelectMgr::getInstance()->selectGetNonPermanentEnforced();
 	bool editable = is_nonpermanent_enforced && (first_object->permModify() || selectedMediaEditable());

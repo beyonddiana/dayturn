@@ -107,7 +107,7 @@ LLObjectSelectionHandle LLToolSelect::handleObjectSelection(const LLPickInfo& pi
 		gSavedSettings.setBOOL("SelectOwnedOnly", FALSE);
 		gSavedSettings.setBOOL("SelectMovableOnly", FALSE);
 		gSavedSettings.setBOOL("SelectCopyableOnly", FALSE);
-		LLSelectMgr::getInstance()->setForceSelection(TRUE);
+		LLSelectMgr::getInstance()->setForceSelection(true);
 	}
 
 	BOOL extend_select = (pick.mKeyMask == MASK_SHIFT) || (pick.mKeyMask == MASK_CONTROL);
@@ -155,7 +155,7 @@ LLObjectSelectionHandle LLToolSelect::handleObjectSelection(const LLPickInfo& pi
 				}
 				else
 				{
-					LLSelectMgr::getInstance()->deselectObjectAndFamily(object, TRUE, TRUE);
+					LLSelectMgr::getInstance()->deselectObjectAndFamily(object, true, true);
 				}
 			}
 			else
@@ -235,7 +235,7 @@ LLObjectSelectionHandle LLToolSelect::handleObjectSelection(const LLPickInfo& pi
 				LLSelectNode* select_node = selection->findNode(root_object);
 				if (select_node)
 				{
-					select_node->setTransient(TRUE);
+					select_node->setTransient(true);
 				}
 
 				LLViewerObject::const_child_list_t& child_list = root_object->getChildren();
@@ -246,7 +246,7 @@ LLObjectSelectionHandle LLToolSelect::handleObjectSelection(const LLPickInfo& pi
 					select_node = selection->findNode(child);
 					if (select_node)
 					{
-						select_node->setTransient(TRUE);
+						select_node->setTransient(true);
 					}
 				}
 
@@ -260,7 +260,7 @@ LLObjectSelectionHandle LLToolSelect::handleObjectSelection(const LLPickInfo& pi
 		gSavedSettings.setBOOL("SelectOwnedOnly", select_owned);
 		gSavedSettings.setBOOL("SelectMovableOnly", select_movable);
 		gSavedSettings.setBOOL("SelectCopyableOnly", select_copyable);
-		LLSelectMgr::getInstance()->setForceSelection(FALSE);
+		LLSelectMgr::getInstance()->setForceSelection(false);
 	}
 
 	return LLSelectMgr::getInstance()->getSelection();
