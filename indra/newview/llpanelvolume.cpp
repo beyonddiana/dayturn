@@ -272,9 +272,9 @@ void LLPanelVolume::getState( )
 
 	// BUG? Check for all objects being editable?
 	BOOL editable = root_objectp->permModify() && !root_objectp->isPermanentEnforced();
-	BOOL single_volume = LLSelectMgr::getInstance()->selectionAllPCode( LL_PCODE_VOLUME )
+	bool single_volume = LLSelectMgr::getInstance()->selectionAllPCode( LL_PCODE_VOLUME )
 		&& LLSelectMgr::getInstance()->getSelection()->getObjectCount() == 1;
-    BOOL single_root_volume = LLSelectMgr::getInstance()->selectionAllPCode( LL_PCODE_VOLUME ) && 
+    bool single_root_volume = LLSelectMgr::getInstance()->selectionAllPCode( LL_PCODE_VOLUME ) && 
         LLSelectMgr::getInstance()->getSelection()->getRootObjectCount() == 1;
 
 	// Select Single Message
@@ -363,9 +363,9 @@ void LLPanelVolume::getState( )
 	}
 
     // Animated Mesh
-	BOOL is_animated_mesh = single_root_volume && root_volobjp && root_volobjp->isAnimatedObject();
+	bool is_animated_mesh = single_root_volume && root_volobjp && root_volobjp->isAnimatedObject();
 	getChild<LLUICtrl>("Animated Mesh Checkbox Ctrl")->setValue(is_animated_mesh);
-    BOOL enabled_animated_object_box = FALSE;
+    bool enabled_animated_object_box = false;
     if (root_volobjp && root_volobjp == volobjp)
     {
         enabled_animated_object_box = single_root_volume && root_volobjp && root_volobjp->canBeAnimatedObject() && editable; 

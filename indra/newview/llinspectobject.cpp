@@ -227,7 +227,7 @@ void LLInspectObject::onOpen(const LLSD& data)
 		{
 			bool apply(LLSelectNode* node)
 			{
-				node->setTransient(TRUE);
+				node->setTransient(true);
 				return true;
 			}
 		} functor;

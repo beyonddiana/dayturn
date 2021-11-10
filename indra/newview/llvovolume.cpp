@@ -3778,7 +3778,7 @@ void LLVOVolume::generateSilhouette(LLSelectNode* nodep, const LLVector3& view_p
 
 		volume->generateSilhouetteVertices(nodep->mSilhouetteVertices, nodep->mSilhouetteNormals, view_vector, trans_mat, mRelativeXformInvTrans, nodep->getTESelectMask());
 
-		nodep->mSilhouetteExists = TRUE;
+		nodep->mSilhouetteExists = true;
 	}
 }
 

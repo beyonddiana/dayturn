@@ -117,7 +117,7 @@ void LLPanelContents::getState(LLViewerObject *objectp )
 	bool editable = gAgent.isGodlike()
 					|| (objectp->permModify() && !objectp->isPermanentEnforced()
 					       && ( objectp->permYouOwner() || ( !group_id.isNull() && gAgent.isInGroup(group_id) )));  // solves SL-23488
-	BOOL all_volume = LLSelectMgr::getInstance()->selectionAllPCode( LL_PCODE_VOLUME );
+	bool all_volume = LLSelectMgr::getInstance()->selectionAllPCode( LL_PCODE_VOLUME );
 
 	// Edit script button - ok if object is editable and there's an unambiguous destination for the object.
 	getChildView("button new script")->setEnabled(

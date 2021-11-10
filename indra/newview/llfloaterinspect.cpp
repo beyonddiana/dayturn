@@ -102,7 +102,7 @@ LLFloaterInspect::~LLFloaterInspect(void)
 
 void LLFloaterInspect::onOpen(const LLSD& key)
 {
-	BOOL forcesel = LLSelectMgr::getInstance()->setForceSelection(TRUE);
+	bool forcesel = LLSelectMgr::getInstance()->setForceSelection(true);
 	LLToolMgr::getInstance()->setTransientTool(LLToolCompInspect::getInstance());
 	LLSelectMgr::getInstance()->setForceSelection(forcesel);	// restore previouis value
 	mObjectSelection = LLSelectMgr::getInstance()->getSelection();

@@ -313,13 +313,13 @@ void LLPanelPermissions::refresh()
 	}
 
 	// figure out a few variables
-	const BOOL is_one_object = (object_count == 1);
+	const bool is_one_object = (object_count == 1);
 	
 	// BUG: fails if a root and non-root are both single-selected.
-	BOOL is_perm_modify = (LLSelectMgr::getInstance()->getSelection()->getFirstRootNode() 
+	bool is_perm_modify = (LLSelectMgr::getInstance()->getSelection()->getFirstRootNode() 
 						   && LLSelectMgr::getInstance()->selectGetRootsModify())
 		|| LLSelectMgr::getInstance()->selectGetModify();
-	BOOL is_nonpermanent_enforced = (LLSelectMgr::getInstance()->getSelection()->getFirstRootNode() 
+	bool is_nonpermanent_enforced = (LLSelectMgr::getInstance()->getSelection()->getFirstRootNode() 
 						   && LLSelectMgr::getInstance()->selectGetRootsNonPermanentEnforced())
 		|| LLSelectMgr::getInstance()->selectGetNonPermanentEnforced();
 	const LLFocusableElement* keyboard_focus_view = gFocusMgr.getKeyboardFocus();

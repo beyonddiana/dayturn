@@ -348,7 +348,7 @@ BOOL LLManipTranslate::handleMouseDownOnPart( S32 x, S32 y, MASK mask )
 
 	LLVector3		axis;
 
-	LLSelectNode *selectNode = mObjectSelection->getFirstMoveableNode(TRUE);
+	LLSelectNode *selectNode = mObjectSelection->getFirstMoveableNode(true);
 
 	if (!selectNode)
 	{
@@ -489,7 +489,7 @@ bool LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 
 	// pick the first object to constrain to grid w/ common origin
 	// this is so we don't screw up groups
-	LLSelectNode* selectNode = mObjectSelection->getFirstMoveableNode(TRUE);
+	LLSelectNode* selectNode = mObjectSelection->getFirstMoveableNode(true);
 	if (!selectNode)
 	{
 		// somehow we lost the object!
@@ -1094,7 +1094,7 @@ void LLManipTranslate::renderSnapGuides()
 		return;
 	}
 
-	LLSelectNode *first_node = mObjectSelection->getFirstMoveableNode(TRUE);
+	LLSelectNode *first_node = mObjectSelection->getFirstMoveableNode(true);
 	if (!first_node)
 	{
 		return;
@@ -1824,7 +1824,7 @@ void LLManipTranslate::renderTranslationHandles()
 		mPlaneManipPositions.mV[VZ] = -1.f;
 	}
 
-	LLViewerObject *first_object = mObjectSelection->getFirstMoveableObject(TRUE);
+	LLViewerObject *first_object = mObjectSelection->getFirstMoveableObject(true);
 	if (!first_object) return;
 
 	LLVector3 selection_center = getPivotPoint();
