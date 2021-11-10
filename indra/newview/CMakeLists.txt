@@ -1585,6 +1585,7 @@ if (WINDOWS)
         ${WINDOWS_LIBRARIES}
         comdlg32
 		dxguid
+		imm32
         kernel32
         odbc32
         odbccp32
