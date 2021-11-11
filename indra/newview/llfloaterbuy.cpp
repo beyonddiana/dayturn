@@ -128,7 +128,7 @@ void LLFloaterBuy::show(const LLSaleInfo& sale_info)
 
 	LLUUID owner_id;
 	std::string owner_name;
-	BOOL owners_identical = LLSelectMgr::getInstance()->selectGetOwner(owner_id, owner_name);
+	bool owners_identical = LLSelectMgr::getInstance()->selectGetOwner(owner_id, owner_name);
 	if (!owners_identical)
 	{
 		LLNotificationsUtil::add("BuyObjectOneOwner");

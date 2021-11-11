@@ -1164,7 +1164,7 @@ void LLPanelObjectTools::onClickSetBySelection(void* data)
 	LLPanelObjectTools* panelp = (LLPanelObjectTools*) data;
 	if (!panelp) return;
 
-	const BOOL non_root_ok = TRUE; 
+	const bool non_root_ok = true; 
 	LLSelectNode* node = LLSelectMgr::getInstance()->getSelection()->getFirstRootNode(NULL, non_root_ok);
 	if (!node) return;
 

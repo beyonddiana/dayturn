@@ -475,8 +475,8 @@ bool LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 				if (!gRRenabled || !gAgent.mRRInterface.mContainsRez)
 				{
 //mk
-					LLSelectMgr::getInstance()->selectDuplicate(LLVector3::zero, FALSE);
-					mCopyMadeThisDrag = true;
+                    LLSelectMgr::getInstance()->selectDuplicate(LLVector3::zero, false);
+                    mCopyMadeThisDrag = true;
 
 					// When we make the copy, we don't want to do any other processing.
 					// If so, the object will also be moved, and the copy will be offset.
