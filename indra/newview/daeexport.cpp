@@ -105,13 +105,15 @@ namespace DAEExportUtil
 	//
 	bool enable_export_object()
 	{
-		if (LLSelectMgr::getInstance()->selectGetAllValid() && gSavedSettings.getBOOL("FSEnableObjectExports")) {
+		if (LLSelectMgr::getInstance()->selectGetAllValid() && (bool)gSavedSettings.getBOOL("FSEnableObjectExports"))
+		{
 			LLObjectSelectionHandle selection = LLSelectMgr::instance().getSelection();
 
 			for (LLObjectSelection::iterator iter = selection->begin(); iter != selection->end(); iter++) {
 				LLSelectNode *node = *iter;
 
-				if (can_export_node(node) && node->getObject()->getVolume()) {
+				if (can_export_node(node) && node->getObject()->getVolume()) 
+				{
 					return true;
 				}
 			}
