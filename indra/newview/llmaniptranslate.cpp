@@ -471,7 +471,7 @@ bool LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 			if (mask == MASK_COPY)
 			{
 				// ...we're trying to make a copy
-				LLSelectMgr::getInstance()->selectDuplicate(LLVector3::zero, FALSE);
+				LLSelectMgr::getInstance()->selectDuplicate(LLVector3::zero, false);
 				mCopyMadeThisDrag = true;
 
 				// When we make the copy, we don't want to do any other processing.

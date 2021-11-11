@@ -663,70 +663,70 @@ public:
 	// will make sure all selected object meet current criteria, or deselect them otherwise
 	void validateSelection();
 
-	// returns TRUE if it is possible to select this object
+	// returns true if it is possible to select this object
 	bool canSelectObject(LLViewerObject* object, bool ignore_select_owned = false);
 
-	// Returns TRUE if the viewer has information on all selected objects
-	BOOL selectGetAllRootsValid();
-	BOOL selectGetAllValid();
-	BOOL selectGetAllValidAndObjectsFound();
+	// Returns true if the viewer has information on all selected objects
+	bool selectGetAllRootsValid();
+	bool selectGetAllValid();
+	bool selectGetAllValidAndObjectsFound();
 
-	// returns TRUE if you can modify all selected objects. 
-	BOOL selectGetRootsModify();
-	BOOL selectGetModify();
+	// returns true if you can modify all selected objects. 
+	bool selectGetRootsModify();
+	bool selectGetModify();
 
-	// returns TRUE if all objects are in same region
-	BOOL selectGetSameRegion();
+	// returns true if all objects are in same region
+	bool selectGetSameRegion();
 
-	// returns TRUE if is all objects are non-permanent-enforced
-	BOOL selectGetRootsNonPermanentEnforced();
-	BOOL selectGetNonPermanentEnforced();
+	// returns true if is all objects are non-permanent-enforced
+	bool selectGetRootsNonPermanentEnforced();
+	bool selectGetNonPermanentEnforced();
 
-	// returns TRUE if is all objects are permanent
-	BOOL selectGetRootsPermanent();
-	BOOL selectGetPermanent();
+	// returns true if is all objects are permanent
+	bool selectGetRootsPermanent();
+	bool selectGetPermanent();
 
-	// returns TRUE if is all objects are character
-	BOOL selectGetRootsCharacter();
-	BOOL selectGetCharacter();
+	// returns true if is all objects are character
+	bool selectGetRootsCharacter();
+	bool selectGetCharacter();
 
-	// returns TRUE if is all objects are not permanent
-	BOOL selectGetRootsNonPathfinding();
-	BOOL selectGetNonPathfinding();
+	// returns true if is all objects are not permanent
+	bool selectGetRootsNonPathfinding();
+	bool selectGetNonPathfinding();
 
-	// returns TRUE if is all objects are not permanent
-	BOOL selectGetRootsNonPermanent();
-	BOOL selectGetNonPermanent();
+	// returns true if is all objects are not permanent
+	bool selectGetRootsNonPermanent();
+	bool selectGetNonPermanent();
 
-	// returns TRUE if is all objects are not character
-	BOOL selectGetRootsNonCharacter();
-	BOOL selectGetNonCharacter();
+	// returns true if is all objects are not character
+	bool selectGetRootsNonCharacter();
+	bool selectGetNonCharacter();
 
-	BOOL selectGetEditableLinksets();
-	BOOL selectGetViewableCharacters();
+	bool selectGetEditableLinksets();
+	bool selectGetViewableCharacters();
 
-	// returns TRUE if selected objects can be transferred.
-	BOOL selectGetRootsTransfer();
+	// returns true if selected objects can be transferred.
+	bool selectGetRootsTransfer();
 
-	// returns TRUE if selected objects can be copied.
-	BOOL selectGetRootsCopy();
+	// returns true if selected objects can be copied.
+	bool selectGetRootsCopy();
 	
-	BOOL selectGetCreator(LLUUID& id, std::string& name);					// TRUE if all have same creator, returns id
-	BOOL selectGetOwner(LLUUID& id, std::string& name);					// TRUE if all objects have same owner, returns id
-	BOOL selectGetLastOwner(LLUUID& id, std::string& name);				// TRUE if all objects have same owner, returns id
+	bool selectGetCreator(LLUUID& id, std::string& name);				// true if all have same creator, returns id
+	bool selectGetOwner(LLUUID& id, std::string& name);					// true if all objects have same owner, returns id
+	bool selectGetLastOwner(LLUUID& id, std::string& name);				// true if all objects have same owner, returns id
 
-	// returns TRUE if all are the same. id is stuffed with
+	// returns true if all are the same. id is stuffed with
 	// the value found if available.
-	BOOL selectGetGroup(LLUUID& id); 
-	BOOL selectGetPerm(	U8 which_perm, U32* mask_on, U32* mask_off);	// TRUE if all have data, returns two masks, each indicating which bits are all on and all off
+	bool selectGetGroup(LLUUID& id); 
+	bool selectGetPerm(	U8 which_perm, U32* mask_on, U32* mask_off);	// true if all have data, returns two masks, each indicating which bits are all on and all off
 
-	BOOL selectIsGroupOwned();											// TRUE if all root objects have valid data and are group owned.
+	bool selectIsGroupOwned();											// true if all root objects have valid data and are group owned.
 
-	// returns TRUE if all the nodes are valid. Accumulates
+	// returns true if all the nodes are valid. Accumulates
 	// permissions in the parameter.
-	BOOL selectGetPermissions(LLPermissions& perm);
+	bool selectGetPermissions(LLPermissions& perm);
 
-	// returns TRUE if all the nodes are valid. Depends onto "edit linked" state
+	// returns true if all the nodes are valid. Depends onto "edit linked" state
 	// Children in linksets are a bit special - they require not only move permission
 	// but also modify if "edit linked" is set, since you move them relative to parent
 	bool selectGetEditMoveLinksetPermissions(bool &move, bool &modify);
@@ -734,25 +734,25 @@ public:
 	// Get a bunch of useful sale information for the object(s) selected.
 	// "_mixed" is true if not all objects have the same setting.
 	void selectGetAggregateSaleInfo(U32 &num_for_sale,
-									BOOL &is_for_sale_mixed, 
-									BOOL &is_sale_price_mixed,
+									bool &is_for_sale_mixed, 
+									bool &is_sale_price_mixed,
 									S32 &total_sale_price,
 									S32 &individual_sale_price);
 
-	// returns TRUE if all nodes are valid. 
-	BOOL selectGetCategory(LLCategory& category);
+	// returns true if all nodes are valid. 
+	bool selectGetCategory(LLCategory& category);
 	
-	// returns TRUE if all nodes are valid. method also stores an
+	// returns true if all nodes are valid. method also stores an
 	// accumulated sale info.
-	BOOL selectGetSaleInfo(LLSaleInfo& sale_info);
+	bool selectGetSaleInfo(LLSaleInfo& sale_info);
 
-	// returns TRUE if all nodes are valid. fills passed in object
+	// returns true if all nodes are valid. fills passed in object
 	// with the aggregate permissions of the selection.
-	BOOL selectGetAggregatePermissions(LLAggregatePermissions& ag_perm);
+	bool selectGetAggregatePermissions(LLAggregatePermissions& ag_perm);
 
-	// returns TRUE if all nodes are valid. fills passed in object
+	// returns true if all nodes are valid. fills passed in object
 	// with the aggregate permissions for texture inventory items of the selection.
-	BOOL selectGetAggregateTexturePermissions(LLAggregatePermissions& ag_perm);
+	bool selectGetAggregateTexturePermissions(LLAggregatePermissions& ag_perm);
 
 	LLPermissions* findObjectPermissions(const LLViewerObject* object);
 
@@ -760,7 +760,7 @@ public:
 
 	void selectDelete();							// Delete on simulator
 	void selectForceDelete();			// just delete, no into trash
-	void selectDuplicate(const LLVector3& offset, BOOL select_copy);	// Duplicate on simulator
+	void selectDuplicate(const LLVector3& offset, bool select_copy);	// Duplicate on simulator
 	void repeatDuplicate();
 	void selectDuplicateOnRay(const LLVector3 &ray_start_region,
 								const LLVector3 &ray_end_region,
@@ -772,7 +772,7 @@ public:
 								bool select_copy);
 
 	void sendMultipleUpdate(U32 type);	// Position, rotation, scale all in one
-	void sendOwner(const LLUUID& owner_id, const LLUUID& group_id, BOOL override = FALSE);
+	void sendOwner(const LLUUID& owner_id, const LLUUID& group_id, bool override = false);
 	void sendGroup(const LLUUID& group_id);
 
 	// Category ID is the UUID of the folder you want to contain the purchase.
@@ -811,9 +811,9 @@ public:
 
 	// Internal list maintenance functions. TODO: Make these private!
 	void remove(std::vector<LLViewerObject*>& objects);
-	void remove(LLViewerObject* object, S32 te = SELECT_ALL_TES, BOOL undoable = TRUE);
+	void remove(LLViewerObject* object, S32 te = SELECT_ALL_TES, bool undoable = true);
 	void removeAll();
-	void addAsIndividual(LLViewerObject* object, S32 te = SELECT_ALL_TES, BOOL undoable = TRUE);
+	void addAsIndividual(LLViewerObject* object, S32 te = SELECT_ALL_TES, bool undoable = true);
 	void promoteSelectionToRoot();
 	void demoteSelectionToIndividuals();
 
