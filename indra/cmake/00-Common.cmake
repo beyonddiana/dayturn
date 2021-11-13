@@ -22,7 +22,6 @@ include(Variables)
 # Portable compilation flags.
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DADDRESS_SIZE=32")
 
-set(CMAKE_CXX_FLAGS_DEBUG "-D_DEBUG -DLL_DEBUG=1")
 set(CMAKE_CXX_FLAGS_RELEASE
     "-DLL_RELEASE=1 -DLL_RELEASE_FOR_DOWNLOAD=1 -DNDEBUG") 
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO 
@@ -42,8 +41,8 @@ if(NON_RELEASE_CRASH_REPORTING)
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DLL_SEND_CRASH_REPORTS=0")
 endif()  
 
-# Don't bother with a MinSizeRel build.
-set(CMAKE_CONFIGURATION_TYPES "RelWithDebInfo;Release;Debug" CACHE STRING
+# Don't bother with MinSizeRel or Debug builds.
+set(CMAKE_CONFIGURATION_TYPES "RelWithDebInfo;Release" CACHE STRING
     "Supported build types." FORCE)
 	
 set(UNATTENDED OFF CACHE BOOL ”On Windows, turn this ON to not run VSTool.exe after configure.”)
@@ -62,14 +61,15 @@ if (WINDOWS)
   # http://www.cmake.org/pipermail/cmake/2009-September/032143.html
   string(REPLACE "/Zm1000" " " CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
 
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Od /Zc:wchar_t- /Zi /GR /MDd /MP -D_SCL_SECURE_NO_WARNINGS=1"
-      CACHE STRING "C++ compiler debug options" FORCE)
+    
+
   set(CMAKE_CXX_FLAGS_RELWITHDEBINFO 
       "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /Ox /Zc:wchar_t- /Zi /MD /MP /GR /O2 -D_SECURE_STL=0 -D_HAS_ITERATOR_DEBUGGING=0"
       CACHE STRING "C++ compiler release-with-debug options" FORCE)
   set(CMAKE_CXX_FLAGS_RELEASE
       "${CMAKE_CXX_FLAGS_RELEASE} ${LL_CXX_FLAGS} /Ox /Zc:wchar_t- /Zi /GR /MD /MP /O2 /Ob2 -D_SECURE_STL=0 -D_HAS_ITERATOR_DEBUGGING=0"
       CACHE STRING "C++ compiler release options" FORCE)
+  
   # zlib has assembly-language object files incompatible with SAFESEH
   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /LARGEADDRESSAWARE /SAFESEH:NO /NODEFAULTLIB:LIBCMT /IGNORE:4099")
 
@@ -84,11 +84,13 @@ if (WINDOWS)
 #      /DDOM_DYNAMIC            # For shared library colladadom
       /DUNICODE
       /D_UNICODE
-      /DWINVER=0x0600
-      /D_WIN32_WINNT=0x0600
+      /DWINVER=0x0A00
+      /D_WIN32_WINNT=0x0A00
       /DLL_OS_DRAGDROP_ENABLED=1
       /DCARES_STATICLIB
-      /DLIB_NDOF=1 
+      /DLIB_NDOF=1
+      )
+  add_compile_options(
       /GS
       /TP
       /W3
