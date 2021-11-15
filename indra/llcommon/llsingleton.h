@@ -236,6 +236,47 @@ LLSingletonBase::LLSingletonBase(tag<DERIVED_TYPE>):
  *
  *   Foo& instance = Foo::instance();
  *
+ * LLSingleton recognizes a couple special methods in your derived class.
+ *
+ * If you override LLSingleton<T>::initSingleton(), your method will be called
+ * immediately after the instance is constructed. This is useful for breaking
+ * circular dependencies: if you find that your LLSingleton subclass
+ * constructor references other LLSingleton subclass instances in a chain
+ * leading back to yours, move the instance reference from your constructor to
+ * your initSingleton() method.
+ *
+ * If you override LLSingleton<T>::cleanupSingleton(), your method will be
+ * called if someone calls LLSingletonBase::cleanupAll(). The significant part
+ * of this promise is that cleanupAll() will call individual
+ * cleanupSingleton() methods in reverse dependency order.
+ *
+ * That is, consider LLSingleton subclasses C, B and A. A depends on B, which
+ * in turn depends on C. These dependencies are expressed as calls to
+ * B::instance() or B::getInstance(), and C::instance() or C::getInstance().
+ * It shouldn't matter whether these calls appear in A::A() or
+ * A::initSingleton(), likewise B::B() or B::initSingleton().
+ *
+ * We promise that if you later call LLSingletonBase::cleanupAll():
+ * 1. A::cleanupSingleton() will be called before
+ * 2. B::cleanupSingleton(), which will be called before
+ * 3. C::cleanupSingleton().
+ * Put differently, if your LLSingleton subclass constructor or
+ * initSingleton() method explicitly depends on some other LLSingleton
+ * subclass, you may continue to rely on that other subclass in your
+ * cleanupSingleton() method.
+ *
+ * We introduce a special cleanupSingleton() method because cleanupSingleton()
+ * operations can involve nontrivial realtime, or might throw an exception. A
+ * destructor should do neither!
+ *
+ * If your cleanupSingleton() method throws an exception, we log that
+ * exception but proceed with the remaining cleanupSingleton() calls.
+ *
+ * Similarly, if at some point you call LLSingletonBase::deleteAll(), all
+ * remaining LLSingleton instances will be destroyed in dependency order. (Or
+ * call MySubclass::deleteSingleton() to specifically destroy the canonical
+ * MySubclass instance.)
+ *
  * As currently written, LLSingleton is not thread-safe.
  */
 template <typename DERIVED_TYPE>
@@ -378,6 +419,7 @@ protected:
     {
         return sData.mInitState;
     }
+
 private:
     struct SingletonData
     {
@@ -394,13 +436,13 @@ template <typename DERIVED_TYPE>
 class LLParamSingleton : public LLSingletonBase
 {
 private:
-    
+
     template <typename... Args>
     static DERIVED_TYPE* constructSingleton(Args&&... args)
     {
         return new DERIVED_TYPE(std::forward<Args>(args)...);
     }
-    
+
     // We know of no way to instruct the compiler that every subclass
     // constructor MUST be private.
     // However, we can make the LLPARAMSINGLETON() macro both declare
@@ -411,7 +453,7 @@ private:
     // virtual method" for this method, then add LLPARAMSINGLETON(yourclass)
     // in the subclass body.
     virtual void you_must_use_LLSINGLETON_macro() = 0;
-    
+
 protected:
     // Pass DERIVED_TYPE explicitly to LLSingletonBase's constructor because,
     // until our subclass constructor completes, *this isn't yet a
@@ -427,7 +469,7 @@ protected:
     }
     
 public:
-    
+
     virtual ~LLParamSingleton()
     {
         // remove this instance from the master list
@@ -435,7 +477,7 @@ public:
         sData.mInstance = NULL;
         sData.mInitState = DELETED;
     }
-    
+
     // Passes arguments to DERIVED_TYPE's constructor and sets apropriate states
     template <typename... Args>
     static void initParamSingleton(Args&&... args)
@@ -450,28 +492,28 @@ public:
         // pop this off stack of initializing singletons
         LLSingleton_manage_master<DERIVED_TYPE>().pop_initializing(sData.mInstance);
     }
-    
+
     /**
-     * @brief Immediately delete the singleton.
-     *
-     * A subsequent call to LLProxy::getInstance() will construct a new
-     * instance of the class.
-     *
-     * Without an explicit call to LLSingletonBase::deleteAll(), LLSingletons
-     * are implicitly destroyed after main() has exited and the C++ runtime is
-     * cleaning up statically-constructed objects. Some classes derived from
-     * LLSingleton have objects that are part of a runtime system that is
-     * terminated before main() exits. Calling the destructor of those objects
-     * after the termination of their respective systems can cause crashes and
-     * other problems during termination of the project. Using this method to
-     * destroy the singleton early can prevent these crashes.
-     *
-     * An example where this is needed is for a LLSingleton that has an APR
-     * object as a member that makes APR calls on destruction. The APR system is
-     * shut down explicitly before main() exits. This causes a crash on exit.
-     * Using this method before the call to apr_terminate() and NOT calling
-     * getInstance() again will prevent the crash.
-     */
+    * @brief Immediately delete the singleton.
+    *
+    * A subsequent call to LLProxy::getInstance() will construct a new
+    * instance of the class.
+    *
+    * Without an explicit call to LLSingletonBase::deleteAll(), LLSingletons
+    * are implicitly destroyed after main() has exited and the C++ runtime is
+    * cleaning up statically-constructed objects. Some classes derived from
+    * LLSingleton have objects that are part of a runtime system that is
+    * terminated before main() exits. Calling the destructor of those objects
+    * after the termination of their respective systems can cause crashes and
+    * other problems during termination of the project. Using this method to
+    * destroy the singleton early can prevent these crashes.
+    *
+    * An example where this is needed is for a LLSingleton that has an APR
+    * object as a member that makes APR calls on destruction. The APR system is
+    * shut down explicitly before main() exits. This causes a crash on exit.
+    * Using this method before the call to apr_terminate() and NOT calling
+    * getInstance() again will prevent the crash.
+    */
     static void deleteSingleton()
     {
         delete sData.mInstance;
@@ -483,41 +525,41 @@ public:
     {
         switch (sData.mInitState)
         {
-            case UNINITIALIZED:
-                logerrs("Uninitialized param singleton ",
-                        demangle(typeid(DERIVED_TYPE).name()).c_str());
-                return NULL;
-                
-            case CONSTRUCTING:
-                logerrs("Tried to access singleton ",
-                        demangle(typeid(DERIVED_TYPE).name()).c_str(),
-                        " from singleton constructor!");
-                return NULL;
-                
-            case INITIALIZING:
-                logerrs("State not supported by ",
-                        demangle(typeid(DERIVED_TYPE).name()).c_str(),
-                        " since it is a parametric singleton!");
-                break;
-                
-            case INITIALIZED:
-                break;
-                
-            case DELETED:
-                logerrs("Trying to access deleted param singleton ",
-                        demangle(typeid(DERIVED_TYPE).name()).c_str());
-                
-                break;
+        case UNINITIALIZED:
+            logerrs("Uninitialized param singleton ",
+                demangle(typeid(DERIVED_TYPE).name()).c_str());
+            return NULL;
+
+        case CONSTRUCTING:
+            logerrs("Tried to access singleton ",
+                demangle(typeid(DERIVED_TYPE).name()).c_str(),
+                " from singleton constructor!");
+            return NULL;
+
+        case INITIALIZING:
+            logerrs("State not supported by ",
+                demangle(typeid(DERIVED_TYPE).name()).c_str(),
+                " since it is a parametric singleton!");
+            break;
+
+        case INITIALIZED:
+            break;
+
+        case DELETED:
+            logerrs("Trying to access deleted param singleton ",
+                demangle(typeid(DERIVED_TYPE).name()).c_str());
+
+            break;
         }
-        
+
         // By this point, if DERIVED_TYPE was pushed onto the initializing
         // stack, it has been popped off. So the top of that stack, if any, is
         // an LLSingleton that directly depends on DERIVED_TYPE. If this call
         // came from another LLSingleton, rather than from vanilla application
         // code, record the dependency.
         sData.mInstance->capture_dependency(
-                                            LLSingleton_manage_master<DERIVED_TYPE>().get_initializing(sData.mInstance),
-                                            sData.mInitState);
+            LLSingleton_manage_master<DERIVED_TYPE>().get_initializing(sData.mInstance),
+            sData.mInitState);
         return sData.mInstance;
     }
     
@@ -545,15 +587,14 @@ public:
     
 
 private:
-
-	struct SingletonData
-	{
-		// explicitly has a default constructor so that member variables are zero initialized in BSS
-		// and only changed by singleton logic, not constructor running during startup
-		EInitState		mInitState;
-		DERIVED_TYPE*	mInstance;
-	};
-	static SingletonData sData;
+    struct SingletonData
+    {
+        // explicitly has a default constructor so that member variables are zero initialized in BSS
+        // and only changed by singleton logic, not constructor running during startup
+        EInitState      mInitState;
+        DERIVED_TYPE*   mInstance;
+    };
+    static SingletonData sData;
 };
 
 template<typename T>
@@ -628,34 +669,34 @@ private:                                                                \
     LLSINGLETON_C11(DERIVED_CLASS) {}
 
 /**
- * Use LLPARAMSINGLETON(Foo); at the start of an LLParamSingleton<Foo> subclass body
- * when you want to declare an out-of-line constructor:
- *
- * @code
- *   class Foo: public LLParamSingleton<Foo>
- *   {
- *       // use this macro at start of every LLSingleton subclass
- *       LLPARAMSINGLETON(Foo);
- *   public:
- *       // ...
- *   };
- *   // ...
- *   [inline]
- *   Foo::Foo() { ... }
- * @endcode
- *
- * Unfortunately, this mechanism does not permit you to define even a simple
- * (but nontrivial) constructor within the class body. Use LLPARAMSINGLETON()
- * and define the constructor outside the class body. If you must define it
- * in a header file, use 'inline' (unless it's a template class) to avoid
- * duplicate-symbol errors at link time.
- */
+* Use LLPARAMSINGLETON(Foo); at the start of an LLParamSingleton<Foo> subclass body
+* when you want to declare an out-of-line constructor:
+*
+* @code
+*   class Foo: public LLParamSingleton<Foo>
+*   {
+*       // use this macro at start of every LLSingleton subclass
+*       LLPARAMSINGLETON(Foo);
+*   public:
+*       // ...
+*   };
+*   // ...
+*   [inline]
+*   Foo::Foo() { ... }
+* @endcode
+*
+* Unfortunately, this mechanism does not permit you to define even a simple
+* (but nontrivial) constructor within the class body. Use LLPARAMSINGLETON()
+* and define the constructor outside the class body. If you must define it
+* in a header file, use 'inline' (unless it's a template class) to avoid
+* duplicate-symbol errors at link time.
+*/
 #define LLPARAMSINGLETON(DERIVED_CLASS, ...)                                      \
 private:                                                                \
-/* implement LLSingleton pure virtual method whose sole purpose */  \
-/* is to remind people to use this macro */                         \
-virtual void you_must_use_LLSINGLETON_macro() {}                    \
-friend class LLParamSingleton<DERIVED_CLASS>;                            \
-DERIVED_CLASS(__VA_ARGS__)
+    /* implement LLSingleton pure virtual method whose sole purpose */  \
+    /* is to remind people to use this macro */                         \
+    virtual void you_must_use_LLSINGLETON_macro() {}                    \
+    friend class LLParamSingleton<DERIVED_CLASS>;                            \
+    DERIVED_CLASS(__VA_ARGS__)
 
 #endif
