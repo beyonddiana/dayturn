@@ -191,6 +191,13 @@ struct LLSingleton_manage_master
     void remove(LLSingletonBase* sb) { sb->remove_master(); }
     void push_initializing(LLSingletonBase* sb) { sb->push_initializing(typeid(T).name()); }
     void pop_initializing (LLSingletonBase* sb) { sb->pop_initializing(); }
+    // used for init stack cleanup in case an LLSingleton subclass constructor
+    // throws an exception
+    void reset_initializing(LLSingletonBase::list_t::size_type size)
+    {
+        LLSingletonBase::reset_initializing(size);
+    }
+
     LLSingletonBase::list_t& get_initializing(T*) { return LLSingletonBase::get_initializing(); }
 };
 
@@ -202,6 +209,8 @@ struct LLSingleton_manage_master<LLSingletonBase::MasterList>
     void remove(LLSingletonBase*) {}
     void push_initializing(LLSingletonBase*) {}
     void pop_initializing (LLSingletonBase*) {}
+    // since we never pushed, no need to clean up
+    void reset_initializing(LLSingletonBase::list_t::size_type size) {}
     LLSingletonBase::list_t& get_initializing(LLSingletonBase::MasterList* instance)
     {
         return LLSingletonBase::get_initializing_from(instance);
