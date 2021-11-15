@@ -114,12 +114,15 @@ protected:
     // A::initSingleton(), record that A directly depends on B.
     void capture_dependency(list_t& initializing, EInitState);
 
-    // delegate LL_ERRS() logging to llsingleton.cpp
+    // delegate logging calls to llsingleton.cpp
     static void logerrs(const char* p1, const char* p2="",
                         const char* p3="", const char* p4="");
-    // delegate LL_WARNS() logging to llsingleton.cpp
     static void logwarns(const char* p1, const char* p2="",
                          const char* p3="", const char* p4="");
+    static void loginfos(const char* p1, const char* p2="",
+                         const char* p3="", const char* p4="");
+    static void logdebugs(const char* p1, const char* p2="",
+                          const char* p3="", const char* p4="");
     static std::string demangle(const char* mangled);
     template <typename T>
     static std::string classname()       { return demangle(typeid(T).name()); }
