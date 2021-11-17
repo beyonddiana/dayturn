@@ -578,7 +578,7 @@ bool LLVivoxVoiceClient::writeString(const std::string &str)
 		// check return code - sockets will fail (broken, etc.)
 		err = apr_socket_send(
 				mSocket->getSocket(),
-				str.data(),
+				(const char*)str.data(),
 				&written);
 		
 		if(err == 0 && written == size)
