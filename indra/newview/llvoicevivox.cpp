@@ -1099,26 +1099,25 @@ void LLVivoxVoiceClient::stateMachine()
 
 		//MARK: stateConnecting
 		case stateConnecting:
-		// Can't do this until we have the pump available.
-		if(mPump)
-		{
-			// MBW -- Note to self: pumps and pipes examples in
-			//  indra/test/io.cpp
-			//  indra/test/llpipeutil.{cpp|h}
+            // Can't do this until we have the pump available.
+            if(mPump)
+            {
+                // MBW -- Note to self: pumps and pipes examples in
+                //  indra/test/io.cpp
+                //  indra/test/llpipeutil.{cpp|h}
 
-			// Attach the pumps and pipes
-				
-			LLPumpIO::chain_t readChain;
+                // Attach the pumps and pipes
+                
+                LLPumpIO::chain_t readChain;
 
-			readChain.push_back(LLIOPipe::ptr_t(new LLIOSocketReader(mSocket)));
-			readChain.push_back(LLIOPipe::ptr_t(new LLVivoxProtocolParser()));
+                readChain.push_back(LLIOPipe::ptr_t(new LLIOSocketReader(mSocket)));
+                readChain.push_back(LLIOPipe::ptr_t(new LLVivoxProtocolParser()));
 
-			mPump->addChain(readChain, NEVER_CHAIN_EXPIRY_SECS);
+                mPump->addChain(readChain, NEVER_CHAIN_EXPIRY_SECS);
 
-			setState(stateConnected);
-		}
-
-		break;
+                setState(stateConnected);
+            }
+        break;
 		
 		//MARK: stateConnected
 		case stateConnected:
@@ -1195,7 +1194,6 @@ void LLVivoxVoiceClient::stateMachine()
 					setState(stateMicTuningRunning);
 				}
 			}
-			
 		break;
 		
 		//MARK: stateMicTuningRunning
