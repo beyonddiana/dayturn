@@ -331,10 +331,9 @@ public:
 	static F32		sPhysicsLODFactor; // user-settable physics LOD factor
 	static bool		sJointDebug; // output total number of joints being touched for each avatar
 	static bool		sDebugAvatarRotation;
-		//<FS:Beq> BOM bake limits
+	//<FS:Beq> BOM bake limits
 	static int		sMaxBakes;
 	//</FS:Beq>
-
 
 	//--------------------------------------------------------------------
 	// Region state
@@ -351,7 +350,7 @@ public:
 	bool 			visualParamWeightsAreDefault();
 	virtual bool	getIsCloud() const;
 	bool			isFullyTextured() const;
-	bool			hasGray() const; 
+    bool			hasGray() const;
 	S32				getRezzedStatus() const; // 0 = cloud, 1 = gray, 2 = textured, 3 = textured and fully downloaded.
 	void			updateRezzedStatusTimers();
 

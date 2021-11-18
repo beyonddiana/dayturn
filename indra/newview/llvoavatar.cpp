@@ -36,7 +36,6 @@
 #include "noise.h"
 #include "sound_ids.h"
 #include "raytrace.h"
-#include "lldate.h"
 #include "aoengine.h"			// ## Zi: Animation Overrider
 #include "llagent.h" //  Get state values from here
 #include "llagentcamera.h"
@@ -44,8 +43,8 @@
 #include "llanimationstates.h"
 #include "llavatarnamecache.h"
 #include "llavatarpropertiesprocessor.h"
-#include "llcontrolavatar.h"
 #include "lldateutil.h"
+#include "llcontrolavatar.h"
 #include "llexperiencecache.h"
 #include "llphysicsmotion.h"
 #include "llviewercontrol.h"
@@ -1185,9 +1184,9 @@ void LLVOAvatar::initClass()
 	gAnimLibrary.animStateSetString(ANIM_AGENT_WALK_ADJUST,"walk_adjust");
 
     // Where should this be set initially?
-    LLJoint::setDebugJointNames(gSavedSettings.getString("DebugAvatarJoints"));	
-    
-	LLControlAvatar::sRegionChangedSlot = gAgent.addRegionChangedCallback(&LLControlAvatar::onRegionChanged);    
+    LLJoint::setDebugJointNames(gSavedSettings.getString("DebugAvatarJoints"));
+
+	LLControlAvatar::sRegionChangedSlot = gAgent.addRegionChangedCallback(&LLControlAvatar::onRegionChanged);
 }
 
 
@@ -1422,7 +1421,6 @@ void LLVOAvatar::calculateSpatialExtents(LLVector4a& newMin, LLVector4a& newMax)
                 update_min_max(newMin, newMax, trans);
             }
         }
-
     }
 
 	// Pad bounding box for starting joint, plus polymesh if
@@ -1570,14 +1568,14 @@ void render_sphere_and_line(const LLVector3& begin_pos, const LLVector3& end_pos
     gGL.scalef(sphere_scale, sphere_scale, sphere_scale);
     gSphere.renderGGL();
     gGL.popMatrix();
-        
+    
     LLGLDepthTest depth_under(GL_TRUE, GL_FALSE, GL_GREATER);
 
     // Occluded bone portions
     gGL.diffuseColor3f(occ_color[0], occ_color[1], occ_color[2]);
 
     gGL.begin(LLRender::LINES);
-    gGL.vertex3fv(begin_pos.mV); 
+    gGL.vertex3fv(begin_pos.mV);
     gGL.vertex3fv(end_pos.mV);
     gGL.end();
 
@@ -1638,7 +1636,6 @@ void LLVOAvatar::renderCollisionVolumes()
         gGL.popMatrix();
     }
 
-    
 	if (mNameText.notNull())
 	{
 		LLVector4a unused;
@@ -1669,7 +1666,6 @@ void LLVOAvatar::renderBones(const std::string &selected_joint)
     // For bones not otherwise colored
     static LLVector3 OTHER_COLOR_OCCLUDED(0.0f, 1.0f, 0.0f);
     static LLVector3 OTHER_COLOR_VISIBLE(0.5f, 0.5f, 0.5f);
-
     
     static F32 SPHERE_SCALEF = 0.001f;
 
@@ -2077,7 +2073,6 @@ void LLVOAvatar::resetVisualParams()
 		}
 	}
 
-
 	// Driver parameters
 	for (LLAvatarXmlInfo::driver_info_list_t::iterator iter = sAvatarXmlInfo->mDriverInfoList.begin();
 		 iter != sAvatarXmlInfo->mDriverInfoList.end(); 
@@ -2224,7 +2219,7 @@ void LLVOAvatar::resetSkeleton(bool reset_animations)
         }
     }
     
-    LL_DEBUGS("Avatar") << avString() << " reset ends" << LL_ENDL;    
+    LL_DEBUGS("Avatar") << avString() << " reset ends" << LL_ENDL;
 }
 
 //-----------------------------------------------------------------------------
@@ -2301,7 +2296,7 @@ void LLVOAvatar::restoreMeshData()
 		if (!attachment->getIsHUDAttachment())
 		{
 			attachment->setAttachmentVisibility(true);
-		}		
+		}
 	}
 
 	// force mesh update as LOD might not have changed to trigger this
@@ -3102,7 +3097,7 @@ void LLVOAvatar::idleUpdateLoadingEffect()
 			}
 		}
 	}
-}	
+}
 
 void LLVOAvatar::idleUpdateWindEffect()
 {
@@ -3217,7 +3212,7 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 		mVisibleChat = visible_chat;
 		new_name = true;
 	}
-	
+
 	if (sRenderGroupTitles != (BOOL)mRenderGroupTitles)
 	{
 		mRenderGroupTitles = sRenderGroupTitles;
@@ -4634,7 +4629,6 @@ bool LLVOAvatar::updateCharacter(LLAgent &agent)
     // work
     // --------------------------------------------------------------------
     updateRootPositionAndRotation(agent, speed, was_sit_ground_constrained);
-
 	
 	//-------------------------------------------------------------------------
 	// Update character motions
@@ -6112,7 +6106,9 @@ bool LLVOAvatar::startMotion(const LLUUID& id, F32 time_offset)
 	{
 		remap_id=AOEngine::getInstance()->override(id,TRUE);
 		if(remap_id.isNull())
+		{
 			remap_id=remapMotionID(id);
+		}
 		else
 		{
 			gAgent.sendAnimationRequest(remap_id,ANIM_REQUEST_START);
@@ -6154,7 +6150,9 @@ bool LLVOAvatar::stopMotion(const LLUUID& id, bool stop_immediate)
 	{
 		remap_id=AOEngine::getInstance()->override(id,FALSE);
 		if(remap_id.isNull())
+		{
 			remap_id=remapMotionID(id);
+		}
 		else
 		{
 			gAgent.sendAnimationRequest(remap_id,ANIM_REQUEST_STOP);
@@ -6269,6 +6267,7 @@ LLJoint *LLVOAvatar::getJoint( S32 joint_num )
     {
         pJoint = mSkeleton[joint_num];
     }
+
 	llassert(!pJoint || pJoint->getJointNum() == joint_num);
     return pJoint;
 }
@@ -6317,7 +6316,6 @@ bool LLVOAvatar::jointIsRiggedTo(const LLJoint *joint) const
     return false;
 }
 
-
 void LLVOAvatar::clearAttachmentOverrides()
 {
     LLScopedContextString str("clearAttachmentOverrides " + getFullname());
@@ -6349,10 +6347,10 @@ void LLVOAvatar::clearAttachmentOverrides()
 void LLVOAvatar::rebuildAttachmentOverrides()
 {
     LLScopedContextString str("rebuildAttachmentOverrides " + getFullname());
-    
+
     LL_DEBUGS("AnimatedObjects") << "rebuilding" << LL_ENDL;
     dumpStack("AnimatedObjectsStack");
-        
+    
     clearAttachmentOverrides();
 
     // Handle the case that we're resetting the skeleton of an animated object.
@@ -6519,16 +6517,16 @@ void LLVOAvatar::updateAttachmentOverrides()
 void LLVOAvatar::addAttachmentOverridesForObject(LLViewerObject *vo, std::set<LLUUID>* meshes_seen, bool recursive)
 {
     if (vo->getAvatar() != this && vo->getAvatarAncestor() != this)
-    {
-            LL_WARNS("Avatar") << "called with invalid avatar" << LL_ENDL;
-            return;
-    }
+	{
+		LL_WARNS("Avatar") << "called with invalid avatar" << LL_ENDL;
+        return;
+	}
 
     LLScopedContextString str("addAttachmentOverridesForObject " + getFullname());
-	
+    
     LL_DEBUGS("AnimatedObjects") << "adding" << LL_ENDL;
     dumpStack("AnimatedObjectsStack");
-    		
+    
 	// Process all children
     if (recursive)
     {
@@ -6658,8 +6656,8 @@ void LLVOAvatar::getAttachmentOverrideNames(std::set<std::string>& pos_names, st
     LLVector3 pos;
     LLVector3 scale;
     LLUUID mesh_id;
-    
-    // Bones
+
+   // Bones
 	for (avatar_joint_list_t::const_iterator iter = mSkeleton.begin();
          iter != mSkeleton.end(); ++iter)
 	{
@@ -6726,14 +6724,13 @@ void LLVOAvatar::showAttachmentOverrides(bool verbose) const
     LLUUID mesh_id;
     S32 count = 0;
 
-   // Bones
+	// Bones
 	for (avatar_joint_list_t::const_iterator iter = mSkeleton.begin();
          iter != mSkeleton.end(); ++iter)
 	{
 		const LLJoint* pJoint = (*iter);
 		if (pJoint && pJoint->hasAttachmentPosOverride(pos,mesh_id))
 		{
-		
 			pJoint->showAttachmentPosOverrides(getFullname());
             count++;
 		}
@@ -6741,9 +6738,9 @@ void LLVOAvatar::showAttachmentOverrides(bool verbose) const
 		{
 			pJoint->showAttachmentScaleOverrides(getFullname());
             count++;
-        }		
+        }
 	}
-	
+
     // Attachment points
 	for (attachment_map_t::const_iterator iter = mAttachmentPoints.begin();
 		 iter != mAttachmentPoints.end();
@@ -6796,33 +6793,31 @@ void LLVOAvatar::removeAttachmentOverridesForObject(LLViewerObject *vo)
 // removeAttachmentOverridesForObject
 //-----------------------------------------------------------------------------
 void LLVOAvatar::removeAttachmentOverridesForObject(const LLUUID& mesh_id)
-{ 
- 	LLJoint* pJointPelvis = getJoint("mPelvis");
+{
+	LLJoint* pJointPelvis = getJoint("mPelvis");
     const std::string av_string = avString();
     for (S32 joint_num = 0; joint_num < LL_CHARACTER_MAX_ANIMATED_JOINTS; joint_num++)
     {
         LLJoint *pJoint = getJoint(joint_num);
- 		//Reset joints except for pelvis
- 		if ( pJoint )
- 		{			
+		if ( pJoint )
+		{			
             bool dummy; // unused
 			pJoint->removeAttachmentPosOverride(mesh_id, av_string, dummy);
 			pJoint->removeAttachmentScaleOverride(mesh_id, av_string);
- 		}		
- 		if ( pJoint && pJoint == pJointPelvis)
- 		{
- 			removePelvisFixup( mesh_id );
- 			// SL-315
- 			pJoint->setPosition( LLVector3( 0.0f, 0.0f, 0.0f) );
- 		}		
- 	}	
- 		
- 	postPelvisSetRecalc();
- 	
+		}		
+		if ( pJoint && pJoint == pJointPelvis)
+		{
+			removePelvisFixup( mesh_id );
+			// SL-315
+			pJoint->setPosition( LLVector3( 0.0f, 0.0f, 0.0f) );
+		}		
+	}	
+		
+	postPelvisSetRecalc();	
+
     mActiveOverrideMeshes.erase(mesh_id);
     onActiveOverrideMeshesChanged();
 }
-
 //-----------------------------------------------------------------------------
 // getCharacterPosition()
 //-----------------------------------------------------------------------------
@@ -7004,7 +6999,7 @@ void LLVOAvatar::initAttachmentPoints(bool ignore_hud_joints)
             attachment->setOriginalPosition(info->mPosition);
             attachment->setDefaultPosition(info->mPosition);
         }
-        
+
         if (info->mHasRotation)
         {
             LLQuaternion rotation;
@@ -7013,7 +7008,7 @@ void LLVOAvatar::initAttachmentPoints(bool ignore_hud_joints)
                              info->mRotationEuler.mV[VZ] * DEG_TO_RAD);
             attachment->setRotation(rotation);
         }
-			
+
         int group = info->mGroup;
         if (group >= 0)
         {
@@ -7644,7 +7639,7 @@ bool LLVOAvatar::detachObject(LLViewerObject *viewer_object)
 		{
 			mVisualComplexityStale = true;
             bool is_animated_object = viewer_object->isAnimatedObject();			
-			cleanupAttachedMesh( viewer_object );		
+			cleanupAttachedMesh( viewer_object );
 			attachment->removeObject(viewer_object);
 
 			attachment->removeObject(viewer_object);
@@ -9948,7 +9943,7 @@ void LLVOAvatar::dumpArchetypeXML(const std::string& prefix, bool group_by_weara
         const LLVector3& scale = mRoot->getScale();
         apr_file_printf( file, "\t\t<root name=\"%s\" position=\"%f %f %f\" scale=\"%f %f %f\"/>\n", 
                          mRoot->getName().c_str(), pos[0], pos[1], pos[2], scale[0], scale[1], scale[2]);
-		
+
         // Bones
         std::vector<std::string> bone_names, cv_names, attach_names, all_names;
         getSortedJointNames(0, bone_names);
@@ -9966,7 +9961,7 @@ void LLVOAvatar::dumpArchetypeXML(const std::string& prefix, bool group_by_weara
 			const LLVector3& scale = pJoint->getScale();
 			apr_file_printf( file, "\t\t<bone name=\"%s\" position=\"%f %f %f\" scale=\"%f %f %f\"/>\n", 
 							 pJoint->getName().c_str(), pos[0], pos[1], pos[2], scale[0], scale[1], scale[2]);
-		}
+        }
 
         // Collision volumes
         for (std::vector<std::string>::iterator name_iter = cv_names.begin();
