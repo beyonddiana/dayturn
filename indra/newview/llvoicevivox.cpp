@@ -42,7 +42,6 @@
 # include "expat/expat.h"
 #endif
 #include "llcallbacklist.h"
-#include "llviewerregion.h"
 #include "llviewernetwork.h"		// for gGridChoice
 #include "llbase64.h"
 #include "llviewercontrol.h"
@@ -52,7 +51,6 @@
 // Viewer includes
 #include "llmutelist.h"  // to check for muted avatars
 #include "llagent.h"
-#include "llcachename.h"
 #include "llimview.h" // for LLIMMgr
 #include "llparcel.h"
 #include "llviewerparcelmgr.h"
@@ -63,7 +61,6 @@
 #include "llviewercamera.h"
 #include "llversioninfo.h"
 
-#include "llviewernetwork.h"
 #include "llnotificationsutil.h"
 
 #include "llcorehttputil.h"
@@ -452,7 +449,7 @@ LLVivoxVoiceClient::LLVivoxVoiceClient() :
 	
 	//  gMuteListp isn't set up at this point, so we defer this until later.
     //	gMuteListp->addObserver(&mutelist_listener);
-	
+
 	
 #if LL_LINUX
     // HACK: THIS DOES NOT BELONG HERE
@@ -2995,7 +2992,7 @@ void LLVivoxVoiceClient::connectorCreateResponse(int statusCode, std::string &st
 {	
 	if(statusCode != 0)
 	{
-		LL_WARNS("Voice") << "Connector.Create response failure ("<< statusCode << "): " << statusString << LL_ENDL;
+		LL_WARNS("Voice") << "Voice connector response failure ("<< statusCode << "): " << statusString << LL_ENDL;
 		setState(stateConnectorFailed);
 		LLSD args;
 		std::stringstream errs;
@@ -7060,6 +7057,8 @@ void LLVivoxProtocolParser::processResponse(std::string tag)
 	if (isEvent)
 	{
 		const char *eventTypeCstr = eventTypeString.c_str();
+		LL_DEBUGS("LowVoice") << eventTypeCstr << LL_ENDL;
+		
 		if (!stricmp(eventTypeCstr, "ParticipantUpdatedEvent"))
 		{
 			// These happen so often that logging them is pretty useless.
@@ -7132,6 +7131,7 @@ void LLVivoxProtocolParser::processResponse(std::string tag)
 			 <ParticipantType>0</ParticipantType>
 			 </Event>
 			 */
+			LL_DEBUGS("LowVoice") << "Added Params: " << sessionHandle << ", " << sessionGroupHandle << ", " << uriString << ", " << alias << ", " << nameString << ", " << displayNameString << ", " << participantType << LL_ENDL; 
 			LLVivoxVoiceClient::getInstance()->participantAddedEvent(sessionHandle, sessionGroupHandle, uriString, alias, nameString, displayNameString, participantType);
 		}
 		else if (!stricmp(eventTypeCstr, "ParticipantRemovedEvent"))
@@ -7144,6 +7144,7 @@ void LLVivoxProtocolParser::processResponse(std::string tag)
 			 <AccountName>xtx7YNV-3SGiG7rA1fo5Ndw==</AccountName>
 			 </Event>
 			 */
+			LL_DEBUGS("LowVoice") << "Removed params:" << sessionHandle << ", " << sessionGroupHandle << ", " << uriString << ", " << alias << ", " << nameString << LL_ENDL; 
 			LLVivoxVoiceClient::getInstance()->participantRemovedEvent(sessionHandle, sessionGroupHandle, uriString, alias, nameString);
 		}
 		else if (!stricmp(eventTypeCstr, "AuxAudioPropertiesEvent"))
