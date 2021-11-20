@@ -513,7 +513,7 @@ static bool handleRenderDeferredChanged(const LLSD& newvalue)
 		gPipeline.releaseGLBuffers();
 		gPipeline.createGLBuffers();
 		gPipeline.resetVertexBuffers();
-		if (LLPipeline::sRenderDeferred == (BOOL)LLRenderTarget::sUseFBO)
+		if (LLPipeline::sRenderDeferred == LLRenderTarget::sUseFBO)
 		{
 			LLViewerShaderMgr::instance()->setShaders();
 		}
