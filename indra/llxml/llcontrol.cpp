@@ -680,6 +680,11 @@ void LLControlGroup::setBOOL(const std::string& name, BOOL val)
 	set<bool>(name, val);
 }
 
+void LLControlGroup::setbool(const std::string& name, bool val)
+{
+	set(name, val);
+}
+
 
 void LLControlGroup::setS32(const std::string& name, S32 val)
 {
