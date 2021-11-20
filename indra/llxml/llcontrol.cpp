@@ -567,6 +567,11 @@ BOOL LLControlGroup::getBOOL(const std::string& name)
 	return (BOOL)get<bool>(name);
 }
 
+bool LLControlGroup::getbool(const std::string& name)
+{
+    return get<bool>(name);
+}
+
 S32 LLControlGroup::getS32(const std::string& name)
 {
 	return get<S32>(name);
