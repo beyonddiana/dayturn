@@ -270,6 +270,7 @@ public:
 	}
 
 	void	setBOOL(const std::string& name, BOOL val);
+	void	setbool(const std::string& name, bool val);
 	void	setS32(const std::string& name, S32 val);
 	void	setF32(const std::string& name, F32 val);
 	void	setU32(const std::string& name, U32 val);
