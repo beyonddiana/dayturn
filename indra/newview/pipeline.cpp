@@ -497,7 +497,7 @@ void LLPipeline::init()
 	sRenderBump = gSavedSettings.getBOOL("RenderObjectBump");
 	sUseTriStrips = gSavedSettings.getBOOL("RenderUseTriStrips");
 	LLVertexBuffer::sUseStreamDraw = gSavedSettings.getBOOL("RenderUseStreamVBO");
-	LLVertexBuffer::sUseVAO = (bool)gSavedSettings.getBOOL("RenderUseVAO") && LLViewerShaderMgr::instance()->getVertexShaderLevel(LLViewerShaderMgr::SHADER_OBJECT) > 0;
+	LLVertexBuffer::sUseVAO = gSavedSettings.getbool("RenderUseVAO") && LLViewerShaderMgr::instance()->getVertexShaderLevel(LLViewerShaderMgr::SHADER_OBJECT) > 0;
 	LLVertexBuffer::sPreferStreamDraw = gSavedSettings.getBOOL("RenderPreferStreamDraw");
 	sRenderAttachedLights = gSavedSettings.getBOOL("RenderAttachedLights");
 	sRenderAttachedParticles = gSavedSettings.getBOOL("RenderAttachedParticles");
@@ -1068,15 +1068,15 @@ void LLPipeline::updateRenderBump()
 //static
 void LLPipeline::updateRenderDeferred()
 {
-	bool deferred = (bool(RenderDeferred && 
-					 LLRenderTarget::sUseFBO &&
-					 LLFeatureManager::getInstance()->isFeatureAvailable("RenderDeferred") &&
-					 LLPipeline::sRenderTransparentWater &&	 
-					 LLPipeline::sRenderBump &&
-					 VertexShaderEnable && 
-					 RenderAvatarVP &&
-					 WindLightUseAtmosShaders)) &&
-					!gUseWireframe;
+	bool deferred = !gUseWireframe &&
+	                RenderDeferred &&
+					LLRenderTarget::sUseFBO &&
+					LLPipeline::sRenderBump &&
+					LLPipeline::sRenderTransparentWater &&	 
+					RenderAvatarVP &&
+					VertexShaderEnable && 
+					WindLightUseAtmosShaders &&
+					LLFeatureManager::getInstance()->isFeatureAvailable("RenderDeferred");
 
 	sRenderDeferred = deferred;	
 	if (deferred)
@@ -2403,7 +2403,7 @@ static LLTrace::BlockTimerStatHandle FTM_CULL("Object Culling");
 
 void LLPipeline::updateCull(LLCamera& camera, LLCullResult& result, S32 water_clip, LLPlane* planep)
 {
-	static LLCachedControl<bool> use_occlusion(gSavedSettings,"UseOcclusion");
+	bool use_occlusion = gSavedSettings.getbool("UseOcclusion");
 	static bool can_use_occlusion = LLGLSLShader::sNoFixedFunction
 									&& LLFeatureManager::getInstance()->isFeatureAvailable("UseOcclusion") 
 									&& gGLManager.mHasOcclusionQuery;
@@ -7547,7 +7547,7 @@ void LLPipeline::doResetVertexBuffers(bool forced)
 
 	sUseTriStrips = gSavedSettings.getBOOL("RenderUseTriStrips");
 	LLVertexBuffer::sUseStreamDraw = gSavedSettings.getBOOL("RenderUseStreamVBO");
-	LLVertexBuffer::sUseVAO = (bool)gSavedSettings.getBOOL("RenderUseVAO") && LLViewerShaderMgr::instance()->getVertexShaderLevel(LLViewerShaderMgr::SHADER_OBJECT) > 0;
+	LLVertexBuffer::sUseVAO = gSavedSettings.getbool("RenderUseVAO") && LLViewerShaderMgr::instance()->getVertexShaderLevel(LLViewerShaderMgr::SHADER_OBJECT) > 0;
 	LLVertexBuffer::sPreferStreamDraw = gSavedSettings.getBOOL("RenderPreferStreamDraw");
 	LLVertexBuffer::sEnableVBOs = gSavedSettings.getBOOL("RenderVBOEnable");
 	LLVertexBuffer::sDisableVBOMapping = LLVertexBuffer::sEnableVBOs && gSavedSettings.getBOOL("RenderVBOMappingDisable") ;

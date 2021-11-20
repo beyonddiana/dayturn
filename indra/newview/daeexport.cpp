@@ -105,7 +105,7 @@ namespace DAEExportUtil
 	//
 	bool enable_export_object()
 	{
-		if (LLSelectMgr::getInstance()->selectGetAllValid() && (bool)gSavedSettings.getBOOL("FSEnableObjectExports"))
+        if (LLSelectMgr::getInstance()->selectGetAllValid() && gSavedSettings.getbool("FSEnableObjectExports"))
 		{
 			LLObjectSelectionHandle selection = LLSelectMgr::instance().getSelection();
 

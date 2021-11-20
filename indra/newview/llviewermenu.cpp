@@ -9009,7 +9009,7 @@ void toggle_show_xui_names(void *)
 
 bool check_show_xui_names(void *)
 {
-	return (bool)gSavedSettings.getBOOL("DebugShowXUINames");
+	return gSavedSettings.getbool("DebugShowXUINames");
 }
 
 // <FS:CR> FIRE-4345: Undeform

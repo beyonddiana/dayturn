@@ -198,7 +198,7 @@ void LLFloaterBulkPermission::onCloseBtn()
 void LLFloaterBulkPermission::onCommitCopy()
 {
 	// Implements fair use
-	bool copyable = (bool)gSavedSettings.getBOOL("BulkChangeNextOwnerCopy");
+	bool copyable = gSavedSettings.getbool("BulkChangeNextOwnerCopy");
 	if(!copyable)
 	{
 		gSavedSettings.setBOOL("BulkChangeNextOwnerTransfer", TRUE);

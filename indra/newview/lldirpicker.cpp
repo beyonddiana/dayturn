@@ -60,7 +60,7 @@ LLDirPicker LLDirPicker::sInstance;
 bool LLDirPicker::check_local_file_access_enabled()
 {
 	// if local file browsing is turned off, return without opening dialog
-	bool local_file_system_browsing_enabled = gSavedSettings.getBOOL("LocalFileSystemBrowsingEnabled");
+	bool local_file_system_browsing_enabled = gSavedSettings.getbool("LocalFileSystemBrowsingEnabled");
 	if ( ! local_file_system_browsing_enabled )
 	{
 		mDir.clear();	// Windows

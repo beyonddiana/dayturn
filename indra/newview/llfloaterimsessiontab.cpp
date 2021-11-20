@@ -345,7 +345,7 @@ bool LLFloaterIMSessionTab::postBuild()
 	mRefreshTimer->start();
 	initBtns();
 
-	if (mIsParticipantListExpanded != (bool)gSavedSettings.getBOOL("IMShowControlPanel"))
+	if (mIsParticipantListExpanded != gSavedSettings.getbool("IMShowControlPanel"))
 	{
 		LLFloaterIMSessionTab::onSlide(this);
 	}
@@ -728,7 +728,7 @@ void LLFloaterIMSessionTab::onIMSessionMenuItemClicked(const LLSD& userdata)
 //mk
 	else
 	{
-		bool prev_value = (bool)gSavedSettings.getBOOL(item);
+		bool prev_value = gSavedSettings.getbool(item);
 		gSavedSettings.setBOOL(item, !prev_value);
 	}
 
@@ -738,7 +738,7 @@ void LLFloaterIMSessionTab::onIMSessionMenuItemClicked(const LLSD& userdata)
 bool LLFloaterIMSessionTab::onIMCompactExpandedMenuItemCheck(const LLSD& userdata)
 {
 	std::string item = userdata.asString();
-	bool is_plain_text_mode = (bool)gSavedSettings.getBOOL("PlainTextChatHistory");
+	bool is_plain_text_mode = gSavedSettings.getbool("PlainTextChatHistory");
 
 	return is_plain_text_mode? item == "compact_view" : item == "expanded_view";
 }
@@ -746,14 +746,14 @@ bool LLFloaterIMSessionTab::onIMCompactExpandedMenuItemCheck(const LLSD& userdat
 
 bool LLFloaterIMSessionTab::onIMShowModesMenuItemCheck(const LLSD& userdata)
 {
-	return (bool)gSavedSettings.getBOOL(userdata.asString());
+	return gSavedSettings.getbool(userdata.asString());
 }
 
 // enable/disable states for the "show time" and "show names" items of the show-modes menu
 bool LLFloaterIMSessionTab::onIMShowModesMenuItemEnable(const LLSD& userdata)
 {
 	std::string item = userdata.asString();
-	bool plain_text = (bool)gSavedSettings.getBOOL("PlainTextChatHistory");
+	bool plain_text = gSavedSettings.getbool("PlainTextChatHistory");
 	bool is_not_names = (item != "IMShowNamesForP2PConv");
 //MK
 	bool is_rlv_im_command = (
