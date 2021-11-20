@@ -270,7 +270,7 @@ LLAvatarList::~LLAvatarList()
 void LLAvatarList::setShowIcons(std::string param_name)
 {
 	mIconParamName= param_name;
-	mShowIcons = (bool)gSavedSettings.getBOOL(mIconParamName);
+	mShowIcons = gSavedSettings.getbool(mIconParamName);
 }
 // [Ansariel: Colorful radar]
 void LLAvatarList::setUseRangeColors(bool UseRangeColors)

@@ -1611,7 +1611,7 @@ bool LLPanelRegionTerrainInfo::sendUpdate()
 	}
 
 	// Check if terrain Elevation Ranges are correct
-	if ((bool)gSavedSettings.getBOOL("RegionCheckTextureHeights") && !validateTextureHeights())
+	if (gSavedSettings.getbool("RegionCheckTextureHeights") && !validateTextureHeights())
 	{
 		if (!mAskedTextureHeights)
 		{

@@ -90,8 +90,8 @@ LLToolPie::LLToolPie()
 	mMouseSteerY(-1),
 	mBlockClickToWalk(false),
 	mClickAction(0),
-	mClickActionBuyEnabled( (bool)gSavedSettings.getBOOL("ClickActionBuyEnabled") ),
-	mClickActionPayEnabled( (bool)gSavedSettings.getBOOL("ClickActionPayEnabled") ),
+	mClickActionBuyEnabled(gSavedSettings.getbool("ClickActionBuyEnabled") ),
+	mClickActionPayEnabled(gSavedSettings.getbool("ClickActionPayEnabled") ),
 	mDoubleClickTimer()
 {
 }
@@ -1151,7 +1151,7 @@ bool LLToolPie::handleTooltipObject( LLViewerObject* hover_object, std::string l
 		//  Default prefs will suppress display unless the object is interactive
 		//
 		bool show_all_object_tips =
-		(bool)gSavedSettings.getBOOL("ShowAllObjectHoverTip");			
+		gSavedSettings.getbool("ShowAllObjectHoverTip");			
 		LLSelectNode *nodep = LLSelectMgr::getInstance()->getHoverNode();
 		
 		// only show tooltip if same inspector not already open
