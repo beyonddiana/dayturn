@@ -231,6 +231,7 @@ public:
 	std::string getString(const std::string& name);
 	std::string getText(const std::string& name);
 	BOOL		getBOOL(const std::string& name);
+    bool        getbool(const std::string& name);
 	S32			getS32(const std::string& name);
 	F32			getF32(const std::string& name);
 	U32			getU32(const std::string& name);
