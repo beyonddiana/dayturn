@@ -256,7 +256,7 @@ bool FloaterAO::postBuild()
 
 	updateList();
 
-	if(gSavedPerAccountSettings.getBOOL("UseFullAOInterface"))
+	if(gSavedPerAccountSettings.getbool("UseFullAOInterface"))
 		onClickMore();
 	else
 		onClickLess();
@@ -682,7 +682,7 @@ void FloaterAO::onClickMore()
 	mMainInterfacePanel->setVisible(true);
 	setCanResize(true);
 
-	gSavedPerAccountSettings.setBOOL("UseFullAOInterface",TRUE);
+	gSavedPerAccountSettings.setbool("UseFullAOInterface",true);
 
 	reshape(getRect().getWidth(),fullSize.getHeight());
 }
@@ -701,7 +701,7 @@ void FloaterAO::onClickLess()
 	mMainInterfacePanel->setVisible(false);
 	setCanResize(false);
 
-	gSavedPerAccountSettings.setBOOL("UseFullAOInterface",FALSE);
+	gSavedPerAccountSettings.setbool("UseFullAOInterface",false);
 
 	reshape(getRect().getWidth(),smallSize.getHeight());
 
