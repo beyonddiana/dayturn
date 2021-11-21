@@ -1066,12 +1066,12 @@ void LLFloaterPreference::onBtnOK()
 		}
 
 		LLUIColorTable::instance().saveUserSettings();
-		gSavedSettings.saveToFile(gSavedSettings.getString("ClientSettingsFile"), TRUE);
+		gSavedSettings.saveToFile(gSavedSettings.getString("ClientSettingsFile"), true);
 		
 		//Only save once logged in and loaded per account settings
 		if(mGotPersonalInfo)
 		{
-			gSavedPerAccountSettings.saveToFile(gSavedSettings.getString("PerAccountSettingsFile"), TRUE);
+			gSavedPerAccountSettings.saveToFile(gSavedSettings.getString("PerAccountSettingsFile"), true);
 	}
 	}
 	else
