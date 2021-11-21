@@ -2058,7 +2058,7 @@ bool LLAppViewer::cleanup()
 
 	// Must do this after all panels have been deleted because panels that have persistent rects
 	// save their rects on delete.
-	gSavedSettings.saveToFile(gSavedSettings.getString("ClientSettingsFile"), TRUE);
+	gSavedSettings.saveToFile(gSavedSettings.getString("ClientSettingsFile"), true);
 
 	LLUIColorTable::instance().saveUserSettings();
 
@@ -2077,7 +2077,7 @@ bool LLAppViewer::cleanup()
 	}
 	else
 	{
-		gSavedPerAccountSettings.saveToFile(gSavedSettings.getString("PerAccountSettingsFile"), TRUE);
+		gSavedPerAccountSettings.saveToFile(gSavedSettings.getString("PerAccountSettingsFile"), true);
 		LL_INFOS() << "Saved settings" << LL_ENDL;
 
 		if (LLViewerParcelAskPlay::instanceExists())
@@ -2087,7 +2087,7 @@ bool LLAppViewer::cleanup()
 	}
 
 	std::string warnings_settings_filename = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, getSettingsFilename("Default", "Warnings"));
-	gWarningSettings.saveToFile(warnings_settings_filename, TRUE);
+	gWarningSettings.saveToFile(warnings_settings_filename, true);
 
 	// Save URL history file
 	LLURLHistory::saveFile("url_history.xml");
@@ -3160,7 +3160,7 @@ bool LLAppViewer::initWindow()
 
 	// Set this flag in case we crash while initializing GL
 	gSavedSettings.setBOOL("RenderInitError", TRUE);
-	gSavedSettings.saveToFile( gSavedSettings.getString("ClientSettingsFile"), TRUE );
+	gSavedSettings.saveToFile( gSavedSettings.getString("ClientSettingsFile"), true );
 
 	gPipeline.init();
 	LL_INFOS("AppInit") << "gPipeline Initialized" << LL_ENDL;
@@ -3169,7 +3169,7 @@ bool LLAppViewer::initWindow()
 	gViewerWindow->initGLDefaults();
 
 	gSavedSettings.setBOOL("RenderInitError", FALSE);
-	gSavedSettings.saveToFile( gSavedSettings.getString("ClientSettingsFile"), TRUE );
+	gSavedSettings.saveToFile( gSavedSettings.getString("ClientSettingsFile"), true );
 
 	//If we have a startup crash, it's usually near GL initialization, so simulate that.
 	if(gCrashOnStartup)

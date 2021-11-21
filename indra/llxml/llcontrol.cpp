@@ -970,7 +970,7 @@ U32 LLControlGroup::loadFromFileLegacy(const std::string& filename, bool require
 	return validitems;
 }
 
-U32 LLControlGroup::saveToFile(const std::string& filename, BOOL nondefault_only)
+U32 LLControlGroup::saveToFile(const std::string& filename, bool nondefault_only)
 {
 	LLSD settings;
 	int num_saved = 0;
