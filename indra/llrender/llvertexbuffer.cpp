@@ -156,11 +156,11 @@ LLVBOPool::LLVBOPool(U32 vboUsage, U32 vboType)
 	std::fill(mMissCount.begin(), mMissCount.end(), 0);
 }
 
-volatile U8 *LLVBOPool::allocate(U32 &name, U32 size, bool for_seed)
+U8 *LLVBOPool::allocate(U32 &name, U32 size, bool for_seed)
 {
     llassert(vbo_block_size(size) == size);
 
-    volatile U8 *ret = NULL;
+    U8 *ret = NULL;
 
     U32 i = vbo_block_index(size);
 
@@ -257,7 +257,7 @@ volatile U8 *LLVBOPool::allocate(U32 &name, U32 size, bool for_seed)
     return ret;
 }
 
-void LLVBOPool::release(U32 name, volatile U8* buffer, U32 size)
+void LLVBOPool::release(U32 name, U8* buffer, U32 size)
 {
 	llassert(vbo_block_size(size) == size);
 
@@ -1578,7 +1578,7 @@ static LLTrace::BlockTimerStatHandle FTM_VBO_MAP_BUFFER_RANGE("VBO Map Range");
 static LLTrace::BlockTimerStatHandle FTM_VBO_MAP_BUFFER("VBO Map");
 
 // Map for data access
-volatile U8* LLVertexBuffer::mapVertexBuffer(S32 type, S32 index, S32 count, bool map_range)
+U8* LLVertexBuffer::mapVertexBuffer(S32 type, S32 index, S32 count, bool map_range)
 {
 	bindGLBuffer(true);
 	if (mFinal)
@@ -1639,7 +1639,7 @@ volatile U8* LLVertexBuffer::mapVertexBuffer(S32 type, S32 index, S32 count, boo
 			}
 			else
 			{
-				volatile U8* src = NULL;
+				U8* src = NULL;
 				waitFence();
 				if (gGLManager.mHasMapBufferRange)
 				{
@@ -1700,7 +1700,7 @@ volatile U8* LLVertexBuffer::mapVertexBuffer(S32 type, S32 index, S32 count, boo
 
 				llassert(src != NULL);
 
-				mMappedData = LL_NEXT_ALIGNED_ADDRESS<volatile U8>(src);
+				mMappedData = LL_NEXT_ALIGNED_ADDRESS<U8>(src);
 				mAlignedOffset = mMappedData - src;
 			
 				stop_glerror();
@@ -1759,7 +1759,7 @@ volatile U8* LLVertexBuffer::mapVertexBuffer(S32 type, S32 index, S32 count, boo
 static LLTrace::BlockTimerStatHandle FTM_VBO_MAP_INDEX_RANGE("IBO Map Range");
 static LLTrace::BlockTimerStatHandle FTM_VBO_MAP_INDEX("IBO Map");
 
-volatile U8* LLVertexBuffer::mapIndexBuffer(S32 index, S32 count, bool map_range)
+U8* LLVertexBuffer::mapIndexBuffer(S32 index, S32 count, bool map_range)
 {
 	bindGLIndices(true);
 	if (mFinal)
@@ -1828,7 +1828,7 @@ volatile U8* LLVertexBuffer::mapIndexBuffer(S32 index, S32 count, bool map_range
 			}
 			else
 			{
-				volatile U8* src = NULL;
+				U8* src = NULL;
 				waitFence();
 				if (gGLManager.mHasMapBufferRange)
 				{
@@ -2123,7 +2123,7 @@ template <class T,S32 type> struct VertexBufferStrider
 	{
 		if (type == LLVertexBuffer::TYPE_INDEX)
 		{
-			volatile U8* ptr = vbo.mapIndexBuffer(index, count, map_range);
+			U8* ptr = vbo.mapIndexBuffer(index, count, map_range);
 
 			if (ptr == NULL)
 			{
@@ -2139,7 +2139,7 @@ template <class T,S32 type> struct VertexBufferStrider
 		{
 			S32 stride = LLVertexBuffer::sTypeSize[type];
 
-			volatile U8* ptr = vbo.mapVertexBuffer(type, index, count, map_range);
+			U8* ptr = vbo.mapVertexBuffer(type, index, count, map_range);
 
 			if (ptr == NULL)
 			{
@@ -2487,7 +2487,7 @@ void LLVertexBuffer::setBuffer(U32 data_mask)
 void LLVertexBuffer::setupVertexBuffer(U32 data_mask)
 {
 	stop_glerror();
-	volatile U8* base = useVBOs() ? (U8*) mAlignedOffset : mMappedData;
+	U8* base = useVBOs() ? (U8*) mAlignedOffset : mMappedData;
 
 	if (gDebugGL && ((data_mask & mTypeMask) != data_mask))
 	{
