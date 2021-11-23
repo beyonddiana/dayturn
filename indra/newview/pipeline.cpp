@@ -2410,6 +2410,15 @@ void LLPipeline::updateCull(LLCamera& camera, LLCullResult& result, S32 water_cl
 
 	LL_RECORD_BLOCK_TIME(FTM_CULL);
 
+    if (planep != nullptr)
+    {
+        camera.setUserClipPlane(*planep);
+    }
+    else
+    {
+        camera.disableUserClipPlane();
+    }
+
 	grabReferences(result);
 
 	sCull->clear();
