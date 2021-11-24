@@ -1094,8 +1094,12 @@ void LLFloaterIMSession::setTyping(bool typing)
 			LLIMModel::instance().sendTypingState(mSessionID, mOtherParticipantUUID, false);
 					mShouldSendTypingState = false;
 		}
+	}
 
 	if (!mIsNearbyChat)
+	{
+		LLIMSpeakerMgr* speaker_mgr = LLIMModel::getInstance()->getSpeakerManager(mSessionID);
+		if (speaker_mgr)
 		{
 			speaker_mgr->setSpeakerTyping(gAgent.getID(), false);
 		}
