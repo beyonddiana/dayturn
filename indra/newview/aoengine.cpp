@@ -93,7 +93,7 @@ void AOEngine::onLoginComplete()
 
 void AOEngine::onToggleAOControl()
 {
-	enable((bool)gSavedPerAccountSettings.getBOOL("UseAO"));
+	enable(gSavedPerAccountSettings.getbool("UseAO"));
 }
 
 void AOEngine::clear(bool aFromTimer)
@@ -849,11 +849,11 @@ LLUUID AOEngine::addSet(const std::string& name,bool reload)
 		return LLUUID::null;
 	}
 
-	BOOL wasProtected=gSavedPerAccountSettings.getBOOL("ProtectAOFolders");
-	gSavedPerAccountSettings.setBOOL("ProtectAOFolders",FALSE);
+	bool wasProtected=gSavedPerAccountSettings.getbool("ProtectAOFolders");
+	gSavedPerAccountSettings.setbool("ProtectAOFolders",false);
 	LL_DEBUGS("AOEngine") << "adding set folder " << name << LL_ENDL;
 	LLUUID newUUID=gInventory.createNewCategory(mAOFolder,LLFolderType::FT_NONE,name);
-	gSavedPerAccountSettings.setBOOL("ProtectAOFolders",wasProtected);
+	gSavedPerAccountSettings.setbool("ProtectAOFolders",wasProtected);
 
 	if(reload)
 		mTimerCollection.enableReloadTimer(true);
@@ -917,10 +917,10 @@ bool AOEngine::addAnimation(const AOSet* set,AOSet::AOState* state,const LLInven
 	anim.mSortOrder=state->mAnimations.size()+1;
 	state->mAnimations.push_back(anim);
 
-	BOOL wasProtected=gSavedPerAccountSettings.getBOOL("ProtectAOFolders");
-	gSavedPerAccountSettings.setBOOL("ProtectAOFolders",FALSE);
+	bool wasProtected=gSavedPerAccountSettings.getbool("ProtectAOFolders");
+	gSavedPerAccountSettings.setbool("ProtectAOFolders",false);
 	createAnimationLink(set,state,item);
-	gSavedPerAccountSettings.setBOOL("ProtectAOFolders",wasProtected);
+	gSavedPerAccountSettings.setbool("ProtectAOFolders",wasProtected);
 
 	if(reload)
 		mTimerCollection.enableReloadTimer(true);
@@ -949,7 +949,7 @@ bool AOEngine::findForeignItems(const LLUUID& uuid) const
 
 	// count backwards in case we have to remove items
 	bool wasProtected = gSavedPerAccountSettings.getbool("ProtectAOFolders");
-	gSavedPerAccountSettings.setbool("ProtectAOFolders", false);
+	gSavedPerAccountSettings.setbool("ProtectAOFolders",false);
 
 	if (items)
 	{
@@ -994,8 +994,8 @@ bool AOEngine::findForeignItems(const LLUUID& uuid) const
 void AOEngine::purgeFolder(const LLUUID& uuid) const
 {
 	// unprotect it
-	BOOL wasProtected=gSavedPerAccountSettings.getBOOL("ProtectAOFolders");
-	gSavedPerAccountSettings.setBOOL("ProtectAOFolders",FALSE);
+	bool wasProtected=gSavedPerAccountSettings.getbool("ProtectAOFolders");
+	gSavedPerAccountSettings.setbool("ProtectAOFolders",false);
 
 	// move everything that's not an animation link to "lost and found"
 	if(findForeignItems(uuid))
@@ -1017,7 +1017,7 @@ void AOEngine::purgeFolder(const LLUUID& uuid) const
 	gInventory.notifyObservers();
 
 	// protect it
-	gSavedPerAccountSettings.setBOOL("ProtectAOFolders",wasProtected);
+	gSavedPerAccountSettings.setbool("ProtectAOFolders",wasProtected);
 }
 
 bool AOEngine::removeSet(AOSet* set)
@@ -1245,20 +1245,30 @@ void AOEngine::update()
 		for(U32 num=1;num<params.size();num++)
 		{
 			if(params[num].size()!=2)
+			{
 				LL_WARNS("AOEngine") << "Unknown AO set option " << params[num] << LL_ENDL;
+			}
 			else if(params[num]=="SO")
+			{
 				newSet->setSitOverride(true);
+			}
 			else if(params[num]=="SM")
+			{
 				newSet->setSmart(true);
+			}
 			else if(params[num]=="DM")
+			{
 				newSet->setMouselookDisable(true);
+			}
 			else if(params[num]=="**")
 			{
 				mDefaultSet=newSet;
 				mCurrentSet=newSet;
 			}
 			else
+			{
 				LL_WARNS("AOEngine") << "Unknown AO set option " << params[num] << LL_ENDL;
+	        }
 		}
 
 		if(gInventory.isCategoryComplete(currentCategory->getUUID()))
@@ -1325,7 +1335,7 @@ void AOEngine::update()
 
 	if(allComplete)
 	{
-		mEnabled = (bool)gSavedPerAccountSettings.getBOOL("UseAO");
+		mEnabled = gSavedPerAccountSettings.getbool("UseAO");
 
 		if(!mCurrentSet && !mSets.empty())
 		{
@@ -1435,13 +1445,21 @@ void AOEngine::saveSet(const AOSet* set)
 
 	std::string setParams=set->getName();
 	if(set->getSitOverride())
+	{
 		setParams+=":SO";
+	}
 	if(set->getSmart())
+	{
 		setParams+=":SM";
+	}
 	if(set->getMouselookDisable())
+	{
 		setParams+=":DM";
+	}
 	if(set==mDefaultSet)
+	{
 		setParams+=":**";
+    }
 
 /*
 	// This works fine, but LL seems to have added a few helper functions in llinventoryfunctions.h
@@ -1454,10 +1472,10 @@ void AOEngine::saveSet(const AOSet* set)
 	gInventory.addChangedMask(LLInventoryObserver::LABEL, cat->getUUID());
 	gInventory.notifyObservers();
 */
-	BOOL wasProtected=gSavedPerAccountSettings.getBOOL("ProtectAOFolders");
-	gSavedPerAccountSettings.setBOOL("ProtectAOFolders",FALSE);
+	bool wasProtected=gSavedPerAccountSettings.getbool("ProtectAOFolders");
+	gSavedPerAccountSettings.setbool("ProtectAOFolders",false);
 	rename_category(&gInventory,set->getInventoryUUID(),setParams);
-	gSavedPerAccountSettings.setBOOL("ProtectAOFolders",wasProtected);
+	gSavedPerAccountSettings.setbool("ProtectAOFolders",wasProtected);
 
 	LL_INFOS("AOEngine") << "sending update signal" << LL_ENDL;
 	mUpdatedSignal();
@@ -1484,14 +1502,18 @@ void AOEngine::saveState(const AOSet::AOState* state)
 		stateParams+=timeStr.str();
 	}
 	if(state->mCycle)
+	{
 		stateParams+=":CY";
+    }
 	if(state->mRandom)
+    {
 		stateParams+=":RN";
+    }
 
-	BOOL wasProtected=gSavedPerAccountSettings.getBOOL("ProtectAOFolders");
-	gSavedPerAccountSettings.setBOOL("ProtectAOFolders",FALSE);
+	bool wasProtected=gSavedPerAccountSettings.getbool("ProtectAOFolders");
+	gSavedPerAccountSettings.setbool("ProtectAOFolders",false);
 	rename_category(&gInventory,state->mInventoryUUID,stateParams);
-	gSavedPerAccountSettings.setBOOL("ProtectAOFolders",wasProtected);
+	gSavedPerAccountSettings.setbool("ProtectAOFolders",wasProtected);
 }
 
 void AOEngine::saveSettings()
@@ -1527,16 +1549,24 @@ void AOEngine::inMouselook(bool yes)
 	mInMouselook=yes;
 
 	if(!mCurrentSet)
+	{
 		return;
-
+    }
+    
 	if(!mCurrentSet->getMouselookDisable())
+	{
 		return;
+    }
 
 	if(!mEnabled)
+	{
 		return;
+    }
 
 	if(mLastMotion!=ANIM_AGENT_STAND)
+	{
 		return;
+    }
 
 	if(yes)
 	{
