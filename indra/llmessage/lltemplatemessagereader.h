@@ -49,6 +49,8 @@ public:
 							   S32 max_size = S32_MAX);
 	virtual void getBOOL(const char *block, const char *var, BOOL &data, 
 						 S32 blocknum = 0);
+	virtual void getbool(const char *block, const char *var, bool &data, 
+						 S32 blocknum = 0);
 	virtual void getS8(const char *block, const char *var, S8 &data, 
 					   S32 blocknum = 0);
 	virtual void getU8(const char *block, const char *var, U8 &data, 
