@@ -3734,6 +3734,19 @@ void LLMessageSystem::getBOOL(const char *block, const char *var, BOOL &b,
 				LLMessageStringTable::getInstance()->getString(var), b, blocknum);
 }
 
+void LLMessageSystem::getboolFast(const char *block, const char *var, bool &b,
+								  S32 blocknum)
+{
+	mMessageReader->getbool(block, var, b, blocknum);
+}
+
+void LLMessageSystem::getbool(const char *block, const char *var, bool &b, 
+							  S32 blocknum)
+{
+	getboolFast(LLMessageStringTable::getInstance()->getString(block), 
+				LLMessageStringTable::getInstance()->getString(var), b, blocknum);
+}
+
 void LLMessageSystem::getS16Fast(const char *block, const char *var, S16 &d, 
 								 S32 blocknum)
 {

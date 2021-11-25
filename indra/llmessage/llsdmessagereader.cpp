@@ -121,6 +121,14 @@ void LLSDMessageReader::getBOOL(const char *block, const char *var,
 }
 
 //virtual 
+void LLSDMessageReader::getbool(const char *block, const char *var, 
+								bool &data, 
+								S32 blocknum)
+{
+	data = getLLSD(mMessage, block, var, blocknum);
+}
+
+//virtual 
 void LLSDMessageReader::getS8(const char *block, const char *var, S8 &data, 
 					   S32 blocknum)
 {
