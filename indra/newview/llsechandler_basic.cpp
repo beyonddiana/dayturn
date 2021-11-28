@@ -79,6 +79,7 @@ LLBasicCertificate::LLBasicCertificate(const std::string& pem_cert,
 	if(pem_bio == NULL)
 	{
 		LL_ERRS("SECAPI") << "Could not allocate an openssl memory BIO." << LL_ENDL;
+        LLTHROW(LLAllocationCertException(LLSD::emptyMap()));
 	}
 	mCert = NULL;
 	PEM_read_bio_X509(pem_bio, &mCert, 0, NULL);
@@ -86,6 +87,7 @@ LLBasicCertificate::LLBasicCertificate(const std::string& pem_cert,
 	if (!mCert)
 	{
 		LL_ERRS("SECAPI") << "Could not decode certificate to x509." << LL_ENDL;
+        LLTHROW(LLInvalidCertificate(LLSD::emptyMap()));
 	}
 }
 
