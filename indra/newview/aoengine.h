@@ -97,11 +97,13 @@ class AOEngine
 			CycleNext,
 			CyclePrevious
 		};
+		bool mReloadCalledFromTimer;
 
 		void enable(bool yes);
+		void enable_stands(bool yes);
 		const LLUUID override(const LLUUID& motion,bool start);
 		void tick();
-		void update();
+		void update(bool);
 		void reload(bool);
 		void reloadStateAnimations(AOSet::AOState* state);
 		void clear( bool );
@@ -185,6 +187,7 @@ class AOEngine
         void onRegionChange();
 
 		void onToggleAOControl();
+		void onToggleAOStandsControl();
 		static void onNotecardLoadComplete(	LLVFS* vfs,const LLUUID& assetUUID,LLAssetType::EType type,
 												void* userdata,S32 status,LLExtStat extStatus);
 		void parseNotecard(const char* buffer);
@@ -196,6 +199,7 @@ class AOEngine
 		AOSitCancelTimer mSitCancelTimer;
 
 		bool mEnabled;
+		bool mEnabledStands;
 		bool mInMouselook;
 		bool mUnderWater;
 

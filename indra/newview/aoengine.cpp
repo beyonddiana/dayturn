@@ -44,7 +44,7 @@
 #include "llviewerinventory.h"
 #include "llviewerobjectlist.h"
 #include "llvoavatarself.h"
-#include "llinventorybridge.h"
+
 //awfixmeao
 #define ROOT_VIEWERSUPPORT_FOLDER 	"#ViewerSupport" //moved to llinventoryfunctions.h
 #define ROOT_AO_FOLDER			"#AO"
@@ -57,6 +57,7 @@ AOEngine::AOEngine() :
 	mCurrentSet(0),
 	mDefaultSet(0),
 	mEnabled(false),
+	mEnabledStands(false),
 	mInMouselook(false),
 	mUnderWater(false),
 	mImportSet(0),
@@ -66,6 +67,7 @@ AOEngine::AOEngine() :
 	mLastOverriddenMotion(ANIM_AGENT_STAND)
 {
 	gSavedPerAccountSettings.getControl("UseAO")->getCommitSignal()->connect(boost::bind(&AOEngine::onToggleAOControl, this));
+	gSavedPerAccountSettings.getControl("UseAOStands")->getCommitSignal()->connect(boost::bind(&AOEngine::onToggleAOStandsControl, this));
     
     mRegionChangeConnection = gAgent.addRegionChangedCallback(boost::bind(&AOEngine::onRegionChange, this));
 }
@@ -82,7 +84,21 @@ AOEngine::~AOEngine()
 
 void AOEngine::init()
 {
-	enable(mEnabled);
+	bool do_enable = gSavedPerAccountSettings.getbool("UseAO");
+	bool do_enable_stands = gSavedPerAccountSettings.getbool("UseAOStands");
+	if (do_enable)
+	{
+		// enable_stands() calls enable(), but we need to set the
+		// mEnabled variable properly
+		mEnabled = true;
+		// Enabling the AO always enables stands to start with
+		enable_stands(true);
+	}
+	else
+	{
+		enable_stands(do_enable_stands);
+		enable(false);
+	}
 }
 
 // static
@@ -94,6 +110,16 @@ void AOEngine::onLoginComplete()
 void AOEngine::onToggleAOControl()
 {
 	enable(gSavedPerAccountSettings.getbool("UseAO"));
+	if (mEnabled)
+	{
+		// Enabling the AO always enables stands to start with
+		gSavedPerAccountSettings.setbool("UseAOStands", true);
+	}
+}
+
+void AOEngine::onToggleAOStandsControl()
+{
+	enable_stands(gSavedPerAccountSettings.getbool("UseAOStands"));
 }
 
 void AOEngine::clear(bool aFromTimer)
@@ -305,6 +331,14 @@ AOSet::AOState* AOEngine::getStateForMotion(const LLUUID& motion) const
     return mapped;
 }
 
+void AOEngine::enable_stands(bool yes)
+{
+	mEnabledStands = yes;
+	// let the main enable routine decide if we need to change animations
+	// but don't actually change the state of the enabled flag
+	enable(mEnabled);
+}
+
 void AOEngine::enable(bool yes)
 {
 	LL_DEBUGS("AOEngine") << "using " << mLastMotion << " enable " << yes << LL_ENDL;
@@ -335,6 +369,11 @@ void AOEngine::enable(bool yes)
 
 			if(mLastMotion==ANIM_AGENT_STAND)
 			{
+				if (!mEnabledStands)
+				{
+					LL_DEBUGS("AOEngine") << "Last motion was a STAND, but disabled for stands, ignoring." << LL_ENDL;
+					return;
+				}
 				stopAllStandVariants();
 			}
 			else if(mLastMotion==ANIM_AGENT_WALK)
@@ -545,6 +584,14 @@ const LLUUID AOEngine::override(const LLUUID& pMotion,bool start)
 		{
 			setLastMotion(motion);
 			LL_DEBUGS("AOEngine") << "(enabled AO, mouselook stand stopped) setting last motion id to " <<  gAnimLibrary.animationName(mLastMotion) << LL_ENDL;
+			return animation;
+		}
+
+		// Don't override start and turning stands if stand override is disabled
+		if (!mEnabledStands &&
+			(motion == ANIM_AGENT_STAND || motion == ANIM_AGENT_TURNRIGHT || motion == ANIM_AGENT_TURNLEFT))
+		{
+			LL_DEBUGS("AOEngine") << "(enabled AO, stands disabled) setting last motion id to " <<  gAnimLibrary.animationName(mLastMotion) << LL_ENDL;
 			return animation;
 		}
 
@@ -1057,7 +1104,7 @@ bool AOEngine::removeAnimation(const AOSet* set,AOSet::AOState* state,S32 index)
 		LLInventoryModel* model = &gInventory;
 		model->changeItemParent(item,gInventory.findCategoryUUIDForType(LLFolderType::FT_LOST_AND_FOUND),false);
 		LLNotificationsUtil::add("AOForeignItemsFound", LLSD());
-		update();
+		update(false);
 		return false;
 	}
 
@@ -1191,7 +1238,7 @@ void AOEngine::reloadStateAnimations(AOSet::AOState* state)
 	updateSortOrder(state);
 }
 
-void AOEngine::update()
+void AOEngine::update(bool aFromTimer)
 {
 	if(mAOFolder.isNull())
 		return;
@@ -1333,7 +1380,7 @@ void AOEngine::update()
 		}
 	}
 
-	if(allComplete)
+	if (allComplete)
 	{
 		mEnabled = gSavedPerAccountSettings.getbool("UseAO");
 
@@ -1346,6 +1393,7 @@ void AOEngine::update()
 		mTimerCollection.enableInventoryTimer(false);
 		mTimerCollection.enableSettingsTimer(true);
 
+		mReloadCalledFromTimer = aFromTimer;
 		LL_INFOS("AOEngine") << "sending update signal" << LL_ENDL;
 		mUpdatedSignal();
 		enable(mEnabled);
@@ -1603,12 +1651,12 @@ void AOEngine::setOverrideSits(AOSet* set,bool yes)
 	set->setSitOverride(yes);
 	set->setDirty(true);
 
-	if(mCurrentSet!=set)
+	if (mCurrentSet!=set)
     {
 		return;
     }
 
-	if(mLastMotion!=ANIM_AGENT_SIT)
+	if (mLastMotion!=ANIM_AGENT_SIT)
     {
 		return;
     }
@@ -1618,7 +1666,7 @@ void AOEngine::setOverrideSits(AOSet* set,bool yes)
         return;
     }
 
-	if(yes)
+	if (yes)
 	{
 		stopAllSitVariants();
         gAgent.sendAnimationRequest(ANIM_AGENT_SIT_GENERIC, ANIM_REQUEST_START);
@@ -1629,7 +1677,7 @@ void AOEngine::setOverrideSits(AOSet* set,bool yes)
         gAgent.sendAnimationRequest(ANIM_AGENT_SIT_GENERIC, ANIM_REQUEST_STOP);
 
 		AOSet::AOState* state=mCurrentSet->getState(AOSet::Sitting);
-		if(state)
+		if (state)
         {
             LLUUID animation = state->mCurrentAnimationID;
             if (animation.notNull())
@@ -1673,7 +1721,7 @@ void AOEngine::setDisableStands(AOSet* set,bool yes)
 	set->setMouselookDisable(yes);
 	set->setDirty(true);
 
-	if(mCurrentSet!=set)
+	if (mCurrentSet!=set)
     {
 		return;
     }
@@ -1741,7 +1789,7 @@ void AOEngine::tick()
 		else
 		{
 			LL_INFOS("AOEngine") << "AO basic folder structure intact." << LL_ENDL;
-			update();
+			update(true);
 		}
 	}
 }

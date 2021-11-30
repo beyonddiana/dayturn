@@ -6092,15 +6092,15 @@ LLUUID LLVOAvatar::remapMotionID(const LLUUID& id)
 bool LLVOAvatar::startMotion(const LLUUID& id, F32 time_offset)
 {
     LL_DEBUGS("Motion") << "motion requested " << id.asString() << " " << gAnimLibrary.animationName(id) << LL_ENDL;
-	// ## Zi: Animation Overrider
-	//LLUUID remap_id = remapMotionID(id);
+	// <FS:Zi> Animation Overrider
+	//LLUUID remap_id = remapMotionID(id, getSex());
 	LLUUID remap_id;
-	if(isSelf())
+	if (isSelf())
 	{
-		remap_id=AOEngine::getInstance()->override(id,TRUE);
-		if(remap_id.isNull())
+		remap_id = AOEngine::getInstance()->override(id, TRUE);
+		if (remap_id.isNull())
 		{
-			remap_id=remapMotionID(id);
+			remap_id = remapMotionID(id);
 		}
 		else
 		{
@@ -6113,8 +6113,10 @@ bool LLVOAvatar::startMotion(const LLUUID& id, F32 time_offset)
 		}
 	}
 	else
-		remap_id=remapMotionID(id);
-	// ## Zi: Animation Overrider
+	{
+		remap_id = remapMotionID(id);
+	}
+	// </FS:Zi> Animation Overrider
 
 	if (remap_id != id)
 	{
@@ -6136,13 +6138,13 @@ bool LLVOAvatar::stopMotion(const LLUUID& id, bool stop_immediate)
 {
 	LL_DEBUGS("Motion") << "Motion requested " << id.asString() << " " << gAnimLibrary.animationName(id) << LL_ENDL;
 
-	// ## Zi: Animation Overrider
-	// LLUUID remap_id = remapMotionID(id);
+	// <FS:Zi> Animation Overrider
+	//LLUUID remap_id = remapMotionID(id);
 	LLUUID remap_id;
-	if(isSelf())
+	if (isSelf())
 	{
-		remap_id=AOEngine::getInstance()->override(id,FALSE);
-		if(remap_id.isNull())
+		remap_id = AOEngine::getInstance()->override(id,FALSE);
+		if (remap_id.isNull())
 		{
 			remap_id=remapMotionID(id);
 		}
@@ -6157,8 +6159,10 @@ bool LLVOAvatar::stopMotion(const LLUUID& id, bool stop_immediate)
 		}
 	}
 	else
-		remap_id=remapMotionID(id);
-	// ## Zi: Animation Overrider
+	{
+		remap_id = remapMotionID(id);
+	}
+	// </FS:Zi> Animation Overrider
 	
 	if (remap_id != id)
 	{
