@@ -80,7 +80,7 @@ void FloaterAO::updateSetParameters()
 	mOverrideSitsCheckBoxSmall->setValue(mSelectedSet->getSitOverride());
 	mSmartCheckBox->setValue(mSelectedSet->getSmart());
 	mDisableMouselookCheckBox->setValue(mSelectedSet->getMouselookDisable());
-	bool isDefault=(mSelectedSet==AOEngine::instance().getDefaultSet()) ? true : false;
+	bool isDefault=(mSelectedSet==AOEngine::instance().getDefaultSet());
 	mDefaultCheckBox->setValue(isDefault);
 	mDefaultCheckBox->setEnabled(!isDefault);
 	updateSmart();
@@ -173,6 +173,10 @@ void FloaterAO::updateList()
 		}
 	}
 	enableSetControls(true);
+	if (mSetSelector->getSelectedItemLabel().empty())
+	{
+		onClickReload();
+	}
 }
 
 bool FloaterAO::postBuild()
@@ -270,7 +274,7 @@ void FloaterAO::enableSetControls(bool yes)
 	mSetSelectorSmall->setEnabled(yes);
 	mActivateSetButton->setEnabled(yes);
 	mRemoveButton->setEnabled(yes);
-	mDefaultCheckBox->setEnabled(yes);
+	mDefaultCheckBox->setEnabled(yes && (mSelectedSet != AOEngine::instance().getDefaultSet()));
 	mOverrideSitsCheckBox->setEnabled(yes);
 	mOverrideSitsCheckBoxSmall->setEnabled(yes);
 	mDisableMouselookCheckBox->setEnabled(yes);
@@ -311,10 +315,14 @@ void FloaterAO::onSelectSet()
 		return;
 	}
 	
-	mSelectedSet=set;
+	// only update the interface when we actually selected a different set - FIRE-29542
+	if (mSelectedSet != set)
+	{
+		mSelectedSet=set;
 
-	updateSetParameters();
-	updateAnimationList();
+		updateSetParameters();
+		updateAnimationList();
+	}
 }
 
 void FloaterAO::onSelectSetSmall()
@@ -401,20 +409,26 @@ void FloaterAO::onSelectState()
 	onChangeAnimationSelection();
 
 	if(!mSelectedSet)
+	{
 		return;
+	}
 
-	mSelectedState=mSelectedSet->getStateByName(mStateSelector->getSelectedItemLabel());
-	if(!mSelectedState)
+	mSelectedState = mSelectedSet->getStateByName(mStateSelector->getSelectedItemLabel());
+	if (!mSelectedState)
+	{
 		return;
+	}
 
-	mSelectedState=(AOSet::AOState*) mStateSelector->getCurrentUserdata();
-	if(mSelectedState->mAnimations.size())
+	mSelectedState = (AOSet::AOState*) mStateSelector->getCurrentUserdata();
+	if (mSelectedState->mAnimations.size())
 	{
 		for (U32 index = 0; index < mSelectedState->mAnimations.size(); ++index)
 		{
-			LLScrollListItem* item=addAnimation(mSelectedState->mAnimations[index].mName);
+			LLScrollListItem* item = addAnimation(mSelectedState->mAnimations[index].mName);
 			if(item)
+			{
 				item->setUserdata(&mSelectedState->mAnimations[index].mInventoryUUID);
+			}
 		}
 
 		mAnimationList->setCommentText("");
@@ -435,8 +449,9 @@ void FloaterAO::onClickReload()
 	mSelectedSet=0;
 	mSelectedState=0;
 
-	AOEngine::instance().reload(false);
+	AOEngine::instance().reload(AOEngine::instance().mReloadCalledFromTimer);
 	updateList();
+	AOEngine::instance().mReloadCalledFromTimer = false;
 }
 
 void FloaterAO::onClickAdd()
@@ -481,7 +496,9 @@ bool FloaterAO::newSetCallback(const LLSD& notification,const LLSD& response)
 void FloaterAO::onClickRemove()
 {
 	if(!mSelectedSet)
+	{
 		return;
+	}
 
 	LLSD args;
 	args["AO_SET_NAME"]=mSelectedSet->getName();
@@ -567,7 +584,9 @@ void FloaterAO::onChangeAnimationSelection()
 	else if(list.size()>0)
 	{
 		if(list.size()==1)
+		{
 			resortEnable=true;
+		}
 		trashEnable=true;
 	}
 
