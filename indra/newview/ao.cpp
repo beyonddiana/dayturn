@@ -50,7 +50,7 @@ FloaterAO::FloaterAO(const LLSD& key)
 	mSelectedState(0),
 	mCanDragAndDrop(false),
 	mImportRunning(false),
-	mCurrentBoldItem(NULL),
+	mCurrentBoldItemID(LLUUID::null),
 	mLastState(""),
 	mLastName(""),
 	mLastUUID(LLUUID::null),
@@ -153,7 +153,7 @@ void FloaterAO::updateList()
 	mSetSelectorSmall->clear();
 
 	mAnimationList->deleteAllItems();
-	mCurrentBoldItem=NULL;
+	mCurrentBoldItemID = LLUUID::null;
 	reloading(false);
 
 	if(mSetList.empty())
@@ -424,7 +424,7 @@ LLScrollListItem* FloaterAO::addAnimation(const std::string& name)
 void FloaterAO::onSelectState()
 {
 	mAnimationList->deleteAllItems();
-	mCurrentBoldItem=NULL;
+	mCurrentBoldItemID = LLUUID::null;
 	mAnimationList->setCommentText(getString("ao_no_animations_loaded"));
 	mAnimationList->setEnabled(false);
 
@@ -545,7 +545,7 @@ bool FloaterAO::removeSetCallback(const LLSD& notification,const LLSD& response)
 			mSetSelector->clear();
 			mSetSelectorSmall->clear();
 			mAnimationList->deleteAllItems();
-			mCurrentBoldItem=NULL;
+			mCurrentBoldItemID = LLUUID::null;
 			return true;
 		}
 	}
@@ -673,7 +673,14 @@ void FloaterAO::onClickTrash()
 		AOEngine::instance().removeAnimation(mSelectedSet,mSelectedState,mAnimationList->getItemIndex(list[index]));
 
 	mAnimationList->deleteSelectedItems();
-	mCurrentBoldItem=NULL;
+	// it's not enough to just clear the remembered bold item here - our displayed list is now out of step
+	// with the underlying data structures. It's also possible to trash the currently playing anim within the UI, which will
+	// keep playing until a cycle occurs or a new selection is made
+	mCurrentBoldItemID = LLUUID::null;
+	updateList();
+	onAnimationChanged(mLastUUID, mLastState, mLastName);
+	// and kick onto a valid animation in the current state
+	AOEngine::instance().cycle(AOEngine::CycleNext);
 }
 
 void FloaterAO::updateCycleParameters()
@@ -773,25 +780,9 @@ void FloaterAO::onAnimationChanged(const LLUUID& animation, const std::string st
 		updateList();
 	}
 
-	if(mCurrentBoldItem)
-	{
-		LLScrollListText* column=(LLScrollListText*) mCurrentBoldItem->getColumn(1);
-		column->setFontStyle(LLFontGL::NORMAL);
-
-		mCurrentBoldItem=NULL;
-	}
-
-	if(animation.isNull())
-	{
-		mLastName = name;
-		mLastState = state;
-		mLastUUID = animation;
-		return;
-	}
-
 	// we have to do our own de-dupe check because we can't rely on the bold item - it's possible that the
 	// anim concerned isn't from the group being displayed so there's no match in the currently displayed scroll list
-	if (gSavedPerAccountSettings.getbool("AOChatNotifications") && ((mLastState.compare(state) != 0) || (mLastName.compare(name) != 0)))
+	if (gSavedPerAccountSettings.getbool("AOChatNotifications") && animation != LLUUID::null && animation != mLastUUID)
 	{
 		LLChat chat;
 		chat.mFromID = LLUUID::null;
@@ -800,12 +791,18 @@ void FloaterAO::onAnimationChanged(const LLUUID& animation, const std::string st
 
 		LLSD none;
 		LLNotificationsUI::LLNotificationManager::instance().onChat(chat, none);
+
+		// these are specifically for de-duping the notifications so we don't update for nulls
 		mLastName = name;
 		mLastState = state;
 		mLastUUID = animation;
 	}
 
 	// why do we have no LLScrollListCtrl::getItemByUserdata() ? -Zi
+	
+	bool found_bold = (animation == LLUUID::null); // allow early exit if we aren't going to find something to embolden
+	bool found_unbold = false; // no early exit possible here - if LLUUID::null we have to clear bold on everything
+		
 	std::vector<LLScrollListItem*> item_list=mAnimationList->getAllData();
 	std::vector<LLScrollListItem*>::const_iterator iter;
 	for(iter = item_list.begin();iter!=item_list.end();iter++)
@@ -816,17 +813,25 @@ void FloaterAO::onAnimationChanged(const LLUUID& animation, const std::string st
 		// compare uuids rather than memory pointers so that we can get a match if someone displays a different state and
 		// then comes back to the original state with an item in it that needs to be boldened. The original pointer is no
 		// longer valid because the scroll list has been rebuilt at least twice, but uuids won't have changed
-		//if (id == &animation)
-		if (*id == animation)
+		//
+		// beware - UserData can be null sometimes now that we don't take an early exit above, so checks are needed
+		if (!found_unbold && (!id || *id == mCurrentBoldItemID || mCurrentBoldItemID == LLUUID::null))
 		{
-			mCurrentBoldItem = item;
-
-			LLScrollListText* column=(LLScrollListText*) mCurrentBoldItem->getColumn(1);
-			column->setFontStyle(LLFontGL::BOLD);
-
-			return;
+			LLScrollListText* column = (LLScrollListText*)item->getColumn(1);
+			column->setFontStyle(LLFontGL::NORMAL);
+			// Only allow the early exit if we were looking for a specified item and not on a null ptr item
+			if (id && (mCurrentBoldItemID != LLUUID::null)) found_unbold = true;
 		}
+		// don't if-else this in case we get called for the same pose twice
+		if (!found_bold && id && *id == animation)
+		{
+			LLScrollListText* column = (LLScrollListText*)item->getColumn(1);
+			column->setFontStyle(LLFontGL::BOLD);
+			found_bold = true;
+		}
+		if (found_bold && found_unbold) continue;
 	}
+	mCurrentBoldItemID = animation;
 }
 
 // virtual

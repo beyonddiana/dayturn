@@ -130,7 +130,7 @@ class FloaterAO
 
 		LLComboBox* mStateSelector;
 		LLScrollListCtrl* mAnimationList;
-		LLScrollListItem* mCurrentBoldItem;
+		LLUUID mCurrentBoldItemID;
 		LLButton* mMoveUpButton;
 		LLButton* mMoveDownButton;
 		LLButton* mTrashButton;
