@@ -59,7 +59,7 @@ public:
 	inline BOOL               hasOwner() const       {return mOwnerUUID.notNull();};
 	inline bool               hasOwnerName() const   {return mHasOwnerName;};
 	std::string               getOwnerName() const;
-	inline BOOL               isGroupOwned() const   {return mIsGroupOwned;};
+	inline bool               isGroupOwned() const   {return mIsGroupOwned;};
 	inline const LLVector3&   getLocation() const    {return mLocation;};
 
 	typedef boost::function<void (const LLPathfindingObject *)>         name_callback_t;
@@ -84,7 +84,7 @@ private:
 	bool                                     mHasOwnerName;
 	LLAvatarName                             mOwnerName;
 	LLAvatarNameCache::callback_connection_t mAvatarNameCacheConnection;
-	BOOL                                     mIsGroupOwned;
+	bool                                     mIsGroupOwned;
 	LLVector3                                mLocation;
 	name_signal_t                            mOwnerNameSignal;
 };

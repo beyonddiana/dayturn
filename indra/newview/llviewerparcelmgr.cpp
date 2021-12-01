@@ -1103,7 +1103,7 @@ public:
 	LLUUID	mAgent;
 	LLUUID	mSession;
 	LLUUID	mGroup;
-	BOOL	mIsGroupOwned;
+	bool	mIsGroupOwned;
 	BOOL	mRemoveContribution;
 	BOOL	mIsClaim;
 	LLHost	mHost;
@@ -1510,7 +1510,7 @@ void LLViewerParcelMgr::processParcelProperties(LLMessageSystem *msg, void **use
     S32		public_count = 0;
     S32		local_id;
     LLUUID	owner_id;
-    BOOL	is_group_owned;
+    bool	is_group_owned;
     U32 auction_id = 0;
     S32		claim_price_per_meter = 0;
     S32		rent_price_per_meter = 0;
@@ -1591,7 +1591,7 @@ void LLViewerParcelMgr::processParcelProperties(LLMessageSystem *msg, void **use
     msg->getS32Fast(_PREHASH_ParcelData, _PREHASH_PublicCount, public_count);
     msg->getS32Fast(_PREHASH_ParcelData, _PREHASH_LocalID, local_id);
     msg->getUUIDFast(_PREHASH_ParcelData, _PREHASH_OwnerID, owner_id);
-    msg->getBOOLFast(_PREHASH_ParcelData, _PREHASH_IsGroupOwned, is_group_owned);
+    msg->getboolFast(_PREHASH_ParcelData, _PREHASH_IsGroupOwned, is_group_owned);
     msg->getU32Fast(_PREHASH_ParcelData, _PREHASH_AuctionID, auction_id);
     msg->getS32Fast(_PREHASH_ParcelData, _PREHASH_ClaimDate, claim_date);
     msg->getS32Fast(_PREHASH_ParcelData, _PREHASH_ClaimPrice, claim_price_per_meter);
