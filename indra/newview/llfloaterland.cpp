@@ -1598,10 +1598,10 @@ void LLPanelLandObjects::processParcelObjectOwnersReply(LLMessageSystem *msg, vo
 	S32 rows = msg->getNumberOfBlocksFast(_PREHASH_Data);
 	//uuid_list_t return_ids;
 	LLUUID	owner_id;
-	BOOL	is_group_owned;
+	bool	is_group_owned;
 	S32		object_count;
 	U32		most_recent_time = 0;
-	BOOL	is_online;
+	bool	is_online;
 	std::string object_count_str;
 	//BOOL b_need_refresh = FALSE;
 
@@ -1615,9 +1615,9 @@ void LLPanelLandObjects::processParcelObjectOwnersReply(LLMessageSystem *msg, vo
 	for(S32 i = 0; i < rows; ++i)
 	{
 		msg->getUUIDFast(_PREHASH_Data, _PREHASH_OwnerID,		owner_id,		i);
-		msg->getBOOLFast(_PREHASH_Data, _PREHASH_IsGroupOwned,	is_group_owned,	i);
+		msg->getboolFast(_PREHASH_Data, _PREHASH_IsGroupOwned,	is_group_owned,	i);
 		msg->getS32Fast (_PREHASH_Data, _PREHASH_Count,			object_count,	i);
-		msg->getBOOLFast(_PREHASH_Data, _PREHASH_OnlineStatus,	is_online,		i);
+		msg->getboolFast(_PREHASH_Data, _PREHASH_OnlineStatus,	is_online,		i);
 		if(msg->has("DataExtended"))
 		{
 			msg->getU32("DataExtended", "TimeStamp", most_recent_time, i);
