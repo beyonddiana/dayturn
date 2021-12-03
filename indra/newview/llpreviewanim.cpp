@@ -43,8 +43,7 @@ extern LLAgent gAgent;
 const S32 ADVANCED_VPAD = 3;
 
 LLPreviewAnim::LLPreviewAnim(const LLSD& key)
-	: LLPreview( key ),
-	pMotion(NULL)
+	: LLPreview( key )
 {
 	mCommitCallbackRegistrar.add("PreviewAnim.Play", boost::bind(&LLPreviewAnim::play, this, _2));
 }
@@ -167,7 +166,7 @@ void LLPreviewAnim::refreshFromItem()
     }
 
     // Preload motion
-    pMotion = gAgentAvatarp->createMotion(item->getAssetUUID());
+    gAgentAvatarp->createMotion(item->getAssetUUID());  
 
     LLPreview::refreshFromItem();
 }
@@ -208,15 +207,24 @@ void LLPreviewAnim::showAdvanced()
         pMoreInfoLeft->setVisible(true);
         pMoreInfoRight->setVisible(true);
 
-        // set text
-        if (pMotion)
+        LLMotion *motion = NULL;
+        const LLInventoryItem* item = getItem();
+        if (item)
         {
-            pMoreInfoLeft->setTextArg("[PRIORITY]", llformat("%d", pMotion->getPriority()));
-            pMoreInfoLeft->setTextArg("[DURATION]", llformat("%.2f", pMotion->getDuration()));
-            pMoreInfoLeft->setTextArg("[IS_LOOP]", (pMotion->getLoop() ? LLTrans::getString("PermYes") : LLTrans::getString("PermNo")));
-            pMoreInfoRight->setTextArg("[EASE_IN]", llformat("%.2f", pMotion->getEaseInDuration()));
-            pMoreInfoRight->setTextArg("[EASE_OUT]", llformat("%.2f", pMotion->getEaseOutDuration()));
-            pMoreInfoRight->setTextArg("[NUM_JOINTS]", llformat("%d", pMotion->getNumJointMotions()));
+            // if motion exists, will return existing one.
+            // Needed because viewer can purge motions
+            motion = gAgentAvatarp->createMotion(item->getAssetUUID());
+        }
+
+        // set text
+        if (motion)
+        {
+            pMoreInfoLeft->setTextArg("[PRIORITY]", llformat("%d", motion->getPriority()));
+            pMoreInfoLeft->setTextArg("[DURATION]", llformat("%.2f", motion->getDuration()));
+            pMoreInfoLeft->setTextArg("[IS_LOOP]", (motion->getLoop() ? LLTrans::getString("PermYes") : LLTrans::getString("PermNo")));
+            pMoreInfoRight->setTextArg("[EASE_IN]", llformat("%.2f", motion->getEaseInDuration()));
+            pMoreInfoRight->setTextArg("[EASE_OUT]", llformat("%.2f", motion->getEaseOutDuration()));
+            pMoreInfoRight->setTextArg("[NUM_JOINTS]", llformat("%d", motion->getNumJointMotions()));
         }
     }
 }
