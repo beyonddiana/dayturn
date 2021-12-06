@@ -123,14 +123,9 @@ public:
     bool mHasTexturesRGBDecode;
 
 	// Vendor-specific extensions
-	bool mIsATI;
+	bool mIsAMD;
 	bool mIsNVIDIA;
 	bool mIsIntel;
-	bool mIsGF2or4MX;
-	bool mIsGF3;
-	bool mIsGFFX;
-	bool mATIOffsetVerticalLines;
-	bool mATIOldDriver;
 	
 	// Whether this version of GL is good enough for SL to use
 	bool mHasRequirements;

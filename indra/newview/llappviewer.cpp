@@ -1170,7 +1170,7 @@ bool LLAppViewer::init()
 		{
 			url = LLTrans::getString("NvidiaDriverPage");
 		}
-		else if (gGLManager.mIsATI)
+		else if (gGLManager.mIsAMD)
 		{
 			url = LLTrans::getString("AMDDriverPage");
 		}
@@ -3209,7 +3209,7 @@ LLSD LLAppViewer::getViewerInfo() const
     {
         drvinfo = gDXHardware.getDriverVersionWMI(LLDXHardware::GPU_NVIDIA);
     }
-    else if (gGLManager.mIsATI)
+    else if (gGLManager.mIsAMD)
     {
         drvinfo = gDXHardware.getDriverVersionWMI(LLDXHardware::GPU_AMD);
     }
