@@ -61,7 +61,6 @@ F32 LLImageGL::sLastFrameTime			= 0.f;
 bool LLImageGL::sAllowReadBackRaw       = false ;
 LLImageGL* LLImageGL::sDefaultGLTexture = NULL ;
 bool LLImageGL::sCompressTextures = false;
-
 std::set<LLImageGL*> LLImageGL::sImageList;
 
 //****************************************************************************************************

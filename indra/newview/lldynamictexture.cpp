@@ -122,7 +122,7 @@ void LLViewerDynamicTexture::preRender(bool clear_depth)
 	llassert(mFullHeight <= 512);
 	llassert(mFullWidth <= 512);
 
-	if (gGLManager.mHasFramebufferObject && gPipeline.mWaterDis.isComplete() && !gGLManager.mIsATI)
+	if (gGLManager.mHasFramebufferObject && gPipeline.mWaterDis.isComplete() && !gGLManager.mIsAMD)
 	{ //using offscreen render target, just use the bottom left corner
 		mOrigin.set(0, 0);
 	}
@@ -209,7 +209,7 @@ bool LLViewerDynamicTexture::updateAllInstances()
 		return true;
 	}
 
-	bool use_fbo = gGLManager.mHasFramebufferObject && gPipeline.mWaterDis.isComplete() && !gGLManager.mIsATI;
+	bool use_fbo = gGLManager.mHasFramebufferObject && gPipeline.mWaterDis.isComplete() && !gGLManager.mIsAMD;
 
 	if (use_fbo)
 	{
