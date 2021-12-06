@@ -386,13 +386,10 @@
      reference="White" />
      <color
      name="FilterBackgroundColor"
-     reference="Black" />
-<!--    <color
-     name="FilterTextColor"
-     value="0.38 0.69 0.57 1" />Kokua-->
+     value="0.992 0.875 0.725 1" />
     <color
      name="FilterTextColor"
-     reference="Kokua" />
+     reference="Black" />
      <color
      name="FloaterButtonImageColor"
      reference="LtGray" />
