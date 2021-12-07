@@ -281,12 +281,22 @@ void LLLogin::Impl::login_(std::string uri, LLSD login_params)
 
         // If we don't recognize status at all, trouble
         if (! (status == "CURLError"
+               || status == "BadType"
                || status == "XMLRPCError"
                || status == "OtherError"))
         {
             LL_ERRS("LLLogin") << "Unexpected status from " << xmlrpcPump.getName() << " pump: "
                                << mAuthResponse << LL_ENDL;
             return;
+        }
+
+        if (status == "BadType")
+        {
+            // Invalid xmlrpc type
+            // Dump this response into logs
+            LL_WARNS("LLLogin") << "Failed to parse response"
+                << " from " << xmlrpcPump.getName()
+                << " pump: " << mAuthResponse << LL_ENDL;
         }
 
         // Here status IS one of the errors tested above.
