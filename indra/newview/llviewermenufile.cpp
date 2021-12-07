@@ -300,6 +300,113 @@ std::string build_extensions_string(LLFilePicker::ELoadFilter filter)
 	}
 }
 
+
+const bool check_file_extension(const std::string& filename, LLFilePicker::ELoadFilter type)
+{
+	std::string ext = gDirUtilp->getExtension(filename);
+
+	//strincmp doesn't like NULL pointers
+	if (ext.empty())
+	{
+		std::string short_name = gDirUtilp->getBaseFileName(filename);
+
+		// No extension
+		LLSD args;
+		args["FILE"] = short_name;
+		LLNotificationsUtil::add("NoFileExtension", args);
+		return false;
+	}
+	else
+	{
+		//so there is an extension
+		//loop over the valid extensions and compare to see
+		//if the extension is valid
+
+		//now grab the set of valid file extensions
+		std::string valid_extensions = build_extensions_string(type);
+
+		bool ext_valid = false;
+
+		typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
+		boost::char_separator<char> sep(" ");
+		tokenizer tokens(valid_extensions, sep);
+		tokenizer::iterator token_iter;
+
+		//now loop over all valid file extensions
+		//and compare them to the extension of the file
+		//to be uploaded
+		for (token_iter = tokens.begin();
+			token_iter != tokens.end() && ext_valid != true;
+			++token_iter)
+		{
+			const std::string& cur_token = *token_iter;
+
+			if (cur_token == ext || cur_token == "*.*")
+			{
+				//valid extension
+				//or the acceptable extension is any
+				ext_valid = true;
+			}
+		}//end for (loop over all tokens)
+
+		if (ext_valid == false)
+		{
+			//should only get here if the extension exists
+			//but is invalid
+			LLSD args;
+			args["EXTENSION"] = ext;
+			args["VALIDS"] = valid_extensions;
+			LLNotificationsUtil::add("InvalidFileExtension", args);
+			return false;
+		}
+	}//end else (non-null extension)
+	return true;
+}
+
+const void upload_single_file(const std::vector<std::string>& filenames, LLFilePicker::ELoadFilter type)
+{
+	std::string filename = filenames[0];
+	if (!check_file_extension(filename, type)) return;
+	
+	if (!filename.empty())
+	{
+		if (type == LLFilePicker::FFLOAD_WAV)
+		{
+			// pre-qualify wavs to make sure the format is acceptable
+			std::string error_msg;
+			if (check_for_invalid_wav_formats(filename, error_msg))
+			{
+				LL_INFOS() << error_msg << ": " << filename << LL_ENDL;
+				LLSD args;
+				args["FILE"] = filename;
+				LLNotificationsUtil::add(error_msg, args);
+				return;
+			}
+			else
+			{
+				LLFloaterReg::showInstance("upload_sound", LLSD(filename));
+			}
+		}
+		if (type == LLFilePicker::FFLOAD_IMAGE)
+		{
+			LLFloaterReg::showInstance("upload_image", LLSD(filename));
+		}
+		if (type == LLFilePicker::FFLOAD_ANIM)
+		{
+			if (filename.rfind(".anim") != std::string::npos)
+			{
+				LLFloaterReg::showInstance("upload_anim_anim", LLSD(filename));
+			}
+			else
+			{
+				LLFloaterReg::showInstance("upload_anim_bvh", LLSD(filename));
+			}
+		}		
+	}
+	return;
+}
+
+
 /**
    char* upload_pick(void* data)
 
@@ -358,7 +465,7 @@ const std::string upload_pick(void* data)
 		//now grab the set of valid file extensions
 		std::string valid_extensions = build_extensions_string(type);
 
-		BOOL ext_valid = FALSE;
+		bool ext_valid = false;
 
 		typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
 		boost::char_separator<char> sep(" ");
@@ -369,7 +476,7 @@ const std::string upload_pick(void* data)
 		//and compare them to the extension of the file
 		//to be uploaded
 		for( token_iter = tokens.begin();
-			 token_iter != tokens.end() && ext_valid != TRUE;
+			 token_iter != tokens.end() && ext_valid != true;
 			 ++token_iter)
 		{
 			const std::string& cur_token = *token_iter;
@@ -378,11 +485,11 @@ const std::string upload_pick(void* data)
 			{
 				//valid extension
 				//or the acceptable extension is any
-				ext_valid = TRUE;
+				ext_valid = true;
 			}
 		}//end for (loop over all tokens)
 
-		if (ext_valid == FALSE)
+		if (ext_valid == false)
 		{
 			//should only get here if the extension exists
 			//but is invalid
@@ -420,12 +527,12 @@ class LLFileUploadImage : public view_listener_t
 {
 	bool handleEvent(const LLSD& userdata)
 	{
-		std::string filename = upload_pick((void *)LLFilePicker::FFLOAD_IMAGE);
-		if (!filename.empty())
+		if (gAgentCamera.cameraMouselook())
 		{
-			LLFloaterReg::showInstance("upload_image", LLSD(filename));
+			gAgentCamera.changeCameraToDefault();
 		}
-		return TRUE;
+		(new LLFilePickerReplyThread(boost::bind(&upload_single_file, _1, _2), LLFilePicker::FFLOAD_IMAGE, false))->getFile();
+		return true;
 	}
 };
 
@@ -439,7 +546,7 @@ class LLFileUploadModel : public view_listener_t
 			fmp->loadModel(3);
 		}
 
-		return TRUE;
+		return true;
 	}
 };
 
@@ -447,11 +554,11 @@ class LLFileUploadSound : public view_listener_t
 {
 	bool handleEvent(const LLSD& userdata)
 	{
-		std::string filename = upload_pick((void*)LLFilePicker::FFLOAD_WAV);
-		if (!filename.empty())
+		if (gAgentCamera.cameraMouselook())
 		{
-			LLFloaterReg::showInstance("upload_sound", LLSD(filename));
+			gAgentCamera.changeCameraToDefault();
 		}
+		(new LLFilePickerReplyThread(boost::bind(&upload_single_file, _1, _2), LLFilePicker::FFLOAD_WAV, false))->getFile();
 		return true;
 	}
 };
@@ -460,20 +567,11 @@ class LLFileUploadAnim : public view_listener_t
 {
 	bool handleEvent(const LLSD& userdata)
 	{
-		const std::string filename = upload_pick((void*)LLFilePicker::FFLOAD_ANIM);
-		if (!filename.empty())
+		if (gAgentCamera.cameraMouselook())
 		{
-			std::string filename_lc(filename);
-			LLStringUtil::toLower(filename_lc);
-			if (filename_lc.rfind(".anim") != std::string::npos)
-			{
-				LLFloaterReg::showInstance("upload_anim_anim", LLSD(filename));
-			}
-			else
-			{
-				LLFloaterReg::showInstance("upload_anim_bvh", LLSD(filename));
-			}
+			gAgentCamera.changeCameraToDefault();
 		}
+		(new LLFilePickerReplyThread(boost::bind(&upload_single_file, _1, _2), LLFilePicker::FFLOAD_ANIM, false))->getFile();
 		return true;
 	}
 };
@@ -482,7 +580,7 @@ class LLFileUploadBulk : public view_listener_t
 {
 	bool handleEvent(const LLSD& userdata)
 	{
-		if( gAgentCamera.cameraMouselook() )
+		if (gAgentCamera.cameraMouselook() )
 		{
 			gAgentCamera.changeCameraToDefault();
 		}
