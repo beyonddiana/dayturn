@@ -2201,14 +2201,25 @@ void LLVOAvatar::resetSkeleton(bool reset_animations)
     }
 
     // Reset tweakable params to preserved state
-    if (mLastProcessedAppearance)
-    {
-        bool slam_params = true;
-        applyParsedAppearanceMessage(*mLastProcessedAppearance, slam_params);
-    }
+	if (getOverallAppearance() == AOA_NORMAL)
+	{
+		if (mLastProcessedAppearance)
+		{
+			bool slam_params = true;
+			applyParsedAppearanceMessage(*mLastProcessedAppearance, slam_params);
+		}
+	}
 	else
 	{
+		// Stripped down approximation of
+		// applyParsedAppearanceMessage, but with alternative default
+		// (jellydoll) params
+		setCompositeUpdatesEnabled(false);
+		gPipeline.markGLRebuild(this);
 		applyDefaultParams();
+		setCompositeUpdatesEnabled(true);
+		updateMeshTextures();
+		updateMeshVisibility();
 	}
     updateVisualParams();
 
