@@ -81,7 +81,7 @@ public:
 	S32			getBalance() const;
 	S32			getHealth() const;
 
-	BOOL isUserTiered() const;
+	bool isUserTiered() const;
 	S32 getSquareMetersCredit() const;
 	S32 getSquareMetersCommitted() const;
 	S32 getSquareMetersLeft() const;

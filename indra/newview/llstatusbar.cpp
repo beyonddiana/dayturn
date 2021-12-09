@@ -457,7 +457,7 @@ void LLStatusBar::setLandCommitted(S32 committed)
 	mSquareMetersCommitted = committed;
 }
 
-BOOL LLStatusBar::isUserTiered() const
+bool LLStatusBar::isUserTiered() const
 {
 	return (mSquareMetersCredit > 0);
 }

@@ -534,7 +534,7 @@ void LLPanelLogin::setFields(LLPointer<LLCredential> credential,
 
 // static
 void LLPanelLogin::getFields(LLPointer<LLCredential>& credential,
-							 BOOL& remember)
+							 bool& remember)
 {
 	if (!sInstance)
 	{
@@ -969,7 +969,7 @@ void LLPanelLogin::onClickConnect(void *)
 		else
 		{
             LLPointer<LLCredential> cred;
-            BOOL remember;
+            bool remember;
             getFields(cred, remember);
             std::string identifier_type;
             cred->identifierType(identifier_type);
