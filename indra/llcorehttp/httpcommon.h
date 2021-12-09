@@ -301,48 +301,48 @@ struct HttpStatus
 	typedef unsigned short type_enum_t;
 	
 	HttpStatus()
-		{
-			mDetails = std::shared_ptr<Details>(new Details(LLCORE, HE_SUCCESS));
-		}
+    {
+        mDetails = boost::shared_ptr<Details>(new Details(LLCORE, HE_SUCCESS));
+    }
 
 	HttpStatus(type_enum_t type, short status)
-		{
-			mDetails = std::shared_ptr<Details>(new Details(type, status));
-		}
-	
+    {
+        mDetails = boost::shared_ptr<Details>(new Details(type, status));
+    }
+
 	HttpStatus(int http_status)
-		{
-            mDetails = std::shared_ptr<Details>(new Details(http_status,
-            (http_status >= 200 && http_status <= 299) ? HE_SUCCESS : HE_REPLY_ERROR));
-            llassert(http_status >= 100 && http_status <= 999);
-		}
+    {
+        mDetails = boost::shared_ptr<Details>(new Details(http_status, 
+			(http_status >= 200 && http_status <= 299) ? HE_SUCCESS : HE_REPLY_ERROR));
+		llassert(http_status >= 100 && http_status <= 999);
+    }
 
 	HttpStatus(int http_status, const std::string &message)
-		{
-            mDetails = std::shared_ptr<Details>(new Details(http_status,
-            (http_status >= 200 && http_status <= 299) ? HE_SUCCESS : HE_REPLY_ERROR));
-            llassert(http_status >= 100 && http_status <= 999);
-            mDetails->mMessage = message;;
-		}
+    {
+        mDetails = boost::shared_ptr<Details>(new Details(http_status,
+			(http_status >= 200 && http_status <= 299) ? HE_SUCCESS : HE_REPLY_ERROR));
+		llassert(http_status >= 100 && http_status <= 999);
+		mDetails->mMessage = message;
+    }
 	
 	HttpStatus(const HttpStatus & rhs)
-		{
-			mDetails = rhs.mDetails;
-		}
+    {
+        mDetails = rhs.mDetails;
+    }
 
 	~HttpStatus()
-		{
-		}
+    {
+    }
 
 	HttpStatus & operator=(const HttpStatus & rhs)
-		{
-            mDetails = rhs.mDetails;
-            return *this;
-        }
+    {
+        mDetails = rhs.mDetails;
+        return *this;
+    }
 
     HttpStatus & clone(const HttpStatus &rhs)
     {
-        mDetails = std::shared_ptr<Details>(new Details(*rhs.mDetails));
+        mDetails = boost::shared_ptr<Details>(new Details(*rhs.mDetails));
         return *this;
     }
 	
@@ -491,7 +491,7 @@ private:
 		LLSD		mErrorData;
 	};
 
-    std::shared_ptr<Details> mDetails;
+    boost::shared_ptr<Details> mDetails;
 
 	
 }; // end struct HttpStatus
