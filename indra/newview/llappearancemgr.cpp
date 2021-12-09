@@ -1,25 +1,25 @@
-/** 
+/**
  * @file llappearancemgr.cpp
  * @brief Manager for initiating appearance changes on the viewer
  *
  * $LicenseInfo:firstyear=2004&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation;
  * version 2.1 of the License only.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
- * 
+ *
  * Linden Research, Inc., 945 Battery Street, San Francisco, CA  94111  USA
  * $/LicenseInfo$
  */
@@ -58,6 +58,10 @@
 #include "llhttpsdhandler.h"
 #include "llcorehttputil.h"
 #include "llappviewer.h"
+#include "llcoros.h"
+#include "lleventcoro.h"
+
+#include "llavatarpropertiesprocessor.h"
 
 #if LL_MSVC
 // disable boost::lexical_cast warning
@@ -86,7 +90,7 @@ public:
 		mVar = false; 
 	}
 private:
-	bool& mVar;
+    bool& mVar;
 };
 
 char ORDER_NUMBER_SEPARATOR('@');
@@ -146,27 +150,27 @@ LLAppearanceHandler gAppearanceHandler;
 
 LLUUID findDescendentCategoryIDByName(const LLUUID& parent_id, const std::string& name)
 {
-	LLInventoryModel::cat_array_t cat_array;
-	LLInventoryModel::item_array_t item_array;
-	LLNameCategoryCollector has_name(name);
-	gInventory.collectDescendentsIf(parent_id,
-									cat_array,
-									item_array,
-									LLInventoryModel::EXCLUDE_TRASH,
-									has_name);
-	if (0 == cat_array.size())
-		return LLUUID();
-	else
-	{
-		LLViewerInventoryCategory *cat = cat_array.at(0);
-		if (cat)
-			return cat->getUUID();
-		else
-		{
-			LL_WARNS() << "null cat" << LL_ENDL;
-			return LLUUID();
-		}
-	}
+    LLInventoryModel::cat_array_t cat_array;
+    LLInventoryModel::item_array_t item_array;
+    LLNameCategoryCollector has_name(name);
+    gInventory.collectDescendentsIf(parent_id,
+                                    cat_array,
+                                    item_array,
+                                    LLInventoryModel::EXCLUDE_TRASH,
+                                    has_name);
+    if (0 == cat_array.size())
+        return LLUUID();
+    else
+    {
+        LLViewerInventoryCategory *cat = cat_array.at(0);
+        if (cat)
+            return cat->getUUID();
+        else
+        {
+            LL_WARNS() << "null cat" << LL_ENDL;
+            return LLUUID();
+        }
+    }
 }
 
 // We want this to be much lower (e.g. 15.0 is usually fine), bumping
@@ -179,261 +183,261 @@ const F32 DEFAULT_RETRY_AFTER_INTERVAL = 300.0;
 // leave at 0 if the operations become actually reliable).
 const S32 DEFAULT_MAX_RETRIES = 0;
 
-class LLCallAfterInventoryBatchMgr: public LLEventTimer 
+class LLCallAfterInventoryBatchMgr: public LLEventTimer
 {
 public:
-	LLCallAfterInventoryBatchMgr(const LLUUID& dst_cat_id,
-								 const std::string& phase_name,
-								 nullary_func_t on_completion_func,
-								 nullary_func_t on_failure_func = no_op,
-								 F32 retry_after = DEFAULT_RETRY_AFTER_INTERVAL,
-								 S32 max_retries = DEFAULT_MAX_RETRIES
-		):
-		mDstCatID(dst_cat_id),
-		mTrackingPhase(phase_name),
-		mOnCompletionFunc(on_completion_func),
-		mOnFailureFunc(on_failure_func),
-		mRetryAfter(retry_after),
-		mMaxRetries(max_retries),
-		mPendingRequests(0),
-		mFailCount(0),
-		mCompletionOrFailureCalled(false),
-		mRetryCount(0),
-		LLEventTimer(5.0)
-	{
-		if (!mTrackingPhase.empty())
-		{
-			selfStartPhase(mTrackingPhase);
-		}
-	}
-
-	void addItems(LLInventoryModel::item_array_t& src_items)
-	{
-		for (LLInventoryModel::item_array_t::const_iterator it = src_items.begin();
-			 it != src_items.end();
-			 ++it)
-		{
-			LLViewerInventoryItem* item = *it;
-			llassert(item);
-			addItem(item->getUUID());
-		}
-	}
-
-	// Request or re-request operation for specified item.
-	void addItem(const LLUUID& item_id)
-	{
-		LL_DEBUGS("Avatar") << "item_id " << item_id << LL_ENDL;
-		if (!requestOperation(item_id))
-		{
-			LL_DEBUGS("Avatar") << "item_id " << item_id << " requestOperation false, skipping" << LL_ENDL;
-			return;
-		}
-
-		mPendingRequests++;
-		// On a re-request, this will reset the timer.
-		mWaitTimes[item_id] = LLTimer();
-		if (mRetryCounts.find(item_id) == mRetryCounts.end())
-		{
-			mRetryCounts[item_id] = 0;
-		}
-		else
-		{
-			mRetryCounts[item_id]++;
-		}
-	}
-
-	virtual bool requestOperation(const LLUUID& item_id) = 0;
-
-	void onOp(const LLUUID& src_id, const LLUUID& dst_id, LLTimer timestamp)
-	{
-		if (ll_frand() < gSavedSettings.getF32("InventoryDebugSimulateLateOpRate"))
-		{
-			LL_WARNS() << "Simulating late operation by punting handling to later" << LL_ENDL;
-			doAfterInterval(boost::bind(&LLCallAfterInventoryBatchMgr::onOp,this,src_id,dst_id,timestamp),
-							mRetryAfter);
-			return;
-		}
-		mPendingRequests--;
-		F32 elapsed = timestamp.getElapsedTimeF32();
-		LL_DEBUGS("Avatar") << "op done, src_id " << src_id << " dst_id " << dst_id << " after " << elapsed << " seconds" << LL_ENDL;
-		if (mWaitTimes.find(src_id) == mWaitTimes.end())
-		{
-			// No longer waiting for this item - either serviced
-			// already or gave up after too many retries.
-			LL_WARNS() << "duplicate or late operation, src_id " << src_id << "dst_id " << dst_id
-					<< " elapsed " << elapsed << " after end " << (S32) mCompletionOrFailureCalled << LL_ENDL;
-		}
-		mTimeStats.push(elapsed);
-		mWaitTimes.erase(src_id);
-		if (mWaitTimes.empty() && !mCompletionOrFailureCalled)
-		{
-			onCompletionOrFailure();
-		}
-	}
-
-	void onCompletionOrFailure()
-	{
-		assert (!mCompletionOrFailureCalled);
-		mCompletionOrFailureCalled = true;
-		
-		// Will never call onCompletion() if any item has been flagged as
-		// a failure - otherwise could wind up with corrupted
-		// outfit, involuntary nudity, etc.
-		reportStats();
-		if (!mTrackingPhase.empty())
-		{
-			selfStopPhase(mTrackingPhase);
-		}
-		if (!mFailCount)
-		{
-			onCompletion();
-		}
-		else
-		{
-			onFailure();
-		}
-	}
-
-	void onFailure()
-	{
-		LL_INFOS() << "failed" << LL_ENDL;
-		mOnFailureFunc();
-	}
-
-	void onCompletion()
-	{
-		LL_INFOS() << "done" << LL_ENDL;
-		mOnCompletionFunc();
-	}
-	
-	// virtual
-	// Will be deleted after returning true - only safe to do this if all callbacks have fired.
-	bool tick()
-	{
-		// mPendingRequests will be zero if all requests have been
-		// responded to.  mWaitTimes.empty() will be true if we have
-		// received at least one reply for each UUID.  If requests
-		// have been dropped and retried, these will not necessarily
-		// be the same.  Only safe to return true if all requests have
-		// been serviced, since it will result in this object being
-		// deleted.
-		bool all_done = (mPendingRequests==0);
-
-		if (!mWaitTimes.empty())
-		{
-			LL_WARNS() << "still waiting on " << mWaitTimes.size() << " items" << LL_ENDL;
-			for (std::map<LLUUID,LLTimer>::iterator it = mWaitTimes.begin();
-				 it != mWaitTimes.end();)
-			{
-				// Use a copy of iterator because it may be erased/invalidated.
-				std::map<LLUUID,LLTimer>::iterator curr_it = it;
-				++it;
-				
-				F32 time_waited = curr_it->second.getElapsedTimeF32();
-				S32 retries = mRetryCounts[curr_it->first];
-				if (time_waited > mRetryAfter)
-				{
-					if (retries < mMaxRetries)
-					{
-						LL_DEBUGS("Avatar") << "Waited " << time_waited <<
-							" for " << curr_it->first << ", retrying" << LL_ENDL;
-						mRetryCount++;
-						addItem(curr_it->first);
-					}
-					else
-					{
-						LL_WARNS() << "Giving up on " << curr_it->first << " after too many retries" << LL_ENDL;
-						mWaitTimes.erase(curr_it);
-						mFailCount++;
-					}
-				}
-				if (mWaitTimes.empty())
-				{
-					onCompletionOrFailure();
-				}
-
-			}
-		}
-		return all_done;
-	}
-
-	void reportStats()
-	{
-		LL_DEBUGS("Avatar") << "Phase: " << mTrackingPhase << LL_ENDL;
-		LL_DEBUGS("Avatar") << "mFailCount: " << mFailCount << LL_ENDL;
-		LL_DEBUGS("Avatar") << "mRetryCount: " << mRetryCount << LL_ENDL;
-		LL_DEBUGS("Avatar") << "Times: n " << mTimeStats.getCount() << " min " << mTimeStats.getMinValue() << " max " << mTimeStats.getMaxValue() << LL_ENDL;
-		LL_DEBUGS("Avatar") << "Mean " << mTimeStats.getMean() << " stddev " << mTimeStats.getStdDev() << LL_ENDL;
-	}
-	
-	virtual ~LLCallAfterInventoryBatchMgr()
-	{
-		LL_DEBUGS("Avatar") << "deleting" << LL_ENDL;
-	}
-
+    LLCallAfterInventoryBatchMgr(const LLUUID& dst_cat_id,
+                                 const std::string& phase_name,
+                                 nullary_func_t on_completion_func,
+                                 nullary_func_t on_failure_func = no_op,
+                                 F32 retry_after = DEFAULT_RETRY_AFTER_INTERVAL,
+                                 S32 max_retries = DEFAULT_MAX_RETRIES
+                                 ):
+    mDstCatID(dst_cat_id),
+    mTrackingPhase(phase_name),
+    mOnCompletionFunc(on_completion_func),
+    mOnFailureFunc(on_failure_func),
+    mRetryAfter(retry_after),
+    mMaxRetries(max_retries),
+    mPendingRequests(0),
+    mFailCount(0),
+    mCompletionOrFailureCalled(false),
+    mRetryCount(0),
+    LLEventTimer(5.0)
+    {
+        if (!mTrackingPhase.empty())
+        {
+            selfStartPhase(mTrackingPhase);
+        }
+    }
+    
+    void addItems(LLInventoryModel::item_array_t& src_items)
+    {
+        for (LLInventoryModel::item_array_t::const_iterator it = src_items.begin();
+             it != src_items.end();
+             ++it)
+        {
+            LLViewerInventoryItem* item = *it;
+            llassert(item);
+            addItem(item->getUUID());
+        }
+    }
+    
+    // Request or re-request operation for specified item.
+    void addItem(const LLUUID& item_id)
+    {
+        LL_DEBUGS("Avatar") << "item_id " << item_id << LL_ENDL;
+        if (!requestOperation(item_id))
+        {
+            LL_DEBUGS("Avatar") << "item_id " << item_id << " requestOperation false, skipping" << LL_ENDL;
+            return;
+        }
+        
+        mPendingRequests++;
+        // On a re-request, this will reset the timer.
+        mWaitTimes[item_id] = LLTimer();
+        if (mRetryCounts.find(item_id) == mRetryCounts.end())
+        {
+            mRetryCounts[item_id] = 0;
+        }
+        else
+        {
+            mRetryCounts[item_id]++;
+        }
+    }
+    
+    virtual bool requestOperation(const LLUUID& item_id) = 0;
+    
+    void onOp(const LLUUID& src_id, const LLUUID& dst_id, LLTimer timestamp)
+    {
+        if (ll_frand() < gSavedSettings.getF32("InventoryDebugSimulateLateOpRate"))
+        {
+            LL_WARNS() << "Simulating late operation by punting handling to later" << LL_ENDL;
+            doAfterInterval(boost::bind(&LLCallAfterInventoryBatchMgr::onOp,this,src_id,dst_id,timestamp),
+                            mRetryAfter);
+            return;
+        }
+        mPendingRequests--;
+        F32 elapsed = timestamp.getElapsedTimeF32();
+        LL_DEBUGS("Avatar") << "op done, src_id " << src_id << " dst_id " << dst_id << " after " << elapsed << " seconds" << LL_ENDL;
+        if (mWaitTimes.find(src_id) == mWaitTimes.end())
+        {
+            // No longer waiting for this item - either serviced
+            // already or gave up after too many retries.
+            LL_WARNS() << "duplicate or late operation, src_id " << src_id << "dst_id " << dst_id
+            << " elapsed " << elapsed << " after end " << (S32) mCompletionOrFailureCalled << LL_ENDL;
+        }
+        mTimeStats.push(elapsed);
+        mWaitTimes.erase(src_id);
+        if (mWaitTimes.empty() && !mCompletionOrFailureCalled)
+        {
+            onCompletionOrFailure();
+        }
+    }
+    
+    void onCompletionOrFailure()
+    {
+        assert (!mCompletionOrFailureCalled);
+        mCompletionOrFailureCalled = true;
+        
+        // Will never call onCompletion() if any item has been flagged as
+        // a failure - otherwise could wind up with corrupted
+        // outfit, involuntary nudity, etc.
+        reportStats();
+        if (!mTrackingPhase.empty())
+        {
+            selfStopPhase(mTrackingPhase);
+        }
+        if (!mFailCount)
+        {
+            onCompletion();
+        }
+        else
+        {
+            onFailure();
+        }
+    }
+    
+    void onFailure()
+    {
+        LL_INFOS() << "failed" << LL_ENDL;
+        mOnFailureFunc();
+    }
+    
+    void onCompletion()
+    {
+        LL_INFOS() << "done" << LL_ENDL;
+        mOnCompletionFunc();
+    }
+    
+    // virtual
+    // Will be deleted after returning true - only safe to do this if all callbacks have fired.
+    bool tick()
+    {
+        // mPendingRequests will be zero if all requests have been
+        // responded to.  mWaitTimes.empty() will be true if we have
+        // received at least one reply for each UUID.  If requests
+        // have been dropped and retried, these will not necessarily
+        // be the same.  Only safe to return true if all requests have
+        // been serviced, since it will result in this object being
+        // deleted.
+        bool all_done = (mPendingRequests==0);
+        
+        if (!mWaitTimes.empty())
+        {
+            LL_WARNS() << "still waiting on " << mWaitTimes.size() << " items" << LL_ENDL;
+            for (std::map<LLUUID,LLTimer>::iterator it = mWaitTimes.begin();
+                 it != mWaitTimes.end();)
+            {
+                // Use a copy of iterator because it may be erased/invalidated.
+                std::map<LLUUID,LLTimer>::iterator curr_it = it;
+                ++it;
+                
+                F32 time_waited = curr_it->second.getElapsedTimeF32();
+                S32 retries = mRetryCounts[curr_it->first];
+                if (time_waited > mRetryAfter)
+                {
+                    if (retries < mMaxRetries)
+                    {
+                        LL_DEBUGS("Avatar") << "Waited " << time_waited <<
+                        " for " << curr_it->first << ", retrying" << LL_ENDL;
+                        mRetryCount++;
+                        addItem(curr_it->first);
+                    }
+                    else
+                    {
+                        LL_WARNS() << "Giving up on " << curr_it->first << " after too many retries" << LL_ENDL;
+                        mWaitTimes.erase(curr_it);
+                        mFailCount++;
+                    }
+                }
+                if (mWaitTimes.empty())
+                {
+                    onCompletionOrFailure();
+                }
+                
+            }
+        }
+        return all_done;
+    }
+    
+    void reportStats()
+    {
+        LL_DEBUGS("Avatar") << "Phase: " << mTrackingPhase << LL_ENDL;
+        LL_DEBUGS("Avatar") << "mFailCount: " << mFailCount << LL_ENDL;
+        LL_DEBUGS("Avatar") << "mRetryCount: " << mRetryCount << LL_ENDL;
+        LL_DEBUGS("Avatar") << "Times: n " << mTimeStats.getCount() << " min " << mTimeStats.getMinValue() << " max " << mTimeStats.getMaxValue() << LL_ENDL;
+        LL_DEBUGS("Avatar") << "Mean " << mTimeStats.getMean() << " stddev " << mTimeStats.getStdDev() << LL_ENDL;
+    }
+    
+    virtual ~LLCallAfterInventoryBatchMgr()
+    {
+        LL_DEBUGS("Avatar") << "deleting" << LL_ENDL;
+    }
+    
 protected:
-	std::string mTrackingPhase;
-	std::map<LLUUID,LLTimer> mWaitTimes;
-	std::map<LLUUID,S32> mRetryCounts;
-	LLUUID mDstCatID;
-	nullary_func_t mOnCompletionFunc;
-	nullary_func_t mOnFailureFunc;
-	F32 mRetryAfter;
-	S32 mMaxRetries;
-	S32 mPendingRequests;
-	S32 mFailCount;
-	S32 mRetryCount;
-	bool mCompletionOrFailureCalled;
-	LLViewerStats::StatsAccumulator mTimeStats;
+    std::string mTrackingPhase;
+    std::map<LLUUID,LLTimer> mWaitTimes;
+    std::map<LLUUID,S32> mRetryCounts;
+    LLUUID mDstCatID;
+    nullary_func_t mOnCompletionFunc;
+    nullary_func_t mOnFailureFunc;
+    F32 mRetryAfter;
+    S32 mMaxRetries;
+    S32 mPendingRequests;
+    S32 mFailCount;
+    S32 mRetryCount;
+    bool mCompletionOrFailureCalled;
+    LLViewerStats::StatsAccumulator mTimeStats;
 };
 
 class LLCallAfterInventoryCopyMgr: public LLCallAfterInventoryBatchMgr
 {
 public:
-	LLCallAfterInventoryCopyMgr(LLInventoryModel::item_array_t& src_items,
-								const LLUUID& dst_cat_id,
-								const std::string& phase_name,
-								nullary_func_t on_completion_func,
-								nullary_func_t on_failure_func = no_op,
-								 F32 retry_after = DEFAULT_RETRY_AFTER_INTERVAL,
-								 S32 max_retries = DEFAULT_MAX_RETRIES
-		):
-		LLCallAfterInventoryBatchMgr(dst_cat_id, phase_name, on_completion_func, on_failure_func, retry_after, max_retries)
-	{
-		addItems(src_items);
-		sInstanceCount++;
-	}
-
-	~LLCallAfterInventoryCopyMgr()
-	{
-		sInstanceCount--;
-	}
-	
-	virtual bool requestOperation(const LLUUID& item_id)
-	{
-		LLViewerInventoryItem *item = gInventory.getItem(item_id);
-		llassert(item);
-		LL_DEBUGS("Avatar") << "copying item " << item_id << LL_ENDL;
-		if (ll_frand() < gSavedSettings.getF32("InventoryDebugSimulateOpFailureRate"))
-		{
-			LL_DEBUGS("Avatar") << "simulating failure by not sending request for item " << item_id << LL_ENDL;
-			return true;
-		}
-		copy_inventory_item(
-			gAgent.getID(),
-			item->getPermissions().getOwner(),
-			item->getUUID(),
-			mDstCatID,
-			std::string(),
-			new LLBoostFuncInventoryCallback(boost::bind(&LLCallAfterInventoryBatchMgr::onOp,this,item_id,_1,LLTimer()))
-			);
-		return true;
-	}
-
-	static S32 getInstanceCount() { return sInstanceCount; }
-	
+    LLCallAfterInventoryCopyMgr(LLInventoryModel::item_array_t& src_items,
+                                const LLUUID& dst_cat_id,
+                                const std::string& phase_name,
+                                nullary_func_t on_completion_func,
+                                nullary_func_t on_failure_func = no_op,
+                                F32 retry_after = DEFAULT_RETRY_AFTER_INTERVAL,
+                                S32 max_retries = DEFAULT_MAX_RETRIES
+                                ):
+    LLCallAfterInventoryBatchMgr(dst_cat_id, phase_name, on_completion_func, on_failure_func, retry_after, max_retries)
+    {
+        addItems(src_items);
+        sInstanceCount++;
+    }
+    
+    ~LLCallAfterInventoryCopyMgr()
+    {
+        sInstanceCount--;
+    }
+    
+    virtual bool requestOperation(const LLUUID& item_id)
+    {
+        LLViewerInventoryItem *item = gInventory.getItem(item_id);
+        llassert(item);
+        LL_DEBUGS("Avatar") << "copying item " << item_id << LL_ENDL;
+        if (ll_frand() < gSavedSettings.getF32("InventoryDebugSimulateOpFailureRate"))
+        {
+            LL_DEBUGS("Avatar") << "simulating failure by not sending request for item " << item_id << LL_ENDL;
+            return true;
+        }
+        copy_inventory_item(
+                            gAgent.getID(),
+                            item->getPermissions().getOwner(),
+                            item->getUUID(),
+                            mDstCatID,
+                            std::string(),
+                            new LLBoostFuncInventoryCallback(boost::bind(&LLCallAfterInventoryBatchMgr::onOp,this,item_id,_1,LLTimer()))
+                            );
+        return true;
+    }
+    
+    static S32 getInstanceCount() { return sInstanceCount; }
+    
 private:
-	static S32 sInstanceCount;
+    static S32 sInstanceCount;
 };
 
 S32 LLCallAfterInventoryCopyMgr::sInstanceCount = 0;
@@ -939,7 +943,7 @@ void recovered_item_link_cb(const LLUUID& item_id, LLWearableType::EType type, L
 		// runway skip here?
 	}
 
-	LL_INFOS() << "HP " << holder->index() << " recovered item link for type " << type << LL_ENDL;
+	LL_INFOS("Avatar") << "HP " << holder->index() << " recovered item link for type " << type << LL_ENDL;
 	holder->eraseTypeToLink(type);
 	// Add wearable to FoundData for actual wearing
 	LLViewerInventoryItem *item = gInventory.getItem(item_id);
@@ -1485,7 +1489,7 @@ void LLAppearanceMgr::wearItemsOnAvatar(const uuid_vec_t& item_ids_to_wear,
                     }
                     
                     items_to_link.push_back(item_to_wear);
-                } 
+                }
             }
             break;
 
@@ -3547,6 +3551,164 @@ void LLAppearanceMgr::updateClothingOrderingInfo(LLUUID cat_id,
 		
 }
 
+//=========================================================================
+class LLAppearanceMgrHttpHandler : public LLHttpSDHandler
+{
+public:
+	LLAppearanceMgrHttpHandler(const std::string& capabilityURL, LLAppearanceMgr *mgr) :
+		LLHttpSDHandler(capabilityURL),
+		mManager(mgr)
+	{ }
+
+	virtual ~LLAppearanceMgrHttpHandler()
+	{ }
+
+	virtual void onCompleted(LLCore::HttpHandle handle, LLCore::HttpResponse * response);
+
+protected:
+	virtual void onSuccess(LLCore::HttpResponse * response, const LLSD &content);
+	virtual void onFailure(LLCore::HttpResponse * response, LLCore::HttpStatus status);
+
+private:
+	static void debugCOF(const LLSD& content);
+
+	LLAppearanceMgr *mManager;
+
+};
+
+//-------------------------------------------------------------------------
+void LLAppearanceMgrHttpHandler::onCompleted(LLCore::HttpHandle handle, LLCore::HttpResponse * response)
+{
+	mManager->decrementInFlightCounter();
+
+	LLHttpSDHandler::onCompleted(handle, response);
+}
+
+void LLAppearanceMgrHttpHandler::onSuccess(LLCore::HttpResponse * response, const LLSD &content)
+{
+	if (!content.isMap())
+	{
+		LLCore::HttpStatus status = LLCore::HttpStatus(HTTP_INTERNAL_ERROR, "Malformed response contents");
+		response->setStatus(status);
+		onFailure(response, status);
+		if (gSavedSettings.getBOOL("DebugAvatarAppearanceMessage"))
+		{
+			debugCOF(content);
+		}
+		return;
+	}
+	if (content["success"].asBoolean())
+	{
+		LL_DEBUGS("Avatar") << "succeeded" << LL_ENDL;
+		if (gSavedSettings.getBOOL("DebugAvatarAppearanceMessage"))
+		{
+			dump_sequential_xml(gAgentAvatarp->getFullname() + "_appearance_request_ok", content);
+		}
+	}
+	else
+	{
+		LLCore::HttpStatus status = LLCore::HttpStatus(HTTP_INTERNAL_ERROR, "Non-success response");
+		response->setStatus(status);
+		onFailure(response, status);
+		if (gSavedSettings.getBOOL("DebugAvatarAppearanceMessage"))
+		{
+			debugCOF(content);
+		}
+		return;
+	}
+}
+
+void LLAppearanceMgrHttpHandler::onFailure(LLCore::HttpResponse * response, LLCore::HttpStatus status)
+{
+	LL_WARNS("Avatar") << "Appearance Mgr request failed to " << getUri()
+		<< ". Reason code: (" << status.toTerseString() << ") "
+		<< status.toString() << LL_ENDL;
+}
+
+void LLAppearanceMgrHttpHandler::debugCOF(const LLSD& content)
+{
+	dump_sequential_xml(gAgentAvatarp->getFullname() + "_appearance_request_error", content);
+
+	LL_INFOS("Avatar") << "AIS COF, version received: " << content["expected"].asInteger()
+		<< " ================================= " << LL_ENDL;
+	std::set<LLUUID> ais_items, local_items;
+	const LLSD& cof_raw = content["cof_raw"];
+	for (LLSD::array_const_iterator it = cof_raw.beginArray();
+		it != cof_raw.endArray(); ++it)
+	{
+		const LLSD& item = *it;
+		if (item["parent_id"].asUUID() == LLAppearanceMgr::instance().getCOF())
+		{
+			ais_items.insert(item["item_id"].asUUID());
+			if (item["type"].asInteger() == 24) // link
+			{
+				LL_INFOS("Avatar") << "AIS Link: item_id: " << item["item_id"].asUUID()
+					<< " linked_item_id: " << item["asset_id"].asUUID()
+					<< " name: " << item["name"].asString()
+					<< LL_ENDL; 
+			}
+			else if (item["type"].asInteger() == 25) // folder link
+			{
+				LL_INFOS("Avatar") << "AIS Folder link: item_id: " << item["item_id"].asUUID()
+					<< " linked_item_id: " << item["asset_id"].asUUID()
+					<< " name: " << item["name"].asString()
+					<< LL_ENDL; 
+			}
+			else
+			{
+				LL_INFOS("Avatar") << "AIS Other: item_id: " << item["item_id"].asUUID()
+					<< " linked_item_id: " << item["asset_id"].asUUID()
+					<< " name: " << item["name"].asString()
+					<< " type: " << item["type"].asInteger()
+					<< LL_ENDL; 
+			}
+		}
+	}
+	LL_INFOS("Avatar") << LL_ENDL;
+	LL_INFOS("Avatar") << "Local COF, version requested: " << content["observed"].asInteger() 
+		<< " ================================= " << LL_ENDL;
+	LLInventoryModel::cat_array_t cat_array;
+	LLInventoryModel::item_array_t item_array;
+	gInventory.collectDescendents(LLAppearanceMgr::instance().getCOF(),
+		cat_array,item_array,LLInventoryModel::EXCLUDE_TRASH);
+	for (S32 i=0; i<item_array.size(); i++)
+	{
+		const LLViewerInventoryItem* inv_item = item_array.at(i).get();
+		local_items.insert(inv_item->getUUID());
+		LL_INFOS("Avatar") << "LOCAL: item_id: " << inv_item->getUUID()
+			<< " linked_item_id: " << inv_item->getLinkedUUID()
+			<< " name: " << inv_item->getName()
+			<< " parent: " << inv_item->getParentUUID()
+			<< LL_ENDL;
+	}
+	LL_INFOS("Avatar") << " ================================= " << LL_ENDL;
+	S32 local_only = 0, ais_only = 0;
+	for (std::set<LLUUID>::iterator it = local_items.begin(); it != local_items.end(); ++it)
+	{
+		if (ais_items.find(*it) == ais_items.end())
+		{
+			LL_INFOS("Avatar") << "LOCAL ONLY: " << *it << LL_ENDL;
+			local_only++;
+		}
+	}
+	for (std::set<LLUUID>::iterator it = ais_items.begin(); it != ais_items.end(); ++it)
+	{
+		if (local_items.find(*it) == local_items.end())
+		{
+			LL_INFOS("Avatar") << "AIS ONLY: " << *it << LL_ENDL;
+			ais_only++;
+		}
+	}
+	if (local_only==0 && ais_only==0)
+	{
+		LL_INFOS("Avatar") << "COF contents identical, only version numbers differ (req "
+			<< content["observed"].asInteger()
+			<< " rcv " << content["expected"].asInteger()
+			<< ")" << LL_ENDL;
+	}
+}
+
+
 class RequestAgentUpdateAppearanceResponder: public LLHTTPClient::Responder
 {
 	LOG_CLASS(RequestAgentUpdateAppearanceResponder);
@@ -3883,8 +4045,117 @@ LLSD LLAppearanceMgr::dumpCOF() const
 
 void LLAppearanceMgr::requestServerAppearanceUpdate()
 {
-	mAppearanceResponder->onRequestRequested();
+
+	if (!testCOFRequestVersion())
+	{
+		// *TODO: LL_LOG message here
+		return;
+	}
+
+	if ((mInFlightCounter > 0) && (mInFlightTimer.hasExpired()))
+	{
+		LL_WARNS("Avatar") << "in flight timer expired, resetting " << LL_ENDL;
+		mInFlightCounter = 0;
+	}
+
+	if (gAgentAvatarp->isEditingAppearance())
+	{
+		LL_WARNS("Avatar") << "Avatar editing appeance, not sending request." << LL_ENDL;
+		// don't send out appearance updates if in appearance editing mode
+		return;
+	}
+
+	if (!gAgent.getRegion())
+	{
+		LL_WARNS("Avatar") << "Region not set, cannot request server appearance update" << LL_ENDL;
+		return;
+	}
+	if (gAgent.getRegion()->getCentralBakeVersion() == 0)
+	{
+		LL_WARNS("Avatar") << "Region does not support baking" << LL_ENDL;
+	}
+	std::string url = gAgent.getRegion()->getCapability("UpdateAvatarAppearance");
+	if (url.empty())
+	{
+		LL_WARNS("Avatar") << "No cap for UpdateAvatarAppearance." << LL_ENDL;
+		return;
+	}
+
+	LLSD postData;
+	S32 cof_version = LLAppearanceMgr::instance().getCOFVersion();
+	if (gSavedSettings.getBOOL("DebugAvatarExperimentalServerAppearanceUpdate"))
+	{
+		postData = LLAppearanceMgr::instance().dumpCOF();
+	}
+	else
+	{
+		postData["cof_version"] = cof_version;
+		if (gSavedSettings.getBOOL("DebugForceAppearanceRequestFailure"))
+		{
+			postData["cof_version"] = cof_version + 999;
+		}
+	}
+	LL_DEBUGS("Avatar") << "request url " << url << " my_cof_version " << cof_version << LL_ENDL;
+
+	LLAppearanceMgrHttpHandler * handler = new LLAppearanceMgrHttpHandler(url, this);
+
+	mInFlightCounter++;
+	mInFlightTimer.setTimerExpirySec(60.0);
+
+	llassert(cof_version >= gAgentAvatarp->mLastUpdateRequestCOFVersion);
+	gAgentAvatarp->mLastUpdateRequestCOFVersion = cof_version;
+
+	LLCore::HttpHandle handle = LLCoreHttpUtil::requestPostWithLLSD(mHttpRequest,
+		mHttpPolicy, mHttpPriority, url,
+		postData, mHttpOptions, mHttpHeaders, handler);
+
+	if (handle == LLCORE_HTTP_HANDLE_INVALID)
+	{
+		delete handler;
+		LLCore::HttpStatus status = mHttpRequest->getStatus();
+		LL_WARNS("Avatar") << "Appearance request post failed Reason " << status.toTerseString()
+			<< " \"" << status.toString() << "\"" << LL_ENDL;
+	}
 }
+
+bool LLAppearanceMgr::testCOFRequestVersion() const
+{
+	// If we have already received an update for this or higher cof version, ignore.
+	S32 cof_version = getCOFVersion();
+	S32 last_rcv = gAgentAvatarp->mLastUpdateReceivedCOFVersion;
+	S32 last_req = gAgentAvatarp->mLastUpdateRequestCOFVersion;
+
+	LL_DEBUGS("Avatar") << "cof_version " << cof_version
+		<< " last_rcv " << last_rcv
+		<< " last_req " << last_req
+		<< " in flight " << mInFlightCounter 
+		<< LL_ENDL;
+	if (cof_version < last_rcv)
+	{
+		LL_DEBUGS("Avatar") << "Have already received update for cof version " << last_rcv
+			<< " will not request for " << cof_version << LL_ENDL;
+		return false;
+	}
+	if (/*mInFlightCounter > 0 &&*/ last_req >= cof_version)
+	{
+		LL_DEBUGS("Avatar") << "Request already in flight for cof version " << last_req
+			<< " will not request for " << cof_version << LL_ENDL;
+		return false;
+	}
+
+	// Actually send the request.
+	LL_DEBUGS("Avatar") << "Will send request for cof_version " << cof_version << LL_ENDL;
+	return true;
+}
+
+bool LLAppearanceMgr::onIdle()
+{
+	if (!LLAppearanceMgr::mActive)
+		return true;
+	mHttpRequest->update(0L);
+	return false;
+}
+
 
 class LLIncrementCofVersionResponder : public LLHTTPClient::Responder
 {
@@ -4255,8 +4526,7 @@ LLAppearanceMgr::LLAppearanceMgr():
 	mAttachmentInvLinkEnabled(false),
 	mOutfitIsDirty(false),
 	mOutfitLocked(false),
-	mIsInUpdateAppearanceFromCOF(false),
-	mAppearanceResponder(new RequestAgentUpdateAppearanceResponder)
+	mIsInUpdateAppearanceFromCOF(false)
 {
 	LLOutfitObserver& outfit_observer = LLOutfitObserver::instance();
 
@@ -4533,46 +4803,46 @@ void wear_multiple(const uuid_vec_t& ids, bool replace)
 class LLWearFolderHandler : public LLCommandHandler
 {
 public:
-	// not allowed from outside the app
-	LLWearFolderHandler() : LLCommandHandler("wear_folder", UNTRUSTED_BLOCK) { }
-
-	bool handle(const LLSD& tokens, const LLSD& query_map,
-				LLMediaCtrl* web)
-	{
-		LLSD::UUID folder_uuid;
-
-		if (folder_uuid.isNull() && query_map.has("folder_name"))
-		{
-			std::string outfit_folder_name = query_map["folder_name"];
-			folder_uuid = findDescendentCategoryIDByName(
-				gInventory.getLibraryRootFolderID(),
-				outfit_folder_name);	
-		}
-		if (folder_uuid.isNull() && query_map.has("folder_id"))
-		{
-			folder_uuid = query_map["folder_id"].asUUID();
-		}
-		
-		if (folder_uuid.notNull())
-		{
-			LLPointer<LLInventoryCategory> category = new LLInventoryCategory(folder_uuid,
-																			  LLUUID::null,
-																			  LLFolderType::FT_CLOTHING,
-																			  "Quick Appearance");
-			if ( gInventory.getCategory( folder_uuid ) != NULL )
-			{
-				LLAppearanceMgr::getInstance()->wearInventoryCategory(category, true, false);
-				
-				// *TODOw: This may not be necessary if initial outfit is chosen already -- josh
-				gAgent.setOutfitChosen(true);
-			}
-		}
-
-		// release avatar picker keyboard focus
-		gFocusMgr.setKeyboardFocus( NULL );
-
-		return true;
-	}
+    // not allowed from outside the app
+    LLWearFolderHandler() : LLCommandHandler("wear_folder", UNTRUSTED_BLOCK) { }
+    
+    bool handle(const LLSD& tokens, const LLSD& query_map,
+                LLMediaCtrl* web)
+    {
+        LLSD::UUID folder_uuid;
+        
+        if (folder_uuid.isNull() && query_map.has("folder_name"))
+        {
+            std::string outfit_folder_name = query_map["folder_name"];
+            folder_uuid = findDescendentCategoryIDByName(
+                                                         gInventory.getLibraryRootFolderID(),
+                                                         outfit_folder_name);
+        }
+        if (folder_uuid.isNull() && query_map.has("folder_id"))
+        {
+            folder_uuid = query_map["folder_id"].asUUID();
+        }
+        
+        if (folder_uuid.notNull())
+        {
+            LLPointer<LLInventoryCategory> category = new LLInventoryCategory(folder_uuid,
+                                                                              LLUUID::null,
+                                                                              LLFolderType::FT_CLOTHING,
+                                                                              "Quick Appearance");
+            if ( gInventory.getCategory( folder_uuid ) != NULL )
+            {
+                LLAppearanceMgr::getInstance()->wearInventoryCategory(category, true, false);
+                
+                // *TODOw: This may not be necessary if initial outfit is chosen already -- josh
+                gAgent.setOutfitChosen(TRUE);
+            }
+        }
+        
+        // release avatar picker keyboard focus
+        gFocusMgr.setKeyboardFocus( NULL );
+        
+        return true;
+    }
 };
 
 LLWearFolderHandler gWearFolderHandler;
