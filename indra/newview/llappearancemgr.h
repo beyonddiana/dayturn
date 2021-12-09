@@ -291,8 +291,6 @@ private:
 	bool mOutfitIsDirty;
 	bool mIsInUpdateAppearanceFromCOF; // to detect recursive calls.
 
-	LLPointer<RequestAgentUpdateAppearanceResponder> mAppearanceResponder;
-
 	/**
 	 * Lock for blocking operations on outfit until server reply or timeout exceed
 	 * to avoid unsynchronized outfit state or performing duplicate operations.
