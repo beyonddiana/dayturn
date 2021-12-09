@@ -50,7 +50,7 @@ public:
 	}
 
 protected:
-	virtual void onSuccess(LLCore::HttpResponse * response, LLSD &content) = 0;
+	virtual void onSuccess(LLCore::HttpResponse * response, const LLSD &content) = 0;
 	virtual void onFailure(LLCore::HttpResponse * response, LLCore::HttpStatus status) = 0;
 
 private:
@@ -66,7 +66,7 @@ public:
 	LLHttpSDGenericHandler(const LLURI &uri, const std::string &action);
  
 protected:
-	virtual void onSuccess(LLCore::HttpResponse * response, LLSD &content);
+	virtual void onSuccess(LLCore::HttpResponse * response, const LLSD &content);
 	virtual void onFailure(LLCore::HttpResponse * response, LLCore::HttpStatus status);
 
 private:

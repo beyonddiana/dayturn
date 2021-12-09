@@ -43,7 +43,6 @@
 #include "llviewerregion.h"
 #include "llvoavatar.h"
 #include "llworld.h"
-
 #include "llhttpsdhandler.h"
 #include "httpheaders.h"
 #include "httpoptions.h"
@@ -68,7 +67,7 @@ public:
     LLAvatarRenderInfoHandler(const LLURI &uri, U64 regionHandle);
     
 protected:
-    virtual void onSuccess(LLCore::HttpResponse * response, LLSD &content);
+	virtual void onSuccess(LLCore::HttpResponse * response, const LLSD &content);
     virtual void onFailure(LLCore::HttpResponse * response, LLCore::HttpStatus status);
 
 private:
@@ -203,7 +202,7 @@ public:
 		}
 		else
 		{
-			LL_WARNS() << "Avatar render weight GET error recieved but region not found for " 
+			LL_WARNS() << "Avatar render weight GET error received but region not found for " 
 				<< mRegionHandle 
 				<< ", error " << statusNum 
 				<< ", " << reason
@@ -340,7 +339,6 @@ public:
 private:
 	U64		mRegionHandle;
 };
-
 
 // static 
 // Send request for one region, no timer checks
