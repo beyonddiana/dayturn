@@ -4107,7 +4107,7 @@ void LLAppearanceMgr::requestServerAppearanceUpdate()
 	llassert(cof_version >= gAgentAvatarp->mLastUpdateRequestCOFVersion);
 	gAgentAvatarp->mLastUpdateRequestCOFVersion = cof_version;
 
-	LLCore::HttpHandle handle = gAgent.requestPostCapibility("UpdateAvatarAppearance", url, postData, handler);
+	LLCore::HttpHandle handle = gAgent.requestPostCapability("UpdateAvatarAppearance", url, postData, handler);
 
 	if (handle == LLCORE_HTTP_HANDLE_INVALID)
 	{
