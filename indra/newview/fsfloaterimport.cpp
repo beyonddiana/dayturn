@@ -632,7 +632,7 @@ void FSFloaterImport::createPrim()
 
 	LLUUID group_id = gAgent.getGroupID();
 	LLParcel *parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
-	if (gSavedSettings.getBOOL("RezUnderLandGroup"))
+	if (gSavedSettings.getbool("RezUnderLandGroup"))
 	{
 		if (gAgent.isInGroup(parcel->getGroupID()))
 		{
@@ -1309,7 +1309,7 @@ void FSFloaterImport::uploadAsset(LLUUID asset_id, LLUUID inventory_item)
 		{
 			url = gAgent.getRegionCapability("UpdateScriptAgent");
 			body["item_id"] = inventory_item;
-			if (gSavedSettings.getBOOL("SaveInventoryScriptsAsMono"))
+			if (gSavedSettings.getbool("SaveInventoryScriptsAsMono"))
 			{
 				body["target"] = "mono";
 			}

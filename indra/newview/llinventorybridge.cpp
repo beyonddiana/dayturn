@@ -1794,7 +1794,7 @@ void LLItemBridge::restoreToWorld()
 	{
 		LLMessageSystem* msg = gMessageSystem;
 
-		if (gSavedSettings.getBOOL("RezUnderLandGroup")) {
+		if (gSavedSettings.getbool("RezUnderLandGroup")) {
 			LLParcel *parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
 			LLUUID parcel_group_id = parcel->getGroupID();
 			LLUUID group_id = gAgent.getGroupID();

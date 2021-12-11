@@ -1376,7 +1376,7 @@ void LLToolDragAndDrop::dropObject(LLViewerObject* raycast_target,
 	msg->addUUIDFast(_PREHASH_SessionID,  gAgent.getSessionID());
 
 	LLUUID group_id = gAgent.getGroupID();
-	if (gSavedSettings.getBOOL("RezUnderLandGroup"))
+	if (gSavedSettings.getbool("RezUnderLandGroup"))
 	{
 		LLParcel *parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
  		if (gAgent.isInGroup(parcel->getGroupID()))

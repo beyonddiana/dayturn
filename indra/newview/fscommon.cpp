@@ -109,7 +109,7 @@ std::string applyMuPose(const std::string& message)
 	std::string utf8_text(message);
 
 	// Convert MU*s style poses into IRC emotes here.
-	if (gSavedSettings.getBOOL("AllowMUpose") && utf8_text.find(":") == 0 && utf8_text.length() > 3)
+	if (gSavedSettings.getbool("AllowMUpose") && utf8_text.find(":") == 0 && utf8_text.length() > 3)
 	{
 		if (utf8_text.find(":'") == 0)
 		{
@@ -161,7 +161,7 @@ void FSCommon::applyDefaultBuildPreferences(LLViewerObject* object)
 	texture_entry.setColor(gSavedSettings.getColor4("FSBuildPrefs_Color"));
 	texture_entry.setAlpha((100.f - gSavedSettings.getF32("FSBuildPrefs_Alpha")) / 100.f);
 	texture_entry.setGlow(gSavedSettings.getF32("FSBuildPrefs_Glow"));
-	if(gSavedSettings.getBOOL("FSBuildPrefs_FullBright"))
+	if (gSavedSettings.getbool("FSBuildPrefs_FullBright"))
 	{
 		texture_entry.setFullbright(TEM_FULLBRIGHT_MASK);
 	}

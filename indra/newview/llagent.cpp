@@ -727,7 +727,7 @@ bool LLAgent::canFly()
 {
 	if (isGodlike()) return true;
 
-	if (gSavedSettings.getBOOL("DisableFly"))
+	if (gSavedSettings.getbool("DisableFly"))
 	{
 		LL_INFOS() << "Flying disbled by:  'Do not let me fly'." << LL_ENDL;
 		return false;
@@ -826,7 +826,7 @@ void LLAgent::toggleFlying()
 
 	gAgent.mMoveTimer.reset();
 	LLFirstUse::notMoving(false);
-	if (gSavedSettings.getBOOL("DisableFly"))
+	if (gSavedSettings.getbool("DisableFly"))
 	{
 		LL_INFOS() << "Flying disbled by:  'Do not let me fly'." << LL_ENDL;
 		gAgent.setFlying(false);
@@ -1984,7 +1984,7 @@ void LLAgent::propagate(const F32 dt)
 		if (!in_air 
 			&& gAgentCamera.getUpKey() < 0 
 			&& land_vel.magVecSquared() < MAX_VELOCITY_AUTO_LAND_SQUARED
-			&& gSavedSettings.getBOOL("AutomaticFly"))
+			&& gSavedSettings.getbool("AutomaticFly"))
 		{
 			// land automatically
 			setFlying(false);
@@ -2073,7 +2073,7 @@ void LLAgent::startTyping()
 		}
 	}
 
-	if (gSavedSettings.getBOOL("PlayTypingAnim"))
+	if (gSavedSettings.getbool("PlayTypingAnim"))
 	{
 		sendAnimationRequest(ANIM_AGENT_TYPE, ANIM_REQUEST_START);
 	}
@@ -2167,10 +2167,10 @@ void LLAgent::endAnimationUpdateUI()
 		gViewerWindow->showCursor();
 		// show menus
 		gMenuBarView->setVisible(true);
-		LLNavigationBar::getInstance()->setVisible(TRUE && gSavedSettings.getBOOL("ShowNavbarNavigationPanel"));
+		LLNavigationBar::getInstance()->setVisible(TRUE && gSavedSettings.getbool("ShowNavbarNavigationPanel"));
 		gStatusBar->setVisibleForMouselook(true);
 
-		if (gSavedSettings.getBOOL("ShowMiniLocationPanel"))
+		if (gSavedSettings.getbool("ShowMiniLocationPanel"))
 		{
 			LLPanelTopInfoBar::getInstance()->setVisible(true);
 		}
