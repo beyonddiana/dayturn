@@ -1894,7 +1894,7 @@ void LLModelPreview::rebuildUploadData()
 
 	F32 max_scale = 0.f;
 
-	BOOL legacyMatching = gSavedSettings.getBOOL("ImporterLegacyMatching");
+	bool legacyMatching = gSavedSettings.getbool("ImporterLegacyMatching");
 
 	for (LLModelLoader::scene::iterator iter = mBaseScene.begin(); iter != mBaseScene.end(); ++iter)
 	{ //for each transform in scene
@@ -2360,7 +2360,7 @@ void LLModelPreview::loadModel(std::string filename, S32 lod, bool force_disable
         joint_alias_map,
 		LLSkinningUtil::getMaxJointCount(),
 		gSavedSettings.getU32("ImporterModelLimit"),
-		gSavedSettings.getBOOL("ImporterPreprocessDAE"));
+		gSavedSettings.getbool("ImporterPreprocessDAE"));
 
 	if (force_disable_slm)
 	{
@@ -2376,7 +2376,7 @@ void LLModelPreview::loadModel(std::string filename, S32 lod, bool force_disable
 
 		//only try to load from slm if viewer is configured to do so and this is the
 		//initial model load (not an LoD or physics shape)
-		mModelLoader->mTrySLM = gSavedSettings.getBOOL("MeshImportUseSLM") && mUploadData.empty();
+		mModelLoader->mTrySLM = gSavedSettings.getbool("MeshImportUseSLM") && mUploadData.empty();
 	}
 	mModelLoader->start();
 
@@ -2628,7 +2628,7 @@ void LLModelPreview::loadModelCallback(S32 loaded_lod)
 		}
 		else
 		{
-			BOOL legacyMatching = gSavedSettings.getBOOL("ImporterLegacyMatching");
+			bool legacyMatching = gSavedSettings.getbool("ImporterLegacyMatching");
 			if (!legacyMatching)
 			{
 				if (!mBaseModel.empty())
@@ -5026,7 +5026,7 @@ void LLFloaterModelPreview::onUpload(void* user_data)
 	bool upload_joint_positions = mp->childGetValue("upload_joints").asBoolean();
     bool lock_scale_if_joint_position = mp->childGetValue("lock_scale_if_joint_position").asBoolean();
 
-	if (gSavedSettings.getBOOL("MeshImportUseSLM"))
+	if (gSavedSettings.getbool("MeshImportUseSLM"))
 	{
         mp->mModelPreview->saveUploadData(upload_skinweights, upload_joint_positions, lock_scale_if_joint_position);
     }
