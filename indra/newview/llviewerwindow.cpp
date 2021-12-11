@@ -2157,7 +2157,7 @@ void LLViewerWindow::initWorldUI()
 	nav_bar_container->addChild(navbar);
 	nav_bar_container->setVisible(true);
 	
-	if (!gSavedSettings.getBOOL("ShowNavbarNavigationPanel"))
+	if (!gSavedSettings.getbool("ShowNavbarNavigationPanel"))
 	{
 		navbar->setVisible(false);
 	}
@@ -2182,7 +2182,7 @@ void LLViewerWindow::initWorldUI()
 	topinfo_bar_container->addChild(topinfo_bar);
 	topinfo_bar_container->setVisible(true);
 
-	if (!gSavedSettings.getBOOL("ShowMiniLocationPanel"))
+	if (!gSavedSettings.getbool("ShowMiniLocationPanel"))
 	{
 		topinfo_bar->setVisible(false);
 	}
@@ -2593,7 +2593,7 @@ void LLViewerWindow::setNormalControlsVisible( bool visible )
 	{
 		// when it's time to show navigation bar we need to ensure that the user wants to see it
 		// i.e. ShowNavbarNavigationPanel option is true
-		navbarp->setVisible( visible && gSavedSettings.getBOOL("ShowNavbarNavigationPanel") );
+		navbarp->setVisible( visible && gSavedSettings.getbool("ShowNavbarNavigationPanel") );
 	}
 }
 
@@ -6312,8 +6312,8 @@ void LLViewerWindow::setUIVisibility(bool visible)
 		gToolBarView->setToolBarsVisible(visible);
 	}
 
-	LLNavigationBar::getInstance()->setVisible(visible ? gSavedSettings.getBOOL("ShowNavbarNavigationPanel") : FALSE);
-	LLPanelTopInfoBar::getInstance()->setVisible(visible? gSavedSettings.getBOOL("ShowMiniLocationPanel") : FALSE);
+	LLNavigationBar::getInstance()->setVisible(visible ? gSavedSettings.getbool("ShowNavbarNavigationPanel") : false);
+	LLPanelTopInfoBar::getInstance()->setVisible(visible? gSavedSettings.getbool("ShowMiniLocationPanel") : false);
 	mRootView->getChildView("status_bar_container")->setVisible(visible);
 }
 

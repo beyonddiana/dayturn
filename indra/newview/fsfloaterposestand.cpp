@@ -49,13 +49,13 @@ void FSFloaterPoseStand::onOpen(const LLSD& key)
 		return;
 	}
 	
-	if (gSavedPerAccountSettings.getBOOL("UseAO"))
+	if (gSavedPerAccountSettings.getbool("UseAO"))
 	{
-		gSavedPerAccountSettings.setBOOL("UseAO", FALSE);
+		gSavedPerAccountSettings.setbool("UseAO", false);
 		mAOPaused = true;
 	}
 	
-	if (gSavedSettings.getBOOL("FSPoseStandLock")
+	if (gSavedSettings.getbool("FSPoseStandLock")
 		&& !gAgentAvatarp->isSitting()
 		&& !(gRRenabled && gAgent.mRRInterface.contains("sit")))
 	{
