@@ -161,6 +161,7 @@ public:
 	const U16 getSizeX() const { return mSizeX; }
 	const U16 getSizeY() const { return mSizeY; }
 
+    const U64 		&getHandle() const 			{ return mHandle; }
 public:
 	U64 mHandle;				// This is a hash of the X and Y world coordinates of the SW corner of the sim
 	U16 mSizeX;

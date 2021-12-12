@@ -31,55 +31,55 @@
 	    mouse_opaque="true"
 	    name="dayturn_general"
 	    width="517" >
-    <check_box
-		top_pad="15"
-		layout="topleft"
-		follows="left|top"
-		enabled="true"
-		font="SansSerifSmall"
-		height="20"
-		initial_value="false"
-		control_name="DisableFly"
-		label="Do not let me Fly"
-		left="15"
-		name="automatic_fly"
-		tool_tip="Prevents your avatar from flying even when the region allows avatars to fly."
-		width="270"/>
-    <check_box
-		top_pad="5"
-		layout="topleft"
-		follows="left|top"
-		enabled="true"
-		font="SansSerifSmall"
-		height="20"
-		initial_value="false"
-		control_name="DisableJump"
-		label="Do not jump with page up keys."
-		left="15"
-		name="disable_jump"
-		tool_tip="Prevents your avatar from jumping with 'PgUp' 'PAGE UP' and 'E' keys."
-		width="270"/>
-    <check_box
-		top_pad="5"
-		layout="topleft"
-		follows="left|top"
-		enabled="true"
-		font="SansSerifSmall"
-		height="20"
-		initial_value="false"
-		label="Rez objects under the land group if possible"
-		left="15"
-		mouse_opaque="true"
-		name="grouplandrez"
-		radio_style="false"
-		width="270"
-		control_name="RezUnderLandGroup"
-		tool_tip="Attempts to rez objects under the land group, if you're in the land group, regardless of which group tag you're currently wearing." />
+        <check_box
+            top_pad="15"
+            layout="topleft"
+            follows="left|top"
+            enabled="true"
+            font="SansSerifSmall"
+            height="20"
+            initial_value="false"
+            control_name="DisableFly"
+            label="Do not let me Fly"
+            left="15"
+            name="automatic_fly"
+            tool_tip="Prevents your avatar from flying even when the region allows avatars to fly."
+            width="270"/>
+        <check_box
+            top_pad="5"
+            layout="topleft"
+            follows="left|top"
+            enabled="true"
+            font="SansSerifSmall"
+            height="20"
+            initial_value="false"
+            control_name="DisableJump"
+            label="Do not jump with page up keys."
+            left="15"
+            name="disable_jump"
+            tool_tip="Prevents your avatar from jumping with 'PgUp' 'PAGE UP' and 'E' keys."
+            width="270"/>
+        <check_box
+            top_pad="5"
+            layout="topleft"
+            follows="left|top"
+            enabled="true"
+            font="SansSerifSmall"
+            height="20"
+            initial_value="false"
+            label="Rez objects under the land group if possible"
+            left="15"
+            mouse_opaque="true"
+            name="grouplandrez"
+            radio_style="false"
+            width="270"
+            control_name="RezUnderLandGroup"
+            tool_tip="Attempts to rez objects under the land group, if you're in the land group, regardless of which group tag you're currently wearing." />
         <check_box
             enabled="true"
-			name="WindowTitleAvatarName"
+            name="WindowTitleAvatarName"
             control_name="WindowTitleAvatarName"
-		    label="Show your Avatar's name in the Viewer Title Bar"
+            label="Show your Avatar's name in the Viewer Title Bar"
             tool_tip="Show/Hide your Avatar's name in the Viewer Title Bar.\nDisabled when not logged in."
             layout="topleft"
             follows="left|top"
@@ -87,7 +87,7 @@
             height="20"
             width="400" />
         <check_box
-		    enabled="true"
+            enabled="true"
             name="WindowTitleGridName"
             control_name="WindowTitleGridName"
             label="Show the grid's name in the viewer window's title bar"
@@ -97,232 +97,249 @@
             left="15"
             height="20"
             width="400" />
-	    <check_box
-		control_name="MiniMapChatRing"
-		name="MiniMapChatRing"
-		label="Show chat and shout range rings on the minimap"
-		layout="topleft"
-		left="15"
-		height="20"
-		width="400"
-		tool_tip="Show chat and shout range rings on the minimap."/>
-	    <color_swatch
-		can_apply_immediately="true"
-		color="MapChatRingColor"
-		follows="left|top"
-		height="24"
-		label_height="0"
-		layout="topleft"
-		left="60"
-		name="netmap_chatring_color_swatch"
-		tool_tip="Click to open Color Picker"
-		width="44">
-		<color_swatch.init_callback
-		    function="Pref.getUIColor"
-		    parameter="MapChatRingColor" />
-		<color_swatch.commit_callback
-		    function="Pref.applyUIColor"
-		    parameter="MapChatRingColor" />
-		<color_swatch.caption_text
-		    height="0" />
-	    </color_swatch>
-	    <text
-		type="string"
-		length="1"
-		follows="left|top"
-		height="10"
-		layout="topleft"
-		left_pad="5"
-		mouse_opaque="false"
-		name="netmap_chatring_color_label"
-		text_readonly_color="LabelDisabledColor"
-		top_delta="5"
-		width="95">
-		Chat range
-	    </text>
-	    <color_swatch
-		can_apply_immediately="true"
-		color="MapShoutRingColor"
-		follows="left|top"
-		height="24"
-		label_height="0"
-		layout="topleft"
-		left_delta="100"
-		top_pad="-15"
-		name="netmap_shoutring_color_swatch"
-		tool_tip="Click to open Color Picker"
-		width="44">
-		<color_swatch.init_callback
-		    function="Pref.getUIColor"
-		    parameter="MapShoutRingColor" />
-		<color_swatch.commit_callback
-		    function="Pref.applyUIColor"
-		    parameter="MapShoutRingColor" />
-		<color_swatch.caption_text
-		    height="0" />
-	    </color_swatch>
-	    <text
-		type="string"
-		length="1"
-		follows="left|top"
-		height="10"
-		layout="topleft"
-		left_pad="5"
-		mouse_opaque="false"
-		name="netmap_shoutring_color_label"
-		text_readonly_color="LabelDisabledColor"
-		top_delta="5"
-		width="95">
-		Shout range
-	    </text>
-	    <check_box
-		control_name="NameTagShowAge"
-		name="NameTagShowAge"
-		label="Show each avatar's age in their name tag"
-		layout="topleft"
-		top_pad="20"
-		left="15"
-		height="20"
-		width="400"
-		tool_tip="Show each avatar's age in their name tag." />
-	    <text
-		name="nametag_show_age_limit_label"
-		type="string"
-		length="1"
-		follows="left|top"
-		top_pad="7"
-		left="17"
-		height="10"
-		layout="topleft"
-		mouse_opaque="false"
-		text_readonly_color="LabelDisabledColor"
-		width="500">
-		Don't show the avatar's age in their name tag if they are older than this many days:
-	    </text>
-	    <spinner
-		control_name="NameTagShowAgeLimit"
-		name="NameTagShowAgeLimit"
-		decimal_digits="0"
-		enabled="true"
-		layout="topleft"
-		follows="left|top"
-		height="20"
-		top_pad="10"
-		left="60"
-		increment="1" 
-		initial_value="14" 
-		max_val="2147483647"
-		min_val="0"
-		mouse_opaque="true"
-		width="90"
-		tool_tip="Don't show the avatar's age in their name tag if they are older than this many days."/>
-	    <text
-		name="nametag_show_age_limit_note"
-		type="string"
-		length="1"
-		follows="left|top"
-		height="10"
-		layout="topleft"
-		left_pad="10"
-		mouse_opaque="false"
-		text_readonly_color="LabelDisabledColor"
-		top_delta="5"
-		width="300">
-		(0 = Always show each avatar's age when enabled)
-	    </text>
-	    <text
-		name="web_browser_home_page_label"
-		type="string"
-		length="1"
-		follows="left|top"
-		top_pad="20"
-		left="17"
-		height="10"
-		layout="topleft"
-		mouse_opaque="false"
-		width="140">
-		    Web browser home page:
-	    </text>
-	    <line_editor
-		control_name="WebBrowserHomePage"
-		border_style="line"
-		border_thickness="1"
-		font="SansSerif"
-		height="23"
-		layout="topleft"
-		follows="top|left|right"
-		top_delta="-5"
-		right="-10"
-		max_length_bytes="4096"
-		name="web_browser_home_page"
-		width="345">
-	    </line_editor>
-		<text 
-		name="time_format_text_box"  
-		top_pad="25" 
-		type="string" 
-		length="1"
-		mouse_opaque="false"
-		left="17"  
-		width="80" 
-		height="10"  
-		follows="left|top"
-		layout="topleft"
-		visible="false">
-		Time format:
-		</text>
-		<combo_box 
-		 name="time_format_combobox" 
-		 enabled="true"
-		 height="23"
-		 layout="topleft"
-		 left_pad="10"
-		 top_delta="-6"
-		 width="130"
-		 visible="false">
-				<combo_item name="24hours" type="string" length="1" enabled="true" value="default">
-				<!-->	24 hours clock <!-->
-				</combo_item>
-				<combo_item name="12hours" type="string" length="1" enabled="true" value="default">
-				<!-->	12 hours clock <!-->
-				</combo_item>
-		</combo_box>
-		<text 
-		name="date_format_text_box" 
-		type="string" 
-		length="1" 
-        mouse_opaque="true"
-	    left_delta="150" 
-	    top_delta="6"
-	    width="80" 
-	    height="10" 
-	    follows="left|top"
-	    layout="topleft"
-	    visible="false">
-		Date format:
-		</text>
-		<combo_box 
-		name="date_format_combobox" 
-        enabled="true" 
-        mouse_opaque="true"
-		left_delta="80" 
-		top_delta="-6" 
-		width="130" 
-		height="23" 
-		layout="topleft"
-		visible="false">
-				<combo_item name="year_first" type="string" length="1" enabled="true" value="default">
-				<!-->	YYYY-MM-DD <!-->
-				</combo_item>
-				<combo_item name="day_first" type="string" length="1" enabled="true" value="default">
-				<!-->	DD-MM-YYYY <!-->
-				</combo_item>
-				<combo_item name="month_first" type="string" length="1" enabled="true" value="default">
-				<!-->	MM/DD/YYYY <!-->
-				</combo_item>
-		</combo_box>
-
-	</panel>
+        <check_box
+            follows="left|top"
+            height="20"
+            initial_value="false"
+            label="Show additional region information on the World Map"
+            name="FSAdvancedWorldmapRegionInfo"
+            width="270"
+            control_name="FSAdvancedWorldmapRegionInfo"
+            tool_tip="Shows additional region information on the World Map (avatar count and maturity level)."/>
+        <check_box
+            follows="left|top"
+            height="20"
+            initial_value="false"
+            label="Show grid coordinates on the World Map"
+            name="FSShowRegionGridCoordinates"
+            width="270"
+            control_name="FSShowRegionGridCoordinates"
+            tool_tip="Shows the grid coordinates (in units of regions) on the World Map."/>
+        <check_box
+            control_name="MiniMapChatRing"
+            name="MiniMapChatRing"
+            label="Show chat and shout range rings on the minimap"
+            layout="topleft"
+            left="15"
+            height="20"
+            width="400"
+            tool_tip="Show chat and shout range rings on the minimap."/>
+        <color_swatch
+            can_apply_immediately="true"
+            color="MapChatRingColor"
+            follows="left|top"
+            height="24"
+            label_height="0"
+            layout="topleft"
+            left="60"
+            name="netmap_chatring_color_swatch"
+            tool_tip="Click to open Color Picker"
+            width="44">
+            <color_swatch.init_callback
+                function="Pref.getUIColor"
+                parameter="MapChatRingColor" />
+            <color_swatch.commit_callback
+                function="Pref.applyUIColor"
+                parameter="MapChatRingColor" />
+            <color_swatch.caption_text
+                height="0" />
+        </color_swatch>
+        <text
+            type="string"
+            length="1"
+            follows="left|top"
+            height="10"
+            layout="topleft"
+            left_pad="5"
+            mouse_opaque="false"
+            name="netmap_chatring_color_label"
+            text_readonly_color="LabelDisabledColor"
+            top_delta="5"
+            width="95">
+            Chat range
+        </text>
+        <color_swatch
+            can_apply_immediately="true"
+            color="MapShoutRingColor"
+            follows="left|top"
+            height="24"
+            label_height="0"
+            layout="topleft"
+            left_delta="100"
+            top_pad="-15"
+            name="netmap_shoutring_color_swatch"
+            tool_tip="Click to open Color Picker"
+            width="44">
+            <color_swatch.init_callback
+                function="Pref.getUIColor"
+                parameter="MapShoutRingColor" />
+            <color_swatch.commit_callback
+                function="Pref.applyUIColor"
+                parameter="MapShoutRingColor" />
+            <color_swatch.caption_text
+                height="0" />
+        </color_swatch>
+        <text
+            type="string"
+            length="1"
+            follows="left|top"
+            height="10"
+            layout="topleft"
+            left_pad="5"
+            mouse_opaque="false"
+            name="netmap_shoutring_color_label"
+            text_readonly_color="LabelDisabledColor"
+            top_delta="5"
+            width="95">
+            Shout range
+        </text>
+        <check_box
+            control_name="NameTagShowAge"
+            name="NameTagShowAge"
+            label="Show each avatar's age in their name tag"
+            layout="topleft"
+            top_pad="20"
+            left="15"
+            height="20"
+            width="400"
+            tool_tip="Show each avatar's age in their name tag." />
+        <text
+            name="nametag_show_age_limit_label"
+            type="string"
+            length="1"
+            follows="left|top"
+            top_pad="7"
+            left="17"
+            height="10"
+            layout="topleft"
+            mouse_opaque="false"
+            text_readonly_color="LabelDisabledColor"
+            width="500">
+            Don't show the avatar's age in their name tag if they are older than this many days:
+        </text>
+        <spinner
+            control_name="NameTagShowAgeLimit"
+            name="NameTagShowAgeLimit"
+            decimal_digits="0"
+            enabled="true"
+            layout="topleft"
+            follows="left|top"
+            height="20"
+            top_pad="10"
+            left="60"
+            increment="1" 
+            initial_value="14" 
+            max_val="2147483647"
+            min_val="0"
+            mouse_opaque="true"
+            width="90"
+            tool_tip="Don't show the avatar's age in their name tag if they are older than this many days."/>
+        <text
+            name="nametag_show_age_limit_note"
+            type="string"
+            length="1"
+            follows="left|top"
+            height="10"
+            layout="topleft"
+            left_pad="10"
+            mouse_opaque="false"
+            text_readonly_color="LabelDisabledColor"
+            top_delta="5"
+            width="300">
+            (0 = Always show each avatar's age when enabled)
+         </text>
+        <text
+            name="web_browser_home_page_label"
+            type="string"
+            length="1"
+            follows="left|top"
+            top_pad="20"
+            left="17"
+            height="10"
+            layout="topleft"
+            mouse_opaque="false"
+            width="140">
+                Web browser home page:
+        </text>
+        <line_editor
+            control_name="WebBrowserHomePage"
+            border_style="line"
+            border_thickness="1"
+            font="SansSerif"
+            height="23"
+            layout="topleft"
+            follows="top|left|right"
+            top_delta="-5"
+            right="-10"
+            max_length_bytes="4096"
+            name="web_browser_home_page"
+            width="345">
+        </line_editor>
+        <text 
+            name="time_format_text_box"  
+            top_pad="25" 
+            type="string" 
+            length="1"
+            mouse_opaque="false"
+            left="17"  
+            width="80" 
+            height="10"  
+            follows="left|top"
+            layout="topleft"
+            visible="false">
+            Time format:
+        </text>
+        <combo_box 
+             name="time_format_combobox" 
+             enabled="true"
+             height="23"
+             layout="topleft"
+             left_pad="10"
+             top_delta="-6"
+             width="130"
+             visible="false">
+                    <combo_item name="24hours" type="string" length="1" enabled="true" value="default">
+                        24 hours clock
+                    </combo_item>
+                    <combo_item name="12hours" type="string" length="1" enabled="true" value="default">
+                        12 hours clock
+                    </combo_item>
+        </combo_box>
+        <text 
+            name="date_format_text_box" 
+            type="string" 
+            length="1" 
+            mouse_opaque="true"
+            left_delta="150" 
+            top_delta="6"
+            width="80" 
+            height="10" 
+            follows="left|top"
+            layout="topleft"
+            visible="false">
+            Date format:
+        </text>
+        <combo_box 
+            name="date_format_combobox" 
+            enabled="true" 
+            mouse_opaque="true"
+            left_delta="80" 
+            top_delta="-6" 
+            width="130" 
+            height="23" 
+            layout="topleft"
+            visible="false">
+                    <combo_item name="year_first" type="string" length="1" enabled="true" value="default">
+                        YYYY-MM-DD
+                    </combo_item>
+                    <combo_item name="day_first" type="string" length="1" enabled="true" value="default">
+                        DD-MM-YYYY
+                    </combo_item>
+                    <combo_item name="month_first" type="string" length="1" enabled="true" value="default">
+                        MM/DD/YYYY
+                    </combo_item>
+        </combo_box>
+    </panel>
 
 	<!--Chat-->
 	<panel
@@ -336,15 +353,15 @@
 	    name="wabbit_chat"
 	    width="517">
 	    <check_box
-		top_pad="15"
-		control_name="FSCmdLine"
-		name="FSCmdLine"
-		label="Enable chatbar commands (tph and tp2cam etc.)"
-		layout="topleft"
-		left="15"
-		height="20"
-		width="400"
-		tool_tip="Commands typed into the chatbar will be acted upon."/>
+		    top_pad="15"
+		    control_name="FSCmdLine"
+		    name="FSCmdLine"
+		    label="Enable chatbar commands (tph and tp2cam etc.)"
+		    layout="topleft"
+		    left="15"
+		    height="20"
+		    width="400"
+		    tool_tip="Commands typed into the chatbar will be acted upon."/>
         <check_box
 			name="ColourCodedChat"
 			control_name="ColourCodedChat"

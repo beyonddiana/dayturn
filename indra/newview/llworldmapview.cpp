@@ -55,6 +55,8 @@
 #include "llviewerregion.h"
 #include "llviewerwindow.h"
 #include "lltrans.h"
+#include "llslurl.h"
+#include "llurlaction.h"
 
 #include "llglheaders.h"
 
@@ -293,7 +295,9 @@ BOOL is_agent_in_region(LLViewerRegion* region, LLSimInfo* info)
 void LLWorldMapView::draw()
 {
 	static LLUIColor map_track_color = LLUIColorTable::instance().getColor("MapTrackColor", LLColor4::white);
-	
+	bool drawAdvancedRegionInfo = gSavedSettings.getbool("FSAdvancedWorldmapRegionInfo");
+	bool drawRegionGridCoordinates = gSavedSettings.getbool("FSShowRegionGridCoordinates");
+
 	LLTextureView::clearDebugImages();
 
 	F64 current_time = LLTimer::getElapsedSeconds();
@@ -412,7 +416,7 @@ void LLWorldMapView::draw()
 			gGL.end();
 		}
 		 **********************/
-		else if (gSavedSettings.getBOOL("MapShowLandForSale") && (level <= DRAW_LANDFORSALE_THRESHOLD))
+		else if (gSavedSettings.getbool("MapShowLandForSale") && (level <= DRAW_LANDFORSALE_THRESHOLD))
 		{
 			// Draw the overlay image "Land for Sale / Land for Auction"
 			LLViewerFetchedTexture* overlayimage = info->getLandForSaleImage();
@@ -467,14 +471,57 @@ void LLWorldMapView::draw()
 			{
 				font->renderUTF8(
 					mesg, 0,
-					llfloor(left + 3), llfloor(bottom + 2),
+					//llfloor(left + 3), llfloor(bottom + 2),
+					llfloor(left + 3.f), llfloor(bottom + (drawAdvancedRegionInfo ? 16.f : 2.f)),
 					LLColor4::white,
 					LLFontGL::LEFT, LLFontGL::BASELINE, LLFontGL::NORMAL, LLFontGL::DROP_SHADOW,
 					S32_MAX, //max_chars
 					sMapScale, //max_pixels
 					NULL,
 					TRUE); //use ellipses
+
+				if (drawAdvancedRegionInfo)
+				{
+					std::string advanced_info = "(";
+
+					// Only show agent count when region is online
+					if (!info->isDown())
+					{
+						S32 agent_count = info->getAgentCount();
+						LLViewerRegion *region = gAgent.getRegion();
+						if (region && region->getHandle() == info->getHandle())
+						{
+							++agent_count; // Bump by 1 if we're in this region
+						}
+						if (agent_count > 0)
+						{
+							advanced_info += llformat("%d - ", agent_count);
+						}
+					}
+				
+					advanced_info += llformat("%s)", info->getAccessString().c_str());
+
+					font->renderUTF8(
+						advanced_info, 0,
+						llfloor(left + 3.f), llfloor(bottom + 2.f),
+						LLColor4::white,
+						LLFontGL::LEFT, LLFontGL::BASELINE, LLFontGL::NORMAL, LLFontGL::DROP_SHADOW,
+						S32_MAX, //max_chars
+						sMapScale, //max_pixels
+						NULL,
+						TRUE); //use ellipses
+				}
 			}
+// <FS:CR> Show the grid coordinates (in units of regions)
+			if (drawRegionGridCoordinates)
+			{
+				LLVector3d origin = info->getGlobalOrigin();
+				std::ostringstream coords;
+				coords << "(" << origin.mdV[VX] / REGION_WIDTH_METERS << "," << origin.mdV[VY] / REGION_WIDTH_METERS << ")";
+				font->renderUTF8(coords.str(), 0, llfloor(left + 3), llfloor(bottom + (drawAdvancedRegionInfo ? 30.f : 16.f)), LLColor4::white,
+								 LLFontGL::LEFT, LLFontGL::BASELINE, LLFontGL::NORMAL, LLFontGL::DROP_SHADOW);
+			}
+// </FS:CR>
 		}
 	}
 
@@ -531,7 +578,7 @@ void LLWorldMapView::draw()
 
 	// Draw icons for the avatars in each region.
 	// Drawn this after the current agent avatar so one can see nearby people
-	if (gSavedSettings.getBOOL("MapShowPeople") && (level <= DRAW_SIMINFO_THRESHOLD))
+	if (gSavedSettings.getbool("MapShowPeople") && (level <= DRAW_SIMINFO_THRESHOLD))
 	{
 		drawAgents();
 	}
@@ -802,8 +849,8 @@ void LLWorldMapView::drawItems()
 	bool mature_enabled = gAgent.canAccessMature();
 	bool adult_enabled = gAgent.canAccessAdult();
 
-    BOOL show_mature = mature_enabled && gSavedSettings.getBOOL("ShowMatureEvents");
-	BOOL show_adult = adult_enabled && gSavedSettings.getBOOL("ShowAdultEvents");
+    bool show_mature = mature_enabled && gSavedSettings.getbool("ShowMatureEvents");
+	bool show_adult = adult_enabled && gSavedSettings.getbool("ShowAdultEvents");
 
 	for (handle_list_t::iterator iter = mVisibleRegions.begin(); iter != mVisibleRegions.end(); ++iter)
 	{
@@ -814,17 +861,17 @@ void LLWorldMapView::drawItems()
 			continue;
 		}
 		// Infohubs
-		if (gSavedSettings.getBOOL("MapShowInfohubs"))
+		if (gSavedSettings.getbool("MapShowInfohubs"))
 		{
 			drawGenericItems(info->getInfoHub(), sInfohubImage);
 		}
 		// Telehubs
-		if (gSavedSettings.getBOOL("MapShowTelehubs"))
+		if (gSavedSettings.getbool("MapShowTelehubs"))
 		{
 			drawGenericItems(info->getTeleHub(), sTelehubImage);
 		}
 		// Land for sale
-		if (gSavedSettings.getBOOL("MapShowLandForSale"))
+		if (gSavedSettings.getbool("MapShowLandForSale"))
 		{
 			drawGenericItems(info->getLandForSale(), sForSaleImage);
 			// for 1.23, we're showing normal land and adult land in the same UI; you don't
@@ -836,7 +883,7 @@ void LLWorldMapView::drawItems()
 			}
 		}
 		// PG Events
-		if (gSavedSettings.getBOOL("MapShowEvents"))
+		if (gSavedSettings.getbool("MapShowEvents"))
 		{
 			drawGenericItems(info->getPGEvent(), sEventImage);
 		}
