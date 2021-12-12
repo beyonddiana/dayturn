@@ -423,12 +423,12 @@ void LLWorldMapView::draw()
 			if (overlayimage)
 			{
 				// Inform the fetch mechanism of the size we need
-				S32 x_draw_size = llround(sMapScale);
-				S32 y_draw_size = llround(sMapScale);
+				S32 x_draw_size = ll_round(sMapScale);
+				S32 y_draw_size = ll_round(sMapScale);
 				x_draw_size *= (info->mSizeX / REGION_WIDTH_METERS);
 				y_draw_size *= (info->mSizeY / REGION_WIDTH_METERS);
 
-				overlayimage->setKnownDrawSize(llround(x_draw_size * LLUI::sGLScaleFactor.mV[VX]), llround(y_draw_size * LLUI::sGLScaleFactor.mV[VY]));
+				overlayimage->setKnownDrawSize(ll_round(x_draw_size * LLUI::getScaleFactor().mV[VX]), ll_round(y_draw_size * LLUI::getScaleFactor().mV[VY]));
 				// Draw something whenever we have enough info
 				if (overlayimage->hasGLTexture())
 				{
