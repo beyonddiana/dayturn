@@ -237,6 +237,11 @@ Linden Lab's development system for their viewer is referenced in: https://wiki.
 
 -  Click on the dayturn.exe shortcut and the viewer should startup and run.
 
+NOTE: You might have to run
+ %SystemRoot%\System32\reg.exe ADD "HKEY_CURRENT_USER\Software\Microsoft\Command Processor" /v DisableUNCCheck /t REG_DWORD /d 1 /f
+ From the Windows command prompt if you are building from a network mapped location. A relog for your Windows user is required for the setting to apply.
+
+
 ***Optional Visual Studio 2013 build***
 
 -  After the autobuild configure step, start Visual Studio 2013 and open the solution from C:\Users\xxxx\dayturn-viewer-windows\build-vs\Dayturn.sln
