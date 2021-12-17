@@ -1627,29 +1627,20 @@ void LLAppearanceMgr::wearItemsOnAvatar(const uuid_vec_t& item_ids_to_wear,
 			continue;
 		}
 
-        switch (item_to_wear->getType())
-        {
-            case LLAssetType::AT_CLOTHING:
-            {
-                if (gAgentWearables.areWearablesLoaded())
-                {
-                    if (!cb && do_update)
-                    {
-                        cb = new LLUpdateAppearanceAndEditWearableOnDestroy(item_id_to_wear);
-                    }
-                    LLWearableType::EType type = item_to_wear->getWearableType();
-                    S32 wearable_count = gAgentWearables.getWearableCount(type);
-                    if ((replace && wearable_count != 0) || !gAgentWearables.canAddWearable(type))
-                    {
-                        LLUUID item_id = gAgentWearables.getWearableItemID(item_to_wear->getWearableType(),
-                                                                           wearable_count-1);
-                        removeCOFItemLinks(item_id, cb);
-                    }
-                    
-                    items_to_link.push_back(item_to_wear);
-                }
-            }
-            break;
+		switch (item_to_wear->getType())
+		{
+		case LLAssetType::AT_CLOTHING:
+		{
+			if (gAgentWearables.areWearablesLoaded())
+			{
+				if (!cb && do_update)
+				{
+					cb = new LLUpdateAppearanceAndEditWearableOnDestroy(item_id_to_wear);
+				}
+				LLWearableType::EType type = item_to_wear->getWearableType();
+				S32 wearable_count = gAgentWearables.getWearableCount(type);
+				if ((replace && wearable_count != 0) || !gAgentWearables.canAddWearable(type))
+				{
 
 //MK
 					if (!gRRenabled || (gRRenabled && gAgent.mRRInterface.canUnwear(item_to_wear->getWearableType())))
@@ -1657,7 +1648,7 @@ void LLAppearanceMgr::wearItemsOnAvatar(const uuid_vec_t& item_ids_to_wear,
 //mk
 						LLUUID item_id = gAgentWearables.getWearableItemID(item_to_wear->getWearableType(),
 							wearable_count - 1);
-						removeCOFItemLinks(item_id, cb);
+                        removeCOFItemLinks(item_id, cb);
 //MK
 					}
 //mk
@@ -1672,6 +1663,7 @@ void LLAppearanceMgr::wearItemsOnAvatar(const uuid_vec_t& item_ids_to_wear,
 //mk
 			}
 			break;
+		}
 		case LLAssetType::AT_BODYPART:
 //MK
 			if (!gRRenabled || (gRRenabled && gAgent.mRRInterface.canUnwear(item_to_wear->getWearableType())))
@@ -1716,16 +1708,14 @@ void LLAppearanceMgr::wearItemsOnAvatar(const uuid_vec_t& item_ids_to_wear,
 			rez_attachment(item_to_wear, NULL, replace);
 			break;
 
-		default: continue;
-		}
-		}
-
+            default: continue;
+        }
+    }
 		// Batch up COF link creation - more efficient if using AIS.
 		if (items_to_link.size())
 		{
 			link_inventory_array(getCOF(), items_to_link, cb);
 		}
-	}
 }
 
 void LLAppearanceMgr::wearItemOnAvatar(const LLUUID& item_id_to_wear,
