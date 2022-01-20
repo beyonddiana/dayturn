@@ -93,6 +93,7 @@ class ViewerManifest(LLManifest):
                 pkgdir = os.path.join(self.args['build'], os.pardir, 'packages')
                 with self.prefix(src=pkgdir):
                     self.path("dictionaries")
+                    self.path("ca-bundle.crt")
 
                 # include the extracted packages information (see BuildPackagesInfo.cmake)
                 self.path(src=os.path.join(self.args['build'],"packages-info.txt"), dst="packages-info.txt")
@@ -523,9 +524,6 @@ class Windows_i686_Manifest(ViewerManifest):
 
         self.path(src="licenses-win32.txt", dst="licenses.txt")
         self.path("featuretable.txt", dst="featuretable.txt")
-
-        with self.prefix(src=pkgdir):
-            self.path("ca-bundle.crt")
 
         # Media plugins - CEF
         with self.prefix(dst="llplugin"):
